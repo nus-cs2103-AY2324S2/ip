@@ -1,6 +1,7 @@
 import java.util.*;
 public class Duke {
     public static void main(String[] args) {
+        ArrayList<String> arr = new ArrayList<>();
         Scanner scan = new Scanner(System.in);
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -23,9 +24,20 @@ public class Duke {
                 break;
             }
 
-            System.out.println("-------------------------------");
-            System.out.println(spaces + text1);
-            System.out.println("-------------------------------");
+            else if (text1.equals("list")) {
+                System.out.println("-------------------------------");
+                for (int i = 0; i < arr.size(); i++) {
+                    System.out.println(spaces + (i + 1) + ". " + arr.get(i));
+                }
+                System.out.println("-------------------------------");
+            }
+
+            else {
+                System.out.println("-------------------------------");
+                System.out.println(spaces + "added: " + text1);
+                arr.add(text1);
+                System.out.println("-------------------------------");
+            }
         }
     }
 }
