@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        ItemList itemList = new ItemList();
         printIntroMessage();
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -9,10 +10,13 @@ public class Duke {
             userInput = scanner.nextLine();
             printHorizontalLine();
             switch (userInput) {
+                case "list":
+                    itemList.listItems();
+                    printHorizontalLine();
                 case "bye":
                     break;
                 default:
-                    System.out.println(userInput);
+                    itemList.addItem(userInput);
                     printHorizontalLine();
                     break;
             }
@@ -23,7 +27,7 @@ public class Duke {
 
     public static void printIntroMessage() {
         printHorizontalLine();
-        System.out.println("\tHello! I'm SoyBot!");
+        System.out.println("\tHello! I'm RoeBot!");
         System.out.println("\tWhat can I do for you?");
         printHorizontalLine();
     }
