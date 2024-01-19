@@ -1,11 +1,8 @@
+import java.util.Scanner; // For reading user input
 public class Duke {
-    /**
-     * Length of horizontal line in characters.
-     * Printed for visual separation.
-     */
-    private static int lineLength = 30;
     public static void main(String[] args) {
         sendWelcomeMessage();
+        echoUntilBye();
         sendGoodbyeMessage();
     }
 
@@ -14,10 +11,9 @@ public class Duke {
      * printed for visual separation.
      */
     public static void sendWelcomeMessage() {
-        printHorizontalLine(lineLength);
-        System.out.println("Hello! I'm Nollid.\n"
-                + "What can I do for you?");
-        printHorizontalLine(lineLength);
+        String welcomeMessage = "Hello! I'm Nollid.\n"
+                + "What can I do for you?";
+        botSays (welcomeMessage);
     }
 
     /**
@@ -25,9 +21,8 @@ public class Duke {
      * printed for visual separation.
      */
     public static void sendGoodbyeMessage() {
-
-        System.out.println("Bye. Hope to see you again soon!");
-        printHorizontalLine(lineLength);
+        String goodbyeMessage = "Bye. Hope to see you again soon!";
+        botSays(goodbyeMessage);
     }
 
     /**
@@ -39,5 +34,39 @@ public class Duke {
             System.out.print("─");
         }
         System.out.println();
+    }
+
+    /**
+     * Echoes user input until 'bye' (case-insensitive) is sent.
+     */
+    public static void echoUntilBye() {
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+
+        while (!userInput.equalsIgnoreCase("bye")) {
+            botSays(userInput);
+            userInput = scanner.nextLine();
+        }
+    }
+
+    /**
+     * Formats message that the bot will send.
+     * @param message The message for the bot to send.
+     */
+    public static void botSays(String message) {
+        // Change message colour to cyan
+        // https://www.w3docs.com/snippets/java/how-to-print-color-in-console-using-system-out-println.html
+        System.out.print("\u001B[36m");
+
+        // Length of line to be printed.
+        int lineLength = 30;
+
+        printHorizontalLine(lineLength);
+        System.out.println(message);
+        printHorizontalLine(lineLength);
+
+        // Change message colour back to white
+        // https://www.w3docs.com/snippets/java/how-to-print-color-in-console-using-system-out-println.html
+        System.out.print("\u001B[37m");
     }
 }
