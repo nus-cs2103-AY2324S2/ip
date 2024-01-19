@@ -1,16 +1,27 @@
 import java.util.List;
+import java.util.Random;
 
 public class ChatBot {
     private String name;
     private String icon;
     private List<String> greetings;
     private List<String> farewells;
+    private List<String> commands;
+
+    public ChatBot(String name, String icon, List<String> greetings, List<String> farewells, List<String> commands) {
+        this.name = name;
+        this.icon = icon;
+        this.greetings = greetings;
+        this.farewells = farewells;
+        this.commands = commands;
+    }
 
     public ChatBot(String name, String icon, List<String> greetings, List<String> farewells) {
         this.name = name;
         this.icon = icon;
         this.greetings = greetings;
         this.farewells = farewells;
+        this.commands = List.<String>of("greet", "bye");
     }
 
     public String getName() {
@@ -52,6 +63,42 @@ public class ChatBot {
     public void addFarewell(String farewell) {
         this.farewells.add(farewell);
     }
+
+    public List<String> getCommands() {
+        return commands;
+    }
+
+    public void setCommands(List<String> commands) {
+        this.commands = commands;
+    }
+
+    public void addCommand(String command) {
+        this.commands.add(command);
+    }
+
+    public void greet() {
+        System.out.println(this.icon);
+        if (this.greetings.isEmpty()) {
+            System.out.println("Hello World");
+        } else {
+            Random randomizer = new Random();
+            int dialogueOption = randomizer.nextInt(greetings.size());
+            System.out.println(greetings.get(dialogueOption));
+        }
+    }
+
+
+    public void bye() {
+        if (this.farewells.isEmpty()) {
+            System.out.println("Goodbye World");
+        } else {
+            Random randomizer = new Random();
+            int dialogueOption = randomizer.nextInt(farewells.size());
+            System.out.println(farewells.get(dialogueOption));
+        }
+    }
+
+
 
     @Override
     public String toString() {
