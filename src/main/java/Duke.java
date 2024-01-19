@@ -10,7 +10,15 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello, I'm Baron. What can I do for you?");
         Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        System.out.println("I don't know how to respond. Bye");
+
+        String input;
+        do {
+            input = scanner.nextLine();
+            System.out.println(input);
+            System.out.println("---");
+        } while (!input.equals("bye"));
+        
+        scanner.close();
+        System.out.println("Bye, good riddance");
     }
 }
