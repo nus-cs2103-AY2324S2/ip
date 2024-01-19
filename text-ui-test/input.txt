@@ -9,8 +9,12 @@ mark 1
 list
 unmark 1
 list
+delete 2
+list
 event
 event hello
 unmark -1
 unmark 5
 deadline /by Tuesday
+delete 0
+bye

@@ -9,24 +9,27 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(String task) {
+    public void addTask(String task) throws DukeException {
         if (this.tasks.size() < MAX_ITEMS) {
-            parseTask(task);
-            System.out.println("\tGot it. I've added this task: ");
-            System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
-            System.out.println(
-                    "\tNow you have " + this.tasks.size() +  " task" +
-                    (this.tasks.size() == 1 ? "" : "s") + " in the list");
+            try {
+                parseTask(task);
+                System.out.println("\tGot it. I've added this task: ");
+                System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
+                System.out.println(
+                        "\tNow you have " + this.tasks.size() + " task" +
+                                (this.tasks.size() == 1 ? "" : "s") + " in the list");
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
         } else {
-            System.out.println("\tThe task list is full.");
+            throw new DukeException("The task list is full.");
         }
     }
 
-    public void parseTask(String task) {
+    public void parseTask(String task) throws DukeException {
         String[] parsed = task.split(" ", 2);
-        if (parsed.length <= 1) {
-            System.out.println("\tPlease enter a task name");
-            return;
+        if (parsed.length <= 1 || parsed[1].isEmpty()) {
+            throw new DukeException("OOPS! Please enter a task name");
         }
         String taskType = parsed[0].toLowerCase();
         String taskDesc = parsed[1];
@@ -37,8 +40,7 @@ public class TaskList {
             case "deadline":
                 String[] parsedDeadline = taskDesc.split(" /by ");
                 if (parsedDeadline.length <= 1) {
-                    System.out.println("\tPlease enter valid deadline format");
-                    return;
+                    throw new DukeException("Please enter a valid deadline format");
                 }
                 String deadlineName = parsedDeadline[0];
                 String by = parsedDeadline[1];
@@ -47,7 +49,7 @@ public class TaskList {
             case "event":
                 String[] parsedEvent = taskDesc.split(" /from | /to ");
                 if (parsedEvent.length <= 2) {
-                    System.out.println("\tPlease enter valid event format");
+                    throw new DukeException("Please enter valid event format");
                 }
                 String eventName = parsedEvent[0];
                 String start = parsedEvent[1];
@@ -55,15 +57,28 @@ public class TaskList {
                 this.tasks.add(new Event(eventName, start, end));
                 break;
             default:
-                System.out.println("\tPlease enter valid task type");
-                return;
+                throw new DukeException("Please enter valid task type");
         }
     }
 
-    public void markTask(int index) {
+    public void deleteTask(int index) throws DukeException {
+        if (this.tasks.size() == 0) {
+            throw new DukeException("Task index is out of range.");
+        }
         if (index <= 0 || index > this.tasks.size()) {
-            System.out.println("Task index is out of range.");
-            return;
+            throw new DukeException("Index out of range");
+        }
+        Task deletedTask = this.tasks.remove(index - 1);
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t\t" + deletedTask.toString());
+        System.out.println(
+                "\tNow you have " + this.tasks.size() + " task" +
+                        (this.tasks.size() == 1 ? "" : "s") + " in the list");
+    }
+
+    public void markTask(int index) throws DukeException {
+        if (index <= 0 || index > this.tasks.size()) {
+            throw new DukeException("Task index is out of range.");
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsDone();
@@ -71,10 +86,9 @@ public class TaskList {
         currTask.toString();
     }
 
-    public void unmarkTask(int index) {
+    public void unmarkTask(int index) throws DukeException{
         if (index <= 0 || index > this.tasks.size()) {
-            System.out.println("\tTask index is out of range.");
-            return;
+            throw new DukeException("Task index is out of range.");
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsUndone();
@@ -84,7 +98,7 @@ public class TaskList {
 
     public void listTasks() {
         if (this.tasks.size() == 0) {
-            System.out.println("The task list is empty.");
+            System.out.println("\tThe task list is empty.");
         } else {
             System.out.println("\tHere are the tasks in your list: ");
             for (int i = 0; i < this.tasks.size(); i++) {

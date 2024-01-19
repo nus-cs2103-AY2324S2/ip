@@ -2,49 +2,68 @@
 	Hello! I'm RoeBot!
 	What can I do for you?
 	_________________________________________________
-	Got it. I've added this task: 
+	Got it. I've added this task:
 	[T][ ] borrow book
 	Now you have 1 task in the list
 	_________________________________________________
-	Got it. I've added this task: 
+	Got it. I've added this task:
 	[D][ ] return book (by: Monday)
 	Now you have 2 tasks in the list
 	_________________________________________________
-	Here are the tasks in your list: 
+	Here are the tasks in your list:
 	1.[T][ ] borrow book
 	2.[D][ ] return book (by: Monday)
 	_________________________________________________
-	Got it. I've added this task: 
+	Got it. I've added this task:
 	[E][ ] project meeting(from: Mon 2pm to: 4pm)
 	Now you have 3 tasks in the list
 	_________________________________________________
-	Here are the tasks in your list: 
+	Here are the tasks in your list:
 	1.[T][ ] borrow book
 	2.[D][ ] return book (by: Monday)
 	3.[E][ ] project meeting(from: Mon 2pm to: 4pm)
 	_________________________________________________
 	Nice! I've marked this task as done:
 	_________________________________________________
-	Here are the tasks in your list: 
+	Here are the tasks in your list:
 	1.[T][ ] borrow book
 	2.[D][X] return book (by: Monday)
 	3.[E][ ] project meeting(from: Mon 2pm to: 4pm)
 	_________________________________________________
 	Nice! I've marked this task as done:
 	_________________________________________________
-	Here are the tasks in your list: 
+	Here are the tasks in your list:
 	1.[T][X] borrow book
 	2.[D][X] return book (by: Monday)
 	3.[E][ ] project meeting(from: Mon 2pm to: 4pm)
 	_________________________________________________
 	OK, I've marked this task as not done yet:
 	_________________________________________________
-	Here are the tasks in your list: 
+	Here are the tasks in your list:
 	1.[T][ ] borrow book
 	2.[D][X] return book (by: Monday)
 	3.[E][ ] project meeting(from: Mon 2pm to: 4pm)
 	_________________________________________________
+	Noted. I've removed this task:
+		[D][X] return book (by: Monday)
+	Now you have 2 tasks in the list
+	_________________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting(from: Mon 2pm to: 4pm)
+	_________________________________________________
 	OOPS! Please enter a task name
-    Got it. I've added this task:
-    [E][ ] project meeting(from: Mon 2pm to: 4pm)
-    Now you have 3 tasks in the list
+	_________________________________________________
+	Please enter valid event format
+	_________________________________________________
+	Task index is out of range.
+	_________________________________________________
+	Task index is out of range.
+	_________________________________________________
+	Please enter a valid deadline format
+	_________________________________________________
+	Index out of range
+	_________________________________________________
+	_________________________________________________
+	Bye. Hope to see you again soon!
+	_________________________________________________

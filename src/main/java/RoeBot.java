@@ -19,23 +19,30 @@ public class RoeBot {
     }
 
     public void parseUserInput(String userInput) {
-        String[] parsed = userInput.split(" ", 2);
-        String command = parsed[0];
-        switch (command) {
-            case "mark":
-                this.taskList.markTask(Integer.parseInt(parsed[1]));
-                break;
-            case "unmark":
-                this.taskList.unmarkTask(Integer.parseInt(parsed[1]));
-                break;
-            case "list":
-                this.taskList.listTasks();
-                break;
-            case "bye":
-                break;
-            default:
-                this.taskList.addTask(userInput);
-                break;
+        try {
+            String[] parsed = userInput.split(" ", 2);
+            String command = parsed[0];
+            switch (command) {
+                case "mark":
+                    this.taskList.markTask(Integer.parseInt(parsed[1]));
+                    break;
+                case "unmark":
+                    this.taskList.unmarkTask(Integer.parseInt(parsed[1]));
+                    break;
+                case "delete":
+                    this.taskList.deleteTask(Integer.parseInt(parsed[1]));
+                    break;
+                case "list":
+                    this.taskList.listTasks();
+                    break;
+                case "bye":
+                    break;
+                default:
+                    this.taskList.addTask(userInput);
+                    break;
+            }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
     public void printIntroMessage() {
