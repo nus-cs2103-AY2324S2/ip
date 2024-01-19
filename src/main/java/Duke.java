@@ -15,6 +15,8 @@ public class Duke {
                 "⠀⠀⠀⠹⣆⠀⠹⣦⣀⠀⠙⣷⣶⣤⣀⣀⣠⣴⣾⠛⠁⣀⣴⠟⠀⣠⡟⠀⠀⠀\n"+
                 "⠀⠀⠀⠀⠙⠷⣤⣀⡙⠿⣿⣭⡅⠀⠉⠋⠁⢀⣭⣿⠿⠋⣁⣠⡾⠋⠀⠀⠀⠀\n"+
                 "⠀⠀⠀⠀⠀⠀⠈⠉⠙⠛⠉⠉⠀⠀⠀⠀⠀⠀⠉⠉⠛⠋⠉⠁⠀⠀⠀⠀⠀⠀\n";
+        System.out.println(logo);
         System.out.println("Hello from Paimon, your favourite companion");
+
     }
 }
