@@ -5,23 +5,36 @@ import java.util.Scanner;
 
 public class Duke {
     private static String LINE_BREAK = "\n---------------------------------------------\n";
+    private static ArrayList<Task> tasks;
 
+    private static class Task {
+        private String task;
+        private boolean completed;
 
-    private static ArrayList<String> tasks;
+        public void toggleComplete() {
+            this.completed = !this.completed;
+        }
+
+        public Task(String task) {
+            this.task = task;
+            this.completed = false;
+        }
+    }
 
     private static void Squid() {
         tasks = new ArrayList<>();
     }
 
     private static void add(String task) {
-        tasks.add(task);
+        tasks.add(new Task(task));
         echo(String.format("Added %s. When are you going to add 'feed Squid'?", task));
     }
 
     private static void list() {
         echo("Here are your tasks. Sucks to be you, my only 2 tasks are eating and sleeping.");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("[ ] " + tasks.get(i));
+            Task currTask = tasks.get(i);
+            System.out.printf("%d: [%s] %s%n", i + 1, currTask.completed ? "X" : " ", currTask.task);
         }
     }
 
@@ -48,15 +61,20 @@ public class Duke {
         while (true) {
             String input = scanner.nextLine();
             System.out.println(LINE_BREAK);
-            if (Objects.equals(input, "bye")) {
-                bye();
-                System.out.println(LINE_BREAK);
-                break;
-            } else if (Objects.equals(input, "list")) {
-                list();
-            } else {
-                add(input);
+
+            switch (input) {
+                case ("bye"):
+                    bye();
+                    System.out.println(LINE_BREAK);
+                    break;
+                case ("list"):
+                    list();
+                    break;
+                default:
+                    add(input);
+                    break;
             }
+
             System.out.println(LINE_BREAK);
 
         }
