@@ -12,20 +12,20 @@ public class TaskList {
     public void addTask(String task) {
         if (this.tasks.size() < MAX_ITEMS) {
             parseTask(task);
-            System.out.println("Got it. I've added this task: ");
-            System.out.println(this.tasks.get(this.tasks.size() - 1));
+            System.out.println("\tGot it. I've added this task: ");
+            System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
             System.out.println(
-                    "Now you have " + this.tasks.size() +  " task" +
+                    "\tNow you have " + this.tasks.size() +  " task" +
                     (this.tasks.size() == 1 ? "" : "s") + " in the list");
         } else {
-            System.out.println("The task list is full.");
+            System.out.println("\tThe task list is full.");
         }
     }
 
     public void parseTask(String task) {
         String[] parsed = task.split(" ", 2);
         if (parsed.length <= 1) {
-            System.out.println("Please enter a task name");
+            System.out.println("\tPlease enter a task name");
             return;
         }
         String taskType = parsed[0].toLowerCase();
@@ -37,7 +37,7 @@ public class TaskList {
             case "deadline":
                 String[] parsedDeadline = taskDesc.split(" /by ");
                 if (parsedDeadline.length <= 1) {
-                    System.out.println("Please enter valid deadline format");
+                    System.out.println("\tPlease enter valid deadline format");
                     return;
                 }
                 String deadlineName = parsedDeadline[0];
@@ -47,7 +47,7 @@ public class TaskList {
             case "event":
                 String[] parsedEvent = taskDesc.split(" /from | /to ");
                 if (parsedEvent.length <= 2) {
-                    System.out.println("Please enter valid event format");
+                    System.out.println("\tPlease enter valid event format");
                 }
                 String eventName = parsedEvent[0];
                 String start = parsedEvent[1];
@@ -55,7 +55,7 @@ public class TaskList {
                 this.tasks.add(new Event(eventName, start, end));
                 break;
             default:
-                System.out.println("Please enter valid task type");
+                System.out.println("\tPlease enter valid task type");
                 return;
         }
     }
@@ -67,18 +67,18 @@ public class TaskList {
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("\tNice! I've marked this task as done:");
         currTask.toString();
     }
 
     public void unmarkTask(int index) {
         if (index <= 0 || index > this.tasks.size()) {
-            System.out.println("Task index is out of range.");
+            System.out.println("\tTask index is out of range.");
             return;
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsUndone();
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("\tOK, I've marked this task as not done yet:");
         currTask.toString();
     }
 
@@ -89,7 +89,7 @@ public class TaskList {
             System.out.println("\tHere are the tasks in your list: ");
             for (int i = 0; i < this.tasks.size(); i++) {
                 Task currTask = this.tasks.get(i);
-                System.out.println((i + 1) + "." + currTask.toString());
+                System.out.println("\t" + (i + 1) + "." + currTask.toString());
             }
         }
     }
