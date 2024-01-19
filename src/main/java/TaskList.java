@@ -2,22 +2,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    List<String> taskList = new ArrayList<>();
+    List<Task> taskList = new ArrayList<>();
 
     @Override
     public String toString() {
-        String parsed = "";
+        String out = "";
         int count = 1;
 
-        for (String currentItem : this.taskList) {
-            parsed += count + "." + currentItem + "\n";
+        for (Task currentItem : this.taskList) {
+            out += count + "." + currentItem + "\n";
             count++;
         }
-        return parsed;
+        return out;
     }
 
-    public void add(String task) {
-        this.taskList.add(task);
-        System.out.println("added: " + task);
+    public void add(String taskName) {
+        Task theTask = new Task(taskName);
+        this.taskList.add(theTask);
+        System.out.println("added: " + theTask);
+    }
+
+    public Task getTask(int index) {
+        return this.taskList.get(index - 1);
+
     }
 }

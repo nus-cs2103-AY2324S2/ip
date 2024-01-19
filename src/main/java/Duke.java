@@ -1,5 +1,6 @@
-import java.util.Locale;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Duke {
     public static void main(String[] args) {
@@ -9,13 +10,21 @@ public class Duke {
         TaskList taskList = new TaskList();
         String userInput = scanner.nextLine();
 
-        // while not exit
         while (!userInput.toLowerCase().equals("bye")) {
-
-            //print list
-            if (userInput.toLowerCase().equals("list")) {
+            if (userInput.toLowerCase().equals("list")) { //print list command
                 System.out.print(taskList);
-            } else {
+
+            } else if (userInput.split(" ").length == 2 && userInput.toLowerCase().startsWith("mark")) { //mark command
+                int taskId = Integer.parseInt(userInput.split(" ")[1]);
+                Task done = taskList.getTask(taskId);
+                done.setDone();
+
+            } else if (userInput.split(" ").length == 2 && userInput.toLowerCase().startsWith("unmark")) { //unmark comma
+                int taskId = Integer.parseInt(userInput.split(" ")[1]);
+                Task notDone = taskList.getTask(taskId);
+                notDone.setNotDone();
+
+            } else { // add task to list
                 taskList.add(userInput);
             }
 
