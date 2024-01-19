@@ -44,3 +44,7 @@
 	2.[D][X] return book (by: Monday)
 	3.[E][ ] project meeting(from: Mon 2pm to: 4pm)
 	_________________________________________________
+	OOPS! Please enter a task name
+    Got it. I've added this task:
+    [E][ ] project meeting(from: Mon 2pm to: 4pm)
+    Now you have 3 tasks in the list
