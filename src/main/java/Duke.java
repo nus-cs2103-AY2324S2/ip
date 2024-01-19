@@ -6,10 +6,19 @@ public class Duke {
         System.out.println("Hello! I'm fakegpt\nWhat can I do for you?\n");
 
         Scanner scanner = new Scanner(System.in);
+        TaskList taskList = new TaskList();
         String userInput = scanner.nextLine();
 
+        // while not exit
         while (!userInput.toLowerCase().equals("bye")) {
-            System.out.println(userInput);
+
+            //print list
+            if (userInput.toLowerCase().equals("list")) {
+                System.out.print(taskList);
+            } else {
+                taskList.add(userInput);
+            }
+
             userInput = scanner.nextLine();
         }
 
