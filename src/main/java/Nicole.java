@@ -1,10 +1,12 @@
-import java.io.BufferedReader;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.*;
 import java.io.*;
+import java.util.*;
 
 public class Nicole {
     private static final String botName = "Nicole";
+    private static final List<String> taskList = new ArrayList<>();
+    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     private static String greet() {
         DateTimeFormatter digitalTime = DateTimeFormatter.ofPattern("dd/MM/yyyy | HH:mm:ss");
@@ -25,12 +27,24 @@ public class Nicole {
                 ": " + salutation + " What's our objective for today?";
     }
 
-    private static String exit() {
-        return "Bye, for now ;) Let me know if you need anything more.";
+    private static String addTask() throws IOException {
+        String task = br.readLine();
+        while (!task.equals("bye")) {
+            if (!task.equals("list")) {
+                Nicole.taskList.add(task);
+                System.out.println("Oki I added " + "\"" + task + "\"");
+            } else {
+                System.out.println("Your tasks are: ");
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println((i + 1) + ": " + taskList.get(i));
+                }
+            }
+            task = br.readLine();
+        }
+        return Nicole.exit();
     }
 
     private static String echo() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String request = br.readLine();
         while (!request.equals("bye")) {
             System.out.println("You said: " + request);
@@ -39,10 +53,14 @@ public class Nicole {
         return Nicole.exit();
     }
 
+    private static String exit() {
+        return "Bye, for now ;) Let's catch up again soon.";
+    }
+
     public static void main(String[] args) {
         System.out.println(Nicole.greet());
         try {
-            System.out.println(Nicole.echo());
+            System.out.println(Nicole.addTask());
         } catch (IOException ioException) {
             System.out.println("Error reading request.");
         }
