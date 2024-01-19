@@ -33,6 +33,36 @@ public class Duke {
                 botSays(response);
             }
 
+            else if (userInput.length() > 4 && userInput.substring(0,4).equalsIgnoreCase("mark")) {
+                int index;
+
+                try {
+                    index = Integer.parseInt(userInput.substring(5));
+                    todoList.get(index - 1).markDone();
+                    String response = "Good job! I've marked this task as done: \n"
+                            + "\t " + todoList.get(index - 1).toString();
+                    botSays(response);
+                } catch (NumberFormatException nfe) {
+                    // If user wants to add a task like "mark the exam papers"
+                    addToList(userInput);
+                }
+            }
+
+            else if (userInput.length() > 6 && userInput.substring(0,6).equalsIgnoreCase("unmark")) {
+                int index;
+
+                try {
+                    index = Integer.parseInt(userInput.substring(7));
+                    todoList.get(index - 1).markNotDone();
+                    String response = "Alright, I've marked this task as not done yet: \n"
+                            + "\t " + todoList.get(index - 1).toString();
+                    botSays(response);
+                } catch (NumberFormatException nfe) {
+                    // If user wants to add a task like "unmark the exam papers"
+                    addToList(userInput);
+                }
+            }
+
             else {
                 addToList(userInput);
             }
