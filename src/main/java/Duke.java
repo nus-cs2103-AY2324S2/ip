@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Duke {
@@ -14,7 +13,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         String input;
-        List<Task> tasks = new ArrayList<>();
+        TaskManager taskManager = new TaskManager();
         do {
             input = scanner.nextLine();
             String command = input;
@@ -26,14 +25,10 @@ public class Duke {
             }
 
             if (command.equals("list")) {
-                System.out.println("--------------------");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i));
-                }
-                System.out.println("--------------------");
+                taskManager.print();
             } else if ((command.equals("mark") || command.equals("unmark"))  && !value.isEmpty()) {
                 int taskIndex = Integer.parseInt(value) - 1;
-                Task task = tasks.get(taskIndex);
+                Task task = taskManager.get(taskIndex);
                 System.out.println("--------------------");
                 if (command.equals("mark")) {
                     task.markAsDone();
@@ -43,12 +38,25 @@ public class Duke {
                     System.out.println("Ok! I've marked this task as not yet done: \n" + task);
                 }
                 System.out.println("--------------------");
-                // System.out.println(tasks.get(value).getName());
-            } else {
-                tasks.add(new Task(input));
-                System.out.println("--------------------");
-                System.out.println("Added: " + input);
-                System.out.println("--------------------");
+            } else if (command.equals("todo")) {
+                Todo todo = new Todo(value);
+                taskManager.add(todo);
+            } else if (command.equals("deadline")) {
+                String deadline = value.substring(value.indexOf("/by") + 4);
+                String name = value.substring(0, value.indexOf("/by") - 1);
+                Deadline deadlineTask = new Deadline(name, deadline);
+                taskManager.add(deadlineTask);
+            } else if (command.equals("event")) {
+                int endDateIndex = value.indexOf("/to") + 4;
+                int startDateIndex = value.indexOf("/from") + 6;
+                String endDate = value.substring(endDateIndex);
+                String startDate = value.substring(startDateIndex, endDateIndex - 5);
+                String name = value.substring(0, startDateIndex - 7);
+                Event event = new Event(name, startDate, endDate);
+                taskManager.add(event);
+            }
+            else {
+                taskManager.add(new Task(input));
             }
         } while (!input.equals("bye"));
         
