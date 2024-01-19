@@ -3,21 +3,66 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
+    private static UI ui;
+    private static TaskList taskList;
+    private static CommandCreator commandCreator;
+
     public static void main(String[] args) {
-        UI ui = new UI();
-        ui.start();
+        ui = new UI();
+        taskList = new TaskList();
+        commandCreator = new CommandCreator(taskList);
+        ui.printWelcomeMessage();
+        ui.processCommands(commandCreator);
+    }
+}
+
+class Task {
+    private String description;
+
+    public Task(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+}
+
+class TaskList {
+    private ArrayList<Task> tasks;
+
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
+    }
+
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
+
+    public ArrayList<String> listTasks() {
+        ArrayList<String> messages = new ArrayList<String>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            messages.add(String.format(
+                    "%d. %s", i + 1, this.tasks.get(i).getDescription()));
+        }
+        return messages;
     }
 }
 
 class CommandCreator {
-    private CommandCreator() {
+    private TaskList taskList;
+
+    public CommandCreator(TaskList taskList) {
+        this.taskList = taskList;
     }
 
-    public static Command createCommand(String command) {
+    public Command createCommand(String command) {
         if (command.equals("bye")) {
             return new ByeCommand();
+        } else if (command.equals("list")) {
+            return new ListCommand(this.taskList);
         } else {
-            return new EchoCommand(command);
+            return new AddToListCommand(command, this.taskList);
         }
     }
 }
@@ -52,6 +97,36 @@ class EchoCommand extends Command {
     }
 }
 
+class AddToListCommand extends Command {
+    private String description;
+    private TaskList taskList;
+
+    public AddToListCommand(String description, TaskList taskList) {
+        this.description = description;
+        this.taskList = taskList;
+    }
+
+    @Override
+    public void execute(UI ui) {
+        Task task = new Task(this.description);
+        this.taskList.addTask(task);
+        ui.printMessage(String.format("added: %s", task.getDescription()));
+    }
+}
+
+class ListCommand extends Command {
+    private TaskList taskList;
+
+    public ListCommand(TaskList taskList) {
+        this.taskList = taskList;
+    }
+
+    @Override
+    public void execute(UI ui) {
+        ui.printMessage(this.taskList.listTasks());
+    }
+}
+
 class UI {
     private static final String LINE = "_".repeat(60);
     private static final ArrayList<String> WELCOME_MESSAGES = new ArrayList<String>(
@@ -80,21 +155,17 @@ class UI {
         System.out.println("");
     }
 
-    public void getAndExecuteCommand() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        Command command = CommandCreator.createCommand(input);
-        command.execute(this);
-    }
-
     public void printWelcomeMessage() {
         printMessage(WELCOME_MESSAGES);
     }
 
-    public void start() {
-        printWelcomeMessage();
+    public void processCommands(CommandCreator commandCreator) {
         while (this.isActive) {
-            getAndExecuteCommand();
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
+            Command command = commandCreator.createCommand(input);
+            command.execute(this);
+            scanner.close();
         }
     }
 
