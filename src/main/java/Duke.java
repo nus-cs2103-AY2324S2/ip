@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
   private static String logo = " ____        _        \n"
@@ -6,49 +7,81 @@ public class Duke {
       + "| | | | | | | |/ / _ \\\n"
       + "| |_| | |_| |   <  __/\n"
       + "|____/ \\__,_|_|\\_\\___|\n";
-
   private static String chatbotName = "Aiken Dueet";
+  private static ArrayList<Task> tasks = new ArrayList<>();
+
+  private static void printIndentedln(String message) {
+    System.out.println("    " + message);
+  }
+
+  private static void printHorizontalln() {
+    printIndentedln("____________________________________________________________\n");
+  }
 
   private static void greet() {
-    String greeting = "Hello! I'm " + chatbotName + "\n"
-        + "What can I do for you?";
-    System.out.println(greeting);
+    printHorizontalln();
+    printIndentedln("Hello! I'm " + chatbotName);
+    printIndentedln("What can I do for you?");
+    printHorizontalln();
   }
 
   private static void exitMessage() {
+    printHorizontalln();
     String exitMessage = "Bye. Hope to see you again soon!";
-    System.out.println(exitMessage);
+    printIndentedln(exitMessage);
+    printHorizontalln();
   }
 
-  private static void println() {
-    System.out.println("____________________________________________________________");
+  private static void addTask(String description) {
+    Task task = new Task(description);
+    tasks.add(task);
+
+    String taskAddedMessage = "added: " + description;
+    printIndentedln(taskAddedMessage);
   }
 
-  private static void echo() {
-    Scanner sc = new Scanner(System.in);
-    String input = sc.nextLine();
-
-    while (!input.equals("bye")) {
-      println();
-      System.out.println(input);
-      println();
-      input = sc.nextLine();
+  private static void listTasks() {
+    for (int i = 0; i < tasks.size(); i++) {
+      int taskNumber = i + 1;
+      String taskDetails = tasks.get(i).getDetails();
+      String task = taskNumber + ". " + taskDetails;
+      printIndentedln(task);
     }
+  }
 
-    sc.close();
+  private static void REPL() {
+    Scanner sc = new Scanner(System.in);
+
+    while (true) {
+      String input = sc.nextLine();
+
+      if (input.equals("bye")) {
+        sc.close();
+        break;
+      }
+
+      printHorizontalln();
+
+      switch (input) {
+        case "list":
+          listTasks();
+          break;
+        default:
+          addTask(input);
+          break;
+      }
+
+      printHorizontalln();
+    }
   }
 
   public static void main(String[] args) {
-    println();
     System.out.println(logo);
-    println();
+
     greet();
-    println();
 
-    echo();
+    REPL();
 
-    println();
     exitMessage();
-    println();
   }
 }
