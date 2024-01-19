@@ -11,8 +11,8 @@ public class Duke {
         private String task;
         private boolean completed;
 
-        public void toggleComplete() {
-            this.completed = !this.completed;
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
         }
 
         public Task(String task) {
@@ -52,31 +52,59 @@ public class Duke {
         System.out.println("Squid: " + message);
     }
 
+    private static void mark(String task, boolean completed) {
+        // Find the task entry.
+        Task found = null;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).task.equals(task)) {
+                found = tasks.get(i);
+            }
+        }
+        if (found != null) {
+            found.setCompleted(completed);
+            System.out.println(String.format(completed
+                    ? "That was slow, but at least you completed: \n [X] %s%n"
+                    : "Can't make up your mind? \n [ ] %s%n", found.task));
+
+
+        } else {
+            System.out.println("I can't find the task, dummy human!");
+        }
+    }
+
     public static void main(String[] args) {
         Squid();
         hello();
 
         Scanner scanner = new Scanner(System.in);
+        boolean loop = true;
 
-        while (true) {
-            String input = scanner.nextLine();
+        while (loop) {
+            String input = scanner.nextLine().strip();
+            String[] inputs = input.split(" ", 2);
+            String command = inputs[0];
+            String arguments = inputs.length > 1 ? inputs[1] : "";
             System.out.println(LINE_BREAK);
 
-            switch (input) {
+            switch (command) {
                 case ("bye"):
+                    loop = false;
                     bye();
-                    System.out.println(LINE_BREAK);
                     break;
                 case ("list"):
                     list();
+                    break;
+                case ("mark"):
+                    mark(arguments, true);
+                    break;
+                case ("unmark"):
+                    mark(arguments, false);
                     break;
                 default:
                     add(input);
                     break;
             }
-
             System.out.println(LINE_BREAK);
-
         }
 
     }
