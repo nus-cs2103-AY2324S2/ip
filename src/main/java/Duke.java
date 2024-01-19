@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -12,10 +14,24 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         String input;
+        List<String> storedText = new ArrayList<>();
         do {
             input = scanner.nextLine();
-            System.out.println(input);
-            System.out.println("---");
+            switch (input) {
+                case "list":
+                    System.out.println("--------------------");
+                    for (int i = 0; i < storedText.size(); i++) {
+                        System.out.println((i + 1) + ". " + storedText.get(i));
+                    }
+                    System.out.println("--------------------");
+                    break;
+                default:
+                    storedText.add(input);
+                    System.out.println("--------------------");
+                    System.out.println("Added: " + input);
+                    System.out.println("--------------------");
+
+            }
         } while (!input.equals("bye"));
         
         scanner.close();
