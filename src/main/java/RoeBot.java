@@ -1,10 +1,22 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class RoeBot {
     private TaskList taskList;
+    public enum Command {
+        MARK,
+        UNMARK,
+        DELETE,
+        LIST,
+        BYE,
+        TODO,
+        DEADLINE,
+        EVENT
+    }
     public RoeBot() {
         this.taskList = new TaskList();
     }
+
     public void start() {
         printIntroMessage();
         Scanner scanner = new Scanner(System.in);
@@ -15,27 +27,26 @@ public class RoeBot {
             printHorizontalLine();
         } while (!userInput.equals("bye"));
         printExitMessage();
-
     }
 
     public void parseUserInput(String userInput) {
         try {
             String[] parsed = userInput.split(" ", 2);
-            String command = parsed[0];
+            Command command = Command.valueOf(parsed[0].toUpperCase());
             switch (command) {
-                case "mark":
+                case MARK:
                     this.taskList.markTask(Integer.parseInt(parsed[1]));
                     break;
-                case "unmark":
+                case UNMARK:
                     this.taskList.unmarkTask(Integer.parseInt(parsed[1]));
                     break;
-                case "delete":
+                case DELETE:
                     this.taskList.deleteTask(Integer.parseInt(parsed[1]));
                     break;
-                case "list":
+                case LIST:
                     this.taskList.listTasks();
                     break;
-                case "bye":
+                case BYE:
                     break;
                 default:
                     this.taskList.addTask(userInput);
@@ -43,6 +54,8 @@ public class RoeBot {
             }
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("\tInvalid input, Please try again");
         }
     }
     public void printIntroMessage() {

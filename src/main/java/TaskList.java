@@ -9,6 +9,12 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
     public void addTask(String task) throws DukeException {
         if (this.tasks.size() < MAX_ITEMS) {
             try {
@@ -31,13 +37,13 @@ public class TaskList {
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             throw new DukeException("OOPS! Please enter a task name");
         }
-        String taskType = parsed[0].toLowerCase();
+        TaskType taskType = TaskType.valueOf(parsed[0].toUpperCase());
         String taskDesc = parsed[1];
         switch (taskType) {
-            case "todo":
+            case TODO:
                 this.tasks.add(new ToDo(taskDesc));
                 break;
-            case "deadline":
+            case DEADLINE:
                 String[] parsedDeadline = taskDesc.split(" /by ");
                 if (parsedDeadline.length <= 1) {
                     throw new DukeException("Please enter a valid deadline format");
@@ -46,7 +52,7 @@ public class TaskList {
                 String by = parsedDeadline[1];
                 this.tasks.add(new Deadline(deadlineName, by));
                 break;
-            case "event":
+            case EVENT:
                 String[] parsedEvent = taskDesc.split(" /from | /to ");
                 if (parsedEvent.length <= 2) {
                     throw new DukeException("Please enter valid event format");
