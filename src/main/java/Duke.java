@@ -18,13 +18,29 @@ public class Duke {
 
 class Task {
     private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
+        this.isDone = false;
     }
 
     public String getDescription() {
         return this.description;
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void unmarkAsDone() {
+        this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        String status = this.isDone ? "X" : " ";
+        return String.format("[%s] %s", status, this.description);
     }
 }
 
@@ -43,9 +59,13 @@ class TaskList {
         ArrayList<String> messages = new ArrayList<String>();
         for (int i = 0; i < this.tasks.size(); i++) {
             messages.add(String.format(
-                    "%d. %s", i + 1, this.tasks.get(i).getDescription()));
+                    "%d.%s", i + 1, this.tasks.get(i).toString()));
         }
         return messages;
+    }
+
+    public Task getTask(int index) {
+        return this.tasks.get(index);
     }
 }
 
@@ -56,11 +76,22 @@ class CommandCreator {
         this.taskList = taskList;
     }
 
+    private int parseIndex(String command) {
+        String[] tokens = command.split(" ");
+        return Integer.parseInt(tokens[1]) - 1;
+    }
+
     public Command createCommand(String command) {
         if (command.equals("bye")) {
             return new ByeCommand();
         } else if (command.equals("list")) {
             return new ListCommand(this.taskList);
+        } else if (command.startsWith("mark ")) {
+            int index = parseIndex(command);
+            return new MarkAsDoneCommand(index, this.taskList);
+        } else if (command.startsWith("unmark")) {
+            int index = parseIndex(command);
+            return new UnmarkAsDoneCommand(index, this.taskList);
         } else {
             return new AddToListCommand(command, this.taskList);
         }
@@ -123,7 +154,50 @@ class ListCommand extends Command {
 
     @Override
     public void execute(UI ui) {
-        ui.printMessage(this.taskList.listTasks());
+        ArrayList<String> messages = new ArrayList<String>(
+                Arrays.asList("Here are the tasks in your list:"));
+        messages.addAll(this.taskList.listTasks());
+        ui.printMessages(messages);
+    }
+}
+
+class MarkAsDoneCommand extends Command {
+    private int index;
+    private TaskList taskList;
+
+    public MarkAsDoneCommand(int index, TaskList taskList) {
+        this.index = index;
+        this.taskList = taskList;
+    }
+
+    @Override
+    public void execute(UI ui) {
+        Task task = this.taskList.getTask(this.index);
+        task.markAsDone();
+        ArrayList<String> messages = new ArrayList<String>(
+                Arrays.asList("Nice! I've marked this task as done:",
+                        "  " + task.toString()));
+        ui.printMessages(messages);
+    }
+}
+
+class UnmarkAsDoneCommand extends Command {
+    private int index;
+    private TaskList taskList;
+
+    public UnmarkAsDoneCommand(int index, TaskList taskList) {
+        this.index = index;
+        this.taskList = taskList;
+    }
+
+    @Override
+    public void execute(UI ui) {
+        Task task = this.taskList.getTask(this.index);
+        task.unmarkAsDone();
+        ArrayList<String> messages = new ArrayList<String>(
+                Arrays.asList("OK, I've marked this task as not done yet:",
+                        "  " + task.toString()));
+        ui.printMessages(messages);
     }
 }
 
@@ -146,7 +220,7 @@ class UI {
         System.out.println("");
     }
 
-    public void printMessage(ArrayList<String> messages) {
+    public void printMessages(ArrayList<String> messages) {
         System.out.println(" ".repeat(LINE_INDENTATION) + LINE);
         for (String message : messages) {
             System.out.println(" ".repeat(CONTENT_INDENTATION) + message);
@@ -156,17 +230,17 @@ class UI {
     }
 
     public void printWelcomeMessage() {
-        printMessage(WELCOME_MESSAGES);
+        printMessages(WELCOME_MESSAGES);
     }
 
     public void processCommands(CommandCreator commandCreator) {
+        Scanner scanner = new Scanner(System.in);
         while (this.isActive) {
-            Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             Command command = commandCreator.createCommand(input);
             command.execute(this);
-            scanner.close();
         }
+        scanner.close();
     }
 
     public void setActive(boolean isActive) {
