@@ -35,6 +35,10 @@ public class Duke {
             this.completed = false;
             this.type = type;
         }
+
+        public String toString() {
+            return String.format("[%s][%s]: %s%n", this.type, this.completedIcon(), this.task);
+        }
     }
 
     private static void Squid() {
@@ -50,7 +54,7 @@ public class Duke {
         echo("Here are your tasks. Sucks to be you, my only 2 tasks are eating and sleeping.");
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
-            System.out.printf("%d: [%s][%s] %s%n", i + 1, currTask.type, currTask.completedIcon(), currTask.task);
+            System.out.printf("%d: %s", i + 1, currTask.toString());
         }
     }
 
@@ -72,9 +76,8 @@ public class Duke {
     private static void todo(String message) {
         Task t = new Task(message, Task.Types.T);
         tasks.add(t);
-        // TODO message
+        echo(String.format("Added todo\n%s", t));
     }
-    // TODO abstraction for printing task!
 
 
     private static void mark(String task, boolean completed) {
@@ -88,8 +91,8 @@ public class Duke {
         if (found != null) {
             found.setCompleted(completed);
             echo(String.format(completed
-                    ? "That was slow, but at least you completed: \n [%s] %s%n"
-                    : "Can't make up your mind? \n [%s] %s%n", found.completedIcon(), found.task));
+                    ? "That was slow, but at least you completed: \n %s"
+                    : "Can't make up your mind? \n %s", found));
 
 
         } else {
