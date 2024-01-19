@@ -22,8 +22,8 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
-
-    public String formatString() {
+    @Override
+    public String toString() {
         return "[" + getStatus() + "] " + this.name;
     }
 }
