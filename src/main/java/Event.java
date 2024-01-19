@@ -20,6 +20,6 @@ class Event extends Task {
     @Override
     public String toString() {
 
-        return "[E]" + super.toString() + " (from " + this.startDate + " to: " + this.endDate + ")";
+        return "[E]" + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + ")";
     }
 }
