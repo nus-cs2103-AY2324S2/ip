@@ -14,27 +14,46 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         String input;
-        List<String> storedText = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         do {
             input = scanner.nextLine();
-            switch (input) {
-                case "list":
-                    System.out.println("--------------------");
-                    for (int i = 0; i < storedText.size(); i++) {
-                        System.out.println((i + 1) + ". " + storedText.get(i));
-                    }
-                    System.out.println("--------------------");
-                    break;
-                default:
-                    storedText.add(input);
-                    System.out.println("--------------------");
-                    System.out.println("Added: " + input);
-                    System.out.println("--------------------");
+            String command = input;
+            String value = "";
 
+            if (command.indexOf(" ") != -1) {
+                command = command.substring(0, command.indexOf(" "));
+                value = input.substring(input.indexOf(" ") + 1);
+            }
+
+            if (command.equals("list")) {
+                System.out.println("--------------------");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i));
+                }
+                System.out.println("--------------------");
+            } else if ((command.equals("mark") || command.equals("unmark"))  && !value.isEmpty()) {
+                int taskIndex = Integer.parseInt(value) - 1;
+                Task task = tasks.get(taskIndex);
+                System.out.println("--------------------");
+                if (command.equals("mark")) {
+                    task.markAsDone();
+                    System.out.println("Nice! I've marked this task as done: \n" + task);
+                } else {
+                    task.markAsUndone();
+                    System.out.println("Ok! I've marked this task as not yet done: \n" + task);
+                }
+                System.out.println("--------------------");
+                // System.out.println(tasks.get(value).getName());
+            } else {
+                tasks.add(new Task(input));
+                System.out.println("--------------------");
+                System.out.println("Added: " + input);
+                System.out.println("--------------------");
             }
         } while (!input.equals("bye"));
         
         scanner.close();
         System.out.println("Bye, good riddance");
     }
+
 }
