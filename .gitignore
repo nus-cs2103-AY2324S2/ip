@@ -23,3 +23,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Temp files
 temp.txt
+
+# My own notes
+notes.txt
