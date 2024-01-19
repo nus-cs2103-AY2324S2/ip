@@ -1,13 +1,13 @@
 public class Task {
-  private final String description;
-  private boolean isDone = false;
+  protected final String description;
+  protected boolean isDone = false;
 
   public Task(String description) {
     this.description = description;
   }
 
   public String getDetails() {
-    return description;
+    return this.description;
   }
 
   public Task toggleDone() {
@@ -16,15 +16,15 @@ public class Task {
   }
 
   public boolean isDone() {
-    return isDone;
+    return this.isDone;
   }
 
   public String getStatusIcon() {
-    return isDone ? "X" : " ";
+    return this.isDone ? "X" : " ";
   }
 
   @Override
   public String toString() {
-    return "[" + getStatusIcon() + "] " + getDetails();
+    return String.format("[%s] %s", this.getStatusIcon(), this.getDetails());
   }
 }

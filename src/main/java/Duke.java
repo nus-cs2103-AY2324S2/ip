@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Duke {
   private static String logo = " ____        _        \n"
@@ -8,7 +7,7 @@ public class Duke {
       + "| |_| | |_| |   <  __/\n"
       + "|____/ \\__,_|_|\\_\\___|\n";
   private static String chatbotName = "Aiken Dueet";
-  private static ArrayList<Task> tasks = new ArrayList<>();
+  private static TaskManager taskManager = new TaskManager();
 
   private static void printIndentedln(String message) {
     System.out.println("    " + message);
@@ -31,23 +30,36 @@ public class Duke {
     printHorizontalln();
   }
 
-  private static void addTask(String description) {
-    Task task = new Task(description);
-    tasks.add(task);
+  private static void addTask(String... inputs) {
+    String type = inputs[0];
 
-    String taskAddedMessage = "added: " + description;
-    printIndentedln(taskAddedMessage);
+    StringBuilder details = new StringBuilder();
+    for (int i = 1; i < inputs.length; i++) {
+      details.append(inputs[i]);
+      if (i != inputs.length - 1) {
+        details.append(" ");
+      }
+    }
+
+    try {
+      Task task = taskManager.addTask(type, details.toString());
+      printIndentedln("Got it. I've added this task:");
+      printIndentedln("  " + task);
+      printIndentedln(String.format("Now you have %d tasks in the list.", taskManager.getNumberOfTasks()));
+    } catch (TaskManager.BadTaskInputException e) {
+      printIndentedln(String.format("Something went wrong:\n%s", e.getMessage()));
+    }
   }
 
   private static void listTasks() {
-    if (tasks.size() == 0) {
+    if (taskManager.getNumberOfTasks() == 0) {
       printIndentedln("No tasks added yet!");
       return;
     }
 
-    for (int i = 0; i < tasks.size(); i++) {
-      int taskNumber = i + 1;
-      printIndentedln(String.format("%d. %s", taskNumber, tasks.get(i)));
+    int i = 1;
+    for (Task task : taskManager.getTasks()) {
+      printIndentedln(String.format("%d. %s", i++, task));
     }
   }
 
@@ -74,7 +86,7 @@ public class Duke {
       return -1;
     }
 
-    if (taskIndex < 0 || taskIndex >= tasks.size()) {
+    if (taskIndex < 0 || taskIndex >= taskManager.getNumberOfTasks()) {
       printIndentedln("Task number out of range!");
       return -1;
     }
@@ -88,18 +100,14 @@ public class Duke {
       return;
     }
 
-    Task task = tasks.get(taskIndex);
-
-    boolean isDone = task.isDone();
-    if (isDone) {
+    boolean success = taskManager.markTaskAsDone(taskIndex);
+    if (!success) {
       printIndentedln("Task is already done!");
       return;
     }
 
-    task.toggleDone();
-
     printIndentedln("Nice! I've marked this task as done:");
-    printIndentedln("  " + task);
+    printIndentedln("  " + taskManager.getTask(taskIndex));
   }
 
   private static void unmarkTaskAsDone(String[] inputs) {
@@ -108,18 +116,14 @@ public class Duke {
       return;
     }
 
-    Task task = tasks.get(taskIndex);
-
-    boolean isDone = task.isDone();
-    if (!isDone) {
+    boolean success = taskManager.unmarkTaskAsDone(taskIndex);
+    if (!success) {
       printIndentedln("Task is already not done!");
       return;
     }
 
-    task.toggleDone();
-
     printIndentedln("Ok, I've marked this task as not done yet:");
-    printIndentedln("  " + task);
+    printIndentedln("  " + taskManager.getTask(taskIndex));
   }
 
   private static void REPL() {
@@ -148,7 +152,7 @@ public class Duke {
           unmarkTaskAsDone(inputs);
           break;
         default:
-          addTask(input);
+          addTask(inputs);
           break;
       }
 
