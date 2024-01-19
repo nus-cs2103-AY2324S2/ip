@@ -1,7 +1,7 @@
 import java.util.Scanner; // For reading user input
 import java.util.ArrayList; // For storing to-do tasks
 public class Duke {
-    private static ArrayList<String> todoList = new ArrayList<>(100);
+    private static ArrayList<Task> todoList = new ArrayList<>(100);
     public static void main(String[] args) {
         sendWelcomeMessage();
 
@@ -9,22 +9,30 @@ public class Duke {
         String userInput = scanner.nextLine();
 
         while (true) {
+            userInput = userInput.strip();
+
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
             }
 
-            if (userInput.equalsIgnoreCase("list")) {
+            else if (userInput.equalsIgnoreCase("list")) {
                 // List items in to-do list
-                String response = "";
+                String response = "Here are the tasks in your list: \n";
+                if (todoList.isEmpty())
+                {
+                    response = "Your list is empty!";
+                }
+
                 for (int i = 0; i < todoList.size(); i++) {
                     if (i < todoList.size() - 1) {
-                        response += i + 1 + ". " + todoList.get(i) + "\n";
+                        response += i + 1 + "." + todoList.get(i).toString() + "\n";
                     } else {
-                        response += i + 1 + ". " + todoList.get(i);
-                        botSays(response);
+                        response += i + 1 + "." + todoList.get(i).toString();
                     }
                 }
+                botSays(response);
             }
+
             else {
                 addToList(userInput);
             }
@@ -68,7 +76,7 @@ public class Duke {
      * @param message Text to store
      */
     public static void addToList(String message) {
-            todoList.add(message);
+            todoList.add(new Task(message));
             botSays("added: " + message);
     }
 
