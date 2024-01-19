@@ -1,13 +1,13 @@
 public class ConvoBot {
-    public static void main(String[] args) {
-        String welcomeMsg = "____________________________________________________________\n"
+    private static String welcomeMsg = "____________________________________________________________\n"
         + " Hello! I'm ConvoBot\n"
         + " What can I do for you?";
-        System.out.println(welcomeMsg);
-
-        String exitMsg = "____________________________________________________________\n"
+    private static String exitMsg = "____________________________________________________________\n"
         + " Bye. Hope to see you again soon!\n"
         + "____________________________________________________________";
+
+    public static void main(String[] args) {
+        System.out.println(welcomeMsg);
         System.out.println(exitMsg);
     }
 }
