@@ -1,0 +1,9 @@
+todo SU All Courses
+deadline Eat /by 9pm
+event Exams /from 9am /to 9pm
+list
+mark 1
+list
+unmark 1
+list
+bye
