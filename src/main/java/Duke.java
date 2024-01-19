@@ -72,7 +72,10 @@ public class Duke {
     private static void todo(String message) {
         Task t = new Task(message, Task.Types.T);
         tasks.add(t);
+        // TODO message
     }
+    // TODO abstraction for printing task!
+
 
     private static void mark(String task, boolean completed) {
         // Find the task entry.
