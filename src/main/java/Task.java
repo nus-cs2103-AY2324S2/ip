@@ -16,7 +16,7 @@ public class Task {
         if (this.isDone) {
             return "[X] " + this.description;
         } else {
-            return "[] " + this.description;
+            return "[ ] " + this.description;
         }
     }
 }

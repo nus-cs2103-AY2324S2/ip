@@ -34,14 +34,14 @@ public class Duke {
                 int itemNumber = Integer.parseInt(splitedInput[1]);
                 tasks.get(itemNumber - 1).setIsDone(true);
                 System.out.println("Nice! I've marked this task as done:\n"
-                        + tasks.get(itemNumber - 1));
+                        + " " + tasks.get(itemNumber - 1));
                 continue;
             }
             if (splitedInput[0].equals("unmark")) {
                 int itemNumber = Integer.parseInt(splitedInput[1]);
                 tasks.get(itemNumber - 1).setIsDone(false);
-                System.out.println("Ok, I've marked this task as not done yet\n"
-                        + tasks.get(itemNumber - 1));
+                System.out.println("OK, I've marked this task as not done yet:\n"
+                        + " " + tasks.get(itemNumber - 1));
                 continue;
             }
 
