@@ -1,8 +1,35 @@
 import java.util.Scanner; // For reading user input
+import java.util.ArrayList; // For storing to-do tasks
 public class Duke {
+    private static ArrayList<String> todoList = new ArrayList<>(100);
     public static void main(String[] args) {
         sendWelcomeMessage();
-        echoUntilBye();
+
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+
+        while (true) {
+            if (userInput.equalsIgnoreCase("bye")) {
+                break;
+            }
+
+            if (userInput.equalsIgnoreCase("list")) {
+                // List items in to-do list
+                String response = "";
+                for (int i = 0; i < todoList.size(); i++) {
+                    if (i < todoList.size() - 1) {
+                        response += i + 1 + ". " + todoList.get(i) + "\n";
+                    } else {
+                        response += i + 1 + ". " + todoList.get(i);
+                        botSays(response);
+                    }
+                }
+            }
+            else {
+                addToList(userInput);
+            }
+            userInput = scanner.nextLine();
+        }
         sendGoodbyeMessage();
     }
 
@@ -37,16 +64,12 @@ public class Duke {
     }
 
     /**
-     * Echoes user input until 'bye' (case-insensitive) is sent.
+     * Stores a message in the list.
+     * @param message Text to store
      */
-    public static void echoUntilBye() {
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-
-        while (!userInput.equalsIgnoreCase("bye")) {
-            botSays(userInput);
-            userInput = scanner.nextLine();
-        }
+    public static void addToList(String message) {
+            todoList.add(message);
+            botSays("added: " + message);
     }
 
     /**
