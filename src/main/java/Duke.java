@@ -45,7 +45,7 @@ public class Duke {
             }
 
             if (splitedInput[0].equals("todo")) {
-                tasks.add(new Todo(splitedInput[1]));
+                tasks.add(new Todo(input.substring(4).trim()));
                 printAddTaskMessage(tasks.get(tasks.size() - 1),
                         tasks);
                 continue;
