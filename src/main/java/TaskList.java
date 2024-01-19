@@ -16,10 +16,10 @@ public class TaskList {
         return out;
     }
 
-    public void add(String taskName) {
-        Task theTask = new Task(taskName);
-        this.taskList.add(theTask);
-        System.out.println("added: " + theTask);
+    public void add(Task taskName) {
+        this.taskList.add(taskName);
+        System.out.println("added: " + taskName);
+        System.out.println("Looks like you have " + taskList.size() + " things left to do!");
     }
 
     public Task getTask(int index) {

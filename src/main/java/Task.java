@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String name;
     private boolean marked = false;
     public Task(String name) {
@@ -12,7 +12,7 @@ public class Task {
 
     public void setNotDone() {
         this.marked = false;
-        System.out.println("Its ok :( It is what it is!\n" + this.toString());
+        System.out.println("Awh why uncheck me :( Its ok, it is what it is!\n" + this.toString());
     }
 
     @Override
