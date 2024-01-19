@@ -43,10 +43,33 @@ public class Duke {
                         + tasks.get(itemNumber - 1));
                 continue;
             }
+
+            if (splitedInput[0].equals("todo")) {
+                tasks.add(new Todo(splitedInput[1]));
+                printAddTaskMessage(tasks.get(tasks.size() - 1),
+                        tasks);
+                continue;
+            }
+            if (splitedInput[0].equals("deadline")) {
+                tasks.add(Deadline.buildDeadLine(input));
+                printAddTaskMessage(tasks.get(tasks.size() - 1), tasks);
+                continue;
+            }
+            if (splitedInput[0].equals("event")) {
+                tasks.add(Event.buildEvent(input));
+                printAddTaskMessage(tasks.get(tasks.size() - 1), tasks);
+                continue;
+            }
             tasks.add(new Task(input));
             System.out.println("added: " + input);
         }
+
     }
 
+    public static void printAddTaskMessage(Task task, List<Task> tasks) {
+        System.out.println("Got it. I've added this task:\n"
+                + " " + task + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.");
+    }
 }
 
