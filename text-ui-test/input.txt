@@ -13,4 +13,11 @@ mark 1
 list
 unmark 1
 list
+something that does not exist
+mark
+mark a
+mark 9999999
+unmark
+unmark a
+unmark 9999999
 bye
