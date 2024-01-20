@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -11,6 +13,7 @@ public class Duke {
 
         String input;
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
+        List<String> textList = new ArrayList<String>();
 
         greet();
 
@@ -21,8 +24,11 @@ public class Duke {
 
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                list(textList);
             } else {
                 echo(input);
+                textList.add(input);
             }
         }
 
@@ -48,10 +54,20 @@ public class Duke {
 
     public static void echo(String text) {
         String output = "\t____________________________________________________________\n"
-                + "\t" + text + "\n"
+                + "\tadded: " + text + "\n"
                 + "\t____________________________________________________________\n";
 
         System.out.println(output);
+    }
+
+    public static void list(List<String> list) {
+        String text;
+        System.out.println("\t____________________________________________________________");
+        for (int i = 0; i < list.size(); i++) {
+            text = "\t" + (i+1) + ". " + list.get(i);
+            System.out.println(text);
+        }
+        System.out.println("\t____________________________________________________________\n");
     }
 }
 
