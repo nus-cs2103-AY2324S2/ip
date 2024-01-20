@@ -43,8 +43,7 @@ public class Duke {
                             + "\t " + todoList.get(index - 1).toString();
                     botSays(response);
                 } catch (NumberFormatException nfe) {
-                    // If user wants to add a task like "mark the exam papers"
-                    addToList(userInput);
+                    botSays("Sorry, I couldn't quite understand that.");
                 }
             }
 
@@ -58,13 +57,49 @@ public class Duke {
                             + "\t " + todoList.get(index - 1).toString();
                     botSays(response);
                 } catch (NumberFormatException nfe) {
-                    // If user wants to add a task like "unmark the exam papers"
-                    addToList(userInput);
+                    botSays("Sorry, I couldn't quite understand that.");
+
                 }
             }
 
+            else if (userInput.length() > 4 && userInput.substring(0,4).equalsIgnoreCase("todo")) {
+                String taskDescription = userInput.substring(5);
+                ToDo task = new ToDo(taskDescription);
+                addToList(task);
+            }
+            else if (userInput.length() > 8 && userInput.substring(0,8).equalsIgnoreCase("deadline")) {
+                int byIndex = userInput.indexOf("/by");
+                String taskDescription = userInput.substring(9, byIndex - 1);
+                String deadline = userInput.substring(byIndex + 4);
+
+                Deadline task = new Deadline(taskDescription, deadline);
+                addToList(task);
+            }
+            else if (userInput.length() > 5 && userInput.substring(0,5).equalsIgnoreCase("event")) {
+                int fromIndex = userInput.indexOf("/from");
+                int toIndex = userInput.indexOf("/to");
+
+                String taskDescription;
+                String from;
+                String to;
+
+                // Deal with the user sending "/from" before "/to" or vice versa
+                if (fromIndex < toIndex) {
+                    taskDescription = userInput.substring(6, fromIndex - 1);
+                    from = userInput.substring(fromIndex + 6, toIndex - 1);
+                    to = userInput.substring(toIndex + 4);
+                }
+                else {
+                    taskDescription = userInput.substring(6, toIndex - 1);
+                    from = userInput.substring(fromIndex + 6);
+                    to = userInput.substring(toIndex + 4, fromIndex - 1);
+                }
+
+                Event task = new Event(taskDescription, from, to);
+                addToList(task);
+            }
             else {
-                addToList(userInput);
+                botSays("Sorry, I couldn't quite understand that.");
             }
             userInput = scanner.nextLine();
         }
@@ -102,12 +137,24 @@ public class Duke {
     }
 
     /**
-     * Stores a message in the list.
-     * @param message Text to store
+     * Stores a task in the list.
+     * @param task Task to store
      */
-    public static void addToList(String message) {
-            todoList.add(new Task(message));
-            botSays("added: " + message);
+    public static void addToList(Task task) {
+            todoList.add(task);
+
+            String message = "Alright, added:\n"
+                    + "\t" + task.toString()+ "\n";
+
+            int listSize = todoList.size();
+
+            // "task" for singular, "tasks" for plural
+            if (listSize == 1) {
+                message += "You now have " + listSize + " task in your list.";
+            } else {
+                message += "You now have " + listSize + " tasks in your list.";
+            }
+            botSays(message);
     }
 
     /**
