@@ -51,6 +51,7 @@ public class Duke {
                         trail.substring(trail.indexOf(" /from ") + 7, trail.indexOf(" /to ")),
                         trail.substring(trail.indexOf(" /to ") + 5));
                 add(taskList, add);
+
             } else {
                 // echo(input);
                 Task add = new Task(input);
