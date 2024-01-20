@@ -44,6 +44,48 @@ class Task {
     }
 }
 
+class Todo extends Task {
+    public Todo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class Deadline extends Task {
+    private String byDate;
+
+    public Deadline(String description, String byDate) {
+        super(description);
+        this.byDate = byDate;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[D]%s (by: %s)", super.toString(), this.byDate);
+    }
+}
+
+class Event extends Task {
+    private String fromDate;
+    private String toDate;
+
+    public Event(String description, String fromDate, String toDate) {
+        super(description);
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                this.fromDate, this.toDate);
+    }
+}
+
 class TaskList {
     private ArrayList<Task> tasks;
 
@@ -67,6 +109,10 @@ class TaskList {
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
+
+    public int getSize() {
+        return this.tasks.size();
+    }
 }
 
 class CommandCreator {
@@ -81,6 +127,35 @@ class CommandCreator {
         return Integer.parseInt(tokens[1]) - 1;
     }
 
+    private String parseStringArgument(String command) {
+        String[] tokens = command.split(" ");
+        String argument = tokens[1];
+        for (int i = 2; i < tokens.length; i++) {
+            if (tokens[i].startsWith("/")) {
+                break;
+            }
+            argument += " " + tokens[i];
+        }
+        return argument;
+    }
+
+    private String parseNamedArgument(String command, String name) {
+        String[] tokens = command.split(" ");
+        for (int i = 0; i < tokens.length; i++) {
+            if (tokens[i].equals("/" + name)) {
+                String argument = tokens[i + 1];
+                for (int j = i + 2; j < tokens.length; j++) {
+                    if (tokens[j].startsWith("/")) {
+                        break;
+                    }
+                    argument += " " + tokens[j];
+                }
+                return argument;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
     public Command createCommand(String command) {
         if (command.equals("bye")) {
             return new ByeCommand();
@@ -92,8 +167,21 @@ class CommandCreator {
         } else if (command.startsWith("unmark")) {
             int index = parseIndex(command);
             return new UnmarkAsDoneCommand(index, this.taskList);
+        } else if (command.startsWith("todo ")) {
+            String description = parseStringArgument(command);
+            return new AddTodoCommand(description, this.taskList);
+        } else if (command.startsWith("deadline ")) {
+            String description = parseStringArgument(command);
+            String byDate = parseNamedArgument(command, "by");
+            return new AddDeadlineCommand(description, byDate, this.taskList);
+        } else if (command.startsWith("event ")) {
+            String description = parseStringArgument(command);
+            String fromDate = parseNamedArgument(command, "from");
+            String toDate = parseNamedArgument(command, "to");
+            return new AddEventCommand(description, fromDate, toDate,
+                    this.taskList);
         } else {
-            return new AddToListCommand(command, this.taskList);
+            throw new IllegalArgumentException();
         }
     }
 }
@@ -128,20 +216,69 @@ class EchoCommand extends Command {
     }
 }
 
-class AddToListCommand extends Command {
-    private String description;
+abstract class AddTaskCommand extends Command {
+    protected String description;
     private TaskList taskList;
 
-    public AddToListCommand(String description, TaskList taskList) {
+    public AddTaskCommand(String description, TaskList taskList) {
         this.description = description;
         this.taskList = taskList;
     }
 
+    protected abstract Task createTask();
+
     @Override
     public void execute(UI ui) {
-        Task task = new Task(this.description);
+        Task task = this.createTask();
         this.taskList.addTask(task);
-        ui.printMessage(String.format("added: %s", task.getDescription()));
+        ArrayList<String> messages = new ArrayList<String>(Arrays.asList(
+                "Got it. I've added this task:", "  " + task.toString(),
+                String.format("Now you have %d tasks in the list.",
+                        this.taskList.getSize())));
+        ui.printMessages(messages);
+    }
+}
+
+class AddTodoCommand extends AddTaskCommand {
+    public AddTodoCommand(String description, TaskList taskList) {
+        super(description, taskList);
+    }
+
+    @Override
+    protected Task createTask() {
+        return new Todo(this.description);
+    }
+}
+
+class AddDeadlineCommand extends AddTaskCommand {
+    private String byDate;
+
+    public AddDeadlineCommand(String description, String byDate,
+            TaskList taskList) {
+        super(description, taskList);
+        this.byDate = byDate;
+    }
+
+    @Override
+    protected Task createTask() {
+        return new Deadline(this.description, this.byDate);
+    }
+}
+
+class AddEventCommand extends AddTaskCommand {
+    private String fromDate;
+    private String toDate;
+
+    public AddEventCommand(String description, String fromDate, String toDate,
+            TaskList taskList) {
+        super(description, taskList);
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
+
+    @Override
+    protected Task createTask() {
+        return new Event(this.description, this.fromDate, this.toDate);
     }
 }
 
