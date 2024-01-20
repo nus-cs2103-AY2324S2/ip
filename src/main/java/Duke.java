@@ -26,7 +26,13 @@ public class Duke {
                 String[] token = input.split(" ");
                 int markIndex = Integer.parseInt(token[1]) - 1;
 
-                if (token[0].equals("mark")) {
+                if (token[0].equals("unmark")) {
+                    tasks.get(markIndex).markAsNotDone();
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     OK, I've marked this task as not done yet:");
+                    System.out.println("       " + tasks.get(markIndex));
+                    System.out.println("    ____________________________________________________________");
+                } else if (token[0].equals("mark")) {
                     tasks.get(markIndex).markAsDone();
                     System.out.println("    ____________________________________________________________");
                     System.out.println("     Nice! I've marked this task as done:");
