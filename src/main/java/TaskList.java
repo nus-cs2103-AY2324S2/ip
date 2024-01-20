@@ -22,6 +22,15 @@ public class TaskList {
         return this.tasks.get(index - 1);
     }
 
+    /**
+     * Removes the task at the specified 1-based index.
+     *
+     * @param index 1-based index of the task to remove.
+     */
+    public void removeTask(int index) {
+        this.tasks.remove(index - 1);
+    }
+
     public int size() {
         return this.tasks.size();
     }

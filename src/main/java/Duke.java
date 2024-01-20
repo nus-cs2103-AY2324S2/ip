@@ -17,6 +17,7 @@ public class Duke {
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
+    private static final String DELETE_COMMAND = "delete";
 
     public static void main(String[] args) {
         printBanner();
@@ -124,6 +125,26 @@ public class Duke {
                 throw new DukeException(
                         "Please specify the start and end date of the event task using /from"
                             + " [Date Time] /to [Date Time].");
+            }
+        } else if (input.startsWith(DELETE_COMMAND)) {
+            if (input.length() < DELETE_COMMAND.length() + 2) {
+                throw new DukeException("Please enter an index.");
+            }
+            String indexStr = input.substring(DELETE_COMMAND.length() + 1);
+            try {
+                int index = Integer.parseInt(indexStr);
+                if (!TASKS.validIndex(index)) {
+                    throw new DukeException("Please enter a valid index.");
+                }
+                Task task = TASKS.getTask(index);
+                TASKS.removeTask(index);
+                String[] messages = {
+                    "Noted. I've removed this task:", task.toString(),
+                    "Now you have " + TASKS.size() + " tasks in the list."
+                };
+                print(messages);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please enter a valid number.");
             }
         } else {
             print("Sorry I can't help with that :(");
