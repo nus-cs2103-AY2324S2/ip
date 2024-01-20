@@ -14,7 +14,7 @@ public class Duke {
         ArrayList<String> list = new ArrayList<>();
 
         while (!exit) {
-            input = sc.next();
+            input = sc.nextLine();
             if (input.equals("bye")) {
                 exit = true;
                 break;
