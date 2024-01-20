@@ -1,0 +1,7 @@
+todo clean room
+deadline hw2 /by 2pm
+event lecture /from 2pm /to 5pm
+list
+mark 2
+list
+bye

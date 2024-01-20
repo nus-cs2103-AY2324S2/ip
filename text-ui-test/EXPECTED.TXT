@@ -1,7 +1,36 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello from MissA ^_^
+What can I do for you?
+______________________
+________________________________
+Ok, I will add in this task:
+  [T][ ] clean room
+Now there are 1 tasks in the list.
+________________________________
+________________________________
+Ok, I will add in this task:
+  [D][ ] hw2 (by: 2pm)
+Now there are 2 tasks in the list.
+________________________________
+________________________________
+Ok, I will add in this task:
+  [E][ ] lecture (from 2pm to: 5pm)
+Now there are 3 tasks in the list.
+________________________________
+________________________________
+Here are your tasks:
+1. [T][ ] clean room
+2. [D][ ] hw2 (by: 2pm)
+3. [E][ ] lecture (from 2pm to: 5pm)
+________________________________
+________________________________
+Great! You have completed this task!
+________________________________
+________________________________
+Here are your tasks:
+1. [T][ ] clean room
+2. [D][X] hw2 (by: 2pm)
+3. [E][ ] lecture (from 2pm to: 5pm)
+________________________________
+________________________________
+Bye. Have a nice day!
+______________________

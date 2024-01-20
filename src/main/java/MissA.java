@@ -1,12 +1,13 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class MissA {
     // greet, exit sentences
-    private String greeting = "What can I do for you?\n"
-            + "______________________\n";
-    private String goodBye = "Bye. Have a nice day!\n"
-            + "______________________\n";
     private String emptyLine = "________________________________\n";
+    private String greeting = "What can I do for you?\n"
+            + emptyLine;
+    private String goodBye = "Bye. Have a nice day!\n"
+            + emptyLine;
     // store existing tasks in list
     private ArrayList<Task> taskList = new ArrayList<>(100);
 
@@ -53,6 +54,7 @@ public class MissA {
         //obtain user input
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
+
         while (!userInput.equals("bye")) {
 
             // show task list
@@ -82,14 +84,37 @@ public class MissA {
 
             // add task to task list
             } else {
-                    Task newTask = new Task(userInput);
-                    missA.taskList.add(newTask);
-                    System.out.println(missA.emptyLine
-                            + "added: "
-                            + userInput
-                            + "\n"
-                            + missA.emptyLine);
-                    userInput = scanner.nextLine();
+                String[] task = userInput.split(" ", 2);
+                String taskType = task[0];
+                Task nextTask = null;
+
+                // check if the task type is todo
+                if (taskType.equals("todo")) {
+                    String content = task[1];
+                    nextTask = new ToDo(content);
+                    missA.taskList.add(nextTask);
+
+                // check if the task type is deadline
+                } else if (taskType.equals("deadline")) {
+                    String[] content = task[1].split("/by");
+                    nextTask = new Deadline(content[0], content[1]);
+                    missA.taskList.add(nextTask);
+
+                // check if the task type is event
+                } else if (taskType.equals("event")) {
+                    String[] content = task[1].split("/from");
+                    String text = content[0];
+                    String[] interval = content[1].split("/to");
+                    nextTask = new Event(text, interval[0], interval[1]);
+                    missA.taskList.add(nextTask);
+                }
+                System.out.println(missA.emptyLine
+                        + "Ok, I will add in this task: \n"
+                        + "  " + nextTask
+                        + "\n"
+                        + "Now there are " + missA.taskList.size() + " tasks in the list.\n"
+                        + missA.emptyLine);
+                userInput = scanner.nextLine();
             }
         }
 
