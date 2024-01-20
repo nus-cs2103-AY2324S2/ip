@@ -49,6 +49,13 @@ public class MessagePrinter {
         MessagePrinter.printLine();
     }
 
+    public static void commandPrint(Task task, int size) {
+        MessagePrinter.printLine();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + size + " tasks in the list.");
+        MessagePrinter.printLine();
+    }
     public static void commandListPrint(ArrayList<Task> list) {
         MessagePrinter.printLine();
         for (int i = 0; i < list.size(); i += 1) {
@@ -67,7 +74,6 @@ public class MessagePrinter {
         }
         System.out.println(task);
         MessagePrinter.printLine();
-
     }
 
 }

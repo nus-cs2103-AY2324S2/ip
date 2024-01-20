@@ -6,9 +6,9 @@ public class Storage {
         this.taskList = new ArrayList<>();
     }
 
-    public void add(String command) {
-        this.taskList.add(new Task(command));
-        MessagePrinter.commandPrint(command);
+    public void add(Task newTask) {
+        this.taskList.add(newTask);
+        MessagePrinter.commandPrint(newTask, this.taskList.size());
     }
 
     public void printList() {
@@ -17,5 +17,10 @@ public class Storage {
 
     public void changeStatusOfItem(String action, int which) {
         this.taskList.get(which).changeStatus(action);
+    }
+
+    @Override
+    public String toString() {
+        return "Now you have " + taskList.size() + "tasks in the list.";
     }
 }
