@@ -15,16 +15,16 @@ public class Nicole {
         String salutation = "Good ";
         int currentHour = Integer.parseInt(parseHour.format(now));
         if (currentHour < 12 && currentHour >= 5) {
-            salutation += "morns :D ! What's the plan today";
-        } else if (currentHour >= 12 && currentHour < 17) {
-            salutation += "afternoon zzz...how's it hanging";
+            salutation += "morns :D";
+        } else if (currentHour >= 12 && currentHour <= 5) {
+            salutation += "afternoon zzz";
         } else {
-            salutation += "evening! Let's wrap it up soon? :P";
+            salutation += "evening!";
         }
-        return "Welcome to Nicole Mark I. New conversation at " + digitalTime.format(now) + "\n" +
+        return "Welcome to Nicole 1.0. New conversation at " + digitalTime.format(now) + "\n" +
                 "----------------------------- x ------------------------------" + "\n" +
                 Nicole.botName +
-                ": " + salutation;
+                ": " + salutation + " What's our objective for today?";
     }
 
     private static String talkToUser() throws IOException {

@@ -7,16 +7,6 @@ public class Task {
         this.completed = false;
     }
 
-    public static Task taskFactory(String name, int taskType) {
-        if (taskType == 0) {
-            return new Todo(name);
-        } else if (taskType == 1) {
-            return new Deadline(name);
-        } else {
-            return new Event(name);
-        }
-    }
-
     public void markDone() {
         if (this.completed) {
             System.out.println(Nicole.botName + ": " + this.name + " is already marked complete -_-");
