@@ -1,8 +1,10 @@
-import constants.Responses;
+import messages.Responses;
 
 public class Banter {
-    public static void main(String[] args) {
-        System.out.println(Responses.BANTER_LOGO);
-        System.out.println(Responses.GREET_AND_EXIT);
+    private Responses responses = new Responses();
+
+    public void start() {
+        responses.printGreetMessage();
+        responses.echoUntilExit();
     }
 }
