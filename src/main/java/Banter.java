@@ -5,6 +5,6 @@ public class Banter {
 
     public void start() {
         responses.printGreetMessage();
-        responses.echoUntilExit();
+        responses.respondUntilExit();
     }
 }

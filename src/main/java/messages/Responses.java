@@ -1,10 +1,11 @@
 package messages;
 
-import java.util.ArrayList;
+import tasks.TaskList;
 import java.util.Scanner;
 
-public class Responses {
-    private Requests requests = new Requests();
+public class Responses {  // default access modifier
+    private TaskList taskList = new TaskList();
+
 
     // String constants
     private static final String BANTER_LOGO = ".______        ___      .__   __. .___________. _______ .______      \n" +
@@ -15,48 +16,54 @@ public class Responses {
             "|______/  /__/     \\__\\ |__| \\__|     |__|     |_______|| _| `._____|\n" +
             "                                                                     \n";
 
-    private static final ArrayList<String> GREET = new ArrayList<String>() {{
-        add("Hello! I'm Banter");
-        add("What can I do for you?");
-    }};
+    private static final String GREET_MESSAGE_BODY = "Hello! I'm Banter\n" +
+            "What can I do for you?";
 
-    private static final ArrayList<String> EXIT = new ArrayList<String>() {{
-        add("Bye. Hope to see you again soon!");
-    }};
+    private static final String EXIT_MESSAGE_BODY = "Bye. Hope to see you again soon!";
 
 
     // Messages
-    private static final MessageBox GREET_MESSAGE = new MessageBox(GREET);
+    private static final MessageBox GREET_MESSAGE = new MessageBox(GREET_MESSAGE_BODY);
 
-    private static final MessageBox EXIT_MESSAGE = new MessageBox(EXIT);
+    private static final MessageBox EXIT_MESSAGE = new MessageBox(EXIT_MESSAGE_BODY);
 
 
     // Methods
-    private static void echo(String input) {
-        MessageBox echoMessage = new MessageBox(new ArrayList<String>() {{
-            add(input);
-        }});
-        echoMessage.print();
-    }
-
     public void printGreetMessage() {
         System.out.println(BANTER_LOGO);
         GREET_MESSAGE.print();
     }
 
-    public void printExitMessage() {
+    private void printExitMessage() {
         EXIT_MESSAGE.print();
     }
 
-    public void echoUntilExit() {
+    public void respondUntilExit() {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            if (requests.isExit(input)) {
-                printExitMessage();
-                return;
+            Commands command = Commands.getCommand(input);
+            switch (command) {
+                case LIST:
+                    printTaskList();
+                    break;
+                case EXIT:
+                    printExitMessage();
+                    return;
+                default:
+                    addTask(input);
             }
-            Responses.echo(input);
         }
+    }
+
+    private void printTaskList() {
+        MessageBox taskListMessage = new MessageBox(taskList.toString());
+        taskListMessage.print();
+    }
+
+    private void addTask(String taskDescription) {
+        taskList.addTask(taskDescription);
+        MessageBox taskAddedMessage = new MessageBox("added: " + taskDescription);
+        taskAddedMessage.print();
     }
 }
