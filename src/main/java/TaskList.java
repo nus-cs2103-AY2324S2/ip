@@ -13,7 +13,7 @@ public class TaskList {
             out += count + "." + currentItem + "\n";
             count++;
         }
-        return out;
+        return out.equals("") ? "No tasks to do! Yay!\n" : out;
     }
 
     public void add(Task taskName) {
