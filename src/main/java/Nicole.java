@@ -9,7 +9,7 @@ public class Nicole {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     private static String greet() {
-        DateTimeFormatter digitalTime = DateTimeFormatter.ofPattern("dd/MM/yyyy | HH:mm:ss");
+        DateTimeFormatter digitalTime = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter parseHour = DateTimeFormatter.ofPattern("HH");
         LocalDateTime now = LocalDateTime.now();
         String salutation = "Good ";
@@ -29,7 +29,7 @@ public class Nicole {
 
     private static String talkToUser() throws IOException {
         String request = br.readLine();
-        while (!request.equals("bye")) {
+        while (request != null && !request.equals("bye")) {
             Request newRequest  = new Request(request);
             newRequest.handleRequest();
             request = br.readLine();

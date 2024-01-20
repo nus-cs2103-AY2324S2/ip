@@ -43,7 +43,7 @@ public class Request {
                                "\"" + newTask.toString().substring(6) + "\". " +
                                "There are now " + Nicole.taskList.size() + " item(s) total.");
         } else {
-            System.out.println(Nicole.botName + ": Your tasks are, ");
+            System.out.println(Nicole.botName + ": Your tasks are,");
             for (int i = 0; i < Nicole.taskList.size(); i++) {
                 System.out.println((i + 1) + ": " + Nicole.taskList.get(i));
             }
