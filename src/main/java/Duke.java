@@ -31,7 +31,6 @@ public class Duke {
                     firstWord = input.substring(0, space);
                     trail = input.substring(space + 1);
                 }
-
                 Task add;
                 String taskName;
 
