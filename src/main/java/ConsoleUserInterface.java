@@ -1,25 +1,51 @@
-public class ConsoleUserInterface implements UserInterface {
+import java.util.Objects;
+import java.util.Scanner;
 
-    @Override
+public class ConsoleUserInterface {
+    private Scanner scanner;
+    private String lastInput;
+
+    public ConsoleUserInterface() {
+        this.scanner = new Scanner(System.in);
+    }
+
     public void greetUser() {
         printSeparator();
         System.out.println("Hello! I'm MicroManager");
         System.out.println("What can I do for you?");
         printSeparator();
+        getUserInput();
     }
 
-    @Override
     public String getUserInput() {
-        return null;
+        while (true) {
+            this.lastInput = this.scanner.nextLine();
+            if (Objects.equals(this.lastInput, "bye")) {
+                break;
+            } else {
+                handleUserInput(this.lastInput);
+            }
+        }
+        return this.lastInput;
     }
 
-    @Override
-    public void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+    private void handleUserInput(String input) {
+        printOutput(input);
+    }
+
+    public void printOutput(String string) {
+        printSeparator();
+        System.out.println(string);
         printSeparator();
     }
 
-    public void printSeparator() {
+    public void exit() {
+        printOutput("Bye. Hope to see you again soon!");
+
+        this.scanner.close();
+    }
+
+    private void printSeparator() {
         System.out.println("____________________________________________________________");
     }
 }

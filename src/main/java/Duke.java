@@ -1,9 +1,7 @@
-import java.util.Scanner;
-
 public class Duke {
-    private UserInterface ui;
+    private ConsoleUserInterface ui;
 
-    public Duke(UserInterface ui) {
+    public Duke(ConsoleUserInterface ui) {
         this.ui = ui;
     }
 
@@ -13,8 +11,9 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        UserInterface consoleUI = new ConsoleUserInterface();
+        ConsoleUserInterface consoleUI = new ConsoleUserInterface();
         Duke duke = new Duke(consoleUI);
+
         duke.run();
     }
 }
