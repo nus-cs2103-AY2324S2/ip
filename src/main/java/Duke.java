@@ -20,94 +20,99 @@ public class Duke {
     public static void main(String[] args) {
         printBanner();
         printGreetings();
-        handleInput();
+        inputLoop();
         printExit();
         Duke.SCANNER.close();
     }
 
-    private static void handleInput() {
+    private static void inputLoop() {
         String input = "";
         while (true) {
             input = SCANNER.nextLine();
-            if (input.equals(LIST_COMMAND)) {
-                String[] messages = new String[TASKS.size() + 1];
-                messages[0] = "Here are the tasks in your list:";
-                System.arraycopy(TASKS.toString().split("\n"), 0, messages, 1, TASKS.size());
+            if (input.equals(EXIT_COMMAND)) {
+                break;
+            }
+            try {
+                handleInput(input);
+            } catch (DukeException e) {
+                print(e.getMessage());
+            }
+        }
+    }
+
+    private static void handleInput(String input) throws DukeException {
+        if (input.equals(LIST_COMMAND)) {
+            String[] messages = new String[TASKS.size() + 1];
+            messages[0] = "Here are the tasks in your list:";
+            System.arraycopy(TASKS.toString().split("\n"), 0, messages, 1, TASKS.size());
+            print(messages);
+        } else if (input.startsWith(MARK_COMMAND)) {
+            if (input.length() < MARK_COMMAND.length() + 2) {
+                throw new DukeException("Please enter an index.");
+            }
+            String indexStr = input.substring(MARK_COMMAND.length() + 1);
+            try {
+                int index = Integer.parseInt(indexStr);
+                if (!TASKS.validIndex(index)) {
+                    throw new DukeException("Please enter a valid index.");
+                }
+                TASKS.getTask(index).done();
+                String[] messages = {
+                    "Nice! I've marked this task as done:",
+                    TASKS.getTask(index).toString()
+                };
                 print(messages);
-            } else if (input.startsWith(MARK_COMMAND)) {
-                if (input.length() < MARK_COMMAND.length() + 2) {
-                    print("Please enter an index.");
-                    continue;
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please enter a valid number.");
+            }
+        } else if (input.startsWith(UNMARK_COMMAND)) {
+            if (input.length() < UNMARK_COMMAND.length() + 2) {
+                throw new DukeException("Please enter an index.");
+            }
+            String indexStr = input.substring(UNMARK_COMMAND.length() + 1);
+            try {
+                int index = Integer.parseInt(indexStr);
+                if (!TASKS.validIndex(index)) {
+                    throw new DukeException("Please enter a valid index.");
                 }
-                String indexStr = input.substring(MARK_COMMAND.length() + 1);
-                try {
-                    int index = Integer.parseInt(indexStr);
-                    if (!TASKS.validIndex(index)) {
-                        print("Please enter a valid index.");
-                        continue;
-                    }
-                    TASKS.getTask(index).done();
-                    String[] messages = {
-                        "Nice! I've marked this task as done:",
-                        TASKS.getTask(index).toString()
-                    };
-                    print(messages);
-                } catch (NumberFormatException e) {
-                    print("Please enter a valid number.");
-                }
-            } else if (input.startsWith(UNMARK_COMMAND)) {
-                if (input.length() < UNMARK_COMMAND.length() + 2) {
-                    print("Please enter an index.");
-                    continue;
-                }
-                String indexStr = input.substring(UNMARK_COMMAND.length() + 1);
-                try {
-                    int index = Integer.parseInt(indexStr);
-                    if (!TASKS.validIndex(index)) {
-                        print("Please enter a valid index.");
-                        continue;
-                    }
-                    TASKS.getTask(index).undone();
-                    String[] messages = {
-                        "OK, I've marked this task as not done yet:",
-                        TASKS.getTask(index).toString()
-                    };
-                    print(messages);
-                } catch (NumberFormatException e) {
-                    print("Please enter a valid number.");
-                }
-            } else if (input.startsWith(TODO_COMMAND)) {
-                Task task = new Todo(input);
+                TASKS.getTask(index).undone();
+                String[] messages = {
+                    "OK, I've marked this task as not done yet:",
+                    TASKS.getTask(index).toString()
+                };
+                print(messages);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please enter a valid number.");
+            }
+        } else if (input.startsWith(TODO_COMMAND)) {
+            Task task = new Todo(input);
+            TASKS.addTask(task);
+            printAddedTask(task);
+        } else if (input.startsWith(DEADLINE_COMMAND)) {
+            Matcher matcher = DUE_PATTERN.matcher(input);
+            if (matcher.find()) {
+                String description = input.substring(DEADLINE_COMMAND.length() + 1, matcher.start() - 1);
+                String due = matcher.group(1);
+                Task task = new Deadline(description, due);
                 TASKS.addTask(task);
                 printAddedTask(task);
-            } else if (input.startsWith(DEADLINE_COMMAND)) {
-                Matcher matcher = DUE_PATTERN.matcher(input);
-                if (matcher.find()) {
-                    String description = input.substring(DEADLINE_COMMAND.length() + 1, matcher.start() - 1);
-                    String due = matcher.group(1);
-                    Task task = new Deadline(description, due);
-                    TASKS.addTask(task);
-                    printAddedTask(task);
-                } else {
-                    print("Please specify the due date of the deadline task using /by [DateTime].");
-                }
-            } else if (input.startsWith(EVENT_COMMAND)) {
-                Matcher matcher = EVENT_PATTERN.matcher(input);
-                if (matcher.find()) {
-                    String description = input.substring(EVENT_COMMAND.length() + 1, matcher.start() - 1);
-                    String from = matcher.group(1);
-                    String to = matcher.group(2);
-                    Task task = new Event(description, from, to);
-                    TASKS.addTask(task);
-                    printAddedTask(task);
-                } else {
-                    print("Please specify the start and end date of the event task using /from [DateTime] /to [DateTime].");
-                }
-            } else if (input.equals(EXIT_COMMAND)) {
-                break;
             } else {
-                print("Sorry I can't help with that :(");
+                throw new DukeException("Please specify the due date of the deadline task using /by [DateTime].");
             }
+        } else if (input.startsWith(EVENT_COMMAND)) {
+            Matcher matcher = EVENT_PATTERN.matcher(input);
+            if (matcher.find()) {
+                String description = input.substring(EVENT_COMMAND.length() + 1, matcher.start() - 1);
+                String from = matcher.group(1);
+                String to = matcher.group(2);
+                Task task = new Event(description, from, to);
+                TASKS.addTask(task);
+                printAddedTask(task);
+            } else {
+                throw new DukeException("Please specify the start and end date of the event task using /from [DateTime] /to [DateTime].");
+            }
+        } else {
+            print("Sorry I can't help with that :(");
         }
     }
 
