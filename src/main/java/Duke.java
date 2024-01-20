@@ -26,66 +26,59 @@ public class Duke {
     }
 
     private static void handleInput() {
-        String input = Duke.SCANNER.nextLine();
+        String input = SCANNER.nextLine();
         while (!input.equals(EXIT_COMMAND)) {
             if (input.equals(LIST_COMMAND)) {
-                Duke.print(Duke.TASKS.toString().split("\n"));
+                print(TASKS.toString().split("\n"));
             } else if (input.startsWith(MARK_PREFIX)) {
                 String indexStr = input.substring(5);
                 int index = Integer.parseInt(indexStr);
-                Duke.TASKS.getTask(index).done();
+                TASKS.getTask(index).done();
                 String[] messages = {
                     "Nice! I've marked this task as done:",
-                    Duke.TASKS.getTask(index).toString()
+                    TASKS.getTask(index).toString()
                 };
-                Duke.print(messages);
+                print(messages);
             } else if (input.startsWith(UNMARK_PREFIX)) {
                 String indexStr = input.substring(7);
                 int index = Integer.parseInt(indexStr);
-                Duke.TASKS.getTask(index).undone();
+                TASKS.getTask(index).undone();
                 String[] messages = {
                     "OK, I've marked this task as not done yet:",
-                    Duke.TASKS.getTask(index).toString()
+                    TASKS.getTask(index).toString()
                 };
-                Duke.print(messages);
+                print(messages);
             } else if (input.startsWith(TODO_PREFIX)) {
                 Task task = new Todo(input);
-                Duke.TASKS.addTask(task);
+                TASKS.addTask(task);
                 printTaskAdded(task);
             } else if (input.startsWith(DEADLINE_PREFIX)) {
-                Matcher matcher = Duke.DUE_PATTERN.matcher(input);
+                Matcher matcher = DUE_PATTERN.matcher(input);
                 if (matcher.find()) {
                     String description = input.substring(DEADLINE_PREFIX.length(), matcher.start() - 1);
                     String due = matcher.group(1);
                     Task task = new Deadline(description, due);
-                    Duke.TASKS.addTask(task);
+                    TASKS.addTask(task);
                     printTaskAdded(task);
                 } else {
-                    String[] messages = {
-                        "Please specify the due date of the deadline task using /by [DateTime]."
-                    };
-                    Duke.print(messages);
+                    print("Please specify the due date of the deadline task using /by [DateTime].")
                 }
             } else if (input.startsWith(EVENT_PREFIX)) {
-                Matcher matcher = Duke.EVENT_PATTERN.matcher(input);
+                Matcher matcher = EVENT_PATTERN.matcher(input);
                 if (matcher.find()) {
                     String description = input.substring(EVENT_PREFIX.length(), matcher.start() - 1);
                     String from = matcher.group(1);
                     String to = matcher.group(2);
                     Task task = new Event(description, from, to);
-                    Duke.TASKS.addTask(task);
+                    TASKS.addTask(task);
                     printTaskAdded(task);
                 } else {
-                    String[] messages = {
-                        "Please specify the start and end date of the event task using /from [DateTime] /to [DateTime]."
-                    };
-                    Duke.print(messages);
+                    print("Please specify the start and end date of the event task using /from [DateTime] /to [DateTime].")
                 }
             } else {
-                String[] messages = { "Sorry I can't help with that :(" };
-                Duke.print(messages);
+                print("Sorry I can't help with that :(");
             }
-            input = Duke.SCANNER.nextLine();
+            input = SCANNER.nextLine();
         }
     }
 
@@ -93,9 +86,9 @@ public class Duke {
         String[] messages = {
             "Got it. I've added this task:",
             task.toString(),
-            "Now you have " + Duke.TASKS.size() + " tasks in the list."
+            "Now you have " + TASKS.size() + " tasks in the list."
         };
-        Duke.print(messages);
+        print(messages);
     }
 
     private static void printBanner() {
@@ -105,6 +98,12 @@ public class Duke {
         System.out.println("██║     ██╔══██║██╔═══╝ ██╔═══╝   ╚██╔╝  ");
         System.out.println("╚██████╗██║  ██║██║     ██║        ██║   ");
         System.out.println(" ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝   ");
+    }
+
+    private static void print(String message) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     " + msg);
+        System.out.println("    ____________________________________________________________\n");
     }
 
     private static void print(String[] messages) {
@@ -117,11 +116,11 @@ public class Duke {
 
     private static void printGreetings() {
         String[] messages = {"Hello! I'm Cappy", "What can I do for you?"};
-        Duke.print(messages);
+        print(messages);
     }
 
     private static void printExit() {
         String[] messages = {"Bye. Hope to see you again soon!"};
-        Duke.print(messages);
+        print(messages);
     }
 }
