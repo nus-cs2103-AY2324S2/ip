@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Johnny {
@@ -25,8 +27,12 @@ public class Johnny {
                 Johnny.mark(command);
             } else if (command.split(" ")[0].equals("unmark")) {
                 Johnny.unmark(command);
-            } else {
-                Johnny.add(command);
+            } else if (command.split(" ")[0].equals("todo")){
+                Johnny.addToDo(command);
+            } else if (command.split(" ")[0].equals("deadline")) {
+                Johnny.addDeadline(command);
+            } else if (command.split(" ")[0].equals("event")) {
+                Johnny.addEvent(command);
             }
         }
 
@@ -45,8 +51,7 @@ public class Johnny {
         Task task = Johnny.list.get(index);
         task.mark();
         System.out.println("Finally done.");
-        System.out.println(task);
-        System.out.println();
+        System.out.println(task + "\n");
     }
 
     public static void unmark(String command) {
@@ -54,14 +59,40 @@ public class Johnny {
         Task task = Johnny.list.get(index);
         task.unmark();
         System.out.println("Can you hurry it up?");
-        System.out.println(task);
-        System.out.println();
+        System.out.println(task + "\n");
     }
 
-    public static void add(String command) {
-        Task task = new Task(command);
+    public static void addToDo(String command) {
+        List<String> l = Arrays.asList(command.split(" "));
+        Task task = new ToDo(String.join(" ", l.subList(1, l.size())));
         Johnny.list.add(task);
-        System.out.println("added: " + command + "\n");
+        System.out.println("Go get this done:");
+        System.out.println(task);
+        System.out.println("You still have " + Johnny.list.size() + " tasks to do.\n");
+    }
+
+    public static void addDeadline(String command) {
+        List<String> l = Arrays.asList(command.split(" "));
+        int i = l.indexOf("/by");
+        Task task = new Deadline(String.join(" ", l.subList(1, i)),
+                String.join(" ", l.subList(i + 1, l.size())));
+        Johnny.list.add(task);
+        System.out.println("Go get this done:");
+        System.out.println(task);
+        System.out.println("You still have " + Johnny.list.size() + " tasks to do.\n");
+    }
+
+    public static void addEvent(String command) {
+        List<String> l = Arrays.asList(command.split(" "));
+        int i = l.indexOf("/from");
+        int j = l.indexOf("/to");
+        Task task = new Event(String.join(" ", l.subList(1, i)),
+                String.join(" ", l.subList(i + 1, j)),
+                String.join(" ", l.subList(j + 1, l.size())));
+        Johnny.list.add(task);
+        System.out.println("Go get this done:");
+        System.out.println(task);
+        System.out.println("You still have " + Johnny.list.size() + " tasks to do.\n");
     }
 
 }
