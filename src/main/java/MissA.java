@@ -6,10 +6,44 @@ public class MissA {
             + "______________________\n";
     private String goodBye = "Bye. Have a nice day!\n"
             + "______________________\n";
-    private String emptyLine = "______________________\n";
+    private String emptyLine = "________________________________\n";
     // store existing tasks in list
-    private ArrayList<String> taskList = new ArrayList<>(100);
+    private ArrayList<Task> taskList = new ArrayList<>(100);
 
+    /*
+     * Display items in task list.
+     *
+     * @return A string containing all tasks added by user.
+     */
+    public String getTasks() {
+        String str = emptyLine + "Here are your tasks: \n";
+        for (int i = 0; i < taskList.size(); i++) {
+            int index = i + 1;
+            str += index + ". " + taskList.get(i) + "\n";
+        }
+        str += emptyLine;
+        return str;
+    }
+
+    /*
+     * Mark task as done.
+     *
+     * @param idx Index of task to be marked as done.
+     */
+    public void markTask(int idx) {
+        Task t = taskList.get(idx);
+        t.mark();
+    }
+
+    /*
+     * Mark task as not done.
+     *
+     * @param idx Index of task to be marked as not done.
+     */
+    public void unmarkTask(int idx) {
+        Task t = taskList.get(idx);
+        t.unmark();
+    }
     public static void main(String[] args) {
         MissA missA = new MissA();
 
@@ -20,19 +54,42 @@ public class MissA {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {
+
+            // show task list
             if (userInput.equals("list")) {
-                System.out.println(missA.emptyLine);
-                missA.taskList.forEach(System.out::println);
-                System.out.println(missA.emptyLine);
+                System.out.println(missA.getTasks());
                 userInput = scanner.nextLine();
-            } else {
-                missA.taskList.add(userInput);
+
+            // mark task as done
+            } else if (userInput.startsWith("mark")) {
+                String[] input = userInput.split(" ");
+                int idx = Integer.valueOf(input[1]);
+                missA.markTask(idx - 1);
                 System.out.println(missA.emptyLine
-                        + "added: "
-                        + userInput
-                        + "\n"
+                        + "Great! You have completed this task!\n"
                         + missA.emptyLine);
                 userInput = scanner.nextLine();
+
+            // unmark task
+            } else if (userInput.startsWith("unmark")) {
+                String[] input = userInput.split(" ");
+                int idx = Integer.valueOf(input[1]);
+                missA.unmarkTask(idx - 1);
+                System.out.println(missA.emptyLine
+                        + "Ok, this task is still in progress.\n"
+                        + missA.emptyLine);
+                userInput = scanner.nextLine();
+
+            // add task to task list
+            } else {
+                    Task newTask = new Task(userInput);
+                    missA.taskList.add(newTask);
+                    System.out.println(missA.emptyLine
+                            + "added: "
+                            + userInput
+                            + "\n"
+                            + missA.emptyLine);
+                    userInput = scanner.nextLine();
             }
         }
 
