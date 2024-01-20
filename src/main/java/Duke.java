@@ -5,7 +5,7 @@ public class Duke {
         String logo = "Chucklbot";
         System.out.println("Hello I'm " + logo + "\nWhat can I do for you? \n \nBye! Hope to see you again soon.");
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> store = new ArrayList<>();
+        ArrayList<Task> store = new ArrayList<>();
 
         String byeMessage = "Bye! Hope to see you again soon.";
         while (true) {
@@ -15,6 +15,9 @@ public class Duke {
                 break;
             } else if (curr.equals("list")) {
                 displayTasks(store);
+            } else if (curr.equals("mark")) {
+              int num = sc.nextInt();
+              store.get(num - 1).setStatus();
             } else {
                 addList(store, curr);
             }
@@ -25,14 +28,15 @@ public class Duke {
     }
 
     // if list entered
-    public static void displayTasks(ArrayList<String> store) {
+    public static void displayTasks(ArrayList<Task> store) {
         for (int i = 0; i < store.size(); i++) {
-            System.out.println((i+1) + ". " + store.get(i));
+            System.out.println((i + 1) + ". " + store.get(i));
         }
     }
 
-    public static void addList(ArrayList<String> store, String added) {
-        store.add(added);
+    public static void addList(ArrayList<Task> store, String added) {
+        Task toBeAdded = new Task(added);
+        store.add(toBeAdded);
         System.out.println("added: " + added);
     }
 }
