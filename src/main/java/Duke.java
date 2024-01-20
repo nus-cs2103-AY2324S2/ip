@@ -40,13 +40,22 @@ public class Duke {
                     System.out.println("    ____________________________________________________________");
                 }
             } else if (input.contains("todo")) {
-                String description = input.replace("todo ", "");
-                tasks.add(new Todo(description));
-                System.out.println("    ____________________________________________________________");
-                System.out.println("     Got it. I've added this task:");
-                System.out.println("       " + tasks.get(tasks.size() - 1));
-                System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("    ____________________________________________________________");
+                try {
+                    String description = input.replace("todo", "").trim();
+                    if (description.isEmpty()) {
+                        throw new ArtemisException("OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    tasks.add(new Todo(description));
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + tasks.get(tasks.size() - 1));
+                    System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("    ____________________________________________________________");
+                } catch (ArtemisException e) {
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     " + e.getMessage());
+                    System.out.println("    ____________________________________________________________");
+                }
             } else if (input.contains("deadline")) {
                 String[] tokens = input.split("/by");
                 String description = tokens[0].replace("deadline ", "").trim();
@@ -68,6 +77,10 @@ public class Duke {
                 System.out.println("     Got it. I've added this task:");
                 System.out.println("       " + tasks.get(tasks.size() - 1));
                 System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("    ____________________________________________________________");
+            } else {
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println("    ____________________________________________________________");
             }
         }
