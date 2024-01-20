@@ -1,10 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final List<String> TASKS = new ArrayList<>();
+    private static final TaskList TASKS = new TaskList();
 
     public static void main(String[] args) {
         printBanner();
@@ -18,22 +16,25 @@ public class Duke {
         String input = Duke.SCANNER.nextLine();
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                Duke.print(Duke.getTasks());
+                Duke.print(Duke.TASKS.toString().split("\n"));
+            } else if (input.startsWith("mark ")) {
+                String indexStr = input.substring(5);
+                int index = Integer.parseInt(indexStr);
+                Duke.TASKS.getTask(index).done();
+                String[] messages = {
+                    "Nice! I've marked this task as done:",
+                    Duke.TASKS.getTask(index).toString()
+                };
+                Duke.print(messages);
+            } else if (input.startsWith("unmark ")) {
+                // TODO
             } else {
                 String[] messages = { "added: " + input };
-                Duke.TASKS.add(input);
+                Duke.TASKS.addTask(new Task(input));
                 Duke.print(messages);
             }
             input = Duke.SCANNER.nextLine();
         }
-    }
-
-    private static String[] getTasks() {
-        String[] tasks = new String[Duke.TASKS.size()];
-        for (int i = 0; i < Duke.TASKS.size(); i++) {
-            tasks[i] = (i + 1) + ". " + Duke.TASKS.get(i);
-        }
-        return tasks;
     }
 
     private static void printBanner() {
