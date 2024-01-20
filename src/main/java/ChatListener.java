@@ -12,7 +12,7 @@ public class ChatListener {
         this.sc = new Scanner(System.in);
     }
 
-    public int parseCommand(String task) {
+    public int parseCommand(String task) throws RyanGoslingException {
         String[] taskSplit = task.split(" ");
         if (task.equals("bye")) {
             MessagePrinter.bye();
@@ -23,26 +23,22 @@ public class ChatListener {
             //All items to be 0-index referenced other than user input.
             taskStorage.changeStatusOfItem(taskSplit[0], Integer.parseInt(taskSplit[1])-1);
         } else if (taskSplit[0].equals("todo")) {
-            StringJoiner joinerArray = new StringJoiner(" ");
-            for (int i = 1; i < taskSplit.length; i += 1) {
-                joinerArray.add(taskSplit[i]);
+            //Idea from chatGPT
+            Pattern pattern = Pattern.compile("todo (.*?)");
+            Matcher matcher = pattern.matcher(task);
+            if (matcher.matches()) {
+                taskStorage.add(new Todo(matcher.group(1)));
+            } else {
+                throw new RyanGoslingException("Incomplete todo command, todo <event>");
             }
-            taskStorage.add(new Todo(joinerArray.toString()));
 
         } else if (taskSplit[0].equals("deadline")) {
-            //Idea from chatGPT
             Pattern pattern = Pattern.compile("deadline (.*?) /by (.*?)");
             Matcher matcher = pattern.matcher(task);
-            /*
-            StringJoiner joinerArray = new StringJoiner(" ");
-            String[] tmp = task.split("/by ");
-            String[] leftOfTime = tmp[0].split(" ");
-            for (int i = 1; i < leftOfTime.length; i += 1) {
-                joinerArray.add(leftOfTime[i]);
-            }
-            */
             if (matcher.matches()) {
                 taskStorage.add(new Deadline(matcher.group(1), matcher.group(2)));
+            } else {
+                throw new RyanGoslingException("Incomplete deadline command, deadline <event> /by <time>");
             }
         } else if (taskSplit[0].equals("event")) {
             //System.out.println(task);
@@ -53,10 +49,10 @@ public class ChatListener {
                 System.out.println(matcher.group(3));
                 taskStorage.add(new Events(matcher.group(1), matcher.group(2), matcher.group(3)));
             } else {
-                System.out.println("Invalid event details format");
+                throw new RyanGoslingException("Incomplete event command, event <event> /from <time> /to <time>");
             }
         } else {
-            taskStorage.add(new Task(task));
+            throw new RyanGoslingException("I was created in a few hours so I don't know what that means :(");
         }
         return 0;
     }
@@ -65,9 +61,15 @@ public class ChatListener {
         this.taskStorage = taskStorage;
         while (true) {
             String task = sc.nextLine();
-            int status = this.parseCommand(task);
-            if (status == 1) {
-                return;
+            int status = 0;
+            try {
+                status = this.parseCommand(task);
+            } catch (Exception e){
+                MessagePrinter.errorPrinter(e);
+            } finally {
+                if (status == 1) {
+                    return;
+                }
             }
         }
 

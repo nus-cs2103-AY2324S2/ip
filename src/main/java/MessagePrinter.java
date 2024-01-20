@@ -76,4 +76,10 @@ public class MessagePrinter {
         MessagePrinter.printLine();
     }
 
+    public static void errorPrinter(Exception e) {
+        MessagePrinter.printLine();
+        System.out.println(e.getMessage());
+        MessagePrinter.printLine();
+    }
+
 }
