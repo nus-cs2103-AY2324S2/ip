@@ -1,6 +1,8 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
-//General helper class to help parse and print messages. Not sure how useful it can be... for now, might remove.
+//Delegate printing to this class
 public class MessagePrinter {
     public String message;
     public MessagePrinter(String message) {
@@ -12,7 +14,7 @@ public class MessagePrinter {
     }
 
     //Help check the nature of the message to have more personalised replies
-    public static void personalisedPrint(String message) {
+    public static void personalisedReply(String message) {
         MessagePrinter.printLine();
         HashMap<String, String> responseMap = new HashMap<>();
         responseMap.put("byee", "You meant bye?");
@@ -38,6 +40,21 @@ public class MessagePrinter {
     public static void bye() {
         MessagePrinter.printLine();
         System.out.println("Bye. Hope to see you again soon!");
+        MessagePrinter.printLine();
+    }
+
+    public static void commandPrint(String command) {
+        MessagePrinter.printLine();
+        System.out.println(command);
+        MessagePrinter.printLine();
+    }
+
+    public static void commandListPrint(ArrayList<String> list) {
+        MessagePrinter.printLine();
+        for (int i = 0; i < list.size(); i += 1) {
+            System.out.print(i+1 + ". ");
+            System.out.println(list.get(i));
+        }
         MessagePrinter.printLine();
     }
 

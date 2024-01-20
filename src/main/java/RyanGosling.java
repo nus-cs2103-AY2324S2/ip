@@ -3,13 +3,19 @@ public class RyanGosling {
     public static String chatBotName = "RyanGosling";
 
     public static void chatListener(Scanner sc) {
+        Storage commandStorage = new Storage();
         while (true) {
             String command = sc.nextLine();
             if (command.equals("bye")) {
                 MessagePrinter.bye();
                 return;
             }
-            MessagePrinter.personalisedPrint(command);
+
+            if (command.equals("list")) {
+                commandStorage.printList();
+            } else {
+                commandStorage.add(command);
+            }
         }
 
     }
@@ -19,5 +25,6 @@ public class RyanGosling {
         //We begin listening
         Scanner sc = new Scanner(System.in);
         RyanGosling.chatListener(sc);
+
     }
 }
