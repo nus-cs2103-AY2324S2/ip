@@ -27,7 +27,14 @@ public class Duke {
                 };
                 Duke.print(messages);
             } else if (input.startsWith("unmark ")) {
-                // TODO
+                String indexStr = input.substring(7);
+                int index = Integer.parseInt(indexStr);
+                Duke.TASKS.getTask(index).undone();
+                String[] messages = {
+                    "OK, I've marked this task as not done yet:",
+                    Duke.TASKS.getTask(index).toString()
+                };
+                Duke.print(messages);
             } else {
                 String[] messages = { "added: " + input };
                 Duke.TASKS.addTask(new Task(input));
