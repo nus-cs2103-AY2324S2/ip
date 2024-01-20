@@ -44,14 +44,17 @@ public class Duke {
         String command;
         while (true) {
             command = scanner.nextLine();
-            if (command.equals("bye")) {
-                break;
+            switch (command) {
+                case "list":
+                    Paimon.listTasks();
+                    break;
+                case "bye":
+                    Paimon.bye();
+                    return;
+                default:
+                    Paimon.addTask(command);
             }
-            System.out.println(command);
         }
-
-        Paimon.bye();
-
     }
 
 

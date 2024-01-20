@@ -103,7 +103,8 @@ public class ChatBot {
     }
 
     public void addTask(Task task) {
-        Hthis.tasks.add(task);
+        System.out.println("added: " + task.toString());
+        this.tasks.add(task);
     }
 
     public void addTask(String description) {
