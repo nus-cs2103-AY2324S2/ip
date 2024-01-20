@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
         String message = null;
         Scanner scanner = new Scanner(System.in);
         System.out.println("------------------------------------------");
@@ -10,9 +12,16 @@ public class Duke {
         System.out.println("------------------------------------------");
         while (!Objects.equals(message, "bye")) {
             message = scanner.nextLine();
-            if (!Objects.equals(message, "bye")) {
+            if (!Objects.equals(message, "bye") && !Objects.equals(message, "list")) {
                 System.out.println("------------------------------------------");
-                System.out.println(message);
+                list.add(message);
+                System.out.println("added: " + message);
+                System.out.println("------------------------------------------");
+            } else if (Objects.equals(message, "list")) {
+                System.out.println("------------------------------------------");
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println(i + 1 + ". " + list.get(i));
+                }
                 System.out.println("------------------------------------------");
             }
         }
