@@ -78,6 +78,16 @@ public class Duke {
                 System.out.println("       " + tasks.get(tasks.size() - 1));
                 System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("    ____________________________________________________________");
+            } else if (input.contains("delete")) {
+                String[] token = input.split(" ");
+                int deleteIndex = Integer.parseInt(token[1]) - 1;
+
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     Noted. I've removed this task:");
+                System.out.println("       " + tasks.get(deleteIndex));
+                tasks.remove(deleteIndex);
+                System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("    ____________________________________________________________");
             } else {
                 System.out.println("    ____________________________________________________________");
                 System.out.println("     OOPS!!! I'm sorry, but I don't know what that means :-(");
