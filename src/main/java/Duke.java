@@ -44,6 +44,13 @@ public class Duke {
             ToDo todo = new ToDo(description);
             tasks.add(todo);
             System.out.printf("\tGot it. I've added this task:\n\t  %s\n", todo);
+        } else if (Pattern.matches("deadline\\s\\S.*/by\\s\\S.*", input)) {
+            String[] arr = input.split("\\s/by\\s");
+            String by = arr[1];
+            String description = arr[0].split("\\s", 2)[1];
+            Deadline deadline = new Deadline(description, by);
+            tasks.add(deadline);
+            System.out.printf("\tGot it. I've added this task:\n\t  %s\n", deadline);
         } else {
             System.out.println("Invalid command");
         }
