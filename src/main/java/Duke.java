@@ -1,10 +1,13 @@
 public class Duke {
+    // class variable
+    static String CHATBOT_NAME = "ByteBuddy";
+    static String solidLineBreak = "____________________________________________________________";
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        System.out.println(solidLineBreak);
+        System.out.println("Hello! I'm " + CHATBOT_NAME);
+        System.out.println("What can I do for you?");
+        System.out.println(solidLineBreak);
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(solidLineBreak);
     }
 }
