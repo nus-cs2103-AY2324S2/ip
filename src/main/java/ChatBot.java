@@ -7,6 +7,7 @@ public class ChatBot {
     private List<String> greetings;
     private List<String> farewells;
     private List<String> commands;
+    private List<Task> tasks;
 
     public ChatBot(String name, String icon, List<String> greetings, List<String> farewells, List<String> commands) {
         this.name = name;
@@ -14,6 +15,7 @@ public class ChatBot {
         this.greetings = greetings;
         this.farewells = farewells;
         this.commands = commands;
+        this.tasks = List.<Task>of();
     }
 
     public ChatBot(String name, String icon, List<String> greetings, List<String> farewells) {
@@ -22,6 +24,7 @@ public class ChatBot {
         this.greetings = greetings;
         this.farewells = farewells;
         this.commands = List.<String>of("greet", "bye");
+        this.tasks = List.<Task>of();
     }
 
     public String getName() {
@@ -98,7 +101,21 @@ public class ChatBot {
         }
     }
 
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
 
+    public void listTasks() {
+        int count = 0;
+        for (Task task: this.tasks) {
+            count++;
+            System.out.println(count + ". " + task.toString());
+        }
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
 
     @Override
     public String toString() {
