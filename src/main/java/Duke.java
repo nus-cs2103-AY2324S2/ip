@@ -14,7 +14,8 @@ public class Duke {
     private static void handleInput() {
         String input = Duke.SCANNER.nextLine();
         while (!input.equals("bye")) {
-            Duke.print(input);
+            String[] messages = {input};
+            Duke.print(messages);
             input = Duke.SCANNER.nextLine();
         }
     }
@@ -28,19 +29,21 @@ public class Duke {
         System.out.println(" ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝   ");
     }
 
-    private static void print(String msg) {
+    private static void print(String[] messages) {
         System.out.println("____________________________________________________________");
-        System.out.println(" " + msg);
+        for (String msg : messages) {
+            System.out.println(" " + msg);
+        }
         System.out.println("____________________________________________________________\n");
     }
 
     private static void printGreetings() {
-        String msg = "Hello! I'm Duke\n What can I do for you?";
-        Duke.print(msg);
+        String[] messages = {"Hello! I'm Duke", "What can I do for you?"};
+        Duke.print(messages);
     }
 
     private static void printExit() {
-        String msg = "Bye. Hope to see you again soon!";
-        Duke.print(msg);
+        String[] messages = {"Bye. Hope to see you again soon!"};
+        Duke.print(messages);
     }
 }
