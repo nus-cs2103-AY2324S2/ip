@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -15,7 +16,7 @@ public class ChatBot {
         this.greetings = greetings;
         this.farewells = farewells;
         this.commands = commands;
-        this.tasks = List.<Task>of();
+        this.tasks = new ArrayList<Task>();
     }
 
     public ChatBot(String name, String icon, List<String> greetings, List<String> farewells) {
@@ -24,7 +25,7 @@ public class ChatBot {
         this.greetings = greetings;
         this.farewells = farewells;
         this.commands = List.<String>of("greet", "bye");
-        this.tasks = List.<Task>of();
+        this.tasks = new ArrayList<Task>();
     }
 
     public String getName() {
@@ -102,7 +103,11 @@ public class ChatBot {
     }
 
     public void addTask(Task task) {
-        this.tasks.add(task);
+        Hthis.tasks.add(task);
+    }
+
+    public void addTask(String description) {
+        this.addTask(new Task(description));
     }
 
     public void listTasks() {
