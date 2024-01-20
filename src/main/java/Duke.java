@@ -4,6 +4,8 @@ public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String[] store = new String[100];
+        Boolean[] mark = new Boolean[100];
+        Arrays.fill(mark, false);
         int count = 0;
 
         System.out.println("    ____________________________________________________________");
@@ -18,10 +20,29 @@ public class Duke {
                 break;
             } else if (input.equals("list")) {
                 System.out.println("    ____________________________________________________________");
+                System.out.println("     Here are the tasks in your list:");
                 for (int i = 1; i <= count; ++i) {
-                    System.out.println("     " + i + ". " + store[i - 1]);
+                    String checkedbox = mark[i - 1] ? "[X] " : "[ ] ";
+                    System.out.println("     " + i + "." + checkedbox + store[i - 1]);
                 }
                 System.out.println("    ____________________________________________________________");
+            } else if (input.contains("mark")) {
+                String[] token = input.split(" ");
+                int markIndex = Integer.parseInt(token[1]) - 1;
+
+                if (token[0].equals("mark")) {
+                    mark[markIndex] = true;
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Nice! I've marked this task as done:");
+                    System.out.println("       [X] " + store[markIndex]);
+                    System.out.println("    ____________________________________________________________");
+                } else if (token[0].equals("unmark")) {
+                    mark[markIndex] = false;
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     OK, I've marked this task as not done yet:");
+                    System.out.println("       [ ] " + store[markIndex]);
+                    System.out.println("    ____________________________________________________________");
+                }
             } else {
                 System.out.println("    ____________________________________________________________");
                 System.out.println("     added: " + input);
