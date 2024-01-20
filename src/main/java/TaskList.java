@@ -26,6 +26,12 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    /**
+     * Returns true if the specified index is valid.
+     *
+     * @param index 1-based index to check.
+     * @return true if the specified index is valid.
+     */
     public boolean validIndex(int index) {
         return index >= 1 && index <= this.tasks.size();
     }
