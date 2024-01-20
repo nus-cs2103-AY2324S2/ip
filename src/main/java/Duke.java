@@ -27,21 +27,9 @@ public class Duke {
     }};
 
     private static ArrayList<Task> tasks;
-
-    private static class Task {
-        private String task;
-        private boolean completed;
-        private enum Types {
-            T,
-            D,
-            E
-        }
-
-        private Types type;
-
-        private Date deadline;
-        private Date from;
-        private Date to;
+    private static abstract class Task {
+        protected String task;
+        protected boolean completed;
 
         public void setCompleted(boolean completed) {
             this.completed = completed;
@@ -54,28 +42,83 @@ public class Duke {
         public Task(String task) {
             this.task = task;
             this.completed = false;
-            this.type = Types.T;
         }
 
-        public Task(String task, Date deadline) {
-            this(task);
-            this.type = Types.D;
+        public abstract String getType();
+
+        public abstract String getAdditionalInfo();
+
+        public abstract String toString();
+    }
+
+    private static class Todo extends Task {
+        public Todo(String task) {
+            super(task);
+        }
+
+        @Override
+        public String getType() {
+            return "[T]";
+        }
+
+        @Override
+        public String getAdditionalInfo() {
+            return "";
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s[%s]: %s", getType(), completedIcon(), task);
+        }
+    }
+
+    private static class Deadline extends Task {
+        private Date deadline;
+
+        public Deadline(String task, Date deadline) {
+            super(task);
             this.deadline = deadline;
         }
 
-        public Task(String task, Date from, Date to) {
-            this(task);
-            this.type = Types.E;
+        @Override
+        public String getType() {
+            return "[D]";
+        }
+
+        @Override
+        public String getAdditionalInfo() {
+            return String.format(MESSAGES.get("DEADLINE_TO_STRING"), deadline);
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s[%s]: %s%s", getType(), completedIcon(), task, getAdditionalInfo());
+        }
+    }
+
+    private static class Event extends Task {
+        private Date from;
+        private Date to;
+
+        public Event(String task, Date from, Date to) {
+            super(task);
             this.from = from;
             this.to = to;
         }
 
+        @Override
+        public String getType() {
+            return "[E]";
+        }
+
+        @Override
+        public String getAdditionalInfo() {
+            return String.format(MESSAGES.get("EVENT_TO_STRING"), from, to);
+        }
+
+        @Override
         public String toString() {
-            String base = String.format("[%s][%s]: %s", this.type, this.completedIcon(), this.task);
-            String add = this.type == Types.D
-                    ? String.format(MESSAGES.get("DEADLINE_TO_STRING"), this.deadline)
-                    : String.format(MESSAGES.get("EVENT_TO_STRING"), this.from, this.to);
-            return this.type == Types.T ? base : base + add;
+            return String.format("%s[%s]: %s%s", getType(), completedIcon(), task, getAdditionalInfo());
         }
     }
 
@@ -123,7 +166,7 @@ public class Duke {
     }
 
     private static void todo(String message) {
-        Task t = new Task(message);
+        Task t = new Todo(message);
         tasks.add(t);
         echo(String.format(MESSAGES.get("TODO"), t));
     }
@@ -132,7 +175,7 @@ public class Duke {
         String[] params = message.split(REGEX.get("DEADLINE"));
         String task = params[0];
         Date date = new Date(params[1]);
-        Task t = new Task(task, date);
+        Task t = new Deadline(task, date);
         tasks.add(t);
         echo(String.format(MESSAGES.get("DEADLINE"), t));
     }
@@ -143,7 +186,7 @@ public class Duke {
         String[] dates = params[1].split(REGEX.get("EVENT_TO"));
         Date from = new Date(dates[0]);
         Date to = new Date(dates[1]);
-        Task t = new Task(task, from, to);
+        Task t = new Event(task, from, to);
         tasks.add(t);
         echo(String.format(MESSAGES.get("EVENT"),  t));
     }
