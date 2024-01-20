@@ -118,7 +118,7 @@ public class Duke {
 
     boolean success = taskManager.unmarkTaskAsDone(taskIndex);
     if (!success) {
-      printIndentedln("Task is already not done!");
+      printIndentedln("Task is not done yet!");
       return;
     }
 
