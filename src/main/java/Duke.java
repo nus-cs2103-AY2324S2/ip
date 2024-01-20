@@ -1,3 +1,4 @@
+import java.lang.reflect.Type;
 import java.util.*;
 
 
@@ -15,6 +16,8 @@ public class Duke {
         put("MARK_COMPLETE", "That was slow, but at least you completed: \n %s");
         put("MARK_INCOMPLETE", "Can't make up your mind? \n %s");
         put("MARK_NOT_FOUND", "I can't find the task, dummy human!");
+        put("DEADLINE_TO_STRING", " (by: %s)");
+        put("EVENT_TO_STRING", " (from: %s to %s)");
     }};
 
     private static final Map<String, String> REGEX = new HashMap<>() {{
@@ -34,7 +37,7 @@ public class Duke {
             E
         }
 
-        public Types type;
+        private Types type;
 
         private Date deadline;
         private Date from;
@@ -51,26 +54,28 @@ public class Duke {
         public Task(String task) {
             this.task = task;
             this.completed = false;
-        }
-
-
-        public Task(String task, Types type) {
-            this(task);
             this.type = Types.T;
         }
 
         public Task(String task, Date deadline) {
             this(task);
             this.type = Types.D;
+            this.deadline = deadline;
         }
 
         public Task(String task, Date from, Date to) {
             this(task);
             this.type = Types.E;
+            this.from = from;
+            this.to = to;
         }
 
         public String toString() {
-            return String.format("[%s][%s]: %s%n", this.type, this.completedIcon(), this.task);
+            String base = String.format("[%s][%s]: %s", this.type, this.completedIcon(), this.task);
+            String add = this.type == Types.D
+                    ? String.format(MESSAGES.get("DEADLINE_TO_STRING"), this.deadline)
+                    : String.format(MESSAGES.get("EVENT_TO_STRING"), this.from, this.to);
+            return this.type == Types.T ? base : base + add;
         }
     }
 
@@ -94,16 +99,11 @@ public class Duke {
         tasks = new ArrayList<>();
     }
 
-    private static void add(String task) {
-        tasks.add(new Task(task));
-        echo(String.format(MESSAGES.get("ADD"), task));
-    }
-
     private static void list() {
         echo(MESSAGES.get("LIST"));
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
-            System.out.printf("%d: %s", i + 1, currTask);
+            System.out.printf("%d: %s%n", i + 1, currTask);
         }
     }
 
@@ -123,7 +123,7 @@ public class Duke {
     }
 
     private static void todo(String message) {
-        Task t = new Task(message, Task.Types.T);
+        Task t = new Task(message);
         tasks.add(t);
         echo(String.format(MESSAGES.get("TODO"), t));
     }
