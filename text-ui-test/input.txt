@@ -21,4 +21,13 @@ unmark
 unmark a
 unmark 9999999
 todo
+deadline
+deadline a
+deadline a /by
+event
+event a
+event a /from /to
+event a /from 2pm /to
+event a /from /to 4pm
+event a /from  /to 4pm
 bye

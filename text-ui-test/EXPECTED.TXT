@@ -135,6 +135,42 @@
     ____________________________________________________________
 
     ____________________________________________________________
+     Please enter the task description and /by [Date Time].
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Please specify the due date of the deadline task using /by [Date Time].
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Please specify the due date of the deadline task using /by [Date Time].
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Please enter the task description and /from [Date Time] /to [Date Time].
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Please specify the start and end date of the event task using /from [Date Time] /to [Date Time].
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Please specify the start and end date of the event task using /from [Date Time] /to [Date Time].
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Please specify the start and end date of the event task using /from [Date Time] /to [Date Time].
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Please specify the start and end date of the event task using /from [Date Time] /to [Date Time].
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Please specify the start and end date of the event task using /from [Date Time] /to [Date Time].
+    ____________________________________________________________
+
+    ____________________________________________________________
      Bye. Hope to see you again soon!
     ____________________________________________________________
 
