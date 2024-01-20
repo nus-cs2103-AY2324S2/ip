@@ -1,6 +1,6 @@
 import java.util.Scanner; // For reading user input
 import java.util.ArrayList; // For storing to-do tasks
-public class Duke {
+public class Nollid {
     private static ArrayList<Task> todoList = new ArrayList<>(100);
     public static void main(String[] args) {
         sendWelcomeMessage();
@@ -162,19 +162,11 @@ public class Duke {
      * @param message The message for the bot to send.
      */
     public static void botSays(String message) {
-        // Change message colour to cyan
-        // https://www.w3docs.com/snippets/java/how-to-print-color-in-console-using-system-out-println.html
-        System.out.print("\u001B[36m");
-
         // Length of line to be printed.
         int lineLength = 30;
 
         printHorizontalLine(lineLength);
         System.out.println(message);
         printHorizontalLine(lineLength);
-
-        // Change message colour back to white
-        // https://www.w3docs.com/snippets/java/how-to-print-color-in-console-using-system-out-println.html
-        System.out.print("\u001B[37m");
     }
 }
