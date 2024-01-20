@@ -31,6 +31,16 @@ public class Duke {
                     continue;
                 }
                 String[] splitedInput = input.split(" ");
+                if (splitedInput[0].equals("delete")) {
+                    validateTaskOperation(input, 6, tasks);
+                    int taskNumber = Integer.parseInt(splitedInput[1]);
+                    Task removedTask = tasks.get(taskNumber - 1);
+                    tasks.remove(taskNumber - 1);
+                    System.out.println("Noted. I've removed this task:\n" +
+                            " " + removedTask + "\n" +
+                            "Now you have " + tasks.size() + " tasks in the list");
+                    continue;
+                }
                 if (splitedInput[0].equals("mark")) {
                     validateTaskOperation(input, 4, tasks);
                     int taskNumber = Integer.parseInt(splitedInput[1]);
@@ -143,9 +153,10 @@ public class Duke {
                     "Bro, please specify your task description for event.\n"
                             + example);
         }
-        if(splitInput.length < 3) {
-            throw new InvalidtKeyWordException("Bro, it seems that you have entered the command in wrong format.\n" +
-                    example);
+        if (splitInput.length < 3) {
+            throw new InvalidtKeyWordException(
+                    "Bro, it seems that you have entered the command in wrong format.\n" +
+                            example);
         }
         if (!splitInput[1].split(" ")[0].equals("from") || !splitInput[2].split(
                 " ")[0].equals("to")) {

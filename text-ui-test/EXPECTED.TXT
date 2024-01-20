@@ -4,9 +4,13 @@ Bro, it seems that you have entered the wrong command. You can enter one of the 
 1. list
 2. mark
 3. unmark
-4. todo
-5. event
-6. deadline
+4. delete
+5. todo
+6. event
+7. deadline
+Bro, please select a task
+Bro, the task number you input does not exist
+Bro, please do the operation one by one
 Bro, please select a task
 Bro, the task number you input does not exist
 Bro, please do the operation one by one
@@ -58,4 +62,7 @@ Here are the tasks in your list:
 1.[T][ ] SU All Courses
 2.[D][ ] Eat (by: 9pm)
 3.[E][ ] Exams (from: 9am to: 9pm)
+Noted. I've removed this task:
+ [T][ ] SU All Courses
+Now you have 2 tasks in the list
 Bye. Hope to see you again soon!

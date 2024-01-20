@@ -5,6 +5,9 @@ mark 1 2
 unmark
 unmark 1
 unmark 1 2
+delete
+delete 1
+delete 1 2
 todo
 deadline
 deadline hello
@@ -23,4 +26,5 @@ mark 1
 list
 unmark 1
 list
+delete 1
 bye

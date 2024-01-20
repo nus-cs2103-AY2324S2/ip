@@ -5,9 +5,10 @@ public class InvalidCommandException extends DukeException{
                  + "1. list\n"
                  + "2. mark\n"
                  + "3. unmark\n"
-                 + "4. todo\n"
-                 + "5. event\n"
-                 + "6. deadline");
+                 + "4. delete\n"
+                 + "5. todo\n"
+                 + "6. event\n"
+                 + "7. deadline");
 
     }
 }
