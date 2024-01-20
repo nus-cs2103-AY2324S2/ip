@@ -18,7 +18,8 @@ public class Ui {
     }
 
     public static String exit() {
-        return " Bye. Hope to see you again soon!\n" +
+        return "____________________________________________________________\n" +
+               " Bye. Hope to see you again soon!\n" +
                "____________________________________________________________\n";
     }
 }
