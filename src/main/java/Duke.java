@@ -120,7 +120,6 @@ public class Duke {
     }
 
     private static void printExit() {
-        String[] messages = {"Bye. Hope to see you again soon!"};
-        print(messages);
+        print("Bye. Hope to see you again soon!");
     }
 }
