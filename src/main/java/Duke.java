@@ -84,7 +84,11 @@ public class Duke {
                 throw new DukeException("Please enter a valid number.");
             }
         } else if (input.startsWith(TODO_COMMAND)) {
-            Task task = new Todo(input);
+            if (input.length() < TODO_COMMAND.length() + 2) {
+                throw new DukeException("Please enter the task description.");
+            }
+            String description = input.substring(TODO_COMMAND.length() + 1);
+            Task task = new Todo(description);
             TASKS.addTask(task);
             printAddedTask(task);
         } else if (input.startsWith(DEADLINE_COMMAND)) {
