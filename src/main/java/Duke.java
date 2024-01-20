@@ -1,7 +1,8 @@
 import java.util.List;
+import java.util.Scanner;
 
 public class Duke {
-    private static ChatBot createPaimonBot() {
+    private static ChatBot createPaimonChatBot() {
         String logo = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⣴⣦⡀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"+
                 "⠀⠀⠀⠀⠀⢠⡄⠀⢿⠀⠘⠃⠀⢼⡏⢸⡷⠀⠘⠃⠀⡿⠀⢠⡄⠀⠀⠀⠀⠀\n"+
                 "⠀⠀⠀⢲⣆⠀⠋⠀⣠⡴⠶⠖⠛⠛⠛⠛⠛⠛⠳⠶⢦⣤⡀⠘⠁⢠⡶⠀⠀⠀\n"+
@@ -37,9 +38,20 @@ public class Duke {
         return new ChatBot(botName, logo, greetings, farewells);
     }
     public static void main(String[] args) {
-        ChatBot Paimon = createPaimonBot();
+        ChatBot Paimon = createPaimonChatBot();
         Paimon.greet();
+        Scanner scanner = new Scanner(System.in);
+        String command;
+        while (true) {
+            command = scanner.nextLine();
+            if (command.equals("bye")) {
+                break;
+            }
+            System.out.println(command);
+        }
+
         Paimon.bye();
+
     }
 
 
