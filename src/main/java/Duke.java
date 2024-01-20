@@ -9,6 +9,8 @@ public class Duke {
     private static final Pattern EVENT_PATTERN = Pattern.compile("/from (.*) /to (.*)");
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String INDENT = "    ";
+    private static final String LIST_COMMAND = "list";
+    private static final String EXIT_COMMAND = "bye";
     private static final String MARK_PREFIX = "mark ";
     private static final String UNMARK_PREFIX = "unmark ";
     private static final String TODO_PREFIX = "todo ";
@@ -25,8 +27,8 @@ public class Duke {
 
     private static void handleInput() {
         String input = Duke.SCANNER.nextLine();
-        while (!input.equals("bye")) {
-            if (input.equals("list")) {
+        while (!input.equals(EXIT_COMMAND)) {
+            if (input.equals(LIST_COMMAND)) {
                 Duke.print(Duke.TASKS.toString().split("\n"));
             } else if (input.startsWith(MARK_PREFIX)) {
                 String indexStr = input.substring(5);
