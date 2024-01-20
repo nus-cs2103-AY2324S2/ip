@@ -37,6 +37,9 @@ public class Duke {
 
                 } else if (input.equals("list")) {
                     list(taskList);
+                } else if (firstWord.equals("delete")) {
+                    int no = Integer.parseInt(trail);
+                    delete(taskList, no);
 
                 } else if (firstWord.equals("mark")) {
                     int no = Integer.parseInt(trail);
@@ -159,7 +162,6 @@ public class Duke {
                 + "\t____________________________________________________________\n";
 
         System.out.println(text);
-
     }
 
     public static void unmark(List<Task> list, int num) {
@@ -187,5 +189,18 @@ public class Duke {
 
         System.out.println(text);
     }
+
+    public static void delete(List<Task> list, int num) {
+        Task curr = list.get(num - 1);
+        list.remove(curr);
+
+        String text = "\t____________________________________________________________\n"
+                + "\tOK, I've marked this task as not done yet:\n"
+                + "\t  " + curr.toString() + "\n"
+                + "\t____________________________________________________________\n";
+
+        System.out.println(text);
+    }
 }
+
 
