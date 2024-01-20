@@ -1,54 +1,64 @@
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
+    private static void printWithLines(String... messages) {
+        System.out.println("------------------------------------------");
+        for (String message : messages) {
+            System.out.println(message);
+        }
+        System.out.println("------------------------------------------");
+    }
+
     public static void main(String[] args) {
         ArrayList<Task> list = new ArrayList<>();
-        String message = null;
+        String message;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("------------------------------------------");
-        System.out.println("Hello! I'm Bob!");
-        System.out.println("What can I do for you?");
-        System.out.println("------------------------------------------");
-        while (true) {
-           message = scanner.nextLine();
-            if (message.equals("bye")) {
-                break;
-            } else if (message.startsWith("add ")) {
-                String description = message.substring(4);
+        printWithLines("Hello! I'm Bob!", "What can I do for you?");
+        do {
+            message = scanner.nextLine();
+            if (message.startsWith("todo ")) {
+                String description = message.substring(5);
                 Task task = new Task(description);
                 list.add(task);
-                System.out.println("------------------------------------------");
-                System.out.println("added: " + task.getDescription());
-                System.out.println("------------------------------------------");
-            } else if (Objects.equals(message, "list")) {
-                System.out.println("------------------------------------------");
-                System.out.println("Here are the tasks in your list:");
+                printWithLines("Got it. I've added this task:", task.toString(),
+                        "Now you have " + list.size() + " tasks in the list.");
+            } else if (message.startsWith("deadline ")) {
+                String[] parts = message.split("/by", 2);
+                String description = parts[0].substring(9);
+                String by = parts[1].trim();
+                Deadline task = new Deadline(description, by);
+                list.add(task);
+                printWithLines("Got it. I've added this task:", task.toString(),
+                        "Now you have " + list.size() + " tasks in the list.");
+            } else if (message.startsWith("event ")) {
+                String[] parts = message.split(" /from ", 2);
+                String description = parts[0].substring(6);
+                String[] timeParts = parts[1].split(" /to ", 2);
+                String fromTime = timeParts[0].trim();
+                String toTime = timeParts[1].trim();
+                Event task = new Event(description, fromTime, toTime);
+                list.add(task);
+                printWithLines("Got it. I've added this task:", task.toString(),
+                        "Now you have " + list.size() + " tasks in the list.");
+            } else if (message.equals("list")) {
+                ArrayList<String> taskDescriptions = new ArrayList<>();
+                taskDescriptions.add("Here are the tasks in your list:");
                 for (int i = 0; i < list.size(); i++) {
-                    Task task = list.get(i);
-                    System.out.println((i + 1) + ". " + (task.toString()));
+                    taskDescriptions.add((i + 1) + ". " + list.get(i).toString());
                 }
-                System.out.println("------------------------------------------");
+                printWithLines(taskDescriptions.toArray(new String[0]));
             } else if (message.startsWith("mark ")) {
                 int index = Integer.parseInt(message.substring(5)) - 1;
                 Task task = list.get(index);
                 task.markAsDone();
-                System.out.println("------------------------------------------");
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(task.getDescription());
-                System.out.println("------------------------------------------");
+                printWithLines("Nice! I've marked this task as done:", task.toString());
             } else if (message.startsWith("unmark ")) {
                 int index = Integer.parseInt(message.substring(7)) - 1;
                 Task task = list.get(index);
                 task.unMarkAsDone();
-                System.out.println("------------------------------------------");
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(task.getDescription());
-                System.out.println("------------------------------------------");
+                printWithLines("OK, I've marked this task as not done yet:", task.toString());
             }
-        }
-        System.out.println("------------------------------------------");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("------------------------------------------");
+        } while (!message.equals("bye"));
+        printWithLines("Bye. Hope to see you again soon!");
     }
 }
