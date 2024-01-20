@@ -54,11 +54,11 @@ public class Duke {
     }
 
     private static void print(String[] messages) {
-        System.out.println("____________________________________________________________");
+        System.out.println("    ____________________________________________________________");
         for (String msg : messages) {
-            System.out.println(" " + msg);
+            System.out.println("     " + msg);
         }
-        System.out.println("____________________________________________________________\n");
+        System.out.println("    ____________________________________________________________\n");
     }
 
     private static void printGreetings() {
