@@ -1,5 +1,9 @@
 public class Duke {
-    private static String name = "The Cat that Lives in your Walls";
+    private static void cat() {
+        System.out.println(" |\\ /|");
+        System.out.println("=(O O)=");
+        System.out.println(" /   \\");
+    }
 
     private static void line() {
         for (int i = 0; i < 72; i++) {
@@ -9,15 +13,17 @@ public class Duke {
     }
 
     private static void hello() {
-        line();
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
+        cat();
+        System.out.println("Hello! I'm the cat that lives in your walls.");
+        System.out.println("What do you need?");
         line();
     }
 
     private static void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
         line();
+        System.out.println("*The cat recedes into the wall with a bored look on its face*");
+        line();
+    }
     }
 
     public static void main(String[] args) {
