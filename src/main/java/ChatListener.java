@@ -14,15 +14,16 @@ public class ChatListener {
 
     public int parseCommand(String task) throws RyanGoslingException {
         String[] taskSplit = task.split(" ");
-        if (task.equals("bye")) {
+        if (task.equals(String.valueOf(CommandsEnum.bye))) {
             MessagePrinter.bye();
             return 1;
         } else if (task.equals("list")) {
             taskStorage.printList();
-        } else if (taskSplit[0].equals("mark") || taskSplit[0].equals("unmark")) {
+        } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.mark))
+                || taskSplit[0].equals(String.valueOf(CommandsEnum.unmark))) {
             //All items to be 0-index referenced other than user input.
             taskStorage.changeStatusOfItem(taskSplit[0], Integer.parseInt(taskSplit[1])-1);
-        } else if (taskSplit[0].equals("todo")) {
+        } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.todo))) {
             //Idea from chatGPT
             Pattern pattern = Pattern.compile("todo (.*?)");
             Matcher matcher = pattern.matcher(task);
@@ -32,7 +33,7 @@ public class ChatListener {
                 throw new RyanGoslingException("Incomplete todo command, todo <event>");
             }
 
-        } else if (taskSplit[0].equals("deadline")) {
+        } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.deadline))) {
             Pattern pattern = Pattern.compile("deadline (.*?) /by (.*?)");
             Matcher matcher = pattern.matcher(task);
             if (matcher.matches()) {
@@ -40,7 +41,7 @@ public class ChatListener {
             } else {
                 throw new RyanGoslingException("Incomplete deadline command, deadline <event> /by <time>");
             }
-        } else if (taskSplit[0].equals("event")) {
+        } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.event))) {
             //System.out.println(task);
             Pattern pattern = Pattern.compile("event (.*?) /from (.*?) /to (.*?)");
             Matcher matcher = pattern.matcher(task);
@@ -51,7 +52,7 @@ public class ChatListener {
             } else {
                 throw new RyanGoslingException("Incomplete event command, event <event> /from <time> /to <time>");
             }
-        } else if (taskSplit[0].equals("delete")) {
+        } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.delete))) {
             taskStorage.removeIndex(Integer.parseInt(taskSplit[1])-1);
         }
         else {
@@ -75,6 +76,5 @@ public class ChatListener {
                 }
             }
         }
-
     }
 }
