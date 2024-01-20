@@ -158,3 +158,25 @@ class UnmarkAsDoneCommand extends Command {
         ui.printMessages(messages);
     }
 }
+
+class DeleteTaskCommand extends Command {
+    private int index;
+    private TaskList taskList;
+
+    public DeleteTaskCommand(int index, TaskList taskList) {
+        this.index = index;
+        this.taskList = taskList;
+    }
+
+    @Override
+    public void execute(UI ui) {
+        Task task = this.taskList.getTask(index);
+        this.taskList.deleteTask(index);
+        ArrayList<String> messages = new ArrayList<String>(
+                Arrays.asList("Noted. I've removed this task:", "  "
+                        + task.toString(),
+                        String.format("Now you have %d tasks in the list.",
+                                this.taskList.getSize())));
+        ui.printMessages(messages);
+    }
+}
