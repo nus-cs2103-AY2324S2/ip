@@ -1,0 +1,6 @@
+event conference /from Wednesday 2pm /to 4pm
+todo prepare presentation
+list
+deadline file report /by next Monday
+list
+bye

@@ -6,11 +6,14 @@ then
     mkdir ../bin
 fi
 
-# delete output from previous run
-if [ -e "./ACTUAL.TXT" ]
-then
-    rm ACTUAL.TXT
+# Remove any existing test files
+if [ -e "./out" ]; then
+    # If it exists, delete it
+    rm -rf "./out"
 fi
+
+# Create ./actual
+mkdir "./out"
 
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
@@ -19,20 +22,26 @@ then
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+failure_count=0
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+run_test() {
+    "$@"
+    if [ $? -ne 0 ]; then
+        echo "Test failed: $@"
+        failure_count=$((failure_count + 1))
+    fi
+}
 
-# compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
-then
-    echo "Test result: PASSED"
-    exit 0
-else
-    echo "Test result: FAILED"
+# Run various tests
+run_test ./test_welcome_exit.sh
+run_test ./test_add_task.sh
+run_test ./test_list.sh
+run_test ./test_mark.sh
+
+if [ $failure_count -ne 0 ]; then
+    echo "Number of tests failed: $failure_count"
     exit 1
+else
+    echo "All tests passed"
+    exit 0
 fi
