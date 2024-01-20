@@ -22,6 +22,10 @@ public class TaskList {
         return this.tasks.get(index - 1);
     }
 
+    public int size() {
+        return this.tasks.size();
+    }
+
     public boolean validIndex(int index) {
         return index >= 1 && index <= this.tasks.size();
     }
