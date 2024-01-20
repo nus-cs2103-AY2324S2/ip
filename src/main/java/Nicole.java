@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.*;
 
 public class Nicole {
-    private static final String botName = "Nicole";
-    private static final List<String> taskList = new ArrayList<>();
+    public static final String botName = "Nicole";
+    public static final List<Task> taskList = new ArrayList<>();
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     private static String greet() {
@@ -15,9 +15,9 @@ public class Nicole {
         String salutation = "Good ";
         int currentHour = Integer.parseInt(parseHour.format(now));
         if (currentHour < 12 && currentHour >= 5) {
-            salutation += "morning!";
+            salutation += "morns :D";
         } else if (currentHour >= 12 && currentHour <= 5) {
-            salutation += "afternoon!";
+            salutation += "afternoon zzz";
         } else {
             salutation += "evening!";
         }
@@ -27,19 +27,12 @@ public class Nicole {
                 ": " + salutation + " What's our objective for today?";
     }
 
-    private static String addTask() throws IOException {
-        String task = br.readLine();
-        while (!task.equals("bye")) {
-            if (!task.equals("list")) {
-                Nicole.taskList.add(task);
-                System.out.println("Oki I added " + "\"" + task + "\"");
-            } else {
-                System.out.println("Your tasks are: ");
-                for (int i = 0; i < taskList.size(); i++) {
-                    System.out.println((i + 1) + ": " + taskList.get(i));
-                }
-            }
-            task = br.readLine();
+    private static String talkToUser() throws IOException {
+        String request = br.readLine();
+        while (!request.equals("bye")) {
+            Request newRequest  = new Request(request);
+            newRequest.handleRequest();
+            request = br.readLine();
         }
         return Nicole.exit();
     }
@@ -60,9 +53,9 @@ public class Nicole {
     public static void main(String[] args) {
         System.out.println(Nicole.greet());
         try {
-            System.out.println(Nicole.addTask());
+            System.out.println(Nicole.talkToUser());
         } catch (IOException ioException) {
-            System.out.println("Error reading request.");
+            System.out.println("Error reading request: " + ioException);
         }
     }
 }
