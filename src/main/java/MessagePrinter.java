@@ -49,7 +49,7 @@ public class MessagePrinter {
         MessagePrinter.printLine();
     }
 
-    public static void commandListPrint(ArrayList<String> list) {
+    public static void commandListPrint(ArrayList<Task> list) {
         MessagePrinter.printLine();
         for (int i = 0; i < list.size(); i += 1) {
             System.out.print(i+1 + ". ");
@@ -58,9 +58,16 @@ public class MessagePrinter {
         MessagePrinter.printLine();
     }
 
+    public static void markActionPrint(String action, Task task) {
+        MessagePrinter.printLine();
+        if (action.equals("mark")) {
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        System.out.println(task);
+        MessagePrinter.printLine();
 
-
-
-
+    }
 
 }
