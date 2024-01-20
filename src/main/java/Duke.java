@@ -51,7 +51,7 @@ public class Duke {
             } else if (input.startsWith(TODO_PREFIX)) {
                 Task task = new Todo(input);
                 TASKS.addTask(task);
-                printTaskAdded(task);
+                printAddedTask(task);
             } else if (input.startsWith(DEADLINE_PREFIX)) {
                 Matcher matcher = DUE_PATTERN.matcher(input);
                 if (matcher.find()) {
@@ -59,9 +59,9 @@ public class Duke {
                     String due = matcher.group(1);
                     Task task = new Deadline(description, due);
                     TASKS.addTask(task);
-                    printTaskAdded(task);
+                    printAddedTask(task);
                 } else {
-                    print("Please specify the due date of the deadline task using /by [DateTime].")
+                    print("Please specify the due date of the deadline task using /by [DateTime].");
                 }
             } else if (input.startsWith(EVENT_PREFIX)) {
                 Matcher matcher = EVENT_PATTERN.matcher(input);
@@ -71,9 +71,9 @@ public class Duke {
                     String to = matcher.group(2);
                     Task task = new Event(description, from, to);
                     TASKS.addTask(task);
-                    printTaskAdded(task);
+                    printAddedTask(task);
                 } else {
-                    print("Please specify the start and end date of the event task using /from [DateTime] /to [DateTime].")
+                    print("Please specify the start and end date of the event task using /from [DateTime] /to [DateTime].");
                 }
             } else {
                 print("Sorry I can't help with that :(");
@@ -102,7 +102,7 @@ public class Duke {
 
     private static void print(String message) {
         System.out.println(INDENT + HORIZONTAL_LINE);
-        System.out.println(INDENT + " " + msg);
+        System.out.println(INDENT + " " + message);
         System.out.println(INDENT + HORIZONTAL_LINE + "\n");
     }
 
