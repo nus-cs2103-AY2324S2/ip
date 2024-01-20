@@ -27,11 +27,13 @@ public class Duke {
         put("NOT_ENOUGH_DATES_EXCEPTION",
                 "You need a name for the task and a total of %d date(s) for a %s task!\nUsage: %s");
         put("DUPLICATE_TASK_NAME_EXCEPTION", "There already exists a task with the name %s!");
+        put("INTEGER_NEEDED_EXCEPTION", "Your input should be an integer!\nUsage: %s");
 
         put("TODO_CORRECT_USAGE", "todo [task]");
         put("ECHO_CORRECT_USAGE", "echo [message]");
         put("EVENT_CORRECT_USAGE", "event [task] /from [date] /to [date]");
         put("DEADLINE_CORRECT_USAGE", "deadline [task] /by [date]");
+        put("DELETE_CORRECT_USAGE", "delete [index]");
     }};
 
     private static final Map<String, String> REGEX = new HashMap<>() {{
@@ -190,6 +192,12 @@ public class Duke {
         }
     }
 
+    private static class IntegerNeededException extends IncorrectInputException {
+        public IntegerNeededException(String message) {
+            super(message);
+        }
+    }
+
     private static class Date {
         private String date;
         private String formattedDate;
@@ -327,6 +335,18 @@ public class Duke {
         }
     }
 
+    private static void delete(String input) throws IntegerNeededException {
+        int index = -1;
+        try {
+            index = Integer.parseInt(input) - 1;
+        } catch (Exception e) {
+            throw new IntegerNeededException(
+                    String.format(MESSAGES.get("INTEGER_NEEDED_EXCEPTION"), MESSAGES.get("DELETE_CORRECT_USAGE")));
+        }
+
+
+    }
+
     private static boolean parseInput(boolean loop, String input) throws DukeException {
         System.out.println(LINE_BREAK);
         String[] messages = input.split(" ", 2);
@@ -358,6 +378,9 @@ public class Duke {
                     break;
                 case ("event"):
                     event(input);
+                    break;
+                case ("delete"):
+                    delete(input);
                     break;
                 default:
                     throw new IncorrectInputException(MESSAGES.get("INCORRECT_INPUT_EXCEPTION"));
