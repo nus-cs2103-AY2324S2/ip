@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
     private static final Scanner SCANNER = new Scanner(System.in);
+    private static final List<String> TASKS = new ArrayList<>();
 
     public static void main(String[] args) {
         printBanner();
@@ -14,10 +17,23 @@ public class Duke {
     private static void handleInput() {
         String input = Duke.SCANNER.nextLine();
         while (!input.equals("bye")) {
-            String[] messages = {input};
-            Duke.print(messages);
+            if (input.equals("list")) {
+                Duke.print(Duke.getTasks());
+            } else {
+                String[] messages = { "added: " + input };
+                Duke.TASKS.add(input);
+                Duke.print(messages);
+            }
             input = Duke.SCANNER.nextLine();
         }
+    }
+
+    private static String[] getTasks() {
+        String[] tasks = new String[Duke.TASKS.size()];
+        for (int i = 0; i < Duke.TASKS.size(); i++) {
+            tasks[i] = (i + 1) + ". " + Duke.TASKS.get(i);
+        }
+        return tasks;
     }
 
     private static void printBanner() {
