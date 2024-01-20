@@ -1,8 +1,10 @@
+import java.util.Scanner;
+
 public class Duke {
     private static void cat() {
-        System.out.println(" |\\ /|");
+        System.out.println(" |\\ /| ");
         System.out.println("=(O O)=");
-        System.out.println(" /   \\");
+        System.out.println(" /   \\ ");
     }
 
     private static void line() {
@@ -24,10 +26,21 @@ public class Duke {
         System.out.println("*The cat recedes into the wall with a bored look on its face*");
         line();
     }
+
+    public static void repl() {
+        Scanner sc = new Scanner(System.in);
+
+        String input;
+        while (sc.hasNextLine() && !(input = sc.nextLine()).equals("bye")) {
+            line();
+            System.out.println(input);
+            line();
+        }
     }
 
     public static void main(String[] args) {
         hello();
+        repl();
         bye();
     }
 }
