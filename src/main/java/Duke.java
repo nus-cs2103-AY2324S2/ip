@@ -21,19 +21,40 @@ public class Duke {
         while (true){
             // Take user input
             input = scanner.nextLine();  // Read user input
+            int space = input.indexOf(" ");
+            if (space == -1) {space = input.length()-1;}
+            String firstWord = input.substring(0, space);
+            String trail = input.substring(input.indexOf(" ") + 1);
 
             if (input.equals("bye")) {
                 break;
+                
             } else if (input.equals("list")) {
                 list(taskList);
-            } else if (input.split(" ")[0].equals("mark")) {
-                mark(taskList, input.split(" ")[1]);
-            } else if (input.split(" ")[0].equals("unmark")) {
-                unmark(taskList, input.split(" ")[1]);
+                
+            } else if (firstWord.equals("mark")) {
+                mark(taskList, trail);
+            } else if (firstWord.equals("unmark")) {
+                unmark(taskList, trail);
+                
+            } else if (firstWord.equals("todo")) {
+                Task add = new ToDo(trail);
+                add(taskList, add);
+            } else if (firstWord.equals("deadline")) {
+                Task add = new Deadline(
+                        trail.substring(0, trail.indexOf(" /by ")),
+                        trail.substring(trail.indexOf(" /by ") + 5));
+                add(taskList, add);
+            } else if (firstWord.equals("event")) {
+                Task add = new Event(
+                        trail.substring(0, trail.indexOf(" /from ")),
+                        trail.substring(trail.indexOf(" /from ") + 7, trail.indexOf(" /to ")),
+                        trail.substring(trail.indexOf(" /to ") + 5));
+                add(taskList, add);
             } else {
-                echo(input);
+                // echo(input);
                 Task add = new Task(input);
-                taskList.add(add);
+                add(taskList, add);
             }
         }
 
@@ -95,6 +116,20 @@ public class Duke {
         String text = "\t____________________________________________________________\n"
                 + "\tOK, I've marked this task as not done yet:\n"
                 + "\t" + curr.toString() + "\n"
+                + "\t____________________________________________________________\n";
+
+        System.out.println(text);
+    }
+
+    public static void add(List<Task> list, Task add) {
+        list.add(add);
+        String word = " task";
+        if (list.size() != 1) {word += "s";}
+
+        String text = "\t____________________________________________________________\n"
+                + "\tGot it. I've added this task:\n"
+                + "\t  " + add.toString() + "\n"
+                + "\tNow you have " + list.size() + word + " in the list.\n"
                 + "\t____________________________________________________________\n";
 
         System.out.println(text);
