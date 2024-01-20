@@ -101,17 +101,17 @@ public class Duke {
     }
 
     private static void print(String message) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     " + msg);
-        System.out.println("    ____________________________________________________________\n");
+        System.out.println(INDENT + HORIZONTAL_LINE);
+        System.out.println(INDENT + " " + msg);
+        System.out.println(INDENT + HORIZONTAL_LINE + "\n");
     }
 
     private static void print(String[] messages) {
-        System.out.println("    ____________________________________________________________");
+        System.out.println(INDENT + HORIZONTAL_LINE);
         for (String msg : messages) {
-            System.out.println("     " + msg);
+            System.out.println(INDENT + " " + msg);
         }
-        System.out.println("    ____________________________________________________________\n");
+        System.out.println(INDENT + HORIZONTAL_LINE + "\n");
     }
 
     private static void printGreetings() {
