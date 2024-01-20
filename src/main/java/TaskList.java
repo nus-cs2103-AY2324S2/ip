@@ -19,6 +19,10 @@ public class TaskList {
         return this.tasks.get(idx);
     }
 
+    public void setTask(int idx, Task task) {
+        this.tasks.set(idx, task);
+    }
+
     @Override
     public String toString() {
         StringBuilder returnedString = new StringBuilder();

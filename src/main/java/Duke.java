@@ -12,17 +12,28 @@ public class Duke {
 
         TaskList taskList = new TaskList();
         while (continueIter) {
-            String curCommand = scanner.nextLine();
+            String entry = scanner.nextLine();
+            String[] curCommand = entry.split(" ");
+            String markIdxStr = curCommand[1];
+            int markIdxInt = Integer.valueOf(markIdxStr);
             System.out.println(hLine);
-            switch (curCommand) {
+            switch (curCommand[0]) {
                 case "bye":
                     continueIter = false;
                     break;
                 case "list":
                     System.out.println(taskList);
                     break;
+                case "mark":
+                    Task modifiedTask = taskList.getTask(markIdxInt - 1);
+                    modifiedTask.setDone(true);
+                    taskList.setTask(markIdxInt - 1, modifiedTask);
+                case "unmark":
+                    Task modifiedTask = taskList.getTask(markIdxInt - 1);
+                    modifiedTask.setDone(false);
+                    taskList.setTask(markIdxInt - 1, modifiedTask);
                 default:
-                    Task curTask = new Task(curCommand);
+                    Task curTask = new Task(entry);
                     taskList.addTask(curTask);
                     System.out.println("\tadded: " + curTask);
             }
