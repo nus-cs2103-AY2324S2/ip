@@ -23,7 +23,10 @@ public class TaskList {
     public String toString() {
         StringBuilder returnedString = new StringBuilder();
         for (int idx = 0; idx < this.tasks.size(); idx++) {
-            returnedString.append(String.format("%d. %s\n", idx+1, this.getTask(idx).toString()));
+            returnedString.append(String.format("\t%d. %s", idx+1, this.getTask(idx).toString()));
+            if (idx != this.tasks.size() - 1) {
+                returnedString.append("\n");
+            }
         }
         return returnedString.toString();
     }
