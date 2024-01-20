@@ -13,7 +13,7 @@ public class TaskList {
             out += count + "." + currentItem + "\n";
             count++;
         }
-        return out.equals("") ? "No tasks to do! Yay!\n" : out;
+        return out.equals("") ? "Looks like you have nothing to do! Yay!\n" : out;
     }
 
     public void add(Task taskName) {
@@ -22,8 +22,12 @@ public class TaskList {
         System.out.println("Looks like you have " + taskList.size() + " things left to do!");
     }
 
-    public Task getTask(int index) {
-        return this.taskList.get(index - 1);
+    public Task getTask(int index) throws DukeException.IllegalParamException {
+        try {
+            return this.taskList.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException.IllegalParamException("I cant do that! The task does not exist!");
+        }
 
     }
 }
