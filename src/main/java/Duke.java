@@ -1,10 +1,24 @@
 public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+    private final String name;
+    public Duke(String name) {
+        this.name = name;
     }
+//
+    public String greet() {
+        return "Hello! I'm " + this.name + "\n" + "What can I do for you?";
+    }
+    public String exit() {
+        return "Bye. Hope to see you again soon!";
+    }
+
+    public static void main(String[] args) {
+        Duke Lery = new Duke("Lery");
+
+        System.out.println(Lery.greet());
+        System.out.println(Lery.exit());
+
+    }
+
+
 }
