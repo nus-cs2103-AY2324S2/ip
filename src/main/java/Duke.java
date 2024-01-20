@@ -39,9 +39,13 @@ public class Duke {
         } else if (Pattern.matches("unmark\\s\\d+", input)) {
             int taskIndex = Integer.parseInt(input.split("\\s")[1]) - 1;
             unmark(taskIndex);
+        } else if (Pattern.matches("todo\\s\\S.*", input)){
+            String description = input.split("\\s", 2)[1];
+            ToDo todo = new ToDo(description);
+            tasks.add(todo);
+            System.out.printf("\tGot it. I've added this task:\n\t  %s\n", todo);
         } else {
-            tasks.add(new Task(input));
-            System.out.println("\tadded: " + input);
+            System.out.println("Invalid command");
         }
         Duke.horizontalLine();
     }
@@ -56,7 +60,7 @@ public class Duke {
             System.out.printf(
                     "\t%d.%s\n",
                     i + 1,
-                    this.tasks.get(i).toString()
+                    this.tasks.get(i)
             );
         }
     }
@@ -70,7 +74,7 @@ public class Duke {
         System.out.println("\tNice! I have marked this task as done:");
         System.out.printf(
                 "\t  %s\n",
-                this.tasks.get(taskIndex).toString()
+                this.tasks.get(taskIndex)
         );
     }
 
@@ -83,7 +87,7 @@ public class Duke {
         System.out.println("\tOK, I've marked this task as not done yet:");
         System.out.printf(
                 "\t  %s\n",
-                this.tasks.get(taskIndex).toString()
+                this.tasks.get(taskIndex)
         );
     }
 }
