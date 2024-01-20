@@ -11,6 +11,10 @@ public class TaskList {
         this.tasks.add(task);
     }
 
+    public void deleteTask(int index) {
+        this.tasks.remove(index);
+    }
+
     public ArrayList<String> listTasks() {
         ArrayList<String> messages = new ArrayList<String>();
         for (int i = 0; i < this.tasks.size(); i++) {

@@ -38,8 +38,12 @@ public class UI {
         Scanner scanner = new Scanner(System.in);
         while (this.isActive) {
             String input = scanner.nextLine();
-            Command command = commandCreator.createCommand(input);
-            command.execute(this);
+            try {
+                Command command = commandCreator.createCommand(input);
+                command.execute(this);
+            } catch (DukeException e) {
+                printMessage(e.getMessage());
+            }
         }
         scanner.close();
     }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public abstract class Command {
-    public abstract void execute(UI ui);
+    public abstract void execute(UI ui) throws DukeException;
 }
 
 class ByeCommand extends Command {
@@ -32,6 +32,9 @@ class EchoCommand extends Command {
 }
 
 abstract class AddTaskCommand extends Command {
+    private static final String EMPTY_DESCRIPTION_MESSAGE =
+            "OOPS!!! The description of a todo cannot be empty.";
+
     protected String description;
     private TaskList taskList;
 
@@ -43,7 +46,10 @@ abstract class AddTaskCommand extends Command {
     protected abstract Task createTask();
 
     @Override
-    public void execute(UI ui) {
+    public void execute(UI ui) throws DukeException {
+        if (this.description.equals("")) {
+            throw new DukeException(EMPTY_DESCRIPTION_MESSAGE);
+        }
         Task task = this.createTask();
         this.taskList.addTask(task);
         ArrayList<String> messages = new ArrayList<String>(Arrays.asList(

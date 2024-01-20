@@ -5,13 +5,21 @@ public class CommandCreator {
         this.taskList = taskList;
     }
 
-    private int parseIndex(String command) {
+    private int parseIndex(String command) throws DukeException {
         String[] tokens = command.split(" ");
+        if (tokens.length == 1) {
+            throw new DukeException("OOPS!!! The index of a " + tokens[0]
+                    + " cannot be empty.");
+        }
         return Integer.parseInt(tokens[1]) - 1;
     }
 
-    private String parseStringArgument(String command) {
+    private String parseStringArgument(String command) throws DukeException {
         String[] tokens = command.split(" ");
+        if (tokens.length == 1) {
+            throw new DukeException("OOPS!!! The description of a " + tokens[0]
+                    + " cannot be empty.");
+        }
         String argument = tokens[1];
         for (int i = 2; i < tokens.length; i++) {
             if (tokens[i].startsWith("/")) {
@@ -22,9 +30,9 @@ public class CommandCreator {
         return argument;
     }
 
-    private String parseNamedArgument(String command, String name) {
+    private String parseNamedArgument(String command, String name) throws DukeException {
         String[] tokens = command.split(" ");
-        for (int i = 0; i < tokens.length; i++) {
+        for (int i = 0; i < tokens.length - 1; i++) {
             if (tokens[i].equals("/" + name)) {
                 String argument = tokens[i + 1];
                 for (int j = i + 2; j < tokens.length; j++) {
@@ -36,35 +44,35 @@ public class CommandCreator {
                 return argument;
             }
         }
-        throw new IllegalArgumentException();
+        throw new DukeException("OOPS!!! The argument /" + name + " is missing.");
     }
 
-    public Command createCommand(String command) {
+    public Command createCommand(String command) throws DukeException {
         if (command.equals("bye")) {
             return new ByeCommand();
         } else if (command.equals("list")) {
             return new ListCommand(this.taskList);
-        } else if (command.startsWith("mark ")) {
+        } else if (command.startsWith("mark")) {
             int index = parseIndex(command);
             return new MarkAsDoneCommand(index, this.taskList);
         } else if (command.startsWith("unmark")) {
             int index = parseIndex(command);
             return new UnmarkAsDoneCommand(index, this.taskList);
-        } else if (command.startsWith("todo ")) {
+        } else if (command.startsWith("todo")) {
             String description = parseStringArgument(command);
             return new AddTodoCommand(description, this.taskList);
-        } else if (command.startsWith("deadline ")) {
+        } else if (command.startsWith("deadline")) {
             String description = parseStringArgument(command);
             String byDate = parseNamedArgument(command, "by");
             return new AddDeadlineCommand(description, byDate, this.taskList);
-        } else if (command.startsWith("event ")) {
+        } else if (command.startsWith("event")) {
             String description = parseStringArgument(command);
             String fromDate = parseNamedArgument(command, "from");
             String toDate = parseNamedArgument(command, "to");
             return new AddEventCommand(description, fromDate, toDate,
                     this.taskList);
         } else {
-            throw new IllegalArgumentException();
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
