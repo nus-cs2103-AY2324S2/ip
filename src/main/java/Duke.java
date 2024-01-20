@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 public class Duke {
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final TaskList TASKS = new TaskList();
-    private static final Pattern DUE_PATTERN = Pattern.compile("/by (.*)");
-    private static final Pattern EVENT_PATTERN = Pattern.compile("/from (.*) /to (.*)");
+    private static final Pattern DUE_PATTERN = Pattern.compile("/by (.+)");
+    private static final Pattern EVENT_PATTERN = Pattern.compile("/from (.+) /to (.+)");
     private static final String HORIZONTAL_LINE =
             "____________________________________________________________";
     private static final String INDENT = "    ";
@@ -92,6 +92,9 @@ public class Duke {
             TASKS.addTask(task);
             printAddedTask(task);
         } else if (input.startsWith(DEADLINE_COMMAND)) {
+            if (input.length() < DEADLINE_COMMAND.length() + 2) {
+                throw new DukeException("Please enter the task description and /by [Date Time].");
+            }
             Matcher matcher = DUE_PATTERN.matcher(input);
             if (matcher.find()) {
                 String description =
@@ -102,9 +105,12 @@ public class Duke {
                 printAddedTask(task);
             } else {
                 throw new DukeException(
-                        "Please specify the due date of the deadline task using /by [DateTime].");
+                        "Please specify the due date of the deadline task using /by [Date Time].");
             }
         } else if (input.startsWith(EVENT_COMMAND)) {
+            if (input.length() < EVENT_COMMAND.length() + 2) {
+                throw new DukeException("Please enter the task description and /from [Date Time] /to [Date Time].");
+            }
             Matcher matcher = EVENT_PATTERN.matcher(input);
             if (matcher.find()) {
                 String description =
@@ -117,7 +123,7 @@ public class Duke {
             } else {
                 throw new DukeException(
                         "Please specify the start and end date of the event task using /from"
-                            + " [DateTime] /to [DateTime].");
+                            + " [Date Time] /to [Date Time].");
             }
         } else {
             print("Sorry I can't help with that :(");
