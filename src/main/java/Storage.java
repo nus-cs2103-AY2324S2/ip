@@ -19,6 +19,11 @@ public class Storage {
         this.taskList.get(which).changeStatus(action);
     }
 
+    public void removeIndex(int index) {
+        MessagePrinter.removePrinter(this.taskList.get(index), this.taskList.size());
+        this.taskList.remove(index);
+    }
+
     @Override
     public String toString() {
         return "Now you have " + taskList.size() + "tasks in the list.";

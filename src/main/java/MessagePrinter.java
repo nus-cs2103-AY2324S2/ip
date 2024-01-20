@@ -82,4 +82,13 @@ public class MessagePrinter {
         MessagePrinter.printLine();
     }
 
+    public static void removePrinter(Task task, int size) {
+        size-=1;
+        MessagePrinter.printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + size + " tasks in the list.");
+        MessagePrinter.printLine();
+    }
+
 }

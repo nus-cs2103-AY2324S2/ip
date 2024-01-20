@@ -51,7 +51,10 @@ public class ChatListener {
             } else {
                 throw new RyanGoslingException("Incomplete event command, event <event> /from <time> /to <time>");
             }
-        } else {
+        } else if (taskSplit[0].equals("delete")) {
+            taskStorage.removeIndex(Integer.parseInt(taskSplit[1])-1);
+        }
+        else {
             throw new RyanGoslingException("I was created in a few hours so I don't know what that means :(");
         }
         return 0;
