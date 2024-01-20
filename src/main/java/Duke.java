@@ -7,7 +7,8 @@ public class Duke {
     private static final TaskList TASKS = new TaskList();
     private static final Pattern DUE_PATTERN = Pattern.compile("/by (.*)");
     private static final Pattern EVENT_PATTERN = Pattern.compile("/from (.*) /to (.*)");
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String HORIZONTAL_LINE =
+            "____________________________________________________________";
     private static final String INDENT = "    ";
     private static final String LIST_COMMAND = "list";
     private static final String EXIT_COMMAND = "bye";
@@ -58,8 +59,7 @@ public class Duke {
                 }
                 TASKS.getTask(index).done();
                 String[] messages = {
-                    "Nice! I've marked this task as done:",
-                    TASKS.getTask(index).toString()
+                    "Nice! I've marked this task as done:", TASKS.getTask(index).toString()
                 };
                 print(messages);
             } catch (NumberFormatException e) {
@@ -77,8 +77,7 @@ public class Duke {
                 }
                 TASKS.getTask(index).undone();
                 String[] messages = {
-                    "OK, I've marked this task as not done yet:",
-                    TASKS.getTask(index).toString()
+                    "OK, I've marked this task as not done yet:", TASKS.getTask(index).toString()
                 };
                 print(messages);
             } catch (NumberFormatException e) {
@@ -91,25 +90,30 @@ public class Duke {
         } else if (input.startsWith(DEADLINE_COMMAND)) {
             Matcher matcher = DUE_PATTERN.matcher(input);
             if (matcher.find()) {
-                String description = input.substring(DEADLINE_COMMAND.length() + 1, matcher.start() - 1);
+                String description =
+                        input.substring(DEADLINE_COMMAND.length() + 1, matcher.start() - 1);
                 String due = matcher.group(1);
                 Task task = new Deadline(description, due);
                 TASKS.addTask(task);
                 printAddedTask(task);
             } else {
-                throw new DukeException("Please specify the due date of the deadline task using /by [DateTime].");
+                throw new DukeException(
+                        "Please specify the due date of the deadline task using /by [DateTime].");
             }
         } else if (input.startsWith(EVENT_COMMAND)) {
             Matcher matcher = EVENT_PATTERN.matcher(input);
             if (matcher.find()) {
-                String description = input.substring(EVENT_COMMAND.length() + 1, matcher.start() - 1);
+                String description =
+                        input.substring(EVENT_COMMAND.length() + 1, matcher.start() - 1);
                 String from = matcher.group(1);
                 String to = matcher.group(2);
                 Task task = new Event(description, from, to);
                 TASKS.addTask(task);
                 printAddedTask(task);
             } else {
-                throw new DukeException("Please specify the start and end date of the event task using /from [DateTime] /to [DateTime].");
+                throw new DukeException(
+                        "Please specify the start and end date of the event task using /from"
+                            + " [DateTime] /to [DateTime].");
             }
         } else {
             print("Sorry I can't help with that :(");

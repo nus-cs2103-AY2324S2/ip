@@ -40,10 +40,7 @@ public class TaskList {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
-            sb.append(i + 1)
-                .append(". ")
-                .append(this.tasks.get(i).toString())
-                .append("\n");
+            sb.append(i + 1).append(". ").append(this.tasks.get(i).toString()).append("\n");
         }
         return sb.toString();
     }
