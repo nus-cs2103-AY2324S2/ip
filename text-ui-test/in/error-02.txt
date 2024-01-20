@@ -1,0 +1,13 @@
+todo
+todo arg1
+deadline
+deadline arg1
+deadline arg1 /by
+deadline arg1 /by arg2
+event
+event arg1
+event arg1 /from
+event arg1 /from arg2
+event arg1 /from arg2 /to
+event arg1 /from arg2 /to arg3
+bye

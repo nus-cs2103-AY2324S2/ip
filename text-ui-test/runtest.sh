@@ -37,6 +37,7 @@ run_test ./test_welcome_exit.sh
 run_test ./test_add_task.sh
 run_test ./test_list.sh
 run_test ./test_mark.sh
+run_test ./test_error_handling.sh
 
 if [ $failure_count -ne 0 ]; then
     echo "Number of tests failed: $failure_count"

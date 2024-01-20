@@ -1,0 +1,53 @@
+ ____        _
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+    ____________________________________________________________
+
+    Hello! I'm Aiken Dueet
+    What can I do for you?
+    ____________________________________________________________
+
+    ____________________________________________________________
+
+Something went wrong:
+Bad input provided: <empty>
+Please specify the task number!
+Expected: mark <task number>
+Example: mark 1
+    ____________________________________________________________
+
+    ____________________________________________________________
+
+Something went wrong:
+Bad input provided: not_integer
+Task number must be an integer!
+Expected: mark <task number>
+Example: mark 1
+    ____________________________________________________________
+
+    ____________________________________________________________
+
+Something went wrong:
+Bad input provided: 0.99
+Task number must be an integer!
+Expected: mark <task number>
+Example: mark 1
+    ____________________________________________________________
+
+    ____________________________________________________________
+
+Something went wrong:
+Bad input provided: 1
+Task number out of range!
+Expected: mark <task number>
+Example: mark 1
+    ____________________________________________________________
+
+    ____________________________________________________________
+
+    Bye. Hope to see you again soon!
+    ____________________________________________________________
+

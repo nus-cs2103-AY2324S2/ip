@@ -1,16 +1,10 @@
 import java.util.ArrayList;
+import exceptions.BadTaskInputException;
 
 public class TaskManager {
-  private ArrayList<Task> tasks;
-
+  private final ArrayList<Task> tasks;
   public TaskManager() {
     this.tasks = new ArrayList<>();
-  }
-
-  public static class BadTaskInputException extends RuntimeException {
-    public BadTaskInputException(String message) {
-      super(message);
-    }
   }
 
   public Task addTask(String type, String details) throws BadTaskInputException {
@@ -18,9 +12,11 @@ public class TaskManager {
       case "todo":
         if (details == null || details.isEmpty()) {
           throw new BadTaskInputException(
-              "Details of a todo cannot be empty.\n" +
-                  "Format: todo <description>\n" +
-                  "Example: todo read book");
+            "Details of a todo cannot be empty.",
+            "todo <description>",
+            "todo read book",
+           details
+          );
         }
 
         return this.addTodoTask(details);
@@ -30,9 +26,11 @@ public class TaskManager {
 
         if (deadlineDetails.length < 2) {
           throw new BadTaskInputException(
-              "Details of a deadline must include a deadline.\n" +
-                  "Format: deadline <description> /by <deadline>\n" +
-                  "Example: deadline return book /by Sunday");
+            "Details of a deadline must include a deadline.",
+            "deadline <description> /by <deadline>",
+            "deadline return book /by Sunday",
+            details
+          );
         }
 
         return this.addDeadlineTask(deadlineDetails[0], deadlineDetails[1]);
@@ -42,9 +40,10 @@ public class TaskManager {
 
         if (eventDetails.length < 3) {
           throw new BadTaskInputException(
-              "Details of an event must include a start date and an end date.\n" +
-                  "Format: event <description> /from <start date> /to <end date>\n" +
-                  "Example: event project meeting /from Mon 2-4pm /to Mon 4-5pm");
+            "Details of an event must include a start date and an end date.",
+            "event <description> /from <start date> /to <end date>",
+            "event project meeting /from Mon 2-4pm /to Mon 4-5pm",
+            details);
         }
 
         return this.addEventTask(eventDetails[0], eventDetails[1], eventDetails[2]);
@@ -80,8 +79,8 @@ public class TaskManager {
 
   /**
    * Marks the task as done.
-   * 
-   * @param taskNumber
+   *
+   * @param taskNumber the index of the task to be marked as done
    * @return true if the task is successfully marked as done, false otherwise
    */
   public boolean markTaskAsDone(int taskNumber) {
@@ -98,8 +97,8 @@ public class TaskManager {
 
   /**
    * Unmarks the task as done.
-   * 
-   * @param taskNumber
+   *
+   * @param taskNumber the index of the task to be unmarked as done
    * @return true if the task is successfully unmarked as done, false otherwise
    */
   public boolean unmarkTaskAsDone(int taskNumber) {

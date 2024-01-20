@@ -1,13 +1,15 @@
 import java.util.Scanner;
+import exceptions.BadInputException;
+import exceptions.UnknownCommandException;
 
 public class Duke {
-  private static String logo = " ____        _        \n"
-      + "|  _ \\ _   _| | _____ \n"
-      + "| | | | | | | |/ / _ \\\n"
-      + "| |_| | |_| |   <  __/\n"
-      + "|____/ \\__,_|_|\\_\\___|\n";
-  private static String chatbotName = "Aiken Dueet";
-  private static TaskManager taskManager = new TaskManager();
+  private static final String logo = " ____        _        \n"
+    + "|  _ \\ _   _| | _____ \n"
+    + "| | | | | | | |/ / _ \\\n"
+    + "| |_| | |_| |   <  __/\n"
+    + "|____/ \\__,_|_|\\_\\___|\n";
+  private static final String chatBotName = "Aiken Dueet";
+  private static final TaskManager taskManager = new TaskManager();
 
   private static void printIndentedln(String message) {
     System.out.println("    " + message);
@@ -19,7 +21,7 @@ public class Duke {
 
   private static void greet() {
     printHorizontalln();
-    printIndentedln("Hello! I'm " + chatbotName);
+    printIndentedln("Hello! I'm " + chatBotName);
     printIndentedln("What can I do for you?");
     printHorizontalln();
   }
@@ -30,7 +32,7 @@ public class Duke {
     printHorizontalln();
   }
 
-  private static void addTask(String... inputs) {
+  private static void addTask(String... inputs) throws BadInputException {
     String type = inputs[0];
 
     StringBuilder details = new StringBuilder();
@@ -41,14 +43,11 @@ public class Duke {
       }
     }
 
-    try {
-      Task task = taskManager.addTask(type, details.toString());
-      printIndentedln("Got it. I've added this task:");
-      printIndentedln("  " + task);
-      printIndentedln(String.format("Now you have %d tasks in the list.", taskManager.getNumberOfTasks()));
-    } catch (TaskManager.BadTaskInputException e) {
-      printIndentedln(String.format("Something went wrong:\n%s", e.getMessage()));
-    }
+    Task task = taskManager.addTask(type, details.toString());
+
+    printIndentedln("Got it. I've added this task:");
+    printIndentedln("  " + task);
+    printIndentedln(String.format("Now you have %d tasks in the list.", taskManager.getNumberOfTasks()));
   }
 
   private static void listTasks() {
@@ -64,16 +63,20 @@ public class Duke {
   }
 
   /**
-   * Validates the inputs for the mark command and return the task number if
-   * valid.
-   * 
-   * @param inputs
-   * @return task number if valid, -1 otherwise
+   * Parses the task number from the inputs.
+   *
+   * @param inputs the inputs for the mark command
+   * @throws BadInputException if the task number is not specified, not an integer, or out of range
+   * @return task number
    */
-  private static int validateMarkInputs(String[] inputs) {
+  private static int parseTaskNumber(String[] inputs) throws BadInputException {
     if (inputs.length < 2) {
-      printIndentedln("Please specify the task number!");
-      return -1;
+      throw new BadInputException(
+        "Please specify the task number!",
+        "mark <task number>",
+        "mark 1",
+        null
+      );
     }
 
     int taskIndex;
@@ -82,23 +85,28 @@ public class Duke {
       int taskNumber = Integer.parseInt(inputs[1]);
       taskIndex = taskNumber - 1;
     } catch (NumberFormatException e) {
-      printIndentedln("Invalid task number!");
-      return -1;
+      throw new BadInputException(
+        "Task number must be an integer!",
+        "mark <task number>",
+        "mark 1",
+        inputs[1]
+      );
     }
 
     if (taskIndex < 0 || taskIndex >= taskManager.getNumberOfTasks()) {
-      printIndentedln("Task number out of range!");
-      return -1;
+      throw new BadInputException(
+        "Task number out of range!",
+        "mark <task number>",
+        "mark 1",
+        inputs[1]
+      );
     }
 
     return taskIndex;
   }
 
   private static void markTaskAsDone(String[] inputs) {
-    int taskIndex = validateMarkInputs(inputs);
-    if (taskIndex == -1) {
-      return;
-    }
+    int taskIndex = parseTaskNumber(inputs);
 
     boolean success = taskManager.markTaskAsDone(taskIndex);
     if (!success) {
@@ -111,10 +119,7 @@ public class Duke {
   }
 
   private static void unmarkTaskAsDone(String[] inputs) {
-    int taskIndex = validateMarkInputs(inputs);
-    if (taskIndex == -1) {
-      return;
-    }
+    int taskIndex = parseTaskNumber(inputs);
 
     boolean success = taskManager.unmarkTaskAsDone(taskIndex);
     if (!success) {
@@ -141,19 +146,31 @@ public class Duke {
 
       String[] inputs = input.split(" ", 2);
 
-      switch (inputs[0]) {
-        case "list":
-          listTasks();
-          break;
-        case "mark":
-          markTaskAsDone(inputs);
-          break;
-        case "unmark":
-          unmarkTaskAsDone(inputs);
-          break;
-        default:
-          addTask(inputs);
-          break;
+      try {
+        switch (inputs[0]) {
+          case "list":
+            listTasks();
+            break;
+          case "mark":
+            markTaskAsDone(inputs);
+            break;
+          case "unmark":
+            unmarkTaskAsDone(inputs);
+            break;
+          case "todo":
+          case "deadline":
+          case "event":
+            addTask(inputs);
+            break;
+          default:
+            throw new UnknownCommandException(
+              "I'm sorry, but I don't know what that means :-(",
+              inputs[0],
+              "list", "mark", "unmark", "todo", "deadline", "event", "bye"
+            );
+        }
+      } catch (RuntimeException e) {
+        System.out.printf("Something went wrong:\n%s", e.getMessage());
       }
 
       printHorizontalln();

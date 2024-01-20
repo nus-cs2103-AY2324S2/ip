@@ -10,9 +10,8 @@ public class Task {
     return this.description;
   }
 
-  public Task toggleDone() {
+  public void toggleDone() {
     this.isDone = !this.isDone;
-    return this;
   }
 
   public boolean isDone() {
