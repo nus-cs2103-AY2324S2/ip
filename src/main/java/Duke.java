@@ -32,62 +32,75 @@ public class Duke {
                     trail = input.substring(space + 1);
                 }
 
-                if (input.equals("bye")) {
-                    break;
+                Task add;
+                String taskName;
 
-                } else if (input.equals("list")) {
-                    list(taskList);
-                } else if (firstWord.equals("delete")) {
-                    int no = Integer.parseInt(trail);
-                    delete(taskList, no);
+                Options choice = optionType(firstWord);
 
-                } else if (firstWord.equals("mark")) {
-                    int no = Integer.parseInt(trail);
-                    mark(taskList, no);
-                } else if (firstWord.equals("unmark")) {
-                    int no = Integer.parseInt(trail);
-                    unmark(taskList, no);
+                switch (choice) {
+                    case bye:
+                        exit();
+                        return;
 
-                } else if (firstWord.equals("todo")) {
-                    if (trail.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
-                    Task add = new ToDo(trail);
-                    add(taskList, add);
-                } else if (firstWord.equals("deadline")) {
-                    if (!trail.contains(" /by ")) {
-                        throw new DukeException("Description of a " + firstWord + " must contain \" /by \"!");
-                    }
-                    String taskName = trail.substring(0, trail.indexOf(" /by "));
-                    if (taskName.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
-                    String by = trail.substring(trail.indexOf(" /by ") + 5);
-                    // depending on whether by can be empty or not
-                    // if (by.isEmpty()) {throw new DukeException("Deadline cannot be empty!");}
-                    Task add = new Deadline(taskName, by);
-                    add(taskList, add);
-                } else if (firstWord.equals("event")) {
-                    if (!trail.contains(" /from ") || !trail.contains(" /to ")) {
-                        throw new DukeException("Description of a " + firstWord + " must contain \" /from \" and \" /to \"!");
-                    }
-                    String taskName = trail.substring(0, trail.indexOf(" /from "));
-                    if (taskName.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
-                    int a = trail.indexOf(" /from ") + 7;
-                    int b = trail.indexOf(" /to ");
-                    if (a > b) {throw new DukeException("From cannot be empty!");}
-                    String from = trail.substring(a, b);
-                    // depending on whether from can be empty or not
-                    // if (from.isEmpty()) {throw new DukeException("From cannot be empty!");}
-                    String to = trail.substring(trail.indexOf(" /to ") + 5);
-                    // depending on whether to can be empty or not
-                    // if (to.isEmpty()) {throw new DukeException("To cannot be empty!");}
-                    Task add = new Event(taskName, from, to);
-                    add(taskList, add);
+                    case list:
+                        list(taskList);
+                        break;
 
-                } else { /*
-                     error, command not found
-                     echo(input);
-                     Task add = new Task(input);
-                     add(taskList, add);
-                    */
-                    throw new DukeException("Command not found! Please try again.");
+                    case delete:
+                        int no = Integer.parseInt(trail);
+                        delete(taskList, no);
+                        break;
+
+                    case mark:
+                        int markNo = Integer.parseInt(trail);
+                        mark(taskList, markNo);
+                        break;
+
+                    case unmark:
+                        int unmarkNo = Integer.parseInt(trail);
+                        unmark(taskList, unmarkNo);
+                        break;
+
+                    case todo:
+                        if (trail.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
+                        add = new ToDo(trail);
+                        add(taskList, add);
+                        break;
+
+                    case deadline:
+                        if (!trail.contains(" /by ")) {
+                            throw new DukeException("Description of a " + firstWord + " must contain \" /by \"!");
+                        }
+                        taskName = trail.substring(0, trail.indexOf(" /by "));
+                        if (taskName.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
+                        String by = trail.substring(trail.indexOf(" /by ") + 5);
+                        // depending on whether by can be empty or not
+                        // if (by.isEmpty()) {throw new DukeException("Deadline cannot be empty!");}
+                        add = new Deadline(taskName, by);
+                        add(taskList, add);
+                        break;
+
+                    case event:
+                        if (!trail.contains(" /from ") || !trail.contains(" /to ")) {
+                            throw new DukeException("Description of a " + firstWord + " must contain \" /from \" and \" /to \"!");
+                        }
+                        taskName = trail.substring(0, trail.indexOf(" /from "));
+                        if (taskName.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
+                        int a = trail.indexOf(" /from ") + 7;
+                        int b = trail.indexOf(" /to ");
+                        if (a > b) {throw new DukeException("From cannot be empty!");}
+                        String from = trail.substring(a, b);
+                        // depending on whether from can be empty or not
+                        // if (from.isEmpty()) {throw new DukeException("From cannot be empty!");}
+                        String to = trail.substring(trail.indexOf(" /to ") + 5);
+                        // depending on whether to can be empty or not
+                        // if (to.isEmpty()) {throw new DukeException("To cannot be empty!");}
+                        add = new Event(taskName, from, to);
+                        add(taskList, add);
+                        break;
+
+                    case error:
+                        throw new DukeException("Command not found! Please try again.");
                 }
             } catch (DukeException de) {
                 String text = "\t____________________________________________________________\n"
@@ -113,8 +126,6 @@ public class Duke {
                 System.out.println(text);
             }
         }
-
-        exit();
     }
 
     public static void greet() {
@@ -201,6 +212,31 @@ public class Duke {
 
         System.out.println(text);
     }
+
+    public static Options optionType(String option) {
+        switch (option) {
+            case "bye":
+                return Options.bye;
+            case "list":
+                return Options.list;
+            case "delete":
+                return Options.delete;
+            case "mark":
+                return Options.mark;
+            case "unmark":
+                return Options.unmark;
+            case "todo":
+                return Options.todo;
+            case "deadline":
+                return Options.deadline;
+            case "event":
+                return Options.event;
+            default:
+                return Options.error;
+        }
+    }
 }
 
-
+enum Options {
+    bye, list, delete, mark, unmark, todo, deadline, event, error
+}
