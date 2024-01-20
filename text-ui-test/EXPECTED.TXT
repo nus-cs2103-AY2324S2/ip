@@ -64,6 +64,14 @@ Squid: Added deadline
 
 ---------------------------------------------
 
+Squid: Added todo
+[T][ ]: echo echotest
+
+---------------------------------------------
+
+
+---------------------------------------------
+
 Squid: Here are your tasks. Sucks to be you, my only 2 tasks are eating and sleeping.
 1: [T][ ]: addtask
 2: [T][ ]: test spacebar
@@ -72,6 +80,7 @@ Squid: Here are your tasks. Sucks to be you, my only 2 tasks are eating and slee
 5: [E][ ]: test space (from: today 3pm to tomorrow 4pm)
 6: [D][ ]: dl (by: tmr)
 7: [D][ ]: test space (by: tomorrow 4pm)
+8: [T][ ]: echo echotest
 
 ---------------------------------------------
 
@@ -94,6 +103,7 @@ Squid: Here are your tasks. Sucks to be you, my only 2 tasks are eating and slee
 5: [E][ ]: test space (from: today 3pm to tomorrow 4pm)
 6: [D][ ]: dl (by: tmr)
 7: [D][ ]: test space (by: tomorrow 4pm)
+8: [T][ ]: echo echotest
 
 ---------------------------------------------
 
@@ -116,6 +126,7 @@ Squid: Here are your tasks. Sucks to be you, my only 2 tasks are eating and slee
 5: [E][ ]: test space (from: today 3pm to tomorrow 4pm)
 6: [D][ ]: dl (by: tmr)
 7: [D][ ]: test space (by: tomorrow 4pm)
+8: [T][ ]: echo echotest
 
 ---------------------------------------------
 
