@@ -1,5 +1,38 @@
 Hello I'm Wind
 What can I do for you?
+Bro, it seems that you have entered the wrong command. You can enter one of the following commands:
+1. list
+2. mark
+3. unmark
+4. todo
+5. event
+6. deadline
+Bro, please select a task
+Bro, the task number you input does not exist
+Bro, please do the operation one by one
+Bro, please select a task
+Bro, the task number you input does not exist
+Bro, please do the operation one by one
+Bro, we need a task description for your todo.
+E.g. todo SU All Courses
+Bro, we need a task description for your deadline.
+E.g. deadline SU All Courses /by 9pm
+Bro, it seems that you have entered an incorrect format for deadline.
+E.g. deadline SU All Courses /by 9pm
+Bro, please use a "by" keyword to specify your deadline date.
+E.g. deadline SU All Courses /by 9pm
+Bro, please specify your deadline date.
+E.g. deadline SU All Courses /by 9pm
+Bro, please specify your task description for event.
+E.g. event Exam /from 9am /to 9pm
+Bro, it seems that you have entered the command in wrong format.
+E.g. event Exam /from 9am /to 9pm
+Bro, it seems that you have entered the command in wrong format.
+E.g. event Exam /from 9am /to 9pm
+Bro, please use "from" and "to" keyword to specify your event start date and end date.
+E.g. event Exam /from 9am /to 9pm
+Bro, it seems that you have missing a start date or an end date for your event.
+E.g. event Exam /from 9am /to 9pm
 Got it. I've added this task:
  [T][ ] SU All Courses
 Now you have 1 tasks in the list.
