@@ -22,9 +22,16 @@ public class Duke {
         put("EVENT_TO_STRING", " (from: %s to %s)");
 
         put("INCORRECT_INPUT_EXCEPTION", "You haven't taught me that trick yet..");
-        put("NOT_ENOUGH_INPUTS_EXCEPTION", "hmm, %s what?");
-        put("NOT_ENOUGH_DATES_EXCEPTION", "You need a total of %d dates for a %s task!");
+        put("NOT_ENOUGH_INPUTS_EXCEPTION",
+                "hmm, %s what?\nUsage: %s");
+        put("NOT_ENOUGH_DATES_EXCEPTION",
+                "You need a name for the task and a total of %d date(s) for a %s task!\nUsage: %s");
         put("DUPLICATE_TASK_NAME_EXCEPTION", "There already exists a task with the name %s!");
+
+        put("TODO_CORRECT_USAGE", "todo [task]");
+        put("ECHO_CORRECT_USAGE", "echo [message]");
+        put("EVENT_CORRECT_USAGE", "event [task] /from [date] /to [date]");
+        put("DEADLINE_CORRECT_USAGE", "deadline [task] /by [date]");
     }};
 
     private static final Map<String, String> REGEX = new HashMap<>() {{
@@ -225,7 +232,9 @@ public class Duke {
     private static void echo(String message) throws NotEnoughInputsException {
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
-            throw new NotEnoughInputsException(String.format(MESSAGES.get("NOT_ENOUGH_INPUTS_EXCEPTION"), "echo"));
+            throw new NotEnoughInputsException(
+                    String.format(
+                            MESSAGES.get("NOT_ENOUGH_INPUTS_EXCEPTION"), "echo", MESSAGES.get("ECHO_CORRECT_USAGE")));
         }
         String param = params[1];
         System.out.println(MESSAGES.get("ECHO") + param);
@@ -234,7 +243,10 @@ public class Duke {
     private static void todo(String message) throws NotEnoughInputsException, DuplicateTaskNameException {
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
-            throw new NotEnoughInputsException(String.format(MESSAGES.get("NOT_ENOUGH_INPUTS_EXCEPTION"), "todo"));
+            throw new NotEnoughInputsException(
+                    String.format(
+                            MESSAGES.get("NOT_ENOUGH_INPUTS_EXCEPTION"), "todo", MESSAGES.get("TODO_CORRECT_USAGE")));
+
         }
 
         Task t = new Todo(params[1]);
@@ -245,15 +257,22 @@ public class Duke {
     private static void deadline(String message) throws NotEnoughInputsException, DuplicateTaskNameException {
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
-            throw new NotEnoughInputsException(String.format(MESSAGES.get("NOT_ENOUGH_INPUTS_EXCEPTION"), "deadline"));
+            throw new NotEnoughInputsException(
+                    String.format(
+                            MESSAGES.get("NOT_ENOUGH_INPUTS_EXCEPTION"),
+                            "deadline",
+                            MESSAGES.get("DEADLINE_CORRECT_USAGE")));
         }
-        String[] arguments = message.split(REGEX.get("DEADLINE"));
+        String[] arguments = params[1].split(REGEX.get("DEADLINE"));
 
         if (arguments.length == 1) {
             throw new NotEnoughDatesException(
-                    String.format(MESSAGES.get("NOT_ENOUGH_DATES_EXCEPTION"), 1, "deadline"));
+                    String.format(
+                            MESSAGES.get("NOT_ENOUGH_DATES_EXCEPTION"),
+                            1,
+                            "deadline",
+                            MESSAGES.get("DEADLINE_CORRECT_USAGE")));
         }
-        // todo exception for no name / whitespace name
         String task = arguments[0];
         Date date = new Date(arguments[1]);
         Task t = new Deadline(task, date);
@@ -264,17 +283,25 @@ public class Duke {
     private static void event(String message) throws NotEnoughInputsException, DuplicateTaskNameException {
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
-            throw new NotEnoughInputsException(String.format(MESSAGES.get("NOT_ENOUGH_INPUTS_EXCEPTION"), "event"));
+            throw new NotEnoughInputsException(
+                    String.format(
+                            MESSAGES.get("NOT_ENOUGH_INPUTS_EXCEPTION"),
+                            "event",
+                            MESSAGES.get("EVENT_CORRECT_USAGE")));
         }
-        params = message.split(REGEX.get("EVENT_FROM"));
-        String task = params[0];
+        params = params[1].split(REGEX.get("EVENT_FROM"));
+        if (params.length != 2 || params[1].split(REGEX.get("EVENT_TO")).length != 2) {
+            throw new NotEnoughDatesException(
+                    String.format(
+                            MESSAGES.get("NOT_ENOUGH_DATES_EXCEPTION"),
+                            2,
+                            "event",
+                            MESSAGES.get("EVENT_CORRECT_USAGE")));
+        }
         String[] dates = params[1].split(REGEX.get("EVENT_TO"));
-        if (dates.length != 2) {
-            throw new NotEnoughDatesException(String.format(MESSAGES.get("NOT_ENOUGH_DATES_EXCEPTION"), 2, "event"));
-        }
         Date from = new Date(dates[0]);
         Date to = new Date(dates[1]);
-        Task t = new Event(task, from, to);
+        Task t = new Event(params[0], from, to);
         Tasks.add(t);
         echo(String.format(MESSAGES.get("EVENT"),  t));
     }
@@ -333,12 +360,10 @@ public class Duke {
                     event(input);
                     break;
                 default:
-                    throw new IncorrectInputException("command not found");
+                    throw new IncorrectInputException(MESSAGES.get("INCORRECT_INPUT_EXCEPTION"));
             }
-        } catch (NotEnoughInputsException f) {
-            echo(f.toString());
-        } catch (IncorrectInputException e) {
-            echo(MESSAGES.get("INCORRECT_INPUT_EXCEPTION"));
+        } catch (IncorrectInputException dup) {
+            echo(dup.toString());
         }
         return loop;
     }
