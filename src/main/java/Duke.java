@@ -38,7 +38,7 @@ public class Duke {
     }
 
     private static void printGreetings() {
-        String[] messages = {"Hello! I'm Duke", "What can I do for you?"};
+        String[] messages = {"Hello! I'm Cappy", "What can I do for you?"};
         Duke.print(messages);
     }
 
