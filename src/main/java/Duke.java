@@ -29,7 +29,10 @@ public class Duke {
         String input = SCANNER.nextLine();
         while (!input.equals(EXIT_COMMAND)) {
             if (input.equals(LIST_COMMAND)) {
-                print(TASKS.toString().split("\n"));
+                String[] messages = new String[TASKS.size() + 1];
+                messages[0] = "Here are the tasks in your list:";
+                System.arraycopy(TASKS.toString().split("\n"), 0, messages, 1, TASKS.size());
+                print(messages);
             } else if (input.startsWith(MARK_PREFIX)) {
                 String indexStr = input.substring(5);
                 int index = Integer.parseInt(indexStr);
