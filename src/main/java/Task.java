@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * A class for managing all kinds of Tasks.
  */
-class Task {
+abstract class Task {
     /** The task list, update upon creation of task */
     protected static ArrayList<Task> task_list= new ArrayList<>();
     protected String description;
@@ -23,8 +23,14 @@ class Task {
      * @return if task is Done, we cross it out.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark task with X
     }
+
+    /**
+     * abstract method
+     * @return return T/D/E.
+     */
+    public abstract String getTaskTypeIcon();
 
     /**
      * Change the status of task from not Done to Done
@@ -45,7 +51,7 @@ class Task {
      */
     @Override
     public String toString() {
-        String temp = String.format("[%s] %s",this.getStatusIcon(),this.description);
+        String temp = String.format("[%s][%s] %s", this.getTaskTypeIcon(), this.getStatusIcon(), this.description);
         return temp;
     }
 }

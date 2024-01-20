@@ -14,8 +14,10 @@ public class Duke {
         System.out.println("    Hello! I'm Hanxiao. \n  What can I do for you?");
 
         while (true) {
+            //try{
             Command cmd = commandDistributor(sc.nextLine());
             cmd.reply();
+            //}
         }
     }
 
@@ -26,16 +28,16 @@ public class Duke {
      */
     private static Command commandDistributor(String input) {
         String[] inputs = input.split(" ");
-        if (inputs[0].equals("bye")) {
+        if (input.equals("bye")) {
             return new Bye();
-        } else if (inputs[0].equals("list")) {
+        } else if (input.equals("list")) {
             return new List();
-        } else if (inputs[0].equals("mark")) {
+        } else if (inputs[0].equals("mark") && inputs.length==2) {
             return new Mark(Integer.parseInt(inputs[1])-1);
-        } else if (inputs[0].equals("unmark")) {
+        } else if (inputs[0].equals("unmark") && inputs.length==2) {
             return new Unmark(Integer.parseInt(inputs[1])-1);
         } else {
-            return new Add(inputs[0]);
+            return new Add(input);
         }
     }
 }
