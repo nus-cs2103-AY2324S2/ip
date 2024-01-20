@@ -4,13 +4,13 @@ import java.util.regex.Pattern;
 public class Duke {
     private ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
-        Duke chatbot = new Duke();
-        chatbot.greet();
+        Duke chatBot = new Duke();
+        chatBot.greet();
         Scanner scanner = new Scanner(System.in);
         String input = "";
         do {
             input = scanner.nextLine();
-            chatbot.read(input);
+            chatBot.read(input);
         } while(!input.equals("bye"));
     }
 
@@ -25,32 +25,35 @@ public class Duke {
     }
 
     public void read(String input) {
-        if (input.isEmpty()) {
-            return;
-        }
         Duke.horizontalLine();
         if (input.equals("bye")) {
             System.out.println("\tBye. Hope to see you again soon!");
         } else if (input.equals("list")) {
-            listTasks();
+            this.listTasks();
         } else if (Pattern.matches("mark\\s\\d+", input)) {
             int taskIndex = Integer.parseInt(input.split("\\s")[1]) - 1;
-            mark(taskIndex);
+            this.mark(taskIndex);
         } else if (Pattern.matches("unmark\\s\\d+", input)) {
             int taskIndex = Integer.parseInt(input.split("\\s")[1]) - 1;
-            unmark(taskIndex);
+            this.unmark(taskIndex);
         } else if (Pattern.matches("todo\\s\\S.*", input)){
             String description = input.split("\\s", 2)[1];
             ToDo todo = new ToDo(description);
-            tasks.add(todo);
-            System.out.printf("\tGot it. I've added this task:\n\t  %s\n", todo);
-        } else if (Pattern.matches("deadline\\s\\S.*/by\\s\\S.*", input)) {
+            this.updateTasks(todo);
+        } else if (Pattern.matches("deadline\\s\\S.*\\s/by\\s\\S.*", input)) {
             String[] arr = input.split("\\s/by\\s");
             String by = arr[1];
             String description = arr[0].split("\\s", 2)[1];
             Deadline deadline = new Deadline(description, by);
-            tasks.add(deadline);
-            System.out.printf("\tGot it. I've added this task:\n\t  %s\n", deadline);
+            this.updateTasks(deadline);
+        } else if (Pattern.matches("event\\s\\S.*\\s/from\\s\\S.*\\s/to\\s\\S.*", input)) {
+            String[] splitTo = input.split("\\s/to\\s");
+            String to = splitTo[1];
+            String[] splitFrom = splitTo[0].split("\\s/from\\s");
+            String from = splitFrom[1];
+            String description = splitFrom[0].split("\\s", 2)[1];
+            Event event = new Event(description, from, to);
+            this.updateTasks(event);
         } else {
             System.out.println("Invalid command");
         }
@@ -96,5 +99,11 @@ public class Duke {
                 "\t  %s\n",
                 this.tasks.get(taskIndex)
         );
+    }
+
+    public void updateTasks(Task task) {
+        this.tasks.add(task);
+        System.out.printf("\tGot it. I've added this task:\n\t  %s\n", task);
+        System.out.printf("\tNow you have %d tasks in the list.\n", this.tasks.size());
     }
 }
