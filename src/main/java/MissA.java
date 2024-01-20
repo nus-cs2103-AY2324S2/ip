@@ -3,10 +3,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class MissA {
     // greet, exit sentences
-    private String emptyLine = "________________________________\n";
+    private String emptyLine = "____________________________________________________________\n";
     private String greeting = "What can I do for you?\n"
+            + emptyLine
+            + "I can record 3 types of tasks now (●ﾟωﾟ●)\n"
+            + "ToDos: e.g. todo clean my room\n"
+            + "Deadlines: e.g. deadline submit homework /by 7pm\n"
+            + "Events: e.g. event lecture /from 1pm /to 3pm\n"
+            + emptyLine
+            + "Here are the commands that I can understand:)\n"
+            + "\"list\": I will display the latest task list |●´∀`|σ \n"
+            + "\"mark/unmark + number\": I will mark/unmark task in the list!\n"
+            + "\"delete + number\": I will remove task from the list (*`ェ´*) \n"
+            + "\"bye\": this program will be closed (O_O)\n"
             + emptyLine;
-    private String goodBye = "Bye. Have a nice day!\n"
+    private String goodBye = "Bye ┭┮﹏┭┮. Have a nice day!\n"
             + emptyLine;
     // store existing tasks in list
     private ArrayList<Task> taskList = new ArrayList<>(100);
@@ -17,7 +28,7 @@ public class MissA {
      * @return A string containing all tasks added by user.
      */
     public String getTasks() {
-        String str = emptyLine + "Here are your tasks: \n";
+        String str = emptyLine + "Here are your tasks <(￣︶￣)>: \n";
         for (int i = 0; i < taskList.size(); i++) {
             int index = i + 1;
             str += index + ". " + taskList.get(i) + "\n";
@@ -45,11 +56,20 @@ public class MissA {
         Task t = taskList.get(idx);
         t.unmark();
     }
+
+    /*
+     * Remove task.
+     *
+     * @param idx Index of task to be removed from the list.
+     */
+    public void deleteTask(int idx) {
+        taskList.remove(idx);
+    }
     public static void main(String[] args) throws NoSuchTaskException {
         MissA missA = new MissA();
 
         // greet users when first enter the program
-        System.out.println("Hello from MissA ^_^\n" + missA.greeting);
+        System.out.println("Hello from Miss A (●´∀｀●)ﾉ\n" + missA.greeting);
 
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
@@ -63,6 +83,9 @@ public class MissA {
                     // mark task as done
                 } else if (userInput.startsWith("mark")) {
                     String[] input = userInput.split(" ");
+                    if (input.length < 2) {
+                        throw new NoSuchTaskException();
+                    }
                     int idx = Integer.valueOf(input[1]);
                     if (idx > missA.taskList.size()) {
                         throw new NoSuchTaskException();
@@ -75,14 +98,35 @@ public class MissA {
                     // unmark task
                 } else if (userInput.startsWith("unmark")) {
                     String[] input = userInput.split(" ");
+                    if (input.length < 2) {
+                        throw new NoSuchTaskException();
+                    }
                     int idx = Integer.valueOf(input[1]);
                     if (idx > missA.taskList.size()) {
                         throw new NoSuchTaskException();
                     }
                     missA.unmarkTask(idx - 1);
                     System.out.println(missA.emptyLine
-                            + "Ok, this task is still in progress.\n"
+                            + "Ok, this task is still in progress :-(\n"
                             + missA.emptyLine);
+
+                    // add task to task list
+                } else if (userInput.startsWith("delete")) {
+                    String[] input = userInput.split(" ");
+                    if (input.length < 2) {
+                        throw new NoSuchTaskException();
+                    }
+                    int idx = Integer.valueOf(input[1]);
+                    if (idx > missA.taskList.size()) {
+                        throw new NoSuchTaskException();
+                    }
+                    System.out.println(missA.emptyLine
+                            + "Noted. I will remove this task:\n"
+                            + "  " + missA.taskList.get(idx - 1)
+                            + "\n"
+                            + "Now you have " + (missA.taskList.size() - 1) + " tasks!\n"
+                            + missA.emptyLine);
+                    missA.deleteTask(idx - 1);
 
                     // add task to task list
                 } else {
@@ -131,7 +175,7 @@ public class MissA {
                             + "Ok, I will add in this task: \n"
                             + "  " + nextTask
                             + "\n"
-                            + "Now there are " + missA.taskList.size() + " tasks in the list.\n"
+                            + "Now there are " + missA.taskList.size() + " tasks in the list. (｡♥‿♥｡)\n"
                             + missA.emptyLine);
                 }
             } catch (IncorrectTaskTypeException
