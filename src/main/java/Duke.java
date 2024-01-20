@@ -50,6 +50,16 @@ public class Duke {
     printIndentedln(String.format("Now you have %d tasks in the list.", taskManager.getNumberOfTasks()));
   }
 
+  private static void deleteTask(String... inputs) {
+    int taskIndex = parseTaskNumber(inputs);
+
+    Task task = taskManager.deleteTask(taskIndex);
+
+    printIndentedln("Noted. I've removed this task:");
+    printIndentedln("  " + task);
+    printIndentedln(String.format("Now you have %d tasks in the list.", taskManager.getNumberOfTasks()));
+  }
+
   private static void listTasks() {
     if (taskManager.getNumberOfTasks() == 0) {
       printIndentedln("No tasks added yet!");
@@ -73,8 +83,8 @@ public class Duke {
     if (inputs.length < 2) {
       throw new BadInputException(
         "Please specify the task number!",
-        "mark <task number>",
-        "mark 1",
+        String.format("%s <task number>", inputs[0]),
+        String.format("%s 1", inputs[0]),
         null
       );
     }
@@ -87,8 +97,8 @@ public class Duke {
     } catch (NumberFormatException e) {
       throw new BadInputException(
         "Task number must be an integer!",
-        "mark <task number>",
-        "mark 1",
+        String.format("%s <task number>", inputs[0]),
+        String.format("%s 1", inputs[0]),
         inputs[1]
       );
     }
@@ -96,8 +106,8 @@ public class Duke {
     if (taskIndex < 0 || taskIndex >= taskManager.getNumberOfTasks()) {
       throw new BadInputException(
         "Task number out of range!",
-        "mark <task number>",
-        "mark 1",
+        String.format("%s <task number>", inputs[0]),
+        String.format("%s 1", inputs[0]),
         inputs[1]
       );
     }
@@ -131,6 +141,45 @@ public class Duke {
     printIndentedln("  " + taskManager.getTask(taskIndex));
   }
 
+  private static void evaluateInputs(String[] inputs) throws RuntimeException {
+    if (inputs.length == 0) {
+      throw new BadInputException(
+        "Please enter a command!",
+        "list, mark, unmark, todo, deadline, event, bye",
+        null,
+        null
+      );
+    }
+
+    String command = inputs[0];
+
+    switch (command) {
+      case "list":
+        listTasks();
+        break;
+      case "mark":
+        markTaskAsDone(inputs);
+        break;
+      case "unmark":
+        unmarkTaskAsDone(inputs);
+        break;
+      case "delete":
+        deleteTask(inputs);
+        break;
+      case "todo":
+      case "deadline":
+      case "event":
+        addTask(inputs);
+        break;
+      default:
+        throw new UnknownCommandException(
+          "I'm sorry, but I don't know what that means :-(",
+          inputs[0],
+          "list", "mark", "unmark", "todo", "deadline", "event", "bye"
+        );
+    }
+  }
+
   private static void REPL() {
     Scanner sc = new Scanner(System.in);
 
@@ -138,43 +187,23 @@ public class Duke {
       String input = sc.nextLine();
 
       if (input.equals("bye")) {
-        sc.close();
         break;
       }
 
-      printHorizontalln();
-
       String[] inputs = input.split(" ", 2);
 
+      printHorizontalln();
+
       try {
-        switch (inputs[0]) {
-          case "list":
-            listTasks();
-            break;
-          case "mark":
-            markTaskAsDone(inputs);
-            break;
-          case "unmark":
-            unmarkTaskAsDone(inputs);
-            break;
-          case "todo":
-          case "deadline":
-          case "event":
-            addTask(inputs);
-            break;
-          default:
-            throw new UnknownCommandException(
-              "I'm sorry, but I don't know what that means :-(",
-              inputs[0],
-              "list", "mark", "unmark", "todo", "deadline", "event", "bye"
-            );
-        }
+        evaluateInputs(inputs);
       } catch (RuntimeException e) {
         System.out.printf("Something went wrong:\n%s", e.getMessage());
       }
 
       printHorizontalln();
     }
+
+    sc.close();
   }
 
   public static void main(String[] args) {
