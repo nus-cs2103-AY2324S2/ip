@@ -6,7 +6,6 @@ public class Duke {
         for (String message : messages) {
             System.out.println(message);
         }
-        System.out.println("------------------------------------------");
     }
 
     public static void main(String[] args) {
@@ -60,5 +59,6 @@ public class Duke {
             }
         } while (!message.equals("bye"));
         printWithLines("Bye. Hope to see you again soon!");
+        System.out.println("------------------------------------------");
     }
 }
