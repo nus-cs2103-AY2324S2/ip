@@ -1,7 +1,18 @@
+import java.util.Scanner;
 public class HeadCube {
     public static void main(String[] args) {
         greet();
-        exit();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String input = scanner.nextLine();
+
+            if (input.equals("bye")) {
+                exit();
+                break;
+            }
+
+            echo(input);
+        }
     }
 
     public static void greet() {
@@ -10,5 +21,10 @@ public class HeadCube {
 
     public static void exit() {
         System.out.println("Bye. Hope to see you again soon!\n");
+    }
+
+    public static void echo(String input) {
+        System.out.println(input);
+        System.out.println();
     }
 }
