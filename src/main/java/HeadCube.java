@@ -1,5 +1,7 @@
 import java.util.Scanner;
 public class HeadCube {
+    private static String[] tasks = new String[100];
+    private static int taskCount = 0;
     public static void main(String[] args) {
         greet();
         Scanner scanner = new Scanner(System.in);
@@ -9,9 +11,12 @@ public class HeadCube {
             if (input.equals("bye")) {
                 exit();
                 break;
+            } else if (input.equals("list")) {
+                list();
+            } else {
+                add(input);
             }
 
-            echo(input);
         }
     }
 
@@ -24,7 +29,19 @@ public class HeadCube {
     }
 
     public static void echo(String input) {
-        System.out.println(input);
+        System.out.println(input + "\n");
+    }
+
+    public static void add(String task) {
+        tasks[taskCount] = task;
+        taskCount++;
+        System.out.println("added: " + task + "\n");
+    }
+
+    public static void list() {
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println((i + 1) + ". " + tasks[i]);
+        }
         System.out.println();
     }
 }
