@@ -17,7 +17,7 @@ public class PrintUtil {
     public static void print(String s) {
         printSpacer();
         indent();
-        System.out.println(s);
+        System.out.println(s.replaceAll("\n", "\n    "));
         printSpacer();
     }
 }
