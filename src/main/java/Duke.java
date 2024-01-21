@@ -16,12 +16,16 @@ public class Duke {
                 output = messages.mark(res);
             } else if (res.startsWith("unmark")) {
                 output = messages.unmark(res);
+            } else if (res.startsWith("delete")) {
+                output = messages.delete(res);
             } else if (res.startsWith("todo")) {
                 output = messages.todo(res.substring(4));
             } else if (res.startsWith("deadline")) {
                 output = messages.deadline(res.substring(8));
             } else if (res.startsWith("event")) {
                 output = messages.event(res.substring(5));
+            } else if (res.isEmpty()) {
+                output = "";
             } else {
                 throw new ChatException("I'm sorry, but I don't know what that means :-(");
             }

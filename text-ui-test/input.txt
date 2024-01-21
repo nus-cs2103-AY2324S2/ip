@@ -6,6 +6,8 @@ mark 2
 list
 unmark 2
 
+delete 2
+
 mark 6
 unmark 6
 todo

@@ -67,7 +67,19 @@ public class ListOfMessages {
             int idx = Integer.parseInt(msg.split(" ")[1]);
             Task task = this.listOfMessages.get(idx-1);
             task.unmark();
-            return "Nice! I've marked this task as done:\n" + task + "\n";
+            return "OK, I've marked this task as not done yet:\n" + task + "\n";
+        } catch (IndexOutOfBoundsException e) {
+            throw new ChatException("Not a valid task number!");
+        } catch (NumberFormatException e) {
+            throw new ChatException("Unmark needs to be a number!");
+        }
+    }
+    public String delete(String msg) {
+        try {
+            int idx = Integer.parseInt(msg.split(" ")[1]);
+            Task task = this.listOfMessages.get(idx-1);
+            this.listOfMessages.remove(idx-1);
+            return "Noted. I've removed this task:\n" + task + "\n" + this.trailer() + "\n";
         } catch (IndexOutOfBoundsException e) {
             throw new ChatException("Not a valid task number!");
         } catch (NumberFormatException e) {

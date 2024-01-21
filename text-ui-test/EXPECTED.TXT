@@ -27,10 +27,16 @@ Here are the tasks in your list:
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 
 
-Nice! I've marked this task as done:
+OK, I've marked this task as not done yet:
 [D][ ] return book (by: Sunday)
 
-OOPS!!! I'm sorry, but I don't know what that means :-(
+
+Noted. I've removed this task:
+[D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+
+
+
 OOPS!!! Not a valid task number!
 OOPS!!! Not a valid task number!
 OOPS!!! The description of a todo cannot be empty.
