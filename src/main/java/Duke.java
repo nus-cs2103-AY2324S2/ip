@@ -37,7 +37,9 @@ public class Duke {
                     }
                     taskList.setTask(markIdxInt - 1, modifiedTask);
                     break;
-                default:
+                case "todo":
+                case "deadline":
+                case "event":
                     StringBuilder sbDescription = new StringBuilder();
                     for (int idx = 1; idx < curCommand.length; idx++) {
                         sbDescription.append(curCommand[idx]);
@@ -51,6 +53,9 @@ public class Duke {
                     System.out.println("\tAlright, I've added this task to your list:");
                     System.out.println("\t\t" + curTask);
                     System.out.println(String.format("\tYou now have %d tasks in the list.", taskList.getSize()));
+                    break;
+                default:
+                    break;
             }
             System.out.println(hLine);
         }
