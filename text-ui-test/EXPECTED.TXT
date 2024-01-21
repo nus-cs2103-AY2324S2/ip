@@ -1,7 +1,33 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Johnny here. What do you want?
 
+Go get this done:
+[T][ ] borrow book
+You still have 1 tasks to do.
+
+Go get this done:
+[D][ ] return book (by: Sunday)
+You still have 2 tasks to do.
+
+Go get this done:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+You still have 3 tasks to do.
+
+Get all these done:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+Finally done.
+[T][X] borrow book
+
+Get all these done:
+1. [T][X] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+Get all these done:
+1. [T][X] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+Bye. I'm going back to sleep.

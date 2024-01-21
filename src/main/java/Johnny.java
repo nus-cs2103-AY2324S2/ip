@@ -40,6 +40,7 @@ public class Johnny {
     }
 
     public static void list() {
+        System.out.println("Get all these done:");
         for (int i = 0; i < Johnny.list.size(); i++) {
             System.out.println(i + 1 + ". " + list.get(i));
         }
