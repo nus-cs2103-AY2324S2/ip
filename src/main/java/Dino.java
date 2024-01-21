@@ -57,45 +57,66 @@ public class Dino {
                     return;
 
                 case "todo":
-                    String todoDescription = sc.nextLine().trim();
-                    addTask(new ToDo(todoDescription));
+                    try {
+                        String todoDescription = sc.nextLine().trim();
+                        if (todoDescription.isEmpty()) {
+                            throw new DinoException("Task description cannot be empty.");
+                        }
+                        addTask(new ToDo(todoDescription));
 
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + taskList.get(taskList.size() - 1));
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + taskList.get(taskList.size() - 1));
+                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    } catch (DinoException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
                     break;
 
                 case "deadline":
-                    String deadlineInput = sc.nextLine().trim();
-                    String[] deadlineParts = deadlineInput.split("/by");
-                    if (deadlineParts.length != 2) {
-                        System.out.println("Invalid input format for deadline. Please use: deadline <deadline name> /by <time>");
-                        break;
-                    }
-                    String deadlineName = deadlineParts[0].trim();
-                    String deadlineTime = deadlineParts[1].trim();
-                    addTask(new Deadline(deadlineName, deadlineTime));
+                    try {
+                        String deadlineInput = sc.nextLine().trim();
+                        String[] deadlineParts = deadlineInput.split("/by");
+                        if (deadlineParts.length != 2) {
+                            throw new DinoException("Invalid input format for deadline. Please use: deadline <deadline name> /by <time>");
+                        }
+                        String deadlineName = deadlineParts[0].trim();
+                        String deadlineTime = deadlineParts[1].trim();
+                        addTask(new Deadline(deadlineName, deadlineTime));
 
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + taskList.get(taskList.size() - 1));
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                        if (deadlineName.isEmpty() || deadlineTime.isEmpty()) {
+                            throw new DinoException("Deadline name and time cannot be empty.");
+                        }
+
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + taskList.get(taskList.size() - 1));
+                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    } catch (DinoException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
                     break;
 
                 case "event":
-                    String eventInput = sc.nextLine().trim();
-                    String[] eventParts = eventInput.split("/from|/to");
-                    if (eventParts.length != 3) {
-                        System.out.println("Invalid input format for event. Please use: event <event name> /from <time> /to <time>");
-                        break;
-                    }
-                    String eventName = eventParts[0].trim();
-                    String startTime = eventParts[1].trim();
-                    String endTime = eventParts[2].trim();
-                    addTask(new Event(eventName, startTime, endTime));
+                    try {
+                        String eventInput = sc.nextLine().trim();
+                        String[] eventParts = eventInput.split("/from|/to");
+                        if (eventParts.length != 3) {
+                            throw new DinoException("Invalid input format for event. Please use: event <event name> /from <time> /to <time>");
+                        }
+                        String eventName = eventParts[0].trim();
+                        String startTime = eventParts[1].trim();
+                        String endTime = eventParts[2].trim();
+                        addTask(new Event(eventName, startTime, endTime));
 
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + taskList.get(taskList.size() - 1));
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                        if (eventName.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
+                            throw new DinoException("Event name, start time, and end time cannot be empty.");
+                        }
+
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + taskList.get(taskList.size() - 1));
+                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    } catch (DinoException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
                     break;
 
                 case "mark":
@@ -121,7 +142,11 @@ public class Dino {
                     break;
 
                 default:
-                    System.out.println("I don't understand ;;");
+                    try {
+                        throw new DinoException("I don't understand ;;");
+                    } catch (DinoException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
                     break;
             }
             command = sc.next();
