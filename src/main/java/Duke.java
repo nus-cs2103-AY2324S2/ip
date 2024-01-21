@@ -135,7 +135,20 @@ public class Duke {
 
     //Method to add deadline task
     private static void addDeadlineTask(String input) {
-        
+        String[] parts = input.split("/", 2);
+        if (parts.length == 2) {
+            String description = parts[0].substring(8);
+
+            String by = parts[1].substring(3);
+
+            Task task = new Deadline(description, by);
+            addTask(task);
+        } else {
+            System.out.println("____________________________________________________________\n" +
+                               " Invalid format of Deadline task. Please try again with the correct format.\n" +
+                               " deadline (event name) /by (deadline)\n" +
+                               "____________________________________________________________\n");
+        }
     }
 
     //Method to add tod0 task
