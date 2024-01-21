@@ -23,7 +23,7 @@ public class ChatBot {
     /**
      * Greets the user when entering the application.
      */
-    public void greet() {
+    private void greet() {
         printMessage(String.format(
                 INDENT + "Hello! I'm %s!\n" +
                 INDENT + "What can I do for you?",
@@ -33,7 +33,7 @@ public class ChatBot {
     /**
      * Greets the user when exiting the application.
      */
-    public void exit() {
+    private void exit() {
         printMessage(INDENT + "Bye! Hope to see you again soon!");
     }
 
