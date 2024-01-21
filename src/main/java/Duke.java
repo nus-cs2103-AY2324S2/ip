@@ -12,11 +12,11 @@ public class Duke {
         tasks.add(task);
     }
 
-    public void getTask(int index) throws TaskNotFound {
+    public Task getTask(int index) throws TaskNotFound {
         try {
-            tasks.get(index);
+            return tasks.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new TaskNotFound("Could not find task.", e);
+            throw new TaskNotFound("Could not find task " + (index + 1), e);
         }
     }
 
@@ -24,7 +24,7 @@ public class Duke {
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            s.append(i).append(". ").append(tasks.get(i)).append("\n");
+            s.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
         s.deleteCharAt(s.length() - 1);
         return s.toString();
