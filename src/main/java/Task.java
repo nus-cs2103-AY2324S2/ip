@@ -7,12 +7,14 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
+        return "Nice! I've mark this task as done:\n\t\t" + this.toString();
     }
 
-    public void unmarkAsDone() {
+    public String unmarkAsDone() {
         this.isDone = false;
+        return "OK, I've marked this task as not done yet:\n\t\t" + this.toString();
     }
 
     public String getStatusIcon() {
@@ -20,7 +22,6 @@ public class Task {
     }
 
     public String toString() {
-        return this.description;
-        //return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }

@@ -14,17 +14,34 @@ public class Duke {
         // start
         printWithSolidLineBreak(START_MESSAGE);
 
+
+
         // repeating user commands
+        label:
         while (true) {
-            String command = sc.nextLine();
-            if (command.equals("bye")) {
-                break;
-            } else if (command.equals("list")){
-                printTaskList(taskList);
-            } else {
-                taskList.add(new Task(command));
-                String toPrint = "added: " + command;
-                printWithSolidLineBreak(toPrint);
+            String command = sc.next();
+            String info = sc.nextLine();
+            switch (command) {
+                case "bye":
+                    break label;
+                case "list":
+                    printTaskList(taskList);
+                    break;
+                case "mark":
+                    int markIndex = Integer.parseInt(info.trim()) - 1;
+                    String markToPrint = taskList.get(markIndex).markAsDone();
+                    printWithSolidLineBreak(markToPrint);
+                    break;
+                case "unmark":
+                    int unmarkIndex = Integer.parseInt(info.trim()) - 1;
+                    String unmarkToPrint =taskList.get(unmarkIndex).unmarkAsDone();
+                    printWithSolidLineBreak(unmarkToPrint);
+                    break;
+                default:
+                    taskList.add(new Task(command + info));
+                    String toPrint = "added: " + command + info;
+                    printWithSolidLineBreak(toPrint);
+                    break;
             }
         }
 
@@ -41,7 +58,7 @@ public class Duke {
     public static void printTaskList(ArrayList<Task> taskList) {
         System.out.println("\t" + solidLineBreak);
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("\t " + (i+1) + ". " + taskList.get(i));
+            System.out.println("\t " + (i+1) + "." + taskList.get(i));
         }
         System.out.println("\t" + solidLineBreak);
     }
