@@ -1,29 +1,24 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.lang.StringBuilder;
 
 public class Duke {
-    static ArrayList<String> listOfMessages = new ArrayList<>();
 
-    public static String list() {
-        StringBuilder res = new StringBuilder();
-        int idx = 1;
-        for (String msg : listOfMessages) {
-            res.append(String.format("%d. %s\n", idx, msg));
-            idx++;
-        }
-        return res.toString();
-    }
+    static ListOfMessages messages;
+
     public static int loop(Scanner sc) {
         String res = sc.nextLine();
         String output = null;
         if (res.equals("bye")) {
             return -1;
         } else if (res.equals("list")) {
-            output = list();
+            output = messages.list();
+        } else if (res.startsWith("mark")) {
+            int idx = Integer.parseInt(res.split(" ")[1]);
+            output = messages.mark(idx-1);
+        } else if (res.startsWith("unmark")) {
+            int idx = Integer.parseInt(res.split(" ")[1]);
+            output = messages.unmark(idx-1);
         } else {
-            listOfMessages.add(res);
-            output = "added: " + res + "\n";
+            output = messages.add(res);
         }
         System.out.println(output);
         return 0;
@@ -35,7 +30,9 @@ public class Duke {
         System.out.println(msg);
 
         Scanner sc = new Scanner(System.in);
+        messages = new ListOfMessages();
         while (loop(sc) == 0);
+        sc.close();
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
