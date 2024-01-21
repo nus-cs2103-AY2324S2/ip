@@ -6,7 +6,7 @@ public class Taylor {
         System.out.println("Hello! I'm Taylor");
         System.out.println("What can I do for you?");
 
-        HashMap<Integer, String> listing = new HashMap<>();
+        HashMap<Integer, Action> listing = new HashMap<>();
         Integer pos = 1;
 
         while(true) {
@@ -15,13 +15,30 @@ public class Taylor {
 
             if (input.equals("bye")) {
                 break;
+
             } else if (input.equals("list")) {
-                // Lambda Function: Print the entire list together with their indexing
+                System.out.println("Here are the tasks in your list:");
                 listing.forEach((key, value) -> {
-                    System.out.println(key + ". " + value);
+                    System.out.println(key + ". " + "[" + value.getMarking() + "] " + value.getExecute());
                 });
+
+            } else if (input.contains("mark")) {
+                String[] markwhat = input.split(" ");
+                String what = markwhat[0];
+                Integer num = Integer.valueOf(markwhat[1]);
+                if (what.equals("mark")) {
+                    listing.get(num).markIt();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[" + listing.get(num).getMarking() + "] " + listing.get(num).getExecute());
+                } else if (what.equals("unmark")){
+                    listing.get(num).unMark();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("[" + listing.get(num).getMarking() + "] " + listing.get(num).getExecute());
+                }
+
             } else {
-                listing.put(pos, input);
+                Action whatAction = new Action(input);
+                listing.put(pos, whatAction);
                 pos++;
                 System.out.println("added: " + input);
             }
