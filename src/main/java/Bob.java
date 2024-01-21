@@ -2,10 +2,12 @@ import java.util.*;
 
 public class Bob {
 
-    private ArrayList<String> storage;
+    private ArrayList<Task> storage;
     private Scanner scanner;
     private final String terminatePhrase = "bye";
     private final String listCommand = "list";
+    private final String markCommand = "mark";
+    private final String unmarkCommand = "unmark";
 
     public Bob() {
         this.scanner = new Scanner(System.in);
@@ -49,7 +51,21 @@ public class Bob {
      * Add items to storage.
      */
     private void addItem(String item) {
-        this.storage.add(item);
+        this.storage.add(new Task(item));
+    }
+
+    /**
+     * Mark item done.
+     */
+    private void markDone(int item) {
+        this.storage.get(item).updateStatus(true);
+    }
+
+    /**
+     * Mark item undone.
+     */
+    private void markUndone(int item) {
+        this.storage.get(item).updateStatus(false);
     }
 
     /**
@@ -60,7 +76,8 @@ public class Bob {
         this.printLine();
 
         for (int i = 0; i < this.storage.size(); i++) {
-            System.out.println("    " + (i + 1) + ". " + this.storage.get(i));
+            Task task = this.storage.get(i);
+            System.out.println("    " + (i + 1) + "." + task.getStatus() + " " + task);
         }
 
         this.printLine();
@@ -79,6 +96,28 @@ public class Bob {
             if (input.equals(this.terminatePhrase)) break;
             if (input.equals(this.listCommand)) {
                 this.viewStorage();
+                continue;
+            }
+
+            if (input.contains(" ") && (input.contains(this.markCommand) || input.contains(this.unmarkCommand))) {
+
+                String[] args = input.split(" ");
+
+                this.printLine();
+                int taskId = Integer.parseInt(args[1]) - 1;
+                String command = args[0];
+
+                if (command.equals(this.markCommand)) {
+                    this.markDone(taskId);
+                    System.out.println("    You have marked task as done:");
+                } else {
+                    this.markUndone(taskId);
+                    System.out.println("    You have marked task as undone:");
+                }
+
+                Task task = this.storage.get(taskId);
+                System.out.println("    " + task.getStatus() + " " + task);
+                this.printLine();
                 continue;
             }
 
