@@ -14,12 +14,9 @@ public class Task {
         this.done = false;
     }
 
-    public boolean isDone() {
-        return this.done;
-    }
-
     @Override
     public String toString() {
-        return this.name;
+        String checkbox = "[" + (this.done ? "x" : " ") + "] ";
+        return checkbox + this.name;
     }
 }
