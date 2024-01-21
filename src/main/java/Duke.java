@@ -39,6 +39,8 @@ public class Duke {
             return new Mark(Integer.parseInt(inputs[1])-1);
         } else if (inputs[0].equals("unmark") && inputs.length==2) {
             return new Unmark(Integer.parseInt(inputs[1])-1);
+        } else if (inputs[0].equals("delete") && inputs.length==2) {
+            return new Delete(Integer.parseInt(inputs[1])-1);
         } else {
             return new Add(input);
         }
