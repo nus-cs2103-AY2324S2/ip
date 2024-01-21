@@ -5,7 +5,7 @@ import view.TaskListView;
 
 import java.util.ArrayList;
 
-public class ListTask {
+public class ListTask extends TaskCommand{
     private final TaskListView taskListView;
 
     public ListTask(ArrayList<Task> taskList) {
