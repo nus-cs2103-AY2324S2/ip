@@ -17,7 +17,6 @@ public class Duke {
         while (!exit) {
             input = sc.nextLine();
             String[] inputlist = input.split(" ");
-            curr = new Task(input, false);
             if (input.equals("bye")) {
                 exit = true;
                 break;
@@ -26,8 +25,7 @@ public class Duke {
                 System.out.println("--------------------------");
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println(String.valueOf(i+1) + ".[" + list.get(i).isDone()
-                            + "] " + list.get(i).getName());
+                    System.out.println(String.valueOf(i+1) + "." + list.get(i).toString());
                 }
                 System.out.println("--------------------------");
                 continue;
@@ -52,18 +50,43 @@ public class Duke {
                 System.out.println("--------------------------");
                 continue;
             }
+            if (inputlist[0].equals("todo")) {
+                curr = new TodoTask(input.substring(5), false);
+                System.out.println("--------------------------");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(curr.toString());
+                System.out.println("Now you have " + Task.getTotalTask()+ " tasks in the list.");
+                System.out.println("--------------------------");
+                list.add(curr);
+            }
 
+            if (inputlist[0].equals("deadline")) {
+                String[] deadlinelist = input.substring(9).split(" /by ");
+                curr = new DeadlineTask(deadlinelist[0], false, deadlinelist[1]);
+                System.out.println("--------------------------");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(curr.toString());
+                System.out.println("Now you have " + Task.getTotalTask()+ " tasks in the list.");
+                System.out.println("--------------------------");
+                list.add(curr);
+            }
 
-            System.out.println("--------------------------");
-            System.out.println("added: " + curr.getName());
-            System.out.println("--------------------------");
-            list.add(curr);
+            if (inputlist[0].equals("event")) {
+                String[] eventlist = input.substring(6).split(" /from ");
+                String[] startend = eventlist[1].split(" /to ");
+                curr = new EventTask(eventlist[0], false, startend[0], startend[1]);
+                System.out.println("--------------------------");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(curr.toString());
+                System.out.println("Now you have " + Task.getTotalTask()+ " tasks in the list.");
+                System.out.println("--------------------------");
+                list.add(curr);
+            }
 
         }
 
         System.out.println("--------------------------");
         System.out.println("Till next time!! Goodbye.");
         System.out.println("--------------------------");
-
     }
 }
