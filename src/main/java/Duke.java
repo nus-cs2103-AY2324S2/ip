@@ -38,11 +38,19 @@ public class Duke {
                     taskList.setTask(markIdxInt - 1, modifiedTask);
                     break;
                 default:
-                    Task curTask = new Task(entry);
+                    StringBuilder sbDescription = new StringBuilder();
+                    for (int idx = 1; idx < curCommand.length; idx++) {
+                        sbDescription.append(curCommand[idx]);
+                        if (idx < curCommand.length - 1) {
+                            sbDescription.append(" ");
+                        }
+                    }
+                    String fullDescription = sbDescription.toString();
+                    Task curTask = Task.generateTask(fullDescription, curCommand[0]);
                     taskList.addTask(curTask);
-                    System.out.println("\tAlright, I've added this task:");
-                    System.out.println("\t" + curTask);
-                    System.out.println(String.format("\tNow you have %d tasks in the list.", taskList.getSize()));
+                    System.out.println("\tAlright, I've added this task to your list:");
+                    System.out.println("\t\t" + curTask);
+                    System.out.println(String.format("\tYou now have %d tasks in the list.", taskList.getSize()));
             }
             System.out.println(hLine);
         }
