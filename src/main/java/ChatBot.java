@@ -78,55 +78,6 @@ public class ChatBot {
     }
 
     /**
-     * Parse the input string into it's command and arguments.
-     * @param input the console input
-     * @return An array containing the command as the first element and argument as the second element.
-     */
-    private String[] parseInput(String input) {
-        if (input.startsWith(COMMAND_BYE)) {
-            return new String[] {COMMAND_BYE, ""};
-        } else if (input.startsWith(COMMAND_LIST)) {
-            return new String[] {COMMAND_LIST, ""};
-        } else if (input.startsWith(COMMAND_MARK)) {
-            return new String[] {COMMAND_MARK, parseArgument(input)};
-        } else if (input.startsWith(COMMAND_UNMARK)) {
-            return new String[] {COMMAND_UNMARK, parseArgument(input)};
-        } else {
-            return new String[] {COMMAND_ADD, input};
-        }
-    }
-
-    /**
-     * Parse the argument from commands with arguments
-     * @param input the console input
-     * @return the argument
-     */
-    private String parseArgument(String input) {
-        return input.split(" ", 2)[1];
-    }
-
-    /**
-     * Parses the command into an Enum.
-     * @param command the command from the parsed input
-     * @return the command
-     */
-    private Command parseCommand(String command) {
-        switch (command) {
-            case COMMAND_BYE:
-                return Command.BYE;
-            case COMMAND_LIST:
-                return Command.LIST;
-            case COMMAND_MARK:
-                return Command.MARK;
-            case COMMAND_UNMARK:
-                return Command.UNMARK;
-            case COMMAND_ADD:
-                return Command.ADD;
-        }
-        return Command.INVALID;
-    }
-
-    /**
      * Execute the command with the supplied arguments.
      * @param command the command
      * @param argument the argument
