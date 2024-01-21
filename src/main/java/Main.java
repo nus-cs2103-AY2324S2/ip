@@ -37,6 +37,7 @@ public class Main {
             String data = sc.nextLine();
             switch (command) {
                 case "bye":
+                    bye();
                     break outer;
                 case "list":
                     System.out.println(duke);
@@ -53,6 +54,5 @@ public class Main {
     public static void main(String[] args) {
         hello();
         repl();
-        bye();
     }
 }
