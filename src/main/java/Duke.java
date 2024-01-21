@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Duke {
     public static void main(String[] args) {
+        List taskList = new List(new ArrayList<>());
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -17,7 +18,7 @@ public class Duke {
         String input;
         while (true) {
             input = sc.nextLine();
-            if(input.equalsIgnoreCase("bye")) {
+            if (input.equalsIgnoreCase("bye")) {
                 System.out.println(
                         "__________________________________________________________\n"
                                 + "Bye. Hope to see you again soon!\n"
@@ -25,9 +26,14 @@ public class Duke {
                 );
                 break;
             }
+            if (input.equalsIgnoreCase("list")) {
+                taskList.displayTasks();
+                continue;
+            }
+            taskList.addTask(input);
             System.out.println(
                     "__________________________________________________________\n"
-                            + input
+                            + "added: " + input
                             + "\n__________________________________________________________\n"
             );
         }
