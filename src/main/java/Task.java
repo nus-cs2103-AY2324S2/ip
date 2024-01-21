@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Task {
+public abstract class Task {
     private enum Status {
         Complete("completed", 'X'), Incomplete("pending", ' ');
 
@@ -15,7 +15,7 @@ public class Task {
     private final String description;
     private Status status;
 
-    public Task(String description) {
+    protected Task(String description) {
         this.description = description;
         this.status = Status.Incomplete;
     }
