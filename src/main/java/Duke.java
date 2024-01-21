@@ -40,7 +40,9 @@ public class Duke {
                 default:
                     Task curTask = new Task(entry);
                     taskList.addTask(curTask);
-                    System.out.println("\tadded: " + curTask);
+                    System.out.println("\tAlright, I've added this task:");
+                    System.out.println("\t" + curTask);
+                    System.out.println(String.format("\tNow you have %d tasks in the list.", taskList.getSize()));
             }
             System.out.println(hLine);
         }

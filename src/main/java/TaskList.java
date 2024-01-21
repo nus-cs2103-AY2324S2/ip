@@ -23,6 +23,10 @@ public class TaskList {
         this.tasks.set(idx, task);
     }
 
+    public int getSize() {
+        return this.tasks.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder returnedString = new StringBuilder();
