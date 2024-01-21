@@ -19,7 +19,7 @@ public class Program {
     public void start() {
         this.greeting();
         while (this.running) {
-            String userInput = this.userInputScanner.nextLine();
+            String userInput = this.userInputScanner.next();
             this.readUserInput(userInput);
         }
     }
@@ -31,7 +31,16 @@ public class Program {
         } else if (input.toLowerCase().equals("list")) {
             this.taskList.getList(this.printList);
             this.printList.print();
+        } else if (input.toLowerCase().equals("mark")) {
+            int taskNumber = this.userInputScanner.nextInt();
+            this.taskList.mark(taskNumber, this.printList);
+            this.printList.print();
+        } else if (input.toLowerCase().equals("unmark")) {
+            int taskNumber = this.userInputScanner.nextInt();
+            this.taskList.unmark(taskNumber, this.printList);
+            this.printList.print();
         } else {
+            input += this.userInputScanner.nextLine();
             receiveInput = this.taskList.addTask(input);
             this.textFormat(receiveInput);
         }
