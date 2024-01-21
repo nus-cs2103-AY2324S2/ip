@@ -4,9 +4,11 @@ public class Chatbot {
 
     private final String name;
     private final static String LINE = "----------------------------------";
+    private ToDo todo; // Hold the list of tasks
 
     public Chatbot(String name) {
         this.name = name;
+        this.todo = new ToDo();
     }
 
     public void startChat() {
@@ -20,8 +22,10 @@ public class Chatbot {
             if (input.equalsIgnoreCase("bye")) {
                 bye();
                 isChatting = false;
+            } else if (input.equalsIgnoreCase("list")) {
+                listTasks();
             } else {
-                echo(input);
+                addTask(input);
             }
         }
         scanner.close();
@@ -46,4 +50,18 @@ public class Chatbot {
         System.out.println(LINE);
     }
 
+    public void listTasks() {
+        System.out.println(LINE);
+        todo.listTask();
+        System.out.println(LINE);
+    }
+
+    public void addTask(String input) {
+        Task task = new Task(input);
+        todo.addTask(task);
+
+        System.out.println(LINE);
+        System.out.println("added: " + input);
+        System.out.println(LINE);
+    }
 }
