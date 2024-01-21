@@ -1,9 +1,9 @@
 public class TaskList {
     private int numTasks = 0;
-    private String[] tasks = new String[100];
+    private Task[] tasks = new Task[100];
 
-    public void addTask(String task) {
-        this.tasks[numTasks] = task;
+    public void addTask(String description) {
+        this.tasks[numTasks] = new Task(description);
         this.numTasks++;
     }
 
