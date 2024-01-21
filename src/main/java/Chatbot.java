@@ -24,6 +24,9 @@ public class Chatbot {
                 isChatting = false;
             } else if (input.equalsIgnoreCase("list")) {
                 listTasks();
+            } else if (input.contains("mark")) {
+                String[] parts = input.split("\\s+", 2);
+                mark((parts[1]), !parts[0].contains("un"));
             } else {
                 addTask(input);
             }
@@ -57,11 +60,27 @@ public class Chatbot {
     }
 
     public void addTask(String input) {
-        Task task = new Task(input);
+        Task task = new Task(ToDo.tasksCount, input);
         todo.addTask(task);
 
         System.out.println(LINE);
         System.out.println("added: " + input);
+        System.out.println(LINE);
+    }
+
+    public void mark(String input, boolean status) {
+        int num = Integer.parseInt(input) - 1; // Task num starts from 0
+        todo.markTask(num, status);
+
+        System.out.println(LINE);
+
+        if (status) {
+            System.out.println("Nice! I've marked this task as done: ");
+        } else {
+            System.out.println("OK, I've marked this task as not done yet: ");
+        }
+
+        System.out.println(todo.getTask(num).getDescription());
         System.out.println(LINE);
     }
 }

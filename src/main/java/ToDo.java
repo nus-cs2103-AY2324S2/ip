@@ -16,9 +16,18 @@ public class ToDo {
     }
 
     public void listTask() {
+        System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < tasksCount; i++) {
             System.out.println((i + 1)+ ". " + tasks.get(i).getDescription());
         }
+    }
+
+    public Task getTask(int num) {
+        return tasks.get(num);
+    }
+
+    public void markTask(int num, boolean status) {
+        getTask(num).mark(status);
     }
 
 }
