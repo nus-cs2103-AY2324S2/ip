@@ -1,8 +1,10 @@
-import java.util.Objects;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class MissMinutes {
     private final Scanner stdin;
+    private final List<String> tasks;
     private static final String separator = "-".repeat(60) + "\n";
     private static final String logo =
             " __  __ _           __  __ _             _                  \n" +
@@ -15,6 +17,7 @@ public class MissMinutes {
 
     public MissMinutes() {
         this.stdin = new Scanner(System.in);
+        this.tasks = new ArrayList<String>(100);
     }
 
     public void sendMsg(String body) {
@@ -37,8 +40,18 @@ public class MissMinutes {
             String request = this.stdin.nextLine();
             if (request.equals("bye")) {
                 break;
+            } else if (request.equals("list")) {
+                StringBuilder reply = new StringBuilder();
+                for (int i = 0; i < this.tasks.size(); i++) {
+                    reply.append((i + 1))
+                            .append(". ")
+                            .append(this.tasks.get(i))
+                            .append("\n");
+                }
+                this.sendMsg(reply.toString());
             } else {
-                this.sendMsg(request + "\n");
+                this.tasks.add(request);
+                this.sendMsg("added: " + request + "\n");
             }
         }
     }
