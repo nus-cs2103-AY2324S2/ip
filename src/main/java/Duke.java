@@ -83,7 +83,7 @@ public class Duke {
 
     // greet user
     public static void greet() {
-        System.out.println(LINE + "\t Hello! I'm " + CHAT_BOT_NAME + "\n\t "
+        System.out.print(LINE + "\t Hello! I'm " + CHAT_BOT_NAME + "\n\t "
                 + "What can I do for you?\n" + LINE);
     }
 
