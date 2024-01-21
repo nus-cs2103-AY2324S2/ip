@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static final int max_tasks = 100;
-    private static final Task[] tasks = new Task[max_tasks];
+    private static final ArrayList<Task> tasks = new ArrayList<Task>(max_tasks);
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -61,6 +62,9 @@ public class Duke {
         } else if (input.startsWith("todo")) {
             //Add tod0 task to list
             addTodoTask(input);
+        } else if (input.startsWith("delete")) {
+            //Delete tasks from list
+            deleteTask(input);
         } else {
             throw new DukeException("Sorry, I do not understand that command. Please try again.");
         }
@@ -70,8 +74,8 @@ public class Duke {
     private static void listTasks() {
         System.out.println("____________________________________________________________\n" +
                 " Here are your tasks:\n");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
         System.out.println("____________________________________________________________\n");
     }
@@ -80,12 +84,11 @@ public class Duke {
     private static void addTask(Task task) throws DukeException {
         //Check that taskCount does not exceed maxtask
         if (taskCount < max_tasks) {
-            tasks[taskCount] = task;
-            taskCount++;
+            tasks.add(task);
             System.out.println("____________________________________________________________\n" +
                     " Okay! Added to your list: \n"
                     + "   " + task
-                    + "\n Now you have " + taskCount + " tasks in your list.\n" +
+                    + "\n Now you have " + tasks.size() + " tasks in your list.\n" +
                     "____________________________________________________________\n");
         } else {
             throw new DukeException(" Ohno :( Your task list is full. Complete some tasks first.");
@@ -96,11 +99,11 @@ public class Duke {
     private static void markTask(String input) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].mark();
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).mark();
                 System.out.println("____________________________________________________________\n" +
                         " Nice! This task has been marked as done:\n" +
-                        "   " + tasks[taskIndex] + "\n" +
+                        "   " + tasks.get(taskIndex) + "\n" +
                         "____________________________________________________________\n");
             } else {
                 throw new DukeException(" Invalid task index inputted. Please try again.");
@@ -108,18 +111,17 @@ public class Duke {
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException(" Please indicate the task number you want to mark complete.");
         }
-
     }
 
     //Method to unmark tasks
     private static void unmarkTask(String input) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].unmark();
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).unmark();
                 System.out.println("____________________________________________________________\n" +
                         " Okay. This task has been unmarked. \n" +
-                        "   " + tasks[taskIndex] + "\n" +
+                        "   " + tasks.get(taskIndex) + "\n" +
                         "____________________________________________________________\n");
             } else {
                 throw new DukeException(" Invalid task index inputted. Please try again.");
@@ -175,6 +177,26 @@ public class Duke {
             addTask(task);
         } else {
             throw new DukeException(" Please provide a valid description of the task.");
+        }
+    }
+
+    //Method to delete task
+    private static void deleteTask(String input) throws DukeException {
+        try {
+            int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                Task removedTask = tasks.get(taskIndex);
+                tasks.remove(taskIndex);
+                System.out.println("____________________________________________________________\n" +
+                        " Okay. This task has been removed: \n" +
+                        "   " + removedTask + "\n" +
+                        " Now you have " + tasks.size() + " tasks in your list.\n" +
+                        "____________________________________________________________\n");
+            } else {
+                throw new DukeException(" Invalid task index inputted. Please try again.");
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException(" Please indicate the task number you want to delete.");
         }
     }
 }
