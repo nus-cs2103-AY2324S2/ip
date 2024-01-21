@@ -84,6 +84,22 @@ public class TaskList {
     }
 
     /**
+     * Gets the most recently added task to the list.
+     * @return the newest task as a string
+     */
+    public String getNewestTask() {
+        return tasks.get(tasks.size() - 1).toString();
+    }
+
+    /**
+     * Gets the number of tasks in the task list.
+     * @return the size as an integer
+     */
+    public int size() {
+        return tasks.size();
+    }
+
+    /**
      * @return the task list as a human-readable string.
      */
     @Override
