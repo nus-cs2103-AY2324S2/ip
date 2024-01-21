@@ -1,4 +1,3 @@
-import javax.swing.text.TabStop;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +19,7 @@ public class Duke {
         put("MARK_NOT_FOUND", "I can't find the task, dummy human!");
         put("DEADLINE_TO_STRING", " (by: %s)");
         put("EVENT_TO_STRING", " (from: %s to %s)");
+        put("DELETE","Deleted your task: \n%s\nYour remaining tasks are:");
 
         put("INCORRECT_INPUT_EXCEPTION", "You haven't taught me that trick yet..");
         put("NOT_ENOUGH_INPUTS_EXCEPTION",
@@ -28,6 +28,7 @@ public class Duke {
                 "You need a name for the task and a total of %d date(s) for a %s task!\nUsage: %s");
         put("DUPLICATE_TASK_NAME_EXCEPTION", "There already exists a task with the name %s!");
         put("INTEGER_NEEDED_EXCEPTION", "Your input should be an integer!\nUsage: %s");
+        put("TASK_NOT_FOUND_EXCEPTION", "Please input a valid task number!\nUsage:%s");
 
         put("TODO_CORRECT_USAGE", "todo [task]");
         put("ECHO_CORRECT_USAGE", "echo [message]");
@@ -61,9 +62,20 @@ public class Duke {
             arr.add(task);
         }
 
+        public static Task delete(int index) throws TaskNotFoundException {
+            if (arr.get(index) == null) {
+                throw new TaskNotFoundException(
+                        String.format(MESSAGES.get("TASK_NOT_FOUND_EXCEPTION"), MESSAGES.get("DELETE_CORRECT_USAGE")));
+            }
+            Task deleted = arr.get(index);
+            arr.remove(index);
+            return deleted;
+        }
+
         public Tasks() {
             arr = new ArrayList<>();
         }
+
 
     }
     private static abstract class Task {
@@ -198,6 +210,12 @@ public class Duke {
         }
     }
 
+    private static class TaskNotFoundException extends IncorrectInputException {
+        public TaskNotFoundException(String message) {
+            super(message);
+        }
+    }
+
     private static class Date {
         private String date;
         private String formattedDate;
@@ -238,14 +256,12 @@ public class Duke {
     }
 
     private static void echo(String message) throws NotEnoughInputsException {
-        String[] params = message.split(" ", 2);
-        if (params.length <= 1) {
+        if (message.isBlank()) {
             throw new NotEnoughInputsException(
                     String.format(
                             MESSAGES.get("NOT_ENOUGH_INPUTS_EXCEPTION"), "echo", MESSAGES.get("ECHO_CORRECT_USAGE")));
         }
-        String param = params[1];
-        System.out.println(MESSAGES.get("ECHO") + param);
+        System.out.println(MESSAGES.get("ECHO") + message);
     }
 
     private static void todo(String message) throws NotEnoughInputsException, DuplicateTaskNameException {
@@ -335,22 +351,28 @@ public class Duke {
         }
     }
 
-    private static void delete(String input) throws IntegerNeededException {
+    private static void delete(String input) throws
+            IntegerNeededException, TaskNotFoundException, NotEnoughInputsException {
         int index = -1;
+
         try {
-            index = Integer.parseInt(input) - 1;
+            index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
         } catch (Exception e) {
             throw new IntegerNeededException(
                     String.format(MESSAGES.get("INTEGER_NEEDED_EXCEPTION"), MESSAGES.get("DELETE_CORRECT_USAGE")));
         }
-
-
+        Task deleted = Tasks.delete(index);
+        echo(String.format(MESSAGES.get("DELETE"), deleted));
     }
 
     private static boolean parseInput(boolean loop, String input) throws DukeException {
         System.out.println(LINE_BREAK);
         String[] messages = input.split(" ", 2);
         String command = messages[0];
+        String params = "";
+        if (messages.length > 1) {
+            params = messages[1];
+        }
 
         try {
             switch (command) {
@@ -359,7 +381,7 @@ public class Duke {
                     bye();
                     break;
                 case ("echo"):
-                    echo(input);
+                    echo(params);
                     break;
                 case ("list"):
                     list();
@@ -386,8 +408,9 @@ public class Duke {
                     throw new IncorrectInputException(MESSAGES.get("INCORRECT_INPUT_EXCEPTION"));
             }
         } catch (IncorrectInputException dup) {
-            echo(dup.toString());
+            echo(String.valueOf(dup));
         }
+
         return loop;
     }
 
