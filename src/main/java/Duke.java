@@ -30,7 +30,7 @@ public class Duke {
                 taskList.displayTasks();
                 continue;
             }
-            taskList.addTask(input);
+            taskList.addTask(new Task(input));
             System.out.println(
                     "__________________________________________________________\n"
                             + "added: " + input
