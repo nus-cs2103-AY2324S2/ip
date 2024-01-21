@@ -49,10 +49,10 @@ public class Duke {
     }
 
     private static void print(ArrayList<Task> list) {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("\t Here are the tasks in your list:");
         int count = 1;
         for (Task t : list) {
-            System.out.println("\t " + count + "." + t.printTask());
+            System.out.println("\t\t " + count + "." + t.printTask());
             count++;
         }
     }
@@ -76,7 +76,7 @@ public class Duke {
                 t.done();
                 System.out.println("\t Nice! I've marked this task as done:");
             }
-            System.out.println("\t\t" + t.printTask());
+            System.out.println("\t\t " + t.printTask());
         }
     }
 }
