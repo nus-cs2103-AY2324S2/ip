@@ -26,10 +26,14 @@ public class Duke {
                 case "unmark":
                     int markIdxInt = Integer.valueOf(curCommand[1]);
                     Task modifiedTask = taskList.getTask(markIdxInt - 1);
-                    if (curCommand[0] == "mark") {
+                    if (curCommand[0].equals("mark")) {
+                        System.out.println("\tNice! I've marked this task as done:");
                         modifiedTask.setDone(true);
+                        System.out.println("\t" + modifiedTask);
                     } else {
+                        System.out.println("\tAlright, I've marked this task as undone.");
                         modifiedTask.setDone(false);
+                        System.out.println("\t" + modifiedTask);
                     }
                     taskList.setTask(markIdxInt - 1, modifiedTask);
                     break;
