@@ -61,9 +61,8 @@ public class Main {
                     };
                     break;
                 default:
-                    Task task = new Task(command + data);
-                    System.out.println("Added task " + task.describe());
-                    duke.addTask(task);
+                    System.out.println("I have no idea what you want.\n" +
+                            "I can respond to \"list\", \"deadline\", \"event\", \"todo\", \"mark\" and \"unmark\"");
                     break;
             }
             line();
