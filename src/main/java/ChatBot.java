@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.lang.StringBuilder;
 
 /**
  * ChatBot encapsulates the behaviour of a Chatbot.
@@ -8,12 +11,41 @@ import java.util.Scanner;
 public class ChatBot {
     private final String chatBotName;
     private final Scanner scanner = new Scanner(System.in);
-    private static final String COMMAND_BYE = "bye";
-    private static final String INDENT = "    ";
+    private static final String
+            COMMAND_BYE = "bye",
+            COMMAND_LIST = "list",
+            COMMAND_ADD = "add",
+            INDENT = "    ";
+
+    /**
+     * Possible user commands
+     */
+    private enum Command {
+        /**
+         * Ends the chat
+         */
+        BYE,
+        /**
+         * List the stored text
+         */
+        LIST,
+        /**
+         * Adds item to stored text
+         */
+        ADD,
+        /**
+         * Invalid command
+         */
+        INVALID
+    }
+
+    /**
+     * Stores the text entered by the user.
+     */
+    private final List<String> userList = new ArrayList<>();
 
     /**
      * Class constructor.
-     *
      * @param chatBotName the name of the chatbot
      */
     public ChatBot(String chatBotName) {
@@ -46,7 +78,6 @@ public class ChatBot {
 
     /**
      * Prints a message to the console.
-     *
      * @param message the message to print in the console
      */
     private void printMessage(String message) {
@@ -60,11 +91,72 @@ public class ChatBot {
      */
     public void run() {
         greet();
-        String userInput = scanner.nextLine();
-        while (!userInput.equals(COMMAND_BYE)) {
-            printMessage(INDENT + userInput);
-            userInput = scanner.nextLine();
+
+        String[] parsedInput = parseInput(scanner.nextLine());
+        Command userCommand = parseCommand(parsedInput[0]);
+        while (userCommand != Command.BYE) {
+            executeCommand(userCommand, parsedInput[1]);
+
+            parsedInput = parseInput(scanner.nextLine());
+            userCommand = parseCommand(parsedInput[0]);
         }
+
         exit();
+    }
+
+    /**
+     * Parse the input string into it's command and arguments.
+     * @param input the console input
+     * @return An array containing the command as the first element and argument as the second element.
+     */
+    private String[] parseInput(String input) {
+        if (input.startsWith(COMMAND_BYE)) return new String[] {COMMAND_BYE, ""};
+        if (input.startsWith(COMMAND_LIST)) return new String[] {COMMAND_LIST, ""};
+        return new String[] {COMMAND_ADD, input};
+    }
+
+    /**
+     * Parses the command into an Enum.
+     * @param command the command from the parsed input
+     * @return the command
+     */
+    private Command parseCommand(String command) {
+        switch (command) {
+            case COMMAND_BYE:
+                return Command.BYE;
+            case COMMAND_LIST:
+                return Command.LIST;
+            case COMMAND_ADD:
+                return Command.ADD;
+        }
+        return Command.INVALID;
+    }
+
+    /**
+     * Execute the command with the supplied arguments.
+     * @param command the command
+     * @param argument the argument
+     */
+    private void executeCommand(Command command, String argument) {
+        switch (command) {
+            case ADD:
+                userList.add(argument);
+                printMessage(INDENT + "added: " + argument);
+                break;
+            case LIST:
+                printUserList();
+                break;
+        }
+    }
+
+    /**
+     * Prints the user's list.
+     */
+    private void printUserList() {
+        StringBuilder message = new StringBuilder();
+        for (int i = 0; i < userList.size(); i++) {
+            message.append(String.format("%s%d. %s\n", INDENT, i + 1, userList.get(i)));
+        }
+        printMessage(message.toString());
     }
 }
