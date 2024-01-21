@@ -57,8 +57,8 @@ public class ChatBot {
      */
     private void greet() {
         printMessage(String.format(
-                INDENT + "Hello! I'm %s!\n" +
-                INDENT + "What can I do for you?",
+                "Hello! I'm %s!\n" +
+                "What can I do for you?",
                 chatBotName));
     }
 
@@ -66,7 +66,7 @@ public class ChatBot {
      * Greets the user when exiting the application.
      */
     private void exit() {
-        printMessage(INDENT + "Bye! Hope to see you again soon!");
+        printMessage("Bye! Hope to see you again soon!");
     }
 
     /**
@@ -77,12 +77,15 @@ public class ChatBot {
     }
 
     /**
-     * Prints a message to the console.
+     * Prints an indented message to the console.
      * @param message the message to print in the console
      */
     private void printMessage(String message) {
         insertLine();
-        System.out.println(message);
+        String[] lines = message.split("\n");
+        for (String line : lines) {
+            System.out.println(INDENT + line);
+        }
         insertLine();
     }
 
@@ -141,7 +144,7 @@ public class ChatBot {
         switch (command) {
             case ADD:
                 userList.add(argument);
-                printMessage(INDENT + "added: " + argument);
+                printMessage("added: " + argument);
                 break;
             case LIST:
                 printUserList();
@@ -155,7 +158,7 @@ public class ChatBot {
     private void printUserList() {
         StringBuilder message = new StringBuilder();
         for (int i = 0; i < userList.size(); i++) {
-            message.append(String.format("%s%d. %s\n", INDENT, i + 1, userList.get(i)));
+            message.append(String.format("%d. %s\n", i + 1, userList.get(i)));
         }
         printMessage(message.toString());
     }
