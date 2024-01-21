@@ -1,4 +1,4 @@
-public class Duke {
+public class UkeCat {
     public static void main(String[] args) {
         String line = "________________________________________________________________________";
         String logo =
