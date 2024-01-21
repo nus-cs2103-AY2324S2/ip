@@ -4,6 +4,9 @@ public class Shirmin {
     public static void displayLine() {
         System.out.println(" ".repeat(4) + "_".repeat(50));
     }
+    public static String gap() {
+        return "    ";
+    }
     public static void wrapInLines(String line){
         displayLine();
         System.out.println(line);
@@ -13,43 +16,78 @@ public class Shirmin {
         wrapInLines(line);
     }
     public static void greet() {
-        wrapInLines(" ".repeat(4) + "Hello! I'm Shirmin" + "\n"
-                + " ".repeat(4)+ "What can I do for you?");
+        wrapInLines(gap() + "Hello! I'm Shirmin" + "\n"
+                + gap() + "What can I do for you?");
     }
     public static void exit() {
-        wrapInLines(" ".repeat(4) +"Bye. Hope to see you again soon!");
+        wrapInLines(gap() +"Bye. Hope to see you again soon!");
     }
 
 
-    static String[] list = new String[100];
+    static Task[] taskList = new Task[100];
     static int currIndex = 0;
-    public static void addList(String line){
+    public static void listFunction(String line){
+        String[] command =  line.split(" ");
         if (line.equals("list")) {
-            displayList(list);
+            displayList(taskList);
+        } else if (command[0].equals("mark")) {
+        try {
+            int taskIndex = Integer.parseInt(command[1]) - 1;
+            if (taskIndex < currIndex) {
+                taskList[taskIndex].markDone();
+                displayLine();
+                System.out.println(gap() + "Nice! I've marked this task as done:");
+                System.out.println(gap() + gap() + taskList[taskIndex]);
+                displayLine();
+
+            } else { // out of range
+                System.out.println("invalid, out of range");
+            }
+
+        } catch (NumberFormatException e) { // decided to handle as exception e.g. a task named "mark papers" is not valid
+            System.out.println("Invalid task number: " + command[1]);
+        }
+
+        } else if(command[0].equals("unmark")) {
+            try {
+                int taskIndex = Integer.parseInt(command[1]) - 1;
+                if (taskIndex < currIndex) {
+                    taskList[taskIndex].markUndone();
+                    displayLine();
+                    System.out.println(gap() + "OK, I've marked this task as not done yet:");
+                    System.out.println(gap() + gap() + taskList[taskIndex]);
+                    displayLine();
+                } else { // out of range
+                    System.out.println("invalid, out of range");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid task number: " + command[1]);
+            }
         } else {
             wrapInLines(" ".repeat(4)+"added: " + line);
-            list[currIndex] = line;
+            taskList[currIndex] = new Task(line);
             currIndex++;
         }
     }
-    public static void displayList(String[] list) {
+    public static void displayList(Task[] list) {
         displayLine();
         int i = 1;
-        for (String s: list) {
-            if (s != null) {
-                System.out.println(" ".repeat(4) + i + ". " + s);
+        for (Task t: list) {
+            if (t != null) {
+                System.out.println(gap() + i + "." + t.toString());
                 i++;
             }
         }
         displayLine();
     }
 
+
     public static void main(String[] args){
         greet();
         Scanner scanner = new Scanner(System.in);
         String currLine = scanner.nextLine();
         while(!currLine.equals("bye")) {
-            addList(currLine);
+            listFunction(currLine);
             currLine = scanner.nextLine();
         }
         exit();
