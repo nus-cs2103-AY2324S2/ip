@@ -10,8 +10,8 @@ public class Duke {
 
         //Introduction message
         System.out.println("____________________________________________________________\n" +
-                           " Hello! I'm " + name + "\n What can I do for you?\n" +
-                           "____________________________________________________________\n");
+                " Hello! I'm " + name + "\n What can I do for you?\n" +
+                "____________________________________________________________\n");
 
         userInput();
     }
@@ -26,8 +26,8 @@ public class Duke {
                     handleInput(input);
                 } catch (DukeException e) {
                     System.out.println("____________________________________________________________\n" +
-                                       e.getMessage() + "\n" +
-                                       "____________________________________________________________\n");
+                            e.getMessage() + "\n" +
+                            "____________________________________________________________\n");
                 }
             }
         } finally {
@@ -40,8 +40,8 @@ public class Duke {
         //Bye input + close scanner + exit program
         if (input.equals("bye")) {
             System.out.println("____________________________________________________________\n" +
-                               " Bye. Hope to see you again soon!\n" +
-                               "____________________________________________________________\n");
+                    " Bye. Hope to see you again soon!\n" +
+                    "____________________________________________________________\n");
             System.exit(0);
         } else if (input.equals("list")) {
             //List tasks
@@ -69,7 +69,7 @@ public class Duke {
     //Method to list tasks
     private static void listTasks() {
         System.out.println("____________________________________________________________\n" +
-                           " Here are your tasks:\n");
+                " Here are your tasks:\n");
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + ". " + tasks[i]);
         }
@@ -83,10 +83,10 @@ public class Duke {
             tasks[taskCount] = task;
             taskCount++;
             System.out.println("____________________________________________________________\n" +
-                               " Okay! Added to your list: \n"
-                                       + "   " + task
-                                       + "\n Now you have " + taskCount + " tasks in your list.\n" +
-                               "____________________________________________________________\n");
+                    " Okay! Added to your list: \n"
+                    + "   " + task
+                    + "\n Now you have " + taskCount + " tasks in your list.\n" +
+                    "____________________________________________________________\n");
         } else {
             throw new DukeException(" Ohno :( Your task list is full. Complete some tasks first.");
         }
@@ -94,29 +94,38 @@ public class Duke {
 
     //Method to mark tasks
     private static void markTask(String input) throws DukeException {
-        int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-        if (taskIndex >= 0 && taskIndex < taskCount) {
-            tasks[taskIndex].mark();
-            System.out.println("____________________________________________________________\n" +
-                               " Nice! This task has been marked as done:\n" +
-                               "   " + tasks[taskIndex] + "\n" +
-                               "____________________________________________________________\n");
-        } else {
-            throw new DukeException(" Invalid task index inputted. Please try again.");
+        try {
+            int taskIndex = Integer.parseInt(input.substring(5)) - 1;
+            if (taskIndex >= 0 && taskIndex < taskCount) {
+                tasks[taskIndex].mark();
+                System.out.println("____________________________________________________________\n" +
+                        " Nice! This task has been marked as done:\n" +
+                        "   " + tasks[taskIndex] + "\n" +
+                        "____________________________________________________________\n");
+            } else {
+                throw new DukeException(" Invalid task index inputted. Please try again.");
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException(" Please indicate the task number you want to mark complete.");
         }
+
     }
 
     //Method to unmark tasks
     private static void unmarkTask(String input) throws DukeException {
-        int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-        if (taskIndex >= 0 && taskIndex < taskCount) {
-            tasks[taskIndex].unmark();
-            System.out.println("____________________________________________________________\n" +
-                               " Okay. This task has been unmarked. \n" +
-                               "   " + tasks[taskIndex] + "\n" +
-                               "____________________________________________________________\n");
-        } else {
-            throw new DukeException(" Invalid task index inputted. Please try again.");
+        try {
+            int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+            if (taskIndex >= 0 && taskIndex < taskCount) {
+                tasks[taskIndex].unmark();
+                System.out.println("____________________________________________________________\n" +
+                        " Okay. This task has been unmarked. \n" +
+                        "   " + tasks[taskIndex] + "\n" +
+                        "____________________________________________________________\n");
+            } else {
+                throw new DukeException(" Invalid task index inputted. Please try again.");
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException(" Please indicate the task number you want to unmark.");
         }
     }
 
@@ -136,7 +145,7 @@ public class Duke {
             }
         } else {
             throw new DukeException(" Invalid format of Event task. Please try again with the correct format.\n" +
-                                    " event (event name) /from (start) /to (end)");
+                    " event (event name) /from (start) /to (end)");
         }
     }
 
@@ -155,7 +164,7 @@ public class Duke {
             }
         } else {
             throw new DukeException(" Invalid format of Deadline task. Please try again with the correct format.\n" +
-                                    " deadline (event name) /by (deadline)");
+                    " deadline (event name) /by (deadline)");
         }
     }
 
