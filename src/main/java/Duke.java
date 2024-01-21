@@ -8,6 +8,7 @@ public class Duke {
         // System.out.println("Hello from\n" + logo);
         Chatbot c = new Chatbot("URSA");
         // c.greet();
-        c.echo();
+        // c.echo();
+        c.store();
     }
 }
