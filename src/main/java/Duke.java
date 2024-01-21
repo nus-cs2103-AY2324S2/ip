@@ -1,7 +1,10 @@
+import javax.lang.model.type.ArrayType;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.io.PrintWriter;
 
 class IO {
+    ArrayList<String> tasks = new ArrayList<>();
     private Scanner sc;
     private String hLine = "________________________________________________";
     private String logo = " ____        _        \n"
@@ -24,15 +27,27 @@ class IO {
         System.out.println(hLine);
     }
 
-    public void read() {
+    public void command() {
         String input = sc.nextLine();
         if (input.equals("bye")) {
             echo(exitMsg);
             System.exit(0);
+        } else if (input.equals("list")) {
+            list();
         } else {
-            echo(input);
+            tasks.add(input);
+            echo("added: " + input);
         }
-        read();
+        command();
+    }
+
+    private void list() {
+        int count = 0;
+        for (String msg : tasks) {
+            count++;
+            System.out.println(count + ". " + msg);
+        }
+        System.out.println(hLine);
     }
 
     private void echo(String msg) {
@@ -41,10 +56,10 @@ class IO {
     }
 }
 public class Duke {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         IO io = new IO();
 
         io.greet();
-        io.read();
+        io.command();
     }
 }
