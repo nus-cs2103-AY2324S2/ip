@@ -16,13 +16,35 @@ public class Duke {
         String reply = "Bye. Hope to see you again soon!";
         return reply;
     }
+
+    public String echoCommand() {
+        Scanner scanner = new Scanner(System.in);
+//        System.out.println("What is your command? ");
+        String command = scanner.nextLine();
+        return command;
+    }
+
+    public void printStatement(String string) {
+        System.out.println(string);
+//        System.out.println("\n");
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter new name for your chatbot. \n");
+        System.out.println("Enter new name for your chatbot.");
         String name = scanner.nextLine();
 
         Duke duke = new Duke(name);
-        System.out.println(duke.greetings());
-        System.out.println(duke.quitApplication());
+        duke.printStatement(duke.greetings());
+
+        while (true) {
+            String command = duke.echoCommand();
+
+            if (command.equals("bye")) {
+                duke.printStatement(duke.quitApplication());
+                break;
+            }
+
+            duke.printStatement(command);
+        }
     }
 }
