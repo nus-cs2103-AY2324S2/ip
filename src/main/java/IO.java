@@ -35,10 +35,31 @@ class IO {
         } else if (input.contains("mark")) {
             mark(input);
         } else {
-            tasks.add(new Task(input));
-            echo("added: " + input);
+            addTask(input);
         }
         command();
+    }
+
+    private void addTask(String input) {
+        Task t = null;
+        if (input.startsWith("todo")) {
+            String s = input.substring(5);
+            t = new Todo(s);
+        } else if (input.startsWith("deadline")) {
+            String s = input.substring(9);
+            String[] token = s.split(" /");
+            t = new Deadline(token[0], token[1].substring(3));
+        } else if (input.startsWith("event")) {
+            String s = input.substring(6);
+            String[] token = s.split(" /");
+            t = new Event(token[0], token[1].substring(5), token[2].substring(3));
+        }
+        if (t != null) {
+            tasks.add(t);
+            echo("Got it. I've added this task:\n  "
+                    + t + "\n"
+                    + "Now you have " + tasks.size() + " tasks in the list.");
+        }
     }
 
     private void list() {
