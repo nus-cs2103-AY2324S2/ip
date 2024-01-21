@@ -6,45 +6,8 @@ import java.util.Scanner;
  * @author Titus Chew
  */
 public class ChatBot {
-    private final String chatBotName;
+    private final String chatBotName, INDENT = "    ";
     private final Scanner scanner = new Scanner(System.in);
-    private static final String
-            COMMAND_BYE = "bye",
-            COMMAND_LIST = "list",
-            COMMAND_ADD = "add",
-            COMMAND_MARK = "mark",
-            COMMAND_UNMARK = "unmark",
-            INDENT = "    ";
-
-    /**
-     * Possible user commands
-     */
-    private enum Command {
-        /**
-         * Ends the chat
-         */
-        BYE,
-        /**
-         * List the stored text
-         */
-        LIST,
-        /**
-         * Adds item to stored text
-         */
-        ADD,
-        /**
-         * Mark the task as done
-         */
-        MARK,
-        /**
-         * Mark the task as not done
-         */
-        UNMARK,
-        /**
-         * Invalid command
-         */
-        INVALID
-    }
 
     /**
      * Stores the user's tasks
