@@ -1,8 +1,11 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 class IO {
-    ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
+    private List<String> cmdList = Arrays.asList("todo", "deadline", "event", "list", "mark", "unmark", "bye");
     private Scanner sc;
     private String hLine = "________________________________________________";
     private String logo = " ____        _        \n"
@@ -26,40 +29,48 @@ class IO {
     }
 
     public void command() {
-        String input = sc.nextLine();
-        if (input.equals("bye")) {
-            echo(exitMsg);
-            System.exit(0);
-        } else if (input.equals("list")) {
-            list();
-        } else if (input.contains("mark")) {
-            mark(input);
-        } else {
-            addTask(input);
+        try {
+            String input = sc.nextLine();
+            String cmd = input.split(" ")[0];
+            if (!cmdList.contains(cmd)) {
+                throw new InvalidCmdException("Invalid command, please try again.");
+            }
+            if (cmd.equals("bye")) {
+                echo(exitMsg);
+                System.exit(0);
+            } else if (cmd.equals("list")) {
+                list();
+            } else if (cmd.equals("mark") || cmd.equals("unmark")) {
+                mark(input);
+            } else {
+                addTask(input, cmd);
+            }
+        } catch (InvalidTaskException de) {
+            System.out.println(de);
+        } catch (InvalidCmdException ce) {
+            System.out.println(ce);
+        } finally {
+            command();
         }
-        command();
     }
 
-    private void addTask(String input) {
-        Task t = null;
-        if (input.startsWith("todo")) {
-            String s = input.substring(5);
-            t = new Todo(s);
-        } else if (input.startsWith("deadline")) {
-            String s = input.substring(9);
-            String[] token = s.split(" /");
-            t = new Deadline(token[0], token[1].substring(3));
-        } else if (input.startsWith("event")) {
-            String s = input.substring(6);
-            String[] token = s.split(" /");
-            t = new Event(token[0], token[1].substring(5), token[2].substring(3));
+    private void addTask(String input, String cmd) throws InvalidTaskException {
+        Task t;
+        String[] token = input.split("todo |deadline |event | \\/from | \\/by | \\/to ");
+        if (cmd.equals("todo") && token.length == 2) {
+            t = new Todo(token[1]);
+        } else if (cmd.equals("deadline") && token.length == 3) {
+            t = new Deadline(token[1], token[2]);
+        } else if (cmd.equals("event") && token.length == 4) {
+            t = new Event(token[1], token[2], token[3]);
+        } else {
+            throw new InvalidTaskException("Invalid task syntax for " + cmd + ".");
         }
-        if (t != null) {
-            tasks.add(t);
-            echo("Got it. I've added this task:\n  "
-                    + t + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list.");
-        }
+
+        tasks.add(t);
+        echo("Got it. I've added this task:\n  "
+                + t + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private void list() {
