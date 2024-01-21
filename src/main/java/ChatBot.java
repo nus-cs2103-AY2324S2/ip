@@ -40,9 +40,9 @@ public class ChatBot {
     }
 
     /**
-     * Stores the text entered by the user.
+     * Stores the task entered by the user.
      */
-    private final List<String> userList = new ArrayList<>();
+    private final List<Task> userList = new ArrayList<>();
 
     /**
      * Class constructor.
@@ -143,7 +143,7 @@ public class ChatBot {
     private void executeCommand(Command command, String argument) {
         switch (command) {
             case ADD:
-                userList.add(argument);
+                userList.add(new Task(argument));
                 printMessage("added: " + argument);
                 break;
             case LIST:
