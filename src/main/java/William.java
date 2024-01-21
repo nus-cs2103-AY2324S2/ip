@@ -13,27 +13,44 @@ public class William {
 
         Scanner sc = new Scanner(System.in);
         String logo = "William";
+        // To store the task into a list
+        List<Task> tasks = new ArrayList<Task>();
 
         System.out.println("Hello! I'm " + logo);
-        System.out.println("What can I do for you?");
+        System.out.println("What can I do for you?\n");
 
         while (true) {
             String input = sc.nextLine();
-            Commands command = Commands.valueOf(input);
+            Commands command = null;
 
-            switch (command) {
-                case list:
-                    System.out.println("list\n");
-                    break;
-                case blah:
-                    System.out.println("blah\n");
-                    break;
-                case bye:
-                    System.out.println("Bye. Hope to see you again soon!");
-                    sc.close();
-                    return;
-                default:
-                    System.out.println("Unknown command, please try again!");
+            try {
+                command = Commands.valueOf(input);
+            } catch (IllegalArgumentException notCommand) {
+                // If it is not a command, store as input
+                Task perTask = new Task(input);
+                tasks.add(perTask);
+            }
+
+            if (command != null) {
+                switch (command) {
+                    case list:
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i).getName());
+                        }
+                        System.out.println("\n");
+                        break;
+                    case blah:
+                        System.out.println("blah\n");
+                        break;
+                    case bye:
+                        System.out.println("Bye. Hope to see you again soon!");
+                        sc.close();
+                        return;
+                    default:
+                        System.out.println("Unknown command, please try again!");
+                }
+            } else {
+                System.out.println("added: " + input + "\n");
             }
         }
     }
