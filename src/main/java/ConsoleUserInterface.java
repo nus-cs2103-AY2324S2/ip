@@ -14,23 +14,18 @@ public class ConsoleUserInterface {
         System.out.println("Hello! I'm MicroManager");
         System.out.println("What can I do for you?");
         printSeparator();
-        getUserInput();
+        handleUserInput();
     }
 
-    public String getUserInput() {
+    private void handleUserInput() {
         while (true) {
             this.lastInput = this.scanner.nextLine();
             if (Objects.equals(this.lastInput, "bye")) {
                 break;
             } else {
-                handleUserInput(this.lastInput);
+                printOutput(this.lastInput);
             }
         }
-        return this.lastInput;
-    }
-
-    private void handleUserInput(String input) {
-        printOutput(input);
     }
 
     public void printOutput(String string) {
