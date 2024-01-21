@@ -37,9 +37,28 @@ public class Duke {
                     }
                 } else {
                     Task newTask = new Task(input);
+                    if (inputArr[0].equals("todo")) {
+                        String taskName = input.substring(5);
+                        newTask = new Todo(taskName);
+                    }
+                    if (inputArr[0].equals("deadline")) {
+                        int idxDeadline = input.indexOf("/by");
+                        String taskName = input.substring(9, idxDeadline - 1);
+                        String deadline = input.substring(idxDeadline + "/by ".length());
+                        newTask = new Deadline(taskName, deadline);
+                    }
+                    if (inputArr[0].equals("event")) {
+                        int idxFrom = input.indexOf("/from");
+                        int idxTo = input.indexOf("/to");
+                        String taskName = input.substring(6, idxFrom - 1);
+                        String from = input.substring(idxFrom + "/from ".length(), idxTo - 1);
+                        String to = input.substring(idxTo + "/to ".length());
+                        newTask = new Event(taskName, from, to);
+                    }
+                    // Task newTask = new Task(input);
                     taskList[listIdx] = newTask;
                     listIdx++;
-                    System.out.println(String.format("%s\nDave added: %s\n%s", horizontalLine, input, horizontalLine));
+                    System.out.println(String.format("%s\nDave added the task: \n  %s\nYou now have %d task(s).\n%s", horizontalLine, newTask.toString(), listIdx, horizontalLine));
                 }
             }
             input = sc.nextLine();
