@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 class IO {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private List<String> cmdList = Arrays.asList("todo", "deadline", "event", "list", "mark", "unmark", "bye");
+    private List<String> cmdList = Arrays.asList("todo", "deadline", "event", "list", "mark", "unmark", "delete", "bye");
     private Scanner sc;
     private String hLine = "________________________________________________";
     private String logo = " ____        _        \n"
@@ -42,6 +42,8 @@ class IO {
                 list();
             } else if (cmd.equals("mark") || cmd.equals("unmark")) {
                 mark(input);
+            } else if (cmd.equals("delete")) {
+                deleteTask(input);
             } else {
                 addTask(input, cmd);
             }
@@ -71,6 +73,15 @@ class IO {
         echo("Got it. I've added this task:\n  "
                 + t + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private void deleteTask(String input) {
+        String[] token = input.split(" ");
+        Task t = tasks.get(Integer.parseInt(token[1]) - 1);
+        echo("Noted. I've removed this task:\n  "
+                + t + "\n"
+                + "Now you have " + (tasks.size() - 1) + " tasks in the list.");
+        tasks.remove(t);
     }
 
     private void list() {
