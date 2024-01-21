@@ -16,9 +16,7 @@ public class Ellie {
     }
 
     public void start() {
-
         hello();
-
         Scanner reader = new Scanner(System.in);
         String input = reader.nextLine();
 
@@ -26,12 +24,45 @@ public class Ellie {
             if (input.toLowerCase().equals("list")) {
                 tracker.listTasks();
             } else {
-                Task newTask = new Task(input);
-                tracker.addTask(newTask);
+
+                // Check if it is mark / unmark command.
+                Boolean isMark = input.split(" ", 2)[0].toLowerCase().equals("mark");
+                Boolean isUnmark = input.split(" ", 2)[0].toLowerCase().equals("unmark");
+
+                if (isMark) {
+                    String indexString = input.split(" ", 2)[1];
+                    if (isNumeric(indexString)) {
+                        int index = Integer.parseInt(indexString);
+                        tracker.markTaskIndex(index);
+                    } else {
+                        System.out.println("Input a valid number to mark! + \n" +
+                                "Usage: mark [int]");
+                    }
+                }
+                else if (isUnmark) {
+                    String indexString = input.split(" ", 2)[1];
+                    if (isNumeric(indexString)) {
+                        int index = Integer.parseInt(indexString);
+                        tracker.unmarkTaskIndex(index);
+                    } else {
+                        System.out.println("Input a valid number to unmark! + \n" +
+                                "Usage: unmark [int]");
+                    }
+                }
+                else {
+                    Task newTask = new Task(input);
+                    tracker.addTask(newTask);
+                }
+
             }
             input = reader.nextLine();
         }
+
         goodbye();
+    }
+
+    private static Boolean isNumeric(String string) {
+        return string.matches("\\d+");
     }
 
     private void hello() {
