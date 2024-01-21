@@ -38,6 +38,7 @@ public class Duke {
                         if (markIndex < 0 || markIndex >= taskList.size()) {
                             throw new DukeException("we do not have this task number!!");
                         }
+
                         String markToPrint = taskList.get(markIndex).markAsDone();
                         printWithSolidLineBreak(markToPrint);
                         break;
@@ -80,6 +81,8 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 printWithSolidLineBreak(e.getMessage());
+            } catch (NumberFormatException e) {
+                printWithSolidLineBreak("Invalid task number format! Please enter a valid number.");
             }
         }
 
