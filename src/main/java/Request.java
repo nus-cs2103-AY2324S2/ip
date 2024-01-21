@@ -15,7 +15,11 @@ public class Request {
         Matcher deadlineMatcher = deadlinePattern.matcher(name);
         Matcher eventMatcher = eventPattern.matcher(name);
 
-        if (name.equals("list") || name.contains("mark") || name.contains("unmark") || name.contains("help")) {
+        if (name.equals("list")     ||
+            name.contains("mark")   ||
+            name.contains("unmark") ||
+            name.contains("help")   ||
+            name.contains("delete")) {
             this.name = name;
         } else {
             if (todoMatcher.matches()) {
@@ -42,13 +46,17 @@ public class Request {
     public void handleRequest() throws NicoleException {
         if (this.name.contains("unmark")) {
             int taskNumber = Integer.parseInt(this.name.substring(7));
+            this.crudChecker(taskNumber);
             Nicole.taskList.get(taskNumber - 1).markUndone();
         } else if (this.name.contains("mark")) {
             int taskNumber = Integer.parseInt(this.name.substring(5));
-            if (taskNumber > Nicole.taskList.size() || taskNumber <= 0) {
-                throw new NicoleException("Huh...that's not a valid item number :')");
-            }
+            this.crudChecker(taskNumber);
             Nicole.taskList.get(taskNumber - 1).markDone();
+        } else if (this.name.contains("delete")) {
+            int taskNumber = Integer.parseInt(this.name.substring(7));
+            this.crudChecker(taskNumber);
+            Nicole.taskList.remove(taskNumber - 1);
+            System.out.println(Nicole.botName + ": Phew...deleted  :>");
         } else if (this.name.equals("help")) {
             System.out.println(Nicole.botName + ": " +
                     "I'm your task/deadline/event manager! I'm down with these requests,\n" +
@@ -68,12 +76,18 @@ public class Request {
 
     private void listTasks() {
         if (Nicole.taskList.size() == 0) {
-            System.out.println(Nicole.botName + ": No tasks yet. Relax <3");
+            System.out.println(Nicole.botName + ": No items. Relax <3");
         } else {
             System.out.println(Nicole.botName + ": Your tasks are,");
             for (int i = 0; i < Nicole.taskList.size(); i++) {
                 System.out.println((i + 1) + ": " + Nicole.taskList.get(i));
             }
+        }
+    }
+
+    private void crudChecker(int taskNumber) throws NicoleException {
+        if (taskNumber <= 0 || taskNumber > Nicole.taskList.size()) {
+            throw new NicoleException("Huh? That's not a valid item number :')");
         }
     }
 }

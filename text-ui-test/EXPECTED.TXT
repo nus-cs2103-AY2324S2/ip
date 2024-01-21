@@ -23,10 +23,14 @@ Nicole: Your tasks are,
 1: [T][] borrow book
 2: [E][] read book (from: Monday 4pm to: Monday 2pm)
 3: [D][] return book (by: Wednesday)
-Nicole: ERROR. Huh...that's not a valid item number :')
-Nicole: ERROR. Huh...that's not a valid item number :')
+Nicole: ERROR. Huh? That's not a valid item number :')
+Nicole: ERROR. Huh? That's not a valid item number :')
+Nicole: ERROR. Huh? That's not a valid item number :')
+Nicole: ERROR. Huh? That's not a valid item number :')
 Nicole: Marked as completed! Good job :3
 Nicole: ERROR. That is already marked complete -_-
+Nicole: ERROR. Huh? That's not a valid item number :')
+Nicole: ERROR. Huh? That's not a valid item number :')
 Nicole: Marked as completed! Good job :3
 Nicole: Your tasks are,
 1: [T][x] borrow book
@@ -35,8 +39,8 @@ Nicole: Your tasks are,
 Nicole: ERROR. That is already marked complete -_-
 Nicole: Marked as incomplete. We'll get em next time
 Nicole: ERROR. That is already marked incomplete -_-
+Nicole: Phew...deleted  :>
 Nicole: Your tasks are,
-1: [T][] borrow book
-2: [E][x] read book (from: Monday 4pm to: Monday 2pm)
-3: [D][] return book (by: Wednesday)
+1: [E][x] read book (from: Monday 4pm to: Monday 2pm)
+2: [D][] return book (by: Wednesday)
 Bye, for now ;) Let's catch up again soon.

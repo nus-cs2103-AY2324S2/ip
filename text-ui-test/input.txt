@@ -11,13 +11,18 @@ todo borrow book
 event read book /from Monday 4pm /to Monday 2pm
 deadline return book /by Wednesday
 list
+delete 500
+delete -2
 mark 500
 mark -2
 mark 1
 mark 1
+unmark 500
+unmark -2
 mark 2
 list
 mark 1
 unmark 1
 unmark 1
+delete 1
 list
