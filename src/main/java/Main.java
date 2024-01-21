@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    private static Duke duke = new Duke();
+    private static final Duke duke = new Duke();
 
     private static void cat() {
         System.out.println(" |\\ /| ");
@@ -58,8 +58,7 @@ public class Main {
                         System.out.println(e.getMessage());
                     } catch (NumberFormatException e) {
                         System.out.println("\"" + trimmed + "\" is not a number. Please try again.");
-                    }
-                    ;
+                    };
                     break;
                 default:
                     Task task = new Task(command + data);
