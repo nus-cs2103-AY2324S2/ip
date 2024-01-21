@@ -9,13 +9,13 @@ public abstract class Command {
     }
 
     public static class InvalidCommand extends Command {
-        String message;
+        private String message;
         public InvalidCommand(String message) {
             this.message = message;
         }
         @Override
         public void execute(TaskList list) {
-            System.out.println(message);
+            System.out.println(this.message);
         }
     }
 
@@ -56,6 +56,23 @@ public abstract class Command {
             } catch (DukeException.IllegalParamException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    public static class DeleteCommand extends Command {
+        private int id;
+        public DeleteCommand(int id) {
+            this.id = id;
+        }
+
+        @Override
+        public void execute(TaskList list) {
+            try {
+                list.deleteTask(this.id);
+            } catch (DukeException.IllegalParamException e) {
+                System.out.println(e.getMessage());
+            }
+
         }
     }
 

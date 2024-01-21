@@ -20,6 +20,8 @@ public class Parser {
                     return Parser.parseMarkCommand(tokens[1]);
                 case "unmark":
                     return parseUnmarkCommand(tokens[1]);
+                case "delete":
+                    return parseDeleteCommand(tokens[1]);
                 case "todo":
                     return parseTodoCommand(tokens[1]);
                 case "deadline":
@@ -39,7 +41,7 @@ public class Parser {
             int taskId = Integer.parseInt(tokens.trim());
             return new Command.MarkCommand(taskId);
         } catch (NumberFormatException e) {
-            throw new DukeException.IllegalParamException("I dont know which task you are trying to mark");
+            throw new DukeException.IllegalParamException("I dont know which task you are trying to mark! Try a number");
         }
     }
 
@@ -48,7 +50,16 @@ public class Parser {
             int taskId = Integer.parseInt(tokens.trim());
             return new Command.UnmarkCommand(taskId);
         } catch (NumberFormatException e) {
-            throw new DukeException.IllegalParamException("I dont know which task you are trying to unmark");
+            throw new DukeException.IllegalParamException("I dont know which task you are trying to unmark! Try a number");
+        }
+    }
+
+    private static Command parseDeleteCommand(String tokens) throws DukeException.IllegalParamException{
+        try {
+            int taskId = Integer.parseInt(tokens.trim());
+            return new Command.DeleteCommand(taskId);
+        } catch (NumberFormatException e) {
+            throw new DukeException.IllegalParamException("I dont know which task you are trying to delete! Try a number");
         }
     }
 

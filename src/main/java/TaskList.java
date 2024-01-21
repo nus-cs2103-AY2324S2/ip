@@ -30,4 +30,13 @@ public class TaskList {
         }
 
     }
+
+    public void deleteTask(int index) throws DukeException.IllegalParamException {
+        try {
+            this.taskList.remove(index - 1);
+            System.out.println("Looks like you have " + taskList.size() + " things left to do!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException.IllegalParamException("I cant delete that task! It does not exist!");
+        }
+    }
 }

@@ -15,21 +15,6 @@ public class Duke {
         }
 
         command.execute(taskList);
-//
-//                    case "deadline":
-
-//
-//                    case "event":
-//                        String[] description_rest = userInput.substring(6).split("/from");
-//                        String[] from_to = description_rest[1].split(("/to"));
-//                        Task.Events newEvent = new Task.Events(description_rest[0].trim(), from_to[0].trim(), from_to[1].trim());
-//                        taskList.add(newEvent);
-//                        break;
-//
-//                    default:
-//                        System.out.println("I dont know what you are saying, try again");
-//
-//                }
 
     }
 }
