@@ -12,52 +12,77 @@ public class Yapper {
         while (true) {
             System.out.println("User: ");
             String userInput = userScanner.nextLine();
-            if (userInput.equalsIgnoreCase("list")){
-                System.out.println(" Here are the tasks in your list:");
-                for(int i = 0; i < tasks.size(); i++){
-                    System.out.println("" + (i+1) + ". " + tasks.get(i).toString());
-                }
-            } else if (userInput.startsWith("mark")) {
+            try {
+                processUserInput(userInput, tasks);
+            } catch (YapperException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static void processUserInput(String userInput, List<Task> tasks) throws YapperException {
+        if (userInput.equalsIgnoreCase("list")) {
+            System.out.println(" Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("" + (i + 1) + ". " + tasks.get(i).toString());
+            }
+        } else if (userInput.startsWith("mark")) {
+            try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 tasks.get(taskNumber).markAsDone();
                 System.out.println(" Nice! I've marked this task as done:");
                 System.out.println(" " + tasks.get(taskNumber));
-            } else if (userInput.startsWith("unmark")) {
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                throw new YapperException("Please provide a valid task number to mark as done.");
+            }
+        } else if (userInput.startsWith("unmark")) {
+            try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 tasks.get(taskNumber).markAsNotDone();
                 System.out.println(" OK, I've marked this task as not done yet:");
                 System.out.println(" " + tasks.get(taskNumber));
-            } else if (userInput.startsWith("todo")) {
-                Todo newTask = new Todo(userInput.substring(5));
-                tasks.add(newTask);
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + newTask);
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-            } else if (userInput.startsWith("deadline")) {
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                throw new YapperException("Please provide a valid task number to mark as not done.");
+            }
+        } else if (userInput.startsWith("todo")) {
+            if (userInput.length() <= 5) {
+                throw new YapperException("The description of a todo cannot be empty!");
+            }
+            Todo newTask = new Todo(userInput.substring(5));
+            tasks.add(newTask);
+            System.out.println(" Got it. I've added this task:");
+            System.out.println("   " + newTask);
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        } else if (userInput.startsWith("deadline")) {
+            try {
                 String[] parts = userInput.substring(9).split("/by");
                 Deadline newTask = new Deadline(parts[0].trim(), parts[1].trim());
                 tasks.add(newTask);
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + newTask);
                 System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-            } else if (userInput.startsWith("event")) {
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new YapperException("Please provide a valid deadline task format.");
+            }
+        } else if (userInput.startsWith("event")) {
+            try {
                 String[] parts = userInput.substring(6).split("/from|/to");
                 Event newTask = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
                 tasks.add(newTask);
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + newTask);
                 System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-            } else {
-                Task newTask= new Task(userInput);
-                tasks.add(newTask);
-                System.out.println("Added: " + userInput);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new YapperException("Please provide a valid event task format.");
             }
-
+        } else if (userInput.equalsIgnoreCase("bye")){
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println(" Bye. Hope to see you again soon!");
-                break;
+                System.out.println("Bye. Hope to see you again soon!");
+                System.exit(0);
             }
+        } else {
+            throw new YapperException("Sorry but I don't know what that means :(");
         }
-        userScanner.close();
     }
 }
+
