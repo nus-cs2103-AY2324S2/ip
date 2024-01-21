@@ -17,7 +17,7 @@ public class Nicole {
         if (currentHour < 12 && currentHour >= 5) {
             salutation += "morns :D ! What's the plan today";
         } else if (currentHour >= 12 && currentHour < 17) {
-            salutation += "afternoon zzz...how's it hanging";
+            salutation += "afternoon zzz...how's it going";
         } else {
             salutation += "evening! Let's wrap it up soon? :P";
         }
@@ -30,8 +30,12 @@ public class Nicole {
     private static String talkToUser() throws IOException {
         String request = br.readLine();
         while (request != null && !request.equals("bye")) {
-            Request newRequest  = new Request(request);
-            newRequest.handleRequest();
+            try {
+                Request newRequest = new Request(request);
+                newRequest.handleRequest();
+            } catch (NicoleException e) {
+                System.out.println(e);
+            }
             request = br.readLine();
         }
         return Nicole.exit();

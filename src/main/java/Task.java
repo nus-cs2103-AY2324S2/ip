@@ -2,12 +2,15 @@ public class Task {
     private boolean completed;
     private String name;
 
-    public Task(String name) {
-        this.name = name;
+    public Task() {
         this.completed = false;
     }
 
-    public static Task taskFactory(String name, int taskType) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public static Task taskFactory(String name, int taskType) throws NicoleException {
         if (taskType == 0) {
             return new Todo(name);
         } else if (taskType == 1) {
@@ -17,21 +20,21 @@ public class Task {
         }
     }
 
-    public void markDone() {
+    public void markDone() throws NicoleException {
         if (this.completed) {
-            System.out.println(Nicole.botName + ": " + this.name + " is already marked complete -_-");
+            throw new NicoleException("That is already marked complete -_-");
         } else {
             this.completed = true;
-            System.out.println(Nicole.botName + ": I marked " + this.name + " as completed. Good job :3");
+            System.out.println(Nicole.botName + ": Marked as completed! Good job :3");
         }
     }
 
-    public void markUndone() {
+    public void markUndone() throws NicoleException {
         if (!this.completed) {
-            System.out.println(Nicole.botName + ": " + this.name + " is already marked incomplete -_-");
+            throw new NicoleException("That is already marked incomplete -_-");
         } else {
             this.completed = false;
-            System.out.println(Nicole.botName + ": I marked " + this.name + " as incomplete.");
+            System.out.println(Nicole.botName + ": Marked as incomplete. We'll get em next time");
         }
     }
 

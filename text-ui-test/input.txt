@@ -1,10 +1,23 @@
+help
+todo
+deadline
+event
+deadline \by Sunday
+deadline xyz
+event \from xyz \to abc
+event xyz
+blah
 todo borrow book
 event read book /from Monday 4pm /to Monday 2pm
 deadline return book /by Wednesday
 list
+mark 500
+mark -2
+mark 1
 mark 1
 mark 2
 list
 mark 1
+unmark 1
 unmark 1
 list

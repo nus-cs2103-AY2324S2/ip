@@ -1,6 +1,21 @@
-Welcome to Nicole Mark I. New conversation at 20/01/2024
+Welcome to Nicole Mark I. New conversation at 21/01/2024
 ----------------------------- x ------------------------------
 Nicole: Good evening! Let's wrap it up soon? :P
+Nicole: I'm your task/deadline/event manager! I'm down with these requests,
+1. todo [task]
+2. deadline [task] /by [datetime]
+3. event [name] /from [starting] /to [ending]
+4. list
+5. bye
+6. help
+Nicole: ERROR. What exactly do you want me to note...tell me in the form of: todo [task]
+Nicole: ERROR. Describe your deadline like this: deadline [task] /by [datetime]
+Nicole: ERROR. Describe your event like this: event [name] /from [starting] /to [ending]
+Nicole: ERROR. Describe your deadline like this: deadline [task] /by [datetime]
+Nicole: ERROR. Describe your deadline like this: deadline [task] /by [datetime]
+Nicole: ERROR. Describe your event like this: event [name] /from [starting] /to [ending]
+Nicole: ERROR. Describe your event like this: event [name] /from [starting] /to [ending]
+Nicole: ERROR. What does this mean? I only know todo, deadline, event, list and bye!
 Nicole: Oki I added "borrow book". There are now 1 item(s) total.
 Nicole: Oki I added "read book (from: Monday 4pm to: Monday 2pm)". There are now 2 item(s) total.
 Nicole: Oki I added "return book (by: Wednesday)". There are now 3 item(s) total.
@@ -8,14 +23,18 @@ Nicole: Your tasks are,
 1: [T][] borrow book
 2: [E][] read book (from: Monday 4pm to: Monday 2pm)
 3: [D][] return book (by: Wednesday)
-Nicole: I marked borrow book as completed. Good job :3
-Nicole: I marked read book (from: Monday 4pm to: Monday 2pm) as completed. Good job :3
+Nicole: ERROR. Huh...that's not a valid item number :')
+Nicole: ERROR. Huh...that's not a valid item number :')
+Nicole: Marked as completed! Good job :3
+Nicole: ERROR. That is already marked complete -_-
+Nicole: Marked as completed! Good job :3
 Nicole: Your tasks are,
 1: [T][x] borrow book
 2: [E][x] read book (from: Monday 4pm to: Monday 2pm)
 3: [D][] return book (by: Wednesday)
-Nicole: borrow book is already marked complete -_-
-Nicole: I marked borrow book as incomplete.
+Nicole: ERROR. That is already marked complete -_-
+Nicole: Marked as incomplete. We'll get em next time
+Nicole: ERROR. That is already marked incomplete -_-
 Nicole: Your tasks are,
 1: [T][] borrow book
 2: [E][x] read book (from: Monday 4pm to: Monday 2pm)
