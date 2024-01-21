@@ -14,7 +14,10 @@ deadline someTask
 event someEvent /from /to
 event someOtherEvent /from  /to
 mark 4
-mark abcd
+mark abc
 unmark 0
+delete 0
+delete abc
+delete 1
 list
 bye

@@ -26,7 +26,30 @@ public class TaskList {
      */
     public String addTask(Task task) {
         this.taskList.add(task);
-        return "Added: " + task.getTaskInformation();
+        return "Added: " + task.getTaskInformation() + "\n" + this.getTotalTasks();
+    }
+
+    /**
+     * Removes the task at specified and returns a message of the deleted Task.
+     *
+     * @param index Index of task to delete.
+     * @return Message stating the deleted task.
+     */
+    public String deleteTask(int index) throws TaskException {
+        if (index <= 0 || index > this.taskList.size()) {
+            throw new TaskException("Error. Task of index " + index + " cannot be found.");
+        }
+        Task removedTask = this.taskList.remove(index - 1);
+        return "Removed: " + removedTask.getTaskInformation() + "\n" + this.getTotalTasks();
+    }
+
+    /**
+     * Returns the total number of tasks tracked.
+     *
+     * @return Message of total number of tasks tracked.
+     */
+    public String getTotalTasks() {
+        return "There are now " + this.taskList.size() + " tasks in the list.";
     }
 
     /**

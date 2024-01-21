@@ -44,6 +44,9 @@ public class Duke {
                 } else if (input.startsWith("unmark")) {
                     int index = Integer.parseInt(input.substring(7));
                     Duke.echo(taskList.unmarkTask(index));
+                } else if (input.startsWith("delete")) {
+                    int index = Integer.parseInt(input.substring(7));
+                    Duke.echo(taskList.deleteTask(index));
                 } else {
                     throw new UnknownCommandException();
                 }

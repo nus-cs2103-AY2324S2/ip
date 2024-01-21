@@ -7,6 +7,7 @@ public class UnknownCommandException extends Exception {
                 + "- " +  Event.CREATE_EVENT_FORMAT + ": Adds new Event task.\n"
                 + "- mark <task-number>: Marks task at index <task-number> as done.\n"
                 + "- unmark <task-number>: Marks task at index <task-number> as not done.\n"
+                + "- delete <task-number>: Deletes task at index <task-number>.\n"
                 + "- bye: exits the program.");
     }
 }
