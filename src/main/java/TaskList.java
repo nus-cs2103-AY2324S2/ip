@@ -26,25 +26,31 @@ public class TaskList {
     public String addTask(String taskDescription) {
         Task task = new Task(taskDescription);
         this.taskList.add(task);
-        return "Added: " + this.taskList.size() + ". " + task.getTaskInformation();
+        return "Added: " + this.taskList.size() + "." + task.getTaskInformation();
     }
 
     /**
-     * Sets the task at the specified index as done.
+     * Sets the task at the specified index as done and returns a task completion message.
      *
      * @param index Index of task. Note that this is always 1 more than index stored in the list.
+     * @return Task completion message.
      */
-    public void markTask(int index) {
-        this.taskList.get(index - 1).markAsDone();
+    public String markTask(int index) {
+        Task task = this.taskList.get(index - 1);
+        task.markAsDone();
+        return "Great job for finishing the task:\n" + index + "." + task.getTaskInformation();
     }
 
     /**
-     * Sets the task at the specified index as not done.
+     * Sets the task at the specified index as not done and returns a task incompletion message.
      *
      * @param index Index of task. Note that this is always 1 more than index stored in the list.
+     * @return Task incompletion message.
      */
-    public void unmarkTask(int index) {
-        this.taskList.get(index - 1).unmarkAsDone();
+    public String unmarkTask(int index) {
+        Task task = this.taskList.get(index - 1);
+        task.unmarkAsDone();
+        return "Take your time mate. Quality over quantity:\n" + index + "." + task.getTaskInformation();
     }
 
     /**
@@ -56,7 +62,7 @@ public class TaskList {
         StringBuilder sb = new StringBuilder("Here are your list of tasks:");
         for (int i = 0; i < taskList.size(); i++) {
             sb.append("\n    ");
-            sb.append(i + 1).append(". ").append(taskList.get(i).getTaskInformation());
+            sb.append(i + 1).append(".").append(taskList.get(i).getTaskInformation());
         }
         return sb.toString();
     }

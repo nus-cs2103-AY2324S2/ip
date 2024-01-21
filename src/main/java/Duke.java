@@ -1,68 +1,56 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
- * Class running the main chatbot program.
+ * Main chatbot program.
+ *
+ * @author KohGuanZeh
  */
 public class Duke {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        ArrayList<String> list = new ArrayList<>(100);
+    private static final String BLOCK_SEPARATOR = "=".repeat(80);
 
-        Duke.greet();
+    public static void main(String[] args) {
+        // Greeting message to be displayed on start.
+        final String GREETING = "Hello, I'm Ted. What can I do for you today?";
+        // Goodbye message to be displayed on exit.
+        final String GOODBYE = "Bye. See you again.";
+        // Scanner to read user inputs.
+        Scanner sc = new Scanner(System.in);
+        // Task list to track tasks from users.
+        TaskList taskList = new TaskList();
+
+        Duke.echo(GREETING);
 
         while (true) {
-            String message = sc.nextLine();
+            String input = sc.nextLine();
 
-            if (message.equals("bye")) {
+            if (input.equals("bye")) {
                 break;
             }
 
-            if (message.equals("list")) {
-                Duke.listMessages(list);
+            if (input.equals("list")) {
+                Duke.echo(taskList.listTasks());
+            } else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.substring(5));
+                Duke.echo(taskList.markTask(index));
+            } else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.substring(7));
+                Duke.echo(taskList.unmarkTask(index));
             } else {
-                Duke.addMessageToList(list, message);
+                Duke.echo(taskList.addTask(input));
             }
         }
 
-        Duke.exit();
+        Duke.echo(GOODBYE);
     }
 
     /**
-     * Greet behaviour of chatbot.
-     */
-    private static void greet() {
-        System.out.println("Hello, I'm Ted.");
-        System.out.println("What can I do for you today?");
-    }
-
-    /**
-     * Exit behaviour of chatbot.
-     */
-    private static void exit() {
-        System.out.println("Bye. See you again.");
-    }
-
-    /**
-     * Stores a message to a list.
+     * Prints the specified message to the output.
      *
-     * @param list List to store recorded items.
-     * @param message Message to be recorded.
+     * @param message Message to be printed on output.
      */
-    private static void addMessageToList(ArrayList<String> list, String message) {
-        list.add(message);
-        System.out.println("    Added: " + message);
-    }
-
-    /**
-     * List all messages recorded by the chatbot.
-     *
-     * @param list List of messages that were recorded.
-     */
-    private static void listMessages(ArrayList<String> list) {
-        for (int i = 0; i < list.size(); i++) {
-            int index = i + 1;
-            System.out.println("    " + index + ". " + list.get(i));
-        }
+    private static void echo(String message) {
+        System.out.println(BLOCK_SEPARATOR);
+        System.out.println(message);
+        System.out.println(BLOCK_SEPARATOR);
     }
 }
