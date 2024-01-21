@@ -6,6 +6,18 @@ public class Duke {
     private static final ArrayList<Task> tasks = new ArrayList<Task>(max_tasks);
     private static int taskCount = 0;
 
+    private enum Command {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        EVENT,
+        DEADLINE,
+        TODO,
+        DELETE,
+        UNKNOWN
+    }
+
     public static void main(String[] args) {
         String name = "BotChat";
 
@@ -38,35 +50,53 @@ public class Duke {
 
     //Method to handle inputs
     private static void handleInput(String input) throws DukeException {
-        //Bye input + close scanner + exit program
-        if (input.equals("bye")) {
-            System.out.println("____________________________________________________________\n" +
-                    " Bye. Hope to see you again soon!\n" +
-                    "____________________________________________________________\n");
-            System.exit(0);
-        } else if (input.equals("list")) {
-            //List tasks
-            listTasks();
-        } else if (input.startsWith("mark")) {
-            //mark tasks as complete
-            markTask(input);
-        }else if (input.startsWith("unmark")) {
-            //unmark tasks
-            unmarkTask(input);
-        } else if (input.startsWith("event")){
-            //Add event task to list
-            addEventTask(input);
-        } else if (input.startsWith("deadline")) {
-            //Add deadline task to list
-            addDeadlineTask(input);
-        } else if (input.startsWith("todo")) {
-            //Add tod0 task to list
-            addTodoTask(input);
-        } else if (input.startsWith("delete")) {
-            //Delete tasks from list
-            deleteTask(input);
-        } else {
-            throw new DukeException("Sorry, I do not understand that command. Please try again.");
+        Command command = getCommand(input.split(" ")[0]);
+        switch (command) {
+            //Bye input + close scanner + exit program
+            case BYE:
+                System.out.println("____________________________________________________________\n" +
+                        " Bye. Hope to see you again soon!\n" +
+                        "____________________________________________________________\n");
+                System.exit(0);
+                break;
+            case LIST:
+                //List tasks
+                listTasks();
+                break;
+            case MARK:
+                //mark tasks as complete
+                markTask(input);
+                break;
+            case UNMARK:
+                //unmark tasks
+                unmarkTask(input);
+                break;
+            case EVENT:
+                //Add event task to list
+                addEventTask(input);
+                break;
+            case DEADLINE:
+                //Add deadline task to list
+                addDeadlineTask(input);
+                break;
+            case TODO:
+                //Add tod0 task to list
+                addTodoTask(input);
+                break;
+            case DELETE:
+                //Delete tasks from list
+                deleteTask(input);
+                break;
+            case UNKNOWN:
+                throw new DukeException("Sorry, I do not understand that command. Please try again.");
+        }
+    }
+
+    private static Command getCommand(String input) {
+        try {
+            return Command.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return Command.UNKNOWN;
         }
     }
 
