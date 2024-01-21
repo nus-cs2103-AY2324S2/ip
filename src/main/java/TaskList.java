@@ -29,6 +29,30 @@ public class TaskList {
     }
 
     /**
+     * Add a to-do to the list.
+     * @param name the name of the to-do to add
+     */
+    public void addTodo(String name) {
+        tasks.add(new ToDo(name));
+    }
+
+    /**
+     * Add a deadline to the list.
+     * @param name the name of the to-do to add
+     */
+    public void addDeadline(String name, String by) {
+        tasks.add(new Deadline(name, by));
+    }
+
+    /**
+     * Add an event to the list.
+     * @param name the name of the to-do to add
+     */
+    public void addEvent(String name, String from, String to) {
+        tasks.add(new Event(name, from, to));
+    }
+
+    /**
      * Mark the task as done.
      * @param index the index of the task (0-indexed)
      */
@@ -49,7 +73,6 @@ public class TaskList {
     }
 
     /**
-     *
      * @param index the 0-indexed.
      * @return the index of the task (0-indexed)
      */
