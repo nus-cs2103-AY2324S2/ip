@@ -13,7 +13,7 @@ public class Duke {
 
     static ArrayList<Task> taskList;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         Scanner sc = new Scanner(System.in);
         taskList = new ArrayList<>();
 
@@ -25,41 +25,61 @@ public class Duke {
         while (true) {
             String command = sc.next();
             String info = sc.nextLine().trim();
-            switch (command) {
-                case "bye":
-                    break label;
-                case "list":
-                    printTaskList(taskList);
-                    break;
-                case "mark":
-                    int markIndex = Integer.parseInt(info.trim()) - 1;
-                    String markToPrint = taskList.get(markIndex).markAsDone();
-                    printWithSolidLineBreak(markToPrint);
-                    break;
-                case "unmark":
-                    int unmarkIndex = Integer.parseInt(info.trim()) - 1;
-                    String unmarkToPrint =taskList.get(unmarkIndex).unmarkAsDone();
-                    printWithSolidLineBreak(unmarkToPrint);
-                    break;
-                case "todo":
-                    Task todo = new Todo(info);
-                    taskList.add(todo);
-                    printTaskAddedWithSolidLineBreak(todo);
-                    break;
-                case "deadline":
-                    List<String> deadlineInfo = splitStringWithTrim(info, "/");
-                    Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1).substring(3));
-                    taskList.add(deadline);
-                    printTaskAddedWithSolidLineBreak(deadline);
-                    break;
-                case "event":
-                    List<String> eventInfo = splitStringWithTrim(info, "/");
-                    Task event = new Event(eventInfo.get(0), eventInfo.get(1).substring(5), eventInfo.get(2).substring(3));
-                    taskList.add(event);
-                    printTaskAddedWithSolidLineBreak(event);
-                    break;
-                default:
-                    System.out.println("we are in default!!");
+
+            try {
+                switch (command) {
+                    case "bye":
+                        break label;
+                    case "list":
+                        printTaskList(taskList);
+                        break;
+                    case "mark":
+                        int markIndex = Integer.parseInt(info.trim()) - 1;
+                        if (markIndex < 0 || markIndex >= taskList.size()) {
+                            throw new DukeException("we do not have this task number!!");
+                        }
+                        String markToPrint = taskList.get(markIndex).markAsDone();
+                        printWithSolidLineBreak(markToPrint);
+                        break;
+                    case "unmark":
+                        int unmarkIndex = Integer.parseInt(info.trim()) - 1;
+                        if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) {
+                            throw new DukeException("we do not have this task number!!");
+                        }
+                        String unmarkToPrint =taskList.get(unmarkIndex).unmarkAsDone();
+                        printWithSolidLineBreak(unmarkToPrint);
+                        break;
+                    case "todo":
+                        if (info.isEmpty()) {
+                            throw new DukeException("The description of a todo cannot be empty??");
+                        }
+                        Task todo = new Todo(info);
+                        taskList.add(todo);
+                        printTaskAddedWithSolidLineBreak(todo);
+                        break;
+                    case "deadline":
+                        if (info.isEmpty()) {
+                            throw new DukeException("The description of a deadline cannot be empty??");
+                        }
+                        List<String> deadlineInfo = splitStringWithTrim(info, "/");
+                        Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1).substring(3));
+                        taskList.add(deadline);
+                        printTaskAddedWithSolidLineBreak(deadline);
+                        break;
+                    case "event":
+                        if (info.isEmpty()) {
+                            throw new DukeException("The description of a event cannot be empty??");
+                        }
+                        List<String> eventInfo = splitStringWithTrim(info, "/");
+                        Task event = new Event(eventInfo.get(0), eventInfo.get(1).substring(5), eventInfo.get(2).substring(3));
+                        taskList.add(event);
+                        printTaskAddedWithSolidLineBreak(event);
+                        break;
+                    default:
+                        throw new DukeException("Sorry but this command does not exist~");
+                }
+            } catch (DukeException e) {
+                printWithSolidLineBreak(e.getMessage());
             }
         }
 
