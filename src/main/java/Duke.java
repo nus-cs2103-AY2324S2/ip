@@ -1,19 +1,38 @@
 import java.io.*;
+import java.util.*;
 
 public class Duke {
-    static String horizontalLine = "\t――――――――――――――――――――――――――――――――――――――――\n";
-    static String chatBotName = "Bob";
+    // constants
+    static final String LINE = "\t――――――――――――――――――――――――――――――――――――――――\n";
+    static final String CHAT_BOT_NAME = "Bob";
+    static final String EXIT_COMMAND = "bye";
+    static final String LIST = "list";
+    static ArrayList<String> store = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         greet();
-        while (true) {
+        boolean isExiting = false;
+        while (!isExiting) {
             String input = br.readLine();
-            if (input.equals("bye")) {
-                break;
-            } else {
-                System.out.println(horizontalLine + "\t" + input + "\n" + horizontalLine);
+            switch (input) {
+                case EXIT_COMMAND:
+                    isExiting = true;
+                    break;
+                case LIST:
+                    System.out.println(LINE);
+                    if (store.isEmpty()) {
+                        System.out.println("\tStore is empty\n" + LINE);
+                    }
+                    for (int i = 0; i < store.size(); i++){
+                        System.out.println("\t" + (i+1) + ". " + store.get(i) + "\n");
+                    }
+                    System.out.println(LINE);
+                    break;
+                default:
+                    echo(input);
+                    store.add(input);
             }
         }
         exit();
@@ -21,13 +40,16 @@ public class Duke {
 
     // greet user
     public static void greet() {
-        System.out.println(horizontalLine + "\t" + "Hello! I'm " + chatBotName + "\n\t"
-                + "What can I do for you?\n" + horizontalLine);
+        System.out.println(LINE + "\t" + "Hello! I'm " + CHAT_BOT_NAME + "\n\t"
+                + "What can I do for you?\n" + LINE);
     }
 
     // exit statement
     public static void exit() {
-        System.out.println(horizontalLine + "\t" + "Bye! Hope to see you again soon!\n" + horizontalLine);
+        System.out.println(LINE + "\t" + "Bye! Hope to see you again soon!\n" + LINE);
     }
 
+    public static void echo(String input) {
+        System.out.println(LINE + "\tadded: " + input + "\n" + LINE);
+    }
 }
