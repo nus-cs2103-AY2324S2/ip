@@ -15,6 +15,8 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/input.txt
+/text-ui-test/EXPECTED.TXT
 
 # Java class files
 *.class
