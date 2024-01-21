@@ -14,19 +14,22 @@ public class Duke {
         System.out.println("    Hello! I'm Hanxiao.\n  What can I do for you?");
 
         while (true) {
-            //try{
-            Command cmd = commandDistributor(sc.nextLine());
-            cmd.reply();
-            //}
+            try{
+                Command cmd = commandDistributor(sc.nextLine());
+                cmd.reply();
+            } catch (DukeException e) {
+                System.out.printf("    %s\n",e.getMessage());
+            }
         }
     }
 
     /**
      * From input to determine which type of command to generate
      * @param input scanner's result
+     * @throws DukeException wrong usage
      * @return the generated command for execute
      */
-    private static Command commandDistributor(String input) {
+    private static Command commandDistributor(String input) throws DukeException{
         String[] inputs = input.split(" ");
         if (input.equals("bye")) {
             return new Bye();

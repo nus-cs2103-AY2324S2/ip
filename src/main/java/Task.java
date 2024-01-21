@@ -33,6 +33,12 @@ abstract class Task {
     public abstract String getTaskTypeIcon();
 
     /**
+     * abstract method
+     * @return return todo/event/deadline.
+     */
+    public abstract String getTaskType();
+
+    /**
      * Change the status of task from not Done to Done
      */
     public void Done() {

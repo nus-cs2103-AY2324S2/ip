@@ -8,8 +8,12 @@ public class Unmark implements Command{
      * Constructor
      * change the status of task to unDone.
      * @param operand which task to mark from 0
+     * @throws WrongIndexException index invalid
      */
-    public Unmark(int operand) {
+    public Unmark(int operand) throws WrongIndexException{
+        if (operand>=Task.task_list.size() || operand<0) {
+            throw new WrongIndexException();
+        }
         this.oprand=operand;
         Task.task_list.get(oprand).unDone();
     }

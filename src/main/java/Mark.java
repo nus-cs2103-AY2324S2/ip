@@ -8,8 +8,12 @@ public class Mark implements Command{
      * Constructor
      * change the status of task to finished.
      * @param operand which task to mark from 0
+     * @throws WrongIndexException invalid index
      */
-    public Mark(int operand) {
+    public Mark(int operand) throws WrongIndexException{
+        if (operand>=Task.task_list.size() || operand<0) {
+            throw new WrongIndexException();
+        }
         this.oprand=operand;
         Task.task_list.get(oprand).Done();
     }

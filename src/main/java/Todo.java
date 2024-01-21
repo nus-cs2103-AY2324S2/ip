@@ -19,4 +19,13 @@ public class Todo extends Task{
     public String getTaskTypeIcon() {
         return "T";
     }
+
+    /**
+     * Override the abstract class
+     * @return todo
+     */
+    @Override
+    public String getTaskType() {
+        return "todo";
+    }
 }

@@ -24,6 +24,15 @@ public class Deadline extends Task{
     }
 
     /**
+     * Override the abstract class
+     * @return deadline
+     */
+    @Override
+    public String getTaskType() {
+        return "deadline";
+    }
+
+    /**
      * Override the toString method
      * @return String representation of the task
      */

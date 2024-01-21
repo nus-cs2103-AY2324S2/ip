@@ -27,6 +27,14 @@ public class Event extends Task{
     }
 
     /**
+     * Override the abstract class
+     * @return event
+     */
+    @Override
+    public String getTaskType() {
+        return "event";
+    }
+    /**
      * Override the toString method
      * @return String representation of the task
      */
