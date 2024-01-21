@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.lang.StringBuilder;
 
 /**
  * ChatBot encapsulates the behaviour of a Chatbot.
@@ -36,15 +33,23 @@ public class ChatBot {
          */
         ADD,
         /**
+         * Mark the task as done
+         */
+        MARK,
+        /**
+         * Mark the task as not done
+         */
+        UNMARK,
+        /**
          * Invalid command
          */
         INVALID
     }
 
     /**
-     * Stores the task entered by the user.
+     * Stores the user's tasks
      */
-    private final List<Task> userList = new ArrayList<>();
+    TaskList userList = new TaskList();
 
     /**
      * Class constructor.
@@ -142,6 +147,10 @@ public class ChatBot {
                 return Command.BYE;
             case COMMAND_LIST:
                 return Command.LIST;
+            case COMMAND_MARK:
+                return Command.MARK;
+            case COMMAND_UNMARK:
+                return Command.UNMARK;
             case COMMAND_ADD:
                 return Command.ADD;
         }
@@ -156,23 +165,50 @@ public class ChatBot {
     private void executeCommand(Command command, String argument) {
         switch (command) {
             case ADD:
-                userList.add(new Task(argument));
-                printMessage("added: " + argument);
+                addTask(argument);
                 break;
             case LIST:
-                printUserList();
+                listTasks();
+                break;
+            case MARK:
+                markTask(Integer.parseInt(argument) - 1);
+                break;
+            case UNMARK:
+                unmarkTask(Integer.parseInt(argument) - 1);
                 break;
         }
     }
 
     /**
+     * Add a task to the user's list
+     */
+    private void addTask(String name) {
+        userList.addTask(name);
+        printMessage("added: " + name);
+    }
+
+    /**
      * Prints the user's list.
      */
-    private void printUserList() {
-        StringBuilder message = new StringBuilder();
-        for (int i = 0; i < userList.size(); i++) {
-            message.append(String.format("%d. %s\n", i + 1, userList.get(i)));
-        }
-        printMessage(message.toString());
+    private void listTasks() {
+        printMessage("Here are the tasks in your list:\n" + userList.toString());
+    }
+
+    /**
+     * Marks and prints the task.
+     * @param index the 0-indexed index of the task in the user's list.
+     */
+    private void markTask(int index) {
+        userList.markTask(index);
+        printMessage("Nice! I've marked this task as done:\n  " + userList.getTask(index));
+    }
+
+    /**
+     * Unmarks and prints the task.
+     * @param index the 0-indexed index of the task in the user's list.
+     */
+    private void unmarkTask(int index) {
+        userList.unmarkTask(index);
+        printMessage("OK, I've marked this task as not done yet:\n  " + userList.getTask(index));
     }
 }
