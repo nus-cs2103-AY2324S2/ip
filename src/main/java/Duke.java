@@ -1,27 +1,41 @@
+import java.util.Scanner;
+
 public class Duke {
+
+    final static String horizontalLine = "____________________________________________________________";
+    final static String logoElephant =
+                                        "     __\n" +
+                                        " .--()°'.'\n" +
+                                        "'|, . ,'\n" +
+                                        " !_-(_\\";
+
+
     public static void main(String[] args) {
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        hello();
 
-        String logoElephant =
-                "     __\n" +
-                " .--()°'.'\n" +
-                "'|, . ,'\n" +
-                " !_-(_\\";
+        String input = "";
+        Scanner reader = new Scanner(System.in);
 
-        String horizontalLine = "____________________________________________________________";
+        while ( !input.toLowerCase().equals("bye") ) {
+            System.out.println(input);
+            input = reader.next();
+        }
 
 
-        System.out.println("Hello! I'm Ellie!");
+        goodbye();
+    }
+
+    private static void hello() {
+        System.out.println("Hello! I'm Ellie, your CS2103T chat bot!");
         System.out.println(logoElephant + "\n" + horizontalLine);
-
-
         System.out.println("What can I do for you?");
-        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    private static void goodbye() {
+        System.out.println("\n Bye! Hope to see you again soon!");
         System.out.println(horizontalLine);
     }
+
+
 }
