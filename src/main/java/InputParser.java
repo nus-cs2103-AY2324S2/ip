@@ -48,16 +48,18 @@ public class InputParser {
      * @return the argument(s)
      */
     private static Argument[] parseArguments(String input) {
+        // Split input by arguments
         String[] argString = input.split("/");
         Argument[] args = new Argument[argString.length];
 
         // identify default argument
-        args[0] = new Argument(argString[0].split(" ", 2)[1]);
+        String[] parsedArg = argString[0].split(" ", 2);
+        args[0] = new Argument(parsedArg[1].trim());
 
         // identify additional arguments
         for (int i = 1; i < argString.length; i++) {
-            String[] parsedArg = argString[i].split(" ", 2);
-            args[i] = new Argument(parsedArg[0], parsedArg[1]);
+            parsedArg = argString[i].split(" ", 2);
+            args[i] = new Argument(parsedArg[0].trim(), parsedArg[1].trim());
         }
 
         return args;
