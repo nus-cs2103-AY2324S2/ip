@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Dude {
@@ -29,9 +30,9 @@ public class Dude {
         System.out.println(spacer + input + "\n" + spacer);
     }
 
-    private void add(String input) {
-        this.list.add(new Task(input));
-        print("added: " + input + "\n");
+    private void add(Task task) {
+        this.list.add(task);
+        print("Got it. I've added this task:\n" + task + "\nNow you have " + this.list.size() + " tasks in the list.\n");
     }
 
     private void list() {
@@ -43,41 +44,39 @@ public class Dude {
         print(listString);
     }
 
-    private void mark(String[] args) {
-        if (args.length != 2) {
-            System.out.println("Invalid mark command");
-            return;
-        }
-        String indexString = args[1];
-        if (!isNumeric(indexString)) {
-            System.out.println("Index is not numeric");
-            return;
-        }
-        int index = Integer.parseInt(indexString);
-        if (index > this.list.size()) {
-            System.out.println("Index out of range");
-            return;
-        }
+    private void mark(String args) {
+//        if (args.length != 2) {
+//            System.out.println("Invalid mark command");
+//            return;
+//        }
+//        if (!isNumeric(indexString)) {
+//            System.out.println("Index is not numeric");
+//            return;
+//        }
+        int index = Integer.parseInt(args);
+//        if (index > this.list.size()) {
+//            System.out.println("Index out of range");
+//            return;
+//        }
         Task task = this.list.get(index - 1);
         task.mark();
         print("Nice! I've marked this task as done:\n" + task + "\n");
     }
 
-    private void unmark(String[] args) {
-        if (args.length != 2) {
-            System.out.println("Invalid unmark command");
-            return;
-        }
-        String indexString = args[1];
-        if (!isNumeric(indexString)) {
-            System.out.println("Index is not numeric");
-            return;
-        }
-        int index = Integer.parseInt(indexString);
-        if (index > this.list.size()) {
-            System.out.println("Index out of range");
-            return;
-        }
+    private void unmark(String args) {
+//        if (args.length != 2) {
+//            System.out.println("Invalid unmark command");
+//            return;
+//        }
+//        if (!isNumeric(indexString)) {
+//            System.out.println("Index is not numeric");
+//            return;
+//        }
+        int index = Integer.parseInt(args);
+//        if (index > this.list.size()) {
+//            System.out.println("Index out of range");
+//            return;
+//        }
         Task task = this.list.get(index - 1);
         task.unmark();
         print("OK, I've marked this task as not done yet:\n" + task + "\n");
@@ -90,21 +89,46 @@ public class Dude {
         Dude dude = new Dude();
 
         Scanner scanner = new Scanner(System.in);
+        loop:
         while(true) {
             String input = scanner.nextLine();
 
-            String[] ipArgs = input.split(" ");
-            String command = ipArgs[0];
-            if (command.equals("bye")) {
-                break;
-            } else if (command.equals("list")) {
-                dude.list();
-            } else if (command.equals("mark")) {
-                dude.mark(ipArgs);
-            } else if (command.equals("unmark")) {
-                dude.unmark(ipArgs);
-            } else {
-                dude.add(input);
+            String[] inputSplit = input.split(" ", 2);
+            String command = inputSplit[0];
+            String ipArgs = inputSplit.length > 1 ? inputSplit[1] : "";
+            switch (command) {
+                case "bye":
+                    break loop;
+                case "list":
+                    dude.list();
+                    break;
+                case "mark":
+                    dude.mark(ipArgs);
+                    break;
+                case "unmark":
+                    dude.unmark(ipArgs);
+                    break;
+                case "todo":
+                    Todo todo = new Todo(ipArgs);
+                    dude.add(todo);
+                    break;
+                case "deadline": {
+                    String[] ipArgsSplit = ipArgs.split("/");
+                    Deadline deadline = new Deadline(ipArgsSplit[0], ipArgsSplit[1].replace("by ", ""));
+                    dude.add(deadline);
+                    break;
+                }
+                case "event": {
+                    String[] ipArgsSplit = ipArgs.split("/");
+                    Event event = new Event(
+                            ipArgsSplit[0],
+                            ipArgsSplit[1].replace("from ", ""),
+                            ipArgsSplit[2].replace("to ", ""));
+                    dude.add(event);
+                    break;
+                }
+                default:
+                    continue;
             }
         }
         goodbye();
