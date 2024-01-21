@@ -17,6 +17,10 @@ public class Chatbot {
                         + "What can I do for you?");
     }
 
+    public void echo(String userInput) {
+        printMessage(userInput);
+    }
+
     public void exit() {
         printMessage(" Bye. Hope to see you again soon!");
     }
