@@ -73,7 +73,7 @@ public class Duke {
             System.out.println("____________________________________________________________\n" +
                                " Okay! Added to your list: \n"
                                        + "   " + task
-                                       + "\n Now you have " + taskCount + " tasks in your list\n" +
+                                       + "\n Now you have " + taskCount + " tasks in your list.\n" +
                                "____________________________________________________________\n");
         } else {
             System.out.println("____________________________________________________________\n" +
@@ -119,12 +119,17 @@ public class Duke {
         String[] parts = input.split("/", 3);
         if (parts.length == 3) {
             String description = parts[0].substring(5);
-
             String from = parts[1].substring(5);
             String to = parts[2].substring(3);
 
-            Task task = new Event(description, from, to);
-            addTask(task);
+            if (!description.isEmpty()) {
+                Task task = new Event(description, from, to);
+                addTask(task);
+            } else {
+                System.out.println("____________________________________________________________\n" +
+                                   " Please provide a valid description of the task.\n" +
+                                   "____________________________________________________________\n");
+            }
         } else {
             System.out.println("____________________________________________________________\n" +
                                " Invalid format of Event task. Please try again with the correct format.\n" +
@@ -138,11 +143,16 @@ public class Duke {
         String[] parts = input.split("/", 2);
         if (parts.length == 2) {
             String description = parts[0].substring(8);
-
             String by = parts[1].substring(3);
 
-            Task task = new Deadline(description, by);
-            addTask(task);
+            if (!description.isEmpty()) {
+                Task task = new Deadline(description, by);
+                addTask(task);
+            } else {
+                System.out.println("____________________________________________________________\n" +
+                                   " Please provide a valid description of the task.\n" +
+                                   "____________________________________________________________\n");
+            }
         } else {
             System.out.println("____________________________________________________________\n" +
                                " Invalid format of Deadline task. Please try again with the correct format.\n" +
@@ -153,7 +163,13 @@ public class Duke {
 
     //Method to add tod0 task
     private static void addTodoTask(String input) {
-        Task task = new Todo(input.substring(4));
-        addTask(task);
+        if (!input.substring(4).isEmpty()) {
+            Task task = new Todo(input.substring(4));
+            addTask(task);
+        } else {
+            System.out.println("____________________________________________________________\n" +
+                               " Please provide a valid description of the task.\n" +
+                               "____________________________________________________________\n");
+        }
     }
 }
