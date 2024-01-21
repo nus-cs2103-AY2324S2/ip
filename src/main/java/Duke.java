@@ -4,7 +4,7 @@ import java.util.*;
 public class Duke {
     // constants
     static final String LINE = "\t――――――――――――――――――――――――――――――――――――――――\n";
-    static final String CHAT_BOT_NAME = "Bob";
+    static final String CHAT_BOT_NAME = "Uncle Bob";
     static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
@@ -23,58 +23,25 @@ public class Duke {
                     System.out.println("\t Bye! Hope to see you again soon!");
                     break;
                 case "list":
-                    if (tasks.isEmpty()) {
-                        System.out.println("\t Congrats, you have cleared all your tasks!");
-                    }
-                    for (int i = 0; i < tasks.size(); i++){
-                        System.out.println("\t " + (i+1) + ". " + tasks.get(i));
-                    }
+                    handleList();
                     break;
                 case "mark":
-                    int index = Integer.parseInt(message);
-                    if (index <= tasks.size() && index > 0) {
-                        tasks.get(index - 1).mark();
-                        System.out.println("\t Nice! I've marked this task as done:\n\t\t"
-                                + tasks.get(index - 1));
-                    } else {
-                        System.out.println("\t Error: index out of bounds");
-                    }
+                    handleMark(message);
                     break;
                 case "unmark":
-                    int unmarkIndex = Integer.parseInt(message);
-                    if (unmarkIndex <= tasks.size() && unmarkIndex > 0) {
-                        tasks.get(unmarkIndex - 1).unmark();
-                        System.out.println("\t OK, I've marked this task as not done yet:\n\t\t"
-                                + tasks.get(unmarkIndex - 1));
-                    } else {
-                        System.out.println("\t Error: index out of bounds");
-                    }
+                    handleUnmark(message);
                     break;
                 case "todo":
-                    Task todo = new Todo(message);
-                    updateTasks(todo);
+                    handleTodo(message);
                     break;
                 case "deadline":
-                    if (!message.contains("/by")) {
-                        System.out.println("\t Please specify deadline!");
-                        break;
-                    }
-                    String[] deadlineArgs = message.split("/by");
-                    String deadline_desc = deadlineArgs[0].trim();
-                    String by = deadlineArgs[1].trim();
-                    Task deadline = new Deadline(deadline_desc, by);
-                    updateTasks(deadline);
+                    handleDeadline(message);
                     break;
                 case "event":
-                    String[] eventArgs = message.split("/from");
-                    String event_desc = eventArgs[0].trim();
-                    String[] eventDurationArgs = eventArgs[1].split("/to");
-                    String start = eventDurationArgs[0].trim();
-                    String end = eventDurationArgs[1].trim();
-                    Task event = new Event(event_desc, start, end);
-                    updateTasks(event);
+                    handleEvent(message);
                     break;
                 default:
+                    System.out.println("Sorry uncle don't understand what you want");
                     break;
             }
             System.out.print(LINE);
@@ -96,5 +63,59 @@ public class Duke {
             System.out.println("\t Got it. I've added this task:\n\t\t " + task
                     + "\n\t Now you have 1 task in the list.");
         }
+    }
+
+    public static void handleList() {
+        if (tasks.isEmpty()) {
+            System.out.println("\t Congrats, you have cleared all your tasks!");
+        }
+        for (int i = 0; i < tasks.size(); i++){
+            System.out.println("\t " + (i+1) + ". " + tasks.get(i));
+        }
+    }
+
+    public static void handleMark(String message) {
+        int index = Integer.parseInt(message);
+        if (index <= tasks.size() && index > 0) {
+            tasks.get(index - 1).mark();
+            System.out.println("\t Nice! I've marked this task as done:\n\t\t"
+                    + tasks.get(index - 1));
+        } else {
+            System.out.println("\t Error: index out of bounds");
+        }
+    }
+
+    public static void handleUnmark(String message) {
+        int index = Integer.parseInt(message);
+        if (index <= tasks.size() && index > 0) {
+            tasks.get(index - 1).unmark();
+            System.out.println("\t OK, I've marked this task as not done yet:\n\t\t"
+                    + tasks.get(index - 1));
+        } else {
+            System.out.println("\t Error: index out of bounds");
+        }
+    }
+
+    public static void handleTodo(String message) {
+        Task todo = new Todo(message);
+        updateTasks(todo);
+    }
+
+    public static void handleDeadline(String message) {
+        String[] args = message.split("/by");
+        String desc = args[0].trim();
+        String by = args[1].trim();
+        Task deadline = new Deadline(desc, by);
+        updateTasks(deadline);
+    }
+
+    public static void handleEvent (String message) {
+        String[] args = message.split("/from");
+        String desc = args[0].trim();
+        String[] duration = args[1].split("/to");
+        String start = duration[0].trim();
+        String end = duration[1].trim();
+        Task event = new Event(desc, start, end);
+        updateTasks(event);
     }
 }
