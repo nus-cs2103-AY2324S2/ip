@@ -1,25 +1,42 @@
+import java.util.Scanner;
+
 public class Naruto {
     public static void main(String[] args) {
-        spacer();
+        Scanner sc = new Scanner(System.in);
         greet();
-        spacer();
-        exit();
-        spacer();
+        while (true) {
+            String s = sc.nextLine();
+            if (s.equals("bye")) {
+                exit();
+            }
+            echo(s);
+        }
     }
 
     static void greet() {
-        System.out.println("Hello! I'm Naruto, and I'm gonna become the next Hokage!" +
-                "\nBelieve it!");
+        spacer();
+        System.out.println("    Hello! I'm Naruto, and I'm gonna become the next Hokage!" +
+                "\n    Believe it!");
+        spacer();
 
     }
 
     static void exit() {
-        System.out.println("See you next time!");
+        spacer();
+        System.out.println("    See you next time!");
+        spacer();
+        System.exit(0);
     }
 
     static void spacer() {
-        System.out.println("--------------------------------------------------------" +
+        System.out.println("    --------------------------------------------------------" +
                 "----------");
+    }
+
+    static void echo(String s) {
+        spacer();
+        System.out.println("    " + s);
+        spacer();
     }
 
 }
