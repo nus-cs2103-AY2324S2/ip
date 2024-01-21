@@ -34,6 +34,8 @@ public class Johnny {
                     Johnny.addDeadline(command);
                 } else if (command.split(" ")[0].equals("event")) {
                     Johnny.addEvent(command);
+                } else if (command.split(" ")[0].equals("delete")) {
+                    Johnny.delete(command);
                 } else {
                     throw new JohnnyException("Your command does not make sense bro.");
                 }
@@ -88,7 +90,7 @@ public class Johnny {
             int index = Integer.parseInt(arr[1]) - 1;
             Task task = Johnny.list.get(index);
             task.unmark();
-            System.out.println("Why so lazy bro?");
+            System.out.println("Why are you not done yet bro?");
             System.out.println(task + "\n");
         } catch (NumberFormatException e) {
             throw new JohnnyException("Key in a number bro.");
@@ -108,7 +110,7 @@ public class Johnny {
         Johnny.list.add(task);
         System.out.println("Go get this done bro:");
         System.out.println(task);
-        System.out.println("You still have " + Johnny.list.size() + " tasks to do bro.\n");
+        System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
     }
 
     public static void addDeadline(String command) throws JohnnyException {
@@ -129,7 +131,7 @@ public class Johnny {
         Johnny.list.add(task);
         System.out.println("Go get this done bro:");
         System.out.println(task);
-        System.out.println("You still have " + Johnny.list.size() + " tasks to do bro.\n");
+        System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
     }
 
     public static void addEvent(String command) throws JohnnyException {
@@ -157,7 +159,29 @@ public class Johnny {
         Johnny.list.add(task);
         System.out.println("Go get this done bro:");
         System.out.println(task);
-        System.out.println("You still have " + Johnny.list.size() + " tasks to do bro.\n");
+        System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
+    }
+
+    public static void delete(String command) throws JohnnyException {
+        try {
+            String[] arr = command.split(" ");
+
+            if (arr.length == 1) {
+                throw new JohnnyException("Which task am I supposed to delete bro?");
+            } else if (arr.length > 2) {
+                throw new JohnnyException("I can only delete 1 task bro.");
+            }
+
+            int index = Integer.parseInt(arr[1]) - 1;
+            Task task = Johnny.list.remove(index);
+            System.out.println("Task removed. Why so lazy bro?");
+            System.out.println(task);
+            System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
+        } catch (NumberFormatException e) {
+            throw new JohnnyException("Key in a number bro.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new JohnnyException("This task does not exist bro.");
+        }
     }
 
 }
