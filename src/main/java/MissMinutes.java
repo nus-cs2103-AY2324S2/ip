@@ -1,23 +1,53 @@
+import java.util.Objects;
+import java.util.Scanner;
+
 public class MissMinutes {
+    private final Scanner stdin;
+    private static final String separator = "-".repeat(60) + "\n";
+    private static final String logo =
+            " __  __ _           __  __ _             _                  \n" +
+            " |  \\/  (_)         |  \\/  (_)           | |              \n" +
+            " | \\  / |_ ___ ___  | \\  / |_ _ __  _   _| |_ ___  ___    \n" +
+            " | |\\/| | / __/ __| | |\\/| | | '_ \\| | | | __/ _ \\/ __| \n" +
+            " | |  | | \\__ \\__ \\ | |  | | | | | | |_| | ||  __/\\__ \\\n" +
+            " |_|  |_|_|___/___/ |_|  |_|_|_| |_|\\__,_|\\__\\___||___/  \n" +
+            "                                                            \n";
+
+    public MissMinutes() {
+        this.stdin = new Scanner(System.in);
+    }
+
+    public void sendMsg(String body) {
+        System.out.println(separator);
+        System.out.println(body);
+        System.out.println(separator);
+    }
+
+    public void greet() {
+        this.sendMsg("Hello! I'm \n" + logo
+                    + "What can I do for you\n");
+    }
+
+    public void exit() {
+        this.sendMsg("Bye. Hope to see you again soon!");
+    }
+
+    public void run() {
+        while (true) {
+            String request = this.stdin.nextLine();
+            if (request.equals("bye")) {
+                break;
+            } else {
+                this.sendMsg(request + "\n");
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        String logo =
-                " __  __ _           __  __ _             _            \n" +
-                " |  \\/  (_)         |  \\/  (_)           | |           \n" +
-                " | \\  / |_ ___ ___  | \\  / |_ _ __  _   _| |_ ___  ___ \n" +
-                " | |\\/| | / __/ __| | |\\/| | | '_ \\| | | | __/ _ \\/ __|\n" +
-                " | |  | | \\__ \\__ \\ | |  | | | | | | |_| | ||  __/\\__ \\\n" +
-                " |_|  |_|_|___/___/ |_|  |_|_|_| |_|\\__,_|\\__\\___||___/\n" +
-                "                                                       \n";
+        MissMinutes mm = new MissMinutes();
 
-        String separator = "-".repeat(60);
-
-        System.out.println(separator);
-        System.out.println("Hello! I'm \n" + logo);
-        System.out.println("What can I do for you\n");
-
-        System.out.println(separator);
-
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(separator);
+        mm.greet();
+        mm.run();
+        mm.exit();
     }
 }
