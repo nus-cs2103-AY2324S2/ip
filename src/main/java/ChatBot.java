@@ -15,6 +15,8 @@ public class ChatBot {
             COMMAND_BYE = "bye",
             COMMAND_LIST = "list",
             COMMAND_ADD = "add",
+            COMMAND_MARK = "mark",
+            COMMAND_UNMARK = "unmark",
             INDENT = "    ";
 
     /**
@@ -115,7 +117,18 @@ public class ChatBot {
     private String[] parseInput(String input) {
         if (input.startsWith(COMMAND_BYE)) return new String[] {COMMAND_BYE, ""};
         if (input.startsWith(COMMAND_LIST)) return new String[] {COMMAND_LIST, ""};
+        if (input.startsWith(COMMAND_MARK)) return new String[] {COMMAND_MARK, parseArgument(input)};
+        if (input.startsWith(COMMAND_UNMARK)) return new String[] {COMMAND_UNMARK, parseArgument(input)};
         return new String[] {COMMAND_ADD, input};
+    }
+
+    /**
+     * Parse the argument from commands with arguments
+     * @param input the console input
+     * @return the argument
+     */
+    private String parseArgument(String input) {
+        return input.split(" ", 2)[1];
     }
 
     /**
