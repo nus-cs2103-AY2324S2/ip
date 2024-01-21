@@ -1,6 +1,6 @@
 package tasks;
 
-class Task {  // default access modifier
+abstract class Task {  // default access modifier
     private String description;
     private boolean isDone;
 

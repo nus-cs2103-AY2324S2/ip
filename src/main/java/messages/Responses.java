@@ -42,46 +42,75 @@ public class Responses {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            CommandTypes command = CommandTypes.getCommandType(input);
+            CommandType command = CommandType.valueOf(Parser.getCommandType(input));
             switch (command) {
-                case EXIT:
+                case BYE:
                     printExitMessage();
                     return;
                 case LIST:
-                    printTaskList();
+                    printTaskListMessage();
                     break;
                 case MARK:
-                    taskMarkedAsDone(input);
+                    markTaskAsDoneAndPrintMessage(input);
                     break;
                 case UNMARK:
-                    taskMarkedAsUndone(input);
+                    markTaskAsUndoneAndPrintMessage(input);
+                    break;
+                case TODO:
+                    addTodoAndPrintMessage(input);
+                    break;
+                case DEADLINE:
+                    addDeadlineAndPrintMessage(input);
+                    break;
+                case EVENT:
+                    addEventAndPrintMessage(input);
                     break;
                 default:
-                    addTask(input);
+                    // TODO: handle invalid command
             }
         }
     }
 
-    private void printTaskList() {
+    private void printTaskListMessage() {
         MessageBox taskListMessage = new MessageBox(taskList.toString());
         taskListMessage.print();
     }
 
-    private void addTask(String taskDescription) {
-        taskList.addTask(taskDescription);
-        MessageBox taskAddedMessage = new MessageBox("added: " + taskDescription);
+    private void addTodoAndPrintMessage(String input) {
+        MessageBox taskAddedMessage = new MessageBox(
+                taskList.addTodo(
+                        Parser.getTodoDescription(input)));
         taskAddedMessage.print();
     }
 
-    private void taskMarkedAsDone(String input) {
-        int taskNumber = Integer.parseInt(Parser.getArgument(input));
-        MessageBox taskDoneMessage = new MessageBox(taskList.markTaskAsDone(taskNumber));
+    private void addDeadlineAndPrintMessage(String input) {
+        MessageBox taskAddedMessage = new MessageBox(
+                taskList.addDeadline(
+                        Parser.getDeadlineDescription(input),
+                        Parser.getDeadlineDueDate(input)));
+        taskAddedMessage.print();
+    }
+
+    private void addEventAndPrintMessage(String input) {
+        MessageBox taskAddedMessage = new MessageBox(
+                taskList.addEvent(
+                        Parser.getEventDescription(input),
+                        Parser.getEventStart(input),
+                        Parser.getEventEnd(input)));
+        taskAddedMessage.print();
+    }
+
+    private void markTaskAsDoneAndPrintMessage(String input) {
+        MessageBox taskDoneMessage = new MessageBox(
+                taskList.markTaskAsDone(
+                        Parser.getTaskNumber(input)));
         taskDoneMessage.print();
     }
 
-    private void taskMarkedAsUndone(String input) {
-        int taskNumber = Integer.parseInt(Parser.getArgument(input));
-        MessageBox taskUndoneMessage = new MessageBox(taskList.markTaskAsUndone(taskNumber));
+    private void markTaskAsUndoneAndPrintMessage(String input) {
+        MessageBox taskUndoneMessage = new MessageBox(
+                taskList.markTaskAsUndone(
+                        Parser.getTaskNumber(input)));
         taskUndoneMessage.print();
     }
 }
