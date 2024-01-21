@@ -12,10 +12,12 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
+        System.out.println("[" + getStatusIcon() + "] " + description);
     }
 
     public void markAsUndone() {
         this.isDone = false;
+        System.out.println("[" + getStatusIcon() + "] " + description);
     }
 
     @Override
