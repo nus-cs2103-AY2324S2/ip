@@ -7,8 +7,19 @@ public class Dino {
     public static void goodbye() {
         System.out.println("Goodbye! It was nice meeting you.");
     }
+
+    public static void echo() {
+        Scanner sc = new Scanner(System.in);
+        String chat = sc.nextLine();
+        while (!chat.equalsIgnoreCase("bye")) {
+            System.out.println(chat);
+            chat = sc.nextLine();
+        }
+        Dino.goodbye();
+    }
+
     public static void main(String[] args) {
         Dino.welcome();
-        Dino.goodbye();
+        Dino.echo();
     }
 }
