@@ -10,8 +10,9 @@ public class TaskManager {
 
   public void add(Task task) {
     System.out.println("--------------------");
-    System.out.println("Got it, I've added this task: \n" + task);
+    System.out.println("Got it, I've added this task: \n  " + task);
     tasks.add(task);
+    System.out.println("Now you have " + tasks.size() + " tasks in the list");
     System.out.println("--------------------");
   }
 
