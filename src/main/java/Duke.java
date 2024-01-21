@@ -1,46 +1,38 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class Duke {
-    private static void cat() {
-        System.out.println(" |\\ /| ");
-        System.out.println("=(O O)=");
-        System.out.println(" /   \\ ");
+    private ArrayList<Task> tasks;
+
+    public Duke() {
+        tasks = new ArrayList<>();
     }
 
-    private static void line() {
-        for (int i = 0; i < 72; i++) {
-            System.out.print('_');
-        }
-        System.out.print('\n');
+    public void addTask(Task task) {
+        tasks.add(task);
     }
 
-    private static void hello() {
-        cat();
-        System.out.println("Hello! I'm the cat that lives in your walls.");
-        System.out.println("What do you need?");
-        line();
-    }
-
-    private static void bye() {
-        line();
-        System.out.println("*The cat recedes into the wall with a bored look on its face*");
-        line();
-    }
-
-    public static void repl() {
-        Scanner sc = new Scanner(System.in);
-
-        String input;
-        while (sc.hasNextLine() && !(input = sc.nextLine()).equals("bye")) {
-            line();
-            System.out.println(input);
-            line();
+    public void getTask(int index) throws TaskNotFound {
+        try {
+            tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskNotFound("Could not find task.", e);
         }
     }
 
-    public static void main(String[] args) {
-        hello();
-        repl();
-        bye();
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            s.append(i).append(". ").append(tasks.get(i)).append("\n");
+        }
+        s.deleteCharAt(s.length() - 1);
+        return s.toString();
+    }
+
+    public static class TaskNotFound extends Exception {
+        public TaskNotFound(String message, Throwable cause) {
+            super(message, cause);
+        }
     }
 }

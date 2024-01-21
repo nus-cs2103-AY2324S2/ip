@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Main {
+    private static Duke duke = new Duke();
+
     private static void cat() {
         System.out.println(" |\\ /| ");
         System.out.println("=(O O)=");
@@ -22,7 +24,6 @@ public class Main {
     }
 
     private static void bye() {
-        line();
         System.out.println("*The cat recedes into the wall with a bored look on its face*");
         line();
     }
@@ -31,11 +32,29 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         String input;
-        while (sc.hasNextLine() && !(input = sc.nextLine()).equals("bye")) {
+        while (sc.hasNextLine()) {
             line();
-            System.out.println(input);
+            input = sc.nextLine();
+            if (!parseCommand(input)) {
+                break;
+            }
             line();
         }
+    }
+
+    public static boolean parseCommand(String command) {
+        switch (command) {
+            case "bye":
+                return false;
+            case "list":
+                System.out.println(duke);
+                break;
+            default:
+                Task task = new Task(command);
+                System.out.println("Added task " + task.describe());
+                duke.addTask(task);
+        }
+        return true;
     }
 
     public static void main(String[] args) {
