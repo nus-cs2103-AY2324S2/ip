@@ -23,10 +23,9 @@ public class Yapper {
     private static void processUserInput(String userInput, List<Task> tasks) throws YapperException {
         if (userInput.equalsIgnoreCase("list")) {
             System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("" + (i + 1) + ". " + tasks.get(i).toString());
-            }
-        } else if (userInput.startsWith("mark")) {
+            printTaskList(tasks);
+        }
+         else if (userInput.startsWith("mark")) {
             try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 tasks.get(taskNumber).markAsDone();
@@ -75,6 +74,16 @@ public class Yapper {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new YapperException("Please provide a valid event task format.");
             }
+        } else if (userInput.startsWith("delete")) {
+            try {
+                int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                Task removedTask = tasks.remove(taskNumber);
+                System.out.println(" Noted. I've removed this task:");
+                System.out.println("   " + removedTask);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                throw new YapperException("Please provide a valid task number to delete.");
+            }
         } else if (userInput.equalsIgnoreCase("bye")){
             if (userInput.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
@@ -84,5 +93,10 @@ public class Yapper {
             throw new YapperException("Sorry but I don't know what that means :(");
         }
     }
+     private static void printTaskList(List<Task> tasks) {
+         for (int i = 0; i < tasks.size(); i++) {
+             System.out.println((i + 1) + "." + tasks.get(i));
+         }
+     }
 }
 
