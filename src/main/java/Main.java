@@ -1,7 +1,25 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     private static final Duke duke = new Duke();
+
+    private static Map<String, StringBuilder> getComponents(String data) {
+        HashMap<String, StringBuilder> components = new HashMap<>();
+
+        String key = "DESCRIPTION";
+        String[] words = data.split(" +");
+        for (String word : words) {
+            if (word.startsWith("/")) {
+                key = word;
+            } else {
+                components.compute(key, (k, v) -> (v == null) ? new StringBuilder(word) : v.append(" ").append(word));
+            }
+        }
+
+        return components;
+    }
 
     private static void cat() {
         System.out.println(" |\\ /| ");
@@ -35,7 +53,8 @@ public class Main {
         while (sc.hasNextLine()) {
             line();
             String command = sc.next();
-            String data = sc.nextLine();
+            String data = sc.nextLine().trim();
+            Map<String, StringBuilder> components = getComponents(data);
             switch (command) {
                 case "bye":
                     break label;
@@ -44,9 +63,8 @@ public class Main {
                     break;
                 case "mark":
                 case "unmark":
-                    String trimmed = data.trim();
                     try {
-                        int index = Integer.parseInt(trimmed) - 1;
+                        int index = Integer.parseInt(data) - 1;
                         Task task = duke.getTask(index);
                         if (command.equals("mark")) {
                             task.setComplete();
@@ -57,13 +75,22 @@ public class Main {
                     } catch (Duke.TaskNotFound e) {
                         System.out.println(e.getMessage());
                     } catch (NumberFormatException e) {
-                        System.out.println("\"" + trimmed + "\" is not a number. Please try again.");
+                        System.out.println("\"" + data + "\" is not a number. Please try again.");
                     };
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    try {
+                        duke.addTask(command, components);
+                        System.out.println("Added task " + components.get("DESCRIPTION").toString());
+                    } catch (Duke.InvalidTaskComponents | Duke.InvalidTaskType e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 default:
                     System.out.println("I have no idea what you want.\n" +
                             "I can respond to \"list\", \"deadline\", \"event\", \"todo\", \"mark\" and \"unmark\"");
-                    break;
             }
             line();
         }
