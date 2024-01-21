@@ -3,7 +3,7 @@ package messages;
 import tasks.TaskList;
 import java.util.Scanner;
 
-public class Responses {  // default access modifier
+public class Responses {
     private TaskList taskList = new TaskList();
 
 
@@ -42,14 +42,20 @@ public class Responses {  // default access modifier
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            Commands command = Commands.getCommand(input);
+            CommandTypes command = CommandTypes.getCommandType(input);
             switch (command) {
-                case LIST:
-                    printTaskList();
-                    break;
                 case EXIT:
                     printExitMessage();
                     return;
+                case LIST:
+                    printTaskList();
+                    break;
+                case MARK:
+                    taskMarkedAsDone(input);
+                    break;
+                case UNMARK:
+                    taskMarkedAsUndone(input);
+                    break;
                 default:
                     addTask(input);
             }
@@ -65,5 +71,17 @@ public class Responses {  // default access modifier
         taskList.addTask(taskDescription);
         MessageBox taskAddedMessage = new MessageBox("added: " + taskDescription);
         taskAddedMessage.print();
+    }
+
+    private void taskMarkedAsDone(String input) {
+        int taskNumber = Integer.parseInt(Parser.getArgument(input));
+        MessageBox taskDoneMessage = new MessageBox(taskList.markTaskAsDone(taskNumber));
+        taskDoneMessage.print();
+    }
+
+    private void taskMarkedAsUndone(String input) {
+        int taskNumber = Integer.parseInt(Parser.getArgument(input));
+        MessageBox taskUndoneMessage = new MessageBox(taskList.markTaskAsUndone(taskNumber));
+        taskUndoneMessage.print();
     }
 }

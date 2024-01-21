@@ -1,7 +1,5 @@
 package messages;
 
-import java.util.ArrayList;
-
 class MessageBox {  // default access modifier
     private String message;
     private String smallSpace = "    ";

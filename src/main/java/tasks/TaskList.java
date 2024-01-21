@@ -29,4 +29,12 @@ public class TaskList {
         }
         return sb.toString();
     }
+
+    public String markTaskAsDone(int taskNumber) {
+        return taskList.get(taskNumber - 1).markAsDone();
+    }
+
+    public String markTaskAsUndone(int taskNumber) {
+        return taskList.get(taskNumber - 1).markAsUndone();
+    }
 }
