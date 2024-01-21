@@ -3,9 +3,9 @@ public class Task {
     private boolean done;
     private final String startTime;
     private final String endTime;
-    private final String type;
+    private final Type type;
 
-    public Task(String description, String startTime, String endTime, String type) {
+    public Task(String description, String startTime, String endTime, Type type) {
         this.description = description;
         this.done = false;
         this.startTime = startTime;
@@ -56,7 +56,7 @@ public class Task {
         return this.endTime;
     }
 
-    public String getType() {
+    public Type getType() {
         return this.type;
     }
 
