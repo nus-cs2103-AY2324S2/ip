@@ -14,7 +14,7 @@ public class TaskList {
         try {
             return tasks.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new TaskNotFound("Could not find task " + (index + 1), e);
+            throw new TaskNotFound(index, e);
         }
     }
 
@@ -22,7 +22,7 @@ public class TaskList {
         try {
             tasks.remove(index);
         } catch(IndexOutOfBoundsException e) {
-            throw new TaskNotFound("Could not find task " + (index + 1), e);
+            throw new TaskNotFound(index, e);
         }
     }
 
@@ -36,8 +36,8 @@ public class TaskList {
     }
 
     public static class TaskNotFound extends Exception {
-        public TaskNotFound(String message, Throwable cause) {
-            super(message, cause);
+        public TaskNotFound(int index, Throwable cause) {
+            super("Could not find task " + (index + 1), cause);
         }
     }
 }
