@@ -1,6 +1,7 @@
 public class Duke {
     static String horizontalLine = "――――――――――――――――――――――――――――――――――――――――";
     static String chatbotName = "Bob";
+
     public static void main(String[] args) {
         greet();
         exit();
@@ -14,4 +15,5 @@ public class Duke {
     public static void exit() {
         System.out.println(horizontalLine + "\n" + "Bye! Hope to see you again soon!\n" + horizontalLine);
     }
+
 }
