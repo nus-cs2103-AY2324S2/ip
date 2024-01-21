@@ -24,31 +24,55 @@ public class ListOfMessages {
         return this.prelude() + msg + "\n" + this.trailer();
     }
     public String todo(String msg) {
+        if (msg.equals(" ") || msg.isEmpty()) {
+            throw new ChatException("The description of a todo cannot be empty.");
+        }
+        msg = msg.stripLeading();
         Task task = new ToDo(msg);
         this.listOfMessages.add(task);
         return this.standardize(task);
     }
     public String event(String msg) {
+        if (msg.equals(" ") || msg.isEmpty()) {
+            throw new ChatException("The description of an event cannot be empty.");
+        }
+        msg = msg.stripLeading();
         Task task = new Event(msg);
         this.listOfMessages.add(task);
         return this.standardize(task);
     }
     public String deadline(String msg) {
+        if (msg.equals(" ") || msg.isEmpty()) {
+            throw new ChatException("The description of a deadline cannot be empty.");
+        }
+        msg = msg.stripLeading();
         Task task = new Deadline(msg);
         this.listOfMessages.add(task);
         return this.standardize(task);
     }
     public String mark(String msg) {
-        int idx = Integer.parseInt(msg.split(" ")[1]);
-        Task task = this.listOfMessages.get(idx-1);
-        task.mark();
-        return "Nice! I've marked this task as done:\n" + task + "\n";
+        try {
+            int idx = Integer.parseInt(msg.split(" ")[1]);
+            Task task = this.listOfMessages.get(idx-1);
+            task.mark();
+            return "Nice! I've marked this task as done:\n" + task + "\n";
+        } catch (IndexOutOfBoundsException e) {
+            throw new ChatException("Not a valid task number!");
+        } catch (NumberFormatException e) {
+            throw new ChatException("Mark needs to be a number!");
+        }
     }
     public String unmark(String msg) {
-        int idx = Integer.parseInt(msg.split(" ")[1]);
-        Task task = this.listOfMessages.get(idx-1);
-        task.unmark();
-        return "OK, I've marked this task as not done yet:\n" + task + "\n";
+        try {
+            int idx = Integer.parseInt(msg.split(" ")[1]);
+            Task task = this.listOfMessages.get(idx-1);
+            task.unmark();
+            return "Nice! I've marked this task as done:\n" + task + "\n";
+        } catch (IndexOutOfBoundsException e) {
+            throw new ChatException("Not a valid task number!");
+        } catch (NumberFormatException e) {
+            throw new ChatException("Unmark needs to be a number!");
+        }
     }
     public String list() {
         StringBuilder res = new StringBuilder();

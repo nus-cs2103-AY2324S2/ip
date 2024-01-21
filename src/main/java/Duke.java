@@ -7,22 +7,26 @@ public class Duke {
     public static int loop(Scanner sc) {
         String res = sc.nextLine();
         String output = null;
-        if (res.equals("bye")) {
-            return -1;
-        } else if (res.equals("list")) {
-            output = messages.list();
-        } else if (res.startsWith("mark")) {
-            output = messages.mark(res);
-        } else if (res.startsWith("unmark")) {
-            output = messages.unmark(res);
-        } else if (res.startsWith("todo")) {
-            output = messages.todo(res.substring(5));
-        } else if (res.startsWith("deadline")) {
-            output = messages.deadline(res.substring(9));
-        } else if (res.startsWith("event")) {
-            output = messages.event(res.substring(6));
-        } else {
-            throw new IllegalArgumentException("bad command");
+        try {
+            if (res.equals("bye")) {
+                return -1;
+            } else if (res.equals("list")) {
+                output = messages.list();
+            } else if (res.startsWith("mark")) {
+                output = messages.mark(res);
+            } else if (res.startsWith("unmark")) {
+                output = messages.unmark(res);
+            } else if (res.startsWith("todo")) {
+                output = messages.todo(res.substring(4));
+            } else if (res.startsWith("deadline")) {
+                output = messages.deadline(res.substring(8));
+            } else if (res.startsWith("event")) {
+                output = messages.event(res.substring(5));
+            } else {
+                throw new ChatException("I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (ChatException e) {
+            output = e.getMessage();
         }
 
         System.out.println(output);

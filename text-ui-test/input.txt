@@ -5,4 +5,9 @@ event project meeting /from Mon 2pm /to 4pm
 mark 2
 list
 unmark 2
+
+mark 6
+unmark 6
+todo
+blah
 bye
