@@ -4,6 +4,9 @@
  * @author KohGuanZeh
  */
 public class Deadline extends Task {
+    // Format to create Deadline task in program.
+    public static String CREATE_DEADLINE_FORMAT = "deadline <task-name> /by <deadline>";
+
     // Deadline of task.
     private String deadline;
 
@@ -13,9 +16,30 @@ public class Deadline extends Task {
      * @param description Description of task.
      * @param deadline Deadline for the task.
      */
-    public Deadline(String description, String deadline) {
+    private Deadline(String description, String deadline) {
         super(description);
         this.deadline = deadline;
+    }
+
+    /**
+     * Creates a new Deadline task based on user input.
+     *
+     * @param input Input String after the "deadline" command.
+     * @return New Deadline task.
+     * @throws TaskException Exception when task cannot be created.
+     */
+    public static Deadline createDeadline(String input) throws TaskException {
+        input = input.trim();
+        try {
+            String[] tokens = input.split(" /by ");
+            String description = tokens[0], by = tokens[1];
+            if (description.isEmpty() || by.isEmpty()) {
+                throw new TaskException("Error. Unable to create task.\nFormat: " + Deadline.CREATE_DEADLINE_FORMAT);
+            }
+            return new Deadline(description, by);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskException("Error. Unable to create task.\nFormat: " + Deadline.CREATE_DEADLINE_FORMAT);
+        }
     }
 
     /**

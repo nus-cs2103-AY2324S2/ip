@@ -35,7 +35,10 @@ public class TaskList {
      * @param index Index of task. Note that this is always 1 more than index stored in the list.
      * @return Task completion message.
      */
-    public String markTask(int index) {
+    public String markTask(int index) throws TaskException {
+        if (index <= 0 || index > this.taskList.size()) {
+            throw new TaskException("Error. Task of index " + index + " cannot be found.");
+        }
         Task task = this.taskList.get(index - 1);
         task.markAsDone();
         return "Great job for finishing the task:\n" + task.getTaskInformation();
@@ -47,7 +50,10 @@ public class TaskList {
      * @param index Index of task. Note that this is always 1 more than index stored in the list.
      * @return Task incompletion message.
      */
-    public String unmarkTask(int index) {
+    public String unmarkTask(int index) throws TaskException {
+        if (index <= 0 || index > this.taskList.size()) {
+            throw new TaskException("Error. Task of index " + index + " cannot be found.");
+        }
         Task task = this.taskList.get(index - 1);
         task.unmarkAsDone();
         return "Take your time mate. Quality over quantity:\n" + task.getTaskInformation();

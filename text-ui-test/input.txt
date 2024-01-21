@@ -8,4 +8,13 @@ list
 unmark 2
 mark 3
 list
+lorem ipsum
+todo
+deadline someTask
+event someEvent /from /to
+event someOtherEvent /from  /to
+mark 4
+mark abcd
+unmark 0
+list
 bye

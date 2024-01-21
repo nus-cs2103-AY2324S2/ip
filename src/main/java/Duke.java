@@ -6,6 +6,7 @@ import java.util.Scanner;
  * @author KohGuanZeh
  */
 public class Duke {
+    // Separator decorators for chatbot.
     private static final String BLOCK_SEPARATOR = "=".repeat(80);
 
     public static void main(String[] args) {
@@ -23,29 +24,33 @@ public class Duke {
         while (true) {
             String input = sc.nextLine();
 
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                Duke.echo(taskList.listTasks());
-            } else if (input.startsWith("todo")) {
-                ToDo todo = new ToDo(input.substring(5));
-                Duke.echo(taskList.addTask(todo));
-            } else if (input.startsWith("deadline")) {
-                String[] tokens = input.substring(9).split(" /by ");
-                Deadline deadline = new Deadline(tokens[0], tokens[1]);
-                Duke.echo(taskList.addTask(deadline));
-            } else if (input.startsWith("event")) {
-                String[] tokens = input.substring(6).split(" /from ");
-                String description = tokens[0];
-                tokens = tokens[1].split(" /to ");
-                Event event = new Event(description, tokens[0], tokens[1]);
-                Duke.echo(taskList.addTask(event));
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.substring(5));
-                Duke.echo(taskList.markTask(index));
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.substring(7));
-                Duke.echo(taskList.unmarkTask(index));
+            try {
+                if (input.equals("bye")) {
+                    break;
+                } else if (input.equals("list")) {
+                    Duke.echo(taskList.listTasks());
+                } else if (input.startsWith("todo")) {
+                    ToDo todo = ToDo.createToDo(input.substring(4));
+                    Duke.echo(taskList.addTask(todo));
+                } else if (input.startsWith("deadline")) {
+                    Deadline deadline = Deadline.createDeadline(input.substring(8));
+                    Duke.echo(taskList.addTask(deadline));
+                } else if (input.startsWith("event")) {
+                    Event event = Event.createEvent(input.substring(5));
+                    Duke.echo(taskList.addTask(event));
+                } else if (input.startsWith("mark")) {
+                    int index = Integer.parseInt(input.substring(5));
+                    Duke.echo(taskList.markTask(index));
+                } else if (input.startsWith("unmark")) {
+                    int index = Integer.parseInt(input.substring(7));
+                    Duke.echo(taskList.unmarkTask(index));
+                } else {
+                    throw new UnknownCommandException();
+                }
+            } catch (NumberFormatException e) {
+                Duke.echo("Error. Command expects a number. Please try again.");
+            } catch (TaskException | UnknownCommandException e) {
+                Duke.echo(e.getMessage());
             }
         }
 
