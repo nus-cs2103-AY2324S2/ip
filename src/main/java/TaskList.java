@@ -19,14 +19,14 @@ public class TaskList {
     }
 
     /**
-     * Returns a message that states the added task.
+     * Adds the specified Task and returns a message of the added Task.
      *
+     * @param task Task to add.
      * @return Message stating the added task.
      */
-    public String addTask(String taskDescription) {
-        Task task = new Task(taskDescription);
+    public String addTask(Task task) {
         this.taskList.add(task);
-        return "Added: " + this.taskList.size() + "." + task.getTaskInformation();
+        return "Added: " + task.getTaskInformation();
     }
 
     /**
@@ -38,7 +38,7 @@ public class TaskList {
     public String markTask(int index) {
         Task task = this.taskList.get(index - 1);
         task.markAsDone();
-        return "Great job for finishing the task:\n" + index + "." + task.getTaskInformation();
+        return "Great job for finishing the task:\n" + task.getTaskInformation();
     }
 
     /**
@@ -50,7 +50,7 @@ public class TaskList {
     public String unmarkTask(int index) {
         Task task = this.taskList.get(index - 1);
         task.unmarkAsDone();
-        return "Take your time mate. Quality over quantity:\n" + index + "." + task.getTaskInformation();
+        return "Take your time mate. Quality over quantity:\n" + task.getTaskInformation();
     }
 
     /**
