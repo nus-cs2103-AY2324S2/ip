@@ -1,14 +1,14 @@
 public class Add implements Action {
-    private String input;
+    private Task task;
     private Store store;
-    Add(String input, Store store) {
-        this.input = input;
+    Add(Task task, Store store) {
+        this.task = task;
         this.store = store;
     }
 
     @Override
     public void execute() {
-        this.store.add(this.input);
-        PrintUtil.print("added: " + this.input);
+        this.store.add(this.task);
+        PrintUtil.print("added: " + this.task);
     }
 }

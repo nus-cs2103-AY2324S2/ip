@@ -9,7 +9,7 @@ public class Naruto {
     }
 
     public static void listen() {
-        String s = sc.nextLine();
+        String s = sc.next();
         switch (s) {
             case "bye":
                 actions.addLast(new Goodbye());
@@ -17,8 +17,14 @@ public class Naruto {
             case "list":
                 actions.addLast(new List(store));
                 break;
+            case "mark":
+                actions.addLast(new Mark(store, sc.nextInt()));
+                break;
+            case "unmark":
+                actions.addLast(new Unmark(store, sc.nextInt()));
+                break;
             default:
-                actions.addLast(new Add(s, store));
+                actions.addLast(new Add(new Task(s + sc.nextLine()), store));
         }
 
     }
