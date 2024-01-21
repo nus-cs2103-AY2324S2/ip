@@ -33,7 +33,9 @@ public class TaskList {
      * @param index the index of the task (0-indexed)
      */
     public void markTask(int index) {
-        if (isValidIndex(index)) tasks.get(index).mark();
+        if (isValidIndex(index)) {
+            tasks.get(index).mark();
+        }
     }
 
     /**
@@ -41,7 +43,9 @@ public class TaskList {
      * @param index the index of the task (0-indexed)
      */
     public void unmarkTask(int index) {
-        if (isValidIndex(index)) tasks.get(index).unmark();
+        if (isValidIndex(index)) {
+            tasks.get(index).unmark();
+        }
     }
 
     /**
@@ -50,7 +54,9 @@ public class TaskList {
      * @return the index of the task (0-indexed)
      */
     public String getTask(int index) {
-        if (isValidIndex(index)) return tasks.get(index).toString();
+        if (isValidIndex(index)) {
+            return tasks.get(index).toString();
+        }
         return "";
     }
 

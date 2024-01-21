@@ -120,11 +120,17 @@ public class ChatBot {
      * @return An array containing the command as the first element and argument as the second element.
      */
     private String[] parseInput(String input) {
-        if (input.startsWith(COMMAND_BYE)) return new String[] {COMMAND_BYE, ""};
-        if (input.startsWith(COMMAND_LIST)) return new String[] {COMMAND_LIST, ""};
-        if (input.startsWith(COMMAND_MARK)) return new String[] {COMMAND_MARK, parseArgument(input)};
-        if (input.startsWith(COMMAND_UNMARK)) return new String[] {COMMAND_UNMARK, parseArgument(input)};
-        return new String[] {COMMAND_ADD, input};
+        if (input.startsWith(COMMAND_BYE)) {
+            return new String[] {COMMAND_BYE, ""};
+        } else if (input.startsWith(COMMAND_LIST)) {
+            return new String[] {COMMAND_LIST, ""};
+        } else if (input.startsWith(COMMAND_MARK)) {
+            return new String[] {COMMAND_MARK, parseArgument(input)};
+        } else if (input.startsWith(COMMAND_UNMARK)) {
+            return new String[] {COMMAND_UNMARK, parseArgument(input)};
+        } else {
+            return new String[] {COMMAND_ADD, input};
+        }
     }
 
     /**
