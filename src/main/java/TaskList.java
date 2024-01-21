@@ -26,6 +26,7 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder returnedString = new StringBuilder();
+        returnedString.append("\tHere are the tasks in your list:\n");
         for (int idx = 0; idx < this.tasks.size(); idx++) {
             returnedString.append(String.format("\t%d. %s", idx+1, this.getTask(idx).toString()));
             if (idx != this.tasks.size() - 1) {

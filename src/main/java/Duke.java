@@ -14,8 +14,6 @@ public class Duke {
         while (continueIter) {
             String entry = scanner.nextLine();
             String[] curCommand = entry.split(" ");
-            String markIdxStr = curCommand[1];
-            int markIdxInt = Integer.valueOf(markIdxStr);
             System.out.println(hLine);
             switch (curCommand[0]) {
                 case "bye":
@@ -25,13 +23,16 @@ public class Duke {
                     System.out.println(taskList);
                     break;
                 case "mark":
-                    Task modifiedTask = taskList.getTask(markIdxInt - 1);
-                    modifiedTask.setDone(true);
-                    taskList.setTask(markIdxInt - 1, modifiedTask);
                 case "unmark":
+                    int markIdxInt = Integer.valueOf(curCommand[1]);
                     Task modifiedTask = taskList.getTask(markIdxInt - 1);
-                    modifiedTask.setDone(false);
+                    if (curCommand[0] == "mark") {
+                        modifiedTask.setDone(true);
+                    } else {
+                        modifiedTask.setDone(false);
+                    }
                     taskList.setTask(markIdxInt - 1, modifiedTask);
+                    break;
                 default:
                     Task curTask = new Task(entry);
                     taskList.addTask(curTask);
