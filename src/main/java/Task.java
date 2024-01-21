@@ -1,3 +1,6 @@
+/**
+ * Class representing a user Task.
+ */
 public class Task {
 
     private String description;
