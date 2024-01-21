@@ -31,30 +31,23 @@ public class Main {
     public static void repl() {
         Scanner sc = new Scanner(System.in);
 
-        String input;
-        while (sc.hasNextLine()) {
+        outer: while (sc.hasNextLine()) {
             line();
-            input = sc.nextLine();
-            if (!parseCommand(input)) {
-                break;
+            String command = sc.next();
+            String data = sc.nextLine();
+            switch (command) {
+                case "bye":
+                    break outer;
+                case "list":
+                    System.out.println(duke);
+                    break;
+                default:
+                    Task task = new Task(data);
+                    System.out.println("Added task " + task.describe());
+                    duke.addTask(task);
             }
             line();
         }
-    }
-
-    public static boolean parseCommand(String command) {
-        switch (command) {
-            case "bye":
-                return false;
-            case "list":
-                System.out.println(duke);
-                break;
-            default:
-                Task task = new Task(command);
-                System.out.println("Added task " + task.describe());
-                duke.addTask(task);
-        }
-        return true;
     }
 
     public static void main(String[] args) {
