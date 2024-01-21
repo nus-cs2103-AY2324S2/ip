@@ -7,11 +7,14 @@ public class Duke {
         Duke chatBot = new Duke();
         chatBot.greet();
         Scanner scanner = new Scanner(System.in);
-        String input = "";
-        do {
-            input = scanner.nextLine();
+        while (scanner.hasNextLine()) {
+            String input = scanner.nextLine();
             chatBot.read(input);
-        } while(!input.equals("bye"));
+            if (input.equals("bye")) {
+                break;
+            }
+        };
+        scanner.close();
     }
 
     public static void horizontalLine() {
