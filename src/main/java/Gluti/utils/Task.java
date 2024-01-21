@@ -21,7 +21,9 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
-    public void togglestatus() {
-        isDone = !isDone;
+    public void setDone() {
+        isDone = true;
     }
+
+    public void setunDone() { isDone = false; }
 }
