@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class UkeCat {
     public static void main(String[] args) {
+        // Initialization
         String line = "________________________________________________________________________";
         String welcome =
                   "                    /~(_)~\\.    Hi! I'm UkeCat, a cat with an ukulele!\n"
@@ -15,6 +16,7 @@ public class UkeCat {
             "  +--------------------+" + "     \\  \\/\n";
 
         Scanner sc = new Scanner(System.in);
+        TaskList taskList = new TaskList();
 
         // Welcome msg
         System.out.println(line);
@@ -43,13 +45,21 @@ public class UkeCat {
                 continue;
             }
 
-            // Echo text
-            input = "You've entered: " + input;
+            // User asks to see list
+            if (input.equals("list")) {
+                taskList.displayTasks();
+                continue;
+            }
+
+            // Add task msg
+            taskList.addTask(input);
+            input = "Added: " + input;
             int n = input.length();
             String horizontal = "  +" + "-".repeat(n) + "+";
             System.out.println(horizontal + "    /\\_/\\");
             System.out.println("  |" + input + "|" + "   =O.O=|");
             System.out.println(horizontal + "     \\  \\/");
+
         }
     }
 }
