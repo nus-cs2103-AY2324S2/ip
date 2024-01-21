@@ -13,12 +13,13 @@ public class Duke {
         TaskList taskList = new TaskList();
         while (continueIter) {
             String entry = scanner.nextLine();
+            if (entry.equals("bye")) {
+                continueIter = false;
+                break;
+            }
             String[] curCommand = entry.split(" ");
             System.out.println(hLine);
             switch (curCommand[0]) {
-                case "bye":
-                    continueIter = false;
-                    break;
                 case "list":
                     System.out.println(taskList);
                     break;
@@ -60,7 +61,7 @@ public class Duke {
             System.out.println(hLine);
         }
 
-        String bye = "Bye. Hope to see you again soon!";
+        String bye = "\tBye. Hope to see you again soon!";
         System.out.println(hLine);
         System.out.println(bye);
         System.out.println(hLine);

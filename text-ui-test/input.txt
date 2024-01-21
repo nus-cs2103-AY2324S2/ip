@@ -1,3 +1,11 @@
-todo read assigned readings
-deadline finish assignments /by tomorrow
-todo
+todo make sushi
+list
+deadline create social media post /by Sunday
+list
+event make salad /from 1pm /to 2pm today
+list
+mark 3
+list
+mark 2
+list
+bye
