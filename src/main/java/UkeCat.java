@@ -24,7 +24,7 @@ public class UkeCat {
         System.out.println(line);
 
         while (true) {
-            String input = sc.nextLine();
+            String input = sc.nextLine().trim();
 
             // Exit condition
             if (input.equals("bye")) {
@@ -51,13 +51,28 @@ public class UkeCat {
                 continue;
             }
 
+            // Marking tasks
+            // whitespace regex is //s, the + means whitespace of any length
+            String[] words = input.split("\\s+");
+            try {
+                if (words.length == 2) {
+                    if (words[0].equals("mark") || words[0].equals("unmark")) {
+                        int taskNum = Integer.parseInt(words[1]) - 1;
+                        taskList.markTask(words[0], taskNum);
+                        continue;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter a valid integer to mark");
+            }
+
             // Add task msg
             taskList.addTask(input);
-            input = "Added: " + input;
-            int n = input.length();
+            String output = "Added: " + input;
+            int n = output.length();
             String horizontal = "  +" + "-".repeat(n) + "+";
             System.out.println(horizontal + "    /\\_/\\");
-            System.out.println("  |" + input + "|" + "   =O.O=|");
+            System.out.println("  |" + output + "|" + "   =O.O=|");
             System.out.println(horizontal + "     \\  \\/");
 
         }
