@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class MissMinutes {
     private final Scanner stdin;
-    private final List<String> tasks;
+    private final List<Task> tasks;
     private static final String separator = "-".repeat(60) + "\n";
     private static final String logo =
             " __  __ _           __  __ _             _                  \n" +
@@ -17,7 +17,7 @@ public class MissMinutes {
 
     public MissMinutes() {
         this.stdin = new Scanner(System.in);
-        this.tasks = new ArrayList<String>(100);
+        this.tasks = new ArrayList<Task>(100);
     }
 
     public void sendMsg(String body) {
@@ -33,6 +33,18 @@ public class MissMinutes {
 
     public void exit() {
         this.sendMsg("Bye. Hope to see you again soon!");
+        this.stdin.close();
+    }
+
+    public String getSerializedTasks() {
+        StringBuilder reply = new StringBuilder();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            reply.append((i + 1))
+                    .append(". ")
+                    .append(this.tasks.get(i))
+                    .append("\n");
+        }
+        return reply.toString();
     }
 
     public void run() {
@@ -41,16 +53,23 @@ public class MissMinutes {
             if (request.equals("bye")) {
                 break;
             } else if (request.equals("list")) {
-                StringBuilder reply = new StringBuilder();
-                for (int i = 0; i < this.tasks.size(); i++) {
-                    reply.append((i + 1))
-                            .append(". ")
-                            .append(this.tasks.get(i))
-                            .append("\n");
+                this.sendMsg(this.getSerializedTasks());
+            } else if (request.startsWith("mark") || request.startsWith("unmark")) {
+                String[] split = request.split(" ");
+                int idx = Integer.parseInt(split[1]) - 1;
+                Task curr = this.tasks.get(idx);
+
+                String reply;
+                if (request.startsWith("mark")) {
+                    curr.markAsDone();
+                    reply = "Nice! I've marked this one as done: \n" + curr + "\n";
+                } else {
+                    curr.unmark();
+                    reply = "OK, I've marked this task as not done yet: \n" + curr + "\n";
                 }
-                this.sendMsg(reply.toString());
+                this.sendMsg(reply);
             } else {
-                this.tasks.add(request);
+                this.tasks.add(new Task(request));
                 this.sendMsg("added: " + request + "\n");
             }
         }
