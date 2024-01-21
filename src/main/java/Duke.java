@@ -38,6 +38,8 @@ public class Duke {
                 this.mark(this.parseMark(input));
             } else if (input.startsWith("unmark")) {
                 this.unmark(this.parseUnmark(input));
+            } else if (input.startsWith("delete")) {
+                this.delete(parseDelete(input));
             } else if (input.startsWith("todo")) {
                 this.updateTasks(this.parseToDo(input));
             } else if (input.startsWith("deadline")) {
@@ -111,6 +113,30 @@ public class Duke {
                 "\t  %s\n",
                 this.tasks.get(taskIndex)
         );
+    }
+
+    public int parseDelete(String input) throws WrongFormatException {
+        if (Pattern.matches("delete\\s\\d+", input)) {
+            return Integer.parseInt(input.split("\\s")[1]) - 1;
+        } else {
+            throw new WrongFormatException(
+                    "Invalid 'delete' command format. Usage: delete <existing task number>"
+            );
+        }
+    }
+
+    public void delete(int taskIndex) {
+        if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
+            System.out.println("\tInvalid task number");
+            return;
+        }
+        System.out.println("\tNoted, I've removed this task:");
+        System.out.printf(
+                "\t  %s\n",
+                this.tasks.get(taskIndex)
+        );
+        this.tasks.remove(taskIndex);
+        System.out.printf("\tNow you have %d tasks in the list.\n", this.tasks.size());
     }
 
     public void updateTasks(Task task) {
