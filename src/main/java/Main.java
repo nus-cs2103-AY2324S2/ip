@@ -31,21 +31,41 @@ public class Main {
     public static void repl() {
         Scanner sc = new Scanner(System.in);
 
-        outer: while (sc.hasNextLine()) {
+        label:
+        while (sc.hasNextLine()) {
             line();
             String command = sc.next();
             String data = sc.nextLine();
             switch (command) {
                 case "bye":
-                    bye();
-                    break outer;
+                    break label;
                 case "list":
-                    System.out.println(duke);
+                    System.out.print(duke);
+                    break;
+                case "mark":
+                case "unmark":
+                    String trimmed = data.trim();
+                    try {
+                        int index = Integer.parseInt(trimmed) - 1;
+                        Task task = duke.getTask(index);
+                        if (command.equals("mark")) {
+                            task.setComplete();
+                        } else {
+                            task.setIncomplete();
+                        }
+                        System.out.println("Alright, I've set the task as " + task.status() + ":\n  " + task);
+                    } catch (Duke.TaskNotFound e) {
+                        System.out.println(e.getMessage());
+                    } catch (NumberFormatException e) {
+                        System.out.println("\"" + trimmed + "\" is not a number. Please try again.");
+                    }
+                    ;
                     break;
                 default:
-                    Task task = new Task(data);
+                    Task task = new Task(command + data);
                     System.out.println("Added task " + task.describe());
                     duke.addTask(task);
+                    break;
             }
             line();
         }
@@ -54,5 +74,6 @@ public class Main {
     public static void main(String[] args) {
         hello();
         repl();
+        bye();
     }
 }

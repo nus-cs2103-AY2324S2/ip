@@ -1,8 +1,33 @@
 public class Task {
-    private String description;
+    private enum Status {
+        Complete("completed", 'X'), Incomplete("pending", ' ');
+
+        private final char icon;
+        private final String description;
+        Status(String description, char icon) {
+            this.icon = icon;
+            this.description = description;
+        }
+    }
+
+    private final String description;
+    private Status status;
 
     public Task(String description) {
         this.description = description;
+        this.status = Status.Incomplete;
+    }
+
+    public void setComplete() {
+        this.status = Status.Complete;
+    }
+
+    public void setIncomplete() {
+        this.status = Status.Incomplete;
+    }
+
+    public String status() {
+        return this.status.description;
     }
 
     /**
@@ -16,6 +41,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return description;
+        return "[" + this.status.icon + "] " + description;
     }
 }

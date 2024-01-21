@@ -26,7 +26,6 @@ public class Duke {
         for (int i = 0; i < tasks.size(); i++) {
             s.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
-        s.deleteCharAt(s.length() - 1);
         return s.toString();
     }
 
