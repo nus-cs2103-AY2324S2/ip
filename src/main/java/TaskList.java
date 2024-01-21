@@ -15,6 +15,10 @@ public class TaskList {
         this.tasks.add(newTask);
     }
 
+    public Task removeTask(int idx) {
+        return this.tasks.remove(idx);
+    }
+
     public Task getTask(int idx) {
         return this.tasks.get(idx);
     }

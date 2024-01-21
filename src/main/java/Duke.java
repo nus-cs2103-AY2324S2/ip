@@ -58,6 +58,13 @@ public class Duke {
                         System.out.println("\t" + e);
                     }
                     break;
+                case "delete":
+                    int deleteIdxInt = Integer.valueOf(curCommand[1]);
+                    Task removedTask = taskList.removeTask(deleteIdxInt - 1);
+                    System.out.println("\tRemoving task:");
+                    System.out.println(String.format("\t\t%s", removedTask));
+                    System.out.println(String.format("\tYou now have %d tasks in the list.", taskList.getSize()));
+                    break;
                 default:
                     System.out.println("\tERROR! Unknown command detected.");
                     break;
