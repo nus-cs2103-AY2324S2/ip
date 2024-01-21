@@ -1,8 +1,20 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
-        String greet = "Hello! I am Lelu :) \nWhat can I do for you?\n";
-        String exit = "Bye. Hope to see you again soon!";
+        Scanner sc = new Scanner(System.in);
+        String greet = "Hi! I am your favourite friend, Lelu :) \nWhat can I do for you?\n";
+        String exit = "Ok bye, you shall be missed :(";
         System.out.println(greet);
-        System.out.println(exit);
+
+        while (true) {
+            String echo = sc.nextLine();
+            if (echo.equals("bye")) {
+                System.out.println(exit);
+                break;
+            }
+            System.out.println("    " + echo + "\n");
+        }
+
     }
 }
