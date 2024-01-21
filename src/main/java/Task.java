@@ -13,15 +13,30 @@ public class Task {
         this.type = type;
     }
 
-    public static Task generateTask(String fullDescription, String type) {
+    public static Task generateTask(String fullDescription, String type)
+        throws DukeException {
         if (type.equals("todo")) {
             return new Todo(fullDescription);
         } else if (type.equals("deadline")) {
             String[] splitArr = fullDescription.split(" /by ");
-            return new Deadline(splitArr[0], splitArr[1]);
+            try {
+                return new Deadline(splitArr[0], splitArr[1]);
+            } catch (IndexOutOfBoundsException err) {
+                throw new DukeException(
+                    "ERROR! deadline descriptions cannot be empty and must have a /by" +
+                    " property."
+                );
+            }
         } else {
             String[] splitArr = fullDescription.split("( /from )|( /to )");
-            return new Event(splitArr[0], splitArr[1], splitArr[2]);
+            try {
+                return new Event(splitArr[0], splitArr[1], splitArr[2]);
+            } catch (IndexOutOfBoundsException err) {
+                throw new DukeException(
+                    "ERROR! event descriptions cannot be empty, and must have" +
+                    " /from and /to properties."
+                );
+            }
         }
     }
 

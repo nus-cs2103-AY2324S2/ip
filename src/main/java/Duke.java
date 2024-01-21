@@ -14,7 +14,6 @@ public class Duke {
         while (continueIter) {
             String entry = scanner.nextLine();
             if (entry.equals("bye")) {
-                continueIter = false;
                 break;
             }
             String[] curCommand = entry.split(" ");
@@ -49,13 +48,18 @@ public class Duke {
                         }
                     }
                     String fullDescription = sbDescription.toString();
-                    Task curTask = Task.generateTask(fullDescription, curCommand[0]);
-                    taskList.addTask(curTask);
-                    System.out.println("\tAlright, I've added this task to your list:");
-                    System.out.println("\t\t" + curTask);
-                    System.out.println(String.format("\tYou now have %d tasks in the list.", taskList.getSize()));
+                    try {
+                        Task curTask = Task.generateTask(fullDescription, curCommand[0]);
+                        taskList.addTask(curTask);
+                        System.out.println("\tAlright, I've added this task to your list:");
+                        System.out.println("\t\t" + curTask);
+                        System.out.println(String.format("\tYou now have %d tasks in the list.", taskList.getSize()));
+                    } catch (DukeException e) {
+                        System.out.println("\t" + e);
+                    }
                     break;
                 default:
+                    System.out.println("\tERROR! Unknown command detected.");
                     break;
             }
             System.out.println(hLine);
