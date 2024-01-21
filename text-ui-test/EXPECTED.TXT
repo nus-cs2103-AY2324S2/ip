@@ -58,3 +58,4 @@ Ok! I've marked this task as not yet done:
 2. [D] [ ] cs2103 assignment (by: tomorrow)
 3. [E] [ ] clubbing all night (from: tonight to: tomorrow morning)
 --------------------
+Bye, good riddance

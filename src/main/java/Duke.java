@@ -55,9 +55,6 @@ public class Duke {
                 Event event = new Event(name, startDate, endDate);
                 taskManager.add(event);
             }
-            else {
-                taskManager.add(new Task(input));
-            }
         } while (!input.equals("bye"));
         
         scanner.close();
