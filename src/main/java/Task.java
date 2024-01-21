@@ -13,6 +13,14 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.description;
+        return "[" + this.getStatusIcon() + "]" + " " + this.description;
+    }
+
+    public void markDone() {
+        this.isDone = true;
+    }
+
+    public void markUndone() {
+        this.isDone = false;
     }
 }
