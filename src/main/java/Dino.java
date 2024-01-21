@@ -4,9 +4,11 @@ import java.util.Scanner;
 public class Dino {
     private ArrayList<Task> taskList;
     private int taskNum;
+
     public Dino() {
         this.taskList = new ArrayList<>();
     }
+
     public void welcome() {
         System.out.println("Hola! I'm Dino.\nWhat are you doing here?");
     }
@@ -49,9 +51,54 @@ public class Dino {
                 case "list":
                     mrDino.listTask();
                     break;
+
                 case "bye":
                     mrDino.goodbye();
+                    sc.close();
                     return;
+
+                case "todo":
+                    String todoDescription = sc.nextLine().trim();
+                    mrDino.addTask(new ToDo(todoDescription));
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + mrDino.taskList.get(mrDino.taskList.size() - 1));
+                    System.out.println("Now you have " + mrDino.taskList.size() + " tasks in the list.");
+                    break;
+
+                case "deadline":
+                    String deadlineInput = sc.nextLine().trim();
+                    String[] deadlineParts = deadlineInput.split("/by");
+                    if (deadlineParts.length != 2) {
+                        System.out.println("Invalid input format for deadline. Please use: deadline <deadline name> /by <time>");
+                        break;
+                    }
+                    String deadlineName = deadlineParts[0].trim();
+                    String deadlineTime = deadlineParts[1].trim();
+                    mrDino.addTask(new Deadline(deadlineName, deadlineTime));
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + mrDino.taskList.get(mrDino.taskList.size() - 1));
+                    System.out.println("Now you have " + mrDino.taskList.size() + " tasks in the list.");
+                    break;
+
+                case "event":
+                    String eventInput = sc.nextLine().trim();
+                    String[] eventParts = eventInput.split("/from|/to");
+                    if (eventParts.length != 3) {
+                        System.out.println("Invalid input format for event. Please use: event <event name> /from <time> /to <time>");
+                        break;
+                    }
+                    String eventName = eventParts[0].trim();
+                    String startTime = eventParts[1].trim();
+                    String endTime = eventParts[2].trim();
+                    mrDino.addTask(new Event(eventName, startTime, endTime));
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + mrDino.taskList.get(mrDino.taskList.size() - 1));
+                    System.out.println("Now you have " + mrDino.taskList.size() + " tasks in the list.");
+                    break;
+
                 case "mark":
                     int taskNum = sc.nextInt();
                     if (taskNum > mrDino.taskList.size()) {
@@ -62,6 +109,7 @@ public class Dino {
                         completed.markAsDone();
                     }
                     break;
+
                 case "unmark":
                     int taskNumber = sc.nextInt();
                     if (taskNumber > mrDino.taskList.size()) {
@@ -72,10 +120,9 @@ public class Dino {
                         missing.markAsUndone();
                     }
                     break;
+
                 default:
-                    Task task = new Task(command);
-                    mrDino.addTask(task);
-                    System.out.println("added: " + command);
+                    System.out.println("I don't understand ;;");
                     break;
             }
             command = sc.next();
