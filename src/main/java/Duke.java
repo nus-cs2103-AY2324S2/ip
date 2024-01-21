@@ -48,28 +48,28 @@ public class Duke {
                     printTaskAddedWithSolidLineBreak(todo);
                     break;
                 case "deadline":
-                    List<String> deadlineInfo = Arrays.stream(info.split("/")).map(String::trim).collect(Collectors.toList());
+                    List<String> deadlineInfo = splitStringWithTrim(info, "/");
                     Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1).substring(3));
                     taskList.add(deadline);
                     printTaskAddedWithSolidLineBreak(deadline);
                     break;
                 case "event":
-                    List<String> eventInfo = Arrays.stream(info.split("/")).map(String::trim).collect(Collectors.toList());
+                    List<String> eventInfo = splitStringWithTrim(info, "/");
                     Task event = new Event(eventInfo.get(0), eventInfo.get(1).substring(5), eventInfo.get(2).substring(3));
                     taskList.add(event);
                     printTaskAddedWithSolidLineBreak(event);
                     break;
                 default:
-                    System.out.println("we are in default!! something is wrong :(");
-//                    taskList.add(new Task(command + info));
-//                    String toPrint = "added: " + command + info;
-//                    printWithSolidLineBreak(toPrint);
-//                    break;
+                    System.out.println("we are in default!!");
             }
         }
 
         // bye
         printWithSolidLineBreak(BYE_MESSAGE);
+    }
+
+    public static List<String> splitStringWithTrim(String info, String separator) {
+        return Arrays.stream(info.split(separator)).map(String::trim).collect(Collectors.toList());
     }
 
     public static void printWithSolidLineBreak(String s) {
