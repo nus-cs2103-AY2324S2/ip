@@ -8,6 +8,22 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
+    }
+
+    //Method to mark completed tasks
+    public void mark() {
+        isDone = true;
+    }
+
+    //Method to unmark tasks
+    public void unmark() {
+        isDone = false;
+    }
+
+    //Method to print tasks
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
