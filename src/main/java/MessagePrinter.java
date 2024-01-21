@@ -39,7 +39,7 @@ public class MessagePrinter {
 
     public static void bye() {
         MessagePrinter.printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Goodbye. Hope to see you again!");
         MessagePrinter.printLine();
     }
 
