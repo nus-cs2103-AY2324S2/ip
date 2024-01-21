@@ -1,41 +1,52 @@
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 import java.util.ArrayList;
 
 public class ListOfMessages {
 
-    private class Task {
-        String msg;
-        boolean done;
-        Task(String msg) {
-            this.msg = msg;
-            this.done = false;
-        }
-        public void mark() {
-            this.done = true;
-        }
-        public void unmark() {
-            this.done = false;
-        }
-        public String toString() {
-            String is_done = this.done ? "X" : " ";
-            return String.format("[%s] %s", is_done, this.msg);
-        }
-    }
-    ArrayList<Task> listOfMessages;
+
+    private final ArrayList<Task> listOfMessages;
 
     public ListOfMessages() {
         this.listOfMessages = new ArrayList<>();
     }
-    public String add(String msg) {
-        this.listOfMessages.add(new Task(msg));
-        return "added: " + msg + "\n";
+
+    private String prelude() {
+        return "Got it. I've added this task:\n";
     }
-    public String mark(int idx) {
-        Task task = this.listOfMessages.get(idx);
+    private String trailer() {
+        return String.format("Now you have %d tasks in the list.\n", this.listOfMessages.size());
+    }
+    private String standardize(Task msg) {
+        return this.prelude() + msg + "\n" + this.trailer();
+    }
+    public String todo(String msg) {
+        Task task = new ToDo(msg);
+        this.listOfMessages.add(task);
+        return this.standardize(task);
+    }
+    public String event(String msg) {
+        Task task = new Event(msg);
+        this.listOfMessages.add(task);
+        return this.standardize(task);
+    }
+    public String deadline(String msg) {
+        Task task = new Deadline(msg);
+        this.listOfMessages.add(task);
+        return this.standardize(task);
+    }
+    public String mark(String msg) {
+        int idx = Integer.parseInt(msg.split(" ")[1]);
+        Task task = this.listOfMessages.get(idx-1);
         task.mark();
         return "Nice! I've marked this task as done:\n" + task + "\n";
     }
-    public String unmark(int idx) {
-        Task task = this.listOfMessages.get(idx);
+    public String unmark(String msg) {
+        int idx = Integer.parseInt(msg.split(" ")[1]);
+        Task task = this.listOfMessages.get(idx-1);
         task.unmark();
         return "OK, I've marked this task as not done yet:\n" + task + "\n";
     }

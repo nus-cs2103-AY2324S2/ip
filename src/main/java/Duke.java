@@ -12,14 +12,19 @@ public class Duke {
         } else if (res.equals("list")) {
             output = messages.list();
         } else if (res.startsWith("mark")) {
-            int idx = Integer.parseInt(res.split(" ")[1]);
-            output = messages.mark(idx-1);
+            output = messages.mark(res);
         } else if (res.startsWith("unmark")) {
-            int idx = Integer.parseInt(res.split(" ")[1]);
-            output = messages.unmark(idx-1);
+            output = messages.unmark(res);
+        } else if (res.startsWith("todo")) {
+            output = messages.todo(res.substring(5));
+        } else if (res.startsWith("deadline")) {
+            output = messages.deadline(res.substring(9));
+        } else if (res.startsWith("event")) {
+            output = messages.event(res.substring(6));
         } else {
-            output = messages.add(res);
+            throw new IllegalArgumentException("bad command");
         }
+
         System.out.println(output);
         return 0;
     }
