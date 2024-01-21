@@ -65,13 +65,10 @@ public class ChatBot {
     public void run() {
         greet();
 
-        String[] parsedInput = parseInput(scanner.nextLine());
-        Command userCommand = parseCommand(parsedInput[0]);
-        while (userCommand != Command.BYE) {
-            executeCommand(userCommand, parsedInput[1]);
-
-            parsedInput = parseInput(scanner.nextLine());
-            userCommand = parseCommand(parsedInput[0]);
+        Action userAction = InputParser.parseInput(scanner.nextLine());
+        while (userAction.getCommand() != Command.BYE) {
+            executeAction(userAction);
+            userAction = InputParser.parseInput(scanner.nextLine());
         }
 
         exit();
@@ -79,32 +76,83 @@ public class ChatBot {
 
     /**
      * Execute the command with the supplied arguments.
-     * @param command the command
-     * @param argument the argument
+     * @param action the action with the command and arguments
      */
-    private void executeCommand(Command command, String argument) {
-        switch (command) {
+    private void executeAction(Action action) {
+        switch (action.getCommand()) {
             case ADD:
-                addTask(argument);
+                addTask(action);
                 break;
             case LIST:
                 listTasks();
                 break;
             case MARK:
-                markTask(Integer.parseInt(argument) - 1);
+                markTask(action);
                 break;
             case UNMARK:
-                unmarkTask(Integer.parseInt(argument) - 1);
+                unmarkTask(action);
+                break;
+            case TODO:
+                addTodo(action);
+                break;
+            case DEADLINE:
+                addDeadline(action);
+                break;
+            case EVENT:
+                addEvent(action);
                 break;
         }
     }
 
     /**
-     * Add a task to the user's list
+     * Add a task to the user's list.
+     * @param action the action of the task to perform
      */
-    private void addTask(String name) {
-        userList.addTask(name);
-        printMessage("added: " + name);
+    private void addTask(Action action) {
+        userList.addTask(action.findDefaultArgument());
+        printAddTaskMessage();
+    }
+
+    /**
+     * Add a to-do to the user's list.
+     * @param action the action of the task to perform
+     */
+    private void addTodo(Action action) {
+        userList.addTodo(action.findDefaultArgument());
+        printAddTaskMessage();
+    }
+
+    /**
+     * Add a deadline task to the user's list.
+     * @param action the action of the task to perform
+     */
+    private void addDeadline(Action action) {
+        String name = action.findDefaultArgument(),
+                by = action.findArgument("by");
+        userList.addDeadline(name, by);
+        printAddTaskMessage();
+    }
+
+    /**
+     * Add an event to the user's list.
+     * @param action the action of the task to perform
+     */
+    private void addEvent(Action action) {
+        String name = action.findDefaultArgument(),
+                from = action.findArgument("from"),
+                to = action.findArgument("to");
+        userList.addEvent(name, from, to);
+        printAddTaskMessage();
+    }
+
+    /**
+     * Prints the message when a task is added.
+     */
+    private void printAddTaskMessage() {
+        printMessage("Got it. I've added this task:\n  "
+                + userList.getNewestTask() + "\n"
+                + "Now you have " + userList.size() + " tasks in the list"
+        );
     }
 
     /**
@@ -116,18 +164,20 @@ public class ChatBot {
 
     /**
      * Marks and prints the task.
-     * @param index the 0-indexed index of the task in the user's list.
+     * @param action the action of the task to perform
      */
-    private void markTask(int index) {
+    private void markTask(Action action) {
+        int index = Integer.parseInt(action.findDefaultArgument()) - 1;
         userList.markTask(index);
         printMessage("Nice! I've marked this task as done:\n  " + userList.getTask(index));
     }
 
     /**
      * Unmarks and prints the task.
-     * @param index the 0-indexed index of the task in the user's list.
+     * @param action the action of the task to perform
      */
-    private void unmarkTask(int index) {
+    private void unmarkTask(Action action) {
+        int index = Integer.parseInt(action.findDefaultArgument()) - 1;
         userList.unmarkTask(index);
         printMessage("OK, I've marked this task as not done yet:\n  " + userList.getTask(index));
     }
