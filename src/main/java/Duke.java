@@ -153,6 +153,7 @@ public class Duke {
 
     //Method to add tod0 task
     private static void addTodoTask(String input) {
-
+        Task task = new Todo(input.substring(4));
+        addTask(task);
     }
 }
