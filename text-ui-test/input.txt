@@ -1,0 +1,11 @@
+todo homework
+deadline ip /by 25 Jan, Thurs
+event tutorial /from 2 Feb, Fri, 3pm /to 4pm
+list
+mark 1
+mark 2
+list
+unmark 2
+mark 3
+list
+bye
