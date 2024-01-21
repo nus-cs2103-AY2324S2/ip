@@ -1,5 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -65,9 +63,10 @@ public class Main {
                 case "deadline":
                 case "event":
                     try {
-                        Task added = duke.addTask(command, data);
-                        System.out.println("Added task " + added.describe());
-                    } catch (Duke.InvalidTaskComponents | Duke.InvalidTaskType e) {
+                        Task task = Task.of(command, data);
+                        duke.addTask(task);
+                        System.out.println("Added task " + task.describe());
+                    } catch (Task.InvalidComponents | Task.InvalidType e) {
                         System.out.println(e.getMessage());
                     }
                     break;
