@@ -9,7 +9,7 @@ public class Dino {
         this.taskList = new ArrayList<>();
     }
 
-    public void welcome() {
+    public static void welcome() {
         System.out.println("Hola! I'm Dino.\nWhat are you doing here?");
     }
 
@@ -39,31 +39,30 @@ public class Dino {
         }
     }
 
-    public static void main(String[] args) {
-        Dino mrDino = new Dino();
+    public void chatHere() {
+
         Scanner sc = new Scanner(System.in);
-        mrDino.welcome();
 
         String command = sc.next();
 
         while (true) {
             switch (command) {
                 case "list":
-                    mrDino.listTask();
+                    listTask();
                     break;
 
                 case "bye":
-                    mrDino.goodbye();
+                    goodbye();
                     sc.close();
                     return;
 
                 case "todo":
                     String todoDescription = sc.nextLine().trim();
-                    mrDino.addTask(new ToDo(todoDescription));
+                    addTask(new ToDo(todoDescription));
 
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + mrDino.taskList.get(mrDino.taskList.size() - 1));
-                    System.out.println("Now you have " + mrDino.taskList.size() + " tasks in the list.");
+                    System.out.println("  " + taskList.get(taskList.size() - 1));
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                     break;
 
                 case "deadline":
@@ -75,11 +74,11 @@ public class Dino {
                     }
                     String deadlineName = deadlineParts[0].trim();
                     String deadlineTime = deadlineParts[1].trim();
-                    mrDino.addTask(new Deadline(deadlineName, deadlineTime));
+                    addTask(new Deadline(deadlineName, deadlineTime));
 
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + mrDino.taskList.get(mrDino.taskList.size() - 1));
-                    System.out.println("Now you have " + mrDino.taskList.size() + " tasks in the list.");
+                    System.out.println("  " + taskList.get(taskList.size() - 1));
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                     break;
 
                 case "event":
@@ -92,31 +91,31 @@ public class Dino {
                     String eventName = eventParts[0].trim();
                     String startTime = eventParts[1].trim();
                     String endTime = eventParts[2].trim();
-                    mrDino.addTask(new Event(eventName, startTime, endTime));
+                    addTask(new Event(eventName, startTime, endTime));
 
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + mrDino.taskList.get(mrDino.taskList.size() - 1));
-                    System.out.println("Now you have " + mrDino.taskList.size() + " tasks in the list.");
+                    System.out.println("  " + taskList.get(taskList.size() - 1));
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                     break;
 
                 case "mark":
                     int taskNum = sc.nextInt();
-                    if (taskNum > mrDino.taskList.size()) {
+                    if (taskNum > taskList.size()) {
                         System.out.println("Uh oh, we do not have a task assigned to that number.");
                     } else {
                         System.out.println("Good job on completing the task! I have checked it off the list.");
-                        Task completed = mrDino.taskList.get(taskNum - 1);
+                        Task completed = taskList.get(taskNum - 1);
                         completed.markAsDone();
                     }
                     break;
 
                 case "unmark":
                     int taskNumber = sc.nextInt();
-                    if (taskNumber > mrDino.taskList.size()) {
+                    if (taskNumber > taskList.size()) {
                         System.out.println("Uh oh, we do not have a task assigned to that number.");
                     } else {
                         System.out.println("Ah, I will mark it as undone. Remember to do it asap!");
-                        Task missing = mrDino.taskList.get(taskNumber - 1);
+                        Task missing = taskList.get(taskNumber - 1);
                         missing.markAsUndone();
                     }
                     break;
@@ -127,6 +126,12 @@ public class Dino {
             }
             command = sc.next();
         }
+    }
 
+
+    public static void main(String[] args) {
+        Dino mrDino = new Dino();
+        welcome();
+        mrDino.chatHere();
     }
 }
