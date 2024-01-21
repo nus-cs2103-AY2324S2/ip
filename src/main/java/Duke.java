@@ -116,13 +116,12 @@ public class Duke {
 
     //Method to add event task
     private static void addEventTask(String input) {
-        String[] parts = input.split(" ", 4);
-        if (parts.length == 4) {
-            String description = parts[1];
+        String[] parts = input.split("/", 3);
+        if (parts.length == 3) {
+            String description = parts[0].substring(5);
 
-            String[] time = parts[3].split("/");
-            String from = time[0];
-            String to = time[1];
+            String from = parts[1].substring(5);
+            String to = parts[2].substring(3);
 
             Task task = new Event(description, from, to);
             addTask(task);
@@ -136,7 +135,7 @@ public class Duke {
 
     //Method to add deadline task
     private static void addDeadlineTask(String input) {
-
+        
     }
 
     //Method to add tod0 task
