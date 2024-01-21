@@ -2,24 +2,24 @@ import java.util.ArrayList;
 
 public class Tracker {
 
-    private ArrayList<String> stringList;
+    private ArrayList<Task> taskList;
 
     public Tracker(){
-        stringList = new ArrayList<>();
+        taskList = new ArrayList<>();
     }
 
-    public void addElement(String element) {
-        stringList.add(element);
+    public void addTask(Task element) {
+        taskList.add(element);
         System.out.println("added: " + element);
     }
 
-    public void listElements() {
+    public void listTasks() {
         int index = 0;
-        for (String element: stringList) {
+        for (Task element: taskList) {
             index++;
-            System.out.println(index + ". " + element);
+            System.out.println(index + "." + element.listTaskString());
         }
-        if (stringList.size() == 0) {
+        if (taskList.size() == 0) {
             System.out.println("No items in list!");
         }
     }

@@ -24,9 +24,10 @@ public class Ellie {
 
         while ( !input.toLowerCase().equals("bye") ) {
             if (input.toLowerCase().equals("list")) {
-                tracker.listElements();
+                tracker.listTasks();
             } else {
-                tracker.addElement(input);
+                Task newTask = new Task(input);
+                tracker.addTask(newTask);
             }
             input = reader.nextLine();
         }
