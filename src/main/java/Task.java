@@ -16,6 +16,10 @@ public class Task {
     public static Task generateTask(String fullDescription, String type)
         throws DukeException {
         if (type.equals("todo")) {
+            if (!fullDescription.matches("[a-zA-Z0-9\\p{Punct}]")) {
+                throw new DukeException("ERROR! todo descriptions cannot be empty" +
+                        " nor only containing whitespaces.");
+            }
             return new Todo(fullDescription);
         } else if (type.equals("deadline")) {
             String[] splitArr = fullDescription.split(" /by ");
