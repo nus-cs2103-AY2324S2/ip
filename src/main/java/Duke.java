@@ -44,9 +44,15 @@ public class Duke {
                     break;
                 case "mark":
                 case "unmark":
+                case "delete":
                     try {
                         int index = Integer.parseInt(data) - 1;
                         Task task = taskList.getTask(index);
+                        if (command.equals("delete")) {
+                            taskList.deleteTask(index);
+                            System.out.println("Alright, I've deleted the task:\n  " + task);
+                            break;
+                        }
                         if (command.equals("mark")) {
                             task.setComplete();
                         } else {

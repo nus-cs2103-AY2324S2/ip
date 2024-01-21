@@ -18,6 +18,14 @@ public class TaskList {
         }
     }
 
+    public void deleteTask(int index) throws TaskNotFound {
+        try {
+            tasks.remove(index);
+        } catch(IndexOutOfBoundsException e) {
+            throw new TaskNotFound("Could not find task " + (index + 1), e);
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
