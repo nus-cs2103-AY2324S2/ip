@@ -85,6 +85,18 @@ public class Duke {
                     System.out.println("Now you have " + Task.getTotalTask()+ " tasks in the list.");
                     System.out.println("--------------------------");
                     list.add(curr);
+                } else if (inputlist[0].equals("delete")) {
+                    String index = inputlist[1];
+                    Task deletetask = list.get(Integer.valueOf(index)-1);
+                    list.remove(Integer.parseInt(index) - 1);
+                    Task.subtractTotal();
+                    System.out.println("--------------------------");
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(deletetask.toString());
+                    System.out.println("Now you have "+ Task.getTotalTask() + " tasks in the list.");
+                    System.out.println("--------------------------");
+                    System.out.println(list.size());
+                    continue;
                 } else {
                     System.out.println("--------------------------");
                     throw new InvalidCommandException("");

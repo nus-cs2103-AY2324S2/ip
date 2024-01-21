@@ -37,4 +37,8 @@ class Task {
     public static String getTotalTask() {
         return Integer.toString(totaltask);
     }
+
+    public static void subtractTotal() {
+        totaltask -= 1;
+    }
 }
