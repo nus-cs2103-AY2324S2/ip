@@ -1,10 +1,6 @@
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String name = "Bearducky";
+        System.out.println("Quack!git  My name is " + name + ". I would be glad to help you in exchange for some bread.");
     }
 }
