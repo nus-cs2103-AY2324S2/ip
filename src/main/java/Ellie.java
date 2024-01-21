@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Ellie {
 
     final static String horizontalLine = "____________________________________________________________";
     final static String logoElephant =
@@ -9,30 +9,37 @@ public class Duke {
                                         "'|, . ,'\n" +
                                         " !_-(_\\";
 
+    private Tracker tracker;
 
-    public static void main(String[] args) {
+    public Ellie() {
+        tracker = new Tracker();
+    }
+
+    public void start() {
 
         hello();
 
-        String input = "";
         Scanner reader = new Scanner(System.in);
+        String input = reader.nextLine();
 
         while ( !input.toLowerCase().equals("bye") ) {
-            System.out.println(input);
-            input = reader.next();
+            if (input.toLowerCase().equals("list")) {
+                tracker.listElements();
+            } else {
+                tracker.addElement(input);
+            }
+            input = reader.nextLine();
         }
-
-
         goodbye();
     }
 
-    private static void hello() {
+    private void hello() {
         System.out.println("Hello! I'm Ellie, your CS2103T chat bot!");
         System.out.println(logoElephant + "\n" + horizontalLine);
         System.out.println("What can I do for you?");
     }
 
-    private static void goodbye() {
+    private void goodbye() {
         System.out.println("\n Bye! Hope to see you again soon!");
         System.out.println(horizontalLine);
     }
