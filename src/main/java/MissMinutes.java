@@ -62,7 +62,7 @@ public class MissMinutes {
                 String reply;
                 if (request.startsWith("mark")) {
                     curr.markAsDone();
-                    reply = "Nice! I've marked this one as done: \n" + curr + "\n";
+                    reply = "Nice! I've marked this task as done: \n" + curr + "\n";
                 } else {
                     curr.unmark();
                     reply = "OK, I've marked this task as not done yet: \n" + curr + "\n";
