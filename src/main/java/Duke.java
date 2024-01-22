@@ -23,6 +23,8 @@ public class Duke {
                     handleMark(list, message);
                 } else if (message.startsWith("unmark")) {
                     handleUnmark(list, message);
+                } else if (message.startsWith("delete")) {
+                    deleteTask(list, message);
                 } else if (!message.equals("bye")) {
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means buddy.");
                 }
@@ -81,6 +83,9 @@ public class Duke {
     }
 
     private static void handleMark(ArrayList<Task> list, String message) throws DukeException {
+        if (message.trim().equals("mark")) {
+            throw new DukeException("OOPS!!! The task number is missing buddy.");
+        }
         int index = Integer.parseInt(message.substring(5).trim()) - 1;
         if (index < 0 || index >= list.size()) {
             throw new DukeException("OOPS!!! Task number is invalid buddy.");
@@ -91,6 +96,9 @@ public class Duke {
     }
 
     private static void handleUnmark(ArrayList<Task> list, String message) throws DukeException {
+        if (message.trim().equals("unmark")) {
+            throw new DukeException("OOPS!!! The task number is missing buddy.");
+        }
         int index = Integer.parseInt(message.substring(7).trim()) - 1;
         if (index < 0 || index >= list.size()) {
             throw new DukeException("OOPS!!! Task number is invalid buddy.");
@@ -98,6 +106,19 @@ public class Duke {
         Task task = list.get(index);
         task.unMarkAsDone();
         printWithLines("OK, I've marked this task as not done yet:", task.toString());
+    }
+
+    private static void deleteTask(ArrayList<Task> list, String message) throws DukeException {
+        if (message.trim().equals("delete")) {
+            throw new DukeException("OOPS!!! The task number is missing buddy.");
+        }
+        int index = Integer.parseInt(message.substring(7).trim()) - 1;
+        if (index < 0 || index >= list.size()) {
+            throw new DukeException("OOPS!!! Task number is invalid buddy.");
+        }
+        Task task = list.get(index);
+        list.remove(index);
+        printWithLines("OK, I've deleted this task:", task.toString());
     }
 
     private static void printWithLines(String... messages) {
