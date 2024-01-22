@@ -1,1 +1,9 @@
+hi
+todo a
+deadline b /by tmr
+event c /from tdy /to tmr
+mark 1
+list
+unmark 1
+list
 bye
