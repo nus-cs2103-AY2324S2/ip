@@ -1,9 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
+        Memory memory = new Memory();
         greet();
-        echo();
+        echo(memory);
         bye();
     }
 
@@ -25,12 +27,30 @@ public class Duke {
         drawLine();
     }
 
-    public static void echo() {
+    public static void echo(Memory memory) {
         Scanner sc = new Scanner(System.in);
-        String sentence = sc.nextLine();
-        while (!sentence.equals("bye")) {
-            output(sentence);
-            sentence = sc.nextLine();
+        String task = sc.nextLine();
+        boolean success;
+        String sentence;
+        ArrayList<String> tasks;
+        int numTasks;
+        while (!task.equals("bye")) {
+            if (task.equals("list")) {
+                tasks = memory.getList();
+                numTasks = tasks.size();
+                String[] args = new String[numTasks];
+                for (int i = 0; i < tasks.size(); i++) {
+                    args[i] = (i + 1) + ". " + tasks.get(i);
+                }
+                output(args);
+            } else {
+                success = memory.add(task);
+                if (success) {
+                    sentence = "added: " + task;
+                    output(sentence);
+                }
+            }
+            task = sc.nextLine();
         }
         sc.close();
     }
