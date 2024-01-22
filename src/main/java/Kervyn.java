@@ -1,4 +1,7 @@
 import Tasks.Task;
+import Tasks.Deadline;
+import Tasks.ToDo;
+import Tasks.Event;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -52,10 +55,12 @@ public class Kervyn {
                         System.out.println("\t[" + check + "] " + task.getDescription());
                     }
                     break;
+                case "todo":
+
                 default:
                     System.out.println("\tadded: " + userInput);
                     // Create a new Task for each new item
-                    Task newTask = new Task(userInput, false);
+                    Task newTask = new Task(userInput, false, );
                     userRequests.add(newTask);
                     break;
             }
