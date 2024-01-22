@@ -1,7 +1,68 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ____    _    ___  ____ ___ ____   ____   ___ _____ 
+/ ___|  / \  / _ \|  _ \_ _/ ___| | __ ) / _ \_   _|
+\___ \ / _ \| | | | |_) | | |  _  |  _ \| | | || |  
+ ___) / ___ \ |_| |  __/| | |_| | | |_) | |_| || |  
+|____/_/   \_\___/|_|  |___\____| |____/ \___/ |_|
 
+____________________________________________________________
+Hello! I'm SAOPIG BOT
+ Oh, hello there!
+ It's such a pleasure to meet you.
+ I'm just over the moon to have someone new to chat with!
+ I hope your day is as bright and cheerful as a sunny garden.
+
+____________________________________________________________
+
+Oh, splendid! Your Todo task: {[T][ ] borrow book} has been added successfully.
+ Now you have 1 tasks in the list.
+____________________________________________________________
+1. [T][ ] borrow book
+____________________________________________________________
+
+Oh, splendid! Your Deadline task: {[D][ ] return book (by: Sunday)} has been added successfully.
+ Now you have 2 tasks in the list.
+____________________________________________________________
+
+Oh, splendid! Your Event task: {[E][ ] project meeting (from: Mon 2pm to 4pm)} has been added successfully.
+ Isn't it just wonderful when things go exactly as planned?
+ I'm so proud of you for getting it done!
+ Now you have 3 tasks in the list.
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to 4pm)
+____________________________________________________________
+
+Oh, splendid! Your task: {[D][X] return book (by: Sunday)} has been marked as done successfully.
+ Isn't it just wonderful when things go exactly as planned?
+ I'm so proud of you for getting it done!
+____________________________________________________________
+
+Oh, you've unmarked task: {[D][ ] return book (by: Sunday)}?
+ No worries at all! It's always okay to reevaluate and adjust your plans.
+ Flexibility is a sign of strength, you know. Keep up the great work!
+____________________________________________________________
+
+Oh, splendid! Your task: {[T][X] borrow book} has been marked as done successfully.
+ Isn't it just wonderful when things go exactly as planned?
+ I'm so proud of you for getting it done!
+____________________________________________________________
+1. [T][X] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to 4pm)
+____________________________________________________________
+
+Oh, splendid! Your Deadline task: {[D][ ] return book2 (by: Monday)} has been added successfully.
+ Now you have 4 tasks in the list.
+____________________________________________________________
+
+Oh, splendid! Your Event task: {[E][ ] project meeting2 (from: Mon 4pm to 9pm)} has been added successfully.
+ Isn't it just wonderful when things go exactly as planned?
+ I'm so proud of you for getting it done!
+ Now you have 5 tasks in the list.
+____________________________________________________________
+
+As our time together comes to a close, I just want to say it's been an absolute delight!
+ Remember, every day is a new adventure waiting to happen.
+ Bye for now, and take care! 
+____________________________________________________________

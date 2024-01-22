@@ -20,7 +20,7 @@ public class TaskList {
         Task task = this.tasks.get(index);
         task.unmarkAsDone();
         Saopig.speakWithHorizontalLines("\n" +
-                "Oh, you've unmarked task： {" + task.toString() + "}?\n " +
+                "Oh, you've unmarked task: {" + task.toString() + "}?\n " +
                 "No worries at all! It's always okay to reevaluate and adjust your plans.\n " +
                 "Flexibility is a sign of strength, you know. Keep up the great work!");
     }
