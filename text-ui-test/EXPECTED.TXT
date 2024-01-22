@@ -2,6 +2,7 @@
     Hello! I'm Bob, a personal assistant.
     How can I help you?
     +----------------------------------------------------------+
+The command todo requires a task description.
     +----------------------------------------------------------+
     Here is your newly added task:
         [T][ ] borrow book
@@ -10,11 +11,15 @@
     +----------------------------------------------------------+
     1.[T][ ] borrow book
     +----------------------------------------------------------+
+The command deadline requires both a task description and a deadline.
+The command deadline requires both a task description and a deadline.
     +----------------------------------------------------------+
     Here is your newly added task:
         [D][ ] return book (by: Sunday)
     You have 2 tasks in your list.
     +----------------------------------------------------------+
+The command event requires a task description, a start date, and an end date.
+The command event requires a task description, a start date, and an end date.
     +----------------------------------------------------------+
     Here is your newly added task:
         [E][ ] project meeting (from: Mon 2pm  to: 4pm)
