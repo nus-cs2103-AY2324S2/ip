@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class MissMinutes {
     private final Scanner stdin;
     private final List<Task> tasks;
-    private static final String separator = "-".repeat(60) + "\n";
+    private static final String separator = "-".repeat(60);
     private static final String logo =
             " __  __ _           __  __ _             _                  \n" +
             " |  \\/  (_)         |  \\/  (_)           | |              \n" +
@@ -26,9 +26,35 @@ public class MissMinutes {
         System.out.println(separator);
     }
 
+    public Task createTask(String input) {
+        String[] split = input.split(" ", 2);
+
+        if (split[0].equalsIgnoreCase("TODO")) {
+            return Todo.fromStr(split[1]);
+        }
+
+        if (split[0].equalsIgnoreCase("DEADLINE")) {
+            return Deadline.fromStr(split[1]);
+        }
+
+        if (split[0].equalsIgnoreCase("EVENT")) {
+            return Event.fromStr(split[1]);
+        }
+
+        return null;
+    }
+
+    public void addTask(Task task) {
+        this.tasks.add(task);
+        String reply = "Got it. I've added this task: \n" +
+                task + "\n" +
+                "Now you have " + this.tasks.size() + " tasks in the list.";
+        this.sendMsg(reply);
+    }
+
     public void greet() {
         this.sendMsg("Hello! I'm \n" + logo
-                    + "What can I do for you\n");
+                    + "What can I do for you");
     }
 
     public void exit() {
@@ -36,15 +62,33 @@ public class MissMinutes {
         this.stdin.close();
     }
 
-    public String getSerializedTasks() {
-        StringBuilder reply = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            reply.append((i + 1))
-                    .append(". ")
-                    .append(this.tasks.get(i))
-                    .append("\n");
+    public void printTasks() {
+        if (this.tasks.isEmpty()) {
+            this.sendMsg("There are no tasks in your list.");
+            return;
         }
-        return reply.toString();
+        StringBuilder reply = new StringBuilder("Here are the tasks in your list: ");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            reply.append("\n")
+                    .append((i + 1))
+                    .append(". ")
+                    .append(this.tasks.get(i));
+        }
+        this.sendMsg(reply.toString());
+    }
+
+    public void markTask(int idx) {
+        Task curr = this.tasks.get(idx);
+        curr.markAsDone();
+        String reply = "Nice! I've marked this task as done: \n" + curr;
+        this.sendMsg(reply);
+    }
+
+    public void unmarkTask(int idx) {
+        Task curr = this.tasks.get(idx);
+        curr.unmark();
+        String reply = "OK, I've marked this task as not done yet: \n" + curr;
+        this.sendMsg(reply);
     }
 
     public void run() {
@@ -53,24 +97,18 @@ public class MissMinutes {
             if (request.equals("bye")) {
                 break;
             } else if (request.equals("list")) {
-                this.sendMsg(this.getSerializedTasks());
+                printTasks();
             } else if (request.startsWith("mark") || request.startsWith("unmark")) {
                 String[] split = request.split(" ");
                 int idx = Integer.parseInt(split[1]) - 1;
-                Task curr = this.tasks.get(idx);
-
-                String reply;
                 if (request.startsWith("mark")) {
-                    curr.markAsDone();
-                    reply = "Nice! I've marked this task as done: \n" + curr + "\n";
+                    markTask(idx);
                 } else {
-                    curr.unmark();
-                    reply = "OK, I've marked this task as not done yet: \n" + curr + "\n";
+                    unmarkTask(idx);
                 }
-                this.sendMsg(reply);
             } else {
-                this.tasks.add(new Task(request));
-                this.sendMsg("added: " + request + "\n");
+                Task task = this.createTask(request);
+                this.addTask(task);
             }
         }
     }
