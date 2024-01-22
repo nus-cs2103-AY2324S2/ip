@@ -6,21 +6,24 @@ public class HeadCube {
         greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            String input = scanner.nextLine();
-            String[] split = input.split(" ",2);
+            try {
+                String input = scanner.nextLine();
+                String[] split = input.split(" ",2);
 
-            if (input.equals("bye")) {
-                exit();
-                break;
-            } else if (input.equals("list")) {
-                list();
-            } else if (split[0].equals("mark")){
-                mark(Integer.parseInt(split[1]));
+                if (input.equals("bye")) {
+                    exit();
+                    break;
+                } else if (input.equals("list")) {
+                    list();
+                } else if (split[0].equals("mark")){
+                    mark(Integer.parseInt(split[1]));
 
-            } else {
-                add(input);
+                } else {
+                    add(input);
+                }
+            } catch (HeadCubeException e) {
+                System.out.println(e.getMessage());
             }
-
         }
     }
 
@@ -32,26 +35,30 @@ public class HeadCube {
         System.out.println("Bye. Hope to see you again soon!\n");
     }
 
-    public static void add(String task) {
+    public static void add(String task) throws HeadCubeException{
         String[] split = task.split(" ",2 );
         String event = split[0];
         String description;
 
         if (event.equals("todo")) {
-            description = split[1];
-            tasks[taskCount] = new ToDos(description);
+            if (split.length < 2 || split[1].isBlank()) {
+                throw new HeadCubeException("Todo cannot be empty!!");
+            }
+            tasks[taskCount] = new ToDos(split[1]);
         } else if (event.equals("deadline")) {
             String[] parts = split[1].split(" /by ",2);
             description = parts[0];
             String by = parts[1];
             tasks[taskCount] = new Deadlines(description,by);
-        } else {
+        } else if (event.equals("event")) {
             String[] parts = split[1].split(" /from ", 2);
             description = parts[0];
-            String[] times = parts[1].split(" /from ", 2);
+            String[] times = parts[1].split(" /to ", 2);
             String start = times[0];
             String end = times[1];
             tasks[taskCount] = new Events(description, start, end);
+        } else {
+            throw new HeadCubeException("I do not understand what that means!!");
         }
 
         System.out.println("Got it. I've added this task:\n  " + tasks[taskCount]);
