@@ -44,10 +44,24 @@ public class Wei {
         catch (NumberFormatException e) {
             throw new WeiException("which task do you want to unmark?");
         }
-
     }
 
-    private static void addTask(ArrayList<Task> tasks, String input) throws WeiException {
+    private static void delete(ArrayList<Task> tasks, String input) throws WeiException {
+        try {
+            int order = Integer.parseInt(input.substring(7)) - 1;
+            Task task = tasks.get(order);
+            String text = task.stringify();
+            tasks.remove(order);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(text);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        }
+        catch (NumberFormatException e) {
+            throw new WeiException("which task do you want to delete?");
+        }
+    }
+
+        private static void addTask(ArrayList<Task> tasks, String input) throws WeiException {
         if (input.startsWith("todo")) {
             addToDo(tasks, input);
         }
@@ -135,6 +149,11 @@ public class Wei {
                     unmark(tasks, input);
                 }
 
+                // delete
+                else if (input.matches("delete \\d+")) {
+                    delete(tasks, input);
+                }
+
                 // add
                 else {
                     addTask(tasks, input);
@@ -143,9 +162,7 @@ public class Wei {
             catch (WeiException e) {
                 System.out.println(e.getMessage());
             }
-            finally {
-                System.out.println(split);
-            }
+            System.out.println(split);
         }
 
         // exit
