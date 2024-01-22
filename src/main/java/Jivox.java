@@ -1,10 +1,12 @@
+import javax.swing.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Jivox {
 
 
-    ArrayList<String> list = new ArrayList<>();
+    ArrayList<Task> list = new ArrayList<>();
     public void greet(){
         addDivider();
         System.out.println(" Hello! I'm Jivox");
@@ -18,8 +20,25 @@ public class Jivox {
         addDivider();
     }
 
+    public void mark(int i){
+        Task t = this.list.get(i-1);
+        t.mark();
+        addDivider();
+        System.out.println("Nice! , I've marked this task as done:\n" + t.toString());
+        addDivider();
+
+    }
+
+    public void unmark(int i){
+        Task t = this.list.get(i-1);
+        t.unmark();
+        addDivider();
+        System.out.println("OK, I've marked this task as not done yet:\n" + t.toString());
+        addDivider();
+    }
+
     public void add(String input){
-        this.list.add(input);
+        this.list.add(new Task(input));
         addDivider();
         System.out.println("added: " + input);
         addDivider();
@@ -46,9 +65,16 @@ public class Jivox {
                 isRunning = false;
             } else if(input.equals("list")){
                 this.showList();
-            }
-            else{
-               this.add(input);
+            } else{
+                String[] in = input.split(" ");
+                if(in[0].equals("mark")){
+                    this.mark(Integer.parseInt(in[1]));
+                } else if(in[0].equals("unmark")){
+                    this.unmark(Integer.parseInt(in[1]));
+                }
+                else{
+                    this.add(input);
+                }
             }
         } while (isRunning);
 
