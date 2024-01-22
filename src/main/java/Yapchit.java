@@ -1,29 +1,8 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Yapchit {
-
-    private class Task{
-        private String name;
-        private boolean tag;
-
-        public Task(String name){
-            this.name = name;
-            this.tag = false;
-        }
-
-        public void updateTag(boolean val){
-            this.tag = val;
-        }
-
-        public String getName(){
-            return this.name;
-        }
-
-        public boolean getTag(){
-            return this.tag;
-        }
-    }
     ArrayList<Task> list = new ArrayList<>();
     public static void main(String[] args) {
 
@@ -33,8 +12,6 @@ public class Yapchit {
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-
-
 
         while(!(input.equals("bye"))){
             bot.parseInput(input);
@@ -46,31 +23,53 @@ public class Yapchit {
 
     private void parseInput(String input){
 
-        String[] parts = input.split(" ", 2);
+        String[] parts = input.split(" ");
 
-        if(parts.length == 1){
-            if(input.equals("list")){
-                this.printList();;
-            } else {
-                this.echo(input);
-            }
-        } else if(parts.length == 2){
-            int idx = -1;
-            try {
-                idx = Integer.parseInt(parts[1]) - 1;
-            } catch (NumberFormatException e){
-                System.out.println("Please enter a number after 'mark'/'unmark'");
-            }
+        if(parts[0].equals("list")){
+            printList();
+        } else if(parts[0].equals("mark")){
+            int num = Integer.parseInt(parts[1]);
+            mark(num - 1, true);
+        } else if(parts[0].equals("unmark")){
+            int num = Integer.parseInt(parts[1]);
+            mark(num - 1, false);
+        } else if (parts[0].equals("deadline")){
+            int byStart = input.indexOf("/by");
+            String desc = input.substring(9, byStart);
+            String by = input.substring(byStart + 4);
+            Task t = new Deadline(desc, by);
+            addTask(t);
+            printTask(t);
 
-            if(parts[0].equals("mark") && idx != -1){
-                this.mark(idx, true);
-            } else if (parts[0].equals("unmark") && idx != -1){
-                this.mark(idx, false);
-            }
+        } else if(parts[0].equals("event")){
+            int fromStart = input.indexOf("/from");
+            int toStart = input.indexOf("/to");
+
+            String desc = input.substring(6, fromStart);
+            String from = input.substring(fromStart + 6, toStart);
+            String to = input.substring(toStart + 4);
+
+            Task t = new Event(desc, from, to);
+            addTask(t);
+            printTask(t);
+
+        } else if(parts[0].equals("todo")){
+            String desc = input.substring(5);
+            Task t = new ToDo(desc);
+            addTask(t);
+            printTask(t);
         } else {
-            System.out.println("Invalid input, please try again");
+            print("invalid entry, try again");
         }
+    }
 
+    private void printTask(Task t){
+        line();
+        print("\tGot it. I've added this task:");
+        print("\t\t"+ t.toString());
+        String temp = list.size() == 1 ? "task" : "tasks";
+        print("\tNow you have " + list.size() +" " + temp + " in the list");
+        line();
     }
 
     private void intro(){
@@ -88,8 +87,7 @@ public class Yapchit {
 
             int idx = i + 1;
             Task item = this.list.get(i);
-            String tag = item.tag == true ? "[X]" : "[ ]";
-            System.out.println("\t" + idx +  ". " + tag + " " + item.getName());
+            System.out.println("\t" + idx + "." + item.toString());
         }
         System.out.println(	"\t"+"--------------------------------------------------");
     }
@@ -106,12 +104,8 @@ public class Yapchit {
         }
     }
 
-    private void echo(String input){
-        list.add(new Task(input));
-        String output = "\t--------------------------------------------------\n"
-                + "\t" + input + "\n"
-                + "\t--------------------------------------------------\n";
-        System.out.println(output);
+    private void addTask(Task t){
+        list.add(t);
     }
 
     private void outro(){
@@ -120,5 +114,13 @@ public class Yapchit {
                 + "\t--------------------------------------------------\n";
 
         System.out.println(outro);
+    }
+
+    private void line(){
+        System.out.println("\t--------------------------------------------------\n");
+    }
+
+    private void print(Object o){
+        System.out.println(o);
     }
 }
