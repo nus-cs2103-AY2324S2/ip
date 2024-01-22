@@ -35,7 +35,7 @@ public class Shirmin {
             int taskIndex = Integer.parseInt(command[1]) - 1;
             if (taskIndex < currIndex) {
                 taskList[taskIndex].markDone();
-                displayLine();
+                // displayLine();
                 System.out.println(gap() + "Nice! I've marked this task as done:");
                 System.out.println(gap() + gap() + taskList[taskIndex]);
                 displayLine();
@@ -99,14 +99,14 @@ public class Shirmin {
         }
     }
     public static <T extends Task> void addMessage(T task, Integer number){
-        displayLine();
+        //displayLine();
         System.out.println(gap() + "Got it. I've added this task:");
         System.out.println(gap() + gap() + task.toString());
         System.out.println(gap() + "Now you have " + number.toString() + " tasks in the list.");
         displayLine();
     }
     public static void displayList(Task[] list) {
-        displayLine();
+        // displayLine();
         int i = 1;
         for (Task t: list) {
             if (t != null) {
