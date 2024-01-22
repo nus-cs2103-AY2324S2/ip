@@ -90,7 +90,7 @@ public class Dude {
 
         Scanner scanner = new Scanner(System.in);
         loop:
-        while(true) {
+        while(scanner.hasNextLine()) {
             String input = scanner.nextLine();
 
             String[] inputSplit = input.split(" ", 2);
