@@ -1,10 +1,12 @@
-public class Duke {
+public class Leto {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                + "|____/ \\__,_|_|\\_\\___|   Leto\n";
         System.out.println("Hello from\n" + logo);
+        System.out.println("===================================\n");
+        System.out.println("Glad to see you today! Bye\n");
     }
 }
