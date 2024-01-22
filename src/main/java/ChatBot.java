@@ -200,7 +200,7 @@ public class ChatBot {
             }
             String[] parametersArr = parameters.split(" /from | /to ");
             if (parametersArr.length > 3) {
-                throw new ChatBotParameterException("Mising description and/or from and/or to for Event \n" +
+                throw new ChatBotParameterException("Missing description and/or from and/or to for Event \n" +
                         "try: deadline <event_name> /by <from> /to <to>");
             }
             this.addEvent(parametersArr[0], parametersArr[1], parametersArr[2]);
