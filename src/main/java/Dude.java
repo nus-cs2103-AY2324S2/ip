@@ -113,6 +113,16 @@ public class Dude {
 
     }
 
+    private void delete(int index) {
+        if (index >= this.list.size() || index < 0) {
+            print("Invalid index range\n");
+            return;
+        }
+        Task task = this.list.remove(index);
+        print("Noted. I've removed this task:\n" + task + "\nNow you have " + this.list.size() + " tasks in the list.\n");
+
+    }
+
     public static void main(String[] args) {
         greeting();
 
@@ -143,6 +153,11 @@ public class Dude {
                     if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
                     if (!formatParameters(formattedParameters, parameters, new String[]{"int"})) continue;
                     dude.unmark((int) formattedParameters.get(0) - 1);
+                    break;
+                case "delete":
+                    if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
+                    if (!formatParameters(formattedParameters, parameters, new String[]{"int"})) continue;
+                    dude.delete((int) formattedParameters.get(0) - 1);
                     break;
                 case "todo":
                     if (!getParameters(parameters, command, new String[]{"description"}, ipArgs)) continue;
