@@ -32,17 +32,37 @@ public class Duke {
         String task = sc.nextLine();
         boolean success;
         String sentence;
-        ArrayList<String> tasks;
+        ArrayList<String> tasks; 
+        ArrayList<Boolean> completed;
         int numTasks;
         while (!task.equals("bye")) {
             if (task.equals("list")) {
-                tasks = memory.getList();
+                tasks = memory.getTasks();
+                completed = memory.getCompleted();
                 numTasks = tasks.size();
-                String[] args = new String[numTasks];
-                for (int i = 0; i < tasks.size(); i++) {
-                    args[i] = (i + 1) + ". " + tasks.get(i);
-                }
+                String[] args = new String[numTasks + 1];
+                getTasksList(args, tasks, completed, numTasks);
                 output(args);
+            } else if (task.startsWith("mark")) {
+                // get last char of task
+                int index = Integer.parseInt(task.substring(task.length() - 1));
+                tasks = memory.getTasks();
+                completed = memory.getCompleted();
+                numTasks = tasks.size();
+                success = memory.mark(index - 1);
+                if (success) {
+                    output("Nice! I've marked this task as done:", "  [X] " + tasks.get(index - 1)); 
+                }
+            } else if (task.startsWith("unmark")) {
+                // get last char of task
+                int index = Integer.parseInt(task.substring(task.length() - 1));
+                tasks = memory.getTasks();
+                completed = memory.getCompleted();
+                numTasks = tasks.size();
+                success = memory.unmark(index - 1);
+                if (success) {
+                    output("OK, I've marked this task as not done yet:", "  [ ] " + tasks.get(index - 1));
+                }
             } else {
                 success = memory.add(task);
                 if (success) {
@@ -53,6 +73,17 @@ public class Duke {
             task = sc.nextLine();
         }
         sc.close();
+    }
+
+    public static void getTasksList(String[] args, ArrayList<String> tasks, ArrayList<Boolean> completed, int n) {
+        args[0] = "Here are the tasks in your list:";
+        for (int i = 0; i < n; i++) {
+            if (completed.get(i)) {
+                args[i + 1] = "[X] " + tasks.get(i);
+            } else {
+                args[i + 1] = "[ ] " + tasks.get(i);
+            }
+        }
     }
 
     public static void greet() {
