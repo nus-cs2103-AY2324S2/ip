@@ -1,5 +1,6 @@
 package controller;
 
+import duke.Storage;
 import view.ExitView;
 
 public class Exit {
@@ -9,7 +10,7 @@ public class Exit {
         this.exitView = new ExitView();
     }
 
-    public void execute() {
+    public void execute(Storage storage) {
         exitView.display();
     }
 }

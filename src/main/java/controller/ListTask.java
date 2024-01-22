@@ -1,5 +1,6 @@
 package controller;
 
+import duke.Storage;
 import model.Task;
 import view.TaskListView;
 
@@ -12,7 +13,7 @@ public class ListTask extends TaskCommand{
         this.taskListView = new TaskListView(taskList);
     }
 
-    public void execute() {
+    public void execute(Storage storage) {
         taskListView.display();
     }
 }

@@ -1,10 +1,9 @@
 package controller;
 
+import duke.Storage;
 import model.*;
-import view.MarkTaskView;
 
 import java.util.ArrayList;
-import java.util.DuplicateFormatFlagsException;
 
 public class HandleUserInput {
     private final String input;
@@ -14,19 +13,19 @@ public class HandleUserInput {
         this.taskList = taskList;
     }
 
-    public void execute() {
+    public void execute(Storage storage) {
         String[] splitTask = input.split(" ", 2);
         Task task;
         AddTask addTaskController;
         switch(splitTask[0]) {
             case "list":
                 ListTask listTaskController = new ListTask(taskList);
-                listTaskController.execute();
+                listTaskController.execute(storage);
                 return;
             case "mark":
                 try {
                     MarkTask markTaskController = parseMark(splitTask);
-                    markTaskController.execute();
+                    markTaskController.execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -34,7 +33,7 @@ public class HandleUserInput {
             case "unmark":
                 try {
                     UnmarkTask unmarkTaskController = parseUnmark(splitTask);
-                    unmarkTaskController.execute();
+                    unmarkTaskController.execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -43,7 +42,7 @@ public class HandleUserInput {
                 try {
                     task = parseToDo(splitTask);
                     addTaskController = new AddTask(task, taskList);
-                    addTaskController.execute();
+                    addTaskController.execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -52,7 +51,7 @@ public class HandleUserInput {
                 try {
                     task = parseEvent(splitTask);
                     addTaskController = new AddTask(task, taskList);
-                    addTaskController.execute();
+                    addTaskController.execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -61,7 +60,7 @@ public class HandleUserInput {
                 try {
                     task = parseDeadline(splitTask);
                     addTaskController = new AddTask(task, taskList);
-                    addTaskController.execute();
+                    addTaskController.execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -69,14 +68,14 @@ public class HandleUserInput {
             case "delete":
                 try {
                     DeleteTask deleteTaskController = parseDelete(splitTask);
-                    deleteTaskController.execute();
+                    deleteTaskController.execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
                 return;
             default:
                 InvalidCommand invalidCommand = new InvalidCommand();
-                invalidCommand.execute();
+                invalidCommand.execute(storage);
         }
     }
 
