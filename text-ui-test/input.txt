@@ -6,4 +6,8 @@ mark 1
 mark 2
 list
 unmark 1
+list
+delete 4
+delete 3
+help
 bye

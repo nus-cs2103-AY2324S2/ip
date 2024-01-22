@@ -1,6 +1,6 @@
 ------------------------------------
-Hello! I'm Howie
-What can I do for you?
+Hello! I'm Howie! My hobby is to keep track of TASKS. Let me help you!
+So, what can I do for you?
 ------------------------------------
 ------------------------------------
 Got it! Task has been added:
@@ -18,21 +18,21 @@ Got it! Task has been added:
 Now you have 3 tasks in the list.
 ------------------------------------
 ------------------------------------
-Here are the list of your tasks:
+You have 3 left. There are:
 1.[T][ ] borrow book
 2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 3.[D][ ] return book (by: Sunday)
 ------------------------------------
 ------------------------------------
-Acknowledged!
+Acknowledged!!
 [T][X] borrow book
 ------------------------------------
 ------------------------------------
-Acknowledged!
+Acknowledged!!
 [E][X] project meeting (from: Mon 2pm to: 4pm)
 ------------------------------------
 ------------------------------------
-Here are the list of your tasks:
+You have 3 left. There are:
 1.[T][X] borrow book
 2.[E][X] project meeting (from: Mon 2pm to: 4pm)
 3.[D][ ] return book (by: Sunday)
@@ -40,6 +40,32 @@ Here are the list of your tasks:
 ------------------------------------
 Acknowledged!
 [T][ ] borrow book
+------------------------------------
+------------------------------------
+You have 3 left. There are:
+1.[T][ ] borrow book
+2.[E][X] project meeting (from: Mon 2pm to: 4pm)
+3.[D][ ] return book (by: Sunday)
+------------------------------------
+------------------------------------
+Hmm...I can't delete something that isn't there :O
+------------------------------------
+------------------------------------
+Okay! The following task has been removed:
+[D][ ] return book (by: Sunday)
+------------------------------------
+You have 2 left. There are:
+1.[T][ ] borrow book
+2.[E][X] project meeting (from: Mon 2pm to: 4pm)
+------------------------------------
+------------------------------------
+Below is a list of available commands for me:
+   todo [task_name]
+   event [task_name] /from [date] /to [date]
+   deadline [task_name] /by [date]
+   list - to see all tasks
+   mark/unmark [index]
+   bye - to exit the programme
 ------------------------------------
 ------------------------------------
 Bye! I'll see you when I see you :)
