@@ -3,6 +3,9 @@ Type in text to add in a task to your list
 Other commands:
 mark [input number] - mark a task as done
 unmark [input number] - unmark a task as undone
+todo [task] - add a TODO task to your list
+deadline [task] /by [deadline] - add a DEADLINE to your list
+Event [task] /from [date] /to [date] - add an EVENT to your list
 list - list out the current tasks you have
 bye - exit the program 
 ____________________________________________________________
@@ -45,6 +48,14 @@ ____________________________________________________________
 2. [T][X] borrow book
 3. [D][ ] return book (by: Sunday)
 4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+Roger that! I've removed this task:
+ [ ] read book
+Now you have 3 tasks in the list.
+____________________________________________________________
+1. [T][X] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 Bye. Hope to see you again soon! \(^-^)/ 
 ____________________________________________________________

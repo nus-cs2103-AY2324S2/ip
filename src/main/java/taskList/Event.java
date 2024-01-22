@@ -8,10 +8,14 @@ public class Event extends Task {
 
     public Event(String item, String fromDate, String toDate) {
         super(item);
-        String[] fromDateString = fromDate.split(" ",2);
-        this.fromDate = fromDateString[1].trim();
-        String[] toDateString = toDate.split(" ",2);
-        this.toDate = toDateString[1].trim();
+        try {
+            String[] fromDateString = fromDate.split(" ",2);
+            this.fromDate = fromDateString[1].trim();
+            String[] toDateString = toDate.split(" ",2);
+            this.toDate = toDateString[1].trim();
+         } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ArrayIndexOutOfBoundsException("Please enter a date");
+        }
     }
 
     @Override
