@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Huyang {
@@ -9,6 +10,7 @@ public class Huyang {
                     " \\___|_  /|____/ / ____|(____  /___|  /\\___  / \n" +
                     "       \\/        \\/          \\/     \\//_____/  ";
 
+    private ArrayList<String> tasks = new ArrayList<>();
     public void greet() {
         // Greeting message
         System.out.println("Hello! I'm Huyang");
@@ -20,16 +22,25 @@ public class Huyang {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
-            System.out.println(input);
+            if (input.equals("list")) {
+                listTasks();
+            } else {
+                tasks.add(input);
+                System.out.println("added: " + input);
+            }
             input = scanner.nextLine();
         }
         scanner.close();
     }
 
-
+    private void listTasks() {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+    }
     public void farewell() {
         // Farewell message
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.print("Bye. Hope to see you again soon!");
     }
 
     public static void main(String[] args) {
@@ -40,3 +51,5 @@ public class Huyang {
         huyang.farewell();
     }
 }
+
+
