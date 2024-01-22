@@ -17,7 +17,7 @@ public class TaskListView extends Ui {
             list += ("    " + (i+1) + ". " + taskList.get(i).toString() + "\n");
         }
         System.out.println(
-        "=: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=\n" +
+        "\n=: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=\n" +
         "::                        Task List                        ::\n" +
         "=: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=\n" +
         list

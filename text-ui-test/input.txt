@@ -7,4 +7,6 @@ unmark 8
 event go library
 deadline
 blah
+delete 1
+list
 bye

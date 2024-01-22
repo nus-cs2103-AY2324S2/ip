@@ -66,6 +66,14 @@ public class HandleUserInput {
                     System.out.println(e.getMessage());
                 }
                 return;
+            case "delete":
+                try {
+                    DeleteTask deleteTaskController = parseDelete(splitTask);
+                    deleteTaskController.execute();
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+                return;
             default:
                 InvalidCommand invalidCommand = new InvalidCommand();
                 invalidCommand.execute();
@@ -128,9 +136,24 @@ public class HandleUserInput {
     }
     private UnmarkTask parseUnmark(String[] command) throws DukeException {
         try {
-            int markIndex = Integer.parseInt(command[1]) - 1;
+            int unmarkIndex = Integer.parseInt(command[1]) - 1;
             try {
-                return new UnmarkTask(markIndex, this.taskList);
+                return new UnmarkTask(unmarkIndex, this.taskList);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Invalid index.");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The index of task cannot be empty.");
+        } catch (NumberFormatException e) {
+            throw new DukeException("The index you've input is not an integer.");
+        }
+    }
+
+    private DeleteTask parseDelete(String[] command) throws DukeException {
+        try {
+            int deleteIndex = Integer.parseInt(command[1]) - 1;
+            try {
+                return new DeleteTask(deleteIndex, this.taskList);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Invalid index.");
             }
