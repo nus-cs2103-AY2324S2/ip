@@ -24,12 +24,8 @@ public class Task {
         return (this.done ? "X" : " ");
     }
 
-    public String taskWithStatus() {
-        return String.format("[%s] %s", getStatusIcon(), this);
-    }
-
     @Override
     public String toString() {
-        return this.name;
+        return String.format("[%s] %s", getStatusIcon(), this.name);
     }
 }
