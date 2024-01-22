@@ -68,7 +68,11 @@ public class Duke {
                     break;
                 case "mark":
                     parameter = Integer.parseInt(retrieveParameters(input)[0]);
-                    System.out.println("mark " + parameter);
+                    Paimon.markTaskAsDone(parameter);
+                    break;
+                case "unmark":
+                    parameter = Integer.parseInt(retrieveParameters(input)[0]);
+                    Paimon.markTaskAsUndone(parameter);
                     break;
                 case "bye":
                     Paimon.bye();

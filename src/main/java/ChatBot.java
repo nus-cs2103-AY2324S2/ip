@@ -120,6 +120,30 @@ public class ChatBot {
         }
     }
 
+    public void markTaskAsDone(int taskNumber) {
+        System.out.println("Nice! I've marked this task as done:");
+        Task taskToBeMarked = this.tasks.get(taskNumber - 1);
+        if (taskToBeMarked.isDone()) {
+            System.out.println("This task is already marked done!");
+            return;
+        }
+        System.out.println("Nice! I've marked this task as done:");
+        taskToBeMarked.markDone();
+        System.out.println(taskToBeMarked);
+    }
+
+    public void markTaskAsUndone(int taskNumber) {
+
+        Task taskToBeUnmarked = this.tasks.get(taskNumber - 1);
+        if (!taskToBeUnmarked.isDone()) {
+            System.out.println("This task is already marked as undone!");
+            return;
+        }
+        System.out.println(" OK, I've marked this task as not done yet:");
+        taskToBeUnmarked.markUndone();
+        System.out.println(taskToBeUnmarked);
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }
