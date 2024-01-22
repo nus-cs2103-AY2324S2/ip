@@ -3,14 +3,70 @@ Hello! I'm Nollid.
 What can I do for you?
 ──────────────────────────────
 ──────────────────────────────
+Please enter the task you wish to mark as done!
+Usage: mark [task number]
+──────────────────────────────
+──────────────────────────────
+Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)
+Usage: mark [task number]
+──────────────────────────────
+──────────────────────────────
+Please enter a task number for the mark command.
+Usage: mark [task number]
+──────────────────────────────
+──────────────────────────────
+Please enter the task you wish to mark as not done!
+Usage: unmark [task number]
+──────────────────────────────
+──────────────────────────────
+Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)
+Usage: unmark [task number]
+──────────────────────────────
+──────────────────────────────
+Please enter a task number for the unmark command.
+Usage: unmark [task number]
+──────────────────────────────
+──────────────────────────────
+Todo description cannot be empty!
+Usage: todo [task description]
+──────────────────────────────
+──────────────────────────────
 Alright, added:
 	[T][ ] test todo
 You now have 1 task in your list.
 ──────────────────────────────
 ──────────────────────────────
+Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)
+Usage: mark [task number]
+──────────────────────────────
+──────────────────────────────
+Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)
+Usage: unmark [task number]
+──────────────────────────────
+──────────────────────────────
+Please input a deadline!
+Usage: deadline [task description] /by [deadline]
+──────────────────────────────
+──────────────────────────────
+Please input a deadline!
+Usage: deadline [task description] /by [deadline]
+──────────────────────────────
+──────────────────────────────
 Alright, added:
 	[D][ ] test deadline (by: now)
 You now have 2 tasks in your list.
+──────────────────────────────
+──────────────────────────────
+Event description cannot be empty!
+Usage: event [task description] /from [start] /to [end]
+──────────────────────────────
+──────────────────────────────
+Please enter the start of your event!
+Usage: event [task description] /from [start] /to [end]
+──────────────────────────────
+──────────────────────────────
+Please enter the end of your event!
+Usage: event [task description] /from [start] /to [end]
 ──────────────────────────────
 ──────────────────────────────
 Alright, added:

@@ -20,25 +20,30 @@ public class Nollid {
                 continue;
             }
 
+            // Split user input into individual words
+            // e.g. "i am user input" -> ["i", "am", "user", "input"]
             ArrayList<String> inputList = new ArrayList<>(Arrays.asList(userInput.split(" ")));
             String command = inputList.get(0);
-
-            if (command.equalsIgnoreCase("bye")) {
-                break;
-            } else if (command.equalsIgnoreCase("list")) {
-                listCommand();
-            } else if (command.equalsIgnoreCase("mark")) {
-                markCommand(inputList);
-            } else if (command.equalsIgnoreCase("unmark")) {
-                unmarkCommand(inputList);
-            } else if (command.equalsIgnoreCase("todo")) {
-                addTodoTask(inputList);
-            } else if (command.equalsIgnoreCase("deadline")) {
-                addDeadlineTask(inputList);
-            } else if (command.equalsIgnoreCase("event")) {
-                addEventTask(inputList);
-            } else {
-                botSays("Sorry, I couldn't quite understand that command.");
+            try {
+                if (command.equalsIgnoreCase("bye")) {
+                    break;
+                } else if (command.equalsIgnoreCase("list")) {
+                    listCommand();
+                } else if (command.equalsIgnoreCase("mark")) {
+                    markCommand(inputList);
+                } else if (command.equalsIgnoreCase("unmark")) {
+                    unmarkCommand(inputList);
+                } else if (command.equalsIgnoreCase("todo")) {
+                    addTodoTask(inputList);
+                } else if (command.equalsIgnoreCase("deadline")) {
+                    addDeadlineTask(inputList);
+                } else if (command.equalsIgnoreCase("event")) {
+                    addEventTask(inputList);
+                } else {
+                    botSays("Invalid command. Use 'help' to view a list of commands.");
+                }
+            } catch (DukeException e) {
+                botSays(e.getMessage());
             }
         }
         sendGoodbyeMessage();
@@ -125,34 +130,41 @@ public class Nollid {
         }
         botSays(response.toString());
     }
-    public static void markCommand(ArrayList<String> inputList) {
+
+    public static void markCommand(ArrayList<String> inputList) throws DukeException {
         // This means that the user has not supplied any number with the command
         if (inputList.size() == 1) {
-            botSays("Please enter the task you wish to mark as done! Usage: mark [task number]");
+            throw new DukeException("Please enter the task you wish to mark as done!\n" +
+                    "Usage: mark [task number]");
         } else {
             try {
                 int taskIndex = Integer.parseInt(inputList.get(1));
                 markDone(taskIndex);
             } catch (NumberFormatException e) {
-                botSays("Please enter a task number for the mark command.");
+                throw new DukeException("Please enter a task number for the mark command.\n" +
+                        "Usage: mark [task number]");
             } catch (IndexOutOfBoundsException e) {
-                botSays("Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)");
+                throw new DukeException("Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)\n" +
+                        "Usage: mark [task number]");
             }
         }
     }
 
-    public static void unmarkCommand(ArrayList<String> inputList) {
+    public static void unmarkCommand(ArrayList<String> inputList) throws DukeException {
         // This means that the user has not supplied any number with the command
         if (inputList.size() == 1) {
-            botSays("Please enter the task you wish to mark as not done! Usage: unmark [task number]");
+            throw new DukeException("Please enter the task you wish to mark as not done!\n" +
+                    "Usage: unmark [task number]");
         } else {
             try {
                 int taskIndex = Integer.parseInt(inputList.get(1));
                 markNotDone(taskIndex);
             } catch (NumberFormatException e) {
-                botSays("Please enter a task number for the unmark command.");
+                throw new DukeException("Please enter a task number for the unmark command.\n" +
+                        "Usage: unmark [task number]");
             } catch (IndexOutOfBoundsException e) {
-                botSays("Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)");
+                throw new DukeException("Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)\n" +
+                        "Usage: unmark [task number]");
             }
         }
     }
@@ -169,10 +181,10 @@ public class Nollid {
         botSays(response);
     }
 
-    public static void addTodoTask(ArrayList<String> inputList) {
+    public static void addTodoTask(ArrayList<String> inputList) throws DukeException {
         if (inputList.size() == 1) {
-            botSays("Todo description cannot be empty! Usage: todo [task description]");
-            return;
+            throw new DukeException("Todo description cannot be empty!\n" +
+                    "Usage: todo [task description]");
         }
 
         StringBuilder taskDescription = new StringBuilder();
@@ -188,16 +200,16 @@ public class Nollid {
         addToList(task);
     }
 
-    public static void addDeadlineTask(ArrayList<String> inputList) {
+    public static void addDeadlineTask(ArrayList<String> inputList) throws DukeException {
         int byIndex = inputList.indexOf("/by");
         if (inputList.size() == 1 || byIndex == 1) {
-            botSays("Deadline description cannot be empty! Usage: deadline [task description] /by [deadline]");
-            return;
+            throw new DukeException("Deadline description cannot be empty!\n" +
+                    "Usage: deadline [task description] /by [deadline]");
         }
 
         if (byIndex == inputList.size() - 1 || byIndex == -1) {
-            botSays("Please input a deadline! Usage: deadline [task description] /by [deadline]");
-            return;
+            throw new DukeException("Please input a deadline!\n" +
+                    "Usage: deadline [task description] /by [deadline]");
         }
 
         StringBuilder taskDescription = new StringBuilder();
@@ -222,23 +234,23 @@ public class Nollid {
         addToList(task);
     }
 
-    public static void addEventTask(ArrayList<String> inputList) {
+    public static void addEventTask(ArrayList<String> inputList) throws DukeException {
         int fromIndex = inputList.indexOf("/from");
         int toIndex = inputList.indexOf("/to");
 
         if (inputList.size() == 1 || fromIndex == 1 || toIndex == 1) {
-            botSays("Event description cannot be empty! Usage: event [task description] /from [start] /to [end]");
-            return;
+            throw new DukeException("Event description cannot be empty!\n" +
+                    "Usage: event [task description] /from [start] /to [end]");
         }
 
         if (fromIndex == -1 || fromIndex == inputList.size() - 1 || fromIndex == toIndex - 1) {
-            botSays("Please enter the start of your event! Usage: event [task description] /from [start] /to [end]");
-            return;
+            throw new DukeException("Please enter the start of your event!\n" +
+                    "Usage: event [task description] /from [start] /to [end]");
         }
 
         if (toIndex == -1 || toIndex == inputList.size() - 1 || toIndex == fromIndex - 1) {
-            botSays("Please enter the end of your event! Usage: event [task description] /from [start] /to [end]");
-            return;
+            throw new DukeException("Please enter the end of your event!\n" +
+                    "Usage: event [task description] /from [start] /to [end]");
         }
 
         StringBuilder taskDescription = new StringBuilder();
