@@ -7,25 +7,36 @@ public class Duke {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(System.out);
-
         String chatBotName = "Nicky";
         pw.println("____________________________________________________________");
         pw.println("Hello! I'm " + chatBotName + "\nWhat can I do for you?");
         pw.println("____________________________________________________________");
         pw.flush();
 
-        String userResponse = br.readLine();
-        while (!userResponse.equals("bye")) {
+        String[] userResponses = new String[100];
+        int i = 0;
+
+        while (true) {
+            String currentResponse = br.readLine();
             pw.println("____________________________________________________________");
-            pw.println(userResponse);
+
+            if (currentResponse.equals("bye")) {
+                break;
+            } else if (currentResponse.equals("list")) {
+                for (int j = 0; j < i; j++) {
+                    pw.println((j + 1) + ". " + userResponses[j]);
+                }
+            } else {
+                pw.println("added: " + currentResponse);
+                userResponses[i] = currentResponse;
+                i++;
+            }
+
             pw.println("____________________________________________________________");
             pw.flush();
-
-            userResponse = br.readLine();
         }
 
         br.close();
-        pw.println("____________________________________________________________");
         pw.println("Bye. Hope to see you again soon!");
         pw.println("____________________________________________________________");
         pw.flush();
