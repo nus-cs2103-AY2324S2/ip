@@ -27,17 +27,12 @@ public class Action {
     }
 
     /**
-     * @return return the task queried
-     */
-    public String getExecute() {
-        return this.execute;
-    }
-
-    /**
+     * Override toString to print the task
      *
-     * @return return the status of the task
+     * @return task and its status
      */
-    public String getMarking() {
-        return this.marking;
+    @Override
+    public String toString() {
+        return "[" + this.marking + "] " + this.execute;
     }
 }
