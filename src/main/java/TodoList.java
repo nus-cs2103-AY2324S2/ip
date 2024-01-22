@@ -3,16 +3,32 @@ public class TodoList {
     private int length = 0;
 
     public void addTask(String name) {
-        taskList[length] = new Task(name);
+        taskList[this.length] = new Task(name);
         length++;
+    }
+
+    public void markTask(int i) {
+        taskList[i].mark();
+    }
+
+    public void unmarkTask(int i) {
+        taskList[i].unmark();
+    }
+
+    public Task getTask(int i) {
+        return taskList[i];
     }
 
     @Override
     public String toString() {
-        String txt = "";
+        StringBuilder txt = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            txt += (i > 0 ? Checkbot.INDENTATION : "") + (i+1) + ". " + taskList[i] + (i < length - 1 ? "\n" : "");
+            txt.append(i > 0 ? Checkbot.INDENTATION : "")
+                    .append(i + 1)
+                    .append(". ")
+                    .append(taskList[i])
+                    .append(i < length - 1 ? "\n" : "");
         }
-        return txt;
+        return txt.toString();
     }
 }

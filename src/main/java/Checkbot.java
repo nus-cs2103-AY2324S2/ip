@@ -21,7 +21,17 @@ public class Checkbot {
             if (input.equals("bye")) {
                 toPrint = "Goodbye!";
             } else if (input.equals("list")) {
-                toPrint = todoList.toString();
+                toPrint = "Here is your todo list:\n" + INDENTATION + todoList;
+            } else if (input.startsWith("mark ")) {
+                int i = Integer.parseInt(input.split("mark ")[1]) - 1;
+                todoList.markTask(i);
+                toPrint = "Good job! I have marked this task as completed:\n"
+                        + INDENTATION + todoList.getTask(i);
+            } else if (input.startsWith("unmark ")) {
+                int i = Integer.parseInt(input.split("unmark ")[1]) - 1;
+                todoList.unmarkTask(i);
+                toPrint = "Alright, I have marked this task as incomplete:\n"
+                        + INDENTATION + todoList.getTask(i);
             } else {
                 toPrint = "added: " + toPrint;
                 todoList.addTask(input);
