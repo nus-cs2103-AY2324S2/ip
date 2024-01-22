@@ -25,7 +25,7 @@ public class Program {
     }
 
     private void readUserInput(String input) {
-        String receiveInput;
+        //String receiveInput;
         if (input.toLowerCase().equals("bye")) {
             this.end();
         } else if (input.toLowerCase().equals("list")) {
@@ -39,10 +39,16 @@ public class Program {
             int taskNumber = this.userInputScanner.nextInt();
             this.taskList.unmark(taskNumber, this.printList);
             this.printList.print();
-        } else {
-            input += this.userInputScanner.nextLine();
-            receiveInput = this.taskList.addTask(input);
+        } else if (input.toLowerCase().equals("todo") || 
+                input.toLowerCase().equals("deadline") ||
+                input.toLowerCase().equals("event")) {
+            String task = this.userInputScanner.nextLine();
+            String receiveInput = this.taskList.addTask(input, task);
             this.textFormat(receiveInput);
+        } else {
+            //input += this.userInputScanner.nextLine();
+            //receiveInput = this.taskList.addTask(input);
+            //this.textFormat(receiveInput);
         }
     }
 

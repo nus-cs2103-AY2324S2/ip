@@ -8,8 +8,24 @@ public class TaskList {
         this.list = new ArrayList<Task>();
     }
 
-    public String addTask(String task) {
-        Task newTask = new Task(task);
+    public String addTask(String task, String fullDescription) {
+        Task newTask;
+        if (task.toLowerCase().equals("todo")) {
+            newTask = new ToDo(fullDescription);
+        } else if (task.toLowerCase().equals("deadline")) {
+            int indexOfBy = fullDescription.indexOf("/by");
+            String description = fullDescription.substring(0, indexOfBy - 1);
+            String by = fullDescription.substring(indexOfBy + 4);
+            newTask = new Deadline(description, by);
+            
+        } else {
+            int indexOfBy = fullDescription.indexOf("/from");
+            int indexOfTo = fullDescription.indexOf("/to");
+            String description = fullDescription.substring(0, indexOfBy - 1);
+            String from = fullDescription.substring(indexOfBy + 6, indexOfTo - 1);
+            String to = fullDescription.substring(indexOfTo + 4);
+            newTask = new Event(description, from, to);
+        }
         this.list.add(newTask);
         return String.format("added: %s", task);
 
