@@ -13,7 +13,7 @@ public class MarkTaskView extends Ui {
         System.out.println(
         "____________________________________________________________\n" +
         " Nice! I've marked this task as done:\n" +
-        "   " + this.task.isDoneString() + " " + this.task + "\n" +
+        "   " + this.task + "\n" +
         "____________________________________________________________\n"
         );
     }

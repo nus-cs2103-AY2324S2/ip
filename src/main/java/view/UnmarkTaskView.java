@@ -13,7 +13,7 @@ public class UnmarkTaskView extends Ui {
         System.out.println(
         "____________________________________________________________\n" +
         " OK, I've marked this task as not done yet:\n" +
-        "   " + this.task.isDoneString() + " " + this.task + "\n" +
+        "   " + this.task + "\n" +
         "____________________________________________________________\n"
         );
     }

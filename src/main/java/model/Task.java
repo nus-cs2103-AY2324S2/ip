@@ -1,6 +1,6 @@
 package model;
 
-public class Task {
+public abstract class Task {
     private final String title;
     private boolean isDone;
 
@@ -11,14 +11,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.title;
-    }
-
-    public String isDoneString() {
         if (this.isDone) {
-            return "[X] ";
+            return "[X] " + this.title;
         } else {
-            return "[ ] ";
+            return "[ ] " + this.title;
         }
     }
 
