@@ -1,7 +1,19 @@
+import java.util.Scanner;
+
 public class Solaire {
+
     
     public void startConversation() {
         greet();
+
+        while(true) {
+            String input = acceptInput();
+            
+            if (input.equals("bye")) {
+                break;
+            }
+            System.out.println(input);
+        }
         waveBye();
     }
 
@@ -19,6 +31,13 @@ public class Solaire {
         String farewellMessage = "Farewell!" +
         "--------------------------------------------------\n";
         System.out.println(farewellMessage);
+    }
+
+    private String acceptInput() {
+        Scanner scn = new Scanner(System.in);
+        String input = scn.nextLine().toLowerCase();
+
+        return input;
     }
 
 
