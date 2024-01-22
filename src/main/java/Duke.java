@@ -22,14 +22,18 @@ public class Duke {
             }
 
             //marking or not
-            if (userInput.toLowerCase().startsWith("mark ") || userInput.toLowerCase().startsWith("unmark ")) {
+            if (userInput.toLowerCase().startsWith("mark ") || userInput.toLowerCase().startsWith("unmark ") || userInput.toLowerCase().startsWith("delete ")) {
                 String[] inputs = userInput.split(" ");
                 try {
                     int num = Integer.parseInt(inputs[1]);
                     if (inputs[0].equals("mark")) {
                         tasks.get(num - 1).Mark();
-                    } else {
+                    } else if (inputs[0].equals("unmark")) {
                         tasks.get(num - 1).unMark();
+                    } else if (inputs[0].equals("delete")) {
+                        System.out.println("Bearducky is fighting the task " +  tasks.get(num - 1));
+                        tasks.remove(num - 1);
+                        System.out.println("[tired quacking] Task has been... eliminated.");
                     }
                     System.out.println("[busy quacking]");
                 } catch (NumberFormatException e) {
@@ -122,9 +126,11 @@ public class Duke {
             } else if (!userInput.toLowerCase().equals("bye") && !userInput.toLowerCase().equals("list")) {
                 System.out.println("[quack] I don't understand that command. If you would like to add a task to the Duckalendar," +
                         " please specify with the task type - \"todo\", \"deadline\" or \"event\" followed by a space in front of the task" +
-                        " name.\n For deadlines, please add a /by followed by the deadline (eg. /by Monday) . For events, please add a / followed by the start time, then another / followed by the end time.\n" +
+                        " name.\n For deadlines, please add a /by followed by the deadline (eg. /by Monday) . For events, please add a / followed by the start time,\n" + " then another / followed by the end time.\n" +
+                        " To mark or unmark the nth task on the list, enter the command \"mark n\" or \"unmark n\" where n is the number on the list.\n" +
+                        " To delete the nth task on the list, enter the command \"delete n\" where n is the number on the list.\n" +
                         " If you would like me to list the things you are procrastinating, please enter the word \"list\"." +
-                        " \n If you would like to leave, please enter the word \"bye\". \n Do also feel free to also type the words \"feed bread to bearducky\" ?" +
+                        " \n If you would like to leave, please enter the word \"bye\". \n Do also feel free to also type the words \"feed bread to bearducky\"?" +
                         " [Hopeful quacking]");
             }
         }
