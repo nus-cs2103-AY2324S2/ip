@@ -1,3 +1,6 @@
+import LetoTasks.Task;
+import LetoTasks.TaskListCommands;
+
 import java.util.Scanner;
 
 public class CommandExecutor {
@@ -24,18 +27,10 @@ public class CommandExecutor {
                     System.out.println();
                     break;
                 case "mark":
-                    try {
-                        TaskListCommands.markTaskCompleted(Integer.parseInt(commands[1]) - 1);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("  <<Duke Leto>>\n   >> I dont think you entered a number...");
-                    }
+                    TaskListCommands.markTaskCompleted(inputs);
                     break;
                 case "unmark":
-                    try {
-                        TaskListCommands.markTaskUncompleted(Integer.parseInt(commands[1]) - 1);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("  <<Duke Leto>>\n   >> I dont think you entered a number...");
-                    }
+                    TaskListCommands.markTaskUncompleted(inputs);
                     break;
                 case "todo":
                 case "event":
@@ -43,7 +38,7 @@ public class CommandExecutor {
                     TaskListCommands.addToList(inputs);
                     break;
                 default:
-                    System.out.println("  <<Duke Leto>>\n   >> I don't know what you are asking!");
+                    System.out.println("  <<Duke Leto>>\n   >> Supported commands: list, mark, unmark, todo, event, deadline");
 
             } // End switch
 

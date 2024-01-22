@@ -1,3 +1,5 @@
+package LetoTasks;
+
 public class Event extends Task {
     private String from;
     private String to;
@@ -10,11 +12,17 @@ public class Event extends Task {
     }
 
 
-    public static Event EventFactory(String message) {
+    public static Event EventFactory(String message) throws LetoInvalidTaskException {
         message = message.replaceFirst("(?i)event ", "");
         String[] messageParts = message.split(" /from ");
+        if (messageParts.length < 2) {
+            throw new LetoEventInvalidCmdException();
+        }
         String taskMessage = messageParts[0];
         messageParts = message.split(" /to ");
+        if (messageParts.length < 2) {
+            throw new LetoEventInvalidCmdException();
+        }
         messageParts[0] = messageParts[0].split(" /from ")[1];
         return new Event(taskMessage, messageParts[0], messageParts[1]);
     }

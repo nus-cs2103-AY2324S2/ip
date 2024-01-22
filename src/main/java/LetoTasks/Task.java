@@ -1,3 +1,5 @@
+package LetoTasks;
+
 public class Task {
     private boolean completed;
     private String message;

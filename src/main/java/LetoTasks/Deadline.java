@@ -1,3 +1,5 @@
+package LetoTasks;
+
 public class Deadline extends Task {
     private String deadline;
 
@@ -7,9 +9,12 @@ public class Deadline extends Task {
         this.deadline = DeadlineString;
     }
 
-    public static Deadline DeadlineFactory(String message) {
+    public static Deadline DeadlineFactory(String message) throws LetoInvalidTaskException {
         message = message.replaceFirst("deadline ", "");
         String[] messageParts = message.split(" /by ");
+        if (messageParts.length < 2) {
+            throw new LetoInvalidTaskException("Task need to follow\n   `deadline _task_ /by _time_` format");
+        }
         return new Deadline(messageParts[0], messageParts[1]);
     }
 
