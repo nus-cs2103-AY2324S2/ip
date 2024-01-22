@@ -50,6 +50,12 @@ public class KaiYap {
                 } catch (KaiYapException e) {
                     printError(e.getMessage());
                 }
+            } else if (input.startsWith("delete ") || input.equals("delete")) {
+                try {
+                    this.deleteTask(input);
+                } catch (KaiYapException e) {
+                    printError(e.getMessage());
+                }
             } else {
                 try {
                     String type = input.split(" ")[0];
@@ -87,6 +93,26 @@ public class KaiYap {
                 }
             }
             input = sc.nextLine().strip();
+        }
+    }
+
+    private void deleteTask(String input) throws KaiYapException {
+        if (input.length() <= 7) {
+            throw new MissingInputException("\tSorry, it seems like there is some missing input. Please try again! UwU :3");
+        }
+        int numericIndex = Integer.parseInt(input.substring(7).strip()) - 1;
+        if (numericIndex >= this.taskList.size()) {
+            throw new InvalidInputException("\tSorry, this task does not exist. Please try again! UwU :3");
+        }
+        else {
+            System.out.println(
+                    "\t____________________________________________________________\n" +
+                            "\tNoted. I've removed this task:\n" +
+                            "\t\t" + taskList.get(numericIndex).toString() +
+                            "\nYou now have " + (taskList.size() - 1) + " tasks in the list.\n" +
+                            "\n\t____________________________________________________________"
+            );
+            taskList.remove(numericIndex);
         }
     }
 
@@ -158,7 +184,7 @@ public class KaiYap {
             System.out.println(
                     "\t____________________________________________________________\n" +
                             "\tNice! I've marked this task as done:\n" +
-                            "\t\t[X] " + taskList.get(numericIndex).getListItem() +
+                            "\t\t" + taskList.get(numericIndex).toString() +
                             "\n\t____________________________________________________________"
             );
         }
@@ -178,7 +204,7 @@ public class KaiYap {
             System.out.println(
                     "\t____________________________________________________________\n" +
                             "\tOK, I've marked this task as not done yet:\n" +
-                            "\t\t[ ] " + taskList.get(numericIndex).getListItem() +
+                            "\t\t" + taskList.get(numericIndex).toString() +
                             "\n\t____________________________________________________________"
             );
         }
