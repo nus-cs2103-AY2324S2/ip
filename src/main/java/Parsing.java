@@ -10,14 +10,11 @@ public class Parsing {
         Scanner scanner = new Scanner(System.in);
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            if(line.equals("list")) {
-                tasklist.listDownTask();
-            } else if (line.equals("bye")) {
+            if (line.equals("bye")) {
                 break;
-            } else {
-                Task task = new Task(line);
-                tasklist.addTask(task);
             }
+            Command command = new Command(line, tasklist);
+            command.process();
         }
 
         return tasklist;
