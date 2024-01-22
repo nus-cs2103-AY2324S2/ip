@@ -12,19 +12,41 @@ public class Duke {
       System.out.println(name_display);
       String current_input = "";
 
-      ArrayList<String> history = new ArrayList<>();
+      ArrayList<Task> history = new ArrayList<>();
 
       while (!current_input.equals("bye")) {
         current_input = sc.nextLine();
+        String[] current_input_split = current_input.split(" ");
 
         if (current_input.equals("list")) {
-          System.out.println("_________________________\n");
+          System.out.println("_________________________\n" +
+            "Get off your ass and starting doing work! " + "\n");
           for (int i = 0; i < history.size(); i++) {
-            System.out.println((i + 1) + ". " + history.get(i));
+            Task curr = history.get(i);
+            System.out.println((i + 1) + "." +
+              curr.getStatusIcon() + " " + curr.getDescription());
           }
           System.out.println("_________________________\n");
+        } else if (current_input_split[0].equals("mark")) {
+          int focus_index = Integer.parseInt(current_input_split[1]) - 1;
+          Task focus_task = history.get(focus_index);
+          focus_task.mark();
+          String print_out = "_________________________\n" +
+            "Marking this done! " + "\n" +
+            focus_task.getStatusIcon() + " " + focus_task.getDescription() + "\n" +
+            "_________________________\n";
+          System.out.println(print_out);
+        } else if (current_input_split[0].equals("unmark")) {
+          int focus_index = Integer.parseInt(current_input_split[1]) - 1;
+          Task focus_task = history.get(focus_index);
+          focus_task.unmark();
+          String print_out = "_________________________\n" +
+            "Ok this is not done... " + "\n" +
+            focus_task.getStatusIcon() + " " + focus_task.getDescription() + "\n" +
+            "_________________________\n";
+          System.out.println(print_out);
         } else {
-          history.add(current_input);
+          history.add(new Task(current_input));
           String to_print = "_________________________\n" +
             "added: " + current_input + "\n" +
             "_________________________\n";
