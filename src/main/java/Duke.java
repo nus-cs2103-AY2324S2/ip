@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Duke {
     public static final String DIVIDER = "────────────────────────────────────────────────────────────";
@@ -12,6 +13,7 @@ public class Duke {
                                     + " \\___ \\/ _ \\| ||   / | |\n"
                                     + " ____) | __/| || | \\ | |\n"
                                     + "|_____/\\___||_||_|\\_\\|_|\n";
+    public static ArrayList<String> textList = new ArrayList<>(100);
 
     public static void start() {
         System.out.println(DIVIDER);
@@ -25,22 +27,39 @@ public class Duke {
         System.out.println(FAREWELL);
         System.out.println(DIVIDER);
     }
-    public static void echo(String input) {
+
+    public static void list() {
         System.out.println(DIVIDER);
-        System.out.println(input);
+        System.out.println("Here are the text(s) you have stored:");
+        for (int i = 0; i < textList.size(); i++) {
+            int textNum = i + 1;
+            String textString = textNum + ". " + textList.get(i);
+            System.out.println(textString);
+        }
         System.out.println(DIVIDER);
     }
+
+    public static void storeText(String text) {
+        System.out.println(DIVIDER);
+        textList.add(text);
+        System.out.println("The following text has been stored.");
+        System.out.println("→ '" + text + "'");
+        System.out.println(DIVIDER);
+    }
+
     public static void main(String[] args) throws IOException {
         start();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         while(true) {
             String input = br.readLine();
-            if (input.toLowerCase().equals("bye")) {
+            if (input.equalsIgnoreCase("bye")) {
                 end();
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                list();
             } else {
-                echo(input);
+                storeText(input);
             }
         }
     }
