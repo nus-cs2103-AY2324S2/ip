@@ -1,7 +1,7 @@
 package exceptions;
 
-public class InvalidInputException extends LuluException {
-    public InvalidInputException() {
+public class InvalidCommandException extends LuluException {
+    public InvalidCommandException() {
         super("Could not decipher input string");
     }
 }

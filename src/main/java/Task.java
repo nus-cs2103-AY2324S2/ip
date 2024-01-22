@@ -1,3 +1,5 @@
+import exceptions.InvalidStatusUpdateException;
+
 public class Task {
     protected String name;
     protected boolean status;
@@ -7,7 +9,10 @@ public class Task {
         this.status = false;
     }
 
-    public void updateStatus(boolean status) {
+    public void updateStatus(boolean status) throws InvalidStatusUpdateException {
+        if (this.status == status) {
+            throw new InvalidStatusUpdateException();
+        }
         this.status = status;
     }
 
