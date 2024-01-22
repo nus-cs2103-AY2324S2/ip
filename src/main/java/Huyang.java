@@ -10,9 +10,8 @@ public class Huyang {
                     " \\___|_  /|____/ / ____|(____  /___|  /\\___  / \n" +
                     "       \\/        \\/          \\/     \\//_____/  ";
 
-    private ArrayList<String> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
     public void greet() {
-        // Greeting message
         System.out.println("Hello! I'm Huyang");
         System.out.println(logo);
         System.out.println("What can I do for you?");
@@ -24,8 +23,13 @@ public class Huyang {
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 listTasks();
+            } else if (input.startsWith("mark ")) {
+                mark(input);
+            } else if (input.startsWith("unmark ")) {
+                unmark(input);
             } else {
-                tasks.add(input);
+                Task task = new Task(input);
+                tasks.add(task);
                 System.out.println("added: " + input);
             }
             input = scanner.nextLine();
@@ -38,8 +42,30 @@ public class Huyang {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
+    private void mark(String input) {
+        int taskNumber = Integer.parseInt(input.substring(5));
+        if (taskNumber >= 1 && taskNumber <= tasks.size()) {
+            Task task = tasks.get(taskNumber - 1);
+            task.check();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("  " + task);
+        } else {
+            System.out.println("Invalid task number");
+        }
+    }
+
+    private void unmark(String input) {
+        int taskNumber = Integer.parseInt(input.substring(7));
+        if (taskNumber >= 1 && taskNumber <= tasks.size()) {
+            Task task = tasks.get(taskNumber - 1);
+            task.uncheck();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("  " + task);
+        } else {
+            System.out.println("Invalid task number");
+        }
+    }
     public void farewell() {
-        // Farewell message
         System.out.print("Bye. Hope to see you again soon!");
     }
 
