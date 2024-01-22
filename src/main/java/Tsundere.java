@@ -43,7 +43,11 @@ public class Tsundere {
             System.out.println("______________________________________________\n");
 
             Action action = new Action(str);
-            action.execute();
+            try {
+                action.execute();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Tell me something I understand (｡•ˇ‸ˇ•｡)");
+            }
 
             System.out.println("______________________________________________\n");
             str = sc.nextLine();
