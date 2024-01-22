@@ -21,6 +21,9 @@ public class Taylor {
                 String[] act = input.split(" ", 2);
                 String action = act[0];
 
+                /**
+                 * Switch between actions
+                 */
                 switch (action) {
                     case "bye":
                         break label;
@@ -56,11 +59,12 @@ public class Taylor {
                         }
                         break;
                     case "delete":
-                        try{
-
+                        try {
+                            deleteTask(input, listing);
                         } catch (DukeException err) {
-                            System.out.println("Error: " err.getMessage());
+                            System.out.println("Error: " + err.getMessage());
                         }
+                        break;
                     default:
                         System.out.println("Invalid input. ChatBot can only handle " +
                                 "'todo', 'deadline', 'event', 'bye', 'list' tasks");
@@ -72,6 +76,12 @@ public class Taylor {
         type.close();
     }
 
+    /**
+     * Mark or unmark a task
+     * @param input
+     * @param actionList
+     * @throws DukeException
+     */
     public static void markTask(String input, List<Action> actionList) throws DukeException {
         String[] markWhat = input.split(" ");
         String what = markWhat[0];
@@ -99,6 +109,12 @@ public class Taylor {
         }
     }
 
+    /**
+     * Add a task: todo, deadline, event
+     * @param input
+     * @param actionList
+     * @throws DukeException
+     */
     public static void insertTask(String input, List<Action> actionList) throws DukeException{
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isBlank()) {
@@ -119,6 +135,11 @@ public class Taylor {
         }
     }
 
+    /**
+     * Add todo task
+     * @param content
+     * @param actionList
+     */
     public static void todoTask(String content, List<Action> actionList) {
         System.out.println("Got it. I've added this task:");
         Todo task = new Todo(content);
@@ -127,6 +148,12 @@ public class Taylor {
         System.out.println("Now you have " + actionList.size() + " tasks in the list.");
     }
 
+    /**
+     * Add deadline Task
+     * @param content
+     * @param actionList
+     * @throws DukeException
+     */
     public static void deadlineTask(String content, List<Action> actionList) throws DukeException {
         try {
             String[] splitter = content.split("/by");
@@ -147,6 +174,12 @@ public class Taylor {
         }
     }
 
+    /**
+     * Add event task
+     * @param content
+     * @param actionList
+     * @throws DukeException
+     */
     public static void eventTask(String content, List<Action> actionList) throws DukeException{
         try {
             String[] splitter = content.split("/from");
@@ -178,16 +211,28 @@ public class Taylor {
         }
     }
 
-    public static void deleteTask(String input, List<Action> actionList) thr{
-        String[] markWhat = input.split(" ");
-        String what = markWhat[0];
-
+    /**
+     * Delete a task
+     * @param input
+     * @param actionList
+     * @throws DukeException
+     */
+    public static void deleteTask(String input, List<Action> actionList) throws DukeException {
         try {
-            int num = Integer.parseInt(markWhat[1]) - 1;
+            String[] parts = input.split(" ", 2);
+            int pos = Integer.parseInt(parts[1]);
 
-            if (num < 0 || num >= actionList.size()) {
+            if (pos > actionList.size() || pos <= 0) {
                 throw new DukeException("Invalid task number");
             }
-        } catch (Array)
+
+            System.out.println("Noted. I've removed this tasks:");
+            System.out.println(actionList.get(pos - 1));
+            actionList.remove(pos - 1);
+            System.out.println("Now you have " + actionList.size() + " tasks in the list.");
+
+        } catch (ArrayIndexOutOfBoundsException err) {
+            throw new DukeException("Please include index of task to be removed");
+        }
     }
 }
