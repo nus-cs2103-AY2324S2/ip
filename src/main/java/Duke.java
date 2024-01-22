@@ -1,13 +1,14 @@
 import java.util.Scanner;
 public class Duke {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
+    private final String[] taskList = new String[100];
     public static void main(String[] args) {
         Duke aurora1 = new Duke();
         aurora1.exeAurora();
     }
 
     /**
-     * Method for execution.
+     * Method for execution. Handling 3 commands.
      */
     public void exeAurora() {
         printOpeningMessage();
@@ -16,8 +17,10 @@ public class Duke {
             String command = scanner.nextLine();
             if (command.equalsIgnoreCase("bye")) {
                 exit = true;
+            } else if (command.equalsIgnoreCase("list")) {
+                printTaskList();
             } else {
-                echoCommand(command);
+                addTask(command);
             }
         }
         printExitMessage();
@@ -45,11 +48,28 @@ public class Duke {
     }
 
     /**
-     * Method to echo a given command.
+     * Method to print the task list.
      */
-    public void echoCommand(String command) {
+    public void printTaskList() {
         printALine();
-        System.out.println(command);
+        for(int i = 0; i < this.taskList.length; i++) {
+            if (this.taskList[i] == null) {
+                printALine();
+                return;
+            } else {
+                String taskString = (i+1) + ". " + this.taskList[i];
+                System.out.println(taskString);
+            }
+        }
+    }
+
+    /**
+     * Method to echo an add command.
+     */
+    public void echoAddTask(String task) {
+        printALine();
+        String echo = "added: " + task;
+        System.out.println(echo);
         printALine();
     }
 
@@ -61,6 +81,33 @@ public class Duke {
             System.out.print("_");
         }
         System.out.println();
+    }
+
+    /**
+     * Method to add a task to the taskList.
+     */
+    public void addTask(String task) {
+        int taskNumber = nextTaskNumber();
+        if(nextTaskNumber() != -1) {
+            taskList[taskNumber] = task;
+            echoAddTask(task);
+        }
+    }
+
+    /**
+     * Method to find the first empty entry in the array
+     *
+     * @return -1 if there are no more empty indexes in the array, the next empty index if there are empty indexes
+     * left in the array.
+     */
+    public int nextTaskNumber() {
+        int nextNumber = -1;
+        for (int i = 0; i < this.taskList.length; i++) {
+            if (this.taskList[i] == null) {
+                return i;
+            }
+        }
+        return nextNumber;
     }
 
 }
