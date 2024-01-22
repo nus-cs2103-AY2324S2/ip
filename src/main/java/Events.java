@@ -16,6 +16,6 @@ public class Events extends Task {
 
   @Override
   public String getTimeData() {
-    return "(from: " + this.getStart() + "to: " + this.getEnd() + ")";
+    return "(from: " + this.getStart() + " to: " + this.getEnd() + ")";
   }
 }
