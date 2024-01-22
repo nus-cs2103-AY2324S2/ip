@@ -11,7 +11,7 @@ Are you sure that's a valid task number? (Tip: use 'list' to check the number of
 Usage: mark [task number]
 ──────────────────────────────
 ──────────────────────────────
-Please enter a task number for the mark command.
+Please enter a number for the mark command.
 Usage: mark [task number]
 ──────────────────────────────
 ──────────────────────────────
@@ -23,7 +23,7 @@ Are you sure that's a valid task number? (Tip: use 'list' to check the number of
 Usage: unmark [task number]
 ──────────────────────────────
 ──────────────────────────────
-Please enter a task number for the unmark command.
+Please enter a number for the unmark command.
 Usage: unmark [task number]
 ──────────────────────────────
 ──────────────────────────────
