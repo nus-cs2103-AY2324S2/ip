@@ -4,11 +4,11 @@ public class Chatbot {
 
     private final String name;
     private final static String LINE = "----------------------------------";
-    private ToDo todo; // Hold the list of tasks
+    private TaskList tasklist; // Hold the list of tasks
 
     public Chatbot(String name) {
         this.name = name;
-        this.todo = new ToDo();
+        this.tasklist = new TaskList();
     }
 
     public void startChat() {
@@ -22,7 +22,7 @@ public class Chatbot {
             if (input.equalsIgnoreCase("bye")) {
                 bye();
                 isChatting = false;
-            } else if (input.equalsIgnoreCase("list")) {
+            } else if (input.contains("list")) {
                 listTasks();
             } else if (input.contains("mark")) {
                 String[] parts = input.split("\\s+", 2);
@@ -55,32 +55,28 @@ public class Chatbot {
 
     public void listTasks() {
         System.out.println(LINE);
-        todo.listTask();
+        tasklist.listTask();
         System.out.println(LINE);
     }
 
     public void addTask(String input) {
-        Task task = new Task(ToDo.tasksCount, input);
-        todo.addTask(task);
+        tasklist.addTask(input);
+        int tasksCount = TaskList.tasksCount;
 
         System.out.println(LINE);
-        System.out.println("added: " + input);
+        System.out.println("Got it. I've added this task: ");
+        System.out.println("    " + tasklist.getTaskDescription(tasksCount - 1));
+        System.out.println("Now you have " + tasksCount + " tasks in the list.");
         System.out.println(LINE);
     }
 
     public void mark(String input, boolean status) {
         int num = Integer.parseInt(input) - 1; // Task num starts from 0
-        todo.markTask(num, status);
+        tasklist.markTask(num, status);
 
         System.out.println(LINE);
-
-        if (status) {
-            System.out.println("Nice! I've marked this task as done: ");
-        } else {
-            System.out.println("OK, I've marked this task as not done yet: ");
-        }
-
-        System.out.println(todo.getTask(num).getDescription());
+        System.out.println(status ? "Nice! I've marked this task as done: " : "OK, I've marked this task as not done yet: ");
+        System.out.println("    " + tasklist.getTaskDescription(num));
         System.out.println(LINE);
     }
 }

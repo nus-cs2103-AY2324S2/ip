@@ -1,21 +1,14 @@
 public class Task {
-    protected int num;
     protected String description;
     protected boolean isDone;
 
-    public Task(int num, String description) {
-        this.num = num;
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
     public String getDescription() {
-        String check = "[ ] ";
-        if (isDone) {
-            check = "[X] ";
-        }
-
-        return check + description;
+        return (isDone ? "[X] " : "[ ] ") + description;
     }
 
     public void mark(boolean status) {
