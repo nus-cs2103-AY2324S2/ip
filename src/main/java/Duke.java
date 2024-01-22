@@ -38,6 +38,51 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(store[idx]);
                 System.out.println("____________________________________________________________");
+            } else if (command.startsWith("deadline")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+
+                String[] splitCommands = command.split("/by");
+                String task = splitCommands[0].split("deadline")[1].trim();
+                String by = splitCommands[1].trim();
+
+                Deadline deadline = new Deadline(task, by);
+                store[itemCounts] = deadline;
+                itemCounts++;
+
+                System.out.println(deadline);
+                System.out.println("Now you have " + itemCounts + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (command.startsWith("event")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+
+                String[] splitTasks = command.split("/from");
+                String task = splitTasks[0].split("event")[1].trim();
+
+                String[] splitTime = splitTasks[1].split("/to");
+                String from = splitTime[0].trim();
+                String to = splitTime[1].trim();
+
+                Event event = new Event(task, from, to);
+                store[itemCounts] = event;
+                itemCounts++;
+
+                System.out.println(event);
+                System.out.println("Now you have " + itemCounts + " tasks in the list.");
+
+                System.out.println("____________________________________________________________");
+            } else if (command.startsWith("todo")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+
+                Todo todo = new Todo(command.split("todo")[1].trim());
+                store[itemCounts] = todo;
+                itemCounts++;
+
+                System.out.println(todo);
+                System.out.println("Now you have " + itemCounts + " tasks in the list.");
+                System.out.println("____________________________________________________________");
             } else {
                 Task newTask = new Task(command);
                 store[itemCounts] = newTask;
