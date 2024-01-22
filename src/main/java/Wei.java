@@ -46,10 +46,30 @@ public class Wei {
             }
             // add
             else {
-                Task newTask = new Task(input);
-                tasks[numOfTasks] = newTask;
+                if (input.startsWith("todo")) {
+                    ToDo todo = new ToDo(input.substring(5));
+                    tasks[numOfTasks] = todo;
+                }
+                else if (input.startsWith("deadline")) {
+                    int index = input.indexOf("/");
+                    String task = input.substring(9, index);
+                    String date = input.substring(index + 4);
+                    Deadline deadline = new Deadline(task, date);
+                    tasks[numOfTasks] = deadline;
+                }
+                else if (input.startsWith("event")) {
+                    int firstIndex = input.indexOf("/");
+                    int secondIndex = input.lastIndexOf("/");
+                    String start = input.substring(firstIndex + 6, secondIndex);
+                    String end = input.substring(secondIndex + 4);
+                    String task = input.substring(6, firstIndex);
+                    Event event = new Event(task, start, end);
+                    tasks[numOfTasks] = event;
+                }
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[numOfTasks].stringify());
                 numOfTasks++;
-                System.out.println("added: " + input);
+                System.out.println("Now you have " + numOfTasks + " tasks in the list.");
             }
             System.out.println(split);
         }
