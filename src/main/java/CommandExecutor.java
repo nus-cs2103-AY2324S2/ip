@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.function.Function;
 
 public class CommandExecutor {
     private static Scanner sc = new Scanner(System.in);
@@ -13,16 +12,24 @@ public class CommandExecutor {
 
         while (!bye) {
             String inputs = sc.nextLine();
+            String[] commands = inputs.split(" ");
             if (inputs.equals("bye")) {
                 bye = true;
             } else if (inputs.equals("list")) {
-                TextList.printList();
+                System.out.println();
+                TaskListCommands.printList();
+                System.out.println();
+            } else if (commands[0].equals("mark")) {
+                TaskListCommands.markTaskCompleted(Integer.parseInt(commands[1]) - 1);
+            } else if (commands[0].equals("unmark")) {
+                TaskListCommands.markTaskUncompleted(Integer.parseInt(commands[1]) - 1);
             } else {
-                TextList.addToList(inputs);
+                    System.out.println();
+                    TaskListCommands.addToList(inputs);
+                    System.out.println();
             }
 
-        }
-
-        System.out.println("I bid you farewell");
+        } // End command loop
+        System.out.println("  <<Duke Leto>>\n  > I bid you farewell");
     }
 }
