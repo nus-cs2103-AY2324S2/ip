@@ -1,3 +1,8 @@
+import exceptions.AlreadyExistsException;
+import exceptions.InvalidInputException;
+import exceptions.KaiYapException;
+import exceptions.MissingInputException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 public class KaiYap {
@@ -23,58 +28,104 @@ public class KaiYap {
 
     public void printError(String error) {
         System.out.println("\t____________________________________________________________\n" +
-                "\t" + error +
+                error +
                 "\n\t____________________________________________________________\n");
     }
 
-    public void startChat() {
+    public void startChat() throws KaiYapException {
         Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        input = input.strip();
+        String input = sc.nextLine().strip();
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 this.listInputs();
-            } else if ((input.length() > 5 && input.startsWith("mark ")) || input.equals("mark")) {
-                this.markAsDone(input.substring(4).strip());
-            } else if (input.length() > 7 && input.startsWith("unmark ") || input.equals("unmark")) {
-                this.markAsUndone(input.substring(6).strip());
-            } else {
-                String type = input.split(" ")[0];
-                Task task = null;
-                switch (type) {
-                    case "todo":
-                        if (input.equals("todo")) {
-                            printError("Your todo needs a description. Please try again! UwU :3");
-                            break;
-                        } else {
-                            task = new Todo(input.substring(input.indexOf(' ') + 1));
-                            break;
-                        }
-                    case "deadline":
-                        if (input.equals("deadline")) {
-                            printError("Your deadline needs a description. Please try again! UwU :3");
-                            break;
-                        } else {
-                            task = new Deadline(input.substring(input.indexOf(' ') + 1));
-                            break;
-                        }
-                    case "event":
-                        if (input.equals("event")) {
-                            printError("Your event needs a description. Please try again! UwU :3");
-                            break;
-                        } else {
-                            task = new Event(input.substring(input.indexOf(' ') + 1));
-                            break;
-                        }
-                    default:
-                        printError("That was an invalid input. Please try again! UwU :3");
-                        break;
+            } else if (input.startsWith("mark ") || input.equals("mark")) {
+                try {
+                    this.markAsDone(input);
+                } catch (KaiYapException e) {
+                    printError(e.getMessage());
                 }
-                if (task != null) {
-                    this.echo(task);
+            } else if (input.startsWith("unmark ") || input.equals("unmark")) {
+                try {
+                    this.unmarkDone(input);
+                } catch (KaiYapException e) {
+                    printError(e.getMessage());
+                }
+            } else {
+                try {
+                    String type = input.split(" ")[0];
+                    Task task = null;
+                    switch (type) {
+                        case "todo":
+                            try {
+                                task = createTodo(input);
+                            } catch (KaiYapException e) {
+                                printError(e.getMessage());
+                            }
+                            break;
+                        case "deadline":
+                            try {
+                                task = createDeadline(input);
+                            } catch (KaiYapException e) {
+                                printError(e.getMessage());
+                            }
+                            break;
+                        case "event":
+                            try {
+                                task = createEvent(input);
+                            } catch (KaiYapException e) {
+                                printError(e.getMessage());
+                            }
+                            break;
+                        default:
+                            throw new InvalidInputException("I don't quite understand what you mean. Please try again! UwU :3");
+                    }
+                    if (task != null) {
+                        this.echo(task);
+                    }
+                } catch (KaiYapException e) {
+                    printError(e.getMessage());
                 }
             }
-            input = sc.nextLine();
+            input = sc.nextLine().strip();
+        }
+    }
+
+    public Todo createTodo(String input) throws KaiYapException {
+        if (input.equals("todo")) {
+            throw new MissingInputException("Your todo needs a description. Please try again! UwU :3");
+        } else {
+            return new Todo(input.substring(input.indexOf(' ') + 1));
+        }
+    }
+    public Deadline createDeadline(String input) throws KaiYapException {
+        if (input.equals("deadline")) {
+            throw new MissingInputException("Your deadline needs a description. Please try again! UwU :3");
+        } else {
+            try {
+                return new Deadline(
+                        input.substring(input.indexOf("/by")).strip(),
+                        input.substring(input.indexOf("/by") + 3).strip()
+                );
+            } catch (Exception e) {
+                throw new MissingInputException("Your deadline is missing some important information. Please try again! UwU :3");
+            }
+        }
+    }
+
+    public Event createEvent(String input) throws KaiYapException {
+        if (input.equals("event")) {
+            throw new MissingInputException("Your event needs a description. Please try again! UwU :3");
+        } else {
+            try {
+                return new Event(
+                        input.substring(input.indexOf("/from")).strip(),
+                        input.substring(input.indexOf("/from") + 5, input.indexOf("/to")).strip(),
+                        input.substring(input.indexOf("/to") + 3).strip()
+                );
+            } catch (Exception e) {
+                throw new MissingInputException("Your event is missing some important information. Please try again! UwU :3");
+            }
+
         }
     }
 
@@ -93,51 +144,54 @@ public class KaiYap {
                 "\t____________________________________________________________\n");
     }
 
-    public void markAsDone(String index) {
-        System.out.println("\t____________________________________________________________");
-        try {
-            int numericIndex = Integer.parseInt(index) - 1;
-            if (numericIndex >= this.taskList.size()) {
-                System.out.println("\tSorry, this task does not exist. Please try again! UwU :3");
-            } else if (taskList.get(numericIndex).isTaskDone()) {
-                System.out.println("\tThis task has already been marked as done. Great job!");
-            } else {
-                taskList.get(numericIndex).setTaskDone(true);
-                System.out.println("\tNice! I've marked this task as done:\n" +
-                        "\t\t[X] " + taskList.get(numericIndex).getListItem()
-                );
-            }
-
-        } catch (Exception e) {
-            System.out.println("That was an invalid input. Please try again! UwU :3");
+    public void markAsDone(String index) throws KaiYapException {
+        if (index.length() <= 5) {
+            throw new MissingInputException("\tSorry, it seems like there is some missing input. Please try again! UwU :3");
         }
-        System.out.println("\t____________________________________________________________");
+        int numericIndex = Integer.parseInt(index.substring(5).strip()) - 1;
+        if (numericIndex >= this.taskList.size()) {
+            throw new InvalidInputException("\tSorry, this task does not exist. Please try again! UwU :3");
+        } else if (taskList.get(numericIndex).isTaskDone()) {
+            throw new AlreadyExistsException("\tThis task has already been marked as done. Great job!");
+        } else {
+            taskList.get(numericIndex).setTaskDone(true);
+            System.out.println(
+                    "\t____________________________________________________________\n" +
+                            "\tNice! I've marked this task as done:\n" +
+                            "\t\t[X] " + taskList.get(numericIndex).getListItem() +
+                            "\n\t____________________________________________________________"
+            );
+        }
     }
 
-    public void markAsUndone(String index) {
-        System.out.println("\t____________________________________________________________");
-        try {
-            int numericIndex = Integer.parseInt(index) - 1;
-            if (numericIndex >= taskList.size()) {
-                System.out.println("\tSorry, this task does not exist. Please try again! UwU :3");
-            } else if (!taskList.get(numericIndex).isTaskDone()) {
-                System.out.println("\tThis task has already been marked as undone. Good luck!");
-            } else {
-                taskList.get(numericIndex).setTaskDone(false);
-                System.out.println("\tOK, I've marked this task as not done yet:\n" +
-                        "\t\t[ ] " + taskList.get(numericIndex).getListItem()
-                );
-            }
-        } catch (Exception e) {
-            System.out.println("\tThat was an invalid input. Please try again! UwU :3");
+    public void unmarkDone(String index) throws KaiYapException {
+        if (index.length() <= 7) {
+            throw new MissingInputException("Sorry, it seems like there is some missing input. Please try again! UwU :3");
         }
-        System.out.println("\t____________________________________________________________");
+        int numericIndex = Integer.parseInt(index.substring(7).strip()) - 1;
+        if (numericIndex >= taskList.size()) {
+            throw new InvalidInputException("Sorry, this task does not exist. Please try again! UwU :3");
+        } else if (!taskList.get(numericIndex).isTaskDone()) {
+            throw new AlreadyExistsException("\tThis task has already been marked as undone. Good luck!");
+        } else {
+            taskList.get(numericIndex).setTaskDone(false);
+            System.out.println(
+                    "\t____________________________________________________________\n" +
+                            "\tOK, I've marked this task as not done yet:\n" +
+                            "\t\t[ ] " + taskList.get(numericIndex).getListItem() +
+                            "\n\t____________________________________________________________"
+            );
+        }
     }
 
     public static void main(String[] args) {
         KaiYap yap = new KaiYap();
         yap.sayHello();
-        yap.startChat();
+        try {
+            yap.startChat();
+        } catch (KaiYapException e) {
+            System.out.println(e.getMessage());
+        }
         yap.sayBye();
     }
 }

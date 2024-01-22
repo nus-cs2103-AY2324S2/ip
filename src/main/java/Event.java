@@ -2,10 +2,10 @@ public class Event extends Task {
     private String startTime;
     private String endTime;
 
-    public Event(String input) {
-        super(input.substring(0, input.indexOf("/from")).strip());
-        setStartTime(input.substring(input.indexOf("/from") + 5, input.indexOf("/to")).strip());
-        setEndTime(input.substring(input.indexOf("/to") + 3).strip());
+    public Event(String listItem, String startTime, String endTime) {
+        super(listItem);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public String getEndTime() {

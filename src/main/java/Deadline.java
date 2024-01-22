@@ -1,8 +1,8 @@
 public class Deadline extends Task {
     private String deadline;
-    public Deadline(String input) {
-        super(input.substring(0, input.indexOf("/by")).strip());
-        setDeadline(input.substring(input.indexOf("/by") + 3).strip());
+    public Deadline(String listItem, String deadline) {
+        super(listItem);
+        this.deadline = deadline;
     }
 
     public String getDeadline() {
