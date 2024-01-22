@@ -55,6 +55,12 @@ public class Taylor {
                             System.out.println("Error: " + err.getMessage());
                         }
                         break;
+                    case "delete":
+                        try{
+
+                        } catch (DukeException err) {
+                            System.out.println("Error: " err.getMessage());
+                        }
                     default:
                         System.out.println("Invalid input. ChatBot can only handle " +
                                 "'todo', 'deadline', 'event', 'bye', 'list' tasks");
@@ -170,5 +176,18 @@ public class Taylor {
             throw new DukeException("Invalid format. Please type in the following format: " +
                     "event <action> /from <time> /to <time>");
         }
+    }
+
+    public static void deleteTask(String input, List<Action> actionList) thr{
+        String[] markWhat = input.split(" ");
+        String what = markWhat[0];
+
+        try {
+            int num = Integer.parseInt(markWhat[1]) - 1;
+
+            if (num < 0 || num >= actionList.size()) {
+                throw new DukeException("Invalid task number");
+            }
+        } catch (Array)
     }
 }
