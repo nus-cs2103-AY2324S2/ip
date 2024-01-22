@@ -6,10 +6,18 @@ import Exceptions.DukeException;
 import java.util.List;
 
 public class MarkTask {
+    /**
+     * No constructor needed
+     */
     private MarkTask() {
         throw new AssertionError("Constructor is not allowed");
     }
 
+    /**
+     * Execute marking/unmarking
+     * @param input : to mark or unmark and which one?
+     * @param actionList
+     */
     public static void exec(String input, List<Action> actionList) {
         String[] markWhat = input.split(" ");
         String what = markWhat[0];

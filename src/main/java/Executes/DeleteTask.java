@@ -6,10 +6,19 @@ import Exceptions.DukeException;
 import java.util.List;
 
 public class DeleteTask {
+    /**
+     * No constructor needed
+     */
     private DeleteTask() {
         throw new AssertionError("Constructor is not allowed");
     }
 
+    /**
+     * Execute Deleting tasks
+     * @param input : User input
+     * @param actionList
+     * @throws DukeException
+     */
     public static void exec(String input, List<Action> actionList) throws DukeException {
         try {
             String[] parts = input.split(" ", 2);
