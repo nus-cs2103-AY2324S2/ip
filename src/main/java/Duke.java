@@ -8,10 +8,9 @@ public class Duke {
         System.out.println(hLine);
 
         Scanner scanner = new Scanner(System.in);
-        boolean continueIter = true;
 
         TaskList taskList = new TaskList();
-        while (continueIter) {
+        while (true) {
             String entry = scanner.nextLine();
             if (entry.equals("bye")) {
                 break;
