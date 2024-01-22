@@ -27,6 +27,9 @@ public class Chatbot {
             } else if (input.contains("mark")) {
                 String[] parts = input.split("\\s+", 2);
                 mark((parts[1]), !parts[0].contains("un"));
+            } else if (input.contains("delete")) {
+                String[] parts = input.split("\\s+", 2);
+                delete(parts[1]);
             } else {
                 addTask(input);
             }
@@ -36,14 +39,14 @@ public class Chatbot {
 
     public void greet() {
         System.out.println(LINE);
-        System.out.println("Hello! I'm " + name + ".");
+        System.out.println("Heyoo I'm " + name + ".");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
     }
 
     public void bye() {
         System.out.println(LINE);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye lol see you again!");
         System.out.println(LINE);
     }
 
@@ -55,6 +58,7 @@ public class Chatbot {
 
     public void listTasks() {
         System.out.println(LINE);
+        System.out.println("Here are the tasks in your list: ");
         tasklist.listTask();
         System.out.println(LINE);
     }
@@ -66,7 +70,7 @@ public class Chatbot {
         int tasksCount = TaskList.tasksCount;
 
         if (added) {
-            System.out.println("Got it. I've added this task: ");
+            System.out.println("Gotcha. I've added this task: ");
             System.out.println("    " + tasklist.getTaskDescription(tasksCount - 1));
             System.out.println("Now you have " + tasksCount + " tasks in the list.");
         }
@@ -78,8 +82,20 @@ public class Chatbot {
         tasklist.markTask(num, status);
 
         System.out.println(LINE);
-        System.out.println(status ? "Nice! I've marked this task as done: " : "OK, I've marked this task as not done yet: ");
+        System.out.println(status ? "Good job on finishing this task: " : "Aw OK, I've marked this task as not done yet: ");
         System.out.println("    " + tasklist.getTaskDescription(num));
+        System.out.println(LINE);
+    }
+
+    public void delete(String input) {
+        int num = Integer.parseInt(input) - 1; // Task num starts from 0
+        String deletedTask = tasklist.getTaskDescription(num);
+        tasklist.deleteTask(num);
+
+        System.out.println(LINE);
+        System.out.println("Sure, I've removed this task:");
+        System.out.println("    " + deletedTask);
+        System.out.println("Now you have " + TaskList.tasksCount + " tasks in the list.");
         System.out.println(LINE);
     }
 }

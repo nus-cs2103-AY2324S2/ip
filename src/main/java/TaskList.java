@@ -20,6 +20,11 @@ public class TaskList {
         return false;
     }
 
+    public void deleteTask(int num) {
+        tasks.remove(num);
+        tasksCount--;
+    }
+
     private void catchInputError(String command) {
         switch (command.toLowerCase()) {
             case "todo":
@@ -65,7 +70,6 @@ public class TaskList {
     }
 
     public void listTask() {
-        System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < tasksCount; i++) {
             System.out.println((i + 1)+ ". " + tasks.get(i).getDescription());
         }
