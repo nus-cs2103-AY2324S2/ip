@@ -1,8 +1,7 @@
-import javax.swing.*;
-import java.sql.SQLOutput;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
+
 
 public class Jivox {
 
@@ -21,39 +20,52 @@ public class Jivox {
         addDivider();
     }
 
-    public void mark(int i){
+    public void mark(int i) throws JivoxException {
+        if(i > this.list.size() || i < 0){
+            throw new JivoxException("Oops! There are only " + this.list.size() + " Tasks!");
+        }
         Task t = this.list.get(i-1);
         t.mark();
         addDivider();
-        System.out.println("Nice! , I've marked this task as done:\n" + t.toString());
+        System.out.println("Nice! , I've marked this task as done:\n" + t);
         addDivider();
 
     }
 
-    public void unmark(int i){
+    public void unmark(int i) throws JivoxException {
+        if(i > this.list.size() || i < 0){
+            throw new JivoxException("Oops! There are only " + this.list.size() + " Tasks!");
+        }
         Task t = this.list.get(i-1);
         t.unmark();
         addDivider();
-        System.out.println("OK, I've marked this task as not done yet:\n" + t.toString());
+        System.out.println("OK, I've marked this task as not done yet:\n" + t);
         addDivider();
     }
 
-    public void add(String type,String description){
+    public void add(String type,String description) throws JivoxException {
         switch (type){
             case "todo":
                 this.list.add(new Todo(description));
                 break;
             case "deadline":
                 String[] in = description.split("/by");
+                if(in.length == 1){
+                    throw new JivoxException("Oooops! Please provide a deadline");
+                }
                 this.list.add(new Deadline(in[0],in[1]));
                 break;
             case "event":
                 String[] first = description.split("/from");
+                if(first.length == 1){
+                    throw new JivoxException("No time interval (from) received  for the event , Please try again!");
+                }
                 String[] second = first[1].split("/to");
+                if(second.length == 1){
+                    throw new JivoxException("No time interval received (to) for the event , Please try again!");
+                }
                 this.list.add(new Event(first[0],second[0],second[1]));
                 break;
-            default:
-                System.out.println("I didn't Understand what you typed!!!!");
         }
         addDivider();
         System.out.println("Got it. I've added this task:\n" + this.list.get(this.list.size()-1));
@@ -85,16 +97,41 @@ public class Jivox {
             } else{
                 String[] in = input.split(" ",2);
                 if(in[0].equals("mark")){
-                    this.mark(Integer.parseInt(in[1]));
+                    try {
+                        if(in.length == 1){
+                            throw new JivoxException("Please, provide a task number to mark");
+                        }
+                        this.mark(Integer.parseInt(in[1]));
+                    } catch (JivoxException e){
+                        System.out.println(e.getMessage());
+                    }
                 } else if(in[0].equals("unmark")){
-                    this.unmark(Integer.parseInt(in[1]));
+                    try {
+                        if(in.length == 1){
+                            throw new JivoxException("Please, provide a task number to unmark");
+                        }
+                        this.unmark(Integer.parseInt(in[1]));
+                    } catch (JivoxException e){
+                        System.out.println(e.getMessage());
+                    }
                 }
                 else{
-                    this.add(in[0],in[1]);
+
+                    try {
+                        if(input.contains("event") || input.contains("todo") || input.contains("deadline")){
+                            if(in.length == 1){
+                                throw new JivoxException("Ooops! Please provide a description!");
+                            }
+                            this.add(in[0], in[1]);
+                        }else{
+                            throw new JivoxException("Ooops! I can't understand your Input , Please try again");
+                        }
+                    } catch (JivoxException e){
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         } while (isRunning);
-
     }
 
 }
