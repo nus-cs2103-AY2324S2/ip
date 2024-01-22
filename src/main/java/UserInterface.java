@@ -4,9 +4,10 @@ public class UserInterface {
     /*
     This class is for the the user interface.
     */
-    int numList = 0;
+
     Scanner scan = new Scanner(System.in);
-    String[] list = new String[100];
+    Task[] list = new Task[100];
+    int numList;
     String greeting = "Hi! My name is HAL9000";
     String exit = "Bye! See ya soon";
 
@@ -23,10 +24,42 @@ public class UserInterface {
         }
     }
 
-    public void addToList(String input) {
+    public void addToList(Task input) {
         list[numList] = input;
         numList++;
         System.out.println("added: " + input);
+    }
+
+    public void markOnList(int i) {
+        Task task = list[i - 1];
+        task.markDone();
+        System.out.println("Marked this :" + task);
+    }
+
+    public void unmarkOnList(int i) {
+        Task task = list[i - 1];
+        task.markUndone();
+        System.out.println("Unmarked this :" + task);
+    }
+
+    public void processCommand(String input) {
+        String[] splitString = input.split(" ");
+        String firstWord = splitString[0];
+        switch (firstWord) {
+            case "list":
+                displayList();
+            break;
+            case "mark":
+                markOnList(Integer.parseInt(splitString[1]));
+                break;
+            case "unmark":
+                unmarkOnList(Integer.parseInt(splitString[1]));
+                break;
+            default:
+                Task task = new Task(input);
+                addToList(task);
+                break;
+        }
     }
 
     public void poll() {
@@ -35,17 +68,14 @@ public class UserInterface {
 
         while (polling) {
             String input = scan.nextLine();
+
             switch (input) {
                 case "bye":
                     polling = false;
                     break;
-                
-                case "list":
-                    displayList();
-                    break;
-            
+
                 default:
-                    addToList(input);
+                    processCommand(input);
                     break;
             }
         }
