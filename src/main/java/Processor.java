@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import task.Task;
 import task.taskList;
 
-public class Parsing {
-    public static taskList inputParsing(taskList tasklist) {
+public class Processor {
+    public static taskList processing(taskList tasklist) {
         Scanner scanner = new Scanner(System.in);
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine();
