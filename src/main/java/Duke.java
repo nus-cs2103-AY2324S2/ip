@@ -21,7 +21,7 @@ public class Duke {
         if (current_input.equals("bye")) {break;}
         if (current_input.equals("list")) {
           System.out.println("_________________________\n" +
-            "Get off your ass and starting doing work! " + "\n");
+            "Get off your ass and starting doing work!" + "\n");
           for (int i = 0; i < history.size(); i++) {
             Task curr = history.get(i);
             System.out.println((i + 1) + "." +
@@ -33,7 +33,7 @@ public class Duke {
           Task focus_task = history.get(focus_index);
           focus_task.mark();
           String print_out = "_________________________\n" +
-            "Marking this done! " + "\n" +
+            "Marking this done!" + "\n" +
             focus_task.getFullStatus() + "\n" +
             "_________________________\n";
           System.out.println(print_out);
@@ -42,7 +42,7 @@ public class Duke {
           Task focus_task = history.get(focus_index);
           focus_task.unmark();
           String print_out = "_________________________\n" +
-            "Ok this is not done... " + "\n" +
+            "Ok this is not done..." + "\n" +
             focus_task.getFullStatus() + "\n" +
             "_________________________\n";
           System.out.println(print_out);
@@ -66,12 +66,16 @@ public class Duke {
               event = new Deadlines(data[0], data[1]);
               history.add(event);
               break;
+            // If we get to here, it means it is not a task,
+            // nor a bye, list, mark, unmark valid command.
+            default:
+
           }
           if (valid) {
             String to_print = "_________________________\n" +
               "added: " + event.getFullStatus() + "\n" +
               "_________________________\n" +
-              "Now you have " + history.size() + " items in your list!";
+              "Now you have " + history.size() + " items in your list!\n";
             System.out.println(to_print);
           }
           valid = true;
@@ -104,7 +108,7 @@ public class Duke {
               end_idx = i;
             }
           }
-          if (start_idx.equals(null) || end_idx.equals(null)) {
+          if (start_idx.equals(null) || end_idx.equals(null)) { // we cannot find start or end.
             return ret;
           }
           task_desc = String.join(" ",
@@ -118,7 +122,7 @@ public class Duke {
         case "deadline":
           start_idx = null;
           for (int i = 0; i < descriptionArray.length; i++) {
-            if (descriptionArray[i].equals("/by")) {
+            if (descriptionArray[i].equals("/by")) { // we cannot find by event.
               start_idx = i;
             }
           }

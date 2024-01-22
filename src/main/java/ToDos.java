@@ -4,5 +4,10 @@ public class ToDos extends Task {
   }
 
   @Override
-  public String getTimeData() {return " ";}
+  public String getTimeData() {return "";}
+
+  @Override
+  public String getFullStatus() {
+    return this.getStatusIcon() + " " + this.getDescription();
+  }
 }
