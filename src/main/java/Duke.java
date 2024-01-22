@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Duke {
@@ -9,6 +11,7 @@ public class Duke {
     private static final String E_KEY = "event";
     private static final String D_KEY = "deadline";
     private static final String T_KEY = "todo";
+
     private ArrayList<Task> inputArr = new ArrayList<>();
 
     public Integer getNumOfTasks() {
@@ -22,6 +25,9 @@ public class Duke {
         Duke duke = new Duke();
         while(!userInput.equals(EXITKEY)) {
             userInput = scanner.nextLine();
+            if (EXITKEY.equals(userInput)){
+                break;
+            }
             // process the userInput
             String[] userInputSplit = userInput.split(" ");
             String userInputKey = userInputSplit[0];
@@ -30,13 +36,13 @@ public class Duke {
             String to = "";
             if (userInputKey.equals(D_KEY)) {
                 inputDetail = userInput.substring(9, userInput.indexOf("/by"));
-                to = userInput.substring(userInput.indexOf("/by")+3);
+                to = userInput.substring(userInput.indexOf("/by")+4);
             } else if (userInputKey.equals(T_KEY)) {
                 inputDetail = userInput.substring(5);
             } else if (userInputKey.equals(E_KEY)){
                 inputDetail = userInput.substring(6, userInput.indexOf("/from"));
-                from = userInput.substring(userInput.indexOf("/from")+5, userInput.indexOf("/to"));
-                to = userInput.substring(userInput.indexOf("/to")+3);
+                from = userInput.substring(userInput.indexOf("/from")+6, userInput.indexOf("/to")-1);
+                to = userInput.substring(userInput.indexOf("/to")+4);
             }
 
             if (LISTKEY.equals(userInputKey)) {
@@ -51,12 +57,14 @@ public class Duke {
                 Task unMarkedTask = duke.markTaskById(index, false);
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(unMarkedTask);
-            }else{
+            }else if (userInputKey.equals(D_KEY) || userInputKey.equals(T_KEY) || userInputKey.equals(E_KEY)){
                 // add different type of tasks
                 Task task = duke.addTask(userInputKey, inputDetail, from, to);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(task);
                 System.out.println("Now you have "+ duke.getNumOfTasks() +" tasks in the list." );
+            } else {
+                System.out.println("Invalid instruction");
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
@@ -71,9 +79,6 @@ public class Duke {
 
     public Task addTask(String key, String detail, String from, String to) {
         Task task = null;
-//        System.out.println("---");
-//        System.out.println(key);
-//        System.out.println("---");
         switch (key) {
             case D_KEY:
                 task = new Deadline(false, detail, to);
