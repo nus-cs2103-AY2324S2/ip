@@ -115,7 +115,7 @@ public class CommandProcessor {
         System.out.println(String.format("I have unmarked this:\n%s", task));
     }
 
-    public void addToList(Task task) throws ProcessingException {
+    public void addToList(Task task) {
         list[numList] = task;
         numList++;
         System.out.println(String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task, numList));
