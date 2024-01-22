@@ -37,6 +37,8 @@ public class Duke {
                     handleDeadline(command);
                 } else if (mainC.equalsIgnoreCase("event")) {
                     handleEvent(command);
+                } else if (mainC.equalsIgnoreCase("delete")) {
+                    handleDelete(splitCommands);
                 } else {
                     handleInvalidCommand();
                 }
@@ -155,6 +157,18 @@ public class Duke {
     }
 
     /**
+     * Method to delete a task in the taskList.
+     */
+    public void deleteTask(int taskIndex) {
+        String taskString = this.taskList.get(taskIndex).toString();
+        this.taskList.remove(taskIndex);
+        printALine();
+        System.out.println("I've removed this task as you instructed: \n" +
+                taskString + "\nNumber of tasks in the list: " + taskList.size());
+        printALine();
+    }
+
+    /**
      * Method to handle a mark command
      */
     public void handleMark(String[] splitCommands) throws DukeException {
@@ -195,6 +209,26 @@ public class Duke {
         } else {
             int taskIndex = Integer.parseInt(splitCommands[1]);
             unmarkTask(taskIndex - 1);
+        }
+    }
+
+    /**
+     * Method to handle a delete command
+     */
+    public void handleDelete(String[] splitCommands) throws DukeException {
+        if (splitCommands.length != 2) {
+            throw new DukeException("Invalid number of arguments!\n" +
+                    "Make sure to enter unmark, then the number of the task you want to delete.");
+            // Solution adapted from https://www.baeldung.com/java-check-string-number
+        } else if (!splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
+            throw new DukeException("Please enter an integer as the second input.");
+        } else if (Integer.parseInt(splitCommands[1]) <= 0) {
+            throw new DukeException("Please enter an integer greater than 0 as the second input.");
+        } else if (Integer.parseInt(splitCommands[1]) > taskList.size()) {
+            throw new DukeException("Please enter an integer representing a task within the list.");
+        } else {
+            int taskIndex = Integer.parseInt(splitCommands[1]);
+            deleteTask(taskIndex - 1);
         }
     }
 
