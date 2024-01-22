@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class ChatBotCommandException {
+public class ChatBotCommandException extends Exception{
+
+    public ChatBotCommandException(String message) {
+        super(message);
+    }
 }

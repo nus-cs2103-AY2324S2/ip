@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class ChatBotParameterException {
+public class ChatBotParameterException extends Exception{
+    public ChatBotParameterException(String message) {
+        super(message);
+    }
 }

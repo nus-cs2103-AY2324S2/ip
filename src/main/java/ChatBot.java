@@ -159,7 +159,15 @@ public class ChatBot {
     }
 
     public void addToDo(String description) {
-        this.addTask(new ToDo(description));
+        try {
+            if (description.isEmpty()) {
+                throw new ChatBotParameterException("Missing description for ToDo \n" +
+                        "try: todo <todo_name>");
+            }
+            this.addTask(new ToDo(description));
+        } catch (ChatBotParameterException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
@@ -168,13 +176,38 @@ public class ChatBot {
     }
 
     public void addDeadline(String parameters) {
-        String[] parametersArr = parameters.split(" /by ");
-        this.addDeadline(parametersArr[0], parametersArr[1]);
+        try {
+            if (parameters.isEmpty()) {
+                throw new ChatBotParameterException("There is no description and by for Deadline \n" +
+                        "try: deadline <deadline_name> /by <by>");
+            }
+            String[] parametersArr = parameters.split(" /by ");
+            if (parametersArr.length == 1) {
+                throw new ChatBotParameterException("Missing description or by for Deadline \n" +
+                        "try: deadline <deadline_name> /by <by>");
+            }
+            this.addDeadline(parametersArr[0], parametersArr[1]);
+        } catch (ChatBotParameterException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void addEvent(String parameters) {
-        String[] parametersArr = parameters.split(" /from | /to ");
-        this.addEvent(parametersArr[0], parametersArr[1], parametersArr[2]);
+        try {
+            if (parameters.isEmpty()) {
+                throw new ChatBotParameterException("There is no description and from and to for Event \n" +
+                        "try: deadline <event_name> /by <from> /to <to>");
+            }
+            String[] parametersArr = parameters.split(" /from | /to ");
+            if (parametersArr.length > 3) {
+                throw new ChatBotParameterException("Mising description and/or from and/or to for Event \n" +
+                        "try: deadline <event_name> /by <from> /to <to>");
+            }
+            this.addEvent(parametersArr[0], parametersArr[1], parametersArr[2]);
+        } catch (ChatBotParameterException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private void addEvent(String description, String from, String to) {
