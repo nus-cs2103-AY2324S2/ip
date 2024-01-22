@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class taskList {
-    private final List<Task> listOfTasks;
+    private List<Task> listOfTasks;
 
     public taskList() {
         listOfTasks = new ArrayList<>();
@@ -12,11 +12,17 @@ public class taskList {
 
     public void addTask(Task task) {
         listOfTasks.add(task);
-        System.out.println("added: " + task);
+        System.out.println("Got it. I've added this task:\n" + task
+                + "\n" + "Now you have " + getSize() + " tasks in the list.");
+    }
+
+    public int getSize() {
+        return listOfTasks.size();
     }
 
     public void listDownTask() {
-        int size = listOfTasks.size();
+        int size = getSize();
+        System.out.println("Here are the tasks in your list:\n");
         for(int i = 1; i <= size; i++) {
             System.out.println(i +": " + listOfTasks.get(i - 1));
         }
