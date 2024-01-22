@@ -58,7 +58,7 @@ public class Duke {
         Paimon.greet();
         Scanner scanner = new Scanner(System.in);
         String command, input;
-        int parameter;
+        String[] parameters;
         while (true) {
             input = scanner.nextLine();
             command = retrieveCommand(input);
@@ -67,12 +67,16 @@ public class Duke {
                     Paimon.listTasks();
                     break;
                 case "mark":
-                    parameter = Integer.parseInt(retrieveParameters(input)[0]);
-                    Paimon.markTaskAsDone(parameter);
+                    parameters = retrieveParameters(input);
+                    Paimon.markTaskAsDone(parameters);
                     break;
                 case "unmark":
-                    parameter = Integer.parseInt(retrieveParameters(input)[0]);
-                    Paimon.markTaskAsUndone(parameter);
+                    parameters = retrieveParameters(input);
+                    Paimon.markTaskAsUndone(parameters);
+                    break;
+                case "todo":
+                    parameters = retrieveParameters(input);
+                    Paimon.addToDo(parameters);
                     break;
                 case "bye":
                     Paimon.bye();

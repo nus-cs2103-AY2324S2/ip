@@ -144,6 +144,24 @@ public class ChatBot {
         System.out.println(taskToBeUnmarked);
     }
 
+    public void markTaskAsDone(String[] parameters) {
+        // To add exception
+        this.markTaskAsDone(Integer.parseInt(parameters[0]));
+    }
+
+    public void markTaskAsUndone(String[] parameters) {
+        // To add exception
+        this.markTaskAsUndone(Integer.parseInt(parameters[0]));
+    }
+
+    public void addToDo(String description) {
+        this.addTask(new ToDo(description));
+    }
+
+    public void addToDo(String[] parameters) {
+        this.addToDo(String.join(" ", parameters));
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }
