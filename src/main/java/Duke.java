@@ -28,8 +28,29 @@ public class Duke {
               curr.getFullStatus());
           }
           System.out.println("_________________________\n");
+        } else if (current_input_split[0].equals("delete")) {
+          int focus_index = -1;
+          try {
+            focus_index = checkIndexGiven(current_input_split[1], history.size());
+          } catch (HistoryIndexException e) {
+            System.out.println("Invalid index selected!");
+            continue;
+          }
+          Task deleted = history.remove(focus_index);
+          String print_out = "_________________________\n" +
+            "Finished with this? Good Job!" + "\n" +
+            deleted.getFullStatus() + "\n" +
+            "_________________________\n" +
+            "Now you have " + history.size() + " items in your list!\n";
+          System.out.println(print_out);
         } else if (current_input_split[0].equals("mark")) {
-          int focus_index = Integer.parseInt(current_input_split[1]) - 1;
+          int focus_index = -1;
+          try {
+            focus_index = checkIndexGiven(current_input_split[1], history.size());
+          } catch (HistoryIndexException e) {
+            System.out.println("Invalid index selected!");
+            continue;
+          }
           Task focus_task = history.get(focus_index);
           focus_task.mark();
           String print_out = "_________________________\n" +
@@ -38,7 +59,13 @@ public class Duke {
             "_________________________\n";
           System.out.println(print_out);
         } else if (current_input_split[0].equals("unmark")) {
-          int focus_index = Integer.parseInt(current_input_split[1]) - 1;
+          int focus_index = -1;
+          try {
+            focus_index = checkIndexGiven(current_input_split[1], history.size());
+          } catch (HistoryIndexException e) {
+            System.out.println("Invalid index selected!");
+            continue;
+          }
           Task focus_task = history.get(focus_index);
           focus_task.unmark();
           String print_out = "_________________________\n" +
@@ -72,10 +99,6 @@ public class Duke {
               event = new Deadlines(data[0], data[1]);
               history.add(event);
               break;
-            // If we get to here, it means it is not a task,
-            // nor a bye, list, mark, unmark valid command.
-            default:
-
           }
           String to_print = "_________________________\n" +
             "added: " + event.getFullStatus() + "\n" +
@@ -90,6 +113,14 @@ public class Duke {
         "_________________________\n";
       System.out.println(final_print);
       sc.close();
+    }
+
+    public static Integer checkIndexGiven(String s, int bounds) throws HistoryIndexException {
+      Integer parsed = Integer.parseInt(s);
+      if (parsed < 0 || parsed >= bounds) {
+        throw new HistoryIndexException();
+      }
+      return parsed;
     }
 
     public static String[] extractDescriptionData(String[] descriptionArray) throws
