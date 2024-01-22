@@ -68,6 +68,21 @@ public class ConvoBot {
                     taskList.get(i).markAsNotDone();
                     System.out.println(leftPadding + " " + "OK, I've marked this task as not done yet:");
                     System.out.println(leftPadding + " " + taskList.get(i).toString());
+                } else if (command.equals("delete")) {
+                    int i = -1;
+                    try {
+                        i = Integer.parseInt(inputList.get(1)) - 1;
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    }
+
+                    if (inputList.size() != 2 || i < 0 || i >= taskList.size()) {
+                        throw new ConvoBotException("Invalid input. You must specify a valid index to delete.");
+                    }
+                    String deletedTaskString = taskList.get(i).toString();
+                    taskList.remove(i);
+                    System.out.println(leftPadding + " " + "Noted. I've removed this task:");
+                    System.out.println(leftPadding + "   " + deletedTaskString);
+                    System.out.println(leftPadding + " Now you have " + Integer.toString(taskList.size()) + " tasks in the list.");
                 } else {
                     Task task = null;
                     if (command.equals("todo")) {
@@ -102,30 +117,13 @@ public class ConvoBot {
                         String from = String.join(" ", inputList.subList(j+1, k));
                         String to = String.join(" ", inputList.subList(k+1, inputList.size()));
                         task = new Event(description, from, to);
-                    } else if (command.equals("delete")) {
-                        int i = -1;
-                        try {
-                            i = Integer.parseInt(inputList.get(1)) - 1;
-                        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                        }
-
-                        if (inputList.size() != 2 || i < 0 || i >= taskList.size()) {
-                            throw new ConvoBotException("Invalid input. You must specify a valid index to delete.");
-                        }
-                        String deletedTaskString = taskList.get(i).toString();
-                        taskList.remove(i);
-                        System.out.println(leftPadding + " " + "Noted. I've removed this task:");
-                        System.out.println(leftPadding + "   " + deletedTaskString);
-                        System.out.println(leftPadding + " Now you have " + Integer.toString(taskList.size()) + " tasks in the list.");
                     } else {
                         throw new ConvoBotException("Invalid input. Input must start with list, mark, unmark, todo, deadline, event or delete.");
                     }
-                    if (task != null) {
-                        taskList.add(task);
-                        System.out.println(leftPadding + " " + "Got it. I've added this task:");
-                        System.out.println(leftPadding + "   " + task.toString());
-                        System.out.println(leftPadding + " Now you have " + Integer.toString(taskList.size()) + " tasks in the list.");
-                    }
+                    taskList.add(task);
+                    System.out.println(leftPadding + " " + "Got it. I've added this task:");
+                    System.out.println(leftPadding + "   " + task.toString());
+                    System.out.println(leftPadding + " Now you have " + Integer.toString(taskList.size()) + " tasks in the list.");
                 }
             } catch (ConvoBotException e) {
                 System.out.println(leftPadding + " " + e.toString());
