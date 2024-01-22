@@ -1,7 +1,4 @@
-import exceptions.IncompleteInputException;
-import exceptions.InvalidCommandException;
-import exceptions.InvalidSlashParameterException;
-import exceptions.InvalidStatusUpdateException;
+import exceptions.*;
 
 import java.util.*;
 
