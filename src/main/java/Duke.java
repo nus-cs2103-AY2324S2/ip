@@ -49,6 +49,14 @@ public class Duke {
          else if (added.equals("todo")) {
 
             String description = sc.nextLine();
+            if (description.isEmpty()) {
+                try {
+                    throw new DukeException.EmptyTodoDescriptionException();
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
+            }
             toBeAdded = new Todo(description);
         } else if (added.equals("event")) {
             // event project meeting /from Mon 2pm /to 4pm
@@ -67,8 +75,12 @@ public class Duke {
             toBeAdded = new Event(description, from, to);
 
         } else {
-             // backward compatibility
-            toBeAdded = new Task(added);
+            try {
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
         }
 
         store.add(toBeAdded);
