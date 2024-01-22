@@ -50,6 +50,14 @@ public class Duke {
                         String unmarkToPrint =taskList.get(unmarkIndex).unmarkAsDone();
                         printWithSolidLineBreak(unmarkToPrint);
                         break;
+                    case "delete":
+                        int deleteIndex = Integer.parseInt(info.trim()) - 1;
+                        if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
+                            throw new DukeException("we do not have this task number!!");
+                        }
+                        Task removed = taskList.remove(deleteIndex);
+                        printTaskRemovedWithSolidLineBreak(removed);
+                        break;
                     case "todo":
                         if (info.isEmpty()) {
                             throw new DukeException("The description of a todo cannot be empty??");
@@ -103,6 +111,13 @@ public class Duke {
     public static void printTaskAddedWithSolidLineBreak(Task task) {
         System.out.println("\t" + solidLineBreak);
         System.out.println("\t Got it. I've Added this task:");
+        System.out.println("\t\t " + task);
+        System.out.println("\t Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println("\t" + solidLineBreak);
+    }
+    public static void printTaskRemovedWithSolidLineBreak(Task task) {
+        System.out.println("\t" + solidLineBreak);
+        System.out.println("\t Noted. I've removed this task:");
         System.out.println("\t\t " + task);
         System.out.println("\t Now you have " + taskList.size() + " tasks in the list.");
         System.out.println("\t" + solidLineBreak);
