@@ -1,4 +1,8 @@
 import Exceptions.InvalidInputException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,36 +35,48 @@ public class Iris {
         }
     }
 
-    public void add() throws IOException, InvalidInputException {
+    public void add() throws IOException {
         while (true) {
             String line = this.reader.readLine();
             String[] str = line.split(" ");
+            try {
             switch (str[0]) {
                 case "bye": return;
                 case "list":
                     this.print(this.listTasks());
                     break;
                 case "mark":
-                    try {
                         this.cachedTasks.get(Integer.parseInt(str[1])-1).markCompleted();
                         this.print("I've marked this task as completed:\n"
                                 + this.cachedTasks.get(Integer.parseInt(str[1])-1).toString());
-                    } catch (Exception e) {
-                        throw new InvalidInputException("Invalid input");
-                    }
                     break;
                 case "unmark":
-                    try {
                         this.cachedTasks.get(Integer.parseInt(str[1])-1).markUncompleted();
                         this.print("I've marked this task as uncompleted:\n"
                                 + this.cachedTasks.get(Integer.parseInt(str[1])-1).toString());
-                    } catch (Exception e) {
-                        throw new InvalidInputException("Invalid input");
-                    }
+                    break;
+                case "todo":
+                    Task todo = ToDo.ToDoFactory(line);
+                    this.cachedTasks.add(todo);
+                    this.print("I have added this task:\n" + todo + "\n" +
+                            "Now you have " + this.cachedTasks.size() + " tasks in your list.");
+                    break;
+                case "event":
+                    Task event = Event.EventFactory(line);
+                    this.cachedTasks.add(event);
+                    this.print("I have added this task:\n" + event + "\n" +
+                            "Now you have " + this.cachedTasks.size() + " tasks in your list.");
+                    break;
+                case "deadline":
+                    Task deadline = Deadline.deadlineFactory(line);
+                    this.cachedTasks.add(deadline);
+                    this.print("I have added this task:\n" + deadline + "\n" +
+                            "Now you have " + this.cachedTasks.size() + " tasks in your list.");
                     break;
                 default:
-                    this.cachedTasks.add(new Task(line));
-                    this.print("Added: " + line);
+                    this.print("Invalid input");
+            }} catch (InvalidInputException e) {
+                this.print(e.toString());
             }
         }
     }
