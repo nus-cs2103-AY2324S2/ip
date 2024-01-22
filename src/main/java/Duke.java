@@ -71,30 +71,36 @@ public class Duke {
             input = scanner.nextLine();
             command = retrieveCommand(input);
             parameters = retrieveParameters(input);
-            switch (command) {
-                case "list":
-                    Paimon.listTasks();
-                    break;
-                case "mark":
-                    Paimon.markTaskAsDone(parameters);
-                    break;
-                case "unmark":
-                    Paimon.markTaskAsUndone(parameters);
-                    break;
-                case "todo":
-                    Paimon.addToDo(parameters);
-                    break;
-                case "deadline":
-                    Paimon.addDeadline(parameters);
-                    break;
-                case "event":
-                    Paimon.addEvent(parameters);
-                    break;
-                case "bye":
-                    Paimon.bye();
-                    return;
-                default:
-                    System.out.println("Please use the correct commands.");
+            try {
+                switch (command) {
+                    case "list":
+                        Paimon.listTasks();
+                        break;
+                    case "mark":
+                        Paimon.markTaskAsDone(parameters);
+                        break;
+                    case "unmark":
+                        Paimon.markTaskAsUndone(parameters);
+                        break;
+                    case "todo":
+                        Paimon.addToDo(parameters);
+                        break;
+                    case "deadline":
+                        Paimon.addDeadline(parameters);
+                        break;
+                    case "event":
+                        Paimon.addEvent(parameters);
+                        break;
+                    case "bye":
+                        Paimon.bye();
+                        return;
+                    case "":
+                        throw new ChatBotCommandException("Empty command.");
+                    default:
+                        throw new ChatBotCommandException("Wrong commands.");
+                }
+            } catch (ChatBotCommandException e) {
+                System.out.println(e.getMessage());
             }
         }
     }

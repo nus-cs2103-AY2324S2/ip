@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -196,12 +197,12 @@ public class ChatBot {
         try {
             if (parameters.isEmpty()) {
                 throw new ChatBotParameterException("There is no description and from and to for Event \n" +
-                        "try: deadline <event_name> /by <from> /to <to>");
+                        "try: event <event_name> /by <from> /to <to>");
             }
             String[] parametersArr = parameters.split(" /from | /to ");
-            if (parametersArr.length > 3) {
+            if (parametersArr.length < 3) {
                 throw new ChatBotParameterException("Missing description and/or from and/or to for Event \n" +
-                        "try: deadline <event_name> /by <from> /to <to>");
+                        "try: event <event_name> /by <from> /to <to>");
             }
             this.addEvent(parametersArr[0], parametersArr[1], parametersArr[2]);
         } catch (ChatBotParameterException e) {
