@@ -1,6 +1,8 @@
+import exceptions.EmptyBodyException;
+import exceptions.WrongFormatException;
+import exceptions.InvalidKeyException;
+
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Duke {
@@ -12,17 +14,18 @@ public class Duke {
     private static final String D_KEY = "deadline";
     private static final String T_KEY = "todo";
 
+    private static final String[] KEY_LIST = {EXITKEY, LISTKEY, MARKKEY, UNMARKKEY, E_KEY, D_KEY, T_KEY};
+
     private ArrayList<Task> inputArr = new ArrayList<>();
 
     public Integer getNumOfTasks() {
         return inputArr.size();
     }
 
-    public static void main(String[] args) {
+    public void run(Duke duke){
         String userInput = "";
         System.out.println("Hello! I'm Plaudern\nWhat can I do for you?");
         Scanner scanner = new Scanner(System.in);
-        Duke duke = new Duke();
         while(!userInput.equals(EXITKEY)) {
             userInput = scanner.nextLine();
             if (EXITKEY.equals(userInput)){
@@ -31,43 +34,113 @@ public class Duke {
             // process the userInput
             String[] userInputSplit = userInput.split(" ");
             String userInputKey = userInputSplit[0];
+            // Check if the key is valid
+            Boolean isValidKey = false;
+            for(String key:KEY_LIST) {
+                if (key.equals(userInputKey)){
+                    isValidKey = true;
+                }
+            }
+            if (!isValidKey) {
+                System.out.println(new InvalidKeyException().getMessage());;
+            }
+
             String inputDetail = "";
             String from = "";
             String to = "";
             if (userInputKey.equals(D_KEY)) {
-                inputDetail = userInput.substring(9, userInput.indexOf("/by"));
-                to = userInput.substring(userInput.indexOf("/by")+4);
+                try {
+                    if (userInput.length() <= 9) {
+                        throw new EmptyBodyException();
+                    }
+                    inputDetail = userInput.substring(9, userInput.indexOf("/by"));
+                    to = userInput.substring(userInput.indexOf("/by")+4);
+                } catch (EmptyBodyException e){
+                    System.out.println(e.getMessage());
+                    continue;
+                } catch (Exception e) {
+                    System.out.println(new WrongFormatException("\"deadline content /by time\"").getMessage());
+                    continue;
+                }
             } else if (userInputKey.equals(T_KEY)) {
-                inputDetail = userInput.substring(5);
+                try {
+                    if (userInput.length() <= 5) {
+                        throw new EmptyBodyException();
+                    }
+                    inputDetail = userInput.substring(5);
+                } catch (EmptyBodyException e){
+                    System.out.println(e.getMessage());
+                    continue;
+                } catch (Exception e) {
+                    System.out.println(new WrongFormatException("\"todo content\"").getMessage());
+                    continue;
+                }
             } else if (userInputKey.equals(E_KEY)){
-                inputDetail = userInput.substring(6, userInput.indexOf("/from"));
-                from = userInput.substring(userInput.indexOf("/from")+6, userInput.indexOf("/to")-1);
-                to = userInput.substring(userInput.indexOf("/to")+4);
+                try {
+                    if (userInput.length() <= 6) {
+                        throw new EmptyBodyException();
+                    }
+                    inputDetail = userInput.substring(6, userInput.indexOf("/from"));
+                    from = userInput.substring(userInput.indexOf("/from")+6, userInput.indexOf("/to")-1);
+                    to = userInput.substring(userInput.indexOf("/to")+4);
+                } catch (EmptyBodyException e){
+                    System.out.println(e.getMessage());
+                    continue;
+                } catch (Exception e) {
+                    System.out.println(new WrongFormatException("\"event content /from time /to time\"").getMessage());
+                    continue;
+                }
             }
 
             if (LISTKEY.equals(userInputKey)) {
                 duke.listTask();
             } else if (MARKKEY.equals(userInputKey)){
-                Integer index = new Integer(userInputSplit[1]) - 1;
-                Task markedTask = duke.markTaskById(index, true);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(markedTask);
+                try {
+                    Integer index = new Integer(userInputSplit[1]) - 1;
+                    Task markedTask = duke.markTaskById(index, true);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(markedTask);
+                } catch (NumberFormatException e) {
+                    // Error when the user input mark key is not a number
+                    System.out.println("Please input a valid number. Example: \"mark 1\"");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Current list only contains " + duke.getNumOfTasks() +" tasks, please input a number within the range.");
+                    System.out.println("Your task list is shown below: ");
+                    duke.listTask();
+                }
             } else if (UNMARKKEY.equals(userInputKey)){
-                Integer index = new Integer(userInputSplit[1]) - 1;
-                Task unMarkedTask = duke.markTaskById(index, false);
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(unMarkedTask);
+                try {
+                    Integer index = new Integer(userInputSplit[1]) - 1;
+                    Task unMarkedTask = duke.markTaskById(index, false);
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(unMarkedTask);
+                } catch (NumberFormatException e) {
+                    // Error when the user input mark key is not a number
+                    System.out.println("Please input a valid number. Example: \"unmark 1\"");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Current list only contains " + duke.getNumOfTasks() +" tasks, please input a number within the range.");
+                    System.out.println("Your task list is shown below: ");
+                    duke.listTask();
+                }
+
             }else if (userInputKey.equals(D_KEY) || userInputKey.equals(T_KEY) || userInputKey.equals(E_KEY)){
                 // add different type of tasks
-                Task task = duke.addTask(userInputKey, inputDetail, from, to);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(task);
-                System.out.println("Now you have "+ duke.getNumOfTasks() +" tasks in the list." );
-            } else {
-                System.out.println("Invalid instruction");
+                try {
+                    Task task = duke.addTask(userInputKey, inputDetail, from, to);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(task);
+                    System.out.println("Now you have "+ duke.getNumOfTasks() +" tasks in the list." );
+                } catch (WrongFormatException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public static void main(String[] args) {
+        Duke duke = new Duke();
+        duke.run(duke);
     }
 
     public void listTask() {
@@ -77,7 +150,7 @@ public class Duke {
         }
     }
 
-    public Task addTask(String key, String detail, String from, String to) {
+    public Task addTask(String key, String detail, String from, String to) throws WrongFormatException {
         Task task = null;
         switch (key) {
             case D_KEY:
@@ -89,6 +162,10 @@ public class Duke {
             case E_KEY:
                 task = new Event(false, detail, from, to);
                 break;
+        }
+        // Throw empty body exception if the added
+        if (task==null || detail.length() == 0) {
+            throw new WrongFormatException("The task body can not be empty. Please specify the task you want to add.");
         }
         inputArr.add(task);
         return task;
