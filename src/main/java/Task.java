@@ -28,7 +28,8 @@ public class Task {
         return this;
     }
 
+    @Override
     public String toString() {
-        return "[" +(isDone ? "X" : " ") + "] " + task;
+        return "[T][" +(isDone ? "X" : " ") + "] " + task;
     }
 }

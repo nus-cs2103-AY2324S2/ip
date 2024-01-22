@@ -2,6 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class Howie {
+
+    private static List<Task> tasks = new ArrayList<>();
+
     public static void printVLine() {
         System.out.println("------------------------------------");
     }
@@ -19,9 +22,11 @@ public class Howie {
         printVLine();
     }
 
-    public static void added(String item) {
+    public static void addToList(Task t) {
+        tasks.add(t);
         printVLine();
-        System.out.println("Ok! I've added: " + item);
+        System.out.println("Got it! Task has been added:\n" + t + "\nNow you have "
+                + tasks.size() + " tasks in the list.");
         printVLine();
     }
 
@@ -37,10 +42,12 @@ public class Howie {
     public static void main(String[] args) throws Exception {
         intro();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        List<Task> tasks = new ArrayList<>();
+
         while (true) {
             String[] input = br.readLine().split(" ");
             String s1 = input[0];
+            StringBuilder name;
+            StringBuilder current;
             switch (s1) {
                 case "list":
                     printAllTask(tasks);
@@ -72,13 +79,51 @@ public class Howie {
                         printVLine();
                     }
                     break;
-                default:
-                    StringBuilder item = new StringBuilder();
-                    for (String s : input) {
-                        item.append(s).append(" ");
+                case "deadline":
+                    name =  new StringBuilder();
+                    StringBuilder by =  new StringBuilder();
+                    current = name;
+                    int i = 1;
+                    for (; i<input.length; i++) {
+                        if (input[i].equals("/by")) {
+                            name = current;
+                            current = by;
+                            continue;
+                        }
+                        current.append(input[i]).append(" ");
                     }
-                    tasks.add(new Task(item.toString()));
-                    added(item.toString());
+                    by = current;
+                    Deadline dlTask = new Deadline(name.toString(), by.toString().trim());
+                    addToList(dlTask);
+                    break;
+                case "event":
+                    name =  new StringBuilder();
+                    StringBuilder from =  new StringBuilder();
+                    StringBuilder to =  new StringBuilder();
+                    current = name;
+                    i = 1;
+                    for (; i<input.length; i++) {
+                        if (input[i].equals("/from")) {
+                            name = current;
+                            current = from;
+                            continue;
+                        } else if (input[i].equals("/to")) {
+                            from = current;
+                            current = to;
+                            continue;
+                        }
+                        current.append(input[i]).append(" ");
+                    }
+                    Event eventTask = new Event(name.toString(), from.toString(), to.toString().trim());
+                    addToList(eventTask);
+                    break;
+                case "todo":
+                    name = new StringBuilder();
+                    for (int j=1; j<input.length; j++) {
+                        name.append(input[j]).append(" ");
+                    }
+                    Task todo = new Task(name.toString());
+                    addToList(todo);
                     break;
             }
             if (s1.equals("bye")) {
