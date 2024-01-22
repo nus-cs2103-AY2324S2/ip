@@ -13,14 +13,14 @@ public class Duke {
 
         // Create a scanner to read user input
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> userInputLog = new ArrayList<>();
+        ArrayList<Task> userInputLog = new ArrayList<>();
         boolean isAcceptingInput = true;
 
 
         while (isAcceptingInput) {
             // Print out a prompt for user input
             System.out.print("$ ");
-            String input = scanner.nextLine();
+            String input = scanner.next();
 
             System.out.println("____________________________________________________________");
             switch (input) {
@@ -33,9 +33,23 @@ public class Duke {
                         System.out.println(i + 1 + ". " + userInputLog.get(i));
                     }
                     break;
+                case "mark":
+                    int indexToMark = scanner.nextInt();
+                    userInputLog.get(indexToMark - 1).markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(userInputLog.get(indexToMark - 1));
+                    break;
+                case "unmark":
+                    int indexToUnmark = scanner.nextInt();
+                    userInputLog.get(indexToUnmark - 1).markAsNotDone();
+                    System.out.println("Nice! I've marked this task as undone:");
+                    System.out.println(userInputLog.get(indexToUnmark - 1));
+                    break;
                 default:
-                    userInputLog.add(input);
-                    System.out.println(input);
+                    String description = input + scanner.nextLine();
+                    Task task = new Task(description);
+                    userInputLog.add(task);
+                    System.out.println("added: " + description);
                     break;
             }
             System.out.println("____________________________________________________________");
