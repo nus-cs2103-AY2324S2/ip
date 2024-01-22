@@ -40,16 +40,16 @@ public class Duke {
     }
 
     public static String[] resolveInput(String input) {
-        return input.split("\\s+");
+        return input.split("\\s+", 2);
     }
 
     public static String retrieveCommand(String input) {
+        System.out.println(Arrays.toString(resolveInput(input)));
         return resolveInput(input)[0];
     }
 
-    public static String[] retrieveParameters(String input) {
-        String[] inputArrays = resolveInput(input);
-        return Arrays.copyOfRange(inputArrays, 1, inputArrays.length);
+    public static String retrieveParameters(String input) {
+        return resolveInput(input)[1];
     }
 
 
@@ -58,25 +58,26 @@ public class Duke {
         Paimon.greet();
         Scanner scanner = new Scanner(System.in);
         String command, input;
-        String[] parameters;
+        String parameters;
         while (true) {
             input = scanner.nextLine();
             command = retrieveCommand(input);
+            parameters = retrieveParameters(input);
             switch (command) {
                 case "list":
                     Paimon.listTasks();
                     break;
                 case "mark":
-                    parameters = retrieveParameters(input);
                     Paimon.markTaskAsDone(parameters);
                     break;
                 case "unmark":
-                    parameters = retrieveParameters(input);
                     Paimon.markTaskAsUndone(parameters);
                     break;
                 case "todo":
-                    parameters = retrieveParameters(input);
                     Paimon.addToDo(parameters);
+                    break;
+                case "deadline":
+                    Paimon.addDeadline(parameters);
                     break;
                 case "bye":
                     Paimon.bye();

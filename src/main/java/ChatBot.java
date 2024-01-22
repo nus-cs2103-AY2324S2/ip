@@ -144,24 +144,29 @@ public class ChatBot {
         System.out.println(taskToBeUnmarked);
     }
 
-    public void markTaskAsDone(String[] parameters) {
+    public void markTaskAsDone(String parameters) {
         // To add exception
-        this.markTaskAsDone(Integer.parseInt(parameters[0]));
+        this.markTaskAsDone(Integer.parseInt(parameters));
     }
 
-    public void markTaskAsUndone(String[] parameters) {
+    public void markTaskAsUndone(String parameters) {
         // To add exception
-        this.markTaskAsUndone(Integer.parseInt(parameters[0]));
+        this.markTaskAsUndone(Integer.parseInt(parameters));
     }
 
     public void addToDo(String description) {
         this.addTask(new ToDo(description));
     }
 
-    public void addToDo(String[] parameters) {
-        this.addToDo(String.join(" ", parameters));
+
+    public void addDeadline(String description, String by) {
+        this.addTask(new Deadline(description, by));
     }
 
+    public void addDeadline(String parameters) {
+        String[] parametersArr = parameters.split(" /by ");
+        this.addDeadline(parametersArr[0], parametersArr[1]);
+    }
     public List<Task> getTasks() {
         return tasks;
     }
