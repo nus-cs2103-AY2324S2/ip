@@ -13,10 +13,6 @@ public enum Command {
      */
     LIST,
     /**
-     * Adds a generic task
-     */
-    ADD,
-    /**
      * Mark the task as done
      */
     MARK,

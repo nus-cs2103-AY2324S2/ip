@@ -61,9 +61,6 @@ public class ChatBot {
      */
     private void executeAction(Action action) {
         switch (action.getCommand()) {
-            case ADD:
-                addTask(action);
-                break;
             case LIST:
                 listCommand();
                 break;
@@ -86,15 +83,6 @@ public class ChatBot {
                 invalidCommand();
                 break;
         }
-    }
-
-    /**
-     * Add a task to the user's list.
-     * @param action the action of the task to perform
-     */
-    private void addTask(Action action) {
-        userList.addTask(action.findDefaultArgument());
-        printAddMessage();
     }
 
     /**
