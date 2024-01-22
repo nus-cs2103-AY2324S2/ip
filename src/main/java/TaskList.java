@@ -8,7 +8,8 @@ public class TaskList {
     }
 
     public Task getTask(int idx) {
-        return this.tasks.get(idx);
+        // 1-based indexing
+        return this.tasks.get(idx - 1);
     }
 
     public void addTask(Task task) {
@@ -18,10 +19,11 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            String title = String.format("%d. %s", i+1, this.tasks.get(i).getTitle());
+        for (int i = 1; i <= this.tasks.size(); i++) {
+            Task task = getTask(i);
+            String title = String.format("%d. %s", i+1, task.toString());
             // do not add new line when for last task in list
-            if (i == this.tasks.size() - 1) {
+            if (i == this.tasks.size()) {
                 stringBuilder.append(title); 
             } else {
                 stringBuilder.append(title + "\n");

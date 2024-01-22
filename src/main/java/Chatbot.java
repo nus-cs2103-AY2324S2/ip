@@ -30,7 +30,21 @@ public class Chatbot {
     public void addTask(String userInput) {
         Task task = new Task(userInput);
         this.taskList.addTask(task);
-        print("Added: " + task);
+        print("Added Task: " + task.getTitle());
+    }
+
+    public void markTask(int taskIdx) {
+        Task task = this.taskList.getTask(taskIdx);
+        task.setMarked();
+        String[] messages = {"Marked task as done:", task.toString()};
+        print(messages);
+    }
+
+    public void unmarkTask(int taskIdx) {
+        Task task = this.taskList.getTask(taskIdx);
+        task.setUnmarked();
+        String[] messages = {"Unmarked task as not done:", task.toString()};
+        print(messages);
     }
 
     public void displayTasks() {
@@ -38,6 +52,6 @@ public class Chatbot {
     }
 
     public void exit() {
-        print(" Bye. Hope to see you again soon!");
+        print("Goodbye!");
     }
 }
