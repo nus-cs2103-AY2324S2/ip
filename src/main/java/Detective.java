@@ -1,6 +1,5 @@
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.SimpleTimeZone;
 
 public class Detective {
     public static void main(String[] args) {
