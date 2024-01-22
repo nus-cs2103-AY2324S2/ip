@@ -8,44 +8,42 @@ Hello from
 ===================================
 
   <<Duke Leto>>
-   >> I don't know what you are asking!
+   >> Supported commands:
+  list     -  list all tasks
+  mark     -  mark task as done
+                usage: mark <index>
+  unmark   -  unmark task as done, :(
+                usage: unmark <index>
+  todo     -  create a task of type todo 
+                usage: todo <details>
+  deadline -  create a task of type deadline
+                usage: event <details> /by <end_time>
+  event    -  create a task of type event    
+                usage: event <details> /from <start_time> /to <end_time>
+  bye      -  exit
   <<Duke Leto>>
-   >> I don't know what you are asking!
+   >> Supported commands:
+  list     -  list all tasks
+  mark     -  mark task as done
+                usage: mark <index>
+  unmark   -  unmark task as done, :(
+                usage: unmark <index>
+  todo     -  create a task of type todo 
+                usage: todo <details>
+  deadline -  create a task of type deadline
+                usage: event <details> /by <end_time>
+  event    -  create a task of type event    
+                usage: event <details> /from <start_time> /to <end_time>
+  bye      -  exit
   << Duke Leto >>
-  > Task added, [T][ ] todo Finish level-7
+  > Task added, [[T][ ] todo Finish level-7]
   > You have 1 tasks.
   << Duke Leto >>
-  > Task added, [D][ ] Apply grants (by: 25 Jan 2024)
+  > Task added, [[D][ ] Apply grants (by: 25 Jan 2024)]
   > You have 2 tasks.
   << Duke Leto >>
   > Task marked as completed! Congratulations
-  << Duke Leto >>
-  > Task already completed
+  <<Duke Leto>>
+   >> We have a problem! Task already completed
   << Duke Leto >>
   > Task marked as uncompleted! Things happen, dont worry we account for it
-  << Duke Leto >>
-  > Task already not completed (╬▔皿▔)╯
-  << Duke Leto >>
-  > Harkonnens! java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
-
-  << Duke Leto >> 
-  ┌ < Task list >
-  ├ 1: [T][ ] todo Finish level-7
-  ├ 2: [D][ ] Apply grants (by: 25 Jan 2024)
-  └─ end of list
-
-  << Duke Leto >>
-  > The task is empty!
-  <<Duke Leto>>
-   >> I don't know what you are asking!
-
-  << Duke Leto >> 
-  ┌ < Task list >
-  ├ 1: [T][ ] todo Finish level-7
-  ├ 2: [D][ ] Apply grants (by: 25 Jan 2024)
-  └─ end of list
-
-  <<Duke Leto>>
-   >> I don't know what you are asking!
-  <<Duke Leto>>
-  > I bid you farewell
