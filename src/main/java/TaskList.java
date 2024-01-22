@@ -69,6 +69,18 @@ public class TaskList {
         }
     }
 
+    public void delete(int taskNumber, PrintList printList) {
+        try {
+            Task removedTask = this.list.get(taskNumber - 1);
+            this.list.remove(taskNumber - 1);
+            printList.add("This task is now removed:");
+            printList.add(removedTask.toString());
+            printList.add(String.format("Now you have %d tasks in the list.", this.list.size()));
+        } catch(IndexOutOfBoundsException e) {
+            printList.add("The number is not in this list!");
+        }
+    }
+
     public void changeMark(String markStatus, int taskNumber, PrintList printList) {
         try {
             if (markStatus.equalsIgnoreCase("mark")) {

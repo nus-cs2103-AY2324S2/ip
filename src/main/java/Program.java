@@ -38,11 +38,11 @@ public class Program {
             input.toLowerCase().equals("event")) {
                 String task = this.userInputScanner.nextLine();
                 this.taskList.addTask(input, task, this.printList);
-
+        } else if (input.toLowerCase().equals("delete")) {
+            int taskNumber = this.userInputScanner.nextInt();
+            this.taskList.delete(taskNumber, printList);
         } else {
-            //input += this.userInputScanner.nextLine();
-            //receiveInput = this.taskList.addTask(input);
-            //this.textFormat(receiveInput);
+            printList.add("Sorry I don't recognize that command :/");
         }
         this.printList.print();
 
