@@ -1,26 +1,35 @@
+import java.util.Scanner;
+
 public class Duke {
 
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
-
         String name = "Fluffy";
 
-        // print out a solid line
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm " + name + ".");
         System.out.println("What can I do for you?");
-
-        // print out a solid line
         System.out.println("____________________________________________________________");
 
-        // print out a goodbye message
+        // Create a scanner to read user input
+        Scanner scanner = new Scanner(System.in);
+
+        // While loop for echoing input until user input is "bye"
+        while (true) {
+            // Print out a prompt for user input
+            System.out.print("Enter command: ");
+            String input = scanner.nextLine();
+
+            if (input.equals("bye")) {
+                break;
+            } else {
+                System.out.println("____________________________________________________________");
+                System.out.println(input);
+                System.out.println("____________________________________________________________");
+            }
+        }
+
+        System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
-        // print out a solid line
         System.out.println("____________________________________________________________");
     }
 }
