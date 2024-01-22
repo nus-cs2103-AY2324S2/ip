@@ -15,6 +15,12 @@ public class Task {
         return this.description;
     }
 
+    @Override
+    public String toString() {
+        String str = String.format("[%s] %s", this.getStatusIcon(), this.description);
+        return str;
+    }
+
     public void toggle() {
         this.isDone = !this.isDone;
     }
