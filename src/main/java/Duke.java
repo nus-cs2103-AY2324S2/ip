@@ -53,6 +53,24 @@ class Task {
         return "OK, I've marked this task as not done yet: \n " + "[" + this.type + "][" + getStatusIcon() + "] " + description;
     }
 
+    public static void deleteTask(int index, ArrayList<Task> arr) throws DukeException {
+        if (index < 0 || index >= arr.size()) {
+            throw new DukeException("You have not created task " + (index + 1) + " for me to delete!");
+        }
+        Task removedTask = arr.remove(index);
+        String taskDetails = "Noted. I've removed this task:\n" +
+                "[" + removedTask.type + "][" + removedTask.getStatusIcon() + "] " + removedTask.getDescription();
+        if (removedTask instanceof Deadline) {
+            Deadline deadlineTask = (Deadline) removedTask;
+           taskDetails += " (by: " + deadlineTask.by + ")";
+        } else if (removedTask instanceof Event) {
+            Event eventTask = (Event) removedTask;
+            taskDetails += " (from: " + eventTask.from + " to: " + eventTask.to + ")";
+        }
+
+        System.out.println(taskDetails);
+    }
+
     public static void getList(ArrayList < Task > arr) throws DukeException {
         for (int i = 0; i < arr.size(); i++) {
             Task task = arr.get(i);
@@ -204,7 +222,19 @@ public class Duke {
                     }
                 }
                 System.out.println("-------------------------------");
-            } else if (words[0].equalsIgnoreCase("todo")) {
+            } else if (words[0].equalsIgnoreCase("delete") && words.length > 1) {
+                System.out.println("-------------------------------");
+                int index = Integer.parseInt(words[1]) - 1;
+
+                    try {
+                        Task.deleteTask(index, tasks);
+                        Task.numberOfTasks(tasks);
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    System.out.println("-------------------------------");
+
+        } else if (words[0].equalsIgnoreCase("todo")) {
                 System.out.println("-------------------------------");
                 try {
                     if (words.length == 1) {
@@ -236,8 +266,8 @@ public class Duke {
             } else if (words[0].equalsIgnoreCase("event")) {
                 System.out.println("-------------------------------");
                 try {
-                    Matcher fromMatcher = Pattern.compile("/from\\s+(\\S+)").matcher(input);
-                    Matcher toMatcher = Pattern.compile("/to\\s+(\\S+)").matcher(input);
+                    Matcher fromMatcher = Pattern.compile("/from\\s+(\\S+[^/]+)").matcher(input);
+                    Matcher toMatcher = Pattern.compile("/to\\s+(\\S.+)").matcher(input);
                     String eventDescription = "";
 
                     if (words.length > 1) {
