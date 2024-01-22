@@ -3,6 +3,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Dude {
+    enum ParameterTypes {
+        INTEGER,
+        STRING
+    }
     static final String spacer = "____________________________________________________________\n";
     static final String name = "Dude";
     private ArrayList<Task> list = new ArrayList<>();
@@ -60,9 +64,9 @@ public class Dude {
         return true;
     }
 
-    private static boolean formatParameters(ArrayList<Object> foramttedParameters, ArrayList<String> parameters, String[] formats) {
+    private static boolean formatParameters(ArrayList<Object> foramttedParameters, ArrayList<String> parameters, ParameterTypes[] formats) {
         for (int i = 0; i < formats.length; i++) {
-            if (formats[i].equals("int")) {
+            if (formats[i] == ParameterTypes.INTEGER) {
                 if (isNumeric(parameters.get(i))) foramttedParameters.add(Integer.parseInt(parameters.get(i)));
                 else {
                     print("Format of " + parameters.get(i) + " is not an integer\n");
@@ -146,28 +150,48 @@ public class Dude {
                     break;
                 case "mark":
                     if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
-                    if (!formatParameters(formattedParameters, parameters, new String[]{"int"})) continue;
+                    if (!formatParameters(
+                            formattedParameters,
+                            parameters,
+                            new ParameterTypes[]{ParameterTypes.INTEGER})
+                    ) continue;
                     dude.mark((int) formattedParameters.get(0) - 1);
                     break;
                 case "unmark":
                     if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
-                    if (!formatParameters(formattedParameters, parameters, new String[]{"int"})) continue;
+                    if (!formatParameters(
+                            formattedParameters,
+                            parameters,
+                            new ParameterTypes[]{ParameterTypes.INTEGER})
+                    ) continue;
                     dude.unmark((int) formattedParameters.get(0) - 1);
                     break;
                 case "delete":
                     if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
-                    if (!formatParameters(formattedParameters, parameters, new String[]{"int"})) continue;
+                    if (!formatParameters(
+                            formattedParameters,
+                            parameters,
+                            new ParameterTypes[]{ParameterTypes.INTEGER})
+                    ) continue;
                     dude.delete((int) formattedParameters.get(0) - 1);
                     break;
                 case "todo":
                     if (!getParameters(parameters, command, new String[]{"description"}, ipArgs)) continue;
-                    if (!formatParameters(formattedParameters, parameters, new String[]{"str"})) continue;
+                    if (!formatParameters(
+                            formattedParameters,
+                            parameters,
+                            new ParameterTypes[]{ParameterTypes.STRING})
+                    ) continue;
                     Todo todo = new Todo((String) formattedParameters.get(0));
                     dude.add(todo);
                     break;
                 case "deadline": {
                     if (!getParameters(parameters, command, new String[]{"description", "by"}, ipArgs)) continue;
-                    if (!formatParameters(formattedParameters, parameters, new String[]{"str", "str"})) continue;
+                    if (!formatParameters(
+                            formattedParameters,
+                            parameters,
+                            new ParameterTypes[]{ParameterTypes.STRING, ParameterTypes.STRING})
+                    ) continue;
                     Deadline deadline = new Deadline(
                             (String) formattedParameters.get(0),
                             (String) formattedParameters.get(1));
@@ -176,7 +200,11 @@ public class Dude {
                 }
                 case "event": {
                     if (!getParameters(parameters, command, new String[]{"description", "from", "to"}, ipArgs)) continue;
-                    if (!formatParameters(formattedParameters, parameters, new String[]{"str", "str", "str"})) continue;
+                    if (!formatParameters(
+                            formattedParameters,
+                            parameters,
+                            new ParameterTypes[]{ParameterTypes.STRING, ParameterTypes.STRING, ParameterTypes.STRING})
+                    ) continue;
                     Event event = new Event(
                             (String) formattedParameters.get(0),
                             (String) formattedParameters.get(1),
