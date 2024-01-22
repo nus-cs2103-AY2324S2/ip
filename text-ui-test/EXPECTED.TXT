@@ -3,5 +3,49 @@ Hello from
 |  _ \ _   _| | _____ 
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+|____/ \__,_|_|\_\___|   Leto
 
+===================================
+
+  <<Duke Leto>>
+   >> I don't know what you are asking!
+  <<Duke Leto>>
+   >> I don't know what you are asking!
+  << Duke Leto >>
+  > Task added, [T][ ] todo Finish level-7
+  > You have 1 tasks.
+  << Duke Leto >>
+  > Task added, [D][ ] Apply grants (by: 25 Jan 2024)
+  > You have 2 tasks.
+  << Duke Leto >>
+  > Task marked as completed! Congratulations
+  << Duke Leto >>
+  > Task already completed
+  << Duke Leto >>
+  > Task marked as uncompleted! Things happen, dont worry we account for it
+  << Duke Leto >>
+  > Task already not completed (╬▔皿▔)╯
+  << Duke Leto >>
+  > Harkonnens! java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+
+  << Duke Leto >> 
+  ┌ < Task list >
+  ├ 1: [T][ ] todo Finish level-7
+  ├ 2: [D][ ] Apply grants (by: 25 Jan 2024)
+  └─ end of list
+
+  << Duke Leto >>
+  > The task is empty!
+  <<Duke Leto>>
+   >> I don't know what you are asking!
+
+  << Duke Leto >> 
+  ┌ < Task list >
+  ├ 1: [T][ ] todo Finish level-7
+  ├ 2: [D][ ] Apply grants (by: 25 Jan 2024)
+  └─ end of list
+
+  <<Duke Leto>>
+   >> I don't know what you are asking!
+  <<Duke Leto>>
+  > I bid you farewell
