@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -11,7 +12,7 @@ public class Duke {
 
         // read input
         Scanner sc = new Scanner(System.in);
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<Task>();
         int listIdx = 0;
 
         // user input
@@ -30,19 +31,26 @@ public class Duke {
                     break;
                 } else if (inputArr[0].equals("list")) {
                     System.out.println(horizontalLine + "\nHere are the tasks in your list:\n");
-                    for (int i = 0; i < listIdx; i++) {
-                        System.out.println(String.format("%d. %s", i+1, taskList[i].toString()));
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.println(String.format("%d. %s", i+1, taskList.get(i).toString()));
                     }
                     System.out.println(horizontalLine);
-                } else if (inputArr[0].equals("mark") || inputArr[0].equals("unmark")) {
+                } else if (inputArr[0].equals("mark") || inputArr[0].equals("unmark") || inputArr[0].equals("delete")) {
                     int taskNumber = Integer.parseInt(inputArr[1]) - 1;
 
                     if (inputArr[0].equals("mark")) {
-                        taskList[taskNumber].isCompleted();
-                        System.out.println(String.format("%s\nGood job! I'll mark this task as done:\n\t%s\n%s", horizontalLine, taskList[taskNumber].toString(), horizontalLine));    
-                    } else {
-                        taskList[taskNumber].isNotCompleted();
-                        System.out.println(String.format("%s\nAlright, I believe you'll get this done eventually:\n%s\n%s", horizontalLine, taskList[taskNumber].toString(), horizontalLine));
+                        taskList.get(taskNumber).isCompleted();
+                        System.out.println(String.format("%s\nGood job! Dave will mark this task as done:\n\t%s\n%s", horizontalLine, taskList.get(taskNumber).toString(), horizontalLine));    
+                    }
+                    if (inputArr[0].equals("unmark")) {
+                        taskList.get(taskNumber).isNotCompleted();
+                        System.out.println(String.format("%s\nAlright, Dave believes you'll get this done eventually:\n%s\n%s", horizontalLine, taskList.get(taskNumber).toString(), horizontalLine));
+                    }
+                    if (inputArr[0].equals("delete")) {
+                        Task toDelete = taskList.get(taskNumber);
+                        taskList.remove(taskNumber);
+                        System.out.println(String.format("%s\nDave has removed the task:\n%s", horizontalLine, toDelete.toString()));
+                        System.out.println(String.format("\nYou now have %d task(s).\n%s", taskList.size(), horizontalLine));
                     }
                 } else if (inputArr[0].equals("todo") || inputArr[0].equals("deadline") || inputArr[0].equals("event")) {
                     Task newTask = new Task(input);
@@ -66,9 +74,8 @@ public class Duke {
                         newTask = new Event(taskName, from, to);
                     }
                     // Task newTask = new Task(input);
-                    taskList[listIdx] = newTask;
-                    listIdx++;
-                    System.out.println(String.format("%s\nDave added the task:\n  %s\nYou now have %d task(s).\n%s", horizontalLine, newTask.toString(), listIdx, horizontalLine));
+                    taskList.add(newTask);
+                    System.out.println(String.format("%s\nDave added the task:\n  %s\nYou now have %d task(s).\n%s", horizontalLine, newTask.toString(), taskList.size(), horizontalLine));
                 } else {
                     throw new InvalidInputException();
                 }
