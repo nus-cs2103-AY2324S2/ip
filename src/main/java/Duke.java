@@ -45,6 +45,34 @@ public class Duke {
                     System.out.println("Nice! I've marked this task as undone:");
                     System.out.println(userInputLog.get(indexToUnmark - 1));
                     break;
+                case "deadline":
+                    String deadlineDescription = scanner.nextLine();
+                    String[] deadlineDescriptionArray = deadlineDescription.split(" /by ");
+                    Task deadlineTask = new Deadline(deadlineDescriptionArray[0], deadlineDescriptionArray[1]);
+                    userInputLog.add(deadlineTask);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(deadlineTask);
+                    System.out.println("Now you have " + userInputLog.size() + " tasks in the list.");
+                    break;
+                case "event":
+                    String eventDescription = scanner.nextLine();
+                    String[] eventDescriptionArray = eventDescription.split(" /from ");
+                    String eventTitle = eventDescriptionArray[0];
+                    eventDescriptionArray = eventDescriptionArray[1].split(" /to ");
+                    Task eventTask = new Event(eventTitle, eventDescriptionArray[0], eventDescriptionArray[1]);
+                    userInputLog.add(eventTask);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(eventTask);
+                    System.out.println("Now you have " + userInputLog.size() + " tasks in the list.");
+                    break;
+                case "todo":
+                    String todoDescription = scanner.nextLine();
+                    Task todoTask = new Todo(todoDescription);
+                    userInputLog.add(todoTask);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(todoTask);
+                    System.out.println("Now you have " + userInputLog.size() + " tasks in the list.");
+                    break;
                 default:
                     String description = input + scanner.nextLine();
                     Task task = new Task(description);
