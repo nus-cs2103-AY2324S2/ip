@@ -1,7 +1,50 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm MichelleBot! What can I do for you?
+Type in text to add in a task to your list
+Other commands:
+mark [input number] - mark a task as done
+unmark [input number] - unmark a task as undone
+list - list out the current tasks you have
+bye - exit the program 
+____________________________________________________________
+I've added in this task: read book
 
+Now you have 1 tasks in the list.
+____________________________________________________________
+Roger that! I've added in this task:
+ [T][ ] borrow book
+Now you have 2 tasks in the list.
+____________________________________________________________
+Roger that! I've added in this task:
+ [D][ ] return book (by: Sunday)
+Now you have 3 tasks in the list.
+____________________________________________________________
+Roger that! I've added in this task:
+ [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 4 tasks in the list.
+____________________________________________________________
+1. [ ] read book
+2. [T][ ] borrow book
+3. [D][ ] return book (by: Sunday)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+I've marked this task as done: 
+[X] read book
+____________________________________________________________
+I've marked this task as done: 
+[T][X] borrow book
+____________________________________________________________
+1. [X] read book
+2. [T][X] borrow book
+3. [D][ ] return book (by: Sunday)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+I've marked this task as not done yet: 
+[ ] read book
+____________________________________________________________
+1. [ ] read book
+2. [T][X] borrow book
+3. [D][ ] return book (by: Sunday)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+Bye. Hope to see you again soon! \(^-^)/ 
+____________________________________________________________
