@@ -15,10 +15,12 @@ public class CommandExecutor {
             String inputs = sc.nextLine();
             if (inputs.equals("bye")) {
                 bye = true;
+            } else if (inputs.equals("list")) {
+                TextList.printList();
+            } else {
+                TextList.addToList(inputs);
             }
-            System.out.println("   ┌" + "─".repeat(inputs.length()) + "┐");
-            System.out.println("    " + inputs);
-            System.out.println("   └" + "─".repeat(inputs.length()) + "┘");
+
         }
 
         System.out.println("I bid you farewell");
