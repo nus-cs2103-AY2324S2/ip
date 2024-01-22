@@ -18,7 +18,7 @@ public class Duke {
         greetController.execute();
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                System.out.print("Enter a command: ");
+                System.out.print("Enter a command:\n");
                 String input = scanner.nextLine();
 
                 if (input.equals("bye")) {
