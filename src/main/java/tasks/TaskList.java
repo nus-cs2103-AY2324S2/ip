@@ -1,6 +1,8 @@
 package tasks;
 
 import java.util.ArrayList;
+import errors.Errors;
+import errors.InvalidBanterUsageError;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -39,11 +41,19 @@ public class TaskList {
         return sb.toString();
     }
 
-    public String markTaskAsDone(int taskNumber) {
-        return taskList.get(taskNumber - 1).markAsDone();
+    public String markTaskAsDone(int taskNumber) throws InvalidBanterUsageError {
+        try {
+            return taskList.get(taskNumber - 1).markAsDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw Errors.InvalidMarkTaskNumberError;
+        }
     }
 
-    public String markTaskAsUndone(int taskNumber) {
-        return taskList.get(taskNumber - 1).markAsUndone();
+    public String markTaskAsUndone(int taskNumber) throws InvalidBanterUsageError {
+        try {
+            return taskList.get(taskNumber - 1).markAsUndone();
+        } catch(IndexOutOfBoundsException e) {
+            throw Errors.InvalidUnmarkTaskNumberError;
+        }
     }
 }

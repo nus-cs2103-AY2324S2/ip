@@ -1,5 +1,3 @@
-import messages.Responses;
-
 public class Banter {
     private Responses responses = new Responses();
 

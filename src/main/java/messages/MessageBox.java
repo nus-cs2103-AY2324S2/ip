@@ -1,12 +1,12 @@
 package messages;
 
-class MessageBox {  // default access modifier
+public class MessageBox {
     private String message;
     private String smallSpace = "    ";
     private String bigSpace = "     ";
     private String line = "____________________________________________________________";
 
-    MessageBox(String message) {  // default access modifier
+    public MessageBox(String message) {
         this.message = message;
         indentMessageBody();
     }
@@ -19,7 +19,7 @@ class MessageBox {  // default access modifier
         message = String.join("\n", lines);
     }
 
-    void print() {  // default access modifier
+    public void print() {
         System.out.println(smallSpace + line);
         System.out.println(message);
         System.out.println(smallSpace + line);

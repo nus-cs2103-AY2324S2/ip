@@ -1,7 +1,9 @@
-package messages;
-
+import errors.InvalidBanterUsageError;
+import messages.MessageBox;
 import tasks.TaskList;
 import java.util.Scanner;
+import errors.Errors;
+import errors.InvalidBanterUsageError;
 
 public class Responses {
     private TaskList taskList = new TaskList();
@@ -42,31 +44,43 @@ public class Responses {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            CommandType command = CommandType.valueOf(Parser.getCommandType(input));
-            switch (command) {
-                case BYE:
-                    printExitMessage();
-                    return;
-                case LIST:
-                    printTaskListMessage();
-                    break;
-                case MARK:
-                    markTaskAsDoneAndPrintMessage(input);
-                    break;
-                case UNMARK:
-                    markTaskAsUndoneAndPrintMessage(input);
-                    break;
-                case TODO:
-                    addTodoAndPrintMessage(input);
-                    break;
-                case DEADLINE:
-                    addDeadlineAndPrintMessage(input);
-                    break;
-                case EVENT:
-                    addEventAndPrintMessage(input);
-                    break;
-                default:
-                    // TODO: handle invalid command
+
+            try {
+                CommandType command = null;
+                try {
+                    command = CommandType.valueOf(Parser.getCommandType(input));
+                } catch (IllegalArgumentException e) {
+                    throw Errors.InvalidCommandError;
+                }
+
+                switch (command) {
+                    case BYE:
+                        printExitMessage();
+                        return;
+                    case LIST:
+                        printTaskListMessage();
+                        break;
+                    case MARK:
+                        markTaskAsDoneAndPrintMessage(input);
+                        break;
+                    case UNMARK:
+                        markTaskAsUndoneAndPrintMessage(input);
+                        break;
+                    case TODO:
+                        addTodoAndPrintMessage(input);
+                        break;
+                    case DEADLINE:
+                        addDeadlineAndPrintMessage(input);
+                        break;
+                    case EVENT:
+                        addEventAndPrintMessage(input);
+                        break;
+                    default:
+                        throw Errors.InvalidCommandError;
+                }
+            } catch (InvalidBanterUsageError e) {
+                MessageBox errorMessage = new MessageBox(e.getMessage());
+                errorMessage.print();
             }
         }
     }
@@ -76,14 +90,14 @@ public class Responses {
         taskListMessage.print();
     }
 
-    private void addTodoAndPrintMessage(String input) {
+    private void addTodoAndPrintMessage(String input) throws InvalidBanterUsageError {
         MessageBox taskAddedMessage = new MessageBox(
                 taskList.addTodo(
                         Parser.getTodoDescription(input)));
         taskAddedMessage.print();
     }
 
-    private void addDeadlineAndPrintMessage(String input) {
+    private void addDeadlineAndPrintMessage(String input) throws InvalidBanterUsageError {
         MessageBox taskAddedMessage = new MessageBox(
                 taskList.addDeadline(
                         Parser.getDeadlineDescription(input),
@@ -91,7 +105,7 @@ public class Responses {
         taskAddedMessage.print();
     }
 
-    private void addEventAndPrintMessage(String input) {
+    private void addEventAndPrintMessage(String input) throws InvalidBanterUsageError {
         MessageBox taskAddedMessage = new MessageBox(
                 taskList.addEvent(
                         Parser.getEventDescription(input),
@@ -100,17 +114,17 @@ public class Responses {
         taskAddedMessage.print();
     }
 
-    private void markTaskAsDoneAndPrintMessage(String input) {
+    private void markTaskAsDoneAndPrintMessage(String input) throws InvalidBanterUsageError {
         MessageBox taskDoneMessage = new MessageBox(
                 taskList.markTaskAsDone(
-                        Parser.getTaskNumber(input)));
+                        Parser.getMarkTaskNumber(input)));
         taskDoneMessage.print();
     }
 
-    private void markTaskAsUndoneAndPrintMessage(String input) {
+    private void markTaskAsUndoneAndPrintMessage(String input) throws InvalidBanterUsageError {
         MessageBox taskUndoneMessage = new MessageBox(
                 taskList.markTaskAsUndone(
-                        Parser.getTaskNumber(input)));
+                        Parser.getUnmarkTaskNumber(input)));
         taskUndoneMessage.print();
     }
 }
