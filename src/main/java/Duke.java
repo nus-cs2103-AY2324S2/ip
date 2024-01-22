@@ -47,9 +47,15 @@ public class Duke {
             "_________________________\n";
           System.out.println(print_out);
         } else {
-          boolean valid = true;
           Task event = null;
-          String[] data = extractDescriptionData(current_input_split);
+          String[] data;
+          try {
+            data = extractDescriptionData(current_input_split);
+          } catch (InvalidInputException e) {
+            System.out.println("That's not a valid input :(");
+            System.out.println(e.getMessage());
+            continue;
+          }
           if (data.length == 0) {
             System.out.println("invalid data");
           }
@@ -71,14 +77,11 @@ public class Duke {
             default:
 
           }
-          if (valid) {
-            String to_print = "_________________________\n" +
-              "added: " + event.getFullStatus() + "\n" +
-              "_________________________\n" +
-              "Now you have " + history.size() + " items in your list!\n";
-            System.out.println(to_print);
-          }
-          valid = true;
+          String to_print = "_________________________\n" +
+            "added: " + event.getFullStatus() + "\n" +
+            "_________________________\n" +
+            "Now you have " + history.size() + " items in your list!\n";
+          System.out.println(to_print);
         }
       }
 
@@ -89,7 +92,8 @@ public class Duke {
       sc.close();
     }
 
-    public static String[] extractDescriptionData(String[] descriptionArray) {
+    public static String[] extractDescriptionData(String[] descriptionArray) throws
+      InvalidInputException {
       String[] ret = new String[3];
       String task_desc;
       switch(descriptionArray[0]) {
@@ -99,7 +103,7 @@ public class Duke {
           ret[0] = task_desc;
           break;
         case "event":
-          Integer start_idx = null; Integer end_idx = null;
+          Integer start_idx = -1; Integer end_idx = -1;
           for (int i = 0; i < descriptionArray.length; i++) {
             if (descriptionArray[i].equals("/from")) {
               start_idx = i;
@@ -108,8 +112,8 @@ public class Duke {
               end_idx = i;
             }
           }
-          if (start_idx.equals(null) || end_idx.equals(null)) { // we cannot find start or end.
-            return ret;
+          if (start_idx.equals(-1) || end_idx.equals(-1)) { // we cannot find start or end.
+            throw new InvalidParametersException();
           }
           task_desc = String.join(" ",
             Arrays.copyOfRange(descriptionArray, 1, start_idx));
@@ -120,14 +124,14 @@ public class Duke {
           ret[0] = task_desc; ret[1] = start; ret[2] = end;
           break;
         case "deadline":
-          start_idx = null;
+          start_idx = -1;
           for (int i = 0; i < descriptionArray.length; i++) {
             if (descriptionArray[i].equals("/by")) { // we cannot find by event.
               start_idx = i;
             }
           }
-          if (start_idx.equals(null)) {
-            return ret;
+          if (start_idx.equals(-1)) {
+            throw new InvalidParametersException();
           }
           task_desc = String.join(" ",
             Arrays.copyOfRange(descriptionArray, 1, start_idx));
@@ -135,6 +139,8 @@ public class Duke {
             Arrays.copyOfRange(descriptionArray, start_idx + 1, descriptionArray.length));
           ret[0] = task_desc; ret[1] = start;
           break;
+        default:
+          throw new InvalidTaskException();
       }
       return ret;
     }
