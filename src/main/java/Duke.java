@@ -12,9 +12,9 @@ public class Duke {
                 "\t Bye. Hope to see you again soon!\n" +
                 lineTxt;
         String listingTxt = "\tHere are the tasks in your list:\n";
-        String markTxt = "\t" + "Nice! I've marked this task as done:\n";
-        String unmarkTxt = "\t" + "OK, I've marked this task as not done yet:\n";
-
+        String markTxt = "\tNice! I've marked this task as done:\n";
+        String unmarkTxt = "\tOK, I've marked this task as not done yet:\n";
+        String addTaskTxt = "\tGot it. I've added this task:\n";
 
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
@@ -24,7 +24,8 @@ public class Duke {
         System.out.println(introTxt);
 
         while (!exit) {
-            String cmd = sc.nextLine();
+            String fullCmd = sc.nextLine();
+            String cmd = fullCmd.split(" ")[0];
 
             // command bye to exit bot
             if(cmd.equals("bye")) {
@@ -42,8 +43,8 @@ public class Duke {
             }
 
             // command mark to check task
-            else if (cmd.substring(0, Math.min(cmd.length(), 5)).equals("mark ")) {
-                int updateIndex = Integer.parseInt(cmd.split(" ")[1]);
+            else if (cmd.equals("mark")) {
+                int updateIndex = Integer.parseInt(fullCmd.split(" ")[1]);
                 if (updateIndex <= numItems) store[updateIndex - 1].mark();
                 System.out.println(
                         lineTxt + markTxt +
@@ -53,8 +54,8 @@ public class Duke {
             }
 
             // command unmark to uncheck task
-            else if (cmd.substring(0, Math.min(cmd.length(), 7)).equals("unmark ")) {
-                int updateIndex = Integer.parseInt(cmd.split(" ")[1]);
+            else if (cmd.equals("unmark")) {
+                int updateIndex = Integer.parseInt(fullCmd.split(" ")[1]);
                 if (updateIndex <= numItems) store[updateIndex - 1].unmark();
                 System.out.println(
                         lineTxt + unmarkTxt +
@@ -64,11 +65,51 @@ public class Duke {
             }
 
             // else add new task
-            else {
-                store[numItems++] = new Task(cmd);
+            else if (cmd.equals("todo")) {
+                Task newTask = new ToDo(fullCmd.substring(5));
+                store[numItems++] = newTask;
                 System.out.println(
-                        lineTxt + "\t" + "added: " + cmd + "\n" + lineTxt
+                        lineTxt + addTaskTxt +
+                                "\t\t" + newTask + "\n"
+                        + "\tNow you have " +
+                                numItems + " tasks in the list.\n"
+                                + lineTxt
                 );
+            }
+
+            else if (cmd.equals("deadline")) {
+                String name = fullCmd.substring(9)
+                        .split("/")[0];
+                String dueDate = fullCmd.split("/")[1].substring(3);
+                Task newTask = new Deadline(name, dueDate);
+                store[numItems++] = newTask;
+                System.out.println(
+                        lineTxt + addTaskTxt +
+                                "\t\t" + newTask + "\n"
+                                + "\tNow you have " +
+                                numItems + " tasks in the list.\n"
+                                + lineTxt
+                );
+            }
+
+            else if (cmd.equals("event")) {
+                String name = fullCmd.substring(6)
+                        .split("/")[0];
+                String start = fullCmd.split("/")[1].substring(5);
+                String end = fullCmd.split("/")[2].substring(3);
+                Task newTask = new Event(name, start, end);
+                store[numItems++] = newTask;
+                System.out.println(
+                        lineTxt + addTaskTxt +
+                                "\t\t" + newTask + "\n"
+                                + "\tNow you have " +
+                                numItems + " tasks in the list.\n"
+                                + lineTxt
+                );
+            }
+
+            else {
+                System.out.println("Invalid Command");
             }
         }
     }
