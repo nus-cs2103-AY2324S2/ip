@@ -65,22 +65,22 @@ public class ChatBot {
                 addTask(action);
                 break;
             case LIST:
-                listTasks();
+                listCommand();
                 break;
             case MARK:
-                markTask(action);
+                markCommand(action);
                 break;
             case UNMARK:
-                unmarkTask(action);
+                unmarkCommand(action);
                 break;
-            case TODO:
-                addTodo(action);
+            case ADD_TODO:
+                addTodoCommand(action);
                 break;
-            case DEADLINE:
-                addDeadline(action);
+            case ADD_DEADLINE:
+                addDeadlineCommand(action);
                 break;
-            case EVENT:
-                addEvent(action);
+            case ADD_EVENT:
+                addEventCommand(action);
                 break;
             case INVALID:
                 invalidCommand();
@@ -94,45 +94,45 @@ public class ChatBot {
      */
     private void addTask(Action action) {
         userList.addTask(action.findDefaultArgument());
-        printAddTaskMessage();
+        printAddMessage();
     }
 
     /**
      * Add a to-do to the user's list.
      * @param action the action of the task to perform
      */
-    private void addTodo(Action action) {
+    private void addTodoCommand(Action action) {
         userList.addTodo(action.findDefaultArgument());
-        printAddTaskMessage();
+        printAddMessage();
     }
 
     /**
      * Add a deadline task to the user's list.
      * @param action the action of the task to perform
      */
-    private void addDeadline(Action action) {
+    private void addDeadlineCommand(Action action) {
         String name = action.findDefaultArgument(),
                 by = action.findArgument("by");
         userList.addDeadline(name, by);
-        printAddTaskMessage();
+        printAddMessage();
     }
 
     /**
      * Add an event to the user's list.
      * @param action the action of the task to perform
      */
-    private void addEvent(Action action) {
+    private void addEventCommand(Action action) {
         String name = action.findDefaultArgument(),
                 from = action.findArgument("from"),
                 to = action.findArgument("to");
         userList.addEvent(name, from, to);
-        printAddTaskMessage();
+        printAddMessage();
     }
 
     /**
      * Prints the message when a task is added.
      */
-    private void printAddTaskMessage() {
+    private void printAddMessage() {
         Printer.printMessages(
                 "Got it. I've added this task:",
                 "    " + userList.getNewestTask(),
@@ -143,7 +143,7 @@ public class ChatBot {
     /**
      * Prints the user's list.
      */
-    private void listTasks() {
+    private void listCommand() {
         Printer.printMessages(
                 "Here are the tasks in your list:",
                 userList.toString()
@@ -154,7 +154,7 @@ public class ChatBot {
      * Marks and prints the task.
      * @param action the action of the task to perform
      */
-    private void markTask(Action action) {
+    private void markCommand(Action action) {
         int index = Integer.parseInt(action.findDefaultArgument()) - 1;
         userList.markTask(index);
         Printer.printMessages(
@@ -167,7 +167,7 @@ public class ChatBot {
      * Unmarks and prints the task.
      * @param action the action of the task to perform
      */
-    private void unmarkTask(Action action) {
+    private void unmarkCommand(Action action) {
         int index = Integer.parseInt(action.findDefaultArgument()) - 1;
         userList.unmarkTask(index);
         Printer.printMessages(

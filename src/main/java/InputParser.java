@@ -31,11 +31,11 @@ public class InputParser {
         } else if (input.startsWith(COMMAND_UNMARK)) {
             return new Action(Command.UNMARK, parseArguments(input));
         } else if (input.startsWith(COMMAND_TODO)) {
-            return new Action(Command.TODO, parseArguments(input));
+            return new Action(Command.ADD_TODO, parseArguments(input));
         } else if (input.startsWith(COMMAND_DEADLINE)) {
-            return new Action(Command.DEADLINE, parseArguments(input));
+            return new Action(Command.ADD_DEADLINE, parseArguments(input));
         } else if (input.startsWith(COMMAND_EVENT)) {
-            return new Action(Command.EVENT, parseArguments(input));
+            return new Action(Command.ADD_EVENT, parseArguments(input));
         } else {
             // The command is invalid, as it is not one of the above commands.
             return new Action(Command.INVALID);

@@ -27,15 +27,15 @@ public enum Command {
     /**
      * Adds a to-do task
      */
-    TODO,
+    ADD_TODO,
     /**
      * Adds a deadline task
      */
-    DEADLINE,
+    ADD_DEADLINE,
     /**
      * Adds an event task
      */
-    EVENT,
+    ADD_EVENT,
     /**
      * Invalid command
      */
