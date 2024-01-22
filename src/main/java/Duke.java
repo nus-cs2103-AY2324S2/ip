@@ -16,17 +16,18 @@ public class Duke {
                 System.out.println("\n");
                 break;
             }
-            System.out.println("    " + (i + 1) + "." + tasks[i].toString());
+            System.out.printf("    %d.%s", i + 1, tasks[i].toString());
         }
+        System.out.printf("\n");
     }
 
     public static void mark(Task[] tasks, int i) {
         tasks[i].markTask();
-        System.out.println("    Great job completing your task!\n      " + tasks[i].toString());
+        System.out.printf("    Great job completing your task!\n      %s\n\n", tasks[i].toString());
     }
     public static void unmark(Task[] tasks, int i) {
         tasks[i].unmarkTask();
-        System.out.println("    Don't forget to complete your task soon...\n      " + tasks[i].toString());
+        System.out.printf("    Don't forget to complete your task soon...\n      %s\n\n", tasks[i].toString());
     }
     public static void main(String[] args) {
         Duke.greet();
@@ -45,12 +46,25 @@ public class Duke {
             } else if (taskName.equals("list")) {
                 Duke.list(tasks);
             } else if (taskName.startsWith("mark")) {
-                Duke.mark(tasks, Integer.parseInt(taskName.split("\\s+")[1]) - 1);
+                Duke.mark(tasks, Integer.parseInt(taskName.split(" ")[1]) - 1);
             } else if (taskName.startsWith("unmark")) {
-                Duke.unmark(tasks, Integer.parseInt(taskName.split("\\s+")[1]) - 1);
+                Duke.unmark(tasks, Integer.parseInt(taskName.split(" ")[1]) - 1);
             } else {
-                tasks[index++] = new Task(taskName);
-                System.out.println("    added: " + taskName + "\n");
+                Task t = null;
+                if(taskName.startsWith("todo")) {
+                    t = new ToDo(taskName.substring(5));
+                } else if(taskName.startsWith("deadline")) {
+                    String[] d = taskName.substring(9).split("/");
+                    t = new Deadline(d[0], d[1].substring(3));
+                } else if(taskName.startsWith("event")) {
+                    String[] e = taskName.substring(6).split("/");
+                    t = new Event(e[0], e[1].substring(5), e[2].substring(3));
+                } else {
+                    t = new Task(taskName);
+                }
+                tasks[index++] = t;
+                System.out.printf("    Ok! I have added your task:\n      %s%n    You have %d task(s) in the " +
+                                "list now.\n\n", t.toString(), index);
             }
         }
 
