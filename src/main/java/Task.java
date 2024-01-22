@@ -11,8 +11,8 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getName() {
-        return description;
+    public String toString() {
+        return ("["+ this.getStatusIcon()+"] " + this.description);
     }
 
     public void Mark() {
