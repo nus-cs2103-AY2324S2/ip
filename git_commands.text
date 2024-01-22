@@ -2,3 +2,5 @@ git add .
 git commit -m "message"
 git tag v-tag
 git push origin master v-tag
+
+git push origin master --tags

@@ -59,7 +59,7 @@ public class Lulu {
                     print(output);
                 }
             } else if (input.length() > 4 && input.substring(0, 4).toLowerCase().equals("mark")) {
-                int index = Integer.valueOf(input.substring(4).strip()) - 1;
+                int index = Integer.valueOf(input.substring(5).strip()) - 1;
                 if (index >= this.items.size() || index < 0) {
                     print("Oops! You did not give a valid index.");
                     continue;
@@ -74,7 +74,7 @@ public class Lulu {
                     print(task);
                 }
             } else if (input.length() > 6 && input.substring(0, 6).toLowerCase().equals("unmark")) {
-                int index = Integer.valueOf(input.substring(6).strip()) - 1;
+                int index = Integer.valueOf(input.substring(7).strip()) - 1;
                 if (index >= this.items.size() || index < 0) {
                     print("Oops! You did not give a valid index.");
                     continue;
@@ -88,10 +88,33 @@ public class Lulu {
                     print("OK, I've marked this task as not done yet:");
                     print(task);
                 }
-            } else {
-                this.items.add(new Task(input));
-                String output = "added: " + input;
-                print(output);
+            } else if (input.length() > 4 && input.substring(0, 4).toLowerCase().equals("todo")) {
+                String name = input.substring(5).strip();
+                Todo todo = new Todo(name);
+                this.items.add(todo);
+                print("Got it. I've added this task:");
+                print("\t" + todo);
+                print(String.format("Now you have %d tasks in the list.", this.items.size()));
+            } else if (input.length() > 8 && input.substring(0, 8).toLowerCase().equals("deadline")) {
+                int indexBy = input.indexOf('/');
+                String name = input.substring(9, indexBy).strip();
+                String by = input.substring(indexBy + 3).strip();
+                Deadline deadline = new Deadline(name, by);
+                this.items.add(deadline);
+                print("Got it. I've added this task:");
+                print("\t" + deadline);
+                print(String.format("Now you have %d tasks in the list.", this.items.size()));
+            } else if (input.length() > 5 && input.substring(0, 5).toLowerCase().equals("event")) {
+                int indexFrom = input.indexOf('/');
+                int indexTo = input.indexOf('/', indexFrom + 1);
+                String name = input.substring(6, indexFrom).strip();
+                String from = input.substring(indexFrom + 5, indexTo).strip();
+                String to = input.substring(indexTo + 3).strip();
+                Event event = new Event(name, from, to);
+                this.items.add(event);
+                print("Got it. I've added this task:");
+                print("\t" + event);
+                print(String.format("Now you have %d tasks in the list.", this.items.size()));
             }
         }
     }

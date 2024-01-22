@@ -1,6 +1,6 @@
 public class Task {
-    private String name;
-    private boolean status;
+    protected String name;
+    protected boolean status;
 
     public Task(String name) {
         this.name = name;
@@ -21,11 +21,7 @@ public class Task {
 
     @Override
     public String toString() {
-        if (this.status) {
-            return "[X] " + this.name;
-        } else {
-            return "[ ] " + this.name;
-        }
+        return "[T]" + (this.status ? "[X] " : "[ ] ") + this.name;
     }
 
 }
