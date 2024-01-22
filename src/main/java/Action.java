@@ -57,7 +57,7 @@ public class Action {
             getListSize();
 
         } else {
-            System.out.println("Don't talk to me! (,,>﹏<,,)");
+            System.out.println("Don't talk to me!");
         }
 
     }
