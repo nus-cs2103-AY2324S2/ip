@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class DukeException extends Exception {
@@ -33,13 +34,14 @@ class Duke {
                 // Ask for new user input
 
                 // Clears scanner buffer
-                scanner.nextLine();
+                scanner = new Scanner(System.in);
             }
             System.out.println("____________________________________________________________");
         }
     }
 
     private void processUserInput(Scanner scanner) throws DukeException {
+        // Main event handler
         String input = scanner.next();
 
         switch (input) {
@@ -64,8 +66,11 @@ class Duke {
             case "todo":
                 handleTodo(scanner);
                 break;
+            case "delete":
+                handleDelete(scanner);
+                break;
             default:
-                handleDefault(input, scanner);
+                handleDefault();
                 break;
         }
     }
@@ -87,8 +92,10 @@ class Duke {
             userInputLog.get(indexToMark - 1).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(userInputLog.get(indexToMark - 1));
-        } catch (IndexOutOfBoundsException | NullPointerException | IllegalStateException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Invalid task index provided for marking. Please provide a valid task index.");
+        } catch (InputMismatchException e) {
+            throw new DukeException("Invalid task index provided for marking. Please provide an integer.");
         }
     }
 
@@ -154,7 +161,19 @@ class Duke {
         System.out.println("Now you have " + userInputLog.size() + " tasks in the list.");
     }
 
-    private void handleDefault(String input, Scanner scanner) throws DukeException {
+    private void handleDelete(Scanner scanner) throws DukeException {
+        try {
+            int indexToDelete = scanner.nextInt();
+            Task deletedTask = userInputLog.remove(indexToDelete - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(deletedTask);
+            System.out.println("Now you have " + userInputLog.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException | NullPointerException | IllegalStateException e) {
+            throw new DukeException("Invalid task index provided for deletion. Please provide a valid task index.");
+        }
+    }
+
+    private void handleDefault() throws DukeException {
         throw new DukeException("Invalid instruction. Please provide a valid command.");
     }
 
