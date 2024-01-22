@@ -1,7 +1,11 @@
+import java.util.Scanner;
+
 public class Tsundere {
 
     private static final String hi = "( ｡ •̀ ᴖ •́ ｡)";
     private static final String bye ="(\uD83D\uDCA2,,>﹏<,,) b-baka!";
+
+    private static final Scanner sc = new Scanner(System.in);
 
     public static void greet() {
         System.out.println("______________________________________________\n" +
@@ -19,11 +23,23 @@ public class Tsundere {
                 "\n______________________________________________\n");
     }
 
+    public static void echo() {
+
+        String str = sc.nextLine();
+        while (!str.equals("bye"))  {
+            System.out.println("______________________________________________\n" +
+                    str +
+                    "\n______________________________________________\n");
+            str = sc.nextLine();
+        }
+
+        exit();
+
+    }
     public static void main(String[] args) {
 
         greet();
-        exit();
-
+        echo();
 
     }
 }
