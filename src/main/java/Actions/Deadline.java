@@ -1,4 +1,6 @@
-public class Deadline extends Action{
+package Actions;
+
+public class Deadline extends Action {
     protected String by;
 
     /**

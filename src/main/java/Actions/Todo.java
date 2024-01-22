@@ -1,4 +1,6 @@
-public class Todo extends Action{
+package Actions;
+
+public class Todo extends Action {
     /**
      * Constructor
      * @param description action to be made
