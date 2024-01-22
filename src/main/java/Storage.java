@@ -8,6 +8,10 @@ public class Storage {
         tasks.add(task);
     }
 
+    public void deleteTask(int index) {
+        tasks.remove(index);
+    }
+
     public void listTasks() {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
@@ -16,6 +20,11 @@ public class Storage {
 
     public int getTaskCount() {
         return tasks.size();
+    }
+
+    public void printTaskCount() {
+        int count = getTaskCount();
+        System.out.println("Now you have " + count + " " + (count == 1 ? "task" : "tasks") + " in the list.");
     }
 
     public String getTaskDescription(int index) {

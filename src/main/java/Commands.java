@@ -17,8 +17,7 @@ abstract class AddTaskCommand extends Command {
         storage.addTask(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        int count = storage.getTaskCount();
-        System.out.println("Now you have " + count + " " + (count == 1 ? "task" : "tasks") + " in the list.");
+        storage.printTaskCount();
         task = null;
     }
 }
@@ -137,6 +136,20 @@ class UnmarkDoneCommand extends CommandTakingTaskIndex {
     }
 }
 
+class DeleteCommand extends CommandTakingTaskIndex {
+    public DeleteCommand(String index) throws InvalidCommandException {
+        super(index);
+    }
+
+    public void execute(Storage storage) throws DukeException {
+        String taskToDelete = storage.getTaskDescription(index);
+        storage.deleteTask(index);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(taskToDelete);
+        storage.printTaskCount();
+    }
+}
+
 public class Commands {
     public static void registerCommands() {
         Parser.registerCommand("todo", s -> new AddTodoCommand(s));
@@ -146,5 +159,6 @@ public class Commands {
         Parser.registerCommand("bye", s -> new ByeCommand());
         Parser.registerCommand("mark", s -> new MarkDoneCommand(s));
         Parser.registerCommand("unmark", s -> new UnmarkDoneCommand(s));
+        Parser.registerCommand("delete", s -> new DeleteCommand(s));
     }
 }
