@@ -1,9 +1,11 @@
-public class Task {
-    private String task;
-    private boolean isDone;
+package main.java;
 
-    public Task(String input) {
-        this.task = input;
+public class Task {
+    protected String taskName;
+    protected boolean isDone;
+
+    public Task(String taskName) {
+        this.taskName = taskName;
         this.isDone = false;
     }
 
@@ -21,6 +23,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return getStatusIcon() + " " + task;
+        return getStatusIcon() + " " + taskName;
     }
 }
