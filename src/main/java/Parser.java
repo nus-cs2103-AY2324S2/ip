@@ -90,6 +90,14 @@ public class Parser {
         }
     }
 
+    public static int getDeleteTaskNumber(String input) throws InvalidBanterUsageError {
+        try {
+            return getIntArgument(input, CommandType.DELETE + separatorBetweenCommandAndArgument);
+        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+            throw Errors.InvalidDeleteTaskNumberError;
+        }
+    }
+
     public static String getSubstringAfterPrefix(String input, String prefix)
             throws StringIndexOutOfBoundsException, IllegalArgumentException {
 

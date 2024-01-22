@@ -56,4 +56,14 @@ public class TaskList {
             throw Errors.InvalidUnmarkTaskNumberError;
         }
     }
+
+    public String deleteTask(int taskNumber) throws InvalidBanterUsageError {
+        try {
+            Task deleted = taskList.remove(taskNumber - 1);
+            return "Noted. I've removed this task:\n" + deleted +
+                    "\nNow you have " + taskList.size() + " tasks in the list.";
+        } catch(IndexOutOfBoundsException e) {
+            throw Errors.InvalidDeleteTaskNumberError;
+        }
+    }
 }

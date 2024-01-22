@@ -14,6 +14,7 @@ public class Errors {
     public static final String EVENT_USAGE = "event <description> /from <start date> /to <end date>";
     public static final String MARK_USAGE = "mark <task number>";
     public static final String UNMARK_USAGE = "unmark <task number>";
+    public static final String DELETE_USAGE = "delete <task number>";
     public static final String COMMAND_USAGE = "Banter only supports the following commands:\n" +
             "bye\n" +
             "list\n" +
@@ -27,6 +28,7 @@ public class Errors {
     public static final InvalidBanterUsageError InvalidCommandError = new InvalidBanterUsageError(INVALID_COMMAND, COMMAND_USAGE);
     public static final InvalidBanterUsageError InvalidMarkTaskNumberError = new InvalidBanterUsageError(INVALID_TASK_NUMBER, MARK_USAGE);
     public static final InvalidBanterUsageError InvalidUnmarkTaskNumberError = new InvalidBanterUsageError(INVALID_TASK_NUMBER, UNMARK_USAGE);
+    public static final InvalidBanterUsageError InvalidDeleteTaskNumberError = new InvalidBanterUsageError(INVALID_TASK_NUMBER, DELETE_USAGE);
     public static final InvalidBanterUsageError MissingTodoDescriptionError = new InvalidBanterUsageError(MISSING_TASK_DESCRIPTION, TODO_USAGE);
     public static final InvalidBanterUsageError MissingDeadlineDescriptionError = new InvalidBanterUsageError(MISSING_TASK_DESCRIPTION, DEADLINE_USAGE);
     public static final InvalidBanterUsageError MissingDeadlineDueDateError = new InvalidBanterUsageError(MISSING_DEADLINE_DUE_DATE, DEADLINE_USAGE);

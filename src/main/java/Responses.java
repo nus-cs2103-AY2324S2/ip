@@ -75,6 +75,9 @@ public class Responses {
                     case EVENT:
                         addEventAndPrintMessage(input);
                         break;
+                    case DELETE:
+                        deleteTaskAndPrintMessage(input);
+                        break;
                     default:
                         throw Errors.InvalidCommandError;
                 }
@@ -126,5 +129,12 @@ public class Responses {
                 taskList.markTaskAsUndone(
                         Parser.getUnmarkTaskNumber(input)));
         taskUndoneMessage.print();
+    }
+
+    private void deleteTaskAndPrintMessage(String input) throws InvalidBanterUsageError {
+        MessageBox taskDeletedMessage = new MessageBox(
+                taskList.deleteTask(
+                        Parser.getDeleteTaskNumber(input)));
+        taskDeletedMessage.print();
     }
 }
