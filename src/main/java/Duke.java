@@ -35,7 +35,8 @@ public class Duke {
             input = sc.nextLine();
         }
         System.out.println(line);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Farewell! Can't wait to catch up with you again. Until next time, " +
+                "take care and stay awesome! ");
         System.out.println(line);
     }
 }
