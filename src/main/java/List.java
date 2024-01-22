@@ -5,6 +5,6 @@ public class List implements Action {
     }
 
     public void execute() {
-        PrintUtil.print(this.store.toString());
+        PrintUtil.print("Here are the tasks in your list:\n" + this.store.toString());
     }
 }

@@ -9,6 +9,9 @@ public class Add implements Action {
     @Override
     public void execute() {
         this.store.add(this.task);
-        PrintUtil.print("added: " + this.task);
+        int size = this.store.getSize();
+        String plural = size == 1 ? "task" : "tasks";
+        PrintUtil.print("Got it! Task added:\n  " + this.task + "\nNow you have " +
+                size + " outstanding " + plural + ".");
     }
 }

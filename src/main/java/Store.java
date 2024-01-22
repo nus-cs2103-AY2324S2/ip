@@ -15,6 +15,10 @@ public class Store {
         this.size--;
     }
 
+    public int getSize() {
+        return this.size;
+    }
+
     public Task mark(int i) {
         return this.tasks[i - 1].mark();
     }
@@ -27,7 +31,7 @@ public class Store {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.size; i++) {
-            sb.append(i + 1).append(". ").append(this.tasks[i].toString());
+            sb.append(i + 1).append(".").append(this.tasks[i].toString());
             if (i != this.size - 1) {
                 sb.append("\n");
             }

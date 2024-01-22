@@ -9,8 +9,10 @@ public class Naruto {
     }
 
     public static void listen() {
-        String s = sc.next();
-        switch (s) {
+        // Tokenise input
+        String cmd = sc.next();
+        String[] tokens;
+        switch (cmd) {
             case "bye":
                 actions.addLast(new Goodbye());
                 break;
@@ -23,8 +25,25 @@ public class Naruto {
             case "unmark":
                 actions.addLast(new Unmark(store, sc.nextInt()));
                 break;
+            case "todo":
+                actions.addLast(new Add(new ToDo(sc.nextLine().trim()), store));
+                break;
+            case "deadline":
+                tokens = sc.nextLine().split("/by");
+                String description = tokens[0].trim();
+                String by = tokens[1].trim();
+                actions.addLast(new Add(new Deadline(description, by), store));
+                break;
+            case "event":
+                tokens = sc.nextLine().split("/from");
+                description = tokens[0].trim();
+                tokens = tokens[1].split("/to");
+                String from = tokens[0].trim();
+                String to = tokens[1].trim();
+                actions.addLast(new Add(new Event(description, from, to), store));
+                break;
             default:
-                actions.addLast(new Add(new Task(s + sc.nextLine()), store));
+
         }
 
     }
