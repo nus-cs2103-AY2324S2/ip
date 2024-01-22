@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Wei {
@@ -9,33 +10,36 @@ public class Wei {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void list(Task[] tasks, int numOfTasks) {
+    private static void list(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numOfTasks; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             int order = i + 1;
-            String text = tasks[i].stringify();
+            Task task = tasks.get(i);
+            String text = task.stringify();
             System.out.println(order + ". " + text);
         }
     }
 
-    private static void mark(Task[] tasks, String input) throws WeiException {
+    private static void mark(ArrayList<Task> tasks, String input) throws WeiException {
         try {
             int order = Integer.parseInt(input.substring(5)) - 1;
-            tasks[order].setStatus(true);
+            Task task = tasks.get(order);
+            task.setStatus(true);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasks[order].stringify());
+            System.out.println(task.stringify());
         }
         catch (NumberFormatException e) {
             throw new WeiException("which task do you want to mark?");
         }
     }
 
-    private static void unmark(Task[] tasks, String input) throws WeiException {
+    private static void unmark(ArrayList<Task> tasks, String input) throws WeiException {
         try {
             int order = Integer.parseInt(input.substring(7)) - 1;
-            tasks[order].setStatus(false);
+            Task task = tasks.get(order);
+            task.setStatus(false);
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(tasks[order].stringify());
+            System.out.println(task.stringify());
         }
         catch (NumberFormatException e) {
             throw new WeiException("which task do you want to unmark?");
@@ -43,43 +47,47 @@ public class Wei {
 
     }
 
-    private static void addTask(Task[] tasks, int numOfTasks, String input) throws WeiException {
+    private static void addTask(ArrayList<Task> tasks, String input) throws WeiException {
         if (input.startsWith("todo")) {
-            addToDo(tasks, numOfTasks, input);
+            addToDo(tasks, input);
         }
         else if (input.startsWith("deadline")) {
-            addDeadline(tasks, numOfTasks, input);
+            addDeadline(tasks, input);
         }
         else if (input.startsWith("event")) {
-            addEvent(tasks, numOfTasks, input);
+            addEvent(tasks, input);
         }
         else {
             throw new WeiException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        int size = tasks.size();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(tasks.get(size - 1).stringify());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static void addToDo(Task[] tasks, int numOfTasks, String input) throws WeiException{
+    private static void addToDo(ArrayList<Task> tasks, String input) throws WeiException{
         if (input.length() < 5) {
             throw new WeiException("please tell me what is your task about");
         }
         ToDo todo = new ToDo(input.substring(5));
-        tasks[numOfTasks] = todo;
+        tasks.add(todo);
     }
 
-    private static void addDeadline(Task[] tasks, int numOfTasks, String input) throws WeiException {
+    private static void addDeadline(ArrayList<Task> tasks, String input) throws WeiException {
         try {
             int index = input.indexOf("/");
             String task = input.substring(9, index);
             String date = input.substring(index + 4);
             Deadline deadline = new Deadline(task, date);
-            tasks[numOfTasks] = deadline;
+            tasks.add(deadline);
         }
         catch (IndexOutOfBoundsException e) {
             throw new WeiException("please tell me when is the deadline");
         }
     }
 
-    private static void addEvent(Task[] tasks, int numOfTasks, String input) throws WeiException {
+    private static void addEvent(ArrayList<Task> tasks, String input) throws WeiException {
         try {
             int firstIndex = input.indexOf("/");
             int secondIndex = input.lastIndexOf("/");
@@ -87,20 +95,19 @@ public class Wei {
             String end = input.substring(secondIndex + 4);
             String task = input.substring(6, firstIndex);
             Event event = new Event(task, start, end);
-            tasks[numOfTasks] = event;
+            tasks.add(event);
         }
         catch (IndexOutOfBoundsException e) {
             throw new WeiException("please tell me when is the event occurring");
         }
     }
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
         String split = "______________________________";
         greet();
         System.out.println(split);
 
-        Task[] tasks = new Task[100];
-        int numOfTasks = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
@@ -111,11 +118,11 @@ public class Wei {
 
                 // list
                 else if (input.equals("list")) {
-                    if (tasks[0] == null) {
+                    if (tasks.size() == 0) {
                         System.out.println(split);
                         continue;
                     }
-                    list(tasks, numOfTasks);
+                    list(tasks);
                 }
 
                 // mark
@@ -130,11 +137,7 @@ public class Wei {
 
                 // add
                 else {
-                    addTask(tasks, numOfTasks, input);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks[numOfTasks].stringify());
-                    numOfTasks++;
-                    System.out.println("Now you have " + numOfTasks + " tasks in the list.");
+                    addTask(tasks, input);
                 }
             }
             catch (WeiException e) {
