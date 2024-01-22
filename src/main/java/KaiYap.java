@@ -21,6 +21,12 @@ public class KaiYap {
                 "\t____________________________________________________________");
     }
 
+    public void printError(String error) {
+        System.out.println("\t____________________________________________________________\n" +
+                "\t" + error +
+                "\n\t____________________________________________________________\n");
+    }
+
     public void startChat() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
@@ -33,30 +39,58 @@ public class KaiYap {
             } else if (input.length() > 7 && input.startsWith("unmark ") || input.equals("unmark")) {
                 this.markAsUndone(input.substring(6).strip());
             } else {
-                this.echo(input);
+                String type = input.split(" ")[0];
+                Task task = null;
+                switch (type) {
+                    case "todo":
+                        if (input.equals("todo")) {
+                            printError("Your todo needs a description. Please try again! UwU :3");
+                            break;
+                        } else {
+                            task = new Todo(input.substring(input.indexOf(' ') + 1));
+                            break;
+                        }
+                    case "deadline":
+                        if (input.equals("deadline")) {
+                            printError("Your deadline needs a description. Please try again! UwU :3");
+                            break;
+                        } else {
+                            task = new Deadline(input.substring(input.indexOf(' ') + 1));
+                            break;
+                        }
+                    case "event":
+                        if (input.equals("event")) {
+                            printError("Your event needs a description. Please try again! UwU :3");
+                            break;
+                        } else {
+                            task = new Event(input.substring(input.indexOf(' ') + 1));
+                            break;
+                        }
+                    default:
+                        printError("That was an invalid input. Please try again! UwU :3");
+                        break;
+                }
+                if (task != null) {
+                    this.echo(task);
+                }
             }
             input = sc.nextLine();
         }
     }
 
     public void listInputs() {
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t____________________________________________________________\n\tHere are the tasks in your list:");
         for (int i = 0; i < this.taskList.size(); i++) {
-            System.out.println("\t" +
-                    (i + 1) +
-                    ". " +
-                    (taskList.get(i).isTaskDone() ? "[X] " : "[ ] ") +
-                    this.taskList.get(i).getListItem()
-            );
+            System.out.println("\t" + (i + 1) + ". " + taskList.get(i).toString());
         }
         System.out.println("\t____________________________________________________________");
     }
-    public void echo(String input) {
-        Task task = new Task(input);
-        System.out.println("\t____________________________________________________________\n" +
-                "\tadded: " + task.getListItem() + "\n" +
-                "\t____________________________________________________________\n");
+    public void echo(Task task) {
         this.taskList.add(task);
+        System.out.println("\t____________________________________________________________\n" +
+                "\tGot it. I've added this task:\n\t\t" + task.toString() +
+                "\n\tYou now have " + this.taskList.size() + (this.taskList.size() == 1 ? " task" : " tasks") + " in the list.\n" +
+                "\t____________________________________________________________\n");
     }
 
     public void markAsDone(String index) {
@@ -64,12 +98,12 @@ public class KaiYap {
         try {
             int numericIndex = Integer.parseInt(index) - 1;
             if (numericIndex >= this.taskList.size()) {
-                System.out.println("Sorry, this task does not exist. Please try again! UwU :3");
+                System.out.println("\tSorry, this task does not exist. Please try again! UwU :3");
             } else if (taskList.get(numericIndex).isTaskDone()) {
-                System.out.println("This task has already been marked as done. Great job!");
+                System.out.println("\tThis task has already been marked as done. Great job!");
             } else {
                 taskList.get(numericIndex).setTaskDone(true);
-                System.out.println("Nice! I've marked this task as done:\n" +
+                System.out.println("\tNice! I've marked this task as done:\n" +
                         "\t\t[X] " + taskList.get(numericIndex).getListItem()
                 );
             }
@@ -85,9 +119,9 @@ public class KaiYap {
         try {
             int numericIndex = Integer.parseInt(index) - 1;
             if (numericIndex >= taskList.size()) {
-                System.out.println("Sorry, this task does not exist. Please try again! UwU :3");
+                System.out.println("\tSorry, this task does not exist. Please try again! UwU :3");
             } else if (!taskList.get(numericIndex).isTaskDone()) {
-                System.out.println("This task has already been marked as undone. Good luck!");
+                System.out.println("\tThis task has already been marked as undone. Good luck!");
             } else {
                 taskList.get(numericIndex).setTaskDone(false);
                 System.out.println("\tOK, I've marked this task as not done yet:\n" +
@@ -95,7 +129,7 @@ public class KaiYap {
                 );
             }
         } catch (Exception e) {
-            System.out.println("That was an invalid input. Please try again! UwU :3");
+            System.out.println("\tThat was an invalid input. Please try again! UwU :3");
         }
         System.out.println("\t____________________________________________________________");
     }

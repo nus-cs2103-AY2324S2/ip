@@ -1,6 +1,6 @@
 public class Task {
-    private String listItem;
-    private boolean taskDone;
+    protected String listItem;
+    protected boolean taskDone;
 
     public Task(String listItem) {
         this.listItem = listItem;
