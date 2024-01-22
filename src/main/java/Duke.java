@@ -10,7 +10,24 @@ public class Duke {
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello! I'm " + name + "\n"
-                + "What can I do for you?\n"
-                + "Bye. Hope to see you again soon!");
+                + "What can I do for you?\n");
+        String input;
+        Boolean running = true;
+
+        while (running){
+            input = inp.nextLine();
+            if(input.equals("bye")){
+                running = false;
+                break;
+            }
+            String ans = response(input);
+            System.out.println(ans);
+        }
+        System.out.println("Bye. Hope to see you again soon!");
+
+    }
+
+    private static String response(String input){
+        return input;
     }
 }
