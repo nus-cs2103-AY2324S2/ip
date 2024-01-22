@@ -11,13 +11,38 @@ public class Duke {
 
     /**
      * Add input task into storage
+     *
+     * @param type Type of the task.
+     * @param task The task to be done.
+     * @param storage The storage to store the task
      */
-    public static void addTask(String task, List<Task> storage) {
+    public static void addTask(String type, String task, List<Task> storage) {
+        Task newTask;
 
-        Task newTask = new Task(task);
+        if (type.equals("todo")) {
+            newTask = new ToDo(task);
+        } else if (type.equals("deadline")) {
+            String[] taskArr = task.split("/");
+            String by = taskArr[1].split(" ")[1];
+            String description = taskArr[0].substring(0, taskArr[0].length() - 1);
+            newTask = new Deadline(description, by);
+        } else if (type.equals("event")) {
+            String[] taskArr = task.split("/");
+            String[] fromArr = taskArr[1].split(" ");
+            String by = fromArr[1] + " " + fromArr[2];
+            String to = taskArr[2].split(" ")[1];
+            String description = taskArr[0].substring(0, taskArr[0].length() - 1);
+            newTask = new Event(description, by, to);
+        } else {
+            newTask = new ToDo(task);
+        }
+
         storage.add(newTask);
         drawLine();
-        System.out.println("Added: " + task);
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(newTask);
+        String temp = storage.size() > 1 ? " tasks" : " task";
+        System.out.println("Now you have " + storage.size() + temp + " in the list.");
         drawLine();
     }
 
@@ -85,7 +110,7 @@ public class Duke {
             } else if (commandArr[0].equals("unmark")) {
                 markUndone(storage, Integer.valueOf(commandArr[1]));
             } else {
-                addTask(command, storage);
+                addTask(commandArr[0], command.replace(commandArr[0] + " ", ""), storage);
             }
         }
     }
