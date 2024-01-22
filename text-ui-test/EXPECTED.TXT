@@ -1,7 +1,140 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    _____________________
+    Hello I am Iris.
+    What can I do for you?
 
+    _____________________
+    _____________________
+    I have added this task:
+    [T][ ] borrow book
+    Now you have 1 tasks in your list.
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ] borrow book
+
+    _____________________
+    _____________________
+    I have added this task:
+    [D][ ] return book (by: Sunday)
+    Now you have 2 tasks in your list.
+
+    _____________________
+    _____________________
+    I have added this task:
+    [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Now you have 3 tasks in your list.
+
+    _____________________
+    _____________________
+    I have added this task:
+    [T][ ] wash dishes
+    Now you have 4 tasks in your list.
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ] borrow book
+    2. [D][ ] return book (by: Sunday)
+    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    4. [T][ ] wash dishes
+
+    _____________________
+    _____________________
+    I've marked this task as completed:
+    [D][X] return book (by: Sunday)
+
+    _____________________
+    _____________________
+    I've marked this task as completed:
+    [E][X] project meeting (from: Mon 2pm to: 4pm)
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ] borrow book
+    2. [D][X] return book (by: Sunday)
+    3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+    4. [T][ ] wash dishes
+
+    _____________________
+    _____________________
+    I've marked this task as uncompleted:
+    [D][ ] return book (by: Sunday)
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ] borrow book
+    2. [D][ ] return book (by: Sunday)
+    3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+    4. [T][ ] wash dishes
+
+    _____________________
+    _____________________
+    Invalid input
+
+    _____________________
+    _____________________
+    I've marked this task as completed:
+    [D][X] return book (by: Sunday)
+
+    _____________________
+    _____________________
+    I've marked this task as completed:
+    [D][X] return book (by: Sunday)
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ] borrow book
+    2. [D][X] return book (by: Sunday)
+    3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+    4. [T][ ] wash dishes
+
+    _____________________
+    _____________________
+    I have added this task:
+    [E][ ] coldplay concert (from: tues 6pm to: tues 9.30pm)
+    Now you have 5 tasks in your list.
+
+    _____________________
+    _____________________
+    I have added this task:
+    [D][ ] CS2109S assignment (by: end of this week)
+    Now you have 6 tasks in your list.
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ] borrow book
+    2. [D][X] return book (by: Sunday)
+    3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+    4. [T][ ] wash dishes
+    5. [E][ ] coldplay concert (from: tues 6pm to: tues 9.30pm)
+    6. [D][ ] CS2109S assignment (by: end of this week)
+
+    _____________________
+    _____________________
+    I've marked this task as completed:
+    [E][X] coldplay concert (from: tues 6pm to: tues 9.30pm)
+
+    _____________________
+    _____________________
+    java.lang.IndexOutOfBoundsException: Index 9 out of bounds for length 6
+
+    _____________________
+    _____________________
+    Here are your tasks:
+    1. [T][ ] borrow book
+    2. [D][X] return book (by: Sunday)
+    3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+    4. [T][ ] wash dishes
+    5. [E][X] coldplay concert (from: tues 6pm to: tues 9.30pm)
+    6. [D][ ] CS2109S assignment (by: end of this week)
+
+    _____________________
+    _____________________
+    GoodBye. Hope to see you again.
+
+    _____________________

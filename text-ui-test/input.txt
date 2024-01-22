@@ -1,0 +1,22 @@
+todo borrow book
+list
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+todo wash dishes
+list
+mark 2
+mark 3
+list
+unmark 2
+list
+return book
+mark 2
+mark 2
+list
+event coldplay concert /from tues 6pm /to tues 9.30pm
+deadline CS2109S assignment /by end of this week
+list
+mark 5
+mark 10
+list
+bye
