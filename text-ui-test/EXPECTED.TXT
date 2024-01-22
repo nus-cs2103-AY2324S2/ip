@@ -4,26 +4,26 @@
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
-        [ ] read book
+        [T][ ] read book
     Now you have 1 task(s) in the list.
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
-        [ ] return book
+        [T][ ] return book
     Now you have 2 task(s) in the list.
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [ ] read book
-    2. [ ] return book
+    1. [T][ ] read book
+    2. [T][ ] return book
     ____________________________________________________________
     ____________________________________________________________
     Nice! I've marked this task as done:
-        [X] return book
+        [T][X] return book
     ____________________________________________________________
     ____________________________________________________________
     Ok, I've marked this task as not done yet:
-        [ ] return book
+        [T][ ] return book
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
@@ -32,8 +32,8 @@
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [ ] read book
-    2. [ ] return book
+    1. [T][ ] read book
+    2. [T][ ] return book
     3. [T][ ] borrow book
     ____________________________________________________________
     ____________________________________________________________
@@ -53,8 +53,8 @@
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [ ] read book
-    2. [ ] return book
+    1. [T][ ] read book
+    2. [T][ ] return book
     3. [T][ ] borrow book
     4. [D][ ] return book (by: Sunday)
     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
@@ -66,8 +66,8 @@
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [ ] read book
-    2. [ ] return book
+    1. [T][ ] read book
+    2. [T][ ] return book
     3. [T][ ] borrow book
     4. [D][X] return book (by: Sunday)
     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
