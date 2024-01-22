@@ -33,9 +33,30 @@ public class HeadCube {
     }
 
     public static void add(String task) {
-        tasks[taskCount] = new Task(task);
+        String[] split = task.split(" ",2 );
+        String event = split[0];
+        String description;
+
+        if (event.equals("todo")) {
+            description = split[1];
+            tasks[taskCount] = new ToDos(description);
+        } else if (event.equals("deadline")) {
+            String[] parts = split[1].split(" /by ",2);
+            description = parts[0];
+            String by = parts[1];
+            tasks[taskCount] = new Deadlines(description,by);
+        } else {
+            String[] parts = split[1].split(" /from ", 2);
+            description = parts[0];
+            String[] times = parts[1].split(" /from ", 2);
+            String start = times[0];
+            String end = times[1];
+            tasks[taskCount] = new Events(description, start, end);
+        }
+
+        System.out.println("Got it. I've added this task:\n  " + tasks[taskCount]);
         taskCount++;
-        System.out.println("added: " + task + "\n");
+        System.out.println("Now you have " + taskCount + " tasks in the list.\n");
     }
 
     public static void list() {
