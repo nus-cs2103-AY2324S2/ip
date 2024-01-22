@@ -39,16 +39,40 @@ public class Duke {
         Task toBeAdded;
 
         if (added.equals("deadline")) {
-            sc.useDelimiter("/by");
-            String description = sc.next();
-            sc.skip("/by");
-            sc.reset();
-            String time = sc.next();
+            // Read the entire line
+            String inputLine = sc.nextLine().trim();
+
+            // Check if there's "/by" in the input
+            if (!inputLine.contains("/by")) {
+                try {
+                    throw new DukeException("OOPS!!! Please provide a deadline time using '/by'.");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
+            }
+
+            // Split the input into description and time
+            String[] parts = inputLine.split("/by", 2);
+            String description = parts[0].trim();
+            String time = parts[1].trim();
+
+            // Check if description or time is empty
+            if (description.isEmpty() || time.isEmpty()) {
+                try {
+                    throw new DukeException("OOPS!!! The description and deadline time cannot be empty.");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
+            }
+
             toBeAdded = new Deadline(description, time);
         }
-         else if (added.equals("todo")) {
 
-            String description = sc.nextLine();
+        else if (added.equals("todo")) {
+
+            String description = sc.nextLine().trim();
             if (description.isEmpty()) {
                 try {
                     throw new DukeException.EmptyTodoDescriptionException();
@@ -61,22 +85,29 @@ public class Duke {
         } else if (added.equals("event")) {
             // event project meeting /from Mon 2pm /to 4pm
             sc.useDelimiter("/from");
-            String description = sc.next();
-            //System.out.println(description);
+            String description = sc.next().trim();
             sc.skip("/from");
             sc.reset();
             sc.useDelimiter("/to");
-            String from = sc.next();
-            //System.out.println(from);
+            String from = sc.next().trim();
             sc.reset();
             sc.skip("/to");
-            String to = sc.nextLine();
-            //System.out.println(to);
-            toBeAdded = new Event(description, from, to);
-
+            String to = sc.nextLine().trim();
+            try {
+                if (description.isEmpty()) {
+                    throw new DukeException.EmptyTodoDescriptionException();
+                }
+                if (from.isEmpty() || to.isEmpty()) {
+                    throw new DukeException("OOPS!!! The event time cannot be empty.");
+                }
+                toBeAdded = new Event(description, from, to);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
         } else {
             try {
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException.UnknownCommandException();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
                 return;
