@@ -3,6 +3,7 @@ import java.util.List;
 //test
 public class TaskList {
     private final List<Task> taskArray;
+    private int taskCount;
 
     public TaskList() {
         this.taskArray = new ArrayList<>();
@@ -12,9 +13,18 @@ public class TaskList {
         taskArray.add(new Task(taskDescription));
     }
 
-    public Task getTask(int indx) {
-        if (indx >= 0 && indx <= taskArray.size()) {
-            return taskArray.get(indx - 1);
+    public int getTaskCount() {
+        return taskCount;
+    }
+
+    public void addTask(Task task) {
+        taskArray.add(task);
+        this.taskCount = taskCount + 1;
+    }
+
+    public Task getTask(int index) {
+        if (index >= 0 && index <= taskArray.size()) {
+            return taskArray.get(index - 1);
         }
         System.out.println("Index invalid");
         return null;
