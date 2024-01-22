@@ -84,27 +84,42 @@ public class Duke {
             toBeAdded = new Todo(description);
         } else if (added.equals("event")) {
             // event project meeting /from Mon 2pm /to 4pm
-            sc.useDelimiter("/from");
-            String description = sc.next().trim();
-            sc.skip("/from");
-            sc.reset();
-            sc.useDelimiter("/to");
-            String from = sc.next().trim();
-            sc.reset();
-            sc.skip("/to");
-            String to = sc.nextLine().trim();
-            try {
-                if (description.isEmpty()) {
-                    throw new DukeException.EmptyTodoDescriptionException();
+            String inputLine = sc.nextLine().trim();
+            if (!inputLine.contains("/from") || !inputLine.contains("/to")) {
+                try {
+                    throw new DukeException("OOPS!!! Please provide a deadline time using '/from' and '/to'.");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                    return;
                 }
-                if (from.isEmpty() || to.isEmpty()) {
-                    throw new DukeException("OOPS!!! The event time cannot be empty.");
-                }
-                toBeAdded = new Event(description, from, to);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-                return;
             }
+
+            String[] parts = inputLine.split("/from", 2);
+            String description = parts[0].trim();
+
+            // Check if the description is empty
+            if (description.isEmpty()) {
+                try {
+                    throw new DukeException("OOPS!!! The description of an event cannot be empty.");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
+            }
+            parts = parts[1].split("/to", 2);
+            String from = parts[0].trim();
+            String to = parts[1].trim();
+            // Check if "from" or "to" is empty
+            if (from.isEmpty() || to.isEmpty()) {
+                try {
+                    throw new DukeException("OOPS!!! The event timing cannot be empty.");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
+            }
+
+            toBeAdded = new Event(description, from, to);
         } else {
             try {
                 throw new DukeException.UnknownCommandException();
@@ -113,6 +128,7 @@ public class Duke {
                 return;
             }
         }
+
 
         store.add(toBeAdded);
 
