@@ -109,6 +109,22 @@ public class Shirmin {
                 System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
                         " must be in the format 'deadline [task] /from [time]' /to [time].");
             }
+        } else if (command[0].equals("delete")) {
+                try {
+                    int taskIndex = Integer.parseInt(command[1]) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                        Task removedTask = taskList.remove(taskIndex);
+                        displayLine();
+                        System.out.println(gap() + "Ok, I've removed the task:");
+                        System.out.println(gap() + gap() + removedTask);
+                        System.out.println(gap() + "You have " + taskList.size() + " tasks remaining in the list.");
+                        displayLine();
+                    } else {
+                        System.out.println("Invalid task number: " + (taskIndex + 1));
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number: " + command[1]);
+                }
         } else {
             System.out.println("OH NO I'm not sure what that command is. You may use the commands " +
                     "todo, deadline, list, event, mark and unmark");
@@ -119,12 +135,13 @@ public class Shirmin {
         }
     }
     public static <T extends Task> void addMessage(T task, Integer number){
-        //displayLine();
+        displayLine();
         System.out.println(gap() + "Got it. I've added this task:");
         System.out.println(gap() + gap() + task.toString());
         System.out.println(gap() + "Now you have " + number.toString() + " tasks in the list.");
         displayLine();
     }
+
     public static void displayList(ArrayList<Task> list) {
         // displayLine();
 //        int i = 1;
