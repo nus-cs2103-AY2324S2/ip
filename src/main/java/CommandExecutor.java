@@ -13,23 +13,37 @@ public class CommandExecutor {
         while (!bye) {
             String inputs = sc.nextLine();
             String[] commands = inputs.split(" ");
-            if (inputs.equals("bye")) {
-                bye = true;
-            } else if (inputs.equals("list")) {
-                System.out.println();
-                TaskListCommands.printList();
-                System.out.println();
-            } else if (commands[0].equals("mark")) {
-                TaskListCommands.markTaskCompleted(Integer.parseInt(commands[1]) - 1);
-            } else if (commands[0].equals("unmark")) {
-                TaskListCommands.markTaskUncompleted(Integer.parseInt(commands[1]) - 1);
-            } else {
+
+            switch (commands[0].toLowerCase()) {
+                case "bye":
+                    bye = true;
+                    break;
+                case "list":
+                    System.out.println();
+                    TaskListCommands.printList();
+                    System.out.println();
+                    break;
+                case "mark":
+                    try {
+                        TaskListCommands.markTaskCompleted(Integer.parseInt(commands[1]) - 1);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("  <<Duke Leto>>\n   >> I dont think you entered a number...");
+                    }
+                    break;
+                case "unmark":
+                    try {
+                        TaskListCommands.markTaskUncompleted(Integer.parseInt(commands[1]) - 1);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("  <<Duke Leto>>\n   >> I dont think you entered a number...");
+                    }
+                    break;
+                default:
                     System.out.println();
                     TaskListCommands.addToList(inputs);
                     System.out.println();
-            }
+            } // End switch
 
-        } // End command loop
+        } // End command while loop
         System.out.println("  <<Duke Leto>>\n  > I bid you farewell");
     }
 }

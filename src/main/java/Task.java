@@ -2,6 +2,8 @@ public class Task {
     private boolean completed;
     private String message;
 
+    public Task() {}
+
     public Task(String message) {
         this.completed = false;
         this.message = message;

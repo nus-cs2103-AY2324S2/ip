@@ -7,7 +7,7 @@ public class TaskListCommands {
     public static void addToList(String inputs) {
         System.out.println("  << Duke Leto >> ");
         System.out.println("  > Task added: " + inputs);
-        TaskListCommands.list[TaskListCommands.taskNextIndex] = new Task(inputs);
+        TaskListCommands.list[TaskListCommands.taskNextIndex] = new Todo(inputs);
         TaskListCommands.taskNextIndex++;
     }
 
