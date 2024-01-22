@@ -58,11 +58,10 @@ public class Duke {
                     // Task newTask = new Task(input);
                     taskList[listIdx] = newTask;
                     listIdx++;
-                    System.out.println(String.format("%s\nDave added the task: \n  %s\nYou now have %d task(s).\n%s", horizontalLine, newTask.toString(), listIdx, horizontalLine));
+                    System.out.println(String.format("%s\nDave added the task:\n  %s\nYou now have %d task(s).\n%s", horizontalLine, newTask.toString(), listIdx, horizontalLine));
                 }
             }
             input = sc.nextLine();
-
         }
 
         // end program if user says bye
