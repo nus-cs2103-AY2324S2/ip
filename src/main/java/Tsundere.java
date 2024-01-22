@@ -40,12 +40,12 @@ public class Tsundere {
     public static void addTasks() {
         String str = sc.nextLine();
         while (!str.equals("bye")) {
-            System.out.println("______________________________________________\n");
+            System.out.println("______________________________________________");
 
             Action action = new Action(str);
             try {
                 action.execute();
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                 System.out.println("Tell me something I understand (｡•ˇ‸ˇ•｡)");
             }
 

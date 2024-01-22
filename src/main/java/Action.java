@@ -52,7 +52,6 @@ public class Action {
         } else if (this.name.contains("todo")) {
 
             String todo = this.name.split(" ", 2)[1];
-            System.out.println("Got it: " + todo);
 
             Tsundere.taskList.add(new ToDo(todo));
             getListSize();
@@ -65,6 +64,7 @@ public class Action {
 
     public void getListSize() {
         int size = Tsundere.taskList.size();
+        System.out.println("Noted...");
         System.out.println(" " + Tsundere.taskList.get(size - 1).toString());
         System.out.println("Get to work! You still have " + size + " " + (size > 1 ? "tasks" : "task") + " left!");
     }
