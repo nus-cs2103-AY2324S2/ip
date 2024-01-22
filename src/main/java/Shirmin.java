@@ -44,8 +44,10 @@ public class Shirmin {
                 System.out.println("invalid, out of range");
             }
 
-        } catch (NumberFormatException e) { // decided to handle as exception e.g. a task named "mark papers" is not valid
+        } catch (NumberFormatException e) {
             System.out.println("Invalid task number: " + command[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("There are " + currIndex + "numbers, please enter a number from 1 to " + currIndex);
         }
 
         } else if(command[0].equals("unmark")) {
@@ -62,40 +64,55 @@ public class Shirmin {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid task number: " + command[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("There are " + currIndex + "numbers, please enter a number from 1 to " + currIndex);
             }
         } else if (command[0].equals("todo")) {
-            Task newTodo = new Todo(command[1]);
-            taskList[currIndex] = newTodo;
-            currIndex++;
-            addMessage(newTodo, currIndex);
+            try {
+                Task newTodo = new Todo(command[1]);
+                taskList[currIndex] = newTodo;
+                currIndex++;
+                addMessage(newTodo, currIndex);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("oopsy doopsy you made a -ucky wucky! The description of a todo cannot be empty.");
+            }
         } else if (command[0].equals("deadline")) {
-            String[] details = command[1].split(" /by ");
-            String description = details[0];
-            String by = details[1];
+            try {
+                String[] details = command[1].split(" /by ");
+                String description = details[0];
+                String by = details[1];
 
-            Task newDeadline = new Deadline(description, by);
-            taskList[currIndex] = newDeadline;
-            currIndex++;
-            addMessage(newDeadline, currIndex);
+                Task newDeadline = new Deadline(description, by);
+                taskList[currIndex] = newDeadline;
+                currIndex++;
+                addMessage(newDeadline, currIndex);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
+                        " must be in the format 'deadline [task] /by [time]' .");
+            }
         } else if (command[0].equals("event")) {
-            String[] details = command[1].split(" /from ");
-            String description = details[0];
-            String[] fromTo = details[1].split(" /to ");
-            String from = fromTo[0];
-            String to = fromTo[1];
+            try {
+                String[] details = command[1].split(" /from ");
+                String description = details[0];
+                String[] fromTo = details[1].split(" /to ");
+                String from = fromTo[0];
+                String to = fromTo[1];
 
-            Task newEvent = new Event(description, from, to);
-            taskList[currIndex] = newEvent;
-            currIndex++;
-            addMessage(newEvent, currIndex);
-        }
+                Task newEvent = new Event(description, from, to);
+                taskList[currIndex] = newEvent;
+                currIndex++;
+                addMessage(newEvent, currIndex);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
+                        " must be in the format 'deadline [task] /from [time]' /to [time] .");
+            }
+        } else {
+            System.out.println("OH NO I'm not sure what that command is. You may use the commands " +
+                    "todo, deadline, list, event, mark and unmark");
 
-
-
-        else {
-            wrapInLines(gap() +"added: " + line);
-            taskList[currIndex] = new Task(line);
-            currIndex++;
+//            wrapInLines(gap() +"added: " + line);  //original implementation that adds event if no command is given
+//            taskList[currIndex] = new Task(line);
+//            currIndex++;
         }
     }
     public static <T extends Task> void addMessage(T task, Integer number){
