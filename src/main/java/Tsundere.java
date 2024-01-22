@@ -1,0 +1,29 @@
+public class Tsundere {
+
+    private static final String hi = "( ｡ •̀ ᴖ •́ ｡)";
+    private static final String bye ="(\uD83D\uDCA2,,>﹏<,,) b-baka!";
+
+    public static void greet() {
+        System.out.println("______________________________________________\n" +
+                "Don't get the wrong idea!\n" +
+                "I'm not doing this to help you or anything!\n" +
+                hi +
+                "\n______________________________________________\n");
+    }
+
+    public static void exit() {
+        System.out.println("______________________________________________\n" +
+                "Don't forget about me!\n" +
+                "You better come back soon!\n" +
+                bye +
+                "\n______________________________________________\n");
+    }
+
+    public static void main(String[] args) {
+
+        greet();
+        exit();
+
+
+    }
+}
