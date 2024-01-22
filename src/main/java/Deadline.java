@@ -13,7 +13,7 @@ public class Deadline extends Task {
         return "D";
     }
     @Override
-    public String toString() {
-        return super.toString() + " (by: " + by + ")";
+    public String ToString() {
+        return super.ToString() + " (by: " + by + ")";
     }
 }

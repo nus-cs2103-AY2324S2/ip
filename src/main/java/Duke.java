@@ -26,14 +26,18 @@ public class Duke {
         int n = 0;
         Scanner bfn = new Scanner(
                 new InputStreamReader(System.in));// scanner to read user input
+
         String str = bfn.nextLine();
+
 
 
         while (true) {
             String[] tokens = str.split("\\s+");// split read string into individual components to read keywords
             String identifier = tokens[0];// store keywords
 
+
             if (str.equals("list")) {
+                System.out.println("Here are the tasks in your list:\n");
                 for(int a = 0; a < n;a++ ) {
                     System.out.println(a+1 + ". " + list[a].ToString());
                 }
@@ -45,17 +49,55 @@ public class Duke {
             }
 
             else if (identifier.equals("mark")){
-                int no = Integer.parseInt(tokens[1])+1;
+                int no = Integer.parseInt(tokens[1]) - 1;
                 list[no].isDone = true;
                 System.out.println("Nice! I've marked this task as done:\n");
                 System.out.println(list[no].ToString());
             }
 
             else if (identifier.equals("unmark")){
-                int no = Integer.parseInt(tokens[1])+1;
+                int no = Integer.parseInt(tokens[1]) - 1;
                 list[no].isDone = false;
                 System.out.println("OK, I've marked this task as not done yet:\n");
                 System.out.println(list[no].ToString());
+            }
+
+            else if (identifier.equals("event")){
+                str = str.replace("event", "");
+                str = str.replace("from", "");
+                str = str.replace("to", "");
+                String[] eventtokens = str.split("/");
+                String subject = eventtokens[0];
+                String to = eventtokens[1];
+                String from = eventtokens[2];
+                list[n] = new Event(subject, to, from);
+                System.out.println("Got it. I've added this task:\n");
+                System.out.println(list[n].ToString());
+                n++;
+                System.out.println("Now you have " + n + " tasks in the list.");
+
+            }
+
+            else if (identifier.equals("deadline")){
+                str = str.replace("deadline", "");
+                str = str.replace("by", "");
+                String[] deadlinetokens = str.split("/");
+                String subject = deadlinetokens[0];
+                String deadline = deadlinetokens[1];
+                list[n] = new Deadline(subject, deadline);
+                System.out.println("Got it. I've added this task:\n");
+                System.out.println(list[n].ToString());
+                n++;
+                System.out.println("Now you have " + n + " tasks in the list.");
+            }
+
+            else if (identifier.equals("todo")){
+                str = str.replace("todo", "");
+                list[n] = new Task(str);
+                System.out.println("Got it. I've added this task:\n");
+                System.out.println(list[n].ToString());
+                n++;
+                System.out.println("Now you have " + n + " tasks in the list.");
             }
 
 
@@ -63,6 +105,7 @@ public class Duke {
                 System.out.println(str);
 
                 list[n] = new Task(str);
+                System.out.println(" Got it. I've added this task:\n");
                 n++;
             }
 
