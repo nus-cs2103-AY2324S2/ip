@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class Kervyn {
                     for (int i = 0; i < userRequests.size(); i++) {
                         task = userRequests.get(i);
                         check = task.getStatus() ? 'X' : ' ';
-                        System.out.println("\t" + (i + 1) + "." + "[" + check + "] " + task.getName());
+                        System.out.println("\t" + (i + 1) + "." + "[" + check + "] " + task.getDescription());
                     }
                     break;
                 case "mark":
@@ -37,7 +36,7 @@ public class Kervyn {
                         System.out.println("\tNice! I've marked this task as done:");
                         task.updateStatus();
                         check = task.getStatus() ? 'X' : ' ';
-                        System.out.println("\t[" + check + "] " + task.getName());
+                        System.out.println("\t[" + check + "] " + task.getDescription());
                     }
                     break;
                 case "unmark":
@@ -48,7 +47,7 @@ public class Kervyn {
                         System.out.println("\tOK, I've marked this task as not done yet:");
                         task.updateStatus();
                         check = task.getStatus() ? 'X' : ' ';
-                        System.out.println("\t[" + check + "] " + task.getName());
+                        System.out.println("\t[" + check + "] " + task.getDescription());
                     }
                     break;
                 default:
