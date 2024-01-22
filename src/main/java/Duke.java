@@ -33,7 +33,7 @@ public class Duke {
                     continue;
                 }
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println("     " + (i + 1) + ". " + tasks[i]);
+                    System.out.println("     " + (i + 1) + "." + tasks[i]);
                 }
                 System.out.println("____________________________________________________________");
             } else if ((command.toLowerCase().equals("mark") || command.toLowerCase().equals("unmark")) && parts.length == 2) {
@@ -57,11 +57,51 @@ public class Duke {
                 }
             } else {
                     // Add task to the array and echo it back
+                    if (parts.length == 1) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("     ☹ OOPS!!! The description of a " + command + " cannot be empty.");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
                     if (taskCount < MAX_TASKS) {
-                        tasks[taskCount] = new Task(input);
+                        Task task = null;
+                        if (command.toLowerCase().equals("todo")) {
+                            task = new Todo (input.substring(5));
+                        } else if (command.toLowerCase().equals("deadline")) {
+                            String[] parts2 = input.split(" /by ");
+                            if (parts2.length != 2) {
+                                System.out.println("____________________________________________________________");
+                                System.out.println("     Invalid event format. Please use the following format:");
+                                System.out.println("            deadline <description> /by  <end time>");
+                                System.out.println("____________________________________________________________");
+                                continue;
+                            }
+                            task = new Deadline(parts2[0].substring(9), parts2[1]);
+                        } else if (command.toLowerCase().equals("event")) {
+                            String[] parts2 = input.split(" /from ");
+                            String eventDescription = parts2[0].substring(6);
+                            String[] partsWithTo = parts2[1].split(" /to ");
+                            if (parts2.length != 2 || partsWithTo.length != 2) {
+                                System.out.println("____________________________________________________________");
+                                System.out.println("     Invalid event format. Please use the following format:");
+                                System.out.println("     event <description> /from <start time> to <end time>");
+                                System.out.println("____________________________________________________________");
+                                continue;
+                            }
+                            task = new Event(eventDescription, partsWithTo[0], partsWithTo[1]);
+                        }
+                        if (task == null) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("     Invalid command. Please try again.");
+                            System.out.println("____________________________________________________________");
+                            continue;
+                        }
+                        tasks[taskCount] = task;
                         taskCount++;
                         System.out.println("____________________________________________________________");
-                        System.out.println("     added: " + input);
+                        System.out.println("     Got it. I've added this task:");
+                        System.out.println("       " + task);
+                        System.out.println("     Now you have " + taskCount + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                     } else {
                         System.out.println("____________________________________________________________");
