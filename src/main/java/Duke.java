@@ -39,7 +39,14 @@ public class Duke {
                     System.out.println("\t OOPS!!! Your unmark instruction is unclear ૮(˶˃ᆺ˂˶)");
                     System.out.println("\t Try 'unmark [task number to mark as not done]'.");
                 }
-            }else if (lowerInput.equals("bye")) {
+            } else if (lowerInput.startsWith("delete")) {
+                if (lowerInput.matches("delete\\s\\d+")) {
+                    delete(input, list);
+                } else {
+                    System.out.println("\t OOPS!!! Your delete instruction is unclear ૮₍ ´ ꒳ `₎ა");
+                    System.out.println("\t Try 'delete [task number to be deleted]'.");
+                }
+            } else if (lowerInput.equals("bye")) {
                 break;
             } else if (lowerInput.startsWith("todo")){
                 if (lowerInput.matches("todo\\s.+")) {
@@ -70,7 +77,7 @@ public class Duke {
                 }
             } else {
                 System.out.println("\t OOPS!!! Sorry I don't know what that means ૮₍ ´• ˕ •` ₎ა");
-                System.out.println("\t Try keywords: todo, deadline, event, list, mark, unmark.");
+                System.out.println("\t Try keywords: todo, deadline, event, list, mark, unmark, delete.");
             }
             System.out.println(line);
         }
@@ -83,7 +90,7 @@ public class Duke {
             System.out.println("\t OOPS!!! No task in list ૮ ´• ﻌ ´• ა");
             System.out.println("\t You may add task with keywords: todo, deadline, event.");
         } else {
-            System.out.println("\t Here are the tasks in your list:");
+            System.out.println("\t Here are the tasks in your list ૮ ˙Ⱉ˙ ა :");
             int count = 1;
             for (Task t : list) {
                 System.out.println("\t\t " + count + "." + t.printTask());
@@ -99,8 +106,21 @@ public class Duke {
         System.out.println("\t Now you have " + size + (size > 1 ? " tasks" : " task") + " in the list.");
     }
 
+    private static void delete(String input, ArrayList<Task> list) {
+        String[] s = input.split("\\s");
+        int num = Integer.parseInt(s[1]);
+        if (num <= list.size()) {
+            Task t = list.remove(num - 1);
+            System.out.println("\t Noted ૮ ˶ᵔ ᵕ ᵔ˶ ა I've removed this task:");
+            System.out.println("\t\t " + t.printTask());
+            System.out.println("\t Now you have " + list.size() + (list.size() > 1 ? " tasks" : " task") + " in the list.");
+        } else {
+            System.out.println("\t OOPS!!! Task (" + num + ") not found ૮₍ ˶0_0˶ ₎ა");
+            print(list);
+        }
+    }
     private static void mark(String input, boolean done, ArrayList<Task> list) {
-        String[] s = input.split(" ");
+        String[] s = input.split("\\s");
         int num = Integer.parseInt(s[1]);
         if (num <= list.size()) {
             Task t = list.get(num - 1);

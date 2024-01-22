@@ -53,7 +53,7 @@
         ________________________________________________________________
 
         ________________________________________________________________
-         Here are the tasks in your list:
+         Here are the tasks in your list ૮ ˙Ⱉ˙ ა :
                  1.[T][X] read book
                  2.[D][ ] return book (by: June 6th)
                  3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
@@ -66,7 +66,7 @@
         ________________________________________________________________
 
         ________________________________________________________________
-         Here are the tasks in your list:
+         Here are the tasks in your list ૮ ˙Ⱉ˙ ა :
                  1.[T][X] read book
                  2.[D][ ] return book (by: June 6th)
                  3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
@@ -75,11 +75,22 @@
 
         ________________________________________________________________
          OOPS!!! Task (5) not found ૮₍ ˶0_0˶ ₎ა
-         Here are the tasks in your list:
+         Here are the tasks in your list ૮ ˙Ⱉ˙ ა :
                  1.[T][X] read book
                  2.[D][ ] return book (by: June 6th)
                  3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
                  4.[T][ ] join sports club
+        ________________________________________________________________
+
+        ________________________________________________________________
+         Noted ૮ ˶ᵔ ᵕ ᵔ˶ ა I've removed this task:
+                 [T][X] read book
+         Now you have 3 tasks in the list.
+        ________________________________________________________________
+
+        ________________________________________________________________
+         OOPS!!! Sorry I don't know what that means ૮₍ ´• ˕ •` ₎ა
+         Try keywords: todo, deadline, event, list, mark, unmark, delete.
         ________________________________________________________________
 
         ________________________________________________________________
