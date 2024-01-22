@@ -10,25 +10,25 @@ public class Tsundere {
     public static final ArrayList<Task> taskList = new ArrayList<>();
 
     public static void greet() {
-        System.out.println("______________________________________________\n" +
-                "Don't get the wrong idea!\n" +
-                "I'm not doing this to help you or anything!\n" +
-                "______________________________________________");
+        System.out.println("_________________________________________________________________________________\n" +
+                            "Don't get the wrong idea!\n" +
+                            "I'm not doing this to help you or anything!\n" +
+                            "_________________________________________________________________________________");
     }
 
     public static void exit() {
-        System.out.println("______________________________________________\n" +
-                //"Don't forget about me!\n" +
-                "You better come back soon!\n" +
-                "______________________________________________\n");
+        System.out.println("_________________________________________________________________________________\n" +
+                            //"Don't forget about me!\n" +
+                            "You better come back soon!\n" +
+                            "_________________________________________________________________________________\n");
     }
 
     public static void echo() {
         String str = sc.nextLine();
         while (!str.equals("bye")) {
-            System.out.println("______________________________________________\n" +
-                    str +
-                    "\n______________________________________________\n");
+            System.out.println("_________________________________________________________________________________\n" +
+                                str +
+                                "\n_________________________________________________________________________________\n");
             str = sc.nextLine();
         }
         exit();
@@ -37,16 +37,16 @@ public class Tsundere {
     public static void addTasks() {
         String str = sc.nextLine();
         while (!str.equals("bye")) {
-            System.out.println("______________________________________________");
+            System.out.println("_________________________________________________________________________________");
 
             Action action = new Action(str);
             try {
                 action.execute();
-            } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-                System.out.println("Tell me something I understand (｡•ˇ‸ˇ•｡)");
+            } catch (GeneralException e) {
+                System.out.println(e);
             }
 
-            System.out.println("______________________________________________\n");
+            System.out.println("_________________________________________________________________________________\n");
             str = sc.nextLine();
         }
         exit();
