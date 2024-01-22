@@ -19,12 +19,12 @@ public class Command {
             tasklist.listDownTask();
         } else if (inputCommand.startsWith("mark")) {
             char pos = inputCommand.charAt(5);
-            int index = Character.getNumericValue(pos);
-            tasklist.getTask(index).setIsDone(true);
+            int index = Integer.parseInt(String.valueOf(pos));
+            tasklist.markTask(index);
         } else if (inputCommand.startsWith("unmark")) {
-            char pos = inputCommand.charAt(5);
-            int index = Character.getNumericValue(pos);
-            tasklist.getTask(index).setIsDone(false);
+            char pos = inputCommand.charAt(7);
+            int index = Integer.parseInt(String.valueOf(pos));
+            tasklist.unmarkTask(index);
         } else {
             Task task = new Task(inputCommand);
             tasklist.addTask(task);

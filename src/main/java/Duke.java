@@ -8,7 +8,7 @@ public class Duke {
         System.out.println("Hello! I'm KAI\n" + "What can i do for you?\n");
         taskList tasklist = new taskList();
         Parsing.inputParsing(tasklist);
-
-
+        System.out.println("Bye. Hope to see you again soon!");
+        System.exit(0);
     }
 }

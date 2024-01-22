@@ -2,9 +2,11 @@ package task;
 
 public class Task {
     private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
+        this.isDone = false;
     }
 
     public String getDescription() {
@@ -15,8 +17,20 @@ public class Task {
         this.description = description;
     }
 
+    public String getIsDoneStatus() {
+        return (isDone ? "X" : " ");
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public void setIsDone(boolean done) {
+        this.isDone = done;
+    }
+
     @Override
     public String toString() {
-        return this.description;
+        return "[" + getIsDoneStatus() + "] " + this.description;
     }
 }
