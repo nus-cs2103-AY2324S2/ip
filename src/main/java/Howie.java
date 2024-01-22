@@ -122,7 +122,7 @@ public class Howie {
                     for (int j=1; j<input.length; j++) {
                         name.append(input[j]).append(" ");
                     }
-                    Task todo = new Task(name.toString());
+                    Task todo = new Task(name.toString().trim());
                     addToList(todo);
                     break;
             }
