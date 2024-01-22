@@ -81,6 +81,18 @@ public class Jivox {
         addDivider();
     }
 
+    public void delete(int i) throws JivoxException {
+        if(i > this.list.size() || i < 0){
+            throw new JivoxException("Oops! There are only " + this.list.size() + " Tasks!");
+        }
+        Task t = this.list.get(i-1);
+        this.list.remove(i-1);
+        addDivider();
+        System.out.println(" Noted. I've removed this task:\n" + t);
+        System.out.println("Now you have " + this.list.size() +" Tasks in the List");
+        addDivider();
+    }
+
     public void addDivider(){
         System.out.println("============================================================");
     }
@@ -111,6 +123,16 @@ public class Jivox {
                             throw new JivoxException("Please, provide a task number to unmark");
                         }
                         this.unmark(Integer.parseInt(in[1]));
+                    } catch (JivoxException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                else if(in[0].equals("delete")){
+                    try {
+                        if(in.length == 1){
+                            throw new JivoxException("Please, provide a task number to delete");
+                        }
+                        this.delete(Integer.parseInt(in[1]));
                     } catch (JivoxException e){
                         System.out.println(e.getMessage());
                     }
