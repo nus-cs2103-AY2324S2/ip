@@ -1,7 +1,167 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Hello! I'm Naruto, and I'm training to become a ninja!
+    Believe it!
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task added:
+      [T][ ] borrow book
+    Now you have 1 outstanding task.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task added:
+      [D][ ] return book (by: Sunday)
+    Now you have 2 outstanding tasks.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task added:
+      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Now you have 3 outstanding tasks.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Here are the tasks in your list:
+    1.[T][ ] borrow book
+    2.[D][ ] return book (by: Sunday)
+    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Great job! You marked that task off your list! That's the way to go! 
+    Keep pushing yourself, and remember, every completed task brings you 
+    one step closer to your goals. Believe it!
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+      [T][X] borrow book
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Great job! You marked that task off your list! That's the way to go! 
+    Keep pushing yourself, and remember, every completed task brings you 
+    one step closer to your goals. Believe it!
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+      [D][X] return book (by: Sunday)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Great job! You marked that task off your list! That's the way to go! 
+    Keep pushing yourself, and remember, every completed task brings you 
+    one step closer to your goals. Believe it!
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+      [E][X] project meeting (from: Mon 2pm to: 4pm)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Here are the tasks in your list:
+    1.[T][X] borrow book
+    2.[D][X] return book (by: Sunday)
+    3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    You know, sometimes things don't go as planned, but that's okay! 
+    The important part is to keep moving forward. 
+    Unmarking a task is just a step in the journey. Believe it! 
+    We'll get there, one task at a time!
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+      [T][ ] borrow book
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    You know, sometimes things don't go as planned, but that's okay! 
+    The important part is to keep moving forward. 
+    Unmarking a task is just a step in the journey. Believe it! 
+    We'll get there, one task at a time!
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+      [D][ ] return book (by: Sunday)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    You know, sometimes things don't go as planned, but that's okay! 
+    The important part is to keep moving forward. 
+    Unmarking a task is just a step in the journey. Believe it! 
+    We'll get there, one task at a time!
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Here are the tasks in your list:
+    1.[T][ ] borrow book
+    2.[D][ ] return book (by: Sunday)
+    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Bye bye! ヾ( ˃ᴗ˂ )◞ • *✰
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
