@@ -13,30 +13,24 @@ public class UserInterface {
     public void greet() {
         System.out.println(greeting);
     }
-    
     public void exit() {
         System.out.println(exit);
     }
 
-    public void poll() {
 
+
+    public void poll() {
         boolean polling = true;
         CommandProcessor cmd = new CommandProcessor();
 
         while (polling) {
             String input = scan.nextLine();
-
-            switch (input) {
-                case "bye":
-                    polling = false;
-                    break;
-            
-                default:
-                    cmd.processData(input);
-                    break;
+            if (input.equals("bye")) {
+                polling = false;
+            } else {
+                cmd.processData(input);
             }
         }
-
     }
 
     public void start() {
