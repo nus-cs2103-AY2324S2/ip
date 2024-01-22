@@ -63,7 +63,9 @@ public class UkeCat {
                     }
                 }
             } catch (Exception e) {
-                System.out.println("Please enter a valid integer to mark");
+                System.out.println("Please enter a valid integer to mark!");
+                taskList.displayTasks();
+                continue;
             }
 
             // Add task msg
