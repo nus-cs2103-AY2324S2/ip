@@ -1,9 +1,11 @@
+import task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    boolean isRunning;
-    ArrayList<String> todoList = new ArrayList<>();
+    private boolean isRunning;
+    private ArrayList<Task> todoList = new ArrayList<>();
 
     public static void main(String[] args) {
         Duke duke = new Duke();
@@ -28,7 +30,29 @@ public class Duke {
                 isRunning = false;
             } else if (userInput.equals("list")) {
                 printList();
-            }else {
+            } else if (userInput.startsWith("mark")) {
+                try{
+                    int listIndex = Integer.parseInt(userInput.substring(5));
+                    if (listIndex <= 0 || listIndex > todoList.size()) {
+                        printMessage("Sorry, there's no task at that index!");
+                    } else {
+                        markTask(listIndex);
+                    }
+                } catch (NumberFormatException e) {
+                    printMessage("Error. Please mark as done using: mark list_index");
+                }
+            } else if (userInput.startsWith("unmark")) {
+                try{
+                    int listIndex = Integer.parseInt(userInput.substring(7));
+                    if (listIndex <= 0 || listIndex > todoList.size()) {
+                        printMessage("Sorry, there's no task at that index!");
+                    } else {
+                        unmarkTask(listIndex);
+                    }
+                } catch (NumberFormatException e) {
+                    printMessage("Sorry, please mark as done using: mark list_index");
+                }
+            } else {
                 addToList(userInput);
             }
         }
@@ -43,9 +67,22 @@ public class Duke {
         System.out.println(line);
     }
 
-    public void addToList(String task) {
-        todoList.add(task);
-        printMessage("added: " + task);
+    public void markTask(int index) {
+        Task task = todoList.get(index - 1);
+        task.markAsDone();
+        printMessage("Ameowzing! I've marked this task as done:\n\t" + task.toListString());
+    }
+
+    public void unmarkTask(int index) {
+        Task task = todoList.get(index - 1);
+        task.unmarkAsDone();
+        printMessage("OK, I've marked this task as not done yet:\n\t" + task.toListString());
+    }
+
+    public void addToList(String taskDescription) {
+        Task newTask = new Task(taskDescription);
+        todoList.add(newTask);
+        printMessage("added: " + newTask);
     }
 
     public void printList() {
@@ -54,11 +91,11 @@ public class Duke {
             if (i > 1) {
                 listString += "\t";
             }
-            listString += i + ". " + todoList.get(i - 1);
+            listString += i + ". " + todoList.get(i - 1).toListString();
             if (i < todoList.size()) {
                 listString += "\n";
             }
         }
-        printMessage(listString.strip());
+        printMessage(listString);
     }
 }
