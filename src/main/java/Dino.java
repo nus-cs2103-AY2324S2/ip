@@ -31,12 +31,31 @@ public class Dino {
     }
 
     public void listTask() {
-        System.out.println("Here are the tasks that you wanted to do:");
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
-            int index = i + 1;
-            System.out.println(index + ".[" + task.getStatusIcon() + "] " + task);
+        try {
+            if (taskList.isEmpty()) {
+                throw new DinoException("The list is empty.");
+            }
+            System.out.println("Here are the tasks that you wanted to do:");
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
+                int index = i + 1;
+                System.out.println(index + "." + task);
+            }
+        } catch (DinoException e) {
+            System.out.println(e.getMessage());
         }
+    }
+
+    public void deleteTask(int taskNum) throws DinoException {
+        if (taskNum < 1 || taskNum > taskList.size()) {
+            throw new DinoException("Invalid task number. Please provide a valid task number to delete.");
+        }
+
+        Task removedTask = taskList.remove(taskNum - 1);
+
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + removedTask);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     public void chatHere() {
@@ -55,6 +74,15 @@ public class Dino {
                     goodbye();
                     sc.close();
                     return;
+
+                case "delete":
+                    try {
+                        int taskNum = sc.nextInt();
+                        deleteTask(taskNum);
+                    } catch (DinoException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
 
                 case "todo":
                     try {

@@ -4,6 +4,6 @@ public class ToDo extends Task {
     }
 
     public String toString() {
-        return "[T] " + super.toString();
+        return "[T] " + "[" + getStatusIcon() + "] " + super.toString();
     }
 }
