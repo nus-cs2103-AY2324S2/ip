@@ -30,26 +30,24 @@ public class Program {
             this.end();
         } else if (input.toLowerCase().equals("list")) {
             this.taskList.getList(this.printList);
-            this.printList.print();
         } else if (input.toLowerCase().equals("mark")) {
             int taskNumber = this.userInputScanner.nextInt();
             this.taskList.mark(taskNumber, this.printList);
-            this.printList.print();
         } else if (input.toLowerCase().equals("unmark")) {
             int taskNumber = this.userInputScanner.nextInt();
             this.taskList.unmark(taskNumber, this.printList);
-            this.printList.print();
         } else if (input.toLowerCase().equals("todo") || 
                 input.toLowerCase().equals("deadline") ||
                 input.toLowerCase().equals("event")) {
             String task = this.userInputScanner.nextLine();
-            String receiveInput = this.taskList.addTask(input, task);
-            this.textFormat(receiveInput);
+            this.taskList.addTask(input, task, this.printList);
         } else {
             //input += this.userInputScanner.nextLine();
             //receiveInput = this.taskList.addTask(input);
             //this.textFormat(receiveInput);
         }
+        this.printList.print();
+
     }
 
     private void greeting() {
@@ -63,13 +61,12 @@ public class Program {
     private void end() {
         String exit = "Goodbye. See you later!";
         this.printList.add(exit);
-        this.printList.print();
         this.running = false;
     }
-
+    /* 
     private void textFormat(String text) {
         this.printList.add(text);
         this.printList.print();
     }
-    
+    */
 }

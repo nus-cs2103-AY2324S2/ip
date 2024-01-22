@@ -8,7 +8,7 @@ public class TaskList {
         this.list = new ArrayList<Task>();
     }
 
-    public String addTask(String task, String fullDescription) {
+    public void addTask(String task, String fullDescription, PrintList printList) {
         Task newTask;
         if (task.toLowerCase().equals("todo")) {
             newTask = new ToDo(fullDescription);
@@ -27,8 +27,9 @@ public class TaskList {
             newTask = new Event(description, from, to);
         }
         this.list.add(newTask);
-        return String.format("added: %s", task);
-
+        printList.add(String.format("Okay! added this task:"));
+        printList.add(newTask.toString());
+        printList.add(String.format("Now you have %d tasks in the list.", this.list.size()));
     }
 
     public void mark(int taskNumber, PrintList printList) {
