@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 public class Duke {
     static final String CHATBOT_NAME = "Echo";
@@ -27,22 +28,37 @@ public class Duke {
     }
 
     Scanner sc = new Scanner(System.in);
+    Parser parser = new Parser();
+    Storage storage = new Storage();
 
     /**
      * Main function to run the chatbot.
      */
     public void run() {
         printBanner();
-        String prompt = askForPrompt();
-        prompt = prompt.trim();
-        while (!prompt.equals("bye")) {
-            System.out.println(prompt);
-            prompt = askForPrompt();
+        while (true) {
+            String prompt;
+            try {
+                prompt = askForPrompt();
+            } catch (NoSuchElementException e) {
+                System.out.println();
+                new ByeCommand().execute(storage);
+                break;
+            }
+
+            Command command;
+            try {
+                command = parser.parse(prompt);
+            } catch (InvalidCommandException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
+            command.execute(storage);
         }
-        System.out.println("Bye. Hope to see you again soon!");
     }
 
     public static void main(String[] args) {
+        Commands.registerCommands();
         Duke duke = new Duke();
         duke.run();
     }
