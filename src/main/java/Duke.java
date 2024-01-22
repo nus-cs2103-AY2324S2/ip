@@ -12,12 +12,15 @@ class DukeException extends Exception {
     }
 }
 
+enum TaskType {
+    T, D, E;
+}
 class Task {
     protected String description;
-    protected String type;
+    protected TaskType type;
     protected boolean isDone;
 
-    public Task(String type, String description) {
+    public Task(TaskType type, String description) {
         this.type = type;
         this.description = description;
         this.isDone = false;
@@ -90,8 +93,8 @@ class Task {
 class ToDo extends Task {
     private ArrayList < Task > arr = new ArrayList < > ();
 
-    public ToDo(String type, String description) throws DukeException {
-        super(type, description);
+    public ToDo(String description) throws DukeException {
+        super(TaskType.T, description);
         arr.add(this);
     }
 
@@ -104,8 +107,8 @@ class ToDo extends Task {
 class Deadline extends Task {
     protected String by;
 
-    public Deadline(String type, String description, String by) throws DukeException {
-        super(type, description);
+    public Deadline(String description, String by) throws DukeException {
+        super(TaskType.D, description);
 
         if (!description.contains("/by")) {
             throw new DukeException("By when? You forgot to enter \"/by\"");
@@ -131,8 +134,8 @@ class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String type, String description, String from, String to) throws DukeException {
-        super(type, description);
+    public Event(String description, String from, String to) throws DukeException {
+        super(TaskType.E, description);
 
         if (description.isEmpty() && (!from.isEmpty() && !to.isEmpty())) {
             throw new DukeException("You didn't specify the event!");
@@ -240,7 +243,7 @@ public class Duke {
                     if (words.length == 1) {
                         throw new DukeException("You gotta enter some task TO DO");
                     }
-                    Task task = new ToDo("T", input.substring(5).trim());
+                    Task task = new ToDo(input.substring(5).trim());
                     tasks.add(task);
                     System.out.println(task.toString());
                     task.numberOfTasks(tasks);
@@ -252,7 +255,7 @@ public class Duke {
                 System.out.println("-------------------------------");
                 try {
                     if (input.length() >= 9) {
-                        Task task = new Deadline("D", input.substring(9).trim(), words.length > 2 ? words[2] : "");
+                        Task task = new Deadline(input.substring(9).trim(), words.length > 2 ? words[2] : "");
                         tasks.add(task);
                         System.out.println(task);
                         task.numberOfTasks(tasks);
@@ -278,7 +281,7 @@ public class Duke {
                     String from = fromMatcher.find() ? fromMatcher.group(1).trim() : "";
                     String to = toMatcher.find() ? toMatcher.group(1).trim() : "";
 
-                    Task task = new Event("E", eventDescription, from, to);
+                    Task task = new Event(eventDescription, from, to);
                     tasks.add(task);
                     System.out.println(task.toString());
                     task.numberOfTasks(tasks);
