@@ -2,31 +2,33 @@ import java.util.Scanner;
 
 public class Duke {
     private String name;
+    private String[] tasks = new String[100];
+    private int counter = 0;
 
     public Duke(String name) {
         this.name = name;
     }
-    public String greetings() {
+    public void greetings() {
         String reply = "Hello! I'm " + this.name + ". \n"
-                + "What can I do for you? \n";
-        return reply;
+                + "What can I do for you?";
+        System.out.println(reply);
     }
 
-    public String quitApplication() {
+    public void quitApplication() {
         String reply = "Bye. Hope to see you again soon!";
-        return reply;
+        System.out.println(reply);
     }
 
-    public String echoCommand() {
-        Scanner scanner = new Scanner(System.in);
-//        System.out.println("What is your command? ");
-        String command = scanner.nextLine();
-        return command;
+    public void addTask(String task) {
+        tasks[counter++] = task;
+        System.out.println("added: " + task);
     }
 
-    public void printStatement(String string) {
-        System.out.println(string);
-//        System.out.println("\n");
+    public void printTasks() {
+        for (int i = 0; i < tasks.length; i++) {
+            if (tasks[i] == null) break;
+            System.out.println(i + 1 + ". " + tasks[i]);
+        }
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -34,17 +36,19 @@ public class Duke {
         String name = scanner.nextLine();
 
         Duke duke = new Duke(name);
-        duke.printStatement(duke.greetings());
+        duke.greetings();
 
         while (true) {
-            String command = duke.echoCommand();
+            String command = scanner.nextLine();
 
             if (command.equals("bye")) {
-                duke.printStatement(duke.quitApplication());
+                duke.quitApplication();
                 break;
+            } else if (command.equals("list")) {
+                duke.printTasks();
+            } else {
+                duke.addTask(command);
             }
-
-            duke.printStatement(command);
         }
     }
 }
