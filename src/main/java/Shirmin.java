@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Shirmin {
     public static void displayLine() {
@@ -24,7 +25,8 @@ public class Shirmin {
     }
 
 
-    static Task[] taskList = new Task[100];
+    //static Task[] taskList = new Task[100];
+    static ArrayList<Task> taskList = new ArrayList<>();
     static int currIndex = 0;
     public static void listFunction(String line){
         String[] command =  line.split(" ", 2);
@@ -34,10 +36,10 @@ public class Shirmin {
         try {
             int taskIndex = Integer.parseInt(command[1]) - 1;
             if (taskIndex < currIndex) {
-                taskList[taskIndex].markDone();
+                taskList.get(taskIndex).markDone();
                 // displayLine();
                 System.out.println(gap() + "Nice! I've marked this task as done:");
-                System.out.println(gap() + gap() + taskList[taskIndex]);
+                System.out.println(gap() + gap() + taskList.get(taskIndex));
                 displayLine();
 
             } else { // out of range
@@ -54,10 +56,10 @@ public class Shirmin {
             try {
                 int taskIndex = Integer.parseInt(command[1]) - 1;
                 if (taskIndex < currIndex) {
-                    taskList[taskIndex].markUndone();
+                    taskList.get(taskIndex).markUndone();
                     displayLine();
                     System.out.println(gap() + "OK, I've marked this task as not done yet:");
-                    System.out.println(gap() + gap() + taskList[taskIndex]);
+                    System.out.println(gap() + gap() + taskList.get(taskIndex));
                     displayLine();
                 } else { // out of range
                     System.out.println("invalid, out of range");
@@ -65,12 +67,13 @@ public class Shirmin {
             } catch (NumberFormatException e) {
                 System.out.println("Invalid task number: " + command[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("There are " + currIndex + "numbers, please enter a number from 1 to " + currIndex);
+                System.out.println("There are " + currIndex + " items, please enter a number from 1 to " + currIndex);
             }
         } else if (command[0].equals("todo")) {
             try {
                 Task newTodo = new Todo(command[1]);
-                taskList[currIndex] = newTodo;
+                taskList.add(newTodo);
+                // taskList[currIndex] = newTodo;
                 currIndex++;
                 addMessage(newTodo, currIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -83,12 +86,12 @@ public class Shirmin {
                 String by = details[1];
 
                 Task newDeadline = new Deadline(description, by);
-                taskList[currIndex] = newDeadline;
+                taskList.add(newDeadline);
                 currIndex++;
                 addMessage(newDeadline, currIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
-                        " must be in the format 'deadline [task] /by [time]' .");
+                        " must be in the format 'deadline [task] /by [time]'.");
             }
         } else if (command[0].equals("event")) {
             try {
@@ -99,12 +102,12 @@ public class Shirmin {
                 String to = fromTo[1];
 
                 Task newEvent = new Event(description, from, to);
-                taskList[currIndex] = newEvent;
+                taskList.add(newEvent);
                 currIndex++;
                 addMessage(newEvent, currIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
-                        " must be in the format 'deadline [task] /from [time]' /to [time] .");
+                        " must be in the format 'deadline [task] /from [time]' /to [time].");
             }
         } else {
             System.out.println("OH NO I'm not sure what that command is. You may use the commands " +
@@ -122,11 +125,22 @@ public class Shirmin {
         System.out.println(gap() + "Now you have " + number.toString() + " tasks in the list.");
         displayLine();
     }
-    public static void displayList(Task[] list) {
+    public static void displayList(ArrayList<Task> list) {
         // displayLine();
-        int i = 1;
-        for (Task t: list) {
-            if (t != null) {
+//        int i = 1;
+//        for (Task t: list) {
+//            if (t != null) {
+//                System.out.println(gap() + i + "." + t.toString());
+//                i++;
+//            }
+//        }
+
+        if (list.isEmpty()) {
+            System.out.println(gap() + "There are no tasks in your list.");
+        } else {
+            System.out.println(gap() + "Here are the tasks in your list:");
+            int i = 1;
+            for (Task t : list) {
                 System.out.println(gap() + i + "." + t.toString());
                 i++;
             }
