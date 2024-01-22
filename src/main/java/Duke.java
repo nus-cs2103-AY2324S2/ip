@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,22 +38,43 @@ public class Duke {
 
         return new ChatBot(botName, logo, greetings, farewells);
     }
+
+    public static String[] resolveInput(String input) {
+        return input.split("\\s+");
+    }
+
+    public static String retrieveCommand(String input) {
+        return resolveInput(input)[0];
+    }
+
+    public static String[] retrieveParameters(String input) {
+        String[] inputArrays = resolveInput(input);
+        return Arrays.copyOfRange(inputArrays, 1, inputArrays.length);
+    }
+
+
     public static void main(String[] args) {
         ChatBot Paimon = createPaimonChatBot();
         Paimon.greet();
         Scanner scanner = new Scanner(System.in);
-        String command;
+        String command, input;
+        int parameter;
         while (true) {
-            command = scanner.nextLine();
+            input = scanner.nextLine();
+            command = retrieveCommand(input);
             switch (command) {
                 case "list":
                     Paimon.listTasks();
+                    break;
+                case "mark":
+                    parameter = Integer.parseInt(retrieveParameters(input)[0]);
+                    System.out.println("mark " + parameter);
                     break;
                 case "bye":
                     Paimon.bye();
                     return;
                 default:
-                    Paimon.addTask(command);
+                    Paimon.addTask(input);
             }
         }
     }

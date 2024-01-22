@@ -113,6 +113,7 @@ public class ChatBot {
 
     public void listTasks() {
         int count = 0;
+        System.out.println("Here are the list of your task in the list: ");
         for (Task task: this.tasks) {
             count++;
             System.out.println(count + ". " + task.toString());
