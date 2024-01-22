@@ -5,10 +5,30 @@ public class TaskListCommands {
     public TaskListCommands() {}
 
     public static void addToList(String inputs) {
-        System.out.println("  << Duke Leto >> ");
-        System.out.println("  > Task added: " + inputs);
-        TaskListCommands.list[TaskListCommands.taskNextIndex] = new Todo(inputs);
-        TaskListCommands.taskNextIndex++;
+        try {
+            Task t = null;
+            String typeOfTask = inputs.split(" ")[0];
+            switch (typeOfTask.toLowerCase()) {
+                case "event":
+                    t = Event.EventFactory(inputs);
+                    break;
+                case "deadline":
+                    t = Deadline.DeadlineFactory(inputs);
+                    break;
+                case "todo":
+                    t = new Todo(inputs);
+                    break;
+            } // end switch for type of task
+            if (t == null) {
+                System.out.println("  << Duke Leto >>\n  > No tasks created. .  .   .");
+                return;
+            }
+            TaskListCommands.list[TaskListCommands.taskNextIndex] = t;
+            TaskListCommands.taskNextIndex++;
+            System.out.println("  << Duke Leto >>\n  > Task added, " + t.toString() + "\n  > You have " + TaskListCommands.taskNextIndex + " tasks.");
+        } catch (Exception e) {
+            System.out.println("  << Duke Leto >>\n  > Harkonnens! " + e.toString());
+        }
     }
 
     public static void markTaskCompleted(int index) {

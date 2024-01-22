@@ -37,10 +37,14 @@ public class CommandExecutor {
                         System.out.println("  <<Duke Leto>>\n   >> I dont think you entered a number...");
                     }
                     break;
-                default:
-                    System.out.println();
+                case "todo":
+                case "event":
+                case "deadline":
                     TaskListCommands.addToList(inputs);
-                    System.out.println();
+                    break;
+                default:
+                    System.out.println("  <<Duke Leto>>\n   >> I don't know what you are asking!");
+
             } // End switch
 
         } // End command while loop
