@@ -7,7 +7,15 @@ public class Task {
         this.status = status;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean getStatus() {
+        return this.status;
+    }
+
     public void updateStatus() {
         this.status = !this.status;
     }
-} 
+}

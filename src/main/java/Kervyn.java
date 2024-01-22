@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Kervyn {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> userRequests = new ArrayList<>();
+        ArrayList<Task> userRequests = new ArrayList<>();
         String chatbotName = "Kervyn";
 
         System.out.println("\tHello! I'm " + chatbotName);
@@ -16,12 +16,17 @@ public class Kervyn {
             userInput = scanner.nextLine();
             if (!Objects.equals(userInput, "bye") && !Objects.equals(userInput, "list")) {
                 System.out.println("\tadded: " + userInput);
-                userRequests.add(userInput);
+                // Create a new Task for each new item
+                Task newTask = new Task(userInput, false);
+                userRequests.add(newTask);
             }
 
             if (Objects.equals(userInput, "list")) {
+                System.out.println("Here are the tasks on your list:");
                 for (int i = 0; i < userRequests.size(); i ++) {
-                    System.out.println("\t" + (i + 1) + ". " +  userRequests.get(i));
+                    Task task =  userRequests.get(i);
+                    char check =  task.getStatus() ? 'X' : ' ';
+                    System.out.println("\t" + (i + 1) + "." + "[" + check + "] " +  task.getName());
 
                 }
             }
