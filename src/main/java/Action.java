@@ -20,7 +20,7 @@ public class Action {
             } catch (NumberFormatException e) {
                 throw new GeneralException("Can't you spell?");
             } catch (IndexOutOfBoundsException e ) {
-                throw new GeneralException("Im pretty sure that's the wrong task number!");
+                throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
             }
         } else if (this.name.contains("mark")) {
             if (Tsundere.taskList.isEmpty()) throw new GeneralException("What you tryna mark huh?");
@@ -35,7 +35,18 @@ public class Action {
             } catch (NumberFormatException e) {
                 throw new GeneralException("Can't you spell?");
             } catch (IndexOutOfBoundsException e ) {
-                throw new GeneralException("Im pretty sure that's the wrong task number!");
+                throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
+            }
+
+        } else if (this.name.contains("delete")) {
+            if (Tsundere.taskList.isEmpty()) throw new GeneralException("What you tryna delete huh?");
+            try {
+                Tsundere.taskList.remove(Integer.parseInt(this.name.substring(7, 8)) - 1);
+                getListSize("deleted");
+            } catch (NumberFormatException e) {
+                throw new GeneralException("Can't you spell?");
+            } catch (IndexOutOfBoundsException e ) {
+                throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
             }
 
         } else if (this.name.contains("list")) {
@@ -53,7 +64,7 @@ public class Action {
                 String[] x = deadline.split("/");
 
                 Tsundere.taskList.add(new Deadline(x[0], x[1].split(" ", 2)[1]));
-                getListSize();
+                getListSize("added");
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new GeneralException("Can't you even remember the proper format for this? \n" +
                                             "deadline [task] /by [date]");
@@ -65,7 +76,7 @@ public class Action {
                 String[] x = event.split("/");
 
                 Tsundere.taskList.add(new Event(x[0], x[1].split(" ", 2)[1], x[2].split(" ", 2)[1]));
-                getListSize();
+                getListSize("added");
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new GeneralException("Can't you even remember the proper format for this? \n" +
                                             "event [task] /from [date] /to [date]");
@@ -77,7 +88,7 @@ public class Action {
                 String todo = this.name.split(" ", 2)[1];
 
                 Tsundere.taskList.add(new ToDo(todo));
-                getListSize();
+                getListSize("added");
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new GeneralException("Can't you even remember the proper format for this? \n" +
                                             "todo [task]");
@@ -88,10 +99,10 @@ public class Action {
 
     }
 
-    public void getListSize() {
+    public void getListSize(String str) {
         int size = Tsundere.taskList.size();
         System.out.println("Noted...");
-        System.out.println(" " + Tsundere.taskList.get(size - 1).toString());
+        System.out.println(" " + Tsundere.taskList.get(size - 1).toString() + " has been " + str);
         System.out.println("Get to work! You still have " + size + " " + (size > 1 ? "tasks" : "task") + " left!");
     }
 
