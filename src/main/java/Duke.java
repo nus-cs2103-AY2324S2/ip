@@ -1,5 +1,5 @@
-import java.util.Scanner;
-import java.util.ArrayList;
+
+import java.util.*;
 public class Duke {
     public static void main(String[] args) {
         String input;
@@ -16,36 +16,75 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         input = sc.nextLine();
-        String[] inputParts = input.split(" ");
+        List<String> inputParts = Arrays.asList(input.split(" "));
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                System.out.println(line);
-                System.out.println(storage);
-                System.out.println(line);
-
-            } else if (inputParts[0].equals("mark")) {
-                Task t = storage.get(Integer.parseInt(inputParts[1]) - 1);
+                System.out.println(line + storage.printList() + line);
+            } else if (inputParts.get(0).equals("mark")) {
+                Task t = storage.get(Integer.parseInt(inputParts.get(1)) - 1);
                 t.markAsDone();
-                System.out.println(line);
-                System.out.println("Great job on completing the task!");
-                System.out.println(t.toString());
-                System.out.println(line);
-            } else if (inputParts[0].equals("unmark")) {
-                Task t = storage.get(Integer.parseInt(inputParts[1]) - 1);
+                String output = line +
+                        "Great job on completing the task!\n" +
+                        t.toString() + "\n" +line;
+                System.out.print(output);
+            } else if (inputParts.get(0).equals("unmark")) {
+                Task t = storage.get(Integer.parseInt(inputParts.get(1)) - 1);
                 t.markAsUndone();
                 String output = line ;
                 output += "OK, I've marked this task as not done yet: \n" +
                         t.toString() + line;
                 System.out.println(output);
+            } else if (inputParts.get(0).equals("deadline")) {
+                int index = inputParts.indexOf("/by");
+                String descriptor = "";
+                String deadline = "";
+                for (int i=1; i<index; i++) {
+                    descriptor += inputParts.get(i)+ " ";
+                }
+                for (int i=index+1; i<inputParts.size(); i++) {
+                    deadline += inputParts.get(i)+ " ";
+                }
+                deadline = deadline.trim();
+                descriptor = descriptor.trim();
+                Deadlines d = new Deadlines(descriptor, deadline);
+                storage.add(d);
+                System.out.println(line + storage.addToListOutput(d) + "\n" + line);
+            } else if (inputParts.get(0).equals("event")) {
+                int index1 = inputParts.indexOf("/from");
+                int index2 = inputParts.indexOf("/to");
+                String descriptor = "";
+                String from = "";
+                String to = "";
+                for (int i=index1 + 1; i<index2; i++) {
+                    from += inputParts.get(i)+ " ";
+                }
+                for (int i=index2 + 1; i<inputParts.size(); i++) {
+                    to += inputParts.get(i)+ " ";
+                }
+                for (int i=1; i<index1; i++) {
+                    descriptor += inputParts.get(i)+ " ";
+                }
+                descriptor = descriptor.trim();
+                from = from.trim();
+                to = to.trim();
+
+                Events e =  new Events(descriptor, from, to);
+                storage.add(e);
+                System.out.println(line + storage.addToListOutput(e) + "\n" + line);
+            } else if (inputParts.get(0).equals("todo")) {
+                String descriptor = "";
+                for (int i=1; i<inputParts.size(); i++) {
+                    descriptor += inputParts.get(i) + " ";
+                }
+                descriptor = descriptor.trim();
+                ToDos t = new ToDos(descriptor);
+                storage.add(t);
+                System.out.println(line + storage.addToListOutput(t) + "\n" + line);
             } else {
-                Task newTask = new Task(input);
-                storage.add(newTask);
-                System.out.println(line);
-                System.out.printf("added: %s\n", input);
-                System.out.println(line);
+                System.out.println("WHAT DO YOU MEANNNNNNNNN??!?!?!?");
             }
             input = sc.nextLine();
-            inputParts = input.split(" ");
+            inputParts = Arrays.asList(input.split(" "));
         }
         System.out.println(line);
         System.out.println("Farewell! Can't wait to catch up with you again. Until next time, " +
