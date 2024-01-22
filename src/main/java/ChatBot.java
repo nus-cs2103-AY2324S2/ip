@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
 /**
- * ChatBot encapsulates the behaviour of a Chatbot.
+ * ChatBot encapsulates the behaviour of a Chatbot,
+ * which is the handling of the message content and executing commands.
  *
  * @author Titus Chew
  */
 public class ChatBot {
-    private final String chatBotName, INDENT = "    ";
+    private final String chatBotName;
     private final Scanner scanner = new Scanner(System.in);
 
     /**
@@ -26,37 +27,17 @@ public class ChatBot {
      * Greets the user when entering the application.
      */
     private void greet() {
-        printMessage(String.format(
-                "Hello! I'm %s!\n" +
-                "What can I do for you?",
-                chatBotName));
+        Printer.printMessages(
+                "Hello! I'm " + chatBotName + "!",
+                "What can I do for you?"
+        );
     }
 
     /**
      * Greets the user when exiting the application.
      */
     private void exit() {
-        printMessage("Bye! Hope to see you again soon!");
-    }
-
-    /**
-     * Inserts a horizontal line.
-     */
-    private void insertLine() {
-        System.out.println(INDENT + "____________________________________________________________");
-    }
-
-    /**
-     * Prints an indented message to the console.
-     * @param message the message to print in the console
-     */
-    private void printMessage(String message) {
-        insertLine();
-        String[] lines = message.split("\n");
-        for (String line : lines) {
-            System.out.println(INDENT + line);
-        }
-        insertLine();
+        Printer.printMessages("Bye! Hope to see you again soon!");
     }
 
     /**
@@ -149,9 +130,10 @@ public class ChatBot {
      * Prints the message when a task is added.
      */
     private void printAddTaskMessage() {
-        printMessage("Got it. I've added this task:\n  "
-                + userList.getNewestTask() + "\n"
-                + "Now you have " + userList.size() + " tasks in the list"
+        Printer.printMessages(
+                "Got it. I've added this task:",
+                "    " + userList.getNewestTask(),
+                "Now you have " + userList.size() + " task(s) in the list."
         );
     }
 
@@ -159,7 +141,10 @@ public class ChatBot {
      * Prints the user's list.
      */
     private void listTasks() {
-        printMessage("Here are the tasks in your list:\n" + userList.toString());
+        Printer.printMessages(
+                "Here are the tasks in your list:",
+                userList.toString()
+        );
     }
 
     /**
@@ -169,7 +154,10 @@ public class ChatBot {
     private void markTask(Action action) {
         int index = Integer.parseInt(action.findDefaultArgument()) - 1;
         userList.markTask(index);
-        printMessage("Nice! I've marked this task as done:\n  " + userList.getTask(index));
+        Printer.printMessages(
+                "Nice! I've marked this task as done:",
+                "    " + userList.getTask(index)
+        );
     }
 
     /**
@@ -179,6 +167,9 @@ public class ChatBot {
     private void unmarkTask(Action action) {
         int index = Integer.parseInt(action.findDefaultArgument()) - 1;
         userList.unmarkTask(index);
-        printMessage("OK, I've marked this task as not done yet:\n  " + userList.getTask(index));
+        Printer.printMessages(
+                "Ok, I've marked this task as not done yet:",
+                "    " + userList.getTask(index)
+        );
     }
 }
