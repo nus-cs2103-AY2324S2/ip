@@ -4,41 +4,51 @@
          .-_)( /(__)\\  //(__)\ \__ \\__ \ _)(_ \__ \  )(
         \____)(__)(__)\/(__)(__)(___/(___/(____)(___/ (__)
 
-    	 Hello! I'm JavAssist
+    	 Hello! I'm JavAssist ૮ฅ・ﻌ・აฅ
     	 What can I do for you?
     	________________________________________________________________
 
     	________________________________________________________________
-         Got it. I've added this task:
+         OOPS!!! No task in list ૮ ´• ﻌ ´• ა
+         You may add task with keywords: todo, deadline, event.
+        ________________________________________________________________
+
+        ________________________________________________________________
+         ᨐฅ Got it! I've added this task:
                  [T][ ] read book
          Now you have 1 task in the list.
     	________________________________________________________________
 
         ________________________________________________________________
-         Nice! I've marked this task as done:
+         Nice! ૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა I've marked this task as done:
                  [T][X] read book
         ________________________________________________________________
 
         ________________________________________________________________
-         Got it. I've added this task:
+         OOPS!!! The description and due of a deadline cannot be empty ૮₍´˶• . • ⑅ ₎ა
+         Try 'deadline [task description] /by [date/time]'.
+        ________________________________________________________________
+
+        ________________________________________________________________
+         ᨐฅ Got it! I've added this task:
                  [D][ ] return book (by: June 6th)
          Now you have 2 tasks in the list.
         ________________________________________________________________
 
         ________________________________________________________________
-         Got it. I've added this task:
+         ᨐฅ Got it! I've added this task:
                  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
          Now you have 3 tasks in the list.
         ________________________________________________________________
 
         ________________________________________________________________
-         Got it. I've added this task:
+         ᨐฅ Got it! I've added this task:
                  [T][ ] join sports club
          Now you have 4 tasks in the list.
         ________________________________________________________________
 
         ________________________________________________________________
-         Nice! I've marked this task as done:
+         Nice! ૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა I've marked this task as done:
                  [T][X] join sports club
         ________________________________________________________________
 
@@ -51,7 +61,7 @@
         ________________________________________________________________
 
         ________________________________________________________________
-         Ok, I've marked this task as not done yet:
+         Ok, ૮₍ ˶•⤙•˶ ₎ა I've marked this task as not done yet:
                  [T][ ] join sports club
         ________________________________________________________________
 
@@ -64,8 +74,14 @@
         ________________________________________________________________
 
         ________________________________________________________________
+         OOPS!!! Task (5) not found ૮₍ ˶0_0˶ ₎ა
+         Here are the tasks in your list:
+                 1.[T][X] read book
+                 2.[D][ ] return book (by: June 6th)
+                 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+                 4.[T][ ] join sports club
         ________________________________________________________________
 
         ________________________________________________________________
-         Bye. Hope to see you again soon!
+         Bye. Hope to see you again soon! ʕ •ɷ•ʔฅ
         ________________________________________________________________
