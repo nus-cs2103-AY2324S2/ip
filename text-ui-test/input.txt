@@ -1,0 +1,11 @@
+list
+todo week1 assignments
+deadline math tutorial /by friday
+event lecture /from morning /to afternoon
+list
+mark 2
+mark 3
+list
+unmark 3
+list
+bye
