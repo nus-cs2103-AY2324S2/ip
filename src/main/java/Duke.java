@@ -7,7 +7,6 @@ import java.sql.SQLOutput;
 public class Duke {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter pw = new PrintWriter(System.out);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm AcademicWeapon");
         System.out.println("What can I do for you?");
@@ -21,7 +20,6 @@ public class Duke {
         }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
-        pw.flush();
         br.close();
     }
 }
