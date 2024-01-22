@@ -6,13 +6,16 @@ public class Blu {
         bot.greet();
 
         Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.print("> ");
-            String userInput = scanner.nextLine();
-            if (userInput.equalsIgnoreCase("bye")) {
-                break;
+        System.out.print("> ");
+        String userInput = scanner.nextLine();
+        while (!userInput.equals("bye")) {
+            if (userInput.equals("list")) {
+                bot.displayTasks();
+            } else {
+                bot.addTask(userInput);
             }
-            bot.echo(userInput);
+            System.out.print("> ");
+            userInput = scanner.nextLine();
         }
         scanner.close();
         bot.exit();
