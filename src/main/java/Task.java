@@ -1,13 +1,17 @@
 import java.lang.String;
-public class Task {
+public abstract class Task {
 
   protected String description;
   protected boolean isDone;
 
-  public Task(String description) {
+  protected String icon;
+
+  public Task(String description, String icon) {
     this.description = description;
     this.isDone = false;
+    this.icon = icon;
   }
+  public String getIcon() {return this.icon;}
   public void mark() {
     this.isDone = true;
   }
@@ -20,6 +24,13 @@ public class Task {
   }
 
   public String getStatusIcon() {
-    return (isDone ? "[X]" : "[ ]");
+    return this.getIcon() + (isDone ? "[X]" : "[ ]");
   }
+
+  public abstract String getTimeData();
+
+  public String getFullStatus() {
+    return this.getStatusIcon() + " " + this.getDescription() + " " + this.getTimeData();
+  }
+
 }
