@@ -76,7 +76,7 @@ public class UkeCat {
                     for (int i = 1; i < words.length; i++) {
                         todoDescBuilder.append(words[i]).append(" ");
                     }
-                    ToDo newToDo = new ToDo(todoDescBuilder.toString());
+                    ToDo newToDo = new ToDo(todoDescBuilder.toString().trim());
                     taskList.addTask(newToDo);
                     break;
                 case "deadline": // find end using /by
@@ -97,7 +97,7 @@ public class UkeCat {
                     }
 
                     Deadline newDeadline = new Deadline(
-                        deadlineDescBuilder.toString(),deadlineEndBuilder.toString());
+                        deadlineDescBuilder.toString().trim(),deadlineEndBuilder.toString().trim());
                     taskList.addTask(newDeadline);
                     break;
                 case "event": // find start using /from, end using /to
@@ -124,8 +124,8 @@ public class UkeCat {
                     for (int i = eventEndIndex + 1; i < words.length; i++) {
                         eventEndBuilder.append(words[i]).append(" ");
                     }
-                    Event newEvent = new Event(eventDescBuilder.toString(),
-                        eventStartBuilder.toString(), eventEndBuilder.toString());
+                    Event newEvent = new Event(eventDescBuilder.toString().trim(),
+                        eventStartBuilder.toString().trim(), eventEndBuilder.toString().trim());
                     taskList.addTask(newEvent);
                     break;
 

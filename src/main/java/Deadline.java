@@ -9,6 +9,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String info = String.format("(by: %s)", end);
-        return String.format("[T] %s %s %s", this.getStatusIcon(), super.toString(), info);
+        return String.format("[T]%s%s %s", this.getStatusIcon(), super.toString(), info);
     }
 }
