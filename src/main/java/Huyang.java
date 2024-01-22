@@ -21,7 +21,6 @@ public class Huyang {
 
     public static void main(String[] args) {
         Huyang huyang = new Huyang();
-
         huyang.greet();
         huyang.farewell();
     }
