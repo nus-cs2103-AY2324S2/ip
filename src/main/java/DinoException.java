@@ -4,5 +4,4 @@ public class DinoException extends Exception {
         super(message);
     }
 
-    // You can add additional constructors or methods as needed.
 }

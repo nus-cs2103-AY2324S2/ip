@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Dino {
     private ArrayList<Task> taskList;
-    private int taskNum;
 
     public Dino() {
         this.taskList = new ArrayList<>();
@@ -15,15 +14,6 @@ public class Dino {
 
     public void goodbye() {
         System.out.println("Goodbye! It was nice meeting you.");
-    }
-
-    public void echo() {
-        Scanner sc = new Scanner(System.in);
-        String chat = sc.nextLine();
-        while (!chat.equalsIgnoreCase("bye")) {
-            System.out.println(chat);
-            chat = sc.nextLine();
-        }
     }
 
     public void addTask(Task task) {
