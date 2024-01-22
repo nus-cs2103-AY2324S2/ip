@@ -39,6 +39,14 @@ public class Duke {
         return new ChatBot(botName, logo, greetings, farewells);
     }
 
+    private static ChatBot createPaimonChatBotForTesting() {
+        String logo = "logo";
+        String botName = "Paimon";
+        List<String> greetings = List.of("Ad astra abyssosque, welcome to Paimon's house!");
+        List<String> farewells = List.of("Safe travels, and take care!");
+        return new ChatBot(botName, logo, greetings, farewells);
+    }
+
     public static String[] resolveInput(String input) {
         return input.split("\\s+", 2);
     }
@@ -54,7 +62,12 @@ public class Duke {
 
 
     public static void main(String[] args) {
-        ChatBot Paimon = createPaimonChatBot();
+        ChatBot Paimon;
+        if (args.length > 0 && args[0].equals("test-mode")) {
+            Paimon = createPaimonChatBotForTesting();
+        } else {
+            Paimon = createPaimonChatBot();
+        }
         Paimon.greet();
         Scanner scanner = new Scanner(System.in);
         String command, input;
@@ -86,7 +99,7 @@ public class Duke {
                     Paimon.bye();
                     return;
                 default:
-                    Paimon.addTask(input);
+                    System.out.println("Please use the correct commands.");
             }
         }
     }
