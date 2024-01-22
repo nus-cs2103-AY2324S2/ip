@@ -8,6 +8,13 @@ list
 mark 1
 unmark 1
 unmark 3
+delete 1
+todo
+event
+deadline
+mark1
+unmark1
+delete1
 list
 hello
 bye
