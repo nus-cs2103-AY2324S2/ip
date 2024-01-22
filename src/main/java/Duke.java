@@ -1,24 +1,32 @@
 import java.util.Scanner;
 public class Duke {
     private final Scanner scanner = new Scanner(System.in);
-    private final String[] taskList = new String[100];
+    private final Task[] taskList = new Task[100];
     public static void main(String[] args) {
         Duke aurora1 = new Duke();
         aurora1.exeAurora();
     }
 
     /**
-     * Method for execution. Handling 3 commands.
+     * Method for execution.
      */
     public void exeAurora() {
         printOpeningMessage();
         boolean exit = false;
         while(!exit) {
             String command = scanner.nextLine();
-            if (command.equalsIgnoreCase("bye")) {
+            String[] splitCommands = command.split(" ");
+            String mainC = splitCommands[0];
+            if (mainC.equalsIgnoreCase("bye")) {
                 exit = true;
-            } else if (command.equalsIgnoreCase("list")) {
+            } else if (mainC.equalsIgnoreCase("list")) {
                 printTaskList();
+            } else if (mainC.equalsIgnoreCase("mark")) {
+                int taskIndex = Integer.parseInt(splitCommands[1]);
+                markTask(taskIndex - 1);
+            } else if (mainC.equalsIgnoreCase("unmark")) {
+                int taskIndex = Integer.parseInt(splitCommands[1]);
+                unmarkTask(taskIndex - 1);
             } else {
                 addTask(command);
             }
@@ -52,12 +60,13 @@ public class Duke {
      */
     public void printTaskList() {
         printALine();
+        System.out.println("These are the tasks in your list:");
         for(int i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i] == null) {
                 printALine();
                 return;
             } else {
-                String taskString = (i+1) + ". " + this.taskList[i];
+                String taskString = (i+1) + ". " + this.taskList[i].toString();
                 System.out.println(taskString);
             }
         }
@@ -89,7 +98,8 @@ public class Duke {
     public void addTask(String task) {
         int taskNumber = nextTaskNumber();
         if(nextTaskNumber() != -1) {
-            taskList[taskNumber] = task;
+            Task newTask = new Task(task);
+            taskList[taskNumber] = newTask;
             echoAddTask(task);
         }
     }
@@ -108,6 +118,28 @@ public class Duke {
             }
         }
         return nextNumber;
+    }
+
+    /**
+     * Method to mark a task in the taskList as done.
+     */
+    public void markTask(int taskIndex) {
+        this.taskList[taskIndex].setDone();
+        printALine();
+        System.out.println("I've marked this task as done: \n" +
+                this.taskList[taskIndex].toString());
+        printALine();
+    }
+
+    /**
+     * Method to unmark a task in the taskList.
+     */
+    public void unmarkTask(int taskIndex) {
+        this.taskList[taskIndex].setNotDone();
+        printALine();
+        System.out.println("I've marked this task as not done yet: \n" +
+                this.taskList[taskIndex].toString());
+        printALine();
     }
 
 }
