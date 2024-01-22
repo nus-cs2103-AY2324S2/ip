@@ -76,7 +76,7 @@ public class Yapchit {
         String intro = "\t--------------------------------------------------\n"
                 + "\tHello! I'm Yapchit\n"
                 + "\tWhat can I do for you?\n"
-                + "\t--------------------------------------------------\n";
+                + "\t--------------------------------------------------";
         System.out.println(intro);
     }
 
@@ -111,13 +111,13 @@ public class Yapchit {
     private void outro(){
         String outro = "\t--------------------------------------------------\n"
                 + "\tBye. Hope to see you again soon!\n"
-                + "\t--------------------------------------------------\n";
+                + "\t--------------------------------------------------";
 
         System.out.println(outro);
     }
 
     private void line(){
-        System.out.println("\t--------------------------------------------------\n");
+        System.out.println("\t--------------------------------------------------");
     }
 
     private void print(Object o){
