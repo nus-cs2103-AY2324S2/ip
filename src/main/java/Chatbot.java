@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Chatbot {
 
     private final String name;
-    private final static String LINE = "----------------------------------";
+    private final static String LINE = "--------------------------------------------------------";
     private TaskList tasklist; // Hold the list of tasks
 
     public Chatbot(String name) {
@@ -60,13 +60,16 @@ public class Chatbot {
     }
 
     public void addTask(String input) {
-        tasklist.addTask(input);
+        System.out.println(LINE);
+
+        boolean added = tasklist.addTask(input);
         int tasksCount = TaskList.tasksCount;
 
-        System.out.println(LINE);
-        System.out.println("Got it. I've added this task: ");
-        System.out.println("    " + tasklist.getTaskDescription(tasksCount - 1));
-        System.out.println("Now you have " + tasksCount + " tasks in the list.");
+        if (added) {
+            System.out.println("Got it. I've added this task: ");
+            System.out.println("    " + tasklist.getTaskDescription(tasksCount - 1));
+            System.out.println("Now you have " + tasksCount + " tasks in the list.");
+        }
         System.out.println(LINE);
     }
 

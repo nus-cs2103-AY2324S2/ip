@@ -10,17 +10,49 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(String input) {
-        tasks.add(convertTask(input));
-        tasksCount ++;
+    public boolean addTask(String input) {
+        Task task = convertTask(input);
+        if (task != null) {
+            tasks.add(task);
+            tasksCount++;
+            return true;
+        }
+        return false;
+    }
 
+    private void catchInputError(String command) {
+        switch (command.toLowerCase()) {
+            case "todo":
+                ChatbotException.getError(ChatbotException.ErrorType.TODO_EMPTY);
+                break;
+            case "deadline":
+                ChatbotException.getError(ChatbotException.ErrorType.DEADLINE_EMPTY);
+                break;
+            case "event":
+                ChatbotException.getError(ChatbotException.ErrorType.EVENT_EMPTY);
+                break;
+            default:
+                ChatbotException.getError(ChatbotException.ErrorType.UNKNOWN_COMMAND);
+        }
     }
 
     public Task convertTask(String input) {
-        String[] inputs = input.split("\\s+", 2);
-        String command = inputs[0];
-        String description = inputs[1];
 
+        if (input.trim().isEmpty()) {
+            ChatbotException.getError(ChatbotException.ErrorType.UNKNOWN_COMMAND);
+            return null;
+        }
+
+        String[] inputs = input.split("\\s+", 2);
+        if (inputs.length < 2 || inputs[1].trim().isEmpty()) {
+            catchInputError(inputs[0]);
+            return null;
+        }
+
+        return createTask(inputs[0], inputs[1]);
+    }
+
+    public Task createTask(String command, String description) {
         if (command.startsWith("todo")) {
             return new ToDo(description);
         } else if (command.startsWith("deadline")) {
