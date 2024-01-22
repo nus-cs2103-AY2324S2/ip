@@ -1,12 +1,9 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.io.*;
 
 public class Howie {
     public static void printVLine() {
-        System.out.println("---------------------------");
+        System.out.println("------------------------------------");
     }
 
     public static void intro() {
@@ -18,41 +15,73 @@ public class Howie {
 
     public static void exit() {
         printVLine();
-        System.out.println("Bye! I'll see you when I see you!");
+        System.out.println("Bye! I'll see you when I see you :)");
         printVLine();
     }
 
     public static void added(String item) {
         printVLine();
-        System.out.println("Ok! Added: " + item);
+        System.out.println("Ok! I've added: " + item);
         printVLine();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void printAllTask(List<Task> tasks) {
+        printVLine();
+        System.out.println("Here are the list of your tasks:");
+        for (int i=1; i<=tasks.size(); i++) {
+            Task t = tasks.get(i-1);
+            System.out.println(i +"." + t);
+        }
+        printVLine();
+    }
+    public static void main(String[] args) throws Exception {
         intro();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        List<String> todo = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         while (true) {
-            String s = br.readLine();
-            switch (s) {
+            String[] input = br.readLine().split(" ");
+            String s1 = input[0];
+            switch (s1) {
                 case "list":
-                    int count = 1;
-                    printVLine();
-                    for (String item : todo) {
-                        System.out.println(count + ". " + item);
-                        count++;
-                    }
-                    printVLine();
+                    printAllTask(tasks);
                     break;
                 case "bye":
                     exit();
                     break;
+                case "mark":
+                    try {
+                        Task toMark = tasks.get(Integer.parseInt(input[1])-1);
+                        printVLine();
+                        System.out.println("Acknowledged!\n" + toMark.setDone());
+                        printVLine();
+                    } catch (IndexOutOfBoundsException e) {
+                        printVLine();
+                        System.out.println("Opps! I can't seem to find the task.");
+                        printVLine();
+                    }
+                    break;
+                case "unmark":
+                    try {
+                        Task toMark = tasks.get(Integer.parseInt(input[1])-1);
+                        printVLine();
+                        System.out.println("Acknowledged!\n" + toMark.setUndone());
+                        printVLine();
+                    } catch (IndexOutOfBoundsException e) {
+                        printVLine();
+                        System.out.println("Cannot find task");
+                        printVLine();
+                    }
+                    break;
                 default:
-                    todo.add(s);
-                    added(s);
+                    StringBuilder item = new StringBuilder();
+                    for (String s : input) {
+                        item.append(s).append(" ");
+                    }
+                    tasks.add(new Task(item.toString()));
+                    added(item.toString());
                     break;
             }
-            if (s.equals("bye")) {
+            if (s1.equals("bye")) {
                 System.exit(0);
             }
         }
