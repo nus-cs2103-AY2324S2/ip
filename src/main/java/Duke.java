@@ -27,31 +27,62 @@ public class Duke {
                 break;
             } else if (order.equals("list")) {
                 System.out.println("____________________________________________________________");
-                System.out.println("Here are the tasks in your list: \n");
+                System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < array.size(); i++) {
                     Task addTask = array.get(i);
-                    System.out.println((i + 1) + "." + "[" + addTask.getStatusIcon() + "] " + addTask.description);
+                    System.out.println((i + 1) + "." + addTask.toString());
                 }
                 System.out.println("____________________________________________________________");
             } else if (order.contains("unmark")) {
                 String[] tokens = order.split(" ");
-                //String command = tokens[0];
                 int number = Integer.parseInt(tokens[1]);
                 System.out.println("____________________________________________________________");
                 System.out.println("OK, I've marked this task as not done yet: ");
-                Task taskNotMark = array.get(number - 1);
-                taskNotMark.markAsUnDone();
-                System.out.println("[" + taskNotMark.getStatusIcon() + "] " + taskNotMark.description);
+                Task t = array.get(number - 1);
+                t.markAsUnDone();
+                System.out.println(t.toString());
                 System.out.println("____________________________________________________________");
             } else if (order.contains("mark")) {
                 String[] tokens = order.split(" ");
-                //String command = tokens[0];
                 int number = Integer.parseInt(tokens[1]);
                 System.out.println("____________________________________________________________");
                 System.out.println("Nice! I've marked this task as done: ");
-                Task taskMark = array.get(number - 1);
-                taskMark.markAsDone();
-                System.out.println("[" + taskMark.getStatusIcon() + "] " + taskMark.description);
+                Task t = array.get(number - 1);
+                t.markAsDone();
+                System.out.println(t.toString());
+                System.out.println("____________________________________________________________");
+            } else if(order.contains("todo")) {
+                String task = order.substring(5);
+                Task t = new Todo(task);
+                array.add(t);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(t.toString());
+                System.out.println("Now you have " + array.size() + " tasks in the list.\n");
+                System.out.println("____________________________________________________________");
+            } else if (order.contains("deadline")) {
+                int byIndex = order.indexOf("/by");
+                String task = order.substring(9, byIndex - 1);
+                String due = order.substring(byIndex + 4);
+                Task t = new Deadline(task, due);
+                array.add(t);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(t.toString());
+                System.out.println("Now you have " + array.size() + " tasks in the list.\n");
+                System.out.println("____________________________________________________________");
+            } else if (order.contains("event")) {
+                int fromIndex = order.indexOf("/from");
+                int toIndex = order.indexOf("/to");
+                String task = order.substring(6, fromIndex - 1);
+                String from = order.substring(fromIndex + 6, toIndex);
+                String to = order.substring(toIndex + 4);
+                Task t = new Event(task, from, to);
+                array.add(t);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(t.toString());
+                System.out.println("Now you have " + array.size() + " tasks in the list.\n");
                 System.out.println("____________________________________________________________");
             } else {
                 Task t = new Task(order);
