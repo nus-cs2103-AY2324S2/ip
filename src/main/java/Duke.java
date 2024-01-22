@@ -1,6 +1,8 @@
 import controller.Exit;
 import controller.Greet;
 import controller.HandleUserInput;
+import controller.InvalidCommand;
+import model.DukeException;
 import model.Task;
 
 
@@ -26,10 +28,12 @@ public class Duke {
                     exitController.execute();
                     break;
                 } else {
-                    HandleUserInput handleUserInputController = new HandleUserInput(input);
-                    handleUserInputController.execute(taskList);
+                    HandleUserInput handleUserInputController = new HandleUserInput(input, taskList);
+                    handleUserInputController.execute();
                 }
             }
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
         }
     }
 
