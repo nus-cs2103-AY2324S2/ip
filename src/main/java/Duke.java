@@ -62,22 +62,32 @@ public class Duke {
                 String[] temp = inputs[0].split(" ");
                 switch (temp[0].toLowerCase()) {
                     case "todo":
-                        String taskname = "";
+                        String todoname = "";
                         for (int a = 1; a < temp.length; a++) {
-                            taskname = taskname.concat(temp[a]);
-                            taskname = taskname.concat(" ");
+                            todoname = todoname.concat(temp[a]);
+                            todoname = todoname.concat(" ");
                         }
-                        Task nt = new ToDo(taskname);
+                        Task nt = new ToDo(todoname);
                         tasks.add(nt);
                         System.out.println("Task added! You now have " + tasks.size() +" tasks to attend to.");
                         break;
                     case "event":
-                        Task ne = new Event(temp[1], inputs[1], inputs[2]);
+                        String eventname = "";
+                        for (int a = 1; a < temp.length; a++) {
+                            eventname = eventname.concat(temp[a]);
+                            eventname = eventname.concat(" ");
+                        }
+                        Task ne = new Event(eventname, inputs[1], inputs[2]);
                         tasks.add(ne);
                         System.out.println("Task added! You now have " + tasks.size() +" tasks to attend to.");
                         break;
                     case "deadline":
-                        Task nd = new Deadline(temp[1], inputs[1]);
+                        String deadlinename = "";
+                        for (int a = 1; a < temp.length; a++) {
+                            deadlinename = deadlinename.concat(temp[a]);
+                            deadlinename = deadlinename.concat(" ");
+                        }
+                        Task nd = new Deadline(deadlinename, inputs[1]);
                         tasks.add(nd);
                         System.out.println("Task added! You now have " + tasks.size() +" tasks to attend to.");
                         break;
@@ -87,7 +97,8 @@ public class Duke {
             } else if (!userInput.toLowerCase().equals("bye") && !userInput.toLowerCase().equals("list")) {
                 System.out.println("[quack] I don't understand that command. If you would like to add a task to the Duckalendar,\n" +
                         " please specify with the task type - \"todo\", \"deadline\" or \"event\" followed by a space in front of the task" +
-                        " name.\n If you would like me to list the things you are procrastinating, please enter the word \"list\"." +
+                        " name.\n For deadlines, please add a /by followed by the deadline (eg. /by Monday) . For events, please add a / followed by the start time, then another / followed by the end time.\n" +
+                        " If you would like me to list the things you are procrastinating, please enter the word \"list\"." +
                         " \n If you would like to leave, please enter the word \"bye\". \n Do also feel free to also type the words \"feed bread to bearducky\" ?" +
                         " [Hopeful quacking]");
             }
