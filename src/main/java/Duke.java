@@ -1,21 +1,11 @@
-import java.util.Objects;
-import java.util.Scanner;
 public class Duke {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        //This class kinds of serve as an input parser to determine the appropriate response from Bob.
+        //Separate this into a new class called input handler and treat this duke class as a Main class?
+        //We can have enums instead of hard coding list, bye, mark, unmark.
         BartenderBob bartenderBob = new BartenderBob();
-        bartenderBob.greet();
-        while (true) {
-            String userInput = scanner.nextLine();
-            if (Objects.equals(userInput, "list")) {
-                bartenderBob.list();
-            } else if (Objects.equals(userInput, "bye")) {
-                bartenderBob.leave();
-                break;
-            } else {
-                bartenderBob.store(userInput);
-            }
-        }
+        InputHandler inputHandler = new InputHandler();
+        inputHandler.handleInput(bartenderBob);
     }
 }
