@@ -5,36 +5,25 @@
  */
 public class InputParser {
     /**
-     * Possible input commands.
-     */
-    private static final String
-            COMMAND_BYE = "bye",
-            COMMAND_LIST = "list",
-            COMMAND_MARK = "mark",
-            COMMAND_UNMARK = "unmark",
-            COMMAND_TODO = "todo",
-            COMMAND_DEADLINE = "deadline",
-            COMMAND_EVENT = "event";
-
-    /**
      * Parse the input string into it's command and arguments.
      * @param input the console input
      * @return an action containing the command and it's arguments
      */
     public static Action parseInput(String input) {
-        if (input.startsWith(COMMAND_BYE)) {
+        String command = input.trim().split(" ")[0];
+        if (command.equals(Command.BYE.name)) {
             return new Action(Command.BYE);
-        } else if (input.startsWith(COMMAND_LIST)) {
+        } else if (command.equals(Command.LIST.name)) {
             return new Action(Command.LIST);
-        } else if (input.startsWith(COMMAND_MARK)) {
+        } else if (command.equals(Command.MARK.name)) {
             return new Action(Command.MARK, parseArguments(input));
-        } else if (input.startsWith(COMMAND_UNMARK)) {
+        } else if (command.equals(Command.UNMARK.name)) {
             return new Action(Command.UNMARK, parseArguments(input));
-        } else if (input.startsWith(COMMAND_TODO)) {
+        } else if (command.equals(Command.ADD_TODO.name)) {
             return new Action(Command.ADD_TODO, parseArguments(input));
-        } else if (input.startsWith(COMMAND_DEADLINE)) {
+        } else if (command.equals(Command.ADD_DEADLINE.name)) {
             return new Action(Command.ADD_DEADLINE, parseArguments(input));
-        } else if (input.startsWith(COMMAND_EVENT)) {
+        } else if (command.equals(Command.ADD_EVENT.name)) {
             return new Action(Command.ADD_EVENT, parseArguments(input));
         } else {
             // The command is invalid, as it is not one of the above commands.
