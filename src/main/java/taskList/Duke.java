@@ -118,7 +118,22 @@ public class Duke {
                             System.out.println("Error creating Event." + e.getMessage());
                             System.out.println("Please contact the adminstrator.");
                         }                      
-                        break;                           
+                        break;                  
+                        
+                    //delete task from task list
+                    case "delete":
+                        try {
+                            int number = Integer.parseInt(inputList[1])-1;
+                            Task removedTask = theList.remove(number);
+                            System.out.println("Roger that! I've removed this task:\n " + removedTask  +"\nNow you have "+ theList.size() + " tasks in the list.");
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println("Error: Index is out of bounds. The list currently has " + theList.size() + " item(s)");
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: Input is not a valid numeric value.");
+                        } catch (Exception e) {
+                            System.out.println("An unexpected error has occurred. \n" + e.getMessage() + "\nPlease contact the admininstrator"); 
+                        }
+                        break;
 
                     // default - add in the task as according to the text input
                     default:
@@ -150,6 +165,7 @@ public class Duke {
                     
                     case "mark":
                     case "unmark":
+                    case "delete":
                         System.out.println("Let me know the index number!");
                         break;
 
