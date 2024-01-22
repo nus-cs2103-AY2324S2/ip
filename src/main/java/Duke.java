@@ -13,13 +13,18 @@ public class Duke {
     private static final String E_KEY = "event";
     private static final String D_KEY = "deadline";
     private static final String T_KEY = "todo";
+    private static final String DELETEKEY = "delete";
 
-    private static final String[] KEY_LIST = {EXITKEY, LISTKEY, MARKKEY, UNMARKKEY, E_KEY, D_KEY, T_KEY};
+    private static final String[] KEY_LIST = {EXITKEY, LISTKEY, MARKKEY, UNMARKKEY, E_KEY, D_KEY, T_KEY, DELETEKEY};
 
     private ArrayList<Task> inputArr = new ArrayList<>();
 
     public Integer getNumOfTasks() {
         return inputArr.size();
+    }
+
+    public void taskCountToString() {
+        System.out.println("Now you have "+ this.getNumOfTasks() +" tasks in the list." );
     }
 
     public void run(Duke duke){
@@ -104,7 +109,8 @@ public class Duke {
                     // Error when the user input mark key is not a number
                     System.out.println("Please input a valid number. Example: \"mark 1\"");
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Current list only contains " + duke.getNumOfTasks() +" tasks, please input a number within the range.");
+                    duke.taskCountToString();
+                    System.out.println("Please input a number within the range.");
                     System.out.println("Your task list is shown below: ");
                     duke.listTask();
                 }
@@ -118,20 +124,37 @@ public class Duke {
                     // Error when the user input mark key is not a number
                     System.out.println("Please input a valid number. Example: \"unmark 1\"");
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Current list only contains " + duke.getNumOfTasks() +" tasks, please input a number within the range.");
+                    duke.taskCountToString();
+                    System.out.println("Please input a number within the range.");
                     System.out.println("Your task list is shown below: ");
                     duke.listTask();
                 }
 
-            }else if (userInputKey.equals(D_KEY) || userInputKey.equals(T_KEY) || userInputKey.equals(E_KEY)){
+            } else if (userInputKey.equals(D_KEY) || userInputKey.equals(T_KEY) || userInputKey.equals(E_KEY)){
                 // add different type of tasks
                 try {
                     Task task = duke.addTask(userInputKey, inputDetail, from, to);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(task);
-                    System.out.println("Now you have "+ duke.getNumOfTasks() +" tasks in the list." );
+                    duke.taskCountToString();
                 } catch (WrongFormatException e) {
                     System.out.println(e.getMessage());
+                }
+            } else if (userInputKey.equals(DELETEKEY)) {
+                try {
+                    Integer index = new Integer(userInputSplit[1]) - 1;
+                    Task deletedTask = duke.deleteTaskById(index);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(deletedTask);
+                    duke.taskCountToString();
+                } catch (NumberFormatException e) {
+                    // Error when the user input mark key is not a number
+                    System.out.println("Please input a valid number. Example: \"delete 1\"");
+                } catch (IndexOutOfBoundsException e) {
+                    duke.taskCountToString();
+                    System.out.println("Please input a number within the range.");
+                    System.out.println("Your task list is shown below: ");
+                    duke.listTask();
                 }
             }
         }
@@ -174,5 +197,11 @@ public class Duke {
     public Task markTaskById(Integer id, Boolean status) {
         this.inputArr.get(id).setStatus(status);
         return this.inputArr.get(id);
+    }
+
+    public Task deleteTaskById(Integer id){
+        Task taskToDelete = this.inputArr.get(id);
+        this.inputArr.remove(taskToDelete);
+        return taskToDelete;
     }
 }
