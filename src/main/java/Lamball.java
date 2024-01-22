@@ -1,24 +1,27 @@
+
+import java.util.Scanner;
 public class Lamball {
-    public static void main(String[] args) {
-        String logo = "    ____________________________________________________________\n" +
-                "     Hello! I'm Lamball!\n" +
-                "     What can I do for you?\n" +
-                "    ____________________________________________________________\n" +
-                "\n" +
-                "list\n" +
-                "    ____________________________________________________________\n" +
-                "     list\n" +
-                "    ____________________________________________________________\n" +
-                "\n" +
-                "blah\n" +
-                "    ____________________________________________________________\n" +
-                "     blah\n" +
-                "    ____________________________________________________________\n" +
-                "\n" +
-                "bye\n" +
-                "    ____________________________________________________________\n" +
-                "     Bye. Hope to see you again soon!\n" +
-                "    ____________________________________________________________\n";
-        System.out.println("Hello from\n" + logo);
+    String indent = "    ____________________________________________________________\n";
+    String logo = "    ____________________________________________________________\n" +
+            "     Hello! I'm Lamball!\n" +
+            "     What can I do for you?\n" +
+            "    ____________________________________________________________\n";
+
+    public Lamball() {
+
+    }
+
+    public void greetingMessage() {
+        System.out.println(this.logo);
+    }
+
+    public boolean parse(String msg) {
+        System.out.println(indent + "    " + msg + "\n" + indent);
+        // Check if the user wants to exit
+        if (msg.equalsIgnoreCase("bye")) {
+            System.out.println("Duke: Goodbye! Exiting Duke.");
+            return false;
+        }
+        return true;
     }
 }
