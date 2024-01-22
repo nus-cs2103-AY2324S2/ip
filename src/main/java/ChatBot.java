@@ -101,10 +101,14 @@ public class ChatBot {
             System.out.println(farewells.get(dialogueOption));
         }
     }
-
+    public void displayTasksSize() {
+        System.out.printf("Now you have %d tasks in the list.%n", this.tasks.size());
+    }
     public void addTask(Task task) {
-        System.out.println("added: " + task.toString());
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" " + task.toString());
         this.tasks.add(task);
+        this.displayTasksSize();
     }
 
     public void addTask(String description) {
@@ -167,8 +171,14 @@ public class ChatBot {
         String[] parametersArr = parameters.split(" /by ");
         this.addDeadline(parametersArr[0], parametersArr[1]);
     }
-    public List<Task> getTasks() {
-        return tasks;
+
+    public void addEvent(String parameters) {
+        String[] parametersArr = parameters.split(" /from | /to ");
+        this.addEvent(parametersArr[0], parametersArr[1], parametersArr[2]);
+    }
+
+    private void addEvent(String description, String from, String to) {
+        this.addTask(new Event(description, from, to));
     }
 
     @Override
@@ -180,4 +190,6 @@ public class ChatBot {
                 ", farewells=" + farewells +
                 '}';
     }
+
+
 }

@@ -44,12 +44,12 @@ public class Duke {
     }
 
     public static String retrieveCommand(String input) {
-        System.out.println(Arrays.toString(resolveInput(input)));
         return resolveInput(input)[0];
     }
 
     public static String retrieveParameters(String input) {
-        return resolveInput(input)[1];
+        String[] resolvedInput = resolveInput(input);
+        return ((resolvedInput.length > 1) ? resolvedInput[1] : "");
     }
 
 
@@ -78,6 +78,9 @@ public class Duke {
                     break;
                 case "deadline":
                     Paimon.addDeadline(parameters);
+                    break;
+                case "event":
+                    Paimon.addEvent(parameters);
                     break;
                 case "bye":
                     Paimon.bye();
