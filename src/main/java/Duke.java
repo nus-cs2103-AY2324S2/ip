@@ -1,9 +1,22 @@
+import Tasks.DeadlineTask;
+import Tasks.Task;
+import Tasks.TodoTask;
+import Tasks.EventTask;
+import org.w3c.dom.Text;
+
 import java.util.Scanner;
-import java.util.regex.Pattern;
 public class Duke {
-    private Task[] tasks = new Task[100];
-    private int taskCounter = 0;
-    private Scanner scanner = new Scanner(System.in);
+    private Task[] tasks;
+    private int taskCounter;
+    private Scanner scanner;
+    private TextReader textReader;
+
+    public Duke() {
+        this.tasks = new Task[100];
+        this.taskCounter = 0;
+        this.scanner = new Scanner(System.in);
+        this.textReader = new TextReader();
+    }
 
     private void sendSystemMessage(String... strs) {
         for (String s: strs) {
@@ -14,24 +27,52 @@ public class Duke {
         this.sendSystemMessage(TextTemplate.LINE_BREAK, TextTemplate.GREETING, TextTemplate.LINE_BREAK);
     }
 
-    private void bye() {
+    private void exit() {
         this.sendSystemMessage(TextTemplate.EXIT, TextTemplate.LINE_BREAK);
+        this.scanner.close();
     }
 
-    private void addTask(String s) {
-        Task t = new Task(s);
-        this.tasks[taskCounter] = t;
-        ++taskCounter;
-        this.sendSystemMessage("added: " + s, TextTemplate.LINE_BREAK);
+    private void addTodo(String s) {
+        String[] parts = s.split(" ", 2);
+        TodoTask t = new TodoTask(parts[1]);
+        this.tasks[this.taskCounter] = t;
+        ++this.taskCounter;
+
+        String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, this.taskCounter);
+        this.sendSystemMessage(TextTemplate.ADD_TASK, t.toString(), taskCounterMsg, TextTemplate.LINE_BREAK);
+    }
+
+    private void addDeadline(String s) {
+        String[] parts = s.split(" /by ", 2);
+        String desc = parts[0].split(" ", 2)[1];
+        String end = parts[1];
+
+        DeadlineTask d = new DeadlineTask(desc, end);
+        this.tasks[this.taskCounter] = d;
+        ++this.taskCounter;
+
+        String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, this.taskCounter);
+        this.sendSystemMessage(TextTemplate.ADD_TASK, d.toString(), taskCounterMsg, TextTemplate.LINE_BREAK);
+    }
+
+    public void addEvent(String s) {
+        String[] parts = s.split(" /from ", 2);
+        String desc = parts[0].split(" ", 2)[1];
+        String[] duration = parts[1].split(" /to ", 2);
+
+        EventTask e = new EventTask(desc, duration[0], duration[1]);
+        this.tasks[this.taskCounter] = e;
+        ++this.taskCounter;
+
+        String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, this.taskCounter);
+        this.sendSystemMessage(TextTemplate.ADD_TASK, e.toString(), taskCounterMsg, TextTemplate.LINE_BREAK);
     }
 
     private void listTasks() {
         this.sendSystemMessage("Here are the tasks in your list:");
         for (int i = 0; i < this.taskCounter; ++i) {
             Task t = this.tasks[i];
-            String desc = t.getDesc();
-            String isDone = "[" + t.getStatusIcon() + "] ";
-            String msg = String.valueOf(i+1) + ". " + isDone + desc;
+            String msg = String.valueOf(i+1) + ". " + t.toString();
             this.sendSystemMessage(msg);
         }
         this.sendSystemMessage(TextTemplate.LINE_BREAK);
@@ -42,30 +83,49 @@ public class Duke {
         int taskNum = Integer.parseInt(parts[1]) - 1;
         Task t = this.tasks[taskNum];
         t.maskAsDone();
-        String msg = "   [X] " + t.getDesc();
-        this.sendSystemMessage("Nice! I've marked this task as done:");
-        this.sendSystemMessage(msg);
+        this.sendSystemMessage(TextTemplate.MARK_TASK, t.toString(), TextTemplate.LINE_BREAK);
+    }
+
+    private void unmarkTask(String s) {
+        String[] parts = s.split("\\s+");
+        int taskNum = Integer.parseInt(parts[1]) - 1;
+        Task t = this.tasks[taskNum];
+        t.unmark();
+        this.sendSystemMessage(TextTemplate.UNMARK_TASK, t.toString(), TextTemplate.LINE_BREAK);
     }
 
     public void run() {
         this.greet();
-        while (true) {
+        while (textReader.isActive()) {
             String input = scanner.nextLine();
+            Actions act = textReader.getAction(input);
             this.sendSystemMessage(TextTemplate.LINE_BREAK);
-            if (input.equals("bye")) {
-                break;
+
+            switch (act) {
+                case BYE:
+                    this.textReader.exit();
+                    break;
+                case LIST:
+                    this.listTasks();
+                    break;
+                case MARK:
+                    this.markTask(input);
+                    break;
+                case UNMARK:
+                    this.unmarkTask(input);
+                    break;
+                case TODO:
+                    this.addTodo(input);
+                    break;
+                case EVENT:
+                    this.addEvent(input);
+                    break;
+                case DEADLINE:
+                    this.addDeadline(input);
+                    break;
             }
-            if (input.equals("list")) {
-                this.listTasks();
-                continue;
-            }
-            if (Pattern.matches("mark \\d+", input)) {
-                this.markTask(input);
-                continue;
-            }
-            this.addTask(input);
         }
-        this.bye();
+        this.exit();
     }
 
     public static void main(String[] args) {

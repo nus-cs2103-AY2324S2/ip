@@ -1,4 +1,6 @@
-public class Task {
+package Tasks;
+
+public abstract class Task {
     private boolean isDone;
     private String desc;
 
@@ -7,15 +9,21 @@ public class Task {
         this.desc = desc;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
     public String getDesc() {
         return this.desc;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
-    }
+    public abstract String getStatusIcon();
 
     public void maskAsDone() {
         this.isDone = true;
     }
+    public void unmark() {
+        this.isDone = false;
+    }
+
+    public abstract String toString();
 }
