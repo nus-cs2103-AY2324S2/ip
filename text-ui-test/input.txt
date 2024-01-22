@@ -10,9 +10,19 @@ event project meeting /from Mon 2pm /to 4pm
 mark 1
 mark 2
 mark 3
+mark 5
+mark 7
+unmark 5
+unmark 8
 list
 unmark 2
 list
 unmark 1
+list
+delete 10
+list
+delete 1
+delete 2
+delete 3
 list
 bye

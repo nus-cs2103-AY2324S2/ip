@@ -9,6 +9,7 @@ The command todo requires a task description.
     You have 1 tasks in your list.
     +----------------------------------------------------------+
     +----------------------------------------------------------+
+    Here are the tasks in your list:
     1.[T][ ] borrow book
     +----------------------------------------------------------+
 The command deadline requires both a task description and a deadline.
@@ -27,38 +28,73 @@ The command event requires a task description, a start date, and an end date.
     +----------------------------------------------------------+
     +----------------------------------------------------------+
     You have marked task as done:
-    [X] borrow book
+    [T][X] borrow book
     +----------------------------------------------------------+
     +----------------------------------------------------------+
     You have marked task as done:
-    [X] return book (by: Sunday)
+    [D][X] return book (by: Sunday)
     +----------------------------------------------------------+
     +----------------------------------------------------------+
     You have marked task as done:
-    [X] project meeting (from: Mon 2pm  to: 4pm)
+    [E][X] project meeting (from: Mon 2pm  to: 4pm)
     +----------------------------------------------------------+
     +----------------------------------------------------------+
+The command mark requires a valid ID.
+    +----------------------------------------------------------+
+The command mark requires a valid ID.
+    +----------------------------------------------------------+
+The command unmark requires a valid ID.
+    +----------------------------------------------------------+
+The command unmark requires a valid ID.
+    +----------------------------------------------------------+
+    Here are the tasks in your list:
     1.[T][X] borrow book
     2.[D][X] return book (by: Sunday)
     3.[E][X] project meeting (from: Mon 2pm  to: 4pm)
     +----------------------------------------------------------+
     +----------------------------------------------------------+
     You have marked task as undone:
-    [ ] return book (by: Sunday)
+    [D][ ] return book (by: Sunday)
     +----------------------------------------------------------+
     +----------------------------------------------------------+
+    Here are the tasks in your list:
     1.[T][X] borrow book
     2.[D][ ] return book (by: Sunday)
     3.[E][X] project meeting (from: Mon 2pm  to: 4pm)
     +----------------------------------------------------------+
     +----------------------------------------------------------+
     You have marked task as undone:
-    [ ] borrow book
+    [T][ ] borrow book
     +----------------------------------------------------------+
     +----------------------------------------------------------+
+    Here are the tasks in your list:
     1.[T][ ] borrow book
     2.[D][ ] return book (by: Sunday)
     3.[E][X] project meeting (from: Mon 2pm  to: 4pm)
+    +----------------------------------------------------------+
+    +----------------------------------------------------------+
+The command delete requires a valid ID.
+    +----------------------------------------------------------+
+    Here are the tasks in your list:
+    1.[T][ ] borrow book
+    2.[D][ ] return book (by: Sunday)
+    3.[E][X] project meeting (from: Mon 2pm  to: 4pm)
+    +----------------------------------------------------------+
+    +----------------------------------------------------------+
+    You have removed the current task:
+        [T][ ] borrow book
+    You have 2 tasks in your list.
+    +----------------------------------------------------------+
+    +----------------------------------------------------------+
+    You have removed the current task:
+        [E][X] project meeting (from: Mon 2pm  to: 4pm)
+    You have 1 tasks in your list.
+    +----------------------------------------------------------+
+    +----------------------------------------------------------+
+The command delete requires a valid ID.
+    +----------------------------------------------------------+
+    Here are the tasks in your list:
+    1.[D][ ] return book (by: Sunday)
     +----------------------------------------------------------+
     +----------------------------------------------------------+
     Until next time! Goodbye!

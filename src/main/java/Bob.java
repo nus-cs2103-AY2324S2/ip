@@ -15,6 +15,8 @@ public class Bob {
     private final String deadlineCommand = "deadline";
     private final String eventCommand = "event";
 
+    private final String deleteCommand = "delete";
+
     public Bob() {
         this.scanner = new Scanner(System.in);
         list = new ArrayList<>();
@@ -61,6 +63,10 @@ public class Bob {
         return t;
     }
 
+    private void deleteTask(int taskId) {
+        this.list.remove(taskId);
+    }
+
     /**
      * Mark item done.
      */
@@ -81,7 +87,11 @@ public class Bob {
     private void printList(boolean summarized) {
 
         if (!summarized) {
+
             this.printLine();
+
+            System.out.println("    Here are the tasks in your list:");
+
             for (int i = 0; i < this.list.size(); i++) {
                 Task task = this.list.get(i);
                 System.out.println("    " + (i + 1) + "." + task.getType() + task.getStatus() + " " + task);
@@ -122,6 +132,9 @@ public class Bob {
                     case eventCommand:
                         HandleTaskCreation(input);
                         break;
+                    case deleteCommand:
+                        HandleTaskDeletion(input);
+                        break;
                     default:
                         throw new BobException.InvalidCommand("Sorry, I'm not sure what command that is.");
                 }
@@ -134,27 +147,28 @@ public class Bob {
     }
 
     private void HandleTaskMarking(String input) throws BobException {
-        if ((input.contains(this.markCommand) || input.contains(this.unmarkCommand))) {
 
-            String[] args = input.split(" ");
-            if (args.length < 2) throw new BobException("The command " + args[0] + " requires a task ID.");
+        String[] args = input.split(" ");
+        if (args.length < 2) throw new BobException("The command " + args[0] + " requires a task ID.");
 
-            this.printLine();
-            int taskId = Integer.parseInt(args[1]) - 1;
-            String userCommand = args[0];
+        this.printLine();
+        int taskId = Integer.parseInt(args[1]) - 1;
 
-            if (userCommand.equals(this.markCommand)) {
-                this.markDone(taskId);
-                System.out.println("    You have marked task as done:");
-            } else {
-                this.markUndone(taskId);
-                System.out.println("    You have marked task as undone:");
-            }
+        if (!(taskId < this.list.size()) || taskId < 0) throw new BobException("The command " + args[0] + " requires a valid ID.");
 
-            Task task = this.list.get(taskId);
-            System.out.println("    " + task.getStatus() + " " + task);
-            this.printLine();
+        String userCommand = args[0];
+
+        if (userCommand.equals(this.markCommand)) {
+            this.markDone(taskId);
+            System.out.println("    You have marked task as done:");
+        } else {
+            this.markUndone(taskId);
+            System.out.println("    You have marked task as undone:");
         }
+
+        Task task = this.list.get(taskId);
+        System.out.println("    " + task.getType() + task.getStatus() + " " + task);
+        this.printLine();
     }
 
     private void HandleTaskCreation(String input) throws BobException {
@@ -193,6 +207,25 @@ public class Bob {
         }
 
         if (t != null) PrintTaskAddMessage(t);
+    }
+
+    private void HandleTaskDeletion(String input) throws BobException {
+        String[] args = input.split(" ");
+        if (args.length < 2) throw new BobException("The command " + args[0] + " requires a task ID.");
+
+        this.printLine();
+        int taskId = Integer.parseInt(args[1]) - 1;
+
+        if (!(taskId < this.list.size()) || taskId < 0) throw new BobException("The command " + args[0] + " requires a valid ID.");
+
+        Task t = this.list.get(taskId);
+        String message = "        " + t.getType() + t.getStatus() + " " + t;
+
+        this.deleteTask(taskId);
+        System.out.println("    You have removed the current task:");
+        System.out.println(message);
+        this.printList(true);
+        this.printLine();
     }
 
     private void PrintTaskAddMessage(Task t) {
