@@ -9,6 +9,9 @@ import Exceptions.DukeException;
 import java.util.List;
 
 public class InsertTask {
+    enum Type {
+        TODO, DEADLINE, EVENT
+    }
     /**
      * No constructor needed
      */
