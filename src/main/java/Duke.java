@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Duke {
     private String name;
     private ArrayList<Task> tasks = new ArrayList<Task>();
@@ -19,9 +18,31 @@ public class Duke {
         System.out.println(reply);
     }
 
-    public void addTask(String description) {
-        tasks.add(new Task(description));
-        System.out.println("added: " + description);
+    public void addTask(String input) {
+        String[] splitInput = input.split(" ", 2);
+        String type = splitInput[0];
+
+        String[] info = splitInput[1].split("/");
+        String description = info[0];
+
+        switch(type) {
+            case "todo":
+                tasks.add(new Todo(description));
+                break;
+            case "deadline":
+                String by = info[1].replaceAll("by", "").trim();
+                tasks.add(new Deadline(description, by));
+                break;
+            case "event":
+                String from = info[1].replaceAll("from", "").trim();
+                by = info[2].replaceAll("to", "").trim();
+                tasks.add(new Event(description, from, by));
+                break;
+        }
+
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
     public void printTasks() {
@@ -29,7 +50,7 @@ public class Duke {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) == null) break;
             Task task = tasks.get(i);
-            System.out.println(i + 1 + ".[" + task.getStatusIcon() + "] " + task.getDescription());
+            System.out.println(i + 1 + "." + task.toString());
         }
     }
 
@@ -54,13 +75,7 @@ public class Duke {
 
         while (true) {
             String input = scanner.nextLine();
-            String[] split = input.split(" ", 0);
-
-            String command = split[0];
-            int taskNum = -1;
-            if (split.length > 1) {
-                taskNum = Integer.parseInt(split[1]);
-            }
+            String command = input.split(" ", 0)[0];
 
             switch(command) {
                 case "bye":
@@ -70,13 +85,15 @@ public class Duke {
                     duke.printTasks();
                     break;
                 case "mark":
+                    int taskNum = Integer.parseInt(input.split(" ", 0)[1]);
                     duke.changeTaskStatus(taskNum, true);
                     break;
                 case "unmark":
+                    taskNum = Integer.parseInt(input.split(" ", 0)[1]);
                     duke.changeTaskStatus(taskNum, false);
                     break;
                 default:
-                    duke.addTask(command);
+                    duke.addTask(input);
                     break;
             }
         }
