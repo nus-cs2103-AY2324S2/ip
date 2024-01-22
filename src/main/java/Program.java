@@ -25,22 +25,20 @@ public class Program {
     }
 
     private void readUserInput(String input) {
-        //String receiveInput;
         if (input.toLowerCase().equals("bye")) {
             this.end();
         } else if (input.toLowerCase().equals("list")) {
             this.taskList.getList(this.printList);
-        } else if (input.toLowerCase().equals("mark")) {
-            int taskNumber = this.userInputScanner.nextInt();
-            this.taskList.mark(taskNumber, this.printList);
-        } else if (input.toLowerCase().equals("unmark")) {
-            int taskNumber = this.userInputScanner.nextInt();
-            this.taskList.unmark(taskNumber, this.printList);
+        } else if (input.toLowerCase().equals("mark") ||
+            input.toLowerCase().equals("unmark")) {
+                int taskNumber = this.userInputScanner.nextInt();
+                this.taskList.changeMark(input, taskNumber, this.printList);
         } else if (input.toLowerCase().equals("todo") || 
-                input.toLowerCase().equals("deadline") ||
-                input.toLowerCase().equals("event")) {
-            String task = this.userInputScanner.nextLine();
-            this.taskList.addTask(input, task, this.printList);
+            input.toLowerCase().equals("deadline") ||
+            input.toLowerCase().equals("event")) {
+                String task = this.userInputScanner.nextLine();
+                this.taskList.addTask(input, task, this.printList);
+
         } else {
             //input += this.userInputScanner.nextLine();
             //receiveInput = this.taskList.addTask(input);
