@@ -82,6 +82,9 @@ public class ChatBot {
             case EVENT:
                 addEvent(action);
                 break;
+            case INVALID:
+                invalidCommand();
+                break;
         }
     }
 
@@ -171,5 +174,12 @@ public class ChatBot {
                 "Ok, I've marked this task as not done yet:",
                 "    " + userList.getTask(index)
         );
+    }
+
+    /**
+     * Handles the case when the command is invalid.
+     */
+    private void invalidCommand() {
+        Printer.printMessages("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 }

@@ -37,8 +37,8 @@ public class InputParser {
         } else if (input.startsWith(COMMAND_EVENT)) {
             return new Action(Command.EVENT, parseArguments(input));
         } else {
-            // Add has no command, and its arguments is the whole input
-            return new Action(Command.ADD, new Argument(input));
+            // The command is invalid, as it is not one of the above commands.
+            return new Action(Command.INVALID);
         }
     }
 

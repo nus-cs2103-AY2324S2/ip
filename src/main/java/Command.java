@@ -35,5 +35,9 @@ public enum Command {
     /**
      * Adds an event task
      */
-    EVENT
+    EVENT,
+    /**
+     * Invalid command
+     */
+    INVALID
 }
