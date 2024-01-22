@@ -1,6 +1,6 @@
 import exceptions.IncompleteInputException;
 import exceptions.InvalidCommandException;
-import exceptions.InvalidParameterException;
+import exceptions.InvalidSlashParameterException;
 import exceptions.InvalidStatusUpdateException;
 
 import java.util.*;
@@ -163,7 +163,7 @@ public class Lulu {
         int indexBy = input.indexOf('/');
         try {
             if (!input.substring(indexBy + 1).split(" ")[0].equals("by")) {
-                throw new InvalidParameterException();
+                throw new InvalidSlashParameterException();
             }
             String name = input.substring(9, indexBy).strip();
             String by = input.substring(indexBy + 3).strip();
@@ -172,7 +172,7 @@ public class Lulu {
             print("Got it. I've added this task:");
             print("\t" + deadline);
             print(String.format("Now you have %d tasks in the list.", this.items.size()));
-        } catch (InvalidParameterException e) {
+        } catch (InvalidSlashParameterException e) {
             print("Sorry, when would you like the deadline to be until?");
         }
     }
@@ -190,10 +190,10 @@ public class Lulu {
         int indexTo = input.indexOf('/', indexFrom + 1);
         try {
             if (!input.substring(indexFrom + 1).split(" ")[0].equals("from")) {
-                throw new InvalidParameterException();
+                throw new InvalidSlashParameterException();
             }
             if (!input.substring(indexTo + 1).split(" ")[0].equals("to")) {
-                throw new InvalidParameterException();
+                throw new InvalidSlashParameterException();
             }
             String name = input.substring(6, indexFrom).strip();
             String from = input.substring(indexFrom + 5, indexTo).strip();
@@ -203,7 +203,7 @@ public class Lulu {
             print("Got it. I've added this task:");
             print("\t" + event);
             print(String.format("Now you have %d tasks in the list.", this.items.size()));
-        } catch (InvalidParameterException e) {
+        } catch (InvalidSlashParameterException e) {
             print("Sorry, when would you like the event to begin and end?");
         }
     }
