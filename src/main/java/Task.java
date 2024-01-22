@@ -8,4 +8,9 @@ public class Task {
     public String getTitle() {
         return this.title;
     }
+
+    @Override
+    public String toString() {
+        return this.title;
+    }
 }
