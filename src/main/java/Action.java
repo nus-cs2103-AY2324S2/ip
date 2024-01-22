@@ -24,7 +24,7 @@ public class Action {
      */
     public String findArgument(String name) {
         for (Argument arg : arguments) {
-            if (arg.getName().equals(name)) {
+            if (arg.hasMatchingName(name)) {
                 return arg.getValue();
             }
         }
@@ -36,6 +36,6 @@ public class Action {
      * @return the value of the default argument
      */
     public String findDefaultArgument() {
-        return findArgument("");
+        return findArgument(null);
     }
 }
