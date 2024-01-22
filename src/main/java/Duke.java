@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.Pattern;
 public class Duke {
     private Task[] tasks = new Task[100];
     private int taskCounter = 0;
@@ -25,13 +26,25 @@ public class Duke {
     }
 
     private void listTasks() {
+        this.sendSystemMessage("Here are the tasks in your list:");
         for (int i = 0; i < this.taskCounter; ++i) {
             Task t = this.tasks[i];
             String desc = t.getDesc();
-            String msg = String.valueOf(i+1) + ". " + desc;
+            String isDone = "[" + t.getStatusIcon() + "] ";
+            String msg = String.valueOf(i+1) + ". " + isDone + desc;
             this.sendSystemMessage(msg);
         }
         this.sendSystemMessage(TextTemplate.LINE_BREAK);
+    }
+
+    private void markTask(String s) {
+        String[] parts = s.split("\\s+");
+        int taskNum = Integer.parseInt(parts[1]) - 1;
+        Task t = this.tasks[taskNum];
+        t.maskAsDone();
+        String msg = "   [X] " + t.getDesc();
+        this.sendSystemMessage("Nice! I've marked this task as done:");
+        this.sendSystemMessage(msg);
     }
 
     public void run() {
@@ -44,6 +57,10 @@ public class Duke {
             }
             if (input.equals("list")) {
                 this.listTasks();
+                continue;
+            }
+            if (Pattern.matches("mark \\d+", input)) {
+                this.markTask(input);
                 continue;
             }
             this.addTask(input);
