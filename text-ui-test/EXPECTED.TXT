@@ -72,10 +72,6 @@
 
     _____________________
     _____________________
-    Invalid input
-
-    _____________________
-    _____________________
     I've marked this task as completed:
     [D][X] return book (by: Sunday)
 
@@ -118,10 +114,6 @@
     _____________________
     I've marked this task as completed:
     [E][X] coldplay concert (from: tues 6pm to: tues 9.30pm)
-
-    _____________________
-    _____________________
-    java.lang.IndexOutOfBoundsException: Index 9 out of bounds for length 6
 
     _____________________
     _____________________
