@@ -41,9 +41,21 @@ public class Riz {
                 }
                 System.out.println(dotted);
             } else {
-                Task task = new Task(input);
-                tasks.add(task);
-                System.out.println("added: " + task.add() + "...");
+                int size = tasks.size();
+                if (token[0].equals("todo")) {
+                    Task task = new ToDo(token[1]);
+                    tasks.add(task);
+                    System.out.println("added: " + task + "...");
+                } else if (token[0].equals("deadline")) {
+                    Task task = new Deadline(token[1]);
+                    tasks.add(task);
+                    System.out.println("added: " + task + "...");
+                } else if (token[0].equals("event")) {
+                    Task task = new Event(token[1]);
+                    tasks.add(task);
+                    System.out.println("added: " + task + "...");
+                }
+                System.out.println("You currently have " + size + " things to do...");
                 System.out.println(dotted);
             }
         }
