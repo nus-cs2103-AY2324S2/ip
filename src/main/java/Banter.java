@@ -1,8 +1,8 @@
 public class Banter {
-    private Responses responses = new Responses();
+    private Parser parser = new Parser();
 
     public void start() {
-        responses.printGreetMessage();
-        responses.respondUntilExit();
+        parser.printGreetMessage();
+        parser.respondUntilExit();
     }
 }

@@ -1,132 +1,207 @@
-import errors.Errors;
+import commands.CommandType;
 import errors.InvalidBanterUsageError;
+import messages.MessageBox;
+import tasks.TaskList;
+import java.util.Scanner;
+import errors.Errors;
+import messages.Messages;
 
 public class Parser {
-    private static String separatorBetweenCommandAndArgument = " ";
-    private static String separatorBetweenDescriptionAndDueDate = "/by ";
-    private static String separatorBetweenDescriptionAndStart = "/from ";
-    private static String separatorBetweenStartAndEnd = "/to ";
+    private TaskList taskList = new TaskList();
 
-    public static String getCommandType(String input) throws InvalidBanterUsageError {
+    // Constants
+    private static final String SEPARATOR = " ";
+    private static final String DEADLINE_DUE_DATE = "/by";
+    private static final String EVENT_START = "/from";
+    private static final String EVENT_END = "/to";
+
+
+    // Methods
+    public void printGreetMessage() {
+        System.out.println(Messages.BANTER_LOGO);
+        Messages.GREET_MESSAGE.print();
+    }
+
+    private void printExitMessage() {
+        Messages.EXIT_MESSAGE.print();
+    }
+
+    public void respondUntilExit() {
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
+
+            try {
+                CommandType command = getCommandType(input);
+                switch (command) {
+                    case BYE:
+                        printExitMessage();
+                        return;
+                    case LIST:
+                        parseList();
+                        break;
+                    case MARK:
+                        parseMark(input);
+                        break;
+                    case UNMARK:
+                        parseUnmark(input);
+                        break;
+                    case TODO:
+                        parseTodo(input);
+                        break;
+                    case DEADLINE:
+                        parseDeadline(input);
+                        break;
+                    case EVENT:
+                        parseEvent(input);
+                        break;
+                    case DELETE:
+                        parseDelete(input);
+                        break;
+                    default:
+                        throw Errors.InvalidCommandError;
+                }
+            } catch (InvalidBanterUsageError e) {
+                MessageBox errorMessage = new MessageBox(e.getMessage());
+                errorMessage.print();
+            }
+        }
+    }
+
+    private CommandType getCommandType(String input) throws InvalidBanterUsageError {
         try {
-            return input.split(separatorBetweenCommandAndArgument)[0].toUpperCase();
-        } catch (StringIndexOutOfBoundsException e) {
+            return CommandType.valueOf(input.split(SEPARATOR)[0].toUpperCase());
+        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
             throw Errors.InvalidCommandError;
         }
     }
 
-    public static String getTodoDescription(String input) throws InvalidBanterUsageError {
-        try {
-            return getSubstringAfterPrefix(input, CommandType.TODO + separatorBetweenCommandAndArgument);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+    private void parseList() {
+        MessageBox taskListMessage = new MessageBox(taskList.toString());
+        taskListMessage.print();
+    }
+
+    private void parseTodo(String input) throws InvalidBanterUsageError {
+        String[] tokens = getTokens(input);
+        if (tokens.length == 1) {
             throw Errors.MissingTodoDescriptionError;
         }
+        String description = joinTokens(tokens, 1, tokens.length - 1);
+        MessageBox taskAddedMessage = new MessageBox(taskList.addTodo(description));
+        taskAddedMessage.print();
     }
 
-    public static String getDeadlineDescription(String input) throws InvalidBanterUsageError {
-        if (!input.contains(separatorBetweenDescriptionAndDueDate)) {
+    private void parseDeadline(String input) throws InvalidBanterUsageError {
+        String[] tokens = getTokens(input);
+
+        int indexOfDueDate = indexOf(tokens, DEADLINE_DUE_DATE);
+        if (indexOfDueDate == -1) {
             throw Errors.MissingDeadlineDueDateError;
         }
-        try {
-            return getSubstringBetweenPrefixes(input, CommandType.DEADLINE + separatorBetweenCommandAndArgument,
-                    separatorBetweenDescriptionAndDueDate);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+        String dueDate = joinTokens(tokens, indexOfDueDate + 1, tokens.length - 1);
+        if (dueDate.isEmpty()) {
+            throw Errors.MissingDeadlineDueDateError;
+        }
+
+        String description = joinTokens(tokens, 1, indexOfDueDate - 1);
+        if (description.isEmpty()) {
             throw Errors.MissingDeadlineDescriptionError;
         }
+
+        MessageBox taskAddedMessage = new MessageBox(taskList.addDeadline(description, dueDate));
+        taskAddedMessage.print();
     }
 
-    public static String getDeadlineDueDate(String input) throws InvalidBanterUsageError {
-        try {
-            return getSubstringAfterPrefix(input, separatorBetweenDescriptionAndDueDate);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
-            throw Errors.MissingDeadlineDueDateError;
+    private void parseEvent(String input) throws InvalidBanterUsageError {
+        String[] tokens = getTokens(input);
+
+        int indexOfEnd = indexOf(tokens, EVENT_END);
+        if (indexOfEnd == -1) {
+            throw Errors.MissingEventEndError;
         }
-    }
+        String end = joinTokens(tokens, indexOfEnd + 1, tokens.length - 1);
+        if (end.isEmpty()) {
+            throw Errors.MissingEventEndError;
+        }
 
-    public static String getEventDescription(String input) throws InvalidBanterUsageError {
-        if (!input.contains(separatorBetweenDescriptionAndStart)) {
+        int indexOfStart = indexOf(tokens, EVENT_START);
+        if (indexOfStart == -1) {
             throw Errors.MissingEventStartError;
         }
-        try {
-            return getSubstringBetweenPrefixes(input, CommandType.EVENT + separatorBetweenCommandAndArgument,
-                    separatorBetweenDescriptionAndStart);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+        String start = joinTokens(tokens, indexOfStart + 1, indexOfEnd - 1);
+        if (start.isEmpty()) {
+            throw Errors.MissingEventStartError;
+        }
+
+        String description = joinTokens(tokens, 1, indexOfStart - 1);
+        if (description.isEmpty()) {
             throw Errors.MissingEventDescriptionError;
         }
+
+        MessageBox taskAddedMessage = new MessageBox(taskList.addEvent(description, start, end));
+        taskAddedMessage.print();
     }
 
-    public static String getEventStart(String input) throws InvalidBanterUsageError {
-        if (!input.contains(separatorBetweenStartAndEnd)) {
-            throw Errors.MissingEventEndError;
-        }
+    private void parseMark(String input) throws InvalidBanterUsageError {
+        String[] tokens = getTokens(input);
+        int taskNumber;
         try {
-            return getSubstringBetweenPrefixes(input, separatorBetweenDescriptionAndStart, separatorBetweenStartAndEnd);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
-            throw Errors.MissingEventStartError;
-        }
-    }
-
-    public static String getEventEnd(String input) throws InvalidBanterUsageError {
-        try {
-            return getSubstringAfterPrefix(input, separatorBetweenStartAndEnd);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
-            throw Errors.MissingEventEndError;
-        }
-    }
-
-    public static int getMarkTaskNumber(String input) throws InvalidBanterUsageError {
-        try {
-            return getIntArgument(input, CommandType.MARK + separatorBetweenCommandAndArgument);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+            taskNumber = getTaskNumber(tokens);
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw Errors.InvalidMarkTaskNumberError;
         }
+        MessageBox taskDoneMessage = new MessageBox(taskList.markTaskAsDone(taskNumber));
+        taskDoneMessage.print();
     }
 
-    public static int getUnmarkTaskNumber(String input) throws InvalidBanterUsageError {
+    private void parseUnmark(String input) throws InvalidBanterUsageError {
+        String[] tokens = getTokens(input);
+        int taskNumber;
         try {
-            return getIntArgument(input, CommandType.UNMARK + separatorBetweenCommandAndArgument);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+            taskNumber = getTaskNumber(tokens);
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw Errors.InvalidUnmarkTaskNumberError;
         }
+        MessageBox taskUndoneMessage = new MessageBox(taskList.markTaskAsUndone(taskNumber));
+        taskUndoneMessage.print();
     }
 
-    public static int getDeleteTaskNumber(String input) throws InvalidBanterUsageError {
+    private void parseDelete(String input) throws InvalidBanterUsageError {
+        String[] tokens = getTokens(input);
+        int taskNumber;
         try {
-            return getIntArgument(input, CommandType.DELETE + separatorBetweenCommandAndArgument);
-        } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+            taskNumber = getTaskNumber(tokens);
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw Errors.InvalidDeleteTaskNumberError;
         }
+        MessageBox taskDeletedMessage = new MessageBox(taskList.deleteTask(taskNumber));
+        taskDeletedMessage.print();
     }
 
-    public static String getSubstringAfterPrefix(String input, String prefix)
-            throws StringIndexOutOfBoundsException, IllegalArgumentException {
 
-            String substring = input.substring(input.indexOf(prefix) + prefix.length());
-            if (substring.isEmpty() ){
-                throw new IllegalArgumentException();
-            }
-            return substring;
+    // Helper methods
+    private String[] getTokens(String input) {
+        return input.split(SEPARATOR);
     }
 
-    public static String getSubstringBetweenPrefixes(String input, String start, String end)
-            throws StringIndexOutOfBoundsException, IllegalArgumentException {
-
-            int startIdx = input.indexOf(start);
-            int endIdx = input.indexOf(end);
-            if (startIdx == -1 || endIdx == -1) {
-                throw new IllegalArgumentException();
-            }
-            String substring = input.substring(input.indexOf(start) + start.length(), input.indexOf(end) - 1);
-            if (substring.isEmpty() ){
-                throw new IllegalArgumentException();
-            }
-            return substring;
+    private String joinTokens(String[] tokens, int start, int end) {
+        StringBuilder result = new StringBuilder();
+        for (int i = start; i <= end; i++) {
+            result.append(tokens[i]).append(" ");
+        }
+        return result.toString();
     }
 
-    public static int getIntArgument(String input, String command)
-            throws StringIndexOutOfBoundsException, IllegalArgumentException {
+    private int indexOf(String[] tokens, String prefix) {
+        for (int i = 0; i < tokens.length; i++) {
+            if (tokens[i].equals(prefix)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-        String prefix = command + separatorBetweenCommandAndArgument;
-        return Integer.parseInt(getSubstringAfterPrefix(input, prefix));
+    private int getTaskNumber(String[] tokens) throws IndexOutOfBoundsException, IllegalArgumentException {
+        return Integer.parseInt(tokens[1]);
     }
 }

@@ -4,6 +4,7 @@ class Todo extends Task {  // default access modifier
     private static final String TODO_ICON = "[T]";
 
     Todo(String description) {  // default access modifier
+
         super(description);
     }
 

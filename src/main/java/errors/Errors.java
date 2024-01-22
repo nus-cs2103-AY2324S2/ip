@@ -1,8 +1,10 @@
 package errors;
 
+import commands.CommandType;
+
 public class Errors {
 
-    // String constants
+    // Constants
     public static final String INVALID_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
     public static final String INVALID_TASK_NUMBER = "☹ OOPS!!! The task number is invalid.";
     public static final String MISSING_TASK_DESCRIPTION = "☹ OOPS!!! The description of a task cannot be empty.";
@@ -16,13 +18,15 @@ public class Errors {
     public static final String UNMARK_USAGE = "unmark <task number>";
     public static final String DELETE_USAGE = "delete <task number>";
     public static final String COMMAND_USAGE = "Banter only supports the following commands:\n" +
-            "bye\n" +
-            "list\n" +
+            CommandType.BYE + "\n" +
+            CommandType.LIST + "\n" +
             MARK_USAGE + "\n" +
             UNMARK_USAGE + "\n" +
             TODO_USAGE + "\n" +
             DEADLINE_USAGE + "\n" +
-            EVENT_USAGE;
+            EVENT_USAGE + "\n" +
+            DELETE_USAGE;
+
 
     // Errors
     public static final InvalidBanterUsageError InvalidCommandError = new InvalidBanterUsageError(INVALID_COMMAND, COMMAND_USAGE);
