@@ -121,7 +121,7 @@ public class ChatBot {
     }
 
     public void markTaskAsDone(int taskNumber) {
-        System.out.println("Nice! I've marked this task as done:");
+        
         Task taskToBeMarked = this.tasks.get(taskNumber - 1);
         if (taskToBeMarked.isDone()) {
             System.out.println("This task is already marked done!");
