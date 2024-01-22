@@ -14,7 +14,9 @@ public class Kervyn {
         String userInput;
         do {
             userInput = scanner.nextLine();
-            switch (userInput) {
+            // To check for case when input is mark/unmark
+            String[] processedUserInput = userInput.split(" ");
+            switch (processedUserInput[0]) {
                 case "bye":
                     System.out.println("\tBye. Hope to see you again soon!");
                     break;
@@ -27,11 +29,18 @@ public class Kervyn {
 
                     }
                     break;
+                case "mark":
+                    System.out.println("Mark");
+                    break;
+                case "unmark":
+                    System.out.println("Unmark");
+                    break;
                 default:
                     System.out.println("\tadded: " + userInput);
                     // Create a new Task for each new item
                     Task newTask = new Task(userInput, false);
                     userRequests.add(newTask);
+                    break;
             }
         } while (!Objects.equals(userInput, "bye"));
 
