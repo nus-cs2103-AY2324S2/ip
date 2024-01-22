@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -12,24 +13,34 @@ public class Duke {
 
         // Create a scanner to read user input
         Scanner scanner = new Scanner(System.in);
+        ArrayList<String> userInputLog = new ArrayList<>();
+        boolean isAcceptingInput = true;
 
-        // While loop for echoing input until user input is "bye"
-        while (true) {
+
+        while (isAcceptingInput) {
             // Print out a prompt for user input
-            System.out.print("Enter command: ");
+            System.out.print("$ ");
             String input = scanner.nextLine();
 
-            if (input.equals("bye")) {
-                break;
-            } else {
-                System.out.println("____________________________________________________________");
-                System.out.println(input);
-                System.out.println("____________________________________________________________");
+            System.out.println("____________________________________________________________");
+            switch (input) {
+                case "bye":
+                    System.out.println("Bye. Hope to see you again soon!");
+                    isAcceptingInput = false;
+                    break;
+                case "list":
+                    for (int i = 0; i < userInputLog.size(); i++) {
+                        System.out.println(i + 1 + ". " + userInputLog.get(i));
+                    }
+                    break;
+                default:
+                    userInputLog.add(input);
+                    System.out.println(input);
+                    break;
             }
+            System.out.println("____________________________________________________________");
         }
 
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
     }
+
 }
