@@ -10,8 +10,9 @@ public class Kervyn {
 
         System.out.println("\tHello! I'm " + chatbotName);
         System.out.println("\tWhat can I do for you?");
-
+        char check;
         String userInput;
+        Task task;
         do {
             userInput = scanner.nextLine();
             // To check for case when input is mark/unmark
@@ -21,19 +22,34 @@ public class Kervyn {
                     System.out.println("\tBye. Hope to see you again soon!");
                     break;
                 case "list":
-                    System.out.println("Here are the tasks on your list:");
+                    System.out.println("\tHere are the tasks on your list:");
                     for (int i = 0; i < userRequests.size(); i++) {
-                        Task task = userRequests.get(i);
-                        char check = task.getStatus() ? 'X' : ' ';
+                        task = userRequests.get(i);
+                        check = task.getStatus() ? 'X' : ' ';
                         System.out.println("\t" + (i + 1) + "." + "[" + check + "] " + task.getName());
-
                     }
                     break;
                 case "mark":
-                    System.out.println("Mark");
+                    task = userRequests.get(Integer.parseInt(processedUserInput[1]) - 1);
+                    if (task.getStatus()) {
+                        System.out.println("\tUh oh! It looks like this task is already marked as done, please try again with another task!");
+                    } else {
+                        System.out.println("\tNice! I've marked this task as done:");
+                        task.updateStatus();
+                        check = task.getStatus() ? 'X' : ' ';
+                        System.out.println("\t[" + check + "] " + task.getName());
+                    }
                     break;
                 case "unmark":
-                    System.out.println("Unmark");
+                    task = userRequests.get(Integer.parseInt(processedUserInput[1]) - 1);
+                    if (!task.getStatus()) {
+                        System.out.println("\tUh oh! It looks like this task is already marked as not done, please try again with another task!");
+                    } else {
+                        System.out.println("\tOK, I've marked this task as not done yet:");
+                        task.updateStatus();
+                        check = task.getStatus() ? 'X' : ' ';
+                        System.out.println("\t[" + check + "] " + task.getName());
+                    }
                     break;
                 default:
                     System.out.println("\tadded: " + userInput);
