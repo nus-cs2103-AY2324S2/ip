@@ -9,5 +9,8 @@ public class Duke {
                 + "| )   ( || )   ( || (____/\\  /\\____) )|  (__) ||  (__) ||  (__) |\n"
                 + "|/     \\||/     \\|(_______/  \\______/ (_______)(_______)(_______)\n";
         System.out.println(logo);
+
+        UserInterface UI = new UserInterface();
+        UI.start();
     }
 }
