@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Duke {
     private static final int MAX_TASKS = 100;
-    private static String[] tasks = new String[MAX_TASKS];
+    private static Task[] tasks = new Task[MAX_TASKS];
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int taskCount = 0;
@@ -17,38 +17,60 @@ public class Duke {
         while (true) {
             // Read user input
             String input = scanner.nextLine();
-
+            String[] parts = input.split(" ", 2);
+            String command = parts[0];
             // Check for the exit condition
-            if (input.toLowerCase().equals("bye")) {
+            if (command.toLowerCase().equals("bye")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("     Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
-            }
-
-            if (input.toLowerCase().equals("list")) {
+            } else if (command.toLowerCase().equals("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println("     Here are the tasks in your list:");
+                if (taskCount == 0) {
+                    System.out.println("     No tasks added yet.");
+                    continue;
+                }
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println("     " + (i + 1) + ". " + tasks[i]);
                 }
                 System.out.println("____________________________________________________________");
+            } else if ((command.toLowerCase().equals("mark") || command.toLowerCase().equals("unmark")) && parts.length == 2) {
+                int index = Integer.parseInt(parts[1]) - 1;
+                String action = command.toLowerCase();
+                // if there exists a task, and you are referring to a valid task to mark
+                if (index >= 0 && index < taskCount) {
+                    if (action.equals("mark")) {
+                        tasks[index].markAsDone();
+                        System.out.println("____________________________________________________________");
+                        System.out.println("     Nice! I've marked this task as done:");
+                        System.out.println("       " + tasks[index]);
+                        System.out.println("____________________________________________________________");
+                    } else if (action.equals("unmark")) {
+                        tasks[index].markAsNotDone();
+                        System.out.println("____________________________________________________________");
+                        System.out.println("     OK, I've marked this task as not done yet:");
+                        System.out.println("       " + tasks[index]);
+                        System.out.println("____________________________________________________________");
+                    }
+                }
             } else {
-                // Add task to the array and echo it back
-                if (taskCount < MAX_TASKS) {
-                    tasks[taskCount] = input;
-                    taskCount++;
-                    System.out.println("____________________________________________________________");
-                    System.out.println("     added: " + input);
-                    System.out.println("____________________________________________________________");
-                } else {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("     Maximum tasks reached. Cannot add more tasks.");
-                    System.out.println("____________________________________________________________");
+                    // Add task to the array and echo it back
+                    if (taskCount < MAX_TASKS) {
+                        tasks[taskCount] = new Task(input);
+                        taskCount++;
+                        System.out.println("____________________________________________________________");
+                        System.out.println("     added: " + input);
+                        System.out.println("____________________________________________________________");
+                    } else {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("     Maximum tasks reached. Cannot add more tasks.");
+                        System.out.println("____________________________________________________________");
+                    }
                 }
             }
+            scanner.close();
         }
-        scanner.close();
-    }
-
 
 }
