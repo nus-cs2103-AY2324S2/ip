@@ -28,7 +28,8 @@ public class Action {
                 return arg.getValue();
             }
         }
-        return "";
+        // null represents that the argument of that name does not exist.
+        return null;
     }
 
     /**

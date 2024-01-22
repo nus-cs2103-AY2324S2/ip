@@ -42,15 +42,36 @@ public class InputParser {
         Argument[] args = new Argument[argString.length];
 
         // identify default argument
-        String[] parsedArg = argString[0].split(" ", 2);
-        args[0] = new Argument(parsedArg[1].trim());
+        args[0] = parseArgument(argString[0], true);
 
         // identify additional arguments
         for (int i = 1; i < argString.length; i++) {
-            parsedArg = argString[i].split(" ", 2);
-            args[i] = new Argument(parsedArg[0].trim(), parsedArg[1].trim());
+            args[i] = parseArgument(argString[i], false);
         }
 
         return args;
+    }
+
+    /**
+     * An argument consists of the argument name and value.
+     * @param argument the string that belongs to that argument
+     * @return the argument that is formed
+     */
+    private static Argument parseArgument(String argument, boolean isDefault) {
+        String[] parsedArg = argument.split(" ", 2);
+        if (parsedArg.length != 2) {
+            // Invalid argument: missing value
+            return new Argument(null);
+        }
+
+        String name = parsedArg[0].trim(),
+                value = parsedArg[1].trim().equals("") ? null : parsedArg[1].trim();
+
+        // Is valid argument
+        if (isDefault) {
+            return new Argument(value);
+        } else {
+            return new Argument(name, value);
+        }
     }
 }

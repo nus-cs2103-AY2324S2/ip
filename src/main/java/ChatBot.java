@@ -90,8 +90,16 @@ public class ChatBot {
      * @param action the action of the task to perform
      */
     private void addTodoCommand(Action action) {
-        userList.addTodo(action.findDefaultArgument());
-        printAddMessage();
+        String name = action.findDefaultArgument();
+
+        // Validate arguments
+        if (name == null) {
+            handleMissingArgument(action.getCommand(), "name");
+            return;
+        }
+
+        userList.addTodo(name);
+        handleAddSuccess();
     }
 
     /**
@@ -101,8 +109,19 @@ public class ChatBot {
     private void addDeadlineCommand(Action action) {
         String name = action.findDefaultArgument(),
                 by = action.findArgument("by");
+
+        // Validate arguments
+        if (name == null) {
+            handleMissingArgument(action.getCommand(), "name");
+            return;
+        }
+        if (by == null) {
+            handleMissingArgument(action.getCommand(), "by");
+            return;
+        }
+
         userList.addDeadline(name, by);
-        printAddMessage();
+        handleAddSuccess();
     }
 
     /**
@@ -113,14 +132,29 @@ public class ChatBot {
         String name = action.findDefaultArgument(),
                 from = action.findArgument("from"),
                 to = action.findArgument("to");
+
+        // Validate arguments
+        if (name == null) {
+            handleMissingArgument(action.getCommand(), "name");
+            return;
+        }
+        if (from == null) {
+            handleMissingArgument(action.getCommand(), "from");
+            return;
+        }
+        if (to == null) {
+            handleMissingArgument(action.getCommand(), "to");
+            return;
+        }
+
         userList.addEvent(name, from, to);
-        printAddMessage();
+        handleAddSuccess();
     }
 
     /**
      * Prints the message when a task is added.
      */
-    private void printAddMessage() {
+    private void handleAddSuccess() {
         Printer.printMessages(
                 "Got it. I've added this task:",
                 "    " + userList.getNewestTask(),
@@ -143,6 +177,12 @@ public class ChatBot {
      * @param action the action of the task to perform
      */
     private void markCommand(Action action) {
+        // Validate arguments
+        if (action.findDefaultArgument() == null) {
+            handleMissingArgument(action.getCommand(), "index");
+            return;
+        }
+
         int index = Integer.parseInt(action.findDefaultArgument()) - 1;
         userList.markTask(index);
         Printer.printMessages(
@@ -156,6 +196,12 @@ public class ChatBot {
      * @param action the action of the task to perform
      */
     private void unmarkCommand(Action action) {
+        // Validate arguments
+        if (action.findDefaultArgument() == null) {
+            handleMissingArgument(action.getCommand(), "index");
+            return;
+        }
+
         int index = Integer.parseInt(action.findDefaultArgument()) - 1;
         userList.unmarkTask(index);
         Printer.printMessages(
@@ -169,5 +215,15 @@ public class ChatBot {
      */
     private void invalidCommand() {
         Printer.printMessages("OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    /**
+     * Handles the case when arguments are missing in a command.
+     */
+    private void handleMissingArgument(Command command, String missingArg) {
+        Printer.printMessages(
+                "OOPS!!! The argument <" + missingArg + "> of " + command.name + " must be present!",
+                "    Usage: `" + command.usage + "`"
+        );
     }
 }
