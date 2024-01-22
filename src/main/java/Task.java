@@ -20,7 +20,7 @@ public class Task {
         } else {
             this.isDone = false;
             System.out.println("  OK, I've marked this task as not done yet:");
-            System.out.println("    " + this.getStatusIcon());
+            System.out.println("    " + this.getStatusIcon() + this.description);
         }
     }
 

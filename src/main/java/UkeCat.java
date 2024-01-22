@@ -70,8 +70,10 @@ public class UkeCat {
             }
 
             // Adding task
+            boolean added = false;
             switch(words[0]) {
                 case "todo": // exclude word[0]
+                    added = true;
                     StringBuilder todoDescBuilder = new StringBuilder();
                     for (int i = 1; i < words.length; i++) {
                         todoDescBuilder.append(words[i]).append(" ");
@@ -80,6 +82,7 @@ public class UkeCat {
                     taskList.addTask(newToDo);
                     break;
                 case "deadline": // find end using /by
+                    added = true;
                     int deadlineEndIndex = 0;
                     StringBuilder deadlineDescBuilder = new StringBuilder();
                     StringBuilder deadlineEndBuilder = new StringBuilder();
@@ -101,6 +104,7 @@ public class UkeCat {
                     taskList.addTask(newDeadline);
                     break;
                 case "event": // find start using /from, end using /to
+                    added = true;
                     int eventStartIndex = 0;
                     int eventEndIndex = 0;
                     StringBuilder eventDescBuilder = new StringBuilder();
@@ -132,6 +136,10 @@ public class UkeCat {
             }
 
             // Add task msg
+            if (!added) {
+                System.out.println("  Meow~");
+                continue;
+            }
             int n = taskList.latest().length();
             String horizontal = "  +" + "-".repeat(n) + "+";
             System.out.println("  Meow! I've added this task:");
