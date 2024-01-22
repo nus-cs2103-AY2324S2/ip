@@ -26,6 +26,54 @@ public class Dude {
         }
     }
 
+    private static boolean checkParameterExists(ArrayList<String> output, String command, String parameterName, String parameter) {
+        if (!parameter.isEmpty()) {
+            output.add(parameter);
+            return true;
+        }
+        print("Parameter " + parameterName + " of " + command + " cannot be empty!\n");
+        return false;
+    }
+
+    private static boolean checkFlagExists(ArrayList<String> output, String command, String parameterName, String parameter) {
+        String[] parameterSplit = parameter.split(" ", 2);
+        if (!parameterSplit[0].equals(parameterName)) {
+            print("Invalid flag name " + parameterName + " for command " + command + "\n");
+            return false;
+        }
+        String arg = parameterSplit.length > 1 ? parameterSplit[1] : "";
+        return checkParameterExists(output, command, parameterName, arg);
+    }
+
+    private static boolean getParameters(ArrayList<String> output, String command, String[] parameterNames, String args) {
+        String[] argsSplit = args.split("/");
+        if (argsSplit.length != parameterNames.length) {
+            print("Invalid number of parameters for " + command + ", need to have: "
+                    + Arrays.toString(parameterNames) + "\n");
+            return false;
+        }
+        if (!checkParameterExists(output, command, parameterNames[0], argsSplit[0])) return false;
+        for (int i = 1; i < argsSplit.length; i++) {
+            if (!checkFlagExists(output, command, parameterNames[i], argsSplit[i])) return false;
+        }
+
+        return true;
+    }
+
+    private static boolean formatParameters(ArrayList<Object> foramttedParameters, ArrayList<String> parameters, String[] formats) {
+        for (int i = 0; i < formats.length; i++) {
+            if (formats[i].equals("int")) {
+                if (isNumeric(parameters.get(i))) foramttedParameters.add(Integer.parseInt(parameters.get(i)));
+                else {
+                    print("Format of " + parameters.get(i) + " is not an integer\n");
+                }
+            } else {
+                foramttedParameters.add(parameters.get(i));
+            }
+        }
+        return true;
+    }
+
     private void echo(String input) {
         System.out.println(spacer + input + "\n" + spacer);
     }
@@ -44,40 +92,22 @@ public class Dude {
         print(listString);
     }
 
-    private void mark(String args) {
-//        if (args.length != 2) {
-//            System.out.println("Invalid mark command");
-//            return;
-//        }
-//        if (!isNumeric(indexString)) {
-//            System.out.println("Index is not numeric");
-//            return;
-//        }
-        int index = Integer.parseInt(args);
-//        if (index > this.list.size()) {
-//            System.out.println("Index out of range");
-//            return;
-//        }
-        Task task = this.list.get(index - 1);
+    private void mark(int index) {
+        if (index >= this.list.size() || index < 0) {
+            print("Invalid index range\n");
+            return;
+        }
+        Task task = this.list.get(index);
         task.mark();
         print("Nice! I've marked this task as done:\n" + task + "\n");
     }
 
-    private void unmark(String args) {
-//        if (args.length != 2) {
-//            System.out.println("Invalid unmark command");
-//            return;
-//        }
-//        if (!isNumeric(indexString)) {
-//            System.out.println("Index is not numeric");
-//            return;
-//        }
-        int index = Integer.parseInt(args);
-//        if (index > this.list.size()) {
-//            System.out.println("Index out of range");
-//            return;
-//        }
-        Task task = this.list.get(index - 1);
+    private void unmark(int index) {
+        if (index >= this.list.size() || index < 0) {
+            print("Invalid index range\n");
+            return;
+        }
+        Task task = this.list.get(index);
         task.unmark();
         print("OK, I've marked this task as not done yet:\n" + task + "\n");
 
@@ -96,6 +126,8 @@ public class Dude {
             String[] inputSplit = input.split(" ", 2);
             String command = inputSplit[0];
             String ipArgs = inputSplit.length > 1 ? inputSplit[1] : "";
+            ArrayList<String> parameters = new ArrayList<>();
+            ArrayList<Object> formattedParameters = new ArrayList<>();
             switch (command) {
                 case "bye":
                     break loop;
@@ -103,32 +135,42 @@ public class Dude {
                     dude.list();
                     break;
                 case "mark":
-                    dude.mark(ipArgs);
+                    if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
+                    if (!formatParameters(formattedParameters, parameters, new String[]{"int"})) continue;
+                    dude.mark((int) formattedParameters.get(0) - 1);
                     break;
                 case "unmark":
-                    dude.unmark(ipArgs);
+                    if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
+                    if (!formatParameters(formattedParameters, parameters, new String[]{"int"})) continue;
+                    dude.unmark((int) formattedParameters.get(0) - 1);
                     break;
                 case "todo":
-                    Todo todo = new Todo(ipArgs);
+                    if (!getParameters(parameters, command, new String[]{"description"}, ipArgs)) continue;
+                    if (!formatParameters(formattedParameters, parameters, new String[]{"str"})) continue;
+                    Todo todo = new Todo((String) formattedParameters.get(0));
                     dude.add(todo);
                     break;
                 case "deadline": {
-                    String[] ipArgsSplit = ipArgs.split("/");
-                    Deadline deadline = new Deadline(ipArgsSplit[0], ipArgsSplit[1].replace("by ", ""));
+                    if (!getParameters(parameters, command, new String[]{"description", "by"}, ipArgs)) continue;
+                    if (!formatParameters(formattedParameters, parameters, new String[]{"str", "str"})) continue;
+                    Deadline deadline = new Deadline(
+                            (String) formattedParameters.get(0),
+                            (String) formattedParameters.get(1));
                     dude.add(deadline);
                     break;
                 }
                 case "event": {
-                    String[] ipArgsSplit = ipArgs.split("/");
+                    if (!getParameters(parameters, command, new String[]{"description", "from", "to"}, ipArgs)) continue;
+                    if (!formatParameters(formattedParameters, parameters, new String[]{"str", "str", "str"})) continue;
                     Event event = new Event(
-                            ipArgsSplit[0],
-                            ipArgsSplit[1].replace("from ", ""),
-                            ipArgsSplit[2].replace("to ", ""));
+                            (String) formattedParameters.get(0),
+                            (String) formattedParameters.get(1),
+                            (String) formattedParameters.get(2));
                     dude.add(event);
                     break;
                 }
                 default:
-                    continue;
+                    print("Unknown command detected!\n");
             }
         }
         goodbye();
