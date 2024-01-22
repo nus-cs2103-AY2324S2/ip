@@ -14,6 +14,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public static void decrementTotal() {
+        numOfTasks--;
+    }
+
     public static int getNumOfTasks() {
         return numOfTasks;
     }

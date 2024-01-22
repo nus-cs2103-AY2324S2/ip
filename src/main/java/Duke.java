@@ -16,9 +16,23 @@ public class Duke {
             } else if (curr.equals("list")) {
                 displayTasks(store);
             } else if (curr.equals("mark")) {
-              int num = sc.nextInt();
-              store.get(num - 1).setStatus();
-            } else {
+                if (sc.hasNextInt()) {
+                    int num = sc.nextInt();
+                    store.get(num - 1).setStatus();
+                } else {
+                    System.out.println("Please enter a valid task number for marking.");
+                    sc.next(); // Consume the non-integer input
+                }
+            } else if (curr.equals("delete")) {
+                if (sc.hasNextInt()) {
+                    int num = sc.nextInt();
+                    delete(store, num);
+                } else {
+                    System.out.println("Please enter a valid task number for deletion.");
+                    sc.next(); // Consume the non-integer input
+                }
+            }
+            else {
                 addList(store, curr, sc);
             }
 
@@ -133,6 +147,23 @@ public class Duke {
         store.add(toBeAdded);
 
         System.out.println("Got it! I've added this task.\n" + toBeAdded + "\nNow you have " + Task.getNumOfTasks() + " tasks in your list");
+    }
+
+    public static void delete(ArrayList<Task> store, int num) {
+        Task temp;
+        if (num < 1 || num > store.size()) {
+            // exception if out of bounds num
+            System.out.println("Invalid task number. Please enter a valid task number.");
+        } else {
+            // exception if elemnt doens't exist
+            temp = store.get(num - 1);
+            store.remove(num - 1);
+            System.out.println( "Noted. I've removed this task:");
+            Task.decrementTotal();
+            System.out.println( temp + "\nNow you have " + Task.getNumOfTasks() + " tasks in your list");
+        }
+
+
     }
 
 }
