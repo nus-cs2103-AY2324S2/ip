@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Iris iris = new Iris();
         iris.start();;
-        iris.echo();
+        iris.add();
         iris.exit();
     }
 }
