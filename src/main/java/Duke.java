@@ -13,19 +13,33 @@ public class Duke {
                 line;
 
         Scanner sc = new Scanner(System.in);
-        String cmd = "";
+        boolean exit = false;
+        String[] store = new String[100];
+        int numItems = 0;
 
         System.out.println(intro);
 
-        while (!cmd.equals("bye")) {
-            cmd = sc.nextLine();
-            if (cmd.equals("bye")) break;
+        while (!exit) {
+            String cmd = sc.nextLine();
 
-            System.out.println(
-                    line + "\t" + cmd + "\n" + line
-            );
+            switch (cmd) {
+                case "list":
+                    String toPrint = "";
+                    for (int i = 0; i < numItems; i++) {
+                        toPrint += "\t " + (i + 1) + ". " + store[i] + "\n";
+                    }
+                    System.out.println(line + toPrint + line);
+                    break;
+                case "bye":
+                    System.out.println(outro);
+                    exit = true;
+                    break;
+                default:
+                    store[numItems++] = cmd;
+                    System.out.println(
+                            line + "\t" + "added: " + cmd + "\n" + line
+                    );
+            }
         }
-
-        System.out.println(outro);
     }
 }
