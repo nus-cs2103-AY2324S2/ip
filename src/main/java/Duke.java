@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -8,16 +9,19 @@ public class Duke {
         System.out.println("____________________");
 
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> tasks = new ArrayList<>();
 
         while (true) {
             String command = sc.nextLine();
 
-            if (command.equalsIgnoreCase("bye")) {
+            if (command.equalsIgnoreCase("list")) {
+                listTasks(tasks);
+            } else if (command.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("____________________");
                 break;
             } else {
-                echoCommand(command);
+                echoAndAddTask(command, tasks);
             }
         }
 
@@ -25,8 +29,22 @@ public class Duke {
 
     }
 
-    private static void echoCommand(String command) {
-        System.out.println(command);
+    private static void echoAndAddTask(String task, ArrayList<String> taskList) {
+        taskList.add(task);
+        String output = String.format("added: %s", task);
+        System.out.println("____________________");
+        System.out.println(output);
+        System.out.println("____________________");
+
+    }
+
+    private static void listTasks(ArrayList<String> taskList) {
+        System.out.println("____________________");
+        for (int i = 0; i < taskList.size(); i++) {
+            String task = String.format("%d. %s", i + 1, taskList.get(i));
+            System.out.println(task);
+        }
+        System.out.println("____________________");
     }
 
 }
