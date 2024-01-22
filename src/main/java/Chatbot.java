@@ -27,10 +27,11 @@ public class Chatbot {
         print(messages);
     }
 
-    public void addTask(String userInput) {
-        Task task = new Task(userInput);
+    public void addTask(Task task) {
         this.taskList.addTask(task);
-        print("Added Task: " + task.getTitle());
+        String[] messages = {"I have added the task:", task.toString(), 
+                            "You have " + this.taskList.getNumberOfTasks() +" tasks currently."};
+        print(messages);
     }
 
     public void markTask(int taskIdx) {
