@@ -1,9 +1,9 @@
 import service.FeedbackService;
 
 public class Duke {
-  public static void main(String[] args) {
-    FeedbackService feedbackService = new FeedbackService();
+    public static void main(String[] args) {
+        FeedbackService feedbackService = new FeedbackService();
 
-    feedbackService.PrintWelcome();
-  }
+        feedbackService.run();
+    }
 }
