@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
         String logo = "Chucklbot";
-        System.out.println("Hello I'm " + logo + "\nWhat can I do for you? \n \nBye! Hope to see you again soon.");
+        System.out.println("Hello I'm " + logo + "\nWhat can I do for you? \n ");
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> store = new ArrayList<>();
 
@@ -54,16 +54,16 @@ public class Duke {
             // event project meeting /from Mon 2pm /to 4pm
             sc.useDelimiter("/from");
             String description = sc.next();
-            System.out.println(description);
+            //System.out.println(description);
             sc.skip("/from");
             sc.reset();
             sc.useDelimiter("/to");
             String from = sc.next();
-            System.out.println(from);
+            //System.out.println(from);
             sc.reset();
             sc.skip("/to");
-            String to = sc.next();
-            System.out.println(to);
+            String to = sc.nextLine();
+            //System.out.println(to);
             toBeAdded = new Event(description, from, to);
 
         } else {
