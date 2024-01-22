@@ -223,7 +223,7 @@ public class ChatBot {
     private void handleMissingArgument(Command command, String missingArg) {
         Printer.printMessages(
                 "OOPS!!! The argument <" + missingArg + "> of " + command.name + " must be present!",
-                "    Usage: `" + command.usage + "`"
+                "    Usage: `" + command.usageHint + "`"
         );
     }
 }

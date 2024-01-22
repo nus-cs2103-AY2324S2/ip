@@ -6,8 +6,8 @@
 public class InputParser {
     /**
      * Parse the input string into it's command and arguments.
-     * @param input the console input
-     * @return an action containing the command and it's arguments
+     * @param input The console input
+     * @return An action containing the command and it's arguments
      */
     public static Action parseInput(String input) {
         String command = input.trim().split(" ")[0];
@@ -33,8 +33,8 @@ public class InputParser {
 
     /**
      * Parse the argument(s) from commands with arguments
-     * @param input the console input
-     * @return the argument(s)
+     * @param input The console input.
+     * @return The argument(s).
      */
     private static Argument[] parseArguments(String input) {
         // Split input by arguments
@@ -42,11 +42,11 @@ public class InputParser {
         Argument[] args = new Argument[argString.length];
 
         // identify default argument
-        args[0] = parseArgument(argString[0], true);
+        args[0] = parseArgument(argString[0]);
 
         // identify additional arguments
         for (int i = 1; i < argString.length; i++) {
-            args[i] = parseArgument(argString[i], false);
+            args[i] = parseArgument(argString[i]);
         }
 
         return args;
@@ -54,24 +54,21 @@ public class InputParser {
 
     /**
      * An argument consists of the argument name and value.
-     * @param argument the string that belongs to that argument
-     * @return the argument that is formed
+     * @param argument The string that belongs to that argument.
+     * @return The argument that is formed.
      */
-    private static Argument parseArgument(String argument, boolean isDefault) {
+    private static Argument parseArgument(String argument) {
         String[] parsedArg = argument.split(" ", 2);
-        if (parsedArg.length != 2) {
+
+        // parsedArg will contain at least a name
+        String name = parsedArg[0].trim();
+        if (parsedArg.length == 1) {
             // Invalid argument: missing value
-            return new Argument(null);
+            return new Argument(parsedArg[0].trim(), null);
         }
 
-        String name = parsedArg[0].trim(),
-                value = parsedArg[1].trim().equals("") ? null : parsedArg[1].trim();
+        String value = parsedArg[1].trim().equals("") ? null : parsedArg[1].trim();
 
-        // Is valid argument
-        if (isDefault) {
-            return new Argument(value);
-        } else {
-            return new Argument(name, value);
-        }
+        return new Argument(name, value);
     }
 }

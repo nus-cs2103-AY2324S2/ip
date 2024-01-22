@@ -12,7 +12,8 @@ public class Action {
     }
 
     /**
-     * @return the command associated with the action
+     * Gets the command of the action.
+     * @return The command associated with the action
      */
     public Command getCommand() {
         return command;
@@ -20,12 +21,13 @@ public class Action {
 
     /**
      * Finds the value of the argument by name.
-     * @return the value of the argument with that name
+     * @param name The non-null name of the argument to find.
+     * @return The value of the argument with that name, or null if not found.
      */
     public String findArgument(String name) {
         for (Argument arg : arguments) {
-            if (arg.hasMatchingName(name)) {
-                return arg.getValue();
+            if (arg.name.equals(name)) {
+                return arg.value;
             }
         }
         // null represents that the argument of that name does not exist.
@@ -33,10 +35,10 @@ public class Action {
     }
 
     /**
-     * Finds the default argument of the action
-     * @return the value of the default argument
+     * Finds the default argument of the action.
+     * @return The value of the default argument.
      */
     public String findDefaultArgument() {
-        return findArgument(null);
+        return findArgument(command.name);
     }
 }
