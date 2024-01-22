@@ -27,7 +27,7 @@ public class Shirmin {
     static Task[] taskList = new Task[100];
     static int currIndex = 0;
     public static void listFunction(String line){
-        String[] command =  line.split(" ");
+        String[] command =  line.split(" ", 2);
         if (line.equals("list")) {
             displayList(taskList);
         } else if (command[0].equals("mark")) {
@@ -63,11 +63,27 @@ public class Shirmin {
             } catch (NumberFormatException e) {
                 System.out.println("Invalid task number: " + command[1]);
             }
-        } else {
-            wrapInLines(" ".repeat(4)+"added: " + line);
+        } else if (command[0].equals("todo")) {
+            Task newTodo = new Todo(command[1]);
+            taskList[currIndex] = newTodo;
+            currIndex++;
+            addMessage(newTodo, currIndex);
+        }
+
+
+
+        else {
+            wrapInLines(gap() +"added: " + line);
             taskList[currIndex] = new Task(line);
             currIndex++;
         }
+    }
+    public static <T extends Task> void addMessage(T task, Integer number){
+        displayLine();
+        System.out.println(gap() + "Got it. I've added this task:");
+        System.out.println(gap() + task.toString());
+        System.out.println(gap() + "Now you have " + number.toString() + " tasks in the list.");
+        displayLine();
     }
     public static void displayList(Task[] list) {
         displayLine();
