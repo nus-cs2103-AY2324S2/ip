@@ -120,6 +120,7 @@ public class Duke {
         if(nextTaskNumber() != -1) {
             ToDo newTask = new ToDo(description);
             taskList[taskNumber] = newTask;
+            System.out.println(taskNumber);
             echoAddTask(newTask, taskNumber + 1);
         }
     }
@@ -132,7 +133,7 @@ public class Duke {
         if(nextTaskNumber() != -1) {
             Deadline newTask = new Deadline(description, date);
             taskList[taskNumber] = newTask;
-            echoAddTask(newTask, taskNumber);
+            echoAddTask(newTask, taskNumber + 1);
         }
     }
 
@@ -144,7 +145,7 @@ public class Duke {
         if(nextTaskNumber() != -1) {
             Event newTask = new Event(description, start, end);
             taskList[taskNumber] = newTask;
-            echoAddTask(newTask, taskNumber);
+            echoAddTask(newTask, taskNumber + 1);
         }
     }
 
