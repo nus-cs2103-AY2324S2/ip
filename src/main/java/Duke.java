@@ -8,10 +8,13 @@ public class Duke {
         bartenderBob.greet();
         while (true) {
             String userInput = scanner.nextLine();
-            bartenderBob.echo(userInput);
-            if (Objects.equals(userInput, "bye")) {
+            if (Objects.equals(userInput, "list")) {
+                bartenderBob.list();
+            } else if (Objects.equals(userInput, "bye")) {
                 bartenderBob.leave();
                 break;
+            } else {
+                bartenderBob.store(userInput);
             }
         }
     }
