@@ -11,7 +11,7 @@ public class Jayne {
         while (true) {
             String input = scanner.nextLine();
 
-            //enterd bye
+            //entered bye
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println(dash + "\nBye. Hope to see you again soon!\n" + dash);
                 break;
