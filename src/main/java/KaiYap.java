@@ -7,6 +7,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 public class KaiYap {
 
+    public enum TaskType {
+        TODO, DEADLINE, EVENT;
+    }
+
     ArrayList<Task> taskList;
 
     public KaiYap() {
@@ -58,32 +62,35 @@ public class KaiYap {
                 }
             } else {
                 try {
-                    String type = input.split(" ")[0];
+                    TaskType type = null;
+                    try {
+                        type = TaskType.valueOf(input.split(" ")[0].toUpperCase());
+                    } catch (Exception e) {
+                        throw new InvalidInputException("I don't quite understand what you mean. Please try again! UwU :3");
+                    }
                     Task task = null;
                     switch (type) {
-                        case "todo":
+                        case TODO:
                             try {
                                 task = createTodo(input);
                             } catch (KaiYapException e) {
                                 printError(e.getMessage());
                             }
                             break;
-                        case "deadline":
+                        case DEADLINE:
                             try {
                                 task = createDeadline(input);
                             } catch (KaiYapException e) {
                                 printError(e.getMessage());
                             }
                             break;
-                        case "event":
+                        case EVENT:
                             try {
                                 task = createEvent(input);
                             } catch (KaiYapException e) {
                                 printError(e.getMessage());
                             }
                             break;
-                        default:
-                            throw new InvalidInputException("I don't quite understand what you mean. Please try again! UwU :3");
                     }
                     if (task != null) {
                         this.echo(task);
