@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Huyang {
     private String logo =
             "  ___ ___                                      \n" +
@@ -14,6 +16,17 @@ public class Huyang {
         System.out.println("What can I do for you?");
     }
 
+    public void echo() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        while (!input.equals("bye")) {
+            System.out.println(input);
+            input = scanner.nextLine();
+        }
+        scanner.close();
+    }
+
+
     public void farewell() {
         // Farewell message
         System.out.println("Bye. Hope to see you again soon!");
@@ -21,7 +34,9 @@ public class Huyang {
 
     public static void main(String[] args) {
         Huyang huyang = new Huyang();
+
         huyang.greet();
+        huyang.echo();
         huyang.farewell();
     }
 }
