@@ -27,8 +27,28 @@ public class Duke {
             } else if (mainC.equalsIgnoreCase("unmark")) {
                 int taskIndex = Integer.parseInt(splitCommands[1]);
                 unmarkTask(taskIndex - 1);
+            } else if (mainC.equalsIgnoreCase("todo")) {
+                String[] splitToDo = command.split(" ", 2);
+                addTodo(splitToDo[1]);
+            } else if (mainC.equalsIgnoreCase("deadline")) {
+                String[] descriptionAndDateSplit = command.split(" ", 2);
+                String descriptionAndDate = descriptionAndDateSplit[1];
+                String[] splitVariables = descriptionAndDate.split(" /by ", 2);
+                String description = splitVariables[0];
+                String date = splitVariables[1];
+                addDeadline(description, date);
+            } else if (mainC.equalsIgnoreCase("event")) {
+                String[] descriptionAndDateSplit = command.split(" ", 2);
+                String descriptionAndDate = descriptionAndDateSplit[1];
+                String[] descriptionSplit = descriptionAndDate.split(" /from ");
+                String description = descriptionSplit[0];
+                String startEnd = descriptionSplit[1];
+                String[] startEndSplit = startEnd.split(" /to ");
+                String start = startEndSplit[0];
+                String end = startEndSplit[1];
+                addEvent(description, start, end);
             } else {
-                addTask(command);
+                System.out.println("Please enter an alternative command.");
             }
         }
         printExitMessage();
@@ -75,9 +95,9 @@ public class Duke {
     /**
      * Method to echo an add command.
      */
-    public void echoAddTask(String task) {
+    public void echoAddTask(Task task, int taskNumber) {
         printALine();
-        String echo = "added: " + task;
+        String echo = "Added this task: \n" + task.toString() + "\nNumber of tasks in list: " + taskNumber;
         System.out.println(echo);
         printALine();
     }
@@ -93,14 +113,38 @@ public class Duke {
     }
 
     /**
-     * Method to add a task to the taskList.
+     * Method to add a ToDo to the taskList.
      */
-    public void addTask(String task) {
+    public void addTodo(String description) {
         int taskNumber = nextTaskNumber();
         if(nextTaskNumber() != -1) {
-            Task newTask = new Task(task);
+            ToDo newTask = new ToDo(description);
             taskList[taskNumber] = newTask;
-            echoAddTask(task);
+            echoAddTask(newTask, taskNumber + 1);
+        }
+    }
+
+    /**
+     * Method to add a Deadline to the taskList.
+     */
+    public void addDeadline(String description, String date) {
+        int taskNumber = nextTaskNumber();
+        if(nextTaskNumber() != -1) {
+            Deadline newTask = new Deadline(description, date);
+            taskList[taskNumber] = newTask;
+            echoAddTask(newTask, taskNumber);
+        }
+    }
+
+    /**
+     * Method to add an Event to the tasklist.
+     */
+    public void addEvent(String description, String start, String end) {
+        int taskNumber = nextTaskNumber();
+        if(nextTaskNumber() != -1) {
+            Event newTask = new Event(description, start, end);
+            taskList[taskNumber] = newTask;
+            echoAddTask(newTask, taskNumber);
         }
     }
 

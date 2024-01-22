@@ -11,7 +11,7 @@ public class Task {
 
     /**
      * Constructor for the Task class.
-     * @param description of task
+     * @param description: Description of task.
      */
     public Task(String description) {
         this.status = false;
