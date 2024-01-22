@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.lang.StringBuilder; // handle string concat
 
 public class UkeCat {
     public static void main(String[] args) {
@@ -68,14 +69,76 @@ public class UkeCat {
                 continue;
             }
 
+            // Adding task
+            switch(words[0]) {
+                case "todo": // exclude word[0]
+                    StringBuilder todoDescBuilder = new StringBuilder();
+                    for (int i = 1; i < words.length; i++) {
+                        todoDescBuilder.append(words[i]).append(" ");
+                    }
+                    ToDo newToDo = new ToDo(todoDescBuilder.toString());
+                    taskList.addTask(newToDo);
+                    break;
+                case "deadline": // find end using /by
+                    int deadlineEndIndex = 0;
+                    StringBuilder deadlineDescBuilder = new StringBuilder();
+                    StringBuilder deadlineEndBuilder = new StringBuilder();
+                    for (int i = 0; i < words.length; i++) { // find index of /by
+                        if (words[i].equals("/by")) {
+                            deadlineEndIndex = i;
+                            break;
+                        }
+                    }
+                    for (int i = 1; i < deadlineEndIndex; i++) {
+                        deadlineDescBuilder.append(words[i]).append(" ");
+                    }
+                    for (int i = deadlineEndIndex + 1; i < words.length; i++) {
+                        deadlineEndBuilder.append(words[i]).append(" ");
+                    }
+
+                    Deadline newDeadline = new Deadline(
+                        deadlineDescBuilder.toString(),deadlineEndBuilder.toString());
+                    taskList.addTask(newDeadline);
+                    break;
+                case "event": // find start using /from, end using /to
+                    int eventStartIndex = 0;
+                    int eventEndIndex = 0;
+                    StringBuilder eventDescBuilder = new StringBuilder();
+                    StringBuilder eventStartBuilder = new StringBuilder();
+                    StringBuilder eventEndBuilder = new StringBuilder();
+                    for (int i = 0; i < words.length; i++) {
+                        if (words[i].equals("/from")) {
+                            eventStartIndex = i;
+                        }
+                        if (words[i].equals("/to")) {
+                            eventEndIndex = i;
+                            break;
+                        }
+                    }
+                    for (int i = 1; i < eventStartIndex; i++) {
+                        eventDescBuilder.append(words[i]).append(" ");
+                    }
+                    for (int i = eventStartIndex + 1; i < eventEndIndex; i++) {
+                        eventStartBuilder.append(words[i]).append(" ");
+                    }
+                    for (int i = eventEndIndex + 1; i < words.length; i++) {
+                        eventEndBuilder.append(words[i]).append(" ");
+                    }
+                    Event newEvent = new Event(eventDescBuilder.toString(),
+                        eventStartBuilder.toString(), eventEndBuilder.toString());
+                    taskList.addTask(newEvent);
+                    break;
+
+            }
+
             // Add task msg
-            taskList.addTask(input);
-            String output = "Added: " + input;
-            int n = output.length();
+            int n = taskList.latest().length();
             String horizontal = "  +" + "-".repeat(n) + "+";
+            System.out.println("  Meow! I've added this task:");
             System.out.println(horizontal + "    /\\_/\\");
-            System.out.println("  |" + output + "|" + "   =O.O=|");
+            System.out.println("  |" + taskList.latest() + "|" + "   =!.!=|");
             System.out.println(horizontal + "     \\  \\/");
+            taskList.report();
 
         }
     }
