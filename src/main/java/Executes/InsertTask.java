@@ -28,15 +28,16 @@ public class InsertTask {
             throw new DukeException("The description of the task is empty.");
         }
         String content = parts[1];
+        Type type = Type.valueOf(parts[0].toUpperCase());
 
-        switch (parts[0]) {
-            case "todo":
+        switch (type) {
+            case TODO:
                 todoTask(content, actionList);
                 break;
-            case "deadline":
+            case DEADLINE:
                 deadlineTask(content, actionList);
                 break;
-            case "event":
+            case EVENT:
                 eventTask(content, actionList);
                 break;
         }
