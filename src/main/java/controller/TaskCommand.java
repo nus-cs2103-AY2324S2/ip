@@ -1,9 +1,7 @@
 package controller;
 
-import model.Task;
-
-import java.util.ArrayList;
+import duke.Storage;
 
 public abstract class TaskCommand {
-    public abstract void execute();
+    public abstract void execute(Storage storage);
 }

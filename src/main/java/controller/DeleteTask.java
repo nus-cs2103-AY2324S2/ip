@@ -1,5 +1,6 @@
 package controller;
 
+import duke.Storage;
 import model.Task;
 import view.DeleteTaskView;
 
@@ -13,8 +14,9 @@ public class DeleteTask extends TaskCommand {
         this.task = taskList.get(index);
         this.taskList = taskList;
     }
-    public void execute() {
+    public void execute(Storage storage) {
         taskList.remove(task);
+        storage.update(taskList);
         DeleteTaskView deleteTaskView = new DeleteTaskView(this.task, this.taskList);
         deleteTaskView.display();
     }

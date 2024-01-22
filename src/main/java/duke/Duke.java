@@ -1,8 +1,8 @@
+package duke;
+
 import controller.Exit;
 import controller.Greet;
 import controller.HandleUserInput;
-import controller.InvalidCommand;
-import model.DukeException;
 import model.Task;
 
 
@@ -10,14 +10,21 @@ import java.util.*;
 
 public class Duke {
     private final ArrayList<Task> taskList;
-    private final Greet greetController;
+    private final Storage storage;
     public Duke() {
-        this.taskList = new ArrayList<Task>(100);
-        this.greetController = new Greet();
+        this.storage = new Storage("./data.dat");
+        if (storage.isFileExists()) {
+            this.taskList = new ArrayList<>(storage.load());
+        } else {
+            storage.createNewFile();
+            this.taskList = new ArrayList<>(100);
+            storage.update(taskList);
+        }
     }
 
     public void launch() {
-        greetController.execute();
+        Greet greetController = new Greet();
+        greetController.execute(storage);
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 System.out.print("Enter a command:\n");
@@ -25,11 +32,11 @@ public class Duke {
 
                 if (input.equals("bye")) {
                     Exit exitController = new Exit();
-                    exitController.execute();
+                    exitController.execute(storage);
                     break;
                 } else {
                     HandleUserInput handleUserInputController = new HandleUserInput(input, taskList);
-                    handleUserInputController.execute();
+                    handleUserInputController.execute(storage);
                 }
             }
         } catch (RuntimeException e) {

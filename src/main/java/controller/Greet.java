@@ -1,5 +1,6 @@
 package controller;
 
+import duke.Storage;
 import view.GreetView;
 
 public class Greet {
@@ -9,7 +10,7 @@ public class Greet {
         this.greetView = new GreetView();
     }
     
-    public void execute() {
+    public void execute(Storage storage) {
         greetView.display();
     }
 }

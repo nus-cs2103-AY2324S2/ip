@@ -1,6 +1,8 @@
 package model;
 
-public abstract class Task {
+import java.io.Serializable;
+
+public abstract class Task implements Serializable {
     private final String title;
     private boolean isDone;
 
