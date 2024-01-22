@@ -68,6 +68,26 @@ public class Shirmin {
             taskList[currIndex] = newTodo;
             currIndex++;
             addMessage(newTodo, currIndex);
+        } else if (command[0].equals("deadline")) {
+            String[] details = command[1].split(" /by ");
+            String description = details[0];
+            String by = details[1];
+
+            Task newDeadline = new Deadline(description, by);
+            taskList[currIndex] = newDeadline;
+            currIndex++;
+            addMessage(newDeadline, currIndex);
+        } else if (command[0].equals("event")) {
+            String[] details = command[1].split(" /from ");
+            String description = details[0];
+            String[] fromTo = details[1].split(" /to ");
+            String from = fromTo[0];
+            String to = fromTo[1];
+
+            Task newEvent = new Event(description, from, to);
+            taskList[currIndex] = newEvent;
+            currIndex++;
+            addMessage(newEvent, currIndex);
         }
 
 
@@ -81,7 +101,7 @@ public class Shirmin {
     public static <T extends Task> void addMessage(T task, Integer number){
         displayLine();
         System.out.println(gap() + "Got it. I've added this task:");
-        System.out.println(gap() + task.toString());
+        System.out.println(gap() + gap() + task.toString());
         System.out.println(gap() + "Now you have " + number.toString() + " tasks in the list.");
         displayLine();
     }
