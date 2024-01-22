@@ -22,11 +22,12 @@ public class Task {
 
         return msg + "[" + this.getStatusIcon() + "] " + this.description;
     }
-//    public String unmarkAsDone() {
-//        this.isDone = ;
-//        String mark = "OK, I've marked this task as not done yet:\n" + "[" +
-//                this.getStatusIcon() + "] " + this.description;
-//        return mark;
-//    }
+    public String getType() {
+        return "[]";
+    }
+
+    public String getExtraInfo() {
+        return "";
+    }
 
 }
