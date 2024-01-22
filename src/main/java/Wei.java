@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Wei {
@@ -10,31 +9,49 @@ public class Wei {
         System.out.println(greet);
         System.out.println(split);
 
-        String[] text = new String[100];
-        int count = 0;
+        Task[] tasks = new Task[100];
+        int numOfTasks = 0;
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
-            if(Objects.equals(input, "bye")) {
+            if(input.equals("bye")) {
                 break;
-            } else if (Objects.equals(input, "list")) {
-                if(text[0] == null) {
+            }
+            // list
+            else if (input.equals("list")) {
+                if(tasks[0] == null) {
                     System.out.println(split);
                     continue;
                 }
-                // list
-                for (int i = 0; i < count; i++) {
-                    System.out.println(String.valueOf(i + 1) + ". " + text[i]);
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < numOfTasks; i++) {
+                    int order = i + 1;
+                    String text = tasks[i].stringify();
+                    System.out.println(order + ". " + text);
                 }
-                System.out.println(split);
-            } else {
-                // add
-                text[count] = input;
-                count++;
-                // echo
-                System.out.println("added: " + input);
-                System.out.println(split);
             }
+            // mark
+            else if (input.matches("mark \\d+")) {
+                int order = Integer.parseInt(input.substring(5)) - 1;
+                tasks[order].setStatus(true);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(tasks[order].stringify());
+            }
+            // unmark
+            else if (input.matches("unmark \\d+")) {
+                int order = Integer.parseInt(input.substring(7)) - 1;
+                tasks[order].setStatus(false);
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(tasks[order].stringify());
+            }
+            // add
+            else {
+                Task newTask = new Task(input);
+                tasks[numOfTasks] = newTask;
+                numOfTasks++;
+                System.out.println("added: " + input);
+            }
+            System.out.println(split);
         }
 
         // exit
