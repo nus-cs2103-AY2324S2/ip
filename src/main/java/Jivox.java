@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class Jivox {
 
@@ -37,10 +38,26 @@ public class Jivox {
         addDivider();
     }
 
-    public void add(String input){
-        this.list.add(new Task(input));
+    public void add(String type,String description){
+        switch (type){
+            case "todo":
+                this.list.add(new Todo(description));
+                break;
+            case "deadline":
+                String[] in = description.split("/by");
+                this.list.add(new Deadline(in[0],in[1]));
+                break;
+            case "event":
+                String[] first = description.split("/from");
+                String[] second = first[1].split("/to");
+                this.list.add(new Event(first[0],second[0],second[1]));
+                break;
+            default:
+                System.out.println("I didn't Understand what you typed!!!!");
+        }
         addDivider();
-        System.out.println("added: " + input);
+        System.out.println("Got it. I've added this task:\n" + this.list.get(this.list.size()-1));
+        System.out.println("Now you have " + this.list.size() +" tasks in the list.");
         addDivider();
     }
 
@@ -66,14 +83,14 @@ public class Jivox {
             } else if(input.equals("list")){
                 this.showList();
             } else{
-                String[] in = input.split(" ");
+                String[] in = input.split(" ",2);
                 if(in[0].equals("mark")){
                     this.mark(Integer.parseInt(in[1]));
                 } else if(in[0].equals("unmark")){
                     this.unmark(Integer.parseInt(in[1]));
                 }
                 else{
-                    this.add(input);
+                    this.add(in[0],in[1]);
                 }
             }
         } while (isRunning);
