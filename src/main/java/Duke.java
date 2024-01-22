@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+enum Command {
+    BYE, LIST, MARK, UNMARK, DEADLINE, EVENT, TODO, DELETE, DEFAULT
+}
+
 class DukeException extends Exception {
     public DukeException(String errorMessage) {
         super("OOPS!!! " + errorMessage);
@@ -44,34 +48,44 @@ class Duke {
         // Main event handler
         String input = scanner.next();
 
-        switch (input) {
-            case "bye":
+        Command command = getCommand(input);
+
+        switch (command) {
+            case BYE:
                 handleBye();
                 break;
-            case "list":
+            case LIST:
                 handleList();
                 break;
-            case "mark":
+            case MARK:
                 handleMark(scanner);
                 break;
-            case "unmark":
+            case UNMARK:
                 handleUnmark(scanner);
                 break;
-            case "deadline":
+            case DEADLINE:
                 handleDeadline(scanner);
                 break;
-            case "event":
+            case EVENT:
                 handleEvent(scanner);
                 break;
-            case "todo":
+            case TODO:
                 handleTodo(scanner);
                 break;
-            case "delete":
+            case DELETE:
                 handleDelete(scanner);
                 break;
             default:
                 handleDefault();
                 break;
+        }
+    }
+
+    private Command getCommand(String input) {
+        try {
+            return Command.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return Command.DEFAULT;
         }
     }
 
