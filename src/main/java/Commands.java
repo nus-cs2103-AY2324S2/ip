@@ -1,17 +1,86 @@
-class AddCommand extends Command {
-    private String task;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
-    public AddCommand(String task) throws InvalidCommandException {
-        task = task.trim();
-        if (task.length() == 0) {
-            throw new InvalidCommandException("The description of a task cannot be empty.");
-        }
-        this.task = task;
+abstract class AddTaskCommand extends Command {
+    private Task task;
+
+    public abstract Task parseTask(String argument) throws InvalidCommandException;
+
+    public AddTaskCommand(String argument) throws InvalidCommandException {
+        argument = argument.trim();
+        this.task = parseTask(argument);
+        assert task != null : "Task should not be null";
     }
 
     public void execute(Storage storage) throws DukeException {
-        storage.addTask(new Task(task));
-        System.out.println("Added: " + task);
+        assert task != null : "execute() can only be called once";
+        storage.addTask(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        int count = storage.getTaskCount();
+        System.out.println("Now you have " + count + " " + (count == 1 ? "task" : "tasks") + " in the list.");
+        task = null;
+    }
+}
+
+class AddTodoCommand extends AddTaskCommand {
+    public AddTodoCommand(String argument) throws InvalidCommandException {
+        super(argument);
+    }
+
+    public Task parseTask(String argument) throws InvalidCommandException {
+        if (argument.isEmpty()) {
+            throw new InvalidCommandException("The description of a todo cannot be empty.");
+        }
+        return new Todo(argument);
+    }
+}
+
+class AddDeadlineCommand extends AddTaskCommand {
+    public AddDeadlineCommand(String argument) throws InvalidCommandException {
+        super(argument);
+    }
+
+    public Task parseTask(String argument) throws InvalidCommandException {
+        String[] parts = argument.split(" /by ", 2);
+        if (parts.length != 2) {
+            throw new InvalidCommandException("The deadline command should be in the format: deadline <description> /by <date>");
+        }
+        if (parts[0].isEmpty()) {
+            throw new InvalidCommandException("The description of a deadline cannot be empty.");
+        }
+        if (parts[1].isEmpty()) {
+            throw new InvalidCommandException("The date of a deadline cannot be empty.");
+        }
+        return new Deadline(parts[0], parts[1]);
+    }
+}
+
+class AddEventCommand extends AddTaskCommand {
+    public AddEventCommand(String argument) throws InvalidCommandException {
+        super(argument);
+    }
+
+    private static final Pattern EVENT_PATTERN = Pattern.compile("(.*) /from (.*) /to (.*)");
+
+    public Task parseTask(String argument) throws InvalidCommandException {
+        Matcher matcher = EVENT_PATTERN.matcher(argument);
+        if (!matcher.matches()) {
+            throw new InvalidCommandException("The event command should be in the format: event <description> /from <start date> /to <end date>");
+        }
+        String description = matcher.group(1);
+        String start = matcher.group(2);
+        String end = matcher.group(3);
+        if (description.isEmpty()) {
+            throw new InvalidCommandException("The description of an event cannot be empty.");
+        }
+        if (start.isEmpty()) {
+            throw new InvalidCommandException("The start date of an event cannot be empty.");
+        }
+        if (end.isEmpty()) {
+            throw new InvalidCommandException("The end date of an event cannot be empty.");
+        }
+        return new Event(description, start, end);
     }
 }
 
@@ -70,7 +139,9 @@ class UnmarkDoneCommand extends CommandTakingTaskIndex {
 
 public class Commands {
     public static void registerCommands() {
-        Parser.registerCommand("add", s -> new AddCommand(s));
+        Parser.registerCommand("todo", s -> new AddTodoCommand(s));
+        Parser.registerCommand("deadline", s -> new AddDeadlineCommand(s));
+        Parser.registerCommand("event", s -> new AddEventCommand(s));
         Parser.registerCommand("list", s -> new ListCommand());
         Parser.registerCommand("bye", s -> new ByeCommand());
         Parser.registerCommand("mark", s -> new MarkDoneCommand(s));

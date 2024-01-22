@@ -14,6 +14,10 @@ public class Storage {
         }
     }
 
+    public int getTaskCount() {
+        return tasks.size();
+    }
+
     public String getTaskDescription(int index) {
         return tasks.get(index).toString();
     }
