@@ -1,83 +1,174 @@
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Taylor {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Taylor");
         System.out.println("What can I do for you?");
+        Scanner type = new Scanner(System.in);
 
-        HashMap<Integer, Action> listing = new HashMap<>();
-        Integer pos = 1;
+        List<Action> listing = new ArrayList<>();
 
+        label:
         while(true) {
-            Scanner type = new Scanner(System.in);
             String input = type.nextLine();
 
-            if (input.equals("bye")) {
-                break;
-
-            } else if (input.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                listing.forEach((key, value) -> {
-                    System.out.println(key + ". " + value);
-                });
-
-            } else if (input.contains("mark")) {
-                String[] markwhat = input.split(" ");
-                String what = markwhat[0];
-                Integer num = Integer.valueOf(markwhat[1]);
-                if (what.equals("mark")) {
-                    listing.get(num).markIt();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(listing.get(num));
-                } else if (what.equals("unmark")) {
-                    listing.get(num).unMark();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(listing.get(num));
-                }
+            if (input.isBlank()) {
+                System.out.println("Input is empty, please enter something.");
 
             } else {
-                System.out.println("Got it. I've added this task:");
+                String[] act = input.split(" ", 2);
+                String action = act[0];
 
-                /**
-                 *  Retrieve the action to be done
-                 */
-                String[] parts = input.split(" ", 2);
-                String content = parts[1];
+                switch (action) {
+                    case "bye":
+                        break label;
 
-                switch (parts[0]) {
+                    case "list":
+                        System.out.println("Here are the tasks in your list:");
+                        int pos = 1;
+                        if (listing.isEmpty()) {
+                            System.out.println("List is empty.");
+                        } else {
+                            for (Action acting : listing) {
+                                System.out.println(pos++ + ". " + acting);
+                            }
+                        }
+
+                        break;
+                    case "mark":
+                    case "unmark":
+                        try {
+                            markTask(input, listing);
+                        } catch (DukeException err) {
+                            System.out.println("Error: " + err.getMessage());
+                        }
+
+                        break;
                     case "todo":
-                        Todo task = new Todo(content);
-                        listing.put(pos++, task);
-                        System.out.println(task);
-
-                        break;
                     case "deadline":
-                        /**
-                         * Retrieve the action and time
-                         */
-                        String[] splitter = content.split("/by");
-                        Deadline dl = new Deadline(splitter[0], splitter[1]);
-                        listing.put(pos++, dl);
-                        System.out.println(dl);
-
-                        break;
                     case "event":
-                        /**
-                         * Retrieve the action and time by first
-                         * getting action, then split the 2 times
-                         */
-                        String[] splitter1 = content.split("/from");
-                        String[] splitter2 = splitter1[1].split("/to");
-                        Event eve = new Event(splitter1[0], splitter2[0], splitter2[1]);
-                        listing.put(pos++, eve);
-                        System.out.println(eve);
+                        try {
+                            insertTask(input, listing);
+                        } catch (DukeException err) {
+                            System.out.println("Error: " + err.getMessage());
+                        }
+                        break;
+                    default:
+                        System.out.println("Invalid input. ChatBot can only handle " +
+                                "'todo', 'deadline', 'event', 'bye', 'list' tasks");
                         break;
                 }
-                System.out.println("Now you have " + listing.size() + " tasks in the list.");
             }
         }
-
         System.out.println("Bye. Hope to see you again soon!");
+        type.close();
+    }
+
+    public static void markTask(String input, List<Action> actionList) throws DukeException {
+        String[] markWhat = input.split(" ");
+        String what = markWhat[0];
+
+        try {
+            int num = Integer.parseInt(markWhat[1]) - 1;
+
+            if (num < 0 || num >= actionList.size()) {
+                throw new DukeException("Invalid task number");
+            }
+
+            if (what.equals("mark")) {
+                actionList.get(num).markIt();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(actionList.get(num));
+            } else if (what.equals("unmark")) {
+                actionList.get(num).unMark();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(actionList.get(num));
+            } else {
+                throw new DukeException("Invalid command -  Only use mark/unmark");
+            }
+        } catch (ArrayIndexOutOfBoundsException err) {
+            throw new DukeException("Please insert task number!");
+        }
+    }
+
+    public static void insertTask(String input, List<Action> actionList) throws DukeException{
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isBlank()) {
+            throw new DukeException("The description of the task is empty.");
+        }
+        String content = parts[1];
+
+        switch (parts[0]) {
+            case "todo":
+                todoTask(content, actionList);
+                break;
+            case "deadline":
+                deadlineTask(content, actionList);
+                break;
+            case "event":
+                eventTask(content, actionList);
+                break;
+        }
+    }
+
+    public static void todoTask(String content, List<Action> actionList) {
+        System.out.println("Got it. I've added this task:");
+        Todo task = new Todo(content);
+        actionList.add(task);
+        System.out.println(task);
+        System.out.println("Now you have " + actionList.size() + " tasks in the list.");
+    }
+
+    public static void deadlineTask(String content, List<Action> actionList) throws DukeException {
+        try {
+            String[] splitter = content.split("/by");
+
+            if (splitter.length < 2 || splitter[0].trim().isBlank() || splitter[1].trim().isBlank()) {
+                throw new DukeException("Invalid format. Please type in the following format: " +
+                        "deadline <action> /by <time>");
+            }
+
+            System.out.println("Got it. I've added this task:");
+            Deadline dl = new Deadline(splitter[0], splitter[1]);
+            actionList.add(dl);
+            System.out.println(dl);
+            System.out.println("Now you have " + actionList.size() + " tasks in the list.");
+
+        } catch (ArrayIndexOutOfBoundsException err) {
+            throw new DukeException("Invalid format. Please type in the following format: deadline <action> /by <time>");
+        }
+    }
+
+    public static void eventTask(String content, List<Action> actionList) throws DukeException{
+        try {
+            String[] splitter = content.split("/from");
+
+            if (splitter.length < 2 || splitter[0].trim().isBlank() || splitter[1].trim().isBlank()) {
+                throw new DukeException("Invalid format. Please type in the following format: " +
+                        "event <action> /from <time> /to <time>");
+            }
+
+            try {
+                String[] splitter1 = splitter[1].split("/to");
+
+                if (splitter1.length < 2 || splitter1[0].trim().isBlank() || splitter1[1].trim().isBlank()) {
+                    throw new DukeException("Invalid format. Please type in the following format: " +
+                            "event <action> /from <time> /to <time>");
+                }
+                Event eve = new Event(splitter[0], splitter1[0], splitter1[1]);
+                actionList.add(eve);
+
+                System.out.println(eve);
+                System.out.println("Now you have " + actionList.size() + " tasks in the list.");
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new DukeException("Invalid format. Please type in the following format: " +
+                        "event <action> /from <time> /to <time>");
+            }
+        } catch (ArrayIndexOutOfBoundsException err) {
+            throw new DukeException("Invalid format. Please type in the following format: " +
+                    "event <action> /from <time> /to <time>");
+        }
     }
 }
