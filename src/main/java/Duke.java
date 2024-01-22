@@ -24,7 +24,12 @@ public class Duke {
      */
     public String askForPrompt() {
         System.out.print(">>> ");
-        return sc.nextLine();
+        String result = sc.nextLine();
+        // We print out the prompt if input is redirected to make the expected output more readable.
+        if (System.console() == null) {
+            System.out.println(result);
+        }
+        return result;
     }
 
     Scanner sc = new Scanner(System.in);
