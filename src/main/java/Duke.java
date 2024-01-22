@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.function.ToDoubleBiFunction;
 
 public class Duke {
     // constants
@@ -54,6 +53,9 @@ public class Duke {
                         System.out.println(ex.getMessage());
                     }
                     break;
+                case "delete":
+                    handleDelete(message);
+                    break;
                 default:
                     System.out.println("Sorry uncle don't understand what you want");
                     break;
@@ -71,13 +73,9 @@ public class Duke {
     // add task to tasks and echo
     public static void updateTasks(Task task) {
         tasks.add(task);
-        if (tasks.size() > 1) {
-            System.out.println("\t Got it. Uncle added this task:\n\t\t " + task
-                    + "\n\t Now you have " + tasks.size() + " tasks in the list.");
-        } else {
-            System.out.println("\t Got it. Uncle added this task:\n\t\t " + task
-                    + "\n\t Now you have 1 task in the list.");
-        }
+        System.out.println("\t Got it. Uncle added this task:\n\t\t " + task
+                + "\n\t Now you have " + tasks.size() + " task(s) in the list.");
+
     }
 
     // list out all tasks
@@ -165,6 +163,18 @@ public class Duke {
                 Task event = new Event(desc, start, end);
                 updateTasks(event);
             }
+        }
+    }
+
+    public static void handleDelete(String message) {
+        try {
+            int index = Integer.parseInt(message);
+            Task removed = tasks.get(index - 1);
+            tasks.remove(index - 1);
+            System.out.println("\t Uncle deleted this item:\n\t\t" + removed
+                    + "\n\t Now you have " + tasks.size() + " task(s) in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\t Uncle think that you input wrong index.\n\t Use 'list' to view all tasks");
         }
     }
 }
