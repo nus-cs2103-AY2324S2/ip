@@ -1,4 +1,6 @@
+import java.util.Scanner;
 public class Duke {
+    private Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         Duke aurora1 = new Duke();
         aurora1.exeAurora();
@@ -8,8 +10,16 @@ public class Duke {
      * Method for execution.
      */
     public void exeAurora() {
-        printALine();
         printOpeningMessage();
+        boolean exit = false;
+        while(!exit) {
+            String command = scanner.nextLine();
+            if (command.equalsIgnoreCase("bye")) {
+                exit = true;
+            } else {
+                echoCommand(command);
+            }
+        }
         printExitMessage();
     }
 
@@ -17,6 +27,7 @@ public class Duke {
      * Method to print the greeting message.
      */
     public void printOpeningMessage() {
+        printALine();
         String openingMessage = "How are you feeling? I'm Aurora, your personal schedule assistant. \n"
                 + "What can I do for you?";
         System.out.println(openingMessage);
@@ -27,8 +38,18 @@ public class Duke {
      * Method to print the exit message.
      */
     public void printExitMessage() {
+        printALine();
         String exitMessage = "Thank you for consulting with me, have a good day.";
         System.out.println(exitMessage);
+        printALine();
+    }
+
+    /**
+     * Method to echo a given command.
+     */
+    public void echoCommand(String command) {
+        printALine();
+        System.out.println(command);
         printALine();
     }
 
