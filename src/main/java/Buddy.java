@@ -1,3 +1,5 @@
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Buddy {
@@ -23,14 +25,22 @@ public class Buddy {
     private void echo() {
         boolean running = true;
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> taskList = new ArrayList();
 
         while (running) {
             String input = sc.nextLine();
 
             if (input.equals("bye")) {
                 running = false;
+            } else if (input.equals("list")) {
+                System.out.print(lineBreak);
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println((i + 1) + ". "+ taskList.get(i));
+                }
+                System.out.println(lineBreak);
             } else {
-                String output = input + "\n";
+                taskList.add(input);
+                String output = "added: " + input + "\n";
                 System.out.println(lineBreak + output + lineBreak);
             }
         }
