@@ -1,10 +1,11 @@
 public class Solaire {
-    public static void main(String[] args) {
+    
+    public void startConversation() {
         greet();
         waveBye();
     }
 
-    private static void greet() {
+    private void greet() {
         String greetingMessage = "--------------------------------------------------\n"
         + "Oh hello there. I'm Solaire of Astora.\n"
         + "The sun is a wondrous body. Like a magnificent father!\n"
@@ -14,7 +15,7 @@ public class Solaire {
         System.out.println(greetingMessage);
     }
 
-    private static void waveBye() {
+    private void waveBye() {
         String farewellMessage = "Farewell!" +
         "--------------------------------------------------\n";
         System.out.println(farewellMessage);
