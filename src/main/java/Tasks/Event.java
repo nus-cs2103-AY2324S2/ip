@@ -9,4 +9,12 @@ public class Event extends Task {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    public String getEndDate() {
+        return this.endDate;
+    }
 }

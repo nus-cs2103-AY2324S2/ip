@@ -7,4 +7,8 @@ public class Deadline extends Task {
         super(description, status, Type.DEADLINE);
         this.deadline = deadline;
     }
+
+    public String getDeadline() {
+        return this.deadline;
+    }
 }

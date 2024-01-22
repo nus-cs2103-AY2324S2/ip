@@ -23,7 +23,20 @@ public class Task {
         return this.type;
     }
 
+    public char getCapitalType() {
+        switch(this.type) {
+            case TODO:
+                return 'T';
+            case DEADLINE:
+                return 'D';
+            case EVENT:
+                return 'E';
+        }
+        return ' ';
+    }
+
     public void updateStatus() {
         this.status = !this.status;
     }
+
 }
