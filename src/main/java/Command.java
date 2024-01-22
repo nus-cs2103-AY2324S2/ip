@@ -5,5 +5,5 @@
  * or a constructor with a single String parameter.
  */
 public abstract class Command {
-    public abstract void execute(Storage storage);
+    public abstract void execute(Storage storage) throws DukeException;
 }

@@ -49,11 +49,11 @@ public class Duke {
             Command command;
             try {
                 command = parser.parse(prompt);
-            } catch (InvalidCommandException e) {
+                command.execute(storage);
+            } catch (DukeException e) {
                 System.out.println(e.getMessage());
                 continue;
             }
-            command.execute(storage);
         }
     }
 
