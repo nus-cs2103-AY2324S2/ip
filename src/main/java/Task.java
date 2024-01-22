@@ -14,12 +14,16 @@ public class Task {
         this.done = state;
     }
 
+    @Override
+    public String toString() {
+        return this.description;
+    }
+
     public String getStatus() {
         return "[" + (done ? "X" : " ") + "]";
     }
 
-    @Override
-    public String toString() {
-        return this.description;
+    public String getType() {
+        return "[T]";
     }
 }
