@@ -15,6 +15,5 @@ public class Lulu {
         Lulu chatbot = new Lulu();
         System.out.println(chatbot.start());
         System.out.println(chatbot.exit());
-        System.out.println("test");
     }
 }
