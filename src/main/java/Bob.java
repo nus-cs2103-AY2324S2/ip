@@ -100,7 +100,7 @@ public class Bob {
 
         this.greet();
 
-        while (true) {
+        while (scanner.hasNextLine()) {
             String input = getUserInput();
 
             if (input.equals(this.terminatePhrase)) break;
@@ -157,7 +157,7 @@ public class Bob {
                 }
 
                 this.printLine();
-                System.out.println("    added: " + input);
+                System.out.println("    Here is your newly added task: ");
                 System.out.println("        " + t.getType() + t.getStatus() + " " + t);
                 this.printList(true);
                 this.printLine();
