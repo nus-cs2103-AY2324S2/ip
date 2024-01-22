@@ -7,6 +7,8 @@ public class Leto {
                 + "|____/ \\__,_|_|\\_\\___|   Leto\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("===================================\n");
-        System.out.println("Glad to see you today! Bye\n");
+        CommandExecutor.readCommandAndExecute();
+
+
     }
 }
