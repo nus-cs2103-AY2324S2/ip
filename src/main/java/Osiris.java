@@ -5,7 +5,7 @@ public class Osiris {
 
     public static final String NAME = "Osiris";
 
-    private final UserInputs userInputs = new UserInputs();
+    private final TaskManager userTasks = new TaskManager();
 
     public void startChat(){
         Scanner scanner = new Scanner(System.in);
@@ -22,9 +22,9 @@ public class Osiris {
             if (userInput.equals("bye")) {
                 terminateChat = true;
             } else if (userInput.equals("list")) {
-                this.printUserInputs();
+                this.printUserTasks();
             } else {
-                this.storeUserInput(userInput);
+                this.addUserTask(userInput);
             }
         }
 
@@ -49,16 +49,16 @@ public class Osiris {
         this.printSeparator();
     }
 
-    private void storeUserInput(String userInput) {
-        this.userInputs.add(userInput);
+    private void addUserTask(String userInput) {
+        this.userTasks.addUserTask(userInput);
 
         this.printSeparator();
         System.out.println("     Added: " + userInput);
         this.printSeparator();
     }
 
-    private void printUserInputs(){
-        ArrayList<String> toPrint = this.userInputs.getUserInputs();
+    private void printUserTasks(){
+        ArrayList<String> toPrint = this.userTasks.getUserTasks();
 
         this.printSeparator();
         for (int i = 0; i < toPrint.size(); i++) {
