@@ -1,6 +1,10 @@
 import java.util.Scanner;
+import java.util.stream.Stream;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Pan {
+    public static List<String> tasks = new ArrayList<String>();
     public static void main(String[] args) {
         hello();
         Scanner scanner = new Scanner(System.in);
@@ -9,12 +13,17 @@ public class Pan {
             System.out.println("");
             String instruction = scanner.nextLine();
             System.out.println("");
-            if (!instruction.equals("bye")) {
-                echo(instruction);
+
+            if (instruction.equals("list")) {
+                list();
                 continue;
-            } else {
+            } else if (instruction.equals("bye")) {
                 bye();
                 break;
+            } else {
+                tasks.add((tasks.size() + 1)+ ". " + instruction);
+                add(instruction);
+                continue;
             }
         }
         scanner.close();
@@ -28,7 +37,12 @@ public class Pan {
         System.out.println("Bye. Hope to see you again soon!\n");
     }
 
-    public static void echo(String instruction) {
-        System.out.println(instruction + "\n");
+    public static void add(String instruction) {
+        System.out.println("added: " + instruction + "\n");
+    }
+
+    public static void list() {
+        Stream<String> taskStream = tasks.stream();
+        taskStream.forEach(task -> System.out.println(task));
     }
 }
