@@ -75,14 +75,6 @@ public class Luke {
                     noTasks++;
                     System.out.println("Now you have " + noTasks + " tasks in the list.");
                     break;
-                default:
-                    System.out.println("Got it. I've added this task:");
-                    Task task = new Task(input);
-                    taskList[noTasks] = task;
-                    System.out.println(task.toString());
-                    noTasks++;
-                    System.out.println("Now you have " + noTasks + " tasks in the list.");
-                    break;
             }
             input = scanner.nextLine();
         }
