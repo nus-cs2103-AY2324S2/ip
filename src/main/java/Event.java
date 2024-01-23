@@ -24,10 +24,8 @@ public class Event extends Task{
      */
     public Event(String description, String from, String to) {
         super(description);
-        String editedFrom[] = from.split("from", 2);
-        String editedTo[] = to.split("to", 2);
-        this.from = editedFrom[1];
-        this.to = editedTo[1];
+        this.from =from;
+        this.to = to;
     }
 
     /**
@@ -36,6 +34,6 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from:" + this.from + "to:" + this.to + ")";
+        return "[E]" + super.toString() + "(from:" + this.from + " to:" + this.to + ")";
     }
 }

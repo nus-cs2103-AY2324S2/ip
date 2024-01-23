@@ -56,26 +56,26 @@ public class Task {
     /**
      * Marks a valid Task in the Task array
      */
-    public String markAsDone(){
+    public String markAsDone() throws DukeException{
         if(this.isDone == true){
-            return "This task is already completed.\n";
+            throw new DukeException("This task is already completed.\n");
         } else {
             this.isDone = true;
             return "Very well. This task is now completed.\n"
-                    + Integer.toString(this.taskNo) + this.toString();
+                    + Integer.toString(this.taskNo) + this.toString() +"\n";
         }
     }
 
     /**
      * Unmarks a valid Task in the Task array
      */
-    public String unMarkTask(){
+    public String unMarkTask() throws DukeException{
         if(this.isDone == false){
-            return "This task is already unmarked.\n";
+            throw new DukeException("This task is already unmarked.\n");
         } else {
             this.isDone = false;
             return "Very well. This task is now marked as not completed.\n"
-                    + Integer.toString(this.taskNo) + this.toString();
+                    + Integer.toString(this.taskNo) + this.toString() + "\n";
         }
     }
 }
