@@ -1,23 +1,23 @@
 import java.util.ArrayList;
-public class TodoList {
-    private final ArrayList<TodoItem> items;
+public class TaskList {
+    private final ArrayList<ToDo> items;
 
-    public TodoList() {
+    public TaskList() {
         this.items = new ArrayList<>();
     }
 
-    public void addItem(TodoItem item) {
+    public void addItem(ToDo item) {
         this.items.add(item);
     }
 
     public void markItemDone(int index) {
-        TodoItem currItem = this.items.get(index);
+        ToDo currItem = this.items.get(index);
         currItem.markItem();
 
     }
 
     public void unmarkItemDone(int index) {
-        TodoItem currItem = this.items.get(index);
+        ToDo currItem = this.items.get(index);
         currItem.unmarkItem();
     }
 

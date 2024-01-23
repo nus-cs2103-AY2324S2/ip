@@ -15,7 +15,7 @@ public class Tyrone {
                 "\tYo, what's crackin' fam! I'm Tyrone, your digital homie.\n" +
                 "\tWhat's the word? So I can help you out today.\n" +
                 "\n\t____________________________________________________________\n");
-        TodoList todoList = new TodoList();
+        TaskList todoList = new TaskList();
         while (true) {
             String cmd = reader.nextLine();
             if (cmd.equals("bye")) {
@@ -35,7 +35,7 @@ public class Tyrone {
                         "A'ight, I've stamped this task as still in the works:\n" +
                         "\t\t" + todoList.getItemToString(index)));
             } else {
-                TodoItem newItem = new TodoItem(cmd);
+                ToDo newItem = new ToDo(cmd);
                 todoList.addItem(newItem);
                 writer.println(Tyrone.formatStringOutput("Got it added homie: " + newItem.toString()));
             }
