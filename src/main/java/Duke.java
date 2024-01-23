@@ -7,7 +7,8 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        List<String> list = new ArrayList<>();
+        List<Task> list = new ArrayList<>();
+        boolean flag = true;
 
         String logo = "\n" +
                 "   _____ _             ____        _   \n" +
@@ -23,24 +24,44 @@ public class Duke {
 
         System.out.println(DIVIDER + "\n" + WELCOME_TEXT + "\n" + DIVIDER);
 
-        while (true) {
+        while (flag) {
             String input = sc.nextLine();
-            if (input.equals("bye")) {
-                System.out.println(DIVIDER + "\n" + BYE_TEXT + "\n" + DIVIDER);
-                break;
-            } else if (input.equals("list")) {
-                int counter = 1;
-                System.out.println(DIVIDER);
-                for (String s : list) {
-                    System.out.println(counter + ". " + s);
-                    counter++;
-                }
-                System.out.println(DIVIDER);
-            } else {
-                list.add(input);
-                System.out.println(DIVIDER + "\n added: " + input + "\n" + DIVIDER);
+            String[] arr = input.split(" ");
+
+            switch (arr[0]) {
+                case "bye":
+                    flag = false;
+                    System.out.println(DIVIDER + "\n" + BYE_TEXT + "\n" + DIVIDER);
+                    break;
+                case "list":
+                    int counter = 1;
+                    System.out.println(DIVIDER);
+                    for (Task t : list) {
+                        String mark = t.getMarked() ? "X" : " ";
+                        System.out.println(counter + ". [" + mark + "] " + t.getTitle());
+                        counter++;
+                    }
+                    System.out.println(DIVIDER);
+                    break;
+                case "mark":
+                    Task t = list.get(Integer.parseInt(arr[1]) - 1);
+                    t.setMarked(true);
+                    String mark = t.getMarked() ? "X" : " ";
+                    System.out.println(DIVIDER + "\nNice! I've marked this task as done:" );
+                    System.out.println("[" + mark + "] " + t.getTitle() + "\n" + DIVIDER);
+                    break;
+                case "unmark":
+                    Task t1 = list.get(Integer.parseInt(arr[1]) - 1);
+                    t1.setMarked(false);
+                    String mark1 = t1.getMarked() ? "X" : " ";
+                    System.out.println(DIVIDER + "\nOK, I've marked this task as not done yet:" );
+                    System.out.println("[" + mark1 + "] " + t1.getTitle() + "\n" + DIVIDER);
+                    break;
+                default:
+                    list.add(new Task(arr[0]));
+                    System.out.println(DIVIDER + "\n added: " + input + "\n" + DIVIDER);
+                    break;
             }
         }
-
     }
 }
