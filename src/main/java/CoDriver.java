@@ -17,12 +17,18 @@ public class CoDriver {
                     if (!words[0].equals("mark")) {
                         throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
                     }
+                    if (words.length > 2) {
+                        throw new CoDriverException("Error! Too many arguments!");
+                    }
                     int index = Integer.parseInt(words[1]);
                     tl.markTask(index);
                 } else if (command.startsWith("unmark")) {
                     String[] words = command.split(" ");
                     if (!words[0].equals("unmark")) {
                         throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
+                    }
+                    if (words.length > 2) {
+                        throw new CoDriverException("Error! Too many arguments!");
                     }
                     int index = Integer.parseInt(words[1]);
                     tl.unmarkTask(index);
@@ -40,6 +46,9 @@ public class CoDriver {
                     if (!words[0].equals("delete")) {
                         throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
                     }
+                    if (words.length > 2) {
+                        throw new CoDriverException("Error! Too many arguments!");
+                    }
                     int index = Integer.parseInt(words[1]);
                     tl.deleteTask(index);
                 } else {
@@ -48,6 +57,10 @@ public class CoDriver {
             } catch (CoDriverException e) {
                 Format.printSepLine();
                 System.out.println(e);
+                Format.printSepLine();
+            } catch (NumberFormatException e) {
+                Format.printSepLine();
+                System.out.println("Error! Argument provided must be a number!");
                 Format.printSepLine();
             }
         }
