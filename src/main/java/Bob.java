@@ -70,7 +70,16 @@ public class Bob {
                 if (task != null) {
                     task.markAsUndone();
                     System.out.println("I knew you didn't finish it! \uD83D\uDE0F:\n" +
-                                       "  " + task);
+                            "  " + task);
+                }
+
+            } else if (startsWith("delete", input)) {
+                Task task = getTaskFromIndex("delete", input, list);
+                if (task != null) {
+                    list.remove(task);
+                    System.out.println("This task has been removed:\n  " + task +
+                                       "\n" + "Now you have " + list.size() +
+                                       " task(s) in total.");
                 }
 
             } else if (startsWith(Todo.keyword, input)) {
