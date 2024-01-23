@@ -1,5 +1,3 @@
-import java.security.PublicKey;
-
 public class Deadline extends Task {
     private String deadline;
 
