@@ -3,16 +3,32 @@
             What can I do for you today?
 
 
-    (>^.^<) hi
-
-
-    (>^.^<) hi hi
-
-
-    (>^.^<)   this is a test
-
-
     (>^.^<) 
+
+
+    (>^.^<) Ok, I've added a new todo item: hi
+
+
+    (>^.^<) 1. hi
+
+
+    (>^.^<) Ok, I've added a new todo item: hi hi
+
+
+    (>^.^<) Ok, I've added a new todo item: list this should just add it to the list
+
+
+    (>^.^<) Ok, I've added a new todo item: bye this should just add it to the list
+
+
+    (>^.^<) Ok, I've added a new todo item: 
+
+
+    (>^.^<) 1. hi
+            2. hi hi
+            3. list this should just add it to the list
+            4. bye this should just add it to the list
+            5. 
 
 
     (>^.^<) Ok, going to sleep...

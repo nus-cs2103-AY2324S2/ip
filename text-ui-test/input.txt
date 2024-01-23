@@ -1,5 +1,9 @@
+list
 hi
+list
 hi hi
-  this is a test
+list this should just add it to the list
+bye this should just add it to the list
 
+list
 bye

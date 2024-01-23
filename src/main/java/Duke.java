@@ -3,7 +3,9 @@ import java.util.Scanner;
 public class Duke {
     
     /** Scanner for user input. */
-    public static Scanner input = new Scanner(System.in);
+    private static final Scanner input = new Scanner(System.in);
+    
+    private static boolean done = false;
 
     /**
      * Prints a message to the terminal, decorated with the Louie icon. 
@@ -28,17 +30,31 @@ public class Duke {
         sb.append("\n");
         System.out.print(sb);
     }
-    public static void main(String[] args) {
+    
+    public static void exit() {
+        // Duke will exit at the end of the loop
+        done = true;
+    }
+    public static void main(String[] mainArgs) {
+        
+        // initialisation
+        Command.add("list", (args) -> Duke.print(Task.taskString()));
+        
+        Command.add("bye", (args) -> {
+            Duke.print("Ok, going to sleep...");
+            Duke.exit();
+        });
+        
         Duke.print("Hello, my name is... Louie!!!!\n" + 
                    "What can I do for you today?");
-        while (true) {
+        while (!done) {
             String str = input.nextLine();
-            if (str.equals("bye")) {
-                Duke.print("Ok, going to sleep...");
-                break;
+            if (Command.has(str)) {
+                Command.run(new String[]{str});
+            } else {
+                Task.add(str);
+                Duke.print("Ok, I've added a new todo item: " + str);
             }
-            Duke.print(str);
-        }        
-
+        }
     }
 }
