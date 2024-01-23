@@ -23,7 +23,7 @@ public class StringUtils {
   public static String getValueOfCommand(String input, String command, String stopWord)  {
     int commandIndex = getIndexOf(input, command);
     // Validates against command that is at the end of the string
-    if (commandIndex + command.length() >= input.length()) throw new IndexOutOfBoundsException("No value found after " + command);
+    if (commandIndex + command.length() >= input.length()) throw new IllegalArgumentException("No valid value found after " + command);
     commandIndex += command.length();
     String value = "";
     if (stopWord != null) {
