@@ -1,6 +1,6 @@
 package action.exception;
 
-import action.Command;
+import action.util.Command;
 
 /**
  * MissingArgumentValueException represents exceptions due to a missing argument value for an argument in an action.

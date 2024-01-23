@@ -1,6 +1,6 @@
 package action.exception;
 
-import action.Command;
+import action.util.Command;
 
 /**
  * InvalidArgumentValueException represents exceptions due to an invalid argument value in an argument.

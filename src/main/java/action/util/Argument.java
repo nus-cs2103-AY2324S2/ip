@@ -1,4 +1,4 @@
-package action;
+package action.util;
 
 /**
  * Argument is a data class that stores a {@link Command} argument's name, and it's associated value.

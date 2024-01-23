@@ -1,6 +1,8 @@
 import action.*;
 import action.exception.ActionException;
 import action.exception.UnrecognizedCommandException;
+import action.util.Argument;
+import action.util.Command;
 
 /**
  * Parses the input of a ChatBot into argument list.

@@ -1,4 +1,4 @@
-package action;
+package action.util;
 
 import java.lang.StringBuilder;
 

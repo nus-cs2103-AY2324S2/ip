@@ -1,6 +1,6 @@
 package action.exception;
 
-import action.Command;
+import action.util.Command;
 
 /**
  * UnrecognizedArgumentException represents exceptions due to an unrecognized argument name in the action.
