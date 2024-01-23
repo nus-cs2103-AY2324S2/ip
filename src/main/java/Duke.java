@@ -1,9 +1,11 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     String name = "XVX-016 Aerial";
     String command = "";
     Scanner scanner1;
-
+    ArrayList<String> taskList = new ArrayList<>();
     public Duke() {
     }
 
@@ -39,6 +41,35 @@ public class Duke {
         input();
     }
 
+    public void addTask()  {
+        horizontalLines();
+        indent();
+        System.out.println("\uD83E\uDD14");
+        indent();
+        System.out.println("\uD83D\uDDE8️ You have added THIS: ");
+        indent();
+        System.out.println(this.command);
+        horizontalLines();
+        this.taskList.add(this.command);
+        input();
+    }
+
+    public void listTask() {
+        horizontalLines();
+        indent();
+        System.out.println("\uD83D\uDD6E");
+        indent();
+        System.out.println("\uD83D\uDDE8️ This are the tasks we currently have: ");
+        indent();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(taskList.get(i));
+            indent();
+        }
+        horizontalLines();
+        input();
+    }
+
     public void indent() {
         System.out.print("    ");
     }
@@ -49,8 +80,10 @@ public class Duke {
 
         if (this.command.equals("bye")) {
             bye();
+        } else if (this.command.equals("list")) {
+            listTask();
         } else {
-            echo();
+            addTask();
         }
     }
 
