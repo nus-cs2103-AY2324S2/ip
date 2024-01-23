@@ -1,10 +1,16 @@
+import exception.NarutoException;
+import naruto.Naruto;
+
 public class Main {
-    private static Naruto naruto;
-    public static void main(String[] args) {
-        naruto = new Naruto();
-        while (naruto.hasNextAction()) {
-            naruto.act();
-            naruto.listen();
+    public static void main(String[] args) throws NarutoException {
+        new Naruto();
+        while (Naruto.hasNextAction()) {
+            Naruto.act();
+            try {
+                Naruto.listen();
+            } catch (NarutoException err) {
+                Naruto.handleException(err);
+            }
         }
     }
 }

@@ -1,9 +1,11 @@
+package util;
 import java.lang.StringBuilder;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import task.Task;
 public class Store {
     private ArrayList<Task> tasks = new ArrayList<>();
-    Store() {}
+    public Store() {}
     public void add(Task t) {
         this.tasks.add(t);
     }

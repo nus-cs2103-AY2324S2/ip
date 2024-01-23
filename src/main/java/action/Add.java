@@ -1,7 +1,12 @@
+package action;
+import task.Task;
+import util.PrintUtil;
+import util.Store;
+
 public class Add implements Action {
     private Task task;
     private Store store;
-    Add(Task task, Store store) {
+    public Add(Task task, Store store) {
         this.task = task;
         this.store = store;
     }
