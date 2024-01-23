@@ -53,6 +53,22 @@ public class MissMinutes {
         this.sendMsg(reply);
     }
 
+    public void deleteTask(String input) throws MissMinutesException {
+        String[] split = input.split(" ");
+        int idx = Integer.parseInt(split[1]) - 1; // 0 indexed
+
+        try {
+            Task curr = this.tasks.get(idx);
+            this.tasks.remove(idx);
+            String reply = "Noted. I've removed this task:\n"
+                    + curr + "\n"
+                    + "Now you have " + this.tasks.size() + " tasks in the list.";
+            this.sendMsg(reply);
+        } catch (IndexOutOfBoundsException err) {
+            throw new MissMinutesException("This task doesn't exist!", err);
+        }
+    }
+
     public void greet() {
         this.sendMsg("Hello! I'm \n" + logo
                     + "What can I do for you");
@@ -104,9 +120,9 @@ public class MissMinutes {
         while (true) {
             String request = this.stdin.nextLine();
             try {
-                if (request.equals("bye")) {
+                if (request.startsWith("bye")) {
                     break;
-                } else if (request.equals("list")) {
+                } else if (request.startsWith("list")) {
                     printTasks();
                 } else if (request.startsWith("mark") || request.startsWith("unmark")) {
                     String[] split = request.split(" ");
@@ -116,6 +132,8 @@ public class MissMinutes {
                     } else {
                         unmarkTask(idx);
                     }
+                } else if (request.startsWith("delete")) {
+                    deleteTask(request);
                 } else {
                     Task task = this.createTask(request);
                     this.addTask(task);
