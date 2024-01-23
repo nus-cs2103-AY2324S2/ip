@@ -1,3 +1,4 @@
+import Exceptions.InvalidInputException;
 import Tasks.DeadlineTask;
 import Tasks.Task;
 import Tasks.TodoTask;
@@ -42,9 +43,10 @@ public class Duke {
         this.sendSystemMessage(TextTemplate.ADD_TASK, t.toString(), taskCounterMsg, TextTemplate.LINE_BREAK);
     }
 
-    private void addDeadline(String s) {
+    private void addDeadline(String s) throws InvalidInputException {
         String[] parts = s.split(" /by ", 2);
-        String desc = parts[0].split(" ", 2)[1];
+        String[] firstPart = parts[0].split(" ", 2);
+        String desc = firstPart[1];
         String end = parts[1];
 
         DeadlineTask d = new DeadlineTask(desc, end);
@@ -69,6 +71,10 @@ public class Duke {
     }
 
     private void listTasks() {
+        if (this.taskCounter <= 0) {
+            this.sendSystemMessage("There are no tasks currently :)");
+            return;
+        }
         this.sendSystemMessage("Here are the tasks in your list:");
         for (int i = 0; i < this.taskCounter; ++i) {
             Task t = this.tasks[i];
@@ -97,32 +103,35 @@ public class Duke {
     public void run() {
         this.greet();
         while (textReader.isActive()) {
-            String input = scanner.nextLine();
-            Actions act = textReader.getAction(input);
+            String input = scanner.nextLine().trim();
             this.sendSystemMessage(TextTemplate.LINE_BREAK);
-
-            switch (act) {
-                case BYE:
-                    this.textReader.exit();
-                    break;
-                case LIST:
-                    this.listTasks();
-                    break;
-                case MARK:
-                    this.markTask(input);
-                    break;
-                case UNMARK:
-                    this.unmarkTask(input);
-                    break;
-                case TODO:
-                    this.addTodo(input);
-                    break;
-                case EVENT:
-                    this.addEvent(input);
-                    break;
-                case DEADLINE:
-                    this.addDeadline(input);
-                    break;
+            try {
+                Actions act = textReader.getAction(input);
+                switch (act) {
+                    case BYE:
+                        this.textReader.exit();
+                        break;
+                    case LIST:
+                        this.listTasks();
+                        break;
+                    case MARK:
+                        this.markTask(input);
+                        break;
+                    case UNMARK:
+                        this.unmarkTask(input);
+                        break;
+                    case TODO:
+                        this.addTodo(input);
+                        break;
+                    case EVENT:
+                        this.addEvent(input);
+                        break;
+                    case DEADLINE:
+                        this.addDeadline(input);
+                        break;
+                }
+            } catch (InvalidInputException e) {
+                this.sendSystemMessage(e.getMessage(), TextTemplate.LINE_BREAK);
             }
         }
         this.exit();

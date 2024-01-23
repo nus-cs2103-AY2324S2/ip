@@ -1,3 +1,6 @@
+import Exceptions.InvalidInputException;
+import org.w3c.dom.Text;
+
 import java.util.regex.Pattern;
 public class TextReader {
     private boolean isActive;
@@ -14,12 +17,15 @@ public class TextReader {
         this.isActive = false;
     }
 
-    public Actions getAction(String input) {
+    public Actions getAction(String input) throws InvalidInputException {
         if (input.equals("bye")) {
             return Actions.BYE;
         }
         if (input.equals("list")) {
             return Actions.LIST;
+        }
+        if (input.equals("todo")) {
+            throw new InvalidInputException(TextTemplate.TODO_NO_DESC);
         }
         if (Pattern.matches("todo .+", input)) {
             return Actions.TODO;
@@ -36,6 +42,6 @@ public class TextReader {
         if (Pattern.matches("unmark \\d+", input)) {
             return Actions.UNMARK;
         }
-        return Actions.LIST;
+        throw new InvalidInputException();
     }
 }
