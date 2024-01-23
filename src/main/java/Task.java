@@ -1,7 +1,7 @@
-public class Task {
-    private String description;
-    private boolean isDone = false;
-    private String status;
+public class Task { //This is basically a ToDo task.
+    protected String description;
+    protected boolean isDone = false;
+    protected String status;
 
     public Task(String description) {
         this.description = description;
@@ -21,8 +21,8 @@ public class Task {
     }
 
     public String show() {
-        status = isDone? "X": "";
-        return "[" + status + "]" + " " + this.description;
+        status = isDone? "X": " ";
+        return "[T]" + "[" + status + "]" + " " + this.description;
     }
 
     public String getDescription() {

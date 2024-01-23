@@ -6,22 +6,41 @@ public class InputHandler {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine();
+            String[] strArray = userInput.split(" ");
+            String firstWord = strArray[0];
             String index = "";
-            if (userInput.split(" ").length > 1) {
-                index = userInput.split(" ")[1];
-            }
-            if (Objects.equals(userInput, "list")) {
-                bartenderBob.list();
-            } else if (Objects.equals(userInput, "bye")) {
+            if (firstWord.equals("bye")) {
                 bartenderBob.leave();
                 break;
-            } else if (Objects.equals(userInput.split(" ")[0], "mark")){
-                bartenderBob.markDone(index);
-            } else if (Objects.equals(userInput.split(" ")[0], "unmark")) {
-                bartenderBob.unmarkDone(index);
             } else {
-                Task task = new Task(userInput);
-                bartenderBob.store(task);
+                switch (firstWord) {
+                    case "list":
+                        bartenderBob.list();
+                        break;
+                    case "mark":
+                        index = strArray[1];
+                        bartenderBob.markDone(index);
+                        break;
+                    case "unmark":
+                        index = strArray[1];
+                        bartenderBob.unmarkDone(index);
+                        break;
+                    case "todo":
+                        String str = userInput.split("todo ")[1];
+                        Task task = new Task(str);
+                        bartenderBob.store(task);
+                        break;
+                    case "deadline":
+                        String[] deadlineSplit = userInput.split("deadline | /by ");
+                        Deadline deadline = new Deadline(deadlineSplit[1], deadlineSplit[2]);
+                        bartenderBob.store(deadline);
+                        break;
+                    case "event":
+                        String[] eventSplit = userInput.split("event | /from | /to ");
+                        Event event = new Event(eventSplit[1], eventSplit[2], eventSplit[3]);
+                        bartenderBob.store(event);
+                        break;
+                }
             }
         }
     }

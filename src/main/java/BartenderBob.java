@@ -16,7 +16,10 @@ public class BartenderBob {
 
     public void store(Task task) {
         STORAGE.add(task);
-        System.out.println("Added: " + task.getDescription());
+        int totalTasks = STORAGE.size();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.show());
+        System.out.println("Now you have " + totalTasks + " tasks in the list.");
     }
 
     public void list() {
