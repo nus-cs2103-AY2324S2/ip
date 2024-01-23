@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
 
@@ -18,10 +19,23 @@ public class Duke {
 
         Scanner scan = new Scanner( System.in );
         String input = scan.nextLine();
+        ArrayList<String> list = new ArrayList<>();
+
         while (!input.equals("bye")) {
-            System.out.println("\t\t------------------------------------------");
-            System.out.println("\t\tLet me copy you!\n\t\tYou typed:\n\t\t" + input);
-            System.out.println("\t\t------------------------------------------");
+            if (input.equals("list")) {
+                System.out.println("\t\t------------------------------------------");
+                System.out.println("\t\t" + list.size() + " item(s) in the list");
+                for (int i = 1; i <= list.size(); i++) {
+                    System.out.println("\t\t" + i + ". " + list.get(i - 1));
+                }
+                System.out.println("\t\t------------------------------------------");
+            }
+            else {
+                System.out.println("\t\t------------------------------------------");
+                System.out.println("\t\tAdded: " + input);
+                list.add(input);
+                System.out.println("\t\t------------------------------------------");
+            }
             input = scan.nextLine();
         }
 
