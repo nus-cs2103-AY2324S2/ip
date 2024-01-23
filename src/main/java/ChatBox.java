@@ -3,14 +3,14 @@ import java.util.Scanner;
 public class ChatBox {
     Scanner scanner;
     String input;
-    String[] tasks;
+    Task[] tasks;
     int taskCount;
     boolean isExitSignal;
 
     public ChatBox() {
         this.scanner = new Scanner(System.in);
         this.input = "";
-        this.tasks = new String[100];
+        this.tasks = new Task[100];
         this.taskCount = 0;
         this.isExitSignal = false;
     }
@@ -27,11 +27,26 @@ public class ChatBox {
     private void parseInput() {
         if (this.input.equals("list")) {
             printList();
-        } else if (this.input.equals("bye")) {
-            this.isExitSignal = true;
-        } else {
-            addTask();
+            return;
         }
+        if (this.input.equals("bye")) {
+            this.isExitSignal = true;
+            return;
+        }
+        String[] words = input.split(" ");
+        if (words.length == 2) {
+            if (Parser.isMark(words)) {
+                int taskIndex = Integer.parseInt(words[1]) - 1;
+                mark(taskIndex);
+                return;
+            }
+            if (Parser.isUnmark(words)) {
+                int taskIndex = Integer.parseInt(words[1]) - 1;
+                unmark(taskIndex);
+                return;
+            }
+        }
+        addTask();
     }
 
     private void printDecorator() {
@@ -41,7 +56,7 @@ public class ChatBox {
     private void printGreet() {
         printDecorator();
         System.out.println("    Hello! I'm Wis.\n"
-                + "    What can I do for you?\n");
+                + "    What can I do for you?");
         printDecorator();
     }
 
@@ -50,7 +65,7 @@ public class ChatBox {
             return;
         }
         printDecorator();
-        this.tasks[this.taskCount] = this.input;
+        this.tasks[this.taskCount] = new Task(this.input);
         this.taskCount++;
         System.out.println("    added: " + this.input);
         printDecorator();
@@ -58,8 +73,9 @@ public class ChatBox {
 
     private void printList() {
         printDecorator();
+        System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i+1) + ". " + tasks[i]);
+            System.out.println("     " + (i+1) + "." + tasks[i].toString());
         }
         printDecorator();
     }
@@ -70,6 +86,33 @@ public class ChatBox {
         printDecorator();
     }
 
+    private void mark(int taskIndex) {
+        if (taskIndex < 0 || taskIndex >= taskCount) {
+            printDecorator();
+            System.out.println("     Task index out of bound. Failed to mark.");
+            printDecorator();
+            return;
+        }
+        Task task = tasks[taskIndex];
+        task.setDone();
+        printDecorator();
+        System.out.println("     Nice! I've marked this task as done:");
+        System.out.println("       " + task);
+        printDecorator();
+    }
 
-
+    private void unmark(int taskIndex) {
+        if (taskIndex < 0 || taskIndex >= taskCount) {
+            printDecorator();
+            System.out.println("     Task index out of bound. Failed to unmark.");
+            printDecorator();
+            return;
+        }
+        Task task = tasks[taskIndex];
+        task.setUndone();
+        printDecorator();
+        System.out.println("     OK, I've marked this task as not done yet:");
+        System.out.println("       " + task);
+        printDecorator();
+    }
 }
