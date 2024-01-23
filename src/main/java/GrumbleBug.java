@@ -69,9 +69,11 @@ public class GrumbleBug {
                         + "\n_______________________________________\n";
                 System.out.println(reply);
             } else if (input1.equals("deadline")) { // add to list
+                System.out.println("Task name?");
+                String name = sc.nextLine();
                 System.out.println("Wow ok.. due by?");
                 String endDate = sc.nextLine();
-                Task task = new Task(input1, myList.size() + 1, endDate);
+                Task task = new Task(name, myList.size() + 1, endDate);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
@@ -79,11 +81,13 @@ public class GrumbleBug {
                         + "\n_______________________________________\n";
                 System.out.println(reply);
             } else if (input1.equals("event")) { // add to list
+                System.out.println("Task name?");
+                String name = sc.nextLine();
                 System.out.println("Start date?");
                 String startDate = sc.nextLine();
                 System.out.println("End date?");
                 String endDate = sc.nextLine();
-                Task task = new Task(input1, myList.size() + 1, startDate, endDate);
+                Task task = new Task(name, myList.size() + 1, startDate, endDate);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
