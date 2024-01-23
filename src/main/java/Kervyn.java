@@ -40,24 +40,28 @@ public class Kervyn {
                     break;
                 case "todo":
                     ToDo newToDo = getProcessedToDo(userInput);
-
-                    userRequests.add(newToDo);
-                    toDoTaskTextDisplay(newToDo, userRequests);
+                    if (newToDo != null) {
+                        userRequests.add(newToDo);
+                        toDoTaskTextDisplay(newToDo, userRequests);
+                    }
                     break;
+
                 case "deadline":
                     Deadline newDeadline = getProcessedDeadline(userInput);
-
-                    userRequests.add(newDeadline);
-                    deadlineTaskTextDisplay(newDeadline, userRequests);
+                    if (newDeadline != null) {
+                        userRequests.add(newDeadline);
+                        deadlineTaskTextDisplay(newDeadline, userRequests);
+                    }
                     break;
                 case "event":
                     Event newEvent = getProcessedEvent(userInput);
-
-                    userRequests.add(newEvent);
-                    eventTaskTextDisplay(newEvent, userRequests);
+                    if (newEvent != null) {
+                        userRequests.add(newEvent);
+                        eventTaskTextDisplay(newEvent, userRequests);
+                    }
                     break;
                 default:
-                    System.out.println("\t Specify the type of task eg. todo, deadline or event to create a task.");
+                    System.out.println("\t I'm not sure what that means. Please specify the type of task eg. todo, deadline or event to create a task.");
                     break;
             }
         } while (!Objects.equals(userInput, "bye"));
@@ -99,6 +103,12 @@ public class Kervyn {
     private static ToDo getProcessedToDo(String userInput) {
         try {
             String[] toDoDescriptionArray = userInput.split(" ");
+
+            if (Objects.equals(toDoDescriptionArray[1], "")) {
+                System.out.println("The description of a todo cannot be empty. Please try again.");
+                return null;
+            }
+
             StringBuilder toDoDescription = new StringBuilder();
 
             for (int i = 1; i < toDoDescriptionArray.length; i++) {
@@ -119,6 +129,10 @@ public class Kervyn {
         // Output Format: [D][ ] return book (by: Sunday)
         try {
             String[] deadlineProcessedInput = userInput.split("/");
+            if (Objects.equals(deadlineProcessedInput[1], "")) {
+                System.out.println("The deadline of a Deadline task cannot be empty. Please try again.");
+                return null;
+            }
             String[] deadlineDescriptionArray = deadlineProcessedInput[0].split(" ");
             String deadline = deadlineProcessedInput[1].split(" ")[1];
             StringBuilder deadlineDescription = new StringBuilder();
@@ -141,7 +155,10 @@ public class Kervyn {
         // Output Format: [E][ ] project meeting (from: Mon 2pm to: 4pm)
         try {
             String[] eventProcessedInput = userInput.split("/");
-
+            if (Objects.equals(eventProcessedInput[1], "") || Objects.equals(eventProcessedInput[2], "")) {
+                System.out.println("The description/startDate/endDate for an event cannot be empty. Please try again.");
+                return null;
+            }
             String[] eventDescriptionArray = eventProcessedInput[0].split(" ");
             String[] eventStartDateArray = eventProcessedInput[1].split(" ");
             String[] eventEndDateArray = eventProcessedInput[2].split(" ");
