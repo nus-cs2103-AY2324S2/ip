@@ -41,25 +41,29 @@ class zhen{
         database db = new database();
         while(true){
             String msg = getuserinput();
-            task tsk = new task(msg);
             if (msg.equals("bye")){
                 break;
             }
             if (msg.equals("list")){
                 zhen.print_message(db.toString());
-                continue;
+            }
+            if (msg.length()>4 && msg.substring(0,4).equals("todo")){
+                db.insert(new Todos(msg));
+            }
+            if (msg.length()>8 && msg.substring(0,8).equals("deadline")){
+                db.insert(new Deadline(msg));
+            }
+            if (msg.length()>5 && msg.substring(0,5).equals("event")){
+                db.insert(new Event(msg));
             }
             if (msg.length()>4 && msg.substring(0,4).equals("mark")){
                 int number = Integer.parseInt(msg.substring(5));
                 db.mark(number);
-                continue;
             }
             if (msg.length()>6 &&msg.substring(0,6).equals("unmark")){
                 int number = Integer.parseInt(msg.substring(7));
                 db.unmark(number);
-                continue;
             }
-            db.insert(tsk);
         }
     }
 }
@@ -67,7 +71,9 @@ class database{
     private ArrayList<task> strlist = new ArrayList<>();
     public void insert(task tsk){
         strlist.add(tsk);
-        zhen.print_message("added: "+tsk.toString().substring(4));
+        zhen.print_message("Got it. I've added this task:\n  "
+                +tsk.toString()+"\n "+
+                "Now you have "+task.num_task+" tasks in the list.");
     }
     public void mark(int index){
         strlist.get(index-1).mark();
@@ -95,15 +101,25 @@ class database{
 class task{
     private String message;
     private boolean state = false;
+    public static int num_task = 0;
     public task(String msg){
         this.message = msg;
+        num_task++;
     }
     public void mark(){
         state = true;
     }
+
     public void unmark(){
         state = false;
     }
+    protected boolean access_state(){
+        return state;
+    }
+    protected String access_message(){
+        return message;
+    }
+
     @Override
     public String toString(){
         if (state == true){
@@ -112,5 +128,64 @@ class task{
         else{
             return "[ ] "+ message;
         }
+    }
+}
+class Todos extends task{
+    public Todos(String msg){
+        super(msg);
+    }
+
+    @Override
+    public String toString(){
+        if (access_state()){
+            return "[T][X] "+ access_message();
+        }
+        else{
+            return "[T][ ] "+ access_message();
+        }
+    }
+}
+class Deadline extends task{
+    String date;
+    public Deadline(String message){
+        super( message.substring(9,message.lastIndexOf('/')));
+        this.date = message.substring(message.lastIndexOf('/')+4);
+    }
+
+    @Override
+    public String toString(){
+        String msg;
+        if (access_state()){
+            msg = "[D][X] "+ access_message();
+        }
+        else{
+            msg = "[D][ ] "+ access_message();
+        }
+        return msg+" (by: "+date+")";
+    }
+}
+class Event extends task{
+    String from_date;
+    String to_date;
+    public Event(String message){
+//        super(message.substring(6,message.lastIndexOf('/')).substring(0,message.substring(6,message.lastIndexOf('/')).lastIndexOf('/')));
+//        String temp =message.substring(6,message.lastIndexOf('/'));
+//        this.to_date = message.substring(message.lastIndexOf('/')+4);
+//        this.from_date =temp.substring(temp.lastIndexOf('/')+6);
+        super(message.split("/")[0].substring(6));
+        this.to_date = message.split("/")[2].substring(3);
+        this.from_date = message.split("/")[1].substring(5);
+    }
+
+    @Override
+    public String toString(){
+        String msg;
+        if (access_state()){
+            msg = "[E][X] "+ access_message();
+        }
+        else{
+            msg = "[E][ ] "+ access_message();
+        }
+        return msg+" (from: "+from_date+" to: "+ to_date+")";
     }
 }
