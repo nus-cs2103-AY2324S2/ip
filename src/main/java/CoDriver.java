@@ -4,7 +4,7 @@ public class CoDriver {
     public static void main(String[] args) {
         greeting();
         Scanner scanner = new Scanner(System.in);
-        TaskList tl = new TaskList(100);
+        TaskList tl = new TaskList();
         while (true) {
             String command = scanner.nextLine();
             try {
@@ -14,10 +14,16 @@ public class CoDriver {
                     tl.listTasks();
                 } else if (command.startsWith("mark")) {
                     String[] words = command.split(" ");
+                    if (!words[0].equals("mark")) {
+                        throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
+                    }
                     int index = Integer.parseInt(words[1]);
                     tl.markTask(index);
                 } else if (command.startsWith("unmark")) {
                     String[] words = command.split(" ");
+                    if (!words[0].equals("unmark")) {
+                        throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
+                    }
                     int index = Integer.parseInt(words[1]);
                     tl.unmarkTask(index);
                 } else if (command.startsWith("todo")) {

@@ -51,4 +51,18 @@ public class TaskList {
         }
         Format.printSepLine();
     }
+
+    public void deleteTask(int index) throws CoDriverException {
+        int listIndex = index - 1;
+        if (listIndex >= this.tasks.size()) {
+            throw new CoDriverException("Error! Given index exceeds list size of " + this.tasks.size() + ".");
+        }
+        Task t = this.tasks.get(listIndex);
+        Format.printSepLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(t);
+        this.tasks.remove(t);
+        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
+        Format.printSepLine();
+    }
 }
