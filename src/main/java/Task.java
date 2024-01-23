@@ -13,7 +13,7 @@ public class Task {
         } else {
             System.out.print("[ ]");
         }
-        System.out.println(" " + name);
+        System.out.print(" " + name);
     }
 
     public void mark() {
