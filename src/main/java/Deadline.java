@@ -10,7 +10,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public static Deadline fromStr(String input) {
+    public static Deadline fromStr(String input) throws MissMinutesException {
         Matcher matcher = Deadline.formatter.matcher(input);
 
         if (matcher.find()) {
@@ -18,9 +18,9 @@ public class Deadline extends Task {
             String by = matcher.group(2);
 
             return new Deadline(name, by);
+        } else {
+            throw new MissMinutesException("Deadlines have to be created with the following format: deadline <desc> /by <end>");
         }
-
-        return null; // should throw an error instead
     }
 
     @Override

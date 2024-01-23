@@ -26,22 +26,23 @@ public class MissMinutes {
         System.out.println(separator);
     }
 
-    public Task createTask(String input) {
+    public Task createTask(String input) throws MissMinutesException {
         String[] split = input.split(" ", 2);
+        String desc = split.length > 1 ? split[1] : "";
 
-        if (split[0].equalsIgnoreCase("TODO")) {
-            return Todo.fromStr(split[1]);
+        try {
+            if (split[0].equalsIgnoreCase("TODO")) {
+                return Todo.fromStr(desc);
+            } else if (split[0].equalsIgnoreCase("DEADLINE")) {
+                return Deadline.fromStr(desc);
+            } else if (split[0].equalsIgnoreCase("EVENT")) {
+                return Event.fromStr(desc);
+            } else {
+                throw new MissMinutesException("Oh, I'm sowwy, I didn't undewstand dat. (>_<) Can I hewp wif sumthin' else, pwease? UwU");
+            }
+        } catch (ArrayIndexOutOfBoundsException err) {
+            throw new MissMinutesException("");
         }
-
-        if (split[0].equalsIgnoreCase("DEADLINE")) {
-            return Deadline.fromStr(split[1]);
-        }
-
-        if (split[0].equalsIgnoreCase("EVENT")) {
-            return Event.fromStr(split[1]);
-        }
-
-        return null;
     }
 
     public void addTask(Task task) {
@@ -77,38 +78,50 @@ public class MissMinutes {
         this.sendMsg(reply.toString());
     }
 
-    public void markTask(int idx) {
-        Task curr = this.tasks.get(idx);
-        curr.markAsDone();
-        String reply = "Nice! I've marked this task as done: \n" + curr;
-        this.sendMsg(reply);
+    public void markTask(int idx) throws MissMinutesException {
+        try {
+            Task curr = this.tasks.get(idx);
+            curr.markAsDone();
+            String reply = "Nice! I've marked this task as done: \n" + curr;
+            this.sendMsg(reply);
+        } catch (IndexOutOfBoundsException err) {
+            throw new MissMinutesException("This task doesn't exist!", err);
+        }
     }
 
-    public void unmarkTask(int idx) {
-        Task curr = this.tasks.get(idx);
-        curr.unmark();
-        String reply = "OK, I've marked this task as not done yet: \n" + curr;
-        this.sendMsg(reply);
+    public void unmarkTask(int idx) throws MissMinutesException {
+        try {
+            Task curr = this.tasks.get(idx);
+            curr.unmark();
+            String reply = "OK, I've marked this task as not done yet: \n" + curr;
+            this.sendMsg(reply);
+        } catch (IndexOutOfBoundsException err) {
+            throw new MissMinutesException("This task doesn't exist!", err);
+        }
     }
 
     public void run() {
         while (true) {
             String request = this.stdin.nextLine();
-            if (request.equals("bye")) {
-                break;
-            } else if (request.equals("list")) {
-                printTasks();
-            } else if (request.startsWith("mark") || request.startsWith("unmark")) {
-                String[] split = request.split(" ");
-                int idx = Integer.parseInt(split[1]) - 1;
-                if (request.startsWith("mark")) {
-                    markTask(idx);
+            try {
+                if (request.equals("bye")) {
+                    break;
+                } else if (request.equals("list")) {
+                    printTasks();
+                } else if (request.startsWith("mark") || request.startsWith("unmark")) {
+                    String[] split = request.split(" ");
+                    int idx = Integer.parseInt(split[1]) - 1; // 0 indexed
+                    if (request.startsWith("mark")) {
+                        markTask(idx);
+                    } else {
+                        unmarkTask(idx);
+                    }
                 } else {
-                    unmarkTask(idx);
+                    Task task = this.createTask(request);
+                    this.addTask(task);
                 }
-            } else {
-                Task task = this.createTask(request);
-                this.addTask(task);
+            } catch (MissMinutesException err) {
+                this.sendMsg(err.getMessage());
             }
         }
     }

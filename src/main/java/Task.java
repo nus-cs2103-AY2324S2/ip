@@ -11,12 +11,20 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markAsDone() {
-        this.isDone = true;
+    public void markAsDone() throws MissMinutesException {
+        if (this.isDone) {
+            throw new MissMinutesException("Task already marked as done.");
+        } else {
+            this.isDone = true;
+        }
     }
 
-    public void unmark() {
-        this.isDone = false;
+    public void unmark() throws MissMinutesException {
+        if (this.isDone) {
+            this.isDone = false;
+        } else {
+            throw new MissMinutesException("Task already marked as undone.");
+        }
     }
 
     @Override

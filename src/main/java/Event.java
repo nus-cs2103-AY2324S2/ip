@@ -12,7 +12,7 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
-    public static Event fromStr(String input) {
+    public static Event fromStr(String input) throws MissMinutesException {
         Matcher matcher = Event.formatter.matcher(input);
 
         if (matcher.find()) {
@@ -21,8 +21,9 @@ public class Event extends Task {
             String endTime = matcher.group(3);
 
             return new Event(name, startTime, endTime);
+        } else {
+            throw new MissMinutesException("Events have to be created with the following format: event <desc> /from <start> /to <end>");
         }
-        return null; // should throw an error instead
     }
 
     @Override

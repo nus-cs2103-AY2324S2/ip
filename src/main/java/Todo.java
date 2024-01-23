@@ -3,8 +3,12 @@ public class Todo extends Task {
         super(name);
     }
 
-    public static Todo fromStr(String input) {
-        return new Todo(input);
+    public static Todo fromStr(String input) throws MissMinutesException {
+        if (input.isEmpty()) {
+            throw new MissMinutesException("Todos have to be created with the following format: todo <desc>");
+        } else {
+            return new Todo(input);
+        }
     }
 
     @Override
