@@ -11,9 +11,9 @@ public class Kervyn {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> userRequests = new ArrayList<>();
-        String chatbotName = "Kervyn";
+        final String CHATBOTNAME = "Kervyn";
 
-        System.out.println("\tHello! I'm " + chatbotName);
+        System.out.println("\tHello! I'm " + CHATBOTNAME);
         System.out.println("\tWhat can I do for you?");
         String userInput;
         Task task;
