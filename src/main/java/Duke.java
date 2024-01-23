@@ -89,10 +89,10 @@ public class Duke {
                 System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("    ____________________________________________________________\n");
             } else {
-                System.out.println("    ____________________________________________________________");
-                System.out.println("      added: " + userInput);
-                tasks.add(new Task(userInput));
-                System.out.println("    ____________________________________________________________\n");
+//                System.out.println("    ____________________________________________________________");
+//                System.out.println("      added: " + userInput);
+//                tasks.add(new Task(userInput));
+//                System.out.println("    ____________________________________________________________\n");
             }
             userInput = sc.nextLine().trim();
         }
