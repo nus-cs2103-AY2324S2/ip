@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public class Pan {
     public static List<Task> tasks = new ArrayList<Task>();
