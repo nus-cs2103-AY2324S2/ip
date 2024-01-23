@@ -1,3 +1,4 @@
+package Models;
 public class Event extends Task {
 
   private String startDate;
