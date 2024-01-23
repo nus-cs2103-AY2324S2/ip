@@ -14,18 +14,20 @@ public class Duke {
 
     /**
      * Activates once Chatbot is booted up
+     * @returns a greeting message
      */
-    private void greet(){
-        System.out.println("Hello! I'm Balom.\n" +
+    private String greet(){
+        return "Hello! I'm Balom.\n" +
                 "What can I do for you today?\n" +
-                "Please start typing something.\n");
+                "Please start typing something.\n";
     }
 
     /**
      * Activates once Chatbot is called to shut down
+     * @return a goodbye message
      */
-    private void bye(){
-        System.out.println("Bye. Hope to see you again soon!");
+    private String bye(){
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -40,8 +42,60 @@ public class Duke {
         System.out.println("Here are the tasks in your list:\n");
 
         for(int i = 0; i< Task.currentTaskNo; i++){
-            tasks[i].callTask();
+            System.out.println( Integer.toString(i+1 ) +"." + tasks[i].toString());
         }
+    }
+
+    /**
+     * Marks/Unmarks a Task in the Task array as requested by the user
+     * @param echo string to be assessed and operated on
+     */
+    private void markMechanism(String echo){
+        if (echo.contains("unmark")){
+            int value = Integer.parseInt(echo.replaceAll("[^-0-9]", ""));
+            if(value <= Task.currentTaskNo && value > 0){
+                System.out.println(tasks[value-1].unMarkTask());
+            } else {
+                System.out.println("Please unmark a valid task!\n");
+            }
+        } else if (echo.contains("mark")){
+            int value = Integer.parseInt(echo.replaceAll("[^-0-9]", ""));
+            if(value <= Task.currentTaskNo && value > 0){
+                System.out.println(tasks[value-1].markAsDone());
+            } else {
+                System.out.println("Please mark a valid task!\n");
+            }
+        }
+    }
+
+    /**
+     * Creates a Task in the Task array as requested by the user
+     * @param echo string to be assessed and operated on
+     */
+    private void taskMechanism(String echo){
+        if(echo.contains("deadline")) {
+            String echo1[] = echo.split("deadline", 2);
+            String deadline[] = echo1[1].split("/by", 2);
+            tasks[Task.currentTaskNo] = new Deadline(deadline[0], deadline[1]);
+        } else if (echo.contains("event")){
+            String echo1[] = echo.split("event", 2);
+            String event[] = echo1[1].split("/", 3);
+            tasks[Task.currentTaskNo] = new Event(event[0], event[1], event[2]);
+        } else if (echo.contains("todo")) {
+            String todo[] = echo.split("todo", 2);
+            tasks[Task.currentTaskNo] = new Todo(todo[1]);
+        } else {
+            System.out.println("Please enter a todo, deadline or event with the relevant details!\n" +
+                    "Todo: todo + task ; \n" +
+                    "Event: event + task + /from... + /to... ; \n" +
+                    "Deadline: deadline + task + /by...");
+            return;
+        }
+
+        System.out.println("Understood. I've added this task:\n "
+                + tasks[Task.currentTaskNo-1].toString()
+                + "\nNow you have " + Integer.toString(Task.currentTaskNo)
+                + " task(s) in the list.");
     }
 
     /**
@@ -57,34 +111,19 @@ public class Duke {
             if(echo.equals("bye") || echo.equals("Bye")){
                 break;
             } else if (echo.equals("list")|| echo.equals("List")) {
-                showTasks();
-            } else if (echo.contains("unmark")){
-                int value = Integer.parseInt(echo.replaceAll("[^-0-9]", ""));
-                if(value <= Task.currentTaskNo && value > 0){
-                    tasks[value-1].unMarkTask();
-                } else {
-                    System.out.println("Please unmark a valid task!\n");
-                }
-            } else if (echo.contains("mark")){
-                int value = Integer.parseInt(echo.replaceAll("[^-0-9]", ""));
-                if(value <= Task.currentTaskNo && value > 0){
-                    tasks[value-1].markAsDone();
-                } else {
-                    System.out.println("Please mark a valid task!\n");
-                }
+                this.showTasks();
+            } else if (echo.contains("unmark") || echo.contains("mark")){
+                this.markMechanism(echo);
             } else {
-                // add to tasks
-                tasks[Task.currentTaskNo] = new Task(echo);
-                System.out.println("added " + echo);
-                System.out.println();
+                this.taskMechanism(echo);
             }
         }
 
-        bye();
+        System.out.println(bye());
     }
     public static void main(String[] args) {
         Duke Balom = new Duke();
-        Balom.greet();
+        System.out.println(Balom.greet());
         Balom.chatting();
     }
 }

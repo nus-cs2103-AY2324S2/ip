@@ -24,7 +24,6 @@ public class Task {
      */
     protected int taskNo;
 
-
     /**
      * Constructor for a Task instance,
      * @param description to be used to identify a task
@@ -34,7 +33,6 @@ public class Task {
         this.isDone = false;
         currentTaskNo++;
         this.taskNo = currentTaskNo;
-
     }
 
     /**
@@ -46,39 +44,38 @@ public class Task {
     }
 
     /**
-     * Prints Task description in Task Array or when task is marked/unmarked
+     * Prints Task description in Task Array or when task is marked/unmarked/added
+     * @return a string representing the task description
      */
-    public void callTask(){
-        System.out.println(Integer.toString(this.taskNo)
-                + ".[" + this.getStatusIcon() +"] " + this.description);
-        System.out.println();
+
+    public String toString(){
+        return "[" + this.getStatusIcon() +"]"
+                + this.description;
     }
 
     /**
      * Marks a valid Task in the Task array
      */
-    public void markAsDone(){
+    public String markAsDone(){
         if(this.isDone == true){
-            System.out.println("This task is already completed.\n");
-            return;
+            return "This task is already completed.\n";
         } else {
             this.isDone = true;
-            System.out.println("Very well. This task is now completed.\n");
-            this.callTask();
+            return "Very well. This task is now completed.\n"
+                    + Integer.toString(this.taskNo) + this.toString();
         }
     }
 
     /**
      * Unmarks a valid Task in the Task array
      */
-    public void unMarkTask(){
+    public String unMarkTask(){
         if(this.isDone == false){
-            System.out.println("This task is already unmarked.\n");
-            return;
+            return "This task is already unmarked.\n";
         } else {
             this.isDone = false;
-            System.out.println("Very well. This task is now marked as not completed.\n");
-            this.callTask();
+            return "Very well. This task is now marked as not completed.\n"
+                    + Integer.toString(this.taskNo) + this.toString();
         }
     }
 }
