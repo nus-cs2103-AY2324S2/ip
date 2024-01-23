@@ -16,6 +16,5 @@ public class Duke {
         System.out.println(DIVIDER + "\n" + WELCOME_TEXT + "\n" + DIVIDER + "\n" +
                 BYE_TEXT);
 
-
     }
 }
