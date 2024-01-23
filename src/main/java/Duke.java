@@ -1,8 +1,51 @@
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
         // emoji alphabet character mappings
+        HashMap<String, String> EMOJI_MAP = getStringStringHashMap();
+
+        // chatbot chat placeholder
+        String PLACEHOLDER = "\t----------------------------------------\n" +
+                "\t\t%s\n" +
+                "\t----------------------------------------";
+
+        // welcome message
+        String wcMsg = String.format(
+                PLACEHOLDER,
+                "Hello! I'm " +
+                        EMOJI_MAP.get("S") +
+                        EMOJI_MAP.get("I") +
+                        EMOJI_MAP.get("M") +
+                        EMOJI_MAP.get("P") +
+                        EMOJI_MAP.get("L") +
+                        EMOJI_MAP.get("E") +
+                        EMOJI_MAP.get("E") +
+                        "\n" +
+                        "\t\tHow can I simplee-fy your life?"
+        );
+        System.out.println(wcMsg);
+
+        // taking in user input and echoing
+        Scanner scanner = new Scanner(System.in);
+        String userIn = scanner.nextLine();
+        while (!userIn.equals("bye")) {
+            // echo user input
+            String echoMsg = String.format(PLACEHOLDER, userIn);
+            System.out.println(echoMsg);
+            userIn = scanner.nextLine();
+        }
+
+        // goodbye message
+        String gbMsg = String.format(
+                PLACEHOLDER,
+                "Bye. Hope to simp for you again soon!"
+        );
+        System.out.println(gbMsg);
+    }
+
+    private static HashMap<String, String> getStringStringHashMap() {
         HashMap<String, String> EMOJI_MAP = new HashMap<>();
         EMOJI_MAP.put("A", "\uD83C\uDD70");
         EMOJI_MAP.put("B", "\uD83C\uDD71");
@@ -31,28 +74,6 @@ public class Duke {
         EMOJI_MAP.put("Y", "\uD83C\uDD88");
         EMOJI_MAP.put("Z", "\uD83C\uDD89");
 
-        // chatbot chat placeholder
-        String PLACEHOLDER = "----------------------------------------\n" +
-                "%s\n" +
-                "----------------------------------------\n";
-
-        // chatbot speech
-        System.out.printf(
-                PLACEHOLDER,
-                "Hello! I'm " +
-                        EMOJI_MAP.get("S") +
-                        EMOJI_MAP.get("I") +
-                        EMOJI_MAP.get("M") +
-                        EMOJI_MAP.get("P") +
-                        EMOJI_MAP.get("L") +
-                        EMOJI_MAP.get("E") +
-                        EMOJI_MAP.get("E") +
-                        "\n" +
-                        "How can I simplee-fy your life?"
-        );
-        System.out.printf(
-                PLACEHOLDER,
-                "Bye. Hope to simp for you again soon!"
-        );
+        return EMOJI_MAP;
     }
 }
