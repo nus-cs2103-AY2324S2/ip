@@ -1,18 +1,19 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class CoDriver {
     public static void main(String[] args) {
         greeting();
         Scanner scanner = new Scanner(System.in);
+        TaskList tl = new TaskList(100);
         while (true) {
             String command = scanner.nextLine();
-            if (Objects.equals(command, "bye")) {
+            if (command.equals("bye")) {
                 break;
+            } else if (command.equals("list")) {
+                tl.listTasks();
+            } else {
+                tl.addTask(command);
             }
-            printSepLine();
-            System.out.println(command);
-            printSepLine();
         }
         goodbye();
     }
