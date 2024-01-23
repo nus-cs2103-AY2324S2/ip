@@ -4,21 +4,9 @@ import java.util.Scanner;
 
 public class GrumbleBug {
 
-    public static boolean isInt(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        try {
-            int u = Integer.parseInt(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
-
     public static void printList(ArrayList<Task> list) {
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getFullStatus());
+            System.out.println(i+1 + list.get(i).getFullStatus());
         }
     }
     public static void main(String[] args) {
@@ -32,9 +20,6 @@ public class GrumbleBug {
 
         while (true) {
             String input1 = sc.nextLine();
-//            String words[] = input1.split(" ");
-//            String firstWord = words[0];
-//            String secondWord = words.length > 1 ? words[1] : null;
             if (input1.equals("byebye")) {
                 System.exit(0);
             } else if (input1.equals("list")) { // show the list!
@@ -63,7 +48,7 @@ public class GrumbleBug {
             } else if (input1.equals("todo")) { // add to list
                 System.out.println("Task name?");
                 String name = sc.nextLine();
-                Task task = new Task(name, myList.size() + 1);
+                Task task = new Task(name);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
@@ -75,7 +60,7 @@ public class GrumbleBug {
                 String name = sc.nextLine();
                 System.out.println("Wow ok.. due by?");
                 String endDate = sc.nextLine();
-                Task task = new Task(name, myList.size() + 1, endDate);
+                Task task = new Task(name, endDate);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
@@ -89,13 +74,23 @@ public class GrumbleBug {
                 String startDate = sc.nextLine();
                 System.out.println("End date?");
                 String endDate = sc.nextLine();
-                Task task = new Task(name, myList.size() + 1, startDate, endDate);
+                Task task = new Task(name, startDate, endDate);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
                         + "Better not miss your silly " + input1 + " event."
                         + "\n_______________________________________\n";
                 System.out.println(reply);
+            } else if (input1.equals("delete")) {
+                System.out.println("Which one? Gimme the number\n");
+                GrumbleBug.printList(myList);
+                try {
+                    int u = Integer.parseInt(sc.nextLine());
+                    myList.remove(u-1);
+                    System.out.println("Ok it's gone. You're wasting my time.");
+                } catch (Exception e) {
+                    System.err.println("That wasn't a good number");
+                }
             } else {
                 // error, cannot understand
                 System.out.println("I don't understand. Try again, or go away");

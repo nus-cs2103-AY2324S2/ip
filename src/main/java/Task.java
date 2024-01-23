@@ -1,33 +1,29 @@
 public class Task {
     protected String description;
-    protected int id;
     protected boolean isDone;
     protected String startDate;
     protected String endDate;
     protected char taskType;
 
     // To-do
-    public Task(String description, int id) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.id = id;
         this.taskType = 'T';
     }
 
     // Deadline
-    public Task(String description, int id, String end) {
+    public Task(String description, String end) {
         this.description = description;
         this.isDone = false;
-        this.id = id;
         this.endDate = end;
         this.taskType = 'D';
     }
 
     // Event
-    public Task(String description, int id, String start, String end) {
+    public Task(String description, String start, String end) {
         this.description = description;
         this.isDone = false;
-        this.id = id;
         this.taskType = 'E';
         this.startDate = start;
         this.endDate = end;
@@ -38,7 +34,7 @@ public class Task {
     }
 
     public String getFullStatus() {
-        String status = this.id + ". [" + this.getStatusIcon() + "] ["
+        String status = ". [" + this.getStatusIcon() + "] ["
                 + this.taskType + "] "
                 + this.description;
         if (this.taskType == 'E') {
