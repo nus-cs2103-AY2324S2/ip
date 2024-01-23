@@ -7,12 +7,12 @@ public class Duke {
 
     private static void startupMessage() {
         String name = "CBBW";
-        System.out.println(spacer + "    Hello! I'm " + name 
-                           + "\n    What can I do for you?\n" + spacer);
+        botPrint("Hello! I'm " + name 
+                           + "\nWhat can I do for you?");
     }
 
     private static void goodbyeMessage() {
-        System.out.println(spacer + "    Bye. Hope to see you again soon!\n" + spacer);
+        botPrint("See you again soon!");
     }
 
     private static void botPrint(String s) {
@@ -28,22 +28,47 @@ public class Duke {
         System.out.println(spacer);
     }
 
+    private static void createTodo(String input) {
+        Todo t = new Todo(input.split(" ", 2)[1]);
+        toDoList.add(t);
+        botPrint("Todo Task added!\n" + t.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
+    }
 
-    private static void markTask(int i) {
-        if (i > 0 && i <= toDoList.size()) {
-            Task t = toDoList.get(i - 1);
+    private static void createEvent(String input) {
+        String description = input.substring(5, input.indexOf("/from")).trim();
+        String from = input.substring(input.indexOf("/from") + 5, input.indexOf("/to")).trim();
+        String to = input.substring(input.indexOf("/to") + 3).trim();
+        Event e = new Event(description, from, to);
+        toDoList.add(e);
+        botPrint("Event Task added!\n" + e.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
+    }
+
+    private static void createDeadline(String input) {
+        System.out.println("input: " + input);
+        String description = input.substring(8, input.indexOf("/by")).trim();
+        String by = input.substring(input.indexOf("/by") + 3).trim();
+        Deadline d = new Deadline(description, by);
+        toDoList.add(d);
+        botPrint("Deadline Task added!\n" + d.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
+    }
+
+    private static void markTask(String input) {
+        int index = Integer.parseInt(input.split(" ")[1]);
+        if (index > 0 && index <= toDoList.size()) {
+            Task t = toDoList.get(index - 1);
             t.doTask();
-            botPrint("Nice! I've marked this task as done:\n  " + t);
+            botPrint("Good job on finishing your task!:\n  " + t);
         } else {
             botPrint("Invalid Index for current list");
         }
     }
 
-    private static void unmarkTask(int i) {
-        if (i > 0 && i <= toDoList.size()) {
-            Task t = toDoList.get(i - 1);
+    private static void unmarkTask(String input) {
+        int index = Integer.parseInt(input.split(" ")[1]);
+        if (index > 0 && index <= toDoList.size()) {
+            Task t = toDoList.get(index - 1);
             t.undoTask();
-            botPrint("OK, I've marked this task as not done yet:\n  " + t);
+            botPrint("I've marked this task as undone:\n  " + t);
         } else {
             botPrint("Invalid Index for current list");
         }
@@ -53,26 +78,33 @@ public class Duke {
         startupMessage();
         Scanner s = new Scanner(System.in);
         while (true) {
-            String echo = s.nextLine();
-            String[] echoSplit = echo.split(" ");
-
-            if (echo.equals("bye")) {
-                s.close();
+            String input = s.nextLine();
+            if (input.equals("bye")) {
+                goodbyeMessage();
                 break;
-            } else if (echo.equals("list")) {
-                printList();
-                continue;
-            } else if (echoSplit[0].equals("mark")) {
-                markTask(Integer.parseInt(echoSplit[1]));
-                continue;
-            } else if (echoSplit[0].equals("unmark")) {
-                unmarkTask(Integer.parseInt(echoSplit[1]));
-                continue;
             }
+            String action = input.split(" ")[0].toLowerCase();
 
-            toDoList.add(new Task(echo));
-            botPrint("added: " + echo);
+            switch (action) {
+                case "list":
+                    printList();
+                    break;
+                case "todo":
+                    createTodo(input);
+                    break;
+                case "event":
+                    createEvent(input);
+                    break;
+                case "deadline":
+                    createDeadline(input);
+                    break;
+                case "mark":
+                    markTask(input);
+                    break;
+                case "unmark":
+                    unmarkTask(input);
+                    break;
+            }
         }
-        goodbyeMessage();
     }
 }
