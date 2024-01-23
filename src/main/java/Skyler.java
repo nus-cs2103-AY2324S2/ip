@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Skyler {
+    private static final int MAX_TASKS = 100;
+    private static String[] tasks = new String[MAX_TASKS];
+    private static int taskCount = 0;
+
     public static void main(String[] args) {
         String chatbotName = "Skyler";
         String line = "------------------------------------------------------------";
@@ -20,13 +24,27 @@ public class Skyler {
             if (userInput.equals("bye")) {
                 System.out.println("Skyler: Bye. Hope to see you again soon!");
                 System.out.println(line);
-                break; 
+                break; // Exit the loop when "bye" is entered
+            } else if (userInput.equals("list")) {
+                listTasks();
             } else {
-                System.out.println("Skyler: " + userInput);
-                System.out.println(line);
+                addTask(userInput);
             }
         }
 
         scanner.close();
+    }
+
+    private static void addTask(String task) {
+        tasks[taskCount++] = task;
+        System.out.println("Skyler: added: " + task);
+    }
+
+    private static void listTasks() {
+        System.out.println("Skyler: Tasks");
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println(" " + (i + 1) + ". " + tasks[i]);
+        }
+        System.out.println("------------------------------------------------------------");
     }
 }
