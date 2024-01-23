@@ -8,4 +8,6 @@ public class TextTemplate {
     public static final String UNMARK_TASK = "Nice! I've unmarked this task:";
     public static final String TODO_NO_DESC = "OOPS!!! The description of a todo cannot be empty.";
     public static final String INVALID_COMMAND = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+    public static final String DELETE_TASK = "Noted. I've removed this task:";
+    public static final String TASK_DOES_NOT_EXIST = "OOPS!!! This task does not exist.";
 }

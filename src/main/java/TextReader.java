@@ -42,6 +42,9 @@ public class TextReader {
         if (Pattern.matches("unmark \\d+", input)) {
             return Actions.UNMARK;
         }
-        throw new InvalidInputException();
+        if (Pattern.matches("delete \\d+", input)) {
+            return Actions.DELETE;
+        }
+        return Actions.INVALID;
     }
 }
