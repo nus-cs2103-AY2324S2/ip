@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static String[] instrList = new String[100]; 
+    private static Task[] instrList = new Task[100]; 
     private static int ptr = 0; 
 
     public static void main(String[] args) {
@@ -13,6 +13,10 @@ public class Duke {
         while (!instr.equals("bye")) {
             if (instr.equals("list")) {
                 listOut();
+            } else if (instr.contains("unmark")) {
+                unmark(instr);
+            } else if (instr.contains("mark")) {
+                mark(instr);
             } else {
                 addText(instr);
                 System.out.println(echo(instr)); 
@@ -38,12 +42,25 @@ public class Duke {
     }
 
     public static void listOut() {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < ptr; i++) {
-            System.out.println(i + 1 + ". " + instrList[i]);
+            System.out.println(i + 1 + "."+ instrList[i].toString());
         }
     }
 
     public static void addText(String instr) {
-        instrList[ptr++] = instr;
+        instrList[ptr++] = new Task(instr);
+    }
+
+    public static void mark(String instr) {
+        int instrNum = Integer.valueOf(instr.split(" ")[1]) - 1;
+        System.out.println("Nice! I've marked this task as done:"); 
+        instrList[instrNum].markAsDone(); 
+    }
+
+    public static void unmark(String instr) {
+        int instrNum = Integer.valueOf(instr.split(" ")[1]) - 1;
+        System.out.println("OK, I've marked this task as not done yet:"); 
+        instrList[instrNum].markAsUndone(); 
     }
 }
