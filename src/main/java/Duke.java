@@ -18,16 +18,35 @@ public class Duke {
     System.out.println(indentation + divider + "\n" + logo + "\n\n" + greeting + "\n" + indentation + divider + "\n");
 
     Scanner sc = new Scanner(System.in);
-    ArrayList<String> inputs = new ArrayList<>();
+    ArrayList<String> tasks = new ArrayList<>();
+    ArrayList<Boolean> taskStatus = new ArrayList<>();
     boolean isChatting = true;
+    String tick = "[X]";
+    String untick = "[ ]";
+    String checkBox = untick;
 
     while (isChatting) {
-      String input = sc.nextLine();
-      switch (input.toLowerCase()) {
+      String in = sc.nextLine();
+      int target = 0;
+
+      if (in.contains("mark") || in.contains("unmark")) {
+        target = Integer.parseInt(in.split(" ")[1]) - 1;
+        in = in.split(" ")[0];
+      }
+
+      switch (in.toLowerCase()) {
         case "list":
           System.out.println(indentation + divider);
-          for (int i = 0; i < inputs.size(); i++) {
-            System.out.println(indentation + (i + 1) + ". " + inputs.get(i));
+          System.out.println(indentation + "Here are the tasks in your list:");
+
+          for (int i = 0; i < tasks.size(); i++) {
+            if (taskStatus.get(i)) {
+              checkBox = tick;
+            } else {
+              checkBox = untick;
+            }
+
+            System.out.println(indentation + checkBox + " " + (i + 1) + ". " + tasks.get(i));
           }
           System.out.println(indentation + divider + "\n");
           break;
@@ -44,10 +63,27 @@ public class Duke {
           isChatting = false;
           break;
 
+        case "mark":
+          taskStatus.set(target, true);
+          checkBox = tick;
+          System.out.println(indentation + divider);
+          System.out.println(indentation + "Nice! I've marked this task as done:");
+          System.out.println(indentation + "  " + checkBox + " " + tasks.get(target));
+          System.out.println(indentation + divider + "\n");
+          break;
+        case "unmark":
+          taskStatus.set(target, false);
+          checkBox = untick;
+          System.out.println(indentation + divider);
+          System.out.println(indentation + "OK, I've marked this task as not done yet:");
+          System.out.println(indentation + "  " + checkBox + " " + tasks.get(target));
+          System.out.println(indentation + divider + "\n");
+          break;
         default:
           System.out.println(indentation + divider);
-          inputs.add(input);
-          System.out.println(indentation + "added: " + input + "\n" + indentation + divider + "\n");
+          tasks.add(in);
+          taskStatus.add(false);
+          System.out.println(indentation + "added: " + in + "\n" + indentation + divider + "\n");
           break;
       }
     }
