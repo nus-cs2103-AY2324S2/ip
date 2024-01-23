@@ -217,6 +217,21 @@ public class Duke {
                 }
                 input = sc.nextLine();
 
+            } else if (input.startsWith("delete ")) {
+                int taskNumber = Integer.parseInt(input.substring(7)); // get the task number to remove
+                int numOfTasks = list.size(); // finds the number of tasks in list currently
+                if (taskNumber <= numOfTasks) {
+                    String taskRemoved = list.get(taskNumber - 1).toString();
+                    list.remove(taskNumber - 1);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(taskRemoved);
+                    System.out.println("Now you have " + list.size() + " task(s) in the list.");
+                } else {
+                    System.out.println("Uh oh! looks like that task does not exist in your list.");
+                    System.out.println("You currently only have " + numOfTasks + " task(s) in your list.");
+                }
+                input = sc.nextLine();
+
             } else {
                 System.out.println("Sorry! Scribbles was unable to understand your instructions :(");
                 System.out.println("You can try the following commands instead: ");
@@ -228,6 +243,7 @@ public class Duke {
                         "to insert task into your list with deadline as date");
                 System.out.println("- type \"event [task] /from [start] to [end]\" " +
                         "to insert task into your list with a start and end duration");
+                System.out.println("- type \"delete [index]\" to remove a task from your list of tasks");
                 System.out.println("Please try again :)");
                 input = sc.nextLine();
             }
