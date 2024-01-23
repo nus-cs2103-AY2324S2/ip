@@ -1,0 +1,11 @@
+todo read book
+deadline do assignment /by 2pm
+event lecture /from 3pm /to 5pm
+todo
+deadline a
+list
+mark 2
+list
+unmark 2
+list
+bye
