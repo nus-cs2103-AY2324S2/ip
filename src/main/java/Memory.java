@@ -16,6 +16,12 @@ public class Memory {
         return true;
     }
 
+    public Task deleteTask(int index) {
+        Task task = this.tasks.remove(index);
+        this.numTasks--;
+        return task;
+    }
+
     public ArrayList<Task> getTasks() {
         ArrayList<Task> list = new ArrayList<>();
         for (Task task : this.tasks) {

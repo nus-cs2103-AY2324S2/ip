@@ -142,8 +142,12 @@ public class Cortana {
                     String suffix = input.substring(5);
                     if (isNumeric(suffix)) {
                         int index = Integer.parseInt(suffix) - 1;
-                        curr_task = this.memory.markTask(index);
-                        response = Response.markTask(curr_task);
+                        if (this.memory.getNumTasks() > index) {
+                            curr_task = this.memory.markTask(index);
+                            response = Response.markTask(curr_task);
+                        } else {
+                            response = "Please enter a valid number! Tip: mark <number> \nNumber out of range";
+                        }
                     } else {
                         response = "Please enter a valid number! Tip: mark <number> \nMissing number";
                     }
@@ -155,13 +159,38 @@ public class Cortana {
                     String suffix = input.substring(7);
                     if (isNumeric(suffix)) {
                         int index = Integer.parseInt(suffix) - 1;
-                        curr_task = this.memory.unmarkTask(index);
-                        response = Response.unmarkTask(curr_task);
+                        if (this.memory.getNumTasks() > index) {
+                            curr_task = this.memory.unmarkTask(index);
+                            response = Response.unmarkTask(curr_task);
+                        } else {
+                            response = "Please enter a valid number! Tip: unmark <number> \nNumber out of range";
+                        }
                     } else {
                         response = "Please enter a valid number! Tip: unmark <number> \nMissing number";
                     }
                 } else {
                     response = "Please enter a valid number! Tip: unmark <number> \nMissing number";
+                }
+            } else if (input.startsWith("delete")) {
+                if (input.length() > 6) {
+                    String suffix = input.substring(7);
+                    if (isNumeric(suffix)) {
+                        int index = Integer.parseInt(suffix) - 1;
+                        if (this.memory.getNumTasks() > index) {
+                            StringBuilder sb = new StringBuilder();
+                            curr_task = this.memory.deleteTask(index);
+                            sb.append("Noted. I've removed this task:\n");
+                            sb.append("  " + curr_task.toString() + "\n");
+                            sb.append("Now you have " + this.memory.getNumTasks() + " tasks in the list.");
+                            response = sb.toString();
+                        } else {
+                            response = "Please enter a valid number! Tip: delete <number> \nNumber out of range";
+                        }
+                    } else {
+                        response = "Please enter a valid number! Tip: delete <number> \nMissing number";
+                    }
+                } else {
+                    response = "Please enter a valid number! Tip: delete <number> \nMissing number";
                 }
             } else if (input.equals("list")) {
                 tasks = this.memory.getTasks();

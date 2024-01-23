@@ -1,9 +1,18 @@
 todo make coffee
-deadline drink /by Today 9am
+deadline drink coffee /by Today 9am
 event buy coffee /from Today 2pm /to 4pm 
 mark 1
 mark 3
 unmark 1
 mark 2
+list
+delete 1
+unmark 1
+list
+mark 1
+delete 1
+list
+delete 2
+delete 1
 list
 bye
