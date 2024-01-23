@@ -20,6 +20,10 @@ public class TaskList {
         this.tasks.add(task);
     }
 
+    public void deleteTask(int taskIdx) {
+        this.tasks.remove(taskIdx);
+    }
+
     @Override
     public String toString() {
         if (this.tasks.isEmpty()) {

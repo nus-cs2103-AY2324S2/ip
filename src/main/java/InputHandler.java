@@ -30,6 +30,13 @@ public class InputHandler {
         return false;
     }
 
+    private boolean iskNumberOfParamCorrect(String[] tokens, int expectedNumber) {
+        if (tokens.length == expectedNumber) {
+            return true;
+        }
+        return false;
+    }
+
     public void handleInput(String userInput, Chatbot bot) throws BluException {
         String[] tokens = userInput.split(" ");
         String cmd = tokens[0];
@@ -38,8 +45,8 @@ public class InputHandler {
                 bot.displayTasks();
                 break;
             case "mark":
-                if (tokens.length != 2) {
-                    throw new IllegalCommandException("Please specify a task number\n"
+                if (!iskNumberOfParamCorrect(tokens, 2)) {
+                    throw new IllegalCommandException("Please specify a task number to mark\n"
                                                             + "Usage: mark <task_number>");
                 }
                 try {
@@ -52,8 +59,8 @@ public class InputHandler {
                 }
                 break;
             case "unmark":
-                if (tokens.length != 2) {
-                    throw new IllegalCommandException("Please specify a task number\n"
+                if (!iskNumberOfParamCorrect(tokens, 2)) {
+                    throw new IllegalCommandException("Please specify a task number to unmark\n"
                                                             + "Usage: unmark <task_number>");
                 }
                 try {
@@ -113,6 +120,19 @@ public class InputHandler {
                 String eventFrom = getParamValue(tokens, fromParamIdx, toParamIdx - 1);
                 String eventTo = getParamValue(tokens, toParamIdx, tokens.length);
                 bot.addTask(new Event(eventTitle, eventFrom, eventTo));
+                break;
+            case "delete":
+                if (!iskNumberOfParamCorrect(tokens, 2)) {
+                    throw new IllegalCommandException("Please specify a task number to delete\n"
+                                                            + "Usage: delete <task_number>");
+                }
+                try {
+                    int deleteTaskIdx = Integer.parseInt(tokens[1]);
+                    bot.deleteTask(deleteTaskIdx);
+                } catch (NumberFormatException e) {
+                    throw new IllegalCommandException(tokens[1] + " is not a valid integer!\n" 
+                                                            + "Usage: delete <task_number>");
+                }
                 break;
             default:
                 throw new InvalidCommandException(cmd);

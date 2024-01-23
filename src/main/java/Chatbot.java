@@ -69,6 +69,19 @@ public class Chatbot {
         }
     }
 
+    public void deleteTask(int taskIdx) throws BluException {
+        try {
+            Task task = this.taskList.getTask(taskIdx);
+            this.taskList.deleteTask(taskIdx);
+            String[] messages = {"Deleted task from list:", task.toString(),
+                                "You have " + this.taskList.getNumberOfTasks() + " tasks currently"};
+            print(messages);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalParameterException("Failed to delete task. Task number " + taskIdx + " does not exist!\n" 
+                                                + "Please use the list command to view task numbers.");
+        }
+    }
+
     public void displayTasks() {
        print(this.taskList.toString());
     }

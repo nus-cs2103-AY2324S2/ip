@@ -48,13 +48,13 @@ ____________________________________________________________
 Illegal Command Format: Description of a todo cannot be empty.
 Usage: todo <task_title>
 > BluException:
-Illegal Command Format: Please specify a task number
+Illegal Command Format: Please specify a task number to mark
 Usage: mark <task_number>
 > BluException:
 Illegal Command Format: a is not a valid integer!
 Usage: mark <task_number>
 > BluException:
-Illegal Command Format: Please specify a task number
+Illegal Command Format: Please specify a task number to unmark
 Usage: unmark <task_number>
 > BluException:
 Illegal Parameter: Failed to unmark task. Task number 9999 does not exist!
@@ -100,6 +100,19 @@ ____________________________________________________________
 4. [D][ ] do homework (By: no idea :-p)
 5. [D][ ] a (By: 2pm)
 6. [E][ ] important event (From:  To: 3pm)
+____________________________________________________________
+> ____________________________________________________________
+Deleted task from list:
+[T][ ] borrow book
+You have 5 tasks currently
+____________________________________________________________
+> BluException:
+Illegal Parameter: Failed to delete task. Task number 999 does not exist!
+Please use the list command to view task numbers.
+> ____________________________________________________________
+Deleted task from list:
+[E][ ] project meeting (From: Mon To: 4pm)
+You have 4 tasks currently
 ____________________________________________________________
 > ____________________________________________________________
 Goodbye!
