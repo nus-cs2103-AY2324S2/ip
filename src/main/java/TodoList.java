@@ -29,7 +29,7 @@ public class TodoList {
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < items.size(); ++i) {
-//            if (i > 0) output.append("\t");
+            if (i > 0) output.append("\t");
             output.append(i + 1).append(".  ").append(items.get(i).toString());
             if (i < items.size() - 1) output.append("\n");
         }
