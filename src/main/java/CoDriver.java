@@ -11,8 +11,16 @@ public class CoDriver {
                 break;
             } else if (command.equals("list")) {
                 tl.listTasks();
+            } else if (command.startsWith("mark")) {
+                String[] words = command.split(" ");
+                int index = Integer.parseInt(words[1]);
+                tl.markTask(index);
+            } else if (command.startsWith("unmark")) {
+                String[] words = command.split(" ");
+                int index = Integer.parseInt(words[1]);
+                tl.unmarkTask(index);
             } else {
-                tl.addTask(command);
+                tl.addTask(new Task(command));
             }
         }
         goodbye();
