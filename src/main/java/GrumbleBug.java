@@ -25,13 +25,7 @@ public class GrumbleBug {
         String starter = "GrumbleBug:"
                 + "_______________________________________\n"
                 + "Oh hey, adventurer.\n"
-                + "I'm GrumbleBug.\n"
-                + "You wanna list me some things?\n"
-                + "_______________________________________\n"
-                + "\n"
-                + "Reply to add things to your list.\n"
-                + "To see your list, type 'list'.\n"
-                + "To leave, reply with 'byebye'.\n";
+                + "I'm GrumbleBug.\n";
         System.out.println(starter);
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> myList = new ArrayList<>();
@@ -68,7 +62,7 @@ public class GrumbleBug {
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
                         + "Fine, added your stupid " + input1 + "."
-                        + "\n_______________________________________\n";
+                        + "\n";
                 System.out.println(reply);
             } else if (input1.equals("deadline")) { // add to list
                 System.out.println("Task name?");

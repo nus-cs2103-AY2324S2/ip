@@ -1,3 +1,12 @@
 todo
-jump 100 times
+run 100 times
 deadline
+Finish CS2109S problem set 0
+tonight
+mark
+1
+event
+birthday party
+yesterday
+tomorrow
+byebye
