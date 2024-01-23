@@ -1,0 +1,16 @@
+todo feed dog
+deadline assignment 2 /by jan 2
+event prom night /from Jan 2 4pm /to Jan 2 6pm
+list
+mark 4
+mark 1
+list
+mark 2
+list
+unmark 2
+list
+mark skfjh
+deadline assignment /by  
+deadline assignment /by 2024
+list
+bye
