@@ -1,8 +1,8 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-    private static Task[] instrList = new Task[100]; 
-    private static int ptr = 0; 
+    private static ArrayList<Task> instrList = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println(greet());
@@ -22,6 +22,12 @@ public class Duke {
             } else if (instr.contains("mark")) {
                 try {
                     mark(instr);
+                } catch (DukeException e) {
+                    System.out.println(e.toString()); 
+                }
+            } else if (instr.contains("delete")) {
+                try {
+                    delete(instr);
                 } catch (DukeException e) {
                     System.out.println(e.toString()); 
                 }
@@ -50,8 +56,8 @@ public class Duke {
 
     public static void listOut() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < ptr; i++) {
-            System.out.println(i + 1 + "."+ instrList[i].toString());
+        for (int i = 0; i < instrList.size() ; i++) {
+            System.out.println(i + 1 + "."+ instrList.get(i).toString());
         }
     }
 
@@ -59,7 +65,7 @@ public class Duke {
         if (instr.contains("todo")) {
             try {
                 Todo taskTodo = new Todo(instr.split("todo ")[1]);
-                instrList[ptr++]  = taskTodo;
+                instrList.add(taskTodo); 
                 System.out.println("Got it. I've added this task:");
                 System.out.println(taskTodo.toString());
             } catch (ArrayIndexOutOfBoundsException e ){
@@ -70,7 +76,7 @@ public class Duke {
                 String deadlineDescription = instr.substring(9);
                 String[] tskNames = deadlineDescription.split(" /by ");
                 Deadline taskDeadline = new Deadline(tskNames[0], tskNames[1]); 
-                instrList[ptr++]  = taskDeadline;
+                instrList.add(taskDeadline); 
                 System.out.println("Got it. I've added this task:");
                 System.out.println(taskDeadline.toString());
             } catch(StringIndexOutOfBoundsException e) {
@@ -85,7 +91,7 @@ public class Duke {
                 String name = instrsubString[0]; 
                 String[] startAndEnd = instrsubString[1].split(" /to "); 
                 Events taskEvent = new Events(name, startAndEnd[0], startAndEnd[1]);
-                instrList[ptr++]  = taskEvent;
+                instrList.add(taskEvent); 
                 System.out.println("Got it. I've added this task:");
                 System.out.println(taskEvent.toString()); 
             } catch (StringIndexOutOfBoundsException e) {
@@ -96,13 +102,13 @@ public class Duke {
         } else {
             throw new DukeException("OOPS!!! What is that? I'm sorry, but I don't recognise this command :-( \nTry another command!"); 
         }
-        System.out.println("Now you have " + ptr + " tasks in the list."); 
+        System.out.println("Now you have " + instrList.size() + " tasks in the list."); 
     }
 
     public static void mark(String instr) throws DukeException {
         try {
             int instrNum = Integer.valueOf(instr.split(" ")[1]) - 1;
-            String res = instrList[instrNum].markAsDone(); 
+            String res = instrList.get(instrNum).markAsDone(); 
             System.out.println("Nice! I've marked this task as done:" + "\n" + res); 
         } catch (NullPointerException e) {
             throw new DukeException("OOPS!! You have inputted an invalid task number. \nTry again with a different task number!"); 
@@ -114,12 +120,25 @@ public class Duke {
     public static void unmark(String instr) throws DukeException {
         try {
             int instrNum = Integer.valueOf(instr.split(" ")[1]) - 1;
-            String res = instrList[instrNum].markAsUndone(); 
+            String res = instrList.get(instrNum).markAsUndone(); 
             System.out.println("OK, I've marked this task as not done yet:" + "\n" + res); 
         } catch (NullPointerException e) {
             throw new DukeException("OOPS!! You have inputted an invalid task number. \nTry again with a different task number!"); 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("OOOPS!!! You missed out the task number."); 
         }
+    } 
+
+    public static void delete(String instr) throws DukeException { 
+        try {
+            int ptr = Integer.valueOf(instr.split(" ")[1]) - 1; 
+            Task str = instrList.get(ptr); 
+            instrList.remove(ptr); 
+            System.out.println("Noted. I've removed this task: \n" + str.toString() + "\nNow you have " + instrList.size() + " tasks in the list.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("OOOPS!!! You missed out the task number."); 
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!! You have inputted an invalid task number. \nTry again with a different task number!"); 
+        } 
     }
 }
