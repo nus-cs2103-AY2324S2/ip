@@ -126,37 +126,65 @@ public class ChatBot {
     }
 
     public void markTaskAsDone(int taskNumber) {
-        
-        Task taskToBeMarked = this.tasks.get(taskNumber - 1);
-        if (taskToBeMarked.isDone()) {
-            System.out.println("This task is already marked done!");
-            return;
+        try {
+            Task taskToBeMarked = this.tasks.get(taskNumber - 1);
+            if (taskToBeMarked.isDone()) {
+                throw new ChatBotParameterException("This task is already marked done!");
+            }
+            System.out.println("Nice! I've marked this task as done:");
+            taskToBeMarked.markDone();
+            System.out.println(taskToBeMarked);
+        } catch (ChatBotParameterException e) {
+            System.out.println(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("The task does not exists in the task list.");
         }
-        System.out.println("Nice! I've marked this task as done:");
-        taskToBeMarked.markDone();
-        System.out.println(taskToBeMarked);
     }
 
     public void markTaskAsUndone(int taskNumber) {
-
-        Task taskToBeUnmarked = this.tasks.get(taskNumber - 1);
-        if (!taskToBeUnmarked.isDone()) {
-            System.out.println("This task is already marked as undone!");
-            return;
+        try {
+            Task taskToBeUnmarked = this.tasks.get(taskNumber - 1);
+            if (!taskToBeUnmarked.isDone()) {
+                throw new ChatBotParameterException("This task is already marked as undone!");
+            }
+            System.out.println("OK, I've marked this task as not done yet:");
+            taskToBeUnmarked.markUndone();
+            System.out.println(taskToBeUnmarked);
+        } catch (ChatBotParameterException e) {
+            System.out.println(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("The task does not exists in the task list.");
         }
-        System.out.println(" OK, I've marked this task as not done yet:");
-        taskToBeUnmarked.markUndone();
-        System.out.println(taskToBeUnmarked);
     }
 
     public void markTaskAsDone(String parameters) {
-        // To add exception
-        this.markTaskAsDone(Integer.parseInt(parameters));
+        try {
+            if (parameters.isEmpty()) {
+                throw new ChatBotParameterException("Missing task number \n" +
+                        "try: mark <task_number>");
+            }
+            this.markTaskAsDone(Integer.parseInt(parameters));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task number \n" +
+                    "try: mark <task_number>");
+        } catch (ChatBotParameterException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void markTaskAsUndone(String parameters) {
-        // To add exception
-        this.markTaskAsUndone(Integer.parseInt(parameters));
+        try {
+            if (parameters.isEmpty()) {
+                throw new ChatBotParameterException("Missing task number \n" +
+                        "try: unmark <task_number>");
+            }
+            this.markTaskAsUndone(Integer.parseInt(parameters));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task number \n" +
+                    "try: unmark <task_number>");
+        } catch (ChatBotParameterException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void addToDo(String description) {
