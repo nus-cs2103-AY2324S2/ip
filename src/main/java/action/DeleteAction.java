@@ -8,23 +8,21 @@ import task.Task;
 import task.TaskList;
 
 /**
- * MarkAction encapsulates the behaviour of marking a task as done.
- *
- * @author Titus Chew
+ * DeleteAction encapsulates behaviour of deleting a task from the task list.
  */
-public class MarkAction extends Action {
+public class DeleteAction extends Action {
     /**
-     * Constructor for this mark action.
+     * Constructor for this delete action.
      *
      * @param arguments the arguments supplied with the command
      * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
-    public MarkAction(Argument[] arguments) throws ActionException {
-        super(Command.MARK, arguments);
+    public DeleteAction(Argument[] arguments) throws ActionException {
+        super(Command.DELETE, arguments);
     }
 
     /**
-     * Marks and prints the task.
+     * Deletes the task from the task list.
      *
      * @param taskList the taskList that is used with the chatbot
      * @throws ActionException If the action fails certain validation checks due to invalid input.
@@ -68,9 +66,9 @@ public class MarkAction extends Action {
         }
 
         // Perform behaviour
-        Task task = taskList.markTask(index);
+        Task task = taskList.deleteTask(index);
         Printer.printMessages(
-                "Nice! I've marked this task as done:",
+                "Noted. I've removed this task:",
                 "    " + task
         );
     }

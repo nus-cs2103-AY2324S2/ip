@@ -1,13 +1,4 @@
-import action.Action;
-import action.Argument;
-import action.Command;
-import action.ByeAction;
-import action.ListAction;
-import action.MarkAction;
-import action.UnmarkAction;
-import action.AddTodoAction;
-import action.AddDeadlineAction;
-import action.AddEventAction;
+import action.*;
 import action.exception.ActionException;
 import action.exception.UnrecognizedCommandException;
 
@@ -40,7 +31,9 @@ public class InputParser {
             return new AddDeadlineAction(parsedArguments);
         } else if (command.equals(Command.ADD_EVENT.name)) {
             return new AddEventAction(parsedArguments);
-        } else {
+        } else if (command.equals(Command.DELETE.name)) {
+            return new DeleteAction(parsedArguments);
+        }else {
             // The command is invalid, as it is not one of the above commands.
             throw new UnrecognizedCommandException(command);
         }

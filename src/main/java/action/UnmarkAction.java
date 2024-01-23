@@ -4,6 +4,7 @@ import action.exception.ActionException;
 import action.exception.InvalidArgumentValueException;
 import action.exception.MissingArgumentValueException;
 import print.Printer;
+import task.Task;
 import task.TaskList;
 
 /**
@@ -58,7 +59,7 @@ public class UnmarkAction extends Action {
         }
 
         // Validate that indexString is in the range
-        if (index >= taskList.size() || index < 0) {
+        if (!taskList.isValidIndex(index)) {
             throw new InvalidArgumentValueException(
                     getCommand(),
                     "index",
@@ -67,10 +68,10 @@ public class UnmarkAction extends Action {
         }
 
         // Perform behaviour
-        taskList.unmarkTask(index);
+        Task task = taskList.unmarkTask(index);
         Printer.printMessages(
                 "Ok, I've marked this task as not done yet:",
-                "    " + taskList.getTask(index)
+                "    " + task
         );
     }
 }

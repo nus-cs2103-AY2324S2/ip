@@ -52,6 +52,12 @@ public enum Command {
             new Argument("event", "name"),
             new Argument("from", "start_date"),
             new Argument("to", "end_date")
+    ),
+    /**
+     * Deletes a task.
+     */
+    DELETE(
+            new Argument("delete", "index")
     );
 
     /**

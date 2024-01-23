@@ -19,7 +19,7 @@ public class TaskList {
      * @param index the index of in the task list
      * @return true if the index is valid, otherwise false
      */
-    private boolean isValidIndex(int index) {
+    public boolean isValidIndex(int index) {
         return index >= 0 && index < tasks.size();
     }
 
@@ -27,70 +27,68 @@ public class TaskList {
      * Add a to-do to this list.
      *
      * @param name the name of the to-do to add
+     * @return the task that is added
      */
-    public void addTodo(String name) {
-        tasks.add(new ToDo(name));
+    public Task addTodo(String name) {
+        Task task = new ToDo(name);
+        tasks.add(task);
+        return task;
     }
 
     /**
      * Add a deadline to this list.
      *
      * @param name the name of the to-do to add
+     * @return the task that is added
      */
-    public void addDeadline(String name, String by) {
-        tasks.add(new Deadline(name, by));
+    public Task addDeadline(String name, String by) {
+        Task task = new Deadline(name, by);
+        tasks.add(task);
+        return task;
     }
 
     /**
      * Add an event to this list.
      *
      * @param name the name of the to-do to add
+     * @return the task that is added
      */
-    public void addEvent(String name, String from, String to) {
-        tasks.add(new Event(name, from, to));
+    public Task addEvent(String name, String from, String to) {
+        Task task = new Event(name, from, to);
+        tasks.add(task);
+        return task;
     }
 
     /**
      * Mark the task as done.
      *
-     * @param index the index of the task (0-indexed)
+     * @param index the validated index of the task (0-indexed)
+     * @return the task that is marked
      */
-    public void markTask(int index) {
-        if (isValidIndex(index)) {
-            tasks.get(index).mark();
-        }
+    public Task markTask(int index) {
+        tasks.get(index).mark();
+        return tasks.get(index);
     }
 
     /**
      * Mark the task as not done.
      *
-     * @param index the index of the task (0-indexed)
+     * @param index the validated index of the task (0-indexed)
+     * @return the task that is marked
      */
-    public void unmarkTask(int index) {
-        if (isValidIndex(index)) {
-            tasks.get(index).unmark();
-        }
+    public Task unmarkTask(int index) {
+        tasks.get(index).unmark();
+        return tasks.get(index);
     }
 
     /**
-     * @param index The 0-indexed index.
+     * Deletes a task from the task list.
      *
-     * @return the index of the task (0-indexed)
+     * @param index the validated index of the task (0-indexed)
+     * @return the task that is marked
      */
-    public String getTask(int index) {
-        if (isValidIndex(index)) {
-            return tasks.get(index).toString();
-        }
-        return "";
-    }
-
-    /**
-     * Gets the most recently added task to this list.
-     *
-     * @return the newest task as a string
-     */
-    public String getNewestTask() {
-        return tasks.get(tasks.size() - 1).toString();
+    public Task deleteTask(int index) {
+        return tasks.remove(index);
     }
 
     /**
