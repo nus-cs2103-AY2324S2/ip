@@ -27,15 +27,15 @@ public class William {
                     Methods.addTask(new Event(eventDetails[0], eventDetails[1], eventDetails[2]), tasks);
                     break;
                 case list:
-                    System.out.println("\tHere are the tasks in your list: ");
+                    System.out.println("Here are the tasks in your list: ");
                     Methods.printList(tasks);
                     break;
                 case mark:
-                    System.out.println("\tNice! I've marked this task as done:");
+                    System.out.println("Nice! I've marked this task as done:");
                     Methods.markAndUnmark(texts[1], tasks);
                     break;
                 case unmark:
-                    System.out.println("\tOK, I've marked this task as not done yet:");
+                    System.out.println("OK, I've marked this task as not done yet:");
                     Methods.markAndUnmark(texts[1], tasks);
                     break;
                 case bye:

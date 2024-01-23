@@ -31,17 +31,17 @@ public class Methods {
         int idOfItem = Integer.parseInt(input);
         int actualId = idOfItem - 1;
         tasks.get(actualId).changeIsDone();
-        System.out.println("\t" + tasks.get(actualId).toString() + "\n");
+        System.out.println(tasks.get(actualId).toString() + "\n");
     }
 
     // A method to print out all of the tasks:
     public static void printList(List<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
             if (i == tasks.size() - 1) {
-                System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString() + "\n");
+                System.out.println((i + 1) + ". " + tasks.get(i).toString() + "\n");
                 break;
             }
-            System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
     }
 
@@ -63,8 +63,8 @@ public class Methods {
     // tasks:
     public static void addTask(Task task, List<Task> tasks) {
         tasks.add(task);
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t" + task.toString());
-        System.out.println("\tNow you have " + tasks.size() + " tasks in the list.\n");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
 }
