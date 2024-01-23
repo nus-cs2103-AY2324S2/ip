@@ -61,11 +61,11 @@ public class Pan {
     }
 
     public static void hello() {
-        System.out.println("Hello! I'm Pan\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm Pan\nWhat can I do for you?");
     }
 
     public static void bye() {
-        System.out.println("Bye. Hope to see you again soon!\n");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     public static void add(Task instruction) {
