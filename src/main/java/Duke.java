@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class Duke {
     private static final int MAX_TASKS = 100;
     private static Task[] tasks = new Task[MAX_TASKS];
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         Scanner scanner = new Scanner(System.in);
         int taskCount = 0;
         String logo = " ____        _        \n"
@@ -56,45 +56,39 @@ public class Duke {
                     }
                 }
             } else {
-                    // Add task to the array and echo it back
+                // Add task to the array and echo it back
+                try {
                     if (parts.length == 1) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("     ☹ OOPS!!! The description of a " + command + " cannot be empty.");
-                        System.out.println("____________________________________________________________");
-                        continue;
+                        throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
                     }
                     if (taskCount < MAX_TASKS) {
                         Task task = null;
                         if (command.toLowerCase().equals("todo")) {
-                            task = new Todo (input.substring(5));
+                            task = new Todo(input.substring(5));
                         } else if (command.toLowerCase().equals("deadline")) {
                             String[] parts2 = input.split(" /by ");
                             if (parts2.length != 2) {
-                                System.out.println("____________________________________________________________");
-                                System.out.println("     Invalid event format. Please use the following format:");
-                                System.out.println("            deadline <description> /by  <end time>");
-                                System.out.println("____________________________________________________________");
-                                continue;
+                                throw new DukeException("Invalid deadline format. Please use the following format:\n"
+                                        + "     deadline <description> /by <end time>");
                             }
                             task = new Deadline(parts2[0].substring(9), parts2[1]);
                         } else if (command.toLowerCase().equals("event")) {
                             String[] parts2 = input.split(" /from ");
-                            String eventDescription = parts2[0].substring(6);
-                            String[] partsWithTo = parts2[1].split(" /to ");
-                            if (parts2.length != 2 || partsWithTo.length != 2) {
-                                System.out.println("____________________________________________________________");
-                                System.out.println("     Invalid event format. Please use the following format:");
-                                System.out.println("     event <description> /from <start time> to <end time>");
-                                System.out.println("____________________________________________________________");
-                                continue;
+                            if (parts2.length != 2) {
+                                throw new DukeException("Invalid deadline format. Please use the following format:\n"
+                                        + "     deadline <description> /by <end time>");
                             }
+                            String[] partsWithTo = parts2[1].split(" /to ");
+                            if (partsWithTo.length != 2) {
+                                throw new DukeException("Invalid event format. Please use the following format:\n"
+                                        + "     event <description> /from <start time> /to <end time>");
+                            }
+                            String eventDescription = parts2[0].substring(6);
                             task = new Event(eventDescription, partsWithTo[0], partsWithTo[1]);
                         }
                         if (task == null) {
-                            System.out.println("____________________________________________________________");
-                            System.out.println("     Invalid command. Please try again.");
-                            System.out.println("____________________________________________________________");
-                            continue;
+                            ;
+                            throw new DukeException("Invalid command. Please try again.");
                         }
                         tasks[taskCount] = task;
                         taskCount++;
@@ -104,13 +98,15 @@ public class Duke {
                         System.out.println("     Now you have " + taskCount + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                     } else {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("     Maximum tasks reached. Cannot add more tasks.");
-                        System.out.println("____________________________________________________________");
+                        throw new DukeException("Maximum tasks reached. Cannot add more tasks.");
                     }
+                } catch (DukeException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________");
                 }
             }
             scanner.close();
         }
-
+    }
 }
