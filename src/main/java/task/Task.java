@@ -1,6 +1,6 @@
 package task;
 
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -9,8 +9,12 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (this.isDone ? "X" : " "); // mark done task with X
     }
 
     public void markAsDone() {
@@ -21,12 +25,8 @@ public class Task {
         this.isDone = false;
     }
 
-    public String toListString() {
-        return String.format("[%s] %s", this.getStatusIcon(), this.description);
-    }
-
     @Override
     public String toString() {
-        return this.description;
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 }
