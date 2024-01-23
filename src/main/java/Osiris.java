@@ -5,7 +5,7 @@ public class Osiris {
 
     public static final String NAME = "Osiris";
 
-    private final TaskManager userTasks = new TaskManager();
+    private final TaskManager taskManager = new TaskManager();
 
     public void startChat(){
         Scanner scanner = new Scanner(System.in);
@@ -19,17 +19,36 @@ public class Osiris {
 
             String userInput = scanner.nextLine();
 
-            if (userInput.equals("bye")) {
-                terminateChat = true;
-            } else if (userInput.equals("list")) {
-                this.printUserTasks();
-            } else if (userInput.startsWith("mark")) {
-                this.markTaskCompleted(Character.getNumericValue(userInput.charAt(5)));
-            } else if (userInput.startsWith("unmark")) {
-                this.markTaskIncomplete(Character.getNumericValue(userInput.charAt(7)));
-            } else {
-                this.addUserTask(userInput);
+            String[] inputtedWords = userInput.split(" ");
+
+            switch (inputtedWords[0]) {
+                case "bye":
+                    terminateChat = true;
+                    break;
+                case "list":
+                    this.printUserTasks();
+                    break;
+                case "mark":
+                    try {
+                        this.markTaskCompleted(Integer.parseInt(inputtedWords[1]));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid integer format: " + inputtedWords[1]);
+                        System.out.println("Please Reenter");
+                    }
+                    break;
+                case "unmark":
+                    try {
+                        this.markTaskIncomplete(Integer.parseInt(inputtedWords[1]));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid integer format: " + inputtedWords[1]);
+                        System.out.println("Please Reenter");
+                    }
+                    break;
+                default:
+                    this.addUserTask(userInput);
+                    break;
             }
+
         }
 
         this.printSeparator();
@@ -54,7 +73,7 @@ public class Osiris {
     }
 
     private void addUserTask(String userInput) {
-        this.userTasks.addUserTask(userInput);
+        this.taskManager.addUserTask(userInput);
 
         this.printSeparator();
         System.out.println("     Added Task: " + userInput);
@@ -62,24 +81,24 @@ public class Osiris {
     }
 
     private void markTaskCompleted(int index){
-        this.userTasks.markTaskCompleted(index - 1);
+        this.taskManager.markTaskCompleted(index - 1);
 
         this.printSeparator();
         System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("        " + this.userTasks.getTask(index - 1).toString());
+        System.out.println("        " + this.taskManager.getTask(index - 1).toString());
         this.printSeparator();
     }
 
     private void markTaskIncomplete(int index) {
-        this.userTasks.markTaskIncomplete(index - 1);
+        this.taskManager.markTaskIncomplete(index - 1);
 
         this.printSeparator();
         System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("        " + this.userTasks.getTask(index - 1).toString());
+        System.out.println("        " + this.taskManager.getTask(index - 1).toString());
         this.printSeparator();
     }
     private void printUserTasks(){
-        ArrayList<Task> toPrint = this.userTasks.getUserTasks();
+        ArrayList<Task> toPrint = this.taskManager.getUserTasks();
 
         this.printSeparator();
         for (int i = 0; i < toPrint.size(); i++) {
