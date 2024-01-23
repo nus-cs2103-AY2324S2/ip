@@ -3,7 +3,7 @@ package io;
 import java.util.Scanner;
 
 public class Inputter {
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     /**
      * This gets the last line of input from the user.
