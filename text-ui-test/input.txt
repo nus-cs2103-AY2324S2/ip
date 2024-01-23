@@ -1,5 +1,20 @@
 todo borrow book
+todo
+todo
+deadline a /by 3
+deadline a/by 3
+deadline
+event
+event a /from b
+event a/from b /to c
+event a /from b /to c
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+mark -1
+mark 0
+mark 4
+mark 3
+unmark -1
+unmark 0
+unmark 4
+unmark 3
 bye

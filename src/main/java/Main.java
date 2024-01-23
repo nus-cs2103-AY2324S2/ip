@@ -8,11 +8,15 @@ public class Main {
         lamball.greetingMessage();
 
         while (active) {
-            System.out.print("You: ");
+            System.out.print("    You:");
             String userInput = scanner.nextLine();
 
             // Echo the user's command
-            active = lamball.parse(userInput);
+            try {
+                active = lamball.parse(userInput);
+            } catch (LamballParseException e) {
+                System.out.println(e.getMessage());
+            }
 
         }
 
