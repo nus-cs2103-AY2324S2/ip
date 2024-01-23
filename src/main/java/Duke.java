@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Duke {
     private boolean isRunning;
-    private ArrayList<Task> todoList = new ArrayList<>();
+    private ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
         Duke duke = new Duke();
@@ -41,21 +41,24 @@ public class Duke {
                 this.isRunning = false;
             } else if (userInput.equals("list")) {
                 printList();
-            } else if (userInput.startsWith("mark ")) {
-                int listIndex = validateMarkInput(userInput);
+            } else if (userInput.startsWith("mark ") || userInput.equals("mark")) {
+                int listIndex = validateListInput(userInput, "mark");
                 markTask(listIndex);
-            } else if (userInput.startsWith("unmark ")) {
-                int listIndex = validateMarkInput(userInput);
+            } else if (userInput.startsWith("unmark ") || userInput.equals("unmark")) {
+                int listIndex = validateListInput(userInput, "unmark");
                 unmarkTask(listIndex);
-            } else if (userInput.startsWith("todo ")) {
+            } else if (userInput.startsWith("todo ") || userInput.equals("todo")) {
                 String taskDescription = validateToDoInput(userInput);
                 addToDoToList(taskDescription);
-            } else if (userInput.startsWith("deadline ")) {
+            } else if (userInput.startsWith("deadline ") || userInput.equals("deadline")) {
                 String[] deadlineAttributes = validateDeadlineInput(userInput);
                 addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
-            } else if (userInput.startsWith("event ")) {
+            } else if (userInput.startsWith("event ") || userInput.equals("event")) {
                 String[] eventAttributes = validateEventInput(userInput);
                 addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
+            } else if (userInput.startsWith("delete ") || userInput.equals("delete")) {
+                int listIndex = validateListInput(userInput, "delete");
+                deleteTask(listIndex);
             } else {
                 throw new DukeException("Sorry, I don't understand what that means D:");
             }
@@ -64,24 +67,25 @@ public class Duke {
         }
     }
 
-    public int validateMarkInput(String markInput) throws DukeException {
+    public int validateListInput(String listInput, String command) throws DukeException {
         // split string by spaces
-        String[] markInputSplit = markInput.strip().split("\\s+");
+        String[] markInputSplit = listInput.strip().split("\\s+");
         try {
             if (markInputSplit.length > 2) {
-                throw new DukeException("Sorry, purr-lease only include one numeric argument after mark or unmark.");
+                throw new DukeException(
+                        String.format("Sorry, purr-lease only include one numeric argument after %s.", command));
             } else if (markInputSplit.length < 2 || markInputSplit[1].isBlank()) {
-                throw new DukeException("Sorry, purr-lease state a list index to mark.");
+                throw new DukeException(String.format("Sorry, purr-lease state a list index to %s.", command));
             }
             // try parsing integer
             int listIndex = Integer.parseInt(markInputSplit[1]);
             // check index bounds
-            if (listIndex <= 0 || listIndex > todoList.size()) {
+            if (listIndex < 1 || listIndex > taskList.size()) {
                 throw new DukeException("Apurrlogies, there's no task at that index.");
             }
             return listIndex;
         } catch (NumberFormatException e) {
-            throw new DukeException("Sorry, purr-lease use a numeric list index to mark or unmark.");
+            throw new DukeException(String.format("Sorry, purr-lease use a numeric list index to %s.", command));
         }
     }
 
@@ -138,50 +142,63 @@ public class Duke {
     }
 
     public void markTask(int index) {
-        Task task = todoList.get(index - 1);
+        Task task = taskList.get(index - 1);
         task.markAsDone();
         printMessage("Ameowzing! I've marked this task as done:\n\t" + task);
     }
 
     public void unmarkTask(int index) {
-        Task task = todoList.get(index - 1);
+        Task task = taskList.get(index - 1);
         task.unmarkAsDone();
         printMessage("OK, I've marked this task as not done yet:\n\t" + task);
+    }
+    
+    public void deleteTask(int index) {
+        Task deletedTask = taskList.get(index - 1); 
+        taskList.remove(index - 1);
+        printDeletedTask(deletedTask);
     }
 
     public void addToDoToList(String taskDescription) {
         Task newTask = new ToDo(taskDescription);
-        todoList.add(newTask);
+        taskList.add(newTask);
         printNewTask(newTask);
     }
 
     public void addDeadlineToList(String taskDescription, String by) {
         Task newTask = new Deadline(taskDescription, by);
-        todoList.add(newTask);
+        taskList.add(newTask);
         printNewTask(newTask);
     }
 
     public void addEventToList(String taskDescription, String from, String to) {
         Task newTask = new Event(taskDescription, from, to);
-        todoList.add(newTask);
+        taskList.add(newTask);
         printNewTask(newTask);
     }
 
     public void printNewTask(Task newTask) {
-        String message = String.format("Got it. I've added this task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
-                newTask, todoList.size());
-
+        String message = 
+                String.format("Got it. I've added this task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
+                newTask, taskList.size());
+        printMessage(message);
+    }
+    
+    public void printDeletedTask(Task deletedTask) {
+        String message = 
+                String.format("Noted. I've remeowved this task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
+                deletedTask, taskList.size());
         printMessage(message);
     }
 
     public void printList() {
         String listString = "";
-        for (int i = 1; i <= todoList.size(); i++) {
+        for (int i = 1; i <= taskList.size(); i++) {
             if (i > 1) {
                 listString += "\t";
             }
-            listString += i + ". " + todoList.get(i - 1);
-            if (i < todoList.size()) {
+            listString += i + ". " + taskList.get(i - 1);
+            if (i < taskList.size()) {
                 listString += "\n";
             }
         }
