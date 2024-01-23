@@ -1,0 +1,7 @@
+
+#
+# Write a message for tag:
+#   Level-0
+# Lines starting with '#' will be ignored.
+Level-0: Rename, Greet, Exit
+
