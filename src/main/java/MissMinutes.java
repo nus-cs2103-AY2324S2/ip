@@ -15,6 +15,32 @@ public class MissMinutes {
             " |_|  |_|_|___/___/ |_|  |_|_|_| |_|\\__,_|\\__\\___||___/  \n" +
             "                                                            \n";
 
+    public enum CommandType {
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
+    }
+
+    private static CommandType parseCommand(String command) {
+        if (command.toLowerCase().startsWith("bye")) {
+            return CommandType.BYE;
+        } else if (command.toLowerCase().startsWith("list")) {
+            return CommandType.LIST;
+        } else if (command.toLowerCase().startsWith("mark")) {
+            return CommandType.MARK;
+        } else if (command.toLowerCase().startsWith("unmark")) {
+            return CommandType.UNMARK;
+        } else if (command.toLowerCase().startsWith("delete")) {
+            return CommandType.DELETE;
+        } else if (command.toLowerCase().startsWith("todo")) {
+            return CommandType.TODO;
+        } else if (command.toLowerCase().startsWith("deadline")) {
+            return CommandType.DEADLINE;
+        } else if (command.toLowerCase().startsWith("event")) {
+            return CommandType.EVENT;
+        } else {
+            return CommandType.UNKNOWN;
+        }
+    }
+
     public MissMinutes() {
         this.stdin = new Scanner(System.in);
         this.tasks = new ArrayList<Task>(100);
@@ -38,10 +64,10 @@ public class MissMinutes {
             } else if (split[0].equalsIgnoreCase("EVENT")) {
                 return Event.fromStr(desc);
             } else {
-                throw new MissMinutesException("Oh, I'm sowwy, I didn't undewstand dat. (>_<) Can I hewp wif sumthin' else, pwease? UwU");
+                throw new MissMinutesException("Invalid command name, please try again!");
             }
         } catch (ArrayIndexOutOfBoundsException err) {
-            throw new MissMinutesException("");
+            throw new MissMinutesException("Incomplete command, please try again!");
         }
     }
 
@@ -55,8 +81,12 @@ public class MissMinutes {
 
     public void deleteTask(String input) throws MissMinutesException {
         String[] split = input.split(" ");
-        int idx = Integer.parseInt(split[1]) - 1; // 0 indexed
-
+        int idx;
+        try {
+            idx = Integer.parseInt(split[1]) - 1; // 0 indexed
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException err) {
+            throw new MissMinutesException("Please enter a valid index. For e.g, a correct usage is: delete 2");
+        }
         try {
             Task curr = this.tasks.get(idx);
             this.tasks.remove(idx);
@@ -119,24 +149,41 @@ public class MissMinutes {
     public void run() {
         while (true) {
             String request = this.stdin.nextLine();
+            CommandType cmdType = parseCommand(request);
+
             try {
-                if (request.startsWith("bye")) {
-                    break;
-                } else if (request.startsWith("list")) {
-                    printTasks();
-                } else if (request.startsWith("mark") || request.startsWith("unmark")) {
-                    String[] split = request.split(" ");
-                    int idx = Integer.parseInt(split[1]) - 1; // 0 indexed
-                    if (request.startsWith("mark")) {
-                        markTask(idx);
-                    } else {
-                        unmarkTask(idx);
-                    }
-                } else if (request.startsWith("delete")) {
-                    deleteTask(request);
-                } else {
-                    Task task = this.createTask(request);
-                    this.addTask(task);
+                switch (cmdType) {
+                    case BYE:
+                        return;
+                    case LIST:
+                        printTasks();
+                        break;
+                    case MARK:
+                    case UNMARK:
+                        String[] split = request.split(" ");
+                        int idx;
+                        try {
+                            idx = Integer.parseInt(split[1]) - 1; // 0 indexed
+                        } catch (NumberFormatException | ArrayIndexOutOfBoundsException err) {
+                            throw new MissMinutesException("Please enter a valid index. The correct usage is `mark <idx>`");
+                        }
+                        if (cmdType == CommandType.MARK) {
+                            markTask(idx);
+                        } else {
+                            unmarkTask(idx);
+                        }
+                        break;
+                    case DELETE:
+                        deleteTask(request);
+                        break;
+                    case TODO:
+                    case DEADLINE:
+                    case EVENT:
+                        Task task = this.createTask(request);
+                        this.addTask(task);
+                        break;
+                    case UNKNOWN:
+                        throw new MissMinutesException("Oh, I'm sowwy, I didn't undewstand dat. (>_<) Can I hewp wif sumthin' else, pwease? UwU");
                 }
             } catch (MissMinutesException err) {
                 this.sendMsg(err.getMessage());
