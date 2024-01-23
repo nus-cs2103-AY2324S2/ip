@@ -21,7 +21,7 @@ public class Huyang {
     public void runChatbot() {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        while (!input.equals("bye")) {
+        while (!input.equalsIgnoreCase("bye")) {
             try {
                 if (input.equals("list")) {
                     listTasks();
@@ -35,6 +35,8 @@ public class Huyang {
                     addDeadlineTask(input);
                 } else if (input.startsWith("event ")) {
                     addEventTask(input);
+                } else if (input.startsWith("delete ")) {
+                    deleteTask(input);
                 } else {
                     throw TaskException.forUnknownCommand();
                 }
@@ -119,6 +121,21 @@ public class Huyang {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private void deleteTask(String input) throws TaskException {
+        try {
+            int taskNumber = Integer.parseInt(input.substring(7).strip());
+            if (taskNumber < 1 || taskNumber > tasks.size()) {
+                throw new TaskException("Invalid task number. Please check and try again.");
+            }
+            Task removedTask = tasks.remove(taskNumber - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            throw new TaskException("Invalid task number format. Please enter a valid number.");
+        }
     }
 
     private void printErrorMessage(String message) {
