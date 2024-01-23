@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     static String botName = "Corgi";
-    static String[] tasks = new String[100];
+    static Task[] tasks = new Task[100];
     static int numOfTasks = 0;
     public static void greet(){
         String greetMessage = String.format(
@@ -24,19 +24,47 @@ public class Duke {
                 "\n____________________________________________________________\n");
     }
     public static void addToList(String input){
-        tasks[numOfTasks++] = input;
+        Task addedTask = new Task(input);
+        tasks[numOfTasks++] = addedTask;
         String message = String.format("____________________________________________________________\n" +
                 " added: %s\n" +
-                "____________________________________________________________\n", input);
+                "____________________________________________________________\n", addedTask.getDescription());
         System.out.println(message);
     }
     public static void printList(){
         System.out.println("____________________________________________________________\n");
         for (int i = 0; i < numOfTasks; i++) {
-            String currentTask = String.format("%d: %s", i + 1, tasks[i]);
+            String currentTask = String.format("%d.[%s] %s",
+                    i + 1, tasks[i].getStatusIcon(), tasks[i].getDescription());
             System.out.println(currentTask);
         }
         System.out.println("____________________________________________________________\n");
+    }
+    public static void markAsDoneOrUndone(int taskNum, boolean markDone){
+        if(taskNum < 1 || taskNum > 100){
+            System.out.println("Invalid task number entered.");
+            return;
+        }
+        Task targetTask = tasks[taskNum - 1];
+        if (markDone) {
+            targetTask.setAsDone();
+            String message = String.format(
+                    "____________________________________________________________\n" +
+                            " Nice! I've marked this task as done:\n" +
+                            "  [%s] %s\n" +
+                    "____________________________________________________________\n",
+                    targetTask.getStatusIcon(), targetTask.getDescription());
+            System.out.println(message);
+        } else {
+            targetTask.setAsNotDone();
+            String message = String.format(
+                    "____________________________________________________________\n" +
+                            " OK, I've marked this task as not done yet:\n" +
+                            "  [%s] %s\n" +
+                            "____________________________________________________________\n",
+                    targetTask.getStatusIcon(), targetTask.getDescription());
+            System.out.println(message);
+        }
     }
     public static void main(String[] args) {
         greet();
@@ -48,7 +76,11 @@ public class Duke {
                 break;
             } else if (input.toLowerCase().equals("list")) {
                 printList();
-            } else{
+            } else if (input.length() >= 6 && input.substring(0,4).toLowerCase().equals("mark")) {
+                markAsDoneOrUndone(Character.getNumericValue(input.charAt(5)), true);
+            } else if (input.length() >= 8 && input.substring(0,6).toLowerCase().equals("unmark")) {
+                markAsDoneOrUndone(Character.getNumericValue(input.charAt(7)), false);
+            } else {
                 addToList(input);
             }
         }
