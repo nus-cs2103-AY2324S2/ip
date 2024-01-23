@@ -1,20 +1,36 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Toothless {
-    private static String indentation = "____________________________________________________________\n";
+    private static List<Task> listOfTasks = new ArrayList<>();
+    private static String splitLine = "____________________________________________________________";
     private static String chatBotName = "Toothless";
     private static String greetingString = "Hello! I'm " + chatBotName + "!\n"
-                            + "What can I do for you?\n" + indentation;
-    private static String exitString = "Bye. Hope to see you again soon!\n" + indentation;
+                            + "What can I do for you?\n" + splitLine;
+    private static String exitString = "Bye. Hope to see you again soon!\n" + splitLine;
 
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        String echo;
-        System.out.println(indentation + greetingString);
+        String command;
+
+        System.out.println(splitLine + "\n" + greetingString);
+
         do {
-            echo = sc.nextLine();
-            System.out.println(indentation + echo + "\n" + indentation);
-        } while (!echo.equals("bye"));
-        System.out.println(exitString);
+            command = sc.nextLine();
+            System.out.println(splitLine);
+            if(command.equals("list")){
+                for (int i = 0; i < listOfTasks.size(); i++) {
+                    System.out.format("%d. " + listOfTasks.get(i) + "\n", i + 1);
+                }
+            } else {
+                Task newTask = new Task(command);
+                listOfTasks.add(newTask);
+                System.out.println("added: " + command);
+            }
+            System.out.println(splitLine);
+        } while (!command.equals("bye"));
+
+        System.out.println(exitString); 
     }
 }
