@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Duke {
 
     private static String space = "    ";
+
+    private static String[] taskTypes = new String[] {"todo ", "deadline ", "event "};
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -50,29 +52,20 @@ public class Duke {
                 }
             }
 
-            // check if first 7 characters match "unmark "
 
-            // check if first x characters match "todo "
-            String check = "todo ";
-            if (text.startsWith(check)) {
-                createNewToDo(text.substring(check.length()), tasks);
+            boolean addedTask = false;
+            String check = "";
+            for (int i = 0; i < taskTypes.length; i++) {
+                check = taskTypes[i];
+                if (text.startsWith(check)) {
+                    createNewTask(i, text.substring(check.length()), tasks);
+                    addedTask = true;
+                    continue;
+                }
+            }
+            if (addedTask) {
                 continue;
             }
-
-            // check if first x characters match "deadline "
-            check = "deadline ";
-            if (text.startsWith(check)) {
-                createNewDeadline(text.substring(check.length()), tasks);
-                continue;
-            }
-
-            // check if first x characters match "event "
-            check = "event ";
-            if (text.startsWith(check)) {
-                createNewEvent(text.substring(check.length()), tasks);
-                continue;
-            }
-
 
             tasks.add(new Task(text));
             System.out.println(space + "added:" + text);  // Output user input
@@ -81,31 +74,19 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void createNewToDo(String text, List<Task> tasks) {
-        Task x = new ToDo(text);
+    public static void createNewTask(int i, String text, List<Task> tasks) {
+        Task x = new Task("");
+        if (i == 0) {
+            x = new ToDo(text);
+        } else if (i == 1) {
+            String[] parts = text.split("/by");
+            x = new Deadline(parts[0], parts[1]);
+        } else if (i == 2) {
+            String[] parts = text.split("/from");
+            String[] dates = parts[1].split("/to");
+            x = new Event(parts[0], dates[0], dates[1]);
+        }
         tasks.add(x);
-        print(x, tasks);
-    }
-
-    public static void createNewDeadline(String text, List<Task> tasks) {
-        // expected of length 2
-        String[] parts = text.split("/by");
-        Task x = new Deadline(parts[0], parts[1]);
-        tasks.add(x);
-        print(x, tasks);
-    }
-
-    public static void createNewEvent(String text, List<Task> tasks) {
-        // expected of length 2
-        String[] parts = text.split("/from");
-        String[] dates = parts[1].split("/to");
-        Task x = new Event(parts[0], dates[0], dates[1]);
-        tasks.add(x);
-        print(x, tasks);
-
-    }
-
-    public static void print(Task x, List<Task> tasks) {
         System.out.println(space + "Got it. I've added this task: ");
         System.out.println(space + x);
         System.out.println(space + "Now you have " + tasks.size() + " tasks in your list.");
