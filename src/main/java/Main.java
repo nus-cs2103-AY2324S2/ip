@@ -5,6 +5,5 @@ public class Main {
 
         chatBot.outputIntroductions();
         chatBot.outputGoodbyes();
-
     }
 }
