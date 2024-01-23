@@ -10,7 +10,7 @@ public class Duke {
 
         String goodbye = "____________________________________________________________\n" +
                         " Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________\n";
+                        "____________________________________________________________";
 
         System.out.println(greeting);
 
@@ -46,10 +46,43 @@ public class Duke {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(t);
                     break;
-                default:
-                    Task newTask = new Task(cmd);
+                case "todo":
+                    String newTaskString = cmd.substring("todo".length());
+
+                    Task newTask = new Todo(newTaskString);
                     myList[listIndex++] = newTask;
-                    System.out.println("added: " + cmd);
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newTask);
+                    System.out.println("Now you have " + listIndex + " tasks in the list");
+                    break;
+                case "deadline":
+                    newTaskString = cmd.substring("deadline".length());
+                    String desc = newTaskString.split("/by")[0].trim();
+                    String by = newTaskString.split("/by")[1].trim();
+
+                    newTask = new Deadline(desc, by);
+                    myList[listIndex++] = newTask;
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newTask);
+                    System.out.println("Now you have " + listIndex + " tasks in the list");
+                    break;
+                case "event":
+                    newTaskString = cmd.substring("event".length());
+                    desc = newTaskString.split("/from")[0];
+                    String from = newTaskString.split("/from")[1].split("/to")[0].trim();
+                    String to = newTaskString.split("/to")[1].trim();
+
+                    newTask = new Event(desc, from, to);
+                    myList[listIndex++] = newTask;
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newTask);
+                    System.out.println("Now you have " + listIndex + " tasks in the list");
+                    break;
+                default:
+                    System.out.println("I'm not sure what that means :3");
                     break;
             }
             System.out.println(border);
