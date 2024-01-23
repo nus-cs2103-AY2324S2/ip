@@ -1,9 +1,7 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
-import exceptions.MissingParameterException;
 import exceptions.InternalTestCases;
-import exceptions.InvalidCommandException;
 import exceptions.TaskIndexException;
 
 public class Pan {
@@ -53,6 +51,7 @@ public class Pan {
                     add(deadlines);
                     continue;
                 } else if (instruction.matches("(event)\\s(.+)\\s(/from)\\s(.+)\\s(/to)\\s(.+)")) {
+                    // InternalTestCases.TestMissingParameters(instruction);
                     String postfix = instruction.substring(5).trim();
                     String desc = postfix.split("/from")[0].trim();
                     String from = postfix.split("/from")[1].split("/to")[0].trim();
@@ -63,8 +62,8 @@ public class Pan {
                     continue;
                 } else {
                     // catch other test cases
-                    InternalTestCases.TestInvalidCommand(instruction);
                     InternalTestCases.TestMissingParameters(instruction);
+                    InternalTestCases.TestInvalidCommand(instruction);
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());

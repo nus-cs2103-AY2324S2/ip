@@ -2,9 +2,8 @@ package exceptions;
 
 public class InternalTestCases {
     public static void TestMissingParameters(String instruction) throws MissingParameterException {
-        String brokenCommand = instruction.split(" ")[0];
+        String brokenCommand = instruction.split(" ")[0].trim();
         String backCommand = instruction.substring(brokenCommand.length()).trim();
-
         switch (brokenCommand) {
             case "mark":
                 if (backCommand.length() == 0) throw new MissingParameterException(brokenCommand + " missing index!");
