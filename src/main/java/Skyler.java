@@ -52,6 +52,8 @@ public class Skyler {
             String from = getTaskDetails(userInput, "/from");
             String to = getTaskDetails(userInput, "/to");
             addTask(new Event(description, from, to));
+        } else if (userInput.startsWith("delete")) {
+            deleteTask(userInput);
         } else if (userInput.startsWith("mark")) {
             markTask(userInput);
         } else if (userInput.startsWith("unmark")) {
@@ -91,6 +93,23 @@ public class Skyler {
             System.out.println(" " + (i + 1) + "." + tasks.get(i));
         }
         System.out.println("------------------------------------------------------------");
+    }
+
+    private static void deleteTask(String userInput) throws SkylerException {
+        try {
+            int taskId = Integer.parseInt(userInput.split(" ")[1]);
+            if (isValidTaskId(taskId)) {
+                Task removedTask = tasks.remove(taskId - 1);
+                System.out.println("Skyler: Noted. I've removed this task:");
+                System.out.println("  " + removedTask);
+                System.out.println("Skyler: Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("------------------------------------------------------------");
+            } else {
+                throw new SkylerException("Invalid task number. Please provide a valid task number.");
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new SkylerException("Invalid command. Please use 'delete <task number>'.");
+        }
     }
 
     private static void markTask(String userInput) throws SkylerException {
