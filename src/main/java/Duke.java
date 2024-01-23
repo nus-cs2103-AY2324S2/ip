@@ -19,31 +19,45 @@ public class Duke {
 
         while (true) {
             user_word = sc.nextLine();
-            if (user_word.equals("bye")) {
-                break;
-            }
-
-            if (user_word.equals("list")) {
-                lucifer.listTasks();
-            } else if (user_word.contains("unmark")) {
-                int element_index = Integer.parseInt(user_word.split(" ")[1]) - 1;
-                lucifer.unmarked_task(element_index);
-            } else if (user_word.contains("mark")) {
-                int element_index = Integer.parseInt(user_word.split(" ")[1]) - 1;
-                lucifer.markTask(element_index);
-            } else if (user_word.contains("deadline")) {
-                String[] array_split = user_word.split("/by ");
-                Deadline deadline = new Deadline(array_split[0].substring(9), array_split[1]);
-                lucifer.addDeadlineTask(deadline);
-            } else if (user_word.contains("todo")) {
-                ToDo todo = new ToDo(user_word.substring(5));
-                lucifer.addTodoTask(todo);
-            } else if (user_word.contains("event")) {
-                String[] event =  user_word.split("/from | /to ");
-                Event temp_event = new Event(event[0].substring(6), event[1], event[2]);
-                lucifer.addEventTask(temp_event);
-            } else {
-                lucifer.addTask(user_word);
+            try {
+                if (user_word.equals("bye")) {
+                    break;
+                }
+                if (user_word.equals("list")) {
+                    lucifer.listTasks();
+                } else if (user_word.contains("unmark")) {
+                    int element_index = Integer.parseInt(user_word.split(" ")[1]) - 1;
+                    lucifer.unmarked_task(element_index);
+                } else if (user_word.contains("mark")) {
+                    int element_index = Integer.parseInt(user_word.split(" ")[1]) - 1;
+                    lucifer.markTask(element_index);
+                } else if (user_word.equals("deadline")) {
+                    System.out.println("______________________________________________________");
+                    throw new DukeException("ERROR!! Please give the description of deadline.\n______________________________________________________");
+                } else if (user_word.contains("deadline")) {
+                    String[] array_split = user_word.split("/by ");
+                    Deadline deadline = new Deadline(array_split[0].substring(9), array_split[1]);
+                    lucifer.addDeadlineTask(deadline);
+                } else if (user_word.equals("todo")) {
+                    System.out.println("______________________________________________________");
+                    throw new DukeException("ERROR!! Please give the description of todo.\n______________________________________________________");
+                } else if (user_word.contains("todo")) {
+                    ToDo todo = new ToDo(user_word.substring(5));
+                    lucifer.addTodoTask(todo);
+                } else if (user_word.equals("event")) {
+                    System.out.println("______________________________________________________");
+                    throw new DukeException("ERROR!! Please give the description of event.\n______________________________________________________");
+                } else if (user_word.contains("event")) {
+                    String[] event = user_word.split("/from | /to ");
+                    Event temp_event = new Event(event[0].substring(6), event[1], event[2]);
+                    lucifer.addEventTask(temp_event);
+                } else {
+                    //lucifer.addTask(user_word);
+                    System.out.println("______________________________________________________");
+                    throw new DukeException("ERROR!! I can't understand what you mean by that\n______________________________________________________");
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
         }
 
@@ -122,7 +136,8 @@ public class Duke {
             System.out.println("Now you have " + l.size() + " task in the list.");
         } else {
             System.out.println("Now you have " + l.size() + " tasks in the list.");
-        }        System.out.println("______________________________________________________");
+        }
+        System.out.println("______________________________________________________");
     }
 }
 
