@@ -1,6 +1,6 @@
 public class Task {
-    private String name;
-    private Boolean isDone;
+    protected String name;
+    protected Boolean isDone;
     public Task(String name) {
         this.name = name;
         this.isDone = false;
@@ -19,7 +19,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.name;
+        return "[" + (isDone? "X":" ") + "] " + this.name;
     }
 
 }
