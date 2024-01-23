@@ -1,3 +1,8 @@
+import Task.Task;
+import Task.Todo;
+import Task.Deadline;
+import Task.Event;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,7 +23,7 @@ public class Duke {
                 if (taskList.isEmpty()) {
                     System.out.println("Your task list is empty.");
                 } else {
-                    System.out.println(" Here are the tasks in your list:");
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < taskList.size(); i++) {
                         System.out.println((i + 1) + "." + taskList.get(i).toString());
                     }
@@ -28,9 +33,32 @@ public class Duke {
             } else if (userInput.startsWith("unmark")) {
                 markTask(userInput, taskList, false);
             } else {
-                Task currTask = new Task(userInput);
-                taskList.add(currTask);
-                System.out.println("added: " + userInput);
+                // Sort out type of task
+                if (userInput.startsWith("todo")) {
+                    String description = userInput.split(" ", 2)[1];
+                    Todo newTodo = new Todo(description);
+                    taskList.add(newTodo);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newTodo.toString());
+                    System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
+                } else if (userInput.startsWith("deadline")) {
+                    String description = userInput.split("/by")[0].split(" ",2)[1];
+                    String by = userInput.split("/by")[1];
+                    Deadline newDeadline = new Deadline(description, by);
+                    taskList.add(newDeadline);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("added: " + newDeadline.toString());
+                    System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
+                } else if (userInput.startsWith("event")) {
+                    String description = userInput.split("/from")[0].split(" ",2)[1];
+                    String from = userInput.split("/from")[1].split(" /to")[0];
+                    String to = userInput.split("/to")[1];
+                    Event newEvent = new Event(description, from, to);
+                    taskList.add(newEvent);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("added: " + newEvent.toString());
+                    System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
+                }
             }
         } while (true);
 
@@ -45,13 +73,13 @@ public class Duke {
             if (taskIndex >= 0 && taskIndex < taskList.size()) {
                 taskList.get(taskIndex).setDone(isMarked);
 
-                System.out.println(" Nice! I've marked this task as " + (isMarked ? "done:" : "not done yet:"));
+                System.out.println("Nice! I've marked this task as " + (isMarked ? "done:" : "not done yet:"));
                 System.out.println(taskList.get(taskIndex).toString());
             } else {
-                System.out.println(" Task not found. Please provide a valid task index.");
+                System.out.println("Task not found. Please provide a valid task index.");
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println(" Invalid input. Please provide a valid task index.");
+            System.out.println("Invalid input. Please provide a valid task index.");
         }
     }
 }

@@ -1,3 +1,5 @@
+package Task;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -12,6 +14,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return " [" + (this.isDone ? "X" : " ") + "] " + this.description;
+        return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
     }
 }
