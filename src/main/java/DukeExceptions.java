@@ -1,6 +1,14 @@
+import java.util.ArrayList;
+
 public class DukeExceptions extends Exception {
     public DukeExceptions(String msg) {
         super(msg);
+    }
+
+    public static void checkListNotEmpty (ArrayList<Task> lst) throws DukeExceptions {
+        if (lst.size() == 0) {
+            throw new DukeExceptions("OOPS!!! The list is empty. There is nothing to delete.");
+        }
     }
 
     public static void validateInput(String action, String parameters) throws DukeExceptions{
@@ -54,6 +62,11 @@ public class DukeExceptions extends Exception {
             case "bye":
                 if (!parameters.equals(" ")) {
                     throw new DukeExceptions("OOPS!!! You have included extra information, which I cannot read");
+                }
+                break;
+            case "delete":
+                if (parameters.equals(" ")) {
+                    throw new DukeExceptions("OOPS!!! You have to include which number to delete.");
                 }
                 break;
             default:
