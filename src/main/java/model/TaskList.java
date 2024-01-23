@@ -30,6 +30,10 @@ public class TaskList {
         return taskList.get(idx - 1);
     }
 
+    public int size() {
+        return taskList.size();
+    }
+
     /**
      * Returns the numbered list of tasks.
      *
