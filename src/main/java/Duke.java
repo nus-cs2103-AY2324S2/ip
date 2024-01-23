@@ -16,7 +16,6 @@ public class Duke {
     String bye = "Goodbye my friend. See you soon!";
 
     System.out.println(indentation + divider + "\n" + logo + "\n\n" + greeting + "\n" + indentation + divider + "\n");
-
     Scanner sc = new Scanner(System.in);
     ArrayList<String> tasks = new ArrayList<>();
     ArrayList<Boolean> taskStatus = new ArrayList<>();
@@ -24,6 +23,7 @@ public class Duke {
     String tick = "[X]";
     String untick = "[ ]";
     String checkBox = untick;
+    Command command;
 
     while (isChatting) {
       String in = sc.nextLine();
@@ -34,8 +34,10 @@ public class Duke {
         in = in.split(" ")[0];
       }
 
-      switch (in.toLowerCase()) {
-        case "list":
+      command = Command.parseCommand(in);
+
+      switch (command) {
+        case VIEW_LIST:
           System.out.println(indentation + divider);
           System.out.println(indentation + "Here are the tasks in your list:");
 
@@ -51,19 +53,13 @@ public class Duke {
           System.out.println(indentation + divider + "\n");
           break;
 
-        case "blah":
-          System.out.println(indentation + divider);
-          System.out.println(indentation + "blah");
-          System.out.println(indentation + divider + "\n");
-          break;
-
-        case "bye":
+        case BYE:
           System.out.println(indentation + divider);
           System.out.println(indentation + bye + "\n" + indentation + divider + "\n");
           isChatting = false;
           break;
 
-        case "mark":
+        case UPDATE_MARK:
           taskStatus.set(target, true);
           checkBox = tick;
           System.out.println(indentation + divider);
@@ -71,7 +67,7 @@ public class Duke {
           System.out.println(indentation + "  " + checkBox + " " + tasks.get(target));
           System.out.println(indentation + divider + "\n");
           break;
-        case "unmark":
+        case UPDATE_UNMARK:
           taskStatus.set(target, false);
           checkBox = untick;
           System.out.println(indentation + divider);
