@@ -6,3 +6,5 @@ todo
 blah
 deadline
 event
+delete 2
+list
