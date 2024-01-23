@@ -1,9 +1,27 @@
 import java.util.Scanner;
 public class Bob {
+    private static boolean startsWith(String keyword, String input) {
+        int len = keyword.length();
+        return input.length() >= len && keyword.equals(input.substring(0, len));
+    }
+
+    private static Task getTaskFromIndex(String keyword, String input, Task[] list) {
+        int len = keyword.length();
+
+        try {
+            int index = Integer.parseInt(input.substring(len + 1)) - 1;
+            return list[index];
+
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException |
+                 StringIndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
     public static void main(String[] args) {
         String line = "____________________________________________________________\n";
         Scanner sc = new Scanner(System.in);
-        String input = "";
+        String input;
         Task[] list = new Task[100];
         int curr = 0;
 
@@ -25,28 +43,24 @@ public class Bob {
                 }
 
             // mark Task as done
-            } else if (input.length() >= 4 && "mark".equals(input.substring(0, 4))) {
-                try {
-                    int index = Integer.parseInt(input.substring(5));
-                    list[index - 1].markAsDone();
+            } else if (startsWith("mark", input)) {
+                Task task = getTaskFromIndex("mark", input, list);
+                if (task != null) {
+                    task.markAsDone();
                     System.out.println("Did you actually finish this? \uD83E\uDD14:\n" +
-                                       "  " + list[index - 1]);
-
-                } catch (NumberFormatException | NullPointerException |
-                         StringIndexOutOfBoundsException e) {
+                                       "  " + task);
+                } else {
                     System.out.println("Incorrect mark format!\nDo: mark <task_number>");
                 }
 
             // mark Task as undone
-            } else if (input.length() >= 6 && "unmark".equals(input.substring(0, 6))) {
-                try {
-                    int index = Integer.parseInt(input.substring(7));
-                    list[index - 1].markAsUndone();
+            } else if (startsWith("unmark", input)) {
+                Task task = getTaskFromIndex("unmark", input, list);
+                if (task != null) {
+                    task.markAsUndone();
                     System.out.println("I knew you didn't finish it \uD83D\uDE0F:\n" +
-                                       "  " + list[index - 1]);
-
-                } catch (NumberFormatException | NullPointerException |
-                         StringIndexOutOfBoundsException e) {
+                                       "  " + task);
+                } else {
                     System.out.println("Incorrect unmark format!\nDo: unmark <task_number>");
                 }
 
