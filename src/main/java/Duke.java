@@ -3,94 +3,115 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+    private List<Task> l;
 
-    public static class Task {
-        protected String description;
-        protected boolean isDone;
-
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "X" : " "); // mark done task with X
-        }
-
-        public void markDone() {
-            isDone = true;
-        }
-
-        public void mark_not_done() {
-            isDone = false;
-        }
-
-        public String toString() {
-            return "[" + getStatusIcon() + "] " + description;
-        }
+    public Duke() {
+        l = new ArrayList<>();
     }
 
+
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Lucifer\n" + "What can I do for you?");
-        System.out.println("____________________________________________________________");
+        System.out.println("Hello! I'm Lucifer\nWhat can I do for you?");
+        System.out.println("______________________________________________________");
         Scanner sc = new Scanner(System.in);
-        String user_word = sc.nextLine();
-        List<Task> l = new ArrayList<Task>();
-        while (!user_word.equals("bye")) {
-            if (user_word.equals("list")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Here are the tasks in your list:");
-                for (int x = 0; x < l.size(); x++) {
-                    System.out.println(x + 1 + ". " + l.get(x));
-                }
-            }
+        Duke lucifer = new Duke();
+        String user_word;
 
-            //This is for mark
-            if (user_word.contains("mark")) {
-                System.out.println("____________________________________________________________");
-                int element_index = Integer.parseInt(user_word.split(" ")[1]) - 1;
-                l.get(element_index).markDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(l.get(element_index));
-            }
-
-            //This is for unmark
-            if (user_word.contains("unmark")) {
-                System.out.println("____________________________________________________________");
-                int element_index = Integer.parseInt(user_word.split(" ")[1]) - 1;
-                l.get(element_index).mark_not_done();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(l.get(element_index));
-            }
-
-            //This is for list
-            if (!user_word.equals("list") && !user_word.contains("mark") && !user_word.equals("unmark")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("added: " + user_word);
-            }
-
-
-            if (!user_word.contains("mark") && !user_word.equals("list") && !user_word.equals("unmark")) {
-                Task newTask = new Task(user_word);
-                l.add(newTask);
-            }
-
-
-            //System.out.println(user_word);
-            System.out.println("____________________________________________________________");
+        while (true) {
             user_word = sc.nextLine();
+            if (user_word.equals("bye")) {
+                break;
+            }
 
-
+            if (user_word.equals("list")) {
+                lucifer.listTasks();
+            } else if (user_word.contains("unmark")) {
+                int element_index = Integer.parseInt(user_word.split(" ")[1]) - 1;
+                lucifer.unmarked_task(element_index);
+            } else if (user_word.contains("mark")) {
+                int element_index = Integer.parseInt(user_word.split(" ")[1]) - 1;
+                lucifer.markTask(element_index);
+            } else if (user_word.contains("deadline")) {
+                String[] array_split = user_word.split("/by ");
+                Deadline deadline = new Deadline(array_split[0].substring(9), array_split[1]);
+                lucifer.addDeadlineTask(deadline);
+            } else if (user_word.contains("todo")) {
+                ToDo todo = new ToDo(user_word);
+                lucifer.addTodoTask(todo);
+            } else if (user_word.contains("event")) {
+                String[] event =  user_word.split("/from | /to ");
+                Event temp_event = new Event(event[0], event[1], event[2]);
+                lucifer.addEventTask(temp_event);
+            } else {
+                lucifer.addTask(user_word);
+            }
         }
 
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+    }
+
+    public void addTask(String user_word) {
+        Task newTask = new Task(user_word);
+        l.add(newTask);
+        System.out.println("added: " + user_word);
+        System.out.println("______________________________________________________");
+    }
+
+
+    public void listTasks() {
+        System.out.println("______________________________________________________");
+        System.out.println("Here are the tasks in your list:");
+        for (int x = 0; x < l.size(); x++) {
+            System.out.println(x + 1 + ". " + l.get(x));
+        }
+        System.out.println("______________________________________________________");
+    }
+
+    public void markTask(int element_index) {
+        System.out.println("______________________________________________________");
+        if (element_index >= 0 && element_index < l.size()) {
+            l.get(element_index).markDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(l.get(element_index));
+        }
+        System.out.println("______________________________________________________");
+    }
+
+    public void unmarked_task(int element_index) {
+        System.out.println("______________________________________________________");
+        if (element_index >= 0 && element_index < l.size()) {
+            l.get(element_index).mark_not_done();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(l.get(element_index));
+        }
+        System.out.println("______________________________________________________");
+    }
+
+    public void addDeadlineTask(Task task) {
+        System.out.println("______________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" " + task);
+        l.add(task);
+        System.out.println("Now you have " + l.size() + " tasks in the list.");
+        System.out.println("______________________________________________________");
+    }
+
+    public void addTodoTask(Task task) {
+        System.out.println("______________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" " + task);
+        l.add(task);
+        System.out.println("Now you have " + l.size() + " tasks in the list.");
+        System.out.println("______________________________________________________");
+    }
+    
+    public void addEventTask(Task task) {
+        System.out.println("______________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" " + task);
+        l.add(task);
+        System.out.println("Now you have " + l.size() + " tasks in the list.");
+        System.out.println("______________________________________________________");
     }
 }
+
