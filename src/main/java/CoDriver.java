@@ -19,27 +19,30 @@ public class CoDriver {
                 String[] words = command.split(" ");
                 int index = Integer.parseInt(words[1]);
                 tl.unmarkTask(index);
-            } else {
-                tl.addTask(new Task(command));
+            } else if (command.startsWith("todo")) {
+                ToDo task = ToDo.parseCommand(command);
+                tl.addTask(task);
+            } else if (command.startsWith("deadline")) {
+                Deadline task = Deadline.parseCommand(command);
+                tl.addTask(task);
+            } else if (command.startsWith("event")) {
+                Event task = Event.parseCommand(command);
+                tl.addTask(task);
             }
         }
         goodbye();
     }
 
-    private static void printSepLine() {
-        System.out.println("------------------------------------------------");
-    }
-
     private static void greeting() {
-        printSepLine();
+        Format.printSepLine();
         System.out.println("Hello! I'm CoDriver, your everyday AI companion!");
         System.out.println("What can I do for you?");
-        printSepLine();
+        Format.printSepLine();
     }
 
     private static void goodbye() {
-        printSepLine();
+        Format.printSepLine();
         System.out.println("Bye. Hope to see you again soon!");
-        printSepLine();
+        Format.printSepLine();
     }
 }
