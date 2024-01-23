@@ -1,0 +1,5 @@
+todo cake
+deadline cake /3pm
+event cake /3pm /4pm
+list
+bye

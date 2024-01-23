@@ -6,7 +6,7 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
     public String toString() {
-        return this.getTaskType() + this.getStatus() + " " + this.getTask() +" " + getPeriod();
+        return this.getTaskType() + this.getStatus() + " " + this.getTask() + getPeriod();
     }
 
     public String getPeriod() {

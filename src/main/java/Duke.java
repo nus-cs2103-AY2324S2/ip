@@ -19,6 +19,7 @@ public class Duke {
     }
 
     public void bye() {
+        horizontalLines();
         indent();
         System.out.println("See you next time! ♥( ˆ⌣ ˆԅ)");
         horizontalLines();
@@ -42,6 +43,7 @@ public class Duke {
     }
 
     public void markTask(Integer index) {
+        horizontalLines();
         Task currentTask = taskList.get(index);
         indent();
         System.out.println("We have completed this task!");
@@ -53,6 +55,7 @@ public class Duke {
     }
 
     public void unmarkTask(Integer index) {
+        horizontalLines();
         Task currentTask = taskList.get(index);
         indent();
         System.out.println("Oops, task unmarked!");
@@ -69,7 +72,6 @@ public class Duke {
         System.out.println("\uD83E\uDD14");
         indent();
         System.out.println("Processing your request!");
-        horizontalLines();
 
         Task newTask;
 
@@ -81,6 +83,7 @@ public class Duke {
             indent();
             indent();
             System.out.println(newTask.toString());
+            horizontalLines();
         } else if (this.command.equals("deadline")) {
             String[] secondaryInputSplit = secondaryInput.split("/");
             newTask = new Deadline(secondaryInputSplit[0], "D", secondaryInputSplit[1]);
@@ -124,7 +127,7 @@ public class Duke {
             indent();
         }
 
-        System.out.println("We have " + (taskList.size()) + " tasks");
+        System.out.println("We have " + (taskList.size()) + " tasks.");
         horizontalLines();
         input();
     }
