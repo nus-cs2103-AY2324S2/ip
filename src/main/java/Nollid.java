@@ -41,7 +41,10 @@ public class Nollid {
                     addEventCommand(inputList);
                 } else if (command.equalsIgnoreCase("delete")) {
                     deleteTaskCommand(inputList);
-                } else {
+                } else if (command.equalsIgnoreCase("help")) {
+                    helpCommand();
+                }
+                else {
                     botSays("Invalid command. Use 'help' to view a list of commands.");
                 }
             } catch (DukeException e) {
@@ -326,5 +329,18 @@ public class Nollid {
                         "Usage: delete [task number]");
             }
         }
+    }
+
+    public static void helpCommand() {
+        String message = "Available commands:\n" +
+                "list \t\t- Lists all your tasks\n" +
+                "todo \t\t- Create a new todo task.\n" +
+                "deadline \t- Create a new task with a deadline.\n" +
+                "event \t\t- Create a new task with a starting and ending time.\n" +
+                "mark \t\t- Mark a task as completed.\n" +
+                "unmark \t\t- Mark a task as not completed.\n" +
+                "delete \t\t- Delete a task.";
+
+        botSays(message);
     }
 }
