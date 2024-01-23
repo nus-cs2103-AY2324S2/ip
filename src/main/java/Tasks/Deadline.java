@@ -22,10 +22,10 @@ public class Deadline extends Task{
                 String deadline = matcher.group(2);
                 return new Deadline(taskName, deadline);
             } else {
-                throw new InvalidInputException("Invalid input");
+                throw new InvalidInputException("Invalid input for deadline. Input your deadline as such:\ndeadline <name_of_deadline> /by <due_date>");
             }
         } catch (Exception e){
-            throw new InvalidInputException("Invalid input");
+            throw new InvalidInputException("Invalid input for deadline. Input your deadline as such:\ndeadline <name_of_deadline> /by <due_date>");
         }
     }
 

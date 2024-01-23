@@ -19,10 +19,10 @@ public class ToDo extends Task{
                 String taskName = matcher.group(1);
                 return new ToDo(taskName);
             } else {
-                throw new InvalidInputException("Invalid input");
+                throw new InvalidInputException("Invalid input for todo. Input your to-do as such:\n todo <name_of_todo>");
             }
         } catch (Exception e){
-            throw new InvalidInputException("Invalid input");
+            throw new InvalidInputException("Invalid input for todo. Input your to-do as such:\n todo <name_of_todo>");
         }
     }
 

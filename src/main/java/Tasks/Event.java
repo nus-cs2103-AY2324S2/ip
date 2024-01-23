@@ -25,10 +25,10 @@ public class Event extends Task{
                 String endTime = matcher.group(3);
                 return new Event(eventName, startTime, endTime);
             } else {
-                throw new InvalidInputException("Invalid input");
+                throw new InvalidInputException("Invalid input for event. Input your event as such:\nevent <name_of_event> /from <start_time> /to <end_time>");
             }
         } catch (Exception e){
-            throw new InvalidInputException("Invalid input");
+            throw new InvalidInputException("Invalid input for event. Input your event as such:\nevent <name_of_event> /from <start_time> /to <end_time>");
         }
     }
 

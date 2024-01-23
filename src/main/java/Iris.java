@@ -73,10 +73,17 @@ public class Iris {
                     this.print("I have added this task:\n" + deadline + "\n" +
                             "Now you have " + this.cachedTasks.size() + " tasks in your list.");
                     break;
+                case "delete":
+                    Task toBeDeleted = this.cachedTasks.get(Integer.parseInt(str[1]) - 1);
+                    this.cachedTasks.remove(Integer.parseInt(str[1])-1);
+                    this.print("I have removed the following task:\n" + toBeDeleted.toString()+"\nNow you have "+ this.cachedTasks.size() + " tasks in your list.");
+                    break;
                 default:
-                    this.print("Invalid input");
+                    this.print("Invalid input. I don't know what you mean.");
             }} catch (InvalidInputException e) {
                 this.print(e.toString());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                this.print("Invalid index. Index does not exist in current task list.");
             }
         }
     }
