@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Atlas {
     private static final int MAX_TASKS = 100;
     private final String horizontalLine = "____________________________________________________________";
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCounter = 0;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -22,6 +23,9 @@ public class Atlas {
                 } else if (input.startsWith("unmark ")) {
                     int taskNumber = Integer.parseInt(input.substring(7)) - 1; // Adjust for array index
                     unmarkTask(taskNumber);
+                } else if (input.startsWith("delete ")) {
+                    int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                    deleteTask(taskNumber);
                 } else if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
                     addTask(input);
                 } else {
@@ -29,8 +33,6 @@ public class Atlas {
                 }
             } catch (AtlasException e) {
                 System.out.println(e.getMessage());
-
-
             }
         }
         exit();
@@ -47,7 +49,7 @@ public class Atlas {
     private static void addTask(String input) throws AtlasException {
         if (input.startsWith("todo ")) {
             String description = input.substring(5);
-            tasks[taskCounter] = new ToDo(description);
+            tasks.add(new ToDo(description));
         } else if (input.startsWith("deadline ")) {
             String[] parts = input.substring(9).split(" /by ");
             if (parts.length < 2) {
@@ -55,7 +57,7 @@ public class Atlas {
             }
             String description = parts[0];
             String dueDate = parts[1];
-            tasks[taskCounter] = new Deadline(description, dueDate);
+            tasks.add(new Deadline(description, dueDate));
         } else if (input.startsWith("event ")) {
             String[] parts = input.substring(6).split(" /");
             if (parts.length < 3) {
@@ -64,16 +66,16 @@ public class Atlas {
             String description = parts[0];
             String startTime = parts[1].substring(5); // Remove "from " prefix
             String endTime = parts[2].substring(3); // Remove "to " prefix
-            tasks[taskCounter] = new Event(description, startTime, endTime);
+            tasks.add(new Event(description, startTime, endTime));
         }
         taskCounter++;
-        System.out.println("Got it. I've added this task:\n" + tasks[taskCounter - 1]);
+        System.out.println("Got it. I've added this task:\n" + tasks.get(taskCounter - 1));
         System.out.println("Now you have " + String.valueOf(taskCounter) + " tasks in the list.");
     }
 
     private static void listTasks() {
         for (int i = 0; i < taskCounter; i++) {
-            System.out.println((i + 1) + "." + tasks[i].toString());
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
     }
 
@@ -81,9 +83,9 @@ public class Atlas {
         if (i < 0 || i >= taskCounter) {
             throw new AtlasException("Task number " + (i + 1) + " does not exist.");
         }
-        tasks[i].toggle();
+        tasks.get(i).toggle();
         System.out.println("Nice! I've marked this task as done:");
-        String str = tasks[i].toString();
+        String str = tasks.get(i).toString();
         System.out.println(str);
     }
 
@@ -91,10 +93,21 @@ public class Atlas {
         if (i < 0 || i >= taskCounter) {
             throw new AtlasException("Task number " + (i + 1) + " does not exist.");
         }
-        tasks[i].toggle();
+        tasks.get(i).toggle();
         System.out.println("OK, I've marked this task as not done yet");
-        String str = tasks[i].toString();
+        String str = tasks.get(i).toString();
         System.out.println(str);
+    }
+
+    private static void deleteTask(int taskNumber) throws AtlasException {
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
+            throw new AtlasException("Task number " + (taskNumber + 1) + " does not exist in the list.");
+        }
+        Task removedTask = tasks.remove(taskNumber);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(removedTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        taskCounter--;
     }
 
 }
