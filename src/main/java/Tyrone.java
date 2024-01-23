@@ -31,7 +31,7 @@ public class Tyrone {
             } else if (cmd.startsWith("unmark")) {
                 int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
                 todoList.unmarkItemDone(index);
-                writer.print(Tyrone.formatStringOutput(
+                writer.println(Tyrone.formatStringOutput(
                         "A'ight, I've stamped this task as still in the works:\n" +
                         "\t\t" + todoList.getItemToString(index)));
             } else {
