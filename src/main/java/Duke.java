@@ -17,9 +17,9 @@ public class Duke {
 
             String command = input.split(" ")[0];
 
-
             if (command.equals("todo")) {
-                Task task = new Todo(input);
+                String details = input.split(" ", 2)[1];
+                Task task = new Todo(details);
                 tasksList.add(task);
                 System.out.println("DevGPT:\n\t" + " Got it. I've added this task: \n\t" + task.toString());
                 System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
@@ -32,6 +32,7 @@ public class Duke {
                 System.out.println("DevGPT:\n\t" + " Got it. I've added this task: " + task.toString());
                 System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
             } else if (command.equals("event")) {
+
                 String details = input.split(" ", 2)[1];
                 String description = details.split("/from")[0].trim();;
                 String from =  details.split("/from")[1].split("/to")[0];

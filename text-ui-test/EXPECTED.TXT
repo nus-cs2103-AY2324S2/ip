@@ -3,14 +3,14 @@ DevGPT:
 What can I do for you?
 User:
 DevGPT:
-	 Got it. I've added this task: 
-	[T][ ] todo borrow book
+	 Got it. I've added this task:
+	[T][ ] borrow book
 DevGPT:
 	 Now you have 1 tasks in the list.
 User:
 DevGPT:
 	 Here are the tasks in your list:
-		1. [T][ ] todo borrow book
+		1. [T][ ] borrow book
 User:
 DevGPT:
 	 Got it. I've added this task: [D][ ] return book (by:Sunday)
@@ -24,7 +24,7 @@ DevGPT:
 User:
 DevGPT:
 	 Here are the tasks in your list:
-		1. [T][ ] todo borrow book
+		1. [T][ ] borrow book
 		2. [D][ ] return book (by:Sunday)
 		3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 User:
