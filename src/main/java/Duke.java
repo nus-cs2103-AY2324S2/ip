@@ -1,3 +1,4 @@
+import exception.DukeException;
 import task.Task;
 import task.ToDo;
 import task.Deadline;
@@ -35,50 +36,105 @@ public class Duke {
     }
 
     public void parseInput(String userInput) {
-        if (userInput.equals("bye")) {
-            this.isRunning = false;
-        } else if (userInput.equals("list")) {
-            printList();
-        } else if (userInput.startsWith("mark ") || userInput.startsWith("unmark ")) {
-            // split string by spaces
-            String[] userInputSplit = userInput.strip().split("\\s+");
-            try {
-                // try parsing integer
-                int listIndex = Integer.parseInt(userInputSplit[1]);
-                // check index bounds
-                if (listIndex <= 0 || listIndex > todoList.size()) {
-                    printMessage("Sorry, there's no task at that index!");
-                } else {
-                    if (userInputSplit[0].equals("mark")) { markTask(listIndex); }
-                    else { unmarkTask(listIndex); }
-                }
-            } catch (NumberFormatException e) {
-                printMessage("Error. Please user a numeric list index.");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                printMessage("Error. Please state a list index to mark.");
+        try {
+            if (userInput.equals("bye")) {
+                this.isRunning = false;
+            } else if (userInput.equals("list")) {
+                printList();
+            } else if (userInput.startsWith("mark ")) {
+                int listIndex = validateMarkInput(userInput);
+                markTask(listIndex);
+            } else if (userInput.startsWith("unmark ")) {
+                int listIndex = validateMarkInput(userInput);
+                unmarkTask(listIndex);
+            } else if (userInput.startsWith("todo ")) {
+                String taskDescription = validateToDoInput(userInput);
+                addToDoToList(taskDescription);
+            } else if (userInput.startsWith("deadline ")) {
+                String[] deadlineAttributes = validateDeadlineInput(userInput);
+                addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
+            } else if (userInput.startsWith("event ")) {
+                String[] eventAttributes = validateEventInput(userInput);
+                addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
+            } else {
+                throw new DukeException("Sorry, I don't understand what that means D:");
             }
-        } else if (userInput.startsWith("todo ")) {
-            String taskDescription = userInput.replace("todo ", "");
-            addToDoToList(taskDescription);
-        } else if (userInput.startsWith("deadline ")) {
-            String[] taskAttributes = userInput.replace("deadline ", "").split("/by");
-            try {
-                addDeadlineToList(taskAttributes[0].strip(), taskAttributes[1].strip());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                printMessage("Error. Missing /by");
-            }
-
-        } else if (userInput.startsWith("event ")) {
-            // Assume /from is before /to
-            String[] taskAttributes = userInput.replace("event ", "").split("/from|/to");
-            try {
-                addEventToList(taskAttributes[0].strip(), taskAttributes[1].strip(), taskAttributes[2].strip());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                printMessage("Error. Missing /from or /to");
-            }
-        } else {
-            printMessage("Sorry, I don't understand what that means D:");
+        } catch (DukeException e) {
+            printMessage(e.getMessage());
         }
+    }
+
+    public int validateMarkInput(String markInput) throws DukeException {
+        // split string by spaces
+        String[] markInputSplit = markInput.strip().split("\\s+");
+        try {
+            if (markInputSplit.length > 2) {
+                throw new DukeException("Sorry, purr-lease only include one numeric argument after mark or unmark.");
+            } else if (markInputSplit.length < 2 || markInputSplit[1].isBlank()) {
+                throw new DukeException("Sorry, purr-lease state a list index to mark.");
+            }
+            // try parsing integer
+            int listIndex = Integer.parseInt(markInputSplit[1]);
+            // check index bounds
+            if (listIndex <= 0 || listIndex > todoList.size()) {
+                throw new DukeException("Apurrlogies, there's no task at that index.");
+            }
+            return listIndex;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Sorry, purr-lease use a numeric list index to mark or unmark.");
+        }
+    }
+
+    public String validateToDoInput(String toDoInput) throws DukeException {
+        String taskDescription = toDoInput.replace("todo ", "").strip();
+        if (taskDescription.isBlank()) {
+            throw new DukeException("Apurrlogies, the task description cannot be empty.");
+        }
+        return taskDescription;
+    }
+
+    public String[] validateDeadlineInput(String deadlineInput) throws DukeException {
+        String[] deadlineAttributes = deadlineInput.replace("deadline ", "")
+                .strip().split("\\s+/by\\s+");
+        if (deadlineAttributes.length != 2) {
+            throw new DukeException("Sorry, purr-lease use the format: deadline [description] /by [deadline].");
+        } else if (deadlineAttributes[0].isBlank()) {
+            throw new DukeException("Apurrlogies, the task description cannot be empty.");
+        } else if (deadlineAttributes[1].isBlank()) {
+            throw new DukeException("Apurrlogies, the /by field cannot be empty.");
+        }
+        return deadlineAttributes;
+    }
+
+    public String[] validateEventInput(String eventInput) throws DukeException {
+        String[] eventAttributes = new String[3];
+        String[] tempAttributes = eventInput.replace("event ", "")
+                .strip().split("\\s+/from\\s+|\\s+/to\\s+");
+
+        int fromIndex = eventInput.indexOf("/from");
+        int toIndex = eventInput.indexOf("/to");
+
+        if (tempAttributes.length != 3) {
+            throw new DukeException("Sorry, purr-lease use the format: event [description] /from [datetime] /to [datetime]");
+        } else if (fromIndex == -1 || toIndex == -1) {
+            throw new DukeException("Sorry, purr-lease remember to include the /from and /to fields.");
+        } else if (tempAttributes[0].isBlank()) {
+            throw new DukeException("Apurrlogies, the task description cannot be empty.");
+        } else if (tempAttributes[1].isBlank() || tempAttributes[2].isBlank()) {
+            throw new DukeException(("Apurrlogies, the /from and /to fields cannot be empty."));
+        }
+
+        eventAttributes[0] = tempAttributes[0];
+
+        if (fromIndex < toIndex) {
+            eventAttributes[1] = tempAttributes[1];
+            eventAttributes[2] = tempAttributes[2];
+        } else {
+            eventAttributes[1] = tempAttributes[2];
+            eventAttributes[2] = tempAttributes[1];
+        }
+
+        return eventAttributes;
     }
 
     public void markTask(int index) {
@@ -112,7 +168,7 @@ public class Duke {
     }
 
     public void printNewTask(Task newTask) {
-        String message = String.format("Got it. I've added this task:\n\t\t%s\n\tNow you have %d tasks in the list.",
+        String message = String.format("Got it. I've added this task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
                 newTask, todoList.size());
 
         printMessage(message);

@@ -1,11 +1,16 @@
+aaa
+todo 
 todo read book
-deadline do assignment /by 2pm
-event lecture /from 3pm /to 5pm
-todo
-deadline a
-list
+deadline assignment /by
+deadline assignment /by 2pm
+event dinner /from 5pm /to
+event dinner /from 5pm /to 7pm
+event party /to 9pm /from 7pm
 mark 2
+mark 3
 list
 unmark 2
+mark 5
+unmark 
 list
 bye
