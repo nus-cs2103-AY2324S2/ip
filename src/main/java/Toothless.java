@@ -16,21 +16,23 @@ public class Toothless {
 
         System.out.println(splitLine + "\n" + greetingString);
 
-        do {
+        while(true){
             command = sc.nextLine();
             System.out.println(splitLine);
-            if(command.equals("list")){
+            if (command.equals("list")){
                 for (int i = 0; i < listOfTasks.size(); i++) {
                     System.out.format("%d. " + listOfTasks.get(i) + "\n", i + 1);
                 }
+            } else if(command.equals("bye")){
+                break;
             } else {
                 Task newTask = new Task(command);
                 listOfTasks.add(newTask);
                 System.out.println("added: " + command);
             }
             System.out.println(splitLine);
-        } while (!command.equals("bye"));
+        }
 
-        System.out.println(exitString); 
+        System.out.println(exitString);
     }
 }
