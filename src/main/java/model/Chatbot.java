@@ -1,3 +1,5 @@
+package model;
+
 import io.Message;
 import io.Outputter;
 
