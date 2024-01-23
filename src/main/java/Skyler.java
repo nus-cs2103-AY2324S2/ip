@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Skyler {
     private static List<Task> tasks = new ArrayList<>();
-    private static String line = "------------------------------------------------------------";
 
     public static void main(String[] args) {
         String chatbotName = "Skyler";
@@ -22,29 +21,60 @@ public class Skyler {
             String userInput = scanner.nextLine();
             System.out.println(line);
 
+            try {
+                processUserInput(userInput);
+            } catch (SkylerException e) {
+                System.out.println("Skyler: Woof, " + e.getMessage());
+                System.out.println(line);
+            }
+
             if (userInput.equals("bye")) {
                 System.out.println("Skyler: Bye. Hope to see you again soon!");
                 System.out.println(line);
-                break; // Exit the loop when "bye" is entered
-            } else if (userInput.equals("list")) {
-                listTasks();
-            } else if (userInput.startsWith("todo")) {
-                addTask(new ToDo(userInput.substring(5).trim()));
-            } else if (userInput.startsWith("deadline")) {
-                addTask(createDeadline(userInput.substring(9).trim()));
-            } else if (userInput.startsWith("event")) {
-                addTask(createEvent(userInput.substring(6).trim()));
-            } else if (userInput.startsWith("mark")) {
-                markTask(userInput);
-            } else if (userInput.startsWith("unmark")) {
-                unmarkTask(userInput);
-            } else {
-                System.out.println("Skyler: I'm sorry, I don't understand that command.");
-                System.out.println(line);
+                break;
             }
         }
 
         scanner.close();
+    }
+
+    private static void processUserInput(String userInput) throws SkylerException {
+        if (userInput.equals("list")) {
+            listTasks();
+        } else if (userInput.startsWith("todo")) {
+            addTask(new ToDo(getTaskDescription(userInput, 4)));
+        } else if (userInput.startsWith("deadline")) {
+            String description = getTaskDescription(userInput, 9);
+            String by = getTaskDetails(userInput, "/by");
+            addTask(new Deadline(description, by));
+        } else if (userInput.startsWith("event")) {
+            String description = getTaskDescription(userInput, 6);
+            String from = getTaskDetails(userInput, "/from");
+            String to = getTaskDetails(userInput, "/to");
+            addTask(new Event(description, from, to));
+        } else if (userInput.startsWith("mark")) {
+            markTask(userInput);
+        } else if (userInput.startsWith("unmark")) {
+            unmarkTask(userInput);
+        } else {
+            throw new SkylerException("I'm sorry, I don't understand that command.");
+        }
+    }
+
+    private static String getTaskDescription(String userInput, int startIndex) throws SkylerException {
+        String description = userInput.substring(startIndex).trim();
+        if (description.isEmpty()) {
+            throw new SkylerException("The description of a task cannot be empty.");
+        }
+        return description;
+    }
+
+    private static String getTaskDetails(String userInput, String keyword) throws SkylerException {
+        int index = userInput.indexOf(keyword);
+        if (index == -1) {
+            throw new SkylerException("Missing " + keyword + " in the command.");
+        }
+        return userInput.substring(index + keyword.length()).trim();
     }
 
     private static void addTask(Task task) {
@@ -52,7 +82,7 @@ public class Skyler {
         System.out.println("Skyler: Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Skyler: Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(line);
+        System.out.println("------------------------------------------------------------");
     }
 
     private static void listTasks() {
@@ -63,31 +93,7 @@ public class Skyler {
         System.out.println("------------------------------------------------------------");
     }
 
-    private static Deadline createDeadline(String input) {
-        String[] parts = input.split("/by", 2);
-        if (parts.length == 2) {
-            return new Deadline(parts[0].trim(), parts[1].trim());
-        } else {
-            System.out.println("Skyler: Invalid deadline format. Please use 'deadline <description> /by <date/time>'.");
-            System.out.println(line);
-            return null;
-        }
-    }
-
-    private static Event createEvent(String input) {
-        String[] parts = input.split("/from", 2);
-        if (parts.length == 2) {
-            String[] eventParts = parts[1].split("/to", 2);
-            if (eventParts.length == 2) {
-                return new Event(parts[0].trim(), eventParts[0].trim(), eventParts[1].trim());
-            }
-        }
-        System.out.println("Skyler: Invalid event format. Please use 'event <description> /from <start> /to <end>'.");
-        System.out.println(line);
-        return null;
-    }
-
-    private static void markTask(String userInput) {
+    private static void markTask(String userInput) throws SkylerException {
         try {
             int taskId = Integer.parseInt(userInput.split(" ")[1]);
             if (isValidTaskId(taskId)) {
@@ -97,16 +103,14 @@ public class Skyler {
                 System.out.println("  " + task);
                 System.out.println("------------------------------------------------------------");
             } else {
-                System.out.println("Skyler: Invalid task number. Please provide a valid task number.");
-                System.out.println("------------------------------------------------------------");
+                throw new SkylerException("Invalid task number. Please provide a valid task number.");
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Skyler: Invalid command. Please use 'mark <task number>'.");
-            System.out.println("------------------------------------------------------------");
+            throw new SkylerException("Invalid command. Please use 'mark <task number>'.");
         }
     }
 
-    private static void unmarkTask(String userInput) {
+    private static void unmarkTask(String userInput) throws SkylerException {
         try {
             int taskId = Integer.parseInt(userInput.split(" ")[1]);
             if (isValidTaskId(taskId)) {
@@ -116,16 +120,20 @@ public class Skyler {
                 System.out.println("  " + task);
                 System.out.println("------------------------------------------------------------");
             } else {
-                System.out.println("Skyler: Invalid task number. Please provide a valid task number.");
-                System.out.println("------------------------------------------------------------");
+                throw new SkylerException("Invalid task number. Please provide a valid task number.");
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Skyler: Invalid command. Please use 'unmark <task number>'.");
-            System.out.println("------------------------------------------------------------");
+            throw new SkylerException("Invalid command. Please use 'unmark <task number>'.");
         }
     }
 
     private static boolean isValidTaskId(int taskId) {
         return taskId > 0 && taskId <= tasks.size();
+    }
+}
+
+class SkylerException extends Exception {
+    public SkylerException(String message) {
+        super(message);
     }
 }
