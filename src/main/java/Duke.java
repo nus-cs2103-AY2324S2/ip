@@ -18,48 +18,25 @@ public class Duke {
         pw.flush();
 
         while (true) {
-            String currentResponse = br.readLine();
-            pw.println("____________________________________________________________");
+            try {
+                String currentResponse = br.readLine();
+                pw.println("____________________________________________________________");
 
-            if (currentResponse.equals("bye")) {
-                break;
-            } else if (currentResponse.startsWith("mark ")) {
-                int index = Integer.parseInt(currentResponse.substring(5)) - 1;
-                tasks.get(index).markAsDone();
-                pw.println("Nice! I've marked this task as done:\n  " + tasks.get(index));
-            } else if (currentResponse.startsWith("unmark ")) {
-                int index = Integer.parseInt(currentResponse.substring(7)) - 1;
-                tasks.get(index).markAsNotDone();
-                pw.println("OK, I've marked this task as not done yet:\n  " + tasks.get(index));
-            } else if (currentResponse.equals("list")) {
-                pw.println("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    pw.println((i + 1) + ". " + tasks.get(i));
+                if (currentResponse.equals("bye")) {
+                    break;
+                } else if (currentResponse.startsWith("mark ")) {
+                    handleMark(currentResponse, tasks, pw);
+                } else if (currentResponse.startsWith("unmark ")) {
+                    handleUnmark(currentResponse, tasks, pw);
+                } else if (currentResponse.equals("list")) {
+                    listTasks(tasks, pw);
+                } else {
+                    handleTaskCreation(currentResponse, tasks, pw);
                 }
-            }  else {
-                    if (currentResponse.startsWith("todo ")) {
-                    String description = currentResponse.substring(5);
-                    Todo newTodo = new Todo(description);
-                    tasks.add(newTodo);
-                    pw.println("Got it. I've added this task:\n  " + newTodo);
-                } else if (currentResponse.startsWith("deadline ")) {
-                    String[] parts = currentResponse.substring(9).split(" /by ");
-                    String description = parts[0];
-                    String by = parts[1];
-                    Deadline newDeadline = new Deadline(description, by);
-                    tasks.add(newDeadline);
-                    pw.println("Got it. I've added this task:\n  " + newDeadline);
-                } else if (currentResponse.startsWith("event ")) {
-                    String[] parts = currentResponse.substring(6).split(" /from ");
-                    String description = parts[0];
-                    String[] timeParts = parts[1].split(" /to ");
-                    String from = timeParts[0];
-                    String to = timeParts[1];
-                    Event newEvent = new Event(description, from, to);
-                    tasks.add(newEvent);
-                    pw.println("Got it. I've added this task:\n  " + newEvent);
-                }
-                pw.println("Now you have " + tasks.size() + " tasks in the list.");
+            } catch (DukeException e) {
+                pw.println(e.getMessage());
+            } catch (Exception e) {
+                pw.println("An error occurred: " + e.getMessage());
             }
             pw.println("____________________________________________________________");
             pw.flush();
@@ -70,5 +47,97 @@ public class Duke {
         pw.println("____________________________________________________________");
         pw.flush();
         pw.close();
+    }
+
+    private static void handleMark(String response, List<Task> tasks, PrintWriter pw) throws DukeException {
+        try {
+            int index = Integer.parseInt(response.substring(5).trim()) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new DukeException("Task number " + (index + 1) + " does not exist.");
+            }
+            Task task = tasks.get(index);
+            if (task.isDone()) {
+                pw.println("This task is already marked as done:\n  " + task);
+            } else {
+                task.markAsDone();
+                pw.println("Nice! I've marked this task as done:\n  " + task);
+            }
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid task number to mark.");
+        }
+    }
+
+    private static void handleUnmark(String response, List<Task> tasks, PrintWriter pw) throws DukeException {
+        try {
+            int index = Integer.parseInt(response.substring(7).trim()) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new DukeException("Task number " + (index + 1) + " does not exist.");
+            }
+            Task task = tasks.get(index);
+            if (!task.isDone()) {
+                pw.println("This task is already marked as not done:\n  " + task);
+            } else {
+                task.markAsNotDone();
+                pw.println("OK, I've marked this task as not done yet:\n  " + task);
+            }
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid task number to unmark.");
+        }
+    }
+
+    private static void handleTaskCreation(String response, List<Task> tasks, PrintWriter pw) throws DukeException {
+        String[] commandParts = response.split(" ", 2);
+        String taskType = commandParts[0];
+
+        if(!taskType.equals("todo") && !taskType.equals("deadline") && !taskType.equals("event")) {
+            throw new DukeException("Please enter a valid task type.");
+        }
+
+        if (commandParts.length < 2 || commandParts[1].trim().isEmpty()) {
+            throw new DukeException("The description of a " + taskType + " cannot be empty.");
+        }
+
+        String description = commandParts[1].trim();
+        switch (taskType) {
+            case "todo":
+                tasks.add(new Todo(description));
+                break;
+            case "deadline":
+                String[] deadlineParts = description.split(" /by ");
+                if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
+                    throw new DukeException("The deadline time is missing.");
+                }
+                tasks.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+                break;
+            case "event":
+                String[] eventParts = description.split(" /from ");
+                if (eventParts.length < 2 || eventParts[1].trim().isEmpty()) {
+                    throw new DukeException("The event time is missing.");
+                }
+                String[] timeParts = eventParts[1].split(" /to ");
+                if (timeParts.length < 2 || timeParts[1].trim().isEmpty()) {
+                    throw new DukeException("The end time of the event is missing.");
+                }
+                tasks.add(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
+                break;
+            default:
+                throw new DukeException("Please enter a valid task type.");
+        }
+
+        String taskWord = tasks.size() == 1 ? " task" : " tasks";
+        pw.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
+        pw.println("Now you have " + tasks.size() + taskWord + " in the list.");
+    }
+
+    private static void listTasks(List<Task> tasks, PrintWriter pw) {
+        if (tasks.isEmpty()) {
+            pw.println("Your task list is empty.");
+        } else {
+            String taskWord = tasks.size() == 1 ? "task" : "tasks";
+            pw.println("Here are the " + taskWord + " in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                pw.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
     }
 }
