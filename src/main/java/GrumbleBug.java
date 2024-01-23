@@ -45,15 +45,21 @@ public class GrumbleBug {
                 GrumbleBug.printList(myList);
             } else if (input1.equals("mark")) {
                 System.out.println("Which task to mark? Give me the number");
-                int u = Integer.parseInt(sc.nextLine());
-                myList.get(u-1).setDone(true);
-                System.out.println("Ok, marked it.");
+                try {
+                    int u = Integer.parseInt(sc.nextLine());
+                    myList.get(u-1).setDone(true);
+                    System.out.println("Ok, marked it.");
+                } catch (Exception e) {
+                    System.err.println("That wasn't a good number");
+                }
             } else if (input1.equals("unmark")) {
-                System.out.println("Which task to unmark? Give me the number");
-                int u = Integer.parseInt(sc.nextLine());
-                myList.get(u-1).setDone(false);
-                System.out.println("Ugh, unmarked it.");
-                String taskStr = sc.nextLine();
+                try {
+                    int u = Integer.parseInt(sc.nextLine());
+                    myList.get(u-1).setDone(true);
+                    System.out.println("Ugh, unmarked it.");
+                } catch (Exception e) {
+                    System.err.println("That wasn't a good number");
+                }
             } else if (input1.equals("todo")) { // add to list
                 System.out.println("Task name?");
                 String name = sc.nextLine();
@@ -90,6 +96,9 @@ public class GrumbleBug {
                         + "Better not miss your silly " + input1 + " event."
                         + "\n_______________________________________\n";
                 System.out.println(reply);
+            } else {
+                // error, cannot understand
+                System.out.println("I don't understand. Try again, or go away");
             }
         }
     }
