@@ -32,6 +32,8 @@ public class Duke {
                 markTask(userInput, taskList, true);
             } else if (userInput.startsWith("unmark")) {
                 markTask(userInput, taskList, false);
+            } else if (userInput.startsWith("delete")) {
+                deleteTask(userInput, taskList);
             } else {
                 // Sort out type of task
                 if (userInput.startsWith("todo")) { // Todo
@@ -102,7 +104,24 @@ public class Duke {
                 System.out.println("Nice! I've marked this task as " + (isMarked ? "done:" : "not done yet:"));
                 System.out.println(taskList.get(taskIndex).toString());
             } else {
-                System.out.println("Task not found. Please provide a valid task index.");
+                System.out.println("OOPS!!! Task not found. Please provide a valid task index or check that the task exists.");
+            }
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid input. Please provide a valid task index.");
+        }
+    }
+
+    private static void deleteTask(String userInput, ArrayList<Task> taskList) {
+        try {
+            int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+
+            if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                Task removedTask = taskList.remove(taskIndex);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(removedTask.toString());
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+            } else {
+                System.out.println("OOPS!!! Task not found. Please provide a valid task index or check that the task exists.");
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Invalid input. Please provide a valid task index.");

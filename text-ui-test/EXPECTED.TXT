@@ -15,6 +15,7 @@ Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Invalid input. Please provide a valid task index.
 Nice! I've marked this task as done:
 [D][X] return book (by: Sunday)
 Here are the tasks in your list:
@@ -23,4 +24,11 @@ Here are the tasks in your list:
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 Nice! I've marked this task as not done yet:
 [D][ ] return book (by: Sunday)
+Invalid input. Please provide a valid task index.
+Noted. I've removed this task:
+[T][ ] borrow book
+Now you have 2 tasks in the list.
+Here are the tasks in your list:
+1.[D][ ] return book (by: Sunday)
+2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 Bye! Hope to see you again!
