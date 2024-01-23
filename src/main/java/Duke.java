@@ -14,12 +14,37 @@ public class Duke {
         while (!command.equals(null)) {
             command = scan.next();
             switch (command) {
-                case "add":
-                    String description = scan.nextLine();
+                case "deadline":
+                    String fullString = scan.nextLine();
+                    String[] tokens = fullString.split("/");
+                    String description = tokens[0];
                     String trimmed = description.trim();
-                    Task task = new Task(trimmed);
+                    String by = tokens[1];
+                    Task task = new Deadline(trimmed, by);
                     list.add(task);
                     System.out.println("OK, I have added the task '" + trimmed + "' to your list! :)");
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    break;
+                case "todo":
+                    String description1 = scan.nextLine();
+                    String trimmed1 = description1.trim();
+                    Task task1 = new Todo(trimmed1);
+                    list.add(task1);
+                    System.out.println("OK, I have added the task '" + trimmed1 + "' to your list! :)");
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    break;
+                case "event":
+                    String fullString1 = scan.nextLine();
+                    String[] tokens1 = fullString1.split("/");
+                    String description2 = tokens1[0];
+                    String trimmed2 = description2.trim();
+                    String from = tokens1[1];
+                    String to = tokens1[2];
+                    String toTrimmed = to.trim();
+                    Task task2 = new Event(trimmed2, from, toTrimmed);
+                    list.add(task2);
+                    System.out.println("OK, I have added the task '" + trimmed2 + "' to your list! :)");
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
                     break;
                 case "list":
                     System.out.println("Here are the items in your list:");
@@ -43,12 +68,13 @@ public class Duke {
                     break;
                 case "bye":
                     System.out.println("Bye! Hope to see you again soon!\n");
+                    scan.close();
                     System.exit(0);
                 default:
                     break;
             }
         }
-        
+
 
 
     }
