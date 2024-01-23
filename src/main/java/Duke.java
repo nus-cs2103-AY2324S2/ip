@@ -22,7 +22,7 @@ public class Duke {
         String list = this.line + "Here are the tasks in your list:\n";
         for (int i = 0; i<this.taskList.size(); i++) {
             Task task = this.taskList.get(i);
-            String message = Integer.toString(i+1) + "." +task.getType()+"[" + task.getStatusIcon() +"] " + task.getDescription() + "\n";
+            String message = Integer.toString(i+1) + "." +task.getType()+"[" + task.getStatusIcon() +"] " + task.getDescription() + task.getExtraInfo() + "\n";
             list += message;
 
         }
@@ -61,29 +61,46 @@ public class Duke {
 
 
     }
+
+    public String deleteTask(Task task) {
+        this.taskList.remove(task);
+        String msg = "Noted. I've removed this task:\n" + task.getType() + "[" + task.getStatusIcon() + "]" +
+                    " " + task.getDescription() + task.getExtraInfo() + "\nNow you have " +
+                    Integer.toString(taskList.size()) + " tasks in the list.\n";
+        return msg;
+    }
     public void processCmd(String command) throws DukeException {
-        if (command.equalsIgnoreCase("list")){
+        if (command.equalsIgnoreCase("list")) {
             System.out.println(this.printList());
-        } else if (command.startsWith("mark")){
-            try{
+        } else if (command.startsWith("mark")) {
+            try {
                 Integer id = Integer.parseInt(command.substring(5));
-                System.out.println(this.line + this.taskList.get(id-1).markAsDone() + "\n" + this.line);
+                System.out.println(this.line + this.taskList.get(id - 1).markAsDone() + "\n" + this.line);
             } catch (NumberFormatException e) {
                 throw new DukeException("Erm... Please enter a valid task number.");
-            } catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Erm... Please enter a task number.");
             }
 
-        } else if (command.startsWith("unmark")){
+        } else if (command.startsWith("unmark")) {
             try {
                 Integer id = Integer.parseInt(command.substring(7));
                 System.out.println(this.line + this.taskList.get(id - 1).markAsDone() + "\n" + this.line);
             } catch (NumberFormatException e) {
                 throw new DukeException("Erm... Please enter a valid task number.");
-            } catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Erm... Please enter a task number.");
             }
-        }else {
+        } else if (command.startsWith("delete")) {
+            try {
+                Integer id = Integer.parseInt(command.substring(7));
+                System.out.println(this.line + this.deleteTask(this.taskList.get(id - 1)) + "\n" + this.line);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Erm... Please enter a valid task number.");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Erm... Please enter a task number.");
+            }
+        } else {
             System.out.println(this.addTask(command));
 
         }
