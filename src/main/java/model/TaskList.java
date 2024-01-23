@@ -40,7 +40,10 @@ public class TaskList {
         String res = "";
         // NOTE: May be slow
         for (int i = 1; taskList.size() >= i; i++) {
-            res += String.format("%d. %s\n", i, getTask(i));
+            res += String.format("%d. %s", i, getTask(i));
+            if (i != taskList.size()) {
+                res += "\n";
+            }
         }
         return res;
     }
