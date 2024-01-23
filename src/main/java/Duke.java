@@ -41,6 +41,7 @@ class zhen{
         database db = new database();
         while(true){
             String msg = getuserinput();
+            task tsk = new task(msg);
             if (msg.equals("bye")){
                 break;
             }
@@ -48,15 +49,35 @@ class zhen{
                 zhen.print_message(db.toString());
                 continue;
             }
-            db.insert(msg);
+            if (msg.length()>4 && msg.substring(0,4).equals("mark")){
+                int number = Integer.parseInt(msg.substring(5));
+                db.mark(number);
+                continue;
+            }
+            if (msg.length()>6 &&msg.substring(0,6).equals("unmark")){
+                int number = Integer.parseInt(msg.substring(7));
+                db.unmark(number);
+                continue;
+            }
+            db.insert(tsk);
         }
     }
 }
 class database{
-    private ArrayList<String> strlist = new ArrayList<>();
-    public void insert(String msg){
-        strlist.add(msg);
-        zhen.print_message("added: "+msg);
+    private ArrayList<task> strlist = new ArrayList<>();
+    public void insert(task tsk){
+        strlist.add(tsk);
+        zhen.print_message("added: "+tsk.toString().substring(4));
+    }
+    public void mark(int index){
+        strlist.get(index-1).mark();
+        zhen.print_message("Nice! I've marked this task as done:\n  "
+                +strlist.get(index-1));
+    }
+    public void unmark(int index){
+        strlist.get(index-1).unmark();
+        zhen.print_message("OK, I've marked this task as not done yet:\n  "
+                +strlist.get(index-1));
     }
     @Override
     public String toString(){
@@ -69,5 +90,27 @@ class database{
             str = str + (i+1)+". "+ strlist.get(i)+ "\n ";
         }
         return str;
+    }
+}
+class task{
+    private String message;
+    private boolean state = false;
+    public task(String msg){
+        this.message = msg;
+    }
+    public void mark(){
+        state = true;
+    }
+    public void unmark(){
+        state = false;
+    }
+    @Override
+    public String toString(){
+        if (state == true){
+            return "[X] "+ message;
+        }
+        else{
+            return "[ ] "+ message;
+        }
     }
 }
