@@ -2,6 +2,7 @@ import model.Chatbot;
 
 public class Remi {
     public static void main(String[] args) {
-        Chatbot.ioLoop();
+        Chatbot chatbot = new Chatbot();
+        chatbot.ioLoop();
     }
 }
