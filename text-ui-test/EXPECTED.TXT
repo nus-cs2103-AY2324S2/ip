@@ -1,7 +1,40 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    Hi! I am your favourite friend, Lelu :)
+    What can I do for you?
 
+    Ok! I have added your task:
+      [ ] eat
+    You have 1 task(s) in the list now.
+
+    Ok! I have added your task:
+      [T][ ] sleep
+    You have 2 task(s) in the list now.
+
+    Ok! I have added your task:
+      [E][ ] play  (From: 10am  To: 10pm)
+    You have 3 task(s) in the list now.
+
+    Ok! I have added your task:
+      [D][ ] homework  (by: tmr)
+    You have 4 task(s) in the list now.
+
+    Great job completing your task!
+      [T][X] sleep
+
+    1.[ ] eat
+    2.[T][X] sleep
+    3.[E][ ] play  (From: 10am  To: 10pm)
+    4.[D][ ] homework  (by: tmr)
+
+
+
+    Don't forget to complete your task soon...
+      [T][ ] sleep
+
+    1.[ ] eat
+    2.[T][ ] sleep
+    3.[E][ ] play  (From: 10am  To: 10pm)
+    4.[D][ ] homework  (by: tmr)
+
+
+
+    Ok bye, you shall be missed :(
