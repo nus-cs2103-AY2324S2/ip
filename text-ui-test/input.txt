@@ -9,4 +9,14 @@ mark 1
 list
 deadline return book2 /by Monday
 event project meeting2 /from Mon 4pm /to 9pm
+unmark
+mark
+deadline
+deadline 
+dsadsa
+event
+event 
+todo 
+todo
+deadline spppppeee
 bye

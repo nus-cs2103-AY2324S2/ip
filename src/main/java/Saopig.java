@@ -22,10 +22,10 @@ public class Saopig {
             Command command = getCommandFromString(input);
             switch (command) {
                 case COMMAND_MARK_DONE:
-                    taskList.markTaskAsDone(Integer.parseInt(input.substring(5)) - 1);
+                    taskList.markTaskAsDone(input);
                     break;
                 case COMMAND_UNMARK_DONE:
-                    taskList.unmarkTaskAsDone(Integer.parseInt(input.substring(7)) - 1);
+                    taskList.unmarkTaskAsDone(input);
                     break;
                 case COMMAND_LIST:
                     taskList.listTasks();
@@ -91,8 +91,9 @@ public class Saopig {
                 " ___) / ___ \\ |_| |  __/| | |_| | | |_) | |_| || |  \n" +
                 "|____/_/   \\_\\___/|_|  |___\\____| |____/ \\___/ |_|\n";
         speakWithHorizontalLines(logo);
-        speakWithHorizontalLines("Hello! I'm SAOPIG BOT\n " +
-                "Oh, hello there!\n It's such a pleasure to meet you.\n " +
+        speakWithHorizontalLines("Oh, hello there!\n " +
+                "I am Saopig, your personal assistant.\n " +
+                "It's such a pleasure to meet you.\n " +
                 "I'm just over the moon to have someone new to chat with!\n " +
                 "I hope your day is as bright and cheerful as a sunny garden.\n");
     }

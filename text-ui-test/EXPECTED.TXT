@@ -5,8 +5,8 @@
 |____/_/   \_\___/|_|  |___\____| |____/ \___/ |_|
 
 ____________________________________________________________
-Hello! I'm SAOPIG BOT
- Oh, hello there!
+Oh, hello there!
+ I am Saopig, your personal assistant.
  It's such a pleasure to meet you.
  I'm just over the moon to have someone new to chat with!
  I hope your day is as bright and cheerful as a sunny garden.
@@ -60,6 +60,77 @@ Oh, splendid! Your Event task: {[E][ ] project meeting2 (from: Mon 4pm to 9pm)} 
  Isn't it just wonderful when things go exactly as planned?
  I'm so proud of you for getting it done!
  Now you have 5 tasks in the list.
+____________________________________________________________
+Error
+null
+Oopses daisy!
+ It seems like you might have forgotten to give an argument for the unmark command.
+ Don't worry, it happens to most of us.
+ Just add the index for the task you'd like to unmark, and you'll be all set.
+ Please try again, or type 'bye' to exit.
+____________________________________________________________
+Error
+null
+Oopses daisy!
+ It seems like you might have forgotten to give an argument for the mark command.
+ Don't worry, it happens to most of us.
+ Just add the index for the task you'd like to mark, and you'll be all set.
+ Please try again, or type 'bye' to exit.
+____________________________________________________________
+Error
+null
+Oh, it looks like the 'deadline' command is missing some details for the task.
+ No problem at all!
+ Just add a bit more information about what you'd like to do, and it will be as perfect as a sunny day.
+ You're doing wonderfully! 
+____________________________________________________________
+Error
+null
+Oh, it looks like the 'deadline' command is missing some details for the task.
+ No problem at all!
+ Just add a bit more information about what you'd like to do, and it will be as perfect as a sunny day.
+ You're doing wonderfully! 
+____________________________________________________________
+Oh no! I'm sorry, but I don't know what that means.
+ Please try again, or type 'bye' to exit.
+____________________________________________________________
+Error
+null
+Oh, it looks like the 'event' command is missing some details for the task.
+ No problem at all!
+ Just add a bit more information about what you'd like to do, and it will be as perfect as a sunny day.
+ You're doing wonderfully! 
+____________________________________________________________
+Error
+null
+Oh, it looks like the 'event' command is missing some details for the task.
+ No problem at all!
+ Just add a bit more information about what you'd like to do, and it will be as perfect as a sunny day.
+ You're doing wonderfully! 
+____________________________________________________________
+Error
+null
+Oh, it looks like the 'todo' command is missing some details for the task.
+ No problem at all!
+ Just add a bit more information about what you'd like to do, and it will be as perfect as a sunny day.
+ You're doing wonderfully! 
+____________________________________________________________
+Error
+null
+Oh, it looks like the 'todo' command is missing some details for the task.
+ No problem at all!
+ Just add a bit more information about what you'd like to do, and it will be as perfect as a sunny day.
+ You're doing wonderfully! 
+____________________________________________________________
+
+Whoopsie!
+ It seems like you may have forgotten to write the deadline time.
+____________________________________________________________
+
+Whoopsie! It seems like you may have forgotten to write the deadline time or didn't use ' /by ' in your command.
+ Remember there is a space before and after '/by'.
+ It's a tiny detail, but oh so important! Just add the deadline after '/by ', and you'll be as organized as a library on a quiet morning.
+ You're doing an amazing job! 
 ____________________________________________________________
 
 As our time together comes to a close, I just want to say it's been an absolute delight!
