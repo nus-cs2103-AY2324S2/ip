@@ -32,7 +32,8 @@ public class Duke {
         duke.printIntroduction();
         while (loop) {
             String line = scanner.nextLine();
-            String[] words = line.split(" ");
+            // separate first word from rest of words
+            String[] words = line.split(" ", 2);
             duke.printHorizontalLine(60);
             if (words[0].equals("bye")) {
                 duke.printGoodbye();
@@ -49,10 +50,28 @@ public class Duke {
                 task.unmarkDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(task);
-            } else {
-                Task task = new Task(line);
-                System.out.printf("added: %s\n", task);
+            } else if (words[0].equals("todo")){
+                ToDo task = new ToDo(words[1]);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
                 duke.tasks.addTask(task);
+                System.out.printf("Now you have %d tasks in the list.\n",duke.tasks.getCount());
+            } else if (words[0].equals("deadline")) {
+                String[] remainder = words[1].split(" /by ");
+                Deadline task = new Deadline(remainder[0], remainder[1]);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
+                duke.tasks.addTask(task);
+                System.out.printf("Now you have %d tasks in the list.\n",duke.tasks.getCount());
+            } else if (words[0].equals("event")) {
+                String[] remainder = words[1].split(" /from |\\ /to ");
+                Event task = new Event(remainder[0], remainder[1], remainder[2]);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
+                duke.tasks.addTask(task);
+                System.out.printf("Now you have %d tasks in the list.\n",duke.tasks.getCount());
+            } else {
+                System.out.println("Invalid input");
             }
             duke.printHorizontalLine(60);
         }
