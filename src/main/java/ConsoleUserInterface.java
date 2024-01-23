@@ -1,12 +1,18 @@
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleUserInterface {
     private Scanner scanner;
-    private String lastInput;
+    private boolean isPolling;
+    private List<String> tasks;
+    private int taskCount;
 
     public ConsoleUserInterface() {
         this.scanner = new Scanner(System.in);
+        this.isPolling = true;
+        this.tasks = new ArrayList<>();
+        this.taskCount = 0;
     }
 
     public void greetUser() {
@@ -18,12 +24,19 @@ public class ConsoleUserInterface {
     }
 
     private void handleUserInput() {
-        while (true) {
-            this.lastInput = this.scanner.nextLine();
-            if (Objects.equals(this.lastInput, "bye")) {
-                break;
-            } else {
-                printOutput(this.lastInput);
+        while (isPolling) {
+            String input = this.scanner.nextLine();
+            switch (input) {
+                case "list":
+                    printOutput(tasks);
+                    break;
+                case "bye":
+                    this.isPolling = false;
+                    break;
+                default:
+                    this.tasks.add(taskCount + 1 + ". " + input);
+                    this.taskCount++;
+                    printOutput("added: " + input);
             }
         }
     }
@@ -31,6 +44,14 @@ public class ConsoleUserInterface {
     public void printOutput(String string) {
         printSeparator();
         System.out.println(string);
+        printSeparator();
+    }
+
+    public void printOutput(List<String> collection) {
+        printSeparator();
+        for (String task: this.tasks) {
+            System.out.println(task);
+        }
         printSeparator();
     }
 
