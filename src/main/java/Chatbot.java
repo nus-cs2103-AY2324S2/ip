@@ -1,3 +1,6 @@
+import exceptions.BluException;
+import exceptions.IllegalParameterException;
+
 public class Chatbot {
     private final String name;
     private TaskList taskList;
@@ -34,18 +37,36 @@ public class Chatbot {
         print(messages);
     }
 
-    public void markTask(int taskIdx) {
-        Task task = this.taskList.getTask(taskIdx);
-        task.setMarked();
-        String[] messages = {"Marked task as done:", task.toString()};
-        print(messages);
+    public void markTask(int taskIdx) throws BluException {
+        try {
+            Task task = this.taskList.getTask(taskIdx);
+            if (task.getIsMarked()) {
+                print( "Task number " + taskIdx + " is already marked as done");
+            } else {
+                task.setMarked();
+                String[] messages = {"Marked task as done:", task.toString()};
+                print(messages);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalParameterException("Failed to mark task. Task number " + taskIdx + " does not exist!\n" 
+                                                + "Please use the list command to view task numbers.");
+        }
     }
 
-    public void unmarkTask(int taskIdx) {
-        Task task = this.taskList.getTask(taskIdx);
-        task.setUnmarked();
-        String[] messages = {"Unmarked task as not done:", task.toString()};
-        print(messages);
+    public void unmarkTask(int taskIdx) throws BluException {
+        try {
+            Task task = this.taskList.getTask(taskIdx);
+            if (!task.getIsMarked()) {
+                print( "Task number" + taskIdx + "is already unmarked as not done");
+            } else {
+                task.setUnmarked();
+                String[] messages = {"Unmarked task as not done:", task.toString()};
+                print(messages);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalParameterException("Failed to unmark task. Task number " + taskIdx + " does not exist!\n" 
+                                                + "Please use the list command to view task numbers.");
+        }
     }
 
     public void displayTasks() {

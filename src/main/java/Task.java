@@ -19,6 +19,10 @@ public abstract class Task {
         this.isMarked = false;
     }
 
+    public boolean getIsMarked() {
+        return isMarked;
+    }
+
     @Override
     public String toString() {
         if (this.isMarked) {

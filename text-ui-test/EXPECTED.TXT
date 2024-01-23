@@ -12,7 +12,7 @@ ____________________________________________________________
 ____________________________________________________________
 > ____________________________________________________________
 I have added the task:
-[D][ ] book (By: Sunday)
+[D][ ] return book (By: Sunday)
 You have 2 tasks currently.
 ____________________________________________________________
 > ____________________________________________________________
@@ -21,7 +21,7 @@ Marked task as done:
 ____________________________________________________________
 > ____________________________________________________________
 I have added the task:
-[E][ ] meeting (From: Mon To: 4pm)
+[E][ ] project meeting (From: Mon To: 4pm)
 You have 3 tasks currently.
 ____________________________________________________________
 > ____________________________________________________________
@@ -30,18 +30,77 @@ Unmarked task as not done:
 ____________________________________________________________
 > ____________________________________________________________
 1. [T][ ] borrow book
-2. [D][ ] book (By: Sunday)
-3. [E][ ] meeting (From: Mon To: 4pm)
+2. [D][ ] return book (By: Sunday)
+3. [E][ ] project meeting (From: Mon To: 4pm)
 ____________________________________________________________
 > ____________________________________________________________
 I have added the task:
-[D][ ] homework (By: no idea :-p)
+[D][ ] do homework (By: no idea :-p)
 You have 4 tasks currently.
 ____________________________________________________________
 > ____________________________________________________________
 1. [T][ ] borrow book
-2. [D][ ] book (By: Sunday)
-3. [E][ ] meeting (From: Mon To: 4pm)
-4. [D][ ] homework (By: no idea :-p)
+2. [D][ ] return book (By: Sunday)
+3. [E][ ] project meeting (From: Mon To: 4pm)
+4. [D][ ] do homework (By: no idea :-p)
 ____________________________________________________________
-> 
+> BluException:
+Illegal Command Format: Description of a todo cannot be empty.
+Usage: todo <task_title>
+> BluException:
+Illegal Command Format: Please specify a task number
+Usage: mark <task_number>
+> BluException:
+Illegal Command Format: a is not a valid integer!
+Usage: mark <task_number>
+> BluException:
+Illegal Command Format: Please specify a task number
+Usage: unmark <task_number>
+> BluException:
+Illegal Parameter: Failed to unmark task. Task number 9999 does not exist!
+Please use the list command to view task numbers.
+> BluException:
+Illegal Command Format: /by parameter not found!
+Usage: deadline <task_title> /by <datetime>
+> BluException:
+Illegal Command Format: /by parameter not found!
+Usage: deadline <task_title> /by <datetime>
+> BluException:
+Illegal Command Format: Description of a deadline cannot be empty.
+Usage: deadline <task_title> /by <datetime>
+> BluException:
+Illegal Command Format: Datetime of deadline cannot be empty.
+Usage: deadline <task_title> /by <datetime>
+> ____________________________________________________________
+I have added the task:
+[D][ ] a (By: 2pm)
+You have 5 tasks currently.
+____________________________________________________________
+> BluException:
+Illegal Command Format: /from or /to not found!
+Usage: event <task_title> /from <datetime> /to <datetime>
+> BluException:
+Illegal Command Format: Description of event cannot be empty.
+Usage: event <task_title> /from <datetime> /to <datetime>
+> BluException:
+Illegal Command Format: Datetimes of event cannot be empty.
+Usage: event <task_title> /from <datetime> /to <datetime>
+> BluException:
+Illegal Command Format: Datetimes of event cannot be empty.
+Usage: event <task_title> /from <datetime> /to <datetime>
+> ____________________________________________________________
+I have added the task:
+[E][ ] important event (From:  To: 3pm)
+You have 6 tasks currently.
+____________________________________________________________
+> ____________________________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (By: Sunday)
+3. [E][ ] project meeting (From: Mon To: 4pm)
+4. [D][ ] do homework (By: no idea :-p)
+5. [D][ ] a (By: 2pm)
+6. [E][ ] important event (From:  To: 3pm)
+____________________________________________________________
+> ____________________________________________________________
+Goodbye!
+____________________________________________________________

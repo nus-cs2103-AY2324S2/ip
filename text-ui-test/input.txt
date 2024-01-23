@@ -7,3 +7,20 @@ unmark 1
 list
 deadline do homework /by no idea :-p
 list
+todo
+mark
+mark a
+unmark
+unmark 9999
+deadline
+deadline a
+deadline /by
+deadline a /by
+deadline a /by 2pm
+event
+event /from /to
+event a /from /to
+event a /from 1pm /to
+event important event /from 1pm /to 3pm
+list
+bye

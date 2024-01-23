@@ -22,6 +22,9 @@ public class TaskList {
 
     @Override
     public String toString() {
+        if (this.tasks.isEmpty()) {
+            return "All tasks completed!";
+        }
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1; i <= this.tasks.size(); i++) {
             Task task = getTask(i);
