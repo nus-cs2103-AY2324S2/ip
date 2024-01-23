@@ -3,8 +3,6 @@ package parsing;
 import io.Message;
 import model.commands.CommandList;
 
-import java.util.HashMap;
-
 public class Parser {
 
     CommandList commandList;
