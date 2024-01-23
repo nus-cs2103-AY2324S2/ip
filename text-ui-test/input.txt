@@ -1,0 +1,12 @@
+list
+deadline assignment /by 06-04-2024 2359
+event ST2132 exam /from 07-05-2024 1600 /to 1800
+list
+mark 1
+unmark 8
+event go library
+deadline
+blah
+delete 1
+list
+bye
