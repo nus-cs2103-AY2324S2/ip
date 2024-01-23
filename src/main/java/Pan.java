@@ -40,7 +40,7 @@ public class Pan {
                     continue;
                 } else if (instruction.matches("(todo)\\s(.+)")) {
                     String desc = instruction.substring(4).trim();
-                    ToDos todos = new ToDos(desc, false);
+                    ToDos todos = new ToDos(desc, TaskStatus.INCOMPLETE);
                     tasks.add(todos);
                     add(todos);
                     continue;
@@ -48,17 +48,16 @@ public class Pan {
                     String postfix = instruction.substring(8).trim();
                     String desc = postfix.split("/by")[0].trim();
                     String byDate = postfix.split("/by")[1].trim();
-                    Deadlines deadlines = new Deadlines(desc, false, byDate);
+                    Deadlines deadlines = new Deadlines(desc, TaskStatus.INCOMPLETE, byDate);
                     tasks.add(deadlines);
                     add(deadlines);
                     continue;
                 } else if (instruction.matches("(event)\\s(.+)\\s(/from)\\s(.+)\\s(/to)\\s(.+)")) {
-                    // InternalTestCases.TestMissingParameters(instruction);
                     String postfix = instruction.substring(5).trim();
                     String desc = postfix.split("/from")[0].trim();
                     String from = postfix.split("/from")[1].split("/to")[0].trim();
                     String to = postfix.split("/from")[1].split("/to")[1].trim();
-                    Events events = new Events(desc, false, from, to);
+                    Events events = new Events(desc, TaskStatus.INCOMPLETE, from, to);
                     tasks.add(events);
                     add(events);
                     continue;
@@ -104,13 +103,13 @@ public class Pan {
 
     public static void mark(int index) {
         Task task = tasks.get(index - 1);
-        task.setIsDone(true);
+        task.setIsDone(TaskStatus.COMPLETE);
         System.out.println("Nice! I've marked this task as done:\n\t" + task.toString());
     }
 
     public static void unmark(int index) {
         Task task = tasks.get(index - 1);
-        task.setIsDone(false);
+        task.setIsDone(TaskStatus.INCOMPLETE);
         System.out.println("OK, I've marked this task as not done yet:\n\t" + task.toString());
     }
 

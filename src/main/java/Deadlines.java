@@ -1,7 +1,9 @@
+import enums.TaskStatus;
+
 class Deadlines extends Task {
     private String byDate;
 
-    public Deadlines(String description, boolean isDone, String byDate) {
+    public Deadlines(String description, TaskStatus isDone, String byDate) {
         super(description, isDone);
         this.byDate = byDate;
     }

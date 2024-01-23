@@ -1,5 +1,7 @@
 package exceptions;
 
+import enums.Commands;
+
 public class InternalTestCases {
     public static void TestMissingParameters(String instruction) throws MissingParameterException {
         String brokenCommand = instruction.split(" ")[0].trim();
@@ -28,10 +30,10 @@ public class InternalTestCases {
 
     public static void TestInvalidCommand(String instruction) throws InvalidCommandException {
         String brokenCommand = instruction.split(" ")[0];
-        String [] commands = {"mark", "unmark", "bye", "todo", "deadline", "event"};
+        Commands [] commands = {Commands.BYE, Commands.DEADLINE, Commands.DELETE, Commands.EVENT, Commands.MARK, Commands.UNMARK, Commands.TODO};
         boolean isMatched = false;
-        for (String command : commands) {
-            if (command.equals(brokenCommand)) {
+        for (Commands command : commands) {
+            if (brokenCommand.equals(command.name().toLowerCase())) {
                 isMatched = true;
             } else continue;
         }

@@ -1,22 +1,24 @@
+import enums.TaskStatus;
+
 class Task {
     private String description;
-    private boolean isDone;
+    private TaskStatus isDone;
 
-    public Task(String description, boolean isDone) {
+    public Task(String description, TaskStatus isDone) {
         this.description = description;
         this.isDone = isDone;
     }
 
     @Override
     public String toString() {
-        return this.isDone ? "[X] " + this.description : "[ ] " + this.description;
+        return this.isDone.name().equals("COMPLETE") ? "[X] " + this.description : "[ ] " + this.description;
     }
 
     public String getDescription() {
         return this.description;
     }
 
-    public boolean getIsDone() {
+    public TaskStatus getIsDone() {
         return this.isDone;
     }
 
@@ -24,7 +26,7 @@ class Task {
         this.description = newDescription;
     }
 
-    public void setIsDone(boolean newIsDone) {
+    public void setIsDone(TaskStatus newIsDone) {
         this.isDone = newIsDone;
     }
 }

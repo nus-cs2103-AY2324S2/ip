@@ -1,9 +1,11 @@
+import enums.TaskStatus;
+
 class Events extends Task {
 
     private String from;
     private String to;
 
-    public Events(String description, boolean isDone, String from, String to) {
+    public Events(String description, TaskStatus isDone, String from, String to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
