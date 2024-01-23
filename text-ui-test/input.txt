@@ -1,0 +1,50 @@
+blah
+todo borrow book
+todo read book
+deadline return book /by Sunday
+deadline submit project /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+event lecture /from Mon 4pm /to 6pm
+list
+mark 1
+mark 3
+mark 5
+mark 2
+mark 4
+mark 6
+list
+unmark 2
+unmark 4
+unmark 6
+list
+delete 1
+list
+delete 5
+list
+delete 2
+list
+mark 0
+delete -1
+unmark 4
+todo
+deadline
+deadline /by
+deadline /by Monday
+deadline submit application /by
+event
+event /to
+event /from
+event /to Monday 4pm
+event /from Monday 2pm
+event /from /to
+event /from /to Monday 4pm
+event /from Monday 2pm /to
+event project meeting
+event project meeting /from
+event project meeting /to
+event project meeting /from Monday 2pm /to
+event project meeting /from /to Monday 4pm
+event project meeting /from /to
+event project meeting /from Monday 2pm
+event project meeting /to Monday 4pm
+bye
