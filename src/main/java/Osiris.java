@@ -23,6 +23,10 @@ public class Osiris {
                 terminateChat = true;
             } else if (userInput.equals("list")) {
                 this.printUserTasks();
+            } else if (userInput.startsWith("mark")) {
+                this.markTaskCompleted(Character.getNumericValue(userInput.charAt(5)));
+            } else if (userInput.startsWith("unmark")) {
+                this.markTaskIncomplete(Character.getNumericValue(userInput.charAt(7)));
             } else {
                 this.addUserTask(userInput);
             }
@@ -57,6 +61,23 @@ public class Osiris {
         this.printSeparator();
     }
 
+    private void markTaskCompleted(int index){
+        this.userTasks.markTaskCompleted(index - 1);
+
+        this.printSeparator();
+        System.out.println("     Nice! I've marked this task as done:");
+        System.out.println("        " + this.userTasks.getTask(index - 1).toString());
+        this.printSeparator();
+    }
+
+    private void markTaskIncomplete(int index) {
+        this.userTasks.markTaskIncomplete(index - 1);
+
+        this.printSeparator();
+        System.out.println("     OK, I've marked this task as not done yet:");
+        System.out.println("        " + this.userTasks.getTask(index - 1).toString());
+        this.printSeparator();
+    }
     private void printUserTasks(){
         ArrayList<Task> toPrint = this.userTasks.getUserTasks();
 

@@ -12,8 +12,13 @@ public class Task {
         this.isCompleted = true;
     }
 
+    public void markIncomplete() {
+        this.isCompleted = false;
+    }
+
     @Override
     public String toString() {
-        return this.taskName;
+        String completionStatus = isCompleted ? "[X]" : "[ ]";
+        return String.format("%s %s", completionStatus, this.taskName);
     }
 }
