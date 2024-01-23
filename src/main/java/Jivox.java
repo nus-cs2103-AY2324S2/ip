@@ -6,7 +6,11 @@ import java.util.Scanner;
 public class Jivox {
 
 
-    ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> list = new ArrayList<>();
+    private static enum COMMANDS {
+        TODO,DEADLINE,EVENT,
+        MARK,UNMARK,DELETE,BYE,LIST
+    }
     public void greet(){
         addDivider();
         System.out.println(" Hello! I'm Jivox");
@@ -19,6 +23,7 @@ public class Jivox {
         System.out.println(" Bye. Hope to see you again soon!");
         addDivider();
     }
+
 
     public void mark(int i) throws JivoxException {
         if(i > this.list.size() || i < 0){
@@ -43,7 +48,16 @@ public class Jivox {
         addDivider();
     }
 
+    public COMMANDS getCommandType(String type) throws JivoxException {
+        try{
+            return COMMANDS.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e){
+            throw new JivoxException("Opps! I can't understand your Input, Please try again");
+        }
+    }
+
     public void add(String type,String description) throws JivoxException {
+
         switch (type){
             case "todo":
                 this.list.add(new Todo(description));
@@ -101,57 +115,82 @@ public class Jivox {
         boolean isRunning = true;
         Scanner sc = new Scanner(System.in);
         do {
-            String input = sc.nextLine();
-            if(input.equals("bye")){
-                isRunning = false;
-            } else if(input.equals("list")){
-                this.showList();
-            } else{
-                String[] in = input.split(" ",2);
-                if(in[0].equals("mark")){
+            String rawInput = sc.nextLine();
+            String[] input = rawInput.split(" ",2);
+            COMMANDS type;
+            try {
+                type = this.getCommandType(input[0]);
+            } catch (JivoxException e){
+                System.out.println(e.getMessage());
+                continue;
+            }
+            switch (type){
+                case BYE:
+                    isRunning = false;
+                    sc.close();
+                    this.exit();
+                    break;
+                case DEADLINE:
                     try {
-                        if(in.length == 1){
+
+                        this.add("deadline", input[1]);
+                    } catch (JivoxException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case EVENT:
+                    try {
+                        if (input.length == 1) {
+                            throw new JivoxException("Ooops! Please provide a description!");
+                        }
+                        this.add("event", input[1]);
+                    } catch (JivoxException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case TODO:
+                    try {
+                        if (input.length == 1) {
+                            throw new JivoxException("Ooops! Please provide a description!");
+                        }
+                        this.add("todo", input[1]);
+                    } catch (JivoxException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case MARK:
+                    try {
+                        if(input.length == 1){
                             throw new JivoxException("Please, provide a task number to mark");
                         }
-                        this.mark(Integer.parseInt(in[1]));
+                        this.mark(Integer.parseInt(input[1]));
                     } catch (JivoxException e){
                         System.out.println(e.getMessage());
                     }
-                } else if(in[0].equals("unmark")){
+                    break;
+                case UNMARK:
                     try {
-                        if(in.length == 1){
-                            throw new JivoxException("Please, provide a task number to unmark");
+                        if(input.length == 1){
+                            throw new JivoxException("Please, provide a task number to mark");
                         }
-                        this.unmark(Integer.parseInt(in[1]));
+                        this.unmark(Integer.parseInt(input[1]));
                     } catch (JivoxException e){
                         System.out.println(e.getMessage());
                     }
-                }
-                else if(in[0].equals("delete")){
+                    break;
+                case DELETE:
                     try {
-                        if(in.length == 1){
+                        if(input.length == 1){
                             throw new JivoxException("Please, provide a task number to delete");
                         }
-                        this.delete(Integer.parseInt(in[1]));
+                        this.delete(Integer.parseInt(input[1]));
                     } catch (JivoxException e){
                         System.out.println(e.getMessage());
                     }
-                }
-                else{
-
-                    try {
-                        if(input.contains("event") || input.contains("todo") || input.contains("deadline")){
-                            if(in.length == 1){
-                                throw new JivoxException("Ooops! Please provide a description!");
-                            }
-                            this.add(in[0], in[1]);
-                        }else{
-                            throw new JivoxException("Ooops! I can't understand your Input , Please try again");
-                        }
-                    } catch (JivoxException e){
-                        System.out.println(e.getMessage());
-                    }
-                }
+                    break;
+                case LIST:
+                    this.showList();
+                    break;
             }
         } while (isRunning);
     }
