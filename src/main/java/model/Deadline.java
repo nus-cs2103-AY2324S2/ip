@@ -1,14 +1,17 @@
 package model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private final String time;
-    public Deadline(String title, String time) {
+    private final LocalDateTime date;
+    public Deadline(String title, LocalDateTime date) {
         super(title);
-        this.time = time;
+        this.date = date;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.time + ")";
+        return "[D]" + super.toString() + " (by: " + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma")) + ", " + date.getDayOfWeek() + ")";
     }
 }

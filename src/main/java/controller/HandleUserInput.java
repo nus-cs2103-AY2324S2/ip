@@ -3,6 +3,9 @@ package controller;
 import duke.Storage;
 import model.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class HandleUserInput {
@@ -92,18 +95,26 @@ public class HandleUserInput {
         }
         String[] splitEvent = event[1].split(" /from ", 2);
         if (splitEvent.length != 2) {
-            throw new DukeException("Invalid input. Use: event event_title /from start_time /to end_time");
+            throw new DukeException("Invalid input. Use: event event_title /from dd-mm-yyyy HHmm /to HHmm");
         }
         String[] splitDuration = splitEvent[1].split(" /to ", 2);
         if (splitDuration.length != 2) {
-            throw new DukeException("Invalid input. Use: event_title /from start_time /to end_time");
+            throw new DukeException("Invalid input. Use: event event_title /from dd-mm-yyyy HHmm /to HHmm");
         }
 
         String title = splitEvent[0];
         String from = splitDuration[0];
         String to = splitDuration[1];
-
-        return new Event(title, from, to);
+        String temp = null;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-M-yyyy HHmm");
+            LocalDateTime fromDateTime = LocalDateTime.parse(from, formatter);
+            temp = fromDateTime.format(DateTimeFormatter.ofPattern("dd-M-yyyy")) + " " + to;
+            LocalDateTime toTime = LocalDateTime.parse(temp, formatter);
+            return new Event(title, fromDateTime, toTime);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date & time input. Use /from dd-mm-yyyy HHmm /to HHmm");
+        }
     }
 
     private static Deadline parseDeadline(String[] deadline) throws DukeException {
@@ -112,11 +123,17 @@ public class HandleUserInput {
         }
         String[] splitDeadline = deadline[1].split(" /by ", 2);
         if (splitDeadline.length != 2) {
-            throw new DukeException("Invalid input. Use: deadline deadline_title /by date");
+            throw new DukeException("Invalid input. Use: deadline deadline_title /by dd-mm-yyyy HHmm");
         }
         String title = splitDeadline[0];
         String time = splitDeadline[1];
-        return new Deadline(title, time);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-M-yyyy HHmm");
+            LocalDateTime dateTime = LocalDateTime.parse(time, formatter);
+            return new Deadline(title, dateTime);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Use dd-mm-yyyy HHmm as the date format.");
+        }
     }
 
     private MarkTask parseMark(String[] command) throws DukeException {
