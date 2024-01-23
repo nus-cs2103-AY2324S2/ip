@@ -6,7 +6,7 @@ public class UI {
     private static final String lines = "    ____________________________________________________________";
     private static final String name = "Wang";
 
-    private Storage storage;
+    private final Storage storage;
 
     public UI() {
        this.storage = new Storage();
@@ -25,9 +25,22 @@ public class UI {
     }
 
     public void addItem(String input) {
-        storage.add(input);
+        this.storage.add(input);
         System.out.println(lines);
         System.out.println("    " + "added: " + input);
+        System.out.println(lines);
+    }
+
+    public void markTaskUI(int input) {
+        System.out.println(lines);
+        System.out.println("    Nice! I've marked this task as done:");
+        this.storage.markTask(input);
+        System.out.println(lines);
+    }
+    public void unMarkTask(int input) {
+        System.out.println(lines);
+        System.out.println("    OK, I've marked this task as not done yet:");
+        this.storage.unMarkTask(input);
         System.out.println(lines);
     }
 
