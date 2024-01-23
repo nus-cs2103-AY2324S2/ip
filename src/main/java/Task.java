@@ -1,9 +1,15 @@
 public class Task {
     private String task;
     private boolean isDone = false;
+    private String taskType;
 
     public Task(String taskDesc) {
         this.task = taskDesc;
+    }
+
+    public Task(String taskDesc, String taskType) {
+        this.task = taskDesc;
+        this.taskType = taskType;
     }
 
     public void mark(){
@@ -24,5 +30,13 @@ public class Task {
 
     public String getTask() {
         return this.task;
+    }
+
+    public String getTaskType() {
+        return "[" + this.taskType + "]";
+    }
+
+    public String announcement() {
+        return "New task created!";
     }
 }

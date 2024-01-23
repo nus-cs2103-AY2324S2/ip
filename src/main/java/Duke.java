@@ -1,9 +1,9 @@
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
     String name = "XVX-016 Aerial";
     String command = "";
+    String secondaryInput = "";
     Scanner scanner1;
     ArrayList<Task> taskList = new ArrayList<>();
     public Duke() {
@@ -55,7 +55,7 @@ public class Duke {
     public void unmarkTask(Integer index) {
         Task currentTask = taskList.get(index);
         indent();
-        System.out.println("Oops, time to redo the task!");
+        System.out.println("Oops, task unmarked!");
         currentTask.unmark();
         indent();
         System.out.println(currentTask.getStatus() + " " + currentTask.getTask());
@@ -68,11 +68,45 @@ public class Duke {
         indent();
         System.out.println("\uD83E\uDD14");
         indent();
-        System.out.println("\uD83D\uDDE8️ You have added THIS: ");
-        indent();
-        System.out.println(this.command);
+        System.out.println("Processing your request!");
         horizontalLines();
-        this.taskList.add(new Task(this.command));
+
+        Task newTask;
+
+        if (this.command.equals("todo")) {
+            newTask = new ToDo(secondaryInput, "T");
+            this.taskList.add(newTask);
+            indent();
+            System.out.println(newTask.announcement());
+            indent();
+            indent();
+            System.out.println(newTask.toString());
+        } else if (this.command.equals("deadline")) {
+            String[] secondaryInputSplit = secondaryInput.split("/");
+            newTask = new Deadline(secondaryInputSplit[0], "D", secondaryInputSplit[1]);
+            this.taskList.add(newTask);
+            indent();
+            System.out.println(newTask.announcement());
+            indent();
+            indent();
+            System.out.println(newTask.toString());
+            horizontalLines();
+        } else if (this.command.equals("event")) {
+            String[] secondaryInputSplit = secondaryInput.split("/");
+            newTask = new Event(secondaryInputSplit[0], "E", secondaryInputSplit[1],
+                    secondaryInputSplit[2]);
+            this.taskList.add(newTask);
+            indent();
+            System.out.println(newTask.announcement());
+            indent();
+            indent();
+            System.out.println(newTask.toString());
+            horizontalLines();
+        } else {
+            indent();
+            System.out.println("Invalid Task");
+            horizontalLines();
+        }
         input();
     }
 
@@ -81,14 +115,16 @@ public class Duke {
         indent();
         System.out.println("\uD83D\uDD6E");
         indent();
-        System.out.println("\uD83D\uDDE8️ This are the tasks we currently have: ");
+        System.out.println("\uD83D\uDDE8️ These are the tasks we currently have: ");
         indent();
 
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
-            System.out.println((i+1) + ". " + currentTask.getStatus() + " " + currentTask.getTask());
+            System.out.println((i+1) + ". " + currentTask.toString());
             indent();
         }
+
+        System.out.println("We have " + (taskList.size()) + " tasks");
         horizontalLines();
         input();
     }
@@ -99,7 +135,7 @@ public class Duke {
 
     public void input() {
         String commandInput = scanner1.nextLine();
-        String[] inputSplit = commandInput.split(" ");
+        String[] inputSplit = commandInput.split(" ", 2);
         this.command = inputSplit[0];
 
         if (this.command.equals("bye")) {
@@ -110,8 +146,14 @@ public class Duke {
             markTask(Integer.valueOf(inputSplit[1]) - 1);
         } else if (this.command.equals("unmark")) {
             unmarkTask(Integer.valueOf((inputSplit[1])) - 1);
-        } else {
+        } else if ((this.command.equals("todo")) || (this.command.equals("deadline"))
+                || (this.command.equals("event"))) {
+            this.secondaryInput = inputSplit[1];
             addTask();
+        } else {
+            System.out.println("\tInvalid Command. Please try again.");
+            horizontalLines();
+            input();
         }
     }
 
