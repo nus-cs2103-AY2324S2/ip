@@ -17,17 +17,14 @@ public class Blu {
         Scanner scanner = new Scanner(System.in);
         String userInput = readUserInput(scanner);
         while (!userInput.equals("bye")) {
-            if (userInput.isEmpty()) {
-                userInput = readUserInput(scanner);
-                continue;
+            if (!userInput.isEmpty()) {
+                try {
+                    inputHandler.handleInput(userInput, bot);
+                } catch (BluException e) {
+                    System.out.println(e.getMessage());
+                } 
             }
-            try {
-                inputHandler.handleInput(userInput, bot);
-            } catch (BluException e) {
-                System.out.println(e.getMessage());
-            } finally {
-                userInput = readUserInput(scanner);
-            }
+            userInput = readUserInput(scanner);
         }
         scanner.close();
         bot.exit();

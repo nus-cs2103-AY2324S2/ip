@@ -37,14 +37,23 @@ public class InputHandler {
         return false;
     }
 
+    private CommandType parseCommandType(String cmdString) {
+        // Solution below adapted by https://stackoverflow.com/questions/4936819/java-check-if-enum-contains-a-given-string
+        try {
+            return CommandType.valueOf(cmdString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return CommandType.UNKNOWN;
+        }
+    }
+
     public void handleInput(String userInput, Chatbot bot) throws BluException {
-        String[] tokens = userInput.split(" ");
-        String cmd = tokens[0];
+        String[] tokens = userInput.trim().split(" ");
+        CommandType cmd = parseCommandType(tokens[0]);
         switch (cmd) {
-            case "list":
+            case LIST:
                 bot.displayTasks();
                 break;
-            case "mark":
+            case MARK:
                 if (!iskNumberOfParamCorrect(tokens, 2)) {
                     throw new IllegalCommandException("Please specify a task number to mark\n"
                                                             + "Usage: mark <task_number>");
@@ -58,7 +67,7 @@ public class InputHandler {
                                                             + "Usage: mark <task_number>");
                 }
                 break;
-            case "unmark":
+            case UNMARK:
                 if (!iskNumberOfParamCorrect(tokens, 2)) {
                     throw new IllegalCommandException("Please specify a task number to unmark\n"
                                                             + "Usage: unmark <task_number>");
@@ -71,15 +80,15 @@ public class InputHandler {
                                                             + "Usage: unmark <task_number>");
                 }
                 break;
-            case "todo":
+            case TODO:
                 if (tokens.length < 2) {
                     throw new IllegalCommandException("Description of a todo cannot be empty.\n"
                                                             + "Usage: todo <task_title>");
                 }
-                String todoTitle = userInput.substring(cmd.length() + 1);
+                String todoTitle = userInput.substring(cmd.toString().length() + 1);
                 bot.addTask(new ToDo(todoTitle));
                 break;
-            case "deadline":
+            case DEADLINE:
                 int baseIdx = 0;
                 int paramIdx = findParamIdx(tokens, BY_PARAM);
                 if (paramIdx == -1) {
@@ -98,7 +107,7 @@ public class InputHandler {
                 String deadlineBy = getParamValue(tokens, paramIdx, tokens.length);
                 bot.addTask(new Deadline(deadlineTitle, deadlineBy));
                 break;
-            case "event":
+            case EVENT:
                 baseIdx = 0;
                 int fromParamIdx = findParamIdx(tokens, FROM_PARAM);
                 int toParamIdx = findParamIdx(tokens, TO_PARAM);
@@ -121,7 +130,7 @@ public class InputHandler {
                 String eventTo = getParamValue(tokens, toParamIdx, tokens.length);
                 bot.addTask(new Event(eventTitle, eventFrom, eventTo));
                 break;
-            case "delete":
+            case DELETE:
                 if (!iskNumberOfParamCorrect(tokens, 2)) {
                     throw new IllegalCommandException("Please specify a task number to delete\n"
                                                             + "Usage: delete <task_number>");
@@ -135,7 +144,7 @@ public class InputHandler {
                 }
                 break;
             default:
-                throw new InvalidCommandException(cmd);
+                throw new InvalidCommandException(tokens[0]);
         }
     }
 }
