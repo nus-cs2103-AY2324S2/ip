@@ -18,8 +18,7 @@ public class Duke {
             } else if (instr.contains("mark")) {
                 mark(instr);
             } else {
-                addText(instr);
-                System.out.println(echo(instr)); 
+                addTask(instr);
             }
             instr = sc.nextLine();
         }
@@ -37,10 +36,6 @@ public class Duke {
         return "Bye. Hope to see you again soon!";
     }
 
-    public static String echo(String instr) {
-        return "added: " + instr;
-    }
-
     public static void listOut() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < ptr; i++) {
@@ -48,8 +43,27 @@ public class Duke {
         }
     }
 
-    public static void addText(String instr) {
-        instrList[ptr++] = new Task(instr);
+    public static void addTask(String instr) {
+        System.out.println("Got it. I've added this task:");
+        if (instr.contains("todo")) {
+            Todo taskTodo = new Todo(instr.split("todo ")[1]);
+            instrList[ptr++]  = taskTodo;
+            System.out.println(taskTodo.toString());
+        } else if (instr.contains("deadline")) {
+            String[] tskNames = instr.split("deadline ")[1].split(" /by ");
+            Deadline taskDeadline = new Deadline(tskNames[0], tskNames[1]); 
+            instrList[ptr++]  = taskDeadline;
+            System.out.println(taskDeadline.toString());
+        } else if (instr.contains("event")) {
+            //EVENT
+            String[] instrsubString = instr.split("event ")[1].split(" /from ");
+            String name = instrsubString[0]; 
+            String[] startAndEnd = instrsubString[1].split(" /to "); 
+            Events taskEvent = new Events(name, startAndEnd[0], startAndEnd[1]);
+            instrList[ptr++]  = taskEvent;
+            System.out.println(taskEvent.toString()); 
+        }
+        System.out.println("Now you have " + ptr + " tasks in the list."); 
     }
 
     public static void mark(String instr) {
