@@ -1,10 +1,11 @@
 package service;
 
-import javax.swing.plaf.synth.SynthScrollBarUI;
-import java.util.Objects;
+import type.CommandEnum;
+
 import java.util.Scanner;
 
 public class FeedbackService {
+    private TaskService taskService = new TaskService();
 
     public void run() {
         this.PrintWelcome();
@@ -14,12 +15,17 @@ public class FeedbackService {
 
     private void listen() {
         Scanner scanner = new Scanner(System.in);
-        String exitKeyword = "bye";
 
         String curInput = scanner.nextLine();
 
-        while (!curInput.equals(exitKeyword)) {
-            this.Echo(curInput);
+        while (!curInput.equals(CommandEnum.BYE.getCommandValue())) {
+            if (curInput.equals(CommandEnum.LIST.getCommandValue())) {
+                this.taskService.getAllTasks();
+            } else {
+                this.taskService.addTask(curInput);
+            }
+
+            // this.Echo(curInput);  // No longer required?
             curInput = scanner.nextLine();
         }
     }
@@ -45,14 +51,12 @@ public class FeedbackService {
         System.out.println("Welcome! I'm Professor Oak");
         System.out.println("What can I do for you?");
 
-        System.out.println("----------------------------------------------");
-
-        System.out.println("Bye! Hope to see you again soon!");
     }
 
-    private void Echo(String input) {
-        System.out.println("----------------------------------------------");
-        System.out.println(input);
-        System.out.println("----------------------------------------------");
-    }
+    // No longer required?
+//     private void Echo(String input) {
+//        System.out.println("----------------------------------------------");
+//        System.out.println(input);
+//        System.out.println("----------------------------------------------");
+//     }
 }
