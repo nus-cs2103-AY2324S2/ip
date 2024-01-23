@@ -16,8 +16,10 @@ public class ChatBotTest {
             if (commands.equals("bye")) {
                 p.goodBye();
                 break;
+            } else if (commands.equals("list")) {
+                p.listTasks();
             } else {
-                System.out.println(commands);
+                p.addTask(commands);
             }
         }
     }
