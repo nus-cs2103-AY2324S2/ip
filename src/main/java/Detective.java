@@ -2,10 +2,11 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Detective {
+    static final String line = "____________________________________________________________";
+    static Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         String name = "Detective";
-        String line = "____________________________________________________________";
         Task[] myList = new Task[100];
         int count = 0;
 
@@ -44,14 +45,23 @@ public class Detective {
                     System.out.println(line);
                     input = sc.nextLine();
                     break;
-                default: //add tasks to the myList
+                default: //add tasks to myList
                     if (count >= 100) {
-                        System.out.println(line + "\n" + "The list is full, add failed");
+                        System.out.println(line);
+                        System.out.println("The list is full, add failed");
+                        System.out.println(line);
                         input = sc.nextLine();
                     } else {
                         switch (inputContent[0]) {
                             case "todo":
-                                ToDo toDoTask = new ToDo(inputContent[1]);
+                                ToDo toDoTask;
+                                try {
+                                    toDoTask = new ToDo(inputContent[1]);
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    handleEmptyTaskException("What do you want to do?");
+                                    input = sc.nextLine();
+                                    break;
+                                }
                                 myList[count++] = toDoTask;
                                 System.out.println(line);
                                 System.out.println("Got it. I've added this task:");
@@ -61,10 +71,17 @@ public class Detective {
                                 input = sc.nextLine();
                                 break;
                             case "deadline":
-                                String[] ddlInfo = inputContent[1].split(" /");
-                                String ddlName = ddlInfo[0];
-                                String ddlBy = ddlInfo[1].split("by ")[1];
-                                Deadline deadlineTask = new Deadline(ddlName, ddlBy);
+                                Deadline deadlineTask;
+                                try {
+                                    String[] ddlInfo = inputContent[1].split(" /");
+                                    String ddlName = ddlInfo[0];
+                                    String ddlBy = ddlInfo[1].split("by ")[1];
+                                    deadlineTask = new Deadline(ddlName, ddlBy);
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    handleEmptyTaskException("What is the deadline?");
+                                    input = sc.nextLine();
+                                    break;
+                                }
                                 myList[count++] = deadlineTask;
                                 System.out.println(line);
                                 System.out.println("Got it. I've added this task:");
@@ -74,11 +91,18 @@ public class Detective {
                                 input = sc.nextLine();
                                 break;
                             case "event":
-                                String[] evtInfo = inputContent[1].split(" /");
-                                String evtName = evtInfo[0];
-                                String evtFrom = evtInfo[1].split("from ")[1];
-                                String evtTo = evtInfo[2].split("to ")[1];
-                                Event eventTask = new Event(evtName, evtFrom, evtTo);
+                                Event eventTask;
+                                try {
+                                    String[] evtInfo = inputContent[1].split(" /");
+                                    String evtName = evtInfo[0];
+                                    String evtFrom = evtInfo[1].split("from ")[1];
+                                    String evtTo = evtInfo[2].split("to ")[1];
+                                    eventTask = new Event(evtName, evtFrom, evtTo);
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    handleEmptyTaskException("What is the event?");
+                                    input = sc.nextLine();
+                                    break;
+                                }
                                 myList[count++] = eventTask;
                                 System.out.println(line);
                                 System.out.println("Got it. I've added this task:");
@@ -88,13 +112,20 @@ public class Detective {
                                 input = sc.nextLine();
                                 break;
                             default:
-                                myList[count++] = new Task(input);
-                                System.out.println(line + "\n" + "added: " + input + "\n" + line);
+                                System.out.println(line);
+                                System.out.println("OOPS!!! Sorry, but I don't know what that means. qwq");
+                                System.out.println(line);
                                 input = sc.nextLine();
                         }
                     }
             }
         }
         System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
+    }
+
+    private static void handleEmptyTaskException(String message) {
+        System.out.println(line);
+        System.out.println("OOPS!!! " + message + " qwq");
+        System.out.println(line);
     }
 }
