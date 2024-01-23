@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import exceptions.MissingParameterException;
+import exceptions.InternalTestCases;
+import exceptions.InvalidCommandException;
+import exceptions.TaskIndexException;
 
 public class Pan {
     public static List<Task> tasks = new ArrayList<Task>();
@@ -9,52 +13,61 @@ public class Pan {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("");
-            String instruction = scanner.nextLine();
-            System.out.println("");
+            try {
+                System.out.println("");
+                String instruction = scanner.nextLine();
+                System.out.println("");
 
-            if (instruction.equals("list")) {
-                list();
-                continue;
-            } else if (instruction.equals("bye")) {
-                bye();
-                break;
-            } else if (instruction.matches("(mark) \\d+")) {
-                String index = instruction.substring(4).trim();
-                mark(Integer.parseInt(index));
-                continue;
-            } else if (instruction.matches("(unmark) \\d+")) {
-                String index = instruction.substring(4).trim();
-                unmark(Integer.parseInt(index));
-                continue;
-            } else if (instruction.matches("(todo)\\s(.+)")) {
-                String desc = instruction.substring(4).trim();
-                ToDos todos = new ToDos(desc, false);
-                tasks.add(todos);
-                add(todos);
-                continue;
-            } else if (instruction.matches("(deadline)\\s(.+)\\s(/by)\\s(.+)")) {
-                String postfix = instruction.substring(8).trim();
-                String desc = postfix.split("/by")[0].trim();
-                String byDate = postfix.split("/by")[1].trim();
-                Deadlines deadlines = new Deadlines(desc, false, byDate);
-                tasks.add(deadlines);
-                add(deadlines);
-                continue;
-            } else if (instruction.matches("(event)\\s(.+)\\s(/from)\\s(.+)\\s(/to)\\s(.+)")) {
-                String postfix = instruction.substring(5).trim();
-                String desc = postfix.split("/from")[0].trim();
-                String from = postfix.split("/from")[1].split("/to")[0].trim();
-                String to = postfix.split("/from")[1].split("/to")[1].trim();
-                Events events = new Events(desc, false, from, to);
-                tasks.add(events);
-                add(events);
-                continue;
-            } else {
-                Task newTask = new Task(instruction, false);
-                tasks.add(newTask);
-                add(newTask);
-                continue;
+                if (instruction.equals("list")) {
+                    list();
+                    continue;
+                } else if (instruction.equals("bye")) {
+                    bye();
+                    break;
+                } else if (instruction.matches("(mark) \\d+")) {
+                    String index = instruction.substring(4).trim();
+                    if (Integer.parseInt(index) >= tasks.size()) {
+                        throw new TaskIndexException("You have entered an invalid index!");
+                    }
+                    mark(Integer.parseInt(index));
+                    continue;
+                } else if (instruction.matches("(unmark) \\d+")) {
+                    String index = instruction.substring(4).trim();
+                    if (Integer.parseInt(index) >= tasks.size()) {
+                        throw new TaskIndexException("You have entered an invalid index!");
+                    }
+                    unmark(Integer.parseInt(index));
+                    continue;
+                } else if (instruction.matches("(todo)\\s(.+)")) {
+                    String desc = instruction.substring(4).trim();
+                    ToDos todos = new ToDos(desc, false);
+                    tasks.add(todos);
+                    add(todos);
+                    continue;
+                } else if (instruction.matches("(deadline)\\s(.+)\\s(/by)\\s(.+)")) {
+                    String postfix = instruction.substring(8).trim();
+                    String desc = postfix.split("/by")[0].trim();
+                    String byDate = postfix.split("/by")[1].trim();
+                    Deadlines deadlines = new Deadlines(desc, false, byDate);
+                    tasks.add(deadlines);
+                    add(deadlines);
+                    continue;
+                } else if (instruction.matches("(event)\\s(.+)\\s(/from)\\s(.+)\\s(/to)\\s(.+)")) {
+                    String postfix = instruction.substring(5).trim();
+                    String desc = postfix.split("/from")[0].trim();
+                    String from = postfix.split("/from")[1].split("/to")[0].trim();
+                    String to = postfix.split("/from")[1].split("/to")[1].trim();
+                    Events events = new Events(desc, false, from, to);
+                    tasks.add(events);
+                    add(events);
+                    continue;
+                } else {
+                    // catch other test cases
+                    InternalTestCases.TestInvalidCommand(instruction);
+                    InternalTestCases.TestMissingParameters(instruction);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
         scanner.close();
