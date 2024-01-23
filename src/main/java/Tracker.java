@@ -10,17 +10,21 @@ public class Tracker {
 
     public void addTask(Task element) {
         taskList.add(element);
-        System.out.println("added: " + element);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + element.listTaskString());
     }
 
     public void listTasks() {
+        if (taskList.size() == 0) {
+            System.out.println("No items in list!");
+            return;
+        }
+
         int index = 0;
+        System.out.println("Here are your tasks!");
         for (Task element: taskList) {
             index++;
             System.out.println(index + "." + element.listTaskString());
-        }
-        if (taskList.size() == 0) {
-            System.out.println("No items in list!");
         }
     }
 
