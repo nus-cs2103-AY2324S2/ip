@@ -20,11 +20,25 @@ public class Campus {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             userInput = scanner.nextLine();
+
+            // Can be improved through switch cases but for now this works
             if (Objects.equals(userInput, "bye")) {
                 scanner.close();
                 break;
             } else if (Objects.equals(userInput, "list")) {
                 Campus.display();
+            } else if (userInput.substring(0, 4).contains("mark")) {
+                String listNumber = userInput.substring(userInput.length() - 1);
+                int index = Integer.parseInt(listNumber);
+                index -= 1; // Account for List Starting from 1
+                Task task = Campus.tasks.get(index);
+                Campus.markDone(task);
+            } else if (userInput.substring(0, 6).contains("unmark")) {
+                String listNumber = userInput.substring(userInput.length() - 1);
+                int index = Integer.parseInt(listNumber);
+                index -= 1; // Account for List Starting from 1
+                Task task = Campus.tasks.get(index);
+                Campus.markUndone(task);
             } else {
                 Task task = new Task(userInput);
                 Campus.add(task);
@@ -32,6 +46,28 @@ public class Campus {
         }
 
         Campus.exit();
+    }
+
+    public static void markDone(Task task) {
+        task.markComplete();
+
+        String message = "------------------------------\n"
+                + "Nice! I've completed this task successfully:\n"
+                + String.format("%s\n", task)
+                + "------------------------------\n";
+
+        System.out.println(message);
+    }
+
+    public static void markUndone(Task task) {
+        task.markIncomplete();
+
+        String message = "------------------------------\n"
+                + "Ok, this task is still not done yet:\n"
+                + String.format("%s\n", task)
+                + "------------------------------\n";
+
+        System.out.println(message);
     }
 
     /**

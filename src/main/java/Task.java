@@ -28,6 +28,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.taskName;
+        String xMarker = this.completed ? "[X]" : "[ ]";
+        return String.format("%s %s", xMarker, this.taskName);
     }
 }
