@@ -2,20 +2,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+  private final static String indentation = " ".repeat(3);
+  private final static String subIndentation = indentation + " ";
+  private final static String divider = "_".repeat(60);
+  private final static String logo = " _               _          \n" +
+      "    | |   _   _  ___| | ___   _ \n" +
+      "    | |  | | | |/ __| |/ / | | |      |\\__/,|   (`\\\n" +
+      "    | |__| |_| | (__|   <| |_| |    _.|o o  |_   ) )\n" +
+      "    |_____\\__,_|\\___|_|\\_\\\\__, |  -(((---(((--------\n" +
+      "                          |___/ ";
+
   public static void main(String[] args) {
-    String divider = "____________________________________________________________";
-    String indentation = "   ";
-    String logo = "     _               _          \n" +
-        "    | |   _   _  ___| | ___   _ \n" +
-        "    | |  | | | |/ __| |/ / | | |      |\\__/,|   (`\\\n" +
-        "    | |__| |_| | (__|   <| |_| |    _.|o o  |_   ) )\n" +
-        "    |_____\\__,_|\\___|_|\\_\\\\__, |  -(((---(((--------\n" +
-        "                          |___/ ";
-
-    String greeting = indentation + "Hello! I'm Lucky the cat.\n" + indentation + "What can I do for you?";
-    String bye = "Goodbye my friend. See you soon!";
-
-    System.out.println(indentation + divider + "\n" + logo + "\n\n" + greeting + "\n" + indentation + divider + "\n");
+    printOutput(logo, "Hello! I'm Lucky the cat", "What can I do for you?");
     Scanner sc = new Scanner(System.in);
     ArrayList<String> tasks = new ArrayList<>();
     ArrayList<Boolean> taskStatus = new ArrayList<>();
@@ -26,63 +24,59 @@ public class Duke {
     Command command;
 
     while (isChatting) {
-      String in = sc.nextLine();
-      int target = 0;
+      String[] input = sc.nextLine().split(" ");
 
-      if (in.contains("mark") || in.contains("unmark")) {
-        target = Integer.parseInt(in.split(" ")[1]) - 1;
-        in = in.split(" ")[0];
-      }
-
-      command = Command.parseCommand(in);
+      command = Command.parseCommand(input[0]);
 
       switch (command) {
         case VIEW_LIST:
-          System.out.println(indentation + divider);
-          System.out.println(indentation + "Here are the tasks in your list:");
-
+          StringBuilder sb = new StringBuilder();
           for (int i = 0; i < tasks.size(); i++) {
             if (taskStatus.get(i)) {
               checkBox = tick;
             } else {
               checkBox = untick;
             }
-
-            System.out.println(indentation + checkBox + " " + (i + 1) + ". " + tasks.get(i));
+            sb.append(checkBox + " " + (i + 1) + ". " + tasks.get(i) + "\n" + subIndentation);
           }
-          System.out.println(indentation + divider + "\n");
+
+          printOutput("Here are the tasks in your list:", sb.toString());
           break;
 
         case BYE:
-          System.out.println(indentation + divider);
-          System.out.println(indentation + bye + "\n" + indentation + divider + "\n");
+          printOutput("Goodbye my friend. See you soon!");
           isChatting = false;
           break;
 
         case UPDATE_MARK:
+          int target = Integer.parseInt(input[1]) - 1;
           taskStatus.set(target, true);
           checkBox = tick;
-          System.out.println(indentation + divider);
-          System.out.println(indentation + "Nice! I've marked this task as done:");
-          System.out.println(indentation + "  " + checkBox + " " + tasks.get(target));
-          System.out.println(indentation + divider + "\n");
+          printOutput("Nice! I've marked this task as done:", checkBox + " " + tasks.get(target));
           break;
         case UPDATE_UNMARK:
+          target = Integer.parseInt(input[1]) - 1;
           taskStatus.set(target, false);
           checkBox = untick;
-          System.out.println(indentation + divider);
-          System.out.println(indentation + "OK, I've marked this task as not done yet:");
-          System.out.println(indentation + "  " + checkBox + " " + tasks.get(target));
-          System.out.println(indentation + divider + "\n");
+          printOutput("OK, I've marked this task as not done yet:", checkBox + " " + tasks.get(target));
           break;
         default:
-          System.out.println(indentation + divider);
-          tasks.add(in);
+          tasks.add(String.join(" ", input));
           taskStatus.add(false);
-          System.out.println(indentation + "added: " + in + "\n" + indentation + divider + "\n");
+          System.out.println(indentation + "added: " + String.join(" ", input) + "\n" + indentation +
+              divider + "\n");
           break;
       }
     }
     sc.close();
+  }
+
+  public static void printOutput(String... msg) {
+    System.out.println(indentation + divider);
+
+    for (String string : msg) {
+      System.out.println(subIndentation + string);
+    }
+    System.out.println(indentation + divider + "\n");
   }
 }
