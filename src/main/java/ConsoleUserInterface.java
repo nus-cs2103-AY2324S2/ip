@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class ConsoleUserInterface {
     private Scanner scanner;
     private boolean isPolling;
-    private List<String> tasks;
+    private List<Task> tasks;
     private int taskCount;
 
     public ConsoleUserInterface() {
@@ -26,37 +26,51 @@ public class ConsoleUserInterface {
     private void handleUserInput() {
         while (isPolling) {
             String input = this.scanner.nextLine();
-            switch (input) {
+            String[] args = input.split(" ");
+            switch (args[0]) {
                 case "list":
-                    printOutput(tasks);
+                    printSeparator();
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < this.tasks.size(); i++) {
+                        System.out.println(i + 1 + "." + tasks.get(i));
+                    }
+                    printSeparator();
                     break;
                 case "bye":
                     this.isPolling = false;
                     break;
+                case "mark": {
+                    Task target = this.tasks.get(Integer.parseInt(args[1]) - 1);
+                    target.markDone();
+                    printSeparator();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  " + target);
+                    printSeparator();
+                    break;
+                }
+                case "unmark": {
+                    Task target = this.tasks.get(Integer.parseInt(args[1]) - 1);
+                    target.unmarkDone();
+                    printSeparator();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("  " + target);
+                    printSeparator();
+                    break;
+                }
                 default:
-                    this.tasks.add(taskCount + 1 + ". " + input);
                     this.taskCount++;
-                    printOutput("added: " + input);
+                    this.tasks.add(new Task(this.taskCount, input));
+                    printSeparator();
+                    System.out.println("added: " + input);
+                    printSeparator();
             }
         }
     }
 
-    public void printOutput(String string) {
-        printSeparator();
-        System.out.println(string);
-        printSeparator();
-    }
-
-    public void printOutput(List<String> collection) {
-        printSeparator();
-        for (String task: this.tasks) {
-            System.out.println(task);
-        }
-        printSeparator();
-    }
-
     public void exit() {
-        printOutput("Bye. Hope to see you again soon!");
+        printSeparator();
+        System.out.println("Bye. Hope to see you again soon!");
+        printSeparator();
 
         this.scanner.close();
     }
