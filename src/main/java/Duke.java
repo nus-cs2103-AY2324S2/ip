@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -14,8 +15,7 @@ public class Duke {
 
         System.out.println(greeting);
 
-        Task[] myList = new Task[100];
-        int listIndex = 0;
+        ArrayList<Task> myList = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
         String line = scanner.nextLine(); // Get first input
@@ -30,8 +30,9 @@ public class Duke {
                 String params = line.substring(cmd.length()).trim();
                 switch (cmd) {
                     case "list":
-                        for (int i = 0; i < listIndex; i++) {
-                            System.out.println((i + 1) + ". " + myList[i]);
+                        System.out.println("Here are the tasks in your list:");
+                        for (int i = 0; i < myList.size(); i++) {
+                            System.out.println((i + 1) + ". " + myList.get(i));
                         }
                         break;
                     case "mark":
@@ -39,7 +40,7 @@ public class Duke {
                             throw new DukeException.MarkParamsException();
                         }
                         int num = Integer.valueOf(params);
-                        Task t = myList[num - 1];
+                        Task t = myList.get(num - 1);
                         t.markAsDone();
 
                         System.out.println("Nice! I've marked this task as done:");
@@ -50,11 +51,22 @@ public class Duke {
                             throw new DukeException.MarkParamsException();
                         }
                         num = Integer.valueOf(params);
-                        t = myList[num - 1];
+                        t = myList.get(num - 1);
                         t.unmarkAsDone();
 
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(t);
+                        break;
+                    case "delete":
+                        if (params.length() == 0) {
+                            throw new DukeException.DeleteParamsException();
+                        }
+                        num = Integer.valueOf(params);
+                        Task toDelete = myList.get(num - 1);
+                        myList.remove(num - 1);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(toDelete);
+                        System.out.println("Now you have " + myList.size() + " tasks in the list");
                         break;
                     case "todo":
                         if (params.length() == 0) {
@@ -64,11 +76,11 @@ public class Duke {
                         String desc = params;
 
                         Task newTask = new Todo(desc);
-                        myList[listIndex++] = newTask;
+                        myList.add(newTask);
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newTask);
-                        System.out.println("Now you have " + listIndex + " tasks in the list");
+                        System.out.println("Now you have " + myList.size() + " tasks in the list");
                         break;
                     case "deadline":
                         if (!params.contains("/by")) {
@@ -81,11 +93,11 @@ public class Duke {
                         String by = params.split("/by")[1].trim();
 
                         newTask = new Deadline(desc, by);
-                        myList[listIndex++] = newTask;
+                        myList.add(newTask);
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newTask);
-                        System.out.println("Now you have " + listIndex + " tasks in the list");
+                        System.out.println("Now you have " + myList.size() + " tasks in the list");
                         break;
                     case "event":
                         if (!params.contains("/from") || !params.contains("/to")) {
@@ -99,11 +111,11 @@ public class Duke {
                         String to = params.split("/to")[1].trim();
 
                         newTask = new Event(desc, from, to);
-                        myList[listIndex++] = newTask;
+                        myList.add(newTask);
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newTask);
-                        System.out.println("Now you have " + listIndex + " tasks in the list");
+                        System.out.println("Now you have " + myList.size() + " tasks in the list");
                         break;
                     default:
                         throw new DukeException.UnknownCommandException();

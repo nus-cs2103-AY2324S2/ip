@@ -16,5 +16,9 @@ unmark 5
 list
 unmark
 mark
+list
+delete 1
+delete 2
+list
 hi
 bye

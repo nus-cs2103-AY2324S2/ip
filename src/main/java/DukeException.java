@@ -22,6 +22,12 @@ public class DukeException extends Exception {
         }
     }
 
+    public static class DeleteParamsException extends DukeException {
+        public DeleteParamsException() {
+            super("An integer argument is expected for a delete command.");
+        }
+    }
+
     // Custom exception for "todo" command without a description
     public static class TodoDescriptionMissingException extends DukeException {
         public TodoDescriptionMissingException() {
