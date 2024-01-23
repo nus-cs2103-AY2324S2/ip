@@ -9,4 +9,5 @@ todo
 blah
 list
 event hi/ /
+delete 1
 bye

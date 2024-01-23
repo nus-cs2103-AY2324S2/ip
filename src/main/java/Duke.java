@@ -1,5 +1,5 @@
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
+
 public class Duke {
     public static void main(String[] args) {
 
@@ -15,19 +15,26 @@ public class Duke {
         String listingTxt = "\tHere are the tasks in your list:\n";
         String markTxt = "\tNice! I've marked this task as done:\n";
         String unmarkTxt = "\tOK, I've marked this task as not done yet:\n";
+        String deleteTxt = "\tNoted. I will remove this task for you:\n";
+        String outBoundsTxt = "\tHmm looks like this task number doesn't exist!\n";
         String addTaskTxt = "\tGot it. I've added this task:\n";
         String invalidTxt = "\tSorry, what do you mean?\n";
         String noDescTxt = "\tPlease provide the description of your ";
+        String markFormTxt = "\tSorry! To mark or unmark tasks, please do\n" +
+                "\t\t(un)mark (number)\n";
         String deadlineFormTxt = "\tSorry! Please use the given format for deadline tasks:\n" +
                 "\t\tdeadline (description) /by (due date/time)\n";
         String eventFormTxt = "\tSorry! Please use the given format for event tasks:\n" +
                 "\t\tevent (description) /from (start) /to (end)\n";
+        String deleteFormTxt = "\tDid you mean to delete the task? Please do this:\n" +
+                "\t\tdelete (number)\n";
         String noStartTxt = "\tHey, please let me know the start date/time for this task!";
         String noEndTxt = "\tHey, please let me know the end date/time for this task!";
 
+
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
-        Task[] store = new Task[100];
+        List<Task> store = new ArrayList<Task>();
         int numItems = 0;
 
         System.out.println(introTxt);
@@ -37,7 +44,7 @@ public class Duke {
             String cmd = fullCmd.split(" ")[0];
 
             // command bye to exit bot
-            if(cmd.equals("bye")) {
+            if (cmd.equals("bye")) {
                 System.out.println(outroTxt);
                 exit = true;
             }
@@ -46,31 +53,55 @@ public class Duke {
             else if (cmd.equals("list")) {
                 String toPrint = listingTxt;
                 for (int i = 0; i < numItems; i++) {
-                    toPrint += "\t " + (i + 1) + "." + store[i] + "\n";
+                    toPrint += "\t " + (i + 1) + "." + store.get(i) + "\n";
                 }
                 System.out.println(lineTxt + toPrint + lineTxt);
             }
 
             // command mark to check task
             else if (cmd.equals("mark")) {
-                int updateIndex = Integer.parseInt(fullCmd.split(" ")[1]);
-                if (updateIndex <= numItems) store[updateIndex - 1].mark();
-                System.out.println(
-                        lineTxt + markTxt +
-                                "\t\t" + store[updateIndex - 1] + "\n" +
-                                lineTxt
-                );
+                try {
+                    if (fullCmd.split(" ")[1].trim().isEmpty()) throw new DukeException("Improper Format");
+                    int updateIndex = Integer.parseInt(fullCmd.split(" ")[1]);
+
+                    if (updateIndex <= numItems && updateIndex > 0) store.get(updateIndex - 1).mark();
+                    else throw new DukeException("Number Out of Bounds");
+
+                    System.out.println(
+                            lineTxt + markTxt +
+                                    "\t\t" + store.get(updateIndex - 1) + "\n" +
+                                    lineTxt
+                    );
+                } catch (DukeException e) {
+                    String errorMsg = e.getMessage();
+                    if (errorMsg.equals("Improper Format")) System.out.println(lineTxt + markFormTxt + lineTxt);
+                    if (errorMsg.equals("Number Out of Bounds")) System.out.println(lineTxt + outBoundsTxt + lineTxt);
+                } catch (NumberFormatException e) {
+                    System.out.println(lineTxt + "\tInvalid number given! :(\n" + lineTxt);
+                }
             }
 
             // command unmark to uncheck task
             else if (cmd.equals("unmark")) {
-                int updateIndex = Integer.parseInt(fullCmd.split(" ")[1]);
-                if (updateIndex <= numItems) store[updateIndex - 1].unmark();
-                System.out.println(
-                        lineTxt + unmarkTxt +
-                                "\t\t" + store[updateIndex - 1] + "\n" +
-                                lineTxt
-                );
+                try {
+                    if (fullCmd.split(" ")[1].trim().isEmpty()) throw new DukeException("Improper Format");
+                    int updateIndex = Integer.parseInt(fullCmd.split(" ")[1]);
+
+                    if (updateIndex <= numItems && updateIndex > 0) store.get(updateIndex - 1).unmark();
+                    else throw new DukeException("Number Out of Bounds");
+
+                    System.out.println(
+                            lineTxt + unmarkTxt +
+                                    "\t\t" + store.get(updateIndex - 1) + "\n" +
+                                    lineTxt
+                    );
+                } catch (DukeException e) {
+                    String errorMsg = e.getMessage();
+                    if (errorMsg.equals("Improper Format")) System.out.println(lineTxt + markFormTxt + lineTxt);
+                    if (errorMsg.equals("Number Out of Bounds")) System.out.println(lineTxt + outBoundsTxt + lineTxt);
+                } catch (NumberFormatException e) {
+                    System.out.println(lineTxt + "\tInvalid number given! :(\n" + lineTxt);
+                }
             }
 
             // else add new task
@@ -80,7 +111,8 @@ public class Duke {
                     String name = fullCmd.substring(5);
                     if (name.trim().isEmpty()) throw new DukeException("Description Blank");
                     Task newTask = new ToDo(name);
-                    store[numItems++] = newTask;
+                    numItems++;
+                    store.add(newTask);
                     System.out.println(
                             lineTxt + addTaskTxt +
                                     "\t\t" + newTask + "\n" + "\tNow you have " +
@@ -104,7 +136,8 @@ public class Duke {
                     if (dueDate.trim().isEmpty()) throw new DukeException("End Blank");
 
                     Task newTask = new Deadline(name, dueDate);
-                    store[numItems++] = newTask;
+                    numItems++;
+                    store.add(newTask);
                     System.out.println(
                             lineTxt + addTaskTxt +
                                     "\t\t" + newTask + "\n"
@@ -135,7 +168,8 @@ public class Duke {
                     if (end.trim().isEmpty()) throw new DukeException("End Blank");
 
                     Task newTask = new Event(name, start, end);
-                    store[numItems++] = newTask;
+                    numItems++;
+                    store.add(newTask);
                     System.out.println(
                             lineTxt + addTaskTxt +
                                     "\t\t" + newTask + "\n"
@@ -150,6 +184,33 @@ public class Duke {
                     if (errorMsg.equals("Start Blank")) System.out.println(lineTxt + noStartTxt + "\n" + lineTxt);
                     if (errorMsg.equals("End Blank")) System.out.println(lineTxt + noEndTxt + "\n" + lineTxt);
                 }
+            }
+
+            else if (cmd.equals("delete")) {
+                try {
+                    if (fullCmd.split(" ")[1].trim().isEmpty()) throw new DukeException("Improper Format");
+                    int deleteIndex = Integer.parseInt(fullCmd.split(" ")[1]);
+                    if (deleteIndex > numItems || deleteIndex <= 0) throw new DukeException("Number Out of Bounds");
+
+                    Task toRemove = store.get(deleteIndex - 1);
+                    store.remove(toRemove);
+                    numItems--;
+                    System.out.println(
+                            lineTxt + deleteTxt +
+                                    "\t\t" + toRemove + "\n" +
+                                    "\tNow you have " +
+                                    numItems + " tasks in the list.\n"
+                                    + lineTxt
+                    );
+                } catch (DukeException e) {
+                    String errorMsg = e.getMessage();
+                    if (errorMsg.equals("Improper Format")) System.out.println(lineTxt + deleteFormTxt + lineTxt);
+                    if (errorMsg.equals("Number Out of Bounds")) System.out.println(lineTxt + outBoundsTxt + lineTxt);
+                } catch (NumberFormatException e) {
+                    System.out.println(lineTxt + "\tInvalid number given! :(\n" + lineTxt);
+                }
+
+
             }
 
             else {
