@@ -61,7 +61,9 @@ public class GrumbleBug {
                 System.out.println("Ugh, unmarked it.");
                 String taskStr = sc.nextLine();
             } else if (input1.equals("todo")) { // add to list
-                Task task = new Task(input1, myList.size() + 1);
+                System.out.println("Task name?");
+                String name = sc.nextLine();
+                Task task = new Task(name, myList.size() + 1);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
