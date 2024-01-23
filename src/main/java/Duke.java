@@ -5,7 +5,7 @@ public class Duke {
     String name = "XVX-016 Aerial";
     String command = "";
     Scanner scanner1;
-    ArrayList<String> taskList = new ArrayList<>();
+    ArrayList<Task> taskList = new ArrayList<>();
     public Duke() {
     }
 
@@ -41,6 +41,28 @@ public class Duke {
         input();
     }
 
+    public void markTask(Integer index) {
+        Task currentTask = taskList.get(index);
+        indent();
+        System.out.println("We have completed this task!");
+        currentTask.mark();
+        indent();
+        System.out.println(currentTask.getStatus() + " " + currentTask.getTask());
+        horizontalLines();
+        input();
+    }
+
+    public void unmarkTask(Integer index) {
+        Task currentTask = taskList.get(index);
+        indent();
+        System.out.println("Oops, time to redo the task!");
+        currentTask.unmark();
+        indent();
+        System.out.println(currentTask.getStatus() + " " + currentTask.getTask());
+        horizontalLines();
+        input();
+    }
+
     public void addTask()  {
         horizontalLines();
         indent();
@@ -50,7 +72,7 @@ public class Duke {
         indent();
         System.out.println(this.command);
         horizontalLines();
-        this.taskList.add(this.command);
+        this.taskList.add(new Task(this.command));
         input();
     }
 
@@ -63,7 +85,8 @@ public class Duke {
         indent();
 
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(taskList.get(i));
+            Task currentTask = taskList.get(i);
+            System.out.println((i+1) + ". " + currentTask.getStatus() + " " + currentTask.getTask());
             indent();
         }
         horizontalLines();
@@ -76,12 +99,17 @@ public class Duke {
 
     public void input() {
         String commandInput = scanner1.nextLine();
-        this.command = commandInput;
+        String[] inputSplit = commandInput.split(" ");
+        this.command = inputSplit[0];
 
         if (this.command.equals("bye")) {
             bye();
         } else if (this.command.equals("list")) {
             listTask();
+        } else if (this.command.equals("mark")) {
+            markTask(Integer.valueOf(inputSplit[1]) - 1);
+        } else if (this.command.equals("unmark")) {
+            unmarkTask(Integer.valueOf((inputSplit[1])) - 1);
         } else {
             addTask();
         }
