@@ -10,33 +10,30 @@ public class Atlas {
 
         greet();
         while (true) {
-            String input = scanner.nextLine();
-            if (input.equals("bye")) {
-                break;
-            }
-            else if (input.equals("list")) {
-                listTasks();
-            }
-            else if (input.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(input.substring(5)) - 1;
-                markTask(taskNumber);
-            }
-            else if (input.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(input.substring(7)) - 1; // Adjust for array index
-                unmarkTask(taskNumber);
-            }
-            else if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
-                addTask(input);
-            }
+            try {
+                String input = scanner.nextLine();
+                if (input.equals("bye")) {
+                    break;
+                } else if (input.equals("list")) {
+                    listTasks();
+                } else if (input.startsWith("mark ")) {
+                    int taskNumber = Integer.parseInt(input.substring(5)) - 1;
+                    markTask(taskNumber);
+                } else if (input.startsWith("unmark ")) {
+                    int taskNumber = Integer.parseInt(input.substring(7)) - 1; // Adjust for array index
+                    unmarkTask(taskNumber);
+                } else if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
+                    addTask(input);
+                } else {
+                    throw new AtlasException("Invalid Command!!");
+                }
+            } catch (AtlasException e) {
+                System.out.println(e.getMessage());
 
 
-            else {
-                ;
             }
-
         }
         exit();
-
     }
 
     private static void greet() {
@@ -47,17 +44,23 @@ public class Atlas {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void addTask(String input) {
+    private static void addTask(String input) throws AtlasException {
         if (input.startsWith("todo ")) {
             String description = input.substring(5);
             tasks[taskCounter] = new ToDo(description);
         } else if (input.startsWith("deadline ")) {
             String[] parts = input.substring(9).split(" /by ");
+            if (parts.length < 2) {
+                throw new AtlasException("Invalid deadline format. Please use 'deadline [description] /by [due date]'.");
+            }
             String description = parts[0];
             String dueDate = parts[1];
             tasks[taskCounter] = new Deadline(description, dueDate);
         } else if (input.startsWith("event ")) {
             String[] parts = input.substring(6).split(" /");
+            if (parts.length < 3) {
+                throw new AtlasException("Invalid event format. Please use 'event [description] /from [start date] /to [end date]'.");
+            }
             String description = parts[0];
             String startTime = parts[1].substring(5); // Remove "from " prefix
             String endTime = parts[2].substring(3); // Remove "to " prefix
@@ -74,14 +77,20 @@ public class Atlas {
         }
     }
 
-    private static void markTask(int i) {
+    private static void markTask(int i) throws AtlasException {
+        if (i < 0 || i >= taskCounter) {
+            throw new AtlasException("Task number " + (i + 1) + " does not exist.");
+        }
         tasks[i].toggle();
         System.out.println("Nice! I've marked this task as done:");
         String str = tasks[i].toString();
         System.out.println(str);
     }
 
-    private static void unmarkTask(int i) {
+    private static void unmarkTask(int i) throws AtlasException {
+        if (i < 0 || i >= taskCounter) {
+            throw new AtlasException("Task number " + (i + 1) + " does not exist.");
+        }
         tasks[i].toggle();
         System.out.println("OK, I've marked this task as not done yet");
         String str = tasks[i].toString();
