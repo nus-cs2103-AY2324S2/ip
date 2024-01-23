@@ -54,6 +54,7 @@ public class TaskManager {
 
   public void handleInput(String input) {
     try {
+      input = input.trim();
       String command = getCommand(input);
       // Decided to pass the entire input instead because otherwise we would have to parse the input into command and value
       // which would not be appropriate here since it includes a list() function too
