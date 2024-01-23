@@ -1,10 +1,20 @@
 import java.util.Scanner;
 
 public class Zack {
+    private static final Task[] tasks = new Task[100];
+    private static int taskCount = 0;
+    private static void addTask(Task task) {
+        tasks[taskCount] = task;
+        taskCount++;
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:\n  " + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("____________________________________________________________\n");
+
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
 
         // Greeting message
         System.out.println("____________________________________________________________");
@@ -43,11 +53,27 @@ public class Zack {
                 }
                 System.out.println("____________________________________________________________\n");
             } else {
-                tasks[taskCount] = new Task(input);
-                taskCount++;
-                System.out.println("____________________________________________________________");
-                System.out.println("added: " + input);
-                System.out.println("____________________________________________________________\n");
+                Task newTask;
+                switch (sections[0]) {
+                    case "todo":
+                        newTask = new Todo(sections[1]);
+                        break;
+                    case "deadline": {
+                        String[] parts = sections[1].split(" /by ");
+                        newTask = new Deadline(parts[0], parts[1]);
+                        break;
+                    }
+                    case "event": {
+                        String[] parts = sections[1].split(" /from ");
+                        String[] times = parts[1].split(" /to ");
+                        newTask = new Event(parts[0], times[0], times[1]);
+                        break;
+                    }
+                    default:
+                        newTask = new Task(input);
+                        break;
+                }
+                addTask(newTask);
             }
         }
     }
