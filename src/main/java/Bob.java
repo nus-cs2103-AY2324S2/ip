@@ -52,7 +52,7 @@ public class Bob {
 
             // add Task
             } else {
-                list[curr++] = new Task(input);
+                list[curr++] = new Todo(input);
                 System.out.println("added: " + input);
             }
         }
