@@ -26,14 +26,18 @@ public class Duke {
       switch (input.toLowerCase()) {
         case "list":
           System.out.println(indentation + divider);
-          System.out.println(indentation + "list");
+          for (int i = 0; i < inputs.size(); i++) {
+            System.out.println(indentation + (i + 1) + ". " + inputs.get(i));
+          }
           System.out.println(indentation + divider + "\n");
           break;
+
         case "blah":
           System.out.println(indentation + divider);
           System.out.println(indentation + "blah");
           System.out.println(indentation + divider + "\n");
           break;
+
         case "bye":
           System.out.println(indentation + divider);
           System.out.println(indentation + bye + "\n" + indentation + divider + "\n");
@@ -41,6 +45,9 @@ public class Duke {
           break;
 
         default:
+          System.out.println(indentation + divider);
+          inputs.add(input);
+          System.out.println(indentation + "added: " + input + "\n" + indentation + divider + "\n");
           break;
       }
     }
