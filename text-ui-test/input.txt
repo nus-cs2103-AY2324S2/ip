@@ -29,4 +29,7 @@ list
 delete 6
 mark 7
 delete 7
+mark a
+mark 7 2
+delete 1 2
 bye
