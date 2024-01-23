@@ -104,7 +104,7 @@ public class Cortana {
                     success = this.memory.add(curr_task);
                     response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
                 } else {
-                    response = "Please enter a valid todo!";
+                    response = "Please enter a valid todo! Tip: todo <description> \nMissing description";
                 }
             } else if (input.startsWith("deadline")) {
                 if (input.length() > 8) {
@@ -114,10 +114,10 @@ public class Cortana {
                         success = this.memory.add(curr_task);
                         response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
                     } else {
-                        response = "Please enter a valid deadline!";
+                        response = "Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nMissing /by";
                     }
                 } else {
-                    response = "Please enter a valid deadline!";
+                    response = "Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nMissing description";
                 }
             } else if (input.startsWith("event")) {
                 if (input.length() > 5) {
@@ -129,13 +129,13 @@ public class Cortana {
                             success = this.memory.add(curr_task);
                             response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
                         } else {
-                            response = "Please enter a valid event!";
+                            response = "Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing /to";
                         }   
                     } else {
-                        response = "Please enter a valid event!";
+                        response = "Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing /from";
                     }
                 } else {
-                    response = "Please enter a valid event!";
+                    response = "Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing description";
                 }
             } else if (input.startsWith("mark")) {
                 if (input.length() > 4) {
@@ -145,10 +145,10 @@ public class Cortana {
                         curr_task = this.memory.markTask(index);
                         response = Response.markTask(curr_task);
                     } else {
-                        response = "Please enter a valid number!";
+                        response = "Please enter a valid number! Tip: mark <number> \nMissing number";
                     }
                 } else {
-                    response = "Please enter a valid number!";
+                    response = "Please enter a valid number! Tip: mark <number> \nMissing number";
                 }
             } else if (input.startsWith("unmark")) {
                 if (input.length() > 6) {
@@ -158,10 +158,10 @@ public class Cortana {
                         curr_task = this.memory.unmarkTask(index);
                         response = Response.unmarkTask(curr_task);
                     } else {
-                        response = "Please enter a valid number!";
+                        response = "Please enter a valid number! Tip: unmark <number> \nMissing number";
                     }
                 } else {
-                    response = "Please enter a valid number!";
+                    response = "Please enter a valid number! Tip: unmark <number> \nMissing number";
                 }
             } else if (input.equals("list")) {
                 tasks = this.memory.getTasks();
