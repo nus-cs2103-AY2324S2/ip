@@ -26,4 +26,7 @@ event my birthday /from today /to next year
 list
 unmark 4
 list
+delete 6
+mark 7
+delete 7
 bye
