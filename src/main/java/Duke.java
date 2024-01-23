@@ -9,7 +9,7 @@ public class Duke {
     public static void main(String[] args) {
         Scanner inp = new Scanner(System.in);
         System.out.println("Hello! I'm " + name + "\n"
-                + "What can I do for you?\n");
+                + "What can I do for you?");
         String input;
         Boolean running = true;
 
