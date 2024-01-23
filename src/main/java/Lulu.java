@@ -17,37 +17,6 @@ public class Lulu {
         print("Bye. Hope to see you again soon!");
     }
 
-//    public void echo() {
-//        Scanner scanner = new Scanner(System.in);
-//        while (true) {
-//            String input = scanner.nextLine();
-//            if (input.toLowerCase().equals("bye")) {
-//                break;
-//            }
-//            print(input);
-//        }
-//    }
-//
-//    public void insert() {
-//        Scanner scanner = new Scanner(System.in);
-//        while (true) {
-//            String input = scanner.nextLine();
-//            if (input.toLowerCase().equals("list")) {
-//                for (int i = 0; i < this.items.size(); i++) {
-//                    String output = i + ". " + this.items.get(i);
-//                    print(output);
-//                }
-//            }
-//            else if (input.toLowerCase().equals("bye")) {
-//                break;
-//            } else {
-//                this.items.add(input);
-//                String output = "added: " + input;
-//                print(output);
-//            }
-//        }
-//    }
-
     public void respond() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -130,13 +99,11 @@ public class Lulu {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
-
         int index = Integer.valueOf(input.substring(6).strip()) - 1;
         if (index >= this.items.size() || index < 0) {
             print("Oops! You did not give a valid index.");
             return;
         }
-
         Task task = this.items.remove(index);
         print("Noted. I've removed this task:");
         print("\t" + task);
