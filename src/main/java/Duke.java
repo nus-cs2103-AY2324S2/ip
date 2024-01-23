@@ -51,6 +51,10 @@ public class Duke {
                     String[] event = user_word.split("/from | /to ");
                     Event temp_event = new Event(event[0].substring(6), event[1], event[2]);
                     lucifer.addEventTask(temp_event);
+                } else if (user_word.contains("delete")) {
+                    int deleted_index = Integer.parseInt(user_word.split(" ")[1]);
+                    lucifer.deleteTask(deleted_index);
+
                 } else {
                     //lucifer.addTask(user_word);
                     System.out.println("______________________________________________________");
@@ -137,6 +141,16 @@ public class Duke {
         } else {
             System.out.println("Now you have " + l.size() + " tasks in the list.");
         }
+        System.out.println("______________________________________________________");
+    }
+
+    public void deleteTask(int deleted_index) {
+        System.out.println("______________________________________________________");
+        int actual_index = deleted_index - 1;
+        Task removed_task = l.remove(actual_index);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(" " + removed_task);
+        System.out.println("Now you have " + l.size() + " task in the list.");
         System.out.println("______________________________________________________");
     }
 }
