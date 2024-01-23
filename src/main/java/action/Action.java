@@ -58,7 +58,7 @@ public abstract class Action {
             }
 
             if (!isRecognized) {
-                throw new UnrecognizedArgumentException(suppliedArg.name, command);
+                throw new UnrecognizedArgumentException(command, suppliedArg.name);
             }
         }
     }

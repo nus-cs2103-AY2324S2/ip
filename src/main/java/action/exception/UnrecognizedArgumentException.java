@@ -16,7 +16,7 @@ public class UnrecognizedArgumentException extends ActionException {
      *
      * @param name the name of the argument
      */
-    public UnrecognizedArgumentException(String name, Command command) {
+    public UnrecognizedArgumentException(Command command, String name) {
         this.name = name;
         this.command = command;
     }
