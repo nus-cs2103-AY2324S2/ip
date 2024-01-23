@@ -13,6 +13,10 @@ public class TaskList {
         count++;
     }
 
+    public void remove(int i) {
+        this.tasks.remove(i);
+    }
+
     public Task get(int i) {
         return this.tasks.get(i);
     }
