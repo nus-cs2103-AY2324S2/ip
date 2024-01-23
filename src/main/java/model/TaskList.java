@@ -38,6 +38,7 @@ public class TaskList {
     @Override
     public String toString() {
         String res = "";
+        // NOTE: May be slow
         for (int i = 1; taskList.size() >= i; i++) {
             res += String.format("%d. %s\n", i, getTask(i));
         }
