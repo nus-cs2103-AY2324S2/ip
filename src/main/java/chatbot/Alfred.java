@@ -1,7 +1,9 @@
+package chatbot;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Alfred {
     protected static final String line = "________________________________________________________________________________________";
     protected static ArrayList<Task> list = new ArrayList<Task>();
 
@@ -25,8 +27,24 @@ public class Duke {
     }
 
     public void addList(String input) {
-        list.add(new Task(input));
-        this.echo("added: " + input);
+        if (input.startsWith("todo")) {
+            input = input.substring(5);
+            list.add(new ToDo(input));
+        } else if (input.startsWith("deadline")) {
+            input = input.substring(9);
+            String description = input.split(" /by ", 2)[0];
+            String by = input.split(" /by ", 2)[1];
+            list.add(new Deadline(description, by));
+        } else if (input.startsWith("event")) {
+            input = input.substring(6);
+            String [] eventDetails = input.split(" /", 3);
+            String description = eventDetails[0];
+            String startTime = eventDetails[1].substring(5, 12);
+            String endTime = eventDetails[2].substring(3);
+            list.add(new Event(description, startTime, endTime));
+        }
+        String singularTask = list.size() == 1 ? "task" : "tasks";
+        this.echo(String.format("Got it. I've added this task:\n  %s\nNow you have %d %s in the list.", list.get(list.size()-1).toString(), list.size(), singularTask));
     }
 
     public void printList() {
@@ -54,12 +72,11 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke alfred = new Duke();
+        Alfred alfred = new Alfred();
         alfred.greet();
         while (true) {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
-
             switch (input) {
                 case "bye":
                     alfred.bye();
