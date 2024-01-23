@@ -8,6 +8,7 @@ import Models.Task;
 import Models.Todo;
 import Utils.StringUtils;
 
+// TODO: Stretch goal: add exceptions for marking and listing non-existent indexes
 public class TaskManager {
 
   public static final String mark = "mark";

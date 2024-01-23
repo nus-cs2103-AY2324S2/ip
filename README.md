@@ -1,3 +1,8 @@
+# Test generation setup help
+Only run this if you're sure your program works as intended `./text-ui-test/runtest.sh > ./text-ui-test/EXPECTED.txt`
+
+
+
 # Duke project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
