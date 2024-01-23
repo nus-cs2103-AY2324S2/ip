@@ -17,4 +17,7 @@ unmark -1
 unmark 0
 unmark 4
 unmark 3
+delete -1
+delete 4
+delete 4
 bye

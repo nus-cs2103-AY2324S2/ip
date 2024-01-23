@@ -34,7 +34,7 @@ public class Lamball {
 
     public void mark(String[] parts) throws LamballParseException {
         // If not numeric
-        if (!parts[1].matches("-?\\d+")) {
+        if (parts.length < 2 || !parts[1].matches("-?\\d+")) {
             throw new LamballParseException(indent + "    Invalid number, baa.\n" + indent);
         }
         int idx = Integer.valueOf(parts[1]) - 1;
@@ -50,7 +50,7 @@ public class Lamball {
 
     public void unMark(String[] parts) throws LamballParseException {
         // If not numeric
-        if (!parts[1].matches("-?\\d+")) {
+        if (parts.length < 2 || !parts[1].matches("-?\\d+")) {
             throw new LamballParseException(indent + "    Invalid number, baa.\n" + indent);
         }
         int idx = Integer.valueOf(parts[1]) - 1;
@@ -101,6 +101,22 @@ public class Lamball {
         System.out.println(indent + "    Added Event:\n        " + temp.toString() + "\n    Now you have " + tasks.size() + " tasks in the list.\n" + indent);
     }
 
+    public void deleteFromList(String[] parts) throws LamballParseException {
+        // If not numeric
+        if (!parts[1].matches("-?\\d+")) {
+            throw new LamballParseException(indent + "    Invalid number, baa.\n" + indent);
+        }
+        int idx = Integer.valueOf(parts[1]) - 1;
+        // Checks if index is within range of list
+        if (idx >= tasks.size() || idx < 0) {
+            throw new LamballParseException(indent + "    Taaask index out of range, baa.\n" + indent);
+        }
+        System.out.println(indent + "    I have removed this taaask:");
+        Task temp = tasks.remove(idx);
+        System.out.println("        " + temp.toString());
+        System.out.println("    Now you have " + tasks.size() + " tasks in the list.\n" + indent);
+    }
+
     public boolean parse(String msg) throws LamballParseException {
         String[] parts = msg.split(" ", 2);
         System.out.println("\n    Lamball");
@@ -129,6 +145,10 @@ public class Lamball {
             }
             case "deadline": {
                 deadline(parts);
+                return true;
+            }
+            case "delete": {
+                deleteFromList(parts);
                 return true;
             }
             default:
