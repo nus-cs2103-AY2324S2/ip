@@ -23,6 +23,19 @@ Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][X] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+LukeException: Task does not exist. Please give a valid task number.
+LukeException: Invalid command/task type.
+LukeException: Invalid command. The description cannot be empty.
+LukeException: Invalid command. Please follow the format for deadline tasks.
+LukeException: Invalid command. Please follow the format for deadline tasks.
+LukeException: Invalid command. The description cannot be empty.
+LukeException: Invalid command. The deadline cannot be empty.
+LukeException: Invalid command. Please follow the format for event tasks.
+LukeException: Invalid command. Please follow the format for event tasks.
+LukeException: Invalid command. Please follow the format for event tasks.
+LukeException: Invalid command. The description cannot be empty.
+LukeException: Invalid command. The from section cannot be empty.
+LukeException: Invalid command. The to section cannot be empty.
 Bye. Hope to see you again soon!
 
 
