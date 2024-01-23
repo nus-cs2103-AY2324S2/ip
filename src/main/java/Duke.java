@@ -95,6 +95,25 @@ public class Duke {
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println("____________________________________________________________");
                     break;
+                case "delete":
+                    try {
+                        DukeExceptions.checkListNotEmpty(lst);
+                    } catch (DukeExceptions e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(e.getMessage());
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
+
+                    int deleteIndex = Integer.parseInt(inputParts[1]) - 1;
+                    Task toBeDeleted = lst.get(deleteIndex);
+                    lst.remove(deleteIndex);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(toBeDeleted.toString());
+                    System.out.println("Now you have " + lst.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                    break;
                 default:
                     System.out.println("____________________________________________________________");
                     System.out.println("added: " + input);
@@ -102,8 +121,6 @@ public class Duke {
                     lst.add(toAddTask);
                     System.out.println("____________________________________________________________");
             }
-
-
         } while(!action.equals("bye"));
 
         br.close();
