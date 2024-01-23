@@ -36,12 +36,31 @@ public class Duke {
                 for (int i = 0; i < tasks.size(); i++) {
                     pw.println((i + 1) + ". " + tasks.get(i));
                 }
-            } else {
-                Task newTask = new Task(currentResponse);
-                tasks.add(newTask);
-                pw.println("added: " + currentResponse);
+            }  else {
+                    if (currentResponse.startsWith("todo ")) {
+                    String description = currentResponse.substring(5);
+                    Todo newTodo = new Todo(description);
+                    tasks.add(newTodo);
+                    pw.println("Got it. I've added this task:\n  " + newTodo);
+                } else if (currentResponse.startsWith("deadline ")) {
+                    String[] parts = currentResponse.substring(9).split(" /by ");
+                    String description = parts[0];
+                    String by = parts[1];
+                    Deadline newDeadline = new Deadline(description, by);
+                    tasks.add(newDeadline);
+                    pw.println("Got it. I've added this task:\n  " + newDeadline);
+                } else if (currentResponse.startsWith("event ")) {
+                    String[] parts = currentResponse.substring(6).split(" /from ");
+                    String description = parts[0];
+                    String[] timeParts = parts[1].split(" /to ");
+                    String from = timeParts[0];
+                    String to = timeParts[1];
+                    Event newEvent = new Event(description, from, to);
+                    tasks.add(newEvent);
+                    pw.println("Got it. I've added this task:\n  " + newEvent);
+                }
+                pw.println("Now you have " + tasks.size() + " tasks in the list.");
             }
-
             pw.println("____________________________________________________________");
             pw.flush();
         }
