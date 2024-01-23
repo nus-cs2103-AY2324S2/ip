@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Gulie {
     private final static String name = "Güliedistodiez";
     private final static String line = "____________________________________________________________";
-    private ArrayList<String> list;
+    private ArrayList<Task> list;
 
     public Gulie() {
         System.out.println(line);
@@ -23,6 +23,10 @@ public class Gulie {
             return false;
         } else if (str.equals("list")) {
             this.list();
+        } else if (str.startsWith("mark ")) {
+            this.mark(Integer.parseInt(str.split(" ")[1]));
+        } else if (str.startsWith("unmark ")) {
+            this.unmark(Integer.parseInt(str.split(" ")[1]));
         } else {
             this.store(str);
         }
@@ -31,11 +35,11 @@ public class Gulie {
     }
 
     private void greet() {
-        System.out.println(String.format(" Hello! I'm %s\n What can I do for you?", name));
+        System.out.println(String.format(" Greetings. I am %s.\n What can I do for you?", name));
     }
 
     private void exit() {
-        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println(" Goodbye.");
     }
 
     private void list() {
@@ -46,7 +50,19 @@ public class Gulie {
 
     private void store(String str) {
         System.out.println(" added: " + str);
-        this.list.add(str);
+        this.list.add(new Task(str));
+    }
+
+    private void mark(int i) {
+        Task task = list.get(i - 1);
+        task.setMark(true);
+        System.out.println(" I have marked this task as completed:\n   " + task);
+    }
+
+    private void unmark(int i) {
+        Task task = list.get(i - 1);
+        task.setMark(false);
+        System.out.println(" I have marked this task as incomplete:\n   " + task);
     }
 
     public static void main(String[] args) {
