@@ -1,31 +1,31 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Gulie {
     private final static String name = "Güliedistodiez";
     private final static String line = "____________________________________________________________";
-
-    public static void main(String[] args) {
-        Gulie gulie = new Gulie();
-        Scanner scanner = new Scanner(System.in);
-        while (gulie.input(scanner.nextLine())) {
-
-        }
-    }
+    private ArrayList<String> list;
 
     public Gulie() {
         System.out.println(line);
         this.greet();
         System.out.println(line);
+        this.list = new ArrayList<>();
+
     }
 
     public boolean input(String str) {
+        System.out.println(line);
         if (str.equals("bye")) {
             this.exit();
+            System.out.println(line);
             return false;
+        } else if (str.equals("list")) {
+            this.list();
+        } else {
+            this.store(str);
         }
-        System.out.println(line);
-        System.out.println(str);
         System.out.println(line);
         return true;
     }
@@ -35,8 +35,25 @@ public class Gulie {
     }
 
     private void exit() {
-        System.out.println(line);
         System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(line);
+    }
+
+    private void list() {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(String.format(" %d. %s", i + 1, list.get(i)));
+        }
+    }
+
+    private void store(String str) {
+        System.out.println(" added: " + str);
+        this.list.add(str);
+    }
+
+    public static void main(String[] args) {
+        Gulie gulie = new Gulie();
+        Scanner scanner = new Scanner(System.in);
+        while (gulie.input(scanner.nextLine())) {
+
+        }
     }
 }
