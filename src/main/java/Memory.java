@@ -2,44 +2,42 @@ import java.util.ArrayList;
 
 public class Memory {
     
-    private ArrayList<String> tasks;
-    private ArrayList<Boolean> completed;
+    private ArrayList<Task> tasks;
+    private int numTasks;
 
     Memory() {
         this.tasks = new ArrayList<>();
-        this.completed = new ArrayList<>();
+        this.numTasks = 0;
     }
 
-    public boolean add(String sentence) {
-        this.tasks.add(sentence);
-        this.completed.add(false);
+    public boolean add(Task task) {
+        this.tasks.add(task);
+        this.numTasks++;
         return true;
     }
 
-    public boolean mark(int index) {
-        this.completed.set(index, true);
-        return true;
-    }
-
-    public boolean unmark(int index) {
-        this.completed.set(index, false);
-        return true;
-    }
-
-    public ArrayList<String> getTasks() {
-        ArrayList<String> list = new ArrayList<>();
-        for (String sentence : this.tasks) {
-            list.add(sentence);
+    public ArrayList<Task> getTasks() {
+        ArrayList<Task> list = new ArrayList<>();
+        for (Task task : this.tasks) {
+            list.add(task);
         }
         return list;
     }
 
-    public ArrayList<Boolean> getCompleted() {
-        ArrayList<Boolean> list = new ArrayList<>();
-        for (Boolean bool : this.completed) {
-            list.add(bool);
-        }
-        return list;
+    public Task markTask(int index) {
+        Task task = this.tasks.get(index);
+        task.mark();
+        return task;
+    }
+
+    public Task unmarkTask(int index) {
+        Task task = this.tasks.get(index);
+        task.unmark();
+        return task;
+    }
+
+    public int getNumTasks() {
+        return this.numTasks;
     }
 
 }
