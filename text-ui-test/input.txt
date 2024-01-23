@@ -1,0 +1,9 @@
+todo Go school
+deadline Task 4 /by Friday
+event project meeting /from Thursday 4pm NOT ADDED
+event project meeting /from Thursday 4pm /to 6pm
+mark 1
+mark 2
+unmark 1
+list
+bye

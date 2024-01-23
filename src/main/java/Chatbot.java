@@ -75,7 +75,6 @@ public class Chatbot {
       } else if (input.equals("list")) {
         this.list();
       } else {
-
         String firstWord = parts[0]; // check for commands
         if (parts.length == 2 && firstWord.equals("mark")
             || firstWord.equals("unmark")) { // is a command
@@ -96,6 +95,8 @@ public class Chatbot {
               this.storage[taskNumber - 1].unmark();
             }
           }
+        } else if (parts.length == 2 && firstWord.equals("todo") || parts.length > 2) {
+          this.addTask(input);
         } else { // 1 word
           System.out.println("\tadded: " + input);
           this.storage[this.storageFill++] = newTask;
@@ -118,14 +119,27 @@ public class Chatbot {
       String[] deadlineParts = parts[1].split(" /by ", 2);
       newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
     } else if (firstWord.equals("event")) {
+      // Split the details into description and time parts
       String[] eventParts = parts[1].split(" /from ", 2);
-      newTask = new Event(eventParts[0], eventParts[1]);
+      if (eventParts.length < 2) {
+        // Handle error: not enough parts for an event
+      } else {
+        // Further split the second part into start and end times
+        String[] timeParts = eventParts[1].split(" /to ", 2);
+        if (timeParts.length < 2) {
+          // Handle error: not enough parts for time
+        } else {
+          // Construct the event string
+          String eventTime = timeParts[0] + " to: " + timeParts[1];
+          newTask = new Event(eventParts[0], eventTime);
+        }
+      }
     }
 
     if (newTask != null) {
       this.storage[this.storageFill++] = newTask;
-      System.out.println("Got it. I've added this task:\n  " + newTask);
-      System.out.println("Now you have " + this.storageFill + " tasks in the list.");
+      System.out.println("\tGot it. I've added this task:\n\t" + newTask);
+      System.out.println("\tNow you have " + this.storageFill + " tasks in the list.");
     }
   }
 
