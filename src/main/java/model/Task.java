@@ -2,9 +2,19 @@ package model;
 
 public class Task {
     private String label;
+    private boolean isDone;
 
     public Task(String label) {
         this.label = label;
+        this.isDone = false;
+    }
+
+    public void mark() {
+        this.isDone = true;
+    }
+
+    public void unmark() {
+        this.isDone = false;
     }
 
     /**
@@ -14,6 +24,13 @@ public class Task {
      */
     @Override
     public String toString() {
-        return label;
+        String res = "";
+        if (this.isDone) {
+            res += "[X]";
+        } else {
+            res += "[ ]";
+        }
+
+        return res + " " + label;
     }
 }

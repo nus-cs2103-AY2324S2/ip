@@ -18,6 +18,18 @@ public class TaskList {
         taskList.add(t);
     }
 
+    public void markTask(int idx) {
+        getTask(idx).mark();
+    }
+
+    public void unmarkTask(int idx) {
+        getTask(idx).unmark();
+    }
+
+    public Task getTask(int idx) {
+        return taskList.get(idx - 1);
+    }
+
     /**
      * Returns the numbered list of tasks.
      *
@@ -26,8 +38,8 @@ public class TaskList {
     @Override
     public String toString() {
         String res = "";
-        for (int i = 0; taskList.size() > i; i++) {
-            res += String.format("%d. %s\n", i + 1, taskList.get(i));
+        for (int i = 1; taskList.size() >= i; i++) {
+            res += String.format("%d. %s\n", i, getTask(i));
         }
         return res;
     }
