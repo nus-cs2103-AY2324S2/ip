@@ -1,7 +1,33 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Dune
+What can I do for you?
 
+added: john
+added: cena
+Here are the tasks in your list:
+1.[ ] john
+2.[ ] cena
+Give a valid index to mark
+Nice! I've marked this task as done:
+[X] john
+Got it. I've added this task:
+[E][ ] this (from: 5 to: nights at Freddie's)
+Now you have 3 tasks in your list.
+Got it. I've added this task:
+[D][ ] well (by: 4/2/0 9:11pm)
+Now you have 4 tasks in your list.
+Got it. I've added this task:
+[T][ ] thisndat
+Now you have 5 tasks in your list.
+Nice! I've marked this task as done:
+[T][X] thisndat
+Nice! I've marked this task as done:
+[E][X] this (from: 5 to: nights at Freddie's)
+Nice! I've marked this task as done:
+[X] john
+Here are the tasks in your list:
+1.[X] john
+2.[ ] cena
+3.[E][X] this (from: 5 to: nights at Freddie's)
+4.[D][ ] well (by: 4/2/0 9:11pm)
+5.[T][X] thisndat
+Bye. Hope to see you again soon!

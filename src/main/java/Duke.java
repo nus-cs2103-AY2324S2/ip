@@ -13,7 +13,7 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello I'm Dune");
+        System.out.println("Hello! I'm Dune");
         System.out.println("What can I do for you?");
         List<Task> tasks = new ArrayList<>();
         System.out.println("");
@@ -22,8 +22,9 @@ public class Duke {
             String text = scanner.nextLine();  // Read user input
             if (text.equals("list")) {
                 // print out tasks line by line
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(space + i + ". " + tasks.get(i));
+                    System.out.println(i + 1 + "." + tasks.get(i));
                 }
                 continue;
             } else if (text.equals("bye")) {
@@ -39,14 +40,14 @@ public class Duke {
                     // parseInt might throw NumberFormatException
                     int index = Integer.parseInt(remaining);
                     // Index... exception
-                    tasks.get(index).complete();
-                    System.out.println(space + "Nice! I've marked this task as done:");
-                    System.out.println(space + tasks.get(index));
+                    tasks.get(index - 1).complete();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(tasks.get(index - 1));
 
                 } catch (IndexOutOfBoundsException i) {
-                    System.out.println(space + "Give a valid index to mark");
+                    System.out.println("Give a valid index to mark");
                 } catch (NumberFormatException n) {
-                    System.out.println(space + "Remaining characters do not match an integer");
+                    System.out.println("Remaining characters do not match an integer");
                 } finally {
                     continue;
                 }
@@ -68,7 +69,7 @@ public class Duke {
             }
 
             tasks.add(new Task(text));
-            System.out.println(space + "added:" + text);  // Output user input
+            System.out.println("added: " + text);  // Output user input
         }
 
         System.out.println("Bye. Hope to see you again soon!");
@@ -87,8 +88,8 @@ public class Duke {
             x = new Event(parts[0], dates[0], dates[1]);
         }
         tasks.add(x);
-        System.out.println(space + "Got it. I've added this task: ");
-        System.out.println(space + x);
-        System.out.println(space + "Now you have " + tasks.size() + " tasks in your list.");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(x);
+        System.out.println("Now you have " + tasks.size() + " tasks in your list.");
     }
 }
