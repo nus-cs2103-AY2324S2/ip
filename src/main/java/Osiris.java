@@ -49,4 +49,5 @@ public class Osiris {
     private void printSeparator() {
         System.out.println("----------------------------------------");
     }
+
 }
