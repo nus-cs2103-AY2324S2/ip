@@ -23,9 +23,24 @@ public class Toothless {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < listOfTasks.size(); i++) {
                     Task t = listOfTasks.get(i);
-                    System.out.format("%d. ["+ t.isMarkToString() + "] " + t + "\n", i + 1);
+                    System.out.format("%d. ["+ t.getStatusIcon() + "] " + t + "\n", i + 1);
                 }
-            } else if(command.equals("bye")){
+            }
+            else if(command.contains("unmark")){
+                int taskIndex = command.charAt(7) - (int)'0' - 1;
+                Task t = listOfTasks.get(taskIndex);
+                t.markAsNotDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.format("%d. ["+ t.getStatusIcon() + "] " + t + "\n", taskIndex + 1);
+            }
+            else if(command.contains("mark")){
+                int taskIndex = command.charAt(5) - (int)'0' - 1;
+                Task t = listOfTasks.get(taskIndex);
+                t.markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.format("%d. ["+ t.getStatusIcon() + "] " + t + "\n", taskIndex + 1);
+            }
+            else if(command.equals("bye")){
                 break;
             } else {
                 Task newTask = new Task(command);
