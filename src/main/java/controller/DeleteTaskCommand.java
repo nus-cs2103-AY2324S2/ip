@@ -6,6 +6,7 @@ import model.TaskList;
 import view.DeleteTaskView;
 
 public class DeleteTaskCommand extends Command {
+    public static final String COMMAND_WORD = "delete";
     private final Task task;
     private final TaskList taskList;
 

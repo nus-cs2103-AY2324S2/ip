@@ -10,67 +10,58 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     private final String command;
     private final TaskList taskList;
-    private final Storage storage;
-    public Parser(String command, TaskList taskList, Storage storage) {
+    public Parser(String command, TaskList taskList) {
         this.command = command;
         this.taskList = taskList;
-        this.storage = storage;
     }
 
-    public void parse() {
+    public Command parse() {
         String[] splitTask = command.split(" ", 2);
         Task task;
         switch(splitTask[0]) {
-            case "list":
-                new ListTaskCommand(taskList).execute(storage);
-                return;
-            case "mark":
+            case ListTaskCommand.COMMAND_WORD:
+                return new ListTaskCommand(taskList);
+            case MarkTaskCommand.COMMAND_WORD:
                 try {
-                    parseMark(splitTask).execute(storage);
+                    return parseMark(splitTask);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
-                return;
-            case "unmark":
+            case UnmarkTaskCommand.COMMAND_WORD:
                 try {
-                    parseUnmark(splitTask).execute(storage);
+                    return parseUnmark(splitTask);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
-                return;
-            case "todo":
+            case AddTaskCommand.TODO:
                 try {
                     task = parseToDo(splitTask);
-                    new AddTaskCommand(task, taskList).execute(storage);
+                    return new AddTaskCommand(task, taskList);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
-                return;
-            case "event":
+            case AddTaskCommand.EVENT:
                 try {
                     task = parseEvent(splitTask);
-                    new AddTaskCommand(task, taskList).execute(storage);
+                    return new AddTaskCommand(task, taskList);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
-                return;
-            case "deadline":
+            case AddTaskCommand.DEADLINE:
                 try {
                     task = parseDeadline(splitTask);
-                    new AddTaskCommand(task, taskList).execute(storage);
+                    return new AddTaskCommand(task, taskList);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
-                return;
-            case "delete":
+            case DeleteTaskCommand.COMMAND_WORD:
                 try {
-                    parseDelete(splitTask).execute(storage);
+                    return parseDelete(splitTask);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
-                return;
             default:
-                new InvalidCommand().execute(storage);
+                return new InvalidCommand();
         }
     }
 

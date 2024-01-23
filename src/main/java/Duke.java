@@ -1,3 +1,4 @@
+import controller.Command;
 import controller.ExitCommand;
 import controller.GreetCommand;
 import duke.Parser;
@@ -32,7 +33,8 @@ public class Duke {
                     new ExitCommand().execute(storage);
                     break;
                 } else {
-                    new Parser(input, taskList, storage).parse();
+                    Command c = new Parser(input, taskList).parse();
+                    c.execute(storage);
                 }
             }
         } catch (RuntimeException e) {

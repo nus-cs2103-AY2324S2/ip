@@ -6,6 +6,8 @@ import model.TaskList;
 import view.MarkTaskView;
 
 public class MarkTaskCommand extends Command {
+    public static final String COMMAND_WORD = "mark";
+
     private final Task task;
     private final TaskList taskList;
 

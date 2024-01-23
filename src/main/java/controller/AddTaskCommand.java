@@ -6,6 +6,9 @@ import model.TaskList;
 import view.AddTaskView;
 
 public class AddTaskCommand extends Command {
+    public static final String TODO = "todo";
+    public static final String EVENT = "event";
+    public static final String DEADLINE = "deadline";
     private final Task task;
     private final TaskList taskList;
 

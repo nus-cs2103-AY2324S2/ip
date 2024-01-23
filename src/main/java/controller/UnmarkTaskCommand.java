@@ -6,6 +6,7 @@ import model.TaskList;
 import view.UnmarkTaskView;
 
 public class UnmarkTaskCommand extends Command {
+    public static final String COMMAND_WORD = "unmark";
     private final Task task;
     private final TaskList taskList;
 

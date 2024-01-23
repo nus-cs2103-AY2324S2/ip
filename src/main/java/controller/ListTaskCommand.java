@@ -5,6 +5,8 @@ import model.TaskList;
 import view.TaskListView;
 
 public class ListTaskCommand extends Command {
+    public static final String COMMAND_WORD = "list";
+
     private final TaskListView taskListView;
 
     public ListTaskCommand(TaskList taskList) {
