@@ -3,6 +3,15 @@ import exceptions.*;
 import java.util.*;
 
 public class Lulu {
+    private enum Commands {
+        LIST,
+        MARK,
+        UNMARK,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT;
+    }
     private List<Task> items;
 
     public Lulu() {
@@ -26,29 +35,68 @@ public class Lulu {
                 if (input.toLowerCase().equals("bye")) {
                     break;
                 } else if (input.toLowerCase().equals("list")) {
-                    print("Here are the tasks in your list:");
-                    for (int i = 0; i < this.items.size(); i++) {
-                        String output = (i + 1) + "." + this.items.get(i);
-                        print(output);
-                    }
+                    manageTasks(Commands.LIST, input);
                 } else if (firstWord.equals("mark")) {
-                    mark(input);
+                    manageTasks(Commands.MARK, input);
                 } else if (firstWord.equals("unmark")) {
-                    unmark(input);
+                    manageTasks(Commands.UNMARK, input);
                 } else if (firstWord.equals("delete")) {
-                    delete(input);
+                    manageTasks(Commands.DELETE, input);
                 } else if (firstWord.equals("todo")) {
-                    todo(input);
+                    addTasks(Commands.TODO, input);
                 } else if (firstWord.equals("deadline")) {
-                    deadline(input);
+                    addTasks(Commands.DEADLINE, input);
                 } else if (firstWord.equals("event")) {
-                    event(input);
+                    addTasks(Commands.EVENT, input);
                 } else {
                     throw new InvalidCommandException();
                 }
             } catch (InvalidCommandException e) {
                 print("Sorry, I dont think I quite understood what you meant...");
             }
+        }
+    }
+
+    public void manageTasks(Commands command, String input) throws InvalidCommandException {
+        switch (command) {
+            case LIST:
+                list();
+                break;
+            case MARK:
+                mark(input);
+                break;
+            case UNMARK:
+                unmark(input);
+                break;
+            case DELETE:
+                delete(input);
+                break;
+            default:
+                throw new InvalidCommandException();
+        }
+    }
+
+    public void addTasks(Commands command, String input) throws InvalidCommandException {
+        switch (command) {
+            case TODO:
+                todo(input);
+                break;
+            case DEADLINE:
+                deadline(input);
+                break;
+            case EVENT:
+                event(input);
+                break;
+            default:
+                throw new InvalidCommandException();
+        }
+    }
+
+    public void list() {
+        print("Here are the tasks in your list:");
+        for (int i = 0; i < this.items.size(); i++) {
+            String output = (i + 1) + "." + this.items.get(i);
+            print(output);
         }
     }
 
@@ -95,7 +143,7 @@ public class Lulu {
     }
 
     public void delete(String input) {
-        if (input.length() <= 5) {
+        if (input.length() <= 6) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
