@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 public class Duke {
-    private static FastInput in = new FastInput(System.in);
+    private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("================================ \n" +
@@ -9,50 +9,28 @@ public class Duke {
                 "What can I do for you? \n" +
                 "================================ \n");
 
-        String input = in.next();
+        String input = sc.nextLine();
+        ArrayList<String> list = new ArrayList<>();
 
         while (!input.equals("bye")) {
-            System.out.println("-------------------------------- \n" +
-                    input + "\n" +
-                    "-------------------------------- \n");
-            input = in.next();
+            if (input.equals("list")) {
+                System.out.println( "--------------------------------");
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println((i+1) + ". " + list.get(i));
+                }
+                System.out.println( "-------------------------------- \n");
+            }
+            else {
+                list.add(input);
+                System.out.println( "-------------------------------- \n" +
+                                    "added: " + input + "\n" +
+                                    "-------------------------------- \n");
+            }
+            input = sc.nextLine();
         }
 
         System.out.println("================================ \n" +
                 "Bye. Hope to see you again soon! \n" +
                 "================================ \n");
-
-    }
-
-    static class FastInput {
-        BufferedReader br;
-        StringTokenizer tok;
-
-        public FastInput(InputStream in) {
-            br = new BufferedReader(new InputStreamReader(System.in));
-            tok = new StringTokenizer("");
-        }
-
-        public String next() {
-            while (!tok.hasMoreTokens()) {
-                try {
-                    tok = new StringTokenizer(br.readLine());
-                } catch (IOException e) {
-                }
-            }
-            return tok.nextToken();
-        }
-
-        public int nextInt() {
-            return Integer.parseInt(next());
-        }
-
-        public long nextLong() {
-            return Long.parseLong(next());
-        }
-
-        public double nextDouble() {
-            return Double.parseDouble(next());
-        }
     }
 }
