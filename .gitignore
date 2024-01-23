@@ -17,7 +17,5 @@ bin/
 *.class
 
 # test scripts
-text-ui-test/EXPECTED.TXT
-text-ui-test/input.txt
 text-ui-test/ACTUAL.txt
 text-ui-test/EXPECTED-UNIX.TXT

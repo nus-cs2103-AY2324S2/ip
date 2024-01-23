@@ -9,7 +9,7 @@ class Task {
 
     @Override
     public String toString() {
-        return this.isDone ? "[X] " + this.description : "[] " + this.description;
+        return this.isDone ? "[X] " + this.description : "[ ] " + this.description;
     }
 
     public String getDescription() {
