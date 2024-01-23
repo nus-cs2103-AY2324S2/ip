@@ -153,8 +153,9 @@ public class Duke {
             } else if (input.startsWith("todo ")) {
                 String descrpt = input.substring(5);
                 list.add(new ToDos(descrpt, false));
-                System.out.println("added: " + descrpt);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(list.get(list.size() - 1).toString());
+                System.out.println("Now you have " + list.size() + " task(s) in the list.");
                 input = sc.nextLine();
 
             } else if (input.startsWith("deadline ")) {
@@ -162,8 +163,9 @@ public class Duke {
                 String taskDescrpt = descrpt.split(" /by")[0];
                 String taskDeadline = descrpt.split(" /by ")[1];
                 list.add(new Deadlines(taskDescrpt, false, taskDeadline));
-                System.out.println("added: " + input);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(list.get(list.size() - 1).toString());
+                System.out.println("Now you have " + list.size() + " task(s) in the list.");
                 input = sc.nextLine();
 
             } else if (input.startsWith("event ")) {
@@ -172,8 +174,9 @@ public class Duke {
                 String taskStart = descrpt.split(" /from ")[1].split(" /to ")[0];
                 String taskEnd = descrpt.split(" /to ")[1];
                 list.add(new Events(taskDescrpt, false, taskStart, taskEnd));
-                System.out.println("added: " + input);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(list.get(list.size() - 1).toString());
+                System.out.println("Now you have " + list.size() + " task(s) in the list.");
                 input = sc.nextLine();
 
             } else {
