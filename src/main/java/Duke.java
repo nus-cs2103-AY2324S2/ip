@@ -18,22 +18,33 @@ public class Duke {
         System.out.println(reply);
     }
 
-    public void addTask(String input) {
+    public void addTask(String input) throws TaskException {
         String[] splitInput = input.split(" ", 2);
         String type = splitInput[0];
 
+        if (splitInput.length == 0) {
+            throw new TaskException("OOPS!!! Please enter some tasks!");
+        } else if (!containsEnumValue(TaskEnum.class, type)) {
+            throw new TaskException("OOPS!!! I'm sorry, but I don't know what that means.");
+        } else if (splitInput.length == 1) {
+            throw new TaskException("OOPS!!! Please provide some task description");
+        }
+
         String[] info = splitInput[1].split("/");
         String description = info[0];
-
         switch(type) {
             case "todo":
                 tasks.add(new Todo(description));
                 break;
             case "deadline":
+                if (info.length < 2) throw new TaskException("OOPS!!! Please provide a deadline.");
+
                 String by = info[1].replaceAll("by", "").trim();
                 tasks.add(new Deadline(description, by));
                 break;
             case "event":
+                if (info.length < 3) throw new TaskException("OOPS!!! Please provide an event begin and deadline.");
+
                 String from = info[1].replaceAll("from", "").trim();
                 by = info[2].replaceAll("to", "").trim();
                 tasks.add(new Event(description, from, by));
@@ -54,10 +65,13 @@ public class Duke {
         }
     }
 
-    public void changeTaskStatus(int taskNum, boolean status) {
+    public void changeTaskStatus(int taskNum, boolean status) throws IndexOutOfBoundsException {
+        if (taskNum > tasks.size()) throw new IndexOutOfBoundsException("OOPS!!! The task doesn't exist!");
+
         int index = taskNum - 1;
         Task task = tasks.get(index);
         task.setStatusIcon(status);
+
         if (status) {
             System.out.println("Nice! I've marked this task as done:");
         } else {
@@ -67,35 +81,45 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter new name for your chatbot.");
-        String name = scanner.nextLine();
-
-        Duke duke = new Duke(name);
+        Duke duke = new Duke("Rikko");
         duke.greetings();
 
         while (true) {
-            String input = scanner.nextLine();
-            String command = input.split(" ", 0)[0];
-
-            switch(command) {
-                case "bye":
-                    duke.quitApplication();
-                    return;
-                case "list":
-                    duke.printTasks();
-                    break;
-                case "mark":
-                    int taskNum = Integer.parseInt(input.split(" ", 0)[1]);
-                    duke.changeTaskStatus(taskNum, true);
-                    break;
-                case "unmark":
-                    taskNum = Integer.parseInt(input.split(" ", 0)[1]);
-                    duke.changeTaskStatus(taskNum, false);
-                    break;
-                default:
-                    duke.addTask(input);
-                    break;
+            try {
+                String input = scanner.nextLine();
+                String command = input.split(" ", 0)[0];
+                switch(command) {
+                    case "bye":
+                        duke.quitApplication();
+                        return;
+                    case "list":
+                        duke.printTasks();
+                        break;
+                    case "mark":
+                        int taskNum = Integer.parseInt(input.split(" ", 0)[1]);
+                        duke.changeTaskStatus(taskNum, true);
+                        break;
+                    case "unmark":
+                        taskNum = Integer.parseInt(input.split(" ", 0)[1]);
+                        duke.changeTaskStatus(taskNum, false);
+                        break;
+                    default:
+                        duke.addTask(input);
+                        break;
+                }
+            } catch (TaskException e) {
+                System.err.println(e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                System.err.println(e.getMessage());
             }
         }
+    }
+    private static <E extends Enum<E>> boolean containsEnumValue(Class<E> enumClass, String value) {
+        for (Enum<E> enumConstant : enumClass.getEnumConstants()) {
+            if (enumConstant.name().equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
