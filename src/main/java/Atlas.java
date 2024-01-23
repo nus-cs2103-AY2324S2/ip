@@ -64,7 +64,7 @@ public class Atlas {
             tasks[taskCounter] = new Event(description, startTime, endTime);
         }
         taskCounter++;
-        System.out.println(" added: " + tasks[taskCounter - 1]);
+        System.out.println("Got it. I've added this task:\n" + tasks[taskCounter - 1]);
         System.out.println("Now you have " + String.valueOf(taskCounter) + " tasks in the list.");
     }
 
