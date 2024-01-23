@@ -35,6 +35,13 @@ public class CoDriver {
                 } else if (command.startsWith("event")) {
                     Event task = Event.parseCommand(command);
                     tl.addTask(task);
+                } else if (command.startsWith("delete")) {
+                    String[] words = command.split(" ");
+                    if (!words[0].equals("delete")) {
+                        throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
+                    }
+                    int index = Integer.parseInt(words[1]);
+                    tl.deleteTask(index);
                 } else {
                     throw new CoDriverException("I'm sorry, I don't understand this command: " + command);
                 }
