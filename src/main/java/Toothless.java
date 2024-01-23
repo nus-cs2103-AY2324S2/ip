@@ -20,8 +20,10 @@ public class Toothless {
             command = sc.nextLine();
             System.out.println(splitLine);
             if (command.equals("list")){
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < listOfTasks.size(); i++) {
-                    System.out.format("%d. " + listOfTasks.get(i) + "\n", i + 1);
+                    Task t = listOfTasks.get(i);
+                    System.out.format("%d. ["+ t.isMarkToString() + "] " + t + "\n", i + 1);
                 }
             } else if(command.equals("bye")){
                 break;
