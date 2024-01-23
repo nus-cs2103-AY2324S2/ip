@@ -17,8 +17,8 @@ public final class Argument {
      * @param name the name of the argument, which should not be null.
      */
     public Argument(String name) {
-        // null represents the name that isn't there
         this.name = name;
+        // null represents the value that isn't there
         this.value = null;
     }
 

@@ -1,5 +1,7 @@
 package action;
 
+import action.exception.ActionException;
+import action.exception.MissingArgumentValueException;
 import task.TaskList;
 
 /**
@@ -12,8 +14,9 @@ public class AddDeadlineAction extends Action {
      * Constructor for this add deadline action.
      *
      * @param arguments the arguments supplied with the command
+     * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
-    public AddDeadlineAction(Argument[] arguments) {
+    public AddDeadlineAction(Argument[] arguments) throws ActionException {
         super(Command.ADD_DEADLINE, arguments);
     }
 
@@ -21,20 +24,19 @@ public class AddDeadlineAction extends Action {
      * Add a deadline task to the user's list.
      *
      * @param taskList the taskList to modify
+     * @throws ActionException If the action fails certain validation checks due to invalid input.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList) throws ActionException {
         String name = findDefaultArgument(),
                 by = findArgument("by");
 
         // Validate arguments
         if (name == null) {
-            handleMissingArgument(getCommand(), "name");
-            return;
+            throw new MissingArgumentValueException(getCommand(), "name");
         }
         if (by == null) {
-            handleMissingArgument(getCommand(), "by");
-            return;
+            throw new MissingArgumentValueException(getCommand(), "by");
         }
 
         // Perform behaviour

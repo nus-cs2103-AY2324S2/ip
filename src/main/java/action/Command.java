@@ -52,16 +52,12 @@ public enum Command {
             new Argument("event", "name"),
             new Argument("from", "start_date"),
             new Argument("to", "end_date")
-    ),
-    /**
-     * Invalid command.
-     */
-    INVALID;
+    );
 
     /**
      * Stores the usage hint for this command.
      */
-    final String usageHint;
+    public final String usageHint;
 
     /**
      * Stores this command name.
@@ -71,7 +67,7 @@ public enum Command {
     /**
      * Stores the arguments of this command.
      */
-    private final Argument[] arguments;
+    public final Argument[] arguments;
 
     /**
      * Constructor for this command, which parses the arguments.
@@ -86,15 +82,6 @@ public enum Command {
         this.name = arguments[0].name;
         this.arguments = arguments;
         this.usageHint = generateUsageHint(arguments);
-    }
-
-    /**
-     * Constructor for un-callable command.
-     */
-    Command() {
-        this.usageHint = null;
-        this.name = null;
-        this.arguments = new Argument[0];
     }
 
     /**

@@ -103,6 +103,15 @@ public class TaskList {
     }
 
     /**
+     * Checks if the task list is empty.
+     *
+     * @return true if the task list is empty, otherwise false
+     */
+    public boolean isEmpty() {
+        return tasks.size() == 0;
+    }
+
+    /**
      * Gets a human-readable description of this task list.
      *
      * @return this task list as a human-readable string

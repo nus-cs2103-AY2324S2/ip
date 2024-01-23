@@ -1,5 +1,6 @@
 package action;
 
+import action.exception.ActionException;
 import task.TaskList;
 
 /**
@@ -10,9 +11,12 @@ import task.TaskList;
 public class ListAction extends Action{
     /**
      * Constructor for this list action.
+     *
+     * @param arguments the arguments supplied with the command
+     * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
-    public ListAction() {
-        super(Command.LIST);
+    public ListAction(Argument[] arguments) throws ActionException {
+        super(Command.LIST, arguments);
     }
 
     /**
@@ -22,9 +26,15 @@ public class ListAction extends Action{
      */
     @Override
     public void execute(TaskList taskList) {
-        print.Printer.printMessages(
-                "Here are the tasks in your list:",
-                taskList.toString()
-        );
+        if (taskList.isEmpty()) {
+            print.Printer.printMessages(
+                    "Your list is empty."
+            );
+        } else {
+            print.Printer.printMessages(
+                    "Here are the tasks in your list:",
+                    taskList.toString()
+            );
+        }
     }
 }

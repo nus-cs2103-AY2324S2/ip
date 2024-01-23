@@ -1,5 +1,6 @@
 import action.Action;
 import action.ByeAction;
+import action.exception.ActionException;
 import print.Printer;
 import task.TaskList;
 
@@ -52,10 +53,14 @@ public class ChatBot {
     public void run() {
         greet();
 
-        Action userAction;
+        Action userAction = null;
         do {
-            userAction = InputParser.parseInput(scanner.nextLine());
-            userAction.execute(userList);
+            try {
+                userAction = InputParser.parseInput(scanner.nextLine());
+                userAction.execute(userList);
+            } catch (ActionException e) {
+                Printer.printMessages(e.getMessage());
+            }
         } while (!(userAction instanceof ByeAction));
     }
 }

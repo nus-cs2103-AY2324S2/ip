@@ -1,5 +1,6 @@
 package action;
 
+import action.exception.ActionException;
 import print.Printer;
 import task.TaskList;
 
@@ -11,9 +12,12 @@ import task.TaskList;
 public class ByeAction extends Action {
     /**
      * Constructor for this bye action.
+     *
+     * @param arguments the arguments supplied with the command
+     * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
-    public ByeAction() {
-        super(Command.BYE);
+    public ByeAction(Argument[] arguments) throws ActionException {
+        super(Command.BYE, arguments);
     }
 
     /**

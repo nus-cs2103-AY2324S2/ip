@@ -1,5 +1,8 @@
 package action;
 
+import action.exception.ActionException;
+import action.exception.UnrecognizedArgumentException;
+import action.exception.MissingArgumentException;
 import print.Printer;
 import task.TaskList;
 
@@ -20,10 +23,13 @@ public abstract class Action {
      *
      * @param command the command associated with this action
      * @param arguments the arguments supplied with the command
+     * @throws ActionException If the action fails has unrecognizable or missing arguments
      */
-    public Action(Command command, Argument... arguments) {
+    public Action(Command command, Argument... arguments) throws ActionException {
         this.command = command;
         this.arguments = arguments;
+        validateExpectedArguments();
+        validateSuppliedArguments();
     }
 
     /**
@@ -34,6 +40,49 @@ public abstract class Action {
     final Command getCommand() {
         return command;
     }
+
+    /**
+     * Validates the argument names.
+     *
+     * @throws UnrecognizedArgumentException If an argument is unrecognizable.
+     */
+    private void validateExpectedArguments() throws UnrecognizedArgumentException {
+        for (Argument suppliedArg : arguments) {
+            boolean isRecognized = false;
+            for (Argument expectedArg : command.arguments) {
+                if (expectedArg.name.equals(suppliedArg.name)) {
+                    isRecognized = true;
+                    break;
+                }
+            }
+
+            if (!isRecognized) {
+                throw new UnrecognizedArgumentException(suppliedArg.name, command);
+            }
+        }
+    }
+
+    /**
+     * Validates the argument names.
+     *
+     * @throws MissingArgumentException If an argument is missing.
+     */
+    private void validateSuppliedArguments() throws MissingArgumentException {
+        for (Argument expectedArg : command.arguments) {
+            boolean isRecognized = false;
+            for (Argument suppliedArg : arguments) {
+                if (expectedArg.name.equals(suppliedArg.name)) {
+                    isRecognized = true;
+                    break;
+                }
+            }
+
+            if (!isRecognized) {
+                throw new MissingArgumentException(command, expectedArg.name);
+            }
+        }
+    }
+
 
     /**
      * Finds the value of this action's argument by the argument name.
@@ -61,19 +110,6 @@ public abstract class Action {
     }
 
     /**
-     * Validation handler when there are missing arguments in a command.
-     *
-     * @param command the command
-     * @param missingArg the missing argument
-     */
-    void handleMissingArgument(Command command, String missingArg) {
-        Printer.printMessages(
-                "OOPS!!! The argument <" + missingArg + "> of " + command.name + " must be present!",
-                "    Usage: `" + command.usageHint + "`"
-        );
-    }
-
-    /**
      * Prints the message when a task is added by this action
      *
      * @param taskList the taskList that is used with the chatbot
@@ -91,6 +127,7 @@ public abstract class Action {
      * and may print to the console.
      *
      * @param taskList the taskList that is used with the chatbot
+     * @throws ActionException If the action fails certain validation checks due to invalid input
      */
-    public abstract void execute(TaskList taskList);
+    public abstract void execute(TaskList taskList) throws ActionException;
 }

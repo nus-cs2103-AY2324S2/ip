@@ -8,7 +8,8 @@ import action.UnmarkAction;
 import action.AddTodoAction;
 import action.AddDeadlineAction;
 import action.AddEventAction;
-import action.InvalidAction;
+import action.exception.ActionException;
+import action.exception.UnrecognizedCommandException;
 
 /**
  * Parses the input of a ChatBot into argument list.
@@ -22,25 +23,26 @@ public class InputParser {
      * @param input the console input
      * @return an action containing the command and it's arguments
      */
-    public static Action parseInput(String input) {
+    public static Action parseInput(String input) throws ActionException {
         String command = input.trim().split(" ")[0];
+        Argument[] parsedArguments = parseArguments(input);
         if (command.equals(Command.BYE.name)) {
-            return new ByeAction();
+            return new ByeAction(parsedArguments);
         } else if (command.equals(Command.LIST.name)) {
-            return new ListAction();
+            return new ListAction(parsedArguments);
         } else if (command.equals(Command.MARK.name)) {
-            return new MarkAction(parseArguments(input));
+            return new MarkAction(parsedArguments);
         } else if (command.equals(Command.UNMARK.name)) {
-            return new UnmarkAction(parseArguments(input));
+            return new UnmarkAction(parsedArguments);
         } else if (command.equals(Command.ADD_TODO.name)) {
-            return new AddTodoAction(parseArguments(input));
+            return new AddTodoAction(parsedArguments);
         } else if (command.equals(Command.ADD_DEADLINE.name)) {
-            return new AddDeadlineAction(parseArguments(input));
+            return new AddDeadlineAction(parsedArguments);
         } else if (command.equals(Command.ADD_EVENT.name)) {
-            return new AddEventAction(parseArguments(input));
+            return new AddEventAction(parsedArguments);
         } else {
             // The command is invalid, as it is not one of the above commands.
-            return new InvalidAction();
+            throw new UnrecognizedCommandException(command);
         }
     }
 

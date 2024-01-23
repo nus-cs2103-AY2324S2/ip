@@ -1,5 +1,7 @@
 package action;
 
+import action.exception.ActionException;
+import action.exception.MissingArgumentValueException;
 import task.TaskList;
 
 /**
@@ -12,8 +14,9 @@ public class AddEventAction extends Action {
      * Constructor for this add event action.
      *
      * @param arguments the arguments supplied with the command
+     * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
-    public AddEventAction(Argument[] arguments) {
+    public AddEventAction(Argument[] arguments) throws ActionException {
         super(Command.ADD_EVENT, arguments);
     }
 
@@ -21,25 +24,23 @@ public class AddEventAction extends Action {
      * Add an event to the task list.
      *
      * @param taskList the taskList to modify
+     * @throws ActionException If the action fails certain validation checks due to invalid input.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList) throws ActionException {
         String name = findDefaultArgument(),
                 from = findArgument("from"),
                 to = findArgument("to");
 
         // Validate arguments
         if (name == null) {
-            handleMissingArgument(getCommand(), "name");
-            return;
+            throw new MissingArgumentValueException(getCommand(), "name");
         }
         if (from == null) {
-            handleMissingArgument(getCommand(), "from");
-            return;
+            throw new MissingArgumentValueException(getCommand(), "from");
         }
         if (to == null) {
-            handleMissingArgument(getCommand(), "to");
-            return;
+            throw new MissingArgumentValueException(getCommand(), "to");
         }
 
         // Perform behaviour
