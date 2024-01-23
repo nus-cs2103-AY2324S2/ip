@@ -5,13 +5,12 @@ public class Tyrone {
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
         PrintWriter writer = new PrintWriter(System.out, true);
-        String logo =
-                "\t████████╗██╗   ██╗██████╗  ██████╗ ███╗   ██╗███████╗\n" +
-                        "\t╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔═══██╗████╗  ██║██╔════╝\n" +
-                        "\t██║    ╚████╔╝ ██████╔╝██║   ██║██╔██╗ ██║█████╗  \n" +
-                        "\t██║     ╚██╔╝  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝  \n" +
-                        "\t██║      ██║   ██║  ██║╚██████╔╝██║ ╚████║███████╗\n" +
-                        "\t╚═╝      ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝\n";
+        String logo = "\t████████╗██╗   ██╗██████╗  ██████╗ ███╗   ██╗███████╗\n" +
+                "\t╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔═══██╗████╗  ██║██╔════╝\n" +
+                "\t   ██║    ╚████╔╝ ██████╔╝██║   ██║██╔██╗ ██║█████╗  \n" +
+                "\t   ██║     ╚██╔╝  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝  \n" +
+                "\t   ██║      ██║   ██║  ██║╚██████╔╝██║ ╚████║███████╗\n" +
+                "\t   ╚═╝      ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝\n";
         writer.println(logo +
                 "\tYo, what's crackin' fam! I'm Tyrone, your digital homie.\n" +
                 "\tWhat's the word? So I can help you out today.\n" +
@@ -24,9 +23,21 @@ public class Tyrone {
                 break;
             } else if (cmd.equals("list")) {
                 writer.println(Tyrone.formatStringOutput(todoList.toString()));
+            } else if (cmd.startsWith("mark")) {
+                int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
+                todoList.markItemDone(index);
+                writer.println(Tyrone.formatStringOutput("Dope! Check it, I've tagged this task as handled:\n" +
+                        todoList.getItemToString(index)));
+            } else if (cmd.startsWith("unmark")) {
+                int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
+                todoList.unmarkItemDone(index);
+                writer.print(Tyrone.formatStringOutput(
+                        "A'ight, I've stamped this task as still in the works:\n" +
+                        "\t " + todoList.getItemToString(index)));
             } else {
-                todoList.addItem(cmd);
-                writer.println(Tyrone.formatStringOutput("Got it added homie: " + cmd));
+                TodoItem newItem = new TodoItem(cmd);
+                todoList.addItem(newItem);
+                writer.println(Tyrone.formatStringOutput("Got it added homie: " + newItem.toString()));
             }
         }
     }
