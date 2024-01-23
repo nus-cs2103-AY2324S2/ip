@@ -6,7 +6,7 @@ public class Luke {
 
         String name = "Luke";
 
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        Task[] taskList = new Task[100];
 
         int noTasks = 0;
 
@@ -16,32 +16,73 @@ public class Luke {
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
             String[] splited = input.split(" ");
-            if (input.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < noTasks; i++) {
-                    System.out.println((i + 1) + ". " + taskList.get(i).printTask());
-                }
-            } else if (splited[0].equals("mark")) {
+            String command = splited[0];
 
-                int index = Integer.valueOf(splited[1]);
-                Task task = taskList.get(index - 1);
-                task.setToDone();
-                System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(task.printTask());
+            switch (command) {
+                case "list":
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < noTasks; i++) {
+                        System.out.println((i + 1) + ". " + taskList[i].toString());
+                    }
+                    break;
+                case "mark":
+                    int markIndex = Integer.valueOf(splited[1]);
+                    Task markTask = taskList[markIndex - 1];
+                    markTask.setToDone();
+                    System.out.println("Nice! I've marked this task as done: ");
+                    System.out.println(markTask.toString());
+                    break;
+                case "unmark":
+                    int unmarkIndex = Integer.valueOf(splited[1]);
+                    Task unmarkTask = taskList[unmarkIndex - 1];
+                    unmarkTask.setToNotDone();
+                    System.out.println("OK, I've marked this task as not done yet: ");
+                    System.out.println(unmarkTask.toString());
+                    break;
+                case "todo":
+                    System.out.println("Got it. I've added this task:");
 
-            } else if (splited[0].equals("unmark")) {
+                    Todo todo = new Todo(input.substring(5));
+                    taskList[noTasks] = todo;
+                    System.out.println(todo.toString());
+                    noTasks++;
+                    System.out.println("Now you have " + noTasks + " tasks in the list.");
+                    break;
+                case "deadline":
+                    System.out.println("Got it. I've added this task:");
 
-                int index = Integer.valueOf(splited[1]);
-                Task task = taskList.get(index - 1);
-                task.setToNotDone();
-                System.out.println("OK, I've marked this task as not done yet: ");
-                System.out.println(task.printTask());
+                    String[] deadlineSplit = input.split("/");
+                    String deadlineDescription = deadlineSplit[0].substring(9);
+                    String by = deadlineSplit[1].substring(3);
 
-            } else {
-                noTasks++;
-                Task task = new Task(noTasks, input);
-                taskList.add(task);
-                System.out.println("added: " + input);
+                    Deadline deadline = new Deadline(deadlineDescription, by);
+                    taskList[noTasks] = deadline;
+                    System.out.println(deadline.toString());
+                    noTasks++;
+                    System.out.println("Now you have " + noTasks + " tasks in the list.");
+                    break;
+                case "event":
+                    System.out.println("Got it. I've added this task:");
+
+                    String[] eventSplit = input.split("/");
+                    String eventDescription = eventSplit[0].substring(6);
+                    String from = eventSplit[1].substring(5);
+                    String to = eventSplit[2].substring(3);
+
+                    Event event = new Event(eventDescription, from, to);
+                    taskList[noTasks] = event;
+                    System.out.println(event.toString());
+                    noTasks++;
+                    System.out.println("Now you have " + noTasks + " tasks in the list.");
+                    break;
+                default:
+                    System.out.println("Got it. I've added this task:");
+                    Task task = new Task(input);
+                    taskList[noTasks] = task;
+                    System.out.println(task.toString());
+                    noTasks++;
+                    System.out.println("Now you have " + noTasks + " tasks in the list.");
+                    break;
             }
             input = scanner.nextLine();
         }
