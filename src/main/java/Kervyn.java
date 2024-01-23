@@ -28,19 +28,15 @@ public class Kervyn {
                     System.out.println("\tBye. Hope to see you again soon!");
                     break;
                 case "list":
-                    System.out.println("\tHere are the tasks on your list:");
                     listTasks(userRequests);
                     break;
                 case "mark":
-                    // Need to account for trying to mark a task that doesn't exist
                     markTask(userRequests, processedUserInput);
                     break;
                 case "unmark":
-                    // Need to account for trying to unmark a task that doesn't exist
                     unMarkTask(userRequests, processedUserInput);
                     break;
                 case "delete":
-                    // Need to account for trying to delete a task that doesn't exist
                     removeTask(userRequests, processedUserInput);
                     break;
                 case "todo":
@@ -86,6 +82,7 @@ public class Kervyn {
             }
         }
         catch (IndexOutOfBoundsException e) {
+            // Need to account for trying to mark a task that doesn't exist
             System.out.println("\tTask number provided doesn't exist. Please try again.");
         }
     }
@@ -104,6 +101,7 @@ public class Kervyn {
             }
         }
         catch (IndexOutOfBoundsException e) {
+            // Need to account for trying to unmark a task that doesn't exist
             System.out.println("\tTask number provided doesn't exist. Please try again.");
         }
     }
@@ -118,11 +116,13 @@ public class Kervyn {
             userRequests.remove(task);
         }
         catch (IndexOutOfBoundsException e) {
+            // Need to account for trying to delete a task that doesn't exist
             System.out.println("\tTask number provided doesn't exist. Please try again.");
         }
     }
 
     private static void listTasks(ArrayList<Task> userRequests) {
+        System.out.println("\tHere are the tasks on your list:");
         for (int i = 0; i < userRequests.size(); i++) {
             Task task = userRequests.get(i);
             char check = task.getStatus() ? 'X' : ' ';
