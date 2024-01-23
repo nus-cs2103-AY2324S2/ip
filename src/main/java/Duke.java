@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
 public class Duke {
     public static class Task {
         String action;
@@ -67,7 +68,7 @@ public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Task[] List = new Task[100];
+        ArrayList<Task> List = new ArrayList<>();
         int length = 0;
         System.out.println("Hello! I'm Dukey.");
 	    System.out.println("What can I do for you?");
@@ -75,6 +76,7 @@ public class Duke {
         String input ;
         String mark = "mark (\\d+)";
         String unmark = "unmark (\\d+)";
+        String delete = "delete (\\d+)";
         String todo = "todo";
         String deadline = "deadline";
         String event =  "event";
@@ -89,6 +91,7 @@ public class Duke {
         Pattern pBy = Pattern.compile(by);
         Pattern pFrom = Pattern.compile(from);
         Pattern pTo = Pattern.compile(to);
+        Pattern pDelete = Pattern.compile(delete);
 
         while (true) {
             input = scanner.nextLine();
@@ -100,6 +103,7 @@ public class Duke {
             Matcher mBy = pBy.matcher(input);
             Matcher mFrom = pFrom.matcher(input);
             Matcher mTo = pTo.matcher(input);
+            Matcher mDelete = pDelete.matcher(input);
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
@@ -109,24 +113,33 @@ public class Duke {
                 } else {
                     System.out.println("Here are your tasks in your list:");
                     for (int x = 0; x < length; x++) {
-                        Task item = List[x];
+                        Task item = List.get(x);
                         int numeric = x + 1;
                         System.out.println(numeric + "." + item.toString());
                     }
                 }
+            } else if (mDelete.find()) {
+                String captured = mDelete.group(1);
+                int number = Integer.parseInt(captured);
+                if (number > 0 && number < length + 1 ) {
+                    Task t = List.get(number - 1);
+                    List.remove(t);
+                    length = length - 1;
+                    System.out.println("OK! I have deleted this task:");
+                    System.out.println(t);
+                } else {
+                    System.out.println("Please input a valid number.");
+                }
+
             } else if (mUnmark.find()) {
                 String captured = mUnmark.group(1);
                 int number = Integer.parseInt(captured);
                 Task t;
-                if (number > 0 && number < 101) {
-                    t = List[number - 1];
-                    if (t == null) {
-                        System.out.println("You have no tasks at number " + number);
-                    } else {
-                        t.unmark();
-                        System.out.println("Oh no! I have marked this as not done:");
-                        System.out.println(t);
-                    }
+                if (number > 0 && number < length + 1) {
+                    t = List.get(number - 1);
+                    t.unmark();
+                    System.out.println("Oh no! I have marked this as not done:");
+                    System.out.println(t);
                 } else {
                     System.out.println("Please input a valid number.");
                 }
@@ -135,15 +148,11 @@ public class Duke {
                 String captured = mMark.group(1);
                 int number = Integer.parseInt(captured);
                 Task t;
-                if (number > 0 && number < 101) {
-                    t = List[number - 1];
-                    if (t == null) {
-                        System.out.println("You have no tasks at number " + number);
-                    } else {
-                        t.mark();
-                        System.out.println("Nice! I have marked this as done:");
-                        System.out.println(t);
-                    }
+                if (number > 0 && number < length + 1) {
+                    t = List.get(number -1);
+                    t.mark();
+                    System.out.println("Nice! I have marked this as done:");
+                    System.out.println(t);
                 } else {
                     System.out.println("Please input a valid number.");
                 }
@@ -154,7 +163,7 @@ public class Duke {
                     System.out.println("Task cannot be empty!");
                 } else {
 
-                    List[length] = n;
+                    List.add(n);
                     length = length + 1;
                     System.out.println("OK, I have added this task :");
                     System.out.println(n);
@@ -171,7 +180,7 @@ public class Duke {
                         System.out.println("Task cannot be empty!");
                     } else {
                         Event n = new Event(newInput, false, subFrom, subTo);
-                        List[length] = n;
+                        List.add(n);
                         length = length + 1;
                         System.out.println("OK, I have added this task :");
                         System.out.println(n);
@@ -190,7 +199,7 @@ public class Duke {
                         System.out.println("Task cannot be empty!");
                     } else {
                         Deadline n = new Deadline(newInput, false, dL);
-                        List[length] = n;
+                        List.add(n);
                         length = length + 1;
                         System.out.println("OK, I have added this task :");
                         System.out.println(n);
