@@ -5,5 +5,9 @@ list
 mark 1
 mark 3
 unmark 1
+delete 2
 list
+invalid command
+delete 6
+deadline nothing
 bye

@@ -12,6 +12,32 @@ public class Huyang {
 
     private ArrayList<Task> tasks = new ArrayList<>();
 
+    public enum CommandType {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, UNKNOWN;
+
+        public static CommandType fromString(String input) {
+            if (input.equals("list")) {
+                return LIST;
+            } else if (input.startsWith("mark ")) {
+                return MARK;
+            } else if (input.startsWith("unmark ")) {
+                return UNMARK;
+            } else if (input.startsWith("todo ")) {
+                return TODO;
+            } else if (input.startsWith("deadline ")) {
+                return DEADLINE;
+            } else if (input.startsWith("event ")) {
+                return EVENT;
+            } else if (input.startsWith("delete ")) {
+                return DELETE;
+            } else if (input.equals("bye")) {
+                return BYE;
+            } else {
+                return UNKNOWN;
+            }
+        }
+    }
+
     public void greet() {
         System.out.println("Hello! I'm Huyang");
         // System.out.println(logo);
@@ -21,31 +47,43 @@ public class Huyang {
     public void runChatbot() {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        while (!input.equalsIgnoreCase("bye")) {
+        while (true) {
+            CommandType command = CommandType.fromString(input);
             try {
-                if (input.equals("list")) {
-                    listTasks();
-                } else if (input.startsWith("mark ")) {
-                    mark(input);
-                } else if (input.startsWith("unmark ")) {
-                    unmark(input);
-                } else if (input.startsWith("todo ")) {
-                    addTodoTask(input);
-                } else if (input.startsWith("deadline ")) {
-                    addDeadlineTask(input);
-                } else if (input.startsWith("event ")) {
-                    addEventTask(input);
-                } else if (input.startsWith("delete ")) {
-                    deleteTask(input);
-                } else {
-                    throw TaskException.forUnknownCommand();
+                switch (command) {
+                    case LIST:
+                        listTasks();
+                        break;
+                    case MARK:
+                        mark(input);
+                        break;
+                    case UNMARK:
+                        unmark(input);
+                        break;
+                    case TODO:
+                        addTodoTask(input);
+                        break;
+                    case DEADLINE:
+                        addDeadlineTask(input);
+                        break;
+                    case EVENT:
+                        addEventTask(input);
+                        break;
+                    case DELETE:
+                        deleteTask(input);
+                        break;
+                    case BYE:
+                        scanner.close();
+                        return;
+                    case UNKNOWN:
+                    default:
+                        throw TaskException.forUnknownCommand();
                 }
             } catch (TaskException e) {
                 printErrorMessage(e.getMessage());
             }
             input = scanner.nextLine();
         }
-        scanner.close();
     }
 
     private void listTasks() {

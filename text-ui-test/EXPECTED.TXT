@@ -18,7 +18,12 @@ Nice! I've marked this task as done:
   [E][X] project meeting (from: Mon 2pm to: 4pm)
 OK, I've marked this task as not done yet:
   [T][ ] borrow book
+Noted. I've removed this task:
+  [D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+2. [E][X] project meeting (from: Mon 2pm to: 4pm)
+Error: Sorry, invalid command. Please try again.
+Error: Invalid task number. Please check and try again.
+Error: The format for the deadline task is incorrect. Please check and try again.
 Bye. Hope to see you again soon!
