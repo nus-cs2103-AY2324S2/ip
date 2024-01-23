@@ -2,17 +2,20 @@ import java.io.*;
 import java.util.*;
 public class Duke {
     private static FastInput in = new FastInput(System.in);
-    private static PrintWriter pw = new PrintWriter(System.out);
+
     public static void main(String[] args) {
-        System.out.println( "================================ \n" +
-                            "Hello I'm Axolotl! \n" +
-                            "What can I do for you? \n" +
-                            "================================ \n");
+        System.out.println("================================ \n" +
+                "Hello I'm Axolotl! \n" +
+                "What can I do for you? \n" +
+                "================================ \n");
 
         String input = in.next();
 
         while (!input.equals("bye")) {
-            
+            System.out.println("-------------------------------- \n" +
+                    input + "\n" +
+                    "-------------------------------- \n");
+            input = in.next();
         }
 
         System.out.println("================================ \n" +
@@ -52,5 +55,4 @@ public class Duke {
             return Double.parseDouble(next());
         }
     }
-}
 }
