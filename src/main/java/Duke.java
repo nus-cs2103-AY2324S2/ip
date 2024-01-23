@@ -1,10 +1,14 @@
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
         // emoji alphabet character mappings
         HashMap<String, String> EMOJI_MAP = getStringStringHashMap();
+
+        // storing user input
+        ArrayList<String> al = new ArrayList<>();
 
         // chatbot chat placeholder
         String PLACEHOLDER = "\t----------------------------------------\n" +
@@ -31,9 +35,23 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String userIn = scanner.nextLine();
         while (!userIn.equals("bye")) {
-            // echo user input
-            String echoMsg = String.format(PLACEHOLDER, userIn);
+            String echoMsg;
+
+            if (userIn.equals("list")) {  // echos stored user inputs
+                StringBuilder strItems = new StringBuilder();
+                for (int i = 0; i < al.size() - 1; i++) {
+                    strItems.append(String.format("%d. %s\n\t\t", i + 1, al.get(i)));
+                }
+                strItems.append(String.format("%d. %s", al.size(), al.get(al.size() - 1)));
+                echoMsg = String.format(PLACEHOLDER, strItems);
+            } else {  // echo and store the user input
+                al.add(userIn);
+                echoMsg = String.format(
+                        PLACEHOLDER,
+                        "added: " + userIn);
+            }
             System.out.println(echoMsg);
+
             userIn = scanner.nextLine();
         }
 
