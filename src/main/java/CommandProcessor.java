@@ -1,11 +1,16 @@
+import java.util.ArrayList;
+
 public class CommandProcessor {
-    int numList = 0;
-    Task[] list = new Task[100];
+    ArrayList<Task> list = new ArrayList<>();
 
     public void processData(String input) {
         try {
             String command = input.split(" ")[0];
             switch (command) {
+                case "delete":
+                    deleteTask(processDelete(input));
+                    break;
+
                 case "list":
                     displayList();
                     break;
@@ -43,6 +48,20 @@ public class CommandProcessor {
         return;
     }
 
+
+    public Task processDelete(String input) throws ProcessingException {
+        try {
+            int i = Integer.parseInt(input.split(" ")[1]) - 1;
+            Task task = list.get(i);
+            list.remove(i);
+            return task;
+
+        } catch (Exception e) {
+            String message = "Something went wrong when processing your delete command: \n"
+            + "Check your input again: " + input;
+            throw new ProcessingException(message);
+        }
+    }
     public Task processDeadline(String input) throws ProcessingException {
         try {
             String restOfInput = input.substring(8);
@@ -95,7 +114,7 @@ public class CommandProcessor {
     public Task processMark(String input) throws ProcessingException {
         try {
             int i = Integer.parseInt(input.split(" ")[1]) - 1;
-            Task task = list[i];
+            Task task = list.get(i);
             return task;
         } catch (Exception e) {
             String message = "Something went wrong when processing your mark command: \n"
@@ -103,9 +122,12 @@ public class CommandProcessor {
             throw new ProcessingException(message);
         }
     }
+    
+    public void deleteTask(Task task) {
+        System.out.println(String.format("I have deleted this:\n%s", task));
+    }
 
     public void markOnList(Task task) {
-
         task.markDone();
         System.out.println(String.format("I have marked this:\n%s", task));
     }
@@ -116,13 +138,17 @@ public class CommandProcessor {
     }
 
     public void addToList(Task task) {
-        list[numList] = task;
-        numList++;
-        System.out.println(String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task, numList));
+        list.add(task);
+        System.out.println(String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task, list.size()));
     }
     public void displayList() {
-        for (int i = 0; i < numList; i++) {
-            System.out.println(String.format("%d. %s", i+1, list[i]));
+        if (list.isEmpty()) {
+            System.out.println("Sorry you don't have anything in the list!");
+            return;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(String.format("%d. %s", i+1, list.get(i)));
         }
     }
 }
