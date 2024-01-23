@@ -36,11 +36,11 @@ public class Duke {
                 Deadline deadline = new Deadline(array_split[0].substring(9), array_split[1]);
                 lucifer.addDeadlineTask(deadline);
             } else if (user_word.contains("todo")) {
-                ToDo todo = new ToDo(user_word);
+                ToDo todo = new ToDo(user_word.substring(5));
                 lucifer.addTodoTask(todo);
             } else if (user_word.contains("event")) {
                 String[] event =  user_word.split("/from | /to ");
-                Event temp_event = new Event(event[0], event[1], event[2]);
+                Event temp_event = new Event(event[0].substring(6), event[1], event[2]);
                 lucifer.addEventTask(temp_event);
             } else {
                 lucifer.addTask(user_word);
@@ -48,6 +48,7 @@ public class Duke {
         }
 
         System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("______________________________________________________");
     }
 
     public void addTask(String user_word) {
@@ -92,7 +93,11 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + task);
         l.add(task);
-        System.out.println("Now you have " + l.size() + " tasks in the list.");
+        if (l.size() == 1) {
+            System.out.println("Now you have " + l.size() + " task in the list.");
+        } else {
+            System.out.println("Now you have " + l.size() + " tasks in the list.");
+        }
         System.out.println("______________________________________________________");
     }
 
@@ -101,8 +106,11 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + task);
         l.add(task);
-        System.out.println("Now you have " + l.size() + " tasks in the list.");
-        System.out.println("______________________________________________________");
+        if (l.size() == 1) {
+            System.out.println("Now you have " + l.size() + " task in the list.");
+        } else {
+            System.out.println("Now you have " + l.size() + " tasks in the list.");
+        }        System.out.println("______________________________________________________");
     }
     
     public void addEventTask(Task task) {
@@ -110,8 +118,11 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + task);
         l.add(task);
-        System.out.println("Now you have " + l.size() + " tasks in the list.");
-        System.out.println("______________________________________________________");
+        if (l.size() == 1) {
+            System.out.println("Now you have " + l.size() + " task in the list.");
+        } else {
+            System.out.println("Now you have " + l.size() + " tasks in the list.");
+        }        System.out.println("______________________________________________________");
     }
 }
 
