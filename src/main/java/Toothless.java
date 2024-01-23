@@ -63,7 +63,20 @@ public class Toothless {
                 printTaskState(newTask, listOfTasks.size() - 1);
                 System.out.format("Now you have %d tasks in the list.\n", listOfTasks.size());
             }
-
+            else if (command.startsWith("event")){
+                String temp = command.substring(6);
+                int date1Index = temp.indexOf("/from");
+                String description = temp.substring(0, date1Index - 1);
+                temp = temp.substring(date1Index + 6);
+                int date2Index = temp.indexOf("/to");
+                String startDate = temp.substring(0, date2Index - 1);
+                String endDate = temp.substring(date2Index + 4);
+                Task newTask = new Event(description, startDate, endDate);
+                listOfTasks.add(newTask);
+                System.out.println("Got it. I've added this task:");
+                printTaskState(newTask, listOfTasks.size() - 1);
+                System.out.format("Now you have %d tasks in the list.\n", listOfTasks.size());
+            }
             else if(command.equals("bye")){
                 break;
             }
