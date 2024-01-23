@@ -11,7 +11,7 @@ public class Toothless {
     private static String exitString = "Bye. Hope to see you again soon!\n" + splitLine;
 
     public static void printTaskState(Task task, int index){
-        System.out.format("%d. ["+ task.getStatusIcon() + "] " + task + "\n", index + 1);
+        System.out.format("%d. ["+ task.getTaskIcon()+"]["+ task.getStatusIcon() + "] " + task + "\n", index + 1);
     }
 
     public static void main(String[] args){
@@ -52,6 +52,18 @@ public class Toothless {
                 printTaskState(newTask, listOfTasks.size() - 1);
                 System.out.format("Now you have %d tasks in the list.\n", listOfTasks.size());
             }
+            else if (command.startsWith("deadline")){
+                String temp = command.substring(9);
+                int dateIndex = temp.indexOf("/by");
+                String description = temp.substring(0, dateIndex - 1);
+                String date = temp.substring(dateIndex + 4);
+                Task newTask = new Deadline(description, date);
+                listOfTasks.add(newTask);
+                System.out.println("Got it. I've added this task:");
+                printTaskState(newTask, listOfTasks.size() - 1);
+                System.out.format("Now you have %d tasks in the list.\n", listOfTasks.size());
+            }
+
             else if(command.equals("bye")){
                 break;
             }
