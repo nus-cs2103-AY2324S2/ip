@@ -115,41 +115,51 @@ public class Duke {
                     }
                 }
             } else if (mUnmark.find()) {
-                int len = input.length();
-                char last = input.charAt(len - 1);
-                if (Character.isDigit(last)) {
-                    int num = Character.getNumericValue(last);
-                    Task t = List[num - 1];
+                String captured = mUnmark.group(1);
+                int number = Integer.parseInt(captured);
+                Task t;
+                if (number > 0 && number < 101) {
+                    t = List[number - 1];
                     if (t == null) {
-                        System.out.println("You have no tasks at number " + num);
+                        System.out.println("You have no tasks at number " + number);
                     } else {
                         t.unmark();
                         System.out.println("Oh no! I have marked this as not done:");
                         System.out.println(t);
                     }
+                } else {
+                    System.out.println("Please input a valid number.");
                 }
+
             } else if (mMark.find()) {
-                int len = input.length();
-                char last = input.charAt(len - 1);
-                if (Character.isDigit(last)) {
-                    int num = Character.getNumericValue(last);
-                    Task t = List[num - 1];
+                String captured = mMark.group(1);
+                int number = Integer.parseInt(captured);
+                Task t;
+                if (number > 0 && number < 101) {
+                    t = List[number - 1];
                     if (t == null) {
-                        System.out.println("You have no tasks at number " + num);
+                        System.out.println("You have no tasks at number " + number);
                     } else {
                         t.mark();
-                        System.out.println("Noice! I have marked this as done:");
+                        System.out.println("Nice! I have marked this as done:");
                         System.out.println(t);
                     }
+                } else {
+                    System.out.println("Please input a valid number.");
                 }
             } else if (mTodo.find()) {
                 String newInput = input.replace(todo, "");
                 Todo n = new Todo(newInput, false);
-                List[length] = n;
-                length = length + 1;
-                System.out.println("OK, I have added this task :");
-                System.out.println(n);
-                System.out.println("You now have " + length + " items in the list.");
+                if (newInput.trim().equals("")) {
+                    System.out.println("Task cannot be empty!");
+                } else {
+
+                    List[length] = n;
+                    length = length + 1;
+                    System.out.println("OK, I have added this task :");
+                    System.out.println(n);
+                    System.out.println("You now have " + length + " items in the list.");
+                }
             } else if (mEvent.find()) {
                 if (mFrom.find() && mTo.find()) {
                     int startIndex = input.indexOf(from);
@@ -157,14 +167,16 @@ public class Duke {
                     String subFrom = input.substring(startIndex + from.length(), startIndexTo);
                     String subTo = input.substring(startIndexTo + to.length());
                     String newInput = input.substring(input.indexOf(event) + event.length(), startIndex);
-
-                    Event n = new Event(newInput, false, subFrom ,subTo);
-                    List[length] = n;
-                    length = length + 1;
-                    System.out.println("OK, I have added this task :");
-                    System.out.println(n);
-                    System.out.println("You now have " + length + " items in the list.");
-
+                    if (newInput.trim().equals("")) {
+                        System.out.println("Task cannot be empty!");
+                    } else {
+                        Event n = new Event(newInput, false, subFrom, subTo);
+                        List[length] = n;
+                        length = length + 1;
+                        System.out.println("OK, I have added this task :");
+                        System.out.println(n);
+                        System.out.println("You now have " + length + " items in the list.");
+                    }
                 } else {
                     System.out.println("pls input your start and end of the event.");
                 }
@@ -174,14 +186,18 @@ public class Duke {
                     int finalIndex = input.indexOf(by) + by.length();
                     String dL = input.substring(finalIndex);
                     String newInput = input.substring(input.indexOf(deadline) + deadline.length(), input.indexOf(by));
-                    Deadline n = new Deadline(newInput, false, dL);
-                    List[length] = n;
-                    length = length + 1;
-                    System.out.println("OK, I have added this task :");
-                    System.out.println(n);
-                    System.out.println("You now have " + length + " items in the list.");
+                    if (newInput.trim().equals("")) {
+                        System.out.println("Task cannot be empty!");
+                    } else {
+                        Deadline n = new Deadline(newInput, false, dL);
+                        List[length] = n;
+                        length = length + 1;
+                        System.out.println("OK, I have added this task :");
+                        System.out.println(n);
+                        System.out.println("You now have " + length + " items in the list.");
+                    }
                 } else {
-                    System.out.println("pls include a deadline");
+                    System.out.println("please include a deadline");
                 }
 
             } else {
