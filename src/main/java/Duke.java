@@ -3,7 +3,7 @@ import java.util.*;
 public class Duke {
     public static void main(String[] args) {
         String input;
-        String line = "_________________________________\n";
+        String line = "______________________________________________________\n";
         Storage storage = new Storage();
         System.out.print(line);
         System.out.println("Hello! I'm ChatterPal!");
@@ -17,8 +17,10 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         input = sc.nextLine();
         List<String> inputParts = Arrays.asList(input.split(" "));
+
         while (!input.equals("bye")) {
-            if (input.equals("list")) {
+            try {
+                if (input.equals("list")) {
                 System.out.println(line + storage.printList() + line);
             } else if (inputParts.get(0).equals("mark")) {
                 Task t = storage.get(Integer.parseInt(inputParts.get(1)) - 1);
@@ -81,8 +83,14 @@ public class Duke {
                 storage.add(t);
                 System.out.println(line + storage.addToListOutput(t) + "\n" + line);
             } else {
-                System.out.println("WHAT DO YOU MEANNNNNNNNN??!?!?!?");
+                    throw new UnknownInputException();
+
+                }
+
+            } catch(UnknownInputException e) {
+                System.out.println(e.output());
             }
+
             input = sc.nextLine();
             inputParts = Arrays.asList(input.split(" "));
         }
