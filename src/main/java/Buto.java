@@ -22,6 +22,8 @@ public class Buto {
             command = br.readLine();
         }
 
+        br.close();
+
         System.out.println(
                 "    ____________________________________________________________\n" +
                         "     Bye. Hope to see you again soon!\n" +
