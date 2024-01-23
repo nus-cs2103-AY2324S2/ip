@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         Duke d = new Duke();
@@ -9,7 +11,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-        this.echo();
+        d.echo();
     }
 
     public String greet() {
@@ -24,11 +26,12 @@ public class Duke {
         Scanner s = new Scanner(System.in);
         this.greet();
         while (true) {
-            String s = s.nextLine();
-            if (s.equals("bye")) {
+            String cmd = s.nextLine();
+            if (cmdb.equals("bye")) {
                 System.out.println(this.bye());
+                break;
             } else {
-                System.out.println(s);
+                System.out.println(cmd);
             }
         }
     }
