@@ -1,6 +1,8 @@
-public class Task {
-    private String title;
-    private boolean marked;
+package entity;
+
+public abstract class Task {
+    protected String title;
+    protected boolean marked;
 
     Task(String title) {
             this.title = title;
@@ -18,4 +20,7 @@ public class Task {
     public void setMarked(boolean bool) {
         this.marked = bool;
     }
+
+
+
 }
