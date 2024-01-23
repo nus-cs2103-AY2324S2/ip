@@ -6,11 +6,9 @@ public class Bob {
     }
 
     private static Task getTaskFromIndex(String keyword, String input, Task[] list) {
-        int len = keyword.length();
-
         try {
-            int index = Integer.parseInt(input.substring(len + 1)) - 1;
-            return list[index];
+            int num = Integer.parseInt(input.substring(keyword.length() + 1));
+            return list[num - 1];
 
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException |
                  StringIndexOutOfBoundsException e) {
@@ -18,14 +16,43 @@ public class Bob {
         }
     }
 
+    private static Task createTask(String input) {
+        try {
+            if (startsWith("todo ", input)) {
+                return new Todo(input.substring(5));
+
+            } else if (startsWith("deadline ", input)) {
+                int byIdx = input.indexOf(" /by ");
+                String description = input.substring(9, byIdx);
+                String by = input.substring(byIdx + 5);
+                return new Deadline(description, by);
+
+            } else if (startsWith("event ", input)) {
+                int fromIdx = input.indexOf(" /from ");
+                int toIdx = input.indexOf(" /to ");
+                if (fromIdx > toIdx) {
+                    return null;
+                }
+
+                String description = input.substring(6, fromIdx);
+                String from = input.substring(fromIdx + 7, toIdx);
+                String to = input.substring(toIdx + 5);
+                return new Event(description, from, to);
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            return null;
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         String line = "____________________________________________________________\n";
         Scanner sc = new Scanner(System.in);
         String input;
         Task[] list = new Task[100];
-        int curr = 0;
+        int nxtIdx = 0;
 
-        System.out.println(line + "Hello! I'm Bob.\nWhat can I do for you?");
+        System.out.println(line + "Hello, I'm Bob.\nI might help if I feel like it.");
 
         while (true) {
             System.out.println(line);
@@ -38,7 +65,8 @@ public class Bob {
 
             // list all Tasks
             if ("list".equals(input)) {
-                for (int i = 0; i < curr; i++) {
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < nxtIdx; i++) {
                     System.out.println(i + 1 + "." + list[i]);
                 }
 
@@ -66,8 +94,15 @@ public class Bob {
 
             // add Task
             } else {
-                list[curr++] = new Todo(input);
-                System.out.println("added: " + input);
+                Task task = createTask(input);
+                if (task != null) {
+                    list[nxtIdx++] = task;
+                    System.out.println("This task has been added:\n  " + task +
+                                       "\n" + "Now you have " + nxtIdx +
+                                       " task(s) in total.");
+                } else {
+                    System.out.println("Invalid format. Please try again.");
+                }
             }
         }
 
