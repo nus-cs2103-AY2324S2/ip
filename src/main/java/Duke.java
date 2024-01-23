@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -6,6 +7,7 @@ public class Duke {
     String secondaryInput = "";
     Scanner scanner1;
     ArrayList<Task> taskList = new ArrayList<>();
+    String[] commandList = new String[] {"bye", "mark", "unmark", "todo", "deadline", "event", "list"};
     public Duke() {
     }
 
@@ -68,11 +70,6 @@ public class Duke {
 
     public void addTask()  {
         horizontalLines();
-        indent();
-        System.out.println("\uD83E\uDD14");
-        indent();
-        System.out.println("Processing your request!");
-
         Task newTask;
 
         if (this.command.equals("todo")) {
@@ -137,24 +134,77 @@ public class Duke {
     }
 
     public void input() {
+        boolean isCommandValid = false;
+        this.command ="";
+        this.secondaryInput ="";
         String commandInput = scanner1.nextLine();
-        String[] inputSplit = commandInput.split(" ", 2);
-        this.command = inputSplit[0];
 
-        if (this.command.equals("bye")) {
+        if (commandInput.equals("bye")) {
+            this.command = commandInput;
+            isCommandValid = true;
             bye();
-        } else if (this.command.equals("list")) {
+        } else if (commandInput.equals("list")) {
+            this.command = commandInput;
+            isCommandValid = true;
             listTask();
-        } else if (this.command.equals("mark")) {
-            markTask(Integer.valueOf(inputSplit[1]) - 1);
-        } else if (this.command.equals("unmark")) {
-            unmarkTask(Integer.valueOf((inputSplit[1])) - 1);
-        } else if ((this.command.equals("todo")) || (this.command.equals("deadline"))
-                || (this.command.equals("event"))) {
-            this.secondaryInput = inputSplit[1];
-            addTask();
         } else {
-            System.out.println("\tInvalid Command. Please try again.");
+            String[] inputSplit = commandInput.split(" ", 2);
+            this.command = inputSplit[0];
+
+            try {
+                if (this.command.equals("mark")) {
+                    isCommandValid = true;
+                    markTask(Integer.valueOf(inputSplit[1]) - 1);
+                } else if (this.command.equals("unmark")) {
+                    isCommandValid = true;
+                    unmarkTask(Integer.valueOf((inputSplit[1])) - 1);
+                }
+            } catch(IndexOutOfBoundsException e) {
+                if (taskList.size() == 0) {
+                    indent();
+                    System.out.println("You have no task to mark or unmark!");
+                    horizontalLines();
+                    input();
+                } else {
+                    indent();
+                    System.out.println("You only have " + taskList.size() +" tasks!");
+                    indent();
+                    System.out.println("Select a number from 1 to " + taskList.size() + ".");
+                    horizontalLines();
+                    input();
+                }
+            } catch(NumberFormatException e) {
+                indent();
+                System.out.println("Please input a number.");
+                horizontalLines();
+                input();
+            }
+
+            try {
+                if ((this.command.equals("todo")) || (this.command.equals("deadline"))
+                        || (this.command.equals("event"))) {
+                    this.secondaryInput = inputSplit[1];
+                    isCommandValid = true;
+                    addTask();
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                if (this.command.equals("deadline")) {
+                    indent();
+                    System.out.println("Please input a date or time with a / in front.");
+                    horizontalLines();
+                    input();
+                } else if (this.command.equals("event")) {
+                    indent();
+                    System.out.println("Please input a start and end time or date with a / in front of both periods.");
+                    horizontalLines();
+                    input();
+                }
+            }
+        }
+
+        if (!isCommandValid) {
+            indent();
+            System.out.println("No such command. Please try again");
             horizontalLines();
             input();
         }
