@@ -31,7 +31,7 @@ public class Duke {
     private static void createTodo(String input) throws MissingTaskInformationException {
         String description = input.split(" ", 2)[1];
         if (description.equals("")) {
-            throw new MissingTaskInformationException("description");
+            throw new MissingTaskInformationException("\"description\" ");
         }
         Todo t = new Todo(description);
         toDoList.add(t);
@@ -67,13 +67,13 @@ public class Duke {
         String missingInfo = "";
 
         if (description.equals("")) {
-            missingInfo = missingInfo + "description ";
+            missingInfo = missingInfo + "\"description\" ";
         }
         if (from.equals("")) {
-            missingInfo = missingInfo + "from  ";
+            missingInfo = missingInfo + "\"from\"  ";
         }
         if (to.equals("")) {
-            missingInfo = missingInfo + "to ";
+            missingInfo = missingInfo + "\"to\" ";
         }
         
         if (!missingInfo.equals("")) {
@@ -99,10 +99,10 @@ public class Duke {
         String missingInfo = "";
 
         if (description.equals("")) {
-            missingInfo = missingInfo + "description ";
+            missingInfo = missingInfo + "\"description\" ";
         }
         if (by.equals("")) {
-            missingInfo = missingInfo + "by ";
+            missingInfo = missingInfo + "\"by\" ";
         }
         if (!missingInfo.equals("")) {
             throw new MissingTaskInformationException(missingInfo);
@@ -113,25 +113,36 @@ public class Duke {
         botPrint("Deadline Task added!\n" + d.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
     }
 
-    private static void markTask(String input) {
+    private static void markTask(String input) throws IndexOutOfBoundsException {
         int index = Integer.parseInt(input.split(" ")[1]);
         if (index > 0 && index <= toDoList.size()) {
             Task t = toDoList.get(index - 1);
             t.doTask();
             botPrint("Good job on finishing your task!:\n  " + t);
         } else {
-            botPrint("Invalid Index for current list");
+            throw new IndexOutOfBoundsException("Invalid Index " + index + " for current list\nList is of current length: " + toDoList.size());
         }
     }
 
-    private static void unmarkTask(String input) {
+    private static void unmarkTask(String input) throws IndexOutOfBoundsException {
         int index = Integer.parseInt(input.split(" ")[1]);
         if (index > 0 && index <= toDoList.size()) {
             Task t = toDoList.get(index - 1);
             t.undoTask();
             botPrint("I've marked this task as undone:\n  " + t);
         } else {
-            botPrint("Invalid Index for current list");
+            throw new IndexOutOfBoundsException("Invalid Index " + index + " for current list\nList is of current length: " + toDoList.size());
+        }
+    }
+
+    private static void deleteTask(String input) throws IndexOutOfBoundsException {
+        int index = Integer.parseInt(input.split(" ")[1]);
+        if (index > 0 && index <= toDoList.size()) {
+            Task t = toDoList.get(index - 1);
+            toDoList.remove(index - 1);
+            botPrint("I've removed this task:\n  " + t);
+        } else {
+            throw new IndexOutOfBoundsException("Invalid Index " + index + " for current list\nList is of current length: " + toDoList.size());
         }
     }
 
@@ -167,6 +178,8 @@ public class Duke {
                     case "unmark":
                         unmarkTask(input);
                         break;
+                    case "delete":
+                        deleteTask(input);
                     default:
                         throw new NoSuchCommandException(input);
                 }
@@ -178,6 +191,10 @@ public class Duke {
                 botPrint(e.getMessage());
             } catch (NoSuchCommandException e) {
                 botPrint(e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                botPrint(e.getMessage());
+            } catch (NumberFormatException e) {
+                botPrint("Invalid selection for marking or deletion");
             }
 
         }
