@@ -4,7 +4,7 @@ package io;
  * Basic class to carry
  */
 public class Message {
-    private String data;
+    private final String data;
 
     /**
      * Basic constructor that takes in a String and constructs a Message object.
