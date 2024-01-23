@@ -1,19 +1,29 @@
+import java.util.Scanner;
+
 public class Duke {
 
-    public static void startupMessage() {
-        String spacer = "____________________________________________________________\n";
+    private static final String spacer = "____________________________________________________________\n";
+
+    private static void startupMessage() {
         String name = "CBBW";
         System.out.println(spacer + "Hello! I'm " + name 
                            + "\nWhat can I do for you?\n" + spacer);
     }
 
-    public static void goodbyeMessage() {
-        String spacer = "____________________________________________________________\n";
-        String name = "CBBW";
-        System.out.println("Bye. Hope to see you again soon!\n" + spacer);
+    private static void goodbyeMessage() {
+        System.out.println(spacer + "Bye. Hope to see you again soon!\n" + spacer);
     }
     public static void main(String[] args) {
         startupMessage();
+        Scanner s = new Scanner(System.in);
+        while (true) {
+            String echo = s.nextLine();
+            if (echo.equals("bye")) {
+                s.close();
+                break;
+            }
+            System.out.println(spacer + echo + "\n" + spacer);
+        }
         goodbyeMessage();
     }
 }
