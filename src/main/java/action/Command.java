@@ -111,14 +111,15 @@ public enum Command {
                     .append(arguments[i].name)
                     .append(" ");
 
-            // null indicates that no value should be present.
             if (arguments[i].value != null) {
+                // not null indicates that a value should be present.
                 usageString
                         .append("<")
                         .append(arguments[i].value)
                         .append("> ");
             }
         }
+        usageString.deleteCharAt(usageString.length() - 1);
         return usageString.toString();
     }
 }
