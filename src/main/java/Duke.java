@@ -12,7 +12,7 @@ public class Duke {
                     + " ---- -   - -  -  ---  ---   --      \n";
         String horizontalLine = "_____________________________________________________\n";
         String userInput = "";
-        String[] list = new String[100];
+        Task[] taskList = new Task[100];
         int listCount = 0;
         Scanner scan = new Scanner(System.in);
 
@@ -28,17 +28,23 @@ public class Duke {
             System.out.println(horizontalLine + ">> " + userInput + " <<");
             // If input = "help", list down the command words.
             if (userInput.equalsIgnoreCase("help")) {
-                System.out.println("Oink! Here are the Command Words:\n'list' - displays the list of task\n'task' - to add new task\n"
-                        + "'deadline' - to add task with deadline\n'event' - to add an event\n"
-                        + "'bye' - to exit the chatbot");
+                System.out.println("Oink! Here are the Command Words:\n'list' - displays the list of task\n"
+                        + "'task' - to add new task\n'deadline' - to add task with deadline\n"
+                        + "'event' - to add an event\n'bye' - to exit the chatbot");
             } else if (userInput.equalsIgnoreCase("list")) {
                 for (int i = 0; i < listCount; i++) {
-                    System.out.println(list[i]);
+                    taskList[i].printTaskList();
                 }
+            } else if (userInput.startsWith("mark")) {
+                int num = userInput.charAt(5) - '0';
+                taskList[num-1].markDone();
+            } else if (userInput.startsWith("unmark")) {
+                int num = userInput.charAt(7) - '0';
+                taskList[num-1].markUndone();
             } else {
                 listCount++;
-                list[listCount-1] = listCount + ". " + userInput;
-                System.out.println("added " + userInput);
+                taskList[listCount-1] = new Task(listCount, userInput);
+                taskList[listCount-1].printAddTask();
             }
             System.out.println(horizontalLine);
             userInput = scan.nextLine();
