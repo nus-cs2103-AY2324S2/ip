@@ -1,30 +1,53 @@
 import java.util.Scanner;
-import java.util.function.Consumer;
 
 public class Duke {
     private static String hRULER = "____________________________________________________________\n";
+    private static boolean isNumeric(String s) {
+        if (s == null) {
+            return false;
+        }
+        try {
+            int token = Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
     private static void run() {
         Task[] storage = new Task[100];
         int currentIdx = 0;
         Scanner sc = new Scanner(System.in);
+
         while (true) {
             String echoInput = sc.nextLine();
+
             if (echoInput.equals("bye")) {
                 return;
             }
             if (echoInput.equals("list")) {
-                System.out.print(hRULER);
+                System.out.printf("%s Here are the tasks in your list:\n", hRULER);
                 for (int i = 0; i < currentIdx; i++) {
-                    System.out.printf(" %d. %s\n", i + 1, storage[i].toString());
+                    System.out.printf(" %d.%s\n", i + 1, storage[i].toString());
                 }
                 System.out.println(hRULER);
                 continue;
             }
+            if (echoInput.substring(0, 4).equals("mark")
+                    && isNumeric(echoInput.substring(5, echoInput.length()))) {
+                int taskIdx = Integer.parseInt(echoInput.substring(5, echoInput.length()));
+                storage[taskIdx - 1].markDone();
+                continue;
+            }
+            if (echoInput.substring(0, 6).equals("unmark") &&
+                    isNumeric(echoInput.substring(7, echoInput.length()))) {
+                int taskIdx = Integer.parseInt(echoInput.substring(7, echoInput.length()));
+                storage[taskIdx - 1].unMarkDone();
+                continue;
+            }
+
             Task newTask = new Task(echoInput);
             storage[currentIdx++] = newTask;
-            String toPrint = "____________________________________________________________\n added: " +
-                    newTask.toString() + "\n____________________________________________________________";
-            System.out.println(toPrint);
+            System.out.printf("%s added: %s\n%s", hRULER, newTask.toString(), hRULER);
         }
     }
     public static void main(String[] args) {
