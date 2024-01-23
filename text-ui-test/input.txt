@@ -6,4 +6,11 @@ event project meeting /from Mon 2pm /to 4pm
 list
 mark 1
 list
+todo
+deadline
+deadline return book
+event
+event return book
+event return book /from tmr
+blah
 bye
