@@ -1,7 +1,45 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Helloo! I'm LilyBot ;)
+What's up'?
+_____________________________________________
+  Got it. I've added this task:
+    [T][ ] read book
+  Now u have 1 tasks in the list.
+_____________________________________________
+  Got it. I've added this task:
+    [D][ ] return book (by: June 6th)
+  Now u have 2 tasks in the list.
+_____________________________________________
+  Got it. I've added this task:
+    [E][ ] project meeting (from Aug 6th 2pm to 4pm)
+  Now u have 3 tasks in the list.
+_____________________________________________
+  Got it. I've added this task:
+    [T][ ] join sports club
+  Now u have 4 tasks in the list.
+_____________________________________________
+Good job! I've marked this task as done:
+  [T][X] read book
+_____________________________________________
+Good job! I've marked this task as done:
+  [T][X] join sports club
+_____________________________________________
+Here're the tasks in ur list:
+1. [T][X] read book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (from Aug 6th 2pm to 4pm)
+4. [T][X] join sports club
+_____________________________________________
+  Got it. I've added this task:
+    [T][ ] borrow book
+  Now u have 5 tasks in the list.
+_____________________________________________
+  Got it. I've added this task:
+    [D][ ] return book (by: Sunday)
+  Now u have 6 tasks in the list.
+_____________________________________________
+  Got it. I've added this task:
+    [E][ ] project meeting (from Mon 2pm to 4pm)
+  Now u have 7 tasks in the list.
+_____________________________________________
+Bye Bye. See u later!
+_____________________________________________

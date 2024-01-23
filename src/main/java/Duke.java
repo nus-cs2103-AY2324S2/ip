@@ -7,9 +7,9 @@ public class Duke {
     public static void main(String[] args) {
         String sayHi = "Helloo! I'm LilyBot ;)\nWhat's up'?\n";
         String divider = "_____________________________________________";
-        String markDone = "Good job! I've marked this task as done: ";
+        String markDone = "Good job! I've marked this task as done:";
         String markNotDone = "Okie, Rest well. Marked this task as not done yet: ";
-        String added = "Got it. I've added this task: ";
+        String added = "Got it. I've added this task:";
         ArrayList<Task> ls = new ArrayList<>();
 
 
