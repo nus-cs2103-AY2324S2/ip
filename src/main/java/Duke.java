@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Duke {
     public static final String DIVIDER = "────────────────────────────────────────────────────────────";
@@ -13,7 +13,7 @@ public class Duke {
                                     + " \\___ \\/ _ \\| ||   / | |\n"
                                     + " ____) | __/| || | \\ | |\n"
                                     + "|_____/\\___||_||_|\\_\\|_|\n";
-    public static ArrayList<String> textList = new ArrayList<>(100);
+    public static TaskList taskList = new TaskList();
 
     public static void start() {
         System.out.println(DIVIDER);
@@ -23,44 +23,50 @@ public class Duke {
     }
 
     public static void end() {
-        System.out.println(DIVIDER);
         System.out.println(FAREWELL);
-        System.out.println(DIVIDER);
     }
 
-    public static void list() {
-        System.out.println(DIVIDER);
-        System.out.println("Here are the text(s) you have stored:");
-        for (int i = 0; i < textList.size(); i++) {
-            int textNum = i + 1;
-            String textString = textNum + ". " + textList.get(i);
-            System.out.println(textString);
+    public static String getTaskName(StringTokenizer st) {
+        StringBuilder sb = new StringBuilder();
+        while (st.hasMoreTokens()) {
+            sb.append(" ").append(st.nextToken());
         }
-        System.out.println(DIVIDER);
+        return sb.toString();
     }
-
-    public static void storeText(String text) {
-        System.out.println(DIVIDER);
-        textList.add(text);
-        System.out.println("The following text has been stored.");
-        System.out.println("→ '" + text + "'");
-        System.out.println(DIVIDER);
-    }
-
     public static void main(String[] args) throws IOException {
         start();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         while(true) {
-            String input = br.readLine();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            String input = st.nextToken();
+            System.out.println(DIVIDER);
             if (input.equalsIgnoreCase("bye")) {
                 end();
+                System.out.println(DIVIDER);
                 break;
             } else if (input.equalsIgnoreCase("list")) {
-                list();
+                taskList.printList();
+            } else if (input.equalsIgnoreCase("mark")) {
+                int taskNumber = Integer.parseInt(st.nextToken());
+                Task task = taskList.getTaskByNumber(taskNumber);
+                task.markAsDone();
+                System.out.println("The following task has been marked.");
+                System.out.println("→ " + task);
+            } else if (input.equalsIgnoreCase("unmark")) {
+                int taskNumber = Integer.parseInt(st.nextToken());
+                Task task = taskList.getTaskByNumber(taskNumber);
+                task.markAsNotDone();
+                System.out.println("The following task has not been unmarked.");
+                System.out.println("→ " + task);
             } else {
-                storeText(input);
+                String taskName = input + getTaskName(st);
+                Task newTask = new Task(taskName);
+                taskList.addTask(newTask);
+                System.out.println("The following task has been added:");
+                System.out.println("→ " + taskName);
             }
+            System.out.println(DIVIDER);
         }
     }
 }
