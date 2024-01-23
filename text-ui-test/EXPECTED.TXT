@@ -4,21 +4,21 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[T][ ]  borrow book
+[T][ ] borrow book
 Now you have 1 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[T][ ]  return book
+[T][ ] return book
 Now you have 2 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
-1. [T][ ]  borrow book
-2. [T][ ]  return book
+1. [T][ ] borrow book
+2. [T][ ] return book
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ]  project meeting  (from: Mon 2pm to: 4pm)
+[E][ ] project meeting  (from: Mon 2pm to: 4pm)
 Now you have 3 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
@@ -32,24 +32,36 @@ Got it. I've added this task:
 Now you have 5 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
-1. [T][ ]  borrow book
-2. [T][ ]  return book
-3. [E][ ]  project meeting  (from: Mon 2pm to: 4pm)
+1. [T][ ] borrow book
+2. [T][ ] return book
+3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
 4. [D][ ] return book (by: Sunday)
 5. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
+DukeException: The description for a todo task cannot be empty :3
+____________________________________________________________
+____________________________________________________________
+DukeException: An event task must have a description, a 'from' time, and a 'to' time :3
+____________________________________________________________
+____________________________________________________________
+DukeException: An event task must have a description, a 'from' time, and a 'to' time :3
+____________________________________________________________
+____________________________________________________________
+DukeException: A deadline task must have a description and a 'by' time :3
+____________________________________________________________
+____________________________________________________________
 Nice! I've marked this task as done:
-[T][X]  return book
+[T][X] return book
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
 [D][X] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
-1. [T][ ]  borrow book
-2. [T][X]  return book
-3. [E][ ]  project meeting  (from: Mon 2pm to: 4pm)
+1. [T][ ] borrow book
+2. [T][X] return book
+3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
 4. [D][ ] return book (by: Sunday)
 5. [D][X] do homework (by: no idea :-p)
 ____________________________________________________________
@@ -58,14 +70,20 @@ OK, I've marked this task as not done yet:
 [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
-1. [T][ ]  borrow book
-2. [T][X]  return book
-3. [E][ ]  project meeting  (from: Mon 2pm to: 4pm)
+1. [T][ ] borrow book
+2. [T][X] return book
+3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
 4. [D][ ] return book (by: Sunday)
 5. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
-I'm not sure what that means :3
+DukeException: An integer argument is expected for a mark or unmark command :3
+____________________________________________________________
+____________________________________________________________
+DukeException: An integer argument is expected for a mark or unmark command :3
+____________________________________________________________
+____________________________________________________________
+DukeException: Unknown command. Please enter a valid command :3
 ____________________________________________________________
 ____________________________________________________________
  Bye. Hope to see you again soon!

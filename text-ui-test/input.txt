@@ -5,10 +5,16 @@ event project meeting /from Mon 2pm /to 4pm
 deadline return book /by Sunday
 deadline do homework /by no idea :-p
 list
+todo
+event project meeting 2 /from Mon 2pm
+event project meeting 3 /to 4pm
+deadline return book
 mark 2
 mark 5
 list
 unmark 5
 list
+unmark
+mark
 hi
 bye

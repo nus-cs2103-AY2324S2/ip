@@ -18,77 +18,108 @@ public class Duke {
         int listIndex = 0;
 
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
-        String cmd = scanner.nextLine(); // Get first input
+        String line = scanner.nextLine(); // Get first input
 
-        while (!Objects.equals(cmd, "bye")) {
+        while (!Objects.equals(line, "bye")) {
             String border = "____________________________________________________________";
 
-            System.out.println(border);
-            switch (cmd.split(" ")[0]) {
-                case "list":
-                    for (int i = 0; i < listIndex; i++) {
-                        System.out.println((i + 1) + ". " + myList[i]);
-                    }
-                    break;
-                case "mark":
-                    int num = Integer.valueOf(cmd.split(" ")[1]);
-                    Task t = myList[num - 1];
-                    t.markAsDone();
+            try {
+                System.out.println(border);
 
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(t);
-                    break;
-                case "unmark":
-                    num = Integer.valueOf(cmd.split(" ")[1]);
-                    t = myList[num - 1];
-                    t.unmarkAsDone();
+                String cmd = line.split(" ")[0];
+                String params = line.substring(cmd.length()).trim();
+                switch (cmd) {
+                    case "list":
+                        for (int i = 0; i < listIndex; i++) {
+                            System.out.println((i + 1) + ". " + myList[i]);
+                        }
+                        break;
+                    case "mark":
+                        if (params.length() == 0) {
+                            throw new DukeException.MarkParamsException();
+                        }
+                        int num = Integer.valueOf(params);
+                        Task t = myList[num - 1];
+                        t.markAsDone();
 
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(t);
-                    break;
-                case "todo":
-                    String newTaskString = cmd.substring("todo".length());
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println(t);
+                        break;
+                    case "unmark":
+                        if (params.length() == 0) {
+                            throw new DukeException.MarkParamsException();
+                        }
+                        num = Integer.valueOf(params);
+                        t = myList[num - 1];
+                        t.unmarkAsDone();
 
-                    Task newTask = new Todo(newTaskString);
-                    myList[listIndex++] = newTask;
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println(t);
+                        break;
+                    case "todo":
+                        if (params.length() == 0) {
+                            throw new DukeException.TodoDescriptionMissingException();
+                        }
 
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(newTask);
-                    System.out.println("Now you have " + listIndex + " tasks in the list");
-                    break;
-                case "deadline":
-                    newTaskString = cmd.substring("deadline".length());
-                    String desc = newTaskString.split("/by")[0].trim();
-                    String by = newTaskString.split("/by")[1].trim();
+                        String desc = params;
 
-                    newTask = new Deadline(desc, by);
-                    myList[listIndex++] = newTask;
+                        Task newTask = new Todo(desc);
+                        myList[listIndex++] = newTask;
 
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(newTask);
-                    System.out.println("Now you have " + listIndex + " tasks in the list");
-                    break;
-                case "event":
-                    newTaskString = cmd.substring("event".length());
-                    desc = newTaskString.split("/from")[0];
-                    String from = newTaskString.split("/from")[1].split("/to")[0].trim();
-                    String to = newTaskString.split("/to")[1].trim();
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(newTask);
+                        System.out.println("Now you have " + listIndex + " tasks in the list");
+                        break;
+                    case "deadline":
+                        if (!params.contains("/by")) {
+                            throw new DukeException.DeadlineDetailsMissingException();
+                        }
 
-                    newTask = new Event(desc, from, to);
-                    myList[listIndex++] = newTask;
+//                        params = params.substring(cmd.length());
 
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(newTask);
-                    System.out.println("Now you have " + listIndex + " tasks in the list");
-                    break;
-                default:
-                    System.out.println("I'm not sure what that means :3");
-                    break;
+                        desc = params.split("/by")[0].trim();
+                        String by = params.split("/by")[1].trim();
+
+                        newTask = new Deadline(desc, by);
+                        myList[listIndex++] = newTask;
+
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(newTask);
+                        System.out.println("Now you have " + listIndex + " tasks in the list");
+                        break;
+                    case "event":
+                        if (!params.contains("/from") || !params.contains("/to")) {
+                            throw new DukeException.EventDetailsMissingException();
+                        }
+
+//                        params = params.substring(cmd.length());
+
+                        desc = params.split("/from")[0];
+                        String from = params.split("/from")[1].split("/to")[0].trim();
+                        String to = params.split("/to")[1].trim();
+
+                        newTask = new Event(desc, from, to);
+                        myList[listIndex++] = newTask;
+
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(newTask);
+                        System.out.println("Now you have " + listIndex + " tasks in the list");
+                        break;
+                    default:
+                        throw new DukeException.UnknownCommandException();
+                }
+            } catch (DukeException e) {
+                System.out.println("DukeException: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("An unexpected error occurred.");
+            } finally {
+                System.out.println(border);
             }
-            System.out.println(border);
 
-            cmd = scanner.nextLine();
+            line = scanner.nextLine();
         }
+
+
         System.out.println(goodbye);
 
     }
