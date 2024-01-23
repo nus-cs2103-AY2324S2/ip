@@ -4,6 +4,10 @@ import java.util.ArrayList;
 public class Duke {
     private static ArrayList<Task> instrList = new ArrayList<>();
 
+    private enum TaskCommand {
+        TODO, DEADLINE, EVENT
+    }
+
     public static void main(String[] args) {
         System.out.println(greet());
 
@@ -13,31 +17,29 @@ public class Duke {
         while (!instr.equals("bye")) {
             if (instr.equals("list")) {
                 listOut();
-            } else if (instr.contains("unmark")) {
-                try {
-                    unmark(instr);
-                } catch (DukeException e) {
-                    System.out.println(e.toString()); 
-                }
-            } else if (instr.contains("mark")) {
-                try {
-                    mark(instr);
-                } catch (DukeException e) {
-                    System.out.println(e.toString()); 
-                }
-            } else if (instr.contains("delete")) {
-                try {
-                    delete(instr);
-                } catch (DukeException e) {
-                    System.out.println(e.toString()); 
-                }
             } else {
                 try {
-                    addTask(instr);
+                    if (instr.contains("unmark")) {
+                        unmark(instr);
+                    } else if (instr.contains("mark")) {
+                        mark(instr);
+                    } else if (instr.contains("delete")) {
+                        delete(instr);
+                    } else {
+                        if (instr.contains("todo")) {
+                            addTask(TaskCommand.TODO, instr);
+                        } else if (instr.contains("deadline")) {
+                            addTask(TaskCommand.DEADLINE, instr);
+                        } else if (instr.contains("event")) {
+                            addTask(TaskCommand.EVENT, instr);
+                        } else {
+                            throw new DukeException("OOPS!!! What is that? I'm sorry, but I don't recognise this command :-( \nTry another command!"); 
+                        } 
+                    }
                 } catch (DukeException e) {
-                    System.out.println(e.toString()); 
+                    System.out.println(e.toString());
                 }
-            }
+            }  
             instr = sc.nextLine();
         }
 
@@ -61,47 +63,52 @@ public class Duke {
         }
     }
 
-    public static void addTask(String instr) throws DukeException {
-        if (instr.contains("todo")) {
-            try {
-                Todo taskTodo = new Todo(instr.split("todo ")[1]);
-                instrList.add(taskTodo); 
-                System.out.println("Got it. I've added this task:");
-                System.out.println(taskTodo.toString());
-            } catch (ArrayIndexOutOfBoundsException e ){
-                throw new DukeException("OOPS!!! The description of a todo cannot be empty. \nTry again!"); 
-            }
-        } else if (instr.contains("deadline")) {
-            try {
-                String deadlineDescription = instr.substring(9);
-                String[] tskNames = deadlineDescription.split(" /by ");
-                Deadline taskDeadline = new Deadline(tskNames[0], tskNames[1]); 
-                instrList.add(taskDeadline); 
-                System.out.println("Got it. I've added this task:");
-                System.out.println(taskDeadline.toString());
-            } catch(StringIndexOutOfBoundsException e) {
-                throw new DukeException("OOPS!!! You cannot leave the description of a deadline to be empty. \nTry again!");
-            } catch(ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("OOPS!!! You missed out the deadline time of this task. \nTry again!");
-            }
-        } else if (instr.contains("event")) {
-            try {
-                String eventDescription = instr.substring(6);
-                String[] instrsubString = eventDescription.split(" /from ");
-                String name = instrsubString[0]; 
-                String[] startAndEnd = instrsubString[1].split(" /to "); 
-                Events taskEvent = new Events(name, startAndEnd[0], startAndEnd[1]);
-                instrList.add(taskEvent); 
-                System.out.println("Got it. I've added this task:");
-                System.out.println(taskEvent.toString()); 
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new DukeException("OOPS!!! You cannot leave the description of an event to be empty. \nTry again!");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("OOPS!!! You missed out the date of this task. \nTry again!");
-            }
-        } else {
-            throw new DukeException("OOPS!!! What is that? I'm sorry, but I don't recognise this command :-( \nTry another command!"); 
-        }
+    public static void addTask(TaskCommand cmd, String instr) throws DukeException {
+        switch (cmd) {
+            case TODO: 
+                try {
+                    Todo taskTodo = new Todo(instr.split("todo ")[1]);
+                    instrList.add(taskTodo); 
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(taskTodo.toString());
+                } catch (ArrayIndexOutOfBoundsException e ){
+                    throw new DukeException("OOPS!!! The description of a todo cannot be empty. \nTry again!"); 
+                }
+                break;
+            case DEADLINE: 
+                try {
+                    String deadlineDescription = instr.substring(9);
+                    String[] tskNames = deadlineDescription.split(" /by ");
+                    Deadline taskDeadline = new Deadline(tskNames[0], tskNames[1]); 
+                    instrList.add(taskDeadline); 
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(taskDeadline.toString());
+                } catch(StringIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! You cannot leave the description of a deadline to be empty. \nTry again!");
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! You missed out the deadline time of this task. \nTry again!");
+                }
+                break;
+            case EVENT: 
+                try {
+                    String eventDescription = instr.substring(6);
+                    String[] instrsubString = eventDescription.split(" /from ");
+                    String name = instrsubString[0]; 
+                    String[] startAndEnd = instrsubString[1].split(" /to "); 
+                    Events taskEvent = new Events(name, startAndEnd[0], startAndEnd[1]);
+                    instrList.add(taskEvent); 
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(taskEvent.toString()); 
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! You cannot leave the description of an event to be empty. \nTry again!");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! You missed out the date of this task. \nTry again!");
+                }
+                break;
+            
+            default:
+            throw new DukeException("OOPS!!! What is that? I'm sorry, but I don't recognise this command :-( \nTry another command!");  
+        }              
         System.out.println("Now you have " + instrList.size() + " tasks in the list."); 
     }
 
