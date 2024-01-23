@@ -26,6 +26,7 @@ public class Parser {
         String eventRegex = "event (\\S.*) /from (\\S.*) /to (\\S.*)";
         String markRegex = "mark (\\d+)";
         String unmarkRegex = "unmark (\\d+)";
+        String deleteRegex = "delete (\\d+)";
 
         // Regex for simple error of empty description
         String todoErrorRegex = "todo\\s*";
@@ -33,18 +34,21 @@ public class Parser {
         String eventErrorRegex = "event\\s*";
         String markErrorRegex = "mark\\s*";
         String unmarkErrorRegex = "unmark\\s*";
+        String deleteErrorRegex = "delete\\s*";
 
         Matcher todoMatcher = Pattern.compile(todoRegex).matcher(input);
         Matcher deadlineMatcher = Pattern.compile(deadlineRegex).matcher(input);
         Matcher eventMatcher = Pattern.compile(eventRegex).matcher(input);
         Matcher markMatcher = Pattern.compile(markRegex).matcher(input);
         Matcher unmarkMatcher = Pattern.compile(unmarkRegex).matcher(input);
+        Matcher deleteMatcher = Pattern.compile(deleteRegex).matcher(input);
 
         Matcher todoErrorMatcher = Pattern.compile(todoErrorRegex).matcher(input);
         Matcher deadlineErrorMatcher = Pattern.compile(deadlineErrorRegex).matcher(input);
         Matcher eventErrorMatcher = Pattern.compile(eventErrorRegex).matcher(input);
         Matcher markErrorMatcher = Pattern.compile(markErrorRegex).matcher(input);
         Matcher unmarkErrorMatcher = Pattern.compile(unmarkErrorRegex).matcher(input);
+        Matcher deleteErrorMatcher = Pattern.compile(deleteErrorRegex).matcher(input);
 
         if (todoMatcher.matches()) {
             this.commandType = "TODO";
@@ -64,8 +68,11 @@ public class Parser {
         } else if (markMatcher.matches()){
             this.commandType = "MARK";
             this.arg1 = markMatcher.group(1);
+        } else if (deleteMatcher.matches()) {
+            this.commandType = "DELETE";
+            this.arg1 = deleteMatcher.group(1);
         } else if (todoErrorMatcher.matches() || deadlineErrorMatcher.matches() || eventErrorMatcher.matches()
-            || markErrorMatcher.matches() || unmarkErrorMatcher.matches() ) {
+            || markErrorMatcher.matches() || unmarkErrorMatcher.matches() || deleteErrorMatcher.matches()) {
             throw new EmptyCommandDescription();
         } else {
             throw new IllegalArgumentException();

@@ -62,6 +62,11 @@ public class Duke {
                     say("Got it. I've added this task:\n" + event.toString() +
                             "\nNow you have " + list.getSize() + " tasks in the list.");
                     break;
+                case "DELETE":
+                    Task deleted = list.deleteTask(Integer.parseInt(commandInfo[2]));
+                    say("OK! I've deleted this task:\n" + deleted.toString() +
+                            "\nNow you have " + list.getSize() + " tasks in the list.");
+                    break;
                 default:
                     break;
             }

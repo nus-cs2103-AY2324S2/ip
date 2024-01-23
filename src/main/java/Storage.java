@@ -12,6 +12,10 @@ public class Storage {
         this.taskList.add(t);
     }
 
+    public Task deleteTask(int index) {
+        return this.taskList.remove(index);
+    }
+
     public Task markAsDone(int index) {
         // Note input index is 1-indexed
         this.taskList.get(index-1).mark();
