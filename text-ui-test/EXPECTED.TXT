@@ -1,33 +1,28 @@
-Hello! I'm Dune
+Hello! I'm Dune, your task manager.
 What can I do for you?
 
-added: john
-added: cena
+OOPS! Tasks can only be of types todo, deadline, or event.
 Here are the tasks in your list:
-1.[ ] john
-2.[ ] cena
 Give a valid index to mark
-Nice! I've marked this task as done:
-[X] john
 Got it. I've added this task:
 [E][ ] this (from: 5 to: nights at Freddie's)
-Now you have 3 tasks in your list.
+Now you have 1 tasks in your list.
 Got it. I've added this task:
 [D][ ] well (by: 4/2/0 9:11pm)
-Now you have 4 tasks in your list.
+Now you have 2 tasks in your list.
 Got it. I've added this task:
 [T][ ] thisndat
-Now you have 5 tasks in your list.
+Now you have 3 tasks in your list.
+Give a valid index to mark
 Nice! I've marked this task as done:
-[T][X] thisndat
-Nice! I've marked this task as done:
-[E][X] this (from: 5 to: nights at Freddie's)
-Nice! I've marked this task as done:
-[X] john
+[D][X] well (by: 4/2/0 9:11pm)
+Give a valid index to mark
 Here are the tasks in your list:
-1.[X] john
-2.[ ] cena
-3.[E][X] this (from: 5 to: nights at Freddie's)
-4.[D][ ] well (by: 4/2/0 9:11pm)
-5.[T][X] thisndat
+1.[E][ ] this (from: 5 to: nights at Freddie's)
+2.[D][X] well (by: 4/2/0 9:11pm)
+3.[T][ ] thisndat
+OOPS! Give an index to mark
+OOPS! Events need a /from and a /to in this order
+OOPS! There can only be 1 instance of /from and /to
+String cannot be parsed...
 Bye. Hope to see you again soon!
