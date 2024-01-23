@@ -3,6 +3,7 @@ import Tasks.Deadline;
 import Tasks.ToDo;
 import Tasks.Event;
 
+import java.lang.reflect.Array;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -31,12 +32,16 @@ public class Kervyn {
                     listTasks(userRequests);
                     break;
                 case "mark":
-                    task = userRequests.get(Integer.parseInt(processedUserInput[1]) - 1);
-                    markTask(task);
+                    // Need to account for trying to mark a task that doesn't exist
+                    markTask(userRequests, processedUserInput);
                     break;
                 case "unmark":
-                    task = userRequests.get(Integer.parseInt(processedUserInput[1]) - 1);
-                    unMarkTask(task);
+                    // Need to account for trying to unmark a task that doesn't exist
+                    unMarkTask(userRequests, processedUserInput);
+                    break;
+                case "delete":
+                    // Need to account for trying to delete a task that doesn't exist
+                    removeTask(userRequests, processedUserInput);
                     break;
                 case "todo":
                     ToDo newToDo = getProcessedToDo(userInput);
@@ -45,7 +50,6 @@ public class Kervyn {
                         toDoTaskTextDisplay(newToDo, userRequests);
                     }
                     break;
-
                 case "deadline":
                     Deadline newDeadline = getProcessedDeadline(userInput);
                     if (newDeadline != null) {
@@ -68,27 +72,53 @@ public class Kervyn {
 
     }
 
-    private static void markTask(Task task) {
-        if (task.getStatus()) {
-            taskAlreadyMarked();
-        } else {
-            System.out.println("\tNice! I've marked this task as done:");
-            task.updateStatus();
-            char check = task.getStatus() ? 'X' : ' ';
-            char type = task.getCapitalType();
-            System.out.println("\t[" + type + "] " + "[" + check + "] " + task.getDescription());
+    private static void markTask(ArrayList<Task> userRequests, String[] processedUserInput) {
+        try {
+            Task task = userRequests.get(Integer.parseInt(processedUserInput[1]) - 1);
+            if (task.getStatus()) {
+                taskAlreadyMarked();
+            } else {
+                System.out.println("\tNice! I've marked this task as done:");
+                task.updateStatus();
+                char check = task.getStatus() ? 'X' : ' ';
+                char type = task.getCapitalType();
+                System.out.println("\t[" + type + "] " + "[" + check + "] " + task.getDescription());
+            }
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("\tTask number provided doesn't exist. Please try again.");
         }
     }
 
-    private static void unMarkTask(Task task) {
-        if (!task.getStatus()) {
-            taskAlreadyUnMarked();
-        } else {
-            System.out.println("\tOK, I've marked this task as not done yet:");
-            task.updateStatus();
+    private static void unMarkTask(ArrayList<Task> userRequests, String[] processedUserInput) {
+        try {
+            Task task = userRequests.get(Integer.parseInt(processedUserInput[1]) - 1);
+            if (!task.getStatus()) {
+                taskAlreadyUnMarked();
+            } else {
+                System.out.println("\tOK, I've marked this task as not done yet:");
+                task.updateStatus();
+                char check = task.getStatus() ? 'X' : ' ';
+                char type = task.getCapitalType();
+                System.out.println("\t[" + type + "] " + "[" + check + "] " + task.getDescription());
+            }
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("\tTask number provided doesn't exist. Please try again.");
+        }
+    }
+
+    private static void removeTask(ArrayList<Task> userRequests, String[] processedUserInput) {
+        try {
+            Task task = userRequests.get(Integer.parseInt(processedUserInput[1]) - 1);
+            System.out.println("\tOK, I've removed this task as per your request:");
             char check = task.getStatus() ? 'X' : ' ';
             char type = task.getCapitalType();
             System.out.println("\t[" + type + "] " + "[" + check + "] " + task.getDescription());
+            userRequests.remove(task);
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("\tTask number provided doesn't exist. Please try again.");
         }
     }
 
@@ -105,7 +135,7 @@ public class Kervyn {
             String[] toDoDescriptionArray = userInput.split(" ");
 
             if (Objects.equals(toDoDescriptionArray[1], "")) {
-                System.out.println("The description of a todo cannot be empty. Please try again.");
+                System.out.println("\tThe description of a todo cannot be empty. Please try again.");
                 return null;
             }
 
@@ -120,7 +150,7 @@ public class Kervyn {
             return new ToDo(toDoDescription.toString(), false);
         }
         catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please provide the ToDo task in the required format.");
+            System.out.println("\tPlease provide the ToDo task in the required format.");
             return null;
         }
     }
@@ -130,7 +160,7 @@ public class Kervyn {
         try {
             String[] deadlineProcessedInput = userInput.split("/");
             if (Objects.equals(deadlineProcessedInput[1], "")) {
-                System.out.println("The deadline of a Deadline task cannot be empty. Please try again.");
+                System.out.println("\tThe deadline of a Deadline task cannot be empty. Please try again.");
                 return null;
             }
             String[] deadlineDescriptionArray = deadlineProcessedInput[0].split(" ");
@@ -145,7 +175,7 @@ public class Kervyn {
             return new Deadline(deadlineDescription.toString(), false, deadline);
         }
         catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please provide the deadline in the required format.");
+            System.out.println("\tPlease provide the deadline in the required format.");
             return null;
         }
     }
@@ -156,7 +186,7 @@ public class Kervyn {
         try {
             String[] eventProcessedInput = userInput.split("/");
             if (Objects.equals(eventProcessedInput[1], "") || Objects.equals(eventProcessedInput[2], "")) {
-                System.out.println("The description/startDate/endDate for an event cannot be empty. Please try again.");
+                System.out.println("\tThe description/startDate/endDate for an event cannot be empty. Please try again.");
                 return null;
             }
             String[] eventDescriptionArray = eventProcessedInput[0].split(" ");
@@ -185,7 +215,7 @@ public class Kervyn {
             return new Event(eventDescription.toString(), false, eventStartDate.toString(), eventEndDate.toString());
         }
         catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please provide the start date / end date in the required format.");
+            System.out.println("\tPlease provide the start date / end date in the required format.");
             return null;
         }
     }
