@@ -23,7 +23,7 @@ public class MissingArgumentValueException extends ActionException {
     }
     @Override
     public String getMessage() {
-        return "OOPS!!! The argument value <" + missingArg + "> of " + command.name + " must be present!\n"
+        return "OOPS!!! The argument value <" + missingArg + "> of `" + command.name + "` must be present!\n"
                 + "    Usage: `" + command.usageHint + "`";
     }
 }
