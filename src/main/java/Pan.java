@@ -24,14 +24,14 @@ public class Pan {
                     break;
                 } else if (instruction.matches("(mark) \\d+")) {
                     String index = instruction.substring(4).trim();
-                    if (Integer.parseInt(index) >= tasks.size()) {
+                    if (Integer.parseInt(index) > tasks.size()) {
                         throw new TaskIndexException("You have entered an invalid index!");
                     }
                     mark(Integer.parseInt(index));
                     continue;
                 } else if (instruction.matches("(unmark) \\d+")) {
                     String index = instruction.substring(4).trim();
-                    if (Integer.parseInt(index) >= tasks.size()) {
+                    if (Integer.parseInt(index) > tasks.size()) {
                         throw new TaskIndexException("You have entered an invalid index!");
                     }
                     unmark(Integer.parseInt(index));
@@ -59,6 +59,13 @@ public class Pan {
                     Events events = new Events(desc, false, from, to);
                     tasks.add(events);
                     add(events);
+                    continue;
+                } else if (instruction.matches("(delete) \\d+")) {
+                    String index = instruction.substring(6).trim();
+                    if (Integer.parseInt(index) > tasks.size()) {
+                        throw new TaskIndexException("You have entered an invalid index!");
+                    }
+                    delete(Integer.parseInt(index));
                     continue;
                 } else {
                     // catch other test cases
@@ -103,5 +110,13 @@ public class Pan {
         Task task = tasks.get(index - 1);
         task.setIsDone(false);
         System.out.println("OK, I've marked this task as not done yet:\n\t" + task.toString());
+    }
+
+    public static void delete(int index) {
+        Task task = tasks.get(index - 1);
+        tasks.remove(index - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("\t" + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 }
