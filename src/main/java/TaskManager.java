@@ -10,8 +10,17 @@ public class TaskManager {
     public void listTasks() {
         int count = 1;
         for (Task t : list) {
-            System.out.println(count + ". " + t.toString());
+            System.out.println(count + ".[" + t.getStatusIcon() + "] " + t.toString());
             count++;
         }
+    }
+    public void markDone(int i) {
+        Task t = list.get(i - 1);
+        t.setDone(true);
+    }
+
+    public void undo(int i) {
+        Task t = list.get(i - 1);
+        t.setDone(false);
     }
 }
