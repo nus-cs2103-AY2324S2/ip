@@ -21,4 +21,6 @@ event name name /to
 event name name /to tonight
 event name name /from tonight yo /to
 event name name /from /to
+delete 1
+delete 3
 bye
