@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Osiris {
 
     public static final String NAME = "Osiris";
+
+    private final UserInputs userInputs = new UserInputs();
 
     public void startChat(){
         Scanner scanner = new Scanner(System.in);
@@ -18,8 +21,10 @@ public class Osiris {
 
             if (userInput.equals("bye")) {
                 terminateChat = true;
+            } else if (userInput.equals("list")) {
+                this.printUserInputs();
             } else {
-                this.echoUserInput(userInput);
+                this.storeUserInput(userInput);
             }
         }
 
@@ -39,10 +44,26 @@ public class Osiris {
     }
 
     private void echoUserInput(String input) {
-        System.out.print("     ");
         this.printSeparator();
         System.out.println("     " + input);
-        System.out.print("     ");
+        this.printSeparator();
+    }
+
+    private void storeUserInput(String userInput) {
+        this.userInputs.add(userInput);
+
+        this.printSeparator();
+        System.out.println("     Added: " + userInput);
+        this.printSeparator();
+    }
+
+    private void printUserInputs(){
+        ArrayList<String> toPrint = this.userInputs.getUserInputs();
+
+        this.printSeparator();
+        for (int i = 0; i < toPrint.size(); i++) {
+            System.out.println("     " + (i + 1) + ". " + toPrint.get(i));
+        }
         this.printSeparator();
     }
 
