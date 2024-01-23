@@ -17,6 +17,12 @@ public class Storage {
         return this.storage.indexOf(s);
     }
 
+    public Task pop(int index) {
+        Task t = this.storage.get(index);
+        this.storage.remove(index);
+        return t;
+    }
+
     public String printList() {
         String output = "";
         for (int i=0; i<this.storage.size(); i++) {

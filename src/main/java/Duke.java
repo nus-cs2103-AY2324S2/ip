@@ -20,7 +20,15 @@ public class Duke {
 
         while (!input.equals("bye")) {
             try {
-                if (input.equals("list")) {
+                if (inputParts.get(0).equals("delete")) {
+                    int index = Integer.parseInt(inputParts.get(1));
+                    Task t = storage.pop(index-1);
+                    String message = String.format("%sNoted. I've removed this task:\n" +
+                            "%s\nNow you have %d tasks left.\n%s", line, t.toString(), storage.size(), line);
+
+                    System.out.println(message);
+                }
+                else if (input.equals("list")) {
                 System.out.println(line + storage.printList() + line);
             } else if (inputParts.get(0).equals("mark")) {
                 Task t = storage.get(Integer.parseInt(inputParts.get(1)) - 1);
