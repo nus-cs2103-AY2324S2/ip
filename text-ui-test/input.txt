@@ -9,4 +9,6 @@ todo
 deadline
 mark
 mark 10
+delete
+delete 1
 bye

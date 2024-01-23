@@ -31,7 +31,8 @@ public class Duke {
         System.out.println("4. List all tasks : list");
         System.out.println("5. Mark task done : mark [task number (integer)]");
         System.out.println("6. Mark task undone : unmark [task number (integer)]");
-        System.out.println("7. Close chatbot : bye");
+        System.out.println("7. Delete a task : delete [task number (integer)]");
+        System.out.println("8. Close chatbot : bye");
         drawLine();
     }
 
@@ -109,6 +110,8 @@ public class Duke {
         drawLine();
         if (storage.size() == 0) {
             System.out.println("Your task list is empty. Create your first task now!");
+        } else {
+            System.out.println("Here are the tasks in your list:");
         }
         for (int i = 0; i < storage.size(); i++) {
             System.out.println((i + 1) + ". " + storage.get(i));
@@ -124,10 +127,7 @@ public class Duke {
     public static void markDone(List<Task> storage, String input) throws DukeException {
         try {
             int index = Integer.parseInt(input);
-            if (index == 0) {
-                throw new DukeException("I don't know which task to mark done. Write command using format: " +
-                        "mark [task number (integer)]");
-            } else if (index > storage.size() || index < 0) {
+            if (index > storage.size() || index <= 0) {
                 throw new DukeException("Invalid task number. Please check your task list using command : list\n" +
                         "Write command using format: " +
                         "mark [task number (integer)]");
@@ -151,10 +151,7 @@ public class Duke {
     public static void markUndone(List<Task> storage, String input) throws DukeException {
         try {
             int index = Integer.parseInt(input);
-            if (index == 0) {
-                throw new DukeException("I don't know which task to mark undone. Write command using format: " +
-                        "mark [task number (integer)]");
-            } else if (index > storage.size() || index < 0) {
+             if (index > storage.size() || index <= 0) {
                 throw new DukeException("Invalid task number. Please check your task list using command : list.\n" +
                         "Write command using format: " +
                         "mark [task number (integer)]");
@@ -167,6 +164,31 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: " +
                     "mark [task number (integer)]");
+        }
+    }
+
+    /**
+     * To delete a task
+     * @param storage where the task is kept in
+     * @param input index of the task to be deleted
+     */
+    public static void deleteTask(List<Task> storage, String input) throws DukeException {
+        try {
+            int index = Integer.parseInt(input);
+            if (index > storage.size() || index <= 0) {
+                throw new DukeException("Invalid task number. Please check your task list using command : list.\n" +
+                        "Write command using format: " +
+                        "delete [task number (integer)]");
+            }
+
+            Task curr = storage.get(index - 1);
+            storage.remove(index - 1);
+            String temp = storage.size() > 1 ? " tasks" : " task";
+            displayToScreen("Noted. I've removed this task:\n" + curr + "\nNow you have "
+                    + storage.size() + temp + " in the list.");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please insert valid integer for task number. Write command using format: " +
+                    "delete [task number (integer)]");
         }
     }
 
@@ -194,9 +216,11 @@ public class Duke {
                 } else if (command.equals("list")) {
                     listTask(storage);
                 } else if (commandArr[0].equals("mark")) {
-                    markDone(storage, commandArr.length > 1 ? commandArr[1] : "0");
+                    markDone(storage, commandArr.length > 1 ? commandArr[1] : "");
                 } else if (commandArr[0].equals("unmark")) {
-                    markUndone(storage, commandArr.length > 1 ? commandArr[1] : "0");
+                    markUndone(storage, commandArr.length > 1 ? commandArr[1] : "");
+                } else if (commandArr[0].equals("delete")) {
+                    deleteTask(storage, commandArr.length > 1 ? commandArr[1] : "");
                 } else {
                     addTask(commandArr[0], commandArr.length > 1 ? commandArr[1] : "", storage);
                 }
