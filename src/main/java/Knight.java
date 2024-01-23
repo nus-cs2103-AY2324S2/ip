@@ -10,6 +10,24 @@ public class Knight {
     private static void speak(String s) {
         System.out.println("    " + s);
     }
+
+    private static Task locateTask(String s) {
+        int index;
+        Task task;
+        try {
+            index = Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            speak("Take heed, for thou shouldst reference the task thou wishest to alter by its index.");
+            throw new TaskNotFoundException();
+        }
+        try {
+            task = tasks.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            speak("I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.");
+            throw new TaskNotFoundException();
+        }
+        return task;
+    }
     public static void main(String[] args) {
 
 
@@ -27,7 +45,7 @@ public class Knight {
 
             if (command.equals("list")) {
                 if (tasks.isEmpty()) {
-                    speak("Your Excellency, thy list is bereft of any tasks at this moment.");
+                    speak("Your Excellency, thy list remaineth free of tasks at this present moment.");
                 } else {
                     speak("Behold, the duties thou hast assigned:");
                     int i = 1;
@@ -36,6 +54,32 @@ public class Knight {
                         i++;
                     }
                 }
+                continue;
+            }
+
+            if (command.startsWith("mark ")) {
+                Task task;
+                try {
+                    task = locateTask(command.substring(5));
+                } catch (TaskNotFoundException e) {
+                    continue;
+                }
+
+                task.mark();
+                speak("Well met! This task hath been marked as fulfilled:\n    " + task);
+                continue;
+            }
+
+            if (command.startsWith("unmark ")) {
+                Task task;
+                try {
+                    task = locateTask(command.substring(7));
+                } catch (TaskNotFoundException e) {
+                    continue;
+                }
+
+                task.unmark();
+                speak("Verily, I have marked this task as not yet done:\n    " + task);
                 continue;
             }
 
