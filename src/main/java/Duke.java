@@ -134,7 +134,8 @@ public class Duke {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(list.get(taskNumber - 1).toString());
                 } else {
-                    System.out.println("Invalid input: task number does not exist in your list.");
+                    System.out.println("Uh oh! looks like that task does not exist in your list.");
+                    System.out.println("You currently only have " + numOfTasks + " task(s) in your list.");
                 }
                 input = sc.nextLine();
 
@@ -146,41 +147,88 @@ public class Duke {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(list.get(taskNumber - 1).toString());
                 } else {
-                    System.out.println("Invalid input: task number does not exist in your list.");
+                    System.out.println("Uh oh! looks like that task does not exist in your list.");
+                    System.out.println("You currently only have " + numOfTasks + " task(s) in your list.");
                 }
                 input = sc.nextLine();
 
             } else if (input.startsWith("todo ")) {
                 String descrpt = input.substring(5);
-                list.add(new ToDos(descrpt, false));
-                System.out.println("Got it. I've added this task:");
-                System.out.println(list.get(list.size() - 1).toString());
-                System.out.println("Now you have " + list.size() + " task(s) in the list.");
+                if (descrpt.isEmpty()) {
+                    System.out.println("Uh oh! there's missing information in your instructions!");
+                    System.out.println("You can try the command \"todo [task description]\" instead.");
+                } else {
+                    list.add(new ToDos(descrpt, false));
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(list.get(list.size() - 1).toString());
+                    System.out.println("Now you have " + list.size() + " task(s) in the list.");
+                }
                 input = sc.nextLine();
 
             } else if (input.startsWith("deadline ")) {
                 String descrpt = input.substring(9);
-                String taskDescrpt = descrpt.split(" /by")[0];
-                String taskDeadline = descrpt.split(" /by ")[1];
-                list.add(new Deadlines(taskDescrpt, false, taskDeadline));
-                System.out.println("Got it. I've added this task:");
-                System.out.println(list.get(list.size() - 1).toString());
-                System.out.println("Now you have " + list.size() + " task(s) in the list.");
+                if (descrpt.isEmpty() || !descrpt.contains(" /by ")) {
+                    System.out.println("Uh oh! there's missing information in your instructions!");
+                    System.out.println("You can try the command \"deadline [task description] /by [date/time]\" " +
+                            "instead.");
+                } else {
+                    try {
+                        String taskDescrpt = descrpt.split(" /by")[0];
+                        String taskDeadline = descrpt.split(" /by ")[1];
+                        list.add(new Deadlines(taskDescrpt, false, taskDeadline));
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(list.get(list.size() - 1).toString());
+                        System.out.println("Now you have " + list.size() + " task(s) in the list.");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Uh oh! there's missing information in your instructions!");
+                        System.out.println("You can try the command \"deadline [task description] /by [date/time]\" " +
+                                "instead.");
+                    }
+
+                }
                 input = sc.nextLine();
 
             } else if (input.startsWith("event ")) {
                 String descrpt = input.substring(6);
-                String taskDescrpt = descrpt.split(" /from ")[0];
-                String taskStart = descrpt.split(" /from ")[1].split(" /to ")[0];
-                String taskEnd = descrpt.split(" /to ")[1];
-                list.add(new Events(taskDescrpt, false, taskStart, taskEnd));
-                System.out.println("Got it. I've added this task:");
-                System.out.println(list.get(list.size() - 1).toString());
-                System.out.println("Now you have " + list.size() + " task(s) in the list.");
+                if (descrpt.isEmpty() || !descrpt.contains(" /from ") || !descrpt.contains(" /to ")) {
+                    System.out.println("Uh oh! there's missing information in your instructions!");
+                    System.out.println("You can try the command \"event [task description] /from [date/time] " +
+                            "/to [date/time]\" instead.");
+                } else {
+                    try {
+                        String taskDescrpt = descrpt.split(" /from ")[0];
+                        String taskStart = descrpt.split(" /from ")[1].split("/to ")[0];
+                        String taskEnd = descrpt.split(" /to ")[1];
+                        if (!taskDescrpt.isEmpty() && !taskStart.isEmpty() && !taskEnd.isEmpty()) {
+                            list.add(new Events(taskDescrpt, false, taskStart, taskEnd));
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(list.get(list.size() - 1).toString());
+                            System.out.println("Now you have " + list.size() + " task(s) in the list.");
+                        } else {
+                            System.out.println("Uh oh! there's missing information in your instructions!");
+                            System.out.println("You can try the command \"event [task description] /from [date/time] " +
+                                    "/to [date/time]\" instead.");
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Uh oh! there's missing information in your instructions!");
+                        System.out.println("You can try the command \"event [task description] /from [date/time] " +
+                                "/to [date/time]\" instead.");
+                    }
+                }
                 input = sc.nextLine();
 
             } else {
-                System.out.println("Invalid input: try starting inputs with 'todo', 'deadline', or 'event'.");
+                System.out.println("Sorry! Scribbles was unable to understand your instructions :(");
+                System.out.println("You can try the following commands instead: ");
+                System.out.println("- type \"list\" to view your current list of tasks");
+                System.out.println("- type \"mark [index]\" to mark task at index as completed");
+                System.out.println("- type \"unmark [index]\" to mark task at index as uncompleted");
+                System.out.println("- type \"todo [task]\" to insert task into your list");
+                System.out.println("- type \"deadline [task] /by [date]\" " +
+                        "to insert task into your list with deadline as date");
+                System.out.println("- type \"event [task] /from [start] to [end]\" " +
+                        "to insert task into your list with a start and end duration");
+                System.out.println("Please try again :)");
                 input = sc.nextLine();
             }
         }
