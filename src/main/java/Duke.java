@@ -7,6 +7,5 @@ public class Duke {
 
         System.out.println(greet);
         System.out.println(bye);
-
     }
 }
