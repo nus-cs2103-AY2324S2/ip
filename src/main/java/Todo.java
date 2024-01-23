@@ -5,15 +5,19 @@ public class Todo extends Task {
     }
 
     public static Todo of(String input) {
-        if (!startsWith(keyword, input)) {
-            System.out.println("OH NOSE! This input is not todo..");
-            return null;
+        try {
+            if (!startsWith(keyword, input)) {
+                throw new BobException("OH NOSE! This input is not todo..");
+            }
+            if (keyword.length() + 1 >= input.length()) {
+                throw new BobException("OH NOSE! The description of todo cannot be empty..");
+            }
+            return new Todo(input.substring(keyword.length() + 1));
+
+        } catch (BobException e) {
+                System.out.println(e.getMessage());
         }
-        if (keyword.length() + 1 >= input.length()) {
-            System.out.println("OH NOSE! The description of todo cannot be empty..");
-            return null;
-        }
-        return new Todo(input.substring(keyword.length() + 1));
+        return null;
     }
 
     @Override

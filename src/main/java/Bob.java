@@ -10,7 +10,7 @@ public class Bob {
             int num = Integer.parseInt(input.substring(keyword.length() + 1));
             Task task = list[num - 1];
             if (task == null) {
-                throw new ArrayIndexOutOfBoundsException();
+                throw new BobException("OH NOSE! Task number has not yet been assigned..");
             }
             return task;
 
@@ -20,6 +20,8 @@ public class Bob {
             System.out.println("OH NOSE! Task number has to be an integer..");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("OH NOSE! Task number must be in valid range..");
+        } catch (BobException e) {
+            System.out.println(e.getMessage());
         }
         return null;
     }
