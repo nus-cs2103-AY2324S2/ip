@@ -54,7 +54,7 @@
 
     Great job! You marked that task off your list! That's the way to go! 
     Keep pushing yourself, and remember, every completed task brings you 
-    one step closer to your goals. Believe it!
+    one step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -68,7 +68,7 @@
 
     Great job! You marked that task off your list! That's the way to go! 
     Keep pushing yourself, and remember, every completed task brings you 
-    one step closer to your goals. Believe it!
+    one step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -82,7 +82,7 @@
 
     Great job! You marked that task off your list! That's the way to go! 
     Keep pushing yourself, and remember, every completed task brings you 
-    one step closer to your goals. Believe it!
+    one step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -94,10 +94,35 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+    Sorry, I couldn't find the task you indicated... ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task deleted:
+      [D][X] return book (by: Sunday)
+    Now you have 2 tasks remaining.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Sorry, I couldn't find the task you indicated... ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     Here are the tasks in your list:
     1.[T][X] borrow book
-    2.[D][X] return book (by: Sunday)
-    3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+    2.[E][X] project meeting (from: Mon 2pm to: 4pm)
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -108,7 +133,7 @@
     You know, sometimes things don't go as planned, but that's okay! 
     The important part is to keep moving forward. 
     Unmarking a task is just a step in the journey. Believe it! 
-    We'll get there, one task at a time!
+    We'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -123,22 +148,7 @@
     You know, sometimes things don't go as planned, but that's okay! 
     The important part is to keep moving forward. 
     Unmarking a task is just a step in the journey. Believe it! 
-    We'll get there, one task at a time!
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [D][ ] return book (by: Sunday)
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    You know, sometimes things don't go as planned, but that's okay! 
-    The important part is to keep moving forward. 
-    Unmarking a task is just a step in the journey. Believe it! 
-    We'll get there, one task at a time!
+    We'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -150,10 +160,114 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+    Sorry, I couldn't find the task you indicated... ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Sorry, I couldn't find the task you indicated... ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task deleted:
+      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Now you have 1 task remaining.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Sorry, I couldn't find the task you indicated... ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     Here are the tasks in your list:
     1.[T][ ] borrow book
-    2.[D][ ] return book (by: Sunday)
-    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Looks like your todo is missing a description! 
+    Enter an input after the 'todo' command to enter a todo.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Sorry, I didn't catch that. ヾ(_ _。）
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Looks like you forgot to enter a deadline! 
+    Enter a deadline after the command '/by' to indicate when your deadline is.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Sorry, I didn't catch that. ヾ(_ _。）
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Looks like your event doesn't have a valid start or end time! 
+    Make sure your input uses the '/from' and '/to' commands to indicate
+    the start and end times of your event.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Sorry, I didn't catch that. ヾ(_ _。）
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Looks like your event doesn't have a valid start or end time! 
+    Make sure your input uses the '/from' and '/to' commands to indicate
+    the start and end times of your event.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Looks like your event doesn't have a valid start or end time! 
+    Make sure your input uses the '/from' and '/to' commands to indicate
+    the start and end times of your event.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

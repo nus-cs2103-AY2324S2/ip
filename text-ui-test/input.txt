@@ -5,9 +5,23 @@ list
 mark 1
 mark 2
 mark 3
+mark 4
+delete 2
+delete 4
 list
 unmark 1
 unmark 2
 unmark 3
+unmark 4
+delete 2
+delete 4
 list
+todo
+todoo
+deadline return book by Sunday
+deaadline
+event project meeting /from Mon 2pm to 4pm
+eevent
+event project meeting from Mon 2pm /to 4pm
+event project meeting from Mon 2pm to 4pm
 bye
