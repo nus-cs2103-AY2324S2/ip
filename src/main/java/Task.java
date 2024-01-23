@@ -10,12 +10,12 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    // When a task has been completed
+    // When a user wishes to mark a task as completed
     public void markAsDone() {
         this.isDone = true;
     }
 
-    // When a task has not been completed
+    // When user wishes to un-mark a certain task
     public void uncheckingTask() {
         this.isDone = false;
     }

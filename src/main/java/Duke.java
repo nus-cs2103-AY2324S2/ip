@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
@@ -6,7 +7,6 @@ public class Duke {
         // This is the fixed storage of all the tasks
         Task[] tasks = new Task[100];
         int index = 0;
-
 
         String greetingMsg = "Hello! I'm PingMeBot\n" + "What can I do for you?";
         String exitMsg = "Bye. Hope to see you again soon!";
@@ -30,34 +30,70 @@ public class Duke {
                     System.out.println(taskNumber + "." + tasks[i].toString());
                 }
             } else if (words[0].equals("mark")) {
-                int taskNumber = Parser.markParser();
-                tasks[taskNumber].markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " +  tasks[taskNumber].toString());
-
-            } else if (words[0].equals("unmark")) {
-                int taskNum = Parser.unmarkParser();
-                tasks[taskNum].uncheckingTask();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " +  tasks[taskNum].toString());
-            } else {
-                System.out.println("\n" + "Got it. I've added this task:");
-                if (words[0].equals("todo")) {
-                    ToDos todo = Parser.todoParser();
-                    tasks[index] = todo;
-                    System.out.println("  " + todo.toString());
-                } else if (words[0].equals("deadline")) {
-                    Deadline deadlineTask = Parser.deadlineParser();
-                    tasks[index] = deadlineTask;
-                    System.out.println("  " + deadlineTask.toString());
-                } else if (words[0].equals("event")){
-                    Events events = Parser.eventsParser();
-                    tasks[index] = events;
-                    System.out.println("  " + events.toString());
+                try {
+                    int taskNumber = Parser.markParser(index);
+                    tasks[taskNumber].markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  " +  tasks[taskNumber].toString());
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("I'm not sure which task you wish to mark. Please specify and try again!");
+                } catch (myBotException e) {
+                    System.out.println(e.getMessage());
                 }
 
-                index++;
-                System.out.println("Now you have " + index + " tasks in the list.");
+            } else if (words[0].equals("unmark")) {
+                try {
+                    int taskNum = Parser.unmarkParser(index);
+                    // Ensuring that user can only un-mark tasks that are marked as completed
+                    if (tasks[taskNum].getStatusIcon().equals(" ")) {
+                        throw new myBotException("You cannot un-mark task which has not been marked!");
+                    }
+                    tasks[taskNum].uncheckingTask();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("  " +  tasks[taskNum].toString());
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("I'm not sure which task you wish to un-mark. Please specify and try again!");
+                } catch (myBotException e) {
+                    System.out.println(e.getMessage());
+                }
+
+            } else if (words[0].equals("todo")) {
+                try {
+                    ToDos todo = Parser.todoParser();
+                    tasks[index] = todo;
+                    System.out.println("\n" + "Got it. I've added this task:");
+                    System.out.println("  " + todo.toString());
+                    index++;
+                    System.out.println("Now you have " + index + " tasks in the list.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("OOPS! The command is incomplete. Please provide a task description!");
+                }
+            } else if (words[0].equals("deadline")) {
+                try {
+                    Deadline deadlineTask = Parser.deadlineParser();
+                    tasks[index] = deadlineTask;
+                    System.out.println("\n" + "Got it. I've added this task:");
+                    System.out.println("  " + deadlineTask.toString());
+                    index++;
+                    System.out.println("Now you have " + index + " tasks in the list.");
+                } catch (myBotException e) {
+                    System.out.println(e.getMessage());
+                }
+
+            } else if (words[0].equals("event")){
+                try {
+                    Events events = Parser.eventsParser();
+                    tasks[index] = events;
+                    System.out.println("\n" + "Got it. I've added this task:");
+                    System.out.println("  " + events.toString());
+                    index++;
+                    System.out.println("Now you have " + index + " tasks in the list.");
+                } catch (myBotException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            else {
+                System.out.println("OOPS! I'm sorry, but I don't know what that means :'(");
             }
         }
     }
