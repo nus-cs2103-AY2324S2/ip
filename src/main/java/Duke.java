@@ -30,6 +30,8 @@ public class Duke {
                     handleUnmark(currentResponse, tasks, pw);
                 } else if (currentResponse.equals("list")) {
                     listTasks(tasks, pw);
+                } else if (currentResponse.startsWith("delete ")) {
+                    handleDelete(currentResponse, tasks, pw);
                 } else {
                     handleTaskCreation(currentResponse, tasks, pw);
                 }
@@ -47,6 +49,21 @@ public class Duke {
         pw.println("____________________________________________________________");
         pw.flush();
         pw.close();
+    }
+
+    private static void handleDelete(String response, List<Task> tasks, PrintWriter pw) throws DukeException{
+        try {
+            int index = Integer.parseInt(response.substring(7).trim()) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new DukeException("Task number " + (index + 1) + " does not exist.");
+            }
+            Task removedTask = tasks.remove(index);
+            String taskWord = tasks.size() == 1 ? " task" : " tasks";
+            pw.println("Noted. I've removed this task:\n  " + removedTask);
+            pw.println("Now you have " + tasks.size() + taskWord + " in the list.");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid task number to delete.");
+        }
     }
 
     private static void handleMark(String response, List<Task> tasks, PrintWriter pw) throws DukeException {
@@ -119,7 +136,7 @@ public class Duke {
                     throw new DukeException("The end time of the event is missing.");
                 }
                 tasks.add(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
-                break;
+                break; 
             default:
                 throw new DukeException("Please enter a valid task type.");
         }
