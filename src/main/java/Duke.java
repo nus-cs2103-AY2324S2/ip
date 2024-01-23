@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     static final String line = "________________________________________________________________________________________";
-
+    public static ArrayList<String> list = new ArrayList<String>();
     public void greet() {
         System.out.println(line);
         System.out.println("Hello! I'm Alfred");
@@ -16,20 +17,36 @@ public class Duke {
     }
     public void echo(String input) {
         System.out.println(line);
-        System.out.println(input);
+        System.out.println("added: " + input);
+        System.out.println(line);
+    }
+    public void addList(String input) {
+        list.add(input);
+        this.echo(input);
+    }
+
+    public void printList() {
+        System.out.println(line);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i+1 + ". " + list.get(i));
+        }
         System.out.println(line);
     }
     public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.greet();
+        Duke alfred = new Duke();
+        alfred.greet();
         while (true) {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
             if (input.equals("bye")) {
-                duke.bye();
+                alfred.bye();
                 break;
             }
-            duke.echo(input);
+            if (input.equals("list")) {
+                alfred.printList();
+                continue;
+            }
+            alfred.addList(input);
         }
     }
 }
