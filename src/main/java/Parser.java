@@ -4,13 +4,13 @@ import java.util.regex.Pattern;
 public class Parser {
 
     // Contains information about each command parsed
-    private String commandType, name, arg1, arg2;
+    private String commandType = "", name, arg1, arg2;
 
     public String[] getCommandInfo() {
         return new String[] {commandType, name, arg1, arg2};
     }
 
-    public void parseCommand(String input) {
+    public void parseCommand(String input) throws IllegalArgumentException, EmptyCommandDescription {
         // Simple commands
         if (input.matches("list(\\s*)")) {
             this.commandType = "LIST";
@@ -21,11 +21,18 @@ public class Parser {
             return;
         }
 
-        String todoRegex = "todo (.+)";
-        String deadlineRegex = "deadline (.+) /by (.+)";
-        String eventRegex = "event (.+) /from (.+) /to (.+)";
+        String todoRegex = "todo (\\S.*)";
+        String deadlineRegex = "deadline (\\S.*) /by (\\S.*)";
+        String eventRegex = "event (\\S.*) /from (\\S.*) /to (\\S.*)";
         String markRegex = "mark (\\d+)";
         String unmarkRegex = "unmark (\\d+)";
+
+        // Regex for simple error of empty description
+        String todoErrorRegex = "todo\\s*";
+        String deadlineErrorRegex = "deadline\\s*";
+        String eventErrorRegex = "event\\s*";
+        String markErrorRegex = "mark\\s*";
+        String unmarkErrorRegex = "unmark\\s*";
 
         Matcher todoMatcher = Pattern.compile(todoRegex).matcher(input);
         Matcher deadlineMatcher = Pattern.compile(deadlineRegex).matcher(input);
@@ -33,26 +40,35 @@ public class Parser {
         Matcher markMatcher = Pattern.compile(markRegex).matcher(input);
         Matcher unmarkMatcher = Pattern.compile(unmarkRegex).matcher(input);
 
-        if (todoMatcher.find()) {
+        Matcher todoErrorMatcher = Pattern.compile(todoErrorRegex).matcher(input);
+        Matcher deadlineErrorMatcher = Pattern.compile(deadlineErrorRegex).matcher(input);
+        Matcher eventErrorMatcher = Pattern.compile(eventErrorRegex).matcher(input);
+        Matcher markErrorMatcher = Pattern.compile(markErrorRegex).matcher(input);
+        Matcher unmarkErrorMatcher = Pattern.compile(unmarkErrorRegex).matcher(input);
+
+        if (todoMatcher.matches()) {
             this.commandType = "TODO";
             this.name = todoMatcher.group(1);
-        } else if (deadlineMatcher.find()) {
+        } else if (deadlineMatcher.matches()) {
             this.commandType = "DEADLINE";
             this.name = deadlineMatcher.group(1);
             this.arg1 = deadlineMatcher.group(2);
-        } else if (eventMatcher.find()) {
+        } else if (eventMatcher.matches()) {
             this.commandType = "EVENT";
             this.name = eventMatcher.group(1);
             this.arg1 = eventMatcher.group(2);
             this.arg2 = eventMatcher.group(3);
-        } else if (unmarkMatcher.find()) {
+        } else if (unmarkMatcher.matches()) {
             this.commandType = "UNMARK";
             this.arg1 = unmarkMatcher.group(1);
-        } else if (markMatcher.find()){
+        } else if (markMatcher.matches()){
             this.commandType = "MARK";
             this.arg1 = markMatcher.group(1);
+        } else if (todoErrorMatcher.matches() || deadlineErrorMatcher.matches() || eventErrorMatcher.matches()
+            || markErrorMatcher.matches() || unmarkErrorMatcher.matches() ) {
+            throw new EmptyCommandDescription();
         } else {
-            this.commandType = "INVALID";
+            throw new IllegalArgumentException();
         }
     }
 }

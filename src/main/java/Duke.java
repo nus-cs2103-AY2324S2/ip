@@ -18,7 +18,14 @@ public class Duke {
 
         while (true) {
             userInput = scanner.nextLine();
-            parser.parseCommand(userInput);
+            try {
+                parser.parseCommand(userInput);
+            } catch (IllegalArgumentException e) {
+                say("sry idk what that means =(");
+            } catch (EmptyCommandDescription e) {
+                say("Oh no! This command description cannot be empty =(");
+            }
+
             String[] commandInfo = parser.getCommandInfo();
             switch (commandInfo[0]) {
                 case "BYE":
@@ -56,7 +63,6 @@ public class Duke {
                             "\nNow you have " + list.getSize() + " tasks in the list.");
                     break;
                 default:
-                    say("sry idk what that means =(");
                     break;
             }
 
