@@ -16,45 +16,35 @@ public class Duke {
         while (true) {
             String userInput = sc.nextLine();
             String[] splitInputs = userInput.split("\\s+");
+            String command = splitInputs[0];
 
             if (splitInputs.length > 1) {
-                String command = splitInputs[0];
+                String argument = userInput.substring(command.length() + 1);
                 if (command.equalsIgnoreCase("mark")) {
-                    String idx = splitInputs[1];
-                    executeMarkTask(idx);
+                    markTask(argument);
                 } else if (command.equalsIgnoreCase("unmark")) {
-                    String idx = splitInputs[1];
-                    executeUnmarkTask(idx);
-                } else {
-                    echoAndAddTask(userInput);
+                    unmarkTask(argument);
+                } else if (command.equalsIgnoreCase("todo")) {
+                    addToDoTask(argument);
+                } else if (command.equalsIgnoreCase("deadline")) {
+                    addDeadline(argument);
+                } else if (command.equalsIgnoreCase("event")) {
+                    addEvent(argument);
                 }
 
             } else {
-                String command = splitInputs[0];
                 if (command.equalsIgnoreCase("list")) {
                     listTasks();
                 } else if (command.equalsIgnoreCase("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println("____________________");
                     break;
-                } else {
-                    echoAndAddTask(userInput);
                 }
             }
 
         }
 
         sc.close();
-
-    }
-
-    private static void echoAndAddTask(String taskDescription) {
-        Task newTask = new Task(taskDescription);
-        taskList.add(newTask);
-        String output = String.format("added: %s", taskDescription);
-        System.out.println("____________________");
-        System.out.println(output);
-        System.out.println("____________________");
 
     }
 
@@ -68,20 +58,54 @@ public class Duke {
         System.out.println("____________________");
     }
 
-    public static String executeMarkTask(String taskIndex) {
+    public static void markTask(String taskIndex) {
         Task t = taskList.get(Integer.parseInt(taskIndex) - 1);
         t.markAsDone();
         System.out.println("Nice!, I've marked this task as done:");
         System.out.println(t);
-        return t.toString();
     }
 
-    public static String executeUnmarkTask(String taskIndex) {
+    public static void unmarkTask(String taskIndex) {
         Task t = taskList.get(Integer.parseInt(taskIndex) - 1);
         t.markAsUndone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(t);
-        return t.toString();
+    }
+
+    public static void addToDoTask(String taskToAdd) {
+        Task toDo = new ToDo(taskToAdd);
+        taskList.add(toDo);
+
+        System.out.println("____________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(toDo);
+        String output = String.format("Now you have %d tasks in the list.", taskList.size());
+        System.out.println(output);
+    }
+
+    public static void addDeadline(String deadlineToAdd) {
+        String[] deadlineArgs = deadlineToAdd.split(" /by ");
+        Task deadline = new Deadline(deadlineArgs[0], deadlineArgs[1]);
+        taskList.add(deadline);
+        System.out.println("____________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(deadline);
+        String output = String.format("Now you have %d tasks in the list.", taskList.size());
+        System.out.println(output);
+    }
+
+    public static void addEvent(String eventToAdd) {
+        String[] eventArgs = eventToAdd.split(" /from ");
+        String[] eventTime = eventArgs[1].split(" /to ");
+        String startTime = eventTime[0];
+        String endTime = eventTime[1];
+        Task event = new Event(eventArgs[0], startTime, endTime);
+        taskList.add(event);
+        System.out.println("____________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(event);
+        String output = String.format("Now you have %d tasks in the list.", taskList.size());
+        System.out.println(output);
     }
 
 }
