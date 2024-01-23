@@ -17,7 +17,8 @@ public class Printer {
 
     /**
      * Prints an indented message to the console.
-     * @param message The message to print in the console.
+     *
+     * @param message the message to print in the console
      */
     private static void printMessage(String message) {
         String[] lines = message.split("\n");
@@ -28,7 +29,8 @@ public class Printer {
 
     /**
      * Prints multiple lines of indented messages to the console.
-     * @param messages The messages, separated by lines.
+     *
+     * @param messages the messages, separated by lines
      */
     public static void printMessages(String... messages) {
         insertLine();

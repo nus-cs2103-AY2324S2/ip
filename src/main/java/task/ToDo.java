@@ -7,16 +7,18 @@ package task;
  */
 public class ToDo extends Task {
     /**
-     * Constructor for a to-do
-     * @param name the name of the to-do
+     * Constructor for this to-do
+     *
+     * @param name the name of this to-do
      */
     public ToDo(String name) {
         super(name);
     }
 
     /**
-     * Gets a human-readable description of the task.
-     * @return The task in a human-readable string.
+     * Gets a human-readable description of this task.
+     *
+     * @return this task in a human-readable string
      */
     @Override
     public String toString() {

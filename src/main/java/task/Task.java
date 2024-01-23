@@ -7,26 +7,28 @@ package task;
  */
 public abstract class Task {
     /**
-     * The name of the task.
+     * The name of this task.
      */
     private final String name;
 
     /**
-     * Whether the task is completed.
+     * Whether this task is completed.
      */
     private boolean isCompleted = false;
 
     /**
-     * Constructor for a task.
-     * @param name The name of the task.
+     * Constructor for this task.
+     *
+     * @param name the name of this task
      */
     public Task(String name) {
         this.name = name;
     }
 
     /**
-     * Gets a human-readable description of the task.
-     * @return The task in a human-readable string.
+     * Gets a human-readable description of this task.
+     *
+     * @return this task in a human-readable string
      */
     @Override
     public String toString() {
@@ -34,14 +36,14 @@ public abstract class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Mark this task as done.
      */
     public void mark() {
         isCompleted = true;
     }
 
     /**
-     * Change the status of the task back to not done.
+     * Change the status of this task back to not done.
      */
     public void unmark() {
         isCompleted = false;

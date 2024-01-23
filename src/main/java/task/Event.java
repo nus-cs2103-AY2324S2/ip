@@ -11,10 +11,11 @@ public class Event extends Task {
     private final String endDateTime;
 
     /**
-     * Constructor for an event.
-     * @param name The name of the event.
-     * @param startDateTime The starting date/time of the event.
-     * @param endDateTime The ending date/time of the event.
+     * Constructor for this event.
+     *
+     * @param name the name of this event
+     * @param startDateTime the starting date/time of this event
+     * @param endDateTime the ending date/time of this event
      */
     public Event(String name, String startDateTime, String endDateTime) {
         super(name);
@@ -23,8 +24,9 @@ public class Event extends Task {
     }
 
     /**
-     * Gets a human-readable description of the task.
-     * @return The task in a human-readable string.
+     * Gets a human-readable description of this task.
+     *
+     * @return this task in a human-readable string
      */
     @Override
     public String toString() {

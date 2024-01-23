@@ -8,13 +8,19 @@ import task.TaskList;
  * @author Titus Chew
  */
 public class AddEventAction extends Action {
+    /**
+     * Constructor for this add event action.
+     *
+     * @param arguments the arguments supplied with the command
+     */
     public AddEventAction(Argument[] arguments) {
         super(Command.ADD_EVENT, arguments);
     }
 
     /**
      * Add an event to the task list.
-     * @param taskList The taskList to modify.
+     *
+     * @param taskList the taskList to modify
      */
     @Override
     public void execute(TaskList taskList) {

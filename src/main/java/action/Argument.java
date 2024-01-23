@@ -1,9 +1,10 @@
 package action;
 
 /**
- * Argument is a data class that stores a command argument's name, and it's associated value.
- * The argument must have a name.
- * If the name matches the command, it is defined to be the default argument.
+ * Argument is a data class that stores a {@link Command} argument's name, and it's associated value.
+ * <ul>
+ * <li>The argument must have a name.
+ * <li>If the name matches the command, it is defined to be the default argument.
  *
  * @author Titus Chew
  */
@@ -12,6 +13,7 @@ public final class Argument {
 
     /**
      * Constructor for an argument without a value.
+     *
      * @param name the name of the argument, which should not be null.
      */
     public Argument(String name) {
@@ -22,6 +24,7 @@ public final class Argument {
 
     /**
      * Constructor for an argument with a value and name.
+     *
      * @param name the name of the argument, which should not be null.
      * @param value the value of the argument, which can be null.
      */

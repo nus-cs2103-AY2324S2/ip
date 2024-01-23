@@ -8,12 +8,17 @@ import task.TaskList;
  * @author Titus Chew
  */
 public class ListAction extends Action{
+    /**
+     * Constructor for this list action.
+     */
     public ListAction() {
         super(Command.LIST);
     }
 
     /**
      * Prints the user's list.
+     *
+     * @param taskList the taskList that is used with the chatbot
      */
     @Override
     public void execute(TaskList taskList) {

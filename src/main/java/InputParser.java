@@ -18,8 +18,9 @@ import action.InvalidAction;
 public class InputParser {
     /**
      * Parse the input string into it's command and arguments.
-     * @param input The console input
-     * @return An action containing the command and it's arguments
+     *
+     * @param input the console input
+     * @return an action containing the command and it's arguments
      */
     public static Action parseInput(String input) {
         String command = input.trim().split(" ")[0];
@@ -44,9 +45,12 @@ public class InputParser {
     }
 
     /**
-     * Parse the argument(s) from commands with arguments
-     * @param input The console input.
-     * @return The argument(s).
+     * Parse the argument(s) from an input string.
+     * <p>
+     * "/" is a special character, when in the command, it denotes the start of an argument.
+     *
+     * @param input the console input
+     * @return the parsed argument list
      */
     private static Argument[] parseArguments(String input) {
         // Split input by arguments
@@ -66,8 +70,8 @@ public class InputParser {
 
     /**
      * An argument consists of the argument name and value.
-     * @param argument The string that belongs to that argument.
-     * @return The argument that is formed.
+     * @param argument the string that belongs to that argument.
+     * @return the argument that is formed.
      */
     private static Argument parseArgument(String argument) {
         String[] parsedArg = argument.split(" ", 2);

@@ -9,12 +9,17 @@ import task.TaskList;
  * @author Titus Chew
  */
 public class ByeAction extends Action {
+    /**
+     * Constructor for this bye action.
+     */
     public ByeAction() {
         super(Command.BYE);
     }
 
     /**
      * Greets the user when exiting the application.
+     *
+     * @param taskList the taskList that is used with the chatbot
      */
     @Override
     public void execute(TaskList taskList) {

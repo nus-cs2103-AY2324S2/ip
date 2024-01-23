@@ -9,13 +9,19 @@ import task.TaskList;
  * @author Titus Chew
  */
 public class MarkAction extends Action {
+    /**
+     * Constructor for this mark action.
+     *
+     * @param arguments the arguments supplied with the command
+     */
     public MarkAction(Argument[] arguments) {
         super(Command.MARK, arguments);
     }
 
     /**
      * Marks and prints the task.
-     * @param taskList The taskList that is used with the ChatBot.
+     *
+     * @param taskList the taskList that is used with the chatbot
      */
     @Override
     public void execute(TaskList taskList) {

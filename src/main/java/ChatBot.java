@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class ChatBot {
     /**
-     * Stores the name of the ChatBot.
+     * Stores the name of this chatbot.
      */
     private final String chatBotName;
 
@@ -29,14 +29,15 @@ public class ChatBot {
 
     /**
      * Class constructor.
-     * @param chatBotName The name of the chatbot.
+     *
+     * @param chatBotName the name of this chatbot.
      */
     public ChatBot(String chatBotName) {
         this.chatBotName = chatBotName;
     }
 
     /**
-     * Greets the user when entering the application.
+     * Greets the user when entering a session with this chatbot.
      */
     private void greet() {
         Printer.printMessages(

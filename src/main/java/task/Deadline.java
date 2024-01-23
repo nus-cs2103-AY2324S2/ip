@@ -10,9 +10,10 @@ public class Deadline extends Task {
     private final String deadline;
 
     /**
-     * Constructor for a deadline.
-     * @param name The name of the deadline.
-     * @param deadline The deadline (date/time) of the task.
+     * Constructor for this deadline.
+     *
+     * @param name the name of this deadline
+     * @param deadline the deadline (date/time) of this task
      */
     public Deadline(String name, String deadline) {
         super(name);
@@ -20,8 +21,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Gets a human-readable description of the task.
-     * @return The task in a human-readable string.
+     * Gets a human-readable description of this task.
+     *
+     * @return this task in a human-readable string
      */
     @Override
     public String toString() {

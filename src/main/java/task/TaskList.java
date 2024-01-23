@@ -5,7 +5,7 @@ import java.util.List;
 import java.lang.StringBuilder;
 
 /**
- * This class encapsulates a list of tasks.
+ * This class encapsulates a {@link Task} list.
  */
 public class TaskList {
     /**
@@ -14,7 +14,8 @@ public class TaskList {
     private final List<Task> tasks = new ArrayList<>();
 
     /**
-     * Checks if the index is a valid index in the list.
+     * Checks if the index is a valid index in this list.
+     *
      * @param index the index of in the task list
      * @return true if the index is valid, otherwise false
      */
@@ -23,7 +24,8 @@ public class TaskList {
     }
 
     /**
-     * Add a to-do to the list.
+     * Add a to-do to this list.
+     *
      * @param name the name of the to-do to add
      */
     public void addTodo(String name) {
@@ -31,7 +33,8 @@ public class TaskList {
     }
 
     /**
-     * Add a deadline to the list.
+     * Add a deadline to this list.
+     *
      * @param name the name of the to-do to add
      */
     public void addDeadline(String name, String by) {
@@ -39,7 +42,8 @@ public class TaskList {
     }
 
     /**
-     * Add an event to the list.
+     * Add an event to this list.
+     *
      * @param name the name of the to-do to add
      */
     public void addEvent(String name, String from, String to) {
@@ -48,6 +52,7 @@ public class TaskList {
 
     /**
      * Mark the task as done.
+     *
      * @param index the index of the task (0-indexed)
      */
     public void markTask(int index) {
@@ -58,6 +63,7 @@ public class TaskList {
 
     /**
      * Mark the task as not done.
+     *
      * @param index the index of the task (0-indexed)
      */
     public void unmarkTask(int index) {
@@ -68,7 +74,8 @@ public class TaskList {
 
     /**
      * @param index The 0-indexed index.
-     * @return The index of the task (0-indexed)
+     *
+     * @return the index of the task (0-indexed)
      */
     public String getTask(int index) {
         if (isValidIndex(index)) {
@@ -78,24 +85,27 @@ public class TaskList {
     }
 
     /**
-     * Gets the most recently added task to the list.
-     * @return The newest task as a string.
+     * Gets the most recently added task to this list.
+     *
+     * @return the newest task as a string
      */
     public String getNewestTask() {
         return tasks.get(tasks.size() - 1).toString();
     }
 
     /**
-     * Gets the number of tasks in the task list.
-     * @return The size as an integer.
+     * Gets the number of tasks in this task list.
+     *
+     * @return the size as an int
      */
     public int size() {
         return tasks.size();
     }
 
     /**
-     * Gets a human-readable description of the task list.
-     * @return The task list as a human-readable string.
+     * Gets a human-readable description of this task list.
+     *
+     * @return this task list as a human-readable string
      */
     @Override
     public String toString() {

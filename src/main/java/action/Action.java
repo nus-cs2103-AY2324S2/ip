@@ -4,9 +4,10 @@ import print.Printer;
 import task.TaskList;
 
 /**
- * An Action encapsulates the behaviour of a command and it's arguments.
- * An action may be invalid.
- * An action can be executed, with validation checks.
+ * An Action encapsulates the behaviour of a {@link Command} and it's {@link Argument}(s).
+ * <ul>
+ * <li>An action may be invalid.
+ * <li>An action can be executed, with validation checks.
  *
  * @author Titus Chew
  */
@@ -15,9 +16,10 @@ public abstract class Action {
     private final Argument[] arguments;
 
     /**
-     * Constructor for an Action.
-     * @param command The command associated with the Action.
-     * @param arguments The arguments supplied to the Command.
+     * Constructor for this action.
+     *
+     * @param command the command associated with this action
+     * @param arguments the arguments supplied with the command
      */
     public Action(Command command, Argument... arguments) {
         this.command = command;
@@ -25,17 +27,19 @@ public abstract class Action {
     }
 
     /**
-     * Gets the command of the action.
-     * @return The command associated with the action
+     * Gets the command of this action.
+     *
+     * @return the command associated with this action
      */
     final Command getCommand() {
         return command;
     }
 
     /**
-     * Finds the value of the argument by name.
-     * @param name The non-null name of the argument to find.
-     * @return The value of the argument with that name, or null if not found.
+     * Finds the value of this action's argument by the argument name.
+     *
+     * @param name the non-null name of the argument to find
+     * @return the value of the argument with that name, or null if not found
      */
     final String findArgument(String name) {
         for (Argument arg : arguments) {
@@ -48,15 +52,19 @@ public abstract class Action {
     }
 
     /**
-     * Finds the default argument of the action.
-     * @return The value of the default argument.
+     * Finds the default argument of this action.
+     *
+     * @return the value of the default argument
      */
     final String findDefaultArgument() {
         return findArgument(command.name);
     }
 
     /**
-     * Validation check that handles missing arguments in a command.
+     * Validation handler when there are missing arguments in a command.
+     *
+     * @param command the command
+     * @param missingArg the missing argument
      */
     void handleMissingArgument(Command command, String missingArg) {
         Printer.printMessages(
@@ -66,7 +74,9 @@ public abstract class Action {
     }
 
     /**
-     * Prints the message when a task is added.
+     * Prints the message when a task is added by this action
+     *
+     * @param taskList the taskList that is used with the chatbot
      */
     void handleAddSuccess(TaskList taskList) {
         Printer.printMessages(
@@ -77,9 +87,10 @@ public abstract class Action {
     }
 
     /**
-     * Executes the command, which may modify the state of stored tasks,
+     * Executes this action, which may modify the state of stored tasks,
      * and may print to the console.
-     * @param taskList The taskList that is used with the ChatBot.
+     *
+     * @param taskList the taskList that is used with the chatbot
      */
     public abstract void execute(TaskList taskList);
 }

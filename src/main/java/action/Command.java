@@ -3,7 +3,7 @@ package action;
 import java.lang.StringBuilder;
 
 /**
- * Command defines the possible unique callable names.
+ * Command defines the possible unique callable names, and it's {@link Argument}(s).
  *
  * @author Titus Chew
  */
@@ -59,26 +59,27 @@ public enum Command {
     INVALID;
 
     /**
-     * Stores the usage hint for the command.
+     * Stores the usage hint for this command.
      */
     final String usageHint;
 
     /**
-     * Stores the command name.
+     * Stores this command name.
      */
     public final String name;
 
     /**
-     * Stores the arguments of the command.
+     * Stores the arguments of this command.
      */
     private final Argument[] arguments;
 
     /**
-     * Constructor for command, which parses the arguments.
-     * @param arguments The arguments, with a name and value.
-     *                  The first argument has the name of the command.
-     *                  If the value is null, there is no value for that argument.
-     *                  Otherwise, the value is required.
+     * Constructor for this command, which parses the arguments.
+     * <ul>
+     * <li>The first argument has the name of the command.
+     * <li>If the value is null, there is no value for that argument. Otherwise, the value is required.
+     *
+     * @param arguments the arguments of this command
      */
     Command(Argument... arguments) {
         // Name of the argument is the first argument
@@ -97,9 +98,10 @@ public enum Command {
     }
 
     /**
-     * Generates the usage string using the arguments.
-     * @param arguments The arguments of the command.
-     * @return The usage hint.
+     * Generates the usage string of this command using the arguments.
+     *
+     * @param arguments the arguments of this command
+     * @return the usage hint
      */
     private String generateUsageHint(Argument[] arguments) {
         StringBuilder usageString = new StringBuilder();

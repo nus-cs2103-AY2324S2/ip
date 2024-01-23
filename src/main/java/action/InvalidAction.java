@@ -9,13 +9,17 @@ import task.TaskList;
  * @author Titus Chew
  */
 public class InvalidAction extends Action {
+    /**
+     * Constructor for this invalid action.
+     */
     public InvalidAction() {
         super(Command.INVALID);
     }
 
     /**
      * Handles the case when the command is invalid.
-     * @param taskList The taskList that is used with the ChatBot.
+     *
+     * @param taskList the taskList that is used with the chatbot
      */
     @Override
     public void execute(TaskList taskList) {

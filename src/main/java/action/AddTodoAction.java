@@ -8,13 +8,19 @@ import task.TaskList;
  * @author Titus Chew
  */
 public class AddTodoAction extends Action {
+    /**
+     * Constructor for this add to-do action.
+     *
+     * @param arguments the arguments supplied with the command
+     */
     public AddTodoAction(Argument[] arguments) {
         super(Command.ADD_TODO, arguments);
     }
 
     /**
      * Add a to-do to the user's list.
-     * @param taskList The taskList to modify.
+     *
+     * @param taskList the taskList to modify
      */
     @Override
     public void execute(TaskList taskList) {

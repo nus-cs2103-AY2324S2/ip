@@ -9,14 +9,19 @@ import task.TaskList;
  * @author Titus Chew
  */
 public class UnmarkAction extends Action {
-
+    /**
+     * Constructor for this unmark action.
+     *
+     * @param arguments the arguments supplied with the command
+     */
     public UnmarkAction(Argument[] arguments) {
         super(Command.UNMARK, arguments);
     }
 
     /**
      * Unmarks and prints the task.
-     * @param taskList The taskList that is used with the ChatBot.
+     *
+     * @param taskList the taskList that is used with the chatbot
      */
     @Override
     public void execute(TaskList taskList) {
