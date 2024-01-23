@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import errors.Errors;
 import errors.InvalidBanterUsageError;
 import errors.InvalidTaskNumberUsageError;
+import messages.Messages;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -46,7 +47,7 @@ public class TaskList {
         try {
             return taskList.get(taskNumber - 1).markAsDone();
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Errors.DELETE_USAGE, this);
+            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Messages.MARK_USAGE, this);
         }
     }
 
@@ -54,7 +55,7 @@ public class TaskList {
         try {
             return taskList.get(taskNumber - 1).markAsUndone();
         } catch(IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Errors.UNMARK_USAGE, this);
+            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Messages.UNMARK_USAGE, this);
         }
     }
 
@@ -64,7 +65,7 @@ public class TaskList {
             return "Noted. I've removed this task:\n" + deleted +
                     "\nNow you have " + taskList.size() + " tasks in the list.";
         } catch(IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Errors.DELETE_USAGE, this);
+            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Messages.DELETE_USAGE, this);
         }
     }
 }

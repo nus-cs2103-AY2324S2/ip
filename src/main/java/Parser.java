@@ -27,16 +27,16 @@ public class Parser {
     }
 
     public void respondUntilExit() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            Scanner scanner = new Scanner(System.in);
+            CommandType command = null;
             String input = scanner.nextLine();
-
             try {
-                CommandType command = getCommandType(input);
+                command = getCommandType(input);
                 switch (command) {
                     case BYE:
                         printExitMessage();
-                        return;
+                        break;
                     case LIST:
                         parseList();
                         break;
@@ -65,7 +65,13 @@ public class Parser {
                 MessageBox errorMessage = new MessageBox(e.getMessage());
                 errorMessage.print();
             }
+
+            if (command == CommandType.BYE) {
+                break;
+            }
         }
+
+        scanner.close();
     }
 
     private CommandType getCommandType(String input) throws InvalidBanterUsageError {
@@ -187,7 +193,10 @@ public class Parser {
     private String joinTokens(String[] tokens, int start, int end) {
         StringBuilder result = new StringBuilder();
         for (int i = start; i <= end; i++) {
-            result.append(tokens[i]).append(" ");
+            if (!result.equals("")) {
+                result.append(SEPARATOR);
+            }
+            result.append(tokens[i]);
         }
         return result.toString();
     }
