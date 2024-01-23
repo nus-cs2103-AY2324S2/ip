@@ -25,7 +25,7 @@ public class Duke {
                 System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
             } else if (command.equals("deadline")) {
                 String details = input.split(" ", 2)[1];
-                String description = details.split("/by ")[0];
+                String description = details.split("/by ")[0].trim();
                 String by = details.split("/by ")[1];
                 Task task = new Deadline(description, by);
                 tasksList.add(task);
@@ -33,7 +33,7 @@ public class Duke {
                 System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
             } else if (command.equals("event")) {
                 String details = input.split(" ", 2)[1];
-                String description = details.split("/from")[0];
+                String description = details.split("/from")[0].trim();;
                 String from =  details.split("/from")[1].split("/to")[0];
                 String to = details.split("/to")[1];
                 Task task = new Event(description, from, to);
