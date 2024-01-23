@@ -28,3 +28,42 @@ DevGPT:
 		2. [D][ ] return book (by:Sunday)
 		3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 User:
+DevGPT:
+	DevGPT error: The description of a todo cannot be empty.
+	Please use the following format: todo <description>
+User:
+DevGPT:
+	DevGPT error: The deadline and date for a task cannot be empty.
+	Please use the following format: deadline <description> /by <date>
+User:
+DevGPT:
+	DevGPT error: The date for an event cannot be empty.
+	Please use the following format: event <description> /from <date> /to <date>
+User:
+DevGPT:
+	DevGPT error: Invalid command for deadline.
+	Please use the following format: deadline <description> /by <date>
+User:
+DevGPT:
+	DevGPT error: Invalid command for event.
+	Please use the following format: event <description> /from <date> /to <date>
+User:
+DevGPT:
+	Input error: Please enter a number to mark / unmark the task
+User:
+DevGPT:
+	DevGPT error: No such task exists.
+User:
+DevGPT:
+	DevGPT error: Your message is not understood. Please use the following:
+	1. todo <description>
+	2. deadline <description> /by <date>
+	3. event <description> /from <date> /to <date>
+	4. list
+	5. mark <index>
+	6. unmark <index>
+	7. bye
+User:
+DevGPT:
+	Bye. Hope to see you again soon!
+User:
