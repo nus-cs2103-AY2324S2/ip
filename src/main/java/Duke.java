@@ -2,21 +2,35 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Duke {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Scanner sc =  new Scanner(System.in);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm AcademicWeapon");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
+        String action;
+        ArrayList<Task> lst = new ArrayList<>();
+        do {
         String input = br.readLine();
         String[] inputParts = input.split(" ", 2);
-        String action = inputParts[0];
-        ArrayList<Task> lst = new ArrayList<>();
-        while (!action.equals("bye")) {
+        action = inputParts[0];
+        String parameters;
+        if (inputParts.length == 2) {
+            parameters = inputParts[1];
+        } else {
+            parameters = " ";
+        }
+
+        try {
+            DukeExceptions.validateInput(action, parameters);
+        } catch (DukeExceptions e) {
+            System.out.println("____________________________________________________________");
+            System.out.println(e.getMessage());
+            System.out.println("____________________________________________________________");
+            continue;
+        }
+
             switch (action) {
                 case "list":
                     System.out.println("____________________________________________________________");
@@ -33,7 +47,7 @@ public class Duke {
                     markTask.markAsDone();
                     System.out.println("____________________________________________________________");
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[X] " + markTask.getDescription());
+                    System.out.println(markTask.toString());
                     System.out.println("____________________________________________________________");
                     break;
                 case "unmark":
@@ -42,7 +56,7 @@ public class Duke {
                     unmarkTask.markAsNotDone();
                     System.out.println("____________________________________________________________");
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("[ ] " + unmarkTask.getDescription());
+                    System.out.println(unmarkTask.toString());
                     System.out.println("____________________________________________________________");
                     break;
                 case "todo":
@@ -76,6 +90,11 @@ public class Duke {
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                     break;
+                case "bye":
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Bye. Hope to see you again soon!");
+                    System.out.println("____________________________________________________________");
+                    break;
                 default:
                     System.out.println("____________________________________________________________");
                     System.out.println("added: " + input);
@@ -83,13 +102,10 @@ public class Duke {
                     lst.add(toAddTask);
                     System.out.println("____________________________________________________________");
             }
-            input = br.readLine();
-            inputParts = input.split(" ", 2);
-            action = inputParts[0];
-        }
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+
+
+        } while(!action.equals("bye"));
+
         br.close();
     }
 }
