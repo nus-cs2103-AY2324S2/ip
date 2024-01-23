@@ -29,8 +29,11 @@ public class CommandList {
             int endIdx = input.indexOf("/", idx + 1);
             if (endIdx == -1) {
                 endIdx = input.length();
+            } else {
+                // decrement to get the space before the /
+                endIdx = endIdx - 1;
             }
-            return input.substring(idx + option.length() + 1, endIdx - 1);
+            return input.substring(idx + option.length() + 1, endIdx);
         }
     }
 
@@ -60,7 +63,7 @@ public class CommandList {
         commandLookup.put("todo", (args) -> {
             ToDo todo = new ToDo(args);
             taskList.addTask(todo);
-            return new Message(String.format("I've added the task.\n%s\nYou still have %d tasks in the list.", todo, 0));
+            return new Message(String.format("I've added the task.\n%s\nYou still have %d tasks in the list.", todo, taskList.size()));
         });
 
         commandLookup.put("deadline", (args) -> {
@@ -68,7 +71,7 @@ public class CommandList {
             String by = findOption("/by", args);
             Deadline deadline = new Deadline(label, by);
             taskList.addTask(deadline);
-            return new Message(String.format("I've added the task.\n%s\nYou still have %d tasks in the list.", deadline, 0));
+            return new Message(String.format("I've added the task.\n%s\nYou still have %d tasks in the list.", deadline, taskList.size()));
         });
 
         commandLookup.put("event", (args) -> {
@@ -77,7 +80,7 @@ public class CommandList {
             String to = findOption("/to", args);
             Event event = new Event(label, from, to);
             taskList.addTask(event);
-            return new Message(String.format("I've added the task.\n%s\nYou still have %d tasks in the list.", event, 0));
+            return new Message(String.format("I've added the task.\n%s\nYou still have %d tasks in the list.", event, taskList.size()));
         });
     }
 
