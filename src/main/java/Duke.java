@@ -17,8 +17,7 @@ public class Duke {
                 System.out.println( "--------------------------------");
                 for (int i = 0; i < list.size(); i++) {
                     Task iTask = list.get(i);
-                    String iCross = iTask.getStatus() ? "[X]" : "[ ]";
-                    System.out.println((i+1) + ". " + iCross + " " + iTask.getTaskName());
+                    System.out.println((i+1) + ". " + iTask.getStatusIcon()  + " " + iTask.getTaskName());
                 }
                 System.out.println( "-------------------------------- \n");
             }
@@ -29,20 +28,18 @@ public class Duke {
 
                 if (inputSplit[0].equals("mark")) {
                     dTask.done();
-                    String dCross = dTask.getStatus() ? "[X]" : "[ ]";
 
                     System.out.println("-------------------------------- \n" +
                             "Nice! I've marked task " + taskNo + " as done: \n" +
-                            dCross + " " + dTask.getTaskName() + "\n" +
+                            dTask.getStatusIcon() + " " + dTask.getTaskName() + "\n" +
                             "-------------------------------- \n");
                 }
                 else {
                     dTask.undone();
-                    String dCross = dTask.getStatus() ? "[X]" : "[ ]";
 
                     System.out.println("-------------------------------- \n" +
                             "Sure, I've marked task " + taskNo + " as not done yet: \n" +
-                            dCross + " " + dTask.getTaskName() + "\n" +
+                            dTask.getStatusIcon() + " " + dTask.getTaskName() + "\n" +
                             "-------------------------------- \n");
                 }
             }

@@ -10,8 +10,8 @@ public class Task {
     public String getTaskName() {
         return taskName;
     }
-    public boolean getStatus() {
-        return status;
+    public String getStatusIcon() {
+        return status ? "[X]" : "[ ]";
     }
 
     public void done() {
