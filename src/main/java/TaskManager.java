@@ -2,13 +2,14 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
-    ArrayList<String> userTasks = new ArrayList<>();
+    ArrayList<Task> userTasks = new ArrayList<>();
 
     public void addUserTask(String task) {
-        this.userTasks.add(task);
+        Task newTask = new Task(task);
+        this.userTasks.add(newTask);
     }
 
-    public ArrayList<String> getUserTasks(){
+    public ArrayList<Task> getUserTasks(){
         return userTasks;
     }
 }

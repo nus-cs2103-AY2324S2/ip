@@ -53,16 +53,16 @@ public class Osiris {
         this.userTasks.addUserTask(userInput);
 
         this.printSeparator();
-        System.out.println("     Added: " + userInput);
+        System.out.println("     Added Task: " + userInput);
         this.printSeparator();
     }
 
     private void printUserTasks(){
-        ArrayList<String> toPrint = this.userTasks.getUserTasks();
+        ArrayList<Task> toPrint = this.userTasks.getUserTasks();
 
         this.printSeparator();
         for (int i = 0; i < toPrint.size(); i++) {
-            System.out.println("     " + (i + 1) + ". " + toPrint.get(i));
+            System.out.println("     " + (i + 1) + ". " + toPrint.get(i).toString());
         }
         this.printSeparator();
     }
