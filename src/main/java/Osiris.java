@@ -41,11 +41,39 @@ public class Osiris {
                         this.markTaskIncomplete(Integer.parseInt(inputtedWords[1]));
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid integer format: " + inputtedWords[1]);
-                        System.out.println("Please Reenter");
+                    }
+                    break;
+                case "todo":
+                    this.addToDoTask(userInput.substring("todo".length()));
+                    break;
+                case "deadline":
+                    int byIndex = userInput.indexOf("/by");
+
+                    if (byIndex != -1) {
+                        String taskName = userInput.substring("deadline".length(), byIndex - 1);
+                        String deadline = userInput.substring(byIndex + "/by".length() + 1);
+
+                        this.addDeadlineTask(taskName, deadline);
+                    } else {
+                        System.out.println("Invalid input format.");
+                    }
+                    break;
+                case "event":
+                    int fromIndex = userInput.indexOf("/from");
+                    int toIndex = userInput.indexOf("/to");
+
+                    if (fromIndex != -1 && toIndex != -1) {
+                        String taskName = userInput.substring("event".length(), fromIndex - 1);
+                        String startDateTime = userInput.substring(fromIndex + "/from".length() + 1, toIndex - 1);
+                        String endDateTime = userInput.substring(toIndex + "/to".length() + 1);
+
+                        this.addEventTask(taskName, startDateTime, endDateTime);
+                    } else {
+                        System.out.println("Invalid input format.");
                     }
                     break;
                 default:
-                    this.addUserTask(userInput);
+                    System.out.println("Unable to comprehend instructions. Please Reenter. ");
                     break;
             }
 
@@ -77,6 +105,36 @@ public class Osiris {
 
         this.printSeparator();
         System.out.println("     Added Task: " + userInput);
+        this.printSeparator();
+    }
+
+    private void addToDoTask(String taskName) {
+        this.taskManager.addToDoTask(taskName);
+
+        this.printSeparator();
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("        " + this.taskManager.getTask(taskManager.getTotalTaskCount() - 1).toString());
+        System.out.printf("     Now you have %d tasks in the list.%n", taskManager.getTotalTaskCount());
+        this.printSeparator();
+    }
+
+    private void addDeadlineTask(String taskName, String deadline) {
+        this.taskManager.addDeadlineTask(taskName,deadline);
+
+        this.printSeparator();
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("        " + this.taskManager.getTask(taskManager.getTotalTaskCount() - 1).toString());
+        System.out.printf("     Now you have %d tasks in the list.%n", taskManager.getTotalTaskCount());
+        this.printSeparator();
+    }
+
+    private void addEventTask(String taskName, String startDateTime, String endDateTime) {
+        this.taskManager.addEventTask(taskName, startDateTime, endDateTime);
+
+        this.printSeparator();
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("        " + this.taskManager.getTask(taskManager.getTotalTaskCount() - 1).toString());
+        System.out.printf("     Now you have %d tasks in the list.%n", taskManager.getTotalTaskCount());
         this.printSeparator();
     }
 
