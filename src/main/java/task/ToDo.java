@@ -1,3 +1,5 @@
+package task;
+
 /**
  * ToDos: tasks without any date/time attached to it.
  *
@@ -12,6 +14,10 @@ public class ToDo extends Task {
         super(name);
     }
 
+    /**
+     * Gets a human-readable description of the task.
+     * @return The task in a human-readable string.
+     */
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());

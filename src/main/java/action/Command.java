@@ -1,8 +1,9 @@
+package action;
+
 import java.lang.StringBuilder;
 
 /**
- * Command is an enumeration that defines the possible ChatBot user commands.
- * A command is defined by its name and how it's arguments are used.
+ * Command defines the possible unique callable names.
  *
  * @author Titus Chew
  */
@@ -10,23 +11,33 @@ public enum Command {
     /**
      * Ends the chat.
      */
-    BYE(new Argument("bye")),
+    BYE(
+            new Argument("bye")
+    ),
     /**
      * List the stored text.
      */
-    LIST(new Argument("list")),
+    LIST(
+            new Argument("list")
+    ),
     /**
      * Mark the task as done.
      */
-    MARK(new Argument("mark", "index")),
+    MARK(
+            new Argument("mark", "index")
+    ),
     /**
      * Mark the task as not done.
      */
-    UNMARK(new Argument("unmark", "index")),
+    UNMARK(
+            new Argument("unmark", "index")
+    ),
     /**
      * Adds a to-do task.
      */
-    ADD_TODO(new Argument("todo", "name")),
+    ADD_TODO(
+            new Argument("todo", "name")
+    ),
     /**
      * Adds a deadline task.
      */
@@ -50,7 +61,7 @@ public enum Command {
     /**
      * Stores the usage hint for the command.
      */
-    public final String usageHint;
+    final String usageHint;
 
     /**
      * Stores the command name.
@@ -58,19 +69,18 @@ public enum Command {
     public final String name;
 
     /**
-     * Stores the required arguments of the command
+     * Stores the arguments of the command.
      */
-    public final Argument[] arguments;
+    private final Argument[] arguments;
 
     /**
-     * Constructor for command, which parses arguments.
+     * Constructor for command, which parses the arguments.
      * @param arguments The arguments, with a name and value.
      *                  The first argument has the name of the command.
      *                  If the value is null, there is no value for that argument.
      *                  Otherwise, the value is required.
      */
     Command(Argument... arguments) {
-        // Parse the argument list
         // Name of the argument is the first argument
         this.name = arguments[0].name;
         this.arguments = arguments;

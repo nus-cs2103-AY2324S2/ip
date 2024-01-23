@@ -1,9 +1,11 @@
+package task;
+
 /**
  * Encapsulates the behaviour of a task.
  *
  * @author Titus Chew
  */
-public class Task {
+public abstract class Task {
     /**
      * The name of the task.
      */
@@ -16,14 +18,15 @@ public class Task {
 
     /**
      * Constructor for a task.
-     * @param name the name of the task
+     * @param name The name of the task.
      */
     public Task(String name) {
         this.name = name;
     }
 
     /**
-     * @return the task in a human-readable string
+     * Gets a human-readable description of the task.
+     * @return The task in a human-readable string.
      */
     @Override
     public String toString() {

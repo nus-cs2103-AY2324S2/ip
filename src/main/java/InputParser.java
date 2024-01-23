@@ -1,3 +1,15 @@
+import action.Action;
+import action.Argument;
+import action.Command;
+import action.ByeAction;
+import action.ListAction;
+import action.MarkAction;
+import action.UnmarkAction;
+import action.AddTodoAction;
+import action.AddDeadlineAction;
+import action.AddEventAction;
+import action.InvalidAction;
+
 /**
  * Parses the input of a ChatBot into argument list.
  *
@@ -12,22 +24,22 @@ public class InputParser {
     public static Action parseInput(String input) {
         String command = input.trim().split(" ")[0];
         if (command.equals(Command.BYE.name)) {
-            return new Action(Command.BYE);
+            return new ByeAction();
         } else if (command.equals(Command.LIST.name)) {
-            return new Action(Command.LIST);
+            return new ListAction();
         } else if (command.equals(Command.MARK.name)) {
-            return new Action(Command.MARK, parseArguments(input));
+            return new MarkAction(parseArguments(input));
         } else if (command.equals(Command.UNMARK.name)) {
-            return new Action(Command.UNMARK, parseArguments(input));
+            return new UnmarkAction(parseArguments(input));
         } else if (command.equals(Command.ADD_TODO.name)) {
-            return new Action(Command.ADD_TODO, parseArguments(input));
+            return new AddTodoAction(parseArguments(input));
         } else if (command.equals(Command.ADD_DEADLINE.name)) {
-            return new Action(Command.ADD_DEADLINE, parseArguments(input));
+            return new AddDeadlineAction(parseArguments(input));
         } else if (command.equals(Command.ADD_EVENT.name)) {
-            return new Action(Command.ADD_EVENT, parseArguments(input));
+            return new AddEventAction(parseArguments(input));
         } else {
             // The command is invalid, as it is not one of the above commands.
-            return new Action(Command.INVALID);
+            return new InvalidAction();
         }
     }
 

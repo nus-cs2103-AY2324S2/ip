@@ -1,3 +1,5 @@
+package task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.StringBuilder;
@@ -18,14 +20,6 @@ public class TaskList {
      */
     private boolean isValidIndex(int index) {
         return index >= 0 && index < tasks.size();
-    }
-
-    /**
-     * Add a task to the list.
-     * @param name the name of the task to add
-     */
-    public void addTask(String name) {
-        tasks.add(new Task(name));
     }
 
     /**
@@ -73,8 +67,8 @@ public class TaskList {
     }
 
     /**
-     * @param index the 0-indexed.
-     * @return the index of the task (0-indexed)
+     * @param index The 0-indexed index.
+     * @return The index of the task (0-indexed)
      */
     public String getTask(int index) {
         if (isValidIndex(index)) {
@@ -85,7 +79,7 @@ public class TaskList {
 
     /**
      * Gets the most recently added task to the list.
-     * @return the newest task as a string
+     * @return The newest task as a string.
      */
     public String getNewestTask() {
         return tasks.get(tasks.size() - 1).toString();
@@ -93,14 +87,15 @@ public class TaskList {
 
     /**
      * Gets the number of tasks in the task list.
-     * @return the size as an integer
+     * @return The size as an integer.
      */
     public int size() {
         return tasks.size();
     }
 
     /**
-     * @return the task list as a human-readable string.
+     * Gets a human-readable description of the task list.
+     * @return The task list as a human-readable string.
      */
     @Override
     public String toString() {

@@ -1,3 +1,5 @@
+package action;
+
 /**
  * Argument is a data class that stores a command argument's name, and it's associated value.
  * The argument must have a name.
