@@ -21,6 +21,7 @@ public class Ellie {
         TODO,
         UNKNOWN,
         HELP,
+        BYE,
 
     }
 
@@ -34,15 +35,13 @@ public class Ellie {
     public void start() {
         hello();
         Scanner reader = new Scanner(System.in);
+        Command command = Command.UNKNOWN;
         String input = reader.nextLine();
 
-        Command command = Command.UNKNOWN;
-
-        while ( !input.toLowerCase().equals("bye") ) {
+        while ( true ) {
 
             String[] inputArray = input.split(" ", 2);
             String stringHeader = inputArray[0].toLowerCase();
-
 
             switch (stringHeader) {
                 case "list":
@@ -66,12 +65,18 @@ public class Ellie {
                 case "help":
                     command = Command.HELP;
                     break;
+                case "bye":
+                    command = Command.BYE;
+                    break;
                 default:
                     command = Command.UNKNOWN;
             }
 
-            // command with no argument: LIST / UNKNOWN
-            if (command == Command.LIST) {
+            // commands with no argument: BYE / LIST / UNKNOWN
+            if (command == Command.BYE) {
+                break;
+            }
+            else if (command == Command.LIST) {
                 tracker.listTasks();
                 input = reader.nextLine();
                 continue;
@@ -84,14 +89,22 @@ public class Ellie {
                 continue;
             }
             else if (command == Command.UNKNOWN) {
-                System.out.println("Sorry! Not sure what you're referring to (╥_╥)");
-                System.out.println("Use 'help' to view the list of supported commands!");
-                input = reader.nextLine();
-                continue;
+                try {
+                    throw new UnknownInputException("Command Unknown or Missing");
+                } catch (UnknownInputException e) {
+                    System.out.println("Sorry! Not sure what you're referring to (╥_╥)");
+                    System.out.println("Type 'help' to view the list of supported commands!\n");
+                    input = reader.nextLine();
+                    continue;
+                }
             }
 
             // check for following input argument
-            if (inputArray.length < 2) {
+            try {
+                if (inputArray.length < 2) {
+                    throw new InvalidTaskInputException("command contains no argument");
+                }
+            } catch (InvalidTaskInputException e) {
                 System.out.println("Please input an argument! \n [command] [argument]");
                 input = reader.nextLine();
                 continue;
