@@ -34,30 +34,56 @@ public class Duke {
                 markTask(userInput, taskList, false);
             } else {
                 // Sort out type of task
-                if (userInput.startsWith("todo")) {
-                    String description = userInput.split(" ", 2)[1];
-                    Todo newTodo = new Todo(description);
-                    taskList.add(newTodo);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(newTodo.toString());
-                    System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
-                } else if (userInput.startsWith("deadline")) {
-                    String description = userInput.split("/by")[0].split(" ",2)[1];
-                    String by = userInput.split("/by")[1];
-                    Deadline newDeadline = new Deadline(description, by);
-                    taskList.add(newDeadline);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("added: " + newDeadline.toString());
-                    System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
-                } else if (userInput.startsWith("event")) {
-                    String description = userInput.split("/from")[0].split(" ",2)[1];
-                    String from = userInput.split("/from")[1].split(" /to")[0];
-                    String to = userInput.split("/to")[1];
-                    Event newEvent = new Event(description, from, to);
-                    taskList.add(newEvent);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("added: " + newEvent.toString());
-                    System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
+                if (userInput.startsWith("todo")) { // Todo
+                    try {
+                        String description = userInput.split(" ", 2)[1];
+                        if (description.isEmpty()) {
+                            System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                        } else {
+                            Todo newTodo = new Todo(description);
+                            taskList.add(newTodo);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(newTodo.toString());
+                            System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                    }
+                } else if (userInput.startsWith("deadline")) { // Deadline
+                    try {
+                        String description = userInput.split("/by")[0].split(" ", 2)[1];
+                        if (description.isEmpty()) {
+                            System.out.println("OOPS!!! The description of a deadline cannot be empty.");
+                        } else {
+                            String by = userInput.split("/by")[1];
+                            Deadline newDeadline = new Deadline(description, by);
+                            taskList.add(newDeadline);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("added: " + newDeadline.toString());
+                            System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("OOPS!!! Please follow the given deadline format 'deadline *task description* /by *deadline*'");
+                    }
+                } else if (userInput.startsWith("event")) { // Event
+                    try {
+                        String description = userInput.split("/from")[0].split(" ", 2)[1];
+                        if (description.isEmpty()) {
+                            System.out.println("OOPS!!! The description of an event cannot be empty.");
+                        } else {
+                            String from = userInput.split("/from")[1].split(" /to")[0];
+                            String to = userInput.split("/to")[1];
+                            Event newEvent = new Event(description, from, to);
+                            taskList.add(newEvent);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("added: " + newEvent.toString());
+                            System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("OOPS!!! Please follow the given event format 'event *task description* /from *start* /to *end*'");
+                    }
+                } else {
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-( Please start with todo, deadline or event.");
                 }
             }
         } while (true);

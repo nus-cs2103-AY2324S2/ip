@@ -1,6 +1,7 @@
 Hello! I'm TodoPal!
 What can I do for you?
 Your task list is empty.
+OOPS!!! The description of a todo cannot be empty.
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 task(s) in the list.
