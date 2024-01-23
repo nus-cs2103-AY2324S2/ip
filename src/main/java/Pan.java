@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.ArrayList;
 import exceptions.InternalTestCases;
 import exceptions.TaskIndexException;
+import enums.Commands;
+import enums.TaskStatus;
 
 public class Pan {
     public static List<Task> tasks = new ArrayList<Task>();
@@ -19,7 +21,7 @@ public class Pan {
                 if (instruction.equals("list")) {
                     list();
                     continue;
-                } else if (instruction.equals("bye")) {
+                } else if (instruction.equals(Commands.BYE.name().toLowerCase())) {
                     bye();
                     break;
                 } else if (instruction.matches("(mark) \\d+")) {
