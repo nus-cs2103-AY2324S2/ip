@@ -10,6 +10,10 @@ public class Toothless {
                             + "What can I do for you?\n" + splitLine;
     private static String exitString = "Bye. Hope to see you again soon!\n" + splitLine;
 
+    public static void printTaskState(Task task, int index){
+        System.out.format("%d. ["+ task.getStatusIcon() + "] " + task + "\n", index + 1);
+    }
+
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         String command;
@@ -23,30 +27,35 @@ public class Toothless {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < listOfTasks.size(); i++) {
                     Task t = listOfTasks.get(i);
-                    System.out.format("%d. ["+ t.getStatusIcon() + "] " + t + "\n", i + 1);
+                    printTaskState(t, i);
                 }
             }
-            else if(command.contains("unmark")){
+            else if(command.startsWith("unmark")){
                 int taskIndex = command.charAt(7) - (int)'0' - 1;
                 Task t = listOfTasks.get(taskIndex);
                 t.markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.format("%d. ["+ t.getStatusIcon() + "] " + t + "\n", taskIndex + 1);
+                printTaskState(t, taskIndex);
             }
-            else if(command.contains("mark")){
+            else if(command.startsWith("mark")){
                 int taskIndex = command.charAt(5) - (int)'0' - 1;
                 Task t = listOfTasks.get(taskIndex);
                 t.markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.format("%d. ["+ t.getStatusIcon() + "] " + t + "\n", taskIndex + 1);
+                printTaskState(t, taskIndex);
+            }
+            else if (command.startsWith("todo")){
+                String description = command.substring(5);
+                Task newTask = new Todo(description);
+                listOfTasks.add(newTask);
+                System.out.println("Got it. I've added this task:");
+                printTaskState(newTask, listOfTasks.size() - 1);
+                System.out.format("Now you have %d tasks in the list.\n", listOfTasks.size());
             }
             else if(command.equals("bye")){
                 break;
-            } else {
-                Task newTask = new Task(command);
-                listOfTasks.add(newTask);
-                System.out.println("added: " + command);
             }
+
             System.out.println(splitLine);
         }
 
