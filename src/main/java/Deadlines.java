@@ -6,6 +6,14 @@ class Deadlines extends Task {
         this.byDate = byDate;
     }
 
+    public String getByDate() {
+        return this.byDate;
+    }
+
+    public void setByDate(String newByDate) {
+        this.byDate = newByDate;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.byDate + ")";
