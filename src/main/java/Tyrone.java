@@ -1,11 +1,10 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Tyrone {
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) {
+        Scanner reader = new Scanner(System.in);
         PrintWriter writer = new PrintWriter(System.out, true);
 
         String logo =
@@ -22,7 +21,7 @@ public class Tyrone {
                 "\n    ____________________________________________________________\n");
 
         while (true) {
-            String cmd = reader.readLine().toLowerCase();
+            String cmd = reader.nextLine();
             if (cmd.equals("bye")) {
                 writer.println(Tyrone.formatStringOutput("\"Peace out! Crossin' my fingers for a speedy reunion, ya feel?"));
                 break;
