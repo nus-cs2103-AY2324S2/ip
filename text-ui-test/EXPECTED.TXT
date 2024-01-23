@@ -9,24 +9,26 @@ ____________________________________________________________
 ____________________________________________________________
 
 Enter a command:
+
+=: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=
+::                        Task List                        ::
+=: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=
+    1. [T][ ] borrow book
+    2. [D][ ] return book (by: 22 Mar 2024 8:00AM, FRIDAY)
+    3. [E][ ] project meeting (on: 05 May 2024 8:00AM to 6:00PM)
+
+Enter a command:
 ____________________________________________________________
    Got it. I've added this task:
-   [T][ ] borrow book
-   Now you have 1 tasks in the list.
+   [D][ ] assignment (by: 06 Apr 2024 11:59PM, SATURDAY)
+   Now you have 4 tasks in the list.
 ____________________________________________________________
 
 Enter a command:
 ____________________________________________________________
    Got it. I've added this task:
-   [D][ ] return book (by: Sunday)
-   Now you have 2 tasks in the list.
-____________________________________________________________
-
-Enter a command:
-____________________________________________________________
-   Got it. I've added this task:
-   [E][ ] project meeting (from: Mon 2pm  to: 4pm)
-   Now you have 3 tasks in the list.
+   [E][ ] ST2132 exam (on: 07 May 2024 4:00PM to 6:00PM)
+   Now you have 5 tasks in the list.
 ____________________________________________________________
 
 Enter a command:
@@ -35,8 +37,10 @@ Enter a command:
 ::                        Task List                        ::
 =: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=
     1. [T][ ] borrow book
-    2. [D][ ] return book (by: Sunday)
-    3. [E][ ] project meeting (from: Mon 2pm  to: 4pm)
+    2. [D][ ] return book (by: 22 Mar 2024 8:00AM, FRIDAY)
+    3. [E][ ] project meeting (on: 05 May 2024 8:00AM to 6:00PM)
+    4. [D][ ] assignment (by: 06 Apr 2024 11:59PM, SATURDAY)
+    5. [E][ ] ST2132 exam (on: 07 May 2024 4:00PM to 6:00PM)
 
 Enter a command:
 ____________________________________________________________
@@ -51,7 +55,7 @@ ____________________________________________________________
 
 Enter a command:
 ____________________________________________________________
-   OOPS!!! Invalid input. Use: event event_title /from start_time /to end_time
+   OOPS!!! Invalid input. Use: event event_title /from dd-mm-yyyy HHmm /to HHmm
 ____________________________________________________________
 
 Enter a command:
@@ -68,7 +72,7 @@ Enter a command:
 ____________________________________________________________
    Noted. I've removed this task:
    [T][X] borrow book
-   Now you have 2 tasks in the list.
+   Now you have 4 tasks in the list.
 ____________________________________________________________
 
 Enter a command:
@@ -76,8 +80,10 @@ Enter a command:
 =: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=
 ::                        Task List                        ::
 =: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=
-    1. [D][ ] return book (by: Sunday)
-    2. [E][ ] project meeting (from: Mon 2pm  to: 4pm)
+    1. [D][ ] return book (by: 22 Mar 2024 8:00AM, FRIDAY)
+    2. [E][ ] project meeting (on: 05 May 2024 8:00AM to 6:00PM)
+    3. [D][ ] assignment (by: 06 Apr 2024 11:59PM, SATURDAY)
+    4. [E][ ] ST2132 exam (on: 07 May 2024 4:00PM to 6:00PM)
 
 Enter a command:
 ____________________________________________________________
