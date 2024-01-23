@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     private static String logo = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣴⠶⠶⣦⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
             "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⡾⠟⠋⠉⠀⠀⠀⠀⠀⠀⠈⠉⠛⠿⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
@@ -29,16 +31,30 @@ public class Duke {
             "⠀⠀⠀⠀⠀⠀⠀⠘⠦⣠⠀⠀⠠⠀⡀⠀⠀⣘⢦⠀⢤⡄⠀⠈⠡⡄⡀⠀⡀⣄⠈⠀⠀⠐⠀⠀⠀⠈⠀⠀⠀⠀\n" +
             "⠀⠀⠀⠀⠐⠶⠠⠄⠠⠀⠀⠤⠀⠤⠄⠀⡰⡉⠈⠱⠘⠀⡄⣀⠀⠀⠀⠠⠀⠭⠰⠶⠤⠆⠰⡶⠘⢤⠄⠀⢀⠀";
     private static void greeting() {
-        System.out.println("Hello! I'm Pengu\n" + "What can I do for you? \n" + Duke.logo);
+        System.out.println("Hello! I'm Pengu\n" + "What can I do for you? \n" + Duke.logo +
+                "\nDid you know that the noise penguins make are called \"honks\"");
         System.out.println("―――――――――――――――――――――――――――――――――――");
     }
 
     private static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon! **HONK HONK**");
         System.out.println("―――――――――――――――――――――――――――――――――――");
     }
     public static void main(String[] args) {
         greeting();
-        exit();
+        Scanner s = new Scanner(System.in);
+        while (true){
+            String userInput = s.nextLine();
+            if (userInput.toLowerCase().equals("bye")) {
+                exit();
+                break;
+            } else if (userInput.toLowerCase().equals("honk")) {
+                System.out.println("What are you? A PENGUIN?? *HONKS ANGRILY*\n" +
+                        "―――――――――――――――――――――――――――――――――――");
+                continue;
+            }
+            System.out.println(userInput + " *HONK! HONK!*\n" +
+                    "―――――――――――――――――――――――――――――――――――");
+        }
     }
 }
