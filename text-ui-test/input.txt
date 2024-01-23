@@ -1,0 +1,11 @@
+help
+todo task A
+deadline task B /by tomorrow!
+event task C /from 23/1 /to 26/1
+list
+mark 1
+mark 2
+mark 3
+mark 4
+list
+bye

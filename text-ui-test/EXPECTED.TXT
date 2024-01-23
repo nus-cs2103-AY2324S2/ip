@@ -1,7 +1,57 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Ellie, your CS2103T chat bot! I help by tracking your tasks!
+ _______   ___       ___       ___  _______          
+|\  ___ \ |\  \     |\  \     |\  \|\  ___ \         
+\ \   __/|\ \  \    \ \  \    \ \  \ \   __/|        
+ \ \  \_|/_\ \  \    \ \  \    \ \  \ \  \_|/__      
+  \ \  \_|\ \ \  \____\ \  \____\ \  \ \  \_|\ \     
+   \ \_______\ \_______\ \_______\ \__\ \_______\    
+    \|_______|\|_______|\|_______|\|__|\|_______|    
 
+____________________________________________________________
+What can I do for you? Type 'help' to see available commands! 
+
+Here's a list of supported commands so far:
+ help 
+ list 
+ mark/unmark [int] 
+ todo [task] 
+ deadline [task] /by [date]  
+ event [task] /from [date] /to [date] 
+ bye 
+
+Got it. I've added this task:
+    [T][ ] task A
+Now you have 1 tasks in the list.
+
+Got it. I've added this task:
+    [D][ ] task B (by: tomorrow!)
+Now you have 2 tasks in the list.
+
+Got it. I've added this task:
+    [E][ ] task C (from: 23/1 to: 26/1)
+Now you have 3 tasks in the list.
+
+Here are your tasks!
+    1.[T][ ] task A
+    2.[D][ ] task B (by: tomorrow!)
+    3.[E][ ] task C (from: 23/1 to: 26/1)
+
+Nice! I've marked this task as done:
+  [T][X] task A
+
+Nice! I've marked this task as done:
+  [D][X] task B (by: tomorrow!)
+
+Nice! I've marked this task as done:
+  [E][X] task C (from: 23/1 to: 26/1)
+
+Sorry! There doesn't seem to be enough tasks for there to be a task 4!
+
+Here are your tasks!
+    1.[T][X] task A
+    2.[D][X] task B (by: tomorrow!)
+    3.[E][X] task C (from: 23/1 to: 26/1)
+
+
+ Bye! Hope to see you again soon!
+____________________________________________________________

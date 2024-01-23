@@ -12,12 +12,12 @@ public class Tracker {
         taskList.add(element);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + element.listTaskString());
-        System.out.println("Now you have " + this.taskQuantity() + " tasks in the list.");
+        System.out.println("Now you have " + this.taskQuantity() + " tasks in the list.\n");
     }
 
     public void listTasks() {
         if (taskList.size() == 0) {
-            System.out.println("No items in list!");
+            System.out.println("No items in list!\n");
             return;
         }
 
@@ -27,6 +27,7 @@ public class Tracker {
             index++;
             System.out.println("    " + index + "." + element.listTaskString());
         }
+        System.out.print("\n");
     }
 
     public int taskQuantity() {
@@ -36,7 +37,7 @@ public class Tracker {
     public void markTaskIndex(int index) {
 
         if (index > taskList.size()) {
-            System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!");
+            System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
             return;
         }
 
@@ -44,14 +45,14 @@ public class Tracker {
         task.markTask();
 
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task.listTaskString());
+        System.out.println("  " + task.listTaskString() +"\n");
 
     }
 
     public void unmarkTaskIndex(int index) {
 
         if (index > taskList.size()) {
-            System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!");
+            System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
             return;
         }
 
@@ -59,7 +60,7 @@ public class Tracker {
         task.unmarkTask();
 
         System.out.println("Nice! I've marked this task as not done yet:");
-        System.out.println("  " + task.listTaskString());
+        System.out.println("  " + task.listTaskString() + "\n");
 
     }
 

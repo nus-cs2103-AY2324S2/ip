@@ -3,11 +3,14 @@ import java.util.Scanner;
 public class Ellie {
 
     final static String horizontalLine = "____________________________________________________________";
-    final static String logoElephant =
-                                        "     __\n" +
-                                        " .--()°'.'\n" +
-                                        "'|, . ,'\n" +
-                                        " !_-(_\\";
+    final static String logoEllie =
+            " _______   ___       ___       ___  _______          \n" +
+            "|\\  ___ \\ |\\  \\     |\\  \\     |\\  \\|\\  ___ \\         \n" +
+            "\\ \\   __/|\\ \\  \\    \\ \\  \\    \\ \\  \\ \\   __/|        \n" +
+            " \\ \\  \\_|/_\\ \\  \\    \\ \\  \\    \\ \\  \\ \\  \\_|/__      \n" +
+            "  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\ \\  \\_|\\ \\     \n" +
+            "   \\ \\_______\\ \\_______\\ \\_______\\ \\__\\ \\_______\\    \n" +
+            "    \\|_______|\\|_______|\\|_______|\\|__|\\|_______|    \n";
 
     enum Command {
         MARK,
@@ -76,7 +79,7 @@ public class Ellie {
             else if (command == Command.HELP) {
                 System.out.println("Here's a list of supported commands so far:" +
                         "\n help \n list \n mark/unmark [int] \n todo [task] \n " +
-                        "deadline [task] /by [date]  \n event [task] /from [date] /to [date] \n bye");
+                        "deadline [task] /by [date]  \n event [task] /from [date] /to [date] \n bye \n");
                 input = reader.nextLine();
                 continue;
             }
@@ -169,7 +172,7 @@ public class Ellie {
 
     private void hello() {
         System.out.println("Hello! I'm Ellie, your CS2103T chat bot! I help by tracking your tasks!");
-        System.out.println(logoElephant + "\n" + horizontalLine);
+        System.out.println(logoEllie + "\n" + horizontalLine);
         System.out.println("What can I do for you? Type 'help' to see available commands! \n");
     }
 
