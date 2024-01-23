@@ -11,5 +11,9 @@ list
 mark
 event john /to 9 /from7
 event john /from 6/to 7/to 9
+delete 
+delete 69
+deletejjlin
+delete3
 bye
 

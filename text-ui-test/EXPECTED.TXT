@@ -25,4 +25,10 @@ OOPS! Give an index to mark
 OOPS! Events need a /from and a /to in this order
 OOPS! There can only be 1 instance of /from and /to
 String cannot be parsed...
+OOPS! Give an index to remove
+Give a valid index to remove
+Index to be removed needs to be an integer
+Noted. I've removed this task:
+[T][ ] thisndat
+Now you have 2 tasks in the list.
 Bye. Hope to see you again soon!
