@@ -2,7 +2,9 @@ package type;
 
 public enum CommandEnum {
     BYE("bye"),
-    LIST("list");
+    LIST("list"),
+    MARK("mark"),
+    UNMARK("unmark");
 
     public final String commandValue;
 

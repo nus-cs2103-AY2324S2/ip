@@ -16,17 +16,29 @@ public class FeedbackService {
     private void listen() {
         Scanner scanner = new Scanner(System.in);
 
-        String curInput = scanner.nextLine();
+        String[] curInput = scanner.nextLine().split(" ");
 
-        while (!curInput.equals(CommandEnum.BYE.getCommandValue())) {
-            if (curInput.equals(CommandEnum.LIST.getCommandValue())) {
+        // TODO: Clean up long if-else statement.. Use switch statement instead?
+        while (!curInput[0].equals(CommandEnum.BYE.getCommandValue())) {
+            // NOTE: LIST all tasks
+            if (curInput[0].equals(CommandEnum.LIST.getCommandValue())) {
                 this.taskService.getAllTasks();
-            } else {
-                this.taskService.addTask(curInput);
+            }
+            // NOTE: MARK task as completed
+            else if (curInput[0].equals(CommandEnum.MARK.getCommandValue())) {
+                this.taskService.markTaskCompleted(Integer.parseInt(curInput[1]) - 1);
+            }
+            // NOTE: UNMARK task as completed
+            else if (curInput[0].equals(CommandEnum.UNMARK.getCommandValue())) {
+                this.taskService.markTaskUncompleted(Integer.parseInt(curInput[1]) - 1);
+            }
+            // NOTE: Default - Add task
+            else {
+                this.taskService.addTask(curInput[0]);
             }
 
             // this.Echo(curInput);  // No longer required?
-            curInput = scanner.nextLine();
+            curInput = scanner.nextLine().split(" ");
         }
     }
 
