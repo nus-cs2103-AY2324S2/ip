@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Duke {
     private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
     public static void main(String[] args) throws DukeException {
         Scanner scanner = new Scanner(System.in);
         int taskCount = 0;
@@ -33,7 +35,7 @@ public class Duke {
                     continue;
                 }
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println("     " + (i + 1) + "." + tasks[i]);
+                    System.out.println("     " + (i + 1) + "." + tasks.get(i));
                 }
                 System.out.println("____________________________________________________________");
             } else if ((command.toLowerCase().equals("mark") || command.toLowerCase().equals("unmark")) && parts.length == 2) {
@@ -42,24 +44,53 @@ public class Duke {
                 // if there exists a task, and you are referring to a valid task to mark
                 if (index >= 0 && index < taskCount) {
                     if (action.equals("mark")) {
-                        tasks[index].markAsDone();
+                        tasks.get(index).markAsDone();
                         System.out.println("____________________________________________________________");
                         System.out.println("     Nice! I've marked this task as done:");
-                        System.out.println("       " + tasks[index]);
+                        System.out.println("       " + tasks.get(index));
                         System.out.println("____________________________________________________________");
                     } else if (action.equals("unmark")) {
-                        tasks[index].markAsNotDone();
+                        tasks.get(index).markAsNotDone();
                         System.out.println("____________________________________________________________");
                         System.out.println("     OK, I've marked this task as not done yet:");
-                        System.out.println("       " + tasks[index]);
+                        System.out.println("       " + tasks.get(index));
                         System.out.println("____________________________________________________________");
                     }
                 }
+            } else if (command.toLowerCase().equals("delete")) {
+                try {
+                    if (parts.length == 1) {
+                        throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
+                    } else if (parts.length != 2) {
+                        throw new DukeException("Invalid delete format. Please use the following format:\n"
+                                + "     delete <task number>");
+                    }
+                    int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                        throw new DukeException("Invalid task number. Index out of bounds");
+                    }
+                    Task removedTask = tasks.remove(taskIndex);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("     Noted. I've removed this task:");
+                    System.out.println("       " + removedTask);
+                    System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+
+                } catch (DukeException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________");
+                } catch (NumberFormatException e) {
+                // Handle case where the part after delete is not a number
+                System.out.println("____________________________________________________________");
+                System.out.println("     Invalid task number format.");
+                System.out.println("____________________________________________________________");
+            }
             } else {
                 // Add task to the array and echo it back
                 try {
                     if (parts.length == 1) {
-                        throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
+                        throw new DukeException("☹ OOPS!!! The description of a command cannot be empty.");
                     }
                     if (taskCount < MAX_TASKS) {
                         Task task = null;
@@ -87,10 +118,9 @@ public class Duke {
                             task = new Event(eventDescription, partsWithTo[0], partsWithTo[1]);
                         }
                         if (task == null) {
-                            ;
                             throw new DukeException("Invalid command. Please try again.");
                         }
-                        tasks[taskCount] = task;
+                        tasks.add(task);
                         taskCount++;
                         System.out.println("____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
@@ -106,7 +136,8 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                 }
             }
-            scanner.close();
         }
+
+        scanner.close();
     }
 }
