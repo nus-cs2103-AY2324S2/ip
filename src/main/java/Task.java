@@ -1,7 +1,7 @@
 public class Task {
 
-    String description;
-    boolean done;
+    private String description;
+    private boolean done;
     public Task(String description) {
         this.description = description;
         this.done = false;
