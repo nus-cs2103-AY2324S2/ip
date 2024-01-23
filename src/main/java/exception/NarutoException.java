@@ -32,7 +32,8 @@ public abstract class NarutoException extends Exception {
 
     public static NarutoException createInvalidDeadlineException() {
         return new InvalidDeadlineException("Looks like you forgot to enter a deadline! \nEnter a" +
-                " deadline after the command '/by' to indicate when your deadline is.");
+                " deadline after the command '/by' to indicate when your deadline " +
+                "is.");
     }
 
     public static NarutoException createInvalidEventException() {

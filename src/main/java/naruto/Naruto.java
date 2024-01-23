@@ -3,9 +3,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 import action.*;
 import exception.NarutoException;
-import task.Deadline;
-import task.Event;
-import task.ToDo;
+import task.*;
 import util.Store;
 
 public class Naruto {
@@ -77,6 +75,13 @@ public class Naruto {
                 String from = tokens[0].trim();
                 String to = tokens[1].trim();
                 actions.addLast(new Add(new Event(description, from, to), store));
+                break;
+            case "delete":
+                idx = sc.nextInt();
+                if (idx > store.getSize() || idx <= 0) {
+                    throw NarutoException.createInvalidIndexException();
+                }
+                actions.addLast(new Delete(store, idx));
                 break;
             default:
                 throw NarutoException.createInvalidCommandException();

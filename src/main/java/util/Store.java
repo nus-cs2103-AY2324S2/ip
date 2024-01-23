@@ -10,8 +10,10 @@ public class Store {
         this.tasks.add(t);
     }
 
-    public void delete(int i) {
-        this.tasks.remove(i);
+    public Task delete(int i) {
+        Task t = this.tasks.get(i - 1);
+        this.tasks.remove(i - 1);
+        return t;
     }
 
     public int getSize() {
