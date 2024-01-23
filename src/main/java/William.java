@@ -3,31 +3,47 @@ import java.util.*;
 public class William {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         List<Task> tasks = new ArrayList<Task>();
-        String logo = "William";
-        System.out.println("Hello! I'm " + logo);
-        System.out.println("What can I do for you?\n");
+        Methods.openingTitle();
 
         while (true) {
             String input = sc.nextLine();
+            Commands command = null;
             String[] texts = Methods.retrieveTexts(input);
-            Commands command = Methods.retrieveCommand(texts[0]);
+
+            try {
+                command = Methods.retrieveCommand(texts[0]);
+            } catch (WilliamException e) {
+                System.out.println(e.getMessage() + "\n");
+                continue;
+            }
 
             switch (command) {
                 case todo:
-                    Methods.addTask(new Todo(texts[1]), tasks);
+                    try {
+                        Methods.checkAdditionalDetailEmpty(texts[1]);
+                        Methods.addTask(new Todo(texts[1]), tasks);
+                    } catch (WilliamException e) {
+                        System.out.println(e.getMessage() + "\n");
+                    }
                     break;
                 case deadline:
-                    String[] deadlineDetails = Methods.splitBy(texts[1]);
-                    Methods.addTask(new Deadline(deadlineDetails[0], deadlineDetails[1]), tasks);
+                    try {
+                        String[] deadlineDetails = Methods.splitBy(texts[1]);
+                        Methods.addTask(new Deadline(deadlineDetails[0], deadlineDetails[1]), tasks);
+                    } catch (WilliamException e) {
+                        System.out.println(e.getMessage() + "\n");
+                    }
                     break;
                 case event:
-                    String[] eventDetails = Methods.splitToAndFrom(texts[1]);
-                    Methods.addTask(new Event(eventDetails[0], eventDetails[1], eventDetails[2]), tasks);
+                    try {
+                        String[] eventDetails = Methods.splitToAndFrom(texts[1]);
+                        Methods.addTask(new Event(eventDetails[0], eventDetails[1], eventDetails[2]), tasks);
+                    } catch (WilliamException e) {
+                        System.out.println(e.getMessage() + "\n");
+                    }
                     break;
                 case list:
-                    System.out.println("Here are the tasks in your list: ");
                     Methods.printList(tasks);
                     break;
                 case mark:
@@ -44,8 +60,8 @@ public class William {
                     return;
                 default:
                     System.out.println("Unknown command, please try again!");
+                    break;
             }
-
         }
     }
 }

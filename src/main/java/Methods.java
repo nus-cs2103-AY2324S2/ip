@@ -1,6 +1,13 @@
 import java.util.*;
 
 public class Methods {
+    // A method for the opening title:
+    public static void openingTitle() {
+        String logo = "William";
+        System.out.println("Hello! I'm " + logo);
+        System.out.println("What can I do for you?\n");
+    }
+
     // A method to split the input to get:
     // text[0] == command
     // text[1] == additional stuff
@@ -18,11 +25,11 @@ public class Methods {
     }
 
     // A method to retrieve the enum commands:
-    public static Commands retrieveCommand(String input) {
+    public static Commands retrieveCommand(String input) throws WilliamException {
         try {
             return Commands.valueOf(input);
         } catch (IllegalArgumentException e) {
-            return null;
+            throw new WilliamException("This command " + input + " does not exist, please try again!");
         }
     }
 
@@ -36,25 +43,41 @@ public class Methods {
 
     // A method to print out all of the tasks:
     public static void printList(List<Task> tasks) {
-        for (int i = 0; i < tasks.size(); i++) {
-            if (i == tasks.size() - 1) {
-                System.out.println((i + 1) + ". " + tasks.get(i).toString() + "\n");
-                break;
+        if (tasks.isEmpty()) {
+            System.out.println("Your list is empty. Please add some task to the list first!");
+        } else {
+            System.out.println("Here are the tasks in your list: ");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i).toString());
             }
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
+        System.out.println();
     }
 
     // A method to split by "by":
-    public static String[] splitBy(String input) {
+    public static String[] splitBy(String input) throws WilliamException {
+        checkAdditionalDetailEmpty(input);
         String[] twoParts = input.split(" /by ", 2);
+        if (twoParts.length < 2) {
+            throw new WilliamException(
+                    "The input does not contain the required '/by' keyword or is missing text before/after '/by' keyword. Please try again!");
+        }
         return twoParts;
     }
 
     // A method to split by "from" and "to":
-    public static String[] splitToAndFrom(String input) {
+    public static String[] splitToAndFrom(String input) throws WilliamException {
+        checkAdditionalDetailEmpty(input);
         String[] firstSplit = input.split(" /from ", 2);
+        if (firstSplit.length < 2) {
+            throw new WilliamException(
+                    "The input does not contain the required '/from' keyword or is missing text before/after '/from' keyword. Please try again!");
+        }
         String[] secondSplit = firstSplit[1].split(" /to ", 2);
+        if (secondSplit.length < 2) {
+            throw new WilliamException(
+                    "The input does not contain the required '/to' keyword or is missing text before/after '/to' keyword. Please try again!");
+        }
         String[] threeParts = { firstSplit[0], secondSplit[0], secondSplit[1] };
         return threeParts;
     }
@@ -66,5 +89,13 @@ public class Methods {
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+    }
+
+    // A method to check whether the additional stuff is empty or not (if its empty,
+    // throw an exception):
+    public static void checkAdditionalDetailEmpty(String input) throws WilliamException {
+        if (input == null) {
+            throw new WilliamException("The description of a task should not be empty. Please try again!");
+        }
     }
 }
