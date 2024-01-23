@@ -1,13 +1,12 @@
 package view;
 
 import model.Task;
-
-import java.util.ArrayList;
+import model.TaskList;
 
 public class DeleteTaskView extends Ui {
     private final Task task;
     private final String size;
-    public DeleteTaskView(Task task, ArrayList<Task> taskList) {
+    public DeleteTaskView(Task task, TaskList taskList) {
         this.task = task;
         this.size = String.valueOf(taskList.size());
     }

@@ -1,41 +1,38 @@
-import controller.Exit;
-import controller.Greet;
-import controller.HandleUserInput;
+import controller.ExitCommand;
+import controller.GreetCommand;
+import duke.Parser;
 import duke.Storage;
-import model.Task;
+import model.TaskList;
 
 
 import java.util.*;
 
 public class Duke {
-    private final ArrayList<Task> taskList;
+    private final TaskList taskList;
     private final Storage storage;
-    public Duke() {
-        this.storage = new Storage("./data.dat");
+    public Duke(String filePath) {
+        this.storage = new Storage(filePath);
         if (storage.isFileExists()) {
-            this.taskList = new ArrayList<>(storage.load());
+            this.taskList = new TaskList(storage.load());
         } else {
             storage.createNewFile();
-            this.taskList = new ArrayList<>(100);
-            storage.update(taskList);
+            this.taskList = new TaskList();
+            storage.update(taskList.getTaskList());
         }
     }
 
     public void launch() {
-        Greet greetController = new Greet();
-        greetController.execute(storage);
+        new GreetCommand().execute(storage);
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 System.out.print("Enter a command:\n");
                 String input = scanner.nextLine();
 
                 if (input.equals("bye")) {
-                    Exit exitController = new Exit();
-                    exitController.execute(storage);
+                    new ExitCommand().execute(storage);
                     break;
                 } else {
-                    HandleUserInput handleUserInputController = new HandleUserInput(input, taskList);
-                    handleUserInputController.execute(storage);
+                    new Parser(input, taskList, storage).parse();
                 }
             }
         } catch (RuntimeException e) {
@@ -44,7 +41,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.launch();
+        new Duke("./data.dat").launch();
     }
 }

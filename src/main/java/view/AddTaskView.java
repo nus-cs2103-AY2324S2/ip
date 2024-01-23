@@ -1,13 +1,12 @@
 package view;
 
 import model.Task;
-
-import java.util.ArrayList;
+import model.TaskList;
 
 public class AddTaskView extends Ui {
     private final Task task;
     private final String size;
-    public AddTaskView(Task task, ArrayList<Task> taskList) {
+    public AddTaskView(Task task, TaskList taskList) {
         this.task = task;
         this.size = String.valueOf(taskList.size());
     }

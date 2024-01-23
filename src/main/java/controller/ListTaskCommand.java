@@ -1,18 +1,17 @@
 package controller;
 
 import duke.Storage;
-import model.Task;
+import model.TaskList;
 import view.TaskListView;
 
-import java.util.ArrayList;
-
-public class ListTask extends TaskCommand{
+public class ListTaskCommand extends Command {
     private final TaskListView taskListView;
 
-    public ListTask(ArrayList<Task> taskList) {
+    public ListTaskCommand(TaskList taskList) {
         this.taskListView = new TaskListView(taskList);
     }
 
+    @Override
     public void execute(Storage storage) {
         taskListView.display();
     }

@@ -2,21 +2,21 @@ package controller;
 
 import duke.Storage;
 import model.Task;
+import model.TaskList;
 import view.DeleteTaskView;
 
-import java.util.ArrayList;
-
-public class DeleteTask extends TaskCommand {
+public class DeleteTaskCommand extends Command {
     private final Task task;
-    private final ArrayList<Task> taskList;
+    private final TaskList taskList;
 
-    public DeleteTask(int index, ArrayList<Task> taskList) {
+    public DeleteTaskCommand(int index, TaskList taskList) {
         this.task = taskList.get(index);
         this.taskList = taskList;
     }
+    @Override
     public void execute(Storage storage) {
         taskList.remove(task);
-        storage.update(taskList);
+        storage.update(taskList.getTaskList());
         DeleteTaskView deleteTaskView = new DeleteTaskView(this.task, this.taskList);
         deleteTaskView.display();
     }

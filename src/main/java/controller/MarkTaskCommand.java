@@ -2,21 +2,22 @@ package controller;
 
 import duke.Storage;
 import model.Task;
+import model.TaskList;
 import view.MarkTaskView;
 
-import java.util.ArrayList;
-
-public class MarkTask extends TaskCommand {
+public class MarkTaskCommand extends Command {
     private final Task task;
-    private final ArrayList<Task> taskList;
+    private final TaskList taskList;
 
-    public MarkTask(int index, ArrayList<Task> taskList) {
+    public MarkTaskCommand(int index, TaskList taskList) {
         this.task = taskList.get(index);
         this.taskList = taskList;
     }
+
+    @Override
     public void execute(Storage storage) {
         this.task.mark();
-        storage.update(taskList);
+        storage.update(taskList.getTaskList());
         MarkTaskView markTaskView = new MarkTaskView(this.task);
         markTaskView.display();
     }

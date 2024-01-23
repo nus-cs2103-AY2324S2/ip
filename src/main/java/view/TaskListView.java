@@ -1,12 +1,10 @@
 package view;
 
-import model.Task;
-
-import java.util.ArrayList;
+import model.TaskList;
 
 public class TaskListView extends Ui {
-    private final ArrayList<Task> taskList;
-    public TaskListView(ArrayList<Task> taskList) {
+    private final TaskList taskList;
+    public TaskListView(TaskList taskList) {
         this.taskList = taskList;
     }
 

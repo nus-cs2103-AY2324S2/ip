@@ -2,21 +2,22 @@ package controller;
 
 import duke.Storage;
 import model.Task;
+import model.TaskList;
 import view.UnmarkTaskView;
 
-import java.util.ArrayList;
-
-public class UnmarkTask extends TaskCommand {
+public class UnmarkTaskCommand extends Command {
     private final Task task;
-    private final ArrayList<Task> taskList;
+    private final TaskList taskList;
 
-    public UnmarkTask(int index, ArrayList<Task> taskList) {
+    public UnmarkTaskCommand(int index, TaskList taskList) {
         this.task = taskList.get(index);
         this.taskList = taskList;
     }
+
+    @Override
     public void execute(Storage storage) {
         this.task.unmark();
-        storage.update(taskList);
+        storage.update(taskList.getTaskList());
         UnmarkTaskView unmarkTaskView = new UnmarkTaskView(this.task);
         unmarkTaskView.display();
     }

@@ -3,13 +3,14 @@ package controller;
 import duke.Storage;
 import view.GreetView;
 
-public class Greet {
+public class GreetCommand extends Command {
     private final GreetView greetView;
     
-    public Greet() {
+    public GreetCommand() {
         this.greetView = new GreetView();
     }
-    
+
+    @Override
     public void execute(Storage storage) {
         greetView.display();
     }

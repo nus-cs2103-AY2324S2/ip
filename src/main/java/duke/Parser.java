@@ -1,42 +1,39 @@
-package controller;
+package duke;
 
-import duke.Storage;
+import controller.*;
 import model.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
-public class HandleUserInput {
-    private final String input;
-    private final ArrayList<Task> taskList;
-    public HandleUserInput(String input, ArrayList<Task> taskList) {
-        this.input = input;
+public class Parser {
+    private final String command;
+    private final TaskList taskList;
+    private final Storage storage;
+    public Parser(String command, TaskList taskList, Storage storage) {
+        this.command = command;
         this.taskList = taskList;
+        this.storage = storage;
     }
 
-    public void execute(Storage storage) {
-        String[] splitTask = input.split(" ", 2);
+    public void parse() {
+        String[] splitTask = command.split(" ", 2);
         Task task;
-        AddTask addTaskController;
         switch(splitTask[0]) {
             case "list":
-                ListTask listTaskController = new ListTask(taskList);
-                listTaskController.execute(storage);
+                new ListTaskCommand(taskList).execute(storage);
                 return;
             case "mark":
                 try {
-                    MarkTask markTaskController = parseMark(splitTask);
-                    markTaskController.execute(storage);
+                    parseMark(splitTask).execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
                 return;
             case "unmark":
                 try {
-                    UnmarkTask unmarkTaskController = parseUnmark(splitTask);
-                    unmarkTaskController.execute(storage);
+                    parseUnmark(splitTask).execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -44,8 +41,7 @@ public class HandleUserInput {
             case "todo":
                 try {
                     task = parseToDo(splitTask);
-                    addTaskController = new AddTask(task, taskList);
-                    addTaskController.execute(storage);
+                    new AddTaskCommand(task, taskList).execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -53,8 +49,7 @@ public class HandleUserInput {
             case "event":
                 try {
                     task = parseEvent(splitTask);
-                    addTaskController = new AddTask(task, taskList);
-                    addTaskController.execute(storage);
+                    new AddTaskCommand(task, taskList).execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -62,23 +57,20 @@ public class HandleUserInput {
             case "deadline":
                 try {
                     task = parseDeadline(splitTask);
-                    addTaskController = new AddTask(task, taskList);
-                    addTaskController.execute(storage);
+                    new AddTaskCommand(task, taskList).execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
                 return;
             case "delete":
                 try {
-                    DeleteTask deleteTaskController = parseDelete(splitTask);
-                    deleteTaskController.execute(storage);
+                    parseDelete(splitTask).execute(storage);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
                 return;
             default:
-                InvalidCommand invalidCommand = new InvalidCommand();
-                invalidCommand.execute(storage);
+                new InvalidCommand().execute(storage);
         }
     }
 
@@ -136,11 +128,11 @@ public class HandleUserInput {
         }
     }
 
-    private MarkTask parseMark(String[] command) throws DukeException {
+    private MarkTaskCommand parseMark(String[] command) throws DukeException {
         try {
             int markIndex = Integer.parseInt(command[1]) - 1;
             try {
-                return new MarkTask(markIndex, this.taskList);
+                return new MarkTaskCommand(markIndex, this.taskList);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Invalid index.");
             }
@@ -150,11 +142,11 @@ public class HandleUserInput {
             throw new DukeException("The index you've input is not an integer.");
         }
     }
-    private UnmarkTask parseUnmark(String[] command) throws DukeException {
+    private UnmarkTaskCommand parseUnmark(String[] command) throws DukeException {
         try {
             int unmarkIndex = Integer.parseInt(command[1]) - 1;
             try {
-                return new UnmarkTask(unmarkIndex, this.taskList);
+                return new UnmarkTaskCommand(unmarkIndex, this.taskList);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Invalid index.");
             }
@@ -165,11 +157,11 @@ public class HandleUserInput {
         }
     }
 
-    private DeleteTask parseDelete(String[] command) throws DukeException {
+    private DeleteTaskCommand parseDelete(String[] command) throws DukeException {
         try {
             int deleteIndex = Integer.parseInt(command[1]) - 1;
             try {
-                return new DeleteTask(deleteIndex, this.taskList);
+                return new DeleteTaskCommand(deleteIndex, this.taskList);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Invalid index.");
             }
@@ -179,5 +171,4 @@ public class HandleUserInput {
             throw new DukeException("The index you've input is not an integer.");
         }
     }
-
 }
