@@ -1,4 +1,4 @@
-public class Duke {
+public class Capone {
     public static void main(String[] args) {
         String logo = "░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░\n"
                 + "░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░\n"
