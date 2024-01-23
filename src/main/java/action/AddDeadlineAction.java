@@ -2,6 +2,8 @@ package action;
 
 import action.exception.ActionException;
 import action.exception.MissingArgumentValueException;
+import print.Printer;
+import task.Task;
 import task.TaskList;
 
 /**
@@ -40,7 +42,11 @@ public class AddDeadlineAction extends Action {
         }
 
         // Perform behaviour
-        taskList.addDeadline(name, by);
-        handleAddSuccess(taskList);
+        Task task = taskList.addDeadline(name, by);
+        Printer.printMessages(
+                "Got it. I've added this deadline:",
+                "    " + task,
+                "Now you have " + taskList.size() + " task(s) in the list."
+        );
     }
 }

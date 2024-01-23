@@ -3,7 +3,6 @@ package action;
 import action.exception.ActionException;
 import action.exception.UnrecognizedArgumentException;
 import action.exception.MissingArgumentException;
-import print.Printer;
 import task.TaskList;
 
 /**
@@ -107,19 +106,6 @@ public abstract class Action {
      */
     final String findDefaultArgument() {
         return findArgument(command.name);
-    }
-
-    /**
-     * Prints the message when a task is added by this action
-     *
-     * @param taskList the taskList that is used with the chatbot
-     */
-    void handleAddSuccess(TaskList taskList) {
-        Printer.printMessages(
-                "Got it. I've added this task:",
-                "    " + taskList.getNewestTask(),
-                "Now you have " + taskList.size() + " task(s) in the list."
-        );
     }
 
     /**

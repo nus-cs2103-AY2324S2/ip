@@ -2,6 +2,8 @@ package action;
 
 import action.exception.ActionException;
 import action.exception.MissingArgumentValueException;
+import print.Printer;
+import task.Task;
 import task.TaskList;
 
 /**
@@ -44,7 +46,11 @@ public class AddEventAction extends Action {
         }
 
         // Perform behaviour
-        taskList.addEvent(name, from, to);
-        handleAddSuccess(taskList);
+        Task task = taskList.addEvent(name, from, to);
+        Printer.printMessages(
+                "Got it. I've added this event:",
+                "    " + task,
+                "Now you have " + taskList.size() + " task(s) in the list."
+        );
     }
 }

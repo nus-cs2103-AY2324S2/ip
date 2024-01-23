@@ -2,6 +2,8 @@ package action;
 
 import action.exception.ActionException;
 import action.exception.MissingArgumentValueException;
+import print.Printer;
+import task.Task;
 import task.TaskList;
 
 /**
@@ -36,7 +38,11 @@ public class AddTodoAction extends Action {
         }
 
         // Perform behaviour
-        taskList.addTodo(name);
-        handleAddSuccess(taskList);
+        Task task = taskList.addTodo(name);
+        Printer.printMessages(
+                "Got it. I've added this to-do:",
+                "    " + task,
+                "Now you have " + taskList.size() + " task(s) in the list."
+        );
     }
 }
