@@ -13,7 +13,7 @@ public class ui {
             "       _\\/\\\\\\_______\\/\\\\\\_\\/\\\\\\_______\\/\\\\\\_\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\____________\\//\\\\\\\\\\\\\\\\\\\\\\/____\\///\\\\\\\\\\\\\\/____\\///\\\\\\\\\\\\\\/____\\///\\\\\\\\\\\\\\/___ \n" +
             "        _\\///________\\///__\\///________\\///__\\///////////////______________\\///////////________\\///////________\\///////________\\///////_____\n";
 
-    static String divider = "_____________________________________";
+    static String divider = "______________________________________________________________________________";
 
     public static void main(String[] args) {
         // greet user
@@ -21,6 +21,8 @@ public class ui {
         System.out.println("Good afternoon, gentlemen. I am\n" + nameLogo);
         System.out.println("How may I assist you?");
         System.out.println(divider);
+
+        Storage newTodoList = new Storage();
 
         //take in input
         Scanner scanner = new Scanner(System.in);
@@ -30,11 +32,16 @@ public class ui {
 
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
+            } else if (userInput.equalsIgnoreCase("list")) {
+                System.out.println(divider);
+                newTodoList.listTasks();
+                System.out.println(divider);
+            } else {
+                newTodoList.addTask(userInput);
+                System.out.println(divider);
+                System.out.println("added: " + userInput);
+                System.out.println(divider);
             }
-
-            System.out.println(divider);
-            System.out.println(userInput);
-            System.out.println(divider);
         }
 
         System.out.println(divider);
