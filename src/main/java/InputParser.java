@@ -4,6 +4,11 @@ import action.exception.UnrecognizedCommandException;
 import action.util.Argument;
 import action.util.Command;
 
+import java.util.Scanner;
+import java.lang.StringBuilder;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Parses the input of a ChatBot into argument list.
  *
@@ -11,13 +16,21 @@ import action.util.Command;
  */
 public class InputParser {
     /**
+     * Stores the scanner instance used to get the console input stream.
+     */
+    private static final Scanner SCANNER = new Scanner(System.in);
+
+    /**
      * Parse the input string into it's command and arguments.
      *
-     * @param input the console input
      * @return an action containing the command and it's arguments
      */
-    public static Action parseInput(String input) throws ActionException {
+    public static Action getParsedInput() throws ActionException {
+        String input = SCANNER.nextLine();
+
+        // command is always the first word in the input
         String command = input.trim().split(" ")[0];
+
         Argument[] parsedArguments = parseArguments(input);
         if (command.equals(Command.BYE.name)) {
             return new ByeAction(parsedArguments);
@@ -36,52 +49,59 @@ public class InputParser {
         } else if (command.equals(Command.DELETE.name)) {
             return new DeleteAction(parsedArguments);
         }else {
-            // The command is invalid, as it is not one of the above commands.
             throw new UnrecognizedCommandException(command);
         }
     }
 
     /**
      * Parse the argument(s) from an input string.
-     * <p>
-     * "/" is a special character, when in the command, it denotes the start of an argument.
+     * <ul>
+     * <li>"/" is a special character, when at the start of a word, it denotes the start of an argument.
+     * <li>"/" not at the start of a word, will not be recognized as a special character.
      *
      * @param input the console input
      * @return the parsed argument list
      */
     private static Argument[] parseArguments(String input) {
-        // Split input by arguments
-        String[] argString = input.split("/");
-        Argument[] args = new Argument[argString.length];
+        // split input by words (space-separated)
+        String[] tokens = input.split(" ");
 
-        // identify default argument
-        args[0] = parseArgument(argString[0]);
+        List<Argument> arguments = new ArrayList<>();
 
-        // identify additional arguments
-        for (int i = 1; i < argString.length; i++) {
-            args[i] = parseArgument(argString[i]);
+        // scan through each word, check if it is an argument
+        // first word is always argument name
+        String argName = tokens[0];
+        StringBuilder argValue = new StringBuilder();
+        for (int i = 1; i < tokens.length; i++) {
+            if (tokens[i].startsWith("/")) {
+                arguments.add(parseArgument(argName, argValue.toString()));
+
+                // start parsing next argument
+                argName = tokens[i].substring(1);
+                argValue.delete(0, argValue.length());
+            } else {
+                argValue
+                        .append(tokens[i])
+                        .append(" ");
+            }
         }
+        arguments.add(parseArgument(argName, argValue.toString()));
 
-        return args;
+        Argument[] argumentsArray = new Argument[arguments.size()];
+        arguments.toArray(argumentsArray);
+        return argumentsArray;
     }
 
     /**
      * An argument consists of the argument name and value.
-     * @param argument the string that belongs to that argument.
-     * @return the argument that is formed.
+     *
+     * @param argumentName the string representing the argument name
+     * @param argumentValue the string representing the argument value
+     * @return the argument that is formed
      */
-    private static Argument parseArgument(String argument) {
-        String[] parsedArg = argument.split(" ", 2);
-
-        // parsedArg will contain at least a name
-        String name = parsedArg[0].trim();
-        if (parsedArg.length == 1) {
-            // Invalid argument: missing value
-            return new Argument(parsedArg[0].trim(), null);
-        }
-
-        String value = parsedArg[1].trim().equals("") ? null : parsedArg[1].trim();
-
-        return new Argument(name, value);
+    private static Argument parseArgument(String argumentName, String argumentValue) {
+        argumentValue = argumentValue.trim();
+        argumentValue = argumentValue.equals("") ? null : argumentValue;
+        return new Argument(argumentName, argumentValue);
     }
 }

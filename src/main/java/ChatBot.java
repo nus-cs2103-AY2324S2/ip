@@ -4,8 +4,6 @@ import action.exception.ActionException;
 import print.Printer;
 import task.TaskList;
 
-import java.util.Scanner;
-
 /**
  * ChatBot encapsulates the behaviour of a Chatbot,
  * which is the handling of the message content and executing commands.
@@ -17,11 +15,6 @@ public class ChatBot {
      * Stores the name of this chatbot.
      */
     private final String chatBotName;
-
-    /**
-     * Stores the scanner instance used to get the console input stream.
-     */
-    private final Scanner scanner = new Scanner(System.in);
 
     /**
      * Stores the user's tasks
@@ -56,7 +49,7 @@ public class ChatBot {
         Action userAction = null;
         do {
             try {
-                userAction = InputParser.parseInput(scanner.nextLine());
+                userAction = InputParser.getParsedInput();
                 userAction.execute(userList);
             } catch (ActionException e) {
                 Printer.printMessages(e.getMessage());

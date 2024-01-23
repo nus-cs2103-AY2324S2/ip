@@ -98,7 +98,7 @@
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this deadline:
-        [D][ ] return book (by: Sunday)
+        [D][ ] return book (by: 12/3/45)
     Now you have 4 task(s) in the list.
     ____________________________________________________________
     ____________________________________________________________
@@ -106,7 +106,7 @@
     1. [T][ ] read book
     2. [T][ ] return book
     3. [T][ ] borrow book
-    4. [D][ ] return book (by: Sunday)
+    4. [D][ ] return book (by: 12/3/45)
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! The argument value <name> of `event` must be present!
@@ -130,7 +130,7 @@
     1. [T][ ] read book
     2. [T][ ] return book
     3. [T][ ] borrow book
-    4. [D][ ] return book (by: Sunday)
+    4. [D][ ] return book (by: 12/3/45)
     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
     ____________________________________________________________
     ____________________________________________________________
@@ -147,20 +147,20 @@
     1. [T][ ] read book
     2. [T][ ] return book
     3. [T][ ] borrow book
-    4. [D][ ] return book (by: Sunday)
+    4. [D][ ] return book (by: 12/3/45)
     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
     6. [D][ ] do homework (by: no idea :-p)
     ____________________________________________________________
     ____________________________________________________________
     Nice! I've marked this task as done:
-        [D][X] return book (by: Sunday)
+        [D][X] return book (by: 12/3/45)
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] read book
     2. [T][ ] return book
     3. [T][ ] borrow book
-    4. [D][X] return book (by: Sunday)
+    4. [D][X] return book (by: 12/3/45)
     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
     6. [D][ ] do homework (by: no idea :-p)
     ____________________________________________________________
@@ -172,7 +172,7 @@
     Here are the tasks in your list:
     1. [T][ ] return book
     2. [T][ ] borrow book
-    3. [D][X] return book (by: Sunday)
+    3. [D][X] return book (by: 12/3/45)
     4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
     5. [D][ ] do homework (by: no idea :-p)
     ____________________________________________________________
