@@ -1,8 +1,12 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class Duke {
     public static class Task {
         String action;
         Boolean isDone;
+
+
 
         public Task(String action, Boolean isDone) {
             this.action = action;
@@ -11,9 +15,9 @@ public class Duke {
         @Override
         public String toString() {
             if (isDone) {
-                return "[X] " + action;
+                return " [X] " + action;
             } else {
-                return "[ ] " + action;
+                return " [ ] " + action;
             }
         }
         public void mark() {
@@ -32,9 +36,15 @@ public class Duke {
 	    System.out.println("What can I do for you?");
 
         String input ;
+        String mark = "mark (\\d+)";
+        String unmark = "unmark (\\d+)";
+        Pattern p1 = Pattern.compile(mark);
+        Pattern p2 = Pattern.compile(unmark);
 
         while (true) {
             input = scanner.nextLine();
+            Matcher m1 = p1.matcher(input);
+            Matcher m2 = p2.matcher(input);
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
@@ -51,7 +61,7 @@ public class Duke {
                     }
                     continue;
                 }
-            } else if (input.contains("unmark ")) {
+            } else if (m2.find()) {
                 int len = input.length();
                 char last = input.charAt(len - 1);
                 if (Character.isDigit(last)) {
@@ -66,7 +76,7 @@ public class Duke {
                     }
                     continue;
                 }
-            } else if (input.contains("mark ")) {
+            } else if (m1.find()) {
                 int len = input.length();
                 char last = input.charAt(len - 1);
                 if (Character.isDigit(last)) {
