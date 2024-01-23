@@ -15,7 +15,6 @@ public class Kervyn {
 
         System.out.println("\tHello! I'm " + chatbotName);
         System.out.println("\tWhat can I do for you?");
-        char check;
         String userInput;
         Task task;
 
