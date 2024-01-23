@@ -19,6 +19,10 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public boolean getStatus() {
+        return isDone;
+    }
+
     public void setStatusIcon(boolean status) {
         this.isDone = status;
     }

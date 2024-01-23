@@ -56,6 +56,18 @@ public class Duke {
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
+    public void DeleteTask(int taskNum) throws IndexOutOfBoundsException {
+        if (taskNum > tasks.size()) throw new IndexOutOfBoundsException("OOPS!!! The task doesn't exist!");
+
+        int index = taskNum - 1;
+        Task task = tasks.get(index);
+        tasks.remove(index);
+
+        System.out.println("Noted. I have removed this task: ");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+    }
+
     public void printTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -70,6 +82,12 @@ public class Duke {
 
         int index = taskNum - 1;
         Task task = tasks.get(index);
+
+        if (task.getStatus() == status) {
+            System.out.println("The task has already been marked as " + (status ? "done." : "not done."));
+            return;
+        }
+
         task.setStatusIcon(status);
 
         if (status) {
@@ -79,7 +97,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         Scanner scanner = new Scanner(System.in);
         Duke duke = new Duke("Rikko");
         duke.greetings();
@@ -96,12 +114,19 @@ public class Duke {
                         duke.printTasks();
                         break;
                     case "mark":
+                        if (input.split(" ", 0).length == 1) throw new DukeException("OOPS!!! Please provide task number.");
                         int taskNum = Integer.parseInt(input.split(" ", 0)[1]);
                         duke.changeTaskStatus(taskNum, true);
                         break;
                     case "unmark":
+                        if (input.split(" ", 0).length == 1) throw new DukeException("OOPS!!! Please provide task number.");
                         taskNum = Integer.parseInt(input.split(" ", 0)[1]);
                         duke.changeTaskStatus(taskNum, false);
+                        break;
+                    case "delete":
+                        if (input.split(" ", 0).length == 1) throw new DukeException("OOPS!!! Please provide task number.");
+                        taskNum = Integer.parseInt(input.split(" ", 0)[1]);
+                        duke.DeleteTask(taskNum);
                         break;
                     default:
                         duke.addTask(input);
@@ -110,6 +135,8 @@ public class Duke {
             } catch (TaskException e) {
                 System.err.println(e.getMessage());
             } catch (IndexOutOfBoundsException e) {
+                System.err.println(e.getMessage());
+            } catch (DukeException e) {
                 System.err.println(e.getMessage());
             }
         }
