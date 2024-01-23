@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-
+    private static final int INDEX_START = 1;
     private final String horizontalLine = "____________________________________________________________\n";
     private final String name;
 
-    private final ArrayList<String> tasks;
+    private final ArrayList<Task> tasks;
 
     public Duke(String name) {
         this.name = name;
@@ -38,6 +38,10 @@ public class Duke {
                 break;
             } else if (task.equalsIgnoreCase("list")) {
                 this.toDoList();
+            } else if (task.startsWith("mark")){
+                this.markToDo(task, true);
+            } else if (task.startsWith("unmark")) {
+                this.markToDo(task, false);
             } else {
                 this.addToDo(task);
             }
@@ -49,20 +53,39 @@ public class Duke {
 
     }
 
-    private void addToDo(String task) {
+    private void addToDo(String description) {
+        Task task = new Task(description);
         tasks.add(task);
-        System.out.println(" added: " + task);
+        System.out.println(" added: " + description);
     }
 
     private void toDoList() {
         if (tasks.isEmpty()) {
             System.out.println(" Please add task!");
         } else {
-            int taskCount = 0;
-            for (String task : tasks) {
+            System.out.println("Here are the tasks in your list:");
+            int taskCount = INDEX_START;
+            for (Task task : tasks) {
+                System.out.println(" " + taskCount + "." + task);
                 taskCount++;
-                System.out.println(" " + taskCount + ". " + task);
             }
+        }
+    }
+
+    private void markToDo(String command, boolean isDone) {
+        try {
+            int taskIndex = Integer.parseInt(command.split(" ")[1]) - INDEX_START;
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                Task task = this.tasks.get(taskIndex);
+                task.setDone(isDone);
+                System.out.println(isDone ? " Nice! I've marked this task as done:" :
+                        " OK, I've marked this task as not done yet:");
+                System.out.println("   " + task);
+            } else {
+                System.out.println("Task not found: Index is out of bounds.");
+            }
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.out.println(" Invalid command format.");
         }
     }
 
@@ -71,6 +94,5 @@ public class Duke {
         Duke zenifyBot = new Duke("Zenify");
         zenifyBot.greetUser();
         zenifyBot.echo();
-
     }
 }
