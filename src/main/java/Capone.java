@@ -1,10 +1,10 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Capone {
     // We assume there is no more than 100 tasks added.
-    private static String[] tasks = new String[100];
-    private static int taskCtr = 0;
+    private static ArrayList<String> tasks = new ArrayList<>();
 
     public static void printWelcomeMsg() {
         String logo = "░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░\n"
@@ -15,16 +15,15 @@ public class Capone {
 
     public static void addTask(String task) {
         // Store task in array and increment counter.
-        tasks[taskCtr] = task;
-        taskCtr++;
+        tasks.add(task);
 
         // Inform user that task has been added.
         System.out.printf("added: %s\n", task);
     }
 
     public static void listTasks() {
-        for (int i = 0; i < taskCtr; i++) {
-            System.out.printf("%d. %s\n", i+1, tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("%d. %s\n", i+1, tasks.get(i));
         }
     }
 
