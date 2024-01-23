@@ -1,10 +1,24 @@
+import java.util.Scanner;
+
 public class ChatBotTest {
     public static void main(String[] args) {
         Ping p = new Ping();
         String name = p.name;
 
+        // The Welcome Part
         System.out.println("Hello! I'm "+name+
                 "\nWhat can I do for you?");
-        System.out.println("Bye. Hope to see you again soon!");
+
+        // The Scanner Part
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            String commands = sc.nextLine();
+            if (commands.equals("bye")) {
+                p.goodBye();
+                break;
+            } else {
+                System.out.println(commands);
+            }
+        }
     }
 }
