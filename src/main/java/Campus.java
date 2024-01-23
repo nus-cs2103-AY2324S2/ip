@@ -16,35 +16,67 @@ public class Campus {
         Campus.greet();
 
         // Main Logic to keep the Chat Bot running until a user decides to quit talking by sending 'bye'
-        String userInput;
-        while (true) {
-            Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        String userInput = "";
+        while (!Objects.equals(userInput, "bye")) {
             userInput = scanner.nextLine();
 
-            // Can be improved through switch cases but for now this works
-            if (Objects.equals(userInput, "bye")) {
-                scanner.close();
-                break;
-            } else if (Objects.equals(userInput, "list")) {
-                Campus.display();
-            } else if (userInput.substring(0, 4).contains("mark")) {
-                String listNumber = userInput.substring(userInput.length() - 1);
-                int index = Integer.parseInt(listNumber);
-                index -= 1; // Account for List Starting from 1
-                Task task = Campus.tasks.get(index);
-                Campus.markDone(task);
-            } else if (userInput.substring(0, 6).contains("unmark")) {
-                String listNumber = userInput.substring(userInput.length() - 1);
-                int index = Integer.parseInt(listNumber);
-                index -= 1; // Account for List Starting from 1
-                Task task = Campus.tasks.get(index);
-                Campus.markUndone(task);
+            String[] arr = userInput.split(" ", 2);
+            String firstWord;
+            String remaining;
+            if (arr.length > 1) {
+                firstWord = arr[0].trim();
+                remaining = arr[1].trim();
             } else {
-                Task task = new Task(userInput);
-                Campus.add(task);
+                firstWord = arr[0].trim();
+                remaining = "";
+            }
+
+            switch(firstWord) {
+                case "list":
+                    Campus.display();
+                    break;
+                case "mark":
+                    // Getting the ith Task in the List<Task> field
+                    // Again Looks Clunky - Need to refactor
+                    String listNumber = userInput.substring(userInput.length() - 1);
+                    int index = Integer.parseInt(listNumber) - 1;
+                    Task task = Campus.tasks.get(index);
+                    Campus.markDone(task);
+                    break;
+                case "unmark":
+                    // Getting the ith Task in the List<Task> field
+                    // Again Looks Clunky - Need to refactor
+                    String listNumber1 = userInput.substring(userInput.length() - 1);
+                    int index1 = Integer.parseInt(listNumber1) - 1;
+                    Task task1 = Campus.tasks.get(index1);
+                    Campus.markUndone(task1);
+                    break;
+                case "todo":
+                    ToDos todo = new ToDos(remaining);
+                    Campus.add(todo);
+                    break;
+                case "deadline":
+                    String[] temp = remaining.split("/by", 2);
+                    String deadlineName = temp[0].trim();
+                    String endDateTime = temp[1].trim();
+                    Deadline deadline = new Deadline(deadlineName, endDateTime);
+                    Campus.add(deadline);
+                    break;
+                case "event":
+                    // seems a little clunky but it will do for now
+                    String[] temp1 = remaining.split("/from", 2);
+                    String eventName = temp1[0].trim();
+                    String remaining1 = temp1[1].trim();
+                    String[] temp2 = remaining1.split("/to", 2);
+                    String from = temp2[0].trim();
+                    String to = temp2[1].trim();
+                    Event event = new Event(eventName, from, to);
+                    Campus.add(event);
+                    break;
             }
         }
-
+        scanner.close();
         Campus.exit();
     }
 
@@ -97,8 +129,12 @@ public class Campus {
     public static void add(Task task) {
         Campus.tasks.add(task);
 
+        int numOfTasks = Campus.tasks.size();
+
         String message = "------------------------------\n"
+                + "Got it. I've added this to our list of tasks:\n"
                 + String.format("added: %s\n", task.toString())
+                + String.format("Now you have %s task(s) in the list.\n", numOfTasks)
                 + "------------------------------\n";
 
         System.out.println(message);

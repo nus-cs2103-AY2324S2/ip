@@ -1,3 +1,6 @@
+/**
+ * Contains the logic for the ToDos Class which extends the abstract Task Class
+ */
 public class ToDos extends Task {
     ToDos (String TodoTask) {
         this.taskName = TodoTask;
