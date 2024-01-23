@@ -5,13 +5,23 @@ import java.util.Scanner;
  */
 public class Duke {
     private Scanner sc = new Scanner(System.in);
+    private String[] list;
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.startChat();
     }
 
     /**
-     * Initiates the chat by invoking the sayHi() and sayBye() methods.
+     * Constructs a list of size.
+     */
+    public Duke() {
+        this.list = new String[100];
+    }
+
+    /**
+     * Initiates the chat by invoking the sayHi() method.
+     * Handles user input to display the list for "list" input, exit the chat for "bye" input
+     * or append to the list for any other input.
      */
     public void startChat() {
         sayHi();
@@ -19,12 +29,15 @@ public class Duke {
         boolean exited = false;
 
         while (!exited) {
-            String toEcho = sc.nextLine();
-            if (toEcho.equals("bye")) {
+            String userInput = sc.nextLine();
+            if (userInput.equals("bye")) {
                 exited = true;
             }
+            else if (userInput.equals("list")) {
+                displayList();
+            }
             else {
-                echoMessage(toEcho);
+                appendList(userInput);
             }
         }
         sayBye();
@@ -41,7 +54,7 @@ public class Duke {
      *  Displays an exit message.
      */
     public void sayBye() {
-        System.out.println("Bye. Hope to see you again soon!\n");
+        System.out.println("\nBye. Hope to see you again soon!");
     }
 
     /**
@@ -51,5 +64,34 @@ public class Duke {
      */
     public void echoMessage(String input) {
         System.out.println(input + "\n");
+    }
+
+    /**
+     * Displays the current list of items with their respective indices.
+     * Skips null or uninitialized elements in the list.
+     */
+    public void displayList() {
+        System.out.println();
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] != null) {
+                System.out.printf("%d. %s\n", i + 1, list[i]);
+            }
+        }
+        System.out.println();
+    }
+
+    /**
+     * Appends the given input to the list at the first available slot.
+     *
+     * @param input The input to be added to the list.
+     */
+    public void appendList(String input) {
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == null) {
+                list[i] = input;
+                System.out.println("\nadded: " + input + "\n");
+                return;
+            }
+        }
     }
 }
