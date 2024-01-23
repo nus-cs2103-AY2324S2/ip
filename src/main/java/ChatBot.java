@@ -115,7 +115,31 @@ public class ChatBot {
     public void addTask(String description) {
         this.addTask(new Task(description));
     }
+    public void deleteTask(String parameters) {
+        try {
+            if (parameters.isEmpty()) {
+                throw new ChatBotParameterException("Missing task number \n" +
+                        "try: delete <task_number>");
+            }
+            this.deleteTask(Integer.parseInt(parameters));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task number \n" +
+                    "try: delete <task_number>");
+        } catch (ChatBotParameterException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    public void deleteTask(int taskNumber) {
+        try {
+            Task taskToBeDeleted = this.tasks.remove(taskNumber - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(taskToBeDeleted);
+            this.displayTasksSize();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("The task does not exists in the task list.");
+        }
+    }
     public void listTasks() {
         int count = 0;
         System.out.println("Here are the list of your task in the list: ");
@@ -252,6 +276,7 @@ public class ChatBot {
                 ", farewells=" + farewells +
                 '}';
     }
+
 
 
 }

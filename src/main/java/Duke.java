@@ -91,6 +91,9 @@ public class Duke {
                     case "event":
                         Paimon.addEvent(parameters);
                         break;
+                    case "delete":
+                        Paimon.deleteTask(parameters);
+                        break;
                     case "bye":
                         Paimon.bye();
                         return;
