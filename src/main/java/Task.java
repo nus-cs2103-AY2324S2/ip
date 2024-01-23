@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private final String description;
     private boolean isDone;
 
@@ -21,10 +21,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.description;
-    }
-
-    public String toStringInList() {
-        return "[" + getStatusIcon() + "] " + this;
+        return "[" + getStatusIcon() + "] " + this.description;
     }
 }
