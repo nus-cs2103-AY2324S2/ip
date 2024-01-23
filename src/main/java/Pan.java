@@ -68,6 +68,7 @@ public class Pan {
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                break;
             }
         }
         scanner.close();
