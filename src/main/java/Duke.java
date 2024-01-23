@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
@@ -15,6 +16,14 @@ public class Duke {
         String markTxt = "\tNice! I've marked this task as done:\n";
         String unmarkTxt = "\tOK, I've marked this task as not done yet:\n";
         String addTaskTxt = "\tGot it. I've added this task:\n";
+        String invalidTxt = "\tSorry, what do you mean?\n";
+        String noDescTxt = "\tPlease provide the description of your ";
+        String deadlineFormTxt = "\tSorry! Please use the given format for deadline tasks:\n" +
+                "\t\tdeadline (description) /by (due date/time)\n";
+        String eventFormTxt = "\tSorry! Please use the given format for event tasks:\n" +
+                "\t\tevent (description) /from (start) /to (end)\n";
+        String noStartTxt = "\tHey, please let me know the start date/time for this task!";
+        String noEndTxt = "\tHey, please let me know the end date/time for this task!";
 
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
@@ -66,50 +75,85 @@ public class Duke {
 
             // else add new task
             else if (cmd.equals("todo")) {
-                Task newTask = new ToDo(fullCmd.substring(5));
-                store[numItems++] = newTask;
-                System.out.println(
-                        lineTxt + addTaskTxt +
-                                "\t\t" + newTask + "\n"
-                        + "\tNow you have " +
-                                numItems + " tasks in the list.\n"
-                                + lineTxt
-                );
+                try {
+                    if (fullCmd.length() < 5) throw new DukeException("Description Blank");
+                    String name = fullCmd.substring(5);
+                    if (name.trim().isEmpty()) throw new DukeException("Description Blank");
+                    Task newTask = new ToDo(name);
+                    store[numItems++] = newTask;
+                    System.out.println(
+                            lineTxt + addTaskTxt +
+                                    "\t\t" + newTask + "\n" + "\tNow you have " +
+                                    numItems + " tasks in the list.\n"
+                                    + lineTxt
+                    );
+                } catch (DukeException e) {
+                    System.out.println(lineTxt + noDescTxt + "todo task!\n" + lineTxt);
+                }
             }
 
             else if (cmd.equals("deadline")) {
-                String name = fullCmd.substring(9)
-                        .split("/")[0];
-                String dueDate = fullCmd.split("/")[1].substring(3);
-                Task newTask = new Deadline(name, dueDate);
-                store[numItems++] = newTask;
-                System.out.println(
-                        lineTxt + addTaskTxt +
-                                "\t\t" + newTask + "\n"
-                                + "\tNow you have " +
-                                numItems + " tasks in the list.\n"
-                                + lineTxt
-                );
+                try {
+                    String[] fullCmdArr = fullCmd.split("/");
+                    if (fullCmdArr.length != 2) throw new DukeException("Improper Format");
+                    if (!fullCmdArr[1].substring(0, Math.min(3, fullCmdArr[1].length())).equals("by ")) throw new DukeException("Improper Format");
+
+                    String name = fullCmdArr[0].substring(9);
+                    String dueDate = fullCmd.split("/")[1].substring(3);
+                    if (name.trim().isEmpty()) throw new DukeException("Description Blank");
+                    if (dueDate.trim().isEmpty()) throw new DukeException("End Blank");
+
+                    Task newTask = new Deadline(name, dueDate);
+                    store[numItems++] = newTask;
+                    System.out.println(
+                            lineTxt + addTaskTxt +
+                                    "\t\t" + newTask + "\n"
+                                    + "\tNow you have " +
+                                    numItems + " tasks in the list.\n"
+                                    + lineTxt
+                    );
+                } catch (DukeException e) {
+                    String errorMsg = e.getMessage();
+                    if (errorMsg.equals("Improper Format")) System.out.println(lineTxt + deadlineFormTxt + lineTxt);
+                    if (errorMsg.equals("Description Blank")) System.out.println(lineTxt + noDescTxt + "deadline task!\n" + lineTxt);
+                    if (errorMsg.equals("End Blank")) System.out.println(lineTxt + noEndTxt + "\n" + lineTxt);
+                }
             }
 
             else if (cmd.equals("event")) {
-                String name = fullCmd.substring(6)
-                        .split("/")[0];
-                String start = fullCmd.split("/")[1].substring(5);
-                String end = fullCmd.split("/")[2].substring(3);
-                Task newTask = new Event(name, start, end);
-                store[numItems++] = newTask;
-                System.out.println(
-                        lineTxt + addTaskTxt +
-                                "\t\t" + newTask + "\n"
-                                + "\tNow you have " +
-                                numItems + " tasks in the list.\n"
-                                + lineTxt
-                );
+                try {
+                    String[] fullCmdArr = fullCmd.split("/");
+                    if (fullCmdArr.length != 3) throw new DukeException("Improper Format");
+                    if (!fullCmdArr[1].substring(0, Math.min(5, fullCmdArr[1].length())).equals("from ")) throw new DukeException("Improper Format");
+                    if (!fullCmdArr[2].substring(0, Math.min(3, fullCmdArr[2].length())).equals("to ")) throw new DukeException("Improper Format");
+
+                    String name = fullCmdArr[0].substring(6);
+                    String start = fullCmdArr[1].substring(5);
+                    String end = fullCmdArr[2].substring(3);
+                    if (name.trim().isEmpty()) throw new DukeException("Description Blank");
+                    if (start.trim().isEmpty()) throw new DukeException("Start Blank");
+                    if (end.trim().isEmpty()) throw new DukeException("End Blank");
+
+                    Task newTask = new Event(name, start, end);
+                    store[numItems++] = newTask;
+                    System.out.println(
+                            lineTxt + addTaskTxt +
+                                    "\t\t" + newTask + "\n"
+                                    + "\tNow you have " +
+                                    numItems + " tasks in the list.\n"
+                                    + lineTxt
+                    );
+                } catch (DukeException e) {
+                    String errorMsg = e.getMessage();
+                    if (errorMsg.equals("Improper Format")) System.out.println(lineTxt + eventFormTxt + lineTxt);
+                    if (errorMsg.equals("Description Blank")) System.out.println(lineTxt + noDescTxt + "deadline task!\n" + lineTxt);
+                    if (errorMsg.equals("Start Blank")) System.out.println(lineTxt + noStartTxt + "\n" + lineTxt);
+                    if (errorMsg.equals("End Blank")) System.out.println(lineTxt + noEndTxt + "\n" + lineTxt);
+                }
             }
 
             else {
-                System.out.println("Invalid Command");
+                System.out.println(lineTxt + invalidTxt + lineTxt);
             }
         }
     }
