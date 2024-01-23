@@ -95,7 +95,7 @@ public class Duke {
         System.out.println("Understood. I've added this task:\n "
                 + tasks[Task.currentTaskNo-1].toString()
                 + "\nNow you have " + Integer.toString(Task.currentTaskNo)
-                + " task(s) in the list.");
+                + " task(s) in the list.\n");
     }
 
     /**
