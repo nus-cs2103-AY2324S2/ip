@@ -1,7 +1,13 @@
+import java.util.Scanner;
+
 public class Duke {
+    
+    /** Scanner for user input. */
+    public static Scanner input = new Scanner(System.in);
 
     /**
-     * Prints a message to the terminal, decorated with the Louie icon.
+     * Prints a message to the terminal, decorated with the Louie icon. 
+     * Printing an empty string just outputs the icon
      *
      * @param message The message to print.
      */
@@ -25,7 +31,14 @@ public class Duke {
     public static void main(String[] args) {
         Duke.print("Hello, my name is... Louie!!!!\n" + 
                    "What can I do for you today?");
-        Duke.print("Ok, going to sleep...");
+        while (true) {
+            String str = input.nextLine();
+            if (str.equals("bye")) {
+                Duke.print("Ok, going to sleep...");
+                break;
+            }
+            Duke.print(str);
+        }        
 
     }
 }
