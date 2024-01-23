@@ -1,21 +1,19 @@
-package main.java;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Huyang {
-    private String logo =
-            "  ___ ___                                      \n" +
-                    " /   |   \\ __ __ ___.__._____    ____    ____  \n" +
-                    "/    ~    \\  |  <   |  |\\__  \\  /    \\  / ___\\ \n" +
-                    "\\    Y    /  |  /\\___  | / __ \\|   |  \\/ /_/  >\n" +
-                    " \\___|_  /|____/ / ____|(____  /___|  /\\___  / \n" +
-                    "       \\/        \\/          \\/     \\//_____/  ";
+//    private String logo =
+//            "  ___ ___                                      \n" +
+//                    " /   |   \\ __ __ ___.__._____    ____    ____  \n" +
+//                    "/    ~    \\  |  <   |  |\\__  \\  /    \\  / ___\\ \n" +
+//                    "\\    Y    /  |  /\\___  | / __ \\|   |  \\/ /_/  >\n" +
+//                    " \\___|_  /|____/ / ____|(____  /___|  /\\___  / \n" +
+//                    "       \\/        \\/          \\/     \\//_____/  ";
 
     private ArrayList<Task> tasks = new ArrayList<>();
     public void greet() {
         System.out.println("Hello! I'm Huyang");
-        System.out.println(logo);
+//        System.out.println(logo);
         System.out.println("What can I do for you?");
     }
 
