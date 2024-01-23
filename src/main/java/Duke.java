@@ -1,10 +1,18 @@
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = "                             -------,\n"
+                    + "                            |   --  |\n"
+                    + "                            |  |  | |\n"
+                    + " ---- -   -  ---  ---  ---  |   --  |\n"
+                    + "|     |   | |   |  |  |   | |  ,----'\n"
+                    + "|     |---| |---   |   `-_  |  |     \n"
+                    + "|     |   | | \\    |  |   | |  |     \n"
+                    + " ---- -   - -  -  ---  ---   --      \n";
+        String horizontalLine = "_______________________________________________\n";
+        System.out.println(logo + horizontalLine
+                + "Oink Oink!\nI'm Chris P Bacon but you can call me ChrisP! Oink!\n"
+                + "What can I do for you today? :D\n" + horizontalLine);
+        System.out.println(horizontalLine + "Oink! Okie byee... See you soon! :)\n"
+                + horizontalLine);
     }
 }
