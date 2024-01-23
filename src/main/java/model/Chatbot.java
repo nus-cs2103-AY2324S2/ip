@@ -1,11 +1,23 @@
 package model;
 
+import io.Inputter;
 import io.Message;
 import io.Outputter;
 
 public class Chatbot {
-    public static void IoLoop() {
-        Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?\n"));
-        Outputter.outputMessage(new Message("Bye. Hope to see you again soon!\n"));
+
+    private static boolean exitLoop = false;
+    public static void ioLoop() {
+        Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?\n");
+
+        while (!exitLoop) {
+            Message msg = Inputter.inputMessage();
+
+            if (exitLoop)
+                break;
+
+        }
     }
+
+    public static void
 }
