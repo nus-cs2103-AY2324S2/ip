@@ -66,6 +66,8 @@ public class Lulu {
                     mark(input);
                 } else if (firstWord.equals("unmark")) {
                     unmark(input);
+                } else if (firstWord.equals("delete")) {
+                    delete(input);
                 } else if (firstWord.equals("todo")) {
                     todo(input);
                 } else if (firstWord.equals("deadline")) {
@@ -82,11 +84,7 @@ public class Lulu {
     }
 
     public void mark(String input) {
-        try {
-            if (input.length() <= 4) {
-                throw new IncompleteInputException();
-            }
-        } catch (IncompleteInputException e) {
+        if (input.length() <= 4) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
@@ -107,11 +105,7 @@ public class Lulu {
     }
 
     public void unmark(String input) {
-        try {
-            if (input.length() <= 6) {
-                throw new IncompleteInputException();
-            }
-        } catch (IncompleteInputException e) {
+        if (input.length() <= 6) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
@@ -131,12 +125,26 @@ public class Lulu {
         }
     }
 
+    public void delete(String input) {
+        if (input.length() <= 5) {
+            print("I didn't quite understand, could you complete your command with appropriate arguments?");
+            return;
+        }
+
+        int index = Integer.valueOf(input.substring(6).strip()) - 1;
+        if (index >= this.items.size() || index < 0) {
+            print("Oops! You did not give a valid index.");
+            return;
+        }
+
+        Task task = this.items.remove(index);
+        print("Noted. I've removed this task:");
+        print("\t" + task);
+        print(String.format("Now you have %d tasks in the list.", this.items.size()));
+    }
+
     public void todo(String input) {
-        try {
-            if (input.length() <= 4) {
-                throw new IncompleteInputException();
-            }
-        } catch (IncompleteInputException e) {
+        if (input.length() <= 4) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
@@ -149,11 +157,7 @@ public class Lulu {
     }
 
     public void deadline(String input) {
-        try {
-            if (input.length() <= 8) {
-                throw new IncompleteInputException();
-            }
-        } catch (IncompleteInputException e) {
+        if (input.length() <= 8) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
@@ -175,11 +179,7 @@ public class Lulu {
     }
 
     public void event(String input) {
-        try {
-            if (input.length() <= 5) {
-                throw new IncompleteInputException();
-            }
-        } catch (IncompleteInputException e) {
+        if (input.length() <= 5) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
