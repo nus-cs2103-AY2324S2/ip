@@ -98,4 +98,18 @@ public class Methods {
             throw new WilliamException("The description of a task should not be empty. Please try again!");
         }
     }
+
+    // A method for deleting tasks from the list
+    public static void deleteFromList(String input, List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("There are no task to be deleted. Please add some task to the list first!\n");
+        } else {
+            int idOfItem = Integer.parseInt(input);
+            int actualId = idOfItem - 1;
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(tasks.get(actualId).toString());
+            tasks.remove(actualId);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+        }
+    }
 }

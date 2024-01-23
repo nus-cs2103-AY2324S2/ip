@@ -46,6 +46,9 @@ public class William {
                 case list:
                     Methods.printList(tasks);
                     break;
+                case delete:
+                    Methods.deleteFromList(texts[1], tasks);
+                    break;
                 case mark:
                     System.out.println("Nice! I've marked this task as done:");
                     Methods.markAndUnmark(texts[1], tasks);
