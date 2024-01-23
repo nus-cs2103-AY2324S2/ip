@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Tracker {
 
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     public Tracker(){
         taskList = new ArrayList<>();
@@ -12,6 +12,7 @@ public class Tracker {
         taskList.add(element);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + element.listTaskString());
+        System.out.println("Now you have " + this.taskQuantity() + " tasks in the list.");
     }
 
     public void listTasks() {
@@ -24,8 +25,12 @@ public class Tracker {
         System.out.println("Here are your tasks!");
         for (Task element: taskList) {
             index++;
-            System.out.println(index + "." + element.listTaskString());
+            System.out.println("    " + index + "." + element.listTaskString());
         }
+    }
+
+    public int taskQuantity() {
+        return taskList.size();
     }
 
     public void markTaskIndex(int index) {

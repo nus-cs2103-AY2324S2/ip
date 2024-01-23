@@ -22,7 +22,7 @@ public class Event extends Task {
     public String listTaskString() {
         return "[E]" + super.listTaskString()
                 + " (from: " + startDate
-                + " to: " + endDate;
+                + " to: " + endDate + ")";
     }
 
 

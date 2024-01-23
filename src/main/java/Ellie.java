@@ -76,7 +76,7 @@ public class Ellie {
             else if (command == Command.HELP) {
                 System.out.println("Here's a list of supported commands so far:" +
                         "\n help \n list \n mark/unmark [int] \n todo [task] \n " +
-                        "deadline [task] /by [date]  \n event [task] /from [date] /to [date]");
+                        "deadline [task] /by [date]  \n event [task] /from [date] /to [date] \n bye");
                 input = reader.nextLine();
                 continue;
             }
@@ -137,8 +137,8 @@ public class Ellie {
                 if (!stringBody.contains("/from")) {
                     System.out.println("Please add a start date for your event using '/from'!");
                 }
-                else if (!stringBody.contains("/end")) {
-                    System.out.println("Please add an end date for your event using '/by'!");
+                else if (!stringBody.contains("/to")) {
+                    System.out.println("Please add an end date for your event using '/to'!");
                 }
                 else {
                     String[] deadlineArray = stringBody.split("/from");
@@ -168,9 +168,9 @@ public class Ellie {
     }
 
     private void hello() {
-        System.out.println("Hello! I'm Ellie, your CS2103T chat bot!");
+        System.out.println("Hello! I'm Ellie, your CS2103T chat bot! I help by tracking your tasks!");
         System.out.println(logoElephant + "\n" + horizontalLine);
-        System.out.println("What can I do for you?");
+        System.out.println("What can I do for you? Type 'help' to see available commands! \n");
     }
 
     private void goodbye() {
