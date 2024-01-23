@@ -1,3 +1,4 @@
+import java.util.*;
 public class BingBong{
     public static void main(String[] args) {
 
@@ -18,7 +19,20 @@ public class BingBong{
         System.out.println(" Hello I'm BingBong");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
+        while (true) {
+            Scanner reader = new Scanner(System.in);
+            String s = reader.next();
+            if (!s.toLowerCase().equals("bye")) {
+                System.out.println("____________________________________________________________");
+                System.out.println(" " + s);
+                System.out.println("____________________________________________________________");
+            } else {
+                break;
+            }
+        }
         System.out.println("____________________________________________________________");
+        System.out.println(" Bye. Don't come back. jk!");
+        System.out.println("____________________________________________________________");
+
     }
 }
