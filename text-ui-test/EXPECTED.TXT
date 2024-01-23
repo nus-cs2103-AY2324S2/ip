@@ -24,6 +24,10 @@ Here are the tasks in your list:
 2.[D][X] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 LukeException: Task does not exist. Please give a valid task number.
+LukeException: Task does not exist. Please give a valid task number.
+Noted. I've removed this task:
+[E][ ] project meeting (from: Mon 2pm  to: 4pm)
+Now you have 2 tasks in the list.
 LukeException: Invalid command/task type.
 LukeException: Invalid command. The description cannot be empty.
 LukeException: Invalid command. Please follow the format for deadline tasks.

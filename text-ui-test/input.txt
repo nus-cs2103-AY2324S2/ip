@@ -7,6 +7,8 @@ mark 2
 unmark 1
 list
 mark 4
+delete 4
+delete 3
 hehe
 todo
 deadline read book by 3

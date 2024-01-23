@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Luke {
 
-    static String[] validCommands = {"bye", "list", "unmark", "mark", "todo", "event", "deadline"};
+    static String[] validCommands = {"bye", "list", "unmark", "mark", "todo", "event", "deadline", "delete"};
 
     private static boolean isCommandValid(String command) {
         for (String validCommand: validCommands) {
@@ -17,7 +17,7 @@ public class Luke {
 
         String name = "Luke";
 
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<Task>();
 
         int noTasks = 0;
 
@@ -40,7 +40,7 @@ public class Luke {
                 case "list":
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < noTasks; i++) {
-                        System.out.println((i + 1) + ". " + taskList[i].toString());
+                        System.out.println((i + 1) + ". " + taskList.get(i).toString());
                     }
                     break;
                 case "mark":
@@ -49,9 +49,9 @@ public class Luke {
                         if (markIndex <= 0 || markIndex > noTasks) {
                             throw new LukeException("Task does not exist. Please give a valid task number.");
                         }
-                        Task markTask = taskList[markIndex - 1];
+                        Task markTask = taskList.get(markIndex - 1);
                         markTask.setToDone();
-                        System.out.println("Nice! I've marked this task as done: ");
+                        System.out.println("Nice! I've marked this task as done:");
                         System.out.println(markTask.toString());
                     } catch (LukeException e) {
                         System.out.println(e);
@@ -63,9 +63,9 @@ public class Luke {
                         if (unmarkIndex <= 0 || unmarkIndex > noTasks) {
                             throw new LukeException("Task does not exist. Please give a valid task number.");
                         }
-                        Task unmarkTask = taskList[unmarkIndex - 1];
+                        Task unmarkTask = taskList.get(unmarkIndex - 1);
                         unmarkTask.setToNotDone();
-                        System.out.println("OK, I've marked this task as not done yet: ");
+                        System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(unmarkTask.toString());
                     } catch (LukeException e) {
                         System.out.println(e);
@@ -77,7 +77,7 @@ public class Luke {
                             throw new LukeException("Invalid command. The description cannot be empty.");
                         }
                         Todo todo = new Todo(input.substring(5));
-                        taskList[noTasks] = todo;
+                        taskList.add(todo);
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println(todo.toString());
@@ -104,7 +104,7 @@ public class Luke {
                         String by = deadlineSplit[1].substring(3);
 
                         Deadline deadline = new Deadline(deadlineDescription, by);
-                        taskList[noTasks] = deadline;
+                        taskList.add(deadline);
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println(deadline.toString());
@@ -136,7 +136,7 @@ public class Luke {
                         String to = eventSplit[2].substring(3);
 
                         Event event = new Event(eventDescription, from, to);
-                        taskList[noTasks] = event;
+                        taskList.add(event);
                         System.out.println("Got it. I've added this task:");
                         System.out.println(event.toString());
                         noTasks++;
@@ -145,7 +145,21 @@ public class Luke {
                         System.out.println(e);
                     }
                     break;
-
+                case "delete":
+                    try {
+                        int deleteIndex = Integer.valueOf(splited[1]);
+                        if (deleteIndex <= 0 || deleteIndex > noTasks) {
+                            throw new LukeException("Task does not exist. Please give a valid task number.");
+                        }
+                        Task deleteTask = taskList.get(deleteIndex - 1);
+                        taskList.remove(deleteIndex - 1);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(deleteTask.toString());
+                        noTasks--;
+                        System.out.println("Now you have " + noTasks + " tasks in the list.");
+                    } catch (LukeException e) {
+                        System.out.println(e);
+                    }
             }
             input = scanner.nextLine();
         }
