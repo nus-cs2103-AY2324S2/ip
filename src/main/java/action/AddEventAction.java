@@ -1,7 +1,6 @@
 package action;
 
 import action.exception.ActionException;
-import action.exception.MissingArgumentValueException;
 import action.util.Argument;
 import action.util.Command;
 import print.Printer;
@@ -35,17 +34,6 @@ public class AddEventAction extends Action {
         String name = findDefaultArgument(),
                 from = findArgument("from"),
                 to = findArgument("to");
-
-        // Validate arguments
-        if (name == null) {
-            throw new MissingArgumentValueException(getCommand(), "name");
-        }
-        if (from == null) {
-            throw new MissingArgumentValueException(getCommand(), "from");
-        }
-        if (to == null) {
-            throw new MissingArgumentValueException(getCommand(), "to");
-        }
 
         // Perform behaviour
         Task task = taskList.addEvent(name, from, to);

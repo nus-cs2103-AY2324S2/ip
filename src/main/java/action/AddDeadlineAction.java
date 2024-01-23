@@ -1,7 +1,6 @@
 package action;
 
 import action.exception.ActionException;
-import action.exception.MissingArgumentValueException;
 import action.util.Argument;
 import action.util.Command;
 import print.Printer;
@@ -34,14 +33,6 @@ public class AddDeadlineAction extends Action {
     public void execute(TaskList taskList) throws ActionException {
         String name = findDefaultArgument(),
                 by = findArgument("by");
-
-        // Validate arguments
-        if (name == null) {
-            throw new MissingArgumentValueException(getCommand(), "name");
-        }
-        if (by == null) {
-            throw new MissingArgumentValueException(getCommand(), "by");
-        }
 
         // Perform behaviour
         Task task = taskList.addDeadline(name, by);

@@ -32,23 +32,23 @@ public class InputParser {
         String command = input.trim().split(" ")[0];
 
         Argument[] parsedArguments = parseArguments(input);
-        if (command.equals(Command.BYE.name)) {
+        if (command.equals(Command.BYE.getName())) {
             return new ByeAction(parsedArguments);
-        } else if (command.equals(Command.LIST.name)) {
+        } else if (command.equals(Command.LIST.getName())) {
             return new ListAction(parsedArguments);
-        } else if (command.equals(Command.MARK.name)) {
+        } else if (command.equals(Command.MARK.getName())) {
             return new MarkAction(parsedArguments);
-        } else if (command.equals(Command.UNMARK.name)) {
+        } else if (command.equals(Command.UNMARK.getName())) {
             return new UnmarkAction(parsedArguments);
-        } else if (command.equals(Command.ADD_TODO.name)) {
+        } else if (command.equals(Command.ADD_TODO.getName())) {
             return new AddTodoAction(parsedArguments);
-        } else if (command.equals(Command.ADD_DEADLINE.name)) {
+        } else if (command.equals(Command.ADD_DEADLINE.getName())) {
             return new AddDeadlineAction(parsedArguments);
-        } else if (command.equals(Command.ADD_EVENT.name)) {
+        } else if (command.equals(Command.ADD_EVENT.getName())) {
             return new AddEventAction(parsedArguments);
-        } else if (command.equals(Command.DELETE.name)) {
+        } else if (command.equals(Command.DELETE.getName())) {
             return new DeleteAction(parsedArguments);
-        }else {
+        } else {
             throw new UnrecognizedCommandException(command);
         }
     }

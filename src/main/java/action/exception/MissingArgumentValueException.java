@@ -1,5 +1,6 @@
 package action.exception;
 
+import action.util.Argument;
 import action.util.Command;
 
 /**
@@ -9,7 +10,7 @@ import action.util.Command;
  */
 public class MissingArgumentValueException extends ActionException {
     private final Command command;
-    private final String missingArg;
+    private final Argument missingArg;
 
     /**
      * Constructor for this ActionException with a missing argument value.
@@ -17,13 +18,13 @@ public class MissingArgumentValueException extends ActionException {
      * @param command the command
      * @param missingArg the missing argument
      */
-    public MissingArgumentValueException(Command command, String missingArg) {
+    public MissingArgumentValueException(Command command, Argument missingArg) {
         this.command = command;
         this.missingArg = missingArg;
     }
     @Override
     public String getMessage() {
-        return "OOPS!!! The argument value <" + missingArg + "> of `" + command.name + "` must be present!\n"
-                + "    Usage: `" + command.usageHint + "`";
+        return "OOPS!!! The argument value <" + missingArg.getValue() + "> of `" + command.getName() + "` must be present!\n"
+                + "    Usage: `" + command.getUsageHint() + "`";
     }
 }

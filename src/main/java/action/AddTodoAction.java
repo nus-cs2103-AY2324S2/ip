@@ -1,7 +1,6 @@
 package action;
 
 import action.exception.ActionException;
-import action.exception.MissingArgumentValueException;
 import action.util.Argument;
 import action.util.Command;
 import print.Printer;
@@ -33,11 +32,6 @@ public class AddTodoAction extends Action {
     @Override
     public void execute(TaskList taskList) throws ActionException {
         String name = findDefaultArgument();
-
-        // Validate arguments
-        if (name == null) {
-            throw new MissingArgumentValueException(getCommand(), "name");
-        }
 
         // Perform behaviour
         Task task = taskList.addTodo(name);

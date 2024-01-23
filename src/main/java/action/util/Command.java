@@ -1,5 +1,8 @@
 package action.util;
 
+import action.exception.ActionException;
+import action.exception.MissingArgumentException;
+
 import java.lang.StringBuilder;
 
 /**
@@ -63,17 +66,17 @@ public enum Command {
     /**
      * Stores the usage hint for this command.
      */
-    public final String usageHint;
+    private final String usageHint;
 
     /**
      * Stores this command name.
      */
-    public final String name;
+    private final String name;
 
     /**
      * Stores the arguments of this command.
      */
-    public final Argument[] arguments;
+    private final Argument[] arguments;
 
     /**
      * Constructor for this command, which parses the arguments.
@@ -85,7 +88,7 @@ public enum Command {
      */
     Command(Argument... arguments) {
         // Name of the argument is the first argument
-        this.name = arguments[0].name;
+        this.name = arguments[0].getName();
         this.arguments = arguments;
         this.usageHint = generateUsageHint(arguments);
     }
@@ -103,18 +106,74 @@ public enum Command {
                 usageString.append("/");
             }
             usageString
-                    .append(arguments[i].name)
+                    .append(arguments[i].getName())
                     .append(" ");
 
-            if (arguments[i].value != null) {
+            if (arguments[i].getValue() != null) {
                 // not null indicates that a value should be present.
                 usageString
                         .append("<")
-                        .append(arguments[i].value)
+                        .append(arguments[i].getValue())
                         .append("> ");
             }
         }
         usageString.deleteCharAt(usageString.length() - 1);
         return usageString.toString();
+    }
+
+    /**
+     * Checks if the command expects an argument name.
+     *
+     * @param otherArgument the argument with the name to find
+     * @return true if the command has that argument name, otherwise false
+     */
+    public boolean hasArgumentName(Argument otherArgument) {
+        for (Argument arg : arguments) {
+            if (arg.hasSameArgumentName(otherArgument)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Gets the command usage hint.
+     *
+     * @return the usage hint
+     */
+    public String getUsageHint() {
+        return usageHint;
+    }
+
+    /**
+     * Gets the name of the command.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Validates the supplied argument names and values
+     *
+     * @param suppliedArguments the argument names
+     * @throws ActionException If an argument is missing.
+     */
+    public void validateSuppliedArguments(Argument[] suppliedArguments) throws ActionException {
+        for (Argument expectedArg : this.arguments) {
+            boolean isRecognized = false;
+            for (Argument suppliedArg : suppliedArguments) {
+                if (expectedArg.hasSameArgumentName(suppliedArg)) {
+                    expectedArg.validateArgument(this, suppliedArg);
+                    isRecognized = true;
+                    break;
+                }
+            }
+
+            if (!isRecognized) {
+                throw new MissingArgumentException(this, expectedArg);
+            }
+        }
     }
 }

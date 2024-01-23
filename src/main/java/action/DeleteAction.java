@@ -2,7 +2,6 @@ package action;
 
 import action.exception.ActionException;
 import action.exception.InvalidArgumentValueException;
-import action.exception.MissingArgumentValueException;
 import action.util.Argument;
 import action.util.Command;
 import print.Printer;
@@ -32,11 +31,6 @@ public class DeleteAction extends Action {
     @Override
     public void execute(TaskList taskList) throws ActionException {
         String indexString = findDefaultArgument();
-
-        // Validate arguments
-        if (indexString == null) {
-            throw new MissingArgumentValueException(getCommand(), "name");
-        }
 
         // Validate indexString as an integer
         int index;

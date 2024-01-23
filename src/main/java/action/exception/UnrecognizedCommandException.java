@@ -6,17 +6,17 @@ package action.exception;
  * @author Titus Chew
  */
 public class UnrecognizedCommandException extends ActionException {
-    private final String name;
+    private final String commandName;
     /**
      * Constructor for this ActionException for unrecognized commands.
      *
-     * @param name the name of the command
+     * @param commandName the name of the command
      */
-    public UnrecognizedCommandException(String name) {
-        this.name = name;
+    public UnrecognizedCommandException(String commandName) {
+        this.commandName = commandName;
     }
     @Override
     public String getMessage() {
-        return "OOPS!!! I'm sorry, but I don't know what `" + name + "` means :-(";
+        return "OOPS!!! I'm sorry, but I don't know what `" + commandName + "` means :-(";
     }
 }

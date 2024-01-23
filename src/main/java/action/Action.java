@@ -2,7 +2,6 @@ package action;
 
 import action.exception.ActionException;
 import action.exception.UnrecognizedArgumentException;
-import action.exception.MissingArgumentException;
 import action.util.Argument;
 import action.util.Command;
 import task.TaskList;
@@ -20,7 +19,7 @@ public abstract class Action {
     private final Argument[] arguments;
 
     /**
-     * Constructor for this action.
+     * Constructor for this action, which validates that it's arguments are valid.
      *
      * @param command the command associated with this action
      * @param arguments the arguments supplied with the command
@@ -30,7 +29,7 @@ public abstract class Action {
         this.command = command;
         this.arguments = arguments;
         validateExpectedArguments();
-        validateSuppliedArguments();
+        command.validateSuppliedArguments(arguments);
     }
 
     /**
@@ -49,41 +48,11 @@ public abstract class Action {
      */
     private void validateExpectedArguments() throws UnrecognizedArgumentException {
         for (Argument suppliedArg : arguments) {
-            boolean isRecognized = false;
-            for (Argument expectedArg : command.arguments) {
-                if (expectedArg.name.equals(suppliedArg.name)) {
-                    isRecognized = true;
-                    break;
-                }
-            }
-
-            if (!isRecognized) {
-                throw new UnrecognizedArgumentException(command, suppliedArg.name);
+            if (!command.hasArgumentName(suppliedArg)) {
+                throw new UnrecognizedArgumentException(command, suppliedArg);
             }
         }
     }
-
-    /**
-     * Validates the argument names.
-     *
-     * @throws MissingArgumentException If an argument is missing.
-     */
-    private void validateSuppliedArguments() throws MissingArgumentException {
-        for (Argument expectedArg : command.arguments) {
-            boolean isRecognized = false;
-            for (Argument suppliedArg : arguments) {
-                if (expectedArg.name.equals(suppliedArg.name)) {
-                    isRecognized = true;
-                    break;
-                }
-            }
-
-            if (!isRecognized) {
-                throw new MissingArgumentException(command, expectedArg.name);
-            }
-        }
-    }
-
 
     /**
      * Finds the value of this action's argument by the argument name.
@@ -93,8 +62,8 @@ public abstract class Action {
      */
     final String findArgument(String name) {
         for (Argument arg : arguments) {
-            if (arg.name.equals(name)) {
-                return arg.value;
+            if (arg.getName().equals(name)) {
+                return arg.getValue();
             }
         }
         // null represents that the argument of that name does not exist.
@@ -107,7 +76,7 @@ public abstract class Action {
      * @return the value of the default argument
      */
     final String findDefaultArgument() {
-        return findArgument(command.name);
+        return findArgument(command.getName());
     }
 
     /**

@@ -24,8 +24,8 @@ public class InvalidArgumentValueException extends ActionException {
     }
     @Override
     public String getMessage() {
-        return "OOPS!!! The argument value <" + invalidArg + "> of `" + command.name + "` is invalid!\n"
+        return "OOPS!!! The argument value <" + invalidArg + "> of `" + command.getName() + "` is invalid!\n"
                 + "    Reason: " + reason + "\n"
-                + "    Usage: `" + command.usageHint + "`\n";
+                + "    Usage: `" + command.getUsageHint() + "`\n";
     }
 }

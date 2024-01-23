@@ -4,11 +4,12 @@ import action.util.Argument;
 import action.util.Command;
 
 /**
- * UnrecognizedArgumentException represents exceptions due to an unrecognized argument name in the action.
+ * UnexpectedArgumentValueException represents exceptions due to the presence of a value
+ * in an argument that does not require a value.
  *
  * @author Titus Chew
  */
-public class UnrecognizedArgumentException extends ActionException {
+public class UnexpectedArgumentValueException extends ActionException {
     private final Argument argument;
     private final Command command;
 
@@ -16,15 +17,15 @@ public class UnrecognizedArgumentException extends ActionException {
      * Constructor for this ActionException for unrecognized argument names.
      *
      * @param command the command
-     * @param argument the name of the argument
+     * @param argument the argument
      */
-    public UnrecognizedArgumentException(Command command, Argument argument) {
+    public UnexpectedArgumentValueException(Command command, Argument argument) {
         this.argument = argument;
         this.command = command;
     }
     @Override
     public String getMessage() {
-        return "OOPS!!! I'm sorry, but I don't know what `/" + argument.getName() + "` means :-(\n"
+        return "OOPS!!! I'm sorry, but I didn't expect <" + argument.getValue() + "> :-(\n"
                 + "    Usage: `" + command.getUsageHint() + "`";
     }
 }
