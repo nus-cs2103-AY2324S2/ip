@@ -1,10 +1,13 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Buto {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<String> textList = new ArrayList<>();
+
         System.out.println(
                 "    ____________________________________________________________\n" +
                         "     Hello! I'm Buto\n" +
@@ -13,12 +16,22 @@ public class Buto {
         );
 
         String command = br.readLine();
+        
         while (!command.equals("bye")) {
-            System.out.println(
-                    "    ____________________________________________________________\n" +
-                            String.format("    %s\n", command) +
-                            "    ____________________________________________________________"
-            );
+            if (command.equals("list")) {
+                System.out.println("    ____________________________________________________________\n");
+                for (int i = 1; i <= textList.size(); i++) {
+                    System.out.println(String.format("    %d. %s\n", i, textList.get(i-1)));
+                }
+                System.out.println("    ____________________________________________________________\n");
+            } else {
+                textList.add(command);
+                System.out.println(
+                        "    ____________________________________________________________\n" +
+                                String.format("    added: %s\n", command) +
+                                "    ____________________________________________________________\n"
+                );
+            }
             command = br.readLine();
         }
 
