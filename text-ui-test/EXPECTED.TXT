@@ -51,5 +51,81 @@ Here are the tasks in your list:
 5. [T][ ] borrow book
 ------------------------------------------------
 ------------------------------------------------
+I'm sorry, I don't understand this command: todof
+------------------------------------------------
+------------------------------------------------
+Error! You cannot provide a todo with no description!
+------------------------------------------------
+------------------------------------------------
+Error! You cannot provide a deadline with no parameters!
+------------------------------------------------
+------------------------------------------------
+Error! You must provide a /by date/time for a deadline!
+------------------------------------------------
+------------------------------------------------
+Error! You must provide a /by date/time for a deadline!
+------------------------------------------------
+------------------------------------------------
+Error! You cannot provide a deadline with no description!
+------------------------------------------------
+------------------------------------------------
+Error! You cannot provide a deadline with no description!
+------------------------------------------------
+------------------------------------------------
+Got it. I've added this task:
+[D][ ] level 1 (by: tomorrow)
+Now you have 6 tasks in the list.
+------------------------------------------------
+------------------------------------------------
+Error! You cannot provide an event with no parameters!
+------------------------------------------------
+------------------------------------------------
+Error! You must provide a /from date/time for an event!
+------------------------------------------------
+------------------------------------------------
+I'm sorry, I don't understand this command: eventd
+------------------------------------------------
+------------------------------------------------
+Error! You must provide a /from date/time for an event!
+------------------------------------------------
+------------------------------------------------
+Error! You must provide a /to date/time for an event!
+------------------------------------------------
+------------------------------------------------
+Error! You must provide a /to date/time for an event!
+------------------------------------------------
+------------------------------------------------
+Error! The /from field is empty!
+------------------------------------------------
+------------------------------------------------
+Got it. I've added this task:
+[E][ ] my birthday (from: today to: next year)
+Now you have 7 tasks in the list.
+------------------------------------------------
+------------------------------------------------
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4. [T][X] join sports club
+5. [T][ ] borrow book
+6. [D][ ] level 1 (by: tomorrow)
+7. [E][ ] my birthday (from: today to: next year)
+------------------------------------------------
+------------------------------------------------
+Ok, I've marked this task as not done yet:
+[T][ ] join sports club
+------------------------------------------------
+------------------------------------------------
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4. [T][ ] join sports club
+5. [T][ ] borrow book
+6. [D][ ] level 1 (by: tomorrow)
+7. [E][ ] my birthday (from: today to: next year)
+------------------------------------------------
+------------------------------------------------
 Bye. Hope to see you again soon!
 ------------------------------------------------

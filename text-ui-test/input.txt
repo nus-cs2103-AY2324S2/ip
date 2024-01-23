@@ -7,4 +7,23 @@ mark 4
 list
 todo borrow book
 list
+todof go to school
+todo
+deadline
+deadline level 1
+deadline level 1 /by
+deadline /by tomorrow
+deadline /by
+deadline level 1 /by tomorrow
+event
+event my birthday
+eventd
+event my birthday /from
+event my birthday /from today
+event my birthday /from today /to
+event my birthday /from /to next year
+event my birthday /from today /to next year
+list
+unmark 4
+list
 bye
