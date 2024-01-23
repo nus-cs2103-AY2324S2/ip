@@ -4,14 +4,14 @@ public class Task {
     protected boolean isDone;
     protected String startDate;
     protected String endDate;
-    protected char type;
+    protected char taskType;
 
     // To-do
     public Task(String description, int id) {
         this.description = description;
         this.isDone = false;
         this.id = id;
-        this.type = 'T';
+        this.taskType = 'T';
     }
 
     // Deadline
@@ -20,7 +20,7 @@ public class Task {
         this.isDone = false;
         this.id = id;
         this.endDate = end;
-        this.type = 'D';
+        this.taskType = 'D';
     }
 
     // Event
@@ -28,7 +28,7 @@ public class Task {
         this.description = description;
         this.isDone = false;
         this.id = id;
-        this.type = 'E';
+        this.taskType = 'E';
         this.startDate = start;
         this.endDate = end;
     }
@@ -38,9 +38,16 @@ public class Task {
     }
 
     public String getFullStatus() {
-        return this.id + ". [" + this.getStatusIcon() + "] ["
-                + this.type + "] "
+        String status = this.id + ". [" + this.getStatusIcon() + "] ["
+                + this.taskType + "] "
                 + this.description;
+        if (this.taskType == 'E') {
+            status += "; from: " + this.startDate;
+        }
+        if (this.taskType == 'D' || this.taskType == 'E') {
+            status += "; end: " + this.endDate;
+        }
+        return status;
     }
 
     public void setDone(boolean doneness) {

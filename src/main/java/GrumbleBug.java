@@ -38,9 +38,9 @@ public class GrumbleBug {
 
         while (true) {
             String input1 = sc.nextLine();
-            String words[] = input1.split(" ");
-            String firstWord = words[0];
-            String secondWord = words.length > 1 ? words[1] : null;
+//            String words[] = input1.split(" ");
+//            String firstWord = words[0];
+//            String secondWord = words.length > 1 ? words[1] : null;
             if (input1.equals("byebye")) {
                 System.exit(0);
             } else if (input1.equals("list")) { // show the list!
@@ -49,21 +49,46 @@ public class GrumbleBug {
                         + "You have these things in your list...";
                 System.out.println(reply);
                 GrumbleBug.printList(myList);
-            } else if (firstWord.equals("mark") && isInt(secondWord)) {
-                int u = Integer.parseInt(secondWord);
+            } else if (input1.equals("mark")) {
+                System.out.println("Which task to mark? Give me the number");
+                int u = Integer.parseInt(sc.nextLine());
                 myList.get(u-1).setDone(true);
                 System.out.println("Ok, marked it.");
-            } else if (firstWord.equals("unmark") && isInt(secondWord)) {
-                int u = Integer.parseInt(secondWord);
+            } else if (input1.equals("unmark")) {
+                System.out.println("Which task to unmark? Give me the number");
+                int u = Integer.parseInt(sc.nextLine());
                 myList.get(u-1).setDone(false);
                 System.out.println("Ugh, unmarked it.");
-            } else { // add to list
+                String taskStr = sc.nextLine();
+            } else if (input1.equals("todo")) { // add to list
                 Task task = new Task(input1, myList.size() + 1);
                 myList.add(task);
                 String reply = "GrumbleBug:"
-                    + "_______________________________________\n"
-                    + "Fine, added your stupid " + input1 + "."
-                    + "\n_______________________________________\n";
+                        + "_______________________________________\n"
+                        + "Fine, added your stupid " + input1 + "."
+                        + "\n_______________________________________\n";
+                System.out.println(reply);
+            } else if (input1.equals("deadline")) { // add to list
+                System.out.println("Wow ok.. due by?");
+                String endDate = sc.nextLine();
+                Task task = new Task(input1, myList.size() + 1, endDate);
+                myList.add(task);
+                String reply = "GrumbleBug:"
+                        + "_______________________________________\n"
+                        + "K, better finish " + input1 + " on time."
+                        + "\n_______________________________________\n";
+                System.out.println(reply);
+            } else if (input1.equals("event")) { // add to list
+                System.out.println("Start date?");
+                String startDate = sc.nextLine();
+                System.out.println("End date?");
+                String endDate = sc.nextLine();
+                Task task = new Task(input1, myList.size() + 1, startDate, endDate);
+                myList.add(task);
+                String reply = "GrumbleBug:"
+                        + "_______________________________________\n"
+                        + "Better not miss your silly " + input1 + " event."
+                        + "\n_______________________________________\n";
                 System.out.println(reply);
             }
         }
