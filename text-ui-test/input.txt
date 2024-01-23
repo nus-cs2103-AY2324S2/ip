@@ -1,3 +1,4 @@
+delete 1
 todo borrow book
 mark 1
 unmark 1
@@ -13,4 +14,6 @@ event
 event return book
 event return book /from tmr
 blah
+delete 1
+delete
 bye
