@@ -17,7 +17,6 @@ public class Duke {
 
     public void printGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
-        printHorizontalLine(60);
     }
 
     public static void main(String[] args) {
@@ -33,19 +32,29 @@ public class Duke {
         duke.printIntroduction();
         while (loop) {
             String line = scanner.nextLine();
+            String[] words = line.split(" ");
             duke.printHorizontalLine(60);
-            if (line.equals("bye")) {
-                loop = false;
+            if (words[0].equals("bye")) {
                 duke.printGoodbye();
-            } else if (line.equals("list")) {
+                loop = false;
+            } else if (words[0].equals("list")) {
                 System.out.println(duke.tasks);
-                duke.printHorizontalLine(60);
+            } else if (words[0].equals("mark")) {
+                Task task = duke.tasks.getTask(Integer.parseInt(words[1]) - 1);
+                task.markAsDone();
+                System.out.println("Nice! I have marked this task as done:");
+                System.out.println(task);
+            } else if (words[0].equals("unmark")) {
+                Task task = duke.tasks.getTask(Integer.parseInt(words[1]) - 1);
+                task.unmarkDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(task);
             } else {
                 Task task = new Task(line);
                 System.out.printf("added: %s\n", task);
                 duke.tasks.addTask(task);
-                duke.printHorizontalLine(60);
             }
+            duke.printHorizontalLine(60);
         }
     }
 }

@@ -10,6 +10,9 @@ public class TaskList {
         this.taskList.add(t);
     }
 
+    public Task getTask(int i) {
+        return this.taskList.get(i);
+    }
     @Override
     public String toString() {
         StringBuffer output = new StringBuffer();
