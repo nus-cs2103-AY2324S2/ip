@@ -40,30 +40,28 @@ class ToDo extends Task {
 
 class Deadline extends Task {
     private String by;
-    public Deadline (String deadline) {
-        String[] token = deadline.split(" /by ");
-        super(token[0]);
-        this.by = token[1];
+    public Deadline (String deadline, String by) {
+        super(deadline);
+        this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
 }
 
 class Event extends Task {
     private String from;
     private String to;
-    public Event(String event) {
-        String[] token = event.split(" /from |\\ /to ");
-        super(token[0]);
-        this.from = token[1];
-        this.to = token[2];
+    public Event(String event, String from, String to) {
+        super(event);
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.from + " to: " + this.to;
+        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 }
