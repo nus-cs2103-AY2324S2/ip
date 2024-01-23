@@ -1,3 +1,6 @@
+import java.util.Scanner;
+
+
 public class ui {
     static String nameLogo =
             "__/\\\\\\________/\\\\\\_____/\\\\\\\\\\\\\\\\\\_____/\\\\\\____________________________/\\\\\\\\\\\\\\\\\\________/\\\\\\\\\\\\\\________/\\\\\\\\\\\\\\________/\\\\\\\\\\\\\\____        \n" +
@@ -13,11 +16,30 @@ public class ui {
     static String divider = "_____________________________________";
 
     public static void main(String[] args) {
+        // greet user
         System.out.println(divider);
-        System.out.println("Hello from\n" + nameLogo);
+        System.out.println("Good afternoon, gentlemen. I am\n" + nameLogo);
         System.out.println("How may I assist you?");
         System.out.println(divider);
-        System.out.println("Goodbye");
+
+        //take in input
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+
+            String userInput = scanner.nextLine();
+
+            if (userInput.equalsIgnoreCase("bye")) {
+                break;
+            }
+
+            System.out.println(divider);
+            System.out.println(userInput);
+            System.out.println(divider);
+        }
+
+        System.out.println(divider);
+        System.out.println("This mission is too important for me to allow you to jeopardize it. Goodbye.");
+        System.out.println(divider);
 
     }
 }
