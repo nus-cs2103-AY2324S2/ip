@@ -4,7 +4,7 @@ import Models.Event;
 import Utils.StringUtils;
 
 public class EventDao {
-  private static final String name = "event";
+  public static final String name = "event";
   private static final String fromString = "/from";
   private static final String toString = "/to";
   public static Event getFrom(String input) {

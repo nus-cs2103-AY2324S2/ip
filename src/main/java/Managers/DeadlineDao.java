@@ -4,7 +4,7 @@ import Models.Deadline;
  import Utils.StringUtils;
 
 public class DeadlineDao {
-  private static final String name = "deadline";
+  public static final String name = "deadline";
   private static final String byString = "/by";
 
   public static Deadline getFrom(String input) {

@@ -6,8 +6,16 @@ import Models.Deadline;
 import Models.Event;
 import Models.Task;
 import Models.Todo;
+import Utils.StringUtils;
 
 public class TaskManager {
+
+  public static final String mark = "mark";
+  public static final String unmark = "unmark";
+  public static final String list = "list";
+  public static final String delete = "delete";
+  public static final String bye = "bye";
+
   private List<Task> tasks = new ArrayList<>();
   
   private Task get(int i) {
@@ -18,8 +26,7 @@ public class TaskManager {
     System.out.println("--------------------");
   }
 
-  protected void add(String input) {
-    Task task = new Task(input);
+  protected void add(Task task) {
     this.printSeparator();
     System.out.println("Got it, I've added this task: \n  " + task);
     tasks.add(task);
@@ -27,10 +34,12 @@ public class TaskManager {
     this.printSeparator();
   }
 
-  protected void add(Task task) {
+  protected void delete(String input) {
+    int i = Integer.parseInt(StringUtils.getValueOfCommand(input, delete, null)) - 1;
+
     this.printSeparator();
-    System.out.println("Got it, I've added this task: \n  " + task);
-    tasks.add(task);
+    Task task = this.tasks.remove(i);
+    System.out.println("Noted, I've removed this task: \n  " + task);
     System.out.println("Now you have " + tasks.size() + " tasks in the list");
     this.printSeparator();
   }
@@ -58,19 +67,21 @@ public class TaskManager {
       String command = getCommand(input);
       // Decided to pass the entire input instead because otherwise we would have to parse the input into command and value
       // which would not be appropriate here since it includes a list() function too
-      if (command.equals("todo")) {
+      if (command.equals(TodoDao.name)) {
         addTodo(input);
-      } else if (command.equals("deadline")) {
+      } else if (command.equals(DeadlineDao.name)) {
         addDeadline(input);
-      } else if (command.equals("event")) {
+      } else if (command.equals(EventDao.name)) {
         addEvent(input);
-      } else if (command.equals("list")) {
+      } else if (command.equals(list)) {
         print();
-      } else if (command.equals("mark")) {
+      } else if (command.equals(mark)) {
         mark(input);
-      } else if (command.equals("unmark")) {
+      } else if (command.equals(unmark)) {
         unmark(input);
-      } else if (command.equals("bye")) {
+      }  else if (command.equals(delete)) {
+        delete(input);
+      } else if (command.equals(bye)) {
         return;
       } else {
         throw new IllegalArgumentException("Command not recognized");
@@ -96,11 +107,8 @@ public class TaskManager {
     this.add(event);
   }
 
-
   private void mark(String input) {
-    String value = getValue(input);
-
-    int taskIndex = Integer.parseInt(value) - 1;
+    int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, mark, null)) - 1;
     Task task = this.get(taskIndex);
     this.printSeparator();
     task.markAsDone();
@@ -109,14 +117,11 @@ public class TaskManager {
   }
 
   private void unmark(String input) {
-    String value = getValue(input);
-
-    int taskIndex = Integer.parseInt(value) - 1;
+    int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, unmark, null)) - 1;
     Task task = this.get(taskIndex);
     this.printSeparator();
     task.markAsUndone();
     System.out.println("Ok! I've marked this task as not yet done: \n" + task);
     this.printSeparator();
   }
-
 }
