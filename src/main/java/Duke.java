@@ -8,13 +8,15 @@ public class Duke {
         List<Task> tasksList = new ArrayList<Task>();
         System.out.println("DevGPT:\n\tHello! I'm DevGPT\nWhat can I do for you?");
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        boolean isExit = false;
+        while (!isExit) {
             try {
                 while (true) {
                     System.out.println("User:");
                     String input = scanner.nextLine();
 
                     if (input.contains("bye")) {
+                        isExit = true;
                         break;
                     }
 
@@ -28,7 +30,7 @@ public class Duke {
                         String details = input.split(" ", 2)[1];
                         Task task = new Todo(details);
                         tasksList.add(task);
-                        System.out.println("DevGPT:\n\t" + " Got it. I've added this task: \n\t" + task.toString());
+                        System.out.println("DevGPT:\n\t" + " Got it. I've added this task: \n\t\t" + task.toString());
                         System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
                     } else if (command.equals("deadline")) {
                         if (input.split(" ").length <= 3) {
@@ -43,7 +45,7 @@ public class Duke {
                         String by = details.split("/by ")[1];
                         Task task = new Deadline(description, by);
                         tasksList.add(task);
-                        System.out.println("DevGPT:\n\t" + " Got it. I've added this task: " + task.toString());
+                        System.out.println("DevGPT:\n\t" + " Got it. I've added this task: \n\t\t" + task.toString());
                         System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
                     } else if (command.equals("event")) {
                         if (input.split(" ").length <= 3) {
@@ -60,7 +62,7 @@ public class Duke {
 
                         Task task = new Event(description, from, to);
                         tasksList.add(task);
-                        System.out.println("DevGPT:\n\t" + " Got it. I've added this task: " + task.toString());
+                        System.out.println("DevGPT:\n\t" + " Got it. I've added this task: \n\t\t" + task.toString());
                         System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
                     } else if (command.equals("list")) {
                         System.out.println("DevGPT:\n\t Here are the tasks in your list:");
@@ -94,18 +96,32 @@ public class Duke {
                         task.markAsDone();
                         System.out.println("DevGPT:\n\t Nice! I've marked this task as done:");
                         System.out.println("\t" + task.toString());
+                    } else if (command.equals("delete")) {
+                        String[] split = input.split(" ");
+                        if (split.length == 1) {
+                            throw new DukeException("The index of a task cannot be empty. \n\t" +
+                                "Please use the following format: delete <index>");
+                        } else if (parseInt(split[1]) > tasksList.size() || parseInt(split[1]) < 1) {
+                            throw new DukeException("No such task exists.");
+                        }
+                        int index = Integer.parseInt(split[1]);
+                        Task task = tasksList.remove(index - 1);
+                        System.out.println("DevGPT:\n\t Poof! I've removed this task:");
+                        System.out.println("\t" + task.toString());
+                        System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
                     } else {
                         throw new DukeException(
                             "Your message is not understood. Please use the following:\n\t1. todo <description>" +
                                 "\n\t2. deadline <description> /by <date>\n\t3. event <description> /from <date> /to <date>" +
-                                "\n\t4. list\n\t5. mark <index>\n\t6. unmark <index>\n\t7. bye");
+                                "\n\t4. list\n\t5. mark <index>\n\t6. unmark <index>\n\t7. delete <index>\n\t8. bye");
                     }
 
                 }
-                    scanner.close();
-                    System.out.println("DevGPT:\n\tBye. Hope to see you again soon!");
+
+                scanner.close();
+                System.out.println("DevGPT:\n\tBye. Hope to see you again soon!");
             } catch (NumberFormatException e) {
-                System.out.println("DevGPT:\n\t" + "Input error: Please enter a number to mark / unmark the task");
+                System.out.println("DevGPT:\n\t" + "Input error: Please enter a valid number to modify task");
             }
             catch (DukeException e) {
                 System.out.println("DevGPT:\n\t" + e.getMessage());

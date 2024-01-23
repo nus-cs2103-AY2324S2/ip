@@ -4,7 +4,7 @@ What can I do for you?
 User:
 DevGPT:
 	 Got it. I've added this task:
-	[T][ ] borrow book
+		[T][ ] borrow book
 DevGPT:
 	 Now you have 1 tasks in the list.
 User:
@@ -13,12 +13,26 @@ DevGPT:
 		1. [T][ ] borrow book
 User:
 DevGPT:
-	 Got it. I've added this task: [D][ ] return book (by:Sunday)
+	 Got it. I've added this task:
+		[D][ ] return book (by:Sunday)
 DevGPT:
 	 Now you have 2 tasks in the list.
 User:
 DevGPT:
-	 Got it. I've added this task: [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	 Got it. I've added this task:
+		[E][ ] project meeting (from: Mon 2pm to: 4pm)
+DevGPT:
+	 Now you have 3 tasks in the list.
+User:
+DevGPT:
+	 Poof! I've removed this task:
+	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+DevGPT:
+	 Now you have 2 tasks in the list.
+User:
+DevGPT:
+	 Got it. I've added this task:
+		[E][ ] project meeting (from: Mon 2pm to: 4pm)
 DevGPT:
 	 Now you have 3 tasks in the list.
 User:
@@ -49,7 +63,13 @@ DevGPT:
 	Please use the following format: event <description> /from <date> /to <date>
 User:
 DevGPT:
-	Input error: Please enter a number to mark / unmark the task
+	Input error: Please enter a valid number to modify task
+User:
+DevGPT:
+	DevGPT error: No such task exists.
+User:
+DevGPT:
+	Input error: Please enter a valid number to modify task
 User:
 DevGPT:
 	DevGPT error: No such task exists.
@@ -62,8 +82,8 @@ DevGPT:
 	4. list
 	5. mark <index>
 	6. unmark <index>
-	7. bye
+	7. delete <index>
+	8. bye
 User:
 DevGPT:
 	Bye. Hope to see you again soon!
-User:
