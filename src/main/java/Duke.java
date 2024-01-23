@@ -23,7 +23,8 @@ public class Duke {
         System.out.print(sb);
     }
     public static void main(String[] args) {
-        Duke.print("Hello, my name is... Louie!!!! \nWhat can I do for you today?");
+        Duke.print("Hello, my name is... Louie!!!!\n" + 
+                   "What can I do for you today?");
         Duke.print("Ok, going to sleep...");
 
     }
