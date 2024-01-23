@@ -35,7 +35,6 @@ public class Tracker {
     }
 
     public void markTaskIndex(int index) {
-
         if (index > taskList.size()) {
             System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
             return;
@@ -50,7 +49,6 @@ public class Tracker {
     }
 
     public void unmarkTaskIndex(int index) {
-
         if (index > taskList.size()) {
             System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
             return;
@@ -61,6 +59,19 @@ public class Tracker {
 
         System.out.println("Nice! I've marked this task as not done yet:");
         System.out.println("  " + task.listTaskString() + "\n");
+
+    }
+
+    public void deleteTaskIndex (int index) {
+        if (index > taskList.size()) {
+            System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
+            return;
+        }
+
+        Task removedTask = taskList.remove(index - 1);
+        System.out.println("Got it! I've removed this task from your list:");
+        System.out.println("  " + removedTask.listTaskString() + "\n");
+
 
     }
 

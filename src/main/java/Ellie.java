@@ -22,6 +22,7 @@ public class Ellie {
         UNKNOWN,
         HELP,
         BYE,
+        DELETE,
 
     }
 
@@ -52,6 +53,9 @@ public class Ellie {
                     break;
                 case "unmark":
                     command = Command.UNMARK;
+                    break;
+                case "delete":
+                    command = Command.DELETE;
                     break;
                 case "todo":
                     command = Command.TODO;
@@ -104,8 +108,9 @@ public class Ellie {
                 if (inputArray.length < 2) {
                     throw new InvalidTaskInputException("command contains no argument");
                 }
-            } catch (InvalidTaskInputException e) {
-                System.out.println("Please input an argument! \n [command] [argument]");
+            }
+            catch (InvalidTaskInputException e) {
+                System.out.println("Please input an argument! \n [command] [argument]\n");
                 input = reader.nextLine();
                 continue;
             }
@@ -117,7 +122,7 @@ public class Ellie {
                     int index = Integer.parseInt(stringBody);
                     tracker.markTaskIndex(index);
                 } else {
-                    System.out.println("Input a valid number to mark! \n Usage: mark [int]");
+                    System.out.println("Input a valid number to mark! \n Usage: mark [int]\n");
                 }
             }
             else if (command == Command.UNMARK) {
@@ -125,8 +130,17 @@ public class Ellie {
                     int index = Integer.parseInt(stringBody);
                     tracker.unmarkTaskIndex(index);
                 } else {
-                    System.out.println("Input a valid number to unmark! \n Usage: unmark [int]");
+                    System.out.println("Input a valid number to unmark! \n Usage: unmark [int]\n");
                 }
+            }
+            else if (command == Command.DELETE) {
+                if (isNumeric(stringBody)) {
+                    int index = Integer.parseInt(stringBody);
+                    tracker.deleteTaskIndex(index);
+                } else {
+                    System.out.println("Input a valid number to delete! \n Usage: delete [int]\n");
+                }
+
             }
             else if (command == Command.TODO) {
                 Task task = new Todo(stringBody);
