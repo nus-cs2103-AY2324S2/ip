@@ -1,9 +1,10 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
 
     Scanner scanner = new Scanner(System.in);
-    ArrayList<String> todo = new ArrayList<String>();
+    ArrayList<Task> todo = new ArrayList<Task>();
     private String name = "NotDuke";
 
     private void greet() {
@@ -19,6 +20,14 @@ public class Duke {
 
         if (input.equals("list")) {
             list();
+        } else if (input.equals("unmark")) {
+            String index = scanner.next();
+            Task task = todo.get(Integer.valueOf(index) - 1);
+            task.unmark();
+        } else if (input.equals("mark")) {
+            String index = scanner.next();
+            Task task = todo.get(Integer.valueOf(index) - 1);
+            task.mark();
         } else {
             add(input);
         }
@@ -26,14 +35,15 @@ public class Duke {
     }
 
     private void add(String input) {
-        todo.add(input);
+        todo.add(new Task(input));
         System.out.println("added: " + input);
     }
 
     private void list() {
         int index = 0;
-        for (String item : todo) {
-            System.out.println(++index + ": " + item);
+        for (Task item : todo) {
+            System.out.print(++index + ".");
+            item.taskInfo();
         }
 
     }
@@ -48,3 +58,4 @@ public class Duke {
         bot.exit();
     }
 }
+
