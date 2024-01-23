@@ -1,56 +1,46 @@
 import java.util.Scanner;
 public class Bob {
-    private static boolean startsWith(String keyword, String input) {
-        int len = keyword.length();
-        return input.length() >= len && keyword.equals(input.substring(0, len));
+    public static boolean startsWith(String keyword, String input) {
+        return input.length() >= keyword.length() &&
+                keyword.equals(input.substring(0, keyword.length()));
     }
 
     private static Task getTaskFromIndex(String keyword, String input, Task[] list) {
         try {
             int num = Integer.parseInt(input.substring(keyword.length() + 1));
-            return list[num - 1];
-
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException |
-                 StringIndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
-    private static Task createTask(String input) {
-        try {
-            if (startsWith("todo ", input)) {
-                return new Todo(input.substring(5));
-
-            } else if (startsWith("deadline ", input)) {
-                int byIdx = input.indexOf(" /by ");
-                String description = input.substring(9, byIdx);
-                String by = input.substring(byIdx + 5);
-                return new Deadline(description, by);
-
-            } else if (startsWith("event ", input)) {
-                int fromIdx = input.indexOf(" /from ");
-                int toIdx = input.indexOf(" /to ");
-                if (fromIdx > toIdx) {
-                    return null;
-                }
-
-                String description = input.substring(6, fromIdx);
-                String from = input.substring(fromIdx + 7, toIdx);
-                String to = input.substring(toIdx + 5);
-                return new Event(description, from, to);
+            Task task = list[num - 1];
+            if (task == null) {
+                throw new ArrayIndexOutOfBoundsException();
             }
+            return task;
+
         } catch (StringIndexOutOfBoundsException e) {
-            return null;
+            System.out.println("OH NOSE! Task number cannot be empty..");
+        } catch (NumberFormatException e) {
+            System.out.println("OH NOSE! Task number has to be an integer..");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("OH NOSE! Task number must be in valid range..");
         }
         return null;
+    }
+
+    private static boolean addTask(Task[] list, int nxtIdx, Task task) {
+        if (task != null) {
+            list[nxtIdx] = task;
+            System.out.println("This task has been added:\n  " + task +
+                               "\n" + "Now you have " + (nxtIdx + 1) +
+                               " task(s) in total.");
+            return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
         String line = "____________________________________________________________\n";
         Scanner sc = new Scanner(System.in);
-        String input;
         Task[] list = new Task[100];
         int nxtIdx = 0;
+        String input;
 
         System.out.println(line + "Hello, I'm Bob.\nI might help if I feel like it.");
 
@@ -67,7 +57,7 @@ public class Bob {
             if ("list".equals(input)) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < nxtIdx; i++) {
-                    System.out.println(i + 1 + "." + list[i]);
+                    System.out.println((i + 1) + "." + list[i]);
                 }
 
             // mark Task as done
@@ -77,8 +67,6 @@ public class Bob {
                     task.markAsDone();
                     System.out.println("Did you actually finish this? \uD83E\uDD14:\n" +
                                        "  " + task);
-                } else {
-                    System.out.println("Incorrect mark format!\nDo: mark <task_number>");
                 }
 
             // mark Task as undone
@@ -86,23 +74,27 @@ public class Bob {
                 Task task = getTaskFromIndex("unmark", input, list);
                 if (task != null) {
                     task.markAsUndone();
-                    System.out.println("I knew you didn't finish it \uD83D\uDE0F:\n" +
+                    System.out.println("I knew you didn't finish it! \uD83D\uDE0F:\n" +
                                        "  " + task);
-                } else {
-                    System.out.println("Incorrect unmark format!\nDo: unmark <task_number>");
                 }
 
-            // add Task
-            } else {
-                Task task = createTask(input);
-                if (task != null) {
-                    list[nxtIdx++] = task;
-                    System.out.println("This task has been added:\n  " + task +
-                                       "\n" + "Now you have " + nxtIdx +
-                                       " task(s) in total.");
-                } else {
-                    System.out.println("Invalid format. Please try again.");
+            } else if (startsWith(Todo.keyword, input)) {
+                if (addTask(list, nxtIdx, Todo.of(input))) {
+                    nxtIdx++;
                 }
+
+            } else if (startsWith(Deadline.keyword, input)) {
+                if (addTask(list, nxtIdx, Deadline.of(input))) {
+                    nxtIdx++;
+                }
+
+            } else if (startsWith(Event.keyword, input)) {
+                if (addTask(list, nxtIdx, Event.of(input))) {
+                    nxtIdx++;
+                }
+
+            } else {
+                System.out.println("OH NOSE! Wakaranai... :(");
             }
         }
 

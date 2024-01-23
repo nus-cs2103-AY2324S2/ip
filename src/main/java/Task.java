@@ -7,6 +7,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public static boolean startsWith(String keyword, String input) {
+        return input.length() >= keyword.length() &&
+               keyword.equals(input.substring(0, keyword.length()));
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
