@@ -44,46 +44,58 @@ public class Duke {
                 "_______________________________________________________\n";
         System.out.println(greeting);
 
-        while(true) {
-            Scanner sc = new Scanner(System.in);
+        while (true) {
+            try {
+                Scanner sc = new Scanner(System.in);
 
-            String input = sc.next();
-            if (input.equals("bye")) break;
-            else if (input.equals("list")) {
-                list();
-            }
-            else if (input.equals("mark")) {
-                int index = sc.nextInt();
-                Task task = todo_list.get(index - 1);
-                task.mark();
-                System.out.println("_______________________________________________________\n " +
-                        "Nice! I've marked this task as done:\n " + task +
-                        "\n_______________________________________________________\n");
-            }
-            else if (input.equals("unmark")) {
-                int index = sc.nextInt();
-                Task task = todo_list.get(index - 1);
-                task.unmark();
-                System.out.println("_______________________________________________________\n " +
-                        "Ok, I've marked this task as not done yet:\n " + task +
-                        "\n_______________________________________________________\n");
-            }
-            else if (input.equals("todo")) {
-                addTodo(sc.nextLine().trim());
-            }
-            else if (input.equals("deadline")) {
-                String s = sc.nextLine();
-                String name = s.split("/by")[0].trim();
-                String by = s.split("/by")[1].trim();
-                addDeadline(name, by);
-            }
-            else if (input.equals("event")) {
-                String s = sc.nextLine();
-                String[] split = s.split("/from");
-                String name = split[0].trim();
-                String from = split[1].split("/to")[0].trim();
-                String to = split[1].split("/to")[1].trim();
-                addEvent(name, from, to);
+                String input = sc.next();
+                if (input.equals("bye")) break;
+                else if (input.equals("list")) {
+                    list();
+                } else if (input.equals("mark")) {
+                    int index = sc.nextInt();
+                    if (index > todo_list.size() || index <= 0) throw new Exception("Index has to be within list size!");
+                    Task task = todo_list.get(index - 1);
+                    task.mark();
+                    System.out.println("_______________________________________________________\n " +
+                            "Nice! I've marked this task as done:\n " + task +
+                            "\n_______________________________________________________\n");
+                } else if (input.equals("unmark")) {
+                    int index = sc.nextInt();
+                    if (index > todo_list.size() || index <= 0) throw new Exception("Index has to be within list size!");
+                    Task task = todo_list.get(index - 1);
+                    task.unmark();
+                    System.out.println("_______________________________________________________\n " +
+                            "Ok, I've marked this task as not done yet:\n " + task +
+                            "\n_______________________________________________________\n");
+                } else if (input.equals("todo")) {
+                    String str = sc.nextLine().trim();
+                    if (str.length() == 0) throw new Exception("Todo task cannot be empty!");
+                    addTodo(str);
+                } else if (input.equals("deadline")) {
+                    String s = sc.nextLine();
+                    String name = s.split("/by")[0].trim();
+                    if (name.length() == 0) throw new Exception("Deadline task description cannot be empty!");
+                    if (s.split("/by").length == 1) throw new Exception("Please include your deadline too!");
+                    String by = s.split("/by")[1].trim();
+
+                    addDeadline(name, by);
+                } else if (input.equals("event")) {
+                    String s = sc.nextLine();
+                    String[] split = s.split("/from");
+                    String name = split[0].trim();
+                    if (name.length() == 0) throw new Exception("Event task description cannot be empty!");
+                    if (split.length == 1 || split[1].split("/to").length != 2) throw new Exception("Please include the start and end date/time of your event too!");
+                    String from = split[1].split("/to")[0].trim();
+                    String to = split[1].split("/to")[1].trim();
+
+                    addEvent(name, from, to);
+                } else {
+                    throw new Exception("Sorry! I do not understand what this means!");
+                }
+            } catch (Exception e) {
+                System.out.println("_______________________________________________________\n " + e.getMessage() +
+                        "\n_______________________________________________________\n ");
             }
         }
 
