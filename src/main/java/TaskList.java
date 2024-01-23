@@ -10,41 +10,40 @@ public class TaskList {
     public void addTask(Task task) {
         this.tasks[index] = task;
         index++;
-        printSepLine();
-        System.out.println("added: " + task);
-        printSepLine();
+        Format.printSepLine();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + index + " tasks in the list.");
+        Format.printSepLine();
     }
 
     public void markTask(int index) {
         int listIndex = index - 1;
         Task t = this.tasks[listIndex];
         t.markDone();
-        printSepLine();
+        Format.printSepLine();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(t.toStringInList());
-        printSepLine();
+        System.out.println(t);
+        Format.printSepLine();
     }
 
     public void unmarkTask(int index) {
         int listIndex = index - 1;
         Task t = this.tasks[listIndex];
         t.markNotDone();
-        printSepLine();
+        Format.printSepLine();
         System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.println(t.toStringInList());
-        printSepLine();
+        System.out.println(t);
+        Format.printSepLine();
     }
 
     public void listTasks() {
-        printSepLine();
+        Format.printSepLine();
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < index; i++) {
             int listIndex = i + 1;
-            System.out.println(listIndex + ". " + tasks[i].toStringInList());
+            System.out.println(listIndex + ". " + tasks[i]);
         }
-        printSepLine();
-    }
-
-    private static void printSepLine() {
-        System.out.println("------------------------------------------------");
+        Format.printSepLine();
     }
 }
