@@ -1,28 +1,32 @@
 import java.util.ArrayList;
 public class TaskList {
-    private final ArrayList<ToDo> items;
+    private final ArrayList<Task> items;
 
     public TaskList() {
         this.items = new ArrayList<>();
     }
 
-    public void addItem(ToDo item) {
+    public int getListSize() {
+        return this.items.size();
+    }
+
+    public String getItemToString(int index) {
+        return this.items.get(index).toString();
+    }
+
+    public void addItem(Task item) {
         this.items.add(item);
     }
 
     public void markItemDone(int index) {
-        ToDo currItem = this.items.get(index);
+        Task currItem = this.items.get(index);
         currItem.markItem();
 
     }
 
     public void unmarkItemDone(int index) {
-        ToDo currItem = this.items.get(index);
+        Task currItem = this.items.get(index);
         currItem.unmarkItem();
-    }
-
-    public String getItemToString(int index) {
-        return this.items.get(index).toString();
     }
 
     @Override
