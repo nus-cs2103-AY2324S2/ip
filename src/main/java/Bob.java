@@ -70,7 +70,7 @@ public class Bob {
                 if (task != null) {
                     task.markAsUndone();
                     System.out.println("I knew you didn't finish it! \uD83D\uDE0F:\n" +
-                            "  " + task);
+                                       "  " + task);
                 }
 
             } else if (startsWith("delete", input)) {
