@@ -30,7 +30,7 @@ public class Duke {
 
     public static void check(String input) {
         if (input.equalsIgnoreCase("bye")) {
-           
+
         } else if (input.startsWith("list")) {
             list();
         } else if (input.startsWith("mark")) {
@@ -54,11 +54,11 @@ public class Duke {
     public static void add(Task task) {
         store[count++] = task;
 
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + task);
-        System.out.println("     Now you have " + count + " tasks in the list.");
-        System.out.println("    ____________________________________________________________");
+        System.out.println("   ____________________________________________________________");
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("      " + task);
+        System.out.println("    Now you have " + count + " tasks in the list.");
+        System.out.println("   ____________________________________________________________");
     }
 
 
