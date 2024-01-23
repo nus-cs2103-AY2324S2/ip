@@ -85,7 +85,7 @@ public class Osiris {
     }
 
     public void outputIntroductions() {
-        String introductions = String.format("Hello! I'm %s. \nWhat can I do for you?", Osiris.NAME);
+        String introductions = String.format("Hello! I'm %s.\nWhat can I do for you?", Osiris.NAME);
         System.out.println(introductions);
     }
 
