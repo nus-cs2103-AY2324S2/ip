@@ -1,26 +1,10 @@
-public class ToDo {
-    private final String description;
-    private boolean isDone;
-
+public class ToDo extends Task {
     public ToDo(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    public boolean isItemDone() {
-        return this.isDone;
-    }
-
-    public void markItem() {
-        this.isDone = true;
-    }
-
-    public void unmarkItem() {
-        this.isDone = false;
+        super(description);
     }
 
     @Override
     public String toString() {
-        return "[" + (this.isDone ? "X" : " ") + "]" + " " + this.description;
+        return "[T] " + super.toString();
     }
 }
