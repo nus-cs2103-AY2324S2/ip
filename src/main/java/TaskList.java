@@ -25,6 +25,15 @@ public class TaskList {
                     "Don't worry, it happens to most of us.\n " +
                     "Just add the index for the task you'd like to mark, and you'll be all set.\n " +
                     "Please try again, or type 'bye' to exit.");
+        } catch (IndexOutOfBoundsException e) {
+            Saopig.speakWithHorizontalLines("\n" +
+                    "Oopses daisy!\n " +
+                    "It seems like you might have given an invalid index for the task list.");
+        } catch (NumberFormatException e) {
+            Saopig.speakWithHorizontalLines("\n" +
+                    "Oopses daisy!\n " +
+                    "It seems like you might have given an invalid index for the task list " +
+                    "or your input is not a number.");
         }
     }
 
@@ -46,6 +55,15 @@ public class TaskList {
                     "Don't worry, it happens to most of us.\n " +
                     "Just add the index for the task you'd like to unmark, and you'll be all set.\n " +
                     "Please try again, or type 'bye' to exit.");
+        } catch (IndexOutOfBoundsException e) {
+            Saopig.speakWithHorizontalLines("\n" +
+                    "Oopses daisy!\n " +
+                    "It seems like you might have given an invalid index for the task list.");
+        } catch (NumberFormatException e) {
+            Saopig.speakWithHorizontalLines("\n" +
+                    "Oopses daisy!\n " +
+                    "It seems like you might have given an invalid index for the task list " +
+                    "or your input is not a number.");
         }
     }
 
@@ -160,8 +178,31 @@ public class TaskList {
         }
     }
 
-    public void deleteTask(int index) {
-        this.tasks.remove(index);
+    public void deleteTask(String input) {
+        try {
+            checkValue(input.length(), 8, Integer.MAX_VALUE);
+            int index = Integer.parseInt(input.substring(7)) - 1;
+            Saopig.speakWithHorizontalLines("\n" +
+                    "Oh, splendid! Your task: {" + this.tasks.get(index).toString() + "} has been deleted successfully.\n " +
+                    "Now you have " + (this.tasks.size() - 1) + " tasks in the list.");
+            this.tasks.remove(index);
+        } catch (SaopigInvaildSizeException e) {
+            Saopig.speakWithHorizontalLines("\n" +
+                    "Oopses daisy!\n " +
+                    "It seems like you might have forgotten to give an argument for the delete command.\n " +
+                    "Don't worry, it happens to most of us.\n " +
+                    "Just add the index for the task you'd like to delete, and you'll be all set.\n " +
+                    "Please try again, or type 'bye' to exit.");
+        } catch (IndexOutOfBoundsException e) {
+            Saopig.speakWithHorizontalLines("\n" +
+                    "Oopses daisy!\n " +
+                    "It seems like you might have given an invalid index for the task list.");
+        } catch (NumberFormatException e) {
+            Saopig.speakWithHorizontalLines("\n" +
+                    "Oopses daisy!\n " +
+                    "It seems like you might have given an invalid index for the task list " +
+                    "or your input is not a number.");
+        }
     }
 
     public Task getTask(int index) {

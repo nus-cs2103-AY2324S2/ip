@@ -9,6 +9,7 @@ public class Saopig {
         COMMAND_EVENT,
         COMMAND_LIST,
         COMMAND_TODO,
+        COMMAND_DELETE,
         COMMAND_UNKNOWN,
         // Add more commands here in the future
     }
@@ -21,6 +22,9 @@ public class Saopig {
             String input = scanner.nextLine();
             Command command = getCommandFromString(input);
             switch (command) {
+                case COMMAND_DELETE:
+                    taskList.deleteTask(input);
+                    break;
                 case COMMAND_MARK_DONE:
                     taskList.markTaskAsDone(input);
                     break;
@@ -54,6 +58,8 @@ public class Saopig {
         String processedInput = input.trim().toUpperCase();
         String[] splitInput = processedInput.split(" ");
         switch (splitInput[0]) {
+            case "DELETE":
+                return Command.COMMAND_DELETE;
             case "UNMARK":
                 return Command.COMMAND_UNMARK_DONE;
             case "MARK":
