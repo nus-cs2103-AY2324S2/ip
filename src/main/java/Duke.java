@@ -34,60 +34,64 @@ public class Duke {
                 t.markAsUndone();
                 String output = line ;
                 output += "OK, I've marked this task as not done yet: \n" +
-                        t.toString() + line;
+                        t.toString() + "\n" + line;
                 System.out.println(output);
-            } else if (inputParts.get(0).equals("deadline")) {
-                int index = inputParts.indexOf("/by");
-                String descriptor = "";
-                String deadline = "";
-                for (int i=1; i<index; i++) {
-                    descriptor += inputParts.get(i)+ " ";
-                }
-                for (int i=index+1; i<inputParts.size(); i++) {
-                    deadline += inputParts.get(i)+ " ";
-                }
-                deadline = deadline.trim();
-                descriptor = descriptor.trim();
-                Deadlines d = new Deadlines(descriptor, deadline);
-                storage.add(d);
-                System.out.println(line + storage.addToListOutput(d) + "\n" + line);
-            } else if (inputParts.get(0).equals("event")) {
-                int index1 = inputParts.indexOf("/from");
-                int index2 = inputParts.indexOf("/to");
-                String descriptor = "";
-                String from = "";
-                String to = "";
-                for (int i=index1 + 1; i<index2; i++) {
-                    from += inputParts.get(i)+ " ";
-                }
-                for (int i=index2 + 1; i<inputParts.size(); i++) {
-                    to += inputParts.get(i)+ " ";
-                }
-                for (int i=1; i<index1; i++) {
-                    descriptor += inputParts.get(i)+ " ";
-                }
-                descriptor = descriptor.trim();
-                from = from.trim();
-                to = to.trim();
+            } else if (inputParts.get(0).equals("deadline") || inputParts.get(0).equals("todo") || inputParts.get(0).equals("event")) {
+                    if (inputParts.size() == 1) {
+                        throw new EmptyTaskException();
+                    }
+                    else if (inputParts.get(0).equals("deadline")) {
+                        int index = inputParts.indexOf("/by");
+                        String descriptor = "";
+                        String deadline = "";
+                        for (int i=1; i<index; i++) {
+                            descriptor += inputParts.get(i)+ " ";
+                        }
+                        for (int i=index+1; i<inputParts.size(); i++) {
+                            deadline += inputParts.get(i)+ " ";
+                        }
+                        deadline = deadline.trim();
+                        descriptor = descriptor.trim();
+                        Deadlines d = new Deadlines(descriptor, deadline);
+                        storage.add(d);
+                        System.out.println(line + storage.addToListOutput(d) + "\n" + line);
+                    } else if (inputParts.get(0).equals("event")) {
+                        int index1 = inputParts.indexOf("/from");
+                        int index2 = inputParts.indexOf("/to");
+                        String descriptor = "";
+                        String from = "";
+                        String to = "";
+                        for (int i=index1 + 1; i<index2; i++) {
+                            from += inputParts.get(i)+ " ";
+                        }
+                        for (int i=index2 + 1; i<inputParts.size(); i++) {
+                            to += inputParts.get(i)+ " ";
+                        }
+                        for (int i=1; i<index1; i++) {
+                            descriptor += inputParts.get(i)+ " ";
+                        }
+                        descriptor = descriptor.trim();
+                        from = from.trim();
+                        to = to.trim();
 
-                Events e =  new Events(descriptor, from, to);
-                storage.add(e);
-                System.out.println(line + storage.addToListOutput(e) + "\n" + line);
-            } else if (inputParts.get(0).equals("todo")) {
-                String descriptor = "";
-                for (int i=1; i<inputParts.size(); i++) {
-                    descriptor += inputParts.get(i) + " ";
+                        Events e =  new Events(descriptor, from, to);
+                        storage.add(e);
+                        System.out.println(line + storage.addToListOutput(e) + "\n" + line);
+                    } else if (inputParts.get(0).equals("todo")) {
+                        String descriptor = "";
+                        for (int i=1; i<inputParts.size(); i++) {
+                            descriptor += inputParts.get(i) + " ";
+                        }
+                        descriptor = descriptor.trim();
+                        ToDos t = new ToDos(descriptor);
+                        storage.add(t);
+                        System.out.println(line + storage.addToListOutput(t) + "\n" + line);
+                    }
                 }
-                descriptor = descriptor.trim();
-                ToDos t = new ToDos(descriptor);
-                storage.add(t);
-                System.out.println(line + storage.addToListOutput(t) + "\n" + line);
-            } else {
+                else {
                     throw new UnknownInputException();
-
                 }
-
-            } catch(UnknownInputException e) {
+            } catch(DukeExceptions e) {
                 System.out.println(e.output());
             }
 
