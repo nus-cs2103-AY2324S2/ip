@@ -1,7 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
 
     Scanner scanner = new Scanner(System.in);
+    ArrayList<String> todo = new ArrayList<String>();
     private String name = "NotDuke";
 
     private void greet() {
@@ -14,12 +16,26 @@ public class Duke {
         if (input.equals("bye")) {
             return;
         }
-        echo(input);
+
+        if (input.equals("list")) {
+            list();
+        } else {
+            add(input);
+        }
         input();
     }
 
-    private void echo(String input) {
-        System.out.println(input);
+    private void add(String input) {
+        todo.add(input);
+        System.out.println("added: " + input);
+    }
+
+    private void list() {
+        int index = 0;
+        for (String item : todo) {
+            System.out.println(++index + ": " + item);
+        }
+
     }
 
     private void exit() {
