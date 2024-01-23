@@ -44,26 +44,38 @@ public class Duke {
         input();
     }
 
-    public void markTask(Integer index) {
+    public void markTask(int index) {
         horizontalLines();
         Task currentTask = taskList.get(index);
         indent();
         System.out.println("We have completed this task!");
         currentTask.mark();
         indent();
-        System.out.println(currentTask.getStatus() + " " + currentTask.getTask());
+        System.out.println(currentTask.getTaskType() + " " + currentTask.getStatus() + " " + currentTask.getTask());
         horizontalLines();
         input();
     }
 
-    public void unmarkTask(Integer index) {
+    public void deleteTask(int index) {
+        horizontalLines();
+        Task currentTask = taskList.get(index);
+        indent();
+        System.out.println("Task has been deleted!");
+        indent();
+        System.out.println(currentTask.getTaskType() + " " + currentTask.getStatus() + " " + currentTask.getTask());
+        horizontalLines();
+        taskList.remove(index);
+        input();
+    }
+
+    public void unmarkTask(int index) {
         horizontalLines();
         Task currentTask = taskList.get(index);
         indent();
         System.out.println("Oops, task unmarked!");
         currentTask.unmark();
         indent();
-        System.out.println(currentTask.getStatus() + " " + currentTask.getTask());
+        System.out.println(currentTask.getTaskType() + " " + currentTask.getStatus() + " " + currentTask.getTask());
         horizontalLines();
         input();
     }
@@ -158,11 +170,14 @@ public class Duke {
                 } else if (this.command.equals("unmark")) {
                     isCommandValid = true;
                     unmarkTask(Integer.valueOf((inputSplit[1])) - 1);
+                } else if (this.command.equals("delete")) {
+                    isCommandValid = true;
+                    deleteTask(Integer.valueOf((inputSplit[1])) - 1);
                 }
             } catch(IndexOutOfBoundsException e) {
                 if (taskList.size() == 0) {
                     indent();
-                    System.out.println("You have no task to mark or unmark!");
+                    System.out.println("You have no task to mark,unmark or delete!");
                     horizontalLines();
                     input();
                 } else {
@@ -204,7 +219,7 @@ public class Duke {
 
         if (!isCommandValid) {
             indent();
-            System.out.println("No such command. Please try again");
+            System.out.println("No such command or too many parameters. Please try again");
             horizontalLines();
             input();
         }
