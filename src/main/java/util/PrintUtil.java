@@ -1,9 +1,13 @@
 package util;
+
 import task.Task;
+
 public class PrintUtil {
 
     // Private constructor to prevent instantiation
-    private PrintUtil() {}
+    private PrintUtil() {
+
+    }
 
     // Static utility method for printing lines
     private static void printSpacer() {

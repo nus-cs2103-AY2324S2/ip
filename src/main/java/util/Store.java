@@ -1,11 +1,16 @@
 package util;
+
 import java.lang.StringBuilder;
 import java.util.ArrayList;
-
 import task.Task;
+
 public class Store {
     private ArrayList<Task> tasks = new ArrayList<>();
-    public Store() {}
+
+    public Store() {
+
+    }
+
     public void add(Task t) {
         this.tasks.add(t);
     }

@@ -1,4 +1,5 @@
 package exception;
+
 public abstract class NarutoException extends Exception {
     public enum ErrorType {
         EMPTY_TODO,
@@ -15,6 +16,7 @@ public abstract class NarutoException extends Exception {
     public NarutoException(String message) {
         super(message);
     }
+
     public static NarutoException createEmptyTodoException() {
         return new EmptyTodoException("Looks like your todo is missing a description! \nEnter an " +
                 "input after the 'todo' command to enter a todo.");

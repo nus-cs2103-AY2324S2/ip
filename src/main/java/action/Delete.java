@@ -1,10 +1,13 @@
 package action;
+
 import task.Task;
-import util.*;
+import util.Store;
+import util.PrintUtil;
 
 public class Delete implements Action {
     private Store store;
     private int idx;
+
     public Delete(Store store, int idx) {
         this.store = store;
         this.idx = idx;

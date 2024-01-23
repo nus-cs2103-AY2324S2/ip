@@ -1,15 +1,28 @@
 package naruto;
+
 import java.util.LinkedList;
 import java.util.Scanner;
-import action.*;
+import action.Action;
+import action.Goodbye;
+import action.Add;
+import action.Delete;
+import action.Greet;
+import action.HandleError;
+import action.List;
+import action.Mark;
+import action.Unmark;
 import exception.NarutoException;
-import task.*;
+import task.Deadline;
+import task.Event;
+import task.ToDo;
+import task.Task;
 import util.Store;
 
 public class Naruto {
     private static LinkedList<Action> actions = new LinkedList<>();
     private static Store store = new Store();
     private static Scanner sc = new Scanner(System.in);
+
     public Naruto() {
         actions.add(new Greet());
     }
