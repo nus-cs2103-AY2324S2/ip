@@ -13,7 +13,7 @@ public class Parser {
      * Returns a todo object with the task description
      * Handles errors where user fails to include task description
      */
-    public ToDos todoParser() throws ArrayIndexOutOfBoundsException {
+    public ToDos todoParser() throws IndexOutOfBoundsException {
         if (!this.words.get(1).isEmpty()) {
             StringBuilder description = new StringBuilder(this.words.get(1));
             for (int i = 2; i < words.size(); i++) {
@@ -21,7 +21,7 @@ public class Parser {
             }
             return new ToDos(description.toString());
         } else {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException();
         }
     }
 
@@ -101,15 +101,15 @@ public class Parser {
      * Deals with error when the user accidentally tries to mark a task which does not belong in the list of task
      * or when the user fails to include which task they want to mark as completed
      */
-    public int markParser(int currentNumOfTask) throws ArrayIndexOutOfBoundsException, myBotException {
+    public int markParser(int currentNumOfTask) throws IndexOutOfBoundsException, myBotException {
         if (!this.words.get(1).isEmpty()) {
             if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                throw new myBotException("You have currently " + currentNumOfTask + " task. You cannot un-mark larger or smaller than this!");
+                throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot mark task larger or smaller than this!");
             } else {
                 return Integer.parseInt(this.words.get(1)) - 1;
             }
         } else {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException();
         }
     }
 
@@ -118,17 +118,33 @@ public class Parser {
      * Deals with error when the user accidentally tries to un-mark a task which does not belong in the list of task
      * or when the user fails to include which task they want to un-mark
      */
-    public int unmarkParser(int currentNumOfTask) throws ArrayIndexOutOfBoundsException, myBotException {
+    public int unmarkParser(int currentNumOfTask) throws IndexOutOfBoundsException, myBotException {
         if (!this.words.get(1).isEmpty()) {
             if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                throw new myBotException("You have currently " + currentNumOfTask + " task. You cannot un-mark larger or smaller than this!");
+                throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot un-mark task larger or smaller than this!");
             } else {
                 return Integer.parseInt(this.words.get(1)) - 1;
             }
         } else {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException();
         }
+    }
 
+    /*
+     * Returns an integer to know which task the user wishes to delete
+     * Deals with error when the user accidentally tries to delete a task which does not belong in the list of task
+     * or when the user fails to include which task they want to delete
+     */
+    public int deleteParser(int currentNumOfTask) throws IndexOutOfBoundsException, myBotException {
+        if (!this.words.get(1).isEmpty()) {
+            if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
+                throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot delete task larger or smaller than this!");
+            } else {
+                return Integer.parseInt(this.words.get(1)) - 1;
+            }
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
 

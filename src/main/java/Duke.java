@@ -5,8 +5,8 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         // This is the fixed storage of all the tasks
-        Task[] tasks = new Task[100];
-        int index = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
+
 
         String greetingMsg = "Hello! I'm PingMeBot\n" + "What can I do for you?";
         String exitMsg = "Bye. Hope to see you again soon!";
@@ -22,20 +22,23 @@ public class Duke {
                 break;
             } else if (userInput.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.length; i++) {
-                    if (tasks[i] == null) {
+                for (int i = 0; i < tasks.size(); i++) {
+                    if (tasks.get(i) == null) {
                         break;
                     }
                     int taskNumber = i + 1;
-                    System.out.println(taskNumber + "." + tasks[i].toString());
+                    System.out.println(taskNumber + "." + tasks.get(i).toString());
                 }
             } else if (words[0].equals("mark")) {
                 try {
-                    int taskNumber = Parser.markParser(index);
-                    tasks[taskNumber].markAsDone();
+                    int taskNumber = Parser.markParser(tasks.size());
+                    if (tasks.get(taskNumber).getStatusIcon().equals("X")) {
+                        throw new myBotException("You cannot mark task which has not been completed!");
+                    }
+                    tasks.get(taskNumber).markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " +  tasks[taskNumber].toString());
-                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("  " +  tasks.get(taskNumber).toString());
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("I'm not sure which task you wish to mark. Please specify and try again!");
                 } catch (myBotException e) {
                     System.out.println(e.getMessage());
@@ -43,15 +46,15 @@ public class Duke {
 
             } else if (words[0].equals("unmark")) {
                 try {
-                    int taskNum = Parser.unmarkParser(index);
+                    int taskNum = Parser.unmarkParser(tasks.size());
                     // Ensuring that user can only un-mark tasks that are marked as completed
-                    if (tasks[taskNum].getStatusIcon().equals(" ")) {
+                    if (tasks.get(taskNum).getStatusIcon().equals(" ")) {
                         throw new myBotException("You cannot un-mark task which has not been marked!");
                     }
-                    tasks[taskNum].uncheckingTask();
+                    tasks.get(taskNum).uncheckingTask();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " +  tasks[taskNum].toString());
-                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("  " +  tasks.get(taskNum).toString());
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("I'm not sure which task you wish to un-mark. Please specify and try again!");
                 } catch (myBotException e) {
                     System.out.println(e.getMessage());
@@ -60,22 +63,20 @@ public class Duke {
             } else if (words[0].equals("todo")) {
                 try {
                     ToDos todo = Parser.todoParser();
-                    tasks[index] = todo;
+                    tasks.add(todo);
                     System.out.println("\n" + "Got it. I've added this task:");
                     System.out.println("  " + todo.toString());
-                    index++;
-                    System.out.println("Now you have " + index + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("OOPS! The command is incomplete. Please provide a task description!");
                 }
             } else if (words[0].equals("deadline")) {
                 try {
                     Deadline deadlineTask = Parser.deadlineParser();
-                    tasks[index] = deadlineTask;
+                    tasks.add(deadlineTask);
                     System.out.println("\n" + "Got it. I've added this task:");
                     System.out.println("  " + deadlineTask.toString());
-                    index++;
-                    System.out.println("Now you have " + index + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } catch (myBotException e) {
                     System.out.println(e.getMessage());
                 }
@@ -83,11 +84,22 @@ public class Duke {
             } else if (words[0].equals("event")){
                 try {
                     Events events = Parser.eventsParser();
-                    tasks[index] = events;
+                    tasks.add(events);
                     System.out.println("\n" + "Got it. I've added this task:");
                     System.out.println("  " + events.toString());
-                    index++;
-                    System.out.println("Now you have " + index + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } catch (myBotException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (words[0].equals("delete")) {
+                try {
+                    int taskNumber = Parser.deleteParser(tasks.size());
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " +  tasks.get(taskNumber).toString());
+                    tasks.remove(taskNumber);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("I'm not sure which task you wish to delete. Please specify and try again!");
                 } catch (myBotException e) {
                     System.out.println(e.getMessage());
                 }
