@@ -3,8 +3,8 @@ package model;
 public class Deadline extends Task{
     private String by;
 
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String label, String by) {
+        super(label);
         this.by = by;
     }
 
