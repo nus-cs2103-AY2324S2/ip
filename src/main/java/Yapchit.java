@@ -1,6 +1,8 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+import YapchitExceptions.YapchitException;
+import YapchitExceptions.InvalidDetailException;
+import YapchitExceptions.InvalidKeywordException;
 
 public class Yapchit {
     ArrayList<Task> list = new ArrayList<>();
@@ -14,52 +16,115 @@ public class Yapchit {
         String input = scanner.nextLine();
 
         while(!(input.equals("bye"))){
-            bot.parseInput(input);
-            input = scanner.nextLine();
+            try{
+                bot.parseInput(input);
+            } catch (YapchitException e){
+                bot.print(e.getMessage());
+            } finally {
+                input = scanner.nextLine();
+            }
         }
 
         bot.outro();
     }
 
-    private void parseInput(String input){
+    private void parseInput(String input) throws YapchitException{
 
         String[] parts = input.split(" ");
 
         if(parts[0].equals("list")){
-            printList();
-        } else if(parts[0].equals("mark")){
-            int num = Integer.parseInt(parts[1]);
-            mark(num - 1, true);
-        } else if(parts[0].equals("unmark")){
-            int num = Integer.parseInt(parts[1]);
-            mark(num - 1, false);
-        } else if (parts[0].equals("deadline")){
-            int byStart = input.indexOf("/by");
-            String desc = input.substring(9, byStart);
-            String by = input.substring(byStart + 4);
-            Task t = new Deadline(desc, by);
-            addTask(t);
-            printTask(t);
 
+            if(parts.length != 1){
+                throw new InvalidDetailException("Invalid detail after keyword. Please retry");
+            } else {
+                printList();
+            }
+
+        } else if(parts[0].equals("mark") ){
+
+            if(parts.length != 2){
+                throw new InvalidDetailException("Invalid detail after mark. Please retry");
+            } else {
+                try {
+                    int idx = Integer.parseInt(parts[1]);
+                    mark(idx - 1, true);
+                } catch (Exception e){
+                    throw new InvalidDetailException("Invalid detail after mark. Please retry");
+                }
+            }
+
+        } else if(parts[0].equals("unmark") && parts.length == 2){
+
+            if(parts.length != 2){
+                throw new InvalidDetailException("Invalid detail after unmark. Please retry");
+            } else {
+                try {
+                    int num = Integer.parseInt(parts[1]);
+                    mark(num - 1, false);
+                } catch (Exception e){
+                    throw new InvalidDetailException("Invalid detail after unmark. Please retry");
+                }
+            }
+
+        } else if (parts[0].equals("deadline")){
+
+            int byStart = input.indexOf("/by");
+            if(byStart == -1){
+                throw new InvalidDetailException("Missing 'by' parameter in deadline detail");
+            } else {
+                if(9 == byStart || byStart + 4 >= input.length()){
+                    throw new InvalidDetailException("Deadline description and/or by parameter cannot be empty");
+                }
+                String desc = input.substring(9, byStart);
+                String by = input.substring(byStart + 4);
+
+                if(desc.strip().length() == 0 || by.strip().length() == 0){
+                    throw new InvalidDetailException("Deadline description and/or by parameter cannot be empty");
+                } else {
+                    Task t = new Deadline(desc, by);
+                    addTask(t);
+                    printTask(t);
+                }
+            }
         } else if(parts[0].equals("event")){
             int fromStart = input.indexOf("/from");
             int toStart = input.indexOf("/to");
 
-            String desc = input.substring(6, fromStart);
-            String from = input.substring(fromStart + 6, toStart);
-            String to = input.substring(toStart + 4);
+            if(fromStart == -1 || toStart == -1 || fromStart >= toStart){
+                throw new InvalidDetailException("invalid /from and /to parameters. Please retry");
+            } else {
+                if(6 == fromStart || fromStart + 6 == toStart || toStart + 4 >= input.length()){
+                    throw new InvalidDetailException("Event description and/or to/from parameters cannot be empty");
+                }
+                String desc = input.substring(6, fromStart);
+                String from = input.substring(fromStart + 6, toStart);
+                String to = input.substring(toStart + 4);
 
-            Task t = new Event(desc, from, to);
-            addTask(t);
-            printTask(t);
+                if(desc.strip().length() == 0 || from.strip().length() == 0 || to.strip().length() == 0){
+                    throw new InvalidDetailException("Event description and/or to/from parameters cannot be empty");
+                } else {
+                    Task t = new Event(desc, from, to);
+                    addTask(t);
+                    printTask(t);
+                }
+            }
 
         } else if(parts[0].equals("todo")){
+            if(5 >= input.length()){
+                throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
+            }
             String desc = input.substring(5);
-            Task t = new ToDo(desc);
-            addTask(t);
-            printTask(t);
+
+            if(desc.strip().length() == 0){
+                throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
+            } else {
+                Task t = new ToDo(desc);
+                addTask(t);
+                printTask(t);
+            }
         } else {
-            print("invalid entry, try again");
+            throw new InvalidKeywordException("You have entered an invalid keyword. " +
+                    "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', 'event', 'bye', 'list']");
         }
     }
 
@@ -92,15 +157,19 @@ public class Yapchit {
         System.out.println(	"\t"+"--------------------------------------------------");
     }
 
-    private void mark(int idx, boolean val){
-        list.get(idx).updateTag(val);
-        System.out.println(	"\t"+"--------------------------------------------------");
-        if(val){
-            System.out.println(	"\t"+"Nice! I've marked this task as done:");
-            System.out.println("\t[X]" + " " + list.get(idx).getName());
+    private void mark(int idx, boolean val) throws InvalidDetailException{
+        if(idx >= list.size()){
+            throw new InvalidDetailException("Invalid item index, please try again");
         } else {
-            System.out.println(	"\t"+"OK, I've marked this task as not done yet:");
-            System.out.println("\t[ ]" + " " + list.get(idx).getName());
+            list.get(idx).updateTag(val);
+            System.out.println("\t" + "--------------------------------------------------");
+            if (val) {
+                System.out.println("\t" + "Nice! I've marked this task as done:");
+                System.out.println("\t" + list.get(idx).toString());
+            } else {
+                System.out.println("\t" + "OK, I've marked this task as not done yet:");
+                System.out.println("\t" + list.get(idx).toString());
+            }
         }
     }
 
