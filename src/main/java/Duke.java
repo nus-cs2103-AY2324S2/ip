@@ -50,7 +50,9 @@ public class Duke {
             addDeadlineTask(input.substring(8).trim());
         } else if (input.startsWith("event")) {
             addEventTask(input.substring(5).trim());
-        } else {
+        } else if (input.startsWith("delete")) {
+        deleteTask(input.substring(6).trim());
+    } else {
             throw new DukeException("OOPS!!! I don't know what that means. Can you make it clear?");
 
         }
@@ -89,6 +91,33 @@ public class Duke {
         }
         add(new EventTask(task));
     }
+
+    public static void deleteTask(String num) throws DukeException {
+        try {
+            int index = Integer.parseInt(num);
+
+            if (index > 0 && index <= count) {
+                System.out.println("   ____________________________________________________________");
+                System.out.println("    Noted. I've removed this task:");
+                System.out.println("      " + store[index - 1]);
+
+                for (int i = index - 1; i < count - 1; i++) {
+                    store[i] = store[i + 1];
+                }
+                store[count - 1] = null;
+                count--;
+
+                System.out.println("    Now you have " + count + " tasks in the list.");
+                System.out.println("   ____________________________________________________________");
+            } else {
+                throw new DukeException("OOPS!!! Task index is out of range.");
+            }
+        } catch (NumberFormatException e) {
+
+            throw new DukeException("OOPS!!! Please enter a valid task index to delete.");
+        }
+    }
+
 
     public static void list() {
 
