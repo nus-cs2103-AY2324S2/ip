@@ -1,8 +1,17 @@
 package UI;
 
+import Storage.Storage;
+
 public class UI {
     private static final String lines = "    ____________________________________________________________";
     private static final String name = "Wang";
+
+    private Storage storage;
+
+    public UI() {
+       this.storage = new Storage();
+    }
+
     public static void greeting() {
         System.out.printf("    Hello! I'm %s\n", name);
         System.out.println("    What can I do for you?");
@@ -15,10 +24,16 @@ public class UI {
         System.out.println(lines);
     }
 
-    public static void repeat(String input) {
+    public void addItem(String input) {
+        storage.add(input);
         System.out.println(lines);
-        System.out.println("    " + input);
+        System.out.println("    " + "added: " + input);
         System.out.println(lines);
     }
+
+    public void listItems() {
+        System.out.println(storage);
+    }
+
 
 }
