@@ -16,7 +16,7 @@ public class Chatbot {
     public Chatbot() {
         this.exitLoop = false;
         this.taskList = new TaskList();
-        this.commandList = new CommandList(this.taskList);
+        this.commandList = new CommandList(this.taskList, this);
         this.parser = new Parser(this.commandList);
     }
 

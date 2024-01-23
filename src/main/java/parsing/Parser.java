@@ -42,5 +42,6 @@ public class Parser {
         String[] splitMsg = getKeywordArgsSplit(input);
         String keyword = splitMsg[0];
         String args = splitMsg[1];
+        return commandList.runKeyword(keyword, args);
     }
 }
