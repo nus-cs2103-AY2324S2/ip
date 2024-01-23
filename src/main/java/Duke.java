@@ -71,7 +71,7 @@ public class Duke {
                     Task addEventTask = new Event(message, splitTwice[0], splitTwice[1]);
                     lst.add(addEventTask);
                     System.out.println("____________________________________________________________");
-                    System.out.println("Got it, I've added this task:");
+                    System.out.println("Got it. I've added this task:");
                     System.out.println(addEventTask.toString());
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
