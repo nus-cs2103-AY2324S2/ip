@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.*;
 public class BingBong{
     public static void formalities(String context) {
@@ -29,17 +30,28 @@ public class BingBong{
 
     public static void main(String[] args) {
         formalities("greet");
+
+        ArrayList<String> todos = new ArrayList<String>();
+
         while (true) {
-            Scanner reader = new Scanner(System.in);
+            Scanner reader = new Scanner(System.in).useDelimiter("\\n"); //Solution adapted by https://stackoverflow.com/questions/4058912/scanner-doesnt-read-whole-sentence-difference-between-next-and-nextline-o
             String s = reader.next();
-            if (!s.toLowerCase().equals("bye")) {
-                System.out.println("____________________________________________________________");
-                System.out.println(" " + s);
-                System.out.println("____________________________________________________________");
-            } else {
+            if (s.toLowerCase().equals("bye")) {
                 formalities("farewell");
                 break;
+            } else if (s.toLowerCase().equals("list")){
+                System.out.println("____________________________________________________________");
+                for (int i = 0; i < todos.size(); i++) {
+                   System.out.println((i + 1) + ". " + todos.get(i));
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                todos.add(s);
+                System.out.println("____________________________________________________________");
+                System.out.println(" added: " + s);
+                System.out.println("____________________________________________________________");
             }
+
         }
 
     }
