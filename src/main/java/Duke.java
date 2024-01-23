@@ -10,18 +10,36 @@ public class Duke {
         greet();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String command = "";
+        String[] commandArr;
         while (!(command = br.readLine()).equals("bye")) {
-            if (command.equals("list")) {
-                printLst();
-            } else if (command.substring(0, 4).equals("mark")) {
-                int num = Character.getNumericValue(command.charAt(command.length() - 1));
-                markTask(num);
-            } else if (command.substring(0, 6).equals("unmark")) {
-                int num = Character.getNumericValue(command.charAt(command.length() - 1));
-                unmarkTask(num);
-            } else {
-                Task newTask = new Task(command);
-                addLst(newTask);
+            commandArr = command.split(" ");
+            switch (commandArr[0]) {
+                case "list":
+                    printLst();
+                    break;
+                case "mark":
+                    int toMark = Integer.parseInt(commandArr[1]);
+                    markTask(toMark);
+                    break;
+                case "unmark":
+                    int toUnmark = Integer.parseInt(commandArr[1]);
+                    unmarkTask(toUnmark);
+                    break;
+                case "todo":
+                    String todo = command.substring(5);
+                    Task newTodo = new Todo(todo);
+                    addLst(newTodo);
+                    break;
+                case "deadline":
+                    String[] deadlineArr = command.substring(9).split(" /by ");
+                    Task newDeadline = new Deadline(deadlineArr[0], deadlineArr[1]);
+                    addLst(newDeadline);
+                    break;
+                case "event":
+                    String[] eventArr = command.substring(6).split(" /");
+                    Task newEvent = new Event(eventArr[0], eventArr[1].substring(5), eventArr[2].substring(3));
+                    addLst(newEvent);
+                    break;
             }
         }
         exit();
@@ -36,7 +54,9 @@ public class Duke {
     public static void addLst(Task newTask) {
         lst.add(newTask);
         System.out.println(lineBreak);
-        System.out.println(" added: " + newTask.getDescription());
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + newTask.toString());
+        System.out.println(" Now you have " + lst.size() + " tasks in the list.");
         System.out.println(lineBreak);
     }
     public static void printLst() {
@@ -46,7 +66,7 @@ public class Duke {
         } else {
             System.out.println(" Here are the tasks in your list:");
             for (int i = 0; i < lst.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + lst.get(i).getStatus() + " " + lst.get(i).getDescription());
+                System.out.println(" " + (i + 1) + "." + lst.get(i).toString());
             }
         }
         System.out.println(lineBreak);
@@ -56,7 +76,7 @@ public class Duke {
         lst.get(num - 1).markAsDone();
         System.out.println(lineBreak);
         System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("  " + lst.get(num - 1).getStatus() + " " + lst.get(num - 1).getDescription());
+        System.out.println("   " + lst.get(num - 1).toString());
         System.out.println(lineBreak);
     }
 
@@ -64,7 +84,7 @@ public class Duke {
         lst.get(num - 1).markAsUndone();
         System.out.println(lineBreak);
         System.out.println(" OK! I've marked this task as not done yet:");
-        System.out.println("  " + lst.get(num - 1).getStatus() + " " + lst.get(num - 1).getDescription());
+        System.out.println("   " + lst.get(num - 1).toString());
         System.out.println(lineBreak);
     }
 

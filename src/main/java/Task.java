@@ -7,7 +7,8 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getDescription() {
+    @Override
+    public String toString() {
         return description;
     }
 
@@ -23,4 +24,3 @@ public class Task {
         this.isDone = false;
     }
 }
-
