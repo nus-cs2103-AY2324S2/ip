@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Derek {
     public static final String INDENT = "     ";
@@ -39,8 +40,37 @@ public class Derek {
                 break;
             }
 
-            if ("list".equalsIgnoreCase(userPrompt)) {
+            String[] userArgs = userPrompt.split("\\s+");
+            String command = userArgs[0];
+
+            if ("list".equalsIgnoreCase(command)) {
                 taskList.printTasks();
+                continue;
+            }
+
+            if ("mark".equalsIgnoreCase(command)) {
+                int idx = Integer.parseInt(userArgs[1]) - 1;
+                String response = taskList.markTaskDone(idx);
+                System.out.println(String.join(
+                    "\n",
+                    INDENT + LINE,
+                    INDENT + response,
+                    INDENT + LINE,
+                    ""
+                ));
+                continue;
+            }
+
+            if ("unmark".equalsIgnoreCase(command)) {
+                int idx = Integer.parseInt(userArgs[1]) - 1;
+                String response = taskList.markTaskUndone(idx);
+                System.out.println(String.join(
+                    "\n",
+                    INDENT + LINE,
+                    INDENT + response,
+                    INDENT + LINE,
+                    ""
+                ));
                 continue;
             }
 

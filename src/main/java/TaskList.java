@@ -14,6 +14,20 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public String markTaskDone(int idx) {
+        if (idx >= 0 && idx < tasks.size()) {
+            tasks.get(idx).markDone();
+        }
+        return tasks.get(idx).toString();
+    }
+
+    public String markTaskUndone(int idx) {
+        if (idx >= 0 && idx < tasks.size()) {
+            tasks.get(idx).markUndone();
+        }
+        return tasks.get(idx).toString();
+    }
+
     public void printTasks() {
         System.out.println(INDENT + LINE);
 
@@ -21,6 +35,6 @@ public class TaskList {
             System.out.println("     "  + (i+1) + ". " + tasks.get(i));
         }
 
-        System.out.println(INDENT + LINE);
+        System.out.println(INDENT + LINE + "\n");
     }
 }
