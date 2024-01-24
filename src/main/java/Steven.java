@@ -8,6 +8,8 @@ public class Steven {
         String bootMsg = ("This is Steven!\nHow can I advise?\n");
         String blankFieldMsg = "Just to let you know, I can't accept a task with missing details.\nSteven's advice: Make sure you're leaving no blanks in your instructions!";
         System.out.print(line + bootMsg + line);
+        System.out.println("Steven\'s advice: Don't know what commands I understand? Use \"help\"!");
+        System.out.print(line);
         ArrayList<Task> taskList = new ArrayList<Task>();
         boolean exit = false;
         while (!exit) {
@@ -98,11 +100,21 @@ public class Steven {
                             System.out.println(blankFieldMsg);
                         }
                         break;
+                    case "help":
+                        System.out.println("The following are commands that I recgonise, and their respective formats:");
+                        System.out.println("bye - terminates the program");
+                        System.out.println("list - provides a list of events that you have added prior");
+                        System.out.println("mark (x) - marks the xth item on the list as complete. Note that an item marked complete cannot be marked complete again.");
+                        System.out.println("unmark (x) - marks the xth item on the list as incomplete. Note than an item marked incomplete cannot be marked incomplete again.");
+                        System.out.println("todo (item) - adds a todo item to the list.");
+                        System.out.println("deadline (item) /by (date1) - adds a deadline item to the list which is due on date1.");
+                        System.out.println("event (item) /from (date1) /to (date2) - adds an event item to the list which begins on date1 and ends on date2.");
+                        break;
                     case "bye":
                         exit = true;
                         break;
                     default:
-                        System.out.println("Hm, this doesn't seem like something can do for you. Try something else?");
+                        System.out.println("Hm, this doesn't seem like something can do for you. Try something else?\nSteven's advice: try typing \"help\" to see what commands are available.");
                 }
                 System.out.print(line);
             }
