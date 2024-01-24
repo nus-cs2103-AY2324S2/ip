@@ -6,6 +6,12 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    protected enum TaskType {
+        T,
+        D,
+        E
+    }
+
     public Task(String description) throws DukeException {
         if (description.split(" ").length == 1) throw new DukeException("Description cannot be empty!");
 
