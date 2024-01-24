@@ -1,0 +1,13 @@
+todo eat dinner
+deadline finish 2103 assignment /by Wednesday
+list
+event hackathon /from Wed 2pm /to 4pm
+list
+mark 3
+list
+unmark 3
+list
+mark 2
+mark 1
+list
+bye

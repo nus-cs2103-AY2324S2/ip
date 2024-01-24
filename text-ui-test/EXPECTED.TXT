@@ -1,7 +1,67 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+ What's up everyone. I'm Drake.
+ How can I help?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[T][ ] eat dinner
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] finish 2103 assignment (by: Wednesday)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+You asked for the tasks in your list? Here:
+1. [T][ ] eat dinner
+2. [D][ ] finish 2103 assignment (by: Wednesday)
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] hackathon (from: Wed 2pm to: 4pm)
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+You asked for the tasks in your list? Here:
+1. [T][ ] eat dinner
+2. [D][ ] finish 2103 assignment (by: Wednesday)
+3. [E][ ] hackathon (from: Wed 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+Cool. I now declare this task marked as, done:
+[E][X] hackathon (from: Wed 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+You asked for the tasks in your list? Here:
+1. [T][ ] eat dinner
+2. [D][ ] finish 2103 assignment (by: Wednesday)
+3. [E][X] hackathon (from: Wed 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+[E][ ] hackathon (from: Wed 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+You asked for the tasks in your list? Here:
+1. [T][ ] eat dinner
+2. [D][ ] finish 2103 assignment (by: Wednesday)
+3. [E][ ] hackathon (from: Wed 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+Cool. I now declare this task marked as, done:
+[D][X] finish 2103 assignment (by: Wednesday)
+____________________________________________________________
+____________________________________________________________
+Cool. I now declare this task marked as, done:
+[T][X] eat dinner
+____________________________________________________________
+____________________________________________________________
+You asked for the tasks in your list? Here:
+1. [T][X] eat dinner
+2. [D][X] finish 2103 assignment (by: Wednesday)
+3. [E][ ] hackathon (from: Wed 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+ See you later, alligator! 
+____________________________________________________________
