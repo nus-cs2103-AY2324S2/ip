@@ -63,6 +63,10 @@ public class Plana {
                 this.shouldExit = true;
                 break;
             case LIST:
+                if (tasks.size() == 0) {
+                    System.out.println("You have no tasks, add some!");
+                    break;
+                }
                 System.out.println("You've added the following tasks so far:");
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.printf("%d. %s\n", i+1, tasks.get(i).toString());
@@ -77,6 +81,19 @@ public class Plana {
             case UNMARK:
                 markTask(cmd, in.split("\\s+", 2)[1]);
                 break;
+            case DELETE:
+                int i;
+                try {
+                    i = Integer.parseInt(in.split("\\s+", 2)[1]);
+                } catch (NumberFormatException e) {
+                    throw new InvalidArgumentException();
+                }
+
+                if (i < 1 || i > tasks.size()) throw new InvalidArgumentException();
+                Task removed = tasks.remove(i-1);
+                System.out.println("Got it. I've removed this task:");
+                System.out.println(">> " + removed);
+                System.out.println("You now have " + tasks.size() + " tasks in the list.");
         }
     }
 
