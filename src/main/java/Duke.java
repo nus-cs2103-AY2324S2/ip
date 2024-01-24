@@ -12,17 +12,23 @@ public class Duke {
         System.out.println("Hello! I'm Hao Wen\n" + "What can I do for you?");
         //System.out.println("Bye. Hope to see you again soon!");
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-             PrintWriter pw = new PrintWriter(System.out)) {
+        MyList myList = new MyList();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        try {
             while (true) {
                 String userInput = br.readLine();
                 if (userInput.equalsIgnoreCase("bye")) {
                     break;
                 }
-                pw.println(userInput);
-                pw.flush();
+
+                if (userInput.equals("list")) {
+                    System.out.println(myList.getItems());
+                } else {
+                    System.out.println(myList.addItem(userInput));
+                }
             }
-            pw.println("Bye. Hope to see you again soon!");
+            System.out.println("Bye. Hope to see you again soon!");
 
         } catch (IOException e) {
             System.err.println("Error");
