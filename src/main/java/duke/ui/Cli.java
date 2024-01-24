@@ -35,10 +35,11 @@ public class Cli {
     // Store and echo user input
     do {
       input = sc.nextLine();
+      String[] splitInput = input.split(" ");
 
       System.out.println("------------------------------------------------------------");
 
-      switch (input) {
+      switch (splitInput[0]) {
         case "bye": // Exit
           // Print exit message
           System.out.println(goodbye);
@@ -46,6 +47,14 @@ public class Cli {
 
         case "list": // List items
           Storage.listItems();
+          break;
+
+        case "mark":
+          Storage.markItem(Integer.parseInt(splitInput[1]) - 1);
+          break;
+
+        case "unmark":
+          Storage.unmarkItem(Integer.parseInt(splitInput[1]) - 1);
           break;
 
         default: // Store and echo items
