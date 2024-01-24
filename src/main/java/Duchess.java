@@ -18,6 +18,7 @@ public class Duchess {
 
     }
 
+    //Add a ToDo to the task list
     private static void addToDo(String userInput) {
         String[] toDoTokens = userInput.split("todo"); //Split to find description
         if (toDoTokens.length > 1) {
@@ -29,6 +30,7 @@ public class Duchess {
         }
     }
 
+    //Add a Deadline to the taskList
     private static void addDeadline(String userInput) {
         String[] deadlineTokens = userInput.split("deadline");
 
@@ -49,12 +51,13 @@ public class Duchess {
         }
     }
 
+    //Add an Event to the task list
     private static void addEvent(String userInput) {
         String[] eventTokens = userInput.split("event");
 
         if (eventTokens.length > 1) {
             // Split further to extract description and event details
-            String[] details = eventTokens[1].trim().split("/from|/to");
+            String[] details = eventTokens[1].trim().split("/from|/to"); // Means can use either /from or /to as delimiter
 
             if (details.length > 2) {
                 String description = details[0].trim();
