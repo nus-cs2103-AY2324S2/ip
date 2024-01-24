@@ -57,6 +57,16 @@ public class TheAdvisor {
             temp.unmark();
             System.out.println("     OK, I've marked this task as not done yet:\n" + "       " +
                     temp.toString());
+        } else if (strings[0].equals("delete")) {
+            checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
+                    + "delete + (number) to delete something from the list.");
+            // 1-based indexing on input
+            int number = Integer.parseInt(strings[1]);
+            checkIndex(number, taskList.size());
+            Task task = taskList.get(number - 1);
+            taskList.remove(number - 1);
+            System.out.println("     Noted. I've removed this task:\n" + "       " +
+                    task.toString() + "\n" + "     Now you have " + taskList.size() + " tasks in the list.");
         } else {
             String type = strings[0];
             if (type.equals("todo")) {
