@@ -5,6 +5,29 @@ import java.util.ArrayList; // For storing to-do tasks
 public class Nollid {
     private static ArrayList<Task> todoList = new ArrayList<>(100);
 
+    private enum Command {
+        BYE("bye"),
+        LIST("list"),
+        TODO("todo"),
+        DEADLINE("deadline"),
+        EVENT("event"),
+        MARK("mark"),
+        UNMARK("unmark"),
+        DELETE("delete"),
+        HELP("help");
+
+        private final String commandName;
+
+        Command(String commandName) {
+            this.commandName = commandName;
+        }
+
+        @Override
+        public String toString() {
+            return this.commandName;
+        }
+    }
+
     public static void main(String[] args) {
         sendWelcomeMessage();
 
@@ -23,25 +46,26 @@ public class Nollid {
             // Split user input into individual words
             // e.g. "i am user input" -> ["i", "am", "user", "input"]
             ArrayList<String> inputList = new ArrayList<>(Arrays.asList(userInput.split(" ")));
-            String command = inputList.get(0);
+            String userCommand = inputList.get(0);
+
             try {
-                if (command.equalsIgnoreCase("bye")) {
+                if (userCommand.equalsIgnoreCase(Command.BYE.toString())) {
                     break;
-                } else if (command.equalsIgnoreCase("list")) {
+                } else if (userCommand.equalsIgnoreCase(Command.LIST.toString())) {
                     listCommand();
-                } else if (command.equalsIgnoreCase("mark")) {
+                } else if (userCommand.equalsIgnoreCase(Command.MARK.toString())) {
                     markCommand(inputList);
-                } else if (command.equalsIgnoreCase("unmark")) {
+                } else if (userCommand.equalsIgnoreCase(Command.UNMARK.toString())) {
                     unmarkCommand(inputList);
-                } else if (command.equalsIgnoreCase("todo")) {
+                } else if (userCommand.equalsIgnoreCase(Command.TODO.toString())) {
                     addTodoCommand(inputList);
-                } else if (command.equalsIgnoreCase("deadline")) {
+                } else if (userCommand.equalsIgnoreCase(Command.DEADLINE.toString())) {
                     addDeadlineCommand(inputList);
-                } else if (command.equalsIgnoreCase("event")) {
+                } else if (userCommand.equalsIgnoreCase(Command.EVENT.toString())) {
                     addEventCommand(inputList);
-                } else if (command.equalsIgnoreCase("delete")) {
+                } else if (userCommand.equalsIgnoreCase(Command.DELETE.toString())) {
                     deleteTaskCommand(inputList);
-                } else if (command.equalsIgnoreCase("help")) {
+                } else if (userCommand.equalsIgnoreCase(Command.HELP.toString())) {
                     helpCommand();
                 }
                 else {
