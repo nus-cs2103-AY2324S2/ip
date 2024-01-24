@@ -1,7 +1,38 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Pengu
+What can I do for you?
 
+Did you know that the noise penguins make are called "honks"
+―――――――――――――――――――――――――――――――――――
+*Honk! Honk!* Pengu has added this task:
+[ ] normaltask
+Get back to work! you have 1 tasks in the list
+―――――――――――――――――――――――――――――――――――
+*Honk! Honk!* Pengu has added this task:
+[T][ ] homework
+Get back to work! you have 2 tasks in the list
+―――――――――――――――――――――――――――――――――――
+*Honk! Honk!* Pengu has added this task:
+[D][ ] assignment (by: thursday)
+Get back to work! you have 3 tasks in the list
+―――――――――――――――――――――――――――――――――――
+*Honk! Honk!* Pengu has added this task:
+[E][ ] exam (from: may to: may)
+Get back to work! you have 4 tasks in the list
+―――――――――――――――――――――――――――――――――――
+*Honk!* Good Job!, Pengu has marked this task as done:
+[X] normaltask
+―――――――――――――――――――――――――――――――――――
+*Honk!* Good Job!, Pengu has marked this task as done:
+[D][X] assignment (by: thursday)
+―――――――――――――――――――――――――――――――――――
+*Honk!* Pengu has marked this task as not done yet:
+[ ] normaltask
+―――――――――――――――――――――――――――――――――――
+*Honk!* Pengu has listed your current tasks below:
+1. [ ] normaltask
+2. [T][ ] homework
+3. [D][X] assignment (by: thursday)
+4. [E][ ] exam (from: may to: may)
+―――――――――――――――――――――――――――――――――――
+Bye. Hope to see you again soon! **HONK HONK**
+―――――――――――――――――――――――――――――――――――

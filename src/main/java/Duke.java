@@ -1,40 +1,12 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
-    private static String logo = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣴⠶⠶⣦⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⡾⠟⠋⠉⠀⠀⠀⠀⠀⠀⠈⠉⠛⠿⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣧⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠋⠀⠀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣷⡀⠀⠀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⢸⡏⠀⠀⠀⠀⠀⣠⣾⠟⠛⠛⠛⠻⢶⣄⠀⠀⠀⠀⠀⠀⣴⡾⠛⠛⢿⣧⠀⠀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⣾⠁⠀⠀⠀⢀⣾⠏⠀⠀⠀⠀⠀⠀⠀⠙⣷⡀⠀⠀⠀⢸⡟⠀⠀⠀⠈⣿⡆⠀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣼⠏⠀⠀⠀⠀⠀⣠⣤⡀⠀⠘⣷⣤⣶⢶⣿⣇⠀⣖⣶⡆⠘⣿⡀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⢠⣿⠀⠀⠀⠀⠀⠸⣧⣿⣿⠀⣼⠏⠁⠀⠀⠀⠹⣧⠙⠛⠁⠀⣿⣧⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠈⣿⠀⠀⠀⠀⠀⠀⠈⠉⠀⠀⢻⣿⣶⠶⣶⣶⣿⠏⠀⠀⠀⣰⣿⡏⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⢰⡟⠀⠀⠀⠀⠹⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠋⠉⠀⠀⠀⣠⣾⠋⢹⡆⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⢀⣿⠃⠀⠀⠀⠀⠀⠙⢷⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠟⠻⢷⣄⢻⣦⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⢠⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⣻⣶⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣷⡙⢷⣄⠀\n" +
-            "⠀⠀⠀⠀⢠⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠃⠈⢻⣆\n" +
-            "⠀⠀⠀⢠⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠻⣦⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠏⠀⠀⠀⣿\n" +
-            "⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡟⠀⠀⠀⢠⣿\n" +
-            "⠀⠀⢰⡟⠀⠀⠀⠀⠀⠀⠠⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠹⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⣾⠃\n" +
-            "⠀⠀⢸⣷⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣦⣀⠀⠀⠀⠀⠀⠀⢹⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⡇⠀⣠⣾⠏⠀\n" +
-            "⢀⣴⡿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠻⢷⣄⡀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠿⠿⣿⠃⠀⠀\n" +
-            "⣿⡏⠀⢹⣧⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠙⠿⣦⣤⣤⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⢿⣦⠀⠀\n" +
-            "⠙⢿⣦⣀⠻⣧⡀⠀⠀⠀⠀⠀⢠⣼⣷⣄⠀⣀⣀⡀⠈⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠏⢰⡿⢶⡆\n" +
-            "⠀⠀⠉⠙⠛⠿⠿⣦⣀⢠⣶⣶⡿⠁⠀⠹⣿⠋⠉⢿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⡿⠃⠀⠀⣠⡾⠃\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠈⠻⢿⣿⡦⠀⠀⠀⠀⠀⠀⠀⢸⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣿⣋⣀⣤⣴⠟⠋⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣦⣀⠀⠀⠀⠀⣰⡿⠁⠀⠀⠀⠀⠀⢀⣀⣠⣴⠿⠛⠉⠙⠛⠉⠉⠀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⠶⠶⠟⠛⠛⠛⠛⠛⠛⠛⠛⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠀⠀⠀⠘⠦⣠⠀⠀⠠⠀⡀⠀⠀⣘⢦⠀⢤⡄⠀⠈⠡⡄⡀⠀⡀⣄⠈⠀⠀⠐⠀⠀⠀⠈⠀⠀⠀⠀\n" +
-            "⠀⠀⠀⠀⠐⠶⠠⠄⠠⠀⠀⠤⠀⠤⠄⠀⡰⡉⠈⠱⠘⠀⡄⣀⠀⠀⠀⠠⠀⠭⠰⠶⠤⠆⠰⡶⠘⢤⠄⠀⢀⠀";
 
     private static ArrayList<Task> storage = new ArrayList<>();
     private static void greeting() {
-        System.out.println("Hello! I'm Pengu\n" + "What can I do for you? \n" + Duke.logo +
+        System.out.println("Hello! I'm Pengu\n" + "What can I do for you?\n" +
                 "\nDid you know that the noise penguins make are called \"honks\"");
         System.out.println("―――――――――――――――――――――――――――――――――――");
     }
@@ -48,16 +20,67 @@ public class Duke {
         Task newTask;
         if (description.toLowerCase().startsWith("todo")) {
             String[] descriptionArr = description.split(" ");
-            newTask = new ToDo(descriptionArr[1]);
+            StringBuilder descBuilder = new StringBuilder();
+            for(int k = 1; k < descriptionArr.length; k++){
+                if (k == descriptionArr.length - 1){
+                    descBuilder.append(descriptionArr[k]);
+                } else {
+                    descBuilder.append(descriptionArr[k] + " ");
+                }
+            }
+            newTask = new ToDo(descBuilder.toString());
         } else if (description.toLowerCase().startsWith("deadline")) {
             String[] descriptionArr = description.split(" ");
+            int byIndex = Arrays.asList(descriptionArr).indexOf("/by");
+            StringBuilder descBuilder = new StringBuilder();
+            for(int k = 1; k < byIndex; k++){
+                if (k == byIndex - 1){
+                    descBuilder.append(descriptionArr[k]);
+                } else {
+                    descBuilder.append(descriptionArr[k] + " ");
+                }
+            }
+            StringBuilder byBuilder = new StringBuilder();
+            for(int k = byIndex + 1; k < descriptionArr.length; k++){
+                if (k == descriptionArr.length - 1){
+                    byBuilder.append(descriptionArr[k]);
+                } else {
+                    byBuilder.append(descriptionArr[k] + " ");
+                }
+            }
             /*if (descriptionArr[2].toLowerCase().equals("/by")) {
                 System.out.println("*HONKS ANGRILIY* Pengu thinks that the description of the deadline has to be followed by '/by'");
             }*/
-            newTask = new Deadline(descriptionArr[1], descriptionArr[3]);
+            newTask = new Deadline(descBuilder.toString(), byBuilder.toString());
         } else if (description.toLowerCase().startsWith("event")) {
             String[] descriptionArr = description.split(" ");
-            newTask = new Event(descriptionArr[1], descriptionArr[3], descriptionArr[5]);
+            int fromIndex = Arrays.asList(descriptionArr).indexOf("/from");
+            StringBuilder descBuilder = new StringBuilder();
+            for(int k = 1; k < fromIndex; k++){
+                if (k == fromIndex - 1){
+                    descBuilder.append(descriptionArr[k]);
+                } else {
+                    descBuilder.append(descriptionArr[k] + " ");
+                }
+            }
+            int toIndex = Arrays.asList(descriptionArr).indexOf("/to");
+            StringBuilder fromBuilder = new StringBuilder();
+            for(int k = fromIndex + 1; k < toIndex; k++){
+                if (k == toIndex - 1){
+                    fromBuilder.append(descriptionArr[k]);
+                } else {
+                    fromBuilder.append(descriptionArr[k] + " ");
+                }
+            }
+            StringBuilder toBuilder = new StringBuilder();
+            for(int k = toIndex + 1; k < descriptionArr.length; k++){
+                if (k == descriptionArr.length - 1){
+                    toBuilder.append(descriptionArr[k]);
+                } else {
+                    toBuilder.append(descriptionArr[k] + " ");
+                }
+            }
+            newTask = new Event(descBuilder.toString(), fromBuilder.toString(), toBuilder.toString());
         }
         else {
             newTask = new Task(description);
