@@ -6,12 +6,12 @@ public class Pyrite {
     String greeting = "\tHello! I'm " + name + "\n"
             + "\tWhat can I do for you?";
     String farewell = "\tBye. Hope to see you again soon!";
-    String[] list = new String[100];
+    Task[] list = new Task[100];
     int list_count = 0;
-    private void printList(String[] list, int list_count) {
+    private void printList(Task[] list, int list_count) {
         System.out.println(this.horizontal_line);
         for (int i = 0; i < list_count; i++) {
-            System.out.println("\t" + Integer.toString(i + 1) + ". " + list[i]);
+            System.out.println("\t" + Integer.toString(i + 1) + ". " + list[i].getFullStatusString());
         }
         System.out.println(horizontal_line);
     }
@@ -29,7 +29,7 @@ public class Pyrite {
             } else if (input.equals("list")) {
                 printList(this.list, this.list_count);
             } else {
-                this.list[this.list_count] = input;
+                this.list[this.list_count] = new Task(input);
                 this.list_count++;
 
                 System.out.println(this.horizontal_line);
