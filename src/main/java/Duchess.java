@@ -30,7 +30,7 @@ public class Duchess {
             ToDo newToDo = new ToDo(description);
             addTask(newToDo);
         } else {
-            System.out.println("Invalid command. Usage: todo <description>");
+            System.out.println("Oh dear! That is an invalid command. Try: todo <description>");
         }
     }
 
@@ -48,10 +48,10 @@ public class Duchess {
                 Deadline newDeadline = new Deadline(description, by);
                 addTask(newDeadline);
             } else {
-                System.out.println("Invalid command. Usage: deadline <description> /by <deadline>");
+                System.out.println("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
             }
         } else {
-            System.out.println("Invalid command. Usage: deadline <description> /by <deadline>");
+            System.out.println("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
         }
     }
 
@@ -71,10 +71,10 @@ public class Duchess {
                 Event newEvent = new Event(description, from, to);
                 addTask(newEvent);
             } else {
-                System.out.println("Invalid command. Usage: event <description> /from <start> /to <end>");
+                System.out.println("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
             }
         } else {
-            System.out.println("Invalid command. Usage: event <description> /from <start> /to <end>");
+            System.out.println("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
         }
     }
 
@@ -162,7 +162,7 @@ public class Duchess {
                         int taskIndexToMark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
                         markTaskAsDone(taskIndexToMark);
                     } else {
-                        System.out.println("Invalid command. Usage: mark <taskIndex>");
+                        System.out.println("Oh dear! That is an invalid command. Try: mark <taskIndex>");
                     }
                     break;
 
@@ -171,7 +171,7 @@ public class Duchess {
                         int taskIndexToUnmark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
                         unmarkTaskAsDone(taskIndexToUnmark);
                     } else {
-                        System.out.println("Invalid command. Usage: unmark <taskIndex>");
+                        System.out.println("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
                     }
                     break;
 
@@ -188,9 +188,7 @@ public class Duchess {
                     break;
 
                 default:
-                    Task newTask = new Task(userInput);
-                    addTask(newTask);
-                    break;
+                    System.out.println("Oh dear, I can't make out what that is.");
             }
         }
     }
