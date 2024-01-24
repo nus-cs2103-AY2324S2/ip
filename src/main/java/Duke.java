@@ -1,10 +1,12 @@
-public class Duke {
+public class someBOTy {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String greet = "Wassup! I'm someBOTy.\n"
+                     + "What are you here for?\n"
+                     + "============================================";
+        System.out.println(greet);
+
+        String bye = "Aight. Imma head out.\n"
+                   + "============================================";
+        System.out.println(bye);
     }
 }
