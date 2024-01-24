@@ -2,11 +2,12 @@ import Exceptions.*;
 import Tasks.*;
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lelu {
 
-    public static Task[] tasks;
+    public static ArrayList<Task> tasks;
     public static int index;
     public static void greet() {
         String greet = "    Hi! I am your favourite friend, Lelu :)\n    What can I do for you?\n";
@@ -17,22 +18,26 @@ public class Lelu {
         System.out.println(exit);
     }
     public static void list() {
-        for (int i = 0; i < 100; i++) {
-            if (Lelu.tasks[i] == null) {
-                System.out.println("\n");
-                break;
-            }
-            System.out.printf("    %d.%s\n", i + 1, tasks[i].toString());
+        for (int i = 0; i < Lelu.tasks.size(); i++) {
+            System.out.printf("    %d.%s\n", i + 1, tasks.get(i).toString());
         }
+        System.out.println();
     }
 
     public static void mark(int i) {
-        Lelu.tasks[i].markTask();
-        System.out.printf("    Great job completing your task!\n      %s\n\n", tasks[i].toString());
+        Lelu.tasks.get(i).markTask();
+        System.out.printf("    Great job completing your task!\n      %s\n\n", tasks.get(i).toString());
     }
     public static void unmark(int i) {
-        Lelu.tasks[i].unmarkTask();
-        System.out.printf("    Don't forget to complete your task soon...\n      %s\n\n", tasks[i].toString());
+        Lelu.tasks.get(i).unmarkTask();
+        System.out.printf("    Don't forget to complete your task soon...\n      %s\n\n", tasks.get(i).toString());
+    }
+
+    public static void delete(int i) {
+        Task t = Lelu.tasks.get(i);
+        Lelu.tasks.remove(i);
+        System.out.printf("    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the " +
+                "list now.\n\n", t.toString(), Lelu.tasks.size());;
     }
 
     public static void listen() throws InvalidInputException {
@@ -54,6 +59,9 @@ public class Lelu {
                     break;
                 case "unmark":
                     Lelu.unmark(Integer.parseInt(taskName.split(" ")[1]) - 1);
+                    break;
+                case "delete":
+                    Lelu.delete(Integer.parseInt(taskName.split(" ")[1]) - 1);
                     break;
                 case "todo":
                     t = ToDo.ToDoOf(taskName);
@@ -79,16 +87,16 @@ public class Lelu {
                             "-------------------------------------\n");
             }
             if (t != null) {
-                Lelu.tasks[Lelu.index++] = t;
-                System.out.printf("    Ok! I have added your task:\n      %s%n    You have %d task(s) in the " +
-                        "list now.\n\n", t.toString(), Lelu.index);
+                Lelu.tasks.add(t);
+                System.out.printf("    Ok! I have added your task:\n      %s\n    You have %d task(s) in the " +
+                        "list now.\n\n", t.toString(), Lelu.tasks.size());
             }
         }
     }
 
     public static void main(String[] args) {
         Lelu.greet();
-        Lelu.tasks = new Task[100];
+        Lelu.tasks = new ArrayList<>();
         Lelu.index = 0;
         while (true) {
             try {

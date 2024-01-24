@@ -1,40 +1,18 @@
     Hi! I am your favourite friend, Lelu :)
     What can I do for you?
 
-    Ok! I have added your task:
-      [ ] eat
-    You have 1 task(s) in the list now.
+Please type in:
+------------------------
+[to record your task(s)/ events]
+- todo <task>
+- deadline <task> /by <date>
+- event <event> /from <date and time> /to <date and time>
 
-    Ok! I have added your task:
-      [T][ ] sleep
-    You have 2 task(s) in the list now.
+[to view your task(s)]
+- list
 
-    Ok! I have added your task:
-      [E][ ] play  (From: 10am  To: 10pm)
-    You have 3 task(s) in the list now.
+[to mark or unmark your task as done]
+- mark <task number in list>
+- unmark <task number in list>
+-------------------------------------
 
-    Ok! I have added your task:
-      [D][ ] homework  (by: tmr)
-    You have 4 task(s) in the list now.
-
-    Great job completing your task!
-      [T][X] sleep
-
-    1.[ ] eat
-    2.[T][X] sleep
-    3.[E][ ] play  (From: 10am  To: 10pm)
-    4.[D][ ] homework  (by: tmr)
-
-
-
-    Don't forget to complete your task soon...
-      [T][ ] sleep
-
-    1.[ ] eat
-    2.[T][ ] sleep
-    3.[E][ ] play  (From: 10am  To: 10pm)
-    4.[D][ ] homework  (by: tmr)
-
-
-
-    Ok bye, you shall be missed :(
