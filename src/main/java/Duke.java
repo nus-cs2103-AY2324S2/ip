@@ -12,11 +12,23 @@ public class    Duke {
         Scanner sc= new Scanner(System.in);
         System.out.println(intro);
         String str = sc.nextLine();
-        while (!str.equals("exit")) {
-            String output = "____________________________________________________________\n"
-                    + str
-                    + "\n____________________________________________________________\n";
-            System.out.print(output);
+        ArrayList<String> list = new ArrayList<>();
+        while (!str.equals("bye")) {
+            if (str.equals("list")) {
+                StringBuilder listOutput = new StringBuilder("____________________________________________________________\n");
+                for (int i = 0; i < list.size(); i++) {
+                    listOutput.append(i + 1).append(". ").append(list.get(i)).append("\n");
+                }
+                listOutput.append("____________________________________________________________\n");
+                System.out.print(listOutput);
+            } else {
+                String output = "____________________________________________________________\n"
+                        + "added: "
+                        + str
+                        + "\n____________________________________________________________\n";
+                System.out.print(output);
+                list.add(str);
+            }
             str = sc.nextLine();
         }
         System.out.print(outro);
