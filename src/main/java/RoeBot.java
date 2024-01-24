@@ -29,7 +29,7 @@ public class RoeBot {
         printExitMessage();
     }
 
-    public void parseUserInput(String userInput) {
+    private void parseUserInput(String userInput) {
         try {
             String[] parsed = userInput.split(" ", 2);
             Command command = Command.valueOf(parsed[0].toUpperCase());
@@ -55,9 +55,10 @@ public class RoeBot {
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         } catch (IllegalArgumentException e) {
-            System.out.println("\tInvalid input, Please try again");
+            System.out.println("\tInvalid event/input type, Please try again");
         }
     }
+
     public void printIntroMessage() {
         printHorizontalLine();
         System.out.println("\tHello! I'm RoeBot!");

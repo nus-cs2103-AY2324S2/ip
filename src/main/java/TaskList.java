@@ -1,4 +1,9 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.io.File;
 import java.io.FileWriter;
@@ -40,8 +45,55 @@ public class TaskList {
             throw new DukeException("The task list is full.");
         }
     }
+    private LocalDateTime parseDate(String dateString) throws DukeException {
+        List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("d-M-yyyy HHmm"),
+                DateTimeFormatter.ofPattern("yyyy-M-d HHmm"),
+                DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("M/d/yyyy h:mm a"),
+                DateTimeFormatter.ofPattern("yyyy-M-d HHmm"),
+                DateTimeFormatter.ofPattern("d MMM yyyy h:mma"),
+                DateTimeFormatter.ofPattern("MMM d, yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("yyyyMMdd h:mm a"),
+                DateTimeFormatter.ofPattern("d-M-yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("yyyy/M/d h:mma"),
+                DateTimeFormatter.ofPattern("d MMMM yyyy HHmm"),
+                DateTimeFormatter.ofPattern("yyyy-M-d h:mm a")
+        );
 
-    public void parseTask(String task) throws DukeException {
+        List<DateTimeFormatter> dateFormatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("d/M/yyyy"),
+                DateTimeFormatter.ofPattern("M/d/yyyy"),
+                DateTimeFormatter.ofPattern("yyyy/M/d"),
+                DateTimeFormatter.ofPattern("d-M-yyyy"),
+                DateTimeFormatter.ofPattern("M-d-yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-M-d"),
+                DateTimeFormatter.ofPattern("d MMM yyyy"),
+                DateTimeFormatter.ofPattern("MMM d, yyyy"),
+                DateTimeFormatter.ofPattern("d MMMM yyyy"),
+                DateTimeFormatter.ofPattern("yyyyMMdd")
+        );
+
+        for (DateTimeFormatter formatter : dateTimeFormatters) {
+            try {
+                return LocalDateTime.parse(dateString, formatter);
+            } catch (DateTimeParseException e) {
+                // Continue to try the next format
+            }
+        }
+
+        for (DateTimeFormatter formatter : dateFormatters) {
+            try {
+                return LocalDate.parse(dateString, formatter).atStartOfDay();
+            } catch (DateTimeParseException e) {
+                // Continue to try the next format
+            }
+        }
+        throw new DukeException("Invalid Date and time format");
+    }
+
+    private void parseTask(String task) throws DukeException {
         String[] parsed = task.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             throw new DukeException("OOPS! Please enter a task name");
@@ -58,7 +110,7 @@ public class TaskList {
                     throw new DukeException("Please enter a valid deadline format");
                 }
                 String deadlineName = parsedDeadline[0];
-                String by = parsedDeadline[1];
+                LocalDateTime by = parseDate(parsedDeadline[1]);
                 this.tasks.add(new Deadline(deadlineName, by));
                 break;
             case EVENT:
@@ -67,8 +119,8 @@ public class TaskList {
                     throw new DukeException("Please enter valid event format");
                 }
                 String eventName = parsedEvent[0];
-                String start = parsedEvent[1];
-                String end = parsedEvent[2];
+                LocalDateTime start = parseDate(parsedEvent[1]);
+                LocalDateTime end = parseDate(parsedEvent[2]);
                 this.tasks.add(new Event(eventName, start, end));
                 break;
             default:
@@ -178,7 +230,8 @@ public class TaskList {
                 if (additionalInfo == null) {
                     throw new DukeException("Invalid Deadline format in file");
                 }
-                Deadline deadline = new Deadline(description, additionalInfo);
+                LocalDateTime by = LocalDateTime.parse(additionalInfo);
+                Deadline deadline = new Deadline(description, by);
                 if (isDone) deadline.markAsDone();
                 tasks.add(deadline);
                 return deadline;
@@ -187,8 +240,8 @@ public class TaskList {
                 if (times.length < 2) {
                     throw new DukeException("Invalid Event time format in file.");
                 }
-                String start = times[0].trim();
-                String end = times[1].trim();
+                LocalDateTime start = LocalDateTime.parse(times[0].trim());
+                LocalDateTime end = LocalDateTime.parse(times[1].trim());
 
                 Event event = new Event(description, start, end);
                 if (isDone) event.markAsDone();
