@@ -61,9 +61,6 @@ public class Cli {
           try {
             // Store item
             Storage.storeItem(splitInput[0], Arrays.copyOfRange(splitInput, 1, splitInput.length));
-
-            // Echo item
-            System.out.println("added: " + input);
             break;
           } catch (Exception exception) {
             System.out.println(String.format("ERROR: %s", exception.getMessage()));

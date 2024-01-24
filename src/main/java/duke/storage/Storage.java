@@ -111,6 +111,11 @@ public class Storage {
     // Add item to storage
     storageArray[index] = task;
     index++;
+
+    // Print confirmation message
+    System.out.println("Got it. I've added this task:");
+    System.out.println(String.format("  %s", task.toString()));
+    System.out.println(String.format("Now you have %d tasks in the list.", index));
   }
 
   /**
