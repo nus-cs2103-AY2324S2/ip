@@ -1,6 +1,7 @@
 package Tasks;
 
 import Exceptions.InvalidFormatException;
+import Exceptions.LeluException;
 
 public class Event extends Task {
     protected String from;
@@ -14,15 +15,15 @@ public class Event extends Task {
 
     public static Event EventOf(String input) throws InvalidFormatException {
         if (input.replaceAll(" ", "").equals("event")) {
-            InvalidFormatException.callInvalidFormatException("event");
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
         }
         String[] t = input.replaceFirst("event ", "").split("/from ");
         if (t.length < 2) {
-            InvalidFormatException.callInvalidFormatException("event");
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
         }
         String[] frTo = t[1].split("/to ");
         if (frTo.length < 2) {
-            InvalidFormatException.callInvalidFormatException("event");
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
         }
         return new Event(t[0], frTo[0], frTo[1]);
     }

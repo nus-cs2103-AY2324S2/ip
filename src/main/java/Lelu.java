@@ -23,7 +23,6 @@ public class Lelu {
         }
         System.out.println();
     }
-
     public static void mark(int i) {
         Lelu.tasks.get(i).markTask();
         System.out.printf("    Great job completing your task!\n      %s\n\n", tasks.get(i).toString());
@@ -39,7 +38,6 @@ public class Lelu {
         System.out.printf("    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the " +
                 "list now.\n\n", t.toString(), Lelu.tasks.size());;
     }
-
     public static void listen() throws InvalidInputException {
         Scanner sc = new Scanner(System.in);
         while (true) {
