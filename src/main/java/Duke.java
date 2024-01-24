@@ -80,6 +80,14 @@ public class Duke {
                 System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
                 System.out.println(this.divider);
                 break;
+            case "delete":
+                String deleteMessage = "Noted. I've removed this task:\n  ";
+                int deleteIndex = Integer.parseInt(splitCommand(command)[1].replaceAll("\\s", ""));
+                Task deleteTask = this.taskList.get(deleteIndex - 1);
+                this.taskList.remove(deleteTask);
+                System.out.println(deleteMessage + deleteTask);
+                System.out.println(this.divider);
+                break;
             default:
                 this.taskList.add(new Task(command));
                 System.out.println("added: " + command);
