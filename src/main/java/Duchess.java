@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Duchess {
+    private static final int MAX_TASKS = 100;
+    private static String[] tasks = new String[MAX_TASKS];
+    private static int taskCount = 0;
+
     public static void main(String[] args) {
         printHorizontalLine();
 
@@ -14,23 +18,46 @@ public class Duchess {
 
     }
 
-    //Prints an echo of user's input, exits if user inputs "bye"
-    public static void printEcho() {
+    private static void printTaskList() {
+        printHorizontalLine();
+        if (taskCount == 0) {
+            System.out.println(" No tasks added yet.");
+        } else {
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println(" " + (i + 1) + ". " + tasks[i]);
+            }
+        }
+        printHorizontalLine();
+    }
+
+    //Add a task to task list
+    private static void addTask(String task) {
+        if (taskCount < MAX_TASKS) {
+            tasks[taskCount++] = task;
+            printHorizontalLine();
+            System.out.println(" added: " + task);
+            printHorizontalLine();
+        } else {
+            System.out.println("Task list is full. Cannot add more tasks.");
+        }
+    }
+
+    //Adds user input to list, exits if user inputs "bye"
+    private static void printEcho() {
         Scanner scanner = new Scanner(System.in);
 
         // Loop to read user input
         while (true) {
             String userInput = scanner.nextLine();
 
-            // Display the user input
-            printHorizontalLine();
-            System.out.println(" " + userInput);
-            printHorizontalLine();
-
             // Check if the user wants to exit
             if (userInput.equalsIgnoreCase("bye")) {
                 printClosingGreeting();
                 break;  // Exit the loop
+            } else if (userInput.equalsIgnoreCase("list")) {
+                printTaskList();
+            } else {
+                addTask(userInput);
             }
         }
 
@@ -39,7 +66,7 @@ public class Duchess {
     }
 
     //Print opening greeting
-    public static void printOpeningGreeting() {
+    private static void printOpeningGreeting() {
         String logo = " ____            __     \n"
                 + "|  _ \\ _   ______| |      ___  ___  ___ \n"
                 + "| | | | | | |  __| |__  /  _ \\/ __|/ __|  \n"
@@ -53,13 +80,13 @@ public class Duchess {
 
 
     //Prints closing greeting
-    public static void printClosingGreeting() {
+    private static void printClosingGreeting() {
         printHorizontalLine();
         System.out.println("Goodbye. Hope to see you again soon!");
     }
 
     //Prints a Horizontal Line of 50 dashes
-    public static void printHorizontalLine() {
+    private static void printHorizontalLine() {
         int lineLength = 50; // Specify the length of the line
 
         // Print the horizontal line
