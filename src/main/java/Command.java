@@ -38,7 +38,6 @@ public class Command {
                     DukeException error = new DukeException(e);
                     System.out.println(error);
                 }
-
             } else if (inputCommand.startsWith("deadline")) {
                 String[] separate = inputCommand.substring(9).split("/");
                 for (int i = 0; i < separate.length; i++) {
@@ -53,6 +52,10 @@ public class Command {
                 }
                 Task event = new Event(separate[0], separate[1], separate[2]);
                 tasklist.addTask(event);
+            } else if(inputCommand.startsWith("delete")) {
+                char pos = inputCommand.charAt(7);
+                int index = Integer.parseInt(String.valueOf(pos));
+                tasklist.deleteTask(index);
             } else {
 //                Task task = new Task(inputCommand);
 //                tasklist.addTask(task);

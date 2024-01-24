@@ -28,6 +28,13 @@ public class taskList {
         }
     }
 
+    public void deleteTask(int index) {
+        Task removed = getTask(index - 1);
+        System.out.println("Noted. I've removed this task:\n" + removed);
+        listOfTasks.remove(index - 1);
+        System.out.println("Now you have " + getSize() + " tasks in the list");
+    }
+
     public void markTask(int index) {
         Task modTask = listOfTasks.get(index - 1);
         modTask.setIsDone(true);
