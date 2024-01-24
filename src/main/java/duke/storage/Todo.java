@@ -14,4 +14,14 @@ public class Todo extends Task {
   public Todo(String description) {
     super(description);
   }
+
+  /**
+   * String representation of a Todo
+   *
+   * @return String representation of the Todo
+   */
+  @Override
+  public String toString() {
+    return String.format("[T]%s", super.toString());
+  }
 }

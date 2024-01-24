@@ -21,4 +21,14 @@ public class Deadline extends Task {
     super(description);
     this.dueDate = dueDate;
   }
+
+  /**
+   * String representation of a Deadline
+   *
+   * @return String representation of the Deadline
+   */
+  @Override
+  public String toString() {
+    return String.format("[D]%s (by: %s)", super.toString(), dueDate);
+  }
 }

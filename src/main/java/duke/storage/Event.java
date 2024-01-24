@@ -17,7 +17,7 @@ public class Event extends Task {
   private String endDate;
 
   /**
-   * Constructor for a Event object
+   * Constructor for an Event object
    *
    * @param description Description of the event
    * @param startDate   Start date of the event
@@ -27,5 +27,15 @@ public class Event extends Task {
     super(description);
     this.startDate = startDate;
     this.endDate = endDate;
+  }
+
+  /**
+   * String representation of an event
+   *
+   * @return String representation of the event
+   */
+  @Override
+  public String toString() {
+    return String.format("[E]%s (from: %s to: %s)", super.toString(), startDate, endDate);
   }
 }
