@@ -9,28 +9,43 @@ public class TaskManager {
 
     ArrayList<Task> userTasks = new ArrayList<>();
 
-    public void addUserTask(String taskName) {
+    public boolean addUserTask(String taskName) {
         Task newTask = new Task(taskName);
         this.userTasks.add(newTask);
+        return true;
     }
 
-    public void addToDoTask(String taskName) {
+    public boolean addToDoTask(String taskName) {
         ToDoTask newTask = new ToDoTask(taskName);
         this.userTasks.add(newTask);
+        return true;
     }
 
-    public void addDeadlineTask(String taskName, String deadline) {
+    public boolean addDeadlineTask(String taskName, String deadline) {
         DeadlineTask newTask = new DeadlineTask(taskName, deadline);
         this.userTasks.add(newTask);
+        return true;
     }
 
-    public void addEventTask(String taskName, String startDateTime, String endDateTime) {
+    public boolean addEventTask(String taskName, String startDateTime, String endDateTime) {
         EventTask newTask = new EventTask(taskName, startDateTime, endDateTime);
         this.userTasks.add(newTask);
+        return true;
     }
 
     public Task getTask(int index){
         return this.userTasks.get(index);
+    }
+
+    public Task removeTask(int index) {
+        try {
+            Task removedTask = this.userTasks.get(index);
+            this.userTasks.remove(index);
+            return removedTask;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
+            return null;
+        }
     }
 
     public int getTotalTaskCount(){

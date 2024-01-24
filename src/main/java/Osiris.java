@@ -56,6 +56,19 @@ public class Osiris {
                         System.out.println("Invalid task index. Please Reenter");
                     }
                     break;
+                case "delete":
+                    if (inputtedWords.length == 2) {
+                        String taskIndexString = inputtedWords[1];
+                        if (taskIndexString.matches("\\d+")) {
+                            int taskIndex = Integer.parseInt(taskIndexString);
+                            this.removeTask(taskIndex);
+                        } else {
+                            System.out.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
+                        }
+                    } else {
+                        System.out.println("Invalid task index. Please Reenter");
+                    }
+                    break;
                 case "todo":
                     taskName = userInput.substring("todo".length()).trim();
 
@@ -185,10 +198,23 @@ public class Osiris {
             this.printSeparator();
         }
     }
+
+    private void removeTask(int index) {
+        Task removedTask = this.taskManager.removeTask(index - 1);
+
+        if (removedTask != null) {
+            this.printSeparator();
+            System.out.println("     Noted. I've removed this task:");
+            System.out.println("        " + removedTask.toString());
+            System.out.printf("     Now you have %d tasks in the list.%n", taskManager.getTotalTaskCount());
+            this.printSeparator();
+        }
+    }
     private void printUserTasks(){
         ArrayList<Task> toPrint = this.taskManager.getUserTasks();
 
         this.printSeparator();
+        System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < toPrint.size(); i++) {
             System.out.println("     " + (i + 1) + ". " + toPrint.get(i).toString());
         }
