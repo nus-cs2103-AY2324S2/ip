@@ -24,7 +24,7 @@ public class Parser {
         if (matcher.matches()) {
             Storage.desc = matcher.group(1); // store first capturing group
         } else {
-            throw new UkeCatException("Format: todo <desc>");
+            throw new UkeCatException("Wrong format, use: todo <desc>");
         }
     }
 
@@ -37,7 +37,7 @@ public class Parser {
             Storage.desc = matcher.group(1);
             Storage.by = matcher.group(2);
         } else {
-            throw new UkeCatException("Format: deadline <desc> /by <by>");
+            throw new UkeCatException("Wrong format, use: deadline <desc> /by <by>");
         }
     }
 
@@ -52,7 +52,7 @@ public class Parser {
             Storage.start = matcher.group(2);
             Storage.end = matcher.group(3);
         } else {
-            throw new UkeCatException("Format: event <desc> /from <start> /to <end>");
+            throw new UkeCatException("Wrong format, use: event <desc> /from <start> /to <end>");
         }
     }
 

@@ -25,9 +25,12 @@ public class Responder {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("Please enter a valid integer to mark!");
-            Storage.printTasks();
+            if (e instanceof NumberFormatException) {
+                System.out.println("Wrong format, use: mark / unmark <task#>");
+            } else if (e instanceof IndexOutOfBoundsException) {
+                System.out.println("Task not found. Please choose a task from the list:");
+                Storage.printTasks();
+            }
         }
 
         // adding tasks
@@ -50,7 +53,7 @@ public class Responder {
                 Storage.report();
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
     }
