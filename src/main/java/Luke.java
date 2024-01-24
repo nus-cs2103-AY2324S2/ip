@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Luke {
 
     //Logo created using https://patorjk.com/software/taag/#p=display&f=Varsity&t=Luke
@@ -13,11 +15,22 @@ public class Luke {
     }
 
     public static void bye() {
-        System.out.println("See you later, alligator!\n");
+        System.out.println("Don't be ridiculous!\n" +
+                "It's... it's not like I want to see you again or anything!\n");
     }
 
     public static void main(String[] args) {
         greet();
-        bye();
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            //echo mode
+            String cmd = sc.nextLine();
+            System.out.println(">>> " + cmd);
+            if (cmd.equals("bye")) {
+                bye();
+                sc.close();
+                break;
+            }
+        }
     }
 }
