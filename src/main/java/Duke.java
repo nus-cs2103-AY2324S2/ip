@@ -16,6 +16,8 @@ public class Duke {
         System.out.println("        ------------------------------------------------------------");
 
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> tasks = new ArrayList<String>();
+        int noOfTasks = 0;
 
         while (true) {
             String command = sc.nextLine();
@@ -25,10 +27,18 @@ public class Duke {
                 System.out.println("        Bye. Hope to see you again soon!");
                 System.out.println("        ------------------------------------------------------------");
                 break;
+            } else if (command.equals("list")) {
+                System.out.println("        ------------------------------------------------------------");
+                for (int i = 1; i < noOfTasks + 1; i++) {
+                    System.out.println("        " + i + ". " + tasks.get(i - 1));
+                }
+                System.out.println("        ------------------------------------------------------------");
             } else {
                 System.out.println("        ------------------------------------------------------------");
-                System.out.println("        " + command);
+                System.out.println("        added: " + command);
                 System.out.println("        ------------------------------------------------------------");
+                tasks.add(command);
+                noOfTasks++;
             }
         }
     }
