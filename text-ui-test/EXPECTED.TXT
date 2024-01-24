@@ -1,7 +1,82 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+────────────────────────────────────────────────────────────
+  _____      _  _     _
+ / ____|    (_)| | _ (_)
+| (___  ___  _ | |/ / _
+ \___ \/ _ \| ||   / | |
+ ____) | __/| || | \ | |
+|_____/\___||_||_|\_\|_|
 
+Hello! I'm Seiki
+How may I assist you today?
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+The following task has been added:
+→ [T] read book
+You have a total of 1 tasks in the list.
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+The following task has been added:
+→ [D] return book (by: June 6th)
+You have a total of 2 tasks in the list.
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+The following task has been added:
+→ [E] project meeting (from: Aug 6th 2pm to: 4pm)
+You have a total of 3 tasks in the list.
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+The following task has been added:
+→ [T] join sports club
+You have a total of 4 tasks in the list.
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+Here are the task(s) you have:
+→ 1. [T] read book
+→ 2. [D] return book (by: June 6th)
+→ 3. [E] project meeting (from: Aug 6th 2pm to: 4pm)
+→ 4. [T] join sports club
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+The following task has been added:
+→ [T] borrow book
+You have a total of 5 tasks in the list.
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+The following task has been marked.
+→ [T] read book ✓
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+The following task has been marked.
+→ [T] join sports club ✓
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+Here are the task(s) you have:
+→ 1. [T] read book ✓
+→ 2. [D] return book (by: June 6th)
+→ 3. [E] project meeting (from: Aug 6th 2pm to: 4pm)
+→ 4. [T] join sports club ✓
+→ 5. [T] borrow book
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+The following task has been added:
+→ [D] return book (by: Sunday)
+You have a total of 6 tasks in the list.
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+The following task has been added:
+→ [E] project meeting (from: Mon 2pm to: 4pm)
+You have a total of 7 tasks in the list.
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+Here are the task(s) you have:
+→ 1. [T] read book ✓
+→ 2. [D] return book (by: June 6th)
+→ 3. [E] project meeting (from: Aug 6th 2pm to: 4pm)
+→ 4. [T] join sports club ✓
+→ 5. [T] borrow book
+→ 6. [D] return book (by: Sunday)
+→ 7. [E] project meeting (from: Mon 2pm to: 4pm)
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+Goodbye! If you ever need assistance in the future, don't hesitate to reach out. Take care!
+────────────────────────────────────────────────────────────
