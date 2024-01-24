@@ -4,45 +4,92 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Duke {
-    private static String lineBreak = "______________________________________________";
+    private static final String lineBreak = "____________________________________________________________";
     private static ArrayList<Task> lst = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         greet();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String command = "";
-        String[] commandArr;
+        String command;
+
         while (!(command = br.readLine()).equals("bye")) {
-            commandArr = command.split(" ");
-            switch (commandArr[0]) {
-                case "list":
-                    printLst();
-                    break;
-                case "mark":
-                    int toMark = Integer.parseInt(commandArr[1]);
-                    markTask(toMark);
-                    break;
-                case "unmark":
-                    int toUnmark = Integer.parseInt(commandArr[1]);
-                    unmarkTask(toUnmark);
-                    break;
-                case "todo":
-                    String todo = command.substring(5);
-                    Task newTodo = new Todo(todo);
-                    addLst(newTodo);
-                    break;
-                case "deadline":
-                    String[] deadlineArr = command.substring(9).split(" /by ");
-                    Task newDeadline = new Deadline(deadlineArr[0], deadlineArr[1]);
-                    addLst(newDeadline);
-                    break;
-                case "event":
-                    String[] eventArr = command.substring(6).split(" /");
-                    Task newEvent = new Event(eventArr[0], eventArr[1].substring(5), eventArr[2].substring(3));
-                    addLst(newEvent);
-                    break;
+            try {
+                Duke.checkCmd(command);
+            } catch (InvalidCommandException | IncompleteCommandException ice){
+                System.out.println(ice.getMessage());
             }
         }
         exit();
+    }
+
+    public static void checkCmd(String cmd) throws InvalidCommandException, IncompleteCommandException {
+        String[] commandArr = cmd.split(" ");
+        switch (commandArr[0]) {
+            case "list":
+                printLst();
+                break;
+            case "mark":
+                if (commandArr.length == 1) {
+                    throw new IncompleteCommandException(String.format("%s\n Sorry, please input the list index for me to mark\n%s", lineBreak, lineBreak));
+                }
+                if (!commandArr[1].matches("\\d+")) {
+                    throw new InvalidCommandException(String.format("%s\n Sorry, please input a valid list index for me to mark\n%s", lineBreak, lineBreak));
+                }
+                int toMark = Integer.parseInt(commandArr[1]);
+                if (toMark > lst.size()) {
+                    throw new InvalidCommandException(String.format("%s\n Sorry, please input a valid list index for me to mark\n%s", lineBreak, lineBreak));
+                }
+                markTask(toMark);
+                break;
+            case "unmark":
+                if (commandArr.length == 1) {
+                    throw new IncompleteCommandException(String.format("%s\n Sorry, please input the list index for me to unmark\n%s", lineBreak, lineBreak));
+                }
+                if (!commandArr[1].matches("\\d+")) {
+                    throw new InvalidCommandException(String.format("%s\n Sorry, please input a valid list index for me to unmark\n%s", lineBreak, lineBreak));
+                }
+                int toUnmark = Integer.parseInt(commandArr[1]);
+                if (toUnmark > lst.size()) {
+                    throw new InvalidCommandException(String.format("%s\n Sorry, please input a valid list index for me to unmark\n%s", lineBreak, lineBreak));
+                }
+                unmarkTask(toUnmark);
+                break;
+            case "todo":
+                if (commandArr.length == 1) {
+                    throw new IncompleteCommandException(String.format("%s\n Sorry, the description of a todo cannot be empty :(\n%s", lineBreak, lineBreak));
+                }
+                String todo = cmd.substring(5);
+                Task newTodo = new Todo(todo);
+                addLst(newTodo);
+                break;
+            case "deadline":
+                if (commandArr.length == 1) {
+                    throw new IncompleteCommandException(String.format("%s\n Sorry, the description and date of a deadline cannot be empty :(\n%s", lineBreak, lineBreak));
+                }
+                String[] deadlineArr = cmd.substring(9).split(" /by ");
+                if (deadlineArr.length == 1) {
+                    throw new IncompleteCommandException(String.format("%s\n Sorry, the date of a deadline cannot be empty :(\n%s", lineBreak, lineBreak));
+                }
+                Task newDeadline = new Deadline(deadlineArr[0], deadlineArr[1]);
+                addLst(newDeadline);
+                break;
+            case "event":
+                if (commandArr.length == 1) {
+                    throw new IncompleteCommandException(String.format("%s\n Sorry, the description and start and end dates of an event cannot be empty :(\n%s", lineBreak, lineBreak));
+                }
+                String[] eventFromArr = cmd.substring(6).split(" /from ");
+                if (eventFromArr.length == 1) {
+                    throw new IncompleteCommandException(String.format("%s\n Sorry, the start and end dates of an event cannot be empty :(\n%s", lineBreak, lineBreak));
+                }
+                String[] eventToArr = eventFromArr[1].split(" /to ");
+                if (eventToArr.length == 1) {
+                    throw new IncompleteCommandException(String.format("%s\n Sorry, the end date of an event cannot be empty :(\n%s", lineBreak, lineBreak));
+                }
+                Task newEvent = new Event(eventFromArr[0], eventToArr[0], eventToArr[1]);
+                addLst(newEvent);
+                break;
+            default:
+                throw new InvalidCommandException(String.format("%s\n Sorry, %s is not a valid command :(\n%s", lineBreak, cmd, lineBreak));
+        }
     }
 
     public static void greet() {
@@ -61,7 +108,7 @@ public class Duke {
     }
     public static void printLst() {
         System.out.println(lineBreak);
-        if (lst.size() == 0) {
+        if (lst.isEmpty()) {
             System.out.println(" Whoops! Your list is empty :(");
         } else {
             System.out.println(" Here are the tasks in your list:");
