@@ -1,14 +1,39 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
+
+ class Task {
+    protected String description;
+    protected boolean isDone;
+
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "[X] " : "[ ] "); // mark done task with X
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void markAsUndone() {
+        this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return (this.getStatusIcon() + this.description);
+    }
+}
+
 
 public class Duke {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(System.out, true);
 
-        String[] myList = new String[100];
+        Task[] myList = new Task[100];
         int pointer = 0;
 
         String prompt = "Hello! I'm TFamilyBot\n"
@@ -18,27 +43,43 @@ public class Duke {
 
         while (true) {
             String io = br.readLine();
+            String[] words = io.split("\\s+"); 
 
             pw.println("____________________________________________________________\n");
 
-            if (io.equals("bye")) {
+            if (words[0].equals("bye")) {
                 pw.println("Bye. Hope to see you again soon!");
                 pw.println("____________________________________________________________\n");
                 break;
             }
 
-            if (io.equals("list")) {
+            else if (words[0].equals("list")) {
                 for (int i = 0; i < pointer; i++) {
-                    int show = i+ 1;
-                    pw.println(show + ". " + myList[i]);
+                    int show = i + 1;
+                    pw.println(show + "." + myList[i]);
                 }
+                pw.println("____________________________________________________________\n");
+            }
+            else if (words[0].equals("mark")) {
+                int c = Integer.parseInt(words[1]);
+                myList[c-1].markAsDone();
+                pw.println("Nice! I've marked this task as done:");
+                pw.println(myList[c-1]);
+                pw.println("____________________________________________________________\n");
 
+            }
+            else if (words[0].equals("unmark")) {
+                int c = Integer.parseInt(words[1]);
+                myList[c-1].markAsUndone();
+                pw.println("OK, I've marked this task as not done yet:");
+                pw.println(myList[c-1]);
                 pw.println("____________________________________________________________\n");
             } else {
-            myList[pointer] = io;
-            pointer++;
-            pw.println("added: " + io);
-            pw.println("____________________________________________________________\n");
+                Task t = new Task(io);
+                myList[pointer] = t;
+                pointer++;
+                pw.println("added: " + io);
+                pw.println("____________________________________________________________\n");
             }
         }
     }
