@@ -1,18 +1,10 @@
-public class Item {
+public abstract class Item {
     private boolean isDone = false;
     private String name;
 
-    public Item(String name) {
-        this.name = name;
-    }
+    public abstract void markDone();
 
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    public void markUndone() {
-        this.isDone = false;
-    }
+    public abstract void markUndone();
 
     String doneMessage() {
         return "Nice! I've marked this task as done:\n     " +
@@ -24,21 +16,16 @@ public class Item {
                 this.toString();
     }
 
-
-    private String printChecked(boolean b) {
+    String printChecked(boolean b) {
         return b ? "X" : " ";
     }
 
+    String addMessage(int num) {
+        return "Got it. I've added this task:\n" +
+                "       " + this.toString() +
+                "\n     Now you have " + num +  " tasks in the list.";
+    }
+
     @Override
-    public String toString() {
-        return "[" + printChecked(this.isDone)+ "] " + this.name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public boolean getDone() {
-        return this.isDone;
-    }
+    public abstract String toString();
 }

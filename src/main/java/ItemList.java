@@ -2,13 +2,30 @@ public class ItemList {
     private Item[] listOfItems = new Item[100];
     private int itemCount = 0;
 
+    public int getItemCount() {
+        return itemCount;
+    }
+
     public Item[] getList() {
         return this.listOfItems;
     }
 
-    void addToList(String s) {
-        listOfItems[itemCount] = new Item(s);
+    String addToDo(String[] name) {
+        listOfItems[itemCount] = new ToDo(name);
         itemCount++;
+        return listOfItems[itemCount-1].addMessage(itemCount);
+    }
+
+    String addEvent(String[] info) {
+        listOfItems[itemCount] = new Event(info);
+        itemCount++;
+        return listOfItems[itemCount-1].addMessage(itemCount);
+    }
+
+    String addDeadline(String[] info) {
+        listOfItems[itemCount] = new Deadline(info);
+        itemCount++;
+        return listOfItems[itemCount-1].addMessage(itemCount);
     }
 
     @Override

@@ -26,7 +26,6 @@ public class Duke {
                     }
                 } catch (NumberFormatException e) {
                     System.out.println(FormatOutput.format(Echo.echo(command)));
-                    itemList.addToList(command);
                 }
             } else if (splitted[0].equals("unmark") && splitted.length > 1) {
                 try {
@@ -43,13 +42,17 @@ public class Duke {
                     }
                 } catch (NumberFormatException e) {
                     System.out.println(FormatOutput.format(Echo.echo(command)));
-                    itemList.addToList(command);
                 }
+            } else if (splitted[0].equals("todo")) {
+                System.out.println(FormatOutput.format(itemList.addToDo(splitted)));
+            } else if (splitted[0].equals("deadline")) {
+                System.out.println(FormatOutput.format(itemList.addDeadline(splitted)));
+            } else if (splitted[0].equals("event")) {
+                System.out.println(FormatOutput.format(itemList.addEvent(splitted)));
             } else if (command.equals("list")) {
                 System.out.println(FormatOutput.format(itemList.toString()));
             } else {
                 System.out.println(FormatOutput.format(Echo.echo(command)));
-                itemList.addToList(command);
             }
             command = sc.nextLine();
         }
