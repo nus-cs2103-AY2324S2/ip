@@ -9,11 +9,9 @@ public class TalkingBox {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         */
-
         System.out.println("Hello, I am the " + NAME);
         System.out.println("What do you want to talk about?");
         System.out.println("Goodbye!");
-
-
     }
 }
+
