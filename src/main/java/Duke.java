@@ -13,7 +13,7 @@ public class Duke {
             String message = sc.nextLine();
             if (message.equals("bye")) {
                 input = false;
-            } else if (message.equals("list")) {
+            } else if (message.equals("yap")) {
                 Duke.listYaps(list, listSize);
             } else {
                 Duke.echo(message);
@@ -49,5 +49,5 @@ public class Duke {
             System.out.println((i+1)+". "+list[i]);
         }
     }
-    
+
 }
