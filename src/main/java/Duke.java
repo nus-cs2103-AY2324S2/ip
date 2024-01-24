@@ -1,35 +1,44 @@
 import java.util.*;
-
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<String> todo = new ArrayList<>();
+        List<Task> todo = new ArrayList<>();
         String divider = "---------------------------------------------------------------";
         String name = "Dwight Schrute";
         System.out.printf("%s\nHello! I'm %s\nWhat Can I do for you?\n%s\n"
                 , divider, name, divider);
         String input;
+        int idx;
         while (scanner.hasNext()) {
             input = scanner.nextLine();
-            switch (input) {
+            System.out.printf("\t%s\n", divider);
+            switch (input.split(" ")[0]) {
                 case ("bye"):
-                    System.out.printf("\t%s\n\tBye. Hope to see you again soon!\n\t%s\n", divider,divider);
+                    System.out.println("\tBye. Hope to see you again soon!");
                     scanner.close();
                     return;
                 case ("list"):
-                    System.out.printf("\t%s\n", divider);
                     for (int i = 0; i < todo.size(); i++) {
                         System.out.printf("\t%d. %s\n", i+1, todo.get(i));
                     }
-                    System.out.printf("\t%s\n", divider);
+                    break;
+                case("mark"):
+                    idx = Integer.parseInt(input.split(" ")[1]);
+                    todo.get(idx - 1).mark();
+                    System.out.println("\tNice! I've marked this task as done:");
+                    System.out.printf("\t\t%s\n", todo.get(idx - 1));
+                    break;
+                case("unmark"):
+                    idx = Integer.parseInt(input.split(" ")[1]);
+                    todo.get(idx - 1).unmark();
+                    System.out.println("\tOK, I've marked this task as not done yet:");
+                    System.out.printf("\t\t%s\n", todo.get(idx - 1));
                     break;
                 default:
-                    System.out.printf("\t%s\n", divider);
-                    todo.add(input);
+                    todo.add(new Task(input));
                     System.out.printf("\tadded: %s\n", input);
-                    System.out.printf("\t%s\n", divider);
             }
-
+            System.out.printf("\t%s\n", divider);
         }
 
     }
