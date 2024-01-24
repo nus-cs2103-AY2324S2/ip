@@ -8,14 +8,19 @@ public class List {
 
     public void addTask(Task task) {
         tasks.add(task);
+        System.out.println("__________________________________________________________\n"
+                + "Got it. I've added this task:\n"
+                + task.toString()
+                + "\nNow you have " + this.tasks.size() + " tasks in the list.\n"
+                + "__________________________________________________________\n");
     }
 
     public void displayTasks() {
         System.out.println("__________________________________________________________\n" +
-                "Here are the tasks in your list:");
+                "Here are the tasks in your list:"
+        );
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ".[" + tasks.get(i).getStatusIcon()
-                    + "] " + tasks.get(i).toString());
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
         System.out.println("__________________________________________________________\n");
     }
@@ -30,5 +35,9 @@ public class List {
 
     public void unmarkTask(int taskNum) {
         this.tasks.get(taskNum).unmark();
+    }
+
+    public int getNumberOfTasks() {
+        return this.tasks.size();
     }
 }

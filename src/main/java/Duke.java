@@ -14,8 +14,8 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(
                 "__________________________________________________________\n"
-                        + "Hello! I'm KitchenSink! \n"
-                        + "What can I do for you? \n"
+                        + "Hello! I'm KitchenSink!\n"
+                        + "What can I do for you?\n"
                         + "__________________________________________________________\n"
         );
         Scanner sc = new Scanner(System.in);
@@ -26,7 +26,7 @@ public class Duke {
                 System.out.println(
                         "__________________________________________________________\n"
                                 + "Bye. Hope to see you again soon!\n"
-                                + "__________________________________________________________\n"
+                                + "__________________________________________________________"
                 );
                 break;
             }

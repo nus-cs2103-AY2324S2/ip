@@ -22,7 +22,7 @@ public class Task {
     public void unmark() {
         this.isDone = false;
         System.out.println("__________________________________________________________\n"
-                + "Nice! I've marked this task as not done yet:\n"
+                + "OK, I've marked this task as not done yet:\n"
                 + this.toString()
                 + "\n__________________________________________________________\n");
     }
