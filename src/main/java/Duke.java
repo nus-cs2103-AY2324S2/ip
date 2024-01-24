@@ -1,5 +1,11 @@
 import java.util.Scanner;
 
+class DukeException extends Exception {
+    public DukeException(String message) {
+        super(message);
+    }
+}
+
 class Task {
     protected String description;
     protected boolean isDone;
@@ -84,12 +90,6 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello from");
-        System.out.println(" ____        _");
-        System.out.println("|  _ \\ _   _| | _____ ");
-        System.out.println("| | | | | | | |/ / _ \\");
-        System.out.println("| |_| | |_| |   <  __/");
-        System.out.println("|____/ \\__,_|_|\\_\\___|");
 
         System.out.println("Hello! I'm SCZL");
         System.out.println("What can I do for you?");
@@ -99,70 +99,105 @@ public class Duke {
 
             System.out.println("____________________________________________________________");
 
-            if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println(" Bye. Hope to see you again soon!");
-                break;
-            } else if (userInput.equalsIgnoreCase("list")) {
-                listTasks();
-            } else {
-                processTaskInput(userInput);
+            try {
+                if (userInput.equalsIgnoreCase("bye")) {
+                    System.out.println(" Bye. Hope to see you again soon!");
+                    break;
+                } else if (userInput.equalsIgnoreCase("list")) {
+                    listTasks();
+                } else {
+                    processTaskInput(userInput);
+                }
+            } catch (DukeException e) {
+                System.out.println(" " + e.getMessage());
             }
         }
 
         scanner.close();
     }
 
-    private static void processTaskInput(String userInput) {
+    private static void processTaskInput(String userInput) throws DukeException {
         if (userInput.startsWith("todo")) {
+            if (userInput.length() == 4) {
+                addTodoTask("");
+            }
             addTodoTask(userInput.substring(5).trim());
         } else if (userInput.startsWith("deadline")) {
+            if (userInput.length() == 8) {
+                addTodoTask("");
+            }
             addDeadlineTask(userInput.substring(9).trim());
         } else if (userInput.startsWith("event")) {
+            if (userInput.length() == 4) {
+                addTodoTask("");
+            }
             addEventTask(userInput.substring(6).trim());
         } else if (userInput.startsWith("mark")) {
+            if (userInput.length() == 4) {
+                addTodoTask("");
+            }
             markTask(userInput);
         } else if (userInput.startsWith("unmark")) {
+            if (userInput.length() == 4) {
+                addTodoTask("");
+            }
             unmarkTask(userInput);
         } else {
-            System.out.println("Invalid command.");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
-    private static void addTodoTask(String description) {
+    private static void addTodoTask(String description) throws DukeException {
+        if (description.isEmpty()) {
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+        }
+
         tasks[taskCount] = new Todo(description);
         taskCount++;
         printTaskAddedMessage(tasks[taskCount - 1]);
     }
 
-    private static void addDeadlineTask(String input) {
+
+    private static void addDeadlineTask(String input) throws DukeException {
         int byIndex = input.indexOf("/by");
         if (byIndex != -1) {
             String description = input.substring(0, byIndex).trim();
             String by = input.substring(byIndex + 3).trim();
+
+            if (description.isEmpty() || by.isEmpty()) {
+                throw new DukeException("OOPS!!! The description and /by cannot be empty for a deadline.");
+            }
+
             tasks[taskCount] = new Deadline(description, by);
             taskCount++;
             printTaskAddedMessage(tasks[taskCount - 1]);
         } else {
-            System.out.println("Invalid deadline command format.");
+            throw new DukeException("OOPS!!! Invalid deadline command format.");
         }
     }
 
-    private static void addEventTask(String input) {
+
+    private static void addEventTask(String input) throws DukeException {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
         if (fromIndex != -1 && toIndex != -1) {
             String description = input.substring(0, fromIndex).trim();
             String from = input.substring(fromIndex + 5, toIndex).trim();
             String to = input.substring(toIndex + 3).trim();
+
+            if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                throw new DukeException("OOPS!!! The description, /from, and /to cannot be empty for an event.");
+            }
+
             tasks[taskCount] = new Event(description, from, to);
             taskCount++;
             printTaskAddedMessage(tasks[taskCount - 1]);
         } else {
-            System.out.println("Invalid event command format.");
+            throw new DukeException("OOPS!!! Invalid event command format.");
         }
     }
 
-    private static void markTask(String userInput) {
+    private static void markTask(String userInput) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(userInput.substring(5).trim()) - 1;
             if (taskIndex >= 0 && taskIndex < taskCount) {
@@ -170,14 +205,14 @@ public class Duke {
                 System.out.println(" Nice! I've marked this task as done:");
                 System.out.println("   " + tasks[taskIndex].getStatusIcon() + tasks[taskIndex].getDescription());
             } else {
-                System.out.println(" Invalid task number.");
+                throw new DukeException("OOPS!!! Invalid task number.");
             }
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            System.out.println(" Invalid command format.");
+            throw new DukeException("OOPS!!! Invalid command format.");
         }
     }
 
-    private static void unmarkTask(String userInput) {
+    private static void unmarkTask(String userInput) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(userInput.substring(7).trim()) - 1;
             if (taskIndex >= 0 && taskIndex < taskCount) {
@@ -185,10 +220,10 @@ public class Duke {
                 System.out.println(" OK, I've marked this task as not done yet:");
                 System.out.println("   " + tasks[taskIndex].getStatusIcon() + tasks[taskIndex].getDescription());
             } else {
-                System.out.println(" Invalid task number.");
+                throw new DukeException("OOPS!!! Invalid task number.");
             }
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            System.out.println(" Invalid command format.");
+            throw new DukeException("OOPS!!! Invalid command format.");
         }
     }
 
