@@ -5,29 +5,27 @@ import java.util.Scanner;
  */
 public class Duke {
     private Scanner sc = new Scanner(System.in);
-    private String[] list;
+    private Task[] list;
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.startChat();
     }
 
     /**
-     * Constructs a list of size.
+     * Constructs a task list of size.
      */
     public Duke() {
-        this.list = new String[100];
+        this.list = new Task[100];
     }
 
     /**
      * Initiates the chat by invoking the sayHi() method.
-     * Handles user input to display the list for "list" input, exit the chat for "bye" input
-     * or append to the list for any other input.
+     * Handles user input to display the list for "list" input, exit the chat for "bye" input,
+     * marks or unmarks tasks as done or append to the list for any other input.
      */
     public void startChat() {
         sayHi();
-
         boolean exited = false;
-
         while (!exited) {
             String userInput = sc.nextLine();
             if (userInput.equals("bye")) {
@@ -35,6 +33,14 @@ public class Duke {
             }
             else if (userInput.equals("list")) {
                 displayList();
+            }
+            else if (userInput.startsWith("mark ")) {
+                int num = Integer.parseInt(userInput.replace("mark ", ""));
+                markAsDone(num);
+            }
+            else if (userInput.startsWith("unmark ")) {
+                int num = Integer.parseInt(userInput.replace("unmark ", ""));
+                unMarkAsDone(num);
             }
             else {
                 appendList(userInput);
@@ -55,6 +61,26 @@ public class Duke {
      */
     public void sayBye() {
         System.out.println("\nBye. Hope to see you again soon!");
+    }
+
+    /**
+     * Marks a task as done based on the provided task number.
+     *
+     * @param num The task number to mark as done.
+     */
+    public void markAsDone(int num) {
+        list[num - 1].markAsDone();
+        System.out.println("Nice! I've marked this task as done:\n\t" + list[num - 1] + "\n");
+    }
+
+    /**
+     * Marks a task as not done based on the provided task number.
+     *
+     * @param num The task number to mark as not done.
+     */
+    public void unMarkAsDone(int num) {
+        list[num - 1].unMarkAsDone();
+        System.out.println("OK, I've marked this task as not done yet:\n\t" + list[num - 1] + "\n");
     }
 
     /**
@@ -88,7 +114,7 @@ public class Duke {
     public void appendList(String input) {
         for (int i = 0; i < list.length; i++) {
             if (list[i] == null) {
-                list[i] = input;
+                list[i] = new Task(input);
                 System.out.println("\nadded: " + input + "\n");
                 return;
             }
