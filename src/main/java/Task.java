@@ -7,4 +7,13 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    @Override
+    public String toString() {
+        if (isDone) {
+            return "[X] " + description;
+        } else {
+            return "[ ] " + description;
+        }
+    }
 }

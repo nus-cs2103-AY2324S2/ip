@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class ChatBotTest {
@@ -31,6 +32,91 @@ public class ChatBotTest {
                 try {
                     int i = Integer.parseInt(unmarkCommand[1]) - 1;
                     p.unMarkJobs(p.tasks.get(i));
+                } catch (Exception e) {
+                    System.out.println("Incorrect number or command");
+                }
+            } else if (commands.indexOf("todo") == 0) {
+                String[] todoCommand = commands.split(" ");
+                String rest = "";
+                try {
+                    for (int i = 1; i < todoCommand.length; i++) {
+                        rest = rest + todoCommand[i] + " ";
+                    }
+                    Todo j  = new Todo(rest);
+                    if (rest.length() > 0) {
+                        p.todoJobs(j);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Incorrect number or command");
+                }
+             } else if (commands.indexOf("deadline") == 0) {
+                String[] dlCommand = commands.split(" ");
+                String rest = "";
+                String date = "";
+                try {
+                    int idx = 0;
+                    for (int i = 1; i < dlCommand.length; i++) {
+                        if (dlCommand[i].equals("/by")) {
+                            idx = i;
+                            break;
+                        } else {
+                            rest = rest + dlCommand[i] + " ";
+                        }
+                    }
+                    // Check for weekdays or month
+                    int check = idx + 1;
+                    for (int j = idx + 1; j < dlCommand.length; j++) {
+                        if (check != dlCommand.length - 1) {
+                            date = date + dlCommand[j] + " ";
+                            check++;
+                        } else {
+                            date = date + dlCommand[j];
+                        }
+                    }
+                    Deadline dl = new Deadline(rest, date);
+                    if (rest.length() > 0) {
+                        p.dlJobs(dl);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Incorrect number or command");
+                }
+            } else if (commands.indexOf("event") == 0) {
+                String[] evCommand = commands.split(" ");
+                String rest = "";
+                String date1 = "";
+                String date2 = "";
+                try {
+                    int idx = 0;
+                    for (int i = 1; i < evCommand.length; i++) {
+                        if (evCommand[i].equals("/from")) {
+                            idx = i;
+                            break;
+                        } else {
+                            rest = rest + evCommand[i] + " ";
+                        }
+                    }
+                    int idx2 = 0;
+                    for (int j = idx + 1; j < evCommand.length; j++) {
+                        if (evCommand[j].equals("/to")) {
+                            idx2 = j;
+                            break;
+                        } else {
+                            date1 = date1 + evCommand[j] + " ";
+                        }
+                    }
+                    int check = idx2 + 1;
+                    for (int k = idx2 + 1; k < evCommand.length; k++) {
+                        if (check != evCommand.length - 1) {
+                            date2 = date2 + evCommand[k] + " ";
+                            check++;
+                        } else {
+                            date2 = date2 + evCommand[k];
+                        }
+                    }
+                    Event e = new Event(rest, date1, date2);
+                    if (rest.length() > 0) {
+                        p.evJobs(e);
+                    }
                 } catch (Exception e) {
                     System.out.println("Incorrect number or command");
                 }

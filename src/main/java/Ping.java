@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Ping {
@@ -18,10 +19,11 @@ public class Ping {
             for (int i = 0; i < tasks.size(); i++) {
                 int idx = i + 1;
                 //System.out.printf("%d. " + tasks.get(i).description + "%n", idx);
-                if (tasks.get(i).isDone) {
-                    System.out.printf("%d.[X] " + tasks.get(i).description + "%n", idx);
-                } else {
-                    System.out.printf("%d.[ ] " + tasks.get(i).description + "%n", idx);
+                    if (tasks.get(i).isDone) {
+                        System.out.printf("%d." + tasks.get((i)).toString() + "%n", idx);
+                    } else {
+                        System.out.printf("%d." + tasks.get(i).toString() + "%n", idx);
+
                 }
             }
         }
@@ -30,15 +32,39 @@ public class Ping {
     public void markJobs(Task i) {
         System.out.println("Nice! I've marked this task as done:");
         i.isDone = true;
-        System.out.printf("[X] " + i.description + "%n");
+        System.out.println(i.toString());
     }
 
     public void unMarkJobs(Task i) {
         System.out.println("OK, I've marked this task as not done yet:");
         i.isDone = false;
-        System.out.printf("[ ] " + i.description + "%n");
+        System.out.println(i.toString());
     }
     public void goodBye() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public void todoJobs(Todo i) {
+        System.out.println("Got it. I've added this task:");
+        tasks.add(i);
+        System.out.println(i.toString());
+        int numOfWork = tasks.size();
+        System.out.printf("Now you have %d tasks in the list." + "%n", numOfWork);
+    }
+
+    public void dlJobs(Deadline i) {
+        System.out.println("Got it. I've added this task:");
+        tasks.add(i);
+        System.out.println(i.toString());
+        int numOfWork = tasks.size();
+        System.out.printf("Now you have %d tasks in the list." + "%n", numOfWork);
+    }
+
+    public void evJobs(Event i) {
+        System.out.println("Got it. I've added this task:");
+        tasks.add(i);
+        System.out.println(i.toString());
+        int numOfWork = tasks.size();
+        System.out.printf("Now you have %d tasks in the list." + "%n", numOfWork);
     }
 }
