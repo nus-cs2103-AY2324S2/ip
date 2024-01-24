@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Martin {
     static String NAME = "Martin";
+    static ArrayList<String> todoList = new ArrayList<>();
     public static void main(String[] args) {
         sayGreeting();
         Scanner sc = new Scanner(System.in);
@@ -9,9 +11,26 @@ public class Martin {
             String line = sc.nextLine();
             if (line.equals("bye")) {
                 sayBye();
+                sc.close();
                 break;
             }
-            System.out.println(line);
+            if (line.equals("list")) {
+                printList();
+            } else {
+                addToList(line);
+            }
+        }
+    }
+
+    public static void addToList(String item) {
+        todoList.add(item);
+        System.out.println("added: " + item);
+    }
+
+    public static void printList() {
+        for (int i = 0; i < todoList.size(); i++) {
+            int index = i + 1;
+            System.out.println(index  + ". " + todoList.get(i));
         }
     }
 
