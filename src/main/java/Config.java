@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public final class Config {
     private Config() {}
 
