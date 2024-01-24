@@ -1,20 +1,41 @@
 import java.util.Scanner;
-public class Groot {
+import java.util.ArrayList;
+public class Mike {
+    private static TaskList taskList = new TaskList();
     private static final String exitCommand = "bye";
+    private static final String listCommand = "list";
+    private static final String horizontalLine = "=================================";
+
+    /**
+     * Main method that runs the program.
+     * @param args n/a
+     */
     public static void main(String[] args) {
         logo();
         greet();
 
         Scanner scanner = new Scanner(System.in);
+        String userInput;
 
         for (;;) {
-           String message = scanner.nextLine();
-           if (message.equals(exitCommand)) {
+           userInput = scanner.nextLine();
+           if (userInput.equals(exitCommand)) {
                farewell();
                break;
+           } else if (userInput.equals(listCommand)) {
+               state(taskList);
+           } else {
+               addTask(userInput);
            }
-           echo(message);
         }
+    }
+
+    private static void addTask(String taskName) {
+        Task newTask = new Task(taskName);
+        taskList.add(newTask);
+
+        String reply = "added: " + taskName;
+        state(reply);
     }
 
     private static void logo() {
@@ -43,27 +64,21 @@ public class Groot {
 
     private static void greet() {
         String greeting =
-                "=================================\n" +
                 " Hello! I'm Mike WAZOWSKI.\n" +
-                " What can I do for you?\n" +
-                "=================================\n";
-        System.out.println(greeting);
+                " What can I do for you?";
+        state(greeting);
     }
 
     private static void farewell() {
         String farewell =
-                "=================================\n" +
                 " Where are you going? We'll talk.\n" +
-                " We'll have a latte.\n" +
-                "=================================\n";
-        System.out.println(farewell);
+                " We'll have a latte.";
+        state(farewell);
     }
 
-    private static void echo(String message) {
-        String reply =
-                "=================================\n" +
-                message + "\n" +
-                "=================================\n";
-        System.out.println(reply);
+    private static void state(Object message) {
+        System.out.println(horizontalLine);
+        System.out.println(message);
+        System.out.println(horizontalLine);
     }
 }
