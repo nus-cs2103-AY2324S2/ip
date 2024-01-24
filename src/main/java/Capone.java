@@ -15,13 +15,21 @@ public class Capone {
         System.out.printf("Hello! I'm \n%s\nWhat can I do for you?\n%n", logo);
     }
 
-    public static void addTask(String task) {
-        // Store task in array and increment counter.
-        tasks.add(new Task(task));
-
-        // Inform user that task has been added.
-        System.out.printf("added: %s\n", task);
-    }
+//    public static void addTask(ArrayList<String> inputList) {
+//        // Combine the words back into a single string.
+//        StringBuilder combinedString = new StringBuilder();
+//        for (String s : inputList) {
+//            combinedString.append(s).append(" ");
+//        }
+//
+//        Task newTask = new Task(combinedString.toString());
+//
+//        // Store task in array and increment counter.
+//        tasks.add(newTask);
+//
+//        // Inform user that task has been added.
+//        System.out.printf("added: %s\n", newTask.toString());
+//    }
 
     public static void listTasks() {
         for (int i = 0; i < tasks.size(); i++) {
@@ -37,7 +45,7 @@ public class Capone {
         markedTask.markTask();
 
         // Inform user that task has been marked.
-        System.out.printf("Nice! I've marked this task as done:\n" + markedTask);
+        System.out.println("Nice! I've marked this task as done:\n" + markedTask);
     }
 
     public static void unmarkTask(int ndx) {
@@ -48,7 +56,41 @@ public class Capone {
         unmarkedTask.unmarkTask();
 
         // Inform user that task has been marked.
-        System.out.printf("OK, I've marked this task as not done yet:\n" + unmarkedTask);
+        System.out.println("OK, I've marked this task as not done yet:\n" + unmarkedTask);
+    }
+
+    public static void processTodo(ArrayList<String> inputList) {
+        // Combine the remaining words into a single string
+        StringBuilder combinedString = new StringBuilder();
+        for (int i = 1; i < inputList.size(); i++) {
+            combinedString.append(inputList.get(i)).append(" ");
+        }
+
+        ToDo newTodo = new ToDo(combinedString.toString());
+
+        tasks.add(newTodo);
+
+        System.out.printf("Got it. I've added this task:\n%s" +
+                "Now you have %d task(s) in the list.\n", newTodo.toString(), tasks.size());
+    }
+
+    public static void processDeadline(ArrayList<String> inputList) {
+
+    }
+
+    public static void processEvent(ArrayList<String> inputList) {
+
+    }
+
+    public static void invalidCommand() {
+        System.out.println("I'm sorry, I don't understand what you just said.\n" +
+                "Use -h to display the list of valid commands");
+
+    }
+
+    public static void displayHelp() {
+        // TODO: Display help commands.
+        System.out.println("placeholder");
     }
 
     public static void processInputs() {
@@ -76,8 +118,14 @@ public class Capone {
             } else if (firstWord.equalsIgnoreCase("unmark")) {
                 // TODO: Error checking for insufficient args/out of bounds.
                 unmarkTask(Integer.parseInt(inputList.get(1)));
+            } else if (firstWord.equalsIgnoreCase("todo")) {
+                processTodo(inputList);
+            } else if (firstWord.equalsIgnoreCase("deadline")) {
+                processDeadline(inputList);
+            } else if (firstWord.equalsIgnoreCase("event")) {
+                processEvent(inputList);
             } else {
-                addTask(firstWord);
+                invalidCommand();
             }
 
             // Read and process the user's next input
