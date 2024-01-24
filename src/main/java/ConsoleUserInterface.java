@@ -140,10 +140,32 @@ public class ConsoleUserInterface {
                 Task event = new Event(eventArgs[0], startEnd[0], startEnd[1]);
                 addTask(event);
                 break;
+            case "delete":
+                if (this.tasks.isEmpty()) {
+                    throw new NoSuchElementException("OOPS!!! There are no tasks to delete.");
+                }
+                if (isSingleCommand) {
+                    throw new IllegalArgumentException("OOPS!!! Some arguments are missing.");
+                }
+                try {
+                    int taskIdx = Integer.parseInt(args);
+                    if (taskIdx <= 0 || taskIdx > this.tasks.size()) {
+                        throw new IndexOutOfBoundsException();
+                    }
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    throw new IllegalArgumentException("OOPS!!! Invalid task index provided.");
+                }
+                int targetIdx = Integer.parseInt(args) - 1;
+                printSeparator();
+                System.out.println("Noted. I've removed this task");
+                System.out.println("  " + this.tasks.get(targetIdx));
+                this.tasks.remove(targetIdx);
+                Task.setTotal(Task.getTotal() - 1);
+                System.out.printf("Now you have %d tasks in the list.%n", Task.getTotal());
+                printSeparator();
+                break;
             default:
-                printSeparator();
-                System.out.println("OOPS!!! Command not found.");
-                printSeparator();
+                throw new IllegalArgumentException("OOPS!!! Command not found.");
         }
     }
 

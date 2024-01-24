@@ -20,4 +20,8 @@ public abstract class Task {
     public static int getTotal() {
         return total;
     }
+
+    public static void setTotal(int total) {
+        Task.total = total;
+    }
 }
