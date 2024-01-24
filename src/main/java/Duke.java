@@ -13,7 +13,7 @@ public class Duke {
         String msg = "------------------------------------------------ \n"
                 + "Hello! I'm Bee! \n"
                 + "What can I do for you? \n"
-                + "------------------------------------------------ \n";
+                + "------------------------------------------------";
 
         System.out.println(logo + "\n" + msg);
 
@@ -28,7 +28,9 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 output = false;
             } else {
+                System.out.println("------------------------------------------------");
                 System.out.println(input);
+                System.out.println("------------------------------------------------");
             }
         }
     }
