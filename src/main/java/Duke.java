@@ -1,4 +1,5 @@
 import exceptions.DukeException;
+import exceptions.TaskNotExistException;
 
 import java.util.*;
 
@@ -66,6 +67,24 @@ public class Duke{
                 System.out.println("Now you have " + todos.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
                 break;
+            case "delete":
+                if (arr.length == 1) {
+                    throw new DukeException(" Nuh uh! Which task to delete? \nMake sure to add the task number!");
+                }
+                System.out.println("____________________________________________________________");
+                Integer index = Integer.valueOf(arr[1]);
+                Task task;
+                try {
+                    task = todos.get(index - 1);
+                } catch (Exception e) {
+                    throw new TaskNotExistException(Integer.toString(index));
+                }
+                System.out.println("Okay! I've fed this task to Woodstock, bye bye!:");
+                System.out.println(task.toString());
+                todos.remove(index - 1);
+                System.out.println("Now you have " + todos.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+                break;
         }
     }
 
@@ -121,7 +140,7 @@ public class Duke{
                 currTask.markAsUndone();
                 System.out.println(" " + currTask.toString());
                 System.out.println("____________________________________________________________");
-            } else if (maybeCommand.equals("todo") || maybeCommand.equals("deadline") || maybeCommand.equals("event")) {
+            } else if (maybeCommand.equals("todo") || maybeCommand.equals("deadline") || maybeCommand.equals("event") || maybeCommand.equals("delete")) {
                 try {
                     processCommand(maybeCommand, arr, todos);
                 } catch (RuntimeException e) {
