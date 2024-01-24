@@ -44,8 +44,16 @@ public class Storage {
         }
     }
 
-    public static void markTask(String mark, int taskIndex) {
-        tasks.get(taskIndex).setDone(mark);
+    public static void markTask(String[] words) {
+        try {
+            int taskIndex = Parser.parseMarkTask(words);
+            tasks.get(taskIndex).setDone(words[0]);
+        } catch (UkeCatException e) {
+            System.out.println(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Task not found. Please choose a task from the list:");
+            Storage.printTasks();
+        }
     }
 
     public static void printTasks() {

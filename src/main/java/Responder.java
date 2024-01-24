@@ -15,7 +15,7 @@ public class Responder {
                 break;
             case "mark":
             case "unmark":
-                Parser.parseMarkTask(words);
+                Storage.markTask(words);
                 break;
             case "todo":
             case "deadline":

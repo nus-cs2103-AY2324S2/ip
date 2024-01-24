@@ -9,13 +9,14 @@ Parser:
 Responder:
 - Based on input, respond or call for further parsing
 - Can give default replies
-- Can call parser for further parsing
-- Can ask storage to add more tasks if there is enough info
+- Can ask storage to add / remove tasks
+- Can ask storage to mark / unmark tasks
 
 Storage:
-- stores input
-- stores tasks in an ArrayList
-- has methods to add or give additional info on tasks
+- Stores input
+- Stores tasks in an ArrayList
+- Can call parser to help with generating required info
+- Has methods to add or give additional info on tasks
 
 Task:
 - ToDo
@@ -23,4 +24,4 @@ Task:
 - Event
 
 UkeCatException:
-- Custom exceptions
+- Custom exceptions -> Will print out my manually written messages

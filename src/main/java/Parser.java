@@ -28,22 +28,20 @@ public class Parser {
         }
     }
 
-    public static void parseMarkTask(String[] words) {
+    public static int parseMarkTask(String[] words) throws UkeCatException{
         try {
             if (words.length == 2) {
                 if (words[0].equals("mark") || words[0].equals("unmark")) {
                     int taskNum = Integer.parseInt(words[1]) - 1;
-                    Storage.markTask(words[0], taskNum);
+                    return taskNum;
                 }
             } else {
                 throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
             }
-        } catch (UkeCatException | NumberFormatException e) {
-            System.out.println("Wrong format, use: mark / unmark <task#>");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task not found. Please choose a task from the list:");
-            Storage.printTasks();
+        } catch (NumberFormatException e) {
+            throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
         }
+        return -1;
     }
 
     public static void parseDeadline(String input) throws UkeCatException {
