@@ -17,7 +17,10 @@ public class ChatBotTest {
             if (commands.equals("bye")) {
                 p.goodBye();
                 break;
-            } else if (commands.equals("list")) {
+            } else if (commands.equals("blah")) {
+                System.out.println("haha, that's humorous");
+            }
+            else if (commands.equals("list")) {
                 p.listTasks();
             } else if (commands.indexOf("mark") == 0) {
                 String[] markCommand = commands.split(" ");
@@ -45,6 +48,8 @@ public class ChatBotTest {
                     Todo j  = new Todo(rest);
                     if (rest.length() > 0) {
                         p.todoJobs(j);
+                    } else {
+                        System.out.println("Todo what? you can't to do nothing right?");
                     }
                 } catch (Exception e) {
                     System.out.println("Incorrect number or command");
@@ -76,6 +81,8 @@ public class ChatBotTest {
                     Deadline dl = new Deadline(rest, date);
                     if (rest.length() > 0) {
                         p.dlJobs(dl);
+                    } else {
+                        System.out.println("deadline? what thing make you so hurry that even dont tell me?");
                     }
                 } catch (Exception e) {
                     System.out.println("Incorrect number or command");
@@ -116,6 +123,8 @@ public class ChatBotTest {
                     Event e = new Event(rest, date1, date2);
                     if (rest.length() > 0) {
                         p.evJobs(e);
+                    } else {
+                        System.out.println("event what? I need a thing!");
                     }
                 } catch (Exception e) {
                     System.out.println("Incorrect number or command");
