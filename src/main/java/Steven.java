@@ -8,9 +8,9 @@ public class Steven {
         String bootMsg = ("This is Steven!\nHow can I advise?\n");
         String blankFieldMsg = "Just to let you know, I can't accept a task with missing details.\nSteven's advice: Make sure you're leaving no blanks in your instructions!";
         System.out.print(line + bootMsg + line);
-        System.out.println("Steven\'s advice: Don't know what commands I understand? Use \"help\"!");
+        System.out.println("Steven's advice: Don't know what commands I understand? Use \"help\"!");
         System.out.print(line);
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<>();
         boolean exit = false;
         while (!exit) {
             Scanner userInput = new Scanner(System.in);
@@ -29,7 +29,7 @@ public class Steven {
                     case "mark":
                         String commandType = command.split(" ")[0];
                         try {
-                            int index = Integer.parseInt(command.split(" ")[1]);
+                            int index = Integer.parseInt(command.split(" ", 2)[1]);
                             if (commandType.equals("unmark")) {
                                 if (!taskList.get(index - 1).getCompletionStatus()) {
                                     System.out.println("Ah, hold on. Seems like this one's still incomplete. If you meant to mark this as complete instead, use \"mark\".\nDo note that this is the current status of the task:");
@@ -100,6 +100,24 @@ public class Steven {
                             System.out.println(blankFieldMsg);
                         }
                         break;
+                    case "delete":
+                        try {
+                            int index = Integer.parseInt(command.split(" ", 2)[1]);
+                            Task removedItem = taskList.get(index);
+                            taskList.remove(index);
+                            System.out.println(line + "Very well, the following item has been removed from the list:\n" + removedItem.toString() + "\n");
+                            System.out.println("For the sake of completeness, this is the current list, do take note if any of your items have been moved around in order.");
+                            int counter1 = 1;
+                            for (Task t : taskList) {
+                                System.out.printf("%d. %s%n", counter1, t.toString());
+                                counter1++;
+                            }
+                        } catch (NumberFormatException error) {
+                            System.out.println("Oh, I can't  delete that - I need a number of an item in the list to delete it.\nSteven's Advice: Use a number instead.");
+                        } catch (IndexOutOfBoundsException error) {
+                            System.out.println("Apologies, you don't have a task of this number, so I can't delete it.\nSteven's advice: Use a number which corresponds to a task number. If you need to know what number corresponds to what task, use \"list\".");
+                        }
+                        break;
                     case "help":
                         System.out.println("The following are commands that I recgonise, and their respective formats:");
                         System.out.println("bye - terminates the program");
@@ -109,6 +127,7 @@ public class Steven {
                         System.out.println("todo (item) - adds a todo item to the list.");
                         System.out.println("deadline (item) /by (date1) - adds a deadline item to the list which is due on date1.");
                         System.out.println("event (item) /from (date1) /to (date2) - adds an event item to the list which begins on date1 and ends on date2.");
+                        System.out.println("delete (x) - delete the xth item from the list. Do note that this may affect the positioning of some of the items.");
                         break;
                     case "bye":
                         exit = true;
