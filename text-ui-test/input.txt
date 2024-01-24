@@ -1,0 +1,8 @@
+hi
+deadline cs2101 by/ friday
+event midterms /from idk /to idk
+list
+todo cs2103t
+mark 1
+unmark 1
+list
