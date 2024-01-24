@@ -7,7 +7,7 @@ public class Reply {
 
     public void displayMessage() {
         String emptySpace = "      ";
-        String horizLine = "    _____________________________________";
+        String horizLine = "    ____________________________________________________";
         System.out.println(horizLine.concat("\n").concat(emptySpace)
                 .concat(this.message).concat("\n").concat(horizLine));
     }

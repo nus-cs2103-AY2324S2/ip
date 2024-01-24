@@ -11,10 +11,6 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-//    public String getDescription() {
-//        return this.description;
-//    }
-
     public void markAsDone() {
         this.isDone = true;
     }
@@ -23,8 +19,8 @@ public class Task {
         this.isDone = false;
     }
 
-    public void displayMessage() {
-        Reply replyToUser = new AddToListReply(this.description);
+    public void displayMessage(int currSize) {
+        Reply replyToUser = new AddToListReply(this.description, currSize);
         replyToUser.displayMessage();
     }
 

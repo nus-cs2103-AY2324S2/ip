@@ -31,4 +31,8 @@ public class TaskList {
                 + "        " + currTask.toString());
         replyToUser.displayMessage();
     }
+
+    public int length() {
+        return this.tasks.size();
+    }
 }

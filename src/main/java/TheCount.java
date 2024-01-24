@@ -20,6 +20,7 @@ public class TheCount {
         // Get first word for CommandType
         String commandName = userInput.split("\\s+")[0].toUpperCase();
         int taskNumber = 0;
+        String info = null;
         // Checks for BYE command
         while (!commandName.equals("BYE")) {
             // Checks for switch case conditions
@@ -42,10 +43,29 @@ public class TheCount {
                     taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
                     tasks.unmarkTask(taskNumber);
                     break;
+                case "TODO":
+                    info = userInput.split("\\s+", 2)[1];
+                    ToDo todo = new ToDo(info);
+                    tasks.add(todo);
+                    todo.displayMessage(tasks.length());
+                    break;
+                case "DEADLINE":
+                    info = userInput.split("\\s+", 2)[1].split("/by")[0].trim();
+                    String deadlineTime = userInput.split("/by")[1].trim();
+                    Deadline deadline = new Deadline(info, deadlineTime);
+                    tasks.add(deadline);
+                    deadline.displayMessage(tasks.length());
+                    break;
+                case "EVENT":
+                    info = userInput.split("\\s+", 2)[1].split("/from")[0].trim();
+                    String startTime = userInput.split("/from")[1].trim()
+                            .split("/to")[0].trim();
+                    String endTime = userInput.split("/to")[1].trim();
+                    Event event = new Event(info, startTime, endTime);
+                    tasks.add(event);
+                    event.displayMessage(tasks.length());
+                    break;
                 default:
-                    Task task = new Task(userInput);
-                    tasks.add(task);
-                    task.displayMessage();
                     break;
             }
             userInput = scanner.nextLine();
