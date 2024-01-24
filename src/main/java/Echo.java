@@ -1,11 +1,11 @@
-public class Echo extends Greetings{
-    @Override
-    public void response() {
-        System.out.print("");
+public class Echo implements Action {
+    private final String stuff;
+    public Echo(String stuff) {
+        this.stuff=stuff;
     }
 
     @Override
-    public void response(String word) {
-        System.out.println("  " + "added: " + word);
+    public void response() {
+        System.out.println("  " + "added: " + stuff);
     }
 }

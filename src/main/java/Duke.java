@@ -1,39 +1,47 @@
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-    private static void line() {
-        System.out.println("____________________________________________________________");
-    }
-    private static void intro() {
-        line();
-        System.out.println(" Hello I'm NoisyChatter");
-        System.out.println(" What can I do for you?");
-        line();
-
-    }
-
-    private static void farewell() {
-        line();
-        System.out.println(" Bye. Hope to see you again soon!");
-        line();
-    }
-    private static void echo(String word) {
-        line();
-        System.out.println("  " + word);
-        line();
-    }
 
     public static void main(String[] args) {
-        intro();
+        ArrayList<Task> mylist= new ArrayList<>();
+        Intro Hi = new Intro();
+        Hi.response();
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
             String command = sc.nextLine();
+            String[] words = command.split(" ");
             if (command.equals("bye")) {
-                farewell();
+                Farewell Bye = new Farewell();
+                Bye.response();
                 break;
             }
+            else if (command.equals("list")) {
+                List lists2 = new List(mylist);
+                lists2.response();
+
+            }
+            else if (words[0].equals("mark")) {
+                String result = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+                Task tsk = mylist.get(Integer.parseInt(result) - 1);
+                tsk.mark();
+                Mark mark = new Mark();
+                mark.response();
+                System.out.println(tsk);
+            }
+            else if (words[0].equals("unmark")) {
+                String result = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+                Task ts = mylist.get(Integer.parseInt(result) - 1);
+                ts.unmark();
+                Unmark unmark = new Unmark();
+                unmark.response();
+                System.out.println(ts);
+            }
             else {
-                echo(command);
+                mylist.add(new Task(command));
+                Echo repeat = new Echo(command);
+                repeat.response();
             }
         }
     }

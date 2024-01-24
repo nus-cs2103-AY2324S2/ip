@@ -1,11 +1,7 @@
-public class Farewell extends Greetings {
-    @Override public void response() {
-        System.out.println(" Bye. Hope to see you again soon!");
-    }
-
+public class Farewell implements Action {
     @Override
-    public void response(String word) {
-        System.out.print("");
+    public void response() {
+        System.out.println(" Bye. Hope to see you again soon!");
     }
 
 }
