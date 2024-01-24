@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mona {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MonaException{
         String introduction = "  ____________________________________________________________\n"
                 + "   Hello! I'm Mona\n"
                 + "   What can I do for you?\n"
@@ -28,6 +28,13 @@ public class Mona {
                 }
                 System.out.println("  ____________________________________________________________");
             } else if (input.startsWith("todo")) {
+                if (input.length() < 6) {
+                    String response = "  ____________________________________________________________\n"
+                            + "     OOPS!!! The description of a todo cannot be empty \n"
+                            + "  ____________________________________________________________\n";
+                    System.out.println(response);
+                    throw new MonaException("Mona needs a description in order to add the todo task...");
+                }
                 String details = input.substring(5);
                 Todo newTask = new Todo(details);
                 tasks.add(newTask);
@@ -38,6 +45,13 @@ public class Mona {
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
             } else if (input.startsWith("deadline")) {
+                if (input.length() < 10) {
+                    String response = "  ____________________________________________________________\n"
+                            + "     OOPS!!! The description of a deadline cannot be empty \n"
+                            + "  ____________________________________________________________\n";
+                    System.out.println(response);
+                    throw new MonaException("Mona needs a description in order to add the deadline task...");
+                }
                 String details = input.substring(9);
                 String[] parts = details.split(" /by ");
                 Deadline newTask = new Deadline(parts[0], parts[1]);
@@ -49,6 +63,13 @@ public class Mona {
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
             } else if (input.startsWith("event")) {
+                if (input.length() < 7) {
+                    String response = "  ____________________________________________________________\n"
+                            + "     OOPS!!! The description of an event cannot be empty \n"
+                            + "  ____________________________________________________________\n";
+                    System.out.println(response);
+                    throw new MonaException("Mona needs a description in order to add the event task...");
+                }
                 String[] details = input.substring(6).split(" /from ");
                 String[] startAndEnd = details[1].split(" /to ");
                 Event newTask = new Event(details[0], startAndEnd[0], startAndEnd[1]);
@@ -79,11 +100,10 @@ public class Mona {
                 System.out.println(response);
             } else {
                 String response = "  ____________________________________________________________\n"
-                        + "     added: " + input + "\n"
+                        + "     OOPS!!! I'm sorry, but I don't know what that means :< \n"
                         + "  ____________________________________________________________\n";
-                Task newTask = new Task(input);
-                tasks.add(newTask);
                 System.out.println(response);
+                throw new MonaException("Mona does not recognise this command...");
             }
         }
 
