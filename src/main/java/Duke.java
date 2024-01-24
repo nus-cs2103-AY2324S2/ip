@@ -10,6 +10,13 @@ public class Duke {
         System.out.print(" ");
         String in = sc.nextLine();
 
-        System.out.println("THEN? hope to see you again!");
+        if (in.equal("bye")) {
+            System.out.println("THEN? hope to see you again!");
+        }
+        else {
+            System.out.println(in);
+
+
+
     }
 }
