@@ -14,8 +14,8 @@ public class Checkbot {
         System.out.println(txt);
 
         String input = "";
+        Scanner scanner = new Scanner(System.in);
         while (!input.equals("bye")) {
-            Scanner scanner = new Scanner(System.in);
             input = scanner.nextLine();
             String toPrint = input;
             if (input.equals("bye")) {
