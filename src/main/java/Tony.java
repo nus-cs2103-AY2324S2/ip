@@ -12,32 +12,36 @@ public class Tony {
         while (!input.equals("bye")) {
             String[] words = input.split(" ");
             String firstWord = words[0];
-            if (firstWord.equals("list")) {
-                lst.print();
-            } else if (firstWord.equals("mark")) {
-                String secondWord = words[1];
-                lst.mark(secondWord);
-            } else if (firstWord.equals("unmark")) {
-                String secondWord = words[1];
-                lst.unmark(secondWord);
-
-            } else if (firstWord.equals("todo")) {
-                String result = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                Task toDo = new Todo(result);
-                lst.add(toDo);
-            } else if (firstWord.equals("deadline")) {
-                String result = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                String[] parts = result.split("/");
-                Task deadline = new Deadline(parts[0], parts[1]);
-                lst.add(deadline);
-
-            } else if (firstWord.equals("event")) {
-                String result = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                String[] parts = result.split("/");
-                Task event = new Event(parts[0], parts[1], parts[2]);
-                lst.add(event);
-            } else {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            try {
+                if (firstWord.equals("list")) {
+                    lst.print();
+                } else if (firstWord.equals("mark")) {
+                    String secondWord = words[1];
+                    lst.mark(secondWord);
+                } else if (firstWord.equals("unmark")) {
+                    String secondWord = words[1];
+                    lst.unmark(secondWord);
+                } else if (firstWord.equals("todo")) {
+                    String result = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+                    Task toDo = new Todo(result);
+                    lst.add(toDo);
+                } else if (firstWord.equals("deadline")) {
+                    String result = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+                    String[] parts = result.split("/");
+                    Task deadline = new Deadline(parts);
+                    lst.add(deadline);
+                } else if (firstWord.equals("event")) {
+                    String result = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+                    String[] parts = result.split("/");
+                    Task event = new Event(parts);
+                    lst.add(event);
+                } else {
+                    throw new IllegalArgumentException("Invalid command: " + firstWord);
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("An unexpected error occurred: " + e.getMessage());
             }
             input = scanner.nextLine();
         }
@@ -46,13 +50,13 @@ public class Tony {
 
     private static void greeting() {
         String greeting = "_______________________\n"
-                + "Hello! I'm Tony!\n"
-                + "What can I do for you?\n"
+                + "what is up dawg! I'm Tony!\n"
+                + "What can I do for you mate?\n"
                 + "_________________________\n";
         System.out.println(greeting);
     }
     private static void goodbye() {
-        String goodbye = "Bye. Hope to see you again soon!\n";
+        String goodbye = "See ya later dawg!\n";
         line();
         System.out.println(goodbye);
         line();
@@ -69,9 +73,9 @@ public class Tony {
             list.add(item);
             int numberOfTasks = list.size();
             line();
-            System.out.println("Got it. I've added this task: \n");
+            System.out.println("Got it dawg. I've added this task: \n");
             item.toString();
-            System.out.println("Now you have "+ numberOfTasks + " tasks in the list \n");
+            System.out.println("Now you got "+ numberOfTasks + " tasks fam \n");
             line();
         }
 
@@ -80,11 +84,11 @@ public class Tony {
                 int index = Integer.parseInt(input);
                 list.get(index - 1).markAsDone();
                 line();
-                System.out.println("Marked item " + index + " as done.");
+                System.out.println("Marked item " + index + " as done dawg.");
                 line();
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 line();
-                System.out.println("Invalid input for 'unmark' command.");
+                System.out.println("Invalid input for 'mark' command dawg.");
                 line();
             }
         }
@@ -140,6 +144,10 @@ class Task {
 class Todo extends Task {
     public Todo(String description) {
         super(description);
+        if (description.equals("")) {
+            throw new IllegalArgumentException("Should have more description dawg");
+        }
+
     }
 
     @Override
@@ -151,9 +159,12 @@ class Todo extends Task {
 class Deadline extends Task {
     private String dueDate;
 
-    public Deadline(String description, String dueDate) {
-        super(description);
-        this.dueDate = dueDate;
+    public Deadline(String[] parts) {
+        super(parts[0]);
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Invalid input for deadline task. Expected: <description> /by <dueDate>");
+        }
+        this.dueDate = parts[1];
     }
 
     @Override
@@ -166,10 +177,13 @@ class Event extends Task {
     private String from;
     private String to;
 
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
+    public Event(String[] parts) {
+        super(parts[0]);
+        if (parts.length < 3) {
+            throw new IllegalArgumentException("Invalid input for event task. Expected: <description> /at <from> <to>");
+        }
+        this.from = parts[1];
+        this.to = parts[2];
     }
 
     @Override
