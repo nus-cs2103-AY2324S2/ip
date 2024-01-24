@@ -1,16 +1,18 @@
-
 import CustomExceptions.NoTaskCreatedYetException;
 import CustomExceptions.TooManyTasksException;
 import TaskList.Task;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class DataStorage {
-    private Task[] tasksList;
+    private ArrayList<Task> tasksList;
     private int taskCount;
     private int maxTask;
 
     public DataStorage(int maxTask) {
         this.maxTask = maxTask;
-        this.tasksList = new Task[maxTask];
+        this.tasksList = new ArrayList<>();
         this.taskCount = 0;
     }
 
@@ -18,7 +20,7 @@ public class DataStorage {
         if (index > this.maxTask) {
             throw new IndexOutOfBoundsException();
         } else {
-            return this.tasksList[index];
+            return this.tasksList.get(index);
         }
     }
 
@@ -26,19 +28,19 @@ public class DataStorage {
         if (taskCount >= maxTask) {
             throw new TooManyTasksException();
         } else {
-            this.tasksList[taskCount] = task;
+            this.tasksList.add(task);
             this.taskCount++;
         }
     }
 
-    public void setTaskStatus(int taskIndex, boolean status) throws NoTaskCreatedYetException {
+    public void setTaskStatus(int taskIndex, boolean status) throws NoTaskCreatedYetException, NoTaskCreatedYetException {
         if (taskIndex < 0 || taskIndex > this.maxTask) {
             throw new IndexOutOfBoundsException();
         } else if (taskIndex >= taskCount) {
             // It is a valid index, but there is no task there yet.
             throw new NoTaskCreatedYetException();
         } else {
-            this.tasksList[taskIndex].setDone(status);
+            this.tasksList.get(taskIndex).setDone(status);
         }
     }
 
@@ -48,4 +50,12 @@ public class DataStorage {
     }
 
 
+    public void deleteTask(int indexToDelete) {
+        if (indexToDelete > taskCount) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            this.tasksList.remove(indexToDelete);
+            taskCount--;
+        }
+    }
 }

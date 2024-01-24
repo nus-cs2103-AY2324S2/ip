@@ -18,7 +18,7 @@ public class Duke {
         String userInput = "";
 
         // Outsource the dataStorage.
-        DataStorage dataStorage = new DataStorage(100);
+        DataStorage dataStorage = new DataStorage(Integer.MAX_VALUE);
 
         // To read in user input
         Scanner sc = new Scanner(System.in);
@@ -96,6 +96,28 @@ public class Duke {
                     System.out.println("\t ____________________________________________________________");
                 }
 
+            } else if (userInput.startsWith("delete")) {
+                try {
+
+                    int idToMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
+
+                    Task task = dataStorage.getTask(idToMark);
+                    dataStorage.deleteTask(idToMark);
+
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t Noted. I've removed this task:");
+                    System.out.println("\t " + task.toString());
+                    System.out.println("\t Now you have " + dataStorage.getTaskCount() + " tasks in the list.");
+                    System.out.println("\t ____________________________________________________________");
+                } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t  Please do not enter an invalid entry");
+                    System.out.println("\t ____________________________________________________________");
+                } catch (NumberFormatException numberFormatException) {
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t  Please enter numbers only.");
+                    System.out.println("\t ____________________________________________________________");
+                }
             } else if (userInput.startsWith("todo")) {
                 // We further do another Regex search
 
