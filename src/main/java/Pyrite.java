@@ -3,12 +3,12 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Pyrite {
-    String name = "Pyrite";
-    String horizontal_line = "\t____________________________________________________________";
-    String greeting = "\tHello! I'm " + name + "\n"
+    static String name = "Pyrite";
+    static String horizontal_line = "\t____________________________________________________________";
+    static String greeting = "\tHello! I'm " + name + "\n"
             + "\tWhat can I do for you?";
-    String farewell = "\tBye. Hope to see you again soon!";
-    String taskAddedAcknowledgement = "\t" + "Got it. I've added this task: ";
+    static String farewell = "\tBye. Hope to see you again soon!";
+    static String taskAddedAcknowledgement = "\t" + "Got it. I've added this task: ";
     ArrayList<Task> list = new ArrayList<>();
     private void printList(ArrayList<Task> list) {
         System.out.println("\t" + "Here are the tasks in your list:");
