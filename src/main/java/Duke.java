@@ -80,54 +80,55 @@ public class Duke {
 
 
         while (true){
+
+
             String input = scanner.nextLine();
             String[] splitInput = input.split(" ", 2);
-            String command = splitInput[0];
-            String details = splitInput.length > 1 ? splitInput[1] : "You didnt enter the details to the command!!!";
+            
+            try{
+                if ("bye".equals(splitInput[0])){
+                    System.out.println("Bye. Hope to see you again soon!");
+                    break;
+                } else if ("list".equals(splitInput[0])) {
+                    for(int i=0; i< taskcount;i++){
+                        System.out.println((i+1)+". " + tasks[i]);
+                    }
 
+                } else if("mark".equals(splitInput[0])){
+                    int index = Integer.parseInt(splitInput[1])-1;
+                    tasks[index].mark();
+                    System.out.println("Nice! I've marked this task as done:\n  " + tasks[index]);
 
-            if ("bye".equals(command)){
-                System.out.println("Bye. Hope to see you again soon!");
-                break;
-            } else if ("list".equals(command)) {
-                for(int i=0; i< taskcount;i++){
-                    System.out.println((i+1)+". " + tasks[i]);
+                } else if ("unmark".equals(splitInput[0])) {
+                    int index = Integer.parseInt(splitInput[1])-1;
+                    tasks[index].unMark();
+                    System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[index]);
+
+                } else if ("todo".equals(splitInput[0])){
+                    tasks[taskcount] = new Todo(splitInput[1]);
+                    taskcount++;
+                    System.out.println("Got it. I've added this task:\n  " + tasks[taskcount-1]+"\nNow you have "+ taskcount+" tasks in the list");
+
+                } else if ("deadline".equals(splitInput[0])) {
+                    String[] deadlineSplit = splitInput[1].split(" /by ");
+                    tasks[taskcount] = new Deadline(deadlineSplit[0],deadlineSplit[1]);
+                    taskcount++;
+                    System.out.println("Got it. I've added this task:\n  " + tasks[taskcount-1]+"\nNow you have "+ taskcount+" tasks in the list");
+                } else if("event".equals(splitInput[0])){
+                    String[] eventSplit = splitInput[1].split(" /from | /to ");
+                    tasks[taskcount] = new Event(eventSplit[0],eventSplit[1],eventSplit[2]);
+                    taskcount++;
+                    System.out.println("Got it. I've added this task:\n  " + tasks[taskcount-1]+"\nNow you have "+ taskcount+" tasks in the list");
+
+                } else{
+                    System.out.println("Error! Command not found");
                 }
 
-            } else if("mark".equals(command)){
-                int index = Integer.parseInt(details)-1;
-                tasks[index].mark();
-                System.out.println("Nice! I've marked this task as done:\n  " + tasks[index]);
 
-            } else if ("unmark".equals(command)) {
-                int index = Integer.parseInt(details)-1;
-                tasks[index].unMark();
-                System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[index]);
-
-            } else if ("todo".equals(command)){
-                tasks[taskcount] = new Todo(details);
-                taskcount++;
-                System.out.println("Got it. I've added this task:\n  " + tasks[taskcount-1]+"\nNow you have "+ taskcount+" tasks in the list");
-
-            } else if ("deadline".equals(command)) {
-                String[] deadlineSplit = details.split(" /by ");
-                tasks[taskcount] = new Deadline(deadlineSplit[0],deadlineSplit[1]);
-                taskcount++;
-                System.out.println("Got it. I've added this task:\n  " + tasks[taskcount-1]+"\nNow you have "+ taskcount+" tasks in the list");
-            } else if("event".equals(command)){
-                String[] eventSplit = details.split(" /from | /to ");
-                tasks[taskcount] = new Event(eventSplit[0],eventSplit[1],eventSplit[2]);
-                taskcount++;
-                System.out.println("Got it. I've added this task:\n  " + tasks[taskcount-1]+"\nNow you have "+ taskcount+" tasks in the list");
-
+            } catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Error! Description to command not found");
             }
 
-
-            /*
-            tasks[taskcount] = new Task(input);
-                System.out.println("added: "+input);
-                taskcount++;
-             */
 
         }
 
