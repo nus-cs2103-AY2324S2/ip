@@ -15,6 +15,14 @@ public class Duke {
                 input = false;
             } else if (message.equals("yap")) {
                 Duke.listYaps(taskList, listSize);
+            } else if (message.startsWith("mark ")) {
+                String[] inputs = message.split(" ");
+                Integer index = Integer.parseInt(inputs[1]);
+                //mark task
+            } else if (message.startsWith("unmark ")) {
+                String[] inputs = message.split(" ");
+                Integer index = Integer.parseInt(inputs[1]);
+                //unmark task
             } else {
                 Duke.echo(message);
                 taskList[listSize] = new Task(message);
