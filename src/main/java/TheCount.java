@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class TheCount {
+
+    public enum CommandType {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+    }
     public static void main(String[] args) {
         // Creates a Scanner object to read input
         Scanner scanner = new Scanner(System.in);
@@ -22,20 +26,18 @@ public class TheCount {
         int taskNumber = 0;
         String info = null;
         // Checks for BYE command
-        while (!commandName.equals("BYE")) {
-            // Checks for switch case conditions
-            commandName = userInput.split("\\s+")[0].toUpperCase();
-            switch (commandName) {
-                case "BYE":
+        while (!getCommandType(userInput).equals(CommandType.BYE)) {
+            switch (getCommandType(userInput)) {
+                case BYE:
                     // Prints goodbye for exit
                     goodbye.displayMessage();
                     scanner.close();
                     System.exit(0);
                     break;
-                case "LIST":
+                case LIST:
                     tasks.printList();
                     break;
-                case "MARK":
+                case MARK:
                     try {
                         taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
                         tasks.markTask(taskNumber);
@@ -47,7 +49,7 @@ public class TheCount {
                         errorMsg.displayMessage();
                     }
                     break;
-                case "UNMARK":
+                case UNMARK:
                     try {
                         taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
                         tasks.unmarkTask(taskNumber);
@@ -59,9 +61,13 @@ public class TheCount {
                         errorMsg.displayMessage();
                     }
                     break;
-                case "TODO":
+                case TODO:
                     try {
-                        info = userInput.split("\\s+", 2)[1];
+                        try {
+                            info = userInput.split("\\s+", 2)[1];
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new TheCountException("Description of activity cannot be empty.");
+                        }
                         if (info.trim().isEmpty()) {
                             // Throw an exception if task information is not provided
                             throw new TheCountException("Description of activity cannot be empty.");
@@ -75,7 +81,7 @@ public class TheCount {
                         errorMsg.displayMessage();
                     }
                     break;
-                case "DEADLINE":
+                case DEADLINE:
                     String deadlineTime = null;
                     try {
                         // Handles Info
@@ -102,7 +108,7 @@ public class TheCount {
                         errorMsg.displayMessage();
                     }
                     break;
-                case "EVENT":
+                case EVENT:
                     String startTime = null;
                     String endTime = null;
                     try {
@@ -138,7 +144,7 @@ public class TheCount {
                         errorMsg.displayMessage();
                     }
                     break;
-                case "DELETE":
+                case DELETE:
                     try {
                         taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
                         tasks.deleteTask(taskNumber);
@@ -150,17 +156,32 @@ public class TheCount {
                         errorMsg.displayMessage();
                     }
                     break;
+                case INVALID:
+                    handleInvalidCommand();
+                    break;
                 default:
-                    try {
-                        throw new TheCountException("WHAT?! I can't count that! Try another command!");
-                    } catch (TheCountException e) {
-                        Reply errorMsg = new Reply(e.getMessage());
-                        errorMsg.displayMessage();
-                    }
                     break;
             }
             userInput = scanner.nextLine();
         }
         scanner.close();
+    }
+
+    private static CommandType getCommandType(String userInput) {
+        String commandName = userInput.split("\\s+")[0].toUpperCase();
+        try {
+            return CommandType.valueOf(commandName);
+        } catch (IllegalArgumentException e) {
+            return CommandType.INVALID;
+        }
+    }
+
+    private static void handleInvalidCommand() {
+        try {
+            throw new TheCountException("WHAT?! I can't count that! Try another command!");
+        } catch (TheCountException e) {
+            Reply errorMsg = new Reply(e.getMessage());
+            errorMsg.displayMessage();
+        }
     }
 }
