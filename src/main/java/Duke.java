@@ -1,41 +1,33 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static void line() {
-        System.out.println("____________________________________________________________");
-    }
-    private static void intro() {
-        line();
-        System.out.println(" Hello I'm NoisyChatter");
-        System.out.println(" What can I do for you?");
-        line();
-
-    }
-
-    private static void farewell() {
-        line();
-        System.out.println(" Bye. Hope to see you again soon!");
-        line();
-    }
-    private static void echo(String word) {
-        line();
-        System.out.println("  " + word);
-        line();
-    }
 
     public static void main(String[] args) {
-        intro();
+        int tracker = 0;
+        String[] mylist = new String[100];
+        Intro Hi = new Intro();
+        Hi.response();
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
-            String command = sc.next();
+            String command = sc.nextLine();
             if (command.equals("bye")) {
-                farewell();
+                Farewell Bye = new Farewell();
+                Bye.response();
                 break;
             }
+            else if (command.equals("list")) {
+                for (int i = 0; i < tracker; i++) {
+                    System.out.println("  " + (i + 1) + ". " + mylist[i]);
+                }
+            }
             else {
-                echo(command);
+                mylist[tracker] = command;
+                tracker += 1;
+                Echo repeat = new Echo();
+                repeat.response(command);
             }
         }
     }
 }
+
 
