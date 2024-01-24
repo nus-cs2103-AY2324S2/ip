@@ -1,0 +1,10 @@
+list
+todo a
+deadline b /by x
+event c /from y /to z
+list
+mark 1
+unmark 1
+mark a
+mark 4
+bye

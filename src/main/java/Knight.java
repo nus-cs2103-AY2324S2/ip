@@ -107,7 +107,7 @@ public class Knight {
             }
 
             if (command == Command.TODO) {
-                Task task = new ToDo(message);
+                Task task = new ToDo(message.substring(5));
                 tasks.add(task);
                 speak("Understood. This task hath been added to thy list:\n    " + task);
                 continue;
