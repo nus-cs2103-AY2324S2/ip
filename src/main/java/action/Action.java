@@ -2,6 +2,7 @@ package action;
 
 import action.exception.ActionException;
 import action.exception.UnrecognizedArgumentException;
+import action.exception.UnrecognizedCommandException;
 import action.util.Argument;
 import action.util.Command;
 import task.TaskList;
@@ -23,13 +24,43 @@ public abstract class Action {
      *
      * @param command the command associated with this action
      * @param arguments the arguments supplied with the command
-     * @throws ActionException If the action fails has unrecognizable or missing arguments
+     * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
     public Action(Command command, Argument... arguments) throws ActionException {
         this.command = command;
         this.arguments = arguments;
         validateExpectedArguments();
         command.validateSuppliedArguments(arguments);
+    }
+
+    /**
+     * Factory method to create an action instance.
+     *
+     * @param command the command as a string
+     * @param parsedArguments the arguments, parsed from the input
+     * @return the action instance
+     * @throws ActionException If the command or arguments are not one of the expected values.
+     */
+    public static Action of(String command, Argument[] parsedArguments) throws ActionException {
+        if (command.equals(Command.BYE.getName())) {
+            return new ByeAction(parsedArguments);
+        } else if (command.equals(Command.LIST.getName())) {
+            return new ListAction(parsedArguments);
+        } else if (command.equals(Command.MARK.getName())) {
+            return new MarkAction(parsedArguments);
+        } else if (command.equals(Command.UNMARK.getName())) {
+            return new UnmarkAction(parsedArguments);
+        } else if (command.equals(Command.ADD_TODO.getName())) {
+            return new AddTodoAction(parsedArguments);
+        } else if (command.equals(Command.ADD_DEADLINE.getName())) {
+            return new AddDeadlineAction(parsedArguments);
+        } else if (command.equals(Command.ADD_EVENT.getName())) {
+            return new AddEventAction(parsedArguments);
+        } else if (command.equals(Command.DELETE.getName())) {
+            return new DeleteAction(parsedArguments);
+        } else {
+            throw new UnrecognizedCommandException(command);
+        }
     }
 
     /**
@@ -84,7 +115,7 @@ public abstract class Action {
      * and may print to the console.
      *
      * @param taskList the taskList that is used with the chatbot
-     * @throws ActionException If the action fails certain validation checks due to invalid input
+     * @throws ActionException If the action fails certain validation checks due to invalid input.
      */
     public abstract void execute(TaskList taskList) throws ActionException;
 }

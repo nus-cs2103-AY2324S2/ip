@@ -1,8 +1,6 @@
-import action.*;
+import action.Action;
 import action.exception.ActionException;
-import action.exception.UnrecognizedCommandException;
 import action.util.Argument;
-import action.util.Command;
 
 import java.util.Scanner;
 import java.lang.StringBuilder;
@@ -24,6 +22,7 @@ public class InputParser {
      * Parse the input string into it's command and arguments.
      *
      * @return an action containing the command and it's arguments
+     * @throws ActionException If invalid input is provided that results in an invalid command or arguments.
      */
     public static Action getParsedInput() throws ActionException {
         String input = SCANNER.nextLine();
@@ -31,26 +30,7 @@ public class InputParser {
         // command is always the first word in the input
         String command = input.trim().split(" ")[0];
 
-        Argument[] parsedArguments = parseArguments(input);
-        if (command.equals(Command.BYE.getName())) {
-            return new ByeAction(parsedArguments);
-        } else if (command.equals(Command.LIST.getName())) {
-            return new ListAction(parsedArguments);
-        } else if (command.equals(Command.MARK.getName())) {
-            return new MarkAction(parsedArguments);
-        } else if (command.equals(Command.UNMARK.getName())) {
-            return new UnmarkAction(parsedArguments);
-        } else if (command.equals(Command.ADD_TODO.getName())) {
-            return new AddTodoAction(parsedArguments);
-        } else if (command.equals(Command.ADD_DEADLINE.getName())) {
-            return new AddDeadlineAction(parsedArguments);
-        } else if (command.equals(Command.ADD_EVENT.getName())) {
-            return new AddEventAction(parsedArguments);
-        } else if (command.equals(Command.DELETE.getName())) {
-            return new DeleteAction(parsedArguments);
-        } else {
-            throw new UnrecognizedCommandException(command);
-        }
+        return Action.of(command, parseArguments(input));
     }
 
     /**
