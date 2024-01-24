@@ -24,16 +24,48 @@ public class Mona {
                 System.out.println("  ____________________________________________________________");
                 for (int i = 0; i < tasks.size(); i++) {
                     Task currTask = tasks.get(i);
-                    System.out.println("    " + (i + 1) + ". [" + currTask.getStatusIcon() + "] " + currTask.getDescription());
+                    System.out.println("    " + (i + 1) + ". " + currTask);
                 }
                 System.out.println("  ____________________________________________________________");
+            } else if (input.startsWith("todo")) {
+                String details = input.substring(5);
+                Todo newTask = new Todo(details);
+                tasks.add(newTask);
+                String response = "  ____________________________________________________________\n"
+                        + "     Got it. I've added this task:\n"
+                        + "     " + newTask + "\n"
+                        + "     Now you have " + tasks.size() + " tasks in the list.\n"
+                        + "  ____________________________________________________________\n";
+                System.out.println(response);
+            } else if (input.startsWith("deadline")) {
+                String details = input.substring(9);
+                String[] parts = details.split(" /by ");
+                Deadline newTask = new Deadline(parts[0], parts[1]);
+                tasks.add(newTask);
+                String response = "  ____________________________________________________________\n"
+                        + "     Got it. I've added this task:\n"
+                        + "     " + newTask + "\n"
+                        + "     Now you have " + tasks.size() + " tasks in the list.\n"
+                        + "  ____________________________________________________________\n";
+                System.out.println(response);
+            } else if (input.startsWith("event")) {
+                String[] details = input.substring(6).split(" /from ");
+                String[] startAndEnd = details[1].split(" /to ");
+                Event newTask = new Event(details[0], startAndEnd[0], startAndEnd[1]);
+                tasks.add(newTask);
+                String response = "  ____________________________________________________________\n"
+                        + "     Got it. I've added this task:\n"
+                        + "     " + newTask + "\n"
+                        + "     Now you have " + tasks.size() + " tasks in the list.\n"
+                        + "  ____________________________________________________________\n";
+                System.out.println(response);
             } else if (input.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                 Task currTask = tasks.get(taskIndex);
                 currTask.markAsDone();
                 String response = "  ____________________________________________________________\n"
                         + "     Nice! I've marked this task as done: \n"
-                        + "     [" + currTask.getStatusIcon() + "] " + currTask.getDescription() + "\n"
+                        + "     " + currTask + "\n"
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
             } else if (input.startsWith("unmark")) {
@@ -42,7 +74,7 @@ public class Mona {
                 currTask.markAsNotDone();
                 String response = "  ____________________________________________________________\n"
                         + "     OK, I've marked this task as not done yet: \n"
-                        + "     [" + currTask.getStatusIcon() + "] " + currTask.getDescription() + "\n"
+                        + "     " + currTask + "\n"
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
             } else {
