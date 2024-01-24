@@ -1,7 +1,9 @@
-read book
-return book
-buy bread
-list
+todo read book
+todo return book
+todo buy bread
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
 mark 2
+list
 unmark 2
-bye
+end

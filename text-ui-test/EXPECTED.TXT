@@ -1,21 +1,45 @@
-Hello! I'm >uwu<
-What can I do for you?
->> ___________________________
-added: read book
->> ___________________________
-added: return book
->> ___________________________
-added: buy bread
->> ___________________________
-  1.[ ] read book
-  2.[ ] return book
-  3.[ ] buy bread
->> ___________________________
-Nice! I've marked this task as done:
-  2.[X] return book
->> ___________________________
-OK, I've marked this task as not done yet:
-  2.[ ] return book
->> ___________________________
-added: bye
->> 
+  Hello! I'm >uwu<! What can I do for you?
+>>   
+  ______________________________________________________
+  Got it. I've added this task:
+    [T][ ] read book
+  Now you have 1 tasks in the list.
+>>   
+  ______________________________________________________
+  Got it. I've added this task:
+    [T][ ] return book
+  Now you have 2 tasks in the list.
+>>   
+  ______________________________________________________
+  Got it. I've added this task:
+    [T][ ] buy bread
+  Now you have 3 tasks in the list.
+>>   
+  ______________________________________________________
+  Got it. I've added this task:
+    [D][ ] return book (by: Sunday)
+  Now you have 4 tasks in the list.
+>>   
+  ______________________________________________________
+  Got it. I've added this task:
+    [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  Now you have 5 tasks in the list.
+>>   
+  ______________________________________________________
+  Nice! I've marked this task as done:
+    [T][X] return book
+>>   
+  ______________________________________________________
+  Here are the tasks in your list:
+    1.[T][ ] read book
+    2.[T][X] return book
+    3.[T][ ] buy bread
+    4.[D][ ] return book (by: Sunday)
+    5.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+>>   
+  ______________________________________________________
+  OK, I've marked this task as not done yet:
+    [T][ ] return book
+>>   
+  ______________________________________________________
+  Bye. Hope to see you again soon!
