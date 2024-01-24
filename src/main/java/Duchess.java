@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duchess {
     private static final int MAX_TASKS = 100;
-    private static String[] tasks = new String[MAX_TASKS];
+    private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -31,11 +31,11 @@ public class Duchess {
     }
 
     //Add a task to task list
-    private static void addTask(String task) {
+    private static void addTask(Task task) {
         if (taskCount < MAX_TASKS) {
             tasks[taskCount++] = task;
             printHorizontalLine();
-            System.out.println(" added: " + task);
+            System.out.println(" added: " + task.description);
             printHorizontalLine();
         } else {
             System.out.println("Task list is full. Cannot add more tasks.");
@@ -57,7 +57,8 @@ public class Duchess {
             } else if (userInput.equalsIgnoreCase("list")) {
                 printTaskList();
             } else {
-                addTask(userInput);
+                Task newTask = new Task(userInput);
+                addTask(newTask);
             }
         }
 
