@@ -102,5 +102,15 @@ Here are the tasks in your list:
 3.[E][ ] test event (from: now to: later)
 ──────────────────────────────
 ──────────────────────────────
+Available commands:
+list 		- Lists all your tasks
+todo 		- Create a new todo task.
+deadline 	- Create a new task with a deadline.
+event 		- Create a new task with a starting and ending time.
+mark 		- Mark a task as completed.
+unmark 		- Mark a task as not completed.
+delete 		- Delete a task.
+──────────────────────────────
+──────────────────────────────
 Bye. Hope to see you again soon!
 ──────────────────────────────

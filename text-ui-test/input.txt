@@ -21,4 +21,5 @@ list
 unmark 2
 unmark 3
 list
+help
 bye
