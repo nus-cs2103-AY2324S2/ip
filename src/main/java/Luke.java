@@ -11,7 +11,7 @@ public class Luke {
             + "  _| |__/ || \\_/ |, | |`\\ \\| \\__., \n"
             + " |________|'.__.'_/[__|  \\_]'.__.' ";
 
-    private static ArrayList<String> history = new ArrayList<>();
+    private static ArrayList<Task> history = new ArrayList<>();
 
     private static void greet() {
         System.out.println("Hello! I'm\n" + logo + "\n");
@@ -27,22 +27,37 @@ public class Luke {
         Scanner sc = new Scanner(System.in);
         while (true) {
             //task mode
-            String task = sc.nextLine();
-            if (task.equals("bye")) {
+            Task task = new Task(sc.nextLine());
+            if (task.getName().equals("bye")) {
                 bye();
                 sc.close();
                 break;
-            } else if (task.equals("list")) {
+            } else if (task.getName().equals("list")) {
                 int num = 1;
-                for (String s : history) {
-                    System.out.println(num + ". " + s);
+                if (history.size() == 0) {
+                    System.out.println("Looks like you have way too much free time on your hands, huh.");
+                }
+                for (Task s : history) {
+                    if (s.isDone()) {
+                        System.out.println(num + ".[X] " + s);
+                    } else {
+                        System.out.println(num + ".[ ] " + s);
+                    }
                     num += 1;
                 }
+                System.out.println();
+            } else if (task.getName().split(" ")[0].equals("mark")) {
+                int idx = Integer.parseInt(task.getName().split(" ")[1]) - 1;
+                history.get(idx).complete();
+                System.out.println("Good work, I guess.");
+                System.out.println((idx + 1) + ".[X] " + history.get(idx));
+                System.out.println();
             } else {
                 history.add(task);
-                System.out.println(">>> Added: " + task);
+                System.out.println("I helped you add task [" + task + "]. But do it yourself next time! Hmmph!"  + "\n");
             }
         }
+
 //        while (true) {
 //            //echo mode
 //            String cmd = sc.nextLine();
