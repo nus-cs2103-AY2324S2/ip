@@ -5,6 +5,12 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String greet = "____________________________________________________________\n"
+                + "Greetings, mortal! I am Alastor, the Radio Demon at your service.\n"
+                + "What desires or inquiries do you bring to my infernal realm?\n";
+        String exit = "____________________________________________________________\n"
+                + "Farewell, fleeting soul! 'Til our paths entwine once more.\n"
+                + "____________________________________________________________\n";
+        System.out.println(greet + exit);
     }
 }
