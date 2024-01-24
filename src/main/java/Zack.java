@@ -7,7 +7,7 @@ public class Zack {
         tasks[taskCount] = task;
         taskCount++;
         System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:\n  " + task);
+        System.out.println("Got it. I've added this task:\n" + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________\n");
 
@@ -47,9 +47,9 @@ public class Zack {
                 System.out.println("____________________________________________________________\n");
             } else if (input.equalsIgnoreCase("list")) {
                 System.out.println("____________________________________________________________");
-                System.out.println("Here are the tasks in your list:\n");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    System.out.println((i + 1) + "." + tasks[i]);
                 }
                 System.out.println("____________________________________________________________\n");
             } else {
