@@ -54,6 +54,7 @@ public class Duke {
           insertEvent(input, tasks);
           break;
         default:
+          printOutput("I'm sorry, but I have zero idea what you're asking from me...");
           break;
       }
     }
@@ -84,7 +85,6 @@ public class Duke {
     System.exit(0);
   }
 
-  // TODO add checker for input length
   public static void updateMarkStatus(boolean isMark, ArrayList<Task> tasks, String[] input) {
 
     if (input.length < 2) {
@@ -121,6 +121,7 @@ public class Duke {
   }
 
   public static void insertToDo(String[] input, ArrayList<Task> tasks) {
+
     if (input.length < 2) {
       printOutput("Please add the task description. (format: todo <task description>)");
       return;
@@ -134,13 +135,19 @@ public class Duke {
   }
 
   public static void insertDeadline(String[] input, ArrayList<Task> tasks) {
+
+    String pattern = "([^/]+)\\s+/by\\s+([^/]+)";
+    Pattern regex = Pattern.compile(pattern);
+
     if (input.length < 2) {
-      printOutput("Missing task description. (format: deadline <your task> /by <date>)");
+      printOutput("Please enter the deadline details! (format: deadline <your task> /by <date>)");
       return;
     }
 
-    if (!input[1].contains("/by")) {
-      printOutput("You forgot to add /by to your input. (format: deadline <your task> /by <date>)");
+    Matcher matcher = regex.matcher(input[1]);
+
+    if (!matcher.matches()) {
+      printOutput("Wrong format! (format: deadline <your task> /by <date>)");
       return;
     }
 
@@ -153,13 +160,19 @@ public class Duke {
 
   public static void insertEvent(String[] input, ArrayList<Task> tasks) {
 
-    String pattern = "event\\s+([^/]+)\\s+/from\\s+([^/]+)\\s+/to\\s+([^/]+)";
+    String pattern = "([^/]+)\\s+/from\\s+([^/]+)\\s+/to\\s+([^/]+)";
     Pattern regex = Pattern.compile(pattern);
-    Matcher matcher = regex.matcher(input[1]);
 
     // check if it doesnt follow the format of event <some string> /from <some
     // string> /to <some string>
-    if (input.length < 2 || !matcher.matches()) {
+    if (input.length < 2) {
+      printOutput("Please enter the event details! (format: event <your task> /from <date> /to)");
+      return;
+    }
+
+    Matcher matcher = regex.matcher(input[1]);
+
+    if (!matcher.matches()) {
       printOutput("Wrong format! (format: event <your task> /from <date> /to)");
       return;
     }
