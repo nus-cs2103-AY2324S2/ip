@@ -1,8 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Ken {
     private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    private static List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) throws KenException {
         //greet
@@ -25,6 +26,8 @@ public class Ken {
                 markTask(Integer.parseInt(command.substring(5)));
             } else if (command.startsWith("unmark ")) {
                 unmarkTask(Integer.parseInt(command.substring(7)));
+            } else if (command.startsWith("delete ")) {
+                deleteTask(Integer.parseInt(command.substring(7)));
             } else if (command.startsWith("todo ")) {
                 addTodoTask(command.substring(5));
             } else if (command.startsWith("deadline ")) {
@@ -55,11 +58,11 @@ public class Ken {
     }
 
     private static void addTask(Task task) {
-        if (taskCount < MAX_TASKS) {
-            tasks[taskCount++] = task;
+        if (tasks.size() < MAX_TASKS) {
+            tasks.add(task);
             System.out.println("Got it!");
             System.out.println("added task: " + task);
-            System.out.println("Now Barbie has " + taskCount + " tasks in list\n");
+            System.out.println("Now Barbie has " + tasks.size() + " tasks in list\n");
 
         } else {
             System.out.println("Way too many too many tasks for today Barbie!");
@@ -72,33 +75,46 @@ public class Ken {
 
         System.out.println("Hold my ice cream,");
 
-        if (tasks.length == 1) {
+        if (tasks.isEmpty()) {
             System.out.println("actually, wait, i'm taking my ice cream back");
             System.out.println("no tasks yet");
         } else {
             System.out.println("Your tasks for today: \n");
 
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
             }
         }
     }
 
     private static void markTask(int index) {
-        if (index >= 1 && index <= taskCount) {
-            tasks[index - 1].markAsDone();
-            System.out.println("SUBLIME! Task " + index + " completed!\n " + tasks[index - 1].toString());
+        if (index >= 1 && index <= tasks.size()) {
+            Task task = tasks.get(index - 1);
+            task.markAsDone();
+            System.out.println("SUBLIME! Task " + index + " completed!\n " + task.toString());
         } else {
             System.out.println("Barbie has no task " + index);
         }
     }
 
     private static void unmarkTask(int index) {
-        if (index >= 1 && index <= taskCount) {
-            tasks[index - 1].unmarkAsDone();
-            System.out.println("ookayy, so task " + index + " is not actually done\n " + tasks[index - 1].toString());
+        if (index >= 1 && index <= tasks.size()) {
+            Task task = tasks.get(index - 1);
+            task.unmarkAsDone();
+            System.out.println("ookayy, so task " + index + " is not actually done\n " + task.toString());
             System.out.println("You are not doing task very well :(");
 
+        } else {
+            System.out.println("Barbie has no task " + index);
+        }
+    }
+
+    private static void deleteTask(int index) {
+        if (index >= 1 && index <= tasks.size()) {
+            Task removedTask = tasks.remove(index - 1);
+            System.out.println("Ohh okayy...");
+            System.out.println("deleted task: " + removedTask);
+            System.out.println("Now Barbie has " + tasks.size() + " tasks in list.\n");
         } else {
             System.out.println("Barbie has no task " + index);
         }
