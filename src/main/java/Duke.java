@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     private static final String logo = " ____        _        \n"
@@ -7,37 +8,57 @@ public class Duke {
                                 + "| |_| | |_| |   <  __/\n"
                                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private static final String LINE = "____________________________________________________________";
+    private static final String LINE = "\t____________________________________________________________";
 
-    private static void sayGreetings() {
+    private Scanner sc = new Scanner(System.in);
+    private ArrayList<String> list = new ArrayList<>();
+
+
+    private void sayGreetings() {
         System.out.println(LINE);
-        System.out.println("Hello! I'm SKY");
-        System.out.println("What can I do for you?");
+        System.out.println("\tHello! I'm SKY");
+        System.out.println("\tWhat can I do for you?");
         System.out.println(LINE);
     }
 
-    private static void sayBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    private void sayBye() {
+        System.out.println("\tBye. Hope to see you again soon!");
         System.out.println(LINE);
     }
 
-    private static void echo(String input) {
+    private void echo(String input) {
         System.out.println(input);
         System.out.println(LINE);
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private void add(String input) {
+        this.list.add(input);
+        System.out.println("\tadded: " + input);
+        System.out.println(LINE);
+    }
 
-        sayGreetings();
+    private void list() {
+        for (int i = 0; i < this.list.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + this.list.get(i));
+        }
+        System.out.println(LINE);
+    }
+
+    public static void main(String[] args) {
+        Duke duke = new Duke();
+        duke.sayGreetings();
+
         while (true) {
-            String input = sc.nextLine();
+            String input = duke.sc.nextLine();
             System.out.println(LINE);
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                duke.list();
+                continue;
             }
-            echo(input);
+            duke.add(input);
         }
-        sayBye();
+        duke.sayBye();
     }
 }
