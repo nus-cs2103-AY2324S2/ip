@@ -9,7 +9,8 @@ public class Duke {
                 "Yee-haw!",
                 "So long, partner.",
                 "To infinity and beyond!",
-                "Reach for the sky!"
+                "Reach for the sky!",
+                "There's a snake in my boot!"
         };
 
         String greeting =
@@ -35,11 +36,7 @@ public class Duke {
                 for (int i = 0; i < userTasks.size(); i++) {
                     String listIdx = i + 1 + ". ";
                     Task currTask = userTasks.get(i);
-                    System.out.println(
-                            "    " + listIdx +
-                            currTask.getStatusIcon() +
-                            currTask.getDescription()
-                    );
+                    System.out.println("    " + listIdx + currTask);
                 }
             } else if (currInput.contains("mark")) {     // mark tasks
                 String[] markCmd = currInput.split(" ");
@@ -49,26 +46,19 @@ public class Duke {
 
                 if (toMark.equals("mark")) {
                     currTask.markAsDone();
-                    System.out.println("    Nice! I have marked this task as done: \n" +
-                            "    " + currTask.getStatusIcon() + " " + currTask.getDescription()
-                    );
                 } else if (toMark.equals("unmark")) {
                     currTask.markAsUndone();
-                    System.out.println("    Ok, I've marked this task as not done yet: \n" +
-                            "    " + currTask.getStatusIcon() + " " + currTask.getDescription()
-                    );
                 }
             } else {                        // add tasks
                 Task newTask = new Task(currInput);
                 userTasks.add(newTask);
                 System.out.println("    added: " + currInput);
             }
+
             System.out.println(line);
             currInput = input.nextLine();
         }
 
-        System.out.println(
-                "   Bye! " + catchphrases[random.nextInt(catchphrases.length)] + "\n" +
-                        line);
+        System.out.println("   Bye! " + catchphrases[random.nextInt(catchphrases.length)] + "\n" +line);
     }
 }

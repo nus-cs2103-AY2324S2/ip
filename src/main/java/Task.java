@@ -17,9 +17,16 @@ public class Task {
 
     public void markAsDone() {
         isDone = true;
+        System.out.println("    Nice! I have marked this task as done: \n" + "    " + this);
     }
 
     public void markAsUndone() {
         isDone = false;
+        System.out.println("    Ok, I've marked this task as not done yet: \n" + "    " + this);
+    }
+
+    @Override
+    public String toString() {
+        return getStatusIcon() + " " + getDescription();
     }
 }
