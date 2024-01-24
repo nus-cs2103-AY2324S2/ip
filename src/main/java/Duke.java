@@ -51,7 +51,7 @@ public class Duke {
                 System.out.println("*HONKS ANGRILIY* Pengu thinks that the description of the deadline has to be followed by '/by'");
             }*/
             newTask = new Deadline(descBuilder.toString(), byBuilder.toString());
-        } else if (description.toLowerCase().startsWith("event")) {
+        } else {
             String[] descriptionArr = description.split(" ");
             int fromIndex = Arrays.asList(descriptionArr).indexOf("/from");
             StringBuilder descBuilder = new StringBuilder();
@@ -80,7 +80,7 @@ public class Duke {
                 }
             }
             newTask = new Event(descBuilder.toString(), fromBuilder.toString(), toBuilder.toString());
-        } 
+        }
         Duke.storage.add(newTask);
         System.out.println(String.format("*Honk! Honk!* Pengu has added this task:\n" + newTask.toString()
                 + "\nGet back to work! you have %s tasks in the list\n"
@@ -109,6 +109,13 @@ public class Duke {
         Task currTask = storage.get(index);
         currTask.updateTask(false);
         System.out.println("*Honk!* Pengu has marked this task as not done yet:\n" + currTask.toString());
+        System.out.println("―――――――――――――――――――――――――――――――――――");
+    }
+
+    private static void deleteTask(int index) {
+        Task deletedTask = storage.remove(index);
+        System.out.println(String.format("*Honk* Pengu has removed the following task:\n" + deletedTask.toString()
+                + "\nNow you have %s tasks left", storage.size()));
         System.out.println("―――――――――――――――――――――――――――――――――――");
     }
 
@@ -152,6 +159,11 @@ public class Duke {
                 String[] inputArr = userInput.split(" ");
                 int index = Integer.parseInt(inputArr[1]) - 1;
                 unmarkTask(index);
+                continue;
+            } else if (userInput.toLowerCase().startsWith("delete")) {
+                String[] inputArr = userInput.split(" ");
+                int index = Integer.parseInt(inputArr[1]) - 1;
+                deleteTask(index);
                 continue;
             }
             addTask(userInput);
