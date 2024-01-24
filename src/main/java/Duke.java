@@ -4,6 +4,9 @@ import java.util.Scanner;
 public class Duke {
     String divider = "--------------------------------------------------";
     ArrayList<Task> taskList = new ArrayList<Task>();
+    enum Commands {
+        bye, list, mark, unmark, todo, deadline, event, delete
+    }
 
     public String[] splitCommand(String command) {
         String words[] = command.split("\\s+");
@@ -33,112 +36,114 @@ public class Duke {
 
         System.out.println(this.divider);
 
-        switch (splitCommand(command)[0]) {
-            case "bye":
-                System.out.println("Bye. Hope to see you again soon!");
-                return false;
-            case "list":
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < this.taskList.size(); i++) {
-                    Task currentTask = this.taskList.get(i);
-                    System.out.println(i + 1 + "." + currentTask);
-                }
-                System.out.println(this.divider);
-                break;
-            case "mark":
-                String markMessage = "Nice! I've marked this task as done:\n  ";
-                try {
-                    String[] commandList = splitCommand(command);
-                    if (commandList.length <= 1) {
-                        throw new MarkInvalidException("mark");
+        try {
+            switch (Commands.valueOf(splitCommand(command)[0])) {
+                case bye:
+                    System.out.println("Bye. Hope to see you again soon!");
+                    return false;
+                case list:
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < this.taskList.size(); i++) {
+                        Task currentTask = this.taskList.get(i);
+                        System.out.println(i + 1 + "." + currentTask);
                     }
-                    int index = Integer.parseInt(commandList[1].replaceAll("\\s", ""));
-                    if (index < 1 || index > this.taskList.size()) {
-                        throw new MarkInvalidException("mark");
-                    }
-                    Task currentTask = this.taskList.get(index - 1);
-                    currentTask.changeDone();
-                    System.out.println(markMessage + currentTask);
                     System.out.println(this.divider);
                     break;
-                } catch (NumberFormatException e) {
-                    throw new MarkInvalidException("mark");
-                }
-            case "unmark":
-                markMessage = "Ok, I've marked this task as not done yet:\n  ";
-                try {
+                case mark:
+                    String markMessage = "Nice! I've marked this task as done:\n  ";
+                    try {
+                        String[] commandList = splitCommand(command);
+                        if (commandList.length <= 1) {
+                            throw new MarkInvalidException("mark");
+                        }
+                        int index = Integer.parseInt(commandList[1].replaceAll("\\s", ""));
+                        if (index < 1 || index > this.taskList.size()) {
+                            throw new MarkInvalidException("mark");
+                        }
+                        Task currentTask = this.taskList.get(index - 1);
+                        currentTask.changeDone();
+                        System.out.println(markMessage + currentTask);
+                        System.out.println(this.divider);
+                        break;
+                    } catch (NumberFormatException e) {
+                        throw new MarkInvalidException("mark");
+                    }
+                case unmark:
+                    markMessage = "Ok, I've marked this task as not done yet:\n  ";
+                    try {
+                        String[] commandList = splitCommand(command);
+                        if (commandList.length <= 1) {
+                            throw new MarkInvalidException("unmark");
+                        }
+                        int index = Integer.parseInt(commandList[1].replaceAll("\\s", ""));
+                        if (index < 1 || index > this.taskList.size()) {
+                            throw new MarkInvalidException("unmark");
+                        }
+                        Task currentTask = this.taskList.get(index - 1);
+                        currentTask.changeDone();
+                        System.out.println(markMessage + currentTask);
+                        System.out.println(this.divider);
+                        break;
+                    } catch (NumberFormatException e) {
+                        throw new MarkInvalidException("unmark");
+                    }
+                case todo:
                     String[] commandList = splitCommand(command);
                     if (commandList.length <= 1) {
-                        throw new MarkInvalidException("unmark");
+                        throw new MissingTodoException();
                     }
-                    int index = Integer.parseInt(commandList[1].replaceAll("\\s", ""));
-                    if (index < 1 || index > this.taskList.size()) {
-                        throw new MarkInvalidException("unmark");
-                    }
-                    Task currentTask = this.taskList.get(index - 1);
-                    currentTask.changeDone();
-                    System.out.println(markMessage + currentTask);
+                    Todo currentTodo = new Todo(commandList[1]);
+                    this.taskList.add(currentTodo);
+                    System.out.println("Got it. I've added this task:\n  " + currentTodo);
+                    System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
                     System.out.println(this.divider);
                     break;
-                } catch (NumberFormatException e) {
-                    throw new MarkInvalidException("unmark");
-                }
-            case "todo":
-                String[] commandList = splitCommand(command);
-                if (commandList.length <= 1) {
-                    throw new MissingTodoException();
-                }
-                Todo currentTodo = new Todo(commandList[1]);
-                this.taskList.add(currentTodo);
-                System.out.println("Got it. I've added this task:\n  " + currentTodo);
-                System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
-                System.out.println(this.divider);
-                break;
-            case "deadline":
-                commandList = splitCommand(command);
-                if (commandList.length <= 2) {
-                    throw new MissingDeadlineException();
-                }
-                Deadline currentDeadline = new Deadline(commandList[1], commandList[2]);
-                this.taskList.add(currentDeadline);
-                System.out.println("Got it. I've added thi task:\n  " + currentDeadline);
-                System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
-                System.out.println(this.divider);
-                break;
-            case "event":
-                commandList = splitCommand(command);
-                if (commandList.length <= 3) {
-                    throw new MissingEventException();
-                }
-                Event currentEvent = new Event(commandList[1], commandList[2], commandList[3]);
-                this.taskList.add(currentEvent);
-                System.out.println("Got it. I've added thi task:\n  " + currentEvent);
-                System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
-                System.out.println(this.divider);
-                break;
-            case "delete":
-                String deleteMessage = "Noted. I've removed this task:\n  ";
-                try {
+                case deadline:
                     commandList = splitCommand(command);
-                    if (commandList.length <= 1) {
-                        throw new DeleteInvalidException();
+                    if (commandList.length <= 2) {
+                        throw new MissingDeadlineException();
                     }
-                    int deleteIndex = Integer.parseInt(commandList[1].replaceAll("\\s", ""));
-                    if (deleteIndex < 1 || deleteIndex > this.taskList.size()) {
-                        throw new DeleteInvalidException();
-                    }
-                    Task deleteTask = this.taskList.get(deleteIndex - 1);
-                    this.taskList.remove(deleteTask);
-                    System.out.println(deleteMessage + deleteTask);
+                    Deadline currentDeadline = new Deadline(commandList[1], commandList[2]);
+                    this.taskList.add(currentDeadline);
+                    System.out.println("Got it. I've added thi task:\n  " + currentDeadline);
+                    System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
                     System.out.println(this.divider);
                     break;
-                } catch (NumberFormatException e) {
-                    throw new DeleteInvalidException();
-                }
-
-            default:
-                throw new UnknownCommandException();
+                case event:
+                    commandList = splitCommand(command);
+                    if (commandList.length <= 3) {
+                        throw new MissingEventException();
+                    }
+                    Event currentEvent = new Event(commandList[1], commandList[2], commandList[3]);
+                    this.taskList.add(currentEvent);
+                    System.out.println("Got it. I've added thi task:\n  " + currentEvent);
+                    System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
+                    System.out.println(this.divider);
+                    break;
+                case delete:
+                    String deleteMessage = "Noted. I've removed this task:\n  ";
+                    try {
+                        commandList = splitCommand(command);
+                        if (commandList.length <= 1) {
+                            throw new DeleteInvalidException();
+                        }
+                        int deleteIndex = Integer.parseInt(commandList[1].replaceAll("\\s", ""));
+                        if (deleteIndex < 1 || deleteIndex > this.taskList.size()) {
+                            throw new DeleteInvalidException();
+                        }
+                        Task deleteTask = this.taskList.get(deleteIndex - 1);
+                        this.taskList.remove(deleteTask);
+                        System.out.println(deleteMessage + deleteTask);
+                        System.out.println(this.divider);
+                        break;
+                    } catch (NumberFormatException e) {
+                        throw new DeleteInvalidException();
+                    }
+            }
+        } catch (IllegalArgumentException e) {
+            throw new UnknownCommandException();
         }
+
 
         return true;
     }
