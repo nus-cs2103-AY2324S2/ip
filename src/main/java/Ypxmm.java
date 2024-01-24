@@ -22,6 +22,8 @@ public class Ypxmm {
                         mark(index);
                     } catch (IndexOutOfBoundsException e) {
                         throw new YpxmmException("Brother, key in mark <space> then a valid number");
+                    } catch (NumberFormatException n) {
+                        throw new YpxmmException("You tell me now what task am I supposed to mark if you don't provide me with a number?");
                     }
                 } else if (input.startsWith("unmark")) {
                     String[] vals = input.split(" ");
@@ -30,6 +32,8 @@ public class Ypxmm {
                         unmark(index);
                     } catch (IndexOutOfBoundsException e) {
                         throw new YpxmmException("Brother, key in unmark <space> then a valid number");
+                    } catch (NumberFormatException n) {
+                        throw new YpxmmException("You tell me now what task am I supposed to unmark if you don't provide me with a number?");
                     }
                 } else if (input.startsWith("todo")) {
                     addTask(input, "todo");
@@ -50,9 +54,9 @@ public class Ypxmm {
         sc.close();
     }
     public static void getCommands() {
-        System.out.println("todo [task] - adds todo\ndeadline [task]/[by when] - adds deadline\n" +
-                "event [task]/[from]/[to] - adds event\nlist - lists out all tasks\n" +
-                "mark x - marks task x as done\nunmark x - unmarks task x as undone" +
+        System.out.println("todo <task> - adds todo\ndeadline <task>/<by when> - adds deadline\n" +
+                "event <task>/<from when>/<to when> - adds event\nlist - lists out all tasks\n" +
+                "mark <x> - marks task x as done\nunmark <x> - unmarks task x as undone\n" +
                 "bye - exit");
     }
 
@@ -83,7 +87,7 @@ public class Ypxmm {
                 tasks.get(index - 1).markTask();
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got " +
-                        (tasks.size() == 0 ? "no tasks. Create a task then we talk." : tasks.size() +
+                        (tasks.size() == 0 ? "no tasks to mark." : tasks.size() +
                                 " tasks, enter any number from 1 to " + tasks.size()));
             }
         } catch (YpxmmException y) {
@@ -97,7 +101,7 @@ public class Ypxmm {
                 tasks.get(index - 1).unmarkTask();
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got " +
-                        (tasks.size() == 0 ? "no tasks." : tasks.size() +
+                        (tasks.size() == 0 ? "no tasks to unmark." : tasks.size() +
                                 " tasks, enter any number from 1 to " + tasks.size()));
             }
         } catch (YpxmmException y) {
@@ -110,6 +114,9 @@ public class Ypxmm {
             if (type.equals("todo")) {
                 try {
                     String[] info = input.split("todo ");
+                    if (info[1].isBlank()) {
+                        throw new YpxmmException("Help la, can just tell me what is the name of your task anot?");
+                    }
                     Task t = new ToDo(info[1]);
                     tasks.add(t);
                     System.out.println("Ok I help you add this one liao:\n" + t.toString() +
@@ -120,6 +127,9 @@ public class Ypxmm {
             } else if (type.equals("deadline")) {
                 try {
                     String[] info = input.split("/");
+                    if (info[0].split("deadline ")[1].isBlank() || info[1].isBlank()) {
+                        throw new YpxmmException("Help la, can just tell me what is the name of your task anot?");
+                    }
                     Task t = new Deadline(info[0].substring(9), info[1]);
                     tasks.add(t);
                     System.out.println("Ok I help you add this one liao:\n" + t.toString() +
@@ -131,6 +141,9 @@ public class Ypxmm {
             } else {
                 try {
                     String[] info = input.split("/");
+                    if (info[0].split("event ")[1].isBlank() || info[1].isBlank() || info[2].isBlank()) {
+                        throw new YpxmmException("Help la, can just tell me what is the name of your task anot?");
+                    }
                     Task t = new Event(info[0].substring(6), info[1], info[2]);
                     tasks.add(t);
                     System.out.println("Ok I help you add this one liao:\n" + t.toString() +
