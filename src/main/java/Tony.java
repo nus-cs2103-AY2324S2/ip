@@ -4,25 +4,25 @@ import java.util.Scanner;
 
 public class Tony {
     public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
+        ToDoList lst = new ToDoList();
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
         greeting();
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                line();
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + ". " + list.get(i) + "\n");
-                }
-                line();
-                input = scanner.nextLine();
+            String[] words = input.split(" ");
+            String firstWord = words[0];
+            if (firstWord.equals("list")) {
+                lst.print();
+            } else if (firstWord.equals("mark")) {
+                String secondWord = words[1];
+                lst.mark(secondWord);
+            } else if (firstWord.equals("unmark")) {
+                String secondWord = words[1];
+                lst.unmark(secondWord);
             } else {
-                list.add(input);
-                line();
-                System.out.println("Added: " + input);
-                line();
-                input = scanner.nextLine();
+                lst.add(input);
             }
+            input = scanner.nextLine();
         }
         goodbye();
     }
@@ -43,5 +43,54 @@ public class Tony {
     }
     private static void line() {
         System.out.println("_______________________\n");
+    }
+
+    static class ToDoList {
+        List<String> list = new ArrayList<>();
+        List<String> done = new ArrayList<>();
+
+        public void add(String item) {
+            list.add(item);
+            done.add(" ");
+            line();
+            System.out.println("Added: " + item);
+            line();
+        }
+
+        public void mark(String input) {
+            try {
+                int index = Integer.parseInt(input);
+                done.set(index - 1, "X");
+                line();
+                System.out.println("Marked item " + index + " as done.");
+                line();
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                line();
+                System.out.println("Invalid input for 'unmark' command.");
+                line();
+            }
+        }
+
+        public void unmark(String input) {
+            try {
+                int index = Integer.parseInt(input);
+                done.set(index - 1, " ");
+                line();
+                System.out.println("Unmarked item " + index + " as done.");
+                line();
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                line();
+                System.out.println("Invalid input for 'unmark' command.");
+                line();
+            }
+        }
+
+        public void print() {
+            line();
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println((i + 1) + ". " + "[" + done.get(i) + "] " + list.get(i) + "\n");
+            }
+            line();
+        }
     }
 }
