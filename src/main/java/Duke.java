@@ -52,7 +52,7 @@ public class Duke {
                 case "todo":
                     tasks.add(new ToDo(action.substring(action.indexOf(" ") + 1)));
                     System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " task(s) in the list");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     break;
 
                 case "event":
@@ -63,7 +63,7 @@ public class Duke {
                                         st.nextToken().substring(5).strip(),
                                         st.nextToken().substring(3)));
                     System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " task(s) in the list");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     break;
 
                 case "deadline":
@@ -72,7 +72,7 @@ public class Duke {
 
                     tasks.add(new Deadline(st.nextToken().strip(), st.nextToken().substring(3)));
                     System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " task(s) in the list");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     break;
 
                 default:
