@@ -6,6 +6,6 @@ public class Bye implements Command {
     }
 
     public void execute(ChatSession session) {
-        
+        session.printMessage("Bye. Hope to see you again soon!");
     }
 }

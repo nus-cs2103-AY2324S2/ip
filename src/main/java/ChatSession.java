@@ -34,4 +34,15 @@ public class ChatSession {
     public void printHorizontalLine() {
         System.out.println("____________________________________________________________");
     }
+
+    public void terminateChat() {
+        this.continueSession = false;
+    }
+
+    public void handleMessage(String message) {
+        String[] result = message.split(" ", 2);
+        String command = result[0];
+        String commandArgs = result[1];
+        
+    }
 }
