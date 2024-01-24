@@ -1,8 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duchess {
     private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
 
     // Declare the scanner as a static field in the class
@@ -88,7 +89,7 @@ public class Duchess {
         } else {
             System.out.println(" Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println(" " + (i + 1) + "." + tasks[i].toString());
+                System.out.println(" " + (i + 1) + "." + tasks.get(i).toString());
             }
         }
         printHorizontalLine();
@@ -97,7 +98,9 @@ public class Duchess {
     //Add a task to task list
     private static void addTask(Task task) throws DuchessException {
         if (taskCount < MAX_TASKS) {
-            tasks[taskCount++] = task;
+            tasks.add(task);
+            taskCount++;
+
             printHorizontalLine();
             System.out.println(" Understood. I've added this task:");
             System.out.println(task.toString());
@@ -108,13 +111,28 @@ public class Duchess {
         }
     }
 
+    private static void deleteTask(int taskIndex) throws DuchessException {
+        if (isValidTaskIndex(taskIndex)) {
+            Task deletedTask = tasks.remove(taskIndex);
+            taskCount--;
+
+            printHorizontalLine();
+            System.out.println(" Understood. I've deleted this task:");
+            System.out.println(deletedTask.toString());
+            System.out.println(" Now you have " + taskCount + " tasks in the list.");
+            printHorizontalLine();
+        } else {
+            throw new DuchessException("Invalid task index.");
+        }
+    }
+
     // Mark a task as done
     private static void markTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
-            tasks[taskIndex].markAsDone();
+            tasks.get(taskIndex).markAsDone();
             printHorizontalLine();
             System.out.println(" Perfect! I've marked this task as done:");
-            System.out.println(tasks[taskIndex].toString());
+            System.out.println(tasks.get(taskIndex).toString());
             printHorizontalLine();
         } else {
             throw new DuchessException("Invalid task index.");
@@ -124,10 +142,10 @@ public class Duchess {
     // Unmark a task as done
     private static void unmarkTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
-            tasks[taskIndex].unmarkAsDone();
+            tasks.get(taskIndex).unmarkAsDone();
             printHorizontalLine();
             System.out.println(" Understood, I've marked this task as not done yet:");
-            System.out.println(tasks[taskIndex].toString());
+            System.out.println(tasks.get(taskIndex).toString());
             printHorizontalLine();
         } else {
             throw new DuchessException("Invalid task index.");
@@ -165,7 +183,7 @@ public class Duchess {
                         int taskIndexToMark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
                         markTaskAsDone(taskIndexToMark);
                     } else {
-                        System.out.println("Oh dear! That is an invalid command. Try: mark <taskIndex>");
+                        throw new DuchessException("Oh dear! That is an invalid command. Try: mark <taskIndex>");
                     }
                     break;
 
@@ -174,7 +192,7 @@ public class Duchess {
                         int taskIndexToUnmark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
                         unmarkTaskAsDone(taskIndexToUnmark);
                     } else {
-                        System.out.println("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
+                        throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
                     }
                     break;
 
@@ -190,8 +208,17 @@ public class Duchess {
                     addEvent(userInput);
                     break;
 
+                case "delete":
+                    if (tokens.length > 1) {
+                        int taskIndexToDelete = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
+                        deleteTask(taskIndexToDelete);
+                    } else {
+                        throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
+                    }
+                    break;
+
                 default:
-                    System.out.println("Oh dear, I can't make out what that is.");
+                    throw new DuchessException("Oh dear, I can't make out what that is.");
             }
         }
     }
