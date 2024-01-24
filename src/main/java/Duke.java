@@ -28,37 +28,62 @@ public class Duke {
         System.out.print(greeting);
 
         Scanner input = new Scanner(System.in);
-        String currInput = input.nextLine();
+        String[] currInput = input.nextLine().split(" ", 2);
 
         while (!exitProgramme.contains(currInput)) {
-            if (currInput.equals("list")) { // list tasks
+            String cmd = currInput[0];
+
+            if (cmd.equals("list")) {               // list tasks
                 System.out.println("    Here are the items in your list: ");
                 for (int i = 0; i < userTasks.size(); i++) {
                     String listIdx = i + 1 + ". ";
                     Task currTask = userTasks.get(i);
                     System.out.println("    " + listIdx + currTask);
                 }
-            } else if (currInput.contains("mark")) {     // mark tasks
-                String[] markCmd = currInput.split(" ");
-                String toMark = markCmd[0];
-                int taskIdx = Integer.parseInt(markCmd[1]) - 1;
+            } else if (cmd.contains("mark")) {     // mark tasks
+                String task = currInput[1];
+                int taskIdx = Integer.parseInt(task) - 1;
                 Task currTask = userTasks.get(taskIdx);
 
-                if (toMark.equals("mark")) {
+                if (cmd.equals("mark")) {
                     currTask.markAsDone();
-                } else if (toMark.equals("unmark")) {
+                } else if (cmd.equals("unmark")) {
                     currTask.markAsUndone();
                 }
-            } else {                        // add tasks
-                Task newTask = new Task(currInput);
-                userTasks.add(newTask);
-                System.out.println("    added: " + currInput);
+            } else {                                // add tasks
+                Boolean added = false;
+                if (cmd.equals("deadline")) {
+                    String[] task = currInput[1].split(" /by ");
+                    Deadline newDL = new Deadline(task[0], task[1]);
+                    userTasks.add(newDL);
+                    added = true;
+                } else if (cmd.equals("event")){
+                    String[] task = currInput[1].split(" /from ", 2);
+                    String[] period = task[1].split(" /to ", 2);
+                    Event newEvt = new Event(task[0], period[0], period[1]);
+                    userTasks.add(newEvt);
+                    added = true;
+                } else if (cmd.equals("todo")) {
+                    Todo newTd = new Todo(currInput[1]);
+                    userTasks.add(newTd);
+                    added = true;
+                }
+
+                if (added) {
+                    int numTasks = userTasks.size();
+                    Task addedTask = userTasks.get(numTasks - 1);
+                    System.out.println("    Got it. I've added this task:\n" +
+                            "        " + addedTask + "\n" +
+                            "    Now you have " + numTasks + " tasks in the list."
+                            );
+                }
+
             }
 
             System.out.println(line);
-            currInput = input.nextLine();
+            currInput = input.nextLine().split(" ", 2);
         }
 
-        System.out.println("   Bye! " + catchphrases[random.nextInt(catchphrases.length)] + "\n" +line);
+        System.out.println("   Bye! " + catchphrases[random.nextInt(catchphrases.length)] + "\n" + line);
     }
 }
