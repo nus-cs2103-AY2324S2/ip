@@ -25,6 +25,9 @@ public class ChatBox {
     }
 
     private void parseInput() {
+        if (this.input.isEmpty()) {
+            return;
+        }
         if (this.input.equals("list")) {
             printList();
             return;
@@ -46,7 +49,20 @@ public class ChatBox {
                 return;
             }
         }
-        addTask();
+        if (words[0].equals("todo")) {
+            String description = Parser.parseTodo(this.input);
+            addTodo(description);
+            return;
+        }
+        if (words[0].equals("deadline")) {
+            String[] parsedString = Parser.parseDeadline(this.input);
+            addDeadline(parsedString[0], parsedString[1]);
+            return;
+        }
+        if (words[0].equals("event")) {
+            String[] parsedString = Parser.parseEvent(this.input);
+            addEvent(parsedString[0], parsedString[1], parsedString[2]);
+        }
     }
 
     private void printDecorator() {
@@ -60,12 +76,25 @@ public class ChatBox {
         printDecorator();
     }
 
-    private void addTask() {
-        if (this.input.isEmpty()) {
-            return;
-        }
+    private void addTodo(String description) {
         printDecorator();
-        this.tasks[this.taskCount] = new Task(this.input);
+        this.tasks[this.taskCount] = new Todo(description);
+        this.taskCount++;
+        System.out.println("    added: " + this.input);
+        printDecorator();
+    }
+
+    private void addDeadline(String description, String time) {
+        printDecorator();
+        this.tasks[this.taskCount] = new Deadline(description, time);
+        this.taskCount++;
+        System.out.println("    added: " + this.input);
+        printDecorator();
+    }
+
+    private void addEvent(String description, String beginTime, String endTime) {
+        printDecorator();
+        this.tasks[this.taskCount] = new Event(description, beginTime, endTime);
         this.taskCount++;
         System.out.println("    added: " + this.input);
         printDecorator();
