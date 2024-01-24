@@ -25,6 +25,11 @@ public class Storage {
   private static String[] storageArray = new String[LIMIT];
 
   /**
+   * Array used to object statuses for the application
+   */
+  private static boolean[] statusArray = new boolean[LIMIT];
+
+  /**
    * Method to store items for the application
    *
    * @param item String to store
@@ -37,6 +42,7 @@ public class Storage {
 
     // Add item to storage
     storageArray[index] = item;
+    statusArray[index] = false;
     index++;
   }
 
@@ -45,7 +51,43 @@ public class Storage {
    */
   public static void listItems() {
     for (int i = 0; i < index; i++) {
-      System.out.println(String.format("%d. %s", i + 1, storageArray[i]));
+      // Retrieve status of object
+      String status = " ";
+      if (statusArray[i]) {
+        status = "X";
+      }
+
+      System.out.println(String.format("%d.[%s] %s", i + 1, status, storageArray[i]));
+    }
+  }
+
+  /**
+   * Method to mark an item in storage
+   *
+   * @param markIndex Index of the item to mark
+   */
+  public static void markItem(int markIndex) {
+    try {
+      statusArray[markIndex] = true;
+      System.out.println("Nice! I've marked this task as done:");
+      System.out.println(String.format("  [X] %s", storageArray[markIndex]));
+    } catch (IndexOutOfBoundsException e) {
+      System.out.println("ERROR: Item cannot be marked - Index out of bounds");
+    }
+  }
+
+  /**
+   * Method to unmark an item in storage
+   *
+   * @param unmarkIndex Index of the item to mark
+   */
+  public static void unmarkItem(int unmarkIndex) {
+    try {
+      statusArray[unmarkIndex] = false;
+      System.out.println("OK, I've marked this task as not done yet:");
+      System.out.println(String.format("  [ ] %s", storageArray[unmarkIndex]));
+    } catch (IndexOutOfBoundsException e) {
+      System.out.println("ERROR: Item cannot be unmarked - Index out of bounds");
     }
   }
 }
