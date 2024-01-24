@@ -4,7 +4,9 @@ public class InvalidIndexException extends CheckbotException {
     }
 
     public InvalidIndexException(int index, int length) {
-        super("Task number " + index
+        super(length == 0
+                ? "Please add tasks into your list before doing that!"
+                : "Task number " + index
                 + " does not exist. "
                 + (length > 1
                     ?  "Only task numbers 1 - "

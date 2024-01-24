@@ -21,6 +21,19 @@ public class TodoList {
         taskList[i].unmark();
     }
 
+    public Task deleteTask(int i) throws InvalidIndexException {
+        if (i < 0 || i >= length) {
+            throw new InvalidIndexException(i, length);
+        }
+        Task deletedTask = taskList[i];
+        while (i < length - 1) {
+            taskList[i] = taskList[i + 1];
+            i++;
+        }
+        length--;
+        return deletedTask;
+    }
+
     public Task getTask(int i) {
         return taskList[i];
     }

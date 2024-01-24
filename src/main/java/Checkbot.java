@@ -33,7 +33,6 @@ public class Checkbot {
             if (matcher.find()) {
                 String firstLabel = matcher.group(2);
                 String firstValue = matcher.group(3).strip();
-                String secondLabel = matcher.group(4);
                 String secondValue = matcher.group(5).strip();
 
                 String from, to;
@@ -76,7 +75,7 @@ public class Checkbot {
         Scanner scanner = new Scanner(System.in);
         while (!input.equals("bye")) {
             input = scanner.nextLine();
-            String toPrint = input;
+            String toPrint;
             try {
                 if (input.equals("bye")) {
                     toPrint = "Goodbye!";
@@ -100,14 +99,24 @@ public class Checkbot {
                     } catch (NumberFormatException e) {
                         throw new InvalidIndexException(input.split("mark ")[1]);
                     }
+                } else if (input.startsWith("delete")) {
+                    try {
+                        int i = Integer.parseInt(input.split("delete ")[1]) - 1;
+                        Task deletedTask = todoList.deleteTask(i);
+                        toPrint = "Alright, I deleted this task:\n"
+                                + INDENTATION + INDENTATION + deletedTask + "\n"
+                                + INDENTATION + "You have now " + todoList.getLength() + " task" + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
+                    } catch (NumberFormatException e) {
+                        throw new InvalidIndexException(input.split("mark ")[1]);
+                    }
                 } else if (input.startsWith("todo")
                         || input.startsWith("deadline")
                         || input.startsWith("event")) {
                     Task task = createTask(input);
+                    todoList.addTask(task);
                     toPrint = "I have added this task to the list:\n"
                             + INDENTATION + INDENTATION + task + "\n"
-                            + INDENTATION + "You have now " + (todoList.getLength()+1) + " task" + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
-                    todoList.addTask(task);
+                            + INDENTATION + "You have now " + todoList.getLength() + " task" + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
                 } else {
                     throw new InvalidCommandException(input);
                 }
