@@ -1,10 +1,22 @@
+import java.lang.reflect.Array;
 import java.util.*;
 public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> lst = new ArrayList<>();
         intro();
-        echo(sc);
-        exit();
+        while (sc.hasNext()) {
+            String s = sc.nextLine();
+            if (s.equals("list")) {
+                displayList(lst);
+            } else if (s.equals("bye")) {
+                exit();
+                return;
+            } else {
+                addToList(lst, s);
+            }
+        }
+//        echo(sc);
     }
     private static void intro() {
         String logo = "        _  _        \n  __ _ | || | _   _ \n / _` || || || | | |\n| (_| || || || |_| |\n \\__,_||_||_| \\__, |\n              |___/ \n";
@@ -22,4 +34,14 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    private static void addToList(ArrayList<String> lst, String s) {
+        lst.add(s);
+        System.out.println("added: " + s);
+    }
+
+    private static void displayList(ArrayList<String> lst) {
+        for (int i = 0; i < lst.size(); i++) {
+            System.out.println(i+1 + ": " + lst.get(i));
+        }
+    }
 }
