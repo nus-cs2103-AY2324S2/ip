@@ -40,8 +40,9 @@ public class Ken {
                 System.out.println("oh no! which line died?\n");
             } else if (command.startsWith("event")) {
                 System.out.println("where you going?\n");
-            } else {
+            } else if (!command.equals("bye")) {
                 System.out.println("don't know what that is\n");
+            } else {
             }
 
         } while (!command.equalsIgnoreCase("bye"));
