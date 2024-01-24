@@ -24,4 +24,14 @@ public class ChatSession {
     public void initCommands() {
         this.commandList = List.of();
     }
+
+    public void printMessage(String message) {
+        this.printHorizontalLine();
+        System.out.println(message);
+        this.printHorizontalLine();
+    }
+
+    public void printHorizontalLine() {
+        System.out.println("____________________________________________________________");
+    }
 }
