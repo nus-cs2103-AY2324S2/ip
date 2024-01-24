@@ -7,7 +7,35 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
         while (!command.equals("bye")) {
-            if (command.equals("list")) {
+            String[] splitted = command.split(" ");
+            int[] items = new int[10000];
+            if (splitted[0].equals("mark") && splitted.length > 1) {
+                try {
+                    for (int i = 1; i < splitted.length; i++) {
+                        items[i - 1] = Integer.parseUnsignedInt(splitted[i]);
+                    }
+                    for (int j = 0; j < splitted.length-1; j++) {
+                        ItemList.markDone(items[j]);
+                        System.out.println(ItemList.doneMessage(j));
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println(FormatOutput.format(Echo.echo(command)));
+                    ItemList.addToList(command);
+                }
+            } else if (splitted[0].equals("unmark") && splitted.length > 1) {
+                try {
+                    for (int i = 1; i < splitted.length; i++) {
+                        items[i - 1] = Integer.parseUnsignedInt(splitted[i]);
+                    }
+                    for (int j = 0; j < splitted.length-1; j++) {
+                        ItemList.markUndone(items[j]);
+                        System.out.println(ItemList.undoneMessage(j));
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println(FormatOutput.format(Echo.echo(command)));
+                    ItemList.addToList(command);
+                }
+            } else if (command.equals("list")) {
                 System.out.println(FormatOutput.format(ItemList.getItemList()));
             } else {
                 System.out.println(FormatOutput.format(Echo.echo(command)));
