@@ -1,4 +1,6 @@
 import entity.*;
+import exception.UnknownCommandException;
+
 import java.util.*;
 
 public class SlayBot {
@@ -10,6 +12,14 @@ public class SlayBot {
         Scanner sc = new Scanner(System.in);
         List<Task> list = new ArrayList<>();
         boolean flag = true;
+
+        /**
+        try {
+
+        } catch () {
+
+        }
+         **/
 
         System.out.println(DIVIDER + "\n" + WELCOME_TEXT + "\n" + DIVIDER);
 
@@ -36,7 +46,10 @@ public class SlayBot {
                 case "todo":
                     String todo_title = "";
                     for (int i = 1; i < splitWords.length; i++) {
-                        todo_title += splitWords[i] + " ";
+                        todo_title += splitWords[i];
+                        if (i != splitWords.length - 1) {
+                            todo_title += " ";
+                        }
                     }
                     ToDos todo = new ToDos(todo_title);
                     list.add(todo);
@@ -87,7 +100,8 @@ public class SlayBot {
                     System.out.println(DIVIDER + "\nOK, I've marked this task as not done yet:\n" + taskToUnmark.toString() +
                             "\n" + DIVIDER);
                     break;
-
+                default:
+                    //throw new UnknownCommandException();
 
             }
         }
