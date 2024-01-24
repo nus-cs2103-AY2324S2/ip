@@ -1,5 +1,7 @@
 @ECHO OFF
 
+REM to test, open terminal > cd to current dir > cmd /c runtest.bat
+
 REM create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 
