@@ -37,24 +37,56 @@ public class Whisper {
             } else if (input.toLowerCase().startsWith("unmark")) {
                 int index = getIndex(input);
                 printTaskUndone(index);
-            }
-            else {
+            } else if (input.startsWith("todo")) {
                 addTask(input);
+            } else if (input.startsWith("event")) {
+                addEvent(input);
+            } else if (input.startsWith("deadline")) {
+                addDeadline(input);
+            } else {
+                System.out.println("Invalid input. Please try again.");
             }
         }
         sc.close();
-
     }
 
     // insert task into the task list
     public static void addTask(String description) {
         if (count < 100) {
-            taskList[count++] = new Task(description);
-            System.out.println(line + "Task added: " + description + "\n" + line);
+            taskList[count] = new Todo(description);
+            System.out.println(line + "Got it. I've added this task:\n" + taskList[count].toString() + "\n" + printTaskCount(count) + "\n" + line);
+            count++;
         } else {
             // if more than 100 tasks
             System.out.println("Sorry, list is full. Can't add anymore.");
         }
+    }
+
+    // add new Event
+    public static void addEvent(String description) {
+        String[] eventStr = description.split("/from", 2); // create two substring after "from"
+        String[] descr = eventStr[0].split(" ", 2);
+        String eventName = descr[1];
+        String[] time = eventStr[1].split("/to", 2); // create two substring & get from to timing
+        String from = time[0].trim();
+        String to = time[1].trim();
+
+        // add new event to task list
+        taskList[count] = new Event(eventName, from, to);
+        System.out.println(line + "Got it. I've added this task:\n" + taskList[count].toString() + "\n" + printTaskCount(count) + "\n" + line);
+        count++;
+    }
+
+    public static void addDeadline(String description) {
+        String[] deadlineStr = description.split("/by", 2);
+        String[] descr = deadlineStr[0].split(" ", 2);
+        String deadlineName = descr[1];
+        String by = deadlineStr[1].trim();
+
+        // add new deadline to task list
+        taskList[count] = new Deadline(deadlineName, by);
+        System.out.println(line + "Got it. I've added this task:\n" + taskList[count].toString() + "\n" + printTaskCount(count) + "\n" + line);
+        count++;
     }
 
     // display text when task is marked done
@@ -79,6 +111,10 @@ public class Whisper {
         } else {
             System.out.println("Invalid task number, please try again.");
         }
+    }
+
+    public static String printTaskCount(int count) {
+        return "Now you have " + (count + 1) + " tasks in the list.";
     }
 
     // display task list
