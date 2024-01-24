@@ -1,14 +1,18 @@
 public class Task {
+    enum Status {
+        DONE,
+        NOT_DONE
+    }
     protected String description;
-    protected boolean isDone;
+    protected Status status;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.status = Status.NOT_DONE;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (status == Status.DONE ? "X" : " "); // mark done task with X
     }
 
     public String getDescription() {
@@ -21,7 +25,7 @@ public class Task {
     }
 
     public void setDone(boolean done) {
-        this.isDone = done;
+        this.status = (done ? Status.DONE : Status.NOT_DONE);
     }
 
 }
