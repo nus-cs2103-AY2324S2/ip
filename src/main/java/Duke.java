@@ -46,6 +46,17 @@ public class Duke {
                 } else {
                     list.get(index - 1).markAsUndone();
                 }
+            } else if (command.equals("delete")) {
+                int index = Integer.parseInt(words[1]);
+                if (index < 0 || index > list.size()) {
+                    System.out.println("Please enter index ranging from 1 to " + String.valueOf(list.size()));
+                } else {
+                    System.out.println("Ok. I'll be removing this task:\n "
+                            + list.get(index - 1).toString()
+                            + "\n"
+                            + "Now you have " + String.valueOf(list.size() - 1) + " task(s) left");
+                    list.remove(index-1);
+                }
 
             } else if (command.equals("todo")) {
                 String description = input.trim().substring("todo".length()).trim();
