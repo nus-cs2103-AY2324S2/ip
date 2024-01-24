@@ -9,6 +9,8 @@ public class Outputter {
      * @param msg message to be outputted, you do not need to end it with a newline.
      */
     public static void outputMessage(Message msg) {
+        System.out.println("-".repeat(50));
         System.out.println(msg.getMessage());
+        System.out.println("-".repeat(50));
     }
 }
