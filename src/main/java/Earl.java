@@ -30,7 +30,7 @@ public class Earl {
 
         // main loop
         String input = sc.nextLine();
-        String[] command = input.split("\\s");
+        String[] command = input.split("\\s", 2);
         while (!input.equals("bye")) {
             switch (command[0]) {
                 case "list":
@@ -68,12 +68,41 @@ public class Earl {
                     }
                     break;
                 }
+                case "todo":
+                    tasks[count++] = new Todo(command[1]);
+                    makeResponse(
+                            "Added new todo.",
+                            "\t" + tasks[count-1],
+                            "There are " + count + " tasks tracked."
+                    );
+                    break;
+                case "deadline":
+                    command = command[1].split("\\s/by\\s");
+                    tasks[count++] = new Deadline(command[0], command[1]);
+                    makeResponse(
+                            "Added new deadline.",
+                            "\t" + tasks[count-1],
+                            "There are " + count + " tasks tracked."
+                    );
+                    break;
+                case "event":
+                    command = command[1].split("\\s/(from|to)\\s");
+                    tasks[count++] = new Event(
+                            command[0],
+                            command[1],
+                            command[2]
+                    );
+                    makeResponse(
+                            "Added new event.",
+                            "\t" + tasks[count-1],
+                            "There are " + count + " tasks tracked."
+                    );
+                    break;
                 default:
-                    tasks[count++] = new Task(input);
-                    makeResponse("Item added to list: " + input);
+                    makeResponse("Unknown command.");
             }
             input = sc.nextLine();
-            command = input.split("\\s");
+            command = input.split("\\s", 2);
         }
         makeResponse("Goodbye! See you soon.");
         sc.close();
