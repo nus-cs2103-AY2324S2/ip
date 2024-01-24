@@ -10,23 +10,35 @@ public class Duke {
         boolean finished = false;
 
         //Array to contain the task list
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
+        //Number of task in the list
+        int taskNum = 0;
 
         //Printing of Start text
         PrintingString(start);
 
         Scanner in = new Scanner(System.in);
 
-        for(int i = 0; !finished; i++) {
-            String s = in.nextLine();
+        while(!finished) {
+            String s = in.next();
 
             if (s.equalsIgnoreCase("bye")) {
                 finished = true;
             } else if (s.equalsIgnoreCase("list")) {
-                PrintingList(taskList, i);
+                PrintingList(taskList, taskNum);
+            } else if (s.equalsIgnoreCase("mark")) {
+                int num = in.nextInt() - 1;
+                taskList[num].markAsDone();
+                PrintingString("Nice! I've marked this task as done\n" + "  " + taskList[num]);
+            } else if (s.equalsIgnoreCase("unmark")) {
+                int num = in.nextInt() - 1;
+                taskList[num].markAsUndone();
+                PrintingString("OK, I've marked this task as not done yet\n" + "  " + taskList[num]);
             } else {
-                taskList[i] = s;
-                PrintingString("added: " + s + "\n");
+                String out = s + in.nextLine();
+                taskList[taskNum] = new Task(out);
+                PrintingString("added: " + out + "\n");
+                taskNum++;
             }
         }
 
@@ -34,17 +46,17 @@ public class Duke {
         PrintingString(end);
     }
 
-    public static void PrintingString(String str) {
+    private static void PrintingString(String str) {
         //Function to add the line in front and behind the text
         String lnBreak = "_______________________________________________________________\n";
         System.out.println(lnBreak + str + lnBreak);
     }
 
-    public static void PrintingList(String[] lst, int size) {
+    private static void PrintingList(Task[] lst, int size) {
         //Function to produce the string for the list to be printed
-        String out = "";
+        String out = "Here are the tasks in your list:\n";
         for(int i = 1; i < size + 1; i++) {
-            out += i + ". " + lst[i - 1] + "\n";
+            out += i + "." + lst[i - 1];
         }
         PrintingString(out);
     }
