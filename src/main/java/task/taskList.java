@@ -22,7 +22,7 @@ public class taskList {
 
     public void listDownTask() {
         int size = getSize();
-        System.out.println("Here are the tasks in your list:\n");
+        System.out.println("Here are the tasks in your list:");
         for(int i = 1; i <= size; i++) {
             System.out.println(i +": " + listOfTasks.get(i - 1));
         }
