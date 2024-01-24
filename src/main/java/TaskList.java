@@ -21,6 +21,10 @@ public class TaskList {
         return s;
     }
 
+    public Task getTask(int index) {
+        return internalList.get(index - 1);
+    }
+
     public void add(Task t) {
         this.internalList.add(t);
     }
