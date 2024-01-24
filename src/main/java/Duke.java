@@ -21,7 +21,7 @@ public class Duke {
                     command = input.substring(0, cmdSplit);
                     task = input.substring(input.indexOf(" ") + 1);
                 } else {
-                    if (command.equals("mark") | command.equals("unmark")) {
+                    if (command.equals("mark") | command.equals("unmark") | command.equals("delete")) {
                         System.out.println("-------------------------------- \n" +
                                 "Oops, I'm not sure which task you are referring to! Please indicate a task number (e.g. " + command + " 1) \n" +
                                 "-------------------------------- \n");
@@ -36,41 +36,41 @@ public class Duke {
 
                 if (command.equals("list")) {
                     printTaskList(list);
-                } else if (command.equals("mark")) {
+                } else if (command.equals("mark") | command.equals("unmark") | command.equals("delete")) {
                     int taskNo = Integer.parseInt(task) - 1;
 
                     if (taskNo >= list.size()) {
                         System.out.println("-------------------------------- \n" +
-                                "Oops, task " + taskNo + "does not exist. Please try again! \n" +
+                                "Oops, task " + task + " does not exist. Please try again! \n" +
                                 "Here is your list for reference: \n");
                         printTaskList(list);
                         System.out.println("-------------------------------- \n");
                     } else {
-                        Task dTask = list.get(taskNo);
-                        dTask.done();
-
-                        System.out.println("-------------------------------- \n" +
-                                "Nice! I've marked task " + taskNo + " as done: \n" +
-                                dTask.toString() + "\n" +
-                                "-------------------------------- \n");
-                    }
-                } else if (command.equals("unmark")) {
-                    int taskNo = Integer.parseInt(task) - 1;
-
-                    if (taskNo >= list.size()) {
-                        System.out.println("-------------------------------- \n" +
-                                "Oops, task " + taskNo + "does not exist. Please try again! \n" +
-                                "Here is your list for reference: \n");
-                        printTaskList(list);
-                        System.out.println("-------------------------------- \n");
-                    } else {
-                        Task uTask = list.get(taskNo);
-                        uTask.undone();
-
-                        System.out.println("-------------------------------- \n" +
-                                "Sure, I've marked task " + taskNo + " as not done yet: \n" +
-                                uTask.toString() + "\n" +
-                                "-------------------------------- \n");
+                        Task t = list.get(taskNo);
+                        switch (command) {
+                            case "mark":
+                                t.done();
+                                System.out.println("-------------------------------- \n" +
+                                        "Nice! I've marked task " + task + " as done: \n" +
+                                        t.toString() + "\n" +
+                                        "-------------------------------- \n");
+                                break;
+                            case "unmark":
+                                t.undone();
+                                System.out.println("-------------------------------- \n" +
+                                        "Sure, I've marked task " + task + " as not done yet: \n" +
+                                        t.toString() + "\n" +
+                                        "-------------------------------- \n");
+                                break;
+                            case "delete":
+                                list.remove(taskNo);
+                                System.out.println("-------------------------------- \n" +
+                                        "Okay, I will delete this task: \n" +
+                                        t.toString() + "\n" +
+                                        "You now have " + list.size() + " in the list. \n" +
+                                        "-------------------------------- \n");
+                                break;
+                        }
                     }
                 } else if (command.equals("todo") | command.equals("deadline") | command.equals("event")) {
                     Task t = null;
@@ -122,6 +122,7 @@ public class Duke {
                             "list \n" +
                             "mark <task_number> \n" +
                             "unmark <task_number> \n" +
+                            "delete <task_number> \n" +
                             "-------------------------------- \n");
                 }
             }
@@ -138,8 +139,8 @@ public class Duke {
     public static void printTaskList(ArrayList<Task> list) {
         System.out.println( "-------------------------------- \n" +
                 "Here are the tasks in your list:");
-        if (list.size() == 0) {
-            System.out.println("You have no tasks yet.");
+        if (list.isEmpty()) {
+            System.out.println("----You have no tasks yet.----");
         }
         else {
             for (int i = 0; i < list.size(); i++) {
