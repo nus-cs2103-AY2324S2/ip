@@ -29,33 +29,95 @@ public class Duke {
         boolean exited = false;
         while (!exited) {
             String userInput = sc.nextLine();
-            if (userInput.equals("bye")) {
-                exited = true;
-            }
-            else if (userInput.equals("list")) {
-                displayList();
-            }
-            else if (userInput.startsWith("mark ")) {
-                int num = Integer.parseInt(userInput.replace("mark ", ""));
-                markAsDone(num);
-            }
-            else if (userInput.startsWith("unmark ")) {
-                int num = Integer.parseInt(userInput.replace("unmark ", ""));
-                unMarkAsDone(num);
-            }
-            else if (userInput.startsWith("todo ")) {
-                String todo = userInput.replace("todo ", "");
-                appendToDo(todo);
-            } else if (userInput.startsWith("deadline ")) {
-                String[] deadline = userInput.replace("deadline ", "").split(" /by ");
-                appendDeadline(deadline[0], deadline[1]);
-            } else if (userInput.startsWith("event ")) {
-                String[] event = userInput.replace("event ", "").split(" /from ");
-                String[] time = event[1].split(" /to ");
-                appendEvent(event[0], time[0], time[1]);
+            try {
+                if (userInput.equals("bye")) {
+                    exited = true;
+                } else if (userInput.equals("list")) {
+                    displayList();
+                } else if (userInput.startsWith("mark")) {
+                    int num = parseTaskNumber(userInput, "mark");
+                    markAsDone(num);
+                } else if (userInput.startsWith("unmark")) {
+                    int num = parseTaskNumber(userInput, "unmark");
+                    unMarkAsDone(num);
+                } else if (userInput.startsWith("todo")) {
+                    String todo = userInput.replace("todo", "").trim();
+                    processEmptyDescription(todo, "todo");
+                    appendToDo(todo);
+                } else if (userInput.startsWith("deadline")) {
+                    String[] deadline = parseDeadlineInput(userInput, "deadline");
+                    appendDeadline(deadline[0], deadline[1]);
+                } else if (userInput.startsWith("event")) {
+                    String[] event = parseEventInput(userInput, "event");
+                    appendEvent(event[0], event[1], event[2]);
+                } else {
+                    throw new DukeException("\nError! I don't know what that means. Types of tasks are limited to ToDos, Deadlines and Events.\n");
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
         }
         sayBye();
+    }
+
+    private void processEmptyDescription(String description, String task) throws DukeException {
+        if (description.isEmpty()) {
+            throw new DukeException("\nError! The description of a " + task + " cannot be empty.\n");
+        }
+    }
+
+    private int parseTaskNumber(String input, String command) throws DukeException {
+        String taskNumString = input.replace(command, "").trim();
+        if (taskNumString.isEmpty() || !taskNumString.matches("\\d+")) {
+            throw new DukeException("\nError! Please provide a valid task number after '" + command + "'.\n");
+        }
+        int taskNumber = Integer.parseInt(taskNumString);
+
+        if (taskNumber < 1 || taskNumber > list.length || list[taskNumber - 1] == null) {
+            throw new DukeException("\nError! Task number '" + taskNumber + "' does not exist.\n");
+        }
+
+        return taskNumber;
+    }
+
+    private String[] parseDeadlineInput(String input, String command) throws DukeException {
+        String[] deadlineInput = input.replace(command, "").trim().split(" /by ");
+
+        if (deadlineInput.length != 2) {
+            throw new DukeException("\nError! Please provide a valid description and deadline after '" + command + "'.\n");
+        }
+
+        String description = deadlineInput[0].trim();
+        String by = deadlineInput[1].trim();
+
+        processEmptyDescription(description, "deadline");
+        processEmptyDescription(by, "deadline");
+
+        return new String[]{description, by};
+    }
+
+    private String[] parseEventInput(String input, String command) throws DukeException {
+        String[] eventInput = input.replace(command, "").trim().split(" /from ");
+
+        if (eventInput.length != 2) {
+            throw new DukeException("\nError! Please provide a valid description, start time, and end time after '" + command + "'.\n");
+        }
+
+        String description = eventInput[0].trim();
+        String[] timeInput = eventInput[1].split(" /to ");
+
+        if (timeInput.length != 2) {
+            throw new DukeException("\nError! Please provide a valid start time and end time after '/from' and '/to'.\n");
+        }
+
+        String startTime = timeInput[0].trim();
+        String endTime = timeInput[1].trim();
+
+        processEmptyDescription(description, "event");
+        processEmptyDescription(startTime, "event");
+        processEmptyDescription(endTime, "event");
+
+        return new String[]{description, startTime, endTime};
     }
 
     /**
@@ -89,7 +151,7 @@ public class Duke {
      */
     private void unMarkAsDone(int num) {
         list[num - 1].unMarkAsDone();
-        System.out.println("OK, I've marked this task as not done yet:\n\t" + list[num - 1] + "\n");
+        System.out.println("\nOK, I've marked this task as not done yet:\n\t" + list[num - 1] + "\n");
     }
 
     /**
