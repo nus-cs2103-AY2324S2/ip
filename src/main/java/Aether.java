@@ -6,18 +6,15 @@ public class Aether {
     }
 
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//                System.out.println("Hello from\n" + logo);
-
         String chatbotName = "Aether";
+
         System.out.println("_____________________________");
         System.out.println("Hello! I'm " + chatbotName + "!");
         System.out.println("What can I do for you?");
         System.out.println("_____________________________");
+
+        String[] tasks = new String[100];
+        int taskCounter = 0;
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -30,14 +27,26 @@ public class Aether {
                 printHorizontalLine();
             } else if (input.equalsIgnoreCase("study")) {
                 System.out.println("Sure! What topic do you want to study?");
+            } else if (input.equalsIgnoreCase("list")) {
+                if (taskCounter > 0) {
+                    System.out.println("Tasks:");
+                    for (int i = 0; i < taskCounter; i++) {
+                        System.out.println((i + 1) + "." + tasks[i].substring(6));
+                    }
+                } else {
+                    System.out.println("No tasks added yet.");
+                }
             } else {
-                System.out.println(input);
-                printHorizontalLine();
+                tasks[taskCounter] = "added: " + input;
+                taskCounter++;
+                System.out.println(tasks[taskCounter - 1]);
+
             }
 
+            printHorizontalLine();
 
-        }
-        while (!input.equalsIgnoreCase("bye"));
+
+        } while (!input.equalsIgnoreCase("bye"));
         scanner.close();
     }
 }
