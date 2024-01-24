@@ -2,24 +2,23 @@ import java.util.Scanner;
 
 public class Earl {
 
-    public static String[] data = new String[100];
-    public static int dataSize = 0;
+    private static final Task[] tasks = new Task[100];
+    private static int count = 0;
 
-    public static void divider() {
+    private static void printDivider() {
         System.out.println("\t" + "_".repeat(50));
     }
 
-    public static void respond(String... arr) {
-        divider();
+    private static void makeResponse(String... arr) {
+        printDivider();
         for (String s : arr) {
             System.out.println("\t" + s);
         }
-        divider();
+        printDivider();
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         // starting messages
         String logo = " ______           _ \n"
                 + "\t|  ____|         | |\n"
@@ -27,31 +26,56 @@ public class Earl {
                 + "\t|  __| / _` | '__| |\n"
                 + "\t| |___| (_| | |  | |\n"
                 + "\t|______\\__,_|_|  |_|";
-        respond(logo, "Hello! I'm Earl", "What can I do for you?");
+        makeResponse(logo, "Hello! I'm Earl", "What can I do for you?");
 
         // main loop
-        String command = sc.nextLine();
-        while (!command.equals("bye")) {
-            switch (command) {
+        String input = sc.nextLine();
+        String[] command = input.split("\\s");
+        while (!input.equals("bye")) {
+            switch (command[0]) {
                 case "list":
-                    if (dataSize == 0) {
-                        respond("There is nothing to list.");
-                    } else {
-                        String[] temp = new String[dataSize];
-                        for (int i = 0; i < dataSize; ++i) {
-                            temp[i] = i + 1 + ". " + data[i];
+                    if (count > 0) {
+                        String[] temp = new String[count];
+                        for (int i = 0; i < count; ++i) {
+                            temp[i] = i+1 + "." + tasks[i];
                         }
-                        respond(temp);
+                        makeResponse(temp);
+                    } else {
+                        makeResponse("There is nothing to list.");
                     }
                     break;
+                case "mark": {
+                    int idx = Integer.parseInt(command[1]) - 1;
+                    if (tasks[idx].markAsDone()) {
+                        makeResponse(
+                                "Item marked as done.",
+                                "\t" + tasks[idx]
+                        );
+                    } else {
+                        makeResponse("Item already marked as done.");
+                    }
+                    break;
+                }
+                case "unmark": {
+                    int idx = Integer.parseInt(command[1]) - 1;
+                    if (tasks[idx].markUndone()) {
+                        makeResponse(
+                                "Item marked as not done.",
+                                "\t" + tasks[idx]
+                        );
+                    } else {
+                        makeResponse("Item already marked as not done.");
+                    }
+                    break;
+                }
                 default:
-                    data[dataSize++] = command;
-                    respond("Item added to list: " + command);
+                    tasks[count++] = new Task(input);
+                    makeResponse("Item added to list: " + input);
             }
-            command = sc.nextLine();
+            input = sc.nextLine();
+            command = input.split("\\s");
         }
-        respond("Goodbye! See you soon.");
+        makeResponse("Goodbye! See you soon.");
         sc.close();
     }
-
 }
