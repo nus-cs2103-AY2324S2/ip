@@ -5,14 +5,13 @@ import TaskList.Task;
 
 public class DataStorage {
     private Task[] tasksList;
-    private int taskCount = 0;
-
+    private int taskCount;
     private int maxTask;
 
     public DataStorage(int maxTask) {
         this.maxTask = maxTask;
         this.tasksList = new Task[maxTask];
-        int taskCount = 0;
+        this.taskCount = 0;
     }
 
     public Task getTask(int index) {

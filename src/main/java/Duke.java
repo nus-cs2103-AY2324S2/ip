@@ -1,3 +1,4 @@
+import CustomExceptions.BlankEventException;
 import CustomExceptions.MalformedUserInputException;
 import CustomExceptions.NoTaskCreatedYetException;
 import CustomExceptions.TooManyTasksException;
@@ -23,7 +24,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         String welcomeMessage = "\t ____________________________________________________________\n" +
-                "\t Hello! I'm JeromeGPT \n" +
+                "\t Hello! I'm JeromeGPT\n" +
                 "\t What can I do for you?\n" +
                 "\t ____________________________________________________________";
 
@@ -46,8 +47,6 @@ public class Duke {
 
                 System.out.println("\t ____________________________________________________________");
             } else if (userInput.startsWith("mark")) {
-                // TODO: possibly need to handle a task that is called "mark..."
-
 
                 try {
                     int idToMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
@@ -55,29 +54,27 @@ public class Duke {
                     dataStorage.setTaskStatus(idToMark, true);
 
                     System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t  Nice! I've marked this task as done:");
+                    System.out.println("\t Nice! I've marked this task as done:");
                     System.out.println("\t " + dataStorage.getTask(idToMark).toString());
                     System.out.println("\t ____________________________________________________________");
                 } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
                     System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t  Please do not enter an invalid index.");
+                    System.out.println("\t Please do not enter an invalid index. There are " + dataStorage.getTaskCount() + " task(s) currently.");
                     System.out.println("\t ____________________________________________________________");
                 } catch (NumberFormatException numberFormatException) {
                     System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t  Please enter numbers only.");
+                    System.out.println("\t Please enter positive integers 1, 2, 3, ... etc only.");
                     System.out.println("\t ____________________________________________________________");
                 } catch (NoTaskCreatedYetException noTaskCreatedYetException) {
                     System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t  No task is created here yet.");
+                    System.out.println("\t No task is created here yet.");
                     System.out.println("\t ____________________________________________________________");
                 }
 
             } else if (userInput.startsWith("unmark")) {
                 // TODO: possibly need to handle a task that is called "mark..."
-
                 try {
                     int idToMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
-
 
                     dataStorage.setTaskStatus(idToMark, false);
 
@@ -87,57 +84,78 @@ public class Duke {
                     System.out.println("\t ____________________________________________________________");
                 } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
                     System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t  Please do not enter an invalid entry");
+                    System.out.println("\t Please do not enter an invalid index. There are " + dataStorage.getTaskCount() + " task(s) currently.");
                     System.out.println("\t ____________________________________________________________");
                 } catch (NoTaskCreatedYetException noTaskCreatedYetException) {
                     System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t  No task is created here yet.");
+                    System.out.println("\t No task is created here yet.");
+                    System.out.println("\t ____________________________________________________________");
+                } catch (NumberFormatException numberFormatException) {
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t  Please enter positive integers 1, 2, 3, ... etc only.");
                     System.out.println("\t ____________________________________________________________");
                 }
 
             } else if (userInput.startsWith("todo")) {
                 // We further do another Regex search
 
-
                 try {
+                    // In this format: todo borrow book
                     Task task = toDoParser(userInput);
                     createNewTask(dataStorage, task);
-                } catch (MalformedUserInputException malformedUserInputException) {
-                    // TODO: Handle failure in terms of missing variable.
 
-                    System.out.println("You have a malformed input for your todo command. " +
-                            "It is likely that you are missing the todo name");
+                } catch (MalformedUserInputException malformedUserInputException) {
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t You have a malformed input for your todo command. \n" +
+                            "\t It is likely that you are missing the todo name\n" +
+                            "\t Your command should be in this format: todo event_name"
+                    );
+                    System.out.println("\t ____________________________________________________________");
+                } catch (BlankEventException e) {
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t " + e.getMessage());
+                    System.out.println("\t ____________________________________________________________");
                 }
 
 
             } else if (userInput.startsWith("deadline")) {
                 // We further do another Regex search
-
-
                 try {
                     Task task = deadlineParser(userInput);
                     createNewTask(dataStorage, task);
                 } catch (MalformedUserInputException malformedUserInputException) {
-                    // TODO: Handle failure in terms of missing variable.
-                    System.out.println("You have a malformed input for your deadline command. " +
-                            "It is likely that you are missing the deadline name");
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t You have a malformed input for your deadline command. \n" +
+                            "\t It is likely that you are missing the event name and or a by date.\n" +
+                            "\t Your command should be in this format: deadline return book /by Sunday"
+                    );
+                    System.out.println("\t ____________________________________________________________");
+
+                } catch (BlankEventException e) {
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t " + e.getMessage());
+                    System.out.println("\t ____________________________________________________________");
                 }
 
 
             } else if (userInput.startsWith("event")) {
                 // We further do another Regex search
-
-                // Solution below adapted from https://www.w3schools.com/java/java_regex.asp
-                Pattern pattern = Pattern.compile("^event (.+) \\/from (.+) \\/to (.+)$");
-                Matcher matcher = pattern.matcher(userInput);
+                // In this format: event project meeting /from Mon 2pm /to 4pm
 
                 try {
                     Task task = eventParser(userInput);
                     createNewTask(dataStorage, task);
                 } catch (MalformedUserInputException malformedUserInputException) {
-                    // TODO: Handle failure in terms of missing variable.
-                    System.out.println("You have a malformed input for your event command. " +
-                            "It is likely that you are missing the event name");
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t You have a malformed input for your event command.\n" +
+                            "\t It is likely that you are missing the event name" +
+                            "\t Your command should be in this format: event project meeting /from Mon 2pm /to 4pm");
+                    System.out.println("\t ____________________________________________________________");
+
+                } catch (BlankEventException e) {
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t " + e.getMessage());
+                    System.out.println("\t ____________________________________________________________");
                 }
 
             } else if (userInput.equals("bye")) {
@@ -168,14 +186,14 @@ public class Duke {
                     "\t ____________________________________________________________\n" +
                             "\t Got it. I've added this task:\n" +
                             "\t added: " + task.toString() + "\n" +
-                            "\t Now you have " + dataStorage.getTaskCount() + " tasks in the list.\n" +
+                            "\t Now you have " + dataStorage.getTaskCount() + " task(s) in the list.\n" +
                             "\t ____________________________________________________________"
             );
 
         } catch (TooManyTasksException tooManyTaskException) {
             System.out.println("\t ____________________________________________________________");
-            System.out.println("\t  Sorry you are too busy .... how come you got so many tasks??");
-            System.out.println("\t  See la the array no space already. Delete some stuff or restart the program please.");
+            System.out.println("\t You are too busy .... how come you got so many tasks??");
+            System.out.println("\t See la the array no space already. Delete some stuff or restart the program please.");
             System.out.println("\t ____________________________________________________________");
         }
     }

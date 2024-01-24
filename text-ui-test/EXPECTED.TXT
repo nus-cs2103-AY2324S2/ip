@@ -3,12 +3,13 @@
 	 What can I do for you?
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 Please enter the correct commands.
+ 	 I have no idea what you are trying to tell me??? 😅
+ 	 Please try again.
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Got it. I've added this task:
 	 added: [T][ ] hello
-	 Now you have 1 tasks in the list
+	 Now you have 1 task(s) in the list.
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 1. [T][ ] hello
@@ -20,16 +21,16 @@
 	 ____________________________________________________________
 	 Got it. I've added this task:
 	 added: [E][ ] party(from: Monday 2pm to: 4pm)
-	 Now you have 2 tasks in the list
+	 Now you have 2 task(s) in the list.
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 OK, I've marked this task as not done yet:
+	  Nice! I've marked this task as not completed yet:
 	 [T][ ] hello
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Got it. I've added this task:
 	 added: [D][ ] return book (by: Sunday)
-	 Now you have 3 tasks in the list
+	 Now you have 3 task(s) in the list.
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Nice! I've marked this task as done:
@@ -39,4 +40,25 @@
 	 1. [T][ ] hello
 	 2. [E][X] party(from: Monday 2pm to: 4pm)
 	 3. [D][ ] return book (by: Sunday)
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 You have a malformed input for your event command.
+	 It is likely that you are missing the event name	 Your command should be in this format: event project meeting /from Mon 2pm /to 4pm
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Please do not enter an invalid index. There are 3 task(s) currently.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Please enter positive integers 1, 2, 3, ... etc only.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Please do not enter an invalid index. There are 3 task(s) currently.
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 1. [T][ ] hello
+	 2. [E][X] party(from: Monday 2pm to: 4pm)
+	 3. [D][ ] return book (by: Sunday)
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Please do not enter an invalid index. There are 3 task(s) currently.
 	 ____________________________________________________________
