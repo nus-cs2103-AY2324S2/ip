@@ -63,7 +63,7 @@ public class Plana {
                 this.shouldExit = true;
                 break;
             case LIST:
-                if (tasks.size() == 0) {
+                if (tasks.isEmpty()) {
                     System.out.println("You have no tasks, add some!");
                     break;
                 }
