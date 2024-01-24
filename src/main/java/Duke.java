@@ -81,9 +81,13 @@ public class Duke {
     printOutput("Goodbye my friend. See you soon!");
     System.exit(0);
   }
-
+  //TODO add checker for input length
   public static void updateMarkStatus(boolean isMark, ArrayList<Task> tasks, String[] input) {
 
+    if (input.length < 2) {
+      printOutput("Please specify which task. (format: mark/unmark <task no.>)");
+      return;
+    }
     int index = Integer.parseInt(input[1]) - 1;
 
     // check if index is within bounds
@@ -113,6 +117,7 @@ public class Duke {
     }
   }
 
+  //TODO add checker for input length
   public static void insertToDo(String[] input, ArrayList<Task> tasks) {
     ToDo todoTask = new ToDo(input[1]);
     printOutput("Got it. I've added this task:", indentation +
@@ -121,12 +126,18 @@ public class Duke {
     tasks.add(todoTask);
   }
 
-  // TODO 1. missing /by
   public static void insertDeadline(String[] input, ArrayList<Task> tasks) {
+    if (input.length < 2) {
+      printOutput("Missing task description. (format: deadline <your task> /by <date>)");
+      return;
+    }
+
     if (!input[1].contains("/by")) {
       printOutput("You forgot to add /by to your input. (format: deadline <your task> /by <date>)");
       return;
     }
+
+
     String[] deadlineDetails = input[1].split("/by");
     Deadline deadlineTask = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
     printOutput("Got it. I've added this task:", indentation + deadlineTask.toString(),
