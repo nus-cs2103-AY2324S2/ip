@@ -8,11 +8,12 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    public static void addList(String text, ArrayList<Task> list) {
-        Task newTask = new Task(text);
-        list.add(newTask);
+    public static void addList(Task task, ArrayList<Task> list) {
+        list.add(task);
         System.out.println("    ____________________________________________________________");
-        System.out.printf("      added: %s\n", text);
+        System.out.println("      Got it! I added:");
+        System.out.printf("        %s\n", task.toString());
+        System.out.printf("      You now have %d tasks in your list :D\n", list.size());
         System.out.println("    ____________________________________________________________");
     }
 
@@ -45,7 +46,7 @@ public class Duke {
         //echo until user inputs bye
         while(!command.toLowerCase().equals("bye")) {
             // split command by spaces
-            String[] split = command.split("\\s+");
+            String[] split = command.split("\\s+", 2);
 
             if (split[0].toLowerCase().equals("list")) {
                 printList(list);
@@ -90,7 +91,24 @@ public class Duke {
                     }
                 }
             } else {
-                addList(command, list);
+                Task newTask;
+                if (split[0].toLowerCase().equals("todo")) {
+                    newTask = new ToDo(split[1].trim());
+                } else if (split[0].toLowerCase().equals("deadline")) {
+                    String[] deadlineSplit = split[1].trim().split("/by");
+                    newTask = new Deadline(deadlineSplit[0].trim(), deadlineSplit[1].trim());
+                } else if (split[0].toLowerCase().equals("event")) {
+                    String[] fromSplit = split[1].split("/from");
+                    String eventName = fromSplit[0].trim();
+
+                    String[] toSplit = fromSplit[1].split("/to");
+                    String from = toSplit[0].trim();
+                    String to = toSplit[1].trim();
+                    newTask = new Event(eventName, from, to);
+                } else {
+                    newTask = new Task(split[1]);
+                }
+                addList(newTask, list);
             }
             command = sc.nextLine();
         }
