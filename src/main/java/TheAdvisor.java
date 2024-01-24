@@ -24,91 +24,105 @@ public class TheAdvisor {
 
     private static void processInput(String str, ArrayList<Task> taskList) throws TheAdvisorException {
         String[] strings = str.split(" ");
-        if (str.equals("bye")) {
-            System.out.println("     Goodbye. Thank you for using TheAdvisor chatbox and I hope that my advice has managed" +
-                    "to help you in your investing journey!");
+        Prompts prompts = getPrompts(strings[0]);
+        switch (prompts) {
+            case BYE:
+                System.out.println("     Goodbye. Thank you for using TheAdvisor chatbox and I hope that my advice has managed" +
+                        "to help you in your investing journey!");
 
-            // Exit the program
-            System.exit(0);
-        } else if (str.equals("list")){
-            int counter = 1;
-            System.out.println("     Here are the tasks in your list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                System.out.println("     " + counter + ". " + taskList.get(i).toString());
-                counter++;
-            }
-        } else if (strings[0].equals("mark")) {
-            checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
-            + "mark + (number) to mark something on the list as completed.");
-            // 1-based indexing on input
-            int number = Integer.parseInt(strings[1]);
-            checkIndex(number, taskList.size());
-            Task temp = taskList.get(number - 1);
-            temp.markDone();
-            System.out.println("     Nice! I've marked this task as done:\n" + "       " +
-                    temp.toString());
-        } else if (strings[0].equals("unmark")) {
-            checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
-                    + "unmark + (number) to unmark something on the list.");
-            // 1-based indexing on input
-            int number = Integer.parseInt(strings[1]);
-            checkIndex(number, taskList.size());
-            Task temp = taskList.get(number - 1);
-            temp.unmark();
-            System.out.println("     OK, I've marked this task as not done yet:\n" + "       " +
-                    temp.toString());
-        } else if (strings[0].equals("delete")) {
-            checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
-                    + "delete + (number) to delete something from the list.");
-            // 1-based indexing on input
-            int number = Integer.parseInt(strings[1]);
-            checkIndex(number, taskList.size());
-            Task task = taskList.get(number - 1);
-            taskList.remove(number - 1);
-            System.out.println("     Noted. I've removed this task:\n" + "       " +
-                    task.toString() + "\n" + "     Now you have " + taskList.size() + " tasks in the list.");
-        } else {
-            String type = strings[0];
-            if (type.equals("todo")) {
-                String task = str.substring(4);
-                checkEmptyDescription(task, "The description for todo cannot be empty. Please try again.");
-                ToDos toDos = new ToDos(task);
-                taskList.add(toDos);
-                System.out.println("     Got it. I've added this task:\n" +
-                        "       " + toDos.toString() + "\n" +
-                        "     Now you have " + taskList.size() +
-                        " tasks in the list.");
-            } else if (type.equals("deadline")) {
-                String task = str.substring(8);
-                checkEmptyDescription(task, "The description for deadline cannot be empty. Please try again.");
-                String[] arrTask = task.split(" /by ");
-                checkArrayLength(arrTask, 2, "Invalid deadline format" +
-                        "Please use the correct format: deadline + description + /by + date/day");
-                Deadline deadline = new Deadline(arrTask[0], arrTask[1]);
-                taskList.add(deadline);
-                System.out.println("     Got it. I've added this task:\n" +
-                        "       " + deadline.toString() + "\n" +
-                        "     Now you have " + taskList.size() +
-                        " tasks in the list.");
-            } else if (type.equals("event")) {
-                String task = str.substring(5);
-                checkEmptyDescription(task, "The description for event cannot be empty. Please try again.");
-                String[] arrTask = task.split(" /from ");
-                checkArrayLength(arrTask, 2, "Invalid event format" +
-                        "Please use the correct format: event + description + /from + date/day + /to +date/time");
-                String[] timings = arrTask[1].split(" /to");
-                checkArrayLength(arrTask, 2, "Invalid event format" +
-                        "Please use the correct format: event + description + /from + date/day + /to +date/time");
-                Events events = new Events(arrTask[0], timings[0], timings[1]);
-                taskList.add(events);
-                System.out.println("     Got it. I've added this task:\n" +
-                        "       " + events.toString() + "\n" +
-                        "     Now you have " + taskList.size() +
-                        " tasks in the list.");
-            } else {
-                throw new TheAdvisorException("Incorrect input, please try again with the correct input of either: "
-                        + "todo, event, mark...etc");
-            }
+                // Exit the program
+                System.exit(0);
+                break;
+            case LIST:
+                int counter = 1;
+                System.out.println("     Here are the tasks in your list:");
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println("     " + counter + ". " + taskList.get(i).toString());
+                    counter++;
+                }
+                break;
+            case MARK:
+                checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
+                        + "mark + (number) to mark something on the list as completed.");
+                // 1-based indexing on input
+                int markNumber = Integer.parseInt(strings[1]);
+                checkIndex(markNumber, taskList.size());
+                Task mark = taskList.get(markNumber - 1);
+                mark.markDone();
+                System.out.println("     Nice! I've marked this task as done:\n" + "       " +
+                        mark.toString());
+                break;
+            case UNMARK:
+                checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
+                        + "unmark + (number) to unmark something on the list.");
+                // 1-based indexing on input
+                int unmarkNumber = Integer.parseInt(strings[1]);
+                checkIndex(unmarkNumber, taskList.size());
+                Task unmarked = taskList.get(unmarkNumber - 1);
+                unmarked.unmark();
+                System.out.println("     OK, I've marked this task as not done yet:\n" + "       " +
+                        unmarked.toString());
+                break;
+            case DELETE:
+                checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
+                        + "delete + (number) to delete something from the list.");
+                // 1-based indexing on input
+                int deleteNumber = Integer.parseInt(strings[1]);
+                checkIndex(deleteNumber, taskList.size());
+                Task deleted = taskList.get(deleteNumber - 1);
+                taskList.remove(deleteNumber - 1);
+                System.out.println("     Noted. I've removed this task:\n" + "       " +
+                        deleted.toString() + "\n" + "     Now you have " + taskList.size() + " tasks in the list.");
+                break;
+            default:
+                String type = strings[0];
+                switch (type) {
+                    case "todo": {
+                        String task = str.substring(4);
+                        checkEmptyDescription(task, "The description for todo cannot be empty. Please try again.");
+                        ToDos toDos = new ToDos(task);
+                        taskList.add(toDos);
+                        System.out.println("     Got it. I've added this task:\n" +
+                                "       " + toDos.toString() + "\n" +
+                                "     Now you have " + taskList.size() +
+                                " tasks in the list.");
+                        break;
+                    }
+                    case "deadline": {
+                        String task = str.substring(8);
+                        checkEmptyDescription(task, "The description for deadline cannot be empty. Please try again.");
+                        String[] arrTask = task.split(" /by ");
+                        checkArrayLength(arrTask, 2, "Invalid deadline format" +
+                                "Please use the correct format: deadline + description + /by + date/day");
+                        Deadline deadline = new Deadline(arrTask[0], arrTask[1]);
+                        taskList.add(deadline);
+                        System.out.println("     Got it. I've added this task:\n" +
+                                "       " + deadline.toString() + "\n" +
+                                "     Now you have " + taskList.size() +
+                                " tasks in the list.");
+                        break;
+                    }
+                    case "event": {
+                        String task = str.substring(5);
+                        checkEmptyDescription(task, "The description for event cannot be empty. Please try again.");
+                        String[] arrTask = task.split(" /from ");
+                        checkArrayLength(arrTask, 2, "Invalid event format" +
+                                "Please use the correct format: event + description + /from + date/day + /to +date/time");
+                        String[] timings = arrTask[1].split(" /to");
+                        checkArrayLength(arrTask, 2, "Invalid event format" +
+                                "Please use the correct format: event + description + /from + date/day + /to +date/time");
+                        Events events = new Events(arrTask[0], timings[0], timings[1]);
+                        taskList.add(events);
+                        System.out.println("     Got it. I've added this task:\n" +
+                                "       " + events.toString() + "\n" +
+                                "     Now you have " + taskList.size() +
+                                " tasks in the list.");
+                        break;
+                    }
+                    default:
+                        throw new TheAdvisorException("Incorrect input, please try again with the correct input of either: "
+                                + "todo, event, mark...etc");
+                }
         }
     }
 
@@ -129,6 +143,14 @@ public class TheAdvisor {
     private static void checkArrayLength(String[] array, int expectedLength, String errorMessage) throws TheAdvisorException {
         if (array.length != expectedLength) {
             throw new TheAdvisorException(errorMessage);
+        }
+    }
+
+    private static Prompts getPrompts(String prompt) throws TheAdvisorException {
+        try {
+            return Prompts.valueOf(prompt.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new TheAdvisorException("Invalid command: " + prompt);
         }
     }
 }
