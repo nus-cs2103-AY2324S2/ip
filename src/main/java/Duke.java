@@ -36,6 +36,12 @@ public class Duke {
                         } catch (DukeException de) {
                             System.out.println(de.toString());
                         }
+                    } else if (split[0].equals("delete")) {
+                        try {
+                            deleteItem(split[1]);
+                        } catch (DukeException de){
+                            System.out.println(de.toString());
+                        }
                     } else {
                         throw new DukeException("Your input is invalid!");
                     }
@@ -52,8 +58,11 @@ public class Duke {
 
     private static void printList() {
         System.out.println(line);
+        System.out.println("These are all your tasks:");
+        if (ls.isEmpty()) System.out.println("\tOh noes! The list is empty! :(");
+
         for (int i = 0; i < ls.size(); i++) {
-            System.out.println(i + 1 + ". " + ls.get(i));
+            System.out.println("\t" + i + 1 + ". " + ls.get(i));
         }
         System.out.println(line);
     }
@@ -115,6 +124,29 @@ public class Duke {
         System.out.println("Understood. Added the following:");
         System.out.println("\t " + t);
         System.out.println("You have " + ls.size() + " remaining tasks.");
+        System.out.println(line);
+    }
+
+    private static void deleteItem(String s) throws DukeException {
+        if (s.split(" ").length < 1) {
+            throw new DukeException("Missing params for delete!");
+        } else if (s.split(" ").length > 1) {
+            throw new DukeException("Too many params for delete!");
+        }
+
+        int index = Integer.parseInt(s) - 1;
+
+        try {
+            ls.get(index);
+        } catch (IndexOutOfBoundsException  e) {
+            throw new DukeException("Index does not exist!");
+        }
+
+        System.out.println(line);
+        System.out.println("Removed the following: ");
+        System.out.println("\t" + ls.get(index));
+        ls.remove(index);
+        System.out.println(ls.size() + " tasks remaining.");
         System.out.println(line);
     }
 

@@ -1,3 +1,6 @@
+/**
+ * Implementation of Task. Each Event comes with a description, start and end date.
+ */
 public class Event implements Task {
 
     protected String desc;

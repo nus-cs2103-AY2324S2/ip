@@ -1,3 +1,6 @@
+/**
+ * Implementation of Task. Each Todo comes with a description.
+ */
 public class Todo implements Task {
 
     protected String desc;

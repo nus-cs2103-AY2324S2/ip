@@ -1,3 +1,7 @@
+/**
+ * Implementation of Task. Each Deadline comes with a description and a deadline.
+ */
+
 public class Deadline implements Task {
 
     protected String desc;
