@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import tasks.Deadline;
 import tasks.Event;
@@ -81,7 +83,8 @@ public class Duke {
     printOutput("Goodbye my friend. See you soon!");
     System.exit(0);
   }
-  //TODO add checker for input length
+
+  // TODO add checker for input length
   public static void updateMarkStatus(boolean isMark, ArrayList<Task> tasks, String[] input) {
 
     if (input.length < 2) {
@@ -117,8 +120,12 @@ public class Duke {
     }
   }
 
-  //TODO add checker for input length
   public static void insertToDo(String[] input, ArrayList<Task> tasks) {
+    if (input.length < 2) {
+      printOutput("Please add the task description. (format: todo <task description>)");
+      return;
+    }
+
     ToDo todoTask = new ToDo(input[1]);
     printOutput("Got it. I've added this task:", indentation +
         todoTask.toString(),
@@ -137,7 +144,6 @@ public class Duke {
       return;
     }
 
-
     String[] deadlineDetails = input[1].split("/by");
     Deadline deadlineTask = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
     printOutput("Got it. I've added this task:", indentation + deadlineTask.toString(),
@@ -145,9 +151,19 @@ public class Duke {
     tasks.add(deadlineTask);
   }
 
-  // TODO 1. missing /from /to
-  // 2. should it always be /from followed by /to?
   public static void insertEvent(String[] input, ArrayList<Task> tasks) {
+
+    String pattern = "event\\s+([^/]+)\\s+/from\\s+([^/]+)\\s+/to\\s+([^/]+)";
+    Pattern regex = Pattern.compile(pattern);
+    Matcher matcher = regex.matcher(input[1]);
+
+    // check if it doesnt follow the format of event <some string> /from <some
+    // string> /to <some string>
+    if (input.length < 2 || !matcher.matches()) {
+      printOutput("Wrong format! (format: event <your task> /from <date> /to)");
+      return;
+    }
+
     String[] eventDetails = input[1].split("/from|/to");
     Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2]);
     printOutput("Got it. I've added this task:", indentation + eventTask.toString(),
