@@ -18,10 +18,10 @@ public class Duke {
                     }
                     for (int j = 0; j < splitted.length-1; j++) {
                         if (itemList.getList()[index[j]-1] == null) {
-                            System.out.println("No such task at index " + (index[j]));
+                            System.out.println(FormatOutput.format("No such task at index " + (index[j])));
                         } else {
                             itemList.getList()[index[j] - 1].markDone();
-                            System.out.println(itemList.getList()[index[j] - 1].doneMessage());
+                            System.out.println(FormatOutput.format(itemList.getList()[index[j] - 1].doneMessage()));
                         }
                     }
                 } catch (NumberFormatException e) {
@@ -34,8 +34,12 @@ public class Duke {
                         index[i - 1] = Integer.parseUnsignedInt(splitted[i]);
                     }
                     for (int j = 0; j < splitted.length-1; j++) {
-                        itemList.getList()[index[j]-1].markUndone();
-                        System.out.println(itemList.getList()[index[j]-1].undoneMessage());
+                        if (itemList.getList()[index[j]-1] == null) {
+                            System.out.println(FormatOutput.format("No such task at index " + (index[j])));
+                        } else {
+                            itemList.getList()[index[j] - 1].markUndone();
+                            System.out.println(FormatOutput.format(itemList.getList()[index[j] - 1].undoneMessage()));
+                        }
                     }
                 } catch (NumberFormatException e) {
                     System.out.println(FormatOutput.format(Echo.echo(command)));

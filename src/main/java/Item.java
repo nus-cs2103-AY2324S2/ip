@@ -16,12 +16,12 @@ public class Item {
 
     String doneMessage() {
         return "Nice! I've marked this task as done:\n     " +
-                "[" + printChecked(true) + "]" + this.name;
+                this.toString();
     }
 
     String undoneMessage() {
         return "OK, I've marked this task as not done yet:\n     " +
-                "[" + printChecked(false) + "]" + this.name;
+                this.toString();
     }
 
 
