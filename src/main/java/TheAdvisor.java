@@ -11,7 +11,7 @@ public class TheAdvisor {
         System.out.println(intro + "\n");
 
         // An ArrayList that stores the tasks to be done
-        ArrayList<Task> output = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
 
         while (true) {
             String str = br.readLine();
@@ -23,28 +23,54 @@ public class TheAdvisor {
             } else if (str.equals("list")){
                 int counter = 1;
                 System.out.println("     Here are the tasks in your list:");
-                for (int i = 0; i < output.size(); i++) {
-                    System.out.println("     " + counter + ". " + output.get(i).toString());
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println("     " + counter + ". " + taskList.get(i).toString());
                     counter++;
                 }
             } else if (strings[0].equals("mark")) {
                 // 1-based indexing on input
                 int number = Integer.parseInt(strings[1]);
-                Task temp = output.get(number - 1);
+                Task temp = taskList.get(number - 1);
                 temp.markDone();
                 System.out.println("     Nice! I've marked this task as done:\n" + "       " +
                         temp.toString());
             } else if (strings[0].equals("unmark")) {
                 // 1-based indexing on input
                 int number = Integer.parseInt(strings[1]);
-                Task temp = output.get(number - 1);
+                Task temp = taskList.get(number - 1);
                 temp.unmark();
                 System.out.println("     OK, I've marked this task as not done yet:\n" + "       " +
                         temp.toString());
             } else {
-                Task task = new Task(str);
-                output.add(task);
-                System.out.println("    added: " + str);
+                String type = strings[0];
+                if (type.equals("todo")) {
+                    String task = str.substring(4);
+                    ToDos toDos = new ToDos(task);
+                    taskList.add(toDos);
+                    System.out.println("     Got it. I've added this task:\n" +
+                            "       " + toDos.toString() + "\n" +
+                            "     Now you have " + taskList.size() +
+                            " tasks in the list.");
+                } else if (type.equals("deadline")) {
+                    String task = str.substring(8);
+                    String[] arrTask = task.split(" /by ");
+                    Deadline deadline = new Deadline(arrTask[0], arrTask[1]);
+                    taskList.add(deadline);
+                    System.out.println("     Got it. I've added this task:\n" +
+                            "       " + deadline.toString() + "\n" +
+                            "     Now you have " + taskList.size() +
+                            " tasks in the list.");
+                } else if (type.equals("event")) {
+                    String task = str.substring(5);
+                    String[] arrTask = task.split(" /from ");
+                    String[] timings = arrTask[1].split(" /to");
+                    Events events = new Events(arrTask[0], timings[0], timings[1]);
+                    taskList.add(events);
+                    System.out.println("     Got it. I've added this task:\n" +
+                            "       " + events.toString() + "\n" +
+                            "     Now you have " + taskList.size() +
+                            " tasks in the list.");
+                }
             }
         }
     }
