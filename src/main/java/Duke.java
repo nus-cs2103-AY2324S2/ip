@@ -8,10 +8,11 @@ public class Duke {
     }
     private static String printTasks() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append("\n")
-                    .append("\t")
-                    .append(i + 1)
+        if (!tasks.isEmpty()) {
+            sb.append(1).append(". ").append(tasks.get(0));
+        }
+        for (int i = 1; i < tasks.size(); i++) {
+            sb.append("\n").append("\t").append(i + 1)
                     .append(". ")
                     .append(tasks.get(i));
         }
