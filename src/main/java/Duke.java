@@ -1,10 +1,11 @@
 import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Jojo :)");
         System.out.println("What can I do for you?");
         Scanner sc = new Scanner(System.in);
-        String[] listArr = new String[100];
+        Task[] listArr = new Task[100];
         String userTxt = sc.nextLine();
         int i = 0;
         while (!userTxt.equals("bye")) {
@@ -18,12 +19,12 @@ public class Duke {
                 }
             } else {
                 System.out.println("added: " + userTxt);
-                listArr[i] = userTxt; // add item to list 
+                Task t = new Task(userTxt);
+                listArr[i] = t; // add task to list
                 i++;
             }
             userTxt = sc.nextLine();
         }
-
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
