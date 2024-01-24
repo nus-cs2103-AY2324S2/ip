@@ -115,8 +115,7 @@ public class Pyrite {
             }
             System.out.println(this.horizontal_line);
         }
-
-        System.out.println(this.horizontal_line);
+        
         System.out.println(this.farewell);
         System.out.println(this.horizontal_line);
     }
