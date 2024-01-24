@@ -1,5 +1,5 @@
 public enum Command {
-  INSERT_TODO, VIEW_LIST, INSERT_DEADLINE, INSERT_EVENT, SET_MARK, SET_UNMARK, EXIT, WHAT;
+  INSERT_TODO, VIEW_LIST, INSERT_DEADLINE, INSERT_EVENT, SET_MARK, SET_UNMARK, EXIT, DELETE_TASK, WHAT;
 
   public static Command parseCommand(String in) {
     in = in.toLowerCase();
@@ -19,6 +19,8 @@ public enum Command {
         return SET_UNMARK;
       case "bye":
         return EXIT;
+      case "delete":
+        return DELETE_TASK;
       default:
         return WHAT;
     }

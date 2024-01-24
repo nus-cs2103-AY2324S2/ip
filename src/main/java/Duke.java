@@ -53,6 +53,9 @@ public class Duke {
         case INSERT_EVENT:
           insertEvent(input, tasks);
           break;
+        case DELETE_TASK:
+          deleteTask(tasks, input);
+          break;
         default:
           printOutput("I'm sorry, but I have zero idea what you're asking from me...");
           break;
@@ -182,5 +185,29 @@ public class Duke {
     printOutput("Got it. I've added this task:", indentation + eventTask.toString(),
         "Now you have " + (tasks.size() + 1) + " tasks in the list.");
     tasks.add(eventTask);
+  }
+
+  public static void deleteTask(ArrayList<Task> tasks, String[] input) {
+    if (input.length < 2) {
+      printOutput("Please specify which task to delete. (format: delete <task no.>)");
+      return;
+    }
+
+    if (!isInteger(input[1])) {
+      printOutput("Task number not found! (format: delete <task no.>)");
+    }
+
+    tasks.remove(Integer.parseInt(input[1]) - 1);
+    printOutput("Noted. I've removed this task: ", tasks.get(Integer.parseInt(input[1]) - 1).toString(),
+        "Now you have " + tasks.size() + " tasks in the list.");
+  }
+
+  public static boolean isInteger(String input) {
+    try {
+      Integer.parseInt(input);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
   }
 }
