@@ -10,8 +10,12 @@ public class Fireraya {
         System.out.println("--------------------------------");
     }
 
-    public static void Echo(String a) {
-        System.out.println(a);
+    public static void AddTask(String a) {
+        System.out.println("added: " + a);
+    }
+
+    public static void ListTasks() {
+
     }
 
     public static void End() {
@@ -32,7 +36,12 @@ public class Fireraya {
                 break;
             }
 
-            Echo(input);
+            if (input.equals("list")) {
+                ListTasks();
+                break;
+            }
+
+            AddTask(input);
         }
         scanner.close();
     }
