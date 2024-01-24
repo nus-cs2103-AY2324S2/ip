@@ -1,6 +1,7 @@
 package UI;
 
 import Storage.Storage;
+import Storage.Task;
 
 public class UI {
     private static final String lines = "    ____________________________________________________________";
@@ -24,10 +25,11 @@ public class UI {
         System.out.println(lines);
     }
 
-    public void addItem(String input) {
-        this.storage.add(input);
+    public void addItem(Task task) {
+        this.storage.add(task);
         System.out.println(lines);
-        System.out.println("    " + "added: " + input);
+        System.out.println("    " + "Got it. I've added this task:\n" + "      " + task + "\n" + "" +
+                String.format("    Now you have %d tasks in the list.", this.storage.taskLength()));
         System.out.println(lines);
     }
 
@@ -46,6 +48,12 @@ public class UI {
 
     public void listItems() {
         System.out.println(storage);
+    }
+
+    public void error() {
+        System.out.println(lines);
+        System.out.println("    Invalid command");
+        System.out.println(lines);
     }
 
 
