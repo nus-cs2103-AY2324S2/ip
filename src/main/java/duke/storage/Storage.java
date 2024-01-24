@@ -46,6 +46,10 @@ public class Storage {
     String description;
     switch (item.toLowerCase()) {
       case "todo":
+        if (arguments.length <= 0) {
+          throw new MissingArgumentException("Argument missing - Description of a todo cannot be empty");
+        }
+
         description = String.join(" ", arguments);
         task = new Todo(description);
         break;
