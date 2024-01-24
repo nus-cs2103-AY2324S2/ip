@@ -1,6 +1,6 @@
 public class Task {
-    private final String name;
-    private boolean complete;
+    protected final String name;
+    protected boolean complete;
 
     Task(String name) {
         this.name = name;
@@ -18,13 +18,17 @@ public class Task {
         complete = true;
     }
 
-    private String completionDisplay() {
+    protected String completionDisplay() {
         if (complete) {
             return "[X]";
         }
         return "[ ]";
     }
+
+    protected String taskTypeDisplay() {
+        return "[this shouldn't show]";
+    }
     public String toString() {
-        return String.format("%s %s", this.completionDisplay(), this.name);
+        return String.format("%s%s %s", this.taskTypeDisplay(), this.completionDisplay(), this.name);
     }
 }
