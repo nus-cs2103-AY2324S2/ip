@@ -1,18 +1,31 @@
 public class Duchess {
     public static void main(String[] args) {
-        String logo = " ____            __     \n"
-                    + "|  _ \\ _   ______| |      ___  ___  ___ \n"
-                    + "| | | | | | |  __| |__  /  _ \\/ __|/ __|  \n"
-                    + "| |_| | |_| | |__| ___ |   __/\\__ \\\\__ \\  \n"
-                    + "|____/ \\__,_|____|_| |_|\\ ___||___/|___/\n";
         horizontalLine();
+
+        printOpeningGreeting();
+
+        printClosingGreeting();
+        
+        horizontalLine();
+
+    }
+
+    //Print opening greeting
+    public static void printOpeningGreeting() {
+        String logo = " ____            __     \n"
+                + "|  _ \\ _   ______| |      ___  ___  ___ \n"
+                + "| | | | | | |  __| |__  /  _ \\/ __|/ __|  \n"
+                + "| |_| | |_| | |__| ___ |   __/\\__ \\\\__ \\  \n"
+                + "|____/ \\__,_|____|_| |_|\\ ___||___/|___/\n";
         System.out.println(logo);
         horizontalLine();
         System.out.println("Hello! I'm Duchess.");
         System.out.println("What can I do for you today?");
+    }
+
+    public static void printClosingGreeting() {
         horizontalLine();
         System.out.println("Goodbye. Hope to see you again soon!");
-        horizontalLine();
     }
 
     //Prints a Horizontal Line of 50 dashes
