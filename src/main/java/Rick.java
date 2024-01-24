@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Rick {
-    public static ArrayList<String> list = new ArrayList<>();
+    public static ArrayList<Item> list = new ArrayList<>();
     public static void main(String[] args) {
         hello();
         Scanner scanner = new Scanner(System.in);
@@ -17,8 +17,10 @@ public class Rick {
                 mark(Character.getNumericValue(input.charAt(5)));
             } else if (input.startsWith("unmark ") && input.length() == 8 && Character.isDigit(input.charAt(7))) {
                 unmark(Character.getNumericValue(input.charAt(7)));
-            } else {
+            } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")){
                 add_to_list(input);
+            } else {
+                reply("I don't understand what you are saying... ㅜㅜ");
             }
         }
     }
@@ -46,14 +48,40 @@ public class Rick {
         System.out.println(divider);
         String output = "";
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i+1) + ". " + list.get(i));
+            System.out.println((i+1) + ". " + list.get(i).print());
         }
         System.out.println(divider);
     }
 
     public static void add_to_list(String arg) {
-        list.add("[ ] " + arg);
-        String output = "added: " + arg;
+        Item new_item;
+        String new_name = "";
+        if (arg.startsWith("todo")) {
+            new_item = new ToDo(arg.substring(5));
+            new_name = new_item.print();
+            list.add(new_item);
+        } else if (arg.startsWith("deadline") && arg.contains("/by ")){
+            int i = arg.indexOf("/by ");
+            String ddl = arg.substring(i + 4);
+            String name = arg.substring(0, i);
+            new_item = new Deadline(name, ddl);
+            new_name = new_item.print();
+            list.add(new_item);
+        } else if (arg.startsWith("event") && arg.contains("/from ") && arg.contains("/to ")){
+            int i = arg.indexOf("/from ");
+            int j = arg.indexOf("/to ");
+            String name = arg.substring(0, i);
+            String from = arg.substring(i + 6, j);
+            String to = arg.substring(j + 4);
+            new_item = new Event(name, from, to);
+            new_name = new_item.print();
+            list.add(new_item);
+        } else {
+            new_name = "Nah. No task was added because your input is wrong :P";
+        }
+        String output = "Got it. I've added this task:\n" +
+                new_name +
+                "\nNow you have " + list.size() + " tasks in the list.";
         reply(output);
     }
 
@@ -62,10 +90,9 @@ public class Rick {
         if (i >= list.size()) {
             reply("Item not found QAQ");
         } else {
-            String item = list.get(i);
-            String marked = item.replace("[ ]", "[X]");
-            list.set(i, marked);
-            String output = "Nice! I've marked this task as done:\n"+ marked;
+            Item item = list.get(i);
+            item.mark();
+            String output = "Nice! I've marked this task as done:\n"+ item.print();
             reply(output);
         }
     }
@@ -75,10 +102,9 @@ public class Rick {
         if (i >= list.size()) {
             reply("Item not found QAQ");
         } else {
-            String item = list.get(i);
-            String marked = item.replace("[X]", "[ ]");
-            list.set(i, marked);
-            String output = "OK, I've marked this task as not done yet:\n"+ marked;
+            Item item = list.get(i);
+            item.unmark();
+            String output = "OK, I've marked this task as not done yet:\n"+ item.print();
             reply(output);
         }
     }
