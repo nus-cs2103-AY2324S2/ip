@@ -13,25 +13,19 @@ public class Dibo {
 
         // Responding
         while (!command.equals("bye")) {
-
             if (command.equals("list")) {
                 store.displayStore();
-                command = sc.nextLine();
-                continue;
             } else if (command.contains("unmark")) {
                 int id = Integer.parseInt(command.split(" ")[1]);
                 store.unmarkTask(id);
-                command = sc.nextLine();
-                continue;
             } else if (command.contains("mark")) {
                 int id = Integer.parseInt(command.split(" ")[1]);
                 store.markTask(id);
-                command = sc.nextLine();
-                continue;
+            } else {
+                System.out.println(store.addText(command));
             }
-
-            System.out.println(store.addText(command));
             command = sc.nextLine();
+
         }
 
         // Exiting
