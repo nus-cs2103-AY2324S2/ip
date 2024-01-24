@@ -1,0 +1,9 @@
+todo wash dishes
+deadline homework /by saturday
+event sea trials /from fri 8:45 /to fri 19:00
+list
+mark 1
+mark 2
+unmark 2
+unmark 2
+bye

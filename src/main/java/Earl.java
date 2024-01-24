@@ -2,31 +2,26 @@ import java.util.Scanner;
 
 public class Earl {
 
+    private static final String padding = " ".repeat(4);
     private static final Task[] tasks = new Task[100];
     private static int count = 0;
 
     private static void printDivider() {
-        System.out.println("\t" + "_".repeat(50));
+        System.out.println(padding + "_".repeat(50));
     }
 
     private static void makeResponse(String... arr) {
         printDivider();
         for (String s : arr) {
-            System.out.println("\t" + s);
+            System.out.println(padding + s);
         }
         printDivider();
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        // starting messages
-        String logo = " ______           _ \n"
-                + "\t|  ____|         | |\n"
-                + "\t| |__   __ _ _ __| |\n"
-                + "\t|  __| / _` | '__| |\n"
-                + "\t| |___| (_| | |  | |\n"
-                + "\t|______\\__,_|_|  |_|";
-        makeResponse(logo, "Hello! I'm Earl", "What can I do for you?");
+
+        makeResponse("Hello! I'm Earl", "What can I do for you?");
 
         // main loop
         String input = sc.nextLine();
@@ -49,7 +44,7 @@ public class Earl {
                     if (tasks[idx].markAsDone()) {
                         makeResponse(
                                 "Item marked as done.",
-                                "\t" + tasks[idx]
+                                padding + tasks[idx]
                         );
                     } else {
                         makeResponse("Item already marked as done.");
@@ -61,7 +56,7 @@ public class Earl {
                     if (tasks[idx].markUndone()) {
                         makeResponse(
                                 "Item marked as not done.",
-                                "\t" + tasks[idx]
+                                padding + tasks[idx]
                         );
                     } else {
                         makeResponse("Item already marked as not done.");
@@ -72,7 +67,7 @@ public class Earl {
                     tasks[count++] = new Todo(command[1]);
                     makeResponse(
                             "Added new todo.",
-                            "\t" + tasks[count-1],
+                            padding + tasks[count-1],
                             "There are " + count + " tasks tracked."
                     );
                     break;
@@ -81,7 +76,7 @@ public class Earl {
                     tasks[count++] = new Deadline(command[0], command[1]);
                     makeResponse(
                             "Added new deadline.",
-                            "\t" + tasks[count-1],
+                            padding + tasks[count-1],
                             "There are " + count + " tasks tracked."
                     );
                     break;
@@ -94,7 +89,7 @@ public class Earl {
                     );
                     makeResponse(
                             "Added new event.",
-                            "\t" + tasks[count-1],
+                            padding + tasks[count-1],
                             "There are " + count + " tasks tracked."
                     );
                     break;
