@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Duke {
-    private TaskManager tm = new TaskManager();
+    private final TaskManager tm = new TaskManager();
     Scanner sc = new Scanner(System.in);
 
     private void greet() {
@@ -34,6 +34,44 @@ public class Duke {
         tm.undo(i);
         tm.listTasks();
     }
+
+    private Event createEvent(String s) throws DukeException {
+        int fromIndex = s.indexOf("/from");
+        int toIndex = s.indexOf("/to");
+        if (fromIndex == -1 || toIndex == -1 || s.length() < 7) {
+            throw new DukeException("Format Error, Event must be in format: A /from B /to C");
+        }
+        String eventName = s.substring(6, fromIndex - 1);
+        try {
+            String from = s.substring(fromIndex + 6, toIndex - 1);
+            String to = s.substring(toIndex + 4);
+            return new Event(eventName, from, to);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException("Format Error, Event must be in format: A /from B /to C");
+        }
+    }
+
+    private Deadline createDeadline(String s) throws DukeException {
+        int byIndex = s.indexOf("/by");
+        if (byIndex == -1 || s.length() < 10) {
+            throw new DukeException("Format Error, Deadline must be in format: A /by B");
+        }
+        String deadlineName = s.substring(9, byIndex - 1);
+        try {
+            String deadlineBy = s.substring(byIndex + 4);
+            return new Deadline(deadlineName, deadlineBy);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException("Format Error, Deadline must be in format: A /by B");
+        }
+    }
+
+    private Todo createTodo(String s) throws DukeException {
+        if (s.length() < 6) {
+            throw new DukeException("Error, description of todo is missing");
+        }
+        String name = s.substring(5);
+        return new Todo(name);
+    }
     public static void main(String[] args) {
         Duke d = new Duke();
         d.greet();
@@ -56,25 +94,35 @@ public class Duke {
                     d.unmark(Integer.parseInt(s[1]));
                     break;
                 case "todo":
-                    String name = String.join(" ", s).substring(5);
-                    Todo t = new Todo(name);
-                    d.addTask(t);
+                    try {
+                        Todo t = d.createTodo(s1);
+                        d.addTask(t);
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "deadline":
-                    int byIndex = s1.indexOf("/by");
-                    String deadlineName = s1.substring(9, byIndex - 1);
-                    String deadlineBy = s1.substring(byIndex + 4);
-                    Deadline dl = new Deadline(deadlineName, deadlineBy);
-                    d.addTask(dl);
+                    try {
+                        Deadline dl = d.createDeadline(s1);
+                        d.addTask(dl);
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "event":
-                    int fromIndex = s1.indexOf("/from");
-                    int toIndex = s1.indexOf("/to");
-                    String eventName = s1.substring(6, fromIndex - 1);
-                    String from = s1.substring(fromIndex + 6, toIndex - 1);
-                    String to = s1.substring(toIndex + 4);
-                    Event e = new Event(eventName, from, to);
-                    d.addTask(e);
+                    try {
+                        Event e = d.createEvent(s1);
+                        d.addTask(e);
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                default:
+                    try {
+                        throw new DukeException("Unknown Command");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
             }
         }
