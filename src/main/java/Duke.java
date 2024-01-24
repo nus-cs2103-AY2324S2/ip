@@ -13,7 +13,7 @@ public class Duke {
 
         System.out.println(line);
         System.out.println("Greetings friend! I am Datuk");
-        System.out.println("How can I serve you today?\n");
+        System.out.println("How can I serve you today? ^_^' \n");
         System.out.println(line);
 
         boolean finish = false;
@@ -25,12 +25,16 @@ public class Duke {
 
                 if (text.equals("bye")) {
                     finish = true;
-                } else if (text.equals("list")) {
+                } else if (text.equals("list")) { //(split[0].equals("list));
                     printList();
                 } else if (split[0].equals("mark") || split[0].equals("unmark")) {
                     marked(split[0], Integer.parseInt(split[1]));
-                } else {
+                } else if (split[0].equals("todo") || split[0].equals("deadline") || split[0].equals("event")){
                     addList(text);
+                } else {
+                    System.out.println(line);
+                    System.out.println("Incorrect input");
+                    System.out.println(line);
                 }
             }
         }
@@ -49,9 +53,27 @@ public class Duke {
     }
 
     public static void addList(String cmd) {
-        ls.add(new Task(cmd));
+        String[] split = cmd.split(" ",2);
+        Task t;
+
+        //error check for missing params;
+
+        if (split[0].equals("todo")) {
+            t = new Todo(split[1]);
+            ls.add(t);
+        } else if (split[0].equals("deadline")){
+            t = new Deadline(split[1]);
+            ls.add(t);
+        } else {
+            t = new Event(split[1]);
+            ls.add(t);
+        }
+
+
         System.out.println(line);
-        System.out.println("added: " + cmd);
+        System.out.println("Understood. Added the following:");
+        System.out.println("\t " + t);
+        System.out.println("You have " + ls.size() + " remaining tasks.");
         System.out.println(line);
     }
 
@@ -66,11 +88,10 @@ public class Duke {
         System.out.println(line);
 
         if (cmd.equals("mark")) {
-            System.out.println("I have set this task < " + ls.get(index).getDesc() + " > as completed." );
-
+            System.out.println("I have set this task < " + ls.get(index).getDesc() + "> as completed." );
             ls.get(index).setCheck(true);
         } else {
-            System.out.println("I have set this task < " + ls.get(index).getDesc() + " > as incomplete." );
+            System.out.println("I have set this task < " + ls.get(index).getDesc() + "> as incomplete." );
             ls.get(index).setCheck(false);
         }
 
