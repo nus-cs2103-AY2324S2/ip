@@ -28,10 +28,10 @@ public class MarkAction extends Action {
      * Marks and prints the task.
      *
      * @param taskList the taskList that is used with the chatbot
-     * @throws ActionException If the action fails certain validation checks due to invalid input.
+     * @throws InvalidArgumentValueException If the action fails certain validation checks due to invalid input.
      */
     @Override
-    public void execute(TaskList taskList) throws ActionException {
+    public void execute(TaskList taskList) throws InvalidArgumentValueException {
         String indexString = findDefaultArgument();
 
         // Validate indexString as an integer

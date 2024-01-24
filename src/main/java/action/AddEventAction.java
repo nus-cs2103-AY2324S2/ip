@@ -27,10 +27,9 @@ public class AddEventAction extends Action {
      * Add an event to the task list.
      *
      * @param taskList the taskList to modify
-     * @throws ActionException If the action fails certain validation checks due to invalid input.
      */
     @Override
-    public void execute(TaskList taskList) throws ActionException {
+    public void execute(TaskList taskList) {
         String name = findDefaultArgument(),
                 from = findArgument("from"),
                 to = findArgument("to");
