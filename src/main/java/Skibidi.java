@@ -82,28 +82,71 @@ public class Skibidi {
             }
 
         } else {
-            addTask(in);
+            try {
+                addTask(in);
+            } catch (DukeInvalidInputException e) {
+                System.out.println("This is not a valid input!!!");
+            } catch (DukeEmptyArgumentException e) {
+                System.out.println("There is an argument that is empty!!!");
+            } catch (DukeErroneousArgumentException e) {
+                System.out.println("There is an argument that is wrong!!!");
+            }
         }
     }
-// /to mon
-// 0123456
+
     public void addTask(String s) {
         // Todo_
         if (s.startsWith("todo")) {
+            if (s.substring(5).isEmpty()) {
+                throw new DukeEmptyArgumentException();
+            }
+            // Get name
             this.list[items] = new Todo(s.substring(5));
+
         // Deadline
         } else if (s.startsWith("deadline")) {
-            String n = s.substring(9, s.indexOf('/')-1);
-            String t = s.substring(s.indexOf('/') + 4);
+            // Try to get the index of the first '/', if it does not exist, the statement is invalid.
+            // Also, it should adhere to "/by"
+            int first = s.indexOf('/');
+            if (first == -1) {
+                throw new DukeErroneousArgumentException();
+            } else if (!s.startsWith("/by", first)) {
+                throw new DukeErroneousArgumentException();
+            }
+
+            // Get name. If empty, throw exception
+            String n = s.substring(9, first);
+            String t = s.substring(first + 4);
+            if (n.isEmpty() || t.isEmpty()) {
+                throw new DukeEmptyArgumentException();
+            }
+
             this.list[items] = new Deadline(n, t);
+
         // Event
         } else if (s.startsWith("event")) {
-            String n = s.substring(6, s.indexOf('/') - 1);
-            String f = s.substring(s.indexOf('/') + 6, s.indexOf('/', s.indexOf('/') + 1) - 1);
-            String t = s.substring(s.indexOf('/', s.indexOf('/') + 1) + 4);
+            // Try to get the index of the first  and second '/', if it does not exist, the statement is invalid.
+            // Also, the format should adhere to "/from" and "/to"
+            int first = s.indexOf('/');
+            int second = s.indexOf('/', first + 1);
+            if (first == -1 || second == -1) {
+                throw new DukeErroneousArgumentException();
+            } else if (!s.startsWith("/from", first)
+                    || !s.startsWith("/to", second)) {
+                throw new DukeErroneousArgumentException();
+            }
+
+            String n = s.substring(6, first - 1);
+            String f = s.substring(first + 6,  second);
+            String t = s.substring(second + 4);
+            if (n.isEmpty() || f.isEmpty() || t.isEmpty()) {
+                throw new DukeEmptyArgumentException();
+            }
+
             this.list[items] = new Event(n, f, t);
+
         } else {
-            System.out.println("This is not a valid input!!!");
+            throw new DukeInvalidInputException();
         }
 
         System.out.print("Got it added this task:\n  " + this.list[items]);
