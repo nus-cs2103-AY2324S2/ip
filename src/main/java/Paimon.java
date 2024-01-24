@@ -1,10 +1,9 @@
 package main.java;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
-public class Duke {
+public class Paimon {
     public static void main(String[] args) {
         greeting();
         Scanner scanner = new Scanner(System.in);
