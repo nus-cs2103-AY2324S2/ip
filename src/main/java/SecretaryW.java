@@ -5,7 +5,7 @@ public class SecretaryW {
         Scanner scanner = new Scanner(System.in);
 
         // Array to store task items
-        String[] tasklist = new String[100];
+        Task[] tasklist = new Task[100];
 
         // counter for number of task
         int count = 0;
@@ -23,20 +23,42 @@ public class SecretaryW {
 
             if (userInput.equals("bye")){
                 break; // Exits loop
-            } else if (userInput.equals("list")){
+            } else if (userInput.equals("list")) {
                 System.out.println(line);
                 if (count == 0) {
                     System.out.println("No tasks available");
                     System.out.println(line);
                 } else {
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < count; i++) {
-                        System.out.println(" " + (i + 1) + ". " + tasklist[i]);
+                        Task currTask = tasklist[i];
+                        System.out.println(" " + (i + 1) + ". " + currTask.getStatusIcon() + " " + currTask.getDescription());
                     }
                     System.out.println(line);
                 }
+            } else if (userInput.startsWith("mark")) {
+                int index = Integer.parseInt(userInput.substring(5).trim()) - 1;
+                // check for bounds
+                if (index >= 0 && index < count) {
+                    tasklist[index].markAsDone();
+                    System.out.println(line + " Nice! I've marked this task as done:");
+                    System.out.println("  " + tasklist[index].getStatusIcon() + " " + tasklist[index].getDescription() + "\n" + line);
+                } else {
+                    System.out.println(line + " Index is out of bounds!\n" + line);
+                }
+            } else if (userInput.startsWith("unmark")) {
+                int index = Integer.parseInt(userInput.substring(7).trim()) - 1;
+                // check for bounds
+                if (index >= 0 && index < count) {
+                    tasklist[index].markAsUndone();
+                    System.out.println(line + " OK, I've marked this task as not done yet");
+                    System.out.println("  " + tasklist[index].getStatusIcon() + " " + tasklist[index].getDescription() + "\n" + line);
+                } else {
+                    System.out.println(line + " Index is out of bounds!\n" + line);
+                }
             } else {
                 // Add to tasklist
-                tasklist[count] = userInput;
+                tasklist[count] = new Task(userInput);
                 count++;
                 String echo = userInput + "\n";
                 System.out.println(line + "added: " + echo + line);
