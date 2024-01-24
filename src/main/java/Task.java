@@ -23,7 +23,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        String checkMark = "[" + (isDone ? " " : "X") + "] ";
-        return this.id + ". " + checkMark + taskName;
+        String checkMark = "[" + (isDone ? "X" : " ") + "] ";
+        return checkMark + taskName;
     }
 }
