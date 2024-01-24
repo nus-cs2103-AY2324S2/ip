@@ -51,6 +51,24 @@ public class TaskList {
         }
     }
 
+    public String delete(int index) {
+        String output = "\n" + this.line;
+        int length = this.tasksList.size();
+        if (index > length || index <= 0) {
+
+            return "";
+        } else {
+            index -= 1;
+            Task t = this.tasksList.get(index);
+            this.tasksList.remove(index);
+            output += "\nNoted. I've removed this task:\n";
+            output += t.toString();
+            output += ("\nNow you have " + (length - 1) + " tasks in the list.");
+            output += ("\n" + this.line);
+            return output;
+        }
+    }
+
     public String unmark(int index) {
 
         String output = "\n" + this.line;

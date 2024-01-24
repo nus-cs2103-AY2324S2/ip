@@ -109,6 +109,11 @@ public class Toothless {
                     }
 
 
+                } else if (input.contains("delete")){
+                    int index = Integer.parseInt(input.substring(7));
+                    System.out.print(index);
+                    String response = tasksList.delete(index);
+                    System.out.println(response);
                 } else {
                     Toothless.printLines();
                     System.out.println("Try entering a valid instruction! Eg. 'Todo Chores' or 'Mark 2'");
