@@ -59,7 +59,12 @@ public class Capone {
         System.out.println("OK, I've marked this task as not done yet:\n" + unmarkedTask);
     }
 
-    public static void processTodo(ArrayList<String> inputList) {
+    public static void processTodo(ArrayList<String> inputList) throws CaponeException {
+        // If the inputList has only one string, throw error (insufficient args).
+        if (inputList.size() == 1) {
+            throw new CaponeException("Please enter a description for this ToDo task!\n" +
+                    "Usage: todo [description]");
+        }
         // Combine the remaining words into a single string
         StringBuilder description = new StringBuilder();
         for (int i = 1; i < inputList.size(); i++) {
@@ -151,15 +156,22 @@ public class Capone {
                 "Now you have %d task(s) in the list.\n", newEvent.toString(), tasks.size());
     }
 
-    public static void invalidCommand() {
-        System.out.println("I'm sorry, I don't understand what you just said.\n" +
+    public static void invalidCommand() throws CaponeException{
+        throw new CaponeException("I'm sorry, I don't understand what you just said.\n" +
                 "Use -h to display the list of valid commands");
 
     }
 
     public static void displayHelp() {
-        // TODO: Display help commands.
-        System.out.println("placeholder");
+        System.out.println("Commands I understand:\n" +
+                "1. list - Lists the tasks entered.\n" +
+                "2. todo [description] - Creates a new ToDo task. Remember to enter the description!\n" +
+                "3. deadline [description] /by [date] - Creates a new Deadline task.\n" +
+                "   Remember to enter the description and date!\n" +
+                "4. event [description] /from [date] /to [date] - Creates a new Event task.\n" +
+                "   Remember to enter the description, as well as the start and end date!\n" +
+                "5. mark [index] - Marks a task as completed. Use this in conjunction with the 'list' command!\n" +
+                "6. unmark [index] - Unmarks a task. Use this in conjunction with the 'list' command!\n");
     }
 
     public static void processInputs() {
@@ -176,24 +188,30 @@ public class Capone {
             // TODO: Error checking for empty input?
             String firstWord = inputList.get(0);
 
-            if (firstWord.equalsIgnoreCase("list")) {
-                listTasks();
-            } else if (firstWord.equalsIgnoreCase("mark")) {
-                // TODO: Error checking for insufficient args/out of bounds.
-                markTask(Integer.parseInt(inputList.get(1)));
-            } else if (firstWord.equalsIgnoreCase("unmark")) {
-                // TODO: Error checking for insufficient args/out of bounds.
-                unmarkTask(Integer.parseInt(inputList.get(1)));
-            } else if (firstWord.equalsIgnoreCase("todo")) {
-                processTodo(inputList);
-            } else if (firstWord.equalsIgnoreCase("deadline")) {
-                processDeadline(inputList);
-            } else if (firstWord.equalsIgnoreCase("event")) {
-                processEvent(inputList);
-            } else if (firstWord.equalsIgnoreCase("bye")) {
-                break;
-            } else {
-                invalidCommand();
+            try {
+                if (firstWord.equalsIgnoreCase("list")) {
+                    listTasks();
+                } else if (firstWord.equalsIgnoreCase("mark")) {
+                    // TODO: Error checking for insufficient args/out of bounds.
+                    markTask(Integer.parseInt(inputList.get(1)));
+                } else if (firstWord.equalsIgnoreCase("unmark")) {
+                    // TODO: Error checking for insufficient args/out of bounds.
+                    unmarkTask(Integer.parseInt(inputList.get(1)));
+                } else if (firstWord.equalsIgnoreCase("todo")) {
+                    processTodo(inputList);
+                } else if (firstWord.equalsIgnoreCase("deadline")) {
+                    processDeadline(inputList);
+                } else if (firstWord.equalsIgnoreCase("event")) {
+                    processEvent(inputList);
+                } else if (firstWord.equalsIgnoreCase("bye")) {
+                    break;
+                } else if (firstWord.equalsIgnoreCase("-h")) {
+                    displayHelp();
+                } else {
+                    invalidCommand();
+                }
+            } catch (CaponeException e) {
+                System.out.println(e.getMessage());
             }
         }
 
