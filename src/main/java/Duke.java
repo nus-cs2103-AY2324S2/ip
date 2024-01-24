@@ -15,6 +15,7 @@ public class Duke {
 
         while (!cmd.hasNext("bye")) {
             if (cmd.hasNext("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < task.length; i++) {
                     if (task[i] == null) {
                         break;
@@ -46,7 +47,7 @@ public class Duke {
                 String length = "" + n;
                 System.out.println("Got it. I've added this task:\n" +
                         "\t" + task[count].toString());
-                System.out.println("\nNow you have " + length + " tasks in the list.");
+                System.out.println("Now you have " + length + " tasks in the list.");
                 count++;
             } else if (cmd.hasNext("event")) {
                 String userCmd = cmd.nextLine();
@@ -56,7 +57,6 @@ public class Duke {
                 D = divided[0];
                 String fromTo = divided[1];
                 divided = fromTo.split("/to", 2);
-                System.out.println(divided[0]);
                 String from = divided[0];
                 String to = divided[1];
                 task[count] = new Events(D, from, to);
@@ -64,7 +64,7 @@ public class Duke {
                 String length = "" + n;
                 System.out.println("Got it. I've added this task:\n" +
                         "\t" + task[count].toString());
-                System.out.println("\nNow you have " + length + " tasks in the list.");
+                System.out.println("Now you have " + length + " tasks in the list.");
                 count++;
             } else if (cmd.hasNext("deadline")) {
                 String userCmd = cmd.nextLine();
@@ -78,7 +78,7 @@ public class Duke {
                 String length = "" + n;
                 System.out.println("Got it. I've added this task:\n" +
                         "\t" + task[count].toString());
-                System.out.println("\nNow you have " + length + " tasks in the list.");
+                System.out.println("Now you have " + length + " tasks in the list.");
                 count++;
             } else {
                 if (count > 100) {
