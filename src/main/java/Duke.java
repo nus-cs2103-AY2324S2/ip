@@ -13,8 +13,6 @@ public class Duke {
     private static final String[] greet = new String[]{bar, first, second, bar};
     private static final String[] bye = new String[]{bar, third, bar};
 
-    //Strings for listing Response
-    private static final String listingResponse = "Here are the tasks in your list:";
 
     //Strings for marking and unmarking
     private static final String markResponse = "Nice! I've marked this task as done:";
@@ -22,6 +20,7 @@ public class Duke {
 
     //String and variables for task
     private static final String addTask = "Got it. I've added this task:";
+    private static final String removeTask = "Noted. I've removed this task";
 
 
     private static String manHandleUser(String msg) {
@@ -37,6 +36,10 @@ public class Duke {
                 return "OOPS!!! Missing or invalid format of the date command";
             case "number":
                 return "OOPS!!! This is missing your index number";
+            case "outOfRange":
+                return "Opps!!!!! Your index in out of range!";
+            case "empty":
+                return "Opps!!!!! Your list is empty!!!You can't do any of these actions yet!";
             case "invalid":
                 return "OOPS!!! I'm sorry, but I don't know what that means Maybe learn how to spell :(";
             default:
@@ -70,7 +73,6 @@ public class Duke {
             output.add(bar);
             try {
                 if (next.equals("list")) {
-                    output.add(listingResponse);
                     output.addAll(manager.ListItems());
                 } else {
                     //Switch statements does not support contains methods :(
@@ -104,6 +106,11 @@ public class Duke {
                         output.add(indent + item);
                         output.add(manager.numOfTask());
 
+                    } else if (next.contains("delete")) {
+                        item = manager.mangeTask(Actions.DELETE, next);
+                        output.add(removeTask);
+                        output.add(indent + item);
+                        output.add(manager.numOfTask());
                     } else {
                         //At this point this doest not really makes sense but will still be here
                         //For error handling here

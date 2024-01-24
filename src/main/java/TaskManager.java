@@ -4,6 +4,8 @@ import java.util.ArrayList;
 public class TaskManager {
     private ArrayList<Task> items;
 
+    private static final String listingResponse = "Here are the tasks in your list:";
+
     TaskManager() {
         this.items = new ArrayList<>();
     }
@@ -65,10 +67,16 @@ public class TaskManager {
 
     public Task mangeTask(Actions act, String instructions) throws DukeException {
         String[] getNumber = instructions.split(" ");
+        if (items.isEmpty()) {
+            throw new DukeException("empty");
+        }
         if (getNumber.length <= 1 || getNumber[1].isBlank()) {
             throw new DukeException("number");
         }
         int id = Integer.parseInt(getNumber[1]) - 1; //Index 0 based
+        if (id < 0 || id > items.size()) {
+            throw new DukeException("outOfRange");
+        }
         Task item = items.get(id);
         switch (act) {
             case UNMARK:
@@ -78,10 +86,10 @@ public class TaskManager {
                 item.markAsDone();
                 return item;
             case DELETE:
-                //do nothing for now
+                items.remove(id);
                 return item;
             default:
-                //old code
+                //This does nothing
                 return item;
         }
     }
@@ -91,8 +99,14 @@ public class TaskManager {
     }
 
     public ArrayList<String> ListItems() {
+
         int i = 1;
         ArrayList<String> ret = new ArrayList<>();
+        if(items.isEmpty()) {
+            ret.add("Your list is empty!!!!Add something! ");
+            return ret;
+        }
+        ret.add(listingResponse);
         for (Task item : items) {
             ret.add(" " + i + "." + item);
             i++;
