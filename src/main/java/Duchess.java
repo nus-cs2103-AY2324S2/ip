@@ -18,6 +18,59 @@ public class Duchess {
 
     }
 
+    private static void addToDo(String userInput) {
+        String[] toDoTokens = userInput.split("todo"); //Split to find description
+        if (toDoTokens.length > 1) {
+            String description = toDoTokens[1].trim(); //Trim to only keep description
+            ToDo newToDo = new ToDo(description);
+            addTask(newToDo);
+        } else {
+            System.out.println("Invalid command. Usage: todo <description>");
+        }
+    }
+
+    private static void addDeadline(String userInput) {
+        String[] deadlineTokens = userInput.split("deadline");
+
+        if (deadlineTokens.length > 1) {
+            // Split further to extract description and deadline details
+            String[] details = deadlineTokens[1].trim().split("/by");
+
+            if (details.length > 1) {
+                String description = details[0].trim();
+                String by = details[1].trim(); // by is everything after
+                Deadline newDeadline = new Deadline(description, by);
+                addTask(newDeadline);
+            } else {
+                System.out.println("Invalid command. Usage: deadline <description> /by <deadline>");
+            }
+        } else {
+            System.out.println("Invalid command. Usage: deadline <description> /by <deadline>");
+        }
+    }
+
+    private static void addEvent(String userInput) {
+        String[] eventTokens = userInput.split("event");
+
+        if (eventTokens.length > 1) {
+            // Split further to extract description and event details
+            String[] details = eventTokens[1].trim().split("/from|/to");
+
+            if (details.length > 2) {
+                String description = details[0].trim();
+                String from = details[1].trim(); // from is everything after
+                String to = details[2].trim();   // to is everything after
+
+                Event newEvent = new Event(description, from, to);
+                addTask(newEvent);
+            } else {
+                System.out.println("Invalid command. Usage: event <description> /from <start> /to <end>");
+            }
+        } else {
+            System.out.println("Invalid command. Usage: event <description> /from <start> /to <end>");
+        }
+    }
+
     private static void printTaskList() {
         printHorizontalLine();
         if (taskCount == 0) {
@@ -25,7 +78,7 @@ public class Duchess {
         } else {
             System.out.println(" Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println(" " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].toString());
+                System.out.println(" " + (i + 1) + "." + tasks[i].toString());
             }
         }
         printHorizontalLine();
@@ -36,7 +89,9 @@ public class Duchess {
         if (taskCount < MAX_TASKS) {
             tasks[taskCount++] = task;
             printHorizontalLine();
-            System.out.println(" added: " + task.toString());
+            System.out.println(" Understood. I've added this task: ");
+            System.out.println(task.toString());
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
             printHorizontalLine();
         } else {
             System.out.println("The task list is full. I cannot add more tasks.");
@@ -49,7 +104,7 @@ public class Duchess {
             tasks[taskIndex].markAsDone();
             printHorizontalLine();
             System.out.println(" Perfect! I've marked this task as done:");
-            System.out.println(" [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].toString());
+            System.out.println(tasks[taskIndex].toString());
             printHorizontalLine();
         } else {
             System.out.println("Invalid task index.");
@@ -62,7 +117,7 @@ public class Duchess {
             tasks[taskIndex].unmarkAsDone();
             printHorizontalLine();
             System.out.println(" Understood, I've marked this task as not done yet:");
-            System.out.println(" [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].toString());
+            System.out.println(tasks[taskIndex].toString());
             printHorizontalLine();
         } else {
             System.out.println("Invalid task index.");
@@ -114,6 +169,18 @@ public class Duchess {
                     } else {
                         System.out.println("Invalid command. Usage: unmark <taskIndex>");
                     }
+                    break;
+
+                case "todo":
+                    addToDo(userInput);
+                    break;
+
+                case "deadline":
+                    addDeadline(userInput);
+                    break;
+
+                case "event":
+                    addEvent(userInput);
                     break;
 
                 default:
