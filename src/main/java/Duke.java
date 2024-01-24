@@ -1,3 +1,5 @@
+import exceptions.DukeException;
+
 import java.util.*;
 
 public class Duke{
@@ -11,6 +13,59 @@ public class Duke{
             System.out.println("____________________________________________________________");
             System.out.println(" Bye. Don't come back. jk!");
             System.out.println("____________________________________________________________");
+        }
+    }
+
+    private static void processCommand(String maybeCommand, String[] arr, ArrayList<Task> todos) throws RuntimeException {
+        switch (maybeCommand) {
+            case "todo":
+                if (arr.length == 1) {
+                    throw new DukeException(" Nuh uh! The description of a todo cannot be empty.\n");
+                }
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. Added this task:");
+                Todo todo = new Todo(arr[1]);
+                todos.add(todo);
+                System.out.println(todo.toString());
+                System.out.println("Now you have " + todos.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+                break;
+            case "deadline":
+                if (arr.length == 1) {
+                    throw new DukeException(" Nuh uh! The description of a deadline cannot be empty.\nMake sure to add a deadline after the description with /by too!");
+                }
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. Added this task:");
+                String arguments[] = arr[1].split(" /by ");
+                String description = arguments[0];
+                String by = arguments[1];
+                Deadline deadline = new Deadline(description, by);
+                todos.add(deadline);
+                System.out.println(deadline.toString());
+                System.out.println("Now you have " + todos.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+                break;
+            case "event":
+                if (arr.length == 1) {
+                    throw new DukeException(" Nuh uh! The description of an event cannot be empty.\nMake sure to add a from and to date after the description with /from and /to too!");
+                }
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. Added this task:");
+                // extraction of parameters
+                String getDesc[] = arr[1].split(" /from ");
+                String desc = getDesc[0];
+                String getDates[] = getDesc[1].split(" /to ");
+                String from = getDates[0];
+                String to = getDates[1];
+
+                //creating of event
+                Event event = new Event(desc, from, to);
+                todos.add(event);
+
+                System.out.println(event.toString());
+                System.out.println("Now you have " + todos.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+                break;
         }
     }
 
@@ -67,46 +122,10 @@ public class Duke{
                 System.out.println(" " + currTask.toString());
                 System.out.println("____________________________________________________________");
             } else if (maybeCommand.equals("todo") || maybeCommand.equals("deadline") || maybeCommand.equals("event")) {
-                switch (maybeCommand) {
-                    case "todo":
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Got it. Added this task:");
-                        Todo todo = new Todo(arr[1]);
-                        todos.add(todo);
-                        System.out.println(todo.toString());
-                        System.out.println("Now you have " + todos.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
-                        break;
-                    case "deadline":
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Got it. Added this task:");
-                        String arguments[] = arr[1].split(" /by ");
-                        String description = arguments[0];
-                        String by = arguments[1];
-                        Deadline deadline = new Deadline(description, by);
-                        todos.add(deadline);
-                        System.out.println(deadline.toString());
-                        System.out.println("Now you have " + todos.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
-                        break;
-                    case "event":
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Got it. Added this task:");
-                        // extraction of parameters
-                        String getDesc[] = arr[1].split(" /from ");
-                        String desc = getDesc[0];
-                        String getDates[] = getDesc[1].split(" /to ");
-                        String from = getDates[0];
-                        String to = getDates[1];
-
-                        //creating of event
-                        Event event = new Event(desc, from, to);
-                        todos.add(event);
-
-                        System.out.println(event.toString());
-                        System.out.println("Now you have " + todos.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
-                        break;
+                try {
+                    processCommand(maybeCommand, arr, todos);
+                } catch (RuntimeException e) {
+                    System.out.println("Error: " + e.getMessage());
                 }
             } else {
                 System.out.println("____________________________________________________________");
