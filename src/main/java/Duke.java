@@ -1,6 +1,6 @@
 import java.util.*;
 import java.util.Random;
-public class Woody {
+public class Duke {
     public static void main(String[] args) {
         String line = "____________________________________________________________\n";
         String[] catchphrases = {
