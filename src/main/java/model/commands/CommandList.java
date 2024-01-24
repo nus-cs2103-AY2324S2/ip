@@ -2,6 +2,7 @@ package model.commands;
 
 import io.Message;
 import model.*;
+import utils.RemiError;
 
 import java.util.HashMap;
 
@@ -18,13 +19,13 @@ public class CommandList {
      * @param input the input line to be scanned
      * @return
      */
-    private String findOption(String option, String input) {
+    private String findOption(String option, String input) throws RemiError {
         int ctr = 0;
         int idx = input.indexOf(option);
 
         /// TODO: handle this
         if (idx == -1) {
-            return "";
+            throw new RemiError("I couldn't find a " + option + ", please specify it by adding a " + option);
         } else {
             int endIdx = input.indexOf("/", idx + 1);
             if (endIdx == -1) {
@@ -37,9 +38,18 @@ public class CommandList {
         }
     }
 
-    private String getLabel(String input) {
+    private String getLabel(String input) throws RemiError {
         int idx = input.indexOf("/");
-        return input.substring(0, idx - 1);
+        if (idx == -1) {
+            idx = input.length();
+        } else {
+            idx--;
+        }
+
+        if (idx <= 0) {
+            throw new RemiError("You didn't put a description for the task.");
+        }
+        return input.substring(0, idx);
     }
 
     private void loadCommands() {
@@ -61,6 +71,7 @@ public class CommandList {
             return new Message("Why did you say it was finished then?\n" + taskList.getTask(idx));
         });
         commandLookup.put("todo", (args) -> {
+            String label = getLabel(args);
             ToDo todo = new ToDo(args);
             taskList.addTask(todo);
             return new Message(String.format("I've added the task.\n%s\nYou still have %d tasks in the list.", todo, taskList.size()));
@@ -95,13 +106,11 @@ public class CommandList {
         loadCommands();
     }
 
-    public Message runKeyword(String keyword, String args) {
+    public Message runKeyword(String keyword, String args) throws RemiError {
         if (this.commandLookup.containsKey(keyword)) {
             return commandLookup.get(keyword).run(args);
         } else {
-            String input = keyword + " " + args;
-            taskList.addTask(new Task(input));
-            return new Message("added: " + input);
+            throw new RemiError(keyword + " is not a real command.");
         }
     }
 }
