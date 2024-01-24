@@ -13,9 +13,9 @@ public class Tiny {
         int totalTasks = 0;
 
         System.out.println(startUpMessage);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             String input = br.readLine();
             if (isBye(input))
                 break;
