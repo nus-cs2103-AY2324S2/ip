@@ -9,10 +9,11 @@ public class Capone {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printWelcomeMsg() {
-        String logo = "░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░\n"
-                + "░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░\n"
-                + "░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░";
-        System.out.printf("Hello! I'm \n%s\nWhat can I do for you?\n%n", logo);
+//        String logo = "░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░\n"
+//                + "░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░\n"
+//                + "░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░";
+//        System.out.printf("Hello! I'm \n%s\nWhat can I do for you?\n%n", logo);
+        System.out.println("Hello! I'm Capone. What can I do for you?");
     }
 
 //    public static void addTask(ArrayList<String> inputList) {
@@ -61,12 +62,16 @@ public class Capone {
 
     public static void processTodo(ArrayList<String> inputList) {
         // Combine the remaining words into a single string
-        StringBuilder combinedString = new StringBuilder();
+        StringBuilder description = new StringBuilder();
         for (int i = 1; i < inputList.size(); i++) {
-            combinedString.append(inputList.get(i)).append(" ");
+            if (i == inputList.size() - 1) {
+                description.append(inputList.get(i));
+                break;
+            }
+            description.append(inputList.get(i)).append(" ");
         }
 
-        ToDo newTodo = new ToDo(combinedString.toString());
+        ToDo newTodo = new ToDo(description.toString());
 
         tasks.add(newTodo);
 
@@ -162,18 +167,16 @@ public class Capone {
         // Create a Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
 
-        // Read the user input
-        String input = scanner.nextLine();
+        while (true) {
+            // Read the user input
+            String input = scanner.nextLine();
+            input = input.strip();
 
-        String pattern_mark = "^mark.*";
+            // Split inputs by space and store them in an arraylist for processing.
+            ArrayList<String> inputList = new ArrayList<>(Arrays.asList(input.split("\\s+")));
 
-        // Split inputs by space and store them in an arraylist for processing.
-        ArrayList<String> inputList = new ArrayList<>(Arrays.asList(input.split("\\s+")));
-
-        // TODO: Error checking for empty input?
-        String firstWord = inputList.get(0);
-
-        while (!firstWord.equalsIgnoreCase("bye")) {
+            // TODO: Error checking for empty input?
+            String firstWord = inputList.get(0);
 
             if (firstWord.equalsIgnoreCase("list")) {
                 listTasks();
@@ -189,15 +192,11 @@ public class Capone {
                 processDeadline(inputList);
             } else if (firstWord.equalsIgnoreCase("event")) {
                 processEvent(inputList);
+            } else if (firstWord.equalsIgnoreCase("bye")) {
+                break;
             } else {
                 invalidCommand();
             }
-
-            // Read and process the user's next input
-            input = scanner.nextLine();
-            inputList = new ArrayList<>(Arrays.asList(input.split("\\s+")));
-            // TODO: Error checking for empty input?
-            firstWord = inputList.get(0);
         }
 
         // If user entered "bye", exit program. Clean up.

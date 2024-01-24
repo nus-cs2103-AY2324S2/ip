@@ -1,0 +1,14 @@
+todo make cake
+deadline submit weekly report /by friday 26 Jan 2023
+list
+mark 1
+list
+unmark 1
+event party at home /from saturday, 27 jan 2023 /to 28 jan 2023, sunday
+list
+mark 3
+mark 2
+list
+unmark 3
+list
+bye
