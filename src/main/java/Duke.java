@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Duke {
-    // Fixed-size array to store tasks
     private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
 
@@ -30,7 +29,8 @@ public class Duke {
             } else if (userInput.equalsIgnoreCase("list")) {
                 // Display the list of tasks
                 System.out.println("____________________________________________________________");
-                System.out.println(" Here are the tasks in your list:");
+                System.out.println(" Here" + (taskCount == 1 ? " is the " : " are the ") + taskCount +
+                        (taskCount == 1 ? " task " : " tasks ") + "in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println(" " + (i + 1) + "." + tasks[i]);
                 }
@@ -45,10 +45,13 @@ public class Duke {
                 unmarkTaskAsDone(taskIndex);
             } else {
                 // Add the task to the array
-                tasks[taskCount++] = new Task(userInput, false);
+                tasks[taskCount++] = createTask(userInput);
                 // Display confirmation
                 System.out.println("____________________________________________________________");
-                System.out.println(" added: " + userInput);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1]);
+                //System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println(" Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                 System.out.println("____________________________________________________________");
             }
         }
@@ -86,15 +89,45 @@ public class Duke {
             System.out.println("____________________________________________________________");
         }
     }
+
+    // Create a task based on user input
+    private static Task createTask(String userInput) {
+        String[] inputParts = userInput.split(" ", 2);
+        String taskType = inputParts[0].toLowerCase();
+
+        switch (taskType) {
+            case "todo":
+                return new Todo(inputParts[1]);
+            case "deadline":
+                return createDeadlineTask(inputParts[1]);
+            case "event":
+                return createEventTask(inputParts[1]);
+            default:
+                return new Task(userInput); // Default to a generic task
+        }
+    }
+
+    // Create a deadline task based on user input
+    private static Task createDeadlineTask(String input) {
+        String[] parts = input.split("/by", 2);
+        return new Deadline(parts[0].trim(), parts[1].trim());
+    }
+
+    // Create an event task based on user input
+    private static Task createEventTask(String input) {
+        String[] parts = input.split("/from", 2);
+        String[] dateParts = parts[1].trim().split("/to", 2);
+        return new Event(parts[0].trim(), dateParts[0].trim(), dateParts[1].trim());
+    }
 }
 
 class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
-    public Task(String description, boolean isDone) {
+    public Task(String description) {
         this.description = description;
-        this.isDone = isDone;
+        this.isDone = false;
     }
 
     public void setDone(boolean done) {
@@ -103,6 +136,63 @@ class Task {
 
     @Override
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + description;
+        return "[" + getStatusIcon() + "]" + "[" + (isDone ? "X" : " ") + "] " + description;
+    }
+
+    public String getStatusIcon() {
+        return " "; // Default to empty space
     }
 }
+
+class Todo extends Task {
+    public Todo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String getStatusIcon() {
+        return "T"; // Todo tasks have "T" as their status icon
+    }
+}
+
+class Deadline extends Task {
+    protected String by;
+
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String getStatusIcon() {
+        return "D"; // Deadline tasks have "D" as their status icon
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (by: " + by + ")";
+    }
+}
+
+class Event extends Task {
+    protected String from;
+    protected String to;
+
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String getStatusIcon() {
+        return "E"; // Event tasks have "E" as their status icon
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}
+
+
