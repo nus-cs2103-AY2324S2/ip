@@ -1,11 +1,11 @@
 import java.util.Scanner;
 public class Dibo {
-    private static String name = "Dibo";
+    private static final String name = "Dibo";
     public static void main(String[] args) {
         // Greeting the user
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you? \n");
-        Store store = new Store();
+        Store store = new Store(new String[]{"todo", "deadline", "event"});
 
         // Getting the command
         Scanner sc = new Scanner(System.in);
@@ -29,6 +29,14 @@ public class Dibo {
                     store.markTask(id);
                 } catch (NumberFormatException e) {
                     System.out.println("Oh no! You have to mark the items based on their index," +
+                            "if you are not sure of the index, enter 'list' to check it out:)");
+                }
+            } else if (command.contains("delete")) {
+                try {
+                    int id = Integer.parseInt(command.split(" ")[1]);
+                    store.deleteTask(id);
+                } catch (NumberFormatException e) {
+                    System.out.println("Oh no! You have to delete the items based on their index," +
                             "if you are not sure of the index, enter 'list' to check it out:)");
                 }
             } else {
