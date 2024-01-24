@@ -11,6 +11,8 @@ unmark 3
 unmark 2
 unmark 1
 list
+delete 1
+list
 nonexistentcommand
 todo
 deadline
@@ -31,4 +33,7 @@ mark test
 unmark
 unmark 999
 unmark test
+delete
+delete 999
+delete test
 bye

@@ -111,6 +111,22 @@
 
 
 	____________________________________________________________
+	Boom! Task officially evicted from the list. Consider it gone:
+		[T] [ ] borrow book
+	Now you have 2 in the list.
+
+	____________________________________________________________
+
+
+	____________________________________________________________
+	Peep the lineup, here's the rundown of tasks on your list:
+	1.  [D] [ ] return book (by: Sunday)
+	2.  [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+
+	____________________________________________________________
+
+
+	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Command entered doesn't exist.
 
@@ -262,6 +278,29 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Your unmark parameter id is acting up.
+		It's gotta be a legit number matchin' up with the right task.
+
+	____________________________________________________________
+
+
+	____________________________________________________________
+	Hey homie, we've got a hiccup...
+		Can't leave that delete id empty. Gotta drop some number in there!
+
+	____________________________________________________________
+
+
+	____________________________________________________________
+	Hey homie, we've got a hiccup...
+		It looks like you're trying to delete with an invalid id.
+		Double-check that your 0 <= id < task list size.
+
+	____________________________________________________________
+
+
+	____________________________________________________________
+	Hey homie, we've got a hiccup...
+		Your delete parameter id is acting up.
 		It's gotta be a legit number matchin' up with the right task.
 
 	____________________________________________________________
