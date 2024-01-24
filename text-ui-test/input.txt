@@ -1,0 +1,7 @@
+todo eat dinner
+deadline 2103 /by Thur 2359
+event tutorial /from Mon 2pm /to 4pm
+mark 2
+mark 3
+unmark 2
+bye

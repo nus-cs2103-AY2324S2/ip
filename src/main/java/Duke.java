@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class Duke {
-    private final TaskManager tm = new TaskManager();
+    private TaskManager tm = new TaskManager();
+    Scanner sc = new Scanner(System.in);
 
     private void greet() {
         System.out.println("Hello! I'm Friendy.");
@@ -16,7 +17,6 @@ public class Duke {
     }
 
     private String[] listen() {
-        Scanner sc = new Scanner(System.in);
         return sc.nextLine().split(" ");
     }
 
