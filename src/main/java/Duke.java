@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static String welcome = "   Hi, I'm Gronk! \uD83D\uDDFF \n"
+    public static String WELCOME = "   Hi, I'm Gronk! \uD83D\uDDFF \n"
             + "   What are we up to today?";
 
-    public static String goodbye = "   System closing. Goodbye!";
+    public static String GOODBYE = "   System closing. Goodbye!";
 
     public static void lines() {
         System.out.println("  ----------------------------------------");
@@ -19,8 +19,8 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String message = "";
         lines();
-        printMessage(welcome);
-        String[] tasks = new String[100];
+        printMessage(WELCOME);
+        Task[] tasks = new Task[100];
         int i = 0;
         while (true) {
             message = sc.nextLine();
@@ -32,16 +32,28 @@ public class Duke {
                     System.out.println("   nothing added yet!");
                 } else {
                     for (int j = 0; j < i; j++) {
-                        System.out.println("   " + Integer.toString(j + 1) + ". " + tasks[j]);
+                        System.out.println("   "
+                                + Integer.toString(j + 1)
+                                + ". " + tasks[j].toString());
                     }
                 }
                 lines();
+            } else if (message.startsWith("mark")) {
+                String[] t = message.split(" ");
+                int ind = Integer.parseInt(t[1]) - 1;
+                if (tasks[ind].getStatus() == 0) {
+                    tasks[ind].update(1);
+                    System.out.println("   Well done! Task: " + tasks[ind].getDesc() + " completed.");
+                } else if (tasks[ind].getStatus() == 1) {
+                    tasks[ind].update(0);
+                    System.out.println("   Task updated. Task: " + tasks[ind].getDesc() + " is incomplete.");
+                }
             } else {
                 printMessage("   added: " + message);
-                tasks[i] = message;
+                tasks[i] = new Task(message, 0);
                 i += 1;
             }
         }
-        printMessage(goodbye);
+        printMessage(GOODBYE);
     }
 }
