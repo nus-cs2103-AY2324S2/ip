@@ -9,11 +9,10 @@ public class Capone {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printWelcomeMsg() {
-//        String logo = "░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░\n"
-//                + "░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░\n"
-//                + "░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░";
-//        System.out.printf("Hello! I'm \n%s\nWhat can I do for you?\n%n", logo);
-        System.out.println("Hello! I'm Capone. What can I do for you?");
+        String logo = "░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░\n"
+                + "░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░\n"
+                + "░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░";
+        System.out.printf("Hello! I'm\n%s\nWhat can I do for you?\n%n", logo);
     }
 
 //    public static void addTask(ArrayList<String> inputList) {
@@ -170,7 +169,6 @@ public class Capone {
         while (true) {
             // Read the user input
             String input = scanner.nextLine();
-            input = input.strip();
 
             // Split inputs by space and store them in an arraylist for processing.
             ArrayList<String> inputList = new ArrayList<>(Arrays.asList(input.split("\\s+")));

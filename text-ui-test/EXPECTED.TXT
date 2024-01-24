@@ -1,4 +1,9 @@
-Hello! I'm Capone. What can I do for you?
+Hello! I'm
+░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░
+░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░
+░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░
+What can I do for you?
+
 Got it. I've added this task:
 [T][ ] make cake
 Now you have 1 task(s) in the list.
