@@ -29,7 +29,7 @@ public class Luke {
             //task mode
             //first, determine the type of input.
 
-            String input = sc.nextLine();
+            String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
 
             if (input.equals("bye")) {
                 bye();
@@ -60,17 +60,20 @@ public class Luke {
                 Task task;
                 String taskType = input.split(" ")[0];
                 if (taskType.equals("todo")) {
-                    task = new Todo(input.substring(4));
+                    task = new Todo(input.substring(4).trim()); //TODO: better not hardcode 5 lol
                 } else if (taskType.equals("deadline")) {
-                    task = new Deadline(input.split("/")[0], input.split("/")[1]);
+                    task = new Deadline(input.split("/")[0].substring(8).trim(),
+                            input.split("/")[1].substring(2).trim());
                 } else if (taskType.equals("event")) {
-                    task = new Event(input.split("/")[0], input.split("/")[1], input.split("/")[2]);
+                    task = new Event(input.split("/")[0].substring(5).trim(),
+                            input.split("/")[1].substring(4).trim(),
+                            input.split("/")[2].substring(2).trim());
                 } else {
                     task = new Task(input); //default task
                 }
 
                 history.add(task);
-                System.out.println("I helped you add task [" + task + "]. But do it yourself next time! Hmmph!"  + "\n");
+                System.out.println("I helped you add task '" + task.fullStatus() + "'. But do it yourself next time! Hmmph!"  + "\n");
             }
         }
     }

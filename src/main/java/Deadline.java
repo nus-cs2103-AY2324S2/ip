@@ -14,6 +14,6 @@ public class Deadline extends Task {
         } else {
             checkbox = "[D][ ] ";
         }
-        return checkbox + name + "(by " + by + ")";
+        return checkbox + name + " (by: " + by + ")";
     }
 }

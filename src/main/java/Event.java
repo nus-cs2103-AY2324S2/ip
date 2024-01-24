@@ -17,6 +17,6 @@ public class Event extends Task {
         } else {
             checkbox = "[E][ ] ";
         }
-        return checkbox + name + "(from: " + start +  " to " + end + ")";
+        return checkbox + name + " (from: " + start +  " to: " + end + ")";
     }
 }
