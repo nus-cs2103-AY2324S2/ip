@@ -11,7 +11,10 @@ event party at home /from saturday, 27 jan 2023 /to 28 jan 2023, sunday
 list
 mark 3
 mark 2
+delete asdf
+delete 333
 list
 unmark 3
 list
+delete 1
 bye
