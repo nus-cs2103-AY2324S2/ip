@@ -18,19 +18,20 @@ public class Duke {
             if (instr.equals("list")) {
                 listOut();
             } else {
+                String cmdWord = instr.split(" ")[0];
                 try {
-                    if (instr.contains("unmark")) {
+                    if (cmdWord.equals("unmark")) {
                         unmark(instr);
-                    } else if (instr.contains("mark")) {
+                    } else if (cmdWord.equals("mark")) {
                         mark(instr);
-                    } else if (instr.contains("delete")) {
+                    } else if (cmdWord.equals("delete")) {
                         delete(instr);
                     } else {
-                        if (instr.contains("todo")) {
+                        if (cmdWord.equals("todo")) {
                             addTask(TaskCommand.TODO, instr);
-                        } else if (instr.contains("deadline")) {
+                        } else if (cmdWord.equals("deadline")) {
                             addTask(TaskCommand.DEADLINE, instr);
-                        } else if (instr.contains("event")) {
+                        } else if (cmdWord.equals("event")) {
                             addTask(TaskCommand.EVENT, instr);
                         } else {
                             throw new DukeException("OOPS!!! What is that? I'm sorry, but I don't recognise this command :-( \nTry another command!"); 
