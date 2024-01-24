@@ -5,17 +5,21 @@ public class Duchess {
     private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
 
+    // Declare the scanner as a static field in the class
+    private static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         printHorizontalLine();
 
         printOpeningGreeting();
 
         printHorizontalLine();
-
         printEcho();
 
         printHorizontalLine();
 
+        //Close scanner
+        scanner.close();
     }
 
     //Add a ToDo to the task list
@@ -92,7 +96,7 @@ public class Duchess {
         if (taskCount < MAX_TASKS) {
             tasks[taskCount++] = task;
             printHorizontalLine();
-            System.out.println(" Understood. I've added this task: ");
+            System.out.println(" Understood. I've added this task:");
             System.out.println(task.toString());
             System.out.println("Now you have " + taskCount + " tasks in the list.");
             printHorizontalLine();
@@ -136,8 +140,6 @@ public class Duchess {
 
     //Adds user input to list, exits if user inputs "bye"
     private static void printEcho() {
-        Scanner scanner = new Scanner(System.in);
-
         // Loop to read user input
         while (true) {
             String userInput = scanner.nextLine();
@@ -149,7 +151,6 @@ public class Duchess {
             switch (tokens[0].toLowerCase()) {
                 case "bye":
                     printClosingGreeting();
-                    scanner.close();
                     return;
 
                 case "list":
@@ -196,10 +197,10 @@ public class Duchess {
 
     //Print opening greeting
     private static void printOpeningGreeting() {
-        String logo = " ____            __     \n"
-                + "|  _ \\ _   ______| |      ___  ___  ___ \n"
-                + "| | | | | | |  __| |__  /  _ \\/ __|/ __|  \n"
-                + "| |_| | |_| | |__| ___ |   __/\\__ \\\\__ \\  \n"
+        String logo = " ____            __\n"
+                + "|  _ \\ _   ______| |      ___  ___  ___\n"
+                + "| | | | | | |  __| |__  /  _ \\/ __|/ __|\n"
+                + "| |_| | |_| | |__| ___ |   __/\\__ \\\\__ \\\n"
                 + "|____/ \\__,_|____|_| |_|\\ ___||___/|___/\n";
         System.out.println(logo);
         printHorizontalLine();
