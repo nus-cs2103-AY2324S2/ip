@@ -5,8 +5,17 @@ added: read book
 >> ___________________________
 added: return book
 >> ___________________________
-0. read book
-1. return book
+added: buy bread
+>> ___________________________
+  1.[ ] read book
+  2.[ ] return book
+  3.[ ] buy bread
+>> ___________________________
+Nice! I've marked this task as done:
+  2.[X] return book
+>> ___________________________
+OK, I've marked this task as not done yet:
+  2.[ ] return book
 >> ___________________________
 added: bye
 >> 

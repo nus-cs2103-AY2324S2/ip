@@ -1,4 +1,7 @@
 read book
 return book
+buy bread
 list
+mark 2
+unmark 2
 bye
