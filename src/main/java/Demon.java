@@ -129,6 +129,25 @@ public class Demon {
                 } finally {
                     input = sc.nextLine();
                 }
+            } else if (input.split(" ",2)[0].equalsIgnoreCase("delete")) {
+                try {
+                    String[] parts = input.split(" ");
+                    if (parts.length < 2) {
+                        throw new EmptyDescriptionException("You did not specify an number!");
+                    }
+
+                    System.out.println("--------------------------------------------------------");
+                    System.out.println("Noted Master. I've removed this task:");
+                    System.out.println(list.get(Integer.parseInt(parts[1]) - 1).toString());
+                    list.remove(Integer.parseInt(parts[1]) - 1);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("--------------------------------------------------------");
+                    System.out.println("Anything else? Please let me know: ");
+                } catch (EmptyDescriptionException e) {
+                    System.out.println("Error -> e");
+                } finally {
+                    input = sc.nextLine();
+                }
             } else {
                 System.out.println("--------------------------------------------------------");
                 System.out.println("OOPS! Looks like you have entered an invalid command! Try again.");
