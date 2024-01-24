@@ -16,15 +16,25 @@ public class Derek {
 
     private static final String EXITCOMMAND = "bye";
 
+    private static TaskList taskList;
+
     private static void print(String msg) {
         System.out.println(INDENT + LINE);
         System.out.println(INDENT + msg);
         System.out.println(INDENT + LINE + "\n");
     }
 
-    public static void main(String[] args) {
+    private static void printTaskAdded(String msg) {
+        System.out.println(INDENT + LINE);
+        System.out.println(INDENT + "Added Task:");
+        System.out.println(INDENT + "  " + msg);
+        System.out.println(INDENT + "Now you have " + taskList.getNumberTasks() + " tasks in the list.");
+        System.out.println(INDENT + LINE + "\n");
+}
 
-        TaskList taskList = new TaskList();
+public static void main(String[] args) {
+
+        taskList = new TaskList();
 
         print(WELCOMEMESSAGE);
 
@@ -40,7 +50,7 @@ public class Derek {
                 break;
             }
 
-            String[] userArgs = userPrompt.split("\\s+");
+            String[] userArgs = userPrompt.split("\\s+", 2);
             String command = userArgs[0];
 
             if ("list".equalsIgnoreCase(command)) {
@@ -62,8 +72,37 @@ public class Derek {
                 continue;
             }
 
-            taskList.addTask(new Task(userPrompt));
-            print(userPrompt);
+            if ("todo".equalsIgnoreCase(command)) {
+                // handle error here
+                String description = userArgs[1];
+                String response = taskList.addTask(new ToDo(description));
+                printTaskAdded(response);
+                continue;
+            }
+
+            if ("deadline".equalsIgnoreCase(command)) {
+                // handle error here
+                String[] deadlineDetails = userArgs[1].split(" /by ", 2);
+                String description = deadlineDetails[0];
+                String due = deadlineDetails[1];
+                String response = taskList.addTask(new Deadline(description, due));
+                printTaskAdded(response);
+                continue;
+            }
+
+            if ("event".equalsIgnoreCase(command)) {
+                // handle error here
+                String[] eventDetails = userArgs[1].split(" /from ", 2);
+                String description = eventDetails[0];
+                String[] timings = eventDetails[1].split(" /to ", 2);
+                String start = timings[0];
+                String end = timings[1];
+                String response = taskList.addTask(new Event(description, start, end));
+                printTaskAdded(response);
+                continue;
+            }
+
+            print("invalid prompt: " + userPrompt);
         }
 
         scanner.close();

@@ -10,8 +10,9 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         tasks.add(task);
+        return task.toString();
     }
 
     public String markTaskDone(int idx) {
@@ -28,6 +29,10 @@ public class TaskList {
         return tasks.get(idx).toString();
     }
 
+    public int getNumberTasks() {
+        return tasks.size();
+    }
+
     public void printTasks() {
         System.out.println(INDENT + LINE);
 
@@ -41,4 +46,5 @@ public class TaskList {
 
         System.out.println(INDENT + LINE + "\n");
     }
+
 }
