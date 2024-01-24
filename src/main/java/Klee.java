@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Klee {
     public static String checkToDo(String input) throws KleeException {
@@ -44,8 +45,7 @@ public class Klee {
         System.out.println("Hello! My name is Klee.");
         System.out.println("Are you here to break Klee out of solitary confinement?");
         System.out.println(divider);
-        Task[] tasks = new Task[100];
-        int currentIndex = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner getInput = new Scanner(System.in);
         while (true) {
             String input = getInput.nextLine();
@@ -54,8 +54,8 @@ public class Klee {
             } else if (input.equals("list")) {
                 System.out.println(divider);
                 System.out.println("These are all the things that we have to do today:");
-                for (int i = 0; i < currentIndex; i++) {
-                    System.out.println((i+1) + ". " + tasks[i].getStatus());
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i+1) + ". " + tasks.get(i).getStatus());
                 }
                 System.out.println(divider);
             } else {
@@ -68,10 +68,10 @@ public class Klee {
                     if (command[0].equals("mark")) {
                         try{
                             Integer index = Integer.parseInt(command[1]) - 1;
-                            tasks[index].mark();
+                            tasks.get(index).mark();
                             System.out.println(divider);
                             System.out.println("Great! Klee will put a big cross on this box:");
-                            System.out.println(tasks[index].getStatus());
+                            System.out.println(tasks.get(index).getStatus());
                             System.out.println(divider);
                         } catch(NumberFormatException e) {
                             System.out.println(divider);
@@ -81,10 +81,10 @@ public class Klee {
                     } else if (command[0].equals("unmark")) {
                         try{
                             Integer index = Integer.parseInt(command[1]) - 1;
-                            tasks[index].unMark();
+                            tasks.get(index).unMark();
                             System.out.println(divider);
                             System.out.println("Oh no! Klee will burn the cross away...:");
-                            System.out.println(tasks[index].getStatus());
+                            System.out.println(tasks.get(index).getStatus());
                             System.out.println(divider);
                         } catch(NumberFormatException e) {
                             System.out.println(divider);
@@ -95,11 +95,11 @@ public class Klee {
                         System.out.println(divider);
                         try {
                             String description = checkToDo(input);
-                            tasks[currentIndex] = new ToDo(description);
+                            Task task = new ToDo(description);
+                            tasks.add(task);
                             System.out.println("Klee will help you write that down! : ");
-                            System.out.println(tasks[currentIndex].getStatus());
-                            currentIndex++;
-                            System.out.println("Now you have " + currentIndex + " tasks in the list.");
+                            System.out.println(task.getStatus());
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         } catch (KleeException e) {
                             System.out.println(e.getMessage());
                         }
@@ -109,10 +109,10 @@ public class Klee {
                         try {
                             String[] output = checkDeadline(input);
                             System.out.println("Klee will help you write that down! : " + output[0]);
-                            tasks[currentIndex] = new Deadline(output[0], output[1]);
-                            System.out.println(tasks[currentIndex].getStatus());
-                            currentIndex++;
-                            System.out.println("Now you have " + currentIndex + " tasks in the list.");
+                            Task task = new Deadline(output[0], output[1]);
+                            tasks.add(task);
+                            System.out.println(task.getStatus());
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         } catch (KleeException e) {
                             System.out.println(e.getMessage());
                         }
@@ -122,15 +122,29 @@ public class Klee {
                         try {
                             String[] output = checkEvent(input);
                             System.out.println("Klee will help you write that down! : " + output[0]);
-                            tasks[currentIndex] = new Event(output[0], output[1], output[2]);
-                            System.out.println(tasks[currentIndex].getStatus());
-                            currentIndex++;
-                            System.out.println("Now you have " + currentIndex + " tasks in the list.");
+                            Task task = new Event(output[0], output[1], output[2]);
+                            tasks.add(task);
+                            System.out.println(task.getStatus());
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         } catch (KleeException e) {
                             System.out.println(e.getMessage());
                         }
                         System.out.println(divider);
-                    } else {
+                    } else if (command[0].equals("delete")) {
+                        System.out.println(divider);
+                        try{
+                            int index = Integer.parseInt(command[1]) - 1;
+                            if (index < tasks.size()) {
+                                System.out.println("Okay, Klee will wipe this task away!");
+                                System.out.println(tasks.get(index).getStatus());
+                                tasks.remove(index);
+                                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                            } else System.out.println("But that task does not exist!");
+                        } catch(NumberFormatException e) {
+                            System.out.println("Klee doesn't understand, there should be a number after delete right?");
+                        }
+                        System.out.println(divider);
+                    }else {
                         System.out.println(divider);
                         System.out.println("Klee doesn't understand, what are you talking about?");
                         System.out.println(divider);
