@@ -1,6 +1,11 @@
 public class Duke {
     private static final String LINE = "____________________________________________________________\n";
     public static void main(String[] args) {
+        Duke.hello();
+        Duke.bye();
+    }
+
+    public static void hello() {
         String logo = "   :::   :::           :::        :::::::::       :::::::::       ::::::::::       ::::::::: \n" +
                 "  :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+: \n" +
                 "  +:+ +:+         +:+   +:+     +:+    +:+      +:+    +:+      +:+              +:+    +:+  \n" +
@@ -8,8 +13,8 @@ public class Duke {
                 "  +#+          +#+     +#+    +#+             +#+             +#+              +#+    +#+    \n" +
                 " #+#          #+#     #+#    #+#             #+#             #+#              #+#    #+#     \n" +
                 "###          ###     ###    ###             ###             ##########       ###    ###      \n\n";
-        System.out.println(Duke.LINE + " \uD83D\uDC4B✨What's poppin' fam, it's ya boi \n\n" + logo + "Hit me up with those deets and let's vibe together! \uD83D\uDCAF\uD83D\uDD25\uD83D\uDE1C");
-        Duke.bye();
+        System.out.println(Duke.LINE + " \uD83D\uDC4B✨What's poppin' fam, it's ya boi \n\n" + logo +
+                "Hit me up with those deets and let's vibe together! \uD83D\uDCAF\uD83D\uDD25\uD83D\uDE1C");
     }
 
     public static void bye() {
