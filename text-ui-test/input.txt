@@ -6,3 +6,13 @@ mark 1
 mark 2
 unmark 2
 list
+todo
+blah
+
+bye k
+mark mywords
+mark 100
+list 1
+deadline this sunday
+event this sunday
+event birthday party /from 11 to 12
