@@ -1,6 +1,6 @@
 public class Task {
     private String description;
-    private boolean isDone;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -15,7 +15,7 @@ public class Task {
         this.isDone = true;
         System.out.println("__________________________________________________________\n"
                 + "Nice! I've marked this task as done:\n"
-                + " [X] " + this.description
+                + this.toString()
                 + "\n__________________________________________________________\n");
     }
 
@@ -23,12 +23,12 @@ public class Task {
         this.isDone = false;
         System.out.println("__________________________________________________________\n"
                 + "Nice! I've marked this task as not done yet:\n"
-                + "  [ ] " + this.description
+                + this.toString()
                 + "\n__________________________________________________________\n");
     }
 
     @Override
     public String toString() {
-        return this.description.toString();
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
