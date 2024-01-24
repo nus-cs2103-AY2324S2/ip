@@ -76,11 +76,14 @@ public class Duke {
         Task task;
         try {
             if (taskType.equals("todo")) {
-                task = new ToDo(message);
+                String[] inputs = message.split("todo ");
+                task = new ToDo(inputs[1]);
             } else if (taskType.equals("deadline")) {
+                message = message.substring("deadline ".length());
                 String[] inputs = message.split("/by");
                 task = new Deadline(inputs[0].trim(), inputs[1].trim());
             } else if (taskType.equals("event")) {
+                message = message.substring("event ".length());
                 String[] inputs = message.split("/from");
                 String[] innerInputs = inputs[1].split("/to");
                 task = new Event(inputs[0].trim(), innerInputs[0].trim(), innerInputs[1].trim());
