@@ -19,7 +19,7 @@ public class gops {
             System.out.println("  " + "[T] " + "[" + this.doneOrNot() + "] " + itemDescription);
         }
         public String stringPrinter() {
-            return "  " + "[T] " + "[" + this.doneOrNot() + "] " + itemDescription;
+            return " " + "[T] " + "[" + this.doneOrNot() + "] " + itemDescription;
         }
     }
 
@@ -37,7 +37,7 @@ public class gops {
         }
         @Override
         public String stringPrinter() {
-            return "  " + "[D] " + "[" + this.doneOrNot() + "] " + itemDescription + "(by:" + dayTodoBy + ")";
+            return " " + "[D] " + "[" + this.doneOrNot() + "] " + itemDescription + "(by:" + dayTodoBy + ")";
         }
 
     }
@@ -59,7 +59,7 @@ public class gops {
 
         @Override
         public String stringPrinter() {
-            return "  " + "[E] " + "[" + this.doneOrNot() + "] " + itemDescription + "(from:" + startBy + "to:" + endBy + ")";
+            return " " + "[E] " + "[" + this.doneOrNot() + "] " + itemDescription + "(from:" + startBy + "to:" + endBy + ")";
         }
 
     }
@@ -166,6 +166,30 @@ public class gops {
                     System.out.println(i + 1 + toDoList[i].stringPrinter());
                 }
                 userReply = inputTaker.nextLine();
+            } else if (userReply.contains("delete")) {
+                try {
+                    if (userReply.length() == 6) {
+                        throw new gopsException();
+                    }
+                    String[] splitter = userReply.split(" ", 2);
+                    int listIndex = Integer.parseInt(splitter[1]);
+                    Todo deletedTask = toDoList[listIndex - 1];
+                    toDoList[listIndex - 1] = null;
+                    for (int i = listIndex; i < messageCount; i++) {
+                        toDoList[i - 1] = toDoList[i];
+                    }
+                    System.out.println("I've deleted this task");
+                    System.out.println(" " + deletedTask.stringPrinter());
+                    messageCount -= 1;
+                    System.out.println("Here are the remaining " + messageCount + " task/s in your list:");
+                    for (int i = 0; i < messageCount; i++) {
+                        System.out.println(i + 1 + toDoList[i].stringPrinter());
+                    }
+                    userReply = inputTaker.nextLine();
+                } catch (gopsException e) {
+                    System.out.println("Please follow the format for deleting tasks\ndelete [task-number]");
+                    userReply = inputTaker.nextLine();
+                }
             } else {
                 System.out.println("Please choose from the available prompts\n[todo/deadline/event/mark/unmark/list/bye]");
                 userReply = inputTaker.nextLine();
