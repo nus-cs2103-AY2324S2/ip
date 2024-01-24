@@ -94,6 +94,16 @@ public class Duke {
                 System.out.println(t.toString());
                 System.out.println("Now you have " + array.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
+            } else if (order.contains("delete")) {
+                String[] tokens = order.split(" ");
+                int number = Integer.parseInt(tokens[1]);
+                System.out.println("____________________________________________________________");
+                System.out.println("Noted. I've removed this task:");
+                Task t = array.get(number - 1);
+                System.out.println(t.toString());
+                array.remove(number - 1);
+                System.out.println("Now you have " + array.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
             } else {
                 System.out.println("____________________________________________________________");
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
