@@ -32,6 +32,9 @@ public class Toothless {
             else if(input.startsWith("mark")){
                 command = Command.Mark;
             }
+            else if(input.startsWith("delete")){
+                command = Command.Delete;
+            }
             else if (input.startsWith("todo")){
                 command = Command.Todo;
             }

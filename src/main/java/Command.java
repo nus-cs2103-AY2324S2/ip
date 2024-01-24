@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum Command {
-    List, Mark, Unmark, Todo, Deadline, Event, Bye, Invalid;
+    List, Mark, Unmark, Delete, Todo, Deadline, Event, Bye, Invalid;
 
     private static List<Task> listOfTasks = new ArrayList<>();
     private static String splitLine = "____________________________________________________________";
@@ -25,7 +25,7 @@ public enum Command {
                 case Mark:{
                     int taskIndex = getTaskIndex(detail);
                     if (taskIndex >= listOfTasks.size() || taskIndex < 0 || detail.equals("")){
-                        throw new ToothlessException("Trying to mark nothing ^O^");
+                        throw new ToothlessException("Human trying to mark nothing ^O^. Foolish");
                     }
                     Task t = listOfTasks.get(taskIndex);
                     t.markAsDone();
@@ -36,12 +36,24 @@ public enum Command {
                 case Unmark:{
                     int taskIndex = getTaskIndex(detail);
                     if (taskIndex >= listOfTasks.size() || taskIndex < 0 || detail.equals("")){
-                        throw new ToothlessException("Trying to unmark nothing ^O^");
+                        throw new ToothlessException("Human trying to unmark nothing ^O^. Silly");
                     }
                     Task t = listOfTasks.get(taskIndex);
                     t.markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                     printTaskState(t, taskIndex);
+                    break;
+                }
+                case Delete:{
+                    int taskIndex = getTaskIndex(detail);
+                    if (taskIndex >= listOfTasks.size() || taskIndex < 0 || detail.equals("")){
+                        throw new ToothlessException("Human trying to delete nothing ^O^. Absurd");
+                    }
+                    Task t = listOfTasks.get(taskIndex);
+                    listOfTasks.remove(taskIndex);
+                    System.out.println("Noted. I've removed this task:");
+                    printTaskState(t, taskIndex);
+                    System.out.format("Now you have %d tasks in the list.\n", listOfTasks.size());
                     break;
                 }
                 case Todo:
