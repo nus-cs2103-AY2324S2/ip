@@ -71,7 +71,6 @@ class Todo extends Task {
 }
 
 
-
 public class Duke {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -86,13 +85,32 @@ public class Duke {
         pw.println(prompt);
 
         while (true) {
-            String io = br.readLine();
+            String io = br.readLine().trim();
             String[] words = io.split("\\s+", 2); 
             String detail = words.length > 1 ? words[1] : ""; 
 
             pw.println("____________________________________________________________\n");
+            
 
-            if (words[0].equals("bye")) {
+            if (words[0].equals("todo") && detail.equals("")){
+              pw.println("Todo cannot have empty description.");
+              pw.println("____________________________________________________________\n");
+
+            }
+
+            else if (words[0].equals("deadline") && detail.equals("")){
+              pw.println("Deadline cannot have empty description.");
+              pw.println("____________________________________________________________\n");
+
+            }
+
+            else if (words[0].equals("event") && detail.equals("")){
+              pw.println("Event cannot have empty description.");
+              pw.println("____________________________________________________________\n");
+
+            }
+
+            else if (words[0].equals("bye")) {
                 pw.println("Bye. Hope to see you again soon!");
                 pw.println("____________________________________________________________\n");
                 break;
@@ -139,7 +157,9 @@ public class Duke {
                 pointer++;
                 pw.println("Now you have " + pointer + " tasks in the list.");
                 pw.println("____________________________________________________________\n");
-            } else {
+            } 
+            
+            else if (words[0].equals("event")) {
                 pw.println("Got it. I've added this task:");
                 String[] firstSplit = detail.split("\\s*/from\\s*", 2);
                 String[] secondSplit = firstSplit[1].split("\\s*/to\\s*", 2);
@@ -148,6 +168,9 @@ public class Duke {
                 myList[pointer] = t;
                 pointer++;
                 pw.println("Now you have " + pointer + " tasks in the list.");
+                pw.println("____________________________________________________________\n");
+            } else {
+                pw.println("Sorry, invalid input.");
                 pw.println("____________________________________________________________\n");
             }
         }
