@@ -98,6 +98,15 @@ public class Mona {
                         + "     " + currTask + "\n"
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
+            } else if (input.startsWith("delete")) {
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                Task removedTask = tasks.remove(taskIndex);
+                String response = "  ____________________________________________________________\n"
+                        + "     Noted. I've removed this task: \n"
+                        + "     " + removedTask + "\n"
+                        + "     Now you have " + tasks.size() + " tasks in the list.\n"
+                        + "  ____________________________________________________________\n";
+                System.out.println(response);
             } else {
                 String response = "  ____________________________________________________________\n"
                         + "     OOPS!!! I'm sorry, but I don't know what that means :< \n"
