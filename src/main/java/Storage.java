@@ -18,33 +18,45 @@ public class Storage {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int numT = 0;
 
-    public static void addTask(String taskType) {
+    public static void addTask() {
+        Task t = new Task();
         try{
-            switch (taskType) {
+            switch (words[0]) {
                 case "todo":
                     Parser.parseToDo(input);
-                    tasks.add(new ToDo(Storage.desc));
+                    t = new ToDo(desc);
+                    tasks.add(t);
                     break;
 
                 case "deadline":
                     Parser.parseDeadline(input);
-                    tasks.add(new Deadline(Storage.desc, Storage.by));
+                    t = new Deadline(desc, by);
+                    tasks.add(t);
                     break;
 
                 case "event":
                     Parser.parseEvent(input);
-                    tasks.add(new Event(Storage.desc, Storage.start, Storage.end));
+                    t = new Event(desc, start, end);
+                    tasks.add(t);
                     break;
             }
             numT++;
-            System.out.println("  I added this task: " + Storage.desc);
-            Storage.report();
+            System.out.println("  I added this task: " + t);
+            report();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static void markTask(String[] words) {
+    public static void deleteTask() {
+        int deleteIndex = Parser.parseDeleteTask(words);
+        Task deletedTask = tasks.remove(deleteIndex);
+        numT--;
+        System.out.println("  I removed this task: " + deletedTask);
+        report();
+    }
+
+    public static void markTask() {
         try {
             int taskIndex = Parser.parseMarkTask(words);
             tasks.get(taskIndex).setDone(words[0]);
@@ -52,22 +64,22 @@ public class Storage {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Task not found. Please choose a task from the list:");
-            Storage.printTasks();
+            printTasks();
         }
     }
 
     public static void printTasks() {
-        if (Storage.numT == 0) {
+        if (numT == 0) {
             System.out.println("  No tasks in list yet!");
             return;
         }
-        for (int i = 0; i < Storage.numT; i++) {
+        for (int i = 0; i < numT; i++) {
             System.out.format("  %d. %s%n", i+1, tasks.get(i).toString());
         }
     }
 
     public static void report() {
-        String out = String.format("  You have %s tasks in the list now.", Storage.numT);
+        String out = String.format("  You have %s tasks in the list now.", numT);
         System.out.println(out);
     }
 

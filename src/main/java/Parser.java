@@ -28,22 +28,6 @@ public class Parser {
         }
     }
 
-    public static int parseMarkTask(String[] words) throws UkeCatException{
-        try {
-            if (words.length == 2) {
-                if (words[0].equals("mark") || words[0].equals("unmark")) {
-                    int taskNum = Integer.parseInt(words[1]) - 1;
-                    return taskNum;
-                }
-            } else {
-                throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
-            }
-        } catch (NumberFormatException e) {
-            throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
-        }
-        return -1;
-    }
-
     public static void parseDeadline(String input) throws UkeCatException {
         // Regex pattern: deadline + spaces + chars + spaces + /by + spaces + chars
         Pattern pattern = Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(.+)");
@@ -69,6 +53,25 @@ public class Parser {
             Storage.end = matcher.group(3);
         } else {
             throw new UkeCatException("Wrong format, use: event <desc> /from <start> /to <end>");
+        }
+    }
+
+    public static int parseDeleteTask(String[] words) {
+        if (words.length == 2) {
+            return Integer.parseInt(words[1]) - 1;
+        }
+        return -1;
+    }
+
+    public static int parseMarkTask(String[] words) throws UkeCatException{
+        try {
+            if (words.length == 2) {
+                return Integer.parseInt(words[1]) - 1;
+            } else {
+                throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
+            }
+        } catch (NumberFormatException e) {
+            throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
         }
     }
 

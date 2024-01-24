@@ -15,12 +15,15 @@ public class Responder {
                 break;
             case "mark":
             case "unmark":
-                Storage.markTask(words);
+                Storage.markTask();
+                break;
+            case "delete":
+                Storage.deleteTask();
                 break;
             case "todo":
             case "deadline":
             case "event":
-                Storage.addTask(words[0]);
+                Storage.addTask();
                 break;
             default:
                 System.out.println("  I don't understand! Try adding a task!");
