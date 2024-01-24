@@ -23,6 +23,7 @@ public class Duchess {
         if (taskCount == 0) {
             System.out.println(" No tasks added yet.");
         } else {
+            System.out.println(" Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
                 System.out.println(" " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
             }
@@ -42,6 +43,39 @@ public class Duchess {
         }
     }
 
+    // Mark a task as done
+    private static void markTaskAsDone(int taskIndex) {
+        if (isValidTaskIndex(taskIndex)) {
+            tasks[taskIndex].markAsDone();
+            printHorizontalLine();
+            System.out.println(" Nice! I've marked this task as done:");
+            System.out.println(" [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description);
+            printHorizontalLine();
+        } else {
+            System.out.println("Invalid task index.");
+        }
+    }
+
+    // Unmark a task as done
+    private static void unmarkTaskAsDone(int taskIndex) {
+        if (isValidTaskIndex(taskIndex)) {
+            tasks[taskIndex].unmarkAsDone();
+            printHorizontalLine();
+            System.out.println(" OK, I've marked this task as not done yet:");
+            System.out.println(" [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description);
+            printHorizontalLine();
+        } else {
+            System.out.println("Invalid task index.");
+        }
+    }
+
+    // Check if the task index is valid
+    private static boolean isValidTaskIndex(int taskIndex) {
+        return taskIndex >= 0 && taskIndex < taskCount;
+    }
+
+
+
     //Adds user input to list, exits if user inputs "bye"
     private static void printEcho() {
         Scanner scanner = new Scanner(System.in);
@@ -50,8 +84,11 @@ public class Duchess {
         while (true) {
             String userInput = scanner.nextLine();
 
+            // Split user input into tokens
+            String[] tokens = userInput.split(" ");
+
             // Based on user input, change output
-            switch (userInput.toLowerCase()) {
+            switch (tokens[0].toLowerCase()) {
                 case "bye":
                     printClosingGreeting();
                     scanner.close();
@@ -61,13 +98,30 @@ public class Duchess {
                     printTaskList();
                     break;
 
+                case "mark":
+                    if (tokens.length > 1) {
+                        int taskIndexToMark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
+                        markTaskAsDone(taskIndexToMark);
+                    } else {
+                        System.out.println("Invalid command. Usage: mark <taskIndex>");
+                    }
+                    break;
+
+                case "unmark":
+                    if (tokens.length > 1) {
+                        int taskIndexToUnmark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
+                        unmarkTaskAsDone(taskIndexToUnmark);
+                    } else {
+                        System.out.println("Invalid command. Usage: unmark <taskIndex>");
+                    }
+                    break;
+
                 default:
                     Task newTask = new Task(userInput);
                     addTask(newTask);
                     break;
             }
         }
-
     }
 
     //Print opening greeting
