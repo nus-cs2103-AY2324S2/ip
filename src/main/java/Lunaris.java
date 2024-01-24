@@ -11,10 +11,10 @@ public class Lunaris {
         // Print out greeting message
         System.out.println(indentedLine);
         System.out.println(indentation + "Hey! I'm " + name + "\n"
-            + "Is there anything I can do for you?");
+            + indentation + "Is there anything I can do for you?");
         System.out.println(indentedLine);
 
-        ArrayList<String> inputList = new ArrayList<>();
+        ArrayList<Task> inputList = new ArrayList<>();
 
         /*
         Main body of addList task.
@@ -24,6 +24,10 @@ public class Lunaris {
         while (true) {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
+            int taskId = 0;
+            if (input.contains("mark") || input.contains("unmark")) {
+                taskId = Integer.parseInt(input.split(" ")[1]) - 1; // subtract 1 for array index.
+            }
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println(indentedLine);
                 System.out.println(indentation +
@@ -31,14 +35,36 @@ public class Lunaris {
                 System.out.println(indentedLine);
                 break;
             }
-            else if (input.equalsIgnoreCase("list")) {
+            // Display the current list of tasks
+            if (input.equalsIgnoreCase("list")) {
                 System.out.println(indentedLine);
+                System.out.println(indentation + "Here are the tasks in your list:");
                 for (int i = 0; i < inputList.size(); i++){
-                    System.out.println((i + 1) + ". " + inputList.get(i));
+                    Task currTask = inputList.get(i);
+                    System.out.println(indentation + (i + 1) + currTask.toString());
                 }
+                System.out.println(indentedLine);
             }
-            else {
-                inputList.add(input);
+            // For Marking selected task
+            if (input.startsWith("mark")) {
+                inputList.get(taskId).markDone();
+                System.out.println(indentedLine);
+                System.out.println(indentation + "Nice! I've marked this task as done:");
+                System.out.println(inputList.get(taskId).toString());
+                System.out.println(indentedLine);
+            }
+            // For Unmarking selected task
+            if (input.startsWith("unmark")) {
+                inputList.get(taskId).markNotDone();
+                System.out.println(indentedLine);
+                System.out.println(indentation + "Ok, I've marked this task as not done yet:");
+                System.out.println(inputList.get(taskId).toString());
+                System.out.println(indentedLine);
+            }
+            if (!input.contains("mark") && !input.contains("unmark") &&
+                    !input.contains("bye") && !input.contains("list")) {
+                Task newTask = new Task(input);
+                inputList.add(newTask);
                 System.out.println(indentedLine);
                 System.out.println(indentation + "added: " + input);
                 System.out.println(indentedLine);
