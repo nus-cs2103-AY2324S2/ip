@@ -1,28 +1,26 @@
 Hello, I'm Ypxmm.
 Need me do what for you?
+Eh u seh isit? Now your list got no tasks to mark.
+Eh u seh isit? Now your list got no tasks to unmark.
 Ok I help you add this one liao:
-[T][ ] read
+[T][ ] eat
 Now your list got 1 task.
+You trying to test my patience ah? Check that u got key in the deadline lehhh
+Type "get commands" if u blur and dunno how to use me properly.
 Ok I help you add this one liao:
-[D][ ] homework  (by: tomorrow 5pm)
+[D][ ] homework  (by: 5pm)
 Now your list got 2 tasks.
+Help la, can just tell me what is the name of your task anot?
 Ok I help you add this one liao:
-[E][ ] dinner with claire  (from: friday 7pm  to: 9pm)
+[E][ ] dinner  (from: 5pm  to: 6pm)
 Now your list got 3 tasks.
 Ok wait ah, here are your tasks:
-1. [T][ ] read
-2. [D][ ] homework  (by: tomorrow 5pm)
-3. [E][ ] dinner with claire  (from: friday 7pm  to: 9pm)
+1. [T][ ] eat
+2. [D][ ] homework  (by: 5pm)
+3. [E][ ] dinner  (from: 5pm  to: 6pm)
+Eh u seh isit? Now your list got 3 tasks, enter any number from 1 to 3
 Upz la, mark for you already!
-[D][X] homework  (by: tomorrow 5pm)
-Upz la, mark for you already!
-[T][X] read
+[D][X] homework  (by: 5pm)
 Eh wake up your idea, faster finish can or not?? Unmark for you already la!
-[D][ ] homework  (by: tomorrow 5pm)
-todo [task] - adds todo
-deadline [task]/[by when] - adds deadline
-event [task]/[from]/[to] - adds event
-list - lists out all tasks
-mark x - marks task x as done
-unmark x - unmarks task x as undonebye - exit
+[D][ ] homework  (by: 5pm)
 Oh you need zao alr? Okok see you next time!

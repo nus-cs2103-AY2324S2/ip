@@ -1,9 +1,12 @@
-todo read
-deadline homework /tomorrow 5pm
-event dinner with claire /friday 7pm /9pm
-list
-mark 2
 mark 1
+unmark 1
+todo eat
+deadline
+deadline homework /5pm
+event dinner / /
+event dinner /5pm /6pm
+list
+mark 4
+mark 2
 unmark 2
-get commands
 bye
