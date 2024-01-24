@@ -50,14 +50,14 @@ public class Pyrite {
                     list[id].setDone(true);
                     System.out.println("\t"
                             + "Nice! I've marked this task as done:\n"
-                            + "\t"
+                            + "\t\t"
                             + list[id].toString());
                 } else if (parameters[0].equals("unmark")) {
                     int id = Integer.parseInt(parameters[1]) - 1;
                     list[id].setDone(false);
                     System.out.println("\t"
                             + "OK, I've marked this task as not done yet:\n"
-                            + "\t"
+                            + "\t\t"
                             + list[id].toString());
                 // 3 types of tasks
                 //  Solution below inspired by
