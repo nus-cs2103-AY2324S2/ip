@@ -5,9 +5,8 @@ import java.util.Scanner;
 public class Toothless {
     private static String splitLine = "____________________________________________________________";
     private static String chatBotName = "Toothless";
-    private static String greetingString = "Hello! I'm " + chatBotName + "!\n"
-                            + "What can I do for you?\n" + splitLine;
-    private static String exitString = "Bye. Hope to see you again soon!\n" + splitLine;
+    private static String greetingString = "Hi! "+ chatBotName +" is " + chatBotName + "!\n"
+                            + "What can " + chatBotName + " do for human?\n" + splitLine;
 
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -22,7 +21,12 @@ public class Toothless {
             System.out.println(splitLine);
 
             int detailIndex = input.indexOf(" ");
-            String detail = input.substring(detailIndex + 1);
+            String detail;
+            if (detailIndex == -1){
+                detail = "";
+            } else {
+                detail = input.substring(detailIndex + 1);
+            }
 
             if(input.startsWith("unmark")){
                 command = Command.UnMark;
@@ -49,7 +53,6 @@ public class Toothless {
             }
 
             isDone = Command.handleCommand(command, detail);
-
         }
     }
 }
