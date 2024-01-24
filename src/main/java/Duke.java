@@ -66,7 +66,7 @@ public class Duke {
                 String des = input + sc.nextLine();
                 System.out.println(indent + "added: " + des);
                 System.out.println(indent + "------------------------------------------------");
-                list.add(new Task(des));;
+                list.add(new Task(des));
             }
         }
 
