@@ -21,9 +21,9 @@ public class Drake {
             }
             else if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
-                System.out.println("Here are the tasks in your list:");
+                System.out.println("You asked for the tasks in your list? Here:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i).getStatusIcon() + tasks.get(i).description);
+                    System.out.println((i + 1) + ". " + tasks.get(i));
                 }
                 System.out.println("____________________________________________________________");
             }
@@ -32,8 +32,8 @@ public class Drake {
                 markedTask.isDone = true;
 
                 System.out.println("____________________________________________________________");
-                System.out.println("Cool. I've marked this task as done:");
-                System.out.println(markedTask.getStatusIcon() + markedTask.description);
+                System.out.println("Cool. I now declare this task marked as, done:");
+                System.out.println(markedTask);
                 System.out.println("____________________________________________________________");
             }
 
@@ -43,7 +43,56 @@ public class Drake {
 
                 System.out.println("____________________________________________________________");
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(markedTask.getStatusIcon() + markedTask.description);
+                System.out.println(markedTask);
+                System.out.println("____________________________________________________________");
+            }
+
+            else if (input.split(" ")[0].equals("todo")) {
+                String todo = input.substring(5);
+                Todo newTodo = new Todo(todo);
+                tasks.add(newTodo);
+                
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newTodo);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");                
+                System.out.println("____________________________________________________________");
+            }
+
+            else if (input.split(" ")[0].equals("deadline")) {
+                String[] parts = input.substring(9).split("/");
+                Deadline newDeadline = new Deadline(parts[0], parts[1].substring(3));
+                tasks.add(newDeadline);
+                
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newDeadline);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");                
+                System.out.println("____________________________________________________________");
+            }
+
+            else if (input.split(" ")[0].equals("event")) {
+                String[] parts = input.substring(6).split("/");
+                String title = parts[0];
+                String from = "";
+                String to = "";
+            
+                for (int i = 1; i < parts.length; i++) {
+                    if (parts[i].split(" ")[0].equals("from")) {
+                        from = parts[i].substring(5);
+                    }
+                    if (parts[i].split(" ")[0].equals("to")) {
+                        to = parts[i].substring(3);
+                    }
+                }
+                
+                Event newEvent = new Event(title, from, to);
+                tasks.add(newEvent);
+                
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newEvent);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");                
                 System.out.println("____________________________________________________________");
             }
 

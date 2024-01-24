@@ -10,5 +10,9 @@ public class Task { // adapted skeleton from cs2103t course website
     public String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] "); // mark done task with X
     }
-    
+
+    @Override
+    public String toString() {
+        return getStatusIcon() + description;
+    }
 }
