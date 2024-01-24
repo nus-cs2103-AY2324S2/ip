@@ -20,9 +20,18 @@ public class ChatBotTest {
             } else if (commands.equals("blah")) {
                 System.out.println("haha, that's humorous");
             }
-            else if (commands.equals("list")) {
+              else if (commands.equals("list")) {
                 p.listTasks();
-            } else if (commands.indexOf("mark") == 0) {
+            } else if (commands.indexOf("delete") == 0) {
+                String[] delCommand = commands.split(" ");
+                try {
+                    int i = Integer.parseInt(delCommand[1]) - 1;
+                    p.delete(i);
+                } catch (Exception e) {
+                    System.out.println("Incorrect number or command");
+                }
+            }
+              else if (commands.indexOf("mark") == 0) {
                 String[] markCommand = commands.split(" ");
                 try {
                     int i = Integer.parseInt(markCommand[1]) - 1;

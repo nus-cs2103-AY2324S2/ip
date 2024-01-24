@@ -67,4 +67,12 @@ public class Ping {
         int numOfWork = tasks.size();
         System.out.printf("Now you have %d tasks in the list." + "%n", numOfWork);
     }
+
+    public void delete(int i) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(tasks.get(i).toString());
+        tasks.remove(i);
+        int numOfWork = tasks.size();
+        System.out.printf("Now you have %d tasks in the list." + "%n", numOfWork);
+    }
 }
