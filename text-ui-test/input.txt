@@ -11,4 +11,24 @@ unmark 3
 unmark 2
 unmark 1
 list
+nonexistentcommand
+todo
+deadline
+deadline /by
+deadline return book /by
+deadline /by 4pm
+event
+event /from
+event /to
+event /from /to
+event project meeting /from /to
+event project meeting /from Mon 2pm /to
+event project meeting /from /to 4pm
+event /from Mon 2pm /to 4pm
+mark
+mark 999
+mark test
+unmark
+unmark 999
+unmark test
 bye
