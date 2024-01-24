@@ -20,12 +20,11 @@ public class Solaire {
             }
             processInput(input);
         }
-        scn.close();
         waveBye();
     }
 
     private void lineBreak() {
-        System.out.println("--------------------------------------------------\n");
+        System.out.print("--------------------------------------------------\n");
     }
     
     private void greet() {
@@ -33,14 +32,15 @@ public class Solaire {
         + "The sun is a wondrous body. Like a magnificent father!\n"
         + "If only I could be so grossly incandescent!\n";
 
-        System.out.println(greetingMessage);
+        System.out.print(greetingMessage);
         lineBreak();
     }
 
     private void waveBye() {
-        String farewellMessage = "Farewell!";
-        System.out.println(farewellMessage);
+        String farewellMessage = "Farewell!\n";
+        System.out.print(farewellMessage);
         lineBreak();
+        scn.close();
     }
 
     private String acceptInput() {
@@ -112,7 +112,7 @@ public class Solaire {
 
             return new Event(taskName, from, to);
         } else {
-            System.out.println("Incorrect format. Task not added");
+            System.out.print("Incorrect format. Task not added\n");
             return null;
         }
 
@@ -120,7 +120,7 @@ public class Solaire {
     }
 
     private void showList() {
-        System.out.println("Your list is as follows:\n " + "-------------------");
+        System.out.print("Your list is as follows:\n " + "-------------------\n");
         for (Task item : toDoList) {
             System.out.println(toDoList.indexOf(item)+1 + ". " + item.toString());
         }
@@ -131,24 +131,24 @@ public class Solaire {
         for (Task item : toDoList) {
             if (item.getId() == id) {
                 item.markAsDone();
-                System.out.println("Marked item number: " + item.getId());
+                System.out.print("Marked item number: " + item.getId() + "\n");
                 return;
             }
         }
 
-        System.out.println("Couldn't find task associated with given id");
+        System.out.print("Couldn't find task associated with given id\n");
     }
 
     private void unmarkDone(int id) {
         for (Task item : toDoList) {
             if (item.getId() == id) {
                 item.unmarkDone();
-                System.out.println("Unmarked  item number: " + item.getId());
+                System.out.print("Unmarked  item number: " + item.getId() + "\n");
                 return;
             }
         }
 
-        System.out.println("Couldn't find task associated with given id");
+        System.out.print("Couldn't find task associated with given id\n");
     }
 
 
