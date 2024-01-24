@@ -1,5 +1,7 @@
 package model;
 
+import utils.RemiError;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -28,6 +30,13 @@ public class TaskList {
 
     public Task getTask(int idx) {
         return taskList.get(idx - 1);
+    }
+
+    public void removeTask(int idx) throws RemiError{
+        if (idx < 0 || taskList.size() <= idx) {
+            throw new RemiError("Task is out of bounds and couldn't be removed.")
+        }
+        taskList.remove(idx - 1);
     }
 
     public int size() {
