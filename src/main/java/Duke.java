@@ -21,7 +21,8 @@ public class Duke {
     /**
      * Initiates the chat by invoking the sayHi() method.
      * Handles user input to display the list for "list" input, exit the chat for "bye" input,
-     * marks or unmarks tasks as done or append to the list for any other input.
+     * marks or unmarks tasks as done or append to the list for any other input,
+     * separates responses based on the type of task.
      */
     private void startChat() {
         sayHi();
@@ -106,9 +107,9 @@ public class Duke {
     }
 
     /**
-     * Appends the given to do type input to the list at the first available slot.
+     * Appends the given to-do type input to the list at the first available slot.
      *
-     * @param input The input to be added to the list.
+     * @param input The to-do type input to be added to the list.
      */
     private void appendToDo(String input) {
         Todo todo = new Todo(input);
@@ -124,7 +125,7 @@ public class Duke {
     /**
      * Appends the given deadline type input to the list at the first available slot.
      *
-     * @param description The description to be added to the list.
+     * @param description The description of the task to be added to the list.
      * @param by The deadline to be added to the list.
      */
     private void appendDeadline(String description, String by) {
@@ -142,7 +143,8 @@ public class Duke {
      * Appends the given event type input to the list at the first available slot.
      *
      * @param description The description to be added to the list.
-     * @param timing The timing to be added to the list.
+     * @param startTime The start timing to be added to the list.
+     * @param endTime The end timing to be added to the list.
      */
     private void appendEvent(String description, String startTime, String endTime) {
         Event event = new Event(description, startTime, endTime);
@@ -154,7 +156,11 @@ public class Duke {
             }
         }
     }
-
+    /**
+     * Counts number of non-null tasks in the array, which are tasks given by the user
+     * @param array the array of tasks
+     * @return the number of non-null tasks in the given array.
+     */
     private int countNonNullElements(Task[] array) {
         int count = 0;
         for (Task element : array) {
@@ -164,7 +170,10 @@ public class Duke {
         }
         return count;
     }
-
+    /**
+     * Prints out the response, specific to the type of task, after adding the task to the list
+     * @param task the task that is added to the list.
+     */
     private void taskResponse(Task task) {
         int numTasks = countNonNullElements(list);
         System.out.println();

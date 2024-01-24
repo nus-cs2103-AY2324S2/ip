@@ -47,3 +47,4 @@ public class Task {
         return String.format("[%s] %s", getStatusIcon(), description);
     }
 }
+
