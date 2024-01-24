@@ -3,7 +3,7 @@ Greetings from
 ▀█▀ ▄▀█ █▀ █▄▀ █▄█ ▄▀█ █▀█ █▀█ █▀▀ █▀█
 ░█░ █▀█ ▄█ █░█ ░█░ █▀█ █▀▀ █▀▀ ██▄ █▀▄
 
-Specify the task type, YAPPER!!
+What's YAPpening??!! Please yap your instruction more clearly
 Added task:
 [D][ ] CS2103T work (by: Wednesday 11am)
 Added task:
