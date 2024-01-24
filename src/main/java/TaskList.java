@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
     public List<Task> internalList;
 
     TaskList() {
-        this.internalList = List.of();
+        this.internalList = new ArrayList<>();
     }
 
     TaskList(List<Task> list) {
@@ -13,9 +14,14 @@ public class TaskList {
 
     public String generateName() {
         String s = "";
-        for (Task t : internalList) {
-            s += t.getName() + System.lineSeparator();
+        for (int i = 0; i < internalList.size(); i++) {
+            Task t = internalList.get(i);
+            s += String.format("%d. %s", i + 1, t.getName()) + System.lineSeparator();
         }
         return s;
+    }
+
+    public void add(Task t) {
+        this.internalList.add(t);
     }
 }

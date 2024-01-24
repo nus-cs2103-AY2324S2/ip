@@ -1,4 +1,4 @@
-public class Bye implements Command {
+public class Bye implements NamedCommand {
     public static String NAME = "bye";
 
     public String getName() {

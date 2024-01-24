@@ -2,7 +2,7 @@ import java.util.List;
 
 public class ChatSession {
     public TaskList taskList;
-    public List<Command> commandList;
+    public List<NamedCommand> commandList;
     public boolean continueSession;
 
     ChatSession() {
@@ -21,7 +21,7 @@ public class ChatSession {
     }
 
     public void initCommands() {
-        this.commandList = List.of(new Bye());
+        this.commandList = List.of(new Bye(), new ListTasks());
     }
 
     public void printMessage(String message) {
@@ -49,7 +49,7 @@ public class ChatSession {
             commandArgs = "";
         }
 
-        for (Command cmd : commandList) {
+        for (NamedCommand cmd : commandList) {
             if (command.equals(cmd.getName())) {
                 cmd.execute(this, commandArgs);
                 return;
@@ -60,10 +60,15 @@ public class ChatSession {
     }
 
     public void unmatchedCommand(String message) {
-        this.echo(message);
+        this.addTask(message);
     }
 
     public void echo(String message) {
         this.printMessage(message);
+    }
+
+    public void addTask(String s) {
+        AddTask adder = new AddTask();
+        adder.execute(this, s);
     }
 }
