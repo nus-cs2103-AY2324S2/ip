@@ -4,7 +4,7 @@ public class Ken {
     private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws KenException {
         //greet
         System.out.println("Hi Barbie!");
         System.out.println("I'm Ken!");
@@ -31,11 +31,14 @@ public class Ken {
                 addDeadlineTask(command.substring(9));
             } else if (command.startsWith("event ")) {
                 addEventTask(command.substring(6));
-            }
-//            else if (!command.equalsIgnoreCase("bye")) {
-//                addTask(command);
-//            }
-            else {
+            } else if (command.startsWith("todo")) {
+                System.out.println("do what?\n");
+            } else if (command.startsWith("deadline")) {
+                System.out.println("oh no! which line died?\n");
+            } else if (command.startsWith("event")) {
+                System.out.println("where you going?\n");
+            } else {
+                System.out.println("don't know what that is\n");
             }
 
         } while (!command.equalsIgnoreCase("bye"));
@@ -101,12 +104,15 @@ public class Ken {
         }
     }
 
-    private static void addTodoTask(String description) {
+    private static void addTodoTask(String description) throws KenException {
+        if (description.isEmpty()) {
+            throw new KenException("do what?");
+        }
         Todo todo = new Todo(description);
         addTask(todo);
     }
 
-    private static void addDeadlineTask(String description) {
+    private static void addDeadlineTask(String description) throws KenException {
         try {
             int indexOfBy = description.indexOf("/by");
             if (indexOfBy != -1) {
@@ -116,13 +122,14 @@ public class Ken {
                 addTask(deadline);
             } else {
                 System.out.println("That's not how you declare a deadline. p.s. use /by.");
+                throw new KenException("Invalid deadline command. By when?.");
             }
         } catch (Exception e) {
-            System.out.println("Invalid deadline command. Please provide a valid deadline description and /by.");
+            throw new KenException("Invalid deadline command. By when?.");
         }
     }
 
-    private static void addEventTask(String description) {
+    private static void addEventTask(String description) throws KenException {
         try {
             int indexOfFrom = description.indexOf("/from");
             int indexOfTo = description.indexOf("/to");
@@ -135,9 +142,10 @@ public class Ken {
                 addTask(event);
             } else {
                 System.out.println("That's not how you declare an event. p.s. use /from, and /to.");
+                throw new KenException("Invalid event command. From when to when?");
             }
         } catch (Exception e) {
-            System.out.println("Invalid event command. Please provide a valid event description, /from, and /to.");
+            throw new KenException("Invalid event command. From when to when?");
         }
     }
 }
