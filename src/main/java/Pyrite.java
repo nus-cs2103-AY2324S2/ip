@@ -33,14 +33,14 @@ public class Pyrite {
                 // Commands with parameters
                 String parameters[] = input.split(" ");
                 if (parameters[0].equals("mark")) {
-                    int id = Integer.parseInt(parameters[1]);
+                    int id = Integer.parseInt(parameters[1]) - 1;
                     list[id].setDone(true);
                     System.out.println("\t"
                             + "Nice! I've marked this task as done:\n"
                             + "\t"
                             + list[id].getFullStatusString());
                 } else if (parameters[0].equals("unmark")) {
-                    int id = Integer.parseInt(parameters[1]);
+                    int id = Integer.parseInt(parameters[1]) - 1;
                     list[id].setDone(false);
                     System.out.println("\t"
                             + "OK, I've marked this task as not done yet:\n"
