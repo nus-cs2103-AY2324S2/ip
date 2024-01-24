@@ -10,32 +10,35 @@ public class Duchess {
 
     public static void main(String[] args) {
         printHorizontalLine();
-
         printOpeningGreeting();
-
-        printHorizontalLine();
-        printEcho();
-
         printHorizontalLine();
 
-        //Close scanner
-        scanner.close();
+        try {
+            printEcho();
+        } catch (DuchessException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            //Close scanner
+            scanner.close();
+        }
+
+        printHorizontalLine();
     }
 
     //Add a ToDo to the task list
-    private static void addToDo(String userInput) {
+    private static void addToDo(String userInput) throws DuchessException {
         String[] toDoTokens = userInput.split("todo"); //Split to find description
         if (toDoTokens.length > 1) {
             String description = toDoTokens[1].trim(); //Trim to only keep description
             ToDo newToDo = new ToDo(description);
             addTask(newToDo);
         } else {
-            System.out.println("Oh dear! That is an invalid command. Try: todo <description>");
+            throw new DuchessException("Oh dear! That is an invalid command. Try: todo <description>");
         }
     }
 
     //Add a Deadline to the taskList
-    private static void addDeadline(String userInput) {
+    private static void addDeadline(String userInput) throws DuchessException {
         String[] deadlineTokens = userInput.split("deadline");
 
         if (deadlineTokens.length > 1) {
@@ -48,15 +51,15 @@ public class Duchess {
                 Deadline newDeadline = new Deadline(description, by);
                 addTask(newDeadline);
             } else {
-                System.out.println("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
+                throw new DuchessException("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
             }
         } else {
-            System.out.println("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
+            throw new DuchessException("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
         }
     }
 
     //Add an Event to the task list
-    private static void addEvent(String userInput) {
+    private static void addEvent(String userInput) throws DuchessException {
         String[] eventTokens = userInput.split("event");
 
         if (eventTokens.length > 1) {
@@ -71,10 +74,10 @@ public class Duchess {
                 Event newEvent = new Event(description, from, to);
                 addTask(newEvent);
             } else {
-                System.out.println("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
+                throw new DuchessException("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
             }
         } else {
-            System.out.println("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
+            throw new DuchessException("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
         }
     }
 
@@ -92,7 +95,7 @@ public class Duchess {
     }
 
     //Add a task to task list
-    private static void addTask(Task task) {
+    private static void addTask(Task task) throws DuchessException {
         if (taskCount < MAX_TASKS) {
             tasks[taskCount++] = task;
             printHorizontalLine();
@@ -101,12 +104,12 @@ public class Duchess {
             System.out.println("Now you have " + taskCount + " tasks in the list.");
             printHorizontalLine();
         } else {
-            System.out.println("The task list is full. I cannot add more tasks.");
+            throw new DuchessException("The task list is full. I cannot add more tasks.");
         }
     }
 
     // Mark a task as done
-    private static void markTaskAsDone(int taskIndex) {
+    private static void markTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             tasks[taskIndex].markAsDone();
             printHorizontalLine();
@@ -114,12 +117,12 @@ public class Duchess {
             System.out.println(tasks[taskIndex].toString());
             printHorizontalLine();
         } else {
-            System.out.println("Invalid task index.");
+            throw new DuchessException("Invalid task index.");
         }
     }
 
     // Unmark a task as done
-    private static void unmarkTaskAsDone(int taskIndex) {
+    private static void unmarkTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             tasks[taskIndex].unmarkAsDone();
             printHorizontalLine();
@@ -127,7 +130,7 @@ public class Duchess {
             System.out.println(tasks[taskIndex].toString());
             printHorizontalLine();
         } else {
-            System.out.println("Invalid task index.");
+            throw new DuchessException("Invalid task index.");
         }
     }
 
@@ -139,7 +142,7 @@ public class Duchess {
 
 
     //Adds user input to list, exits if user inputs "bye"
-    private static void printEcho() {
+    private static void printEcho() throws DuchessException {
         // Loop to read user input
         while (true) {
             String userInput = scanner.nextLine();
