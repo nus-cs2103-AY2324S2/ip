@@ -100,7 +100,7 @@ public class Duke {
                 // We further do another Regex search
 
                 try {
-                    // In this format: todo borrow book
+                    // In this format: todo borrow book.
                     Task task = toDoParser(userInput);
                     createNewTask(dataStorage, task);
 
