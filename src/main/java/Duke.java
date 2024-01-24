@@ -14,8 +14,8 @@ public class Duke {
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
              PrintWriter pw = new PrintWriter(System.out)) {
-            String userInput;
-            while ((userInput = br.readLine()) != null) {
+            while (true) {
+                String userInput = br.readLine();
                 if (userInput.equalsIgnoreCase("bye")) {
                     break;
                 }
