@@ -65,11 +65,23 @@ public class Ypxmm {
     }
 
     public static void mark(int index) {
-        tasks.get(index - 1).markTask();
+        try {
+            tasks.get(index - 1).markTask();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Eh u seh isit? Now your list got " +
+                    (tasks.size() == 0 ? "no tasks. Create a task then we talk." : tasks.size() +
+                            " tasks, enter any number from 1 to " + tasks.size()));
+        }
     }
 
     public static void unmark(int index) {
-        tasks.get(index - 1).unmarkTask();
+        try {
+            tasks.get(index - 1).unmarkTask();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Eh u seh isit? Now your list got " +
+                    (tasks.size() == 0 ? "no tasks." : tasks.size() +
+                            " tasks, enter any number from 1 to " + tasks.size()));
+        }
     }
 
     public static void addTask(String input, String type) {
