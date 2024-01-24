@@ -19,6 +19,8 @@ public class Rick {
                 unmark(Character.getNumericValue(input.charAt(7)));
             } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")){
                 add_to_list(input);
+            } else if (input.startsWith("delete") && input.length() == 8 && Character.isDigit(input.charAt(7))){
+                delete(Character.getNumericValue(input.charAt(7)));
             } else {
                 reply("I don't understand what you are saying... ㅜㅜ");
             }
@@ -115,6 +117,18 @@ public class Rick {
             item.unmark();
             String output = "OK, I've marked this task as not done yet:\n"+ item.print();
             reply(output);
+        }
+    }
+
+    public static void delete(int i) {
+        try {
+            Item a = list.remove(i - 1);
+            String output = "Noted. I've removed this task:\n" +
+                    a.print() +
+                    "\nNow you have " + list.size() + " tasks in the list.";
+            reply(output);
+        } catch (Exception e) {
+            reply("Index wrong lah!");
         }
     }
 }
