@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class DukeException extends Exception {
@@ -6,17 +7,25 @@ class DukeException extends Exception {
     }
 }
 
+enum TaskType {
+    TODO,
+    DEADLINE,
+    EVENT
+}
+
 class Task {
     protected String description;
     protected boolean isDone;
+    protected TaskType taskType;
 
-    public Task(String description) {
+    public Task(String description, TaskType taskType) {
         this.description = description;
         this.isDone = false;
+        this.taskType = taskType;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X] " : "[ ] ");
+        return "[" + taskType + "]" + (isDone ? "[X] " : "[ ] ");
     }
 
     public String getDescription() {
@@ -34,12 +43,7 @@ class Task {
 
 class Todo extends Task {
     public Todo(String description) {
-        super(description);
-    }
-
-    @Override
-    public String getStatusIcon() {
-        return "[T]" + super.getStatusIcon();
+        super(description, TaskType.TODO);
     }
 }
 
@@ -47,13 +51,8 @@ class Deadline extends Task {
     protected String by;
 
     public Deadline(String description, String by) {
-        super(description);
+        super(description, TaskType.DEADLINE);
         this.by = by;
-    }
-
-    @Override
-    public String getStatusIcon() {
-        return "[D]" + super.getStatusIcon();
     }
 
     @Override
@@ -67,14 +66,9 @@ class Event extends Task {
     protected String to;
 
     public Event(String description, String from, String to) {
-        super(description);
+        super(description, TaskType.EVENT);
         this.from = from;
         this.to = to;
-    }
-
-    @Override
-    public String getStatusIcon() {
-        return "[E]" + super.getStatusIcon();
     }
 
     @Override
@@ -84,9 +78,7 @@ class Event extends Task {
 }
 
 public class Duke {
-    private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -118,30 +110,17 @@ public class Duke {
 
     private static void processTaskInput(String userInput) throws DukeException {
         if (userInput.startsWith("todo")) {
-            if (userInput.length() == 4) {
-                addTodoTask("");
-            }
             addTodoTask(userInput.substring(5).trim());
         } else if (userInput.startsWith("deadline")) {
-            if (userInput.length() == 8) {
-                addTodoTask("");
-            }
             addDeadlineTask(userInput.substring(9).trim());
         } else if (userInput.startsWith("event")) {
-            if (userInput.length() == 4) {
-                addTodoTask("");
-            }
             addEventTask(userInput.substring(6).trim());
         } else if (userInput.startsWith("mark")) {
-            if (userInput.length() == 4) {
-                addTodoTask("");
-            }
             markTask(userInput);
         } else if (userInput.startsWith("unmark")) {
-            if (userInput.length() == 4) {
-                addTodoTask("");
-            }
             unmarkTask(userInput);
+        } else if (userInput.startsWith("delete")) {
+            deleteTask(userInput);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -152,11 +131,9 @@ public class Duke {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         }
 
-        tasks[taskCount] = new Todo(description);
-        taskCount++;
-        printTaskAddedMessage(tasks[taskCount - 1]);
+        tasks.add(new Todo(description));
+        printTaskAddedMessage(tasks.get(tasks.size() - 1));
     }
-
 
     private static void addDeadlineTask(String input) throws DukeException {
         int byIndex = input.indexOf("/by");
@@ -168,14 +145,12 @@ public class Duke {
                 throw new DukeException("OOPS!!! The description and /by cannot be empty for a deadline.");
             }
 
-            tasks[taskCount] = new Deadline(description, by);
-            taskCount++;
-            printTaskAddedMessage(tasks[taskCount - 1]);
+            tasks.add(new Deadline(description, by));
+            printTaskAddedMessage(tasks.get(tasks.size() - 1));
         } else {
             throw new DukeException("OOPS!!! Invalid deadline command format.");
         }
     }
-
 
     private static void addEventTask(String input) throws DukeException {
         int fromIndex = input.indexOf("/from");
@@ -189,9 +164,8 @@ public class Duke {
                 throw new DukeException("OOPS!!! The description, /from, and /to cannot be empty for an event.");
             }
 
-            tasks[taskCount] = new Event(description, from, to);
-            taskCount++;
-            printTaskAddedMessage(tasks[taskCount - 1]);
+            tasks.add(new Event(description, from, to));
+            printTaskAddedMessage(tasks.get(tasks.size() - 1));
         } else {
             throw new DukeException("OOPS!!! Invalid event command format.");
         }
@@ -200,10 +174,10 @@ public class Duke {
     private static void markTask(String userInput) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(userInput.substring(5).trim()) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsDone();
+            if (isValidTaskIndex(taskIndex)) {
+                tasks.get(taskIndex).markAsDone();
                 System.out.println(" Nice! I've marked this task as done:");
-                System.out.println("   " + tasks[taskIndex].getStatusIcon() + tasks[taskIndex].getDescription());
+                System.out.println("   " + tasks.get(taskIndex).getStatusIcon() + tasks.get(taskIndex).getDescription());
             } else {
                 throw new DukeException("OOPS!!! Invalid task number.");
             }
@@ -215,10 +189,26 @@ public class Duke {
     private static void unmarkTask(String userInput) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(userInput.substring(7).trim()) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsNotDone();
+            if (isValidTaskIndex(taskIndex)) {
+                tasks.get(taskIndex).markAsNotDone();
                 System.out.println(" OK, I've marked this task as not done yet:");
-                System.out.println("   " + tasks[taskIndex].getStatusIcon() + tasks[taskIndex].getDescription());
+                System.out.println("   " + tasks.get(taskIndex).getStatusIcon() + tasks.get(taskIndex).getDescription());
+            } else {
+                throw new DukeException("OOPS!!! Invalid task number.");
+            }
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! Invalid command format.");
+        }
+    }
+
+    private static void deleteTask(String userInput) throws DukeException {
+        try {
+            int taskIndex = Integer.parseInt(userInput.substring(7).trim()) - 1;
+            if (isValidTaskIndex(taskIndex)) {
+                Task removedTask = tasks.remove(taskIndex);
+                System.out.println(" Noted. I've removed this task:");
+                System.out.println("   " + removedTask.getStatusIcon() + removedTask.getDescription());
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
             } else {
                 throw new DukeException("OOPS!!! Invalid task number.");
             }
@@ -231,11 +221,11 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println(" Here are the tasks in your list:");
 
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println(" No tasks yet.");
         } else {
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(" " + (i + 1) + "." + tasks[i].getStatusIcon() + tasks[i].getDescription());
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(" " + (i + 1) + "." + tasks.get(i).getStatusIcon() + tasks.get(i).getDescription());
             }
         }
     }
@@ -243,6 +233,10 @@ public class Duke {
     private static void printTaskAddedMessage(Task task) {
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + task.getStatusIcon() + task.getDescription());
-        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static boolean isValidTaskIndex(int index) {
+        return index >= 0 && index < tasks.size();
     }
 }
