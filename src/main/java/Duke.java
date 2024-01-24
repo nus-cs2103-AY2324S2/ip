@@ -15,12 +15,12 @@ public class Duke {
             String userInput = scanner.nextLine().trim();
 
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println(" Bye. Hope to see you again soon!");
+                System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
-                System.out.println("Here are the tasks in your list:");
+                System.out.println("Here " + (taskCounter == 1 ? "is the task" : "are the tasks") + " in your list:");
                 for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i + 1) + "." + tasks[i].getStatusIcon() + " " + tasks[i].description);
+                    System.out.println((i + 1) + "." + tasks[i].getStatusIcon());
                 }
             } else if (userInput.startsWith("mark")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
@@ -32,10 +32,27 @@ public class Duke {
                 tasks[index].markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks[index].getStatusIcon() + " " + tasks[index].description);
-            } else {
-                tasks[taskCounter] = new Task(userInput);
+            } else if (userInput.startsWith("todo")) {
+                String description = userInput.substring(5);
+                tasks[taskCounter] = new ToDo(description);
                 taskCounter++;
-                System.out.println("added: " + userInput);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCounter - 1].getStatusIcon());
+                System.out.println("Now you have " + taskCounter + " task" + (taskCounter == 1 ? "" : "s") + " in the list.");
+            } else if (userInput.startsWith("deadline")) {
+                String[] description = userInput.substring(9).split(" /by ");
+                tasks[taskCounter] = new Deadline(description[0], description[1]);
+                taskCounter++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCounter - 1].getStatusIcon());
+                System.out.println("Now you have " + taskCounter + " task" + (taskCounter == 1 ? "" : "s") + " in the list.");
+            } else if (userInput.startsWith("event")) {
+                String[] description = userInput.substring(6).split(" /from | /to ");
+                tasks[taskCounter] = new Event(description[0], description[1], description[2]);
+                taskCounter++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCounter - 1].getStatusIcon());
+                System.out.println("Now you have " + taskCounter + " task" + (taskCounter == 1 ? "" : "s") + " in the list.");
             }
         }
 
