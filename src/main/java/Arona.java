@@ -23,13 +23,22 @@ public class Arona {
     }
 
     private void addTask(String task) {
-        System.out.println("added: " + task);
         tasks.addElements(task);
+        System.out.println("added: " + task);
     }
 
-    private void echoCommand(String command) {
-        System.out.println(command);
+    private void markDone(int id) {
+        tasks.markIndexAsDone(id);
+        System.out.println("Nice, I've marked this task as done!");
+        System.out.println(tasks.getTask(id));
     }
+
+    private void markUndone(int id) {
+        tasks.markIndexAsUndone(id);
+        System.out.println("Okay, I've marked this task as not done.");
+        System.out.println(tasks.getTask(id));
+    }
+
     public static void main(String[] args) {
         Arona arona = new Arona();
         Scanner scanner = new Scanner(System.in);
@@ -39,10 +48,18 @@ public class Arona {
 
         while (true) {
             command = scanner.nextLine();
-            if (command.equals("bye")) {
+            String[] commandSplit = command.split(" ");
+
+            if (commandSplit[0].equals("bye")) {
                 break;
-            } else if (command.equals("list")) {
+            } else if (commandSplit[0].equals("list")) {
                 arona.listTasks();
+            } else if (commandSplit[0].equals("mark")) {
+                int index = Integer.parseInt(commandSplit[1]) - 1;
+                arona.markDone(index);
+            } else if (commandSplit[0].equals("unmark")) {
+                int index = Integer.parseInt(commandSplit[1]) - 1;
+                arona.markUndone(index);
             } else {
                 arona.addTask(command);
             }
