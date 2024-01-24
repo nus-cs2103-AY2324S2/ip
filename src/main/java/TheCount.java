@@ -5,6 +5,9 @@ public class TheCount {
         // Creates a Scanner object to read input
         Scanner scanner = new Scanner(System.in);
 
+        // Creates a list of tasks
+        TaskList tasks = new TaskList();
+
         // Creates standard replies
         Reply greeting = new Greeting();
         Reply goodbye = new Goodbye();
@@ -16,8 +19,14 @@ public class TheCount {
         String userInput = scanner.nextLine();
         // Checks for exit condition
         while (!userInput.equals("bye")) {
-            Reply replyToUser = new Reply(userInput);
-            replyToUser.displayMessage();
+            if (userInput.equals("list")) {
+                // Prints list of tasks
+                tasks.printList();
+            } else {
+                Reply replyToUser = new AddToListReply(userInput);
+                replyToUser.displayMessage();
+                tasks.add(userInput);
+            }
             userInput = scanner.nextLine();
         }
         scanner.close();
