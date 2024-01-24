@@ -13,23 +13,28 @@ public class Tyler {
         String input = sc.nextLine();
 
         while(!input.equals("bye")) {
+            System.out.println("    --------------------------------------------------");
             if (input.equals("list")) {
                 Tyler.list();
+            } else if (input.equals("mark")) {
+                int taskNumber = Integer.parseInt(sc.nextLine());
+                taskList[taskNumber - 1].mark();
+            } else if (input.equals("unmark")) {
+                int taskNumber = Integer.parseInt(sc.nextLine());
+                taskList[taskNumber - 1].unmark();
             } else {
-                System.out.println("    --------------------------------------------------");
                 Task newTask = new Task(input);
                 taskList[curr] = newTask;
                 System.out.println("    added: " + input);
-                System.out.println("    --------------------------------------------------");
                 curr++;
             }
+            System.out.println("    --------------------------------------------------");
             input = sc.nextLine();
         }
         System.out.println("    Bye. Hope to see you again");
     }
 
     public static void list() {
-        System.out.println("    --------------------------------------------------");
         for(int i = 1; i < 100; i++) {
             if (taskList[i - 1] == null) {
                 break;
@@ -37,6 +42,5 @@ public class Tyler {
             String task = taskList[i - 1].toString();
             System.out.println("    " + i + ". " + task);
         }
-        System.out.println("    --------------------------------------------------");
     }
 }
