@@ -2,31 +2,49 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 public class Duke {
-    List<String> todolist = new ArrayList<String>();
+    private List<String> todolist = new ArrayList<String>();
+    private Scanner scanner = new Scanner(System.in);
+    private static final String sep = "\t__________________________________________";
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String sep = "\t__________________________________________";
-
         // hi
         System.out.println(sep);
         System.out.println("\tHello! I'm JOSEPH JOSHTUR!!!");
         System.out.println("\tWhat can I do for you?");
         System.out.println(sep);
 
-        String command = scanner.nextLine();
-        while (!command.equals("bye")) {
-            System.out.println(sep);
-            System.out.println("\t" + command);
-            System.out.println(sep);
-            command = scanner.nextLine();
-        }
+        Duke duke = new Duke();
+        duke.handleInput();
 
         // bye
         System.out.println(sep);
         System.out.println("\tBye. Hope to see you again soon!");
         System.out.println(sep);
     }
-    
+
+    public void handleInput() {
+        String command = scanner.nextLine();
+        while (!command.equals("bye")) {
+            String output = new String();
+            switch (command) {
+                case "list":
+                    int i = 1;
+                    for(String todo : todolist) {
+                        output = output.concat(i + ". " + todo + "\n\t");
+                        i++;
+                    }
+                    break;
+                default:
+                    output = "added: " + command;
+                    todolist.add(command);
+            }
+
+            System.out.println(sep);
+            System.out.println("\t" + output);
+            System.out.println(sep);
+            command = scanner.nextLine();
+        }
+    }
+
     public void addItem(String item) {
         todolist.add(item);
     }
