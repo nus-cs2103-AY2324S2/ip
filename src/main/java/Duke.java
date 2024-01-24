@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Snoopy{
+public class Duke{
     public static void formalities(String context) {
         if (context.equals("greet")) {
             System.out.println("____________________________________________________________");
