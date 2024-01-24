@@ -53,7 +53,7 @@ public class Tiny {
                             printAdd(tasks.get(totalTasks - 1).toString(), totalTasks);
                         }
                     }                 
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     tabPrint("OOPS! You need to type \"deadline <description> by: <deadline>\" to create a new todo!");
                 }
 
@@ -73,7 +73,7 @@ public class Tiny {
                         totalTasks++;
                         printAdd(tasks.get(totalTasks - 1).toString(), totalTasks);
                     }                 
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     tabPrint("OOPS! You need to type \"deadline <description> /by <deadline>\" to create a new deadline!");
                 }
 
@@ -92,12 +92,31 @@ public class Tiny {
                         totalTasks++;
                         printAdd(tasks.get(totalTasks - 1).toString(), totalTasks);
                     }                 
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     System.out.println("NO");
 
                     tabPrint("OOPS! You need to type \"event <description> /from <start date> /to <end date>\" to create a new deadline!");
                 }
 
+
+            } else if (isDelete(input)) {
+                try {
+                    String[] s = input.split(" ");
+                    if (s.length != 2 || !s[0].equals("delete")) {
+                        tabPrint("OOPS! You need to type \"delete <number>\" to delete the task!");
+                    }
+                    int ind = Integer.parseInt(s[1]);  
+                    totalTasks--;
+                    printDelete(tasks.get(ind - 1).toString(), totalTasks);
+                    tasks.remove(ind - 1);
+
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    tabPrint("OOPS! You need to type \"delete <number>\" to delete the task!");
+                } catch (NullPointerException e) {
+                    tabPrint(
+                            "OOPS! Please type a valid number! Type \"list\" to check the lists of tasks.");
+                }                
+                
                 // Add command
             } else {
                 System.out.println("I'm sorry, but I don't know what that means :-(");
@@ -130,6 +149,10 @@ public class Tiny {
         return checkCmd(input, "event", 5);
     }
 
+    public static boolean isDelete(String input) {
+        return checkCmd(input, "delete", 6);
+    }    
+
     public static boolean isBye(String input) {
         return input.equals("bye");
     }
@@ -155,10 +178,10 @@ public class Tiny {
                 return;
             }
             int ind = Integer.parseInt(s[1]);
-            tabPrint("Nice! I've marked this task as done:");
             tasks.get(ind - 1).taskDone();
+            tabPrint("Nice! I've marked this task as done:");            
             System.out.println(tasks.get(ind - 1));
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             tabPrint("OOPS! You need to type \"mark <number>\" to change the status to done!");
 
         } catch (NullPointerException e) {
@@ -175,10 +198,10 @@ public class Tiny {
                 tabPrint("OOPS! You need to type \"unmark <number>\" to change the status not done!");
             }
             int ind = Integer.parseInt(s[1]);
-            tabPrint("OK, I've marked this task as not done yet:");
             tasks.get(ind - 1).taskUndone();
+            tabPrint("OK, I've marked this task as not done yet:");
             System.out.println(tasks.get(ind - 1));
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             tabPrint(
                     "OOPS! You need to type \"unmark <number>\" to change the status to not done!");
         } catch (NullPointerException e) {
@@ -210,4 +233,10 @@ public class Tiny {
         tabPrint("   " + content);
         tabPrint("Now you have " + num + " task(s) in the list.");
     }
+
+    public static void printDelete(String content, int num) {
+        tabPrint("Noted. I've removed this task:");
+        tabPrint("   " + content);
+        tabPrint("Now you have " + num + " task(s) in the list.");
+    }    
 }
