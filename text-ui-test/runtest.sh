@@ -13,7 +13,7 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! find ../src/main/java/duke/ -type f -name "*.java" -exec javac -cp ../src/main/java/duke/ -d ./bin '{}' +
+if ! find ../src/main/java/duke/ -type f -name "*.java" -exec javac -cp ../src/main/java/duke/ -d ../bin '{}' +
 then
     echo "********** BUILD FAILURE **********"
     exit 1
