@@ -1,8 +1,7 @@
+import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.regex.*;
 
 public class Capone {
     // We assume there is no more than 100 tasks added.
@@ -15,50 +14,54 @@ public class Capone {
         System.out.printf("Hello! I'm\n%s\nWhat can I do for you?\n%n", logo);
     }
 
-//    public static void addTask(ArrayList<String> inputList) {
-//        // Combine the words back into a single string.
-//        StringBuilder combinedString = new StringBuilder();
-//        for (String s : inputList) {
-//            combinedString.append(s).append(" ");
-//        }
-//
-//        Task newTask = new Task(combinedString.toString());
-//
-//        // Store task in array and increment counter.
-//        tasks.add(newTask);
-//
-//        // Inform user that task has been added.
-//        System.out.printf("added: %s\n", newTask.toString());
-//    }
-
     public static void listTasks() {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("%d. %s\n", i+1, tasks.get(i).toString());
         }
     }
 
-    public static void markTask(int ndx) throws CaponeException {
+    public static void markTask(ArrayList<String> inputList) throws CaponeException {
+        if (inputList.size() == 1) {
+            throw new CaponeException("Please enter an index of a task you'd like to mark.\n" +
+                    "You can view all tasks using the 'list' command.\n" +
+                    "Usage: mark [index]");
+        } else if (inputList.size() > 2) {
+            throw new CaponeException("Please enter only one index you would like to mark.\n" +
+                    "You can view all tasks using the 'list' command.\n" +
+                    "Usage: mark [index]");
+        }
+
         // Mark task as done.
         try {
-            Task markedTask = tasks.get(ndx-1);
+            Task markedTask = tasks.get(Integer.parseInt(inputList.get(1))-1);
             markedTask.markTask();
 
             // Inform user that task has been marked.
             System.out.println("Nice! I've marked this task as done:\n" + markedTask);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new CaponeException("Sorry, you have entered an invalid index.\n" +
                     "You can check the list of valid indices using the 'list' command.");
         }
     }
 
-    public static void unmarkTask(int ndx) throws CaponeException{
+    public static void unmarkTask(ArrayList<String> inputList) throws CaponeException{
+        if (inputList.size() == 1) {
+            throw new CaponeException("Please enter an index of a task you'd like to unmark.\n" +
+                    "You can view all tasks using the 'list' command.\n" +
+                    "Usage: unmark [index]");
+        } else if (inputList.size() > 2) {
+            throw new CaponeException("Please enter only one index you would like to unmark.\n" +
+                    "You can view all tasks using the 'list' command.\n" +
+                    "Usage: unmark [index]");
+        }
+
         try {
-            Task unmarkedTask = tasks.get(ndx-1);
+            Task unmarkedTask = tasks.get(Integer.parseInt(inputList.get(1))-1);
             unmarkedTask.unmarkTask();
 
             // Inform user that task has been marked.
             System.out.println("OK, I've marked this task as not done yet:\n" + unmarkedTask);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new CaponeException("Sorry, you have entered an invalid index.\n" +
                     "You can check the list of valid indices using the 'list' command.");
         }
@@ -70,6 +73,7 @@ public class Capone {
             throw new CaponeException("Please enter a description for this ToDo task!\n" +
                     "Usage: todo [description]");
         }
+
         // Combine the remaining words into a single string
         StringBuilder description = new StringBuilder();
         for (int i = 1; i < inputList.size(); i++) {
@@ -198,6 +202,30 @@ public class Capone {
                 "Now you have %d task(s) in the list.\n", newEvent.toString(), tasks.size());
     }
 
+    public static void deleteTask(ArrayList<String> inputList) throws CaponeException{
+        // If the inputList has more than two arguments, throw exception.
+        if (inputList.size() == 1) {
+            throw new CaponeException("Please enter an index of a task you'd like to delete.\n" +
+                    "You can view all tasks using the 'list' command.\n" +
+                    "Usage: delete [index]");
+        } else if (inputList.size() > 2) {
+            throw new CaponeException("Please enter only one index you would like to delete.\n" +
+                    "You can view all tasks using the 'list' command.\n" +
+                    "Usage: delete [index]");
+        }
+
+        try {
+            // Remove the task from the tasks Arraylist.
+            Task removedTask = tasks.remove(Integer.parseInt(inputList.get(1))-1);
+
+            System.out.printf("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.\n",
+                    removedTask.toString(), tasks.size());
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new CaponeException("Sorry, you have entered an invalid index.\n" +
+                    "You can check the list of valid indices using the 'list' command.");
+        }
+    }
+
     public static void invalidCommand() throws CaponeException{
         throw new CaponeException("I'm sorry, I don't understand what you just said.\n" +
                 "Use -h to display the list of valid commands");
@@ -232,15 +260,17 @@ public class Capone {
                 if (firstWord.equalsIgnoreCase("list")) {
                     listTasks();
                 } else if (firstWord.equalsIgnoreCase("mark")) {
-                    markTask(Integer.parseInt(inputList.get(1)));
+                    markTask(inputList);
                 } else if (firstWord.equalsIgnoreCase("unmark")) {
-                    unmarkTask(Integer.parseInt(inputList.get(1)));
+                    unmarkTask(inputList);
                 } else if (firstWord.equalsIgnoreCase("todo")) {
                     processTodo(inputList);
                 } else if (firstWord.equalsIgnoreCase("deadline")) {
                     processDeadline(inputList);
                 } else if (firstWord.equalsIgnoreCase("event")) {
                     processEvent(inputList);
+                } else if (firstWord.equalsIgnoreCase("delete")) {
+                    deleteTask(inputList);
                 } else if (firstWord.equalsIgnoreCase("bye")) {
                     break;
                 } else if (firstWord.equalsIgnoreCase("-h")) {
