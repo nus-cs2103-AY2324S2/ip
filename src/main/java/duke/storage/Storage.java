@@ -127,9 +127,7 @@ public class Storage {
       System.out.println("Nice! I've marked this task as done:");
       System.out.println(String.format("  %s", storageArray.get(markIndex).toString()));
     } catch (IndexOutOfBoundsException e) {
-      System.out.println("ERROR: Item cannot be marked - Index out of bounds");
-    } catch (NullPointerException e) {
-      System.out.println("ERROR: Item cannot be marked - Index does not contain an item");
+      System.out.println("ERROR: Item cannot be marked - Item does not exist");
     }
   }
 
@@ -145,9 +143,19 @@ public class Storage {
       System.out.println("OK, I've marked this task as not done yet:");
       System.out.println(String.format("  %s", storageArray.get(unmarkIndex).toString()));
     } catch (IndexOutOfBoundsException e) {
-      System.out.println("ERROR: Item cannot be unmarked - Index out of bounds");
-    } catch (NullPointerException e) {
-      System.out.println("ERROR: Item cannot be unmarked - Index does not contain an item");
+      System.out.println("ERROR: Item cannot be unmarked - Item does not exist");
+    }
+  }
+
+  public static void deleteItem(int deleteIndex) {
+    try {
+      Task deletedItem = storageArray.remove(deleteIndex);
+
+      System.out.println("Noted. I've removed this task:");
+      System.out.println(String.format("  %s", deletedItem.toString()));
+      System.out.println(String.format("Now you have %d tasks in the list.", storageArray.size()));
+    } catch (IndexOutOfBoundsException e) {
+      System.out.println("ERROR: Item cannot be deleted - Item does not exist");
     }
   }
 }

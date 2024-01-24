@@ -3,6 +3,7 @@ package duke.ui;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import duke.exceptions.MissingArgumentException;
 import duke.storage.Storage;
 
 /**
@@ -39,32 +40,48 @@ public class Cli {
 
       System.out.println("------------------------------------------------------------");
 
-      switch (splitInput[0].toLowerCase()) {
-        case "bye": // Exit
-          // Print exit message
-          System.out.println(goodbye);
-          break;
+      try {
+        switch (splitInput[0].toLowerCase()) {
+          case "bye": // Exit
+            // Print exit message
+            System.out.println(goodbye);
+            break;
 
-        case "list": // List items
-          Storage.listItems();
-          break;
+          case "list": // List items
+            Storage.listItems();
+            break;
 
-        case "mark": // Mark item
-          Storage.markItem(Integer.parseInt(splitInput[1]) - 1);
-          break;
+          case "mark": // Mark item
+            if (splitInput.length <= 1) {
+              throw new MissingArgumentException("Missing argument - Index of task required");
+            }
 
-        case "unmark": // Unmark item
-          Storage.unmarkItem(Integer.parseInt(splitInput[1]) - 1);
-          break;
+            Storage.markItem(Integer.parseInt(splitInput[1]) - 1);
+            break;
 
-        default: // Store and echo items
-          try {
+          case "unmark": // Unmark item
+            if (splitInput.length <= 1) {
+              throw new MissingArgumentException("Missing argument - Index of task required");
+            }
+
+            Storage.unmarkItem(Integer.parseInt(splitInput[1]) - 1);
+            break;
+
+          case "delete": // Delete item
+            if (splitInput.length <= 1) {
+              throw new MissingArgumentException("Missing argument - Index of task required");
+            }
+
+            Storage.deleteItem(Integer.parseInt(splitInput[1]) - 1);
+            break;
+
+          default: // Store and echo items
             // Store item
             Storage.storeItem(splitInput[0], Arrays.copyOfRange(splitInput, 1, splitInput.length));
             break;
-          } catch (Exception exception) {
-            System.out.println(String.format("ERROR: %s", exception.getMessage()));
-          }
+        }
+      } catch (Exception exception) {
+        System.out.println(String.format("ERROR: %s", exception.getMessage()));
       }
 
       System.out.println("------------------------------------------------------------");
