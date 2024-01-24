@@ -98,6 +98,16 @@ public class Drake {
                     System.out.println("____________________________________________________________");
                 }
 
+                else if (input.split(" ")[0].equals("delete")) {
+                    Task toDelete = tasks.get(Integer.parseInt(input.split(" ")[1]) - 1);
+                    tasks.remove(toDelete);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(toDelete);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");                
+                    System.out.println("____________________________________________________________");                    
+                }
+
                 else {
                     notValidCommand();
                 }
