@@ -10,14 +10,27 @@ public class Task {
     }
 
     public Task(String taskName) {
-        this.taskName = "added: " + taskName;
-        Task.taskList[counter] = this.taskName;
-        Task.counter++; 
+        this.taskName = taskName;
+
+        if (!this.taskName.equals("list")) {
+            Task.taskList[counter] = this.taskName;
+            Task.counter++;
+        }
     }
 
-    public void echo() {
+    public void display() {
+
+        System.out.println("----------------------------------------------------------");
+        for (int i = 0; i < Task.counter; i++) {
+            System.out.println(i+1 + ". " + Task.taskList[i]);
+        }
+        System.out.println("----------------------------------------------------------");
+    }
+
+    public void add() {
         String s = "----------------------------------------------------------\n" +
-                this.taskName
+                "Added: " + this.taskName
+
                 + "\n----------------------------------------------------------";
         System.out.println(s);
     }

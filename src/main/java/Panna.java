@@ -17,9 +17,15 @@ public class Panna {
 
         while (!Panna.command.equals("bye")) {
 
-            Task t = new Task(command);
+            Task t = new Task(Panna.command);
+            if (Panna.command.equals("list")) {
+                t.display();
+            }
 
-            t.echo();
+            else {
+                t.add();
+            }
+
             Panna.command = s.nextLine();
         }
 
