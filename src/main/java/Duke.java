@@ -11,33 +11,36 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         boolean input = true;
         while (input) {
-            String message = sc.nextLine();
-            if (message.equals("bye")) {
-                input = false;
-            } else if (message.equals("yap")) {
-                Duke.listYaps(taskList, listSize);
-            } else if (message.startsWith("mark ")) {
-                String[] inputs = message.split(" ");
-                Integer index = Integer.parseInt(inputs[1]);
-                Task task = taskList[index - 1];
-                task.markDone();
-            } else if (message.startsWith("unmark ")) {
-                String[] inputs = message.split(" ");
-                Integer index = Integer.parseInt(inputs[1]);
-                Task task = taskList[index - 1];
-                task.unmarkDone();
-            } else if (message.startsWith("todo")) {
-                Task task = initTask(message, "todo");
-                addTasktoTaskList(task);
-            } else if (message.startsWith("deadline")) {
-                Task task = initTask(message, "deadline");
-                addTasktoTaskList(task);
-            } else if (message.startsWith("event")) {
-                Task task = initTask(message, "event");
-                addTasktoTaskList(task);
-            } else {
-                Task task = initTask(message, "");
-                addTasktoTaskList(task);
+            try {
+                String message = sc.nextLine();
+                if (message.equals("bye")) {
+                    input = false;
+                } else if (message.equals("yap")) {
+                    Duke.listYaps(taskList, listSize);
+                } else if (message.startsWith("mark ")) {
+                    String[] inputs = message.split(" ");
+                    Integer index = Integer.parseInt(inputs[1]);
+                    Task task = taskList[index - 1];
+                    task.markDone();
+                } else if (message.startsWith("unmark ")) {
+                    String[] inputs = message.split(" ");
+                    Integer index = Integer.parseInt(inputs[1]);
+                    Task task = taskList[index - 1];
+                    task.unmarkDone();
+                } else if (message.startsWith("todo")) {
+                    Task task = initTask(message, "todo");
+                    addTasktoTaskList(task);
+                } else if (message.startsWith("deadline")) {
+                    Task task = initTask(message, "deadline");
+                    addTasktoTaskList(task);
+                } else if (message.startsWith("event")) {
+                    Task task = initTask(message, "event");
+                    addTasktoTaskList(task);
+                } else {
+                    throw new DukeException("Specify the task type, YAPPER!!");
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
         }
 
