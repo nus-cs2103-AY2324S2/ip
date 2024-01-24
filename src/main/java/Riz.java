@@ -1,4 +1,5 @@
 import java.util.*;
+
 public class Riz {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -19,6 +20,18 @@ public class Riz {
                     running = false;
                     System.out.println("Bye... Hope to see you again...\n" + dotted);
                 } else if (token[0].equals("mark")) {
+                    boolean isNumber = true;
+                    if (token.length != 2) {
+                        throw new RizException("Oh you sure you completed the task?...");
+                    }
+                    for (char c : token[1].toCharArray()) {
+                        if (!Character.isDigit(c)) {
+                            isNumber = false;
+                        }
+                    }
+                    if (!isNumber) {
+                        throw new RizException("Oh you sure you completed the task?...");
+                    }
                     int curr = Integer.parseInt(token[1]) - 1;
                     Task task = tasks.get(curr);
                     task.mark();
@@ -26,6 +39,18 @@ public class Riz {
                     System.out.println(task);
                     System.out.println(dotted);
                 } else if (token[0].equals("unmark")) {
+                    boolean isNumber = true;
+                    if (token.length != 2) {
+                        throw new RizException("Seems like there's more to be done...");
+                    }
+                    for (char c : token[1].toCharArray()) {
+                        if (!Character.isDigit(c)) {
+                            isNumber = false;
+                        }
+                    }
+                    if (!isNumber) {
+                        throw new RizException("Seems like there's more to be done...");
+                    }
                     int curr = Integer.parseInt(token[1]) - 1;
                     Task task = tasks.get(curr);
                     task.unmark();
@@ -51,15 +76,29 @@ public class Riz {
                             System.out.println("added: " + task + "...");
                         }
                     } else if (token[0].equals("deadline")) {
+                        if (token.length != 2) {
+                            throw new RizException("seems like the deadline isn't so soon after all...");
+                        }
                         String[] details = token[1].split(" /by ");
-                        Task task = new Deadline(details[0], details[1]);
-                        tasks.add(task);
-                        System.out.println("added: " + task + "...");
+                        if (details.length != 2) {
+                            throw new RizException("seems like the deadline isn't so soon after all...");
+                        } else {
+                            Task task = new Deadline(details[0], details[1]);
+                            tasks.add(task);
+                            System.out.println("added: " + task + "...");
+                        }
                     } else if (token[0].equals("event")) {
+                        if (token.length != 2) {
+                            throw new RizException("What? Did the event get cancelled...");
+                        }
                         String[] details = token[1].split(" /from |\\ /to ");
-                        Task task = new Event(details[0], details[1], details[2]);
-                        tasks.add(task);
-                        System.out.println("added: " + task + "...");
+                        if (details.length != 3) {
+                            throw new RizException("What? Did the event get cancelled...");
+                        } else {
+                            Task task = new Event(details[0], details[1], details[2]);
+                            tasks.add(task);
+                            System.out.println("added: " + task + "...");
+                        }
                     } else {
                         throw new RizException("Are you speaking Yapanese?...");
                     }
