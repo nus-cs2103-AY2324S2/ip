@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.ArrayList;
 public class TaskManager {
     ArrayList<Task> list = new ArrayList<>();
@@ -25,5 +24,12 @@ public class TaskManager {
     public void undo(int i) {
         Task t = list.get(i - 1);
         t.setDone(false);
+    }
+
+    public void delete(int i) {
+        Task t = list.remove(i - 1);
+        this.NoOfTask--;
+        System.out.println(t.toString());
+        System.out.println("There are now " + this.NoOfTask + " tasks in the list.");
     }
 }

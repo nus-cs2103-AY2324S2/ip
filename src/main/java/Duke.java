@@ -35,6 +35,11 @@ public class Duke {
         tm.listTasks();
     }
 
+    private void delete(int i) {
+        System.out.println("Deleting task...");
+        tm.delete(i);
+    }
+
     private Event createEvent(String s) throws DukeException {
         int fromIndex = s.indexOf("/from");
         int toIndex = s.indexOf("/to");
@@ -92,6 +97,9 @@ public class Duke {
                     break;
                 case "unmark":
                     d.unmark(Integer.parseInt(s[1]));
+                    break;
+                case "delete":
+                    d.delete(Integer.parseInt(s[1]));
                     break;
                 case "todo":
                     try {

@@ -1,8 +1,12 @@
 Hello! I'm Friendy.
 What can I do for you?
+Unknown Command
+Error, description of todo is missing
 added:
 [T][ ] eat dinner
 There are now 1 tasks in the list.
+Format Error, Deadline must be in format: A /by B
+Format Error, Deadline must be in format: A /by B
 added:
 [D][ ] 2103 (by: Thur 2359)
 There are now 2 tasks in the list.
@@ -21,4 +25,8 @@ Setting task as not done...
 1.[T][ ] eat dinner
 2.[D][ ] 2103 (by: Thur 2359)
 3.[E][X] tutorial (from: Mon 2pm to: 4pm)
-Bye! I will miss you!
+Deleting task...
+[D][ ] 2103 (by: Thur 2359)
+There are now 2 tasks in the list.
+Format Error, Event must be in format: A /from B /to C
+Bye. I will miss you!
