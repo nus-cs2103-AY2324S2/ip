@@ -30,7 +30,7 @@ public class Duke {
                 String[] parts = input.substring(6).split(" /from | /to ");
                 addTask(new Event(parts[0], parts[1], parts[2]));
             } else {
-                System.out.println("Invalid task!\n");
+                System.out.println("Thats not a task!\n");
             }
         }
 
