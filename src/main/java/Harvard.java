@@ -26,13 +26,27 @@ public class Harvard {
 
             try {
                 if (!command.equals("list") && !command.equals("todo") && !command.equals("deadline") &&
-                        !command.equals("event") && !command.equals("mark") && !command.equals("unmark")) {
+                        !command.equals("event") && !command.equals("mark") && !command.equals("unmark") &&
+                            !command.equals("delete")) {
                     throw new HarvardException("Bro... Idk what that is man.");
                 }
             } catch (HarvardException e) {
                 System.out.println("____________________________________________________________");
                 System.out.println(e.getMessage());
                 System.out.println("____________________________________________________________");
+            }
+
+            if (command.equals("delete")) {
+                int index = Integer.parseInt(echoInput.split(" ")[1]);
+                Task targetTask = tasks.get(index - 1);
+
+                System.out.println("____________________________________________________________");
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(targetTask.toString());
+                tasks.remove(index - 1);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________\n");
+                continue;
             }
 
 
