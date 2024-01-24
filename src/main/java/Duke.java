@@ -18,11 +18,17 @@ public class Duke {
             } else if (message.startsWith("mark ")) {
                 String[] inputs = message.split(" ");
                 Integer index = Integer.parseInt(inputs[1]);
-                taskList[index - 1].markDone();
+                Task task = taskList[index - 1];
+                task.markDone();
+                System.out.println("Good job Yapper! I've marked this task as done:");
+                System.out.println(task);
             } else if (message.startsWith("unmark ")) {
                 String[] inputs = message.split(" ");
                 Integer index = Integer.parseInt(inputs[1]);
-                taskList[index - 1].unmarkDone();
+                Task task = taskList[index - 1];
+                task.unmarkDone();
+                System.out.println("Stop yappin' bruh! I'll unmark this task...");
+                System.out.println(task);
             } else {
                 Duke.echo(message);
                 taskList[listSize] = new Task(message);
