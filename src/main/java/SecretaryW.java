@@ -103,10 +103,6 @@ public class SecretaryW {
         System.out.println(" Now you have " + count + " tasks in the list.\n" + line);
     }
 
-    private static void printInvalid() {
-        System.out.println("Invalid command!");
-    }
-
     private static String line = "-----------------------------------------------------------------\n";
 
     static class WException extends Exception {
