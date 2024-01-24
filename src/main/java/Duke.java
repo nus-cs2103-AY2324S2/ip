@@ -6,7 +6,7 @@ public class Duke {
         Duke.greet();
 
         Scanner sc = new Scanner(System.in);
-        String[] list = new String[100];
+        Task[] taskList = new Task[100];
         int listSize = 0;
         boolean input = true;
         while (input) {
@@ -14,10 +14,10 @@ public class Duke {
             if (message.equals("bye")) {
                 input = false;
             } else if (message.equals("yap")) {
-                Duke.listYaps(list, listSize);
+                Duke.listYaps(taskList, listSize);
             } else {
                 Duke.echo(message);
-                list[listSize] = message;
+                taskList[listSize] = new Task(message);
                 listSize++;
             }
         }
@@ -44,12 +44,12 @@ public class Duke {
         System.out.println("added: " + message);
     }
 
-    public static void listYaps(String[] list, int listSize) {
+    public static void listYaps(Task[] taskList, int listSize) {
         if (listSize == 0) {
             System.out.println("Nothin' to yap...");
         }
         for (int i = 0; i < listSize; i++) {
-            System.out.println((i+1)+". "+list[i]);
+            System.out.println((i+1)+". "+taskList[i]);
         }
     }
 
