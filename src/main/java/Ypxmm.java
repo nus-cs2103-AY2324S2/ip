@@ -44,8 +44,7 @@ public class Ypxmm {
     }
 
     public static void sayHello() {
-        System.out.println("Hello, I'm Ypxmm.");
-        System.out.println("Need me do what for you?");
+        System.out.println("Hello, I'm Ypxmm.\nNeed me do what for you?");
     }
 
     public static void sayGoodbye() {

@@ -1,0 +1,9 @@
+todo read
+deadline homework /tomorrow 5pm
+event dinner with claire /friday 7pm /9pm
+list
+mark 2
+mark 1
+unmark 2
+get commands
+bye
