@@ -9,4 +9,6 @@ deadline
 event
 event photoshoot /from this week saturday /to about 5pm
 unmark 1
+delete 1
+list
 bye

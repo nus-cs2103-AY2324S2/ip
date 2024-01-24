@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class Campus {
         Campus.greet();
 
         Scanner scanner = new Scanner(System.in);
-        String userInput = "";
+        String userInput;
         int response = 0;
 
         do {
@@ -74,6 +73,14 @@ public class Campus {
                 int index1 = Integer.parseInt(listNumber1) - 1;
                 Task task1 = Campus.tasks.get(index1);
                 Campus.markUndone(task1);
+                break;
+            case "delete":
+                // Getting the ith Task in the List<Task> field
+                // Again Looks Clunky - Need to refactor
+                String listNumber2 = userInput.substring(userInput.length() - 1);
+                int index2 = Integer.parseInt(listNumber2) - 1;
+                Task task2 = Campus.tasks.get(index2);
+                Campus.delete(task2);
                 break;
             case "todo":
                 if (remaining.isEmpty()) {
@@ -138,6 +145,19 @@ public class Campus {
                 throw new CampusException("Sorry, I don't understand that command, please check for potential spelling errors");
         }
         return 0;
+    }
+
+    public static void delete(Task task) {
+        Campus.tasks.remove(task);
+        int numOfTasks = Campus.tasks.size();
+
+        String message = "------------------------------\n"
+                + "Noted. Task deleted successfully. I have removed the following task:\n"
+                + String.format("%s\n", task)
+                + String.format("Now you have %s task(s) in the list.\n", numOfTasks)
+                + "------------------------------\n";
+
+        System.out.println(message);
     }
 
     public static void markDone(Task task) {
