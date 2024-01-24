@@ -41,7 +41,7 @@ public class Parser {
      * @return a {@code Command} based on user's input.
      * @throws DukeException if user enters an invalid input.
      */
-    public Command parse() throws DukeException{
+    public Command parse() throws DukeException {
         String[] splitTask = command.split(" ", 2);
         Task task;
         Command command = null;
