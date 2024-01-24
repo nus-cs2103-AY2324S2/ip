@@ -24,6 +24,16 @@ public class Task {
         //System.out.println("Stop dragging your heels on it!");
     }
 
+    public String fullStatus() { //TODO: add type of task later
+        String checkbox;
+        if (isDone) {
+            checkbox = "[X] ";
+        } else {
+            checkbox = "[ ] ";
+        }
+        return checkbox + name;
+    }
+
     @Override
     public String toString() {
         return name;

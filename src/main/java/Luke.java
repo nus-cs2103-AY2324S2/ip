@@ -39,9 +39,9 @@ public class Luke {
                 }
                 for (Task s : history) {
                     if (s.isDone()) {
-                        System.out.println(num + ".[X] " + s);
+                        System.out.println(num + "." + s.fullStatus());
                     } else {
-                        System.out.println(num + ".[ ] " + s);
+                        System.out.println(num + "." + s.fullStatus());
                     }
                     num += 1;
                 }
@@ -50,24 +50,13 @@ public class Luke {
                 int idx = Integer.parseInt(task.getName().split(" ")[1]) - 1;
                 history.get(idx).complete();
                 System.out.println("Good work, I guess.");
-                System.out.println((idx + 1) + ".[X] " + history.get(idx));
+                System.out.println((idx + 1) + "." + history.get(idx).fullStatus());
                 System.out.println();
             } else {
                 history.add(task);
                 System.out.println("I helped you add task [" + task + "]. But do it yourself next time! Hmmph!"  + "\n");
             }
         }
-
-//        while (true) {
-//            //echo mode
-//            String cmd = sc.nextLine();
-//            System.out.println(">>> " + cmd);
-//            if (cmd.equals("bye")) {
-//                bye();
-//                sc.close();
-//                break;
-//            }
-//        }
     }
 }
 
