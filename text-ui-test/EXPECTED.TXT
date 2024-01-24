@@ -1,7 +1,63 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+================================ 
+Hello I'm Axolotl! 
+What can I do for you? 
+================================ 
 
+-------------------------------- 
+Sure, I've added this task: 
+[T][ ] read book
+Now you have 1 task(s) in the list. 
+-------------------------------- 
+
+-------------------------------- 
+Sure, I've added this task: 
+[D][ ] return book (by: June 6th)
+Now you have 2 task(s) in the list. 
+-------------------------------- 
+
+-------------------------------- 
+Sure, I've added this task: 
+[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+Now you have 3 task(s) in the list. 
+-------------------------------- 
+
+-------------------------------- 
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+-------------------------------- 
+
+-------------------------------- 
+Nice! I've marked task 0 as done: 
+[T][X] read book
+-------------------------------- 
+
+-------------------------------- 
+Nice! I've marked task 1 as done: 
+[D][X] return book (by: June 6th)
+-------------------------------- 
+
+-------------------------------- 
+Nice! I've marked task 2 as done: 
+[E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+-------------------------------- 
+
+-------------------------------- 
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][X] return book (by: June 6th)
+3. [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+-------------------------------- 
+
+-------------------------------- 
+Sure, I've marked task 1 as not done yet: 
+[D][ ] return book (by: June 6th)
+-------------------------------- 
+
+-------------------------------- 
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][ ] return book (by: June 6th)
+3. [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+-------------------------------- 
