@@ -1,7 +1,9 @@
 class Task {
     protected String name;
     protected boolean isDone;
+    protected String type = " ";
 
+    //add
     public Task(String name) {
         this.name = name;
         this.isDone = false;
@@ -11,19 +13,25 @@ class Task {
         return this.name;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
-    }    
+    public String getTypeIcon() {
+        return this.type;
+    }       
 
-    public String taskDone() {
-        isDone = true;
-        return "    Nice! I've marked this task as done: \n        [X] " + name;
+    public String getStatusIcon() {
+        return (this.isDone ? "X" : " "); // mark done task with X
+    }   
+    
+    public void taskDone() {
+        this.isDone = true;
     }
 
-    public String taskUndone() {
-        isDone = false;
-        return "   OK, I've marked this task as not done yet: \n        [ ] " + name;
+    public void taskUndone() {
+        this.isDone = false;
     }    
 
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + getName();
+    }
 
 }
