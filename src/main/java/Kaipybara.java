@@ -1,7 +1,12 @@
-public class Duke {
+import java.util.*;
+import java.io.*;
+
+public class Kaipybara {
+    private static final String LINE = "____________________________________________________________\n";
     public static void main(String[] args){
-        String logo = "____________________________________________________________\n"
-                + "Hello! I'm your personal chatbot :)\n\n"
+        // opening statement
+        String start = LINE
+                + "Whatsuppp I'm yo personal chatbot :)\n\n"
                 + "          /'  _/                                /'                           \n"
                 + "        /' _/~                                /'                             \n"
                 + "     ,/'_/~  ____     O   ____              /'__     ____      ____     ____ \n"
@@ -11,12 +16,21 @@ public class Duke {
                 + "                  /'             /'                                          \n"
                 + "                /'       /     /'                                            \n"
                 + "              /'        (___,/'                                              \n\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n";
+                + "Whakan I do 4 yu?\n"
+                + LINE;
+        System.out.println(start);
 
-        System.out.println("Hello from\n" + logo);
+        // read inputs from user
+        Scanner scanner = new Scanner(System.in);
+        String userInput="";
+        while(!userInput.equals("bye")) {
+            userInput = scanner.nextLine();
+            System.out.println(LINE+userInput+"\n"+LINE);
+        };
+
+        // closing statement
+        String exit = "see u later alligator\n" + LINE;
+        System.out.println(exit);
 
 
 
