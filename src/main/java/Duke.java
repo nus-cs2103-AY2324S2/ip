@@ -122,7 +122,6 @@ public class Duke {
     private static boolean validTaskCommand(String str) throws DukeException {
         List<String> strArr = Arrays.asList(str.split(" "));
         String keyword = str.split(" ")[0].toLowerCase();
-        System.out.println(keyword);
         if (!(keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event"))){
             throw new DukeException("*HONK* Pengu has never seen such a command before, some commands Pengu can do are: list, todo, deadline");
         } else if (keyword.equals("todo") && !(strArr.size() > 1)) {
@@ -152,18 +151,33 @@ public class Duke {
                 continue;
             } else if (userInput.toLowerCase().startsWith("mark")) {
                 String[] inputArr = userInput.split(" ");
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                markTask(index);
+                try {
+                    int index = Integer.parseInt(inputArr[1]) - 1;
+                    markTask(index);
+                } catch (NumberFormatException e) {
+                    throw new DukeException("*HONK* Pengu thinks you need a valid task number to mark, " +
+                            "consider checking the list command");
+                }
                 continue;
             } else if (userInput.toLowerCase().startsWith("unmark")) {
                 String[] inputArr = userInput.split(" ");
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                unmarkTask(index);
+                try {
+                    int index = Integer.parseInt(inputArr[1]) - 1;
+                    unmarkTask(index);
+                } catch (NumberFormatException e) {
+                    throw new DukeException("*HONK* Pengu thinks you need a valid task number to unmark, " +
+                            "consider checking the list command");
+                }
                 continue;
             } else if (userInput.toLowerCase().startsWith("delete")) {
                 String[] inputArr = userInput.split(" ");
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                deleteTask(index);
+                try {
+                    int index = Integer.parseInt(inputArr[1]) - 1;
+                    deleteTask(index);
+                } catch (NumberFormatException e) {
+                    throw new DukeException("*HONK* Pengu thinks you need a valid task number to delete, " +
+                            "consider checking the list command");
+                }
                 continue;
             }
             addTask(userInput);
