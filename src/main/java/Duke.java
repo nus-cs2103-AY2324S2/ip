@@ -2,11 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) throws IOException {
-
         //Initialiser for the programss
         String bar = "____________________________________________________________";
         String indent = "   ";
@@ -16,8 +14,15 @@ public class Duke {
         String[] greet = new String[]{bar, first, second, bar};
         String[] bye = new String[]{bar, third, bar};
 
+        //Strings for listing Respoinse
+        String listingResponse = "Here are the tasks in your list:";
+
+        //Strings for marking and unmarking
+        String markResponse = "Nice! I've marked this task as done:";
+        String unmarkResponse = "OK, I've marked this task as not done yet:";
+
         //For data storage
-        ArrayList<String> items = new ArrayList<>();
+        ArrayList<Task> items = new ArrayList<>();
 
         //For Managing input
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -27,21 +32,40 @@ public class Duke {
         for (String l : greet) {
             System.out.println(indent + l);
         }
+
         while (!(next = input.readLine()).equals("bye")) {
+            //This is and arraylist for managing the output items
             ArrayList<String> output = new ArrayList<>();
             output.add(bar);
             if (next.equals("list")) {
                 int i = 1;
-                for (String item : items) {
-                    output.add(" " + i + ". " + item);
+                output.add(listingResponse);
+                for (Task item : items) {
+                    output.add(" " + i + "." + item);
                     i++;
                 }
             } else {
-                output.add(" added: " + next);
-                items.add(next);
+                //Switch statements does not support contains methods :(
+                //unmark has to come first because unmark contains mark
+                //BufferedReader is supports reading line only unlike Scanner class
+                if (next.contains("unmark")) {
+                    int id = Integer.parseInt(next.split(" ")[1]) - 1; //Index 0 based
+                    Task currentItem = items.get(id);
+                    currentItem.unmark();
+                    output.add(unmarkResponse);
+                    output.add(indent + currentItem);
+                } else if (next.contains("mark")) {
+                    int id = Integer.parseInt(next.split(" ")[1]) - 1; //Index 0 based
+                    Task currentItem = items.get(id);
+                    currentItem.markAsDone();
+                    output.add(markResponse);
+                    output.add(indent + currentItem);
+                } else {
+                    output.add(" added: " + next);
+                    items.add(new Task(next));
+                }
             }
             output.add(bar);
-
             for (String l : output) {
                 System.out.println(indent + l);
             }
