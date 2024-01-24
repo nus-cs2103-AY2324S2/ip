@@ -13,6 +13,9 @@ public enum Command {
         try {
             switch (command){
                 case List:
+                    if (listOfTasks.size() == 0){
+                        throw new ToothlessException("Human list is empty like my tummy right now :/");
+                    }
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < listOfTasks.size(); i++) {
                         Task t = listOfTasks.get(i);
