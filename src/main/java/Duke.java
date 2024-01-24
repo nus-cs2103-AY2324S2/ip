@@ -1,7 +1,9 @@
+import task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
-    private static ArrayList<String> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
         greet();
         handleInput();
@@ -21,18 +23,43 @@ public class Duke {
     public static void handleInput() {
         Scanner sc = new Scanner(System.in);
         while(true) {
-            System.out.print("> ");
-            String input = sc.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                for (int i = 1; i < taskList.size(); i++) {
-                    System.out.print(i + ". ");
-                    System.out.println(taskList.get(i-1));
+            try {
+                System.out.print("> ");
+                String line = sc.nextLine().stripLeading();
+                if (line.isEmpty()) continue;
+                String[] tokens = line.split(" ");
+                String input = tokens[0];
+                if (input.equalsIgnoreCase("bye")) {
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.print(i + 1 + ". ");
+                        System.out.println(taskList.get(i));
+                    }
+                } else if (input.equalsIgnoreCase("mark")) {
+                    int taskNum = Integer.parseInt(tokens[1]);
+                    if (taskNum < 1 || taskNum > taskList.size()) {
+                        System.out.println("Couldn't find task. Try again?");
+                        continue;
+                    }
+                    Task selectedTask = taskList.get(taskNum - 1);
+                    selectedTask.done();
+                    System.out.println("Task set to done: " + selectedTask);
+                } else if (input.equalsIgnoreCase("unmark")) {
+                    int taskNum = Integer.parseInt(tokens[1]);
+                    if (taskNum < 1 || taskNum > taskList.size()) {
+                        System.out.println("Couldn't find task. Try again?");
+                        continue;
+                    }
+                    Task selectedTask = taskList.get(taskNum - 1);
+                    selectedTask.undone();
+                    System.out.println("Task has been set as not done yet: " + selectedTask);
+                } else {
+                    taskList.add(new Task(line));
+                    System.out.println("added: " + line);
                 }
-            } else {
-                taskList.add(input);
-                System.out.println("added: " + input);
+            } catch (Exception e) {
+                System.out.println("Something went wrong. Did you type your command correctly?");
             }
         }
         sc.close();
