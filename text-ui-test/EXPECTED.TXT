@@ -12,7 +12,6 @@ I'm Chris P Bacon but you can call me ChrisP! Oink!
 What can I do for you today? :D
 ~Type 'help' for more command info~
 _____________________________________________________
-
 _____________________________________________________
 Oink! Here are the Command Words:
 'list' - displays the list of task
@@ -21,56 +20,47 @@ Oink! Here are the Command Words:
 'event ... /from ... /to ...' - to add an event
 'bye' - to exit the chatbot
 _____________________________________________________
-
 _____________________________________________________
 Oink! Nice I have added this task:
  >> [T][ ] drink bbt
 Oink's task count: 1
 _____________________________________________________
-
 _____________________________________________________
 Oink! Nice I have added this task:
  >> [D][ ] make bbt (by: tonight)
 Oink's task count: 2
 _____________________________________________________
-
 _____________________________________________________
 Oink! Nice I have added this task:
  >> [E][ ] sell bbt (from: tmr to: next monday)
 Oink's task count: 3
 _____________________________________________________
-
 _____________________________________________________
 Oink! Here are the tasks:
 1. [T][ ] drink bbt
 2. [D][ ] make bb (by: tonight)
 3. [E][ ] sell bbt (from: tmr to: next monday)
 _____________________________________________________
-
 _____________________________________________________
 Oink! You have completed this task! Nice nice nice
  >> [T][x] drink bbt
 _____________________________________________________
-
 _____________________________________________________
 Oink! Here are the tasks:
 1. [T][x] drink bbt
 2. [D][ ] make bb (by: tonight)
 3. [E][ ] sell bbt (from: tmr to: next monday)
 _____________________________________________________
-
 _____________________________________________________
 Oink! You have unmarked this task! Why why why
  >> [T][ ] drink bbt
 _____________________________________________________
-
 _____________________________________________________
 Oink! Here are the tasks:
 1. [T][ ] drink bbt
 2. [D][ ] make bb (by: tonight)
 3. [E][ ] sell bbt (from: tmr to: next monday)
 _____________________________________________________
-
 _____________________________________________________
 Oink! Okie byee... See you soon! :)
 _____________________________________________________
