@@ -1,14 +1,13 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class SecretaryW {
     public static void main(String[] args) {
         // Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
 
-        // Array to store task items
-        Task[] tasklist = new Task[100];
+        // ArrayList to store task items
+        ArrayList<Task> taskList = new ArrayList<>();
 
-        // counter for number of task
-        int count = 0;
         String greeting = "Hello! I'm SecretaryW\n" + "What can I do for you?\n";
         String farewell = "Bye. Hope to see you again soon!\n";
 
@@ -24,34 +23,42 @@ public class SecretaryW {
                     break; // Exits loop
                 } else if (userInput.equals("list")) {
                     System.out.println(line);
-                    if (count == 0) {
+                    if (taskList.isEmpty()) {
                         System.out.println("No tasks available");
                         System.out.println(line);
                     } else {
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < count; i++) {
-                            Task currTask = tasklist[i];
-                            System.out.println(" " + (i + 1) + ". " + tasklist[i]);
+                        for (int i = 0; i < taskList.size(); i++) {
+                            System.out.println(" " + (i + 1) + ". " + taskList.get(i));
                         }
                         System.out.println(line);
                     }
                 } else if (userInput.startsWith("mark")) {
                     int index = Integer.parseInt(userInput.substring(5).trim()) - 1;
                     // check for bounds
-                    if (index >= 0 && index < count) {
-                        tasklist[index].markAsDone();
+                    if (index >= 0 && index < taskList.size()) {
+                        taskList.get(index).markAsDone();
                         System.out.println(line + " Nice! I've marked this task as done:");
-                        System.out.println("  " + tasklist[index].getStatusIcon() + " " + tasklist[index].getDescription() + "\n" + line);
+                        System.out.println("  " + taskList.get(index).getStatusIcon() + " " + taskList.get(index).getDescription() + "\n" + line);
                     } else {
                         System.out.println(line + " Index is out of bounds!\n" + line);
                     }
                 } else if (userInput.startsWith("unmark")) {
                     int index = Integer.parseInt(userInput.substring(7).trim()) - 1;
                     // check for bounds
-                    if (index >= 0 && index < count) {
-                        tasklist[index].markAsUndone();
+                    if (index >= 0 && index < taskList.size()) {
+                        taskList.get(index).markAsUndone();
                         System.out.println(line + " OK, I've marked this task as not done yet");
-                        System.out.println("  " + tasklist[index].getStatusIcon() + " " + tasklist[index].getDescription() + "\n" + line);
+                        System.out.println("  " + taskList.get(index).getStatusIcon() + " " + taskList.get(index).getDescription() + "\n" + line);
+                    } else {
+                        System.out.println(line + " Index is out of bounds!\n" + line);
+                    }
+                } else if (userInput.startsWith("delete")){
+                    int index = Integer.parseInt(userInput.substring(6).trim()) - 1;
+                    // check for bounds
+                    if (index >= 0 && index < taskList.size()) {
+                        Task removedTask = taskList.remove(index);
+                        printTaskDeleted(removedTask, taskList.size());
                     } else {
                         System.out.println(line + " Index is out of bounds!\n" + line);
                     }
@@ -59,9 +66,8 @@ public class SecretaryW {
                     // add to do task
                     String description = userInput.substring(4).trim();
                     checkTodo(description);
-                    tasklist[count] = new Todo(description);
-                    count++;
-                    printTaskAdded(tasklist, count);
+                    taskList.add(new Todo(description));
+                    printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
                 } else if (userInput.startsWith("deadline")) {
                     // Add a deadline task
                     String[] parts = userInput.substring(8).split("/by");
@@ -69,9 +75,8 @@ public class SecretaryW {
                     String description = parts[0].trim();
                     String by = parts[1].trim();
                     checkDeadline(by);
-                    tasklist[count] = new Deadline(description, by);
-                    count++;
-                    printTaskAdded(tasklist, count);
+                    taskList.add(new Deadline(description, by));
+                    printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
                 } else if (userInput.startsWith("event")) {
                     // Add an event task
                     String[] parts = userInput.substring(5).split("/from"); // first split
@@ -82,9 +87,8 @@ public class SecretaryW {
                     String from = time[0].trim();
                     String to = time[1].trim();
                     checkEvent(from, to);
-                    tasklist[count] = new Event(description, from, to);
-                    count++;
-                    printTaskAdded(tasklist, count);
+                    taskList.add(new Event(description, from, to));
+                    printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
 
                 } else {
                     // Invalid command
@@ -98,11 +102,15 @@ public class SecretaryW {
         System.out.println(line + farewell + line);
         scanner.close();
     }
-    private static void printTaskAdded(Task[] tasklist, int count) {
-        System.out.println(line + "Got it. I've added this task:\n" + " " + tasklist[count - 1]);
+    private static void printTaskAdded(Task task, int count) {
+        System.out.println(line + "Got it. I've added this task:\n" + task);
         System.out.println(" Now you have " + count + " tasks in the list.\n" + line);
     }
 
+    private static void printTaskDeleted(Task task, int count) {
+        System.out.println(line + "Noted. I've removed this task:\n" + task);
+        System.out.println(" Now you have " + count + " tasks in the list.\n" + line);
+    }
     private static String line = "-----------------------------------------------------------------\n";
 
     static class WException extends Exception {
