@@ -18,9 +18,29 @@ public class ChatBotTest {
                 break;
             } else if (commands.equals("list")) {
                 p.listTasks();
-            } else {
-                p.addTask(commands);
+            } else if (commands.indexOf("mark") == 0) {
+                String[] markCommand = commands.split(" ");
+                try {
+                    int i = Integer.parseInt(markCommand[1]) - 1;
+                    p.markJobs(p.tasks.get(i));
+                } catch (Exception e) {
+                    System.out.println("Incorrect number or command");
+                }
+            } else if (commands.indexOf("unmark") == 0) {
+                String[] unmarkCommand = commands.split(" ");
+                try {
+                    int i = Integer.parseInt(unmarkCommand[1]) - 1;
+                    p.unMarkJobs(p.tasks.get(i));
+                } catch (Exception e) {
+                    System.out.println("Incorrect number or command");
+                }
+            }
+            else {
+                Task t = new Task(commands);
+                p.addTask(t);
             }
         }
+
+
     }
 }
