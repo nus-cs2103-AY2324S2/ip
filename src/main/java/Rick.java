@@ -56,28 +56,37 @@ public class Rick {
     public static void add_to_list(String arg) {
         Item new_item;
         String new_name = "";
-        if (arg.startsWith("todo")) {
-            new_item = new ToDo(arg.substring(5));
-            new_name = new_item.print();
-            list.add(new_item);
-        } else if (arg.startsWith("deadline") && arg.contains("/by ")){
-            int i = arg.indexOf("/by ");
-            String ddl = arg.substring(i + 4);
-            String name = arg.substring(9, i);
-            new_item = new Deadline(name, ddl);
-            new_name = new_item.print();
-            list.add(new_item);
-        } else if (arg.startsWith("event") && arg.contains("/from ") && arg.contains("/to ")){
-            int i = arg.indexOf("/from ");
-            int j = arg.indexOf("/to ");
-            String name = arg.substring(6, i);
-            String from = arg.substring(i + 6, j);
-            String to = arg.substring(j + 4);
-            new_item = new Event(name, from, to);
-            new_name = new_item.print();
-            list.add(new_item);
-        } else {
-            new_name = "Nah. No task was added because your input is wrong :P";
+        try {
+            if (arg.startsWith("todo ")) {
+                new_item = new ToDo(arg.substring(5));
+                new_name = new_item.print();
+                list.add(new_item);
+
+            } else if (arg.startsWith("deadline ") && arg.contains("/by ")) {
+                int i = arg.indexOf("/by ");
+                String ddl = arg.substring(i + 4);
+                String name = arg.substring(9, i);
+                new_item = new Deadline(name, ddl);
+                new_name = new_item.print();
+                list.add(new_item);
+            } else if (arg.startsWith("event ") && arg.contains("/from ") && arg.contains("/to ")) {
+                int i = arg.indexOf("/from ");
+                int j = arg.indexOf("/to ");
+                String name = arg.substring(6, i);
+                String from = arg.substring(i + 6, j);
+                String to = arg.substring(j + 4);
+                new_item = new Event(name, from, to);
+                new_name = new_item.print();
+                list.add(new_item);
+            } else {
+                new_name = "Nah. No task was added because your input is wrong :P";
+            }
+        } catch (RickException e) {
+            reply(e.getMessage());
+            return;
+        } catch (Exception e1) {
+            reply("There's something wrong with your input...");
+            return;
         }
         String output = "Got it. I've added this task:\n" +
                 new_name +

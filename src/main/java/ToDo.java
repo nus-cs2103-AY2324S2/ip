@@ -2,7 +2,10 @@ public class ToDo implements Item {
     public String name;
     public String status = "[ ]";
 
-    public ToDo(String name) {
+    public ToDo(String name) throws RickException {
+        if (name.isBlank()) {
+            throw new RickException("Nothing to do!");
+        }
         this.name = name;
     }
     public String print() {

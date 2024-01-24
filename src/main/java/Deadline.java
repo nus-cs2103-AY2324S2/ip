@@ -3,7 +3,13 @@ public class Deadline implements Item {
     public String status = "[ ]";
     public String ddl;
 
-    public Deadline(String name, String ddl) {
+    public Deadline(String name, String ddl) throws RickException{
+        if (name.isBlank()) {
+            throw new RickException("Nothing is due!");
+        }
+        if (ddl.isBlank()) {
+            throw new RickException("due when?");
+        }
         this.name = name;
         this.ddl = ddl;
     }
