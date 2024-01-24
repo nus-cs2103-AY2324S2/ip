@@ -1,7 +1,7 @@
 package duke.storage;
 
 /**
- * The Todo class defined a 'ToDo' task used for the application
+ * The Todo class defines a 'ToDo' task used for the application
  *
  * @author Ryan NgWH
  */
