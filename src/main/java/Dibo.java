@@ -5,6 +5,7 @@ public class Dibo {
         // Greeting the user
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
+        Store store = new Store();
 
         // Getting the command
         Scanner sc = new Scanner(System.in);
@@ -12,7 +13,14 @@ public class Dibo {
 
         // Responding
         while (!command.equals("bye")) {
-            System.out.println(command);
+
+            if (command.equals("list")) {
+                store.displayStore();
+                command = sc.nextLine();
+                continue;
+            }
+
+            System.out.println(store.addText(command));
             command = sc.nextLine();
         }
 
