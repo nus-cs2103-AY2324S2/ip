@@ -57,34 +57,46 @@ public class Skibidi {
             int i;
             try {
                 i = Integer.parseInt(in.substring(5));
-                if (i > this.list.size() || i < 1) {
-                    System.out.println("Sorry, index out of range!");
-                } else {
-                    Task t = this.list.get(i-1);
-                    t.markAsDone();
-                    System.out.print("Nice! I've marked this task as done:\n  ");
-                    System.out.println(t);
-                    this.list.set(i-1, t);
-                }
+                Task t = this.list.get(i-1);
+                t.markAsDone();
+                System.out.print("Nice! I've marked this task as done:\n  ");
+                System.out.print(t);
+                this.list.set(i-1, t);
+
             } catch (NumberFormatException e) {
                 System.out.println("Not a valid number!");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Sorry, index out of range!");
             }
 
         // Marking a task as not done
         } else if (in.startsWith("unmark")) {
             try {
                 int i = Integer.parseInt(in.substring(7));
-                if (i > this.list.size() || i < 1) {
-                    System.out.println("Sorry, index out of range!");
-                } else {
-                    Task t = this.list.get(i-1);
-                    t.markAsNotDone();
-                    System.out.print("OK, I've marked this task as not done yet:\n  ");
-                    System.out.println(t);
-                    this.list.set(i-1, t);
-                }
+                Task t = this.list.get(i-1);
+                t.markAsNotDone();
+                System.out.print("OK, I've marked this task as not done yet:\n  ");
+                System.out.print(t);
+                this.list.set(i-1, t);
+
             } catch (NumberFormatException e) {
                 System.out.println("Not a valid number!");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Sorry, index out of range!");
+            }
+
+        } else if (in.startsWith("delete")){
+            try {
+                int i = Integer.parseInt(in.substring(7));
+                Task t = this.list.remove(i-1);
+                System.out.print("Noted. I've removed this task::\n  ");
+                System.out.println(t);
+                System.out.printf("Now you have %d tasks in the list.\n", this.list.size());
+
+            } catch (NumberFormatException e) {
+                System.out.println("Not a valid number! Or perhaps add a ' '");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Sorry, index out of range!");
             }
 
         } else {
