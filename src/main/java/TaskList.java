@@ -18,6 +18,10 @@ public class TaskList {
         return taskList.get(taskNum - 1);
     }
 
+    public int getTaskCount() {
+        return this.taskCount;
+    }
+
     public void printList() {;
         if (taskCount == 0) {
             System.out.println("There are currently no task added.");
