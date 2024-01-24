@@ -72,6 +72,19 @@ public class Luke {
                 System.out.println("Good work, I guess.");
                 System.out.println((idx + 1) + "." + history.get(idx).fullStatus());
                 System.out.println();
+            } else if (input.split(" ")[0].equals("delete")) {
+                String fullStatus;
+                try {
+                    int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
+                    fullStatus = history.get(index).fullStatus();
+                    history.remove(index);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("There's nothing there, dummy...");
+                    System.out.println("[Tried to remove non-existent event]\n");
+                    continue;
+                }
+                System.out.println("Fine! If that's what you really want...");
+                System.out.println("[Removed " + fullStatus + "]\n");
             } else {
                 //it is a task.
                 Task task;

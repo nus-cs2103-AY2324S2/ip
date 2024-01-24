@@ -39,11 +39,31 @@ Good work, I guess.
 Good work, I guess.
 3.[E][X] project meeting (from: Mon 2pm to: 4pm)
 
+1.[T][X] borrow book
+2.[D][X] return book (by: Sunday)
+3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+
 Jeez, you really ought to give me a number I can work with... got that?
 [Item index exceeds history count]
 
+Fine! If that's what you really want...
+[Removed [E][X] project meeting (from: Mon 2pm to: 4pm)]
+
+Fine! If that's what you really want...
+[Removed [D][X] return book (by: Sunday)]
+
+Fine! If that's what you really want...
+[Removed [T][X] borrow book]
+
+Looks like you have way too much free time on your hands, huh.
+[No items in list]
+
+There's nothing there, dummy...
+[Tried to remove non-existent event]
+
 Don't be ridiculous!
 It's... it's not like I want to see you again or anything!
+
 
 
 
