@@ -1,3 +1,8 @@
+import Task.Task;
+import Task.ToDoTask;
+import Task.DeadlineTask;
+import Task.EventTask;
+
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -31,12 +36,24 @@ public class TaskManager {
     public int getTotalTaskCount(){
         return this.userTasks.size();
     }
-    public void markTaskCompleted(int index) {
-        this.userTasks.get(index).markCompleted();
+    public boolean markTaskCompleted(int index) {
+        try {
+            this.userTasks.get(index).markCompleted();
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("No task with index " + (index + 1) + ". Enter list to view tasks.");
+            return false;
+        }
     }
 
-    public void markTaskIncomplete(int index) {
-        this.userTasks.get(index).markIncomplete();
+    public boolean markTaskIncomplete(int index) {
+        try {
+            this.userTasks.get(index).markIncomplete();
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("No task with index " + (index + 1) + ". Enter list to view tasks.");
+            return false;
+        }
     }
 
     public ArrayList<Task> getUserTasks(){

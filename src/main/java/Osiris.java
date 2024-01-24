@@ -1,3 +1,5 @@
+import Task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,18 +31,29 @@ public class Osiris {
                     this.printUserTasks();
                     break;
                 case "mark":
-                    try {
-                        this.markTaskCompleted(Integer.parseInt(inputtedWords[1]));
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid integer format: " + inputtedWords[1]);
-                        System.out.println("Please Reenter");
+                    if (inputtedWords.length >= 2) {
+                        String taskIndexString = inputtedWords[1];
+                        if (taskIndexString.matches("\\d+")) {
+                            int taskIndex = Integer.parseInt(taskIndexString);
+                            this.markTaskCompleted(taskIndex);
+                        } else {
+                            System.out.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
+                        }
+                    } else {
+                        System.out.println("Unprovided task Index. Please Reenter");
                     }
                     break;
                 case "unmark":
-                    try {
-                        this.markTaskIncomplete(Integer.parseInt(inputtedWords[1]));
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid integer format: " + inputtedWords[1]);
+                    if (inputtedWords.length >= 2) {
+                        String taskIndexString = inputtedWords[1];
+                        if (taskIndexString.matches("\\d+")) {
+                            int taskIndex = Integer.parseInt(taskIndexString);
+                            this.markTaskIncomplete(taskIndex);
+                        } else {
+                            System.out.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
+                        }
+                    } else {
+                        System.out.println("Unprovided task Index. Please Reenter");
                     }
                     break;
                 case "todo":
@@ -51,7 +64,7 @@ public class Osiris {
 
                     if (byIndex != -1) {
                         String taskName = userInput.substring("deadline".length(), byIndex - 1);
-                        String deadline = userInput.substring(byIndex + "/by".length() + 1);
+                        String deadline = userInput.substring(byIndex + "/by".length()).trim();
 
                         this.addDeadlineTask(taskName, deadline);
                     } else {
@@ -64,8 +77,8 @@ public class Osiris {
 
                     if (fromIndex != -1 && toIndex != -1) {
                         String taskName = userInput.substring("event".length(), fromIndex - 1);
-                        String startDateTime = userInput.substring(fromIndex + "/from".length() + 1, toIndex - 1);
-                        String endDateTime = userInput.substring(toIndex + "/to".length() + 1);
+                        String startDateTime = userInput.substring(fromIndex + "/from".length(), toIndex - 1).trim();
+                        String endDateTime = userInput.substring(toIndex + "/to".length()).trim();
 
                         this.addEventTask(taskName, startDateTime, endDateTime);
                     } else {
@@ -104,7 +117,7 @@ public class Osiris {
         this.taskManager.addUserTask(userInput);
 
         this.printSeparator();
-        System.out.println("     Added Task: " + userInput);
+        System.out.println("     Added Task.Task: " + userInput);
         this.printSeparator();
     }
 
@@ -139,21 +152,25 @@ public class Osiris {
     }
 
     private void markTaskCompleted(int index){
-        this.taskManager.markTaskCompleted(index - 1);
+        boolean successful = this.taskManager.markTaskCompleted(index - 1);
 
-        this.printSeparator();
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("        " + this.taskManager.getTask(index - 1).toString());
-        this.printSeparator();
+        if (successful) {
+            this.printSeparator();
+            System.out.println("     Nice! I've marked this task as done:");
+            System.out.println("        " + this.taskManager.getTask(index - 1).toString());
+            this.printSeparator();
+        }
     }
 
     private void markTaskIncomplete(int index) {
-        this.taskManager.markTaskIncomplete(index - 1);
+        boolean successful = this.taskManager.markTaskIncomplete(index - 1);
 
-        this.printSeparator();
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("        " + this.taskManager.getTask(index - 1).toString());
-        this.printSeparator();
+        if (successful) {
+            this.printSeparator();
+            System.out.println("     OK, I've marked this task as not done yet:");
+            System.out.println("        " + this.taskManager.getTask(index - 1).toString());
+            this.printSeparator();
+        }
     }
     private void printUserTasks(){
         ArrayList<Task> toPrint = this.taskManager.getUserTasks();
@@ -168,5 +185,4 @@ public class Osiris {
     private void printSeparator() {
         System.out.println("----------------------------------------");
     }
-
 }

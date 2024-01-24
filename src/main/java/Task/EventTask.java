@@ -1,4 +1,8 @@
-public class EventTask extends Task{
+package Task;
+
+import Task.Task;
+
+public class EventTask extends Task {
 
     private String startDateTime;
 
