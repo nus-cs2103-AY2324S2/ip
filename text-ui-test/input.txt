@@ -2,4 +2,16 @@ todo borrow book
 list
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
+unknown
+todo
+deadline testing
+deadline testing /by
+event test
+event test /from /to
+event test /from beginning of time /to
+event test /from /to end of time
+mark 1
+mark 4
+unmark 1
+unmark 4
 bye

@@ -1,8 +1,67 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Checkbot {
     public static final String INDENTATION = "  ";
     private static final String SEPARATOR = INDENTATION + "____________________________________________________________\n";
+
+    private static Task createTask(String input) throws CheckbotException {
+        Task task;
+        String[] splitString = input.split("todo|deadline|event|\\/(by|from|to)");
+        String taskName = splitString.length > 1 ? splitString[1].strip() : "";
+        if (taskName.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
+        if (input.startsWith("todo")) {
+            task = new Todo(taskName);
+        } else if (input.startsWith("deadline")) {
+            Pattern pattern = Pattern.compile("deadline (.*) /by (.*)");
+            Matcher matcher = pattern.matcher(input);
+            if (matcher.find()) {
+                String byWhen = matcher.group(2).strip();
+                if (byWhen.isEmpty()) {
+                    throw new MissingDeadlineException();
+                }
+                task = new Deadline(taskName, byWhen);
+            } else {
+                throw new MissingDeadlineException();
+            }
+        } else {
+            Pattern pattern = Pattern.compile("event (.*) /(from|to)(.*) /(from|to)(.*)");
+            Matcher matcher = pattern.matcher(input);
+            if (matcher.find()) {
+                String firstLabel = matcher.group(2);
+                String firstValue = matcher.group(3).strip();
+                String secondLabel = matcher.group(4);
+                String secondValue = matcher.group(5).strip();
+
+                String from, to;
+                if (firstLabel.equals("from")) {
+                    from = firstValue;
+                    to = secondValue;
+                } else {
+                    from = secondValue;
+                    to = firstValue;
+                }
+
+                if (from.isEmpty()) {
+                    throw new MissingFromException();
+                }
+                if (to.isEmpty()) {
+                    throw new MissingToException();
+                }
+
+                task = new Event(taskName, from, to);
+            } else {
+                if (input.contains(" /from ")) {
+                    throw new MissingToException();
+                }
+                throw new MissingFromException();
+            }
+        }
+        return task;
+    }
 
     public static void main(String[] args) {
         TodoList todoList = new TodoList();
@@ -18,39 +77,42 @@ public class Checkbot {
         while (!input.equals("bye")) {
             input = scanner.nextLine();
             String toPrint = input;
-            if (input.equals("bye")) {
-                toPrint = "Goodbye!";
-            } else if (input.equals("list")) {
-                toPrint = "Here is your todo list:\n" + INDENTATION + todoList;
-            } else if (input.startsWith("mark ")) {
-                int i = Integer.parseInt(input.split("mark ")[1]) - 1;
-                todoList.markTask(i);
-                toPrint = "Good job! I have marked this task as completed:\n"
-                        + INDENTATION + todoList.getTask(i);
-            } else if (input.startsWith("unmark ")) {
-                int i = Integer.parseInt(input.split("unmark ")[1]) - 1;
-                todoList.unmarkTask(i);
-                toPrint = "Alright, I have marked this task as incomplete:\n"
-                        + INDENTATION + todoList.getTask(i);
-            } else if (input.startsWith("todo")
-                    || input.startsWith("deadline")
-                    || input.startsWith("event")) {
-                Task task;
-                if (input.startsWith("todo")) {
-                    task = new Todo(input.split("todo ")[1]);
-                } else if (input.startsWith("deadline")) {
-                    String[] splitString = input.split("deadline |\\/by ");
-                    task = new Deadline(splitString[1], splitString[2]);
+            try {
+                if (input.equals("bye")) {
+                    toPrint = "Goodbye!";
+                } else if (input.equals("list")) {
+                    toPrint = "Here is your todo list:\n" + INDENTATION + todoList;
+                } else if (input.startsWith("mark ")) {
+                    try {
+                        int i = Integer.parseInt(input.split("mark ")[1]) - 1;
+                        todoList.markTask(i);
+                        toPrint = "Good job! I have marked this task as completed:\n"
+                                + INDENTATION + todoList.getTask(i);
+                    } catch (NumberFormatException e) {
+                        throw new InvalidIndexException(input.split("mark ")[1]);
+                    }
+                } else if (input.startsWith("unmark ")) {
+                    try {
+                        int i = Integer.parseInt(input.split("unmark ")[1]) - 1;
+                        todoList.unmarkTask(i);
+                        toPrint = "Alright, I have marked this task as incomplete:\n"
+                                + INDENTATION + todoList.getTask(i);
+                    } catch (NumberFormatException e) {
+                        throw new InvalidIndexException(input.split("mark ")[1]);
+                    }
+                } else if (input.startsWith("todo")
+                        || input.startsWith("deadline")
+                        || input.startsWith("event")) {
+                    Task task = createTask(input);
+                    toPrint = "I have added this task to the list:\n"
+                            + INDENTATION + INDENTATION + task + "\n"
+                            + INDENTATION + "You have now " + (todoList.getLength()+1) + " task" + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
+                    todoList.addTask(task);
                 } else {
-                    String[] splitString = input.split("event |\\/(from|to) ");
-                    task = new Event(splitString[1], splitString[2], splitString[3]);
+                    throw new InvalidCommandException(input);
                 }
-                toPrint = "I have added this task to the list:\n"
-                        + INDENTATION + INDENTATION + task + "\n"
-                        + INDENTATION + "You have now " + (todoList.getLength()+1) + " task" + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
-                todoList.addTask(task);
-            } else {
-                // TODO: Handle?
+            } catch (CheckbotException e) {
+                toPrint = e.getMessage();
             }
             txt = SEPARATOR
                     + INDENTATION + toPrint + "\n"

@@ -7,11 +7,17 @@ public class TodoList {
         length++;
     }
 
-    public void markTask(int i) {
+    public void markTask(int i) throws InvalidIndexException {
+        if (i < 0 || i >= length) {
+            throw new InvalidIndexException(i + 1, length);
+        }
         taskList[i].mark();
     }
 
-    public void unmarkTask(int i) {
+    public void unmarkTask(int i) throws InvalidIndexException {
+        if (i < 0 || i >= length) {
+            throw new InvalidIndexException(i, length);
+        }
         taskList[i].unmark();
     }
 
