@@ -22,13 +22,14 @@ public class Store {
         storage[count++] = task;
         return "Got it. I've added this task: \n" + task.toString() + "\n" +
                 "Now you have " + this.count + (count > 1 ? " tasks " : " task ") +
-                "in the list.";
+                "in the list. \n";
     }
     public void displayStore() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < count; ++i) {
             System.out.println((i + 1) + "." + storage[i].toString());
         }
+        System.out.println();
     }
 
     public void markTask(int i) {
