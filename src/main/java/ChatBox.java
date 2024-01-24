@@ -78,25 +78,34 @@ public class ChatBox {
 
     private void addTodo(String description) {
         printDecorator();
-        this.tasks[this.taskCount] = new Todo(description);
+        Todo todo = new Todo(description);
+        this.tasks[this.taskCount] = todo;
         this.taskCount++;
-        System.out.println("    added: " + this.input);
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("       " + todo);
+        System.out.println("     Now you have " + this.taskCount + " tasks in the list.");
         printDecorator();
     }
 
     private void addDeadline(String description, String time) {
         printDecorator();
-        this.tasks[this.taskCount] = new Deadline(description, time);
+        Deadline deadline = new Deadline(description, time);
+        this.tasks[this.taskCount] = deadline;
         this.taskCount++;
-        System.out.println("    added: " + this.input);
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("       " + deadline);
+        System.out.println("     Now you have " + this.taskCount + " tasks in the list.");
         printDecorator();
     }
 
     private void addEvent(String description, String beginTime, String endTime) {
         printDecorator();
-        this.tasks[this.taskCount] = new Event(description, beginTime, endTime);
+        Event event = new Event(description, beginTime, endTime);
+        this.tasks[this.taskCount] = event;
         this.taskCount++;
-        System.out.println("    added: " + this.input);
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("       " + event);
+        System.out.println("     Now you have " + this.taskCount + " tasks in the list.");
         printDecorator();
     }
 
