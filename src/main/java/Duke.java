@@ -23,56 +23,36 @@ public class Duke {
 
             System.out.println("    ____________________________________________________________");
             String[] splitInput = userInput.split(" ");
-            if (splitInput[0].equals("list")) {
-                System.out.println("      Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    if (tasks.get(i) instanceof ToDo) {
-                        System.out.println("      " + (i + 1) + ".[T]["+ tasks.get(i).getStatusIcon() +"] " + tasks.get(i).getDescription());
-                    } else if (tasks.get(i) instanceof Deadline) {
-                        System.out.println("      " + (i + 1) + ".[D]["+ tasks.get(i).getStatusIcon() +"] " + tasks.get(i).getDescription() + " (by: " + ((Deadline) tasks.get(i)).getBy() + ")");
-                    } else {
-                        System.out.println("      " + (i + 1) + ".[E]["+ tasks.get(i).getStatusIcon() +"] " + tasks.get(i).getDescription() + " (from: " + ((Event) tasks.get(i)).getStart() + " to: " + ((Event) tasks.get(i)).getEnd() + ")");
-                    }
-                }
-            } else if (splitInput[0].equals("mark")) {
-                try {
+            try {
+                if (splitInput[0].equals("list")) {
+                    listMethod();
+
+                } else if (splitInput[0].equals("mark")) {
                     markTask(userInput);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
 
-            } else if (splitInput[0].equals("unmark")) {
-                try {
+                } else if (splitInput[0].equals("unmark")) {
                     unmarkTask(userInput);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
 
-            } else if (splitInput[0].equals("todo")) {
-                try {
+                } else if (splitInput[0].equals("todo")) {
                     addToDo(userInput);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
 
-            } else if (splitInput[0].equals("deadline")) {
-                try {
+                } else if (splitInput[0].equals("deadline")) {
                     addDeadline(userInput);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
 
-            } else if (splitInput[0].equals("event")) {
-                try {
+                } else if (splitInput[0].equals("event")) {
                     addEvent(userInput);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
+
+                } else if (splitInput[0].equals("delete")) {
+
+                    deleteTask(userInput);
+
+                } else {
+
+                    System.out.println("      I'm sorry, I do not understand that.");
+
                 }
-
-            } else {
-
-                System.out.println("      I'm sorry, I do not understand that.");
-
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
             System.out.println("    ____________________________________________________________\n");
             userInput = sc.nextLine().trim();
@@ -81,6 +61,14 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
         System.out.println("      Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
+    }
+
+    public static void listMethod() {
+        System.out.println("      Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+
+            System.out.println("      " + (i + 1) + "." + tasks.get(i).toString());
+        }
     }
 
     public static void addToDo(String input) throws DukeException {
@@ -92,9 +80,10 @@ public class Duke {
         for (int i = 1; i < splitInput.length; i++) {
             name += splitInput[i] + " ";
         }
-        tasks.add(new ToDo(name.trim()));
+        ToDo newToDo= new ToDo(name.trim());
+        tasks.add(newToDo);
         System.out.println("      Got it. I've added this task: ");
-        System.out.println(String.format("      [T][ ] " + name.trim()));
+        System.out.println("      " + newToDo.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
 
     }
@@ -113,9 +102,10 @@ public class Duke {
 
         String name = deadlineSplit[0].substring(9).trim();
         String by = deadlineSplit[1].substring(3).trim();
-        tasks.add(new Deadline(name, by));
+        Deadline newDeadline = new Deadline(name, by);
+        tasks.add(newDeadline);
         System.out.println("      Got it. I've added this task: ");
-        System.out.println(String.format("      [D][ ] " + name + " (by: " + by + ")"));
+        System.out.println("      " + newDeadline.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
     }
 
@@ -133,9 +123,10 @@ public class Duke {
         String name = eventSplit[0].substring(6).trim();
         String start = eventSplit[1].substring(5).trim();
         String end = eventSplit[2].substring(3).trim();
-        tasks.add(new Event(name, start, end));
+        Event newEvent = new Event(name, start, end);
+        tasks.add(newEvent);
         System.out.println("      Got it. I've added this task: ");
-        System.out.println(String.format("      [E][ ] " + name + " (from: " + start + " to: " + end + ")"));
+        System.out.println("      " + newEvent.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
     }
 
@@ -146,12 +137,17 @@ public class Duke {
         } else if (splitInput.length < 2) {
             throw new DukeException("      Please select the task.");
         }
-
-        int choiceMark = Integer.parseInt(splitInput[1]);
+        int choiceMark;
+        try {
+            choiceMark = Integer.parseInt(splitInput[1]);
+        } catch (NumberFormatException e) {
+            throw new DukeException("      Please enter a valid integer value.");
+        }
         if (choiceMark <= tasks.size()) {
             tasks.get(choiceMark - 1).markAsDone();
             System.out.println("      Nice! I've marked this task as done: ");
-            System.out.println("        " + "[X] " + tasks.get(choiceMark - 1).getDescription());
+//            System.out.println("        " + "[X] " + tasks.get(choiceMark - 1).toString());
+            System.out.println("        " + tasks.get(choiceMark - 1).toString());
         } else {
             throw new DukeException("      Invalid choice.");
         }
@@ -165,14 +161,45 @@ public class Duke {
         } else if (splitInput.length < 2) {
             throw new DukeException("      Please select the task.");
         }
-        int choiceMark = Integer.parseInt(splitInput[1]);
-        if (choiceMark <= tasks.size()) {
-            tasks.get(choiceMark - 1).markAsUndone();
+        int choiceUnmark;
+        try {
+            choiceUnmark = Integer.parseInt(splitInput[1]);
+        } catch (NumberFormatException e) {
+            throw new DukeException("      Please enter a valid integer value.");
+        }
+        if (choiceUnmark <= tasks.size()) {
+            tasks.get(choiceUnmark - 1).markAsUndone();
             System.out.println("      OK, I've marked this task as not done yet: ");
-            System.out.println("        " + "[ ] " + tasks.get(choiceMark - 1).getDescription());
+//            System.out.println("        " + "[ ] " + tasks.get(choiceUnmark - 1).toString());
+            System.out.println("        " + tasks.get(choiceUnmark - 1).toString());
         } else {
             System.out.println("      Invalid choice");
         }
+    }
+
+    public static void deleteTask(String input) throws DukeException {
+        String[] splitInput = input.split(" ");
+        if (tasks.size() == 0) {
+            throw new DukeException("      No task at the moment.");
+        } else if (splitInput.length < 2) {
+            throw new DukeException("      Please select the task.");
+        }
+        int choiceDelete;
+        try {
+            choiceDelete = Integer.parseInt(splitInput[1]);
+        } catch (NumberFormatException e) {
+            throw new DukeException("      Please enter a valid integer value.");
+        }
+        if (choiceDelete <= tasks.size()) {
+            Task deletedTask = tasks.get(choiceDelete - 1);
+            tasks.remove(choiceDelete - 1);
+            System.out.println("      Noted, I've removed this task: ");
+            System.out.println("      " + deletedTask.toString());
+            System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
+        } else {
+            System.out.println("      Invalid choice");
+        }
+
     }
 }
 
@@ -208,6 +235,11 @@ class ToDo extends Task {
     public ToDo(String description) {
         super(description);
     }
+
+    @Override
+    public String toString() {
+        return "[T]["+ super.getStatusIcon() +"] " + super.getDescription();
+    }
 }
 
 class Deadline extends Task {
@@ -219,6 +251,11 @@ class Deadline extends Task {
 
     public String getBy() {
         return this.by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]["+ super.getStatusIcon() +"] " + super.getDescription() + " (by: " + this.by + ")";
     }
 }
 
@@ -237,6 +274,11 @@ class Event extends Task {
 
     public String getEnd() {
         return this.end;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]["+ super.getStatusIcon() +"] " + super.getDescription() + " (from: " + this.start + " to: " + this.end + ")";
     }
 }
 
