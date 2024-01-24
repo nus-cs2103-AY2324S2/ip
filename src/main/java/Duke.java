@@ -36,19 +36,17 @@ public class Duke {
             String t = m.substring(5);
             printMessage("   added task: " + t);
             tasks[i] = new Todo(t, 0);
-            i += 1;
         } else if (m.startsWith("deadline")) {
-            String[] t = m.substring(9).split("/by");
+            String[] t = m.substring(9).split(" /by");
             printMessage("   added deadline: " + t[0]);
             tasks[i] = new Deadline(t[0], 0, t[1]);
-            i += 1;
         } else if (m.startsWith("event")) {
-            String[] t1 = m.substring(6).split("/from");
-            String[] t2 = t1[1].split("/to");
+            String[] t1 = m.substring(6).split(" /from");
+            String[] t2 = t1[1].split(" /to");
             printMessage("   added event: " + t1[0]);
             tasks[i] = new Event(t1[0], 0, t2[0], t2[1]);
-            i += 1;
         }
+        i += 1;
     }
 
     public static void main(String[] args) {

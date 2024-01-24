@@ -31,9 +31,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (this.getStatus() == 0) {
-            return "[D] [ ] " + this.getDesc() + " (from: " + this.starttime + ", to: " + this.endtime + ")";
+            return "[D] [ ] " + this.getDesc() + " (from:" + this.starttime + ", to:" + this.endtime + ")";
         } else {
-            return "[D] [X] " + this.getDesc() + " (from: " + this.starttime + ", to: " + this.endtime + ")";
+            return "[D] [X] " + this.getDesc() + " (from:" + this.starttime + ", to:" + this.endtime + ")";
         }
     }
 }
