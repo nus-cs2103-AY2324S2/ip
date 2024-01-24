@@ -2,15 +2,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.Function;
+
+enum TaskID {
+  TODO_ID("T"),
+  EVENT_ID("E"),
+  DEADLINE_ID("D");
+
+  private String id;
+
+  TaskID(String id) {
+    this.id = id;
+  }
+
+  public String toString() {
+    return id;
+  }
+}
 
 abstract class Task {
 
   protected boolean done;
-  protected String id;
+  protected TaskID id;
   protected String task;
 
-  Task(String task, boolean done, String id) {
+  Task(String task, boolean done, TaskID id) {
     this.done = done;
     this.id = id;
     this.task = task;
@@ -25,7 +40,7 @@ abstract class Task {
   }
 
   public String task_id() {
-    return id;
+    return id.toString();
   }
 
   public String toString() {
@@ -38,7 +53,7 @@ abstract class Task {
 class Todo extends Task {
 
   Todo(String task) {
-    super(task, false, "T");
+    super(task, false, TaskID.TODO_ID);
   }
 
   public String task_str() {
@@ -51,7 +66,7 @@ class Deadline extends Task {
   private String deadline;
 
   Deadline(String task, String deadline) {
-    super(task, false, "D");
+    super(task, false, TaskID.DEADLINE_ID);
     this.deadline = deadline;
   }
 
@@ -66,7 +81,7 @@ class Event extends Task {
   private String from;
 
   Event(String task, String from, String to) {
-    super(task, false, "E");
+    super(task, false, TaskID.EVENT_ID);
     this.from = from;
     this.to = to;
   }
