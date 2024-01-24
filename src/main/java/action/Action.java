@@ -17,20 +17,20 @@ import task.TaskList;
  */
 public abstract class Action {
     private final Command command;
-    private final Argument[] arguments;
+    private final Argument[] suppliedArguments;
 
     /**
      * Constructor for this action, which validates that it's arguments are valid.
      *
      * @param command the command associated with this action
-     * @param arguments the arguments supplied with the command
+     * @param suppliedArguments the arguments supplied with the command
      * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
-    public Action(Command command, Argument... arguments) throws ActionException {
+    public Action(Command command, Argument... suppliedArguments) throws ActionException {
         this.command = command;
-        this.arguments = arguments;
+        this.suppliedArguments = suppliedArguments;
         validateExpectedArguments();
-        command.validateSuppliedArguments(arguments);
+        command.validateSuppliedArguments(suppliedArguments);
     }
 
     /**
@@ -78,7 +78,7 @@ public abstract class Action {
      * @throws UnrecognizedArgumentException If an argument is unrecognizable.
      */
     private void validateExpectedArguments() throws UnrecognizedArgumentException {
-        for (Argument suppliedArg : arguments) {
+        for (Argument suppliedArg : suppliedArguments) {
             if (!command.hasArgumentName(suppliedArg)) {
                 throw new UnrecognizedArgumentException(command, suppliedArg);
             }
@@ -92,12 +92,13 @@ public abstract class Action {
      * @return the value of the argument with that name, or null if not found
      */
     final String findArgument(String name) {
-        for (Argument arg : arguments) {
-            if (arg.getName().equals(name)) {
+        for (Argument arg : suppliedArguments) {
+            if (arg.hasSameArgumentName(name)) {
                 return arg.getValue();
             }
         }
-        // null represents that the argument of that name does not exist.
+        // null represents that the argument of that name does not exist,
+        // which should not happen, since the argument has been validated.
         return null;
     }
 

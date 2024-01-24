@@ -15,52 +15,52 @@ public enum Command {
      * Ends the chat.
      */
     BYE(
-            new Argument("bye")
+            new ExpectedArgument("bye")
     ),
     /**
      * List the stored text.
      */
     LIST(
-            new Argument("list")
+            new ExpectedArgument("list")
     ),
     /**
      * Mark the task as done.
      */
     MARK(
-            new Argument("mark", "index")
+            new ExpectedArgument("mark", "index")
     ),
     /**
      * Mark the task as not done.
      */
     UNMARK(
-            new Argument("unmark", "index")
+            new ExpectedArgument("unmark", "index")
     ),
     /**
      * Adds a to-do task.
      */
     ADD_TODO(
-            new Argument("todo", "name")
+            new ExpectedArgument("todo", "name")
     ),
     /**
      * Adds a deadline task.
      */
     ADD_DEADLINE(
-            new Argument("deadline", "name"),
-            new Argument("by", "by_date")
+            new ExpectedArgument("deadline", "name"),
+            new ExpectedArgument("by", "by_date")
     ),
     /**
      * Adds an event task.
      */
     ADD_EVENT(
-            new Argument("event", "name"),
-            new Argument("from", "start_date"),
-            new Argument("to", "end_date")
+            new ExpectedArgument("event", "name"),
+            new ExpectedArgument("from", "start_date"),
+            new ExpectedArgument("to", "end_date")
     ),
     /**
      * Deletes a task.
      */
     DELETE(
-            new Argument("delete", "index")
+            new ExpectedArgument("delete", "index")
     );
 
     /**
@@ -74,19 +74,19 @@ public enum Command {
     private final String name;
 
     /**
-     * Stores the arguments of this command.
+     * Stores the expected arguments of this command.
      */
-    private final Argument[] arguments;
+    private final ExpectedArgument[] arguments;
 
     /**
-     * Constructor for this command, which parses the arguments.
+     * Constructor for this command, which parses the expected arguments.
      * <ul>
      * <li>The first argument has the name of the command.
      * <li>If the value is null, there is no value for that argument. Otherwise, the value is required.
      *
      * @param arguments the arguments of this command
      */
-    Command(Argument... arguments) {
+    Command(ExpectedArgument... arguments) {
         // Name of the argument is the first argument
         this.name = arguments[0].getName();
         this.arguments = arguments;
@@ -96,10 +96,10 @@ public enum Command {
     /**
      * Generates the usage string of this command using the arguments.
      *
-     * @param arguments the arguments of this command
+     * @param arguments the expected arguments of this command
      * @return the usage hint
      */
-    private String generateUsageHint(Argument[] arguments) {
+    private String generateUsageHint(ExpectedArgument[] arguments) {
         StringBuilder usageString = new StringBuilder();
         for (int i = 0; i < arguments.length; i++) {
             if (i != 0) {
@@ -161,7 +161,7 @@ public enum Command {
      * @throws ActionException If an argument is missing.
      */
     public void validateSuppliedArguments(Argument[] suppliedArguments) throws ActionException {
-        for (Argument expectedArg : this.arguments) {
+        for (ExpectedArgument expectedArg : this.arguments) {
             boolean isRecognized = false;
             for (Argument suppliedArg : suppliedArguments) {
                 if (expectedArg.hasSameArgumentName(suppliedArg)) {
