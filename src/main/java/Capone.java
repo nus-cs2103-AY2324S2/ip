@@ -1,11 +1,69 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Capone {
+    private enum Command {
+        LIST("list"), MARK("mark"), UNMARK("unmark"), TODO("todo"), DEADLINE("deadline"),
+        EVENT("event"), DELETE("delete"), BYE("bye"), HELP("help");
+
+        private final String command;
+
+        Command(String command) {
+            this.command = command;
+        }
+
+        @Override
+        public String toString() {
+            return this.command;
+        }
+    }
     // We assume there is no more than 100 tasks added.
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
+
+    public static void processInputs() {
+        // Create a Scanner object to read user input
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            // Read the user input
+            String input = scanner.nextLine();
+
+            // Split inputs by space and store them in an arraylist for processing.
+            ArrayList<String> inputList = new ArrayList<>(Arrays.asList(input.split("\\s+")));
+
+            String firstWord = inputList.get(0);
+            try {
+                if (firstWord.equalsIgnoreCase(Command.LIST.toString())) {
+                    listTasks();
+                } else if (firstWord.equalsIgnoreCase(Command.MARK.toString())) {
+                    markTask(inputList);
+                } else if (firstWord.equalsIgnoreCase(Command.UNMARK.toString())) {
+                    unmarkTask(inputList);
+                } else if (firstWord.equalsIgnoreCase(Command.TODO.toString())) {
+                    processTodo(inputList);
+                } else if (firstWord.equalsIgnoreCase(Command.DEADLINE.toString())) {
+                    processDeadline(inputList);
+                } else if (firstWord.equalsIgnoreCase(Command.EVENT.toString())) {
+                    processEvent(inputList);
+                } else if (firstWord.equalsIgnoreCase(Command.DELETE.toString())) {
+                    deleteTask(inputList);
+                } else if (firstWord.equalsIgnoreCase(Command.BYE.toString())) {
+                    break;
+                } else if (firstWord.equalsIgnoreCase(Command.HELP.toString())) {
+                    displayHelp();
+                } else {
+                    invalidCommand();
+                }
+            } catch (CaponeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        // If user entered "bye", exit program. Clean up.
+        System.out.println("Bye. Hope to see you again soon!");
+        scanner.close();
+    }
 
     public static void printWelcomeMsg() {
         String logo = "░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░\n"
@@ -149,6 +207,7 @@ public class Capone {
         int fromNdx = inputList.indexOf("/from");
         int toNdx = inputList.indexOf("/to");
 
+        // If /to is specified before /from, throw error.
         if (toNdx < fromNdx) {
             throw new CaponeException("Please input from date followed by to date!\n" +
                     "Usage: event [description] /from [date] /to [date]");
@@ -228,7 +287,7 @@ public class Capone {
 
     public static void invalidCommand() throws CaponeException{
         throw new CaponeException("I'm sorry, I don't understand what you just said.\n" +
-                "Use -h to display the list of valid commands");
+                "Use 'help' to display the list of valid commands");
 
     }
 
@@ -245,49 +304,6 @@ public class Capone {
                 "7. delete [index] - Deletes a task. Use this in conjunction with the 'list' command!");
     }
 
-    public static void processInputs() {
-        // Create a Scanner object to read user input
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            // Read the user input
-            String input = scanner.nextLine();
-
-            // Split inputs by space and store them in an arraylist for processing.
-            ArrayList<String> inputList = new ArrayList<>(Arrays.asList(input.split("\\s+")));
-
-            String firstWord = inputList.get(0);
-            try {
-                if (firstWord.equalsIgnoreCase("list")) {
-                    listTasks();
-                } else if (firstWord.equalsIgnoreCase("mark")) {
-                    markTask(inputList);
-                } else if (firstWord.equalsIgnoreCase("unmark")) {
-                    unmarkTask(inputList);
-                } else if (firstWord.equalsIgnoreCase("todo")) {
-                    processTodo(inputList);
-                } else if (firstWord.equalsIgnoreCase("deadline")) {
-                    processDeadline(inputList);
-                } else if (firstWord.equalsIgnoreCase("event")) {
-                    processEvent(inputList);
-                } else if (firstWord.equalsIgnoreCase("delete")) {
-                    deleteTask(inputList);
-                } else if (firstWord.equalsIgnoreCase("bye")) {
-                    break;
-                } else if (firstWord.equalsIgnoreCase("-h")) {
-                    displayHelp();
-                } else {
-                    invalidCommand();
-                }
-            } catch (CaponeException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        // If user entered "bye", exit program. Clean up.
-        System.out.println("Bye. Hope to see you again soon!");
-        scanner.close();
-    }
     public static void main(String[] args) {
 
         Capone.printWelcomeMsg();
