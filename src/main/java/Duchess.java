@@ -50,20 +50,24 @@ public class Duchess {
         while (true) {
             String userInput = scanner.nextLine();
 
-            // Check if the user wants to exit
-            if (userInput.equalsIgnoreCase("bye")) {
-                printClosingGreeting();
-                break;  // Exit the loop
-            } else if (userInput.equalsIgnoreCase("list")) {
-                printTaskList();
-            } else {
-                Task newTask = new Task(userInput);
-                addTask(newTask);
+            // Based on user input, change output
+            switch (userInput.toLowerCase()) {
+                case "bye":
+                    printClosingGreeting();
+                    scanner.close();
+                    return;
+
+                case "list":
+                    printTaskList();
+                    break;
+
+                default:
+                    Task newTask = new Task(userInput);
+                    addTask(newTask);
+                    break;
             }
         }
 
-        // Close the scanner
-        scanner.close();
     }
 
     //Print opening greeting
