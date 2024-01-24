@@ -6,13 +6,20 @@ public class Duke {
         Duke.greet();
 
         Scanner sc = new Scanner(System.in);
+        String[] list = new String[100];
+        int listSize = 0;
         boolean input = true;
         while (input) {
             String message = sc.nextLine();
             if (message.equals("bye")) {
                 input = false;
+            } else if (message.equals("list")) {
+                Duke.listYaps(list, listSize);
+            } else {
+                Duke.echo(message);
+                list[listSize] = message;
+                listSize++;
             }
-            Duke.echo(message);
         }
 
         Duke.exit();
@@ -34,6 +41,13 @@ public class Duke {
     }
 
     public static void echo(String message) {
-        System.out.println(message);
+        System.out.println("added: " + message);
     }
+
+    public static void listYaps(String[] list, int listSize) {
+        for (int i = 0; i < listSize; i++) {
+            System.out.println((i+1)+". "+list[i]);
+        }
+    }
+    
 }
