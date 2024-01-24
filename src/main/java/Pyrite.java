@@ -95,8 +95,8 @@ public class Pyrite {
                         } else {
                             list[list_count] = new Event(
                                     String.join(" ", Arrays.copyOfRange(parameters, 1, toID)),
-                                    String.join(" ", Arrays.copyOfRange(parameters, toID + 1, fromID)),
-                                    String.join(" ", Arrays.copyOfRange(parameters, fromID + 1, parameters.length))
+                                    String.join(" ", Arrays.copyOfRange(parameters, fromID + 1, parameters.length)),
+                                    String.join(" ", Arrays.copyOfRange(parameters, toID + 1, fromID))
                             );
                             list_count++;
                         }
