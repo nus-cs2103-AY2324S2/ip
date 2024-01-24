@@ -29,8 +29,8 @@ public class Duke {
             // If input = "help", list down the command words.
             if (userInput.equalsIgnoreCase("help")) {
                 System.out.println("Oink! Here are the Command Words:\n'list' - displays the list of task\n"
-                        + "'todo' - to add new task\n'deadline' - to add task with deadline\n"
-                        + "'event' - to add an event\n'bye' - to exit the chatbot");
+                        + "'todo ...' - to add new task\n'deadline ... /by ...' - to add task with deadline\n"
+                        + "'event ... /from ... /to ...' - to add an event\n'bye' - to exit the chatbot");
 
             } else if (userInput.equalsIgnoreCase("list")) {
                 if (listCount == 0) {
@@ -57,7 +57,7 @@ public class Duke {
 
                 } else if (userInput.startsWith("deadline")) {
                     //Adds a new deadline task to the list.
-                    String name = userInput.substring(9, userInput.lastIndexOf("/by")-2);
+                    String name = userInput.substring(9, userInput.lastIndexOf("/by")-1);
                     String date = userInput.substring(userInput.lastIndexOf("/by")+4);
                     taskList[listCount] = new Deadline(name, date);
 
@@ -71,14 +71,14 @@ public class Duke {
                 }
                 listCount++;
                 System.out.println("Oink! Nice I have added this task:\n"
-                        + "   " + taskList[listCount-1] + "\nOink's task count: " + listCount);
+                        + " >> " + taskList[listCount-1] + "\nOink's task count: " + listCount);
             }
             System.out.println(horizontalLine);
-            userInput = scan.nextLine();
+            userInput = scan.nextLine(); // Scan for next input.
         }
         // if user entered "bye", close scanner and exit chatbot.
         scan.close();
-        System.out.println(horizontalLine + "Oink! Okie byee... See you soon! :)\n"
+        System.out.println(horizontalLine + "\nOink! Okie byee... See you soon! :)\n"
                 + horizontalLine);
     }
 }

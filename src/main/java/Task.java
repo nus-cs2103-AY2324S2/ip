@@ -23,7 +23,7 @@ public class Task {
     public void markDone() {
         isDone = true;
         System.out.println("Oink! You have completed this task! Nice nice nice\n"
-                + "    " + this);
+                + " >> " + this);
     }
 
     /**
@@ -32,7 +32,7 @@ public class Task {
     public void markUndone() {
         isDone = false;
         System.out.println("Oink! You have unmarked this task! Why why why\n"
-                + "    " + this);
+                + " >> " + this);
     }
 
     /**
