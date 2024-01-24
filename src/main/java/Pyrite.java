@@ -9,6 +9,7 @@ public class Pyrite {
     Task[] list = new Task[100];
     int list_count = 0;
     private void printList(Task[] list, int list_count) {
+        System.out.println("\t" + "Here are the tasks in your list:");
         for (int i = 0; i < list_count; i++) {
             System.out.println("\t" + Integer.toString(i + 1) + ". " + list[i].getFullStatusString());
         }
