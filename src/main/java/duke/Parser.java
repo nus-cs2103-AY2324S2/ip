@@ -1,11 +1,21 @@
 package duke;
 
-import controller.*;
-import model.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import controller.AddTaskCommand;
+import controller.Command;
+import controller.DeleteTaskCommand;
+import controller.InvalidCommand;
+import controller.ListTaskCommand;
+import controller.MarkTaskCommand;
+import controller.UnmarkTaskCommand;
+import model.Deadline;
+import model.Event;
+import model.Task;
+import model.TaskList;
+import model.ToDo;
 
 public class Parser {
     private final String command;
@@ -18,52 +28,62 @@ public class Parser {
     public Command parse() {
         String[] splitTask = command.split(" ", 2);
         Task task;
+        Command command = null;
         switch(splitTask[0]) {
-            case ListTaskCommand.COMMAND_WORD:
-                return new ListTaskCommand(taskList);
-            case MarkTaskCommand.COMMAND_WORD:
-                try {
-                    return parseMark(splitTask);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            case UnmarkTaskCommand.COMMAND_WORD:
-                try {
-                    return parseUnmark(splitTask);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            case AddTaskCommand.TODO:
-                try {
-                    task = parseToDo(splitTask);
-                    return new AddTaskCommand(task, taskList);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            case AddTaskCommand.EVENT:
-                try {
-                    task = parseEvent(splitTask);
-                    return new AddTaskCommand(task, taskList);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            case AddTaskCommand.DEADLINE:
-                try {
-                    task = parseDeadline(splitTask);
-                    return new AddTaskCommand(task, taskList);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            case DeleteTaskCommand.COMMAND_WORD:
-                try {
-                    return parseDelete(splitTask);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            default:
-                return new InvalidCommand();
+        case ListTaskCommand.COMMAND_WORD:
+            command = new ListTaskCommand(taskList);
+            break;
+        case MarkTaskCommand.COMMAND_WORD:
+            try {
+                command = parseMark(splitTask);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+        case UnmarkTaskCommand.COMMAND_WORD:
+            try {
+                command = parseUnmark(splitTask);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+        case AddTaskCommand.TODO:
+            try {
+                task = parseToDo(splitTask);
+                command = new AddTaskCommand(task, taskList);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+        case AddTaskCommand.EVENT:
+            try {
+                task = parseEvent(splitTask);
+                command = new AddTaskCommand(task, taskList);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+        case AddTaskCommand.DEADLINE:
+            try {
+                task = parseDeadline(splitTask);
+                command = new AddTaskCommand(task, taskList);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+        case DeleteTaskCommand.COMMAND_WORD:
+            try {
+                command = parseDelete(splitTask);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+            break; // Add break statement here
+        default:
+            command = new InvalidCommand();
         }
+        return command;
     }
+
 
     private static ToDo parseToDo(String[] todo) throws DukeException {
         if (todo.length != 2 || todo[1].isEmpty()) {

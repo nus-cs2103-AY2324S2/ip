@@ -1,7 +1,7 @@
 package controller;
 
-import duke.Storage;
 import duke.DukeException;
+import duke.Storage;
 
 public class InvalidCommand extends Command {
     private final String exception;

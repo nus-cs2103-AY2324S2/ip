@@ -11,10 +11,10 @@ public class UnmarkTaskView extends Ui {
     @Override
     public void display() {
         System.out.println(
-        "____________________________________________________________\n" +
-        " OK, I've marked this task as not done yet:\n" +
-        "   " + this.task + "\n" +
-        "____________________________________________________________\n"
+            "____________________________________________________________\n"
+            + " OK, I've marked this task as not done yet:\n"
+            + "   " + this.task + "\n"
+            + "____________________________________________________________\n"
         );
     }
 }

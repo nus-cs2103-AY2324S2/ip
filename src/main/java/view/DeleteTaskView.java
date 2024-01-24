@@ -14,11 +14,11 @@ public class DeleteTaskView extends Ui {
     @Override
     public void display() {
         System.out.println(
-        "____________________________________________________________\n" +
-        "   Noted. I've removed this task:\n" +
-        "   " + this.task.toString() + "\n" +
-        "   Now you have " + this.size + " tasks in the list.\n" +
-        "____________________________________________________________\n"
+            "____________________________________________________________\n"
+            + "   Noted. I've removed this task:\n"
+            + "   " + this.task.toString() + "\n"
+            + "   Now you have " + this.size + " tasks in the list.\n"
+            + "____________________________________________________________\n"
         );
     }
 }

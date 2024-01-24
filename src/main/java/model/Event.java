@@ -14,6 +14,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (on: " + from.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma")) + " to " + to.format(DateTimeFormatter.ofPattern("h:mma")) + ")";
+        return "[E]"
+                + super.toString()
+                + " (on: " + from.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"))
+                + " to " + to.format(DateTimeFormatter.ofPattern("h:mma")) + ")";
     }
 }

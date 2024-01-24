@@ -5,7 +5,6 @@ import view.GreetView;
 
 public class GreetCommand extends Command {
     private final GreetView greetView;
-    
     public GreetCommand() {
         this.greetView = new GreetView();
     }

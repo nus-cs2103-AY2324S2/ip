@@ -11,10 +11,10 @@ public class MarkTaskView extends Ui {
     @Override
     public void display() {
         System.out.println(
-        "____________________________________________________________\n" +
-        " Nice! I've marked this task as done:\n" +
-        "   " + this.task + "\n" +
-        "____________________________________________________________\n"
+            "____________________________________________________________\n"
+            + " Nice! I've marked this task as done:\n"
+            + "   " + this.task + "\n"
+            + "____________________________________________________________\n"
         );
     }
 }

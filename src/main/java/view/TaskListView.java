@@ -12,13 +12,13 @@ public class TaskListView extends Ui {
     public void display() {
         String list = "";
         for (int i = 0; i < taskList.size(); i++) {
-            list += ("    " + (i+1) + ". " + taskList.get(i).toString() + "\n");
+            list += ("    " + (i + 1) + ". " + taskList.get(i).toString() + "\n");
         }
         System.out.println(
-        "\n=: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=\n" +
-        "::                        Task List                        ::\n" +
-        "=: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=\n" +
-        list
+            "\n=: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=\n"
+            + "::                        Task List                        ::\n"
+            + "=: = = = = = = = = = = = = = = = = = = = = = = = = = = = = :=\n"
+            + list
         );
     }
 }

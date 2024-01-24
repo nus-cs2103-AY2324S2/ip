@@ -14,11 +14,11 @@ public class AddTaskView extends Ui {
     @Override
     public void display() {
         System.out.println(
-        "____________________________________________________________\n" +
-        "   Got it. I've added this task:\n" +
-        "   " + this.task.toString() + "\n" +
-        "   Now you have " + this.size + " tasks in the list.\n" +
-        "____________________________________________________________\n"
+            "____________________________________________________________\n"
+            + "   Got it. I've added this task:\n"
+            + "   " + this.task.toString() + "\n"
+            + "   Now you have " + this.size + " tasks in the list.\n"
+            + "____________________________________________________________\n"
         );
     }
 }

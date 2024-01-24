@@ -12,6 +12,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma")) + ", " + date.getDayOfWeek() + ")";
+        return "[D]"
+                + super.toString()
+                + " (by: " + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"))
+                + ", " + date.getDayOfWeek() + ")";
     }
 }

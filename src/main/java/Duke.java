@@ -1,12 +1,11 @@
+import java.util.Scanner;
+
 import controller.Command;
 import controller.ExitCommand;
 import controller.GreetCommand;
 import duke.Parser;
 import duke.Storage;
 import model.TaskList;
-
-
-import java.util.*;
 
 public class Duke {
     private final TaskList taskList;
