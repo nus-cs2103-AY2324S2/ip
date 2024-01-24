@@ -70,12 +70,29 @@ public class Capone {
 
         tasks.add(newTodo);
 
-        System.out.printf("Got it. I've added this task:\n%s" +
+        System.out.printf("Got it. I've added this task:\n%s\n" +
                 "Now you have %d task(s) in the list.\n", newTodo.toString(), tasks.size());
     }
 
     public static void processDeadline(ArrayList<String> inputList) {
+        String deadline = "";
+        // Combine the remaining words into a single string
+        StringBuilder combinedString = new StringBuilder();
+        for (int i = 1; i < inputList.size(); i++) {
+            if (inputList.get(i).equals("/by")) {
+                deadline = inputList.get(i + 1);
+                break;
+            }
 
+            combinedString.append(inputList.get(i)).append(" ");
+        }
+
+        Deadline newDeadline = new Deadline(combinedString.toString(), deadline);
+
+        tasks.add(newDeadline);
+
+        System.out.printf("Got it. I've added this task:\n%s\n" +
+                "Now you have %d task(s) in the list.\n", newDeadline.toString(), tasks.size());
     }
 
     public static void processEvent(ArrayList<String> inputList) {
