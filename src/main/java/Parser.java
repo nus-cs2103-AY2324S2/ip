@@ -28,6 +28,24 @@ public class Parser {
         }
     }
 
+    public static void parseMarkTask(String[] words) {
+        try {
+            if (words.length == 2) {
+                if (words[0].equals("mark") || words[0].equals("unmark")) {
+                    int taskNum = Integer.parseInt(words[1]) - 1;
+                    Storage.markTask(words[0], taskNum);
+                }
+            } else {
+                throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
+            }
+        } catch (UkeCatException | NumberFormatException e) {
+            System.out.println("Wrong format, use: mark / unmark <task#>");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Task not found. Please choose a task from the list:");
+            Storage.printTasks();
+        }
+    }
+
     public static void parseDeadline(String input) throws UkeCatException {
         // Regex pattern: deadline + spaces + chars + spaces + /by + spaces + chars
         Pattern pattern = Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(.+)");
@@ -55,7 +73,6 @@ public class Parser {
             throw new UkeCatException("Wrong format, use: event <desc> /from <start> /to <end>");
         }
     }
-
 
     public static void closeScanner() {
         sc.close();

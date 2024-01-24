@@ -1,4 +1,3 @@
-import javax.annotation.processing.SupportedSourceVersion;
 import java.util.ArrayList;
 
 // Holds information to be used conveniently
@@ -19,10 +18,30 @@ public class Storage {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int numT = 0;
 
-    public static void addTask(Task t) {
-        tasks.add(t);
-        numT++;
-        System.out.println("  I added this task: " + t);
+    public static void addTask(String taskType) {
+        try{
+            switch (taskType) {
+                case "todo":
+                    Parser.parseToDo(input);
+                    tasks.add(new ToDo(Storage.desc));
+                    break;
+
+                case "deadline":
+                    Parser.parseDeadline(input);
+                    tasks.add(new Deadline(Storage.desc, Storage.by));
+                    break;
+
+                case "event":
+                    Parser.parseEvent(input);
+                    tasks.add(new Event(Storage.desc, Storage.start, Storage.end));
+                    break;
+            }
+            numT++;
+            System.out.println("  I added this task: " + Storage.desc);
+            Storage.report();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void markTask(String mark, int taskIndex) {
@@ -40,7 +59,7 @@ public class Storage {
     }
 
     public static void report() {
-        String out = String.format("  You have %s undone tasks in the list.", Storage.numT);
+        String out = String.format("  You have %s tasks in the list now.", Storage.numT);
         System.out.println(out);
     }
 
