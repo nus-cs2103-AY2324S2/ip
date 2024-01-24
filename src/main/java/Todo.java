@@ -1,8 +1,5 @@
 public class Todo extends Task {
 
-    protected String from;
-    protected String to;
-
     public Todo(String description) {
         super(description);
     }
