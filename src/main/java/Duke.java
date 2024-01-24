@@ -58,6 +58,9 @@ class zhen{
                 } else if (msg.length() > 6 && msg.substring(0, 6).equals("unmark")) {
                     int number = Integer.parseInt(msg.substring(7));
                     db.unmark(number);
+                } else if (msg.length() > 6 && msg.substring(0, 6).equals("delete")) {
+                    int number = Integer.parseInt(msg.substring(7));
+                    db.delete(number);
                 } else {
                     print_message("OOPS!!! I'm sorry, but I don't know what that means");
                 }
@@ -69,11 +72,21 @@ class zhen{
 }
 class database{
     private ArrayList<task> strlist = new ArrayList<>();
+    private int number_task = 0;
     public void insert(task tsk){
         strlist.add(tsk);
+        number_task++;
         zhen.print_message("Got it. I've added this task:\n  "
                 +tsk.toString()+"\n "+
-                "Now you have "+task.num_task+" tasks in the list.");
+                "Now you have "+number_task+" tasks in the list.");
+    }
+    public void delete(int index){
+        String temp = strlist.get(index-1).toString();
+        strlist.remove(index-1);
+        number_task--;
+        zhen.print_message("Noted. I've removed this task:\n  "
+                +temp+"\n "+
+                "Now you have "+number_task+" tasks in the list.");
     }
     public void mark(int index){
         strlist.get(index-1).mark();
@@ -101,13 +114,11 @@ class database{
 class task{
     private String message;
     private boolean state = false;
-    public static int num_task = 0;
     public task(String msg){
         this.message = msg;
         if (msg.length()==0){
             throw new IllegalArgumentException("input can't be empty");
         }
-        num_task++;
     }
     public void mark(){
         state = true;
