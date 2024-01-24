@@ -77,7 +77,7 @@ public class Tony {
             int numberOfTasks = list.size();
             line();
             System.out.println("Got it dawg. I've added this task: \n");
-            item.toString();
+            System.out.println(item.toString() + "\n");
             System.out.println("Now you got "+ numberOfTasks + " tasks fam \n");
             line();
         }

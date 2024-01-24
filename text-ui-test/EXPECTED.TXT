@@ -1,32 +1,47 @@
 _______________________
-Hello! I'm Tony!
-What can I do for you?
+what is up dawg! I'm Tony!
+What can I do for you mate?
 _________________________
 
 _______________________
 
-Got it. I've added this task:
+Got it dawg. I've added this task:
 
-Now you have 1 tasks in the list
+[T][ ] borrow book
+
+Now you got 1 tasks fam
 
 _______________________
 
 _______________________
 
-Marked item 1 as done.
+Got it dawg. I've added this task:
+
+[D][ ] return book  (by Sunday)
+
+Now you got 2 tasks fam
+
 _______________________
 
+_______________________
+
+Marked item 2 as done dawg.
+_______________________
+
+Error: Invalid command: blah
 _______________________
 
 Here are the tasks in your list:
 
-[T][X] borrow book
+[T][ ] borrow book
+
+[D][X] return book  (by Sunday)
 
 _______________________
 
 _______________________
 
-Bye. Hope to see you again soon!
+See ya later dawg!
 
 _______________________
 
