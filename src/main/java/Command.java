@@ -1,4 +1,4 @@
 public interface Command {
-    public String name();
+    public String getName();
     public int execute(ChatSession chatSession);
 }
