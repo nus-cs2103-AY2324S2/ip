@@ -17,6 +17,15 @@ public class TaskList {
         return null;
     }
 
+    public Task deleteTask(int index) {
+        if (index >= 0 && index < mylist.size()) {
+            System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString() + "\nNow you have " + (mylist.size()-1) + " tasks in the list.");
+            return mylist.remove(index);
+        } else {
+            return null;
+        }
+    }
+
     public void addTask(Task task) {
         mylist.add(task);
         System.out.println("Got it. I've added this task:");

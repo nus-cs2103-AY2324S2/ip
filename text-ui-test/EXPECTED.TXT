@@ -24,5 +24,7 @@ Here are the tasks in your list:
   2. [D] [ ] return book (by: Sunday)
   3. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 Invalid task index. Please provide a valid index.
+Noted. I've removed this task:
+[E] [ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in the list.
 Sorry Unfortunately I didn't understand that command.
-Bye. Hope to see you again soon!

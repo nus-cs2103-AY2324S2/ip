@@ -7,5 +7,5 @@ list
 unmark 3
 list
 unmark 4
+delete 3
 blah
-bye

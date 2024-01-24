@@ -42,6 +42,19 @@ public class CommandParser {
                     } else {
                         throw new EmptyDescriptionException();
                     }
+
+                case "delete":
+                    if (words.length > 1) {
+                        int index = Integer.parseInt(words[1]) - 1;
+                        Task deletedTask = taskList.deleteTask(index);
+                        if (deletedTask != null) {
+                            return new Delete(deletedTask);
+                        } else {
+                            throw new NoIndexException();
+                        }
+                    } else {
+                        throw new NoIndexException();
+                    }
                 case "deadline":
                     if (words.length > 1) {
                         String[] parts = command.split("/by", 2);
