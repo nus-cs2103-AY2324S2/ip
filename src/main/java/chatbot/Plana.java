@@ -1,5 +1,6 @@
 package chatbot;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Plana {
@@ -13,11 +14,17 @@ public class Plana {
             " / ____/ / /_/ / / / / /_/ / \n" +
             "/_/   /_/\\__,_/_/ /_/\\__,_/  \n";
 
-    private static final String name = "Plana";
+    private static final String NAME = "Plana";
+
+    private ArrayList<String> tasks;
+
+    public Plana() {
+        this.tasks = new ArrayList<String>();
+    }
 
     public void greet() {
         System.out.println("Hello from\n" + LOGO);
-        System.out.println("Hello! I'm " + name + "!");
+        System.out.println("Hello! I'm " + NAME + "!");
         System.out.println("What can I do for you?");
         System.out.println("======================");
     }
@@ -31,9 +38,15 @@ public class Plana {
 
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
+            } else if (userInput.equalsIgnoreCase("list")) {
+                System.out.println("You've added the following tasks so far:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.printf("%d. %s\n", i+1, tasks.get(i));
+                }
+            } else {
+                tasks.add(userInput);
+                System.out.println("I've added the task: " + userInput);
             }
-
-            System.out.println(userInput);
         }
 
         scanner.close();
