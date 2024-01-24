@@ -8,6 +8,9 @@ public class Duke {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(System.out, true);
 
+        String[] myList = new String[100];
+        int pointer = 0;
+
         String prompt = "Hello! I'm TFamilyBot\n"
                 + "What can I do for you? \n"
                 + "____________________________________________________________\n";   
@@ -24,8 +27,19 @@ public class Duke {
                 break;
             }
 
-            pw.println(io);
+            if (io.equals("list")) {
+                for (int i = 0; i < pointer; i++) {
+                    int show = i+ 1;
+                    pw.println(show + ". " + myList[i]);
+                }
+
+                pw.println("____________________________________________________________\n");
+            } else {
+            myList[pointer] = io;
+            pointer++;
+            pw.println("added: " + io);
             pw.println("____________________________________________________________\n");
+            }
         }
     }
 }
