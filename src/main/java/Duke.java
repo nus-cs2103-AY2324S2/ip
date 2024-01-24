@@ -4,18 +4,26 @@ public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // Initialization of common commands
         Greetings greetings = new Greetings();
         Goodbye goodbye = new Goodbye();
+        Tasks tasks = new Tasks();
 
-        greetings.printCommand("greeting2");
+        greetings.printDialogue("greeting2");
 
         while (true) {
             String userMessage = scanner.nextLine();
 
             if (!userMessage.equalsIgnoreCase("bye")) {
-                greetings.printCommand(userMessage);
+                if (userMessage.equalsIgnoreCase("list")){
+                    tasks.printTasks();
+                    continue;
+                }
+
+                tasks.addTasks(userMessage);
+                tasks.printDialogue(userMessage);
             } else {
-                goodbye.printCommand("goodbye2");
+                goodbye.printDialogue("goodbye2");
                 break;
             }
         }
