@@ -79,7 +79,8 @@ public class Duke {
     public static ArrayList<Task> todocase(String str, int n, ArrayList<Task> list) throws DukeException {
         str = str.replace("todo", "");
         int strcount = str.split("\\s").length;
-        if(strcount == 0) {
+        
+        if(strcount == 1) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty. " +
                     " Please give this instruction in the following format: todo [description]");
         }
