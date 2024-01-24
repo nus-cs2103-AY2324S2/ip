@@ -19,6 +19,8 @@ public class Solaire {
                 break;
             }
             processInput(input);
+
+            
         }
         waveBye();
     }
@@ -51,7 +53,7 @@ public class Solaire {
     private void processInput(String input) {
         String[] inputCommand = input.split(" ", 2);
         try {
-            UserCommands command = UserCommands.valueOf(inputCommand[0].toUpperCase());
+        UserCommands command = UserCommands.valueOf(inputCommand[0].toUpperCase());
 
         switch(command) {
             case GREET:
@@ -72,16 +74,25 @@ public class Solaire {
             case TODO:
             case DEADLINE:
             case EVENT:
-                addToList(parseTaskInput(input));
+                processTaskCommand(input);
                 break;
             default:
-                System.out.println("Invalid command. Please follow the correct format!");
+                System.out.print("Unsupported command pattern\n");
                 break;
-        }
+            }
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid command. Please follow the correct format!");
+            System.out.println("I am not yet familiar with these commands");
         }
+        
     }         
+
+    private void processTaskCommand(String input) {
+        try {
+            addToList(parseTaskInput(input));
+        } catch (SolaireException e) {
+            System.out.println(e.getMessage()); 
+        }
+    }
 
     private void addToList(Task task) {
         if (task != null) {
@@ -91,32 +102,43 @@ public class Solaire {
         }
     }
 
-    private Task parseTaskInput(String input) {
-        Matcher deadlinePattern = Pattern.compile("^(?i)deadline\\s+(.+)\\s+/by\\s+(\\S+.*)").matcher(input);
-        Matcher todoPattern = Pattern.compile("^(?i)todo\\s+(.+)$").matcher(input);
-        Matcher eventPattern = Pattern.compile("^(?i)event\\s+(.+)\\s+/from\\s+(\\S+)\\s+/to\\s+(\\S+.*)$").matcher(input);
-
-        if (deadlinePattern.matches()) {
-            String taskName = deadlinePattern.group(1);
-            String deadline = deadlinePattern.group(2);
-
-            return new Deadline(taskName, deadline);
-        } else if (todoPattern.matches()){
-            String taskName = todoPattern.group(1);
-            
-            return new Todo(taskName);
-        } else if (eventPattern.matches()) {
-            String taskName = eventPattern.group(1);
-            String from = eventPattern.group(2);
-            String to = eventPattern.group(3);
-
-            return new Event(taskName, from, to);
-        } else {
-            System.out.print("Incorrect format. Task not added\n");
-            return null;
+    private Task parseTaskInput(String input) throws SolaireException {
+        if (input.startsWith("deadline")) {
+            Matcher deadlinePattern = Pattern.compile("^(?i)deadline\\s+(.+)\\s+/by\\s+(\\S+.*)").matcher(input);
+            if (deadlinePattern.matches()) {
+                String taskName = deadlinePattern.group(1);
+                String deadline = deadlinePattern.group(2);
+    
+                return new Deadline(taskName, deadline);
+            } else {
+                throw new SolaireException("Incorrect format: follow deadline format as such: \n"
+                                            + "deadline <description> /by <time>");
+            }
         }
-
-        
+        else if (input.startsWith("todo")) {
+            String[] inputTodo = input.split(" ", 2);
+            if (inputTodo.length < 2 || inputTodo[1].trim().replaceAll("^\\s+", "").isEmpty()) {
+                throw new SolaireException("The todo task description cannot be empty! Please use this format: \n" +
+                "todo <description>");
+            }
+            return new Todo(inputTodo[1]);
+        }
+        else if (input.startsWith("event")) {
+            Matcher eventPattern = Pattern.compile("^(?i)event\\s+(.+)\\s+/from\\s+(\\S+)\\s+/to\\s+(\\S+.*)$").matcher(input);
+            if (eventPattern.matches()) {
+                String taskName = eventPattern.group(1);
+                String from = eventPattern.group(2);
+                String to = eventPattern.group(3);
+    
+                return new Event(taskName, from, to);
+            } else {
+                throw new SolaireException("Incorrect format; follow event format as such:\n"
+                + "event <description> /from <start> /to <end>");
+            }
+        }
+        else {
+            throw new SolaireException("Unable to determine task type");
+        }
     }
 
     private void showList() {
