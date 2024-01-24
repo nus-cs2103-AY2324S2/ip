@@ -16,48 +16,70 @@ public class Duke {
 
         // Main chat loop
         while (true) {
-            // Read user input
-            String userInput = scanner.nextLine();
+            try {
+                // Read user input
+                String userInput = scanner.nextLine();
 
-            // Process user input
-            if (userInput.equalsIgnoreCase("bye")) {
-                // Farewell
-                System.out.println("____________________________________________________________");
-                System.out.println(" Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________");
-                break; // Exit the loop
-            } else if (userInput.equalsIgnoreCase("list")) {
-                // Display the list of tasks
-                System.out.println("____________________________________________________________");
-                System.out.println(" Here" + (taskCount == 1 ? " is the " : " are the ") + taskCount +
-                        (taskCount == 1 ? " task " : " tasks ") + "in your list:");
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println(" " + (i + 1) + "." + tasks[i]);
+                // Process user input
+                if (userInput.equalsIgnoreCase("bye")) {
+                    // Farewell
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Bye. Hope to see you again soon!");
+                    System.out.println("____________________________________________________________");
+                    break; // Exit the loop
+                } else if (userInput.equalsIgnoreCase("list")) {
+                    // Display the list of tasks
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Here" + (taskCount == 1 ? " is the " : " are the ") + taskCount +
+                            (taskCount == 1 ? " task " : " tasks ") + "in your list:");
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.println(" " + (i + 1) + "." + tasks[i]);
+                    }
+                    System.out.println("____________________________________________________________");
+                } else if (userInput.startsWith("mark")) {
+                    // Mark a task as done
+                    int taskIndex = parseTaskIndex(userInput);
+                    markTaskAsDone(taskIndex);
+                } else if (userInput.startsWith("unmark")) {
+                    // Mark a task as not done
+                    int taskIndex = parseTaskIndex(userInput);
+                    unmarkTaskAsDone(taskIndex);
+                } else if (userInput.trim().isEmpty()) {
+                    throw new DukeException("Please enter an action and a task");
+                } else {
+                    // Add the task to the array
+                    createTask(userInput);
+                    tasks[taskCount++] = createTask(userInput);
+                    // Display confirmation
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + tasks[taskCount - 1]);
+                    System.out.println(" Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
+                    System.out.println("____________________________________________________________");
                 }
+            } catch (DukeException e) {
+                // Handle custom Duke exceptions
                 System.out.println("____________________________________________________________");
-            } else if (userInput.startsWith("mark")) {
-                // Mark a task as done
-                int taskIndex = Integer.parseInt(userInput.substring(5).trim()) - 1;
-                markTaskAsDone(taskIndex);
-            } else if (userInput.startsWith("unmark")) {
-                // Mark a task as not done
-                int taskIndex = Integer.parseInt(userInput.substring(7).trim()) - 1;
-                unmarkTaskAsDone(taskIndex);
-            } else {
-                // Add the task to the array
-                tasks[taskCount++] = createTask(userInput);
-                // Display confirmation
+                System.out.println(" " + e.getMessage());
                 System.out.println("____________________________________________________________");
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + tasks[taskCount - 1]);
-                //System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                System.out.println(" Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
+            } catch (NumberFormatException e) {
+                // Handle NumberFormatException (e.g., when parsing integers)
+                System.out.println("____________________________________________________________");
+                System.out.println("Please enter a valid task index.");
                 System.out.println("____________________________________________________________");
             }
         }
 
         // Close the scanner
         scanner.close();
+    }
+    // Parse task index from user input
+    private static int parseTaskIndex(String userInput) throws DukeException {
+        try {
+            return Integer.parseInt(userInput.substring(5).trim()) - 1;
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            throw new DukeException("Please enter a valid task index :(");
+        }
     }
 
     // Mark a task as done
@@ -91,8 +113,15 @@ public class Duke {
     }
 
     // Create a task based on user input
-    private static Task createTask(String userInput) {
+    private static Task createTask(String userInput) throws DukeException {
         String[] inputParts = userInput.split(" ", 2);
+
+        if(!(inputParts[0].equals("todo")) && !(inputParts[0].equals("deadline")) && !(inputParts[0].equals("event"))) {
+            throw new DukeException("Don't talk nonsense");
+        } else if (inputParts.length < 2) {
+            throw new DukeException("What do you want to do");
+        }
+
         String taskType = inputParts[0].toLowerCase();
 
         switch (taskType) {
@@ -103,7 +132,7 @@ public class Duke {
             case "event":
                 return createEventTask(inputParts[1]);
             default:
-                return new Task(userInput); // Default to a generic task
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -192,6 +221,12 @@ class Event extends Task {
     @Override
     public String toString() {
         return super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}
+// Custom DukeException class
+class DukeException extends Exception {
+    public DukeException(String message) {
+        super(message);
     }
 }
 
