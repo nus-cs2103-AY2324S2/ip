@@ -31,13 +31,16 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    private void add(String input) {
-        this.list.add(new Task(input));
-        System.out.println("\tadded: " + input);
+    private void add(Task task) {
+        this.list.add(task);
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t  " + task);
+        System.out.println("\tNow you have " + this.list.size() + " tasks in the list.");
         System.out.println(LINE);
     }
 
     private void list() {
+        System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < this.list.size(); i++) {
             System.out.println("\t" + (i + 1) + ". " + this.list.get(i));
         }
@@ -55,17 +58,28 @@ public class Duke {
                 break;
             } else if (input.equals("list")) {
                 duke.list();
-                continue;
-            } else if (input.startsWith("mark")){
+            } else if (input.startsWith("mark")) {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 duke.list.get(index).markAsDone();
-                continue;
-            } else if (input.startsWith("unmark")){
+            } else if (input.startsWith("unmark")) {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 duke.list.get(index).markNotDone();
-                continue;
+            } else if (input.startsWith("todo")) {
+                input = input.replaceFirst("todo ", "");
+                duke.add(new Todo(input));
+            } else if (input.startsWith("deadline")) {
+                input = input.replaceFirst("deadline ", "");
+                String[] arr = input.split(" /by ");
+                duke.add(new Deadline(arr[0], arr[1]));
+            } else if (input.startsWith("event")) {
+                input = input.replaceFirst("event ", "");
+                String[] arr = input.split(" /from ");
+                String[] arr1 = arr[1].split(" /to ");
+                duke.add(new Event(arr[0], arr1[0], arr1[1]));
+            } else {
+                System.out.println("\tI don't understand what you mean :(");
+                System.out.println(LINE);
             }
-            duke.add(input);
         }
         duke.sayBye();
     }
