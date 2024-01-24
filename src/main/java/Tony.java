@@ -35,6 +35,9 @@ public class Tony {
                     String[] parts = result.split("/");
                     Task event = new Event(parts);
                     lst.add(event);
+                } else if (firstWord.equals("delete")) {
+                    String secondWord = words[1];
+                    lst.delete(secondWord);
                 } else {
                     throw new IllegalArgumentException("Invalid command: " + firstWord);
                 }
@@ -103,6 +106,22 @@ public class Tony {
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 line();
                 System.out.println("Invalid input for 'unmark' command.");
+                line();
+            }
+        }
+
+        public void delete(String input) {
+            try {
+                int index = Integer.parseInt(input);
+                String task = list.get(index - 1).toString();
+                list.remove(index - 1);
+                line();
+                System.out.println("Deleted item: \n" + task + "\n");
+                System.out.println("Now you have " + list.size() + " tasks left in the list.");
+                line();
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                line();
+                System.out.println("Invalid input for 'delete' command.");
                 line();
             }
         }
