@@ -1,0 +1,13 @@
+list
+todo run
+list
+deadline game /by tmr
+event swim /from tdy /to tmr
+list
+mark 2
+mark 2
+list
+mark 1
+mark 3
+list
+bye

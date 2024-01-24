@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static String WELCOME = "   Hi, I'm Gronk! \uD83D\uDDFF \n"
+    public static String WELCOME = "   Hi, I'm Gronk!\n"
             + "   What are we up to today?";
     public static String GOODBYE = "   System closing. Goodbye!";
     public static Task[] tasks = new Task[100];
