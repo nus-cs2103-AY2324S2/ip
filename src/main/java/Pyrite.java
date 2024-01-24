@@ -11,7 +11,7 @@ public class Pyrite {
     private void printList(Task[] list, int list_count) {
         System.out.println("\t" + "Here are the tasks in your list:");
         for (int i = 0; i < list_count; i++) {
-            System.out.println("\t" + Integer.toString(i + 1) + ". " + list[i].getFullStatusString());
+            System.out.println("\t" + Integer.toString(i + 1) + ". " + list[i].toString());
         }
     }
     public void begin() {
@@ -38,14 +38,14 @@ public class Pyrite {
                     System.out.println("\t"
                             + "Nice! I've marked this task as done:\n"
                             + "\t"
-                            + list[id].getFullStatusString());
+                            + list[id].toString());
                 } else if (parameters[0].equals("unmark")) {
                     int id = Integer.parseInt(parameters[1]) - 1;
                     list[id].setDone(false);
                     System.out.println("\t"
                             + "OK, I've marked this task as not done yet:\n"
                             + "\t"
-                            + list[id].getFullStatusString());
+                            + list[id].toString());
                 } else {
                     // Normal list item, add to list
                     this.list[this.list_count] = new Task(input);
