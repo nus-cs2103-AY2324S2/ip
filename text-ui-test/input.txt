@@ -1,0 +1,12 @@
+todo finish A-TextUiTesting
+deadline ip week 1 /by tomorrow
+event cs2103 tutorial /from fri 9 am /to fri 10 am
+list
+mark 2
+list
+unmark 2
+list
+mark 1
+mark 3
+list
+bye
