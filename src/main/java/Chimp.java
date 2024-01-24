@@ -42,10 +42,10 @@ public class Chimp {
                     chimp.list.get(num - 1).unmark();
                     chimp.say(phrases.get("unmark"), chimp.list.get(num - 1));
                     break;
-//                case "todo":
-//                    chimp.addToList(inp);
-//                    chimp.say(chimp.list.get(chimp.list.size() - 1));
-//                    break;
+                case "todo":
+                    chimp.addToList(inp);
+                    chimp.say(chimp.list.get(chimp.list.size() - 1));
+                    break;
                 case "event":
                     String fromSubCommand = arg.split("/")[1];
                     String from = fromSubCommand.substring(fromSubCommand.indexOf(' '), fromSubCommand.length());
