@@ -1,10 +1,13 @@
 public class Duke {
+    public static final String CHATBOTNAME = "Sophia";
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+        Greetings greetings = new Greetings();
+        Goodbye goodbye = new Goodbye();
+
+        greetings.printDialogue("greeting3");
+        goodbye.printDialogue("goodbye3");
+
     }
 }
+
