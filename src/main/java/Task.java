@@ -42,9 +42,23 @@ public class Task {
      * @param num task number
      * @return the new list count
      */
-    public int addTask(int num) {
+    public int printAddTask(int num) {
         num++;
         System.out.println("Oink! Nice I have added this task:\n"
+                + " >> " + this + "\nOink's task count: " + num);
+        return num;
+    }
+
+    /**
+     * Removes a task from the list and print out the details.
+     * Also updates the list count
+     *
+     * @param num task number
+     * @return the new list count
+     */
+    public int printDeleteTask(int num) {
+        num--;
+        System.out.println("Oink! Yosh I have removed this task:\n"
                 + " >> " + this + "\nOink's task count: " + num);
         return num;
     }

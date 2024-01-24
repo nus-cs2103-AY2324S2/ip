@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -12,7 +13,7 @@ public class Duke {
                     + " ---- -   - -  -  ---  ---   --      \n";
         String horizontalLine = "_____________________________________________________";
         String userInput = "";
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<Task>(100);
         int listCount = 0;
         Scanner scan = new Scanner(System.in);
 
@@ -37,7 +38,9 @@ public class Duke {
                 if (userInput.equalsIgnoreCase("help")) {
                     System.out.println("Oink! Here are the Command Words:\n'list' - displays the list of task\n"
                             + "'todo ...' - to add new task\n'deadline ... /by ...' - to add task with deadline\n"
-                            + "'event ... /from ... /to ...' - to add an event\n'bye' - to exit the chatbot");
+                            + "'event ... /from ... /to ...' - to add an event\n"
+                            + "'mark <task no.>' - to mark a task done\n'unmark <task no.>' - to unmark a task\n"
+                            + "'delete <task no.>' - to delete a task\n'bye' - to exit the chatbot");
 
                 } else if (userInput.equalsIgnoreCase("list")) {
                     if (listCount == 0) {
@@ -46,16 +49,21 @@ public class Duke {
                     } else {
                         System.out.println("Oink! Here are the tasks:");
                         for (int i = 1; i <= listCount; i++) {
-                            System.out.println(i + ". " + taskList[i - 1]);
+                            System.out.println(i + ". " + taskList.get(i - 1));
                         }
                     }
                 } else if (userInput.startsWith("mark")) {
                     int num = userInput.charAt(5) - '0';
-                    taskList[num - 1].markDone();
+                    taskList.get(num - 1).markDone();
 
                 } else if (userInput.startsWith("unmark")) {
                     int num = userInput.charAt(7) - '0';
-                    taskList[num - 1].markUndone();
+                    taskList.get(num - 1).markUndone();
+
+                } else if (userInput.startsWith("delete")) {
+                    int num = userInput.charAt(7) - '0';
+                    listCount = taskList.get(num - 1).printDeleteTask(listCount);
+                    taskList.remove(num - 1);
 
                 } else if (isTodo || isDeadline || isEvent) {
                     if (isTodo) {
@@ -65,8 +73,9 @@ public class Duke {
                             throw new DukeException("Ooink oink! What's the name of your task?\n"
                                     + " >> todo ...");
                         } else {
-                            taskList[listCount] = new Todo(userInput.substring(5));
-                            listCount = taskList[listCount].addTask(listCount);
+                            Todo t = new Todo(userInput.substring(5));
+                            taskList.add(t);
+                            listCount = t.printAddTask(listCount);
                         }
                     } else if (isDeadline) {
                         //Adds a new deadline task to the list.
@@ -79,8 +88,9 @@ public class Duke {
                         } else {
                             String name = userInput.substring(9, idx - 1);
                             String date = userInput.substring(idx + 4);
-                            taskList[listCount] = new Deadline(name, date);
-                            listCount = taskList[listCount].addTask(listCount);
+                            Deadline d = new Deadline(name, date);
+                            taskList.add(d);
+                            listCount = d.printAddTask(listCount);
                         }
                     } else {
                         // Adds a new event to the list.
@@ -97,8 +107,9 @@ public class Duke {
                             String from = userInput.substring(userInput.lastIndexOf("/from") + 6,
                                     userInput.lastIndexOf("/to") - 1);
                             String to = userInput.substring(userInput.lastIndexOf("/to") + 4);
-                            taskList[listCount] = new Event(name, from, to);
-                            listCount = taskList[listCount].addTask(listCount);
+                            Event e = new Event(name, from, to);
+                            taskList.add(e);
+                            listCount = e.printAddTask(listCount);
                         }
                     }
                 } else {
