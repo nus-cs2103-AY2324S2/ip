@@ -29,32 +29,50 @@ public class Duke {
                     System.out.println("Here are the tasks in your list:");
 
                     for (int i = 0; i < tasks.size(); ++i) {
-                        Task t = tasks.get(i);
-                        System.out.print(i + 1);
-                        System.out.println("." + t.toString());
+                        System.out.println((i + 1) + "." + tasks.get(i).toString());
                     }
                     break;
 
                 case "mark":
-                    int num = Integer.parseInt(st.nextToken());
-                    tasks.get(num - 1).updateIsDone(true);
+                    int m = Integer.parseInt(st.nextToken());
+                    tasks.get(m - 1).updateIsDone(true);
 
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(" " + tasks.get(num - 1).toString());
+                    System.out.println(" " + tasks.get(m - 1).toString());
                     break;
 
                 case "unmark":
-                    int n = Integer.parseInt(st.nextToken());
-                    tasks.get(n - 1).updateIsDone(false);
+                    int u = Integer.parseInt(st.nextToken());
+                    tasks.get(u - 1).updateIsDone(false);
 
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(" " + tasks.get(n - 1).toString());
+                    System.out.println(" " + tasks.get(u - 1).toString());
                     break;
 
                 case "todo":
-                    tasks.add(new ToDo(action));
+                    tasks.add(new ToDo(action.substring(action.indexOf(" ") + 1)));
                     System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list");
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list");
+                    break;
+
+                case "event":
+                    String e = action.substring(action.indexOf(" ") + 1);
+                    st = new StringTokenizer(e, "/");
+
+                    tasks.add(new Event(st.nextToken().strip(),
+                                        st.nextToken().substring(5).strip(),
+                                        st.nextToken().substring(3)));
+                    System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list");
+                    break;
+
+                case "deadline":
+                    String d = action.substring(action.indexOf(" ") + 1);
+                    st = new StringTokenizer(d, "/");
+
+                    tasks.add(new Deadline(st.nextToken().strip(), st.nextToken().substring(3)));
+                    System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list");
                     break;
 
                 default:
