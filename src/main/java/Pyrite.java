@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -8,12 +9,11 @@ public class Pyrite {
             + "\tWhat can I do for you?";
     String farewell = "\tBye. Hope to see you again soon!";
     String taskAddedAcknowledgement = "\t" + "Got it. I've added this task: ";
-    Task[] list = new Task[100];
-    int list_count = 0;
-    private void printList(Task[] list, int list_count) {
+    ArrayList<Task> list = new ArrayList<>();
+    private void printList(ArrayList<Task> list) {
         System.out.println("\t" + "Here are the tasks in your list:");
-        for (int i = 0; i < list_count; i++) {
-            System.out.println("\t" + Integer.toString(i + 1) + ". " + list[i].toString());
+        for (Task t : list) {
+            System.out.println("\t" + (list.indexOf(t) + 1) + ". " + t.toString());
         }
     }
     private int findCommand(String[] toSearch, String toFind) {
@@ -25,7 +25,7 @@ public class Pyrite {
         return -1;
     }
     private void assertValidId(int id) {
-        if (id < 0 || id >= list_count) {
+        if (id < 0 || id >= list.size()) {
             throw new DukeException("Task to mark/unmark does not exist.");
         }
     }
@@ -55,7 +55,7 @@ public class Pyrite {
                 if (input.equals("bye")) {
                     break;
                 } else if (input.equals("list")) {
-                    printList(this.list, this.list_count);
+                    printList(this.list);
                 } else {
                     boolean added_task = false;
                     // Commands with parameters
@@ -63,19 +63,19 @@ public class Pyrite {
                     if (parameters[0].equals("mark")) {
                         int id = parseID(parameters);
                         assertValidId(id);
-                        list[id].setDone(true);
+                        list.get(id).setDone(true);
                         System.out.println("\t"
                                 + "Nice! I've marked this task as done:\n"
                                 + "\t\t"
-                                + list[id].toString());
+                                + list.get(id).toString());
                     } else if (parameters[0].equals("unmark")) {
                         int id = parseID(parameters);
                         assertValidId(id);
-                        list[id].setDone(false);
+                        list.get(id).setDone(false);
                         System.out.println("\t"
                                 + "OK, I've marked this task as not done yet:\n"
                                 + "\t\t"
-                                + list[id].toString());
+                                + list.get(id).toString());
                         // 3 types of tasks
                         //  Solution below inspired by
                         //  https://stackoverflow.com/questions/11001720/get-only-part-of-an-array-in-java
@@ -89,8 +89,7 @@ public class Pyrite {
                                     "The description of a todo cannot be empty. Add the description after 'todo'."
                             );
                         }
-                        list[list_count] = new ToDo(description);
-                        list_count++;
+                        list.add(new ToDo(description));
                         added_task = true;
                     } else if (parameters[0].equals("deadline")) {
                         int descEnd = findCommand(parameters, "/by");
@@ -103,12 +102,11 @@ public class Pyrite {
                                                 "Add the description after 'deadline'."
                                 );
                             }
-                            list[list_count] = new Deadline(
+                            list.add(new Deadline(
                                     description,
                                     String.join(" ",
                                             Arrays.copyOfRange(parameters, descEnd + 1, parameters.length))
-                            );
-                            list_count++;
+                            ));
                             added_task = true;
                         } else {
                             throw new DukeException("Incomplete Command. Add deadline using '/by'.");
@@ -127,22 +125,20 @@ public class Pyrite {
                                 );
                             }
                             if (fromID < toID) {
-                                list[list_count] = new Event(
+                                list.add( new Event(
                                         description,
                                         String.join(" ", Arrays.copyOfRange(parameters, fromID + 1, toID)),
                                         String.join(" ",
                                                 Arrays.copyOfRange(parameters, toID + 1, parameters.length))
-                                );
-                                list_count++;
+                                ));
                             } else {
-                                list[list_count] = new Event(
+                                list.add( new Event(
                                         description,
                                         String.join(" ",
                                                 Arrays.copyOfRange(parameters, fromID + 1, parameters.length)),
                                         String.join(" ",
                                                 Arrays.copyOfRange(parameters, toID + 1, fromID))
-                                );
-                                list_count++;
+                                ));
                             }
                         } else {
                             throw new DukeException("Incomplete Command. " +
@@ -154,8 +150,8 @@ public class Pyrite {
                     }
                     if (added_task) {
                         System.out.println(taskAddedAcknowledgement);
-                        System.out.println("\t\t" + list[list_count-1].toString());
-                        System.out.println("\t" + "Now you have " + list_count + " tasks in the list.");
+                        System.out.println("\t\t" + list.get(list.size()-1).toString());
+                        System.out.println("\t" + "Now you have " + list.size() + " tasks in the list.");
                     }
                 }
             } catch (DukeException e) {
