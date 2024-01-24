@@ -20,6 +20,15 @@ public class Event extends Task {
     }
 
     @Override
+    public String statusMessage() {
+        if (this.getStatus() == 0) {
+            return "   Well done! Event: " + this.getDesc() + " finished.";
+        } else {
+            return "   Event updated. Event: " + this.getDesc() + " marked as incomplete.";
+        }
+    }
+
+    @Override
     public String toString() {
         if (this.getStatus() == 0) {
             return "[D] [ ] " + this.getDesc() + " (from: " + this.starttime + ", to: " + this.endtime + ")";

@@ -20,17 +20,35 @@ public class Duke {
     public static void reciteList() {
         if (i == 0) {
             printMessage("   nothing added yet!");
+        } else if (i >= 100) {
+            printMessage("   oh no! too many tasks!");
         } else {
-            String lst = "";
+            String m = "";
             for (int j = 0; j < i; j++) {
-                lst += "   " + Integer.toString(j + 1) + ". " + tasks[j].toString() + "\n";
+                m += "   " + Integer.toString(j + 1) + ". " + tasks[j].toString() + "\n";
             }
-            printMessage(lst.substring(0, lst.length() - 2));
+            printMessage(m.substring(0, m.length() - 1));
         }
     }
 
     public static void parseMessage(String m) {
-
+        if (m.startsWith("todo")) {
+            String t = m.substring(5);
+            printMessage("   added task: " + t);
+            tasks[i] = new Todo(t, 0);
+            i += 1;
+        } else if (m.startsWith("deadline")) {
+            String[] t = m.substring(9).split("/by");
+            printMessage("   added deadline: " + t[0]);
+            tasks[i] = new Deadline(t[0], 0, t[1]);
+            i += 1;
+        } else if (m.startsWith("event")) {
+            String[] t1 = m.substring(6).split("/from");
+            String[] t2 = t1[1].split("/to");
+            printMessage("   added event: " + t1[0]);
+            tasks[i] = new Event(t1[0], 0, t2[0], t2[1]);
+            i += 1;
+        }
     }
 
     public static void main(String[] args) {
@@ -47,29 +65,10 @@ public class Duke {
             } else if (message.startsWith("mark")) {
                 String[] t = message.split(" ");
                 int ind = Integer.parseInt(t[1]) - 1;
-                if (tasks[ind].getStatus() == 0) {
-                    tasks[ind].update(1);
-                    System.out.println("   Well done! Task: " + tasks[ind].getDesc() + " completed.");
-                } else if (tasks[ind].getStatus() == 1) {
-                    tasks[ind].update(0);
-                    System.out.println("   Task updated. Task: " + tasks[ind].getDesc() + " is incomplete.");
-                }
-            } else if (message.startsWith("todo")) {
-                String t = message.substring(5);
-                printMessage("   added task: " + t);
-                tasks[i] = new Todo(t, 0);
-                i += 1;
-            } else if (message.startsWith("deadline")) {
-                String[] t = message.substring(9).split("/by");
-                printMessage("   added deadline: " + t[0]);
-                tasks[i] = new Deadline(t[0], 0, t[1]);
-                i += 1;
-            } else if (message.startsWith("event")) {
-                String[] t1 = message.substring(6).split("/from");
-                String[] t2 = t1[1].split("/to");
-                printMessage("   added event: " + t1[0]);
-                tasks[i] = new Event(t1[0], 0, t2[0], t2[1]);
-                i += 1;
+                printMessage(tasks[ind].statusMessage());
+                tasks[ind].flip();
+            } else {
+                parseMessage(message);
             }
         }
 
