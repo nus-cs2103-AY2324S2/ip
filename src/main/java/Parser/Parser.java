@@ -1,6 +1,7 @@
 package Parser;
 
-import java.util.ArrayList;
+import DukeException.*;
+import java.util.Arrays;
 
 public class Parser {
     private String input;
@@ -16,20 +17,22 @@ public class Parser {
         this.input = input;
     }
 
-    public String[] parse() {
+    public String[] parse() throws InvalidCommandException, MissingArgumentsException {
         String[] ans = new String[4];
         String[] split = this.input.split(" ");
+        int flag;
+        int flag2;
         switch(split[0]) {
             case "list":
                 if (split.length != 1) {
-                    ans[0] = "invalid";
+                    throw new InvalidCommandException("InvalidCommandException");
                 } else {
                     ans[0] = "list";
                 }
                 break;
             case "bye":
                 if (split.length != 1) {
-                    ans[0] = "invalid";
+                    throw new InvalidCommandException("InvalidCommandException");
                 } else {
                     ans[0] = "bye";
                 }
@@ -37,14 +40,18 @@ public class Parser {
             case "unmark":
             case "mark":
                 if (split.length != 2) {
-                    ans[0] = "invalid";
+                    throw new MissingArgumentsExceptionMarking(split[0]);
                 } else {
+                    flag = Integer.parseInt(split[1]);
+                    if (flag == -1) {
+                        throw new MissingArgumentsException(split[0]);
+                    }
                     ans = split;
                 }
                 break;
             case "todo":
                 if (split.length == 1) {
-                    ans[0] = "invalid";
+                    throw new MissingArgumentsExceptionTodo("todo");
                 } else {
                     int space = this.input.indexOf(" ");
                     ans[0] = "todo";
@@ -52,8 +59,12 @@ public class Parser {
                 }
                 break;
             case "event":
-                if (split.length == 1) {
-                    ans[0] = "invalid";
+                flag = Arrays.asList(split).indexOf("/from");
+                flag2 = Arrays.asList(split).indexOf("/to");
+                if (split.length < 5) {
+                    throw new MissingArgumentsExceptionEvents("event");
+                } else if (flag < 2 || flag2 == split.length -1 || flag2 - flag <= 1) {
+                    throw new MissingArgumentsExceptionEvents("event");
                 } else {
                     int space = this.input.indexOf(" ");
                     int slash = this.input.indexOf("/");
@@ -67,9 +78,12 @@ public class Parser {
                 }
                 break;
             case "deadline":
-                if (split.length == 1) {
-                    ans[0] = "invalid";
-                } else {
+                flag = Arrays.asList(split).indexOf("/by");
+                if (split.length < 4) {
+                    throw new MissingArgumentsExceptionDeadlines("deadline");
+                } else if (flag < 2 || flag == split.length -1) {
+                    throw new MissingArgumentsExceptionDeadlines("deadline");
+                }else {
                     int space = this.input.indexOf(" ");
                     int slash = this.input.indexOf("/");
                     ans[0] = "deadline";
@@ -79,8 +93,7 @@ public class Parser {
                 }
                 break;
             default:
-                ans[0] = "invalid";
-                break;
+                throw new InvalidCommandException("InvalidCommandException");
         }
         return ans;
     }
