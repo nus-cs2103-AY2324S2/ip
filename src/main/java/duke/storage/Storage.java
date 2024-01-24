@@ -22,12 +22,7 @@ public class Storage {
   /**
    * Array used to store objects for the application
    */
-  private static String[] storageArray = new String[LIMIT];
-
-  /**
-   * Array used to object statuses for the application
-   */
-  private static boolean[] statusArray = new boolean[LIMIT];
+  private static Task[] storageArray = new Task[LIMIT];
 
   /**
    * Method to store items for the application
@@ -41,8 +36,7 @@ public class Storage {
     }
 
     // Add item to storage
-    storageArray[index] = item;
-    statusArray[index] = false;
+    storageArray[index] = new Task(item);
     index++;
   }
 
@@ -51,13 +45,7 @@ public class Storage {
    */
   public static void listItems() {
     for (int i = 0; i < index; i++) {
-      // Retrieve status of object
-      String status = " ";
-      if (statusArray[i]) {
-        status = "X";
-      }
-
-      System.out.println(String.format("%d.[%s] %s", i + 1, status, storageArray[i]));
+      System.out.println(String.format("%d.%s", i + 1, storageArray[i].toString()));
     }
   }
 
@@ -68,11 +56,13 @@ public class Storage {
    */
   public static void markItem(int markIndex) {
     try {
-      statusArray[markIndex] = true;
+      storageArray[markIndex].mark();
       System.out.println("Nice! I've marked this task as done:");
-      System.out.println(String.format("  [X] %s", storageArray[markIndex]));
+      System.out.println(String.format("  %s", storageArray[markIndex].toString()));
     } catch (IndexOutOfBoundsException e) {
       System.out.println("ERROR: Item cannot be marked - Index out of bounds");
+    } catch (NullPointerException e) {
+      System.out.println("ERROR: Item cannot be marked - Index does not contain an item");
     }
   }
 
@@ -83,11 +73,13 @@ public class Storage {
    */
   public static void unmarkItem(int unmarkIndex) {
     try {
-      statusArray[unmarkIndex] = false;
+      storageArray[unmarkIndex].unmark();
       System.out.println("OK, I've marked this task as not done yet:");
-      System.out.println(String.format("  [ ] %s", storageArray[unmarkIndex]));
+      System.out.println(String.format("  %s", storageArray[unmarkIndex].toString()));
     } catch (IndexOutOfBoundsException e) {
       System.out.println("ERROR: Item cannot be unmarked - Index out of bounds");
+    } catch (NullPointerException e) {
+      System.out.println("ERROR: Item cannot be unmarked - Index does not contain an item");
     }
   }
 }
