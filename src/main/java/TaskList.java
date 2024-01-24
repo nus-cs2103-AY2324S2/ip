@@ -31,8 +31,12 @@ public class TaskList {
     public void printTasks() {
         System.out.println(INDENT + LINE);
 
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("     "  + (i+1) + ". " + tasks.get(i));
+        if (tasks.size() == 0) {
+            System.out.println(INDENT + "no tasks");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("     "  + (i+1) + ". " + tasks.get(i));
+            }
         }
 
         System.out.println(INDENT + LINE + "\n");

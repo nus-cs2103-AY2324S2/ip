@@ -3,30 +3,30 @@ import java.util.ArrayList;
 
 public class Derek {
     public static final String INDENT = "     ";
+
     public static final String LINE =  "____________________________________________________________";
+
     private static final String WELCOMEMESSAGE = String.join(
         "\n",
-        INDENT + LINE,
-        INDENT + "Hello! I'm DEREK",
-        INDENT + "What can I do for you?",
-        INDENT + LINE,
-        ""
-    );
-    private static final String EXITMESSAGE = String.join(
-        "\n",
-        INDENT + LINE,
-        INDENT + "Bye. Hope to see you again soon!",
-        INDENT + LINE,
-        ""
+        "Hello! I'm DEREK",
+        INDENT + "What can I do for you?"
     );
 
+    private static final String EXITMESSAGE = "Bye. Hope to see you again soon!";
+
     private static final String EXITCOMMAND = "bye";
+
+    private static void print(String msg) {
+        System.out.println(INDENT + LINE);
+        System.out.println(INDENT + msg);
+        System.out.println(INDENT + LINE + "\n");
+    }
 
     public static void main(String[] args) {
 
         TaskList taskList = new TaskList();
 
-        System.out.println(WELCOMEMESSAGE);
+        print(WELCOMEMESSAGE);
 
         // User input loop
         Scanner scanner = new Scanner(System.in);
@@ -51,42 +51,25 @@ public class Derek {
             if ("mark".equalsIgnoreCase(command)) {
                 int idx = Integer.parseInt(userArgs[1]) - 1;
                 String response = taskList.markTaskDone(idx);
-                System.out.println(String.join(
-                    "\n",
-                    INDENT + LINE,
-                    INDENT + response,
-                    INDENT + LINE,
-                    ""
-                ));
+                print(response);
                 continue;
             }
 
             if ("unmark".equalsIgnoreCase(command)) {
                 int idx = Integer.parseInt(userArgs[1]) - 1;
                 String response = taskList.markTaskUndone(idx);
-                System.out.println(String.join(
-                    "\n",
-                    INDENT + LINE,
-                    INDENT + response,
-                    INDENT + LINE,
-                    ""
-                ));
+                print(response);
                 continue;
             }
 
             taskList.addTask(new Task(userPrompt));
-
-            System.out.println(String.join(
-                "\n",
-                INDENT + LINE,
-                INDENT + "added: " + userPrompt,
-                INDENT + LINE,
-                ""
-            ));
+            print(userPrompt);
         }
 
         scanner.close();
 
-        System.out.println(EXITMESSAGE);
+        print(EXITMESSAGE);
+
+        return;
     }
 }
