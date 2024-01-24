@@ -1,6 +1,3 @@
-import java.sql.Array;
-import java.util.ArrayList;
-
 public class Task {
     private String taskName;
     private boolean done;
