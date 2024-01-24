@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Harvard {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws HarvardException {
         String initial = "____________________________________________________________\n"
                 + "Hello! I'm Harvard\n"
                 + "What can I do for you?\n"
@@ -11,6 +11,8 @@ public class Harvard {
         System.out.println(initial);
 
         List<Task> tasks = new ArrayList<Task>();
+
+
 
         while (true) {
             Scanner scanner = new Scanner(System.in);
@@ -22,14 +24,36 @@ public class Harvard {
 
             String command = echoInput.split(" ")[0];
 
-            if (command.equals("todo")) {
-                Todo todoTask = new Todo(echoInput.substring(echoInput.indexOf(' ')+1));
-                tasks.add(todoTask);
+            try {
+                if (!command.equals("list") && !command.equals("todo") && !command.equals("deadline") &&
+                        !command.equals("event") && !command.equals("mark") && !command.equals("unmark")) {
+                    throw new HarvardException("Bro... Idk what that is man.");
+                }
+            } catch (HarvardException e) {
                 System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(todoTask.toString());
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________\n");
+                System.out.println(e.getMessage());
+                System.out.println("____________________________________________________________");
+            }
+
+
+            if (command.equals("todo")) {
+                try {
+                    if (echoInput.split(" ").length == 1) {
+                        throw new HarvardException("Wow that's awkward... Please enter a description for todo!");
+                    }
+                    Todo todoTask = new Todo(echoInput.substring(echoInput.indexOf(' ') + 1));
+                    tasks.add(todoTask);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(todoTask.toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________\n");
+                } catch (HarvardException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________");
+                }
+
             }
 
             if (command.equals("deadline")) {
@@ -88,24 +112,6 @@ public class Harvard {
                 }
                 System.out.println("____________________________________________________________\n");
             }
-
-//            switch (echoInput) {
-//                case "list":
-//                    System.out.println("____________________________________________________________\n");
-//                    System.out.println("Here are the tasks in your list:\n");
-//                    for (int i = 0; i < tasks.size(); i++) {
-//                        System.out.println(i + 1 + ". " + tasks.get(i).getStatusIcon() + " " + tasks.get(i).getDescription());
-//                    }
-//                    System.out.println("____________________________________________________________\n");
-//                    continue;
-//
-//                default:
-//                    Task taskItem = new Task(echoInput);
-//                    tasks.add(taskItem);
-//                    System.out.println("____________________________________________________________\n");
-//                    System.out.println("added: " + taskItem.getDescription());
-//                    System.out.println("____________________________________________________________\n");
-//            }
 
         }
 
@@ -187,6 +193,12 @@ public class Harvard {
         @Override
         public String toString() {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        }
+    }
+
+    public static class HarvardException extends Throwable {
+        public HarvardException(String errorMessage) {
+            super(errorMessage);
         }
     }
 }
