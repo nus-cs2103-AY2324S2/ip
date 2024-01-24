@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Steven {
 
@@ -6,17 +7,28 @@ public class Steven {
         String line = "========\n";
         String bootMsg = ("This is Steven!\nHow can I advise?\n");
         System.out.println(line + bootMsg + line);
-
+        ArrayList<Task> taskList = new ArrayList<Task>();
         boolean exit = false;
-        while (!exit){
+        while (!exit) {
             Scanner userInput = new Scanner(System.in);
             String command = userInput.nextLine();
-            switch (command){
+            switch (command) {
+                case "list":
+                    System.out.println("This is your list so far:");
+                    int counter = 1;
+                    for (Task t: taskList) {
+                        System.out.println(String.format("%d. %s", counter, t.toString()));
+                        counter++;
+                    }
+                    break;
                 case "bye":
                     exit = true;
                     break;
                 default:
-                    System.out.println(command);
+                    Task newTask = new Task(command);
+                    taskList.add(newTask);
+                    System.out.println("I've added this to the list: " + command);
+                    System.out.println("If you want to see what's on the list so far, just type \"list\"!");
             }
             System.out.println(line);
         }
