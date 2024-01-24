@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Skibidi {
@@ -7,8 +8,7 @@ public class Skibidi {
             " ___) | . \\ | || |_) | || |_| | | \n" +
             "|____/|_|\\_\\___|____/___|____/___|";
 
-    private Task[] list = new Task[100];
-    private int items = 0;
+    private ArrayList<Task> list = new ArrayList<>();
 
     public void printLine() {
         System.out.println("\n-------------------------------------------------------------------\n");
@@ -41,8 +41,10 @@ public class Skibidi {
 
     public void printList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.items; i++) {
-            System.out.printf("%d. %s", i+1, this.list[i]);
+        int number = 1;
+        for (Task t : this.list) {
+            System.out.printf("%d. %s", number, t);
+            number++;
         }
     }
 
@@ -52,15 +54,17 @@ public class Skibidi {
 
         // Marking a task as done
         } else if (in.startsWith("mark")) {
-            int t;
+            int i;
             try {
-                t = Integer.parseInt(in.substring(5));
-                if (t > this.items || t < 1) {
+                i = Integer.parseInt(in.substring(5));
+                if (i > this.list.size() || i < 1) {
                     System.out.println("Sorry, index out of range!");
                 } else {
-                    this.list[t-1].markAsDone();
+                    Task t = this.list.get(i-1);
+                    t.markAsDone();
                     System.out.print("Nice! I've marked this task as done:\n  ");
-                    System.out.println(this.list[t-1]);
+                    System.out.println(t);
+                    this.list.set(i-1, t);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Not a valid number!");
@@ -69,13 +73,15 @@ public class Skibidi {
         // Marking a task as not done
         } else if (in.startsWith("unmark")) {
             try {
-                int t = Integer.parseInt(in.substring(7));
-                if (t > this.items || t < 1) {
+                int i = Integer.parseInt(in.substring(7));
+                if (i > this.list.size() || i < 1) {
                     System.out.println("Sorry, index out of range!");
                 } else {
-                    this.list[t-1].markAsNotDone();
+                    Task t = this.list.get(i-1);
+                    t.markAsNotDone();
                     System.out.print("OK, I've marked this task as not done yet:\n  ");
-                    System.out.println(this.list[t-1]);
+                    System.out.println(t);
+                    this.list.set(i-1, t);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Not a valid number!");
@@ -97,11 +103,13 @@ public class Skibidi {
     public void addTask(String s) {
         // Todo_
         if (s.startsWith("todo")) {
-            if (s.substring(5).isEmpty()) {
+            // Get name and if it is empty, throw exception
+            String n = s.substring(5);
+            if (n.isEmpty()) {
                 throw new DukeEmptyArgumentException();
             }
-            // Get name
-            this.list[items] = new Todo(s.substring(5));
+
+            this.list.add(new Todo(n));
 
         // Deadline
         } else if (s.startsWith("deadline")) {
@@ -121,7 +129,7 @@ public class Skibidi {
                 throw new DukeEmptyArgumentException();
             }
 
-            this.list[items] = new Deadline(n, t);
+            this.list.add(new Deadline(n, t));
 
         // Event
         } else if (s.startsWith("event")) {
@@ -143,14 +151,13 @@ public class Skibidi {
                 throw new DukeEmptyArgumentException();
             }
 
-            this.list[items] = new Event(n, f, t);
+            this.list.add(new Event(n, f, t));
 
         } else {
             throw new DukeInvalidInputException();
         }
 
-        System.out.print("Got it added this task:\n  " + this.list[items]);
-        this.items++;
-        System.out.printf("Now you have %d tasks in the list.", items);
+        System.out.print("Got it added this task:\n  " + this.list.get(this.list.size() - 1));
+        System.out.printf("Now you have %d tasks in the list.", this.list.size());
     }
 }

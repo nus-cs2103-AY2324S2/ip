@@ -17,19 +17,19 @@ Now you have 1 tasks in the list.
 -------------------------------------------------------------------
 
 Got it added this task:
-  [D][ ] task2 (by: 9am)
+  [D][ ] task2  (by: 9am)
 Now you have 2 tasks in the list.
 -------------------------------------------------------------------
 
 Got it added this task:
-  [E][ ] task3 (from: 3am to: 4am)
+  [E][ ] task3 (from: 3am  to: 4am)
 Now you have 3 tasks in the list.
 -------------------------------------------------------------------
 
 Here are the tasks in your list:
 1. [T][ ] task1
-2. [D][ ] task2 (by: 9am)
-3. [E][ ] task3 (from: 3am to: 4am)
+2. [D][ ] task2  (by: 9am)
+3. [E][ ] task3 (from: 3am  to: 4am)
 
 -------------------------------------------------------------------
 
@@ -40,21 +40,21 @@ Nice! I've marked this task as done:
 -------------------------------------------------------------------
 
 Nice! I've marked this task as done:
-  [D][X] task2 (by: 9am)
+  [D][X] task2  (by: 9am)
 
 
 -------------------------------------------------------------------
 
 Nice! I've marked this task as done:
-  [E][X] task3 (from: 3am to: 4am)
+  [E][X] task3 (from: 3am  to: 4am)
 
 
 -------------------------------------------------------------------
 
 Here are the tasks in your list:
 1. [T][X] task1
-2. [D][X] task2 (by: 9am)
-3. [E][X] task3 (from: 3am to: 4am)
+2. [D][X] task2  (by: 9am)
+3. [E][X] task3 (from: 3am  to: 4am)
 
 -------------------------------------------------------------------
 
@@ -65,21 +65,21 @@ OK, I've marked this task as not done yet:
 -------------------------------------------------------------------
 
 OK, I've marked this task as not done yet:
-  [D][ ] task2 (by: 9am)
+  [D][ ] task2  (by: 9am)
 
 
 -------------------------------------------------------------------
 
 OK, I've marked this task as not done yet:
-  [E][ ] task3 (from: 3am to: 4am)
+  [E][ ] task3 (from: 3am  to: 4am)
 
 
 -------------------------------------------------------------------
 
 Here are the tasks in your list:
 1. [T][ ] task1
-2. [D][ ] task2 (by: 9am)
-3. [E][ ] task3 (from: 3am to: 4am)
+2. [D][ ] task2  (by: 9am)
+3. [E][ ] task3 (from: 3am  to: 4am)
 
 -------------------------------------------------------------------
 
@@ -93,8 +93,8 @@ Sorry, index out of range!
 
 Here are the tasks in your list:
 1. [T][ ] task1
-2. [D][ ] task2 (by: 9am)
-3. [E][ ] task3 (from: 3am to: 4am)
+2. [D][ ] task2  (by: 9am)
+3. [E][ ] task3 (from: 3am  to: 4am)
 
 -------------------------------------------------------------------
 
