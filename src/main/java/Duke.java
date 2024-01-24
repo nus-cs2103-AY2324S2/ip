@@ -8,8 +8,17 @@ public class Duke {
         this.name = name;
     }
     public void greetings() {
-        String reply = "Hello! I'm " + this.name + ". \n"
-                + "What can I do for you?";
+        String logo ="    _____ \n" +
+/* */                "   /  _  \\_______   ____   _____ _____ \n" +
+/*   */              "  /  /_\\  \\_  __  \\/  _ \\ /     \\___  \\ \n" +
+        /*   */      " /    |    \\  | \\_ ( <_> )   |   \\/ __ \\_ \n" +
+/* */                " \\____|__  /__|    \\____/|___|_  (____  / \n" +
+/* */                "         \\/                    \\/     \\/ \n";
+        System.out.println("Hello from \n" + logo);
+        String reply = "Hi! I'm " + this.name + ". What can I do for you?";
+//        String reply = "こんにちは先生、私は" + this.name + "アロナです. \n"
+//                + "どういうご用件ですか?　\n"
+//                + "ここで先生のスケジュールが決まります！";
         System.out.println(reply);
     }
 
@@ -99,7 +108,7 @@ public class Duke {
 
     public static void main(String[] args) throws DukeException {
         Scanner scanner = new Scanner(System.in);
-        Duke duke = new Duke("Rikko");
+        Duke duke = new Duke("Arona");
         duke.greetings();
 
         while (true) {
