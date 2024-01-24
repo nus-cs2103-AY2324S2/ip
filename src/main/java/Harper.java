@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -7,6 +8,8 @@ import java.util.Scanner;
  * @version CS2103T AY23/24 Sem 2
  */
 public class Harper {
+
+    ArrayList<String> list = new ArrayList<>();
 
     /**
      * Greets the user.
@@ -33,6 +36,7 @@ public class Harper {
 
     /**
      * Starts the chat, reads user's input and respond to user.
+     * Saves user's input and displays back when requested.
      */
     public void startChat() {
         this.greet();
@@ -44,10 +48,21 @@ public class Harper {
                 this.exit();
                 scanner.close();
                 break;
+            } else if (input.equals("list")) {
+                System.out.println(line);
+                if (this.list.isEmpty()) {
+                    System.out.println("Nothing is in your list!");
+                    System.out.println(line);
+                } else {
+                    for (int i = 0; i < this.list.size(); i++) {
+                        System.out.println(i + 1 + ". " + this.list.get(i));
+                    }
+                    System.out.println(line);
+                }
             } else {
-                System.out.println(line + "\n" + input + "\n" + line);
+                this.list.add(input);
+                System.out.println(line + "\n" + "added: " + input + "\n" + line);
             }
         }
     }
-
 }
