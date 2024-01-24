@@ -3,22 +3,23 @@ public class Event extends Item {
     private String name = "";
     private String start = "";
     private String end = "";
-    public Event(String[] info) {
+    public Event(String[] info) throws CustomExceptions.toBeforeFromException {
         int index = 1;
         String s = "";
-        while (!info[index].equals("/from")) {
+        while ((index < info.length) && !info[index].equals("/from")) {
             if (info[index].equals("/to")) {
-                // throw some exception (to should be after from)
+                throw new CustomExceptions.toBeforeFromException("Wrong input, /to should be after /from");
             }
             this.name += info[index] + " ";
             index++;
         }
-        for (int i = index; i < info.length; i++) {
-            s += info[i] + " ";
+        if (index < info.length) {
+            for (int i = index; i < info.length; i++) {
+                s += info[i] + " ";
+            }
+            this.start = s.split("/from|/to")[1];
+            this.end = s.split("/from|/to")[2];
         }
-        this.start = s.split("/from|/to")[1];
-        this.end = s.split("/from|/to")[2];
-
         this.name = this.name.trim();
         this.start = this.start.trim();
         this.end = this.end.trim();

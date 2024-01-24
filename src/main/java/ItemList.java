@@ -16,7 +16,7 @@ public class ItemList {
         return listOfItems[itemCount-1].addMessage(itemCount);
     }
 
-    String addEvent(String[] info) {
+    String addEvent(String[] info) throws CustomExceptions.toBeforeFromException {
         listOfItems[itemCount] = new Event(info);
         itemCount++;
         return listOfItems[itemCount-1].addMessage(itemCount);
@@ -36,6 +36,6 @@ public class ItemList {
             out += (c+1) + "." + listOfItems[c].toString() + "\n     ";
             c++;
         }
-        return out;
+        return out.trim();
     }
 }

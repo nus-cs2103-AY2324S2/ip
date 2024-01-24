@@ -6,7 +6,7 @@ public class Deadline extends Item{
     public Deadline(String[] info) {
         int index = 1;
         String s = "";
-        while (!info[index].equals("/by")) {
+        while ((index < info.length) && !info[index].equals("/by")) {
             this.name += info[index] + " ";
             index++;
         }
