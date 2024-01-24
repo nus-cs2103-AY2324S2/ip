@@ -6,18 +6,19 @@ public class Arona {
         tasks = new TaskList();
     }
     private void greet() {
-        System.out.println("Welcome, sensei! Arona has been waiting for you.\n");
+        System.out.println("Welcome, sensei! Arona has been waiting for you.");
     }
 
     private void exit() {
-        System.out.println("Thanks for the hard work, Sensei.\n");
+        System.out.println("Thanks for the hard work, Sensei.");
     }
 
     private void listTasks() {
         if (tasks.isEmpty()) {
-            System.out.println("There are no tasks.");
+            System.out.println("Sensei! There are no tasks. " +
+                    "Take care of your health too. It's gotta take priority!");
         } else {
-            System.out.println("There's lots of work to do, but I know you can do it!");
+            System.out.println("Sensei! Pick a task. I'll back you up!");
         }
         tasks.printElements();
     }
@@ -27,7 +28,8 @@ public class Arona {
         tasks.addElements(task);
         System.out.println("Noted, I have added this task.");
         System.out.println("    " + task);
-        System.out.println("Now, your task list has " + tasks.taskCount() + " tasks");
+        System.out.println("Now, your task list has " + tasks.taskCount() + " task"
+                + (tasks.taskCount() == 1 ? "" : "s") + ".");
     }
 
     private void addDeadline(String str, String by) {
@@ -35,7 +37,8 @@ public class Arona {
         tasks.addElements(deadline);
         System.out.println("Noted, I have added this task with deadline.");
         System.out.println("    " + deadline);
-        System.out.println("Now, your task list has " + tasks.taskCount() + " tasks");
+        System.out.println("Now, your task list has " + tasks.taskCount() + " task"
+                + (tasks.taskCount() == 1 ? "" : "s") + ".");
     }
 
     private void addEvent(String str, String start, String end) {
@@ -43,7 +46,8 @@ public class Arona {
         tasks.addElements(event);
         System.out.println("Noted, I have added this event.");
         System.out.println("    " + event);
-        System.out.println("Now, your task list has " + tasks.taskCount() + " tasks");
+        System.out.println("Now, your task list has " + tasks.taskCount() + " task"
+                + (tasks.taskCount() == 1 ? "" : "s") + ".");
     }
 
     private void markDone(int id) {
@@ -88,6 +92,8 @@ public class Arona {
                 String[] eventSplit = commandSplit[1].split(" /from ");
                 String[] eventSplitTime = eventSplit[1].split(" /to ");
                 arona.addEvent(eventSplit[0], eventSplitTime[0], eventSplitTime[1]);
+            } else {
+                System.out.println(command);
             }
         }
 

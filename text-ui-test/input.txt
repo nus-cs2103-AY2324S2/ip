@@ -1,0 +1,13 @@
+list
+Event CS4231 Lecture /from 6.30 PM /to 9.30 PM
+todo Wash laundry
+deadLine CS2108 Homework /by Monday
+event side project meeting /from 10.00PM /to idk
+list
+mark 1
+mark 3
+list
+unmark 3
+mark 2
+list
+bye
