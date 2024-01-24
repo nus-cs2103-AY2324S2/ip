@@ -89,6 +89,9 @@ public class Duke {
                         break;
                     }
                     case "mark": {
+                        if (params.equals("")) {
+                            throw new DukeException("The id of a mark cannot be empty.");
+                        }
                         int index = Integer.parseInt(params) - 1;
                         data.get(index).checked = true;
                         System.out.println("Nice! I've marked this task as done:");
@@ -96,6 +99,9 @@ public class Duke {
                         break;
                     }
                     case "unmark": {
+                        if (params.equals("")) {
+                            throw new DukeException("The id of a unmark cannot be empty.");
+                        }
                         int index = Integer.parseInt(params) - 1;
                         data.get(index).checked = false;
                         System.out.println("Okay! I've marked this task as not done yet");
@@ -144,6 +150,18 @@ public class Duke {
                         Task curr = new Event(split1[0], split2[0], split2[1]);
                         data.add(curr);
                         System.out.println("Got it. I've added this task:");
+                        System.out.println(curr);
+                        System.out.printf("Now you have %d tasks in the list.\n", data.size());
+                        break;
+                    }
+                    case "delete": {
+                        if (params.equals("")) {
+                            throw new DukeException("The id of a delete cannot be empty.");
+                        }
+                        int index = Integer.parseInt(params) - 1;
+                        Task curr = data.get(index - 1);
+                        data.remove(index);
+                        System.out.println("Noted. I've removed this task:");
                         System.out.println(curr);
                         System.out.printf("Now you have %d tasks in the list.\n", data.size());
                         break;
