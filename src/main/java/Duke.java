@@ -3,8 +3,10 @@ import exceptions.TaskNotExistException;
 
 import java.util.*;
 
+
+
 public class Duke{
-    public static void formalities(String context) {
+    private static void formalities(String context) {
         if (context.equals("greet")) {
             System.out.println("____________________________________________________________");
             System.out.println(" Wassup dawg, I'm Snoopy");
@@ -17,9 +19,21 @@ public class Duke{
         }
     }
 
-    private static void processCommand(String maybeCommand, String[] arr, ArrayList<Task> todos) throws RuntimeException {
+    public enum Command {
+        TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, LIST, BYE, UNKNOWN;
+
+        public static Command fromString(String maybeCommand) {
+            try {
+                return Command.valueOf(maybeCommand.toUpperCase());
+            } catch (Exception e) {
+                return UNKNOWN;
+            }
+        }
+    }
+
+    private static void processCommand(Command maybeCommand, String[] arr, ArrayList<Task> todos) throws RuntimeException {
         switch (maybeCommand) {
-            case "todo":
+            case TODO:
                 if (arr.length == 1) {
                     throw new DukeException(" Nuh uh! The description of a todo cannot be empty.\n");
                 }
@@ -31,7 +45,7 @@ public class Duke{
                 System.out.println("Now you have " + todos.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
                 break;
-            case "deadline":
+            case DEADLINE:
                 if (arr.length == 1) {
                     throw new DukeException(" Nuh uh! The description of a deadline cannot be empty.\nMake sure to add a deadline after the description with /by too!");
                 }
@@ -46,7 +60,7 @@ public class Duke{
                 System.out.println("Now you have " + todos.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
                 break;
-            case "event":
+            case EVENT:
                 if (arr.length == 1) {
                     throw new DukeException(" Nuh uh! The description of an event cannot be empty.\nMake sure to add a from and to date after the description with /from and /to too!");
                 }
@@ -67,7 +81,7 @@ public class Duke{
                 System.out.println("Now you have " + todos.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
                 break;
-            case "delete":
+            case DELETE:
                 if (arr.length == 1) {
                     throw new DukeException(" Nuh uh! Which task to delete? \nMake sure to add the task number!");
                 }
@@ -113,43 +127,56 @@ public class Duke{
                 maybeCommand = null;
                 continue;
             }
+            Command command = Command.fromString(maybeCommand);
 
-            if (s.toLowerCase().equals("bye")) {
-                formalities("farewell");
-                break;
-            } else if (s.toLowerCase().equals("list")) {
-                System.out.println("____________________________________________________________");
-                System.out.println(" Here are the tasks in your list:");
-                for (int i = 0; i < todos.size(); i++) {
-                    Task currTask = todos.get(i);
-                    System.out.println((i + 1) + ". " + currTask.toString());
-                }
-                System.out.println("____________________________________________________________");
-            } else if (maybeCommand.equals("mark")) {
-                Integer index = Integer.valueOf(arr[1]) - 1;
-                System.out.print(" Nice! I've marked this task as done:\n");
-                Task currTask = todos.get(index);
-                currTask.markAsDone();
-                System.out.println(" " + currTask.toString());
-                System.out.println("____________________________________________________________");
-            } else if (maybeCommand.equals("unmark")) {
-                Integer index = Integer.valueOf(arr[1]) - 1;
-                System.out.println("____________________________________________________________");
-                System.out.print(" OK, I've marked this task as not done yet:\n");
-                Task currTask = todos.get(index);
-                currTask.markAsUndone();
-                System.out.println(" " + currTask.toString());
-                System.out.println("____________________________________________________________");
-            } else if (maybeCommand.equals("todo") || maybeCommand.equals("deadline") || maybeCommand.equals("event") || maybeCommand.equals("delete")) {
-                try {
-                    processCommand(maybeCommand, arr, todos);
-                } catch (RuntimeException e) {
-                    System.out.println("Error: " + e.getMessage());
-                }
-            } else {
-                System.out.println("____________________________________________________________");
-                System.out.println("Uh ah I don't understand ya");
-                System.out.println("____________________________________________________________");
+            switch (command) {
+                case BYE:
+                    formalities("farewell");
+                    break;
+                case LIST:
+                    // list tasks
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Here are the tasks in your list:");
+                    for (int i = 0; i < todos.size(); i++) {
+                        Task currTask = todos.get(i);
+                        System.out.println((i + 1) + ". " + currTask.toString());
+                    }
+                    System.out.println("____________________________________________________________");
+                    break;
+                case MARK:
+                    // mark task as done
+                    Integer index = Integer.valueOf(arr[1]) - 1;
+                    System.out.print(" Nice! I've marked this task as done:\n");
+                    Task currTask = todos.get(index);
+                    currTask.markAsDone();
+                    System.out.println(" " + currTask.toString());
+                    System.out.println("____________________________________________________________");
+                    break;
+                case UNMARK:
+                    // mark task as undone
+                    index = Integer.valueOf(arr[1]) - 1;
+                    System.out.println("____________________________________________________________");
+                    System.out.print(" OK, I've marked this task as not done yet:\n");
+                    currTask = todos.get(index);
+                    currTask.markAsUndone();
+                    System.out.println(" " + currTask.toString());
+                    System.out.println("____________________________________________________________");
+                    break;
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                case DELETE:
+                    try {
+                        processCommand(command, arr, todos);
+                    } catch (RuntimeException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
+                default:
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Uh ah I don't understand ya");
+                    System.out.println("____________________________________________________________");
+                    break;
             }
 
         }
