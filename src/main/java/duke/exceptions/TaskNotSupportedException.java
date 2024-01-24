@@ -5,7 +5,7 @@ package duke.exceptions;
  *
  * @author Ryan NgWH
  */
-public class TaskNotSupportedException extends Exception {
+public class TaskNotSupportedException extends DukeException {
   /**
    * Constructor for a TaskNotSupportedException
    *

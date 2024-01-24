@@ -1,17 +1,18 @@
 package duke.exceptions;
 
 /**
- * The MissingArgumentException class provides an exception.
+ * The DukeException class defines an exception specific to the Duke
+ * application.
  *
  * @author Ryan NgWH
  */
-public class MissingArgumentException extends DukeException {
+public class DukeException extends Exception {
   /**
    * Constructor for a MissingArgumentException
    *
    * @param errorMessage Error message
    */
-  public MissingArgumentException(String errorMessage) {
+  public DukeException(String errorMessage) {
     super(errorMessage);
   }
 }

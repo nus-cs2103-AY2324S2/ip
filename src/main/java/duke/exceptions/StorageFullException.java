@@ -5,7 +5,7 @@ package duke.exceptions;
  *
  * @author Ryan NgWH
  */
-public class StorageFullException extends Exception {
+public class StorageFullException extends DukeException {
   /**
    * Constructor for a StorageFullException
    *
