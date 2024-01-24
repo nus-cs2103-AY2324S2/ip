@@ -74,6 +74,8 @@ public class Campus {
                     Event event = new Event(eventName, from, to);
                     Campus.add(event);
                     break;
+                default:
+                    break;
             }
         }
         scanner.close();
