@@ -18,4 +18,5 @@ bin/
 
 # test scripts
 text-ui-test/ACTUAL.txt
+/text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
