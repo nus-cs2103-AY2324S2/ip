@@ -31,17 +31,9 @@ public class Duke {
                     } else if (split[0].equals("mark") || split[0].equals("unmark")) {
                         marked(split[0], Integer.parseInt(split[1]));
                     } else if (split[0].equals("todo") || split[0].equals("deadline") || split[0].equals("event")){
-                        try {
-                            addList(text);
-                        } catch (DukeException de) {
-                            System.out.println(de.toString());
-                        }
+                        addList(text);
                     } else if (split[0].equals("delete")) {
-                        try {
-                            deleteItem(split[1]);
-                        } catch (DukeException de){
-                            System.out.println(de.toString());
-                        }
+                            deleteItem(text);
                     } else {
                         throw new DukeException("Your input is invalid!");
                     }
@@ -128,9 +120,9 @@ public class Duke {
     }
 
     private static void deleteItem(String s) throws DukeException {
-        if (s.split(" ").length < 1) {
+        if (s.split(" ").length < 2) {
             throw new DukeException("Missing params for delete!");
-        } else if (s.split(" ").length > 1) {
+        } else if (s.split(" ").length > 2) {
             throw new DukeException("Too many params for delete!");
         }
 
