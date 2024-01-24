@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ArrayList<String> list = new ArrayList<>();
         //Greetings
         String logo = "Tommy";
         String divider = "____________________________";
@@ -13,9 +15,19 @@ public class Duke {
         //Echo
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {
-            System.out.println(divider);
-            System.out.println(userInput);
-            System.out.println(divider);
+            if (!userInput.equals("list")) {
+                list.add(userInput);
+                System.out.println("added: " + userInput);
+                System.out.println(divider);
+            } else {
+                System.out.println(divider);
+                for (String item: list) {
+                    int index = list.indexOf(item) + 1;
+                    System.out.println(index + ": " + item);
+                }
+                System.out.println(divider);
+
+            }
 
             userInput = scanner.nextLine();
         }
