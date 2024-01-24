@@ -95,7 +95,11 @@ public class Duke {
                         }
 
                         String endDate = sc.nextLine();
-                        add(name.toString(), startDate.toString(), endDate);
+                        if (endDate.equals("")) {
+                            System.out.println("The end date cannot be empty!");
+                        } else {
+                            add(name.toString(), startDate.toString(), endDate);
+                        }
                         break;
                     }
 
