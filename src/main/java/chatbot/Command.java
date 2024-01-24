@@ -10,7 +10,9 @@ public enum Command {
     LIST("list"),
     MARK("mark"),
     UNMARK("unmark"),
-    TODO("todo");
+    TODO("todo"),
+    DEADLINE("deadline"),
+    EVENT("event");
 
     private final String rep;
 
@@ -33,7 +35,7 @@ public enum Command {
     public static Command toCommand(String rep) throws InvalidCommandException {
         Command cmd = cmdStrMap.get(rep.split("\\s+")[0]);
         if (cmd == null) {
-            return TODO;
+            throw new InvalidCommandException();
         }
         return cmd;
     }

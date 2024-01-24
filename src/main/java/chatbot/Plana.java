@@ -5,6 +5,8 @@ import chatbot.exceptions.InvalidArgumentException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Plana {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -55,25 +57,58 @@ public class Plana {
     }
 
     private void parseInput(String in) throws DukeException {
-        switch (Command.toCommand(in)) {
+        Command cmd = Command.toCommand(in);
+        switch (cmd) {
             case EXIT:
                 this.shouldExit = true;
                 break;
             case LIST:
                 System.out.println("You've added the following tasks so far:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.printf("%d. %s\n", i+1, tasks.get(i).getDescription());
+                    System.out.printf("%d. %s\n", i+1, tasks.get(i).toString());
                 }
                 break;
             case TODO:
-                tasks.add(new Task(in));
-                System.out.println("I've added the task: " + in);
+            case DEADLINE:
+            case EVENT:
+                addTask(cmd, in.split("\\s+", 2)[1]);
                 break;
             case MARK:
             case UNMARK:
-                markTask(Command.toCommand(in), in.split("\\s+")[1]);
+                markTask(cmd, in.split("\\s+", 2)[1]);
                 break;
         }
+    }
+
+    private void addTask(Command cmd, String desc) throws DukeException {
+        Task t = new Task("");
+        switch (cmd) {
+            case TODO:
+                t = new TodoTask(desc);
+                break;
+            case DEADLINE:
+                Pattern pattern = Pattern.compile("(.+?)\\s+/by\\s+(.+)");
+                Matcher matcher = pattern.matcher(desc);
+
+                if (!matcher.find()) {
+                    throw new InvalidArgumentException();
+                }
+                t = new DeadlineTask(matcher.group(1), matcher.group(2));
+                break;
+            case EVENT:
+                pattern = Pattern.compile("(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)");
+                matcher = pattern.matcher(desc);
+
+                if (!matcher.find()) {
+                    throw new InvalidArgumentException();
+                }
+                t = new EventTask(matcher.group(1), matcher.group(2), matcher.group(3));
+                break;
+        }
+        tasks.add(t);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(">> " + t);
+        System.out.println("You now have " + tasks.size() + " tasks in the list.");
     }
 
     private void markTask(Command cmd, String idx) throws DukeException {

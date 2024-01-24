@@ -12,7 +12,8 @@ public class Task {
         this.done = false;
     }
 
-    public String getDescription() {
+    @Override
+    public String toString() {
         return (done ? "[X] " : "[ ] ") + description;
     }
 
