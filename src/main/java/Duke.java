@@ -10,6 +10,6 @@ public class Duke {
         System.out.print(" ");
         String in = sc.nextLine();
 
-        System.out.println("THEN? okay hope to see you again bye");
+        System.out.println("THEN? hope to see you again bye");
     }
 }
