@@ -2,6 +2,7 @@ package parsing;
 
 import io.Message;
 import model.commands.CommandList;
+import utils.RemiError;
 
 public class Parser {
 
@@ -36,7 +37,7 @@ public class Parser {
      * @param input message received from the console
      * @return message to be outputted
      */
-    public Message parseAndRun(Message input) {
+    public Message parseAndRun(Message input) throws RemiError {
         String[] splitMsg = getKeywordArgsSplit(input);
         String keyword = splitMsg[0];
         String args = splitMsg[1];
