@@ -46,9 +46,10 @@ public class Duke {
                         System.out.println(userTaskList.get(Integer.parseInt(userMsgParsed[1]) - 1));
                         System.out.println(HORIZONTAL_LINE);
 
-                        userMsg = reader.nextLine();
                         continue;
                     }
+
+                    userMsg = reader.nextLine();
                     break;
                 case "unmark":
                     if (checkValidMarkCommand(userMsgParsed, userTaskList)) {
@@ -57,9 +58,10 @@ public class Duke {
                         System.out.println(userTaskList.get(Integer.parseInt(userMsgParsed[1]) - 1));
                         System.out.println(HORIZONTAL_LINE);
 
-                        userMsg = reader.nextLine();
                         continue;
                     }
+
+                    userMsg = reader.nextLine();
                     break;
                 case "todo":
                     System.out.println(HORIZONTAL_LINE);
@@ -114,9 +116,23 @@ public class Duke {
 
                     userMsg = reader.nextLine();
                     continue;
+                case "delete":
+                    if (checkValidMarkCommand(userMsgParsed, userTaskList)) {
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(userTaskList.get(Integer.parseInt(userMsgParsed[1]) - 1));
+                        userTaskList.remove(Integer.parseInt(userMsgParsed[1]) - 1);
+                        System.out.println("Now you have " + userTaskList.size() + " tasks in your list.");
+                        System.out.println(HORIZONTAL_LINE);
+
+                        continue;
+                    }
+
+                    userMsg = reader.nextLine();
+                    break;
                 default:
                     System.out.println(HORIZONTAL_LINE);
-                    System.out.println("Unknown command!g");
+                    System.out.println("Unknown command!");
                     System.out.println(HORIZONTAL_LINE);
 
                     userMsg = reader.nextLine();
