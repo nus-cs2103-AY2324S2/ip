@@ -8,11 +8,10 @@ class IO {
     private List<String> cmdList = Arrays.asList("todo", "deadline", "event", "list", "mark", "unmark", "delete", "bye");
     private Scanner sc;
     private String hLine = "________________________________________________";
-    private String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
+    private String logo = "                            ╱|、\n" +
+            "                          (˚ˎ 。7  \n" +
+            "                           |、˜〵          \n" +
+            "                          じしˍ,)ノ\n";
     private String greetMsg = "Hello! I'm Hatsune Miku!\n"
             + " What can I do for you?";
     private String exitMsg = "Bye. Hope to see you again soon!";
@@ -22,7 +21,7 @@ class IO {
     }
 
     public void greet() {
-        System.out.println("Hello from\n" + logo);
+        System.out.println(logo);
         System.out.println(hLine);
         System.out.println(greetMsg);
         System.out.println(hLine);
