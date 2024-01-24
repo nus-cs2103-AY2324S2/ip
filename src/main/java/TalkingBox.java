@@ -1,4 +1,4 @@
-public class Duke {
+public class TalkingBox {
     public static void main(String[] args) {
         String NAME = "Talking Box";
         /*
