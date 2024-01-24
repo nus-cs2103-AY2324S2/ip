@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     static String botName = "Corgi";
-    static Task[] tasks = new Task[100];
+    static ArrayList<Task> tasks = new ArrayList<>();
     static int numOfTasks = 0;
     public static void greet(){
         String greetMessage = String.format(
@@ -28,12 +29,12 @@ public class Duke {
         String[] inputArr = input.split(" ");
         String commandWord = inputArr[0];
         try {
-            if (commandWord.toLowerCase().equals("todo")) {
+            if (commandWord.equalsIgnoreCase("todo")) {
                 if(input.length() < 6){
                     throw new DukeException(" OOPS!!! The description of a todo cannot be empty.");
                 }
                 addedTask = new Todo(input.substring(5));
-            } else if (commandWord.toLowerCase().equals("event")) {
+            } else if (commandWord.equalsIgnoreCase("event")) {
                 if(input.length() < 7){
                     throw new DukeException(" OOPS!!! The description of a event cannot be empty.");
                 }
@@ -42,7 +43,7 @@ public class Duke {
                     throw new DukeException(" Invalid input for event! Please enter the time.");
                 }
                 addedTask = new Event(arr[0].substring(6, arr[0].length()), arr[1], arr[2]);
-            } else if (commandWord.toLowerCase().equals("deadline")) {
+            } else if (commandWord.equalsIgnoreCase("deadline")) {
                 if(input.length() < 10){
                     throw new DukeException(" OOPS!!! The description of a event cannot be empty.");
                 }
@@ -54,7 +55,8 @@ public class Duke {
             } else {
                 throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            tasks[numOfTasks++] = addedTask;
+            tasks.add(addedTask);
+            numOfTasks++;
             String message = String.format(
                     "____________________________________________________________\n" +
                             " Got it. I've added this task:\n" +
@@ -77,8 +79,8 @@ public class Duke {
                 " Here are the tasks in your list:\n");
         for (int i = 0; i < numOfTasks; i++) {
             String currentTask = String.format("%d.[%s][%s] %s",
-                    i + 1, tasks[i].getTaskType(),
-                    tasks[i].getStatusIcon(), tasks[i].toString());
+                    i + 1, tasks.get(i).getTaskType(),
+                    tasks.get(i).getStatusIcon(), tasks.get(i).toString());
             System.out.println(currentTask);
         }
         System.out.println("____________________________________________________________\n");
@@ -88,7 +90,7 @@ public class Duke {
             System.out.println("Invalid task number entered.");
             return;
         }
-        Task targetTask = tasks[taskNum - 1];
+        Task targetTask = tasks.get(taskNum - 1);
         if (markDone) {
             targetTask.setAsDone();
             String message = String.format(
@@ -111,20 +113,48 @@ public class Duke {
             System.out.println(message);
         }
     }
+    public static void deleteTask (int index) throws DukeException{
+        if (numOfTasks < index){
+            throw new DukeException("Invalid task index to delete!");
+        }
+        Task taskToBeDeleted = tasks.get(index - 1);
+        tasks.remove(index - 1);
+        numOfTasks--;
+        String deleteMessage = String.format(
+                "____________________________________________________________\n" +
+                        " Noted. I've removed this task:\n" +
+                        "  [%s][%s] %s\n" +
+                        " Now you have %d tasks in the list.\n" +
+                        "____________________________________________________________\n",
+                taskToBeDeleted.getTaskType(), taskToBeDeleted.getStatusIcon(),
+                taskToBeDeleted.toString(), numOfTasks);
+        System.out.println(deleteMessage);
+    }
     public static void main(String[] args) throws DukeException{
         greet();
         Scanner sc = new Scanner(System.in);
         String input = "";
         while (true){
             input = sc.nextLine();
-            if(input.toLowerCase().equals("bye")){
+            if(input.equalsIgnoreCase("bye")){
                 break;
-            } else if (input.toLowerCase().equals("list")) {
+            } else if (input.equalsIgnoreCase("list")) {
                 printList();
-            } else if (input.length() >= 6 && input.substring(0,4).toLowerCase().equals("mark")) {
+            } else if (input.length() >= 6 && input.substring(0,4).equalsIgnoreCase("mark")) {
                 markAsDoneOrUndone(Character.getNumericValue(input.charAt(5)), true);
-            } else if (input.length() >= 8 && input.substring(0,6).toLowerCase().equals("unmark")) {
+            } else if (input.length() >= 8 && input.substring(0,6).equalsIgnoreCase("unmark")) {
                 markAsDoneOrUndone(Character.getNumericValue(input.charAt(7)), false);
+            } else if (input.length() >= 8 && input.substring(0,6).equalsIgnoreCase("delete")) {
+                String position = input.substring(7);
+                Integer i = null;
+                try {
+                    i = Integer.parseInt(position);
+                    deleteTask(i);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid index to delete!");
+                } catch (DukeException de) {
+                    System.out.println(de.toString());
+                }
             } else {
                 addToList(input);
             }
