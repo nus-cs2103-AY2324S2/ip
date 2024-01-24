@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Duke {
   private static final String chatbotName = "Sylvia";
@@ -18,20 +16,44 @@ public class Duke {
     return false;
   }
 
-  private List<String> list = new ArrayList<>();
+  public Duke() {
+    this.list = new TaskList();
+  }
 
-  private void add(String item) {
-    list.add(item);
+  private TaskList list;
+
+  private void add(String input) {
+    boolean added = list.addTask(new Task(input));
+    if (!added) {
+      System.out.println("____________________________________________________________");
+      System.out.println("Sorry, some error happened. Please try again.");
+      System.out.println("____________________________________________________________");
+      return;
+    }
     System.out.println("____________________________________________________________");
-    System.out.println("item added: " + item);
+    System.out.println("added: " + input);
     System.out.println("____________________________________________________________");
   }
 
   private void list() {
     System.out.println("____________________________________________________________");
-    for (int i = 0; i < list.size(); i++) {
-      System.out.println(i + 1 + ". " + list.get(i));
-    }
+    System.out.println(list);
+    System.out.println("____________________________________________________________");
+  }
+
+  private void markTaskAsDone(int index) {
+    list.markTaskAsDone(index);
+    System.out.println("____________________________________________________________");
+    System.out.print("Done: ");
+    System.out.println(list.get(index - 1));
+    System.out.println("____________________________________________________________");
+  }
+
+  private void unmarkTaskAsDone(int index) {
+    list.unmarkTaskAsDone(index);
+    System.out.println("____________________________________________________________");
+    System.out.print("Undone: ");
+    System.out.println(list.get(index - 1));
     System.out.println("____________________________________________________________");
   }
 
@@ -64,12 +86,21 @@ public class Duke {
         input = reader.readLine();
       } catch (IOException e) {
         System.out.println("Sorry, I don't understand that.");
+        break;
       }
-      if (isQuitCommand(input)) {
+      // get the first word of the input
+      String[] words = input.split(" ", 2);
+      if (isQuitCommand(words[0])) {
         chatbot.exit();
         break;
-      } else if (input.equals("list")) {
+      } else if (words[0].equals("list")) {
         chatbot.list();
+      } else if (words[0].equals("mark")) {
+        int index = Integer.parseInt(words[1]);
+        chatbot.markTaskAsDone(index);
+      } else if (words[0].equals("unmark")) {
+        int index = Integer.parseInt(words[1]);
+        chatbot.unmarkTaskAsDone(index);
       } else {
         chatbot.add(input);
       }
