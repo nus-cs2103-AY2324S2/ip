@@ -14,4 +14,8 @@ event friend's party /from Mon 5pm /to Mon 10pm
 list
 todo
 blah
+todo finish homework
+list
+delete 5
+list
 bye

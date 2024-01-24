@@ -8,6 +8,7 @@ public class Parser {
         unmark,
         deadline,
         event,
+        delete,
         invalid
     }
 

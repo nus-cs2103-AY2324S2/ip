@@ -10,6 +10,7 @@ public class Duke {
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
     private static final String UNKNOWN_COMMAND_MESSAGE = "The command '%s' is unknown. Please try again!";
     private static final String MISSING_ARGUMENT_MESSAGE = "The command you entered has missing arguments. Please try again!";
+    private static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:%n%s%nNow you have %d tasks in the list.";
     public static ArrayList<Task> taskList = new ArrayList<>();
     private static boolean isOpen = true;
 
@@ -48,6 +49,9 @@ public class Duke {
                         break;
                     case event:
                         addEvent(arguments);
+                        break;
+                    case delete:
+                        deleteTask(arguments);
                         break;
                     case invalid:
                         throw new DukeUnknownCommandException(String.format(UNKNOWN_COMMAND_MESSAGE, p.getUnknownCommand()));
@@ -121,6 +125,16 @@ public class Duke {
         Task event = new Event(eventArgs[0], startTime, endTime);
         taskList.add(event);
         String output = String.format(ADD_TASK_MESSAGE, event, taskList.size());
+        System.out.println(output);
+    }
+
+    public static void deleteTask(String taskIndex) {
+        if (taskIndex.isBlank()) {
+            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+        }
+        Task taskToRemove = taskList.get(Integer.parseInt(taskIndex) - 1);
+        taskList.remove(Integer.parseInt(taskIndex) - 1);
+        String output = String.format(REMOVE_TASK_MESSAGE, taskToRemove, taskList.size());
         System.out.println(output);
     }
 

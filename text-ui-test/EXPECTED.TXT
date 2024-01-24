@@ -43,4 +43,21 @@ Here are the tasks in your list:
 4.[E][ ] friend's party (from: Mon 5pm to: Mon 10pm)
 The command you entered has missing arguments. Please try again!
 The command 'blah' is unknown. Please try again!
+Got it. I've added this task:
+[T][ ] finish homework
+Now you have 5 tasks in the list.
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[T][ ] go to the gym
+3.[D][ ] return book (by: Next Monday)
+4.[E][ ] friend's party (from: Mon 5pm to: Mon 10pm)
+5.[T][ ] finish homework
+Noted. I've removed this task:
+[T][ ] finish homework
+Now you have 4 tasks in the list.
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[T][ ] go to the gym
+3.[D][ ] return book (by: Next Monday)
+4.[E][ ] friend's party (from: Mon 5pm to: Mon 10pm)
 Bye. Hope to see you again soon!
