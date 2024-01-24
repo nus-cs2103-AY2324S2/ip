@@ -8,203 +8,23 @@ import CONSTANTS.EXCEPTIONS;
 import CONSTANTS.REGEX;
 import CONSTANTS.CORRECT_USAGE;
 
+import Exceptions.DukeException;
+import Exceptions.DuplicateTaskNameException;
+import Exceptions.IncorrectIndexException;
+import Exceptions.IncorrectInputException;
+import Exceptions.NotEnoughDatesException;
+import Exceptions.NotEnoughInputsException;
+
+import Tasks.Todo;
+import Tasks.Event;
+import Tasks.Date;
+import Tasks.Deadline;
+import Tasks.Task;
+import Tasks.Tasks;
+
+
+
 public class Duke {
-
-    private static class Tasks {
-        private static ArrayList<Task> arr;
-
-        public static int size() {
-            return arr.size();
-        }
-
-        public static Task get(int i) {
-            return arr.get(i);
-        }
-        public static void add(Task task) throws DuplicateTaskNameException {
-            long dupes = arr.stream().filter(task1 -> task1.task.equals(task.task)).count();
-            if (dupes != 0) {
-                throw new DuplicateTaskNameException(
-                        String.format(EXCEPTIONS.DUPLICATE_TASK_NAME, task.task));
-            }
-            arr.add(task);
-        }
-
-        public static Task delete(String index) throws IncorrectIndexException, NotEnoughInputsException {
-            int i = 0;
-            Task deleted;
-            try {
-                i = Integer.parseInt(index.strip()) - 1;
-                deleted = arr.get(i);
-            } catch (Exception e) {
-                throw new IncorrectIndexException(
-                        String.format(EXCEPTIONS.INCORRECT_INDEX,CORRECT_USAGE.DELETE));
-            }
-            arr.remove(i);
-            echo(String.format(MESSAGES.DELETE, index, deleted));
-            Tasks.list();
-            return deleted;
-        }
-
-        public static void list() {
-            for (int i = 0; i < Tasks.size(); i++) {
-                Task currTask = Tasks.get(i);
-                System.out.printf("%d: %s%n", i + 1, currTask);
-            }
-        }
-
-        public Tasks() {
-            arr = new ArrayList<>();
-        }
-
-
-    }
-    private static abstract class Task {
-        protected String task;
-        protected boolean completed;
-
-        public void setCompleted(boolean completed) {
-            this.completed = completed;
-        }
-
-        public String completedIcon() {
-            return this.completed ? "X" : " ";
-        }
-
-        public Task(String task) {
-            this.task = task;
-            this.completed = false;
-        }
-
-        public abstract String getType();
-
-        public abstract String getAdditionalInfo();
-
-        public abstract String toString();
-    }
-
-    private static class Todo extends Task {
-        public Todo(String task) {
-            super(task);
-        }
-
-        @Override
-        public String getType() {
-            return "[T]";
-        }
-
-        @Override
-        public String getAdditionalInfo() {
-            return "";
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%s[%s]: %s", getType(), completedIcon(), task);
-        }
-    }
-
-    private static class Deadline extends Task {
-        private Date deadline;
-
-        public Deadline(String task, Date deadline) {
-            super(task);
-            this.deadline = deadline;
-        }
-
-        @Override
-        public String getType() {
-            return "[D]";
-        }
-
-        @Override
-        public String getAdditionalInfo() {
-            return String.format(MESSAGES.DEADLINE_TO_STRING, deadline);
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%s[%s]: %s%s", getType(), completedIcon(), task, getAdditionalInfo());
-        }
-    }
-
-    private static class Event extends Task {
-        private Date from;
-        private Date to;
-
-        public Event(String task, Date from, Date to) {
-            super(task);
-            this.from = from;
-            this.to = to;
-        }
-
-        @Override
-        public String getType() {
-            return "[E]";
-        }
-
-        @Override
-        public String getAdditionalInfo() {
-            return String.format(MESSAGES.EVENT_TO_STRING, from, to);
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%s[%s]: %s%s", getType(), completedIcon(), task, getAdditionalInfo());
-        }
-    }
-
-    private abstract static class DukeException extends Exception {
-        public DukeException(String message) {
-            super(message);
-        }
-    }
-
-    private static class IncorrectInputException extends DukeException {
-        public IncorrectInputException(String message) {
-            super(message);
-        }
-    }
-
-    private static class NotEnoughInputsException extends IncorrectInputException {
-        public NotEnoughInputsException(String message) {
-            super(message);
-        }
-    }
-
-    private static class NotEnoughDatesException extends NotEnoughInputsException {
-        public NotEnoughDatesException(String message) {
-            super(message);
-        }
-    }
-
-    private static class DuplicateTaskNameException extends IncorrectInputException {
-
-        public DuplicateTaskNameException(String message) {
-            super(message);
-        }
-    }
-
-    private static class IncorrectIndexException extends IncorrectInputException {
-        public IncorrectIndexException(String message) {
-            super(message);
-        }
-    }
-
-    private static class Date {
-        private String date;
-        private String formattedDate;
-        private void formatDate() {
-            this.formattedDate = this.date;
-        }
-        public Date(String date) {
-            this.date = date;
-            formatDate();
-        }
-
-        public String toString() {
-            return this.formattedDate;
-        }
-    }
 
     private static void Squid() {
         new Tasks();
@@ -340,7 +160,9 @@ public class Duke {
                             "delete",
                             CORRECT_USAGE.DELETE));
         }
-        Tasks.delete(params[1]);
+        Task deleted = Tasks.delete(params[1]);
+        echo(String.format(MESSAGES.DELETE, params[1], deleted));
+        Tasks.list();
     }
 
     private static boolean parseInput(boolean loop, String input) throws DukeException {
