@@ -2,6 +2,7 @@ Hello, I'm Ypxmm.
 Need me do what for you?
 Eh u seh isit? Now your list got no tasks to mark.
 Eh u seh isit? Now your list got no tasks to unmark.
+Eh u seh isit? Now your list got no tasks to delete.
 Ok I help you add this one liao:
 [T][ ] eat
 Now your list got 1 task.
@@ -23,4 +24,7 @@ Upz la, mark for you already!
 [D][X] homework  (by: 5pm)
 Eh wake up your idea, faster finish can or not?? Unmark for you already la!
 [D][ ] homework  (by: 5pm)
+Ok deleted liao:
+[D][ ] homework  (by: 5pm)
+Now your list got 2 tasks left.
 Oh you need zao alr? Okok see you next time!

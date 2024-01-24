@@ -1,5 +1,6 @@
 mark 1
 unmark 1
+delete 1
 todo eat
 deadline
 deadline homework /5pm
@@ -9,4 +10,5 @@ list
 mark 4
 mark 2
 unmark 2
+delete 2
 bye
