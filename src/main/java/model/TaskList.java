@@ -34,7 +34,7 @@ public class TaskList {
 
     public void removeTask(int idx) throws RemiError{
         if (idx < 0 || taskList.size() <= idx) {
-            throw new RemiError("Task is out of bounds and couldn't be removed.")
+            throw new RemiError("Task is out of bounds and couldn't be removed.");
         }
         taskList.remove(idx - 1);
     }
