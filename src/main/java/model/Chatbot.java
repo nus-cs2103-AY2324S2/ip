@@ -22,7 +22,7 @@ public class Chatbot {
 
 
     public void ioLoop() {
-        Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?\n"));
+        Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
 
         while (!exitLoop) {
             Message input = Inputter.inputMessage();
