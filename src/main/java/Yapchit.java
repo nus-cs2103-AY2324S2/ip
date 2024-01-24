@@ -1,12 +1,11 @@
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 import YapchitExceptions.YapchitException;
 import YapchitExceptions.InvalidDetailException;
 import YapchitExceptions.InvalidKeywordException;
 
 public class Yapchit {
-    ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> list = new ArrayList<>();
 
     enum Operations {
         LIST,
