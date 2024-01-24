@@ -25,7 +25,7 @@ public class Duchess {
         } else {
             System.out.println(" Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println(" " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+                System.out.println(" " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].toString());
             }
         }
         printHorizontalLine();
@@ -36,7 +36,7 @@ public class Duchess {
         if (taskCount < MAX_TASKS) {
             tasks[taskCount++] = task;
             printHorizontalLine();
-            System.out.println(" added: " + task.description);
+            System.out.println(" added: " + task.toString());
             printHorizontalLine();
         } else {
             System.out.println("Task list is full. Cannot add more tasks.");
@@ -49,7 +49,7 @@ public class Duchess {
             tasks[taskIndex].markAsDone();
             printHorizontalLine();
             System.out.println(" Nice! I've marked this task as done:");
-            System.out.println(" [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description);
+            System.out.println(" [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].toString());
             printHorizontalLine();
         } else {
             System.out.println("Invalid task index.");
@@ -62,7 +62,7 @@ public class Duchess {
             tasks[taskIndex].unmarkAsDone();
             printHorizontalLine();
             System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println(" [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description);
+            System.out.println(" [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].toString());
             printHorizontalLine();
         } else {
             System.out.println("Invalid task index.");

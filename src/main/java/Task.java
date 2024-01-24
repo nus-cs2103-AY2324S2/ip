@@ -18,4 +18,8 @@ public class Task {
     public void unmarkAsDone() {
         this.isDone = false;
     }
+
+    public String toString() {
+        return description;
+    }
 }
