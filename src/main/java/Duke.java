@@ -38,31 +38,58 @@ public class Duke {
     public static void addTask(String item){
         String[] inputs = item.split(" ");
         String[] name;
-        switch (inputs[0]){
-            case "event":
-                name = item.split("event ");
-                String[] desFromTo = name[1].split(" /from ");
-                String[] fromTo = desFromTo[1].split(" /to ");
+        try {
+            switch (inputs[0]) {
+                case "event":
+                    if(inputs.length == 1){
+                        throw new DescriptionFormatException();
+                    } else {
+                        name = item.split("event ");
+                        String[] desFromTo = name[1].split(" /from ");
+                        String[] fromTo = desFromTo[1].split(" /to ");
 
-                task[taskCount] = new Event(desFromTo[0], fromTo[0], fromTo[1]);
-                break;
-            case "todo":
-                name = item.split("todo ");
-                task[taskCount] = new ToDos(name[1]);
-                break;
-            case "deadline":
-                name = item.split("deadline ");
-                String[] desBy = name[1].split(" /by ");
-                task[taskCount] = new Deadline(desBy[0], desBy[1]);
-                break;
-            default:
-                task[taskCount] = new Task(item);
+                        task[taskCount] = new Event(desFromTo[0], fromTo[0], fromTo[1]);
+                        taskCount++;
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(task[taskCount-1].toString());
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+                    }
+                    break;
+                case "todo":
+                    if(inputs.length == 1){
+                        throw new DescriptionFormatException();
+                    } else {
+                        name = item.split("todo ");
+                        task[taskCount] = new ToDos(name[1]);
+                        taskCount++;
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(task[taskCount-1].toString());
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+                    }
+                    break;
+                case "deadline":
+                    if(inputs.length == 1){
+                        throw new DescriptionFormatException();
+                    } else {
+                        name = item.split("deadline ");
+                        String[] desBy = name[1].split(" /by ");
+                        task[taskCount] = new Deadline(desBy[0], desBy[1]);
+                        taskCount++;
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(task[taskCount-1].toString());
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    }
+                    break;
+                default:
+                    throw new CommandInvalidException();
+            }
+        } catch (DescriptionFormatException e){
+            System.out.println("Please add description for the " + inputs[0] + " command");
+        } catch (CommandInvalidException e){
+            System.out.println("Invalid command -_-, please use the available commands!!");
         }
-        taskCount++;
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task[taskCount-1].toString());
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-
     }
 
     public static void showTask(){
