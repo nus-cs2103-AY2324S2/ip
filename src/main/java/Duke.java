@@ -201,7 +201,7 @@ public class Duke {
                     }
                     break;
                 default:
-                    messageWithHorizontalLines("Please enter a valid command or task.");
+                    messageWithHorizontalLines(botName + " does not understand you :((");
                     break;
             }
         }
