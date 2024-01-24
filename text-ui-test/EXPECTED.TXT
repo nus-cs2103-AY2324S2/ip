@@ -3,3 +3,25 @@ Greetings from
 ▀█▀ ▄▀█ █▀ █▄▀ █▄█ ▄▀█ █▀█ █▀█ █▀▀ █▀█
 ░█░ █▀█ ▄█ █░█ ░█░ █▀█ █▀▀ █▀▀ ██▄ █▀▄
 
+Added task:
+[ ] yapyapyap
+Added task:
+[D][ ] deadline CS2103T work (by: Wednesday 11am)
+Added task:
+[E][ ] event CS2103T Lecture (from: Friday 4pm to 6pm)
+Added task:
+[T][ ] todo Learn about Git commands
+Good job Yapper! I've marked this task as done:
+[D][X] deadline CS2103T work (by: Wednesday 11am)
+Stop yappin' bruh... Task is already marked as done
+[D][X] deadline CS2103T work (by: Wednesday 11am)
+YAPYAP! I've unmarked this task...
+[D][ ] deadline CS2103T work (by: Wednesday 11am)
+1. [ ] yapyapyap
+2. [D][ ] deadline CS2103T work (by: Wednesday 11am)
+3. [E][ ] event CS2103T Lecture (from: Friday 4pm to 6pm)
+4. [T][ ] todo Learn about Git commands
+Stoppin' the YAP...
+█▀▀ █▀█ █▀█ █▀▄ █▄▄ █▄█ █▀▀ █
+█▄█ █▄█ █▄█ █▄▀ █▄█ ░█░ ██▄ ▄
+
