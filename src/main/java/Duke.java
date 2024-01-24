@@ -16,31 +16,35 @@ public class Duke {
         // Initialize
         Scanner scanner = new Scanner(System.in);
         String input = greet;
-        String[] memory = new String[100];
+        Task[] memory = new Task[100];
         int index = 0;
 
         System.out.println(logo + line);  // PRINT LOGO
         System.out.println(greet + line); // PRINT GREET MESSAGE
 
-        while (true) {                              // LISTEN TO NEXT COMMAND
+        while (true) {                    // LISTEN TO NEXT COMMAND
             System.out.println("");     // empty line
             input = scanner.nextLine();
+            System.out.println(line);
 
-            if (input.equals("list")) {
-                System.out.println(line);
-                list(memory);
-                System.out.println(line);
-
-            } else if (input.equals("bye")) {
+            if (input.equals("bye")) {
                 break;
 
+            } else if (input.equals("list")) {
+                list(memory);
+
+            } else if (input.startsWith("mark")) {
+                mark(memory, input);
+
+            } else if (input.startsWith("unmark")) {
+                unmark(memory, input);
+
             } else {
-                System.out.println(line);
                 add(memory, index, input);
                 index++;
-                System.out.println(line);
             }
 
+            System.out.println(line);
         }
 
         scanner.close();
@@ -50,7 +54,7 @@ public class Duke {
         System.out.println(exit_message);
     }
 
-    private static void list(String[] arr) {
+    private static void list(Task[] arr) {
         int index = 0;
         while (arr[index] != null) {
             System.out.println(String.valueOf(index + 1) + ". " + arr[index]);
@@ -58,9 +62,35 @@ public class Duke {
         }
     }
 
-    private static void add(String[] memory, int index, String input) {
-        memory[index] = input;
+    private static void add(Task[] memory, int index, String input) {
+        memory[index] = new Task(input);
         System.out.println(">>> Added: " + input);
+    }
+
+    private static void mark(Task[] memory, String input) {
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        
+        if (index < 0 || memory[index] == null) {
+            System.out.println(">>> Bruh, there ain't no task " + String.valueOf(index + 1));
+
+        } else {
+            memory[index].mark();
+            System.out.println(">>> Wow. Can't believe you've done it.");
+            System.out.println(memory[index]);
+        }
+    }
+
+    private static void unmark(Task[] memory, String input) {
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        
+        if (index < 0 || memory[index] == null) {
+            System.out.println(">>> Bruh, there ain't no task " + String.valueOf(index + 1));
+
+        } else {
+            memory[index].unmark();
+            System.out.println(">>> O...k... you'd better finish it later.");
+            System.out.println(memory[index]);
+        }
     }
 
 }
