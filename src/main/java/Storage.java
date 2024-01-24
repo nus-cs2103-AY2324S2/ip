@@ -6,10 +6,9 @@ public class Storage {
         this.list = new ArrayList<>();
     }
 
-    public void addItem(String item) { //to append items to list
-        Task newTask = new Task(item);
-        this.list.add(newTask);
-        UI.printResponse(item);
+    public void addItem(Task task) { //to append items to list
+        this.list.add(task);
+        UI.printResponse(task.getDescription());
     }
 
     public void mark(int num) {
@@ -18,16 +17,16 @@ public class Storage {
     }
 
     public void unmark(int num) {
-        Task tounmark = this.list.get(num);
+        Task tounmark = this.list.get(num - 1);
         tounmark.unmark();
     }
 
     public void printList() {
         for (int i = 0; i < this.list.size(); i++) {
-            if (i != this.list.size() - 1) { //not last element
-                UI.printResponse(i + 1, this.list.get(i), false);
+            if (i <= this.list.size() - 1) { //not last element
+                this.list.get(i).printTaskDesc(i + 1, false);
             } else {
-                UI.printResponse(i + 1, this.list.get(i), true);
+                this.list.get(i).printTaskDesc(i + 1, true);
             }
         }
     }

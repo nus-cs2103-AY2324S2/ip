@@ -20,13 +20,25 @@ public class Duke {
         while(!userInput.equals("bye")) {
             if (userInput.startsWith("mark")) {
                 store.mark(Integer.parseInt(userInput.split(" ")[1]));
-
             } else if (userInput.startsWith("unmark")) {
                 store.unmark(Integer.parseInt(userInput.split(" ")[1]));
+            } else if (userInput.startsWith("todo")) {
+                store.addItem(new Todos(userInput.split(" ", 2)[1]));
+            } else if (userInput.startsWith("deadline")) {
+                String[] parts = userInput.split("/by ");
+                String task = parts[0].replaceFirst("deadline ", "");
+                String date = parts[1];
+                store.addItem(new Deadlines(task, date));
+            } else if (userInput.startsWith("event")) {
+                String[] parts = userInput.split("/from ");
+                String task = parts[0].replaceFirst("event ", "");
+                String from = parts[1].split("/to")[0];
+                String to = parts[1].split("/to")[1];
+                store.addItem(new Events(task, from, to));
             } else if (userInput.equals("list")) {
                 store.printList();
             } else {
-                store.addItem(userInput);
+                store.addItem(new Task(userInput));
             }
             userInput = scanner.nextLine();
         }

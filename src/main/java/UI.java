@@ -7,28 +7,28 @@ public class UI {
         System.out.print(UI.line);
     }
 
-    public static void printResponse(int num, Task output, boolean isLast){ //printing of list items
+    public static void printResponse(int num, String tag, Task output, boolean isLast){ //printing of list items
         if (!isLast) {
             if (num == 1) {
                 System.out.print(UI.line);
-                System.out.printf("      Here are the tasks in your list: \n      %d.[%s] %s \n", num, output.getStatusIcon(), output.getDescription());
+                System.out.printf("      Here are the tasks in your list: \n      %d.%s[%s] %s \n", num, tag, output.getStatusIcon(), output.getDescription());
             } else {
-                System.out.printf("      %d.[%s] %s \n", num, output.getStatusIcon(), output.getDescription());
+                System.out.printf("      %d.%s[%s] %s \n", num, tag, output.getStatusIcon(), output.getDescription());
             }
         } else {
-            System.out.printf("      %d.[%s] %s \n", num, output.getStatusIcon(), output.getDescription());
+            System.out.printf("      %d.%s[%s] %s \n", num, tag, output.getStatusIcon(), output.getDescription());
             System.out.print(UI.line);
         }
     }
 
-    public static void printMarking(Task task, boolean done) {
+    public static void printMarking(Task task, String tag, boolean done) {
         if (done) {
             System.out.print(UI.line + "      Great job! I've marked this task as done: \n");
-            System.out.printf("      [%s] %s \n", task.getStatusIcon(), task.getDescription());
+            System.out.printf("      %s[%s] %s \n", tag, task.getStatusIcon(), task.getDescription());
             System.out.print(UI.line);
         } else {
             System.out.print(UI.line + "      Ok, I've marked this task as not done yet: \n");
-            System.out.printf("      [%s] %s \n", task.getStatusIcon(), task.getDescription());
+            System.out.printf("      %s[%s] %s \n", tag, task.getStatusIcon(), task.getDescription());
             System.out.print(UI.line);
         }
     }

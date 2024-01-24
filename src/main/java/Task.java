@@ -9,12 +9,12 @@ public class Task {
 
     public void markDone() {
         this.isDone = true;
-        UI.printMarking(this, this.isDone);
+        UI.printMarking(this, this.getTag(), this.isDone);
     }
 
     public void unmark() {
         this.isDone = false;
-        UI.printMarking(this, this.isDone);
+        UI.printMarking(this, this.getTag(), this.isDone);
     }
 
     public String getStatusIcon() {
@@ -23,5 +23,13 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getTag() {
+        return "[T]";
+    }
+
+    public void printTaskDesc(int num, boolean isLast) {
+        UI.printResponse(num, this.getTag(), this, isLast);
     }
 }
