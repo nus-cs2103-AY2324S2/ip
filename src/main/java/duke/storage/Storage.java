@@ -1,9 +1,9 @@
 package duke.storage;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import duke.exceptions.MissingArgumentException;
-import duke.exceptions.StorageFullException;
 import duke.exceptions.TaskNotSupportedException;
 
 /**
@@ -14,19 +14,9 @@ import duke.exceptions.TaskNotSupportedException;
  */
 public class Storage {
   /**
-   * Current index of the array
-   */
-  private static int index = 0;
-
-  /**
-   * Limit of the storage array
-   */
-  private static final int LIMIT = 100;
-
-  /**
    * Array used to store objects for the application
    */
-  private static Task[] storageArray = new Task[LIMIT];
+  private static ArrayList<Task> storageArray = new ArrayList<>();
 
   /**
    * Method to store items for the application
@@ -35,12 +25,7 @@ public class Storage {
    * @param arguments Arguments of the item type
    */
   public static void storeItem(String item, String[] arguments)
-      throws StorageFullException, MissingArgumentException, TaskNotSupportedException {
-    // Throw exception if storage is full
-    if (index >= LIMIT) {
-      throw new StorageFullException("Storage full, item will not be stored");
-    }
-
+      throws MissingArgumentException, TaskNotSupportedException {
     // Create task to be inserted
     Task task;
     String description;
@@ -113,21 +98,20 @@ public class Storage {
     }
 
     // Add item to storage
-    storageArray[index] = task;
-    index++;
+    storageArray.add(task);
 
     // Print confirmation message
     System.out.println("Got it. I've added this task:");
     System.out.println(String.format("  %s", task.toString()));
-    System.out.println(String.format("Now you have %d tasks in the list.", index));
+    System.out.println(String.format("Now you have %d tasks in the list.", storageArray.size()));
   }
 
   /**
    * Method to print all items in storage to standard output
    */
   public static void listItems() {
-    for (int i = 0; i < index; i++) {
-      System.out.println(String.format("%d.%s", i + 1, storageArray[i].toString()));
+    for (int i = 0; i < storageArray.size(); i++) {
+      System.out.println(String.format("%d.%s", i + 1, storageArray.get(i).toString()));
     }
   }
 
@@ -138,10 +122,10 @@ public class Storage {
    */
   public static void markItem(int markIndex) {
     try {
-      storageArray[markIndex].mark();
+      storageArray.get(markIndex).mark();
 
       System.out.println("Nice! I've marked this task as done:");
-      System.out.println(String.format("  %s", storageArray[markIndex].toString()));
+      System.out.println(String.format("  %s", storageArray.get(markIndex).toString()));
     } catch (IndexOutOfBoundsException e) {
       System.out.println("ERROR: Item cannot be marked - Index out of bounds");
     } catch (NullPointerException e) {
@@ -156,10 +140,10 @@ public class Storage {
    */
   public static void unmarkItem(int unmarkIndex) {
     try {
-      storageArray[unmarkIndex].unmark();
+      storageArray.get(unmarkIndex).unmark();
 
       System.out.println("OK, I've marked this task as not done yet:");
-      System.out.println(String.format("  %s", storageArray[unmarkIndex].toString()));
+      System.out.println(String.format("  %s", storageArray.get(unmarkIndex).toString()));
     } catch (IndexOutOfBoundsException e) {
       System.out.println("ERROR: Item cannot be unmarked - Index out of bounds");
     } catch (NullPointerException e) {
