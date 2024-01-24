@@ -65,7 +65,7 @@ public class Duke {
                     output.add(markResponse);
                     output.add(indent + currentItem);
                 } else if (next.contains("todo")) {
-                    String name = next.split(" ")[1];
+                    String name = next.replaceAll("todo", "").trim();
                     Todo item = new Todo(name);
                     items.add(item);
                     Task.addTask();
@@ -74,7 +74,7 @@ public class Duke {
                     output.add(Task.numOfTask());
                 } else if (next.contains("deadline")) {
                     String by = next.split("/")[1].replaceAll("by", "").trim();
-                    String name = next.split("/")[0].split(" ")[1].trim();
+                    String name = next.split("/")[0].replaceAll("deadline", "").trim();
                     Deadline item = new Deadline(name, by);
                     items.add(item);
                     Task.addTask();
@@ -84,7 +84,7 @@ public class Duke {
                 } else if (next.contains("event")) {
                     String from = next.split("/")[1].replaceAll("from", "").trim();
                     String by = next.split("/")[2].replaceAll("to", "").trim();
-                    String name = next.split("/")[0].split(" ")[1].trim();
+                    String name = next.split("/")[0].replaceAll("event", "").trim();
                     Event item = new Event(name, from, by);
                     items.add(item);
                     Task.addTask();
@@ -104,7 +104,6 @@ public class Duke {
             for (String l : output) {
                 System.out.println(indent + l);
             }
-
             System.out.println();
         }
         //Goodbye
