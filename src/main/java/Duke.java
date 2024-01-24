@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -75,8 +77,7 @@ public class Duke {
         System.out.println("Hello! I'm Tom \nWhat can I do for you?\n");
         System.out.println(line);
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskcount = 0;
+        List<Task> tasks = new ArrayList<>();
 
 
         while (true){
@@ -90,37 +91,39 @@ public class Duke {
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
                 } else if ("list".equals(splitInput[0])) {
-                    for(int i=0; i< taskcount;i++){
-                        System.out.println((i+1)+". " + tasks[i]);
+                    for(int i=0; i< tasks.size();i++){
+                        System.out.println((i+1)+". " + tasks.get(i));
                     }
 
                 } else if("mark".equals(splitInput[0])){
                     int index = Integer.parseInt(splitInput[1])-1;
-                    tasks[index].mark();
-                    System.out.println("Nice! I've marked this task as done:\n  " + tasks[index]);
+                    tasks.get(index).mark();
+                    System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(index));
 
                 } else if ("unmark".equals(splitInput[0])) {
                     int index = Integer.parseInt(splitInput[1])-1;
-                    tasks[index].unMark();
-                    System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[index]);
+                    tasks.get(index).unMark();
+                    System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(index));
 
                 } else if ("todo".equals(splitInput[0])){
-                    tasks[taskcount] = new Todo(splitInput[1]);
-                    taskcount++;
-                    System.out.println("Got it. I've added this task:\n  " + tasks[taskcount-1]+"\nNow you have "+ taskcount+" tasks in the list");
+                    tasks.add(new Todo(splitInput[1]));
+                    System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size()-1)+"\nNow you have "+ tasks.size()+" tasks in the list");
 
                 } else if ("deadline".equals(splitInput[0])) {
                     String[] deadlineSplit = splitInput[1].split(" /by ");
-                    tasks[taskcount] = new Deadline(deadlineSplit[0],deadlineSplit[1]);
-                    taskcount++;
-                    System.out.println("Got it. I've added this task:\n  " + tasks[taskcount-1]+"\nNow you have "+ taskcount+" tasks in the list");
+                    tasks.add(new Deadline(deadlineSplit[0],deadlineSplit[1]));
+                    System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size()-1)+"\nNow you have "+ tasks.size()+" tasks in the list");
                 } else if("event".equals(splitInput[0])){
                     String[] eventSplit = splitInput[1].split(" /from | /to ");
-                    tasks[taskcount] = new Event(eventSplit[0],eventSplit[1],eventSplit[2]);
-                    taskcount++;
-                    System.out.println("Got it. I've added this task:\n  " + tasks[taskcount-1]+"\nNow you have "+ taskcount+" tasks in the list");
+                    tasks.add(new Event(eventSplit[0],eventSplit[1],eventSplit[2]));
+                    System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size()-1)+"\nNow you have "+ tasks.size()+" tasks in the list");
 
-                } else{
+                } else if("delete".equals(splitInput[0])){
+                    int index = Integer.parseInt(splitInput[1])-1;
+                    Task toDelete = tasks.get(index);
+                    tasks.remove(toDelete);
+                    System.out.println("Noted. I've removed this task:\n " +toDelete+"\nNow you have "+ tasks.size()+" tasks in the list");
+                }else{
                     System.out.println("Error! Command not found");
                 }
 
