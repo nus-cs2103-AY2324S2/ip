@@ -1,9 +1,9 @@
-normaltask
 todo homework
 deadline assignment /by thursday
-event exam /from may /to may
+event exam /from may /to june
 mark 1
 mark 3
+list
 unmark 1
 list
 bye

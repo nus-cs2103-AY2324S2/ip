@@ -4,35 +4,35 @@ What can I do for you?
 Did you know that the noise penguins make are called "honks"
 ―――――――――――――――――――――――――――――――――――
 *Honk! Honk!* Pengu has added this task:
-[ ] normaltask
+[T][ ] homework
 Get back to work! you have 1 tasks in the list
 ―――――――――――――――――――――――――――――――――――
 *Honk! Honk!* Pengu has added this task:
-[T][ ] homework
+[D][ ] assignment (by: thursday)
 Get back to work! you have 2 tasks in the list
 ―――――――――――――――――――――――――――――――――――
 *Honk! Honk!* Pengu has added this task:
-[D][ ] assignment (by: thursday)
+[E][ ] exam (from: may to: june)
 Get back to work! you have 3 tasks in the list
 ―――――――――――――――――――――――――――――――――――
-*Honk! Honk!* Pengu has added this task:
-[E][ ] exam (from: may to: may)
-Get back to work! you have 4 tasks in the list
+*Honk!* Good Job!, Pengu has marked this task as done:
+[T][X] homework
 ―――――――――――――――――――――――――――――――――――
 *Honk!* Good Job!, Pengu has marked this task as done:
-[X] normaltask
-―――――――――――――――――――――――――――――――――――
-*Honk!* Good Job!, Pengu has marked this task as done:
-[D][X] assignment (by: thursday)
-―――――――――――――――――――――――――――――――――――
-*Honk!* Pengu has marked this task as not done yet:
-[ ] normaltask
+[E][X] exam (from: may to: june)
 ―――――――――――――――――――――――――――――――――――
 *Honk!* Pengu has listed your current tasks below:
-1. [ ] normaltask
-2. [T][ ] homework
-3. [D][X] assignment (by: thursday)
-4. [E][ ] exam (from: may to: may)
+1. [T][X] homework
+2. [D][ ] assignment (by: thursday)
+3. [E][X] exam (from: may to: june)
+―――――――――――――――――――――――――――――――――――
+*Honk!* Pengu has marked this task as not done yet:
+[T][ ] homework
+―――――――――――――――――――――――――――――――――――
+*Honk!* Pengu has listed your current tasks below:
+1. [T][ ] homework
+2. [D][ ] assignment (by: thursday)
+3. [E][X] exam (from: may to: june)
 ―――――――――――――――――――――――――――――――――――
 Bye. Hope to see you again soon! **HONK HONK**
 ―――――――――――――――――――――――――――――――――――
