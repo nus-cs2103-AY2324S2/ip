@@ -1,8 +1,9 @@
 public class ItemList {
     private static String itemList = "";
-
+    private static int itemCount = 1;
     static void addToList(String s) {
-        itemList += s + "\n";
+        itemList += itemCount + ". " + s + "\n     ";
+        itemCount++;
     }
 
     static String getItemList() {
