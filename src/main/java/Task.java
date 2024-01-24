@@ -15,4 +15,12 @@ public class Task {
     public String toString() {
         return this.getStatusIcon() + " " + this.description;
     }
+
+    public void markDone() {
+        this.isDone = true;
+    }
+
+    public void unmarkDone() {
+        this.isDone = false;
+    }
 }
