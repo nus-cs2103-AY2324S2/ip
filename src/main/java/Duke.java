@@ -7,6 +7,14 @@ public class Duke {
 
         System.out.println("\t____________________________________________________________");
         System.out.println("\tHello! I'm Emis!\n \tWhat can I do for you?");
+        System.out.println("\tEmis is happy to help with printing a list of tasks with the command 'list'.");
+        System.out.println("\tEmis is happy to add todos with the command 'todo (insert task here)'.");
+        System.out.println("\tEmis is happy to add deadlines with the command 'deadline /by (insert deadline here)'.");
+        System.out.println("\tEmis is happy to add events with the command 'event (insert event name) /from (insert start time) /to (insert end time)'.");
+        System.out.println("\tEmis can mark tasks as done with the command 'mark (task no)'.");
+        System.out.println("\tEmis can mark tasks as undone with the command 'unmark (task no)'.");
+        System.out.println("\tTo stop talking to Emis, please say 'bye'.");
+
         while (sc.hasNextLine()) {
             String user_input = sc.nextLine();
             Integer spaceIndex = user_input.indexOf(" ");
@@ -17,7 +25,8 @@ public class Duke {
 
                 } else if (user_input.equals("list")) {
                     print_list(al);
-
+                } else {
+                    System.out.println("Emis does not know what that means :(");
                 }
             } else {
                 
@@ -25,7 +34,7 @@ public class Duke {
                 try {
                     Integer taskNo = Integer.parseInt(user_input.substring(spaceIndex + 1));
                     if (taskNo <= 0 || taskNo > al.size()) {
-                        System.out.println("Task does not exist");
+                        System.out.println("Task does not exist! Please try again.");
 
                     } else {
                         // to mark as done or undone
@@ -41,36 +50,41 @@ public class Duke {
                         } 
                     }
                 } catch (NumberFormatException nfe) {
-                    // todo, deadline, event
-                    System.out.println("\t____________________________________________________________");
-                    System.out.println("\tGot it. I've added this task:");
                     String d = user_input.substring(spaceIndex + 1);
-                    if (action.equals("todo")) {
-                        ToDo td = new ToDo(d);
-                        al.add(td);
-                        System.out.println("\t\t" + td.toString());
+                    // check if invalid, eg empty after blank
+                    if (d == null || d.isEmpty()) {
+                        System.out.println("Emis is judging you for not stating what you want");
+                    } else {
+                        // todo, deadline, event
+                        System.out.println("\t____________________________________________________________");
+                        System.out.println("\tGot it. I've added this task:");
+                        if (action.equals("todo")) {
+                            ToDo td = new ToDo(d);
+                            al.add(td);
+                            System.out.println("\t\t" + td.toString());
 
-                    } else if (action.equals("deadline")) {
-                        int slashIndex = d.indexOf("/by");
-                        String des = d.substring(0, slashIndex);
-                        String by = d.substring(slashIndex + 3);
-                        Deadline dl = new Deadline(des, by);
-                        al.add(dl);
-                        System.out.println("\t\t" + dl.toString());
+                        } else if (action.equals("deadline")) {
+                            int slashIndex = d.indexOf("/by");
+                            String des = d.substring(0, slashIndex);
+                            String by = d.substring(slashIndex + 3);
+                            Deadline dl = new Deadline(des, by);
+                            al.add(dl);
+                            System.out.println("\t\t" + dl.toString());
 
-                    } else if (action.equals("event")) {
-                        int slashIndex_from = d.indexOf("/from");
-                        int slashIndex_to = d.indexOf("/to");
-                        String des = d.substring(0, slashIndex_from);
-                        String from = d.substring(slashIndex_from + 5, slashIndex_to);
-                        String to = d.substring(slashIndex_to + 3);
-                        Event eve = new Event(des, from, to);
-                        al.add(eve);
-                        System.out.println("\t\t" + eve.toString());
+                        } else if (action.equals("event")) {
+                            int slashIndex_from = d.indexOf("/from");
+                            int slashIndex_to = d.indexOf("/to");
+                            String des = d.substring(0, slashIndex_from);
+                            String from = d.substring(slashIndex_from + 5, slashIndex_to);
+                            String to = d.substring(slashIndex_to + 3);
+                            Event eve = new Event(des, from, to);
+                            al.add(eve);
+                            System.out.println("\t\t" + eve.toString());
 
+                        }
+                        System.out.println("\tNow you have " + al.size() + " tasks in the list.");
+                        System.out.println("\t____________________________________________________________");
                     }
-                    System.out.println("\tNow you have " + al.size() + " tasks in the list.");
-                    System.out.println("\t____________________________________________________________");
                 }
             }
         }
