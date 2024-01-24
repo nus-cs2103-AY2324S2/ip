@@ -123,6 +123,10 @@ public class Duke {
 
   // TODO 1. missing /by
   public static void insertDeadline(String[] input, ArrayList<Task> tasks) {
+    if (!input[1].contains("/by")) {
+      printOutput("You forgot to add /by to your input. (format: deadline <your task> /by <date>)");
+      return;
+    }
     String[] deadlineDetails = input[1].split("/by");
     Deadline deadlineTask = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
     printOutput("Got it. I've added this task:", indentation + deadlineTask.toString(),
