@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Dibo {
-    private static String name = "Dibo the Gift Chatbot";
+    private static String name = "Dibo";
     public static void main(String[] args) {
         // Greeting the user
         System.out.println("Hello! I'm " + name);
@@ -16,6 +16,16 @@ public class Dibo {
 
             if (command.equals("list")) {
                 store.displayStore();
+                command = sc.nextLine();
+                continue;
+            } else if (command.contains("unmark")) {
+                int id = Integer.parseInt(command.split(" ")[1]);
+                store.unmarkTask(id);
+                command = sc.nextLine();
+                continue;
+            } else if (command.contains("mark")) {
+                int id = Integer.parseInt(command.split(" ")[1]);
+                store.markTask(id);
                 command = sc.nextLine();
                 continue;
             }
