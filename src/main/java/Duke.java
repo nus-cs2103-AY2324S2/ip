@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
         zhen zh = new zhen();
-//        zh.greeting();
-//        zhen.print_message("Hello! I'm ZHEN\n What can I do for you? ");
+        zh.greeting();
+        zhen.print_message("Hello! I'm ZHEN\n What can I do for you? ");
 //        zh.echo(); // level1
         zh.store_task(); // level2
         zhen.print_message("Bye. Hope to see you again soon");
@@ -40,29 +40,29 @@ class zhen{
     public void store_task(){
         database db = new database();
         while(true){
-            String msg = getuserinput();
-            if (msg.equals("bye")){
-                break;
-            }
-            if (msg.equals("list")){
-                zhen.print_message(db.toString());
-            }
-            if (msg.length()>4 && msg.substring(0,4).equals("todo")){
-                db.insert(new Todos(msg));
-            }
-            if (msg.length()>8 && msg.substring(0,8).equals("deadline")){
-                db.insert(new Deadline(msg));
-            }
-            if (msg.length()>5 && msg.substring(0,5).equals("event")){
-                db.insert(new Event(msg));
-            }
-            if (msg.length()>4 && msg.substring(0,4).equals("mark")){
-                int number = Integer.parseInt(msg.substring(5));
-                db.mark(number);
-            }
-            if (msg.length()>6 &&msg.substring(0,6).equals("unmark")){
-                int number = Integer.parseInt(msg.substring(7));
-                db.unmark(number);
+            try {
+                String msg = getuserinput();
+                if (msg.equals("bye")) {
+                    break;
+                } else if (msg.equals("list")) {
+                    zhen.print_message(db.toString());
+                } else if (msg.length() >= 4 && msg.substring(0, 4).equals("todo")) {
+                    db.insert(new Todos(msg.substring(4)));
+                } else if (msg.length() >= 8 && msg.substring(0, 8).equals("deadline")) {
+                    db.insert(new Deadline(msg.substring(8)));
+                } else if (msg.length() >= 5 && msg.substring(0, 5).equals("event")) {
+                    db.insert(new Event(msg.substring(5)));
+                } else if (msg.length() > 4 && msg.substring(0, 4).equals("mark")) {
+                    int number = Integer.parseInt(msg.substring(5));
+                    db.mark(number);
+                } else if (msg.length() > 6 && msg.substring(0, 6).equals("unmark")) {
+                    int number = Integer.parseInt(msg.substring(7));
+                    db.unmark(number);
+                } else {
+                    print_message("OOPS!!! I'm sorry, but I don't know what that means");
+                }
+            }catch(IllegalArgumentException e){
+                print_message(" OOPS!!! The description cannot be empty.");
             }
         }
     }
@@ -104,6 +104,9 @@ class task{
     public static int num_task = 0;
     public task(String msg){
         this.message = msg;
+        if (msg.length()==0){
+            throw new IllegalArgumentException("input can't be empty");
+        }
         num_task++;
     }
     public void mark(){
@@ -118,6 +121,9 @@ class task{
     }
     protected String access_message(){
         return message;
+    }
+    protected void change_message(String msg){
+        this.message = msg;
     }
 
     @Override
@@ -148,8 +154,12 @@ class Todos extends task{
 class Deadline extends task{
     String date;
     public Deadline(String message){
-        super( message.substring(9,message.lastIndexOf('/')));
-        this.date = message.substring(message.lastIndexOf('/')+4);
+        super(message);
+        process_msg(message);
+    }
+    private void process_msg(String msg){
+        change_message(access_message().substring(0,access_message().lastIndexOf('/')));
+        this.date = access_message().substring(access_message().lastIndexOf('/')+4);
     }
 
     @Override
@@ -172,9 +182,14 @@ class Event extends task{
 //        String temp =message.substring(6,message.lastIndexOf('/'));
 //        this.to_date = message.substring(message.lastIndexOf('/')+4);
 //        this.from_date =temp.substring(temp.lastIndexOf('/')+6);
-        super(message.split("/")[0].substring(6));
-        this.to_date = message.split("/")[2].substring(3);
-        this.from_date = message.split("/")[1].substring(5);
+        super(message);
+        process_msg(message);
+    }
+    private void process_msg(String msg){
+        String[] strarr = msg.split("/");
+        change_message(strarr[0]);
+        this.to_date = strarr[2].substring(3);
+        this.from_date =strarr[1].substring(5);
     }
 
     @Override
