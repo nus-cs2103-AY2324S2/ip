@@ -1,7 +1,9 @@
 package Tasks;
 
+import Exceptions.DukeException;
+
 public class ToDo extends Task {
-    public ToDo(String description) {
+    public ToDo(String description) throws DukeException {
         super(description);
     }
 

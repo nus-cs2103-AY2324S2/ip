@@ -1,3 +1,4 @@
+import Exceptions.DukeException;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -61,55 +62,65 @@ public class Duke {
                     }
                     break;
                 case "todo":
-                    if (checkValidCommand(userMsgParsed)) {
-                        System.out.println(HORIZONTAL_LINE);
-                        System.out.println(ADD_TASK);
+                    System.out.println(HORIZONTAL_LINE);
+
+                    try {
                         ToDo newTodo = new ToDo(userMsg);
                         userTaskList.add(newTodo);
+
+                        System.out.println(ADD_TASK);
                         System.out.println(newTodo);
                         System.out.println("Now you have " + userTaskList.size() + " tasks in your list.");
-                        System.out.println(HORIZONTAL_LINE);
-
-                        userMsg = reader.nextLine();
-                        continue;
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
                     }
-                    break;
+
+                    System.out.println(HORIZONTAL_LINE);
+                    userMsg = reader.nextLine();
+                    continue;
                 case "deadline":
-                    if (checkValidCommand(userMsgParsed)) {
-                        System.out.println(HORIZONTAL_LINE);
-                        System.out.println(ADD_TASK);
+                    System.out.println(HORIZONTAL_LINE);
+
+                    try {
                         Deadline newDeadline = new Deadline(userMsg);
                         userTaskList.add(newDeadline);
+
+                        System.out.println(ADD_TASK);
                         System.out.println(newDeadline);
                         System.out.println("Now you have " + userTaskList.size() + " tasks in your list.");
-                        System.out.println(HORIZONTAL_LINE);
-
-                        userMsg = reader.nextLine();
-                        continue;
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
                     }
-                    break;
+
+                    System.out.println(HORIZONTAL_LINE);
+
+                    userMsg = reader.nextLine();
+                    continue;
                 case "event":
-                    if (checkValidCommand(userMsgParsed)) {
-                        System.out.println(HORIZONTAL_LINE);
-                        System.out.println(ADD_TASK);
+                    System.out.println(HORIZONTAL_LINE);
+
+                    try {
                         Event newEvent = new Event(userMsg);
                         userTaskList.add(newEvent);
+
+                        System.out.println(ADD_TASK);
                         System.out.println(newEvent);
                         System.out.println("Now you have " + userTaskList.size() + " tasks in your list.");
-                        System.out.println(HORIZONTAL_LINE);
-
-                        userMsg = reader.nextLine();
-                        continue;
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
                     }
-                    break;
+
+                    System.out.println(HORIZONTAL_LINE);
+
+                    userMsg = reader.nextLine();
+                    continue;
+                default:
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("Unknown command!g");
+                    System.out.println(HORIZONTAL_LINE);
+
+                    userMsg = reader.nextLine();
             }
-
-            System.out.println(HORIZONTAL_LINE);
-            userTaskList.add(new Task(userMsg));
-            System.out.println("added: " + userMsg);
-            System.out.println(HORIZONTAL_LINE);
-
-            userMsg = reader.nextLine();
         }
 
         System.out.println(HORIZONTAL_LINE);
@@ -122,9 +133,5 @@ public class Duke {
                 userMsgParsed[1].chars().allMatch(Character::isDigit) &&
                 Integer.parseInt(userMsgParsed[1]) <= userTaskList.size() &&
                 Integer.parseInt(userMsgParsed[1]) > 0;
-    }
-
-    public static boolean checkValidCommand(String[] userMsgParsed) {
-        return userMsgParsed.length > 1;
     }
 }

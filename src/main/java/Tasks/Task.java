@@ -1,11 +1,15 @@
 package Tasks;
 
+import Exceptions.DukeException;
+
 public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
-        this.description = description;
+    public Task(String description) throws DukeException {
+        if (description.split(" ").length == 1) throw new DukeException("Description cannot be empty!");
+
+        this.description = description.split(" ", 2)[1];
         this.isDone = false;
     }
 
