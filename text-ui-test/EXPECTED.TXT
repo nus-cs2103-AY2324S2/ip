@@ -6,6 +6,8 @@ Todo: todo + task ;
 Event: event + task + /from... + /to... ;
 Deadline: deadline + task + /by...;
 View the task list with List/list, or close the chat with Bye/bye!---
+Mark/Unmark a task in the list with mark (number) or unmark (number)
+Delete a task in the list with delete (number)
 
 Add tasks to list first! Type something other than List/list or Bye/bye.
 
@@ -14,6 +16,8 @@ Todo: todo + task ;
 Event: event + task + /from... + /to... ;
 Deadline: deadline + task + /by...;
 
+There are only: 0 task(s) in the list to delete.
+
 Empty task fields where applicable are not allowed.
 
 Empty task fields where applicable are not allowed.
@@ -21,15 +25,15 @@ Empty task fields where applicable are not allowed.
 Empty task fields where applicable are not allowed.
 
 Understood. I've added this task:
- [T][ ] read book
+ 1.[T][ ] read book
 Now you have 1 task(s) in the list.
 
 Understood. I've added this task:
- [D][ ] read book  (by: Sunday)
+ 2.[D][ ] read book  (by: Sunday)
 Now you have 2 task(s) in the list.
 
 Understood. I've added this task:
- [E][ ] project meeting (from: Mon 2pm  to: 4pm)
+ 3.[E][ ] project meeting (from: Mon 2pm  to: 4pm)
 Now you have 3 task(s) in the list.
 
 Here are the tasks in your list:
@@ -41,18 +45,25 @@ Here are the tasks in your list:
 This task is already unmarked.
 
 Very well. This task is now completed.
-2[D][X] read book  (by: Sunday)
+[D][X] read book  (by: Sunday)
 
 This task is already completed.
 
+Very well. I have removed this task.
+[D][X] read book  (by: Sunday)
+Now you have 2 task(s) in the list.
+
+There are only: 2 task(s) in the list to delete.
+
+Very well. I have removed this task.
+[T][ ] read book
+Now you have 1 task(s) in the list.
+
 Here are the tasks in your list:
 
-1.[T][ ] read book
-2.[D][X] read book  (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm  to: 4pm)
+1.[E][ ] project meeting (from: Mon 2pm  to: 4pm)
 
-Very well. This task is now marked as not completed.
-2[D][ ] read book  (by: Sunday)
+This task is already unmarked.
 
 Please mark a valid task!
 
@@ -60,8 +71,6 @@ Please mark a valid task!
 
 Here are the tasks in your list:
 
-1.[T][ ] read book
-2.[D][ ] read book  (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm  to: 4pm)
+1.[E][ ] project meeting (from: Mon 2pm  to: 4pm)
 
 Bye. Hope to see you again soon!

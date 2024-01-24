@@ -20,11 +20,6 @@ public class Task {
     protected static int currentTaskNo = 0;
 
     /**
-     * A Task instance has a task no. to be tracked in the Task array
-     */
-    protected int taskNo;
-
-    /**
      * Constructor for a Task instance,
      * @param description to be used to identify a task
      */
@@ -32,7 +27,6 @@ public class Task {
         this.description = description;
         this.isDone = false;
         currentTaskNo++;
-        this.taskNo = currentTaskNo;
     }
 
     /**
@@ -61,8 +55,7 @@ public class Task {
             throw new DukeException("This task is already completed.\n");
         } else {
             this.isDone = true;
-            return "Very well. This task is now completed.\n"
-                    + Integer.toString(this.taskNo) + this.toString() +"\n";
+            return "Very well. This task is now completed.\n" + this.toString() +"\n";
         }
     }
 
@@ -74,8 +67,7 @@ public class Task {
             throw new DukeException("This task is already unmarked.\n");
         } else {
             this.isDone = false;
-            return "Very well. This task is now marked as not completed.\n"
-                    + Integer.toString(this.taskNo) + this.toString() + "\n";
+            return "Very well. This task is now marked as not completed.\n" + this.toString() + "\n";
         }
     }
 }

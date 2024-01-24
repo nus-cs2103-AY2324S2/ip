@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * Represent the Chatbot class to be used for interaction with the user
@@ -10,7 +11,7 @@ public class Duke {
     /**
      * The Chatbot uses a Task array to keep track of ongoing tasks
      */
-    private Task[] tasks = new Task[100];
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Activates once Chatbot is booted up
@@ -22,7 +23,9 @@ public class Duke {
                 "Todo: todo + task ;\n" +
                 "Event: event + task + /from... + /to... ;\n" +
                 "Deadline: deadline + task + /by...;\n" +
-                "View the task list with List/list, or close the chat with Bye/bye!---\n";
+                "View the task list with List/list, or close the chat with Bye/bye!---\n" +
+                "Mark/Unmark a task in the list with mark (number) or unmark (number)\n" +
+                "Delete a task in the list with delete (number)\n";
     }
 
     /**
@@ -44,7 +47,7 @@ public class Duke {
             System.out.println("Here are the tasks in your list:\n");
 
             for (int i = 0; i < Task.currentTaskNo; i++) {
-                System.out.println((i + 1) + "." + tasks[i].toString());
+                System.out.println(i+1 + "." + tasks.get(i).toString());
             }
             System.out.println();
         }
@@ -58,14 +61,14 @@ public class Duke {
         if (echo.contains("unmark")){
             int value = Integer.parseInt(echo.replaceAll("[^-0-9]", ""));
             if(value <= Task.currentTaskNo && value > 0){
-                System.out.println(tasks[value-1].unMarkTask());
+                System.out.println(tasks.get(value-1).unMarkTask());
             } else {
                 throw new DukeException("Please unmark a valid task!\n");
             }
         } else if (echo.contains("mark")){
             int value = Integer.parseInt(echo.replaceAll("[^-0-9]", ""));
             if(value <= Task.currentTaskNo && value > 0){
-                System.out.println(tasks[value-1].markAsDone());
+                System.out.println(tasks.get(value-1).markAsDone());
             } else {
                 throw new DukeException("Please mark a valid task!\n");
             }
@@ -76,7 +79,7 @@ public class Duke {
      * Creates a Task in the Task array as requested by the user
      * @param echo string to be assessed and operated on
      */
-    private void taskMechanism(String echo) throws DukeException, ArrayIndexOutOfBoundsException{
+    private void taskMechanism(String echo) throws DukeException {
         try {
             String keyword = echo.split(" ")[0];
             if (keyword.equals("deadline")) {
@@ -86,7 +89,7 @@ public class Duke {
                     ||(deadline[1].equals(""))){
                     throw new DukeException("Empty task fields where applicable are not allowed.\n");
                 } else {
-                    tasks[Task.currentTaskNo] = new Deadline(deadline[0], deadline[1]);
+                    tasks.add(new Deadline(deadline[0], deadline[1]));
                 }
             } else if (keyword.equals("event")) {
                 String echo1[] = echo.split("event", 2);
@@ -97,7 +100,7 @@ public class Duke {
                     || (event1[1].matches("\\s+")) || (event1[1].matches(""))){
                     throw new DukeException("Empty task fields where applicable are not allowed.\n");
                 } else {
-                    tasks[Task.currentTaskNo] = new Event(event[0], event1[0], event1[1]);
+                    tasks.add(new Event(event[0], event1[0], event1[1]));
                 }
             } else if (keyword.equals("todo")) {
                 String todo[] = echo.split("todo", 2);
@@ -105,7 +108,7 @@ public class Duke {
                 if((todo[1]).matches("\\s+") ||(todo[1]).equals("")){
                     throw new DukeException("Empty task fields where applicable are not allowed.\n");
                 } else {
-                    tasks[Task.currentTaskNo] = new Todo(todo[1]);
+                    tasks.add(new Todo(todo[1]));
                 }
             } else {
                 throw new DukeException("Error.Please enter a todo, deadline or event with the relevant details!\n" +
@@ -115,7 +118,8 @@ public class Duke {
             }
 
             System.out.println("Understood. I've added this task:\n "
-                    + tasks[Task.currentTaskNo-1].toString()
+                    + Task.currentTaskNo + "."
+                    + tasks.get(Task.currentTaskNo-1)
                     + "\nNow you have " + Task.currentTaskNo
                     + " task(s) in the list.\n");
 
@@ -124,6 +128,22 @@ public class Duke {
                     "Todo: todo + task ; \n" +
                     "Event: event + task + /from... + /to... ; \n" +
                     "Deadline: deadline + task + /by...;\n");
+        }
+
+
+    }
+
+    private void deleteMechanism(String echo) {
+        String echo1[] = echo.split("delete ", 2);
+        int numberToRemove = Integer.parseInt(echo1[1]);
+        try {
+            Task removed = tasks.remove(numberToRemove - 1);
+            Task.currentTaskNo--;
+            System.out.println("Very well. I have removed this task.\n" + removed
+                    + "\nNow you have " + Task.currentTaskNo
+                    + " task(s) in the list.\n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("There are only: " + Task.currentTaskNo + " task(s) in the list to delete.\n");
         }
 
 
@@ -143,8 +163,10 @@ public class Duke {
                     break;
                 } else if (echo.equals("list") || echo.equals("List")) {
                     this.showTasks();
-                } else if (echo.contains("unmark") || echo.contains("mark")) {
+                } else if (echo.matches("unmark -?[0-9]*") || echo.matches("mark -?[0-9]*")) {
                     this.markMechanism(echo);
+                } else if (echo.matches("delete -?[0-9]*")){
+                    this.deleteMechanism(echo);
                 } else {
                     this.taskMechanism(echo);
                 }
