@@ -27,12 +27,15 @@ public class Luke {
         Scanner sc = new Scanner(System.in);
         while (true) {
             //task mode
-            Task task = new Task(sc.nextLine());
-            if (task.getName().equals("bye")) {
+            //first, determine the type of input.
+
+            String input = sc.nextLine();
+
+            if (input.equals("bye")) {
                 bye();
                 sc.close();
                 break;
-            } else if (task.getName().equals("list")) {
+            } else if (input.equals("list")) {
                 int num = 1;
                 if (history.size() == 0) {
                     System.out.println("Looks like you have way too much free time on your hands, huh.");
@@ -46,13 +49,26 @@ public class Luke {
                     num += 1;
                 }
                 System.out.println();
-            } else if (task.getName().split(" ")[0].equals("mark")) {
-                int idx = Integer.parseInt(task.getName().split(" ")[1]) - 1;
+            } else if (input.split(" ")[0].equals("mark")) {
+                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
                 history.get(idx).complete();
                 System.out.println("Good work, I guess.");
                 System.out.println((idx + 1) + "." + history.get(idx).fullStatus());
                 System.out.println();
             } else {
+                //it is a task.
+                Task task;
+                String taskType = input.split(" ")[0];
+                if (taskType.equals("todo")) {
+                    task = new Todo(input.substring(4));
+                } else if (taskType.equals("deadline")) {
+                    task = new Deadline(input.split("/")[0], input.split("/")[1]);
+                } else if (taskType.equals("event")) {
+                    task = new Event(input.split("/")[0], input.split("/")[1], input.split("/")[2]);
+                } else {
+                    task = new Task(input); //default task
+                }
+
                 history.add(task);
                 System.out.println("I helped you add task [" + task + "]. But do it yourself next time! Hmmph!"  + "\n");
             }
