@@ -26,6 +26,13 @@ public abstract class Item {
                 "\n     Now you have " + num +  " tasks in the list.";
     }
 
+    String removeMessage(int num) {
+        return "Noted. I've removed this task:\n" +
+                "       " + this.toString() +
+                "\n     Now you have " + num +  " tasks in the list.";
+    }
+
+
     @Override
     public abstract String toString();
 }

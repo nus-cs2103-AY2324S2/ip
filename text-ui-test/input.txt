@@ -26,4 +26,9 @@ event /from /to
 event /from /te
 deadline /be
 event /from /from 123 /to
+delete 1
+delete 2
+list
+delete 1
+list
 bye

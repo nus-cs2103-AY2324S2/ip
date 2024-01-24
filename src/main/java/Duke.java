@@ -22,11 +22,11 @@ public class Duke {
                                     new CustomExceptions.zeroIndexException("Erroneously accessing 0th task ");
                             throw e;
                         }
-                        else if (itemList.getList()[index[j]-1] == null) {
+                        else if (index[j] - 1 > itemList.getList().size()) {
                             System.out.println(FormatOutput.format("No such task at index " + (index[j])));
                         } else {
-                            itemList.getList()[index[j] - 1].markDone();
-                            System.out.println(FormatOutput.format(itemList.getList()[index[j] - 1].doneMessage()));
+                            itemList.getList().get(index[j] - 1).markDone();
+                            System.out.println(FormatOutput.format(itemList.getList().get(index[j] - 1).doneMessage()));
                         }
                     }
                 } catch (CustomExceptions.zeroIndexException e) {
@@ -40,11 +40,28 @@ public class Duke {
                         index[i - 1] = Integer.parseUnsignedInt(splitted[i]);
                     }
                     for (int j = 0; j < splitted.length-1; j++) {
-                        if (itemList.getList()[index[j]-1] == null) {
+                        if (index[j] - 1 > itemList.getList().size()) {
                             System.out.println(FormatOutput.format("No such task at index " + (index[j])));
                         } else {
-                            itemList.getList()[index[j] - 1].markUndone();
-                            System.out.println(FormatOutput.format(itemList.getList()[index[j] - 1].undoneMessage()));
+                            itemList.getList().get(index[j] - 1).markUndone();
+                            System.out.println(FormatOutput.format(itemList.getList().get(index[j] - 1).undoneMessage()));
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println(FormatOutput.format(Echo.echo(command)));
+                }
+            } else if (splitted[0].equals("delete") && splitted.length > 1) {
+                try {
+                    for (int i = 1; i < splitted.length; i++) {
+                        index[i - 1] = Integer.parseUnsignedInt(splitted[i]);
+                    }
+                    for (int j = 0; j < splitted.length-1; j++) {
+                        try {
+                            System.out.println(FormatOutput.format(itemList.removeItem(index[j])));
+                        } catch (CustomExceptions.noSuchIndexException e) {
+                            System.out.println(FormatOutput.format("No such task at index " + (index[j])));
+                        } catch (CustomExceptions e) {
+                            System.out.println(FormatOutput.format("Could not parse command: " + command));
                         }
                     }
                 } catch (NumberFormatException e) {

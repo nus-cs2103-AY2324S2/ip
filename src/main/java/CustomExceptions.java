@@ -26,4 +26,10 @@ public class CustomExceptions extends Exception{
             super(errorMessage);
         }
     }
+
+    public static class noSuchIndexException extends CustomExceptions {
+        public noSuchIndexException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
 }
