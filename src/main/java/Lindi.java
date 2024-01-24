@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Lindi {
     public static void printSeparator() {
         System.out.println("-".repeat(50));
@@ -15,8 +17,23 @@ public class Lindi {
         printSeparator();
         System.exit(0); // exit with code 0, terminates program
     }
+
+    public static void chatLoop() {
+        String userInput;
+        while (true) { // This will not be an infinite loop, because goodByeAndExit() terminates the program when called
+            userInput = System.console().readLine(); // Note that System.console() does not work with IDE run
+            printSeparator();
+            if (Objects.equals(userInput, "bye")) {
+                goodByeAndExit();
+            } else {
+                System.out.println("You said this: " + userInput);
+            }
+            printSeparator();
+        }
+    }
     public static void main(String[] args) {
         greeting();
+        chatLoop();
         goodByeAndExit();
     }
 }
