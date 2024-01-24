@@ -3,13 +3,15 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private static final String MARK_DONE_MESSAGE = "Nice! I've marked this task as done:%n%s";
+    private static final String MARK_UNDONE_MESSAGE = "OK, I've marked this task as not done yet:%n%s";
+    private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:%n%s%nNow you have %d tasks in the list.";
+    private static final String LIST_TASK_MESSAGE = "Here are the tasks in your list:%s";
+    private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
     public static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println("____________________");
-        System.out.println("Hello! I'm Waffles");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________");
+        greet();
 
         Scanner sc = new Scanner(System.in);
 
@@ -36,8 +38,7 @@ public class Duke {
                 if (command.equalsIgnoreCase("list")) {
                     listTasks();
                 } else if (command.equalsIgnoreCase("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println("____________________");
+                    System.out.println(GOODBYE_MESSAGE);
                     break;
                 }
             }
@@ -49,37 +50,34 @@ public class Duke {
     }
 
     private static void listTasks() {
-        System.out.println("____________________");
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
-            String output = String.format("%d. %s", i + 1, task);
-            System.out.println(output);
+            sb.append(String.format("%n%d.%s", i + 1, task));
         }
-        System.out.println("____________________");
+        String output = String.format(LIST_TASK_MESSAGE, sb);
+        System.out.println(output);
     }
 
     public static void markTask(String taskIndex) {
         Task t = taskList.get(Integer.parseInt(taskIndex) - 1);
         t.markAsDone();
-        System.out.println("Nice!, I've marked this task as done:");
-        System.out.println(t);
+        String output = String.format(MARK_DONE_MESSAGE, t);
+        System.out.println(output);
     }
 
     public static void unmarkTask(String taskIndex) {
         Task t = taskList.get(Integer.parseInt(taskIndex) - 1);
         t.markAsUndone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(t);
+        String output = String.format(MARK_UNDONE_MESSAGE, t);
+        System.out.println(output);
+
     }
 
     public static void addToDoTask(String taskToAdd) {
         Task toDo = new ToDo(taskToAdd);
         taskList.add(toDo);
-
-        System.out.println("____________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(toDo);
-        String output = String.format("Now you have %d tasks in the list.", taskList.size());
+        String output = String.format(ADD_TASK_MESSAGE, toDo, taskList.size());
         System.out.println(output);
     }
 
@@ -87,10 +85,7 @@ public class Duke {
         String[] deadlineArgs = deadlineToAdd.split(" /by ");
         Task deadline = new Deadline(deadlineArgs[0], deadlineArgs[1]);
         taskList.add(deadline);
-        System.out.println("____________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(deadline);
-        String output = String.format("Now you have %d tasks in the list.", taskList.size());
+        String output = String.format(ADD_TASK_MESSAGE, deadline, taskList.size());
         System.out.println(output);
     }
 
@@ -101,10 +96,12 @@ public class Duke {
         String endTime = eventTime[1];
         Task event = new Event(eventArgs[0], startTime, endTime);
         taskList.add(event);
-        System.out.println("____________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(event);
-        String output = String.format("Now you have %d tasks in the list.", taskList.size());
+        String output = String.format(ADD_TASK_MESSAGE, event, taskList.size());
+        System.out.println(output);
+    }
+
+    public static void greet() {
+        String output = String.format("Hello! I'm Waffles!%nWhat can I do for you?");
         System.out.println(output);
     }
 

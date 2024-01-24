@@ -1,5 +1,6 @@
 public class Deadline extends Task {
 
+    private static final String DEADLINE_MESSAGE = "[D]%s (by: %s)";
     private String deadline;
 
     public Deadline(String description, String deadline) {
@@ -9,7 +10,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D] %s (by: %s)", super.toString(), deadline);
+        return String.format(DEADLINE_MESSAGE, super.toString(), deadline);
     }
 
 }

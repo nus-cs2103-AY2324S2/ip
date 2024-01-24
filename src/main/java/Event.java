@@ -1,5 +1,6 @@
 public class Event extends Task {
 
+    private static final String EVENT_MESSAGE = "[E]%s (from: %s to: %s)";
     private String startTime;
     private String endTime;
 
@@ -11,7 +12,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s to: %s)", super.toString(), startTime, endTime);
+        return String.format(EVENT_MESSAGE, super.toString(), startTime, endTime);
     }
 
 }

@@ -1,5 +1,6 @@
 public class Task {
 
+    private static final String TASK_MESSAGE = "[%s] %s";
     protected String description;
     protected boolean isDone;
 
@@ -21,7 +22,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(), this.description);
+        return String.format(TASK_MESSAGE, getStatusIcon(), this.description);
     }
 
 }

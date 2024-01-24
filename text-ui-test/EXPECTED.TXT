@@ -1,7 +1,44 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm Waffles!
+What can I do for you?
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] borrow book
+Got it. I've added this task:
+[T][ ] go to the gym
+Now you have 2 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[T][ ] go to the gym
+Nice! I've marked this task as done:
+[T][X] borrow book
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[T][ ] go to the gym
+Nice! I've marked this task as done:
+[T][X] go to the gym
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[T][X] go to the gym
+OK, I've marked this task as not done yet:
+[T][ ] go to the gym
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[T][ ] go to the gym
+Got it. I've added this task:
+[D][ ] return book (by: Next Monday)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[T][ ] go to the gym
+3.[D][ ] return book (by: Next Monday)
+Got it. I've added this task:
+[E][ ] friend's party (from: Mon 5pm to: Mon 10pm)
+Now you have 4 tasks in the list.
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[T][ ] go to the gym
+3.[D][ ] return book (by: Next Monday)
+4.[E][ ] friend's party (from: Mon 5pm to: Mon 10pm)
+Bye. Hope to see you again soon!
