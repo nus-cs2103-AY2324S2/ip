@@ -117,6 +117,10 @@ public class Duke {
                     System.out.println("\t ____________________________________________________________");
                     System.out.println("\t  Please enter numbers only.");
                     System.out.println("\t ____________________________________________________________");
+                } catch (NoTaskCreatedYetException e) {
+                    System.out.println("\t ____________________________________________________________");
+                    System.out.println("\t No task is created here yet.");
+                    System.out.println("\t ____________________________________________________________");
                 }
             } else if (userInput.startsWith("todo")) {
                 // We further do another Regex search

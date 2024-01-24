@@ -17,7 +17,7 @@ public class DataStorage {
     }
 
     public Task getTask(int index) {
-        if (index > this.maxTask) {
+        if (index < 0 || index > this.maxTask) {
             throw new IndexOutOfBoundsException();
         } else {
             return this.tasksList.get(index);
@@ -33,7 +33,7 @@ public class DataStorage {
         }
     }
 
-    public void setTaskStatus(int taskIndex, boolean status) throws NoTaskCreatedYetException, NoTaskCreatedYetException {
+    public void setTaskStatus(int taskIndex, boolean status) throws NoTaskCreatedYetException {
         if (taskIndex < 0 || taskIndex > this.maxTask) {
             throw new IndexOutOfBoundsException();
         } else if (taskIndex >= taskCount) {
@@ -50,12 +50,16 @@ public class DataStorage {
     }
 
 
-    public void deleteTask(int indexToDelete) {
-        if (indexToDelete > taskCount) {
+    public void deleteTask(int indexToDelete) throws NoTaskCreatedYetException {
+        System.out.println(indexToDelete + " " + taskCount);
+        if (indexToDelete < 0 || indexToDelete > this.maxTask) {
             throw new IndexOutOfBoundsException();
+        } else if (indexToDelete >= this.taskCount) {
+            // It is a valid index, but there is no task there yet.
+            throw new NoTaskCreatedYetException();
         } else {
             this.tasksList.remove(indexToDelete);
-            taskCount--;
+            this.taskCount--;
         }
     }
 }
