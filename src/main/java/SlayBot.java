@@ -1,4 +1,7 @@
 import entity.*;
+import exception.InvalidDeadlineException;
+import exception.InvalidEventException;
+import exception.InvalidTodoException;
 import exception.UnknownCommandException;
 
 import java.util.*;
@@ -8,33 +11,50 @@ public class SlayBot {
     public static final String WELCOME_TEXT = "Hello! I'm SlayBot\nWhat can I do for you?";
     public static final String BYE_TEXT = "Bye. Hope to see you again soon!";
 
+    enum Command {
+        BYE,
+        LIST,
+        TODO,
+        DEADLINE,
+        EVENT,
+        MARK,
+        UNMARK,
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Task> list = new ArrayList<>();
         boolean flag = true;
-
-        /**
-        try {
-
-        } catch () {
-
-        }
-         **/
 
         System.out.println(DIVIDER + "\n" + WELCOME_TEXT + "\n" + DIVIDER);
 
         while (flag) {
             String input = sc.nextLine();
             String[] splitWords = input.split(" ");
-            String command = splitWords[0];
+            Command command = null;
+
+            while (command == null) {
+                try {
+                    command = parseCommand(splitWords);
+                } catch (UnknownCommandException e) {
+                    System.out.println(DIVIDER);
+                    System.out.println(e.getMessage());
+                    System.out.println("Enter a valid command");
+                    System.out.println(DIVIDER);
+
+                    input = sc.nextLine();
+                    splitWords = input.split(" ");
+                }
+            }
 
             switch (command) {
-                case "bye":
+                case BYE:
                     flag = false;
                     System.out.println(DIVIDER + "\n" + BYE_TEXT + "\n" + DIVIDER);
                     break;
 
-                case "list":
+                case LIST:
                     System.out.println(DIVIDER);
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < list.size(); i++) {
@@ -43,15 +63,15 @@ public class SlayBot {
                     System.out.println(DIVIDER);
                     break;
 
-                case "todo":
-                    String todo_title = "";
-                    for (int i = 1; i < splitWords.length; i++) {
-                        todo_title += splitWords[i];
-                        if (i != splitWords.length - 1) {
-                            todo_title += " ";
-                        }
+                case TODO:
+                    ToDo todo = null;
+                    try {
+                        todo = parseTodo(splitWords);
+                    } catch (InvalidTodoException e) {
+                        System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
+                        continue;
                     }
-                    ToDos todo = new ToDos(todo_title);
+
                     list.add(todo);
                     System.out.println(DIVIDER);
                     System.out.println("Todo Task Added: " + todo.toString());
@@ -59,18 +79,15 @@ public class SlayBot {
                     System.out.println(DIVIDER);
                     break;
 
-                case "deadline":
-                    String deadline_title = "";
-                    String dateTime = "";
-                    for (int i = 1; i < splitWords.length; i++) {
-                        if (splitWords[i].equals("/by")) {
-                            dateTime = splitWords[i + 1];
-                            i++;
-                        } else {
-                            deadline_title += splitWords[i] + " ";
-                        }
+                case DEADLINE:
+                    Deadline deadline = null;
+                    try {
+                        deadline = parseDeadline(splitWords);
+                    } catch (InvalidDeadlineException e) {
+                        System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
+                        continue;
                     }
-                    Deadlines deadline = new Deadlines(deadline_title, dateTime);
+
                     list.add(deadline);
                     System.out.println(DIVIDER);
                     System.out.println("Deadline Task Added: " + deadline.toString());
@@ -78,8 +95,14 @@ public class SlayBot {
                     System.out.println(DIVIDER);
                     break;
 
-                case "event":
-                    Event event = eventFormat(splitWords);
+                case EVENT:
+                    Event event = null;
+                    try {
+                        event = parseEvent(splitWords);
+                    } catch (InvalidEventException e) {
+                        System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
+                        continue;
+                    }
                     list.add(event);
                     System.out.println(DIVIDER);
                     System.out.println("Event Task Added: " + event.toString());
@@ -87,14 +110,14 @@ public class SlayBot {
                     System.out.println(DIVIDER);
                     break;
 
-                case "mark":
+                case MARK:
                     Task taskToMark = list.get(Integer.parseInt(splitWords[1]) - 1);
                     taskToMark.setMarked(true);
                     System.out.println(DIVIDER + "\nNice! I've marked this task as done:\n" + taskToMark.toString() +
                             "\n" + DIVIDER);
                     break;
 
-                case "unmark":
+                case UNMARK:
                     Task taskToUnmark = list.get(Integer.parseInt(splitWords[1]) - 1);
                     taskToUnmark.setMarked(false);
                     System.out.println(DIVIDER + "\nOK, I've marked this task as not done yet:\n" + taskToUnmark.toString() +
@@ -107,7 +130,48 @@ public class SlayBot {
         }
     }
 
-    private static Event eventFormat(String[] splitWords) {
+    private static Deadline parseDeadline(String[] arr) throws InvalidDeadlineException {
+        String deadline_title = "";
+        String dateTime = "";
+
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i].equals("/by")) {
+                dateTime = arr[i + 1];
+                i++;
+            } else {
+                deadline_title += arr[i] + " ";
+            }
+        }
+
+        if (deadline_title.isEmpty() && dateTime.isEmpty()) {
+            throw new InvalidDeadlineException("OOPS!!! The description and date of a Deadline cannot be empty.");
+        } else if (deadline_title.isEmpty()) {
+            throw new InvalidDeadlineException("OOPS!!! The description of a Deadline cannot be empty.");
+        } else if (dateTime.isEmpty()) {
+            throw new InvalidDeadlineException("OOPS!!! The date of a Deadline cannot be empty.");
+        }
+
+        return new Deadline(deadline_title, dateTime);
+    }
+
+    private static ToDo parseTodo(String[] arr) throws InvalidTodoException {
+        String todo_title = "";
+
+        if (arr.length - 1 == 0) {
+            throw new InvalidTodoException("OOPS!!! The description of a Todo cannot be empty.");
+        }
+
+        for (int i = 1; i < arr.length; i++) {
+            todo_title += arr[i];
+            if (i != arr.length - 1) {
+                todo_title += " ";
+            }
+        }
+
+        return new ToDo(todo_title);
+    }
+
+    private static Event parseEvent(String[] splitWords) throws InvalidEventException {
         String combinedWord = "";
         for (int i = 1; i < splitWords.length; i++) {
             combinedWord += splitWords[i] + " ";
@@ -115,10 +179,43 @@ public class SlayBot {
         int indexFrom = combinedWord.indexOf("/from");
         int indexTo = combinedWord.indexOf("/to");
 
+        if (splitWords.length - 1 == 0) {
+            throw new InvalidEventException("OOPS!!! The description of an Event cannot be empty.");
+        } else if (indexFrom < 0 || indexTo < 0) {
+            throw new InvalidEventException("OOPS!!! The date of an Event cannot be empty.");
+        }
+
         String beforeFrom = combinedWord.substring(0, indexFrom).trim();
         String afterFrom = combinedWord.substring(indexFrom + "/from".length(), indexTo).trim();
         String afterTo = combinedWord.substring(indexTo + "/to".length()).trim();
 
         return new Event(beforeFrom, afterFrom, afterTo);
+    }
+
+    private static Command parseCommand(String[] arr) throws UnknownCommandException {
+        switch (arr[0]) {
+            case "bye":
+                return Command.BYE;
+
+            case "list":
+                return Command.LIST;
+
+            case "todo":
+                return Command.TODO;
+
+            case "deadline":
+                return Command.DEADLINE;
+
+            case "event":
+                return Command.EVENT;
+
+            case "mark":
+                return Command.MARK;
+
+            case "unmark":
+                return Command.UNMARK;
+            default:
+                throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
     }
 }

@@ -1,8 +1,8 @@
 package entity;
 
-public class Deadlines extends Task {
+public class Deadline extends Task {
     private String dateTime;
-    public Deadlines(String title, String dateTime) {
+    public Deadline(String title, String dateTime) {
         super(title);
         this.dateTime = dateTime;
     }
