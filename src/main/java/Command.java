@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public enum Command {
-    List, Mark, UnMark, Todo, Deadline, Event, Bye, Invalid;
+    List, Mark, Unmark, Todo, Deadline, Event, Bye, Invalid;
 
     private static List<Task> listOfTasks = new ArrayList<>();
     private static String splitLine = "____________________________________________________________";
@@ -22,8 +21,8 @@ public enum Command {
                     break;
                 case Mark:{
                     int taskIndex = getTaskIndex(detail);
-                    if (taskIndex >= listOfTasks.size() || taskIndex < 0){
-                        throw new ToothlessException("Trying to mark nothing :(");
+                    if (taskIndex >= listOfTasks.size() || taskIndex < 0 || detail.equals("")){
+                        throw new ToothlessException("Trying to mark nothing ^O^");
                     }
                     Task t = listOfTasks.get(taskIndex);
                     t.markAsDone();
@@ -31,10 +30,10 @@ public enum Command {
                     printTaskState(t, taskIndex);
                     break;
                 }
-                case UnMark:{
+                case Unmark:{
                     int taskIndex = getTaskIndex(detail);
-                    if (taskIndex >= listOfTasks.size() || taskIndex < 0){
-                        throw new ToothlessException("Trying to unmark nothing :(");
+                    if (taskIndex >= listOfTasks.size() || taskIndex < 0 || detail.equals("")){
+                        throw new ToothlessException("Trying to unmark nothing ^O^");
                     }
                     Task t = listOfTasks.get(taskIndex);
                     t.markAsNotDone();
@@ -106,10 +105,13 @@ public enum Command {
         return newTask;
     }
 
-    public static int getTaskIndex(String detail){
-        Scanner s = new Scanner(detail).useDelimiter("\\s*");
-        int taskIndex = s.nextInt();
-        return taskIndex - 1;
+    public static int getTaskIndex(String detail) throws ToothlessException{
+        try {
+            int taskIndex = Integer.valueOf(detail);
+            return taskIndex - 1;
+        } catch (NumberFormatException e){
+            throw new ToothlessException("Number put is not number.\nPlease put real number ._.");
+        }
     }
 
     public static void printTaskState(Task task, int index){

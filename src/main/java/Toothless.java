@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Toothless {
@@ -29,7 +27,7 @@ public class Toothless {
             }
 
             if(input.startsWith("unmark")){
-                command = Command.UnMark;
+                command = Command.Unmark;
             }
             else if(input.startsWith("mark")){
                 command = Command.Mark;
