@@ -12,9 +12,10 @@ public class Deadline extends Task {
   private String dueDate;
 
   /**
-   * Constructor for a Todo object
+   * Constructor for a Deadline object
    *
-   * @param description Description of the todo task
+   * @param description Description of the deadline
+   * @param dueDate     Due date of the deadline
    */
   public Deadline(String description, String dueDate) {
     super(description);
