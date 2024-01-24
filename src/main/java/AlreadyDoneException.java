@@ -1,12 +1,28 @@
+/**
+ * Contains information on the AlreadyDoneException class.
+ *
+ * @author Tee Chu Jie
+ */
 public class AlreadyDoneException extends DukeException {
-        public AlreadyDoneException(String message) {
+    /**
+     * The constructor for an AlreadyDoneException object.
+     *
+     * @param message Handled by the super constructor.
+     */
+    public AlreadyDoneException(String message) {
             super(message);
-        }
+    }
 
-        public static void validate(Task task) throws AlreadyDoneException {
-            if (task.isDone) {
-                throw new AlreadyDoneException("Task Already Marked As Done");
-            }
+    /**
+     * Checks if the task was done. If task was done, throws exception.
+     *
+     * @param task the task to be checked
+     * @throws AlreadyDoneException the exception that will be thrown if task was already done.
+     */
+    public static void validate(Task task) throws AlreadyDoneException {
+        if (task.isDone) {
+            throw new AlreadyDoneException("Task Already Marked As Done");
         }
     }
+}
 
