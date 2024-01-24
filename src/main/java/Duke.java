@@ -39,9 +39,33 @@ public class Duke {
                         System.out.println("\t\t" + i + "." + t);
                     }
                     System.out.println(lineBreak);
+                }
 
+                else if (input.toUpperCase().contains("DELETE")) {
+                    try {
+                        int item_index = Character.getNumericValue(input.charAt(7));
+                        Task t = list.remove(item_index - 1);
+                        System.out.println(lineBreak);
+                        System.out.println("\t\tNoted. I've removed this task:");
+                        System.out.println("\t\t  " + t);
+                        System.out.println("\t\tNow you have " + list.size() + " tasks in the list.");
+                        System.out.println(lineBreak);
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println(lineBreak);
+                        System.out.println("\t\tOOPS!!! Please specify a valid task number.");
+                        System.out.println(lineBreak);
+                        input = "list";
+                        continue;
+                    } catch (IndexOutOfBoundsException f) {
+                        System.out.println(lineBreak);
+                        System.out.println("\t\tOOPS!!! Please specify a valid task number.");
+                        System.out.println(lineBreak);
+                        input = "list";
+                        continue;
+                    }
+                }
 
-                } else if (input.toUpperCase().contains("TODO")) {
+                else if (input.toUpperCase().contains("TODO")) {
                     System.out.println(lineBreak);
                     String[] shortened_input = input.split("todo ");
                     try {
@@ -55,9 +79,9 @@ public class Duke {
                         System.out.println("\t\tTo create a 'To Do': todo <description>");
                         System.out.println(lineBreak);
                     }
+                }
 
-
-                } else if (input.toUpperCase().contains("DEADLINE")) {
+                else if (input.toUpperCase().contains("DEADLINE")) {
                     System.out.println(lineBreak);
                     String[] shortened_input = input.split("deadline ");
                     boolean descriptionAvailable = false;
@@ -69,20 +93,19 @@ public class Duke {
                         System.out.println("\t\tGot it. I've added this task: \n\t\t  " + t);
                         System.out.println("\t\tNow you have " + list.size() + " tasks in the list.");
                         System.out.println(lineBreak);
-                    }
-                    catch (ArrayIndexOutOfBoundsException e) {
+                    } catch (ArrayIndexOutOfBoundsException e) {
                         if (!descriptionAvailable) {
                             System.out.println("\t\tOOPS!!! The description of a deadline cannot be empty.");
-                        }
-                        else {
+                        } else {
                             System.out.println("\t\tOOPS!!! The 'by' of a deadline cannot be empty.");
                         }
                         System.out.println("\t\tTo create a 'Deadline': deadline <description> /by <by>");
                         System.out.println(lineBreak);
                     }
+                }
 
 
-                } else if (input.toUpperCase().contains("EVENT")) {
+                else if (input.toUpperCase().contains("EVENT")) {
                     System.out.println(lineBreak);
                     String[] shortened_input = input.split("event ");
                     boolean descriptionAvailable = false;
@@ -102,19 +125,18 @@ public class Duke {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         if (!descriptionAvailable) {
                             System.out.println("\t\tOOPS!!! The description of an event cannot be empty.");
-                        }
-                        else if (!fromAvailable) {
+                        } else if (!fromAvailable) {
                             System.out.println("\t\tOOPS!!! The 'from' of an event cannot be empty.");
-                        }
-                        else {
+                        } else {
                             System.out.println("\t\tOOPS!!! The 'to' of an event cannot be empty.");
                         }
                         System.out.println("\t\tTo create a 'Event': event <description> /from <from> /to <to>");
                         System.out.println(lineBreak);
                     }
+                }
 
 
-                } else if (input.toUpperCase().contains("UNMARK")) {
+                else if (input.toUpperCase().contains("UNMARK")) {
                     try {
                         System.out.println(input.charAt(7));
                         int item_index = Character.getNumericValue(input.charAt(7));
@@ -124,24 +146,23 @@ public class Duke {
                         System.out.println("\t\tOK, I've marked this task as not done yet:");
                         System.out.println("\t\t  " + t);
                         System.out.println(lineBreak);
-                    }
-                    catch (StringIndexOutOfBoundsException e) {
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println(lineBreak);
+                        System.out.println("\t\tOOPS!!! Please specify a valid task number.");
+                        System.out.println(lineBreak);
+                        input = "list";
+                        continue;
+                    } catch (IndexOutOfBoundsException f) {
                         System.out.println(lineBreak);
                         System.out.println("\t\tOOPS!!! Please specify a valid task number.");
                         System.out.println(lineBreak);
                         input = "list";
                         continue;
                     }
-                    catch (IndexOutOfBoundsException f) {
-                        System.out.println(lineBreak);
-                        System.out.println("\t\tOOPS!!! Please specify a valid task number.");
-                        System.out.println(lineBreak);
-                        input = "list";
-                        continue;
-                    }
+                }
 
 
-                } else if (input.toUpperCase().contains("MARK")) {
+                else if (input.toUpperCase().contains("MARK")) {
                     try {
                         int item_index = Character.getNumericValue(input.charAt(5));
                         Task t = list.get(item_index - 1);
