@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String logo = " Kassim ";
+        String logo = " KASSIM ";
         System.out.println("YOO I AM " + logo);
         System.out.println("\n WHat can i do for you?");
 
@@ -10,6 +10,6 @@ public class Duke {
         System.out.print(" ");
         String in = sc.nextLine();
 
-        System.out.println("THEN? hope to see you again bye");
+        System.out.println("THEN? hope to see you again");
     }
 }
