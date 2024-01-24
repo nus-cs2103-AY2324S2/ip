@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Jayne {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -9,61 +10,43 @@ public class Jayne {
         TaskList taskList = new TaskList();
 
         while (true) {
-            String input = scanner.nextLine().trim();
-            String[] parts = input.split(" ", 2);
+            try {
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty()) {
+                    throw new JayneException("Input cannot be empty.");
+                }
 
-            //entered bye
-            if (input.equalsIgnoreCase("bye")) {
-                System.out.println(dash + "\nBye. Hope to see you again soon!\n" + dash);
-                break;
-            }
+                String[] parts = input.split(" ", 2);
 
-            if (input.equalsIgnoreCase("list")) {
-                System.out.println(dash);
-                taskList.display();
-                System.out.println(dash);
-
-            } else if (parts[0].equalsIgnoreCase("mark") && parts.length > 1){
-                int taskNumber = Integer.parseInt(parts[1]);
-                taskList.markTaskAsDone(taskNumber);
-                System.out.println(dash + "\nNice! I've marked this task as done:\n  " + taskList.getTask(taskNumber) + "\n" + dash);
-
-            } else if (parts[0].equalsIgnoreCase("unmark") && parts.length > 1) {
-                int taskNumber = Integer.parseInt(parts[1]);
-                taskList.markTaskAsNotDone(taskNumber);
-                System.out.println(dash + "\nOK, I've marked this task as not done yet:\n  " + taskList.getTask(taskNumber) + "\n"  + dash);
-
-            } else if (parts[0].equalsIgnoreCase("todo")) {
-                Todo newTodo = new Todo(parts[1]);
-                taskList.addTask(newTodo);
-                System.out.println(dash + "\nGot it. I've added this task:");
-                System.out.println("  " + newTodo);
-                System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n"  + dash);
-
-            } else if (parts[0].equalsIgnoreCase("deadline")) {
-                String[] deadlineParts = parts[1].split(" /by ", 2);
-                Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
-                taskList.addTask(newDeadline);
-                System.out.println(dash + "\nGot it. I've added this task:");
-                System.out.println("  " + newDeadline);
-                System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n"  + dash);
-
-            } else if (parts[0].equalsIgnoreCase("event")) {
-                String[] eventParts = parts[1].split(" /from ", 2);
-                String[] times = eventParts[1].split(" /to ", 2);
-                Event newEvent = new Event(eventParts[0], times[0], times[1]);
-                taskList.addTask(newEvent);
-                System.out.println(dash + "\nGot it. I've added this task:");
-                System.out.println("  " + newEvent);
-                System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n"  + dash);
-
-            } else {
-                // Add other inputs to the task list
-                taskList.add(input);
-                System.out.println(dash + "\nadded: " + input + "\n" + dash);
+                // Handle different cases
+                switch (parts[0].toLowerCase()) {
+                    case "bye":
+                        Handler.handleBye(dash);
+                        return; // Exit the program
+                    case "list":
+                        Handler.handleList(taskList, dash);
+                        break;
+                    case "mark":
+                        Handler.handleMark(parts, taskList, dash);
+                        break;
+                    case "unmark":
+                        Handler.handleUnmark(parts, taskList, dash);
+                        break;
+                    case "todo":
+                        Handler.handleTodo(parts, taskList, dash);
+                        break;
+                    case "deadline":
+                        Handler.handleDeadline(parts, taskList, dash);
+                        break;
+                    case "event":
+                        Handler.handleEvent(parts, taskList, dash);
+                        break;
+                    default:
+                        throw new JayneException("What are you typing. please include either bye, list, mark, umark, todo, deadline or event in your inputs please");
+                }
+            } catch (JayneException e) {
+                System.out.println(dash + "\nHuh?!?!? " + e.getMessage() + "\n" + dash);
             }
         }
-
-        scanner.close();
     }
 }
