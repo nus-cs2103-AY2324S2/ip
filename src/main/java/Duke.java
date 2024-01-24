@@ -289,6 +289,13 @@ public class Duke {
 
     }
 
+    /**
+     * Deletes a task from the task list based on the provided one-based index.
+     * Throws a DukeException if the provided index is invalid.
+     *
+     * @param oneItem The one-based index of the task to be deleted.
+     * @throws DukeException If the provided index is out of bounds or corresponds to a null task.
+     */
     private void deleteTask(int oneItem) throws DukeException {
         int zeroItem = oneItem - 1;
 
@@ -304,7 +311,11 @@ public class Duke {
         }
     }
 
-
+    /**
+     * Displays the response message after deleting a task if the deletion is successful and an exception has not been thrown.
+     *
+     * @param task The task that has been deleted.
+     */
     private void deleteResponse(Task task) {
         int numTasks = countNonNullElements(list);
         System.out.println();
