@@ -12,12 +12,16 @@ public class Task {
         return this.checkbox() + " " + this.name;
     }
 
+    public String typeOfTask() {
+        return " ";
+    }
+
     public String getStatusIcon() {
         return (done ? "X" : " "); // mark done task with X
     }
 
     public String checkbox() {
-        return String.format("[%s]", this.getStatusIcon());
+        return String.format("[%s][%s]", this.typeOfTask(), this.getStatusIcon());
     }
 
     public void mark() {
