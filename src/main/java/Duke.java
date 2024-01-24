@@ -106,6 +106,7 @@ public class Duke {
     "OK, I've marked this task as not done yet:";
   private static final String LIST_MESSAGE = "Here are the tasks in your list:";
   private static final String TODO_MESSAGE = "Got it. I've added this task:";
+  private static final String DELETE_MESSAGE = "Noted. I've removed this task:";
   private static final String TASKS_SUMMARY_MESSAGE =
     "Now you have %s tasks in the list.";
   private static final String BY_CMD = "/by";
@@ -272,6 +273,31 @@ public class Duke {
           ctx.stored_tasks.add(task);
           reply(TODO_MESSAGE);
           reply(String.format("  %s", task));
+          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.stored_tasks.size()));
+          return true;
+        }
+      case "delete":
+        {
+          String ferr1 = "%s command: expected an integer argument.";
+          String ferr2 = "%s command: no such task numbered %s.";
+          if (commands.length != 2) {
+            error_str = String.format(ferr1, c);
+            break;
+          }
+          String idx_s = commands[1];
+          if (!is_number(idx_s)) {
+            error_str = String.format(ferr1, c);
+            break;
+          }
+          int idx = Integer.parseInt(idx_s) - 1;
+          if (!ctx.check_taskidx(idx)) {
+            error_str = String.format(ferr2, c, idx_s);
+            break;
+          }
+          Task t = ctx.stored_tasks.get(idx);
+          ctx.stored_tasks.remove(idx);
+          reply(DELETE_MESSAGE);
+          reply(String.format("  %s", t));
           reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.stored_tasks.size()));
           return true;
         }
