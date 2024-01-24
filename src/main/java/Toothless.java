@@ -1,3 +1,7 @@
+import Exceptions.InvalidInstructionException;
+import Exceptions.MissingToDoNameException;
+import Exceptions.MissingTaskToMarkException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Toothless {
@@ -19,7 +23,7 @@ public class Toothless {
         Toothless.printLines();
     }
 
-    static void echo() {
+    static void echo() throws InvalidInstructionException {
         Scanner scanner = new Scanner(System.in);
         TaskList tasksList = new TaskList();
         String input = "";
@@ -32,11 +36,22 @@ public class Toothless {
                     System.out.println(tasksList.toString());
 
                 } else if (input.contains("todo")) {
-                    String name = input.substring(5);
-                    String response = tasksList.add(new ToDo(name));
-                    Toothless.printLines();
-                    System.out.println(response);
-                    Toothless.printLines();
+                    try {
+                        if (input.split(" ").length == 1) {
+                            throw new MissingToDoNameException("Please provide the description of the todo task :) Eg. 'Todo Chores'");
+                        } else {
+                            String name = input.substring(5);
+                            String response = tasksList.add(new ToDo(name));
+                            Toothless.printLines();
+                            System.out.println(response);
+                            Toothless.printLines();
+                        }
+                    } catch (MissingToDoNameException err) {
+                        Toothless.printLines();
+                        System.out.println(err.getMessage());
+                        Toothless.printLines();
+                    }
+
 
                 } else if (input.contains("deadline")) {
                     int endChar = input.indexOf("/");
@@ -61,27 +76,47 @@ public class Toothless {
                     Toothless.printLines();
 
                 } else if (input.contains("unmark")) {
-                    int index = Integer.parseInt(input.substring(7));
-                    String response = tasksList.unmark(index);
-                    System.out.println(response);
+                    try {
+                        if (input.split(" ").length == 1) {
+                            throw new MissingTaskToMarkException("Please provide a task to unmark :)");
+
+                        } else {
+                            int index = Integer.parseInt(input.substring(7));
+                            System.out.print(index);
+                            String response = tasksList.unmark(index);
+                            System.out.println(response);
+                        }
+                    } catch (MissingTaskToMarkException err) {
+                        Toothless.printLines();
+                        System.out.println(err.getMessage());
+                        Toothless.printLines();
+                    }
 
                 } else if (input.contains("mark")) {
-                    int index = Integer.parseInt(input.substring(5));
-                    System.out.print(index);
-                    String response = tasksList.mark(index);
-                    System.out.println(response);
+                    try {
+                        if (input.split(" ").length == 1) {
+                            throw new MissingTaskToMarkException("Please provide a task to mark :)");
+                        } else {
+                            int index = Integer.parseInt(input.substring(5));
+                            System.out.print(index);
+                            String response = tasksList.mark(index);
+                            System.out.println(response);
+                        }
+                    } catch (MissingTaskToMarkException err) {
+                        Toothless.printLines();
+                        System.out.println(err.getMessage());
+                        Toothless.printLines();
+                    }
+
 
                 } else {
-                    tasksList.add(new Task(input));
                     Toothless.printLines();
-                    System.out.println("added: " + input);
+                    System.out.println("Try entering a valid instruction! Eg. 'Todo Chores' or 'Mark 2'");
                     Toothless.printLines();
-
                 }
 
             } else {
                 break;
-
             }
 
         }
