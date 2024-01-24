@@ -8,7 +8,7 @@ public class Duke {
         HashMap<String, String> EMOJI_MAP = getStringStringHashMap();
 
         // storing user input
-        ArrayList<String> al = new ArrayList<>();
+        ArrayList<Task> al = new ArrayList<>();
 
         // chatbot chat placeholder
         String PLACEHOLDER = "\t----------------------------------------\n" +
@@ -37,18 +37,42 @@ public class Duke {
         while (!userIn.equals("bye")) {
             String echoMsg;
 
-            if (userIn.equals("list")) {  // echos stored user inputs
-                StringBuilder strItems = new StringBuilder();
-                for (int i = 0; i < al.size() - 1; i++) {
-                    strItems.append(String.format("%d. %s\n\t\t", i + 1, al.get(i)));
+            String[] tokens = userIn.split(" ");
+            switch (tokens[0]) {
+                case "list":   // echos stored user inputs
+                    StringBuilder strItems = new StringBuilder();
+                    for (int i = 0; i < al.size() - 1; i++) {
+                        strItems.append(String.format("%d. %s\n\t\t", i + 1, al.get(i)));
+                    }
+                    strItems.append(String.format("%d. %s", al.size(), al.get(al.size() - 1)));
+                    echoMsg = String.format(PLACEHOLDER, strItems);
+                    break;
+                case "mark": {
+                    int itemIndex = Integer.parseInt(tokens[1]) - 1;
+                    al.get(itemIndex).done();
+
+                    echoMsg = String.format(
+                            PLACEHOLDER,
+                            "Nice! I've marked this task as done:\n\t\t\t" +
+                                    al.get(itemIndex));
+                    break;
                 }
-                strItems.append(String.format("%d. %s", al.size(), al.get(al.size() - 1)));
-                echoMsg = String.format(PLACEHOLDER, strItems);
-            } else {  // echo and store the user input
-                al.add(userIn);
-                echoMsg = String.format(
-                        PLACEHOLDER,
-                        "added: " + userIn);
+                case "unmark": {
+                    int itemIndex = Integer.parseInt(tokens[1]) - 1;
+                    al.get(itemIndex).undone();
+
+                    echoMsg = String.format(
+                            PLACEHOLDER,
+                            "OK, I've marked this task as not done yet:\n\t\t\t" +
+                                    al.get(itemIndex));
+                    break;
+                }
+                default:   // echo and store the user input
+                    al.add(new Task(userIn));
+                    echoMsg = String.format(
+                            PLACEHOLDER,
+                            "added: " + userIn);
+                    break;
             }
             System.out.println(echoMsg);
 
