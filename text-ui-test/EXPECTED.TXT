@@ -1,7 +1,31 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm
+  _____             __
+ |_   _|           [  |  _
+   | |     __   _   | | / ] .---.
+   | |   _[  | | |  | '' < / /__\\
+  _| |__/ || \_/ |, | |`\ \| \__.,
+ |________|'.__.'_/[__|  \_]'.__.'
+
+I helped you add task '[T][ ] borrow book'. But do it yourself next time! Hmmph!
+
+I helped you add task '[D][ ] return book (by: Sunday)'. But do it yourself next time! Hmmph!
+
+I helped you add task '[E][ ] project meeting (from: Mon 2pm to: 4pm)'. But do it yourself next time! Hmmph!
+
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+Good work, I guess.
+1.[T][X] borrow book
+
+Good work, I guess.
+2.[D][X] return book (by: Sunday)
+
+Good work, I guess.
+3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+
+Don't be ridiculous!
+It's... it's not like I want to see you again or anything!
+
 
