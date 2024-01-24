@@ -18,24 +18,28 @@ public class Tyrone {
                 "\n\t____________________________________________________________\n");
 
         while (true) {
-            String cmd = reader.nextLine();
-            if (cmd.equals("bye")) {
-                handleByeCommand();
-                break;
-            } else if (cmd.equals("list")) {
-                handleListCommand();
-            } else if (cmd.startsWith("todo")) {
-                handleTodoCommand(cmd.substring(5));
-            } else if (cmd.startsWith("deadline")) {
-                handleDeadlineCommand(cmd.substring(9));
-            } else if (cmd.startsWith("event")) {
-                handleEventCommand(cmd.substring(6));
-            } else if (cmd.startsWith("mark")) {
-                handleMarkCommand(cmd);
-            } else if (cmd.startsWith("unmark")) {
-                handleUnmarkCommand(cmd);
-            } else {
-                writer.println(Tyrone.formatStringOutput("Hey homie, I think ya tripping... command entered is invalid."));
+            try {
+                String cmd = reader.nextLine();
+                if (cmd.equals("bye")) {
+                    handleByeCommand();
+                    break;
+                } else if (cmd.equals("list")) {
+                    handleListCommand();
+                } else if (cmd.startsWith("todo")) {
+                    handleTodoCommand(cmd.substring(5));
+                } else if (cmd.startsWith("deadline")) {
+                    handleDeadlineCommand(cmd.substring(9));
+                } else if (cmd.startsWith("event")) {
+                    handleEventCommand(cmd.substring(6));
+                } else if (cmd.startsWith("mark")) {
+                    handleMarkCommand(cmd);
+                } else if (cmd.startsWith("unmark")) {
+                    handleUnmarkCommand(cmd);
+                } else {
+                    throw new TyroneCmdException("Command entered doesn't exist.");
+                }
+            } catch (Exception e) {
+                Tyrone.writer.println(Tyrone.formatStringOutput(e.getMessage()));
             }
         }
     }
