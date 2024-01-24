@@ -21,5 +21,10 @@ public class Task {
     public void undone() {
         status = false;
     }
+
+    @Override
+    public String toString() {
+        return getStatusIcon() + " " + taskName;
+    }
 }
 
