@@ -1,10 +1,13 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
     private String name;
-    
+    private ArrayList<String> list;
+
     public Duke(String name) {
         this.name = name;
+        this.list = new ArrayList<String>();
     }
 
     public void greet() {
@@ -19,15 +22,40 @@ public class Duke {
         System.out.println(message);
     }
 
+    public void addToList(String task) {
+        this.list.add(task);
+        System.out.println(String.format("added: %s", task));
+    }
+
+    public void displayList() {
+        int index = 1;
+        for (String task : this.list){
+            System.out.println(String.format("%d. %s", index, task));
+            index++;
+        }
+    }
+
+    public void readCommand(String command){
+        if (Objects.equals(command, "list")) {
+            this.displayList();
+            return;
+        }
+
+        if (Objects.equals(command, "bye")) {
+            this.exit();
+            System.exit(0);
+        }
+
+        this.addToList(command);
+    }
+
     public static void main(String[] args) {
         Duke chatbot = new Duke("Bob");
         chatbot.greet();
         Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine();
-        while (!Objects.equals(command, "bye")) {
-            chatbot.say(command);
-            command = scanner.nextLine();
+        while (true) {
+            String command = scanner.nextLine();
+            chatbot.readCommand(command);
         }
-        chatbot.exit();
     }
 }
