@@ -4,6 +4,17 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Duke {
+
+    public enum Action {
+        LIST,
+        TODO,
+        DEADLINE,
+        EVENT,
+        MARK,
+        UNMARK,
+        DELETE,
+        BYE
+    }
     static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -19,30 +30,30 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         String userInput = sc.nextLine().trim();
-        while (!userInput.equals("bye")) {
+        while (!userInput.equalsIgnoreCase(Action.BYE.toString())) {
 
             System.out.println("    ____________________________________________________________");
             String[] splitInput = userInput.split(" ");
             try {
-                if (splitInput[0].equals("list")) {
+                if (splitInput[0].equalsIgnoreCase(Action.LIST.toString())) {
                     listMethod();
 
-                } else if (splitInput[0].equals("mark")) {
+                } else if (splitInput[0].equalsIgnoreCase(Action.MARK.toString())) {
                     markTask(userInput);
 
-                } else if (splitInput[0].equals("unmark")) {
+                } else if (splitInput[0].equalsIgnoreCase(Action.UNMARK.toString())) {
                     unmarkTask(userInput);
 
-                } else if (splitInput[0].equals("todo")) {
+                } else if (splitInput[0].equalsIgnoreCase(Action.TODO.toString())) {
                     addToDo(userInput);
 
-                } else if (splitInput[0].equals("deadline")) {
+                } else if (splitInput[0].equalsIgnoreCase(Action.DEADLINE.toString())) {
                     addDeadline(userInput);
 
-                } else if (splitInput[0].equals("event")) {
+                } else if (splitInput[0].equalsIgnoreCase(Action.EVENT.toString())) {
                     addEvent(userInput);
 
-                } else if (splitInput[0].equals("delete")) {
+                } else if (splitInput[0].equalsIgnoreCase(Action.DELETE.toString())) {
 
                     deleteTask(userInput);
 
