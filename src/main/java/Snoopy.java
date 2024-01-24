@@ -3,19 +3,6 @@ import java.util.*;
 public class Snoopy{
     public static void formalities(String context) {
         if (context.equals("greet")) {
-            String newLogo = "\n" +
-                    "$$$$$$$\\  $$\\                     $$$$$$$\\                                \n" +
-                    "$$  __$$\\ \\__|                    $$  __$$\\                               \n" +
-                    "$$ |  $$ |$$\\ $$$$$$$\\   $$$$$$\\  $$ |  $$ | $$$$$$\\  $$$$$$$\\   $$$$$$\\  \n" +
-                    "$$$$$$$\\ |$$ |$$  __$$\\ $$  __$$\\ $$$$$$$\\ |$$  __$$\\ $$  __$$\\ $$  __$$\\ \n" +
-                    "$$  __$$\\ $$ |$$ |  $$ |$$ /  $$ |$$  __$$\\ $$ /  $$ |$$ |  $$ |$$ /  $$ |\n" +
-                    "$$ |  $$ |$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |\n" +
-                    "$$$$$$$  |$$ |$$ |  $$ |\\$$$$$$$ |$$$$$$$  |\\$$$$$$  |$$ |  $$ |\\$$$$$$$ |\n" +
-                    "\\_______/ \\__|\\__|  \\__| \\____$$ |\\_______/  \\______/ \\__|  \\__| \\____$$ |\n" +
-                    "                        $$\\   $$ |                              $$\\   $$ |\n" +
-                    "                        \\$$$$$$  |                              \\$$$$$$  |\n" +
-                    "                         \\______/                                \\______/ \n";
-            System.out.println(newLogo);
             System.out.println("____________________________________________________________");
             System.out.println(" Wassup dawg, I'm Snoopy");
             System.out.println(" What can I do for you?");
@@ -33,18 +20,32 @@ public class Snoopy{
 
         ArrayList<Task> todos = new ArrayList<Task>();
 
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            Scanner reader = new Scanner(System.in).useDelimiter("\\n"); //Solution adapted by https://stackoverflow.com/questions/4058912/scanner-doesnt-read-whole-sentence-difference-between-next-and-nextline-o
-            String s = reader.next();
-            String arr[] = s.split(" ", 2); // String in Array format. Useful: https://www.geeksforgeeks.org/split-string-java-examples/
-            String maybeCommand = arr[0];
+            String s;
+            try {
+                s = scanner.nextLine(); // Use the same Scanner object
+            } catch (NoSuchElementException e) {
+                System.out.println("No input found. Exiting.");
+                break; // Exit the loop if no input is found
+            }
+
+            String maybeCommand;
+            String arr[];
+            try {
+                arr = s.split(" ", 2); // String in Array format. Useful: https://www.geeksforgeeks.org/split-string-java-examples/
+                maybeCommand = arr[0];
+            } catch (Exception e) {
+                maybeCommand = null;
+                continue;
+            }
 
             if (s.toLowerCase().equals("bye")) {
                 formalities("farewell");
                 break;
             } else if (s.toLowerCase().equals("list")) {
                 System.out.println("____________________________________________________________");
-                System.out.println("Here are the tasks in your list:");
+                System.out.println(" Here are the tasks in your list:");
                 for (int i = 0; i < todos.size(); i++) {
                     Task currTask = todos.get(i);
                     System.out.println((i + 1) + ". " + currTask.toString());
@@ -108,9 +109,8 @@ public class Snoopy{
                         break;
                 }
             } else {
-                todos.add(new Task(s));
                 System.out.println("____________________________________________________________");
-                System.out.println(" added: " + s);
+                System.out.println("Uh ah I don't understand ya");
                 System.out.println("____________________________________________________________");
             }
 
