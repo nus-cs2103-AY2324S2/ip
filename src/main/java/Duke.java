@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.ArrayList;
+
 public class Duke {
 
     private static String logo = "     _______       ______     _______    _______    ___  ___  \n"
@@ -18,10 +18,14 @@ public class Duke {
         Duke.intro();
         String userInput = scanner.nextLine();
         while(!userInput.equals("bye")) {
-            if (userInput.equals("list")) {
+            if (userInput.startsWith("mark")) {
+                store.mark(Integer.parseInt(userInput.split(" ")[1]));
+
+            } else if (userInput.startsWith("unmark")) {
+                store.unmark(Integer.parseInt(userInput.split(" ")[1]));
+            } else if (userInput.equals("list")) {
                 store.printList();
             } else {
-                UI.printResponse("      added: " + userInput);
                 store.addItem(userInput);
             }
             userInput = scanner.nextLine();
