@@ -100,9 +100,7 @@ public class Tiny {
 
                 // Add command
             } else {
-                tasks.add(new Task(input));
-                totalTasks++;
-                System.out.println("   added: " + input);   
+                System.out.println("I'm sorry, but I don't know what that means :-(");
             }
             printLine();
         }
