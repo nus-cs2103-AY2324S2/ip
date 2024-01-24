@@ -1,78 +1,66 @@
 package service;
 
+import model.Feedback;
 import type.CommandEnum;
-
-import java.util.Scanner;
 
 public class FeedbackService {
     private TaskService taskService = new TaskService();
 
-    public void run() {
-        this.PrintWelcome();
-        this.listen();
-        this.exit();
-    }
+    public Feedback run(String userInput) {
+        String[] cur = userInput.split(" ");
+        CommandEnum curCommand = CommandEnum.getCommandEnum(cur[0]);
+        Feedback feedback = null;
+        int taskId = -1;
 
-    private void listen() {
-        Scanner scanner = new Scanner(System.in);
-
-        String[] curInput = scanner.nextLine().split(" ");
-
-        // TODO: Clean up long if-else statement.. Use switch statement instead?
-        while (!curInput[0].equals(CommandEnum.BYE.getCommandValue())) {
-            // NOTE: LIST all tasks
-            if (curInput[0].equals(CommandEnum.LIST.getCommandValue())) {
-                String[] output = this.taskService.getAllTasks();
-
-                for (String task : output) {
-                    this.Echo(task);
-                }
-            }
-            // NOTE: MARK task as completed
-            else if (curInput[0].equals(CommandEnum.MARK.getCommandValue())) {
-                this.Echo(this.taskService.markTaskCompleted(Integer.parseInt(curInput[1]) - 1));
-            }
-            // NOTE: UNMARK task as completed
-            else if (curInput[0].equals(CommandEnum.UNMARK.getCommandValue())) {
-                this.Echo(this.taskService.markTaskUncompleted(Integer.parseInt(curInput[1]) - 1));
-            }
-            // NOTE: Default - Add task
-            else {
-                this.Echo(this.taskService.addTask(curInput[0]));
-            }
-
-            // QUESTION: No longer required? Check if can be removed or if this functionality will still be graded
-            curInput = scanner.nextLine().split(" ");
+        // TODO: Exception Handling for incorrect input
+        switch (curCommand) {
+            case CommandEnum.BYE:
+                feedback = new Feedback(true, this.getExitMessage());
+                break;
+            case CommandEnum.LIST:
+                feedback = new Feedback(false, this.taskService.getAllTasks());
+                break;
+            case CommandEnum.MARK:
+                taskId = Integer.parseInt(cur[1]) - 1;
+                feedback = new Feedback(false, this.taskService.markTaskCompleted(taskId));
+                break;
+            case CommandEnum.UNMARK:
+                taskId = Integer.parseInt(cur[1]) - 1;
+                feedback = new Feedback(false, this.taskService.markTaskUncompleted(taskId));
+                break;
+            default:
+                feedback = new Feedback(false, this.taskService.addTask(userInput));
         }
+
+        return feedback;
     }
 
-    private void exit() {
-        System.out.println("----------------------------------------------");
-        System.out.println("Goodbye! Hope to see you again!");
-        System.out.println("----------------------------------------------");
-    }
-
-    private void PrintWelcome() {
+    public String getWelcomeMessage() {
         // Logo generated from : https://patorjk.com/software/taag/#p=display&f=Sub-Zero&t=OAK
         String logo =
-                "______     ______     __  __    \n" +
+                " ______     ______     __  __    \n" +
                         "/\\  __ \\   /\\  __ \\   /\\ \\/ /    \n" +
                         "\\ \\ \\/\\ \\  \\ \\  __ \\  \\ \\  _-.    \n" +
                         " \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\  \n" +
                         "  \\/_____/   \\/_/\\/_/   \\/_/\\/_/ \n";
-        System.out.println("Hello from\n" + logo);
 
-        System.out.println("----------------------------------------------");
-
-        System.out.println("Welcome! I'm Professor Oak");
-        System.out.println("What can I do for you?");
+        return "Hello from\n" + logo + "\n" +
+                "----------------------------------------------\n" +
+                "Welcome! I'm Professor Oak\n" +
+                "What can I do for you?";
 
     }
 
-    // TODO: Allow for String[]?
-     private void Echo(String input) {
-        System.out.println("----------------------------------------------");
-        System.out.println(input);
-        System.out.println("----------------------------------------------");
-     }
+    private String getExitMessage() {
+        return "----------------------------------------------\n" +
+                "Goodbye! Hope to see you again!\n" +
+                "----------------------------------------------";
+    }
+
+    // TODO: REMOVE THIS if not going to be graded since add tasks exists
+//    private void Echo(String input) {
+//        System.out.println("----------------------------------------------");
+//        System.out.println(input);
+//        System.out.println("----------------------------------------------");
+//    }
 }

@@ -16,7 +16,7 @@ public class Task {
         this.isCompleted = false;
     }
 
-    // @author Sherisse-reused
+    // @author SherisseTJW-reused
     // Reused from https://nus-cs2103-ay2324s2.github.io/website/schedule/week2/project.html, Level-3 Extension A-Classes Partial Solution
     // with only function name modification
     private String getCompletedIcon() {

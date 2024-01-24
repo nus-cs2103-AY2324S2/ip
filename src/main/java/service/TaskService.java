@@ -23,24 +23,18 @@ public class TaskService {
         // TODO: Exception handling for if task does not exist
         this.taskList[taskId].markTaskNotCompleted();
 
-        return "Hmmm, were you teasing me? \n " +
-                "Well, I've marked Task " + (taskId + 1) +  " as uncompleted, \n " +
+        return "Hmmm, were you teasing me?\n" +
+                "Well, I've marked Task " + (taskId + 1) +  " as uncompleted,\n" +
                 "But don't do this again, you hear me?";
     }
 
-    public String[] getAllTasks() {
-        String[] returnVal = new String[this.taskListPointer];
+    public String getAllTasks() {
+        StringBuilder returnVal = new StringBuilder();
 
         for (int i = 0; i < this.taskListPointer; i++) {
-            Task curTask = this.taskList[i];
-
-            if (curTask == null) {
-                break;
-            }
-
-            returnVal[i] = String.format("%d. %s", i + 1, this.taskList[i]);
+            returnVal.append(String.format("%d. %s", i + 1, this.taskList[i])).append("\n");
         }
 
-        return returnVal;
+        return returnVal.toString();
     }
 }

@@ -1,9 +1,11 @@
+import controller.TerminalController;
 import service.FeedbackService;
 
 public class Duke {
     public static void main(String[] args) {
-        FeedbackService feedbackService = new FeedbackService();
+        TerminalController controller = new TerminalController();
 
-        feedbackService.run();
+        controller.printWelcomeMessage();
+        controller.listen();
     }
 }
