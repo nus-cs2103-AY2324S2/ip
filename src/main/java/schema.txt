@@ -1,0 +1,26 @@
+UkeCat:
+- Storage: to store info on user input and tasks
+- Parses user input
+- Responds accordingly in the output
+
+Parser:
+- Parses the initial user input, stores info in storage
+
+Responder:
+- Based on input, respond or call for further parsing
+- Can give default replies
+- Can call parser for further parsing
+- Can ask storage to add more tasks if there is enough info
+
+Storage:
+- stores input
+- stores tasks in an ArrayList
+- has methods to add or give additional info on tasks
+
+Task:
+- ToDo
+- Deadline
+- Event
+
+UkeCatException:
+- Custom exceptions

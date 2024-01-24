@@ -16,7 +16,7 @@ public class Parser {
 
     }
 
-    public static void parseToDo(String input) {
+    public static void parseToDo(String input) throws UkeCatException {
         // Regex pattern: todo + whitespaces + any chars
         Pattern pattern = Pattern.compile("^todo\\s+(.+)");
         Matcher matcher = pattern.matcher(input);
@@ -24,11 +24,11 @@ public class Parser {
         if (matcher.matches()) {
             Storage.desc = matcher.group(1); // store first capturing group
         } else {
-            throw new IllegalArgumentException("Format: todo <desc>");
+            throw new UkeCatException("Format: todo <desc>");
         }
     }
 
-    public static void parseDeadline(String input) {
+    public static void parseDeadline(String input) throws UkeCatException {
         // Regex pattern: deadline + spaces + chars + spaces + /by + spaces + chars
         Pattern pattern = Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(.+)");
         Matcher matcher = pattern.matcher(input);
@@ -37,11 +37,11 @@ public class Parser {
             Storage.desc = matcher.group(1);
             Storage.by = matcher.group(2);
         } else {
-            throw new IllegalArgumentException("Format: deadline <desc> /by <by>");
+            throw new UkeCatException("Format: deadline <desc> /by <by>");
         }
     }
 
-    public static void parseEvent(String input) {
+    public static void parseEvent(String input) throws UkeCatException {
         // Regex pattern: event + spaces + chars + spaces +
         // /from + spaces + chars + spaces + /to + spaces + chars
         Pattern pattern = Pattern.compile("^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)");
@@ -52,7 +52,7 @@ public class Parser {
             Storage.start = matcher.group(2);
             Storage.end = matcher.group(3);
         } else {
-            throw new IllegalArgumentException("Format: event <desc> /from <start> /to <end>");
+            throw new UkeCatException("Format: event <desc> /from <start> /to <end>");
         }
     }
 

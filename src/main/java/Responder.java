@@ -25,27 +25,32 @@ public class Responder {
                 }
             }
         } catch (Exception e) {
+            System.out.println(e);
             System.out.println("Please enter a valid integer to mark!");
             Storage.printTasks();
         }
 
         // adding tasks
-        if (words[0].equals("todo")) {
-            Parser.parseToDo(input);
-            Storage.addTask(new ToDo(Storage.desc));
-            Storage.report();
-        }
+        try {
+            if (words[0].equals("todo")) {
+                Parser.parseToDo(input);
+                Storage.addTask(new ToDo(Storage.desc));
+                Storage.report();
+            }
 
-        if (words[0].equals("deadline")) {
-            Parser.parseDeadline(input);
-            Storage.addTask(new Deadline(Storage.desc, Storage.by));
-            Storage.report();
-        }
+            if (words[0].equals("deadline")) {
+                Parser.parseDeadline(input);
+                Storage.addTask(new Deadline(Storage.desc, Storage.by));
+                Storage.report();
+            }
 
-        if (words[0].equals("event")) {
-            Parser.parseEvent(input);
-            Storage.addTask(new Event(Storage.desc, Storage.start, Storage.end));
-            Storage.report();
+            if (words[0].equals("event")) {
+                Parser.parseEvent(input);
+                Storage.addTask(new Event(Storage.desc, Storage.start, Storage.end));
+                Storage.report();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
 
     }
