@@ -1,7 +1,55 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    ____  __                 
+   / __ \/ /___ _____  ____ _
+  / /_/ / / __ `/ __ \/ __ `/
+ / ____/ / /_/ / / / / /_/ / 
+/_/   /_/\__,_/_/ /_/\__,_/  
 
+Hello! I'm Plana!
+What can I do for you?
+======================
+[32m> [36m[31mInvalid command! Only the following commands are allowed:
+bye
+list
+mark
+unmark
+delete
+todo
+deadline
+event
+[0m
+[32m> [36mGot it. I've added this task:
+>> [T][ ] task 1
+You now have 1 tasks in the list.
+[32m> [36mGot it. I've added this task:
+>> [D][ ] task 2 (by: b)
+You now have 2 tasks in the list.
+[32m> [36m[31mInvalid input for this command![0m
+[32m> [36mGot it. I've added this task:
+>> [E][ ] task 3 (from: a to: b)
+You now have 3 tasks in the list.
+[32m> [36m[31mInvalid input for this command![0m
+[32m> [36mYou've added the following tasks so far:
+1. [T][ ] task 1
+2. [D][ ] task 2 (by: b)
+3. [E][ ] task 3 (from: a to: b)
+[32m> [36mTask 1marked as done
+[32m> [36m[31mThis task has already been marked as done![0m
+[32m> [36m[31mInvalid input for this command![0m
+[32m> [36mTask 1marked as undone
+[32m> [36m[31mThis task is already unmarked![0m
+[32m> [36m[31mInvalid input for this command![0m
+[32m> [36mTask 2marked as done
+[32m> [36mYou've added the following tasks so far:
+1. [T][ ] task 1
+2. [D][X] task 2 (by: b)
+3. [E][ ] task 3 (from: a to: b)
+[32m> [36mGot it. I've removed this task:
+>> [D][X] task 2 (by: b)
+You now have 2 tasks in the list.
+[32m> [36m[31mInvalid input for this command![0m
+[32m> [36mYou've added the following tasks so far:
+1. [T][ ] task 1
+2. [E][ ] task 3 (from: a to: b)
+[32m> [36m[0m==================
+See you next time!
