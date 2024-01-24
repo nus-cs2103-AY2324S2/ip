@@ -1,51 +1,62 @@
 import java.util.Scanner;
 
 public class Derek {
+    public static final String INDENT = "     ";
+    public static final String LINE =  "____________________________________________________________";
+    private static final String WELCOMEMESSAGE = String.join(
+        "\n",
+        INDENT + LINE,
+        INDENT + "Hello! I'm DEREK",
+        INDENT + "What can I do for you?",
+        INDENT + LINE,
+        ""
+    );
+    private static final String EXITMESSAGE = String.join(
+        "\n",
+        INDENT + LINE,
+        INDENT + "Bye. Hope to see you again soon!",
+        INDENT + LINE,
+        ""
+    );
+
+    private static final String EXITCOMMAND = "bye";
+
     public static void main(String[] args) {
-        String line = "____________________________________________________________";
-        String indent = "    ";
 
-        String welcomeMessage = String.join(
-            "\n",
-            indent + line,
-            indent + "Hello! I'm DEREK",
-            indent + "What can I do for you?",
-            indent + line,
-            ""
-        );
+        TaskList taskList = new TaskList();
 
-        String exitMessage = String.join(
-            "\n",
-            indent + line,
-            indent + "Bye. Hope to see you again soon!",
-            indent + line,
-            ""
-        );
+        System.out.println(WELCOMEMESSAGE);
 
-        System.out.println(welcomeMessage);
-
-        // user input loop
+        // User input loop
         Scanner scanner = new Scanner(System.in);
 
         String userPrompt = "";
         while(true) {
             userPrompt = scanner.nextLine();
 
-            if ("bye".equalsIgnoreCase(userPrompt)) {
+            // use enums later
+            if (EXITCOMMAND.equalsIgnoreCase(userPrompt)) {
                 break;
             }
 
+            if ("list".equalsIgnoreCase(userPrompt)) {
+                taskList.printTasks();
+                continue;
+            }
+
+            taskList.addTask(new Task(userPrompt));
+
             System.out.println(String.join(
                 "\n",
-                indent + line,
-                indent + userPrompt,
-                indent + line,
+                INDENT + LINE,
+                INDENT + "added: " + userPrompt,
+                INDENT + LINE,
                 ""
             ));
         }
 
         scanner.close();
 
-        System.out.println(exitMessage);
+        System.out.println(EXITMESSAGE);
     }
 }
