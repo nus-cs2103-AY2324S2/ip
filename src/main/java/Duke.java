@@ -12,9 +12,9 @@ public class Duke {
         System.out.println("Hello! I'm \n" + logo + "\n\n What can I do for you today? :) \n");
         String userInput = scanner.nextLine();
         while(!userInput.equals("bye")) {
-            System.out.println();
-            System.out.print(userInput);
-            System.out.println("\n");
+            System.out.println("      ________________________________________________________");
+            System.out.print("      " + userInput);
+            System.out.println("\n      ________________________________________________________");
             userInput = scanner.nextLine();
         }
         System.out.println("\nBye! Have a great day ahead :>");
