@@ -13,6 +13,10 @@ public class Task {
     this.status = status;
   }
 
+  public boolean getStatus() {
+    return this.status;
+  }
+
   @Override
   public String toString() {
     String checkBox = "[ ]";

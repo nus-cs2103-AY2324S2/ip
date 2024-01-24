@@ -83,14 +83,33 @@ public class Duke {
   }
 
   public static void updateMarkStatus(boolean isMark, ArrayList<Task> tasks, String[] input) {
+
+    int index = Integer.parseInt(input[1]) - 1;
+
+    // check if index is within bounds
+    if (index >= tasks.size()) {
+      printOutput("Task not found!");
+      return;
+    }
+
     if (isMark) {
-      tasks.get(Integer.parseInt(input[1]) - 1).setStatus(true);
-      printOutput("Nice! I've marked this task as done:",
-          tasks.get(Integer.parseInt(input[1]) - 1).toString());
+      // check if there's no change in status
+      if (tasks.get(index).getStatus()) {
+        printOutput("The task was already marked as done. I'm not changing anything.");
+      } else {
+        tasks.get(index).setStatus(true);
+        printOutput("Nice! I've marked this task as done:",
+            tasks.get(index).toString());
+      }
     } else {
-      tasks.get(Integer.parseInt(input[1]) - 1).setStatus(false);
-      printOutput("OK, I've marked this task as not done yet: ",
-          tasks.get(Integer.parseInt(input[1]) - 1).toString());
+      // check if there's no change in status
+      if (!tasks.get(index).getStatus()) {
+        printOutput("The task you're unmarking was not marked to begin with... I'm not changing anything.");
+      } else {
+        tasks.get(index).setStatus(false);
+        printOutput("OK, I've marked this task as not done yet: ",
+            tasks.get(index).toString());
+      }
     }
   }
 
@@ -102,6 +121,7 @@ public class Duke {
     tasks.add(todoTask);
   }
 
+  // TODO 1. missing /by
   public static void insertDeadline(String[] input, ArrayList<Task> tasks) {
     String[] deadlineDetails = input[1].split("/by");
     Deadline deadlineTask = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
@@ -110,6 +130,8 @@ public class Duke {
     tasks.add(deadlineTask);
   }
 
+  // TODO 1. missing /from /to
+  // 2. should it always be /from followed by /to?
   public static void insertEvent(String[] input, ArrayList<Task> tasks) {
     String[] eventDetails = input[1].split("/from|/to");
     Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2]);
