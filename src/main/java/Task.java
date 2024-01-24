@@ -1,6 +1,6 @@
 public class Task {
-    private String name;
-    private boolean done;
+    protected final String name;
+    protected boolean done;
 
     public Task(String name) {
         this.name = name;
@@ -13,9 +13,5 @@ public class Task {
 
     public void markAsNotDone() {
         this.done = false;
-    }
-
-    public String toString() {
-        return String.format("[%s] %s\n", this.done ? "X" : " ", this.name);
     }
 }
