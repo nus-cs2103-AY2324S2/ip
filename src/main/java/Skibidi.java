@@ -49,57 +49,15 @@ public class Skibidi {
     }
 
     private void inputComprehension(String in) {
-        if (in.equals("list")) {
-            printList();
+        if (in.equals("list")) printList();
 
-        // Marking a task as done
-        } else if (in.startsWith("mark")) {
-            int i;
-            try {
-                i = Integer.parseInt(in.substring(5));
-                Task t = this.list.get(i-1);
-                t.markAsDone();
-                System.out.print("Nice! I've marked this task as done:\n  ");
-                System.out.print(t);
-                this.list.set(i-1, t);
+        else if (in.startsWith("mark")) mark(in);
 
-            } catch (NumberFormatException e) {
-                System.out.println("Not a valid number!");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Sorry, index out of range!");
-            }
+        else if (in.startsWith("unmark")) unmark(in);
 
-        // Marking a task as not done
-        } else if (in.startsWith("unmark")) {
-            try {
-                int i = Integer.parseInt(in.substring(7));
-                Task t = this.list.get(i-1);
-                t.markAsNotDone();
-                System.out.print("OK, I've marked this task as not done yet:\n  ");
-                System.out.print(t);
-                this.list.set(i-1, t);
+        else if (in.startsWith("delete")) delete(in);
 
-            } catch (NumberFormatException e) {
-                System.out.println("Not a valid number!");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Sorry, index out of range!");
-            }
-
-        } else if (in.startsWith("delete")){
-            try {
-                int i = Integer.parseInt(in.substring(7));
-                Task t = this.list.remove(i-1);
-                System.out.print("Noted. I've removed this task::\n  ");
-                System.out.println(t);
-                System.out.printf("Now you have %d tasks in the list.\n", this.list.size());
-
-            } catch (NumberFormatException e) {
-                System.out.println("Not a valid number! Or perhaps add a ' '");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Sorry, index out of range!");
-            }
-
-        } else {
+        else {
             try {
                 addTask(in);
             } catch (DukeInvalidInputException e) {
@@ -171,5 +129,53 @@ public class Skibidi {
 
         System.out.print("Got it added this task:\n  " + this.list.get(this.list.size() - 1));
         System.out.printf("Now you have %d tasks in the list.", this.list.size());
+    }
+
+    public void mark(String in) {
+        int i;
+        try {
+            i = Integer.parseInt(in.substring(5));
+            Task t = this.list.get(i-1);
+            t.markAsDone();
+            System.out.print("Nice! I've marked this task as done:\n  ");
+            System.out.print(t);
+            this.list.set(i-1, t);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Not a valid number!");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Sorry, index out of range!");
+        }
+    }
+
+    public void unmark(String in) {
+        try {
+            int i = Integer.parseInt(in.substring(7));
+            Task t = this.list.get(i-1);
+            t.markAsNotDone();
+            System.out.print("OK, I've marked this task as not done yet:\n  ");
+            System.out.print(t);
+            this.list.set(i-1, t);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Not a valid number!");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Sorry, index out of range!");
+        }
+    }
+
+    public void delete(String in) {
+        try {
+            int i = Integer.parseInt(in.substring(7));
+            Task t = this.list.remove(i-1);
+            System.out.print("Noted. I've removed this task::\n  ");
+            System.out.println(t);
+            System.out.printf("Now you have %d tasks in the list.\n", this.list.size());
+
+        } catch (NumberFormatException e) {
+            System.out.println("Not a valid number! Or perhaps add a ' '");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Sorry, index out of range!");
+        }
     }
 }
