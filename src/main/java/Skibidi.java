@@ -49,24 +49,38 @@ public class Skibidi {
     private void inputComprehension(String in) {
         if (in.equals("list")) {
             printList();
+
+        // Marking a task as done
         } else if (in.startsWith("mark")) {
-            int t = Integer.parseInt(in.substring(5));
-            if (t > this.items || t < 1) {
-                System.out.println("Sorry, index out of range!");
-            } else {
-                this.list[t-1].markAsDone();
-                System.out.print("Nice! I've marked this task as done:\n  ");
-                System.out.println(this.list[t-1]);
+            int t;
+            try {
+                t = Integer.parseInt(in.substring(5));
+                if (t > this.items || t < 1) {
+                    System.out.println("Sorry, index out of range!");
+                } else {
+                    this.list[t-1].markAsDone();
+                    System.out.print("Nice! I've marked this task as done:\n  ");
+                    System.out.println(this.list[t-1]);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Not a valid number!");
             }
+
+        // Marking a task as not done
         } else if (in.startsWith("unmark")) {
-            int t = Integer.parseInt(in.substring(7));
-            if (t > this.items || t < 1) {
-                System.out.println("Sorry, index out of range!");
-            } else {
-                this.list[t-1].markAsNotDone();
-                System.out.print("OK, I've marked this task as not done yet:\n  ");
-                System.out.println(this.list[t-1]);
+            try {
+                int t = Integer.parseInt(in.substring(7));
+                if (t > this.items || t < 1) {
+                    System.out.println("Sorry, index out of range!");
+                } else {
+                    this.list[t-1].markAsNotDone();
+                    System.out.print("OK, I've marked this task as not done yet:\n  ");
+                    System.out.println(this.list[t-1]);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Not a valid number!");
             }
+
         } else {
             System.out.println("added: " + in);
             this.list[items] = new Task(in);
