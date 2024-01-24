@@ -14,7 +14,7 @@ public class Duke {
     /**
      * Constructs a task list of size.
      */
-    public Duke() {
+    private Duke() {
         this.list = new Task[100];
     }
 
@@ -23,7 +23,7 @@ public class Duke {
      * Handles user input to display the list for "list" input, exit the chat for "bye" input,
      * marks or unmarks tasks as done or append to the list for any other input.
      */
-    public void startChat() {
+    private void startChat() {
         sayHi();
         boolean exited = false;
         while (!exited) {
@@ -42,8 +42,16 @@ public class Duke {
                 int num = Integer.parseInt(userInput.replace("unmark ", ""));
                 unMarkAsDone(num);
             }
-            else {
-                appendList(userInput);
+            else if (userInput.startsWith("todo ")) {
+                String todo = userInput.replace("todo ", "");
+                appendToDo(todo);
+            } else if (userInput.startsWith("deadline ")) {
+                String[] deadline = userInput.replace("deadline ", "").split(" /by ");
+                appendDeadline(deadline[0], deadline[1]);
+            } else if (userInput.startsWith("event ")) {
+                String[] event = userInput.replace("event ", "").split(" /from ");
+                String[] time = event[1].split(" /to ");
+                appendEvent(event[0], time[0], time[1]);
             }
         }
         sayBye();
@@ -52,14 +60,14 @@ public class Duke {
     /**
      * Displays a starting message to greet the user.
      */
-    public void sayHi() {
+    private void sayHi() {
         System.out.println("Hello! I'm myChats\n" + "What can I do for you?\n");
     }
 
     /**
      *  Displays an exit message.
      */
-    public void sayBye() {
+    private void sayBye() {
         System.out.println("\nBye. Hope to see you again soon!");
     }
 
@@ -68,9 +76,9 @@ public class Duke {
      *
      * @param num The task number to mark as done.
      */
-    public void markAsDone(int num) {
+    private void markAsDone(int num) {
         list[num - 1].markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n\t" + list[num - 1] + "\n");
+        System.out.println("Nice! I've marked this task as done:\n" + list[num - 1] + "\n");
     }
 
     /**
@@ -78,25 +86,16 @@ public class Duke {
      *
      * @param num The task number to mark as not done.
      */
-    public void unMarkAsDone(int num) {
+    private void unMarkAsDone(int num) {
         list[num - 1].unMarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:\n\t" + list[num - 1] + "\n");
-    }
-
-    /**
-     * Echoes the user's input back to the console.
-     *
-     * @param input The user's input to be echoed.
-     */
-    public void echoMessage(String input) {
-        System.out.println(input + "\n");
     }
 
     /**
      * Displays the current list of items with their respective indices.
      * Skips null or uninitialized elements in the list.
      */
-    public void displayList() {
+    private void displayList() {
         System.out.println();
         for (int i = 0; i < list.length; i++) {
             if (list[i] != null) {
@@ -107,17 +106,77 @@ public class Duke {
     }
 
     /**
-     * Appends the given input to the list at the first available slot.
+     * Appends the given to do type input to the list at the first available slot.
      *
      * @param input The input to be added to the list.
      */
-    public void appendList(String input) {
+    private void appendToDo(String input) {
+        Todo todo = new Todo(input);
         for (int i = 0; i < list.length; i++) {
             if (list[i] == null) {
-                list[i] = new Task(input);
-                System.out.println("\nadded: " + input + "\n");
+                list[i] = todo;
+                taskResponse(todo);
                 return;
             }
         }
+    }
+
+    /**
+     * Appends the given deadline type input to the list at the first available slot.
+     *
+     * @param description The description to be added to the list.
+     * @param by The deadline to be added to the list.
+     */
+    private void appendDeadline(String description, String by) {
+        Deadline deadline = new Deadline(description, by);
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == null) {
+                list[i] = deadline;
+                taskResponse(deadline);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Appends the given event type input to the list at the first available slot.
+     *
+     * @param description The description to be added to the list.
+     * @param timing The timing to be added to the list.
+     */
+    private void appendEvent(String description, String startTime, String endTime) {
+        Event event = new Event(description, startTime, endTime);
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == null) {
+                list[i] = event;
+                taskResponse(event);
+                return;
+            }
+        }
+    }
+
+    private int countNonNullElements(Task[] array) {
+        int count = 0;
+        for (Task element : array) {
+            if (element != null) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private void taskResponse(Task task) {
+        int numTasks = countNonNullElements(list);
+        System.out.println();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        if (numTasks == 1) {
+            System.out.println("Now you have " + numTasks + " task in the list.");
+        }
+        if (numTasks != 1) {
+            System.out.println("Now you have " + numTasks + " tasks in the list.");
+        }
+        System.out.println();
+
     }
 }
