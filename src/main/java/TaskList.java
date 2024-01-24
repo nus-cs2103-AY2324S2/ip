@@ -9,12 +9,20 @@ public class TaskList {
         this.taskArray = new ArrayList<>();
     }
 
-    public void add(String taskDescription) {
-        taskArray.add(new Task(taskDescription));
-    }
+//    public void add(String taskDescription) {
+//        taskArray.add(new Task(taskDescription));
+//    }
 
     public int getTaskCount() {
         return taskCount;
+    }
+
+    public Task deleteTask(int taskNumber) throws JayneException {
+        if (taskNumber < 1 || taskNumber > taskArray.size()) {
+            throw new JayneException("Task number " + taskNumber + " does not exist.");
+        }
+        this.taskCount = taskCount - 1;
+        return taskArray.remove(taskNumber - 1);
     }
 
     public void addTask(Task task) {

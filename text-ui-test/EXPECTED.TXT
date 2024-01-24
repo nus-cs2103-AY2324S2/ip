@@ -98,5 +98,22 @@ Here are the tasks in your list:
 4. [D][ ] do homework (by: no idea :-p)
 ___________________________________
 ___________________________________
+Huh?!?!? The task number to delete cannot be empty. E.g. delete 2
+___________________________________
+___________________________________
+Huh?!?!? Task number 10 does not exist. E.g. delete 2
+___________________________________
+___________________________________
+Noted. I've removed this task:
+  [E][X] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+___________________________________
+___________________________________
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [D][ ] do homework (by: no idea :-p)
+___________________________________
+___________________________________
 Bye. Hope to see you again soon!
 ___________________________________

@@ -22,4 +22,8 @@ unmark 1
 unmark
 unmark 10
 list
+delete
+delete 10
+delete 3
+list
 bye

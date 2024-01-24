@@ -41,6 +41,9 @@ public class Jayne {
                     case "event":
                         Handler.handleEvent(parts, taskList, dash);
                         break;
+                    case "delete":
+                        Handler.handleDelete(parts, taskList, dash);
+                        break;
                     default:
                         throw new JayneException("What are you typing. please include either bye, list, mark, umark, todo, deadline or event in your inputs please");
                 }

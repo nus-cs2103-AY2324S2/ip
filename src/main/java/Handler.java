@@ -1,5 +1,19 @@
 public class Handler {
-
+    public static void handleDelete(String[] parts, TaskList taskList, String dash) throws JayneException {
+        if (parts.length < 2) {
+            throw JayneException.deleteEmptyException();
+        }
+        try {
+            int taskNumber = Integer.parseInt(parts[1]);
+            if (taskNumber <= 0 || taskNumber > taskList.getTaskCount()) {
+                throw JayneException.deleteExistException(taskNumber);
+            }
+            Task removedTask = taskList.deleteTask(taskNumber);
+            System.out.println(dash + "\nNoted. I've removed this task:\n  " + removedTask + "\nNow you have " + taskList.getTaskCount() + " tasks in the list.\n" + dash);
+        } catch (NumberFormatException e) {
+            throw JayneException.deleteInvalidException();
+        }
+    }
     public static void handleUnmark(String[] parts, TaskList taskList, String dash) throws JayneException {
         if (parts.length < 2) {
             throw JayneException.unmarkEmptyException();
