@@ -28,10 +28,15 @@ public class Duke {
         System.out.println(String.format("added: %s", task.getDescription()));
     }
 
+    public void addToList(Task t) {
+        this.list.add(t);
+        System.out.println(String.format("added: %s", t.getDescription()));
+    }
+
     public void displayList() {
         int index = 1;
         for (Task task : this.list){
-            System.out.println(String.format("%d. [%s] %s", index, task.getStatusIcon(), task.getDescription()));
+            System.out.println(String.format("%d. [%s] [%s] %s", index, task.getTypeIcon(), task.getStatusIcon(), task.getDescription()));
             index++;
         }
     }
@@ -44,30 +49,45 @@ public class Duke {
         this.list.get(index - 1).maskAsUndone();
     }
     public void readCommand(String command){
-        if (Objects.equals(command, "list")) {
-            this.displayList();
-            return;
-        }
 
-        if (command.startsWith("mark ")) {
-            String[] split = command.split(" ");
-            String s = split[1];
-            this.markTask(Integer.valueOf(s));
-            return;
+        String[] split_command = command.split(" ", 2);
+        String method = split_command[0];
+        System.out.println(method);
+        switch(method) {
+            case "list":
+                this.displayList();
+                break;
+            case "bye":
+                this.exit();
+                System.exit(0);
+                break;
+            case "mark":
+                String s = split_command[1];
+                this.markTask(Integer.valueOf(s));
+                break;
+            case "unmark":
+                String s2 = split_command[1];
+                this.unmarkTask(Integer.valueOf(s2));
+                break;
+            case "todo":
+                this.addToList(new Todo(split_command[1]));
+                break;
+            case "deadline":
+                String deadline_desc = split_command[1].split("/by ", 2)[0];
+                String date = split_command[1].split("/by ", 2)[1];
+                this.addToList(new Deadline(deadline_desc, date));
+                break;
+            case "event":
+                String event_desc = split_command[1].split("/from ", 2)[0];
+                String dates = split_command[1].split("/from ", 2)[1];
+                String from = dates.split("/to ",2)[0];
+                String to = dates.split("/to ", 2)[1];
+                this.addToList((new Event(event_desc, from, to)));
+                break;
+            default:
+                this.addToList(command);
+                break;
         }
-
-        if (command.startsWith("unmark ")) {
-            String[] split = command.split(" ");
-            String s = split[1];
-            this.unmarkTask(Integer.valueOf(s));
-            return;
-        }
-
-        if (Objects.equals(command, "bye")) {
-            this.exit();
-            System.exit(0);
-        }
-        this.addToList(command);
     }
 
     public static void main(String[] args) {
