@@ -26,11 +26,23 @@ public class Duke {
                 Task task = taskList[index - 1];
                 task.unmarkDone();
             } else if (message.startsWith("todo ")) {
-
+                Task task = new ToDo(message);
+                taskList[listSize] = task;
+                Duke.echo(task.toString());
+                listSize++;
             } else if (message.startsWith("deadline ")) {
-
+                String[] inputs = message.split("/by");
+                Task task = new Deadline(inputs[0].trim(), inputs[1].trim());
+                taskList[listSize] = task;
+                Duke.echo(task.toString());
+                listSize++;
             } else if (message.startsWith("event ")) {
-
+                String[] inputs = message.split("/from");
+                String[] innerInputs = inputs[1].split("/to");
+                Task task = new Event(inputs[0].trim(), innerInputs[0].trim(), innerInputs[1].trim());
+                taskList[listSize] = task;
+                Duke.echo(task.toString());
+                listSize++;
             } else {
                 Task task = new Task(message);
                 taskList[listSize] = task;
