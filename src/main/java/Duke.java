@@ -30,7 +30,7 @@ public class Duke {
     private static String next;
 
     public static void main(String[] args) throws IOException {
-
+        TaskManager manager = new TaskManager();
         //Greet first
         String indent = "   ";
         for (String l : greet) {
@@ -42,62 +42,37 @@ public class Duke {
             ArrayList<String> output = new ArrayList<>();
             output.add(bar);
             if (next.equals("list")) {
-                int i = 1;
                 output.add(listingResponse);
-                for (Task item : items) {
-                    output.add(" " + i + "." + item);
-                    i++;
-                }
+                output.addAll(manager.ListItems());
             } else {
                 //Switch statements does not support contains methods :(
                 //unmark has to come first because unmark contains mark
                 //BufferedReader is supports reading line only unlike Scanner class
                 if (next.contains("unmark")) {
-                    int id = Integer.parseInt(next.split(" ")[1]) - 1; //Index 0 based
-                    Task currentItem = items.get(id);
-                    currentItem.unmark();
                     output.add(unmarkResponse);
-                    output.add(indent + currentItem);
+                    output.add(indent + manager.mangeTask(Actions.UNMARK, next));
                 } else if (next.contains("mark")) {
-                    int id = Integer.parseInt(next.split(" ")[1]) - 1; //Index 0 based
-                    Task currentItem = items.get(id);
-                    currentItem.markAsDone();
                     output.add(markResponse);
-                    output.add(indent + currentItem);
+                    output.add(indent + manager.mangeTask(Actions.MARK, next));
+
                 } else if (next.contains("todo")) {
-                    String name = next.replaceAll("todo", "").trim();
-                    Todo item = new Todo(name);
-                    items.add(item);
-                    Task.addTask();
-                    output.add(addTask);
-                    output.add(indent + item);
-                    output.add(Task.numOfTask());
+                    output.add(addTask); // This is the first line
+                    output.add(indent + manager.addTask(Tasks.TODO, next));
+                    output.add(manager.numOfTask());
+
                 } else if (next.contains("deadline")) {
-                    String by = next.split("/")[1].replaceAll("by", "").trim();
-                    String name = next.split("/")[0].replaceAll("deadline", "").trim();
-                    Deadline item = new Deadline(name, by);
-                    items.add(item);
-                    Task.addTask();
                     output.add(addTask);
-                    output.add(indent + item);
-                    output.add(Task.numOfTask());
+                    output.add(indent + manager.addTask(Tasks.DEADLINE, next));
+                    output.add(manager.numOfTask());
+
                 } else if (next.contains("event")) {
-                    String from = next.split("/")[1].replaceAll("from", "").trim();
-                    String by = next.split("/")[2].replaceAll("to", "").trim();
-                    String name = next.split("/")[0].replaceAll("event", "").trim();
-                    Event item = new Event(name, from, by);
-                    items.add(item);
-                    Task.addTask();
                     output.add(addTask);
-                    output.add(indent + item);
-                    output.add(Task.numOfTask());
+                    output.add(indent + manager.addTask(Tasks.EVENT, next));
+                    output.add(manager.numOfTask());
+
                 } else {
                     //At this point this doest not really makes sense but will still be here
-                    output.add(" added: " + next);
-                    items.add(new Task(next));
-                    Task.addTask();
-                    output.add(Task.numOfTask());
-
+                    //For error handling here
                 }
             }
             output.add(bar);
