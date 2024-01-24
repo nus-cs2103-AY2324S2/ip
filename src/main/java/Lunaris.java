@@ -24,9 +24,11 @@ public class Lunaris {
         while (true) {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
+            String[] array = input.split(" ", 2);
+            String category = array[0];
             int taskId = 0;
             if (input.contains("mark") || input.contains("unmark")) {
-                taskId = Integer.parseInt(input.split(" ")[1]) - 1; // subtract 1 for array index.
+                taskId = Integer.parseInt(array[1]) - 1; // subtract 1 for array index.
             }
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println(indentedLine);
@@ -39,14 +41,14 @@ public class Lunaris {
             if (input.equalsIgnoreCase("list")) {
                 System.out.println(indentedLine);
                 System.out.println(indentation + "Here are the tasks in your list:");
-                for (int i = 0; i < inputList.size(); i++){
+                for (int i = 0; i < inputList.size(); i++) {
                     Task currTask = inputList.get(i);
-                    System.out.println(indentation + (i + 1) + currTask.toString());
+                    System.out.println(indentation + (i + 1) + "." + currTask.toString());
                 }
                 System.out.println(indentedLine);
             }
             // For Marking selected task
-            if (input.startsWith("mark")) {
+            if (category.startsWith("mark")) {
                 inputList.get(taskId).markDone();
                 System.out.println(indentedLine);
                 System.out.println(indentation + "Nice! I've marked this task as done:");
@@ -54,19 +56,44 @@ public class Lunaris {
                 System.out.println(indentedLine);
             }
             // For Unmarking selected task
-            if (input.startsWith("unmark")) {
+            if (category.startsWith("unmark")) {
                 inputList.get(taskId).markNotDone();
                 System.out.println(indentedLine);
                 System.out.println(indentation + "Ok, I've marked this task as not done yet:");
                 System.out.println(inputList.get(taskId).toString());
                 System.out.println(indentedLine);
             }
-            if (!input.contains("mark") && !input.contains("unmark") &&
-                    !input.contains("bye") && !input.contains("list")) {
-                Task newTask = new Task(input);
-                inputList.add(newTask);
+            // For todos.
+            if (category.startsWith("todo")) {
                 System.out.println(indentedLine);
-                System.out.println(indentation + "added: " + input);
+                System.out.println(indentation + "Got it. Added this task:");
+                ToDo toDo = new ToDo(array[1]);
+                inputList.add(toDo);
+                System.out.println(indentation + toDo);
+                System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
+                System.out.println(indentedLine);
+            }
+            // For Deadlines.
+            if (input.startsWith("deadline")) {
+                System.out.println(indentedLine);
+                System.out.println(indentation + "Got it. Added this task:");
+                String[] arguments = array[1].split(" /by ");
+                Deadline deadline = new Deadline(arguments[0], arguments[1]);
+                inputList.add(deadline);
+                System.out.println(indentation + deadline);
+                System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
+                System.out.println(indentedLine);
+            }
+            // For Events.
+            if (input.startsWith("event")) {
+                System.out.println(indentedLine);
+                System.out.println(indentation + "Got it. Added this task:");
+                String[] description = array[1].split(" /from ");
+                String[] duration = description[1].split(" /to ");
+                Event event = new Event(description[0], duration[0], duration[1]);
+                inputList.add(event);
+                System.out.println(indentation + event);
+                System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
                 System.out.println(indentedLine);
             }
         }
