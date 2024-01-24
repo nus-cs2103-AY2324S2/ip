@@ -45,6 +45,9 @@ public class Duke {
     }
 
     public static void listYaps(String[] list, int listSize) {
+        if (listSize == 0) {
+            System.out.println("Nothin' to yap...");
+        }
         for (int i = 0; i < listSize; i++) {
             System.out.println((i+1)+". "+list[i]);
         }
