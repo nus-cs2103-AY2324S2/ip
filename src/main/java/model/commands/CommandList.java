@@ -58,7 +58,7 @@ public class CommandList {
         commandLookup.put("unmark", (args) -> {
             int idx = Integer.parseInt(args);
             taskList.unmarkTask(idx);
-            return new Message("Why did you say it was finished then? \uD83D\uDE44\n" + taskList.getTask(idx));
+            return new Message("Why did you say it was finished then?\n" + taskList.getTask(idx));
         });
         commandLookup.put("todo", (args) -> {
             ToDo todo = new ToDo(args);
