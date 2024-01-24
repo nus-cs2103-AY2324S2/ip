@@ -15,16 +15,19 @@ public class Duke {
                 exit();
                 return;
             } else {
-                String[] words = s.split(" ");
+                String[] words = s.split(" ", 2);
                 String firstWord = words[0];
+                String taskName = words[1];
                 if (firstWord.equals("mark")) {
                     markComplete(Integer.parseInt(s.split(" ")[1]));
-                }
-                else if (firstWord.equals("unmark")) {
+                } else if (firstWord.equals("unmark")) {
                     unmarkComplete(Integer.parseInt(s.split(" ")[1]));
-                }
-                else {
-                    addToList(s);
+                } else if (firstWord.equals("todo")) {
+                    addToList(new Todo(taskName));
+                } else if (firstWord.equals("deadline")) {
+                    addToList(new Deadline(taskName));
+                } else if (firstWord.equals("event")) {
+                    addToList(new Event(taskName));
                 }
             }
         }
@@ -50,6 +53,13 @@ public class Duke {
         System.out.println("added: " + s);
     }
 
+    private static void addToList(Task t) {
+        lst.add(t);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(t);
+        System.out.println("Now you have " + lst.size() + " tasks in the list.");
+    }
+
     private static void displayList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < lst.size(); i++) {
@@ -68,4 +78,5 @@ public class Duke {
         lst.get(i-1).unmarkComplete();
         System.out.println(lst.get(i-1));
     }
+
 }
