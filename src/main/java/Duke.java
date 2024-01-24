@@ -38,7 +38,7 @@ public class Duke {
                     Task task = initTask(message, "event");
                     addTasktoTaskList(task);
                 } else {
-                    throw new DukeException("Specify the task type, YAPPER!!");
+                    throw new DukeException("What's YAPpening??!! Please yap your instruction more clearly");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
