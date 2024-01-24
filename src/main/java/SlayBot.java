@@ -19,8 +19,8 @@ public class SlayBot {
         EVENT,
         MARK,
         UNMARK,
+        DELETE,
     }
-
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -123,8 +123,16 @@ public class SlayBot {
                     System.out.println(DIVIDER + "\nOK, I've marked this task as not done yet:\n" + taskToUnmark.toString() +
                             "\n" + DIVIDER);
                     break;
-                default:
-                    //throw new UnknownCommandException();
+                case DELETE:
+                    try {
+                        int indexToDelete = Integer.parseInt(splitWords[1]);
+                        list.remove(indexToDelete - 1);
+                        System.out.println(DIVIDER + "\n Successful deletion \n You now have " +
+                                list.size() + " tasks\n" + DIVIDER);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(DIVIDER + "\n Please input a valid index\n" + DIVIDER);
+                        continue;
+                    }
 
             }
         }
@@ -214,6 +222,10 @@ public class SlayBot {
 
             case "unmark":
                 return Command.UNMARK;
+
+            case "delete":
+                return Command.DELETE;
+
             default:
                 throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
