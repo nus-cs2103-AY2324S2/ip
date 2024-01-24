@@ -29,4 +29,13 @@ Here are the tasks in your list!
 4.[D][X] do homework (by: no idea :-p)
 OK, I've marked this task as not done yet:
 [D][ ] do homework (by: no idea :-p)
+Hmm, please provide a valid task number to mark.
+Hmm, please provide a valid task number to unmark.
+Hmm, please provide a valid task number to delete.
+Hmm, did you add in a description for the todo?
+Hey, this is an invalid format for deadline!
+Hey, this is an invalid format for event!
+The index is out of bounds!
+The index is out of bounds!
+What? I can't understand blah =(
 Bye! Another round next time!

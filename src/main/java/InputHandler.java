@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class InputHandler {
@@ -8,7 +7,7 @@ public class InputHandler {
             String userInput = scanner.nextLine();
             String[] strArray = userInput.split(" ");
             String firstWord = strArray[0];
-            String index = "";
+            String index;
             if (firstWord.equals("bye")) {
                 bartenderBob.leave();
                 break;
@@ -25,6 +24,10 @@ public class InputHandler {
                         case "unmark":
                             index = strArray[1];
                             bartenderBob.unmarkDone(index);
+                            break;
+                        case "delete":
+                            index = strArray[1];
+                            bartenderBob.delete(index);
                             break;
                         case "todo":
                             String str = userInput.split("todo ")[1];
@@ -44,7 +47,11 @@ public class InputHandler {
                         default:
                             BartenderBobException.invalidInput(userInput);
                     }
-                } catch (ArrayIndexOutOfBoundsException e) {
+                } catch (BartenderBobException e) {
+                    //This exception is when the index from user input is out of the STORAGE bounds.
+                    e.storageOutOfBounds();
+                } catch (IndexOutOfBoundsException e) {
+                    //IndexOutOfBoundsException is for missing userInputs.
                     BartenderBobException error = new BartenderBobException(firstWord);
                     error.displayError();
                 }

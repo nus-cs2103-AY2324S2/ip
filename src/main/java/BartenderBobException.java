@@ -1,5 +1,7 @@
-public class BartenderBobException {
+public class BartenderBobException extends Exception{
     String firstWord;
+    public BartenderBobException() {
+    }
     public BartenderBobException(String firstWord) {
         this.firstWord = firstWord;
     }
@@ -14,6 +16,9 @@ public class BartenderBobException {
             case "unmark":
                 System.out.println("Hmm, please provide a valid task number to unmark.");
                 break;
+            case "delete":
+                System.out.println("Hmm, please provide a valid task number to delete.");
+                break;
             case "todo":
                 System.out.println("Hmm, did you add in a description for the todo?");
                 break;
@@ -24,5 +29,8 @@ public class BartenderBobException {
                 System.out.println("Hey, this is an invalid format for event!");
                 break;
         }
+    }
+    public void storageOutOfBounds() {
+        System.out.println("The index is out of bounds!");
     }
 }
