@@ -79,6 +79,14 @@ public class Pyrite {
                         // 3 types of tasks
                         //  Solution below inspired by
                         //  https://stackoverflow.com/questions/11001720/get-only-part-of-an-array-in-java
+                    } else if (parameters[0].equals("delete")) {
+                        int id = parseID(parameters);
+                        assertValidId(id);
+                        System.out.println("\t"
+                                + "Noted. I've removed this task:\n"
+                                + "\t\t"
+                                + list.get(id).toString());
+                        list.remove(id);
                     } else if (parameters[0].equals("todo")) {
                         String description = String.join(
                                 " ",
