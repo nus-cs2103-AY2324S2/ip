@@ -25,5 +25,5 @@ event /to
 event /from /to
 event /from /te
 deadline /be
-deadline /from /from 123 /to
+event /from /from 123 /to
 bye
