@@ -47,7 +47,9 @@ public class Duke {
                         } else if (action.equals("unmark")) {
                             t.markAsUndone();
                             al.set(taskNo - 1, t);
-                        } 
+                        } else if (action.equals("delete")) {
+                            deleteTask(al, taskNo - 1);
+                        }
                     }
                 } catch (NumberFormatException nfe) {
                     String d = user_input.substring(spaceIndex + 1);
@@ -103,6 +105,15 @@ public class Duke {
         for (int i = 0; i < al.size(); i++) {
             System.out.println("\t\t" + (i + 1) + "." + al.get(i).toString());
         }
+        System.out.println("\t____________________________________________________________");
+    }
+
+    public static void deleteTask(ArrayList<Task> al, int taskNo) {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t\t" + al.get(taskNo).toString());
+        al.remove(taskNo);
+        System.out.println("\tNow you have " + al.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
     }
 
