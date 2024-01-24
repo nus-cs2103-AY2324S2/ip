@@ -63,14 +63,14 @@ public class Rick {
         } else if (arg.startsWith("deadline") && arg.contains("/by ")){
             int i = arg.indexOf("/by ");
             String ddl = arg.substring(i + 4);
-            String name = arg.substring(0, i);
+            String name = arg.substring(9, i);
             new_item = new Deadline(name, ddl);
             new_name = new_item.print();
             list.add(new_item);
         } else if (arg.startsWith("event") && arg.contains("/from ") && arg.contains("/to ")){
             int i = arg.indexOf("/from ");
             int j = arg.indexOf("/to ");
-            String name = arg.substring(0, i);
+            String name = arg.substring(6, i);
             String from = arg.substring(i + 6, j);
             String to = arg.substring(j + 4);
             new_item = new Event(name, from, to);

@@ -10,7 +10,7 @@ public class Event implements Item{
         this.to = to;
     }
     public String print(){
-        return "[E]" + this.status + this.name + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + this.status + this.name + " (from: " + this.from + "to: " + this.to + ")";
     };
     public void mark() {
         this.status = "[X]";
