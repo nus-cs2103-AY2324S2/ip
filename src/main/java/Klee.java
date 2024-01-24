@@ -1,6 +1,43 @@
 import java.util.Scanner;
 
 public class Klee {
+    public static String checkToDo(String input) throws KleeException {
+        String[] description = input.split("todo ");
+        if (description.length == 2) return description[1];
+        else throw new KleeException("We should think of a name for the task!");
+    }
+
+    public static String[] checkDeadline(String input) throws KleeException {
+        String[] command = input.split("deadline ");
+        String[] output = new String[2];
+        if (command.length == 2) {
+            command = command[1].split(" /by ");
+            if (command.length == 2) {
+                output[0] = command[0];
+                output[1] = command[1];
+                return output;
+            } else throw new KleeException("We should indicate when this task is due with `/by`");
+        }
+        else throw new KleeException("We should think of a name for the task!");
+    }
+
+    public static String[] checkEvent(String input) throws KleeException {
+        String[] command = input.split("event ");
+        String[] output = new String[3];
+        if (command.length == 2) {
+            command = command[1].split(" /from ");
+            if (command.length == 2) {
+                output[0] = command[0];
+                command = command[1].split(" /to ");
+                if (command.length == 2) {
+                    output[1] = command[0];
+                    output[2] = command[1];
+                    return output;
+                } else throw new KleeException("We should indicate when this event ends with `/to`");
+            } else throw new KleeException("We should indicate when this event starts with `/from`");
+        } else throw new KleeException("We should think of a name for the task!");
+    }
+
     public static void main(String[] args) {
         String divider = "____________________________________________________________________________";
         System.out.println(divider);
@@ -24,7 +61,7 @@ public class Klee {
             } else {
                 if (input.equals("")) {
                     System.out.println(divider);
-                    System.out.println("Did you say something? Klee could not hear you over my bombs... [Empty string ignored]");
+                    System.out.println("Did you say something? Klee could not hear you over my bombs...");
                     System.out.println(divider);
                 } else {
                     String[] command = input.split(" ");
@@ -38,7 +75,7 @@ public class Klee {
                             System.out.println(divider);
                         } catch(NumberFormatException e) {
                             System.out.println(divider);
-                            System.out.println("Klee doesn't understand, which task is that? [There should be an int after mark]");
+                            System.out.println("Klee doesn't understand, there should be a number after mark right?");
                             System.out.println(divider);
                         }
                     } else if (command[0].equals("unmark")) {
@@ -51,30 +88,47 @@ public class Klee {
                             System.out.println(divider);
                         } catch(NumberFormatException e) {
                             System.out.println(divider);
-                            System.out.println("Klee doesn't understand, which task is that? [There should be an int after unmark]");
+                            System.out.println("Klee doesn't understand, there should be a number after unmark right?");
                             System.out.println(divider);
                         }
                     } else if (command[0].equals("todo")) {
                         System.out.println(divider);
-                        System.out.println("Klee will help you write that down! : " + input);
-                        tasks[currentIndex] = new ToDo(input);
-                        currentIndex++;
+                        try {
+                            String description = checkToDo(input);
+                            tasks[currentIndex] = new ToDo(description);
+                            System.out.println("Klee will help you write that down! : ");
+                            System.out.println(tasks[currentIndex].getStatus());
+                            currentIndex++;
+                            System.out.println("Now you have " + currentIndex + " tasks in the list.");
+                        } catch (KleeException e) {
+                            System.out.println(e.getMessage());
+                        }
                         System.out.println(divider);
                     } else if (command[0].equals("deadline")) {
                         System.out.println(divider);
-                        System.out.println("Klee will help you write that down! : " + input);
-                        String description = input.split("deadline ")[1].split("/by ")[0];
-                        tasks[currentIndex] = new Deadline(description, input.split("/by ")[1]);
-                        currentIndex++;
+                        try {
+                            String[] output = checkDeadline(input);
+                            System.out.println("Klee will help you write that down! : " + output[0]);
+                            tasks[currentIndex] = new Deadline(output[0], output[1]);
+                            System.out.println(tasks[currentIndex].getStatus());
+                            currentIndex++;
+                            System.out.println("Now you have " + currentIndex + " tasks in the list.");
+                        } catch (KleeException e) {
+                            System.out.println(e.getMessage());
+                        }
                         System.out.println(divider);
                     } else if (command[0].equals("event")) {
                         System.out.println(divider);
-                        System.out.println("Klee will help you write that down! : " + input);
-                        String description = input.split("event ")[1].split(" /from")[0];
-                        String from = input.split("/from ")[1].split(" /to")[0];
-                        String to = input.split("/to ")[1];
-                        tasks[currentIndex] = new Event(description, from, to);
-                        currentIndex++;
+                        try {
+                            String[] output = checkEvent(input);
+                            System.out.println("Klee will help you write that down! : " + output[0]);
+                            tasks[currentIndex] = new Event(output[0], output[1], output[2]);
+                            System.out.println(tasks[currentIndex].getStatus());
+                            currentIndex++;
+                            System.out.println("Now you have " + currentIndex + " tasks in the list.");
+                        } catch (KleeException e) {
+                            System.out.println(e.getMessage());
+                        }
                         System.out.println(divider);
                     } else {
                         System.out.println(divider);
