@@ -19,12 +19,14 @@ public class TaskList {
     }
 
     public void markItemDone(int index) {
+        if (index < 0 || index >= this.getListSize()) return;
         Task currItem = this.items.get(index);
         currItem.markItem();
 
     }
 
     public void unmarkItemDone(int index) {
+        if (index < 0 || index >= this.getListSize()) return;
         Task currItem = this.items.get(index);
         currItem.unmarkItem();
     }
