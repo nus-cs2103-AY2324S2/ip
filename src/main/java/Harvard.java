@@ -22,41 +22,90 @@ public class Harvard {
 
             String command = echoInput.split(" ")[0];
 
+            if (command.equals("todo")) {
+                Todo todoTask = new Todo(echoInput.substring(echoInput.indexOf(' ')+1));
+                tasks.add(todoTask);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(todoTask.toString());
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________\n");
+            }
+
+            if (command.equals("deadline")) {
+                String[] commandItems = echoInput.split(" /by ");
+                String desc = commandItems[0].substring(commandItems[0].indexOf(' ')+1);
+                String by = commandItems[1];
+                Deadline deadlineTask = new Deadline(desc, by);
+                tasks.add(deadlineTask);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(deadlineTask.toString());
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________\n");
+            }
+
+            if (command.equals("event")) {
+                String[] commandItems = echoInput.split(" /from ");
+                String desc = commandItems[0].substring(commandItems[0].indexOf(' ')+1);
+                String[] commandItems2 = commandItems[1].split(" /to ");
+                String from = commandItems2[0];
+                String to = commandItems2[1];
+
+
+                Event eventTask = new Event(desc, from, to);
+                tasks.add(eventTask);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(eventTask.toString());
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________\n");
+            }
+
             if (command.equals("mark") || command.equals("unmark")) {
                 int index = Integer.parseInt(echoInput.split(" ")[1]);
                 Task targetTask = tasks.get(index - 1);
 
-                System.out.println("____________________________________________________________\n");
+                System.out.println("____________________________________________________________");
                 if (command.equals("mark")) {
                     targetTask.mark();
-                    System.out.println("Nice! I've marked this task as done:\n");
+                    System.out.println("Nice! I've marked this task as done:");
                 } else {
                     targetTask.unmark();
-                    System.out.println("OK, I've marked this task as not done yet:\n");
+                    System.out.println("OK, I've marked this task as not done yet:");
                 }
 
-                System.out.println(targetTask.getStatusIcon() + " " + targetTask.getDescription() + "\n");
+                System.out.println(targetTask.toString());
                 System.out.println("____________________________________________________________\n");
                 continue;
             }
 
-            switch (echoInput) {
-                case "list":
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("Here are the tasks in your list:\n");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println(i + 1 + ". " + tasks.get(i).getStatusIcon() + " " + tasks.get(i).getDescription());
-                    }
-                    System.out.println("____________________________________________________________\n");
-                    continue;
-
-                default:
-                    Task taskItem = new Task(echoInput);
-                    tasks.add(taskItem);
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("added: " + taskItem.getDescription());
-                    System.out.println("____________________________________________________________\n");
+            if (command.equals("list")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println(i + 1 + "." + tasks.get(i).toString());
+                }
+                System.out.println("____________________________________________________________\n");
             }
+
+//            switch (echoInput) {
+//                case "list":
+//                    System.out.println("____________________________________________________________\n");
+//                    System.out.println("Here are the tasks in your list:\n");
+//                    for (int i = 0; i < tasks.size(); i++) {
+//                        System.out.println(i + 1 + ". " + tasks.get(i).getStatusIcon() + " " + tasks.get(i).getDescription());
+//                    }
+//                    System.out.println("____________________________________________________________\n");
+//                    continue;
+//
+//                default:
+//                    Task taskItem = new Task(echoInput);
+//                    tasks.add(taskItem);
+//                    System.out.println("____________________________________________________________\n");
+//                    System.out.println("added: " + taskItem.getDescription());
+//                    System.out.println("____________________________________________________________\n");
+//            }
 
         }
 
@@ -75,6 +124,11 @@ public class Harvard {
             this.isDone = false;
         }
 
+        @Override
+        public String toString() {
+            return this.getStatusIcon() + " " + this.getDescription();
+        }
+
         public String getStatusIcon() {
             return (isDone ? "[X]" : "[ ]"); // mark done task with X
         }
@@ -89,6 +143,50 @@ public class Harvard {
 
         public String getDescription() {
             return this.description;
+        }
+    }
+
+    public static class Todo extends Task {
+
+        public Todo(String description) {
+            super(description);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    public static class Deadline extends Task {
+
+        protected String by;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        }
+    }
+
+    public static class Event extends Task {
+
+        protected String from;
+        protected String to;
+
+        public Event(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
         }
     }
 }
