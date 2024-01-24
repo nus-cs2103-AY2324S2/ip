@@ -6,10 +6,10 @@ public class Duke {
         System.out.println(Greet.greet);
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
-        if (command.equals("bye")) {
-            System.out.println(Greet.bye);
-        } else {
+        while (!command.equals("bye")) {
             System.out.println(Echo.echo(command));
+            command = sc.nextLine();
         }
+        System.out.println(Greet.bye);
     }
 }
