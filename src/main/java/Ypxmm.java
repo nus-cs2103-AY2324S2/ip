@@ -43,7 +43,16 @@ public class Ypxmm {
                     addTask(input, "event");
                 } else if (input.equals("get commands")) {
                     getCommands();
-                    ;
+                } else if (input.startsWith("delete")) {
+                    String[] vals = input.split(" ");
+                    try {
+                        int index = Integer.parseInt(vals[1]);
+                        delete(index);
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new YpxmmException("Brother, key in delete <space> then a valid number");
+                    } catch (NumberFormatException n) {
+                        throw new YpxmmException("You tell me now what task am I supposed to delete if you don't provide me with a number?");
+                    }
                 } else {
                     throw new YpxmmException("Sorry bro, idk what that means. You try type in \"get commands\" then see if got what u want.");
                 }
@@ -69,10 +78,10 @@ public class Ypxmm {
     }
 
     public static void list() {
-        System.out.println("Ok wait ah, here are your tasks:");
         if (tasks.size() == 0) {
             System.out.println("No tasks yet la bro");
         } else {
+            System.out.println("Ok wait ah, here are your tasks:");
             int count = 1;
             for (Task t : tasks) {
                 System.out.println(count + ". " + t.toString());
@@ -102,6 +111,23 @@ public class Ypxmm {
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got " +
                         (tasks.size() == 0 ? "no tasks to unmark." : tasks.size() +
+                                " tasks, enter any number from 1 to " + tasks.size()));
+            }
+        } catch (YpxmmException y) {
+            System.out.println(y.getMessage());
+        }
+    }
+
+    public static void delete(int index) {
+        try {
+            try {
+                String t = tasks.get(index - 1).toString();
+                tasks.remove(index - 1);
+                System.out.println("Ok deleted liao:\n" + t + "\nNow your list got " +
+                        (tasks.size() == 0 ? "no tasks." : tasks.size() + " tasks left."));
+            } catch (IndexOutOfBoundsException e) {
+                throw new YpxmmException("Eh u seh isit? Now your list got " +
+                        (tasks.size() == 0 ? "no tasks to delete." : tasks.size() +
                                 " tasks, enter any number from 1 to " + tasks.size()));
             }
         } catch (YpxmmException y) {
