@@ -26,7 +26,7 @@ public class Skibidi {
         this.printLine();
     }
 
-    public void echo() {
+    public void chat() {
         Scanner sc = new Scanner(System.in);
         String in = null;
         while (true) {
@@ -42,7 +42,7 @@ public class Skibidi {
     public void printList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.items; i++) {
-            System.out.print(String.format("%d. %s", i+1, this.list[i]));
+            System.out.printf("%d. %s", i+1, this.list[i]);
         }
     }
 
@@ -82,9 +82,32 @@ public class Skibidi {
             }
 
         } else {
-            System.out.println("added: " + in);
-            this.list[items] = new Task(in);
-            this.items++;
+            addTask(in);
         }
+    }
+// /to mon
+// 0123456
+    public void addTask(String s) {
+        // Todo_
+        if (s.startsWith("todo")) {
+            this.list[items] = new Todo(s.substring(5));
+        // Deadline
+        } else if (s.startsWith("deadline")) {
+            String n = s.substring(9, s.indexOf('/')-1);
+            String t = s.substring(s.indexOf('/') + 4);
+            this.list[items] = new Deadline(n, t);
+        // Event
+        } else if (s.startsWith("event")) {
+            String n = s.substring(6, s.indexOf('/') - 1);
+            String f = s.substring(s.indexOf('/') + 6, s.indexOf('/', s.indexOf('/') + 1) - 1);
+            String t = s.substring(s.indexOf('/', s.indexOf('/') + 1) + 4);
+            this.list[items] = new Event(n, f, t);
+        } else {
+            System.out.println("This is not a valid input!!!");
+        }
+
+        System.out.print("Got it added this task:\n  " + this.list[items]);
+        this.items++;
+        System.out.printf("Now you have %d tasks in the list.", items);
     }
 }
