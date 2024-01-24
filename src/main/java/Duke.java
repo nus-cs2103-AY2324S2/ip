@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
  class Task {
     protected String description;
@@ -76,7 +77,7 @@ public class Duke {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(System.out, true);
 
-        Task[] myList = new Task[100];
+        ArrayList<Task> myList = new ArrayList<Task>();
         int pointer = 0;
 
         String prompt = "Hello! I'm TFamilyBot\n"
@@ -119,30 +120,30 @@ public class Duke {
             else if (words[0].equals("list")) {
                 for (int i = 0; i < pointer; i++) {
                     int show = i + 1;
-                    pw.println(show + "." + myList[i]);
+                    pw.println(show + "." + myList.get(i));
                 }
                 pw.println("____________________________________________________________\n");
             }
             else if (words[0].equals("mark")) {
                 int c = Integer.parseInt(words[1]);
-                myList[c-1].markAsDone();
+                myList.get(c-1).markAsDone();
                 pw.println("Nice! I've marked this task as done:");
-                pw.println(myList[c-1]);
+                pw.println(myList.get(c-1));
                 pw.println("____________________________________________________________\n");
 
             }
             else if (words[0].equals("unmark")) {
                 int c = Integer.parseInt(words[1]);
-                myList[c-1].markAsUndone();
+                myList.get(c-1).markAsUndone();
                 pw.println("OK, I've marked this task as not done yet:");
-                pw.println(myList[c-1]);
+                pw.println(myList.get(c-1));
                 pw.println("____________________________________________________________\n");
             } 
             else if (words[0].equals("todo")) {
                 pw.println("Got it. I've added this task:");
                 Todo t = new Todo(detail);
                 pw.println(t);
-                myList[pointer] = t;
+                myList.add(t);
                 pointer++;
                 pw.println("Now you have " + pointer + " tasks in the list.");
                 pw.println("____________________________________________________________\n");
@@ -153,7 +154,7 @@ public class Duke {
                 String[] parts = detail.split("\\s*/by\\s*", 2);
                 Deadline t = new Deadline(parts[0], parts[1]);
                 pw.println(t);
-                myList[pointer] = t;
+                myList.add(t);
                 pointer++;
                 pw.println("Now you have " + pointer + " tasks in the list.");
                 pw.println("____________________________________________________________\n");
@@ -165,10 +166,21 @@ public class Duke {
                 String[] secondSplit = firstSplit[1].split("\\s*/to\\s*", 2);
                 Event t = new Event(firstSplit[0], secondSplit[0], secondSplit[1]);
                 pw.println(t);
-                myList[pointer] = t;
+                myList.add(t);
                 pointer++;
                 pw.println("Now you have " + pointer + " tasks in the list.");
                 pw.println("____________________________________________________________\n");
+
+            }
+            else if (words[0].equals("delete")) {
+                int c = Integer.parseInt(words[1]);
+                pw.println("Noted. I've removed this task:");
+                pw.println(myList.get(c-1));
+                myList.remove(c-1);
+                pointer--;
+                pw.println("Now you have " + pointer + " tasks in the list.");
+                pw.println("____________________________________________________________\n");
+
             } else {
                 pw.println("Sorry, invalid input.");
                 pw.println("____________________________________________________________\n");
