@@ -3,9 +3,9 @@ import java.util.*;
 public class Duke {
     public static void main(String[] args) {
         String bot_name = "Calvin";
-        String greeting_msg = " Hello! I'm " + bot_name + "\n"
-                + " What can I do for you? \n\n";
-        String exit_msg = " Bye. Hope to see you again soon!\n";
+        String greeting_msg = "Hello! I'm " + bot_name + "\n"
+                + "What can I do for you? \n\n";
+        String exit_msg = "Bye. Hope to see you again soon!\n";
         System.out.println(greeting_msg);
 
         Scanner reader = new Scanner(System.in);
