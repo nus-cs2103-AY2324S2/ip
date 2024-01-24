@@ -45,7 +45,7 @@ public class Storage {
    */
   public static void listItems() {
     for (int i = 0; i < index; i++) {
-      System.out.println(String.format("1. %s", storageArray[i]));
+      System.out.println(String.format("%d. %s", i + 1, storageArray[i]));
     }
   }
 }
