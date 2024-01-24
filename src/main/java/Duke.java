@@ -61,7 +61,7 @@ public class Duke {
                 t.markAsUndone();
                 System.out.println(indent + "  " + t.toString());
                 System.out.println(indent + "------------------------------------------------");
-        } else {
+            } else {
                 System.out.println(indent + "------------------------------------------------");
                 String des = input + sc.nextLine();
                 System.out.println(indent + "added: " + des);
