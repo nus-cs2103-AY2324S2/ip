@@ -23,29 +23,54 @@ public class Duke {
                 input +
                 "\n____________________________________________________________\n");
     }
-    public static void addToList(String input){
+    public static void addToList(String input) throws DukeException{
         Task addedTask = null;
-        if (input.length() >= 6 && input.substring(0,4).toLowerCase().equals("todo")){
-            addedTask = new Todo(input.substring(5,input.length()));
-        } else if (input.length() >= 7 && input.substring(0,5).toLowerCase().equals("event")) {
-            String[] arr = input.split(" /");
-            addedTask = new Event(arr[0].substring(6, arr[0].length()), arr[1], arr[2]);
-        } else if (input.length() >= 10 && input.substring(0,8).toLowerCase().equals("deadline")) {
-            String[] arr = input.split(" /");
-            addedTask = new Deadline(arr[0].substring(9, arr[0].length()), arr[1]);
-        } else {
-            addedTask = new Task(input);
+        String[] inputArr = input.split(" ");
+        String commandWord = inputArr[0];
+        try {
+            if (commandWord.toLowerCase().equals("todo")) {
+                if(input.length() < 6){
+                    throw new DukeException(" OOPS!!! The description of a todo cannot be empty.");
+                }
+                addedTask = new Todo(input.substring(5));
+            } else if (commandWord.toLowerCase().equals("event")) {
+                if(input.length() < 7){
+                    throw new DukeException(" OOPS!!! The description of a event cannot be empty.");
+                }
+                String[] arr = input.split(" /");
+                if(arr.length != 3){
+                    throw new DukeException(" Invalid input for event! Please enter the time.");
+                }
+                addedTask = new Event(arr[0].substring(6, arr[0].length()), arr[1], arr[2]);
+            } else if (commandWord.toLowerCase().equals("deadline")) {
+                if(input.length() < 10){
+                    throw new DukeException(" OOPS!!! The description of a event cannot be empty.");
+                }
+                String[] arr = input.split(" /");
+                if(arr.length != 2){
+                    throw new DukeException(" Invalid input for deadline! Please enter the time.");
+                }
+                addedTask = new Deadline(arr[0].substring(9, arr[0].length()), arr[1]);
+            } else {
+                throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+            tasks[numOfTasks++] = addedTask;
+            String message = String.format(
+                    "____________________________________________________________\n" +
+                            " Got it. I've added this task:\n" +
+                            "  [%s][%s] %s\n" +
+                            " Now you have %d tasks in the list.\n" +
+                            "____________________________________________________________\n",
+                    addedTask.getTaskType(), addedTask.getStatusIcon(),
+                    addedTask.toString(), numOfTasks);
+            System.out.println(message);
+        } catch (DukeException error) {
+            String errorMessage = String.format(
+                    "____________________________________________________________\n" +
+                    "%s\n" +
+                    "____________________________________________________________\n", error.toString());
+            System.out.println(errorMessage);
         }
-        tasks[numOfTasks++] = addedTask;
-        String message = String.format(
-                "____________________________________________________________\n" +
-                " Got it. I've added this task:\n" +
-                "  [%s][%s] %s\n" +
-                " Now you have %d tasks in the list.\n" +
-                "____________________________________________________________\n",
-                addedTask.getTaskType(), addedTask.getStatusIcon(),
-                addedTask.toString(), numOfTasks);
-        System.out.println(message);
     }
     public static void printList(){
         System.out.println("____________________________________________________________\n" +
@@ -86,7 +111,7 @@ public class Duke {
             System.out.println(message);
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException{
         greet();
         Scanner sc = new Scanner(System.in);
         String input = "";
