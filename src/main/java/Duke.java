@@ -21,7 +21,7 @@ public class Duke {
     /**
      * Initiates the chat by invoking the sayHi() method.
      * Handles user input to display the list for "list" input, exit the chat for "bye" input,
-     * marks or unmarks tasks as done or append to the list for any other input,
+     * marks or unmarks tasks as done, deletes tasks, or append to the list for to-do/deadline/event input,
      * separates responses based on the type of task.
      */
     private void startChat() {
@@ -50,6 +50,9 @@ public class Duke {
                 } else if (userInput.startsWith("event")) {
                     String[] event = parseEventInput(userInput, "event");
                     appendEvent(event[0], event[1], event[2]);
+                } else if(userInput.startsWith("delete")) {
+                    int num = parseTaskNumber(userInput, "delete");
+                    deleteTask(num);
                 } else {
                     throw new DukeException("\nError! I don't know what that means. Types of tasks are limited to ToDos, Deadlines and Events.\n");
                 }
@@ -275,6 +278,37 @@ public class Duke {
         int numTasks = countNonNullElements(list);
         System.out.println();
         System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        if (numTasks == 1) {
+            System.out.println("Now you have " + numTasks + " task in the list.");
+        }
+        if (numTasks != 1) {
+            System.out.println("Now you have " + numTasks + " tasks in the list.");
+        }
+        System.out.println();
+
+    }
+
+    private void deleteTask(int oneItem) throws DukeException {
+        int zeroItem = oneItem - 1;
+
+        if (zeroItem >= 0 && zeroItem < list.length && list[zeroItem] != null) {
+            Task deletedTask = list[zeroItem];
+            for (int i = zeroItem; i < list.length - 1; i++) {
+                list[i] = list[i + 1];
+            }
+            list[list.length - 1] = null;
+            deleteResponse(deletedTask);
+        } else {
+            throw new DukeException("\nError! Task number '" + oneItem + "' does not exist.\n");
+        }
+    }
+
+
+    private void deleteResponse(Task task) {
+        int numTasks = countNonNullElements(list);
+        System.out.println();
+        System.out.println("Noted. I've removed this task:");
         System.out.println(task);
         if (numTasks == 1) {
             System.out.println("Now you have " + numTasks + " task in the list.");
