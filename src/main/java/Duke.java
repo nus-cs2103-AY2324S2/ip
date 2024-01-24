@@ -48,12 +48,13 @@ public class Duke {
         }
         this.tasks[counter] = t;
         this.counter += 1;
+
 //        System.out.println("added: " + name);
     }
 
     private void listTask() {
         for (int i = 0; i < counter; i++) {
-            System.out.println(i + 1 + ". " + this.tasks[i]);
+            System.out.println(i + 1 + "." + this.tasks[i]);
         }
         return;
     }
