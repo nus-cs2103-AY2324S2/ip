@@ -1,10 +1,9 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
 
-    private static Task[] taskList = new Task[100];
-    private static int listSize = 0;
+    private static List<Task> taskList = new LinkedList<>();
+    //private static int listSize = 0;
     public static void main(String[] args) {
 
         Duke.greet();
@@ -17,16 +16,16 @@ public class Duke {
                 if (message.equals("bye")) {
                     input = false;
                 } else if (message.equals("yap")) {
-                    Duke.listYaps(taskList, listSize);
+                    Duke.listYaps(taskList);
                 } else if (message.startsWith("mark ")) {
                     String[] inputs = message.split(" ");
                     Integer index = Integer.parseInt(inputs[1]);
-                    Task task = taskList[index - 1];
+                    Task task = taskList.get(index - 1);
                     task.markDone();
                 } else if (message.startsWith("unmark ")) {
                     String[] inputs = message.split(" ");
                     Integer index = Integer.parseInt(inputs[1]);
-                    Task task = taskList[index - 1];
+                    Task task = taskList.get(index - 1);
                     task.unmarkDone();
                 } else if (message.startsWith("todo")) {
                     Task task = initTask(message, "todo");
@@ -37,11 +36,17 @@ public class Duke {
                 } else if (message.startsWith("event")) {
                     Task task = initTask(message, "event");
                     addTasktoTaskList(task);
+                } else if (message.startsWith("delete")) {
+                    String[] inputs = message.split(" ");
+                    Integer index = Integer.parseInt(inputs[1]);
+                    removeTaskfromTaskList(index);
                 } else {
                     throw new DukeException("What's YAPpening??!! Please yap your instruction more clearly");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Quit yappin, that task does not exist");
             }
         }
 
@@ -67,12 +72,12 @@ public class Duke {
         System.out.println("Added task:\n" + message);
     }
 
-    public static void listYaps(Task[] taskList, int listSize) {
-        if (listSize == 0) {
+    public static void listYaps(List<Task> taskList) {
+        if (taskList.size() == 0) {
             System.out.println("Nothin' to yap...");
         }
-        for (int i = 0; i < listSize; i++) {
-            System.out.println((i+1)+". "+taskList[i]);
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i+1)+". "+taskList.get(i));
         }
     }
 
@@ -121,9 +126,13 @@ public class Duke {
         if (task == null) {
             return;
         }
-        taskList[listSize] = task;
+        taskList.add(task);
         Duke.echo(task.toString());
-        listSize++;
+    }
+
+    public static void removeTaskfromTaskList(int index) {
+        Task task = taskList.remove(index - 1);
+        System.out.println("Okay, I'll stop yapping about this task:\n" + task);
     }
 
 }
