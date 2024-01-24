@@ -1,0 +1,8 @@
+todo Make bomb
+deadline Blast lake /by tonight
+list
+mark 1
+list
+unmark 1
+list
+bye
