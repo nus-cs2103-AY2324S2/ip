@@ -2,13 +2,10 @@ import CustomExceptions.BlankEventException;
 import CustomExceptions.MalformedUserInputException;
 import CustomExceptions.NoTaskCreatedYetException;
 import CustomExceptions.TooManyTasksException;
+import Parser.EventParser;
 import TaskList.Task;
 
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static Parser.EventParser.*;
 
 public class Duke {
 
@@ -47,87 +44,17 @@ public class Duke {
 
                 System.out.println("\t ____________________________________________________________");
             } else if (userInput.startsWith("mark")) {
-
-                try {
-                    int idToMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
-
-                    dataStorage.setTaskStatus(idToMark, true);
-
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t Nice! I've marked this task as done:");
-                    System.out.println("\t " + dataStorage.getTask(idToMark).toString());
-                    System.out.println("\t ____________________________________________________________");
-                } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t Please do not enter an invalid index. There are " + dataStorage.getTaskCount() + " task(s) currently.");
-                    System.out.println("\t ____________________________________________________________");
-                } catch (NumberFormatException numberFormatException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t Please enter positive integers 1, 2, 3, ... etc only.");
-                    System.out.println("\t ____________________________________________________________");
-                } catch (NoTaskCreatedYetException noTaskCreatedYetException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t No task is created here yet.");
-                    System.out.println("\t ____________________________________________________________");
-                }
-
+                handleCommandWithIndex(dataStorage, userInput, TypeOfActions.MARK);
             } else if (userInput.startsWith("unmark")) {
-                // TODO: possibly need to handle a task that is called "mark..."
-                try {
-                    int idToMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
-
-                    dataStorage.setTaskStatus(idToMark, false);
-
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t  Nice! I've marked this task as not completed yet:");
-                    System.out.println("\t " + dataStorage.getTask(idToMark).toString());
-                    System.out.println("\t ____________________________________________________________");
-                } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t Please do not enter an invalid index. There are " + dataStorage.getTaskCount() + " task(s) currently.");
-                    System.out.println("\t ____________________________________________________________");
-                } catch (NoTaskCreatedYetException noTaskCreatedYetException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t No task is created here yet.");
-                    System.out.println("\t ____________________________________________________________");
-                } catch (NumberFormatException numberFormatException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t  Please enter positive integers 1, 2, 3, ... etc only.");
-                    System.out.println("\t ____________________________________________________________");
-                }
-
+                handleCommandWithIndex(dataStorage, userInput, TypeOfActions.UNMARK);
             } else if (userInput.startsWith("delete")) {
-                try {
-
-                    int idToMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
-
-                    Task task = dataStorage.getTask(idToMark);
-                    dataStorage.deleteTask(idToMark);
-
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t Noted. I've removed this task:");
-                    System.out.println("\t " + task.toString());
-                    System.out.println("\t Now you have " + dataStorage.getTaskCount() + " tasks in the list.");
-                    System.out.println("\t ____________________________________________________________");
-                } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t  Please do not enter an invalid entry");
-                    System.out.println("\t ____________________________________________________________");
-                } catch (NumberFormatException numberFormatException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t  Please enter numbers only.");
-                    System.out.println("\t ____________________________________________________________");
-                } catch (NoTaskCreatedYetException e) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t No task is created here yet.");
-                    System.out.println("\t ____________________________________________________________");
-                }
+                handleCommandWithIndex(dataStorage, userInput, TypeOfActions.DELETE);
             } else if (userInput.startsWith("todo")) {
                 // We further do another Regex search
 
                 try {
                     // In this format: todo borrow book.
-                    Task task = toDoParser(userInput);
+                    Task task = EventParser.toDoParser(userInput);
                     createNewTask(dataStorage, task);
 
                 } catch (MalformedUserInputException malformedUserInputException) {
@@ -147,7 +74,7 @@ public class Duke {
             } else if (userInput.startsWith("deadline")) {
                 // We further do another Regex search
                 try {
-                    Task task = deadlineParser(userInput);
+                    Task task = EventParser.deadlineParser(userInput);
                     createNewTask(dataStorage, task);
                 } catch (MalformedUserInputException malformedUserInputException) {
                     System.out.println("\t ____________________________________________________________");
@@ -169,7 +96,7 @@ public class Duke {
                 // In this format: event project meeting /from Mon 2pm /to 4pm
 
                 try {
-                    Task task = eventParser(userInput);
+                    Task task = EventParser.eventParser(userInput);
                     createNewTask(dataStorage, task);
                 } catch (MalformedUserInputException malformedUserInputException) {
                     System.out.println("\t ____________________________________________________________");
@@ -220,6 +147,52 @@ public class Duke {
             System.out.println("\t ____________________________________________________________");
             System.out.println("\t You are too busy .... how come you got so many tasks??");
             System.out.println("\t See la the array no space already. Delete some stuff or restart the program please.");
+            System.out.println("\t ____________________________________________________________");
+        }
+    }
+
+    public static void handleCommandWithIndex(DataStorage dataStorage, String userInput, TypeOfActions typeOfActions) {
+        try {
+            int idToMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
+
+            if (typeOfActions == TypeOfActions.UNMARK) {
+                dataStorage.setTaskStatus(idToMark, false);
+
+                System.out.println("\t ____________________________________________________________");
+                System.out.println("\t  Nice! I've marked this task as not completed yet:");
+                System.out.println("\t " + dataStorage.getTask(idToMark).toString());
+                System.out.println("\t ____________________________________________________________");
+            } else if (typeOfActions == TypeOfActions.MARK) {
+                dataStorage.setTaskStatus(idToMark, true);
+
+                System.out.println("\t ____________________________________________________________");
+                System.out.println("\t Nice! I've marked this task as done:");
+                System.out.println("\t " + dataStorage.getTask(idToMark).toString());
+                System.out.println("\t ____________________________________________________________");
+
+            } else if (typeOfActions == TypeOfActions.DELETE) {
+                Task task = dataStorage.getTask(idToMark);
+                dataStorage.deleteTask(idToMark);
+
+                System.out.println("\t ____________________________________________________________");
+                System.out.println("\t Noted. I've removed this task:");
+                System.out.println("\t " + task.toString());
+                System.out.println("\t Now you have " + dataStorage.getTaskCount() + " tasks in the list.");
+                System.out.println("\t ____________________________________________________________");
+            }
+
+
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            System.out.println("\t ____________________________________________________________");
+            System.out.println("\t Please do not enter an invalid index. There are " + dataStorage.getTaskCount() + " task(s) currently.");
+            System.out.println("\t ____________________________________________________________");
+        } catch (NoTaskCreatedYetException noTaskCreatedYetException) {
+            System.out.println("\t ____________________________________________________________");
+            System.out.println("\t No task is created here yet.");
+            System.out.println("\t ____________________________________________________________");
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("\t ____________________________________________________________");
+            System.out.println("\t  Please enter positive integers 1, 2, 3, ... etc only.");
             System.out.println("\t ____________________________________________________________");
         }
     }
