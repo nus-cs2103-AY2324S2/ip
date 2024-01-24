@@ -14,8 +14,10 @@ public class Responder {
                 Storage.printTasks();
                 break;
             case "mark":
+                Storage.markTask(MarkType.MARK);
+                break;
             case "unmark":
-                Storage.markTask();
+                Storage.markTask(MarkType.UNMARK);
                 break;
             case "delete":
                 Storage.deleteTask();

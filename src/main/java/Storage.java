@@ -63,10 +63,10 @@ public class Storage {
         }
     }
 
-    public static void markTask() {
+    public static void markTask(MarkType markType) {
         try {
             int taskIndex = Parser.parseMarkTask(words);
-            tasks.get(taskIndex).setDone(words[0]);
+            tasks.get(taskIndex).setDone(markType);
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
