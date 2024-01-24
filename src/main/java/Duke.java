@@ -79,7 +79,7 @@ public class Duke {
      */
     private void markAsDone(int num) {
         list[num - 1].markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n" + list[num - 1] + "\n");
+        System.out.println("\nNice! I've marked this task as done:\n" + list[num - 1] + "\n");
     }
 
     /**
