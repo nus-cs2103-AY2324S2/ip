@@ -5,9 +5,12 @@ public class Duchess {
     private static final int MAX_TASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
-
     // Declare the scanner as a static field in the class
     private static Scanner scanner = new Scanner(System.in);
+    // Enum to represent task types
+    private enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
 
     public static void main(String[] args) {
         printHorizontalLine();
@@ -32,7 +35,7 @@ public class Duchess {
         if (toDoTokens.length > 1) {
             String description = toDoTokens[1].trim(); //Trim to only keep description
             ToDo newToDo = new ToDo(description);
-            addTask(newToDo);
+            addTask(newToDo, TaskType.TODO);
         } else {
             throw new DuchessException("Oh dear! That is an invalid command. Try: todo <description>");
         }
@@ -50,7 +53,7 @@ public class Duchess {
                 String description = details[0].trim();
                 String by = details[1].trim(); // by is everything after
                 Deadline newDeadline = new Deadline(description, by);
-                addTask(newDeadline);
+                addTask(newDeadline, TaskType.DEADLINE);
             } else {
                 throw new DuchessException("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
             }
@@ -73,7 +76,7 @@ public class Duchess {
                 String to = details[2].trim();   // to is everything after
 
                 Event newEvent = new Event(description, from, to);
-                addTask(newEvent);
+                addTask(newEvent, TaskType.EVENT);
             } else {
                 throw new DuchessException("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
             }
@@ -96,13 +99,13 @@ public class Duchess {
     }
 
     //Add a task to task list
-    private static void addTask(Task task) throws DuchessException {
+    private static void addTask(Task task, TaskType taskType) throws DuchessException {
         if (taskCount < MAX_TASKS) {
             tasks.add(task);
             taskCount++;
 
             printHorizontalLine();
-            System.out.println(" Understood. I've added this task:");
+            System.out.println(" Understood. I've added this " + taskType + " task:");
             System.out.println(task.toString());
             System.out.println("Now you have " + taskCount + " tasks in the list.");
             printHorizontalLine();
