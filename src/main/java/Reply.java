@@ -6,8 +6,9 @@ public class Reply {
     }
 
     public void displayMessage() {
-        String horizLine = "_________________________";
-        System.out.println(horizLine.concat("\n").concat(this.message)
+        String emptySpace = "      ";
+        String horizLine = "    _____________________________________";
+        System.out.println(horizLine.concat("\n").concat(emptySpace).concat(this.message)
                         .concat("\n").concat(horizLine));
     }
 }

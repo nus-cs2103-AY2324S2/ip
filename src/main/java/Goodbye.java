@@ -1,6 +1,6 @@
 public class Goodbye extends Reply {
 
     public Goodbye() {
-        super("Bye. Hope to see you again soon!");
+        super("Goodbye! Brought to you by...\n      Count von Count - Ah ah ah!");
     }
 }
