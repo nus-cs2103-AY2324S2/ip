@@ -60,12 +60,29 @@ public class Duke {
         sayBye();
     }
 
+    /**
+     * Processes and validates that the description is not empty.
+     * Throws a DukeException if the description is empty.
+     *
+     * @param description The description to be checked.
+     * @param task        The type of task.
+     * @throws DukeException If the description is empty.
+     */
     private void processEmptyDescription(String description, String task) throws DukeException {
         if (description.isEmpty()) {
             throw new DukeException("\nError! The description of a " + task + " cannot be empty.\n");
         }
     }
 
+    /**
+     * Parses the task number from the user input and validates it.
+     * Throws a DukeException for empty task number or invalid task number that is outside the indexes of the list.
+     *
+     * @param input   The user input containing the task number.
+     * @param command The type of task.
+     * @return The parsed and validated task number.
+     * @throws DukeException If the task number is invalid or empty.
+     */
     private int parseTaskNumber(String input, String command) throws DukeException {
         String taskNumString = input.replace(command, "").trim();
         if (taskNumString.isEmpty() || !taskNumString.matches("\\d+")) {
@@ -80,6 +97,15 @@ public class Duke {
         return taskNumber;
     }
 
+    /**
+     * Parses and validates the user input for deadline tasks.
+     * Throws a DukeException for invalid input or wrong formatting.
+     *
+     * @param input   The user input containing the description and deadline.
+     * @param command The type of task.
+     * @return An array containing the parsed description and deadline.
+     * @throws DukeException If the input is invalid or has wrong formatting.
+     */
     private String[] parseDeadlineInput(String input, String command) throws DukeException {
         String[] deadlineInput = input.replace(command, "").trim().split(" /by ");
 
@@ -96,6 +122,15 @@ public class Duke {
         return new String[]{description, by};
     }
 
+    /**
+     * Parses and validates the user input for event tasks.
+     * Throws a DukeException for invalid input or wrong formatting.
+     *
+     * @param input   The user input for event tasks.
+     * @param command The type of task.
+     * @return An array containing the parsed description, start time, and end time.
+     * @throws DukeException If the input is invalid or has wrong formatting.
+     */
     private String[] parseEventInput(String input, String command) throws DukeException {
         String[] eventInput = input.replace(command, "").trim().split(" /from ");
 
