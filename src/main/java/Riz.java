@@ -7,8 +7,7 @@ public class Riz {
         String dotted = "-----------------------------------";
         //greetings
         String greetings = "Hello... I'm Riz...\n"
-                + "What can I help you with today?\n"
-                + dotted;
+                + "What can I help you with today?\n";
         System.out.println(greetings);
         boolean running = true;
 
@@ -18,7 +17,7 @@ public class Riz {
             try {
                 if (token[0].equals("bye")) {
                     running = false;
-                    System.out.println("Bye... Hope to see you again...\n" + dotted);
+                    System.out.println("Bye... Hope to see you again...\n");
                 } else if (token[0].equals("mark")) {
                     boolean isNumber = true;
                     if (token.length != 2) {
@@ -37,7 +36,7 @@ public class Riz {
                     task.mark();
                     System.out.println("Awesome..., I've marked this task as completed...");
                     System.out.println(task);
-                    System.out.println(dotted);
+                    System.out.println("\n");
                 } else if (token[0].equals("unmark")) {
                     boolean isNumber = true;
                     if (token.length != 2) {
@@ -56,7 +55,7 @@ public class Riz {
                     task.unmark();
                     System.out.println("Oops... Guess it's not done yet...");
                     System.out.println(task);
-                    System.out.println(dotted);
+                    System.out.println("\n");
                 } else if (token[0].equals("list")) {
                     int size = tasks.size();
                     System.out.println("Here are the items in your To-Do List...");
@@ -65,7 +64,7 @@ public class Riz {
                         String result = curr + ". " + tasks.get(i).toString() + "...";
                         System.out.println(result);
                     }
-                    System.out.println(dotted);
+                    System.out.println("\n");
                 } else if (token[0].equals("delete")) {
                     boolean isNumber = true;
                     if (token.length != 2) {
@@ -84,7 +83,7 @@ public class Riz {
                     tasks.remove(curr);
                     System.out.println("Boo... planning to slack off?");
                     System.out.println("Removed: " + task + "...");
-                    System.out.println(dotted);
+                    System.out.println("\n");
                 } else {
                     if (token[0].equals("todo")) {
                         if (token.length != 2) {
@@ -123,7 +122,7 @@ public class Riz {
                     }
                     int size = tasks.size();
                     System.out.println("You currently have " + size + " things to do...");
-                    System.out.println(dotted);
+                    System.out.println("\n");
                 }
             } catch (RizException e) {
                 System.out.println(e.getMessage());
