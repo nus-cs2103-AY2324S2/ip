@@ -16,7 +16,11 @@ public class TaskList {
         replyToUser.displayMessage();
     }
 
-    public void markTask(int i) {
+    public void markTask(int i) throws TheCountException {
+        if (i < 1 || i > tasks.size()) {
+            // Throw an exception if the task number is out of bounds
+            throw new TheCountException("Invalid task number. I can't count that!");
+        }
         Task currTask = this.tasks.get(i - 1);
         currTask.markAsDone();
         Reply replyToUser = new Reply("Ah-ah-ah! ONE! I've marked this task as done:\n"
@@ -24,7 +28,11 @@ public class TaskList {
         replyToUser.displayMessage();
     }
 
-    public void unmarkTask(int i) {
+    public void unmarkTask(int i) throws TheCountException {
+        if (i < 1 || i > tasks.size()) {
+            // Throw an exception if the task number is out of bounds
+            throw new TheCountException("Invalid task number. I can't count that!");
+        }
         Task currTask = this.tasks.get(i - 1);
         currTask.unmark();
         Reply replyToUser = new Reply("MINUS ONE! I've marked this task as not done yet:\n"

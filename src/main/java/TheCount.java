@@ -36,36 +36,109 @@ public class TheCount {
                     tasks.printList();
                     break;
                 case "MARK":
-                    taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
-                    tasks.markTask(taskNumber);
+                    try {
+                        taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
+                        tasks.markTask(taskNumber);
+                    } catch (TheCountException e) {
+                        Reply errorMsg = new Reply("Invalid task number. I can't count that!");
+                        errorMsg.displayMessage();
+                    }
                     break;
                 case "UNMARK":
-                    taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
-                    tasks.unmarkTask(taskNumber);
+                    try {
+                        taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
+                        tasks.unmarkTask(taskNumber);
+                    } catch (TheCountException e) {
+                        Reply errorMsg = new Reply("Invalid task number. I can't count that!");
+                        errorMsg.displayMessage();
+                    }
                     break;
                 case "TODO":
-                    info = userInput.split("\\s+", 2)[1];
-                    ToDo todo = new ToDo(info);
-                    tasks.add(todo);
-                    todo.displayMessage(tasks.length());
+                    try {
+                        info = userInput.split("\\s+", 2)[1];
+                        if (info.trim().isEmpty()) {
+                            // Throw an exception if task information is not provided
+                            throw new TheCountException("Description of activity cannot be empty.");
+                        }
+                        ToDo todo = new ToDo(info);
+                        tasks.add(todo);
+                        todo.displayMessage(tasks.length());
+                    } catch (TheCountException e) {
+                        // Throw an exception if task information is not provided
+                        Reply errorMsg = new Reply(e.getMessage());
+                        errorMsg.displayMessage();
+                    }
                     break;
                 case "DEADLINE":
-                    info = userInput.split("\\s+", 2)[1].split("/by")[0].trim();
-                    String deadlineTime = userInput.split("/by")[1].trim();
-                    Deadline deadline = new Deadline(info, deadlineTime);
-                    tasks.add(deadline);
-                    deadline.displayMessage(tasks.length());
+                    String deadlineTime = null;
+                    try {
+                        // Handles Info
+                        try {
+                            info = userInput.split("\\s+", 2)[1].split("/by")[0].trim();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new TheCountException("Please fill in description.");
+                        }
+
+                        // Handles Deadline Time
+                        try {
+                            deadlineTime = userInput.split("/by")[1].trim();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new TheCountException("Please fill in deadline.");
+                        }
+
+                        Deadline deadline = new Deadline(info, deadlineTime);
+                        tasks.add(deadline);
+                        deadline.displayMessage(tasks.length());
+
+                    } catch (TheCountException e) {
+                        Reply errorMsg = new Reply(e.getMessage() +
+                                "\n      Example: deadline assignment /by 2pm");
+                        errorMsg.displayMessage();
+                    }
                     break;
                 case "EVENT":
-                    info = userInput.split("\\s+", 2)[1].split("/from")[0].trim();
-                    String startTime = userInput.split("/from")[1].trim()
-                            .split("/to")[0].trim();
-                    String endTime = userInput.split("/to")[1].trim();
-                    Event event = new Event(info, startTime, endTime);
-                    tasks.add(event);
-                    event.displayMessage(tasks.length());
+                    String startTime = null;
+                    String endTime = null;
+                    try {
+                        // Handles Info
+                        try {
+                            info = userInput.split("\\s+", 2)[1].split("/from")[0].trim();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new TheCountException("Please fill in description.");
+                        }
+
+                        // Handles Start Time
+                        try {
+                            startTime = userInput.split("/from")[1].trim()
+                                    .split("/to")[0].trim();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new TheCountException("Please fill in start time.");
+                        }
+
+                        // Handles End Time
+                        try {
+                            endTime = userInput.split("/to")[1].trim();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new TheCountException("Please fill in end time.");
+                        }
+
+                        Event event = new Event(info, startTime, endTime);
+                        tasks.add(event);
+                        event.displayMessage(tasks.length());
+
+                    } catch (TheCountException e) {
+                        Reply errorMsg = new Reply(e.getMessage() +
+                                "\n      Example: event meeting /from 2pm /to 4pm");
+                        errorMsg.displayMessage();
+                    }
                     break;
                 default:
+                    try {
+                        throw new TheCountException("WHAT?! I can't count that! Try another command!");
+                    } catch (TheCountException e) {
+                        Reply errorMsg = new Reply(e.getMessage());
+                        errorMsg.displayMessage();
+                    }
                     break;
             }
             userInput = scanner.nextLine();
