@@ -17,7 +17,7 @@ public class Duke {
 
 
         String welcomeMessage = "\t ____________________________________________________________\n" +
-                "\t Hello! I'm JeromeGPT \n" +
+                "\t Hello! I'm JeromeGPT\n" +
                 "\t What can I do for you?\n" +
                 "\t ____________________________________________________________";
 
