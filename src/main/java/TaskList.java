@@ -4,10 +4,7 @@ import java.util.stream.IntStream;
 public class TaskList extends ArrayList<Task> {
     @Override
     public String toString() {
-        String message =
-                "You and I are a team.\n" +
-                "Here is the task list:\n";
-        message += String.join("\n", IntStream.range(0, this.size())
+        return String.join("\n", IntStream.range(0, this.size())
                 .boxed()
                 .map(i -> {
                     Task task = this.get(i);
@@ -16,6 +13,5 @@ public class TaskList extends ArrayList<Task> {
                 })
                 .toArray(String[]::new)
         );
-        return message;
     }
 }
