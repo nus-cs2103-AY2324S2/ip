@@ -1,5 +1,8 @@
 import java.util.Scanner;
 public class Duke {
+    // Fixed-size array to store tasks
+    private static String[] tasks = new String[100];
+    private static int taskCount = 0;
     public static void main(String[] args) {
         // Greeting
         System.out.println("____________________________________________________________");
@@ -15,18 +18,27 @@ public class Duke {
             // Read user input
             String userInput = scanner.nextLine();
 
-            // Echo the user command
-            System.out.println("____________________________________________________________");
-            System.out.println(" " + userInput);
-            System.out.println("____________________________________________________________");
-
-            // Check if the user wants to exit
+            // Process user input
             if (userInput.equalsIgnoreCase("bye")) {
                 // Farewell
                 System.out.println("____________________________________________________________");
                 System.out.println(" Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break; // Exit the loop
+            } else if (userInput.equalsIgnoreCase("list")) {
+                // Display the list of tasks
+                System.out.println("____________________________________________________________");
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println(" " + (i + 1) + ". " + tasks[i]);
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                // Add the task to the array
+                tasks[taskCount++] = userInput;
+                // Display confirmation
+                System.out.println("____________________________________________________________");
+                System.out.println(" added: " + userInput);
+                System.out.println("____________________________________________________________");
             }
         }
 
