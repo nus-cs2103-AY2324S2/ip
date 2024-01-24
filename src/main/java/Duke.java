@@ -23,16 +23,25 @@ public class Duke {
     public static void echo() {
         intro();
         Scanner input = new Scanner(System.in);
-
+        ArrayList<String> tracker = new ArrayList<String>();
         while(true) {
             String echoed = input.nextLine();
             if(echoed.equals("bye")) {
                 separate();
                 leave();
                 break;
+            } else if(echoed.equals("list")) {
+                separate();
+                int count = 1;
+                for (String i : tracker) {
+                    System.out.println("     " + Integer.toString(count) + ". " + i);
+                    count++;
+                }
+                separate();
             } else {
                 separate();
-                System.out.println("     " + echoed);
+                System.out.println("     added: " + echoed);
+                tracker.add(echoed);
                 spacing();
             }
         }
