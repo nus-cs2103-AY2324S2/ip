@@ -23,9 +23,10 @@ public class TheCount {
                 // Prints list of tasks
                 tasks.printList();
             } else {
-                Reply replyToUser = new AddToListReply(userInput);
-                replyToUser.displayMessage();
-                tasks.add(userInput);
+                // Adds task to list
+                Task task = new Task(userInput);
+                tasks.add(task);
+                task.displayMessage();
             }
             userInput = scanner.nextLine();
         }
