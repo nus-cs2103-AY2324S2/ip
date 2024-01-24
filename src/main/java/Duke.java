@@ -24,7 +24,7 @@ public class Duke {
             if (order.equals("bye")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("Bye. Hope to see you again soon!");
-                System.out.print("____________________________________________________________");
+                System.out.println("____________________________________________________________");
                 break;
             } else if (order.equals("list")) {
                 System.out.println("____________________________________________________________");
@@ -33,7 +33,7 @@ public class Duke {
                     Task addTask = array.get(i);
                     System.out.println((i + 1) + "." + addTask.toString());
                 }
-                System.out.print("____________________________________________________________");
+                System.out.println("____________________________________________________________");
             } else if (order.contains("unmark")) {
                 String[] tokens = order.split(" ");
                 int number = Integer.parseInt(tokens[1]);
@@ -42,7 +42,7 @@ public class Duke {
                 Task t = array.get(number - 1);
                 t.markAsUnDone();
                 System.out.println(t.toString());
-                System.out.print("____________________________________________________________");
+                System.out.println("____________________________________________________________");
             } else if (order.contains("mark")) {
                 String[] tokens = order.split(" ");
                 int number = Integer.parseInt(tokens[1]);
@@ -51,16 +51,25 @@ public class Duke {
                 Task t = array.get(number - 1);
                 t.markAsDone();
                 System.out.println(t.toString());
-                System.out.print("____________________________________________________________");
+                System.out.println("____________________________________________________________");
             } else if(order.contains("todo")) {
-                String task = order.substring(5);
-                Task t = new Todo(task);
-                array.add(t);
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(t.toString());
-                System.out.println("Now you have " + array.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                try {
+                    String task = order.substring(4).trim();
+                    if (task.isEmpty()) {
+                        throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    Task t = new Todo(task);
+                    array.add(t);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(t.toString());
+                    System.out.println("Now you have " + array.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                }  catch (DukeException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________");
+                }
             } else if (order.contains("deadline")) {
                 int byIndex = order.indexOf("/by");
                 String task = order.substring(9, byIndex - 1);
@@ -71,7 +80,7 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
                 System.out.println("Now you have " + array.size() + " tasks in the list.");
-                System.out.print("____________________________________________________________");
+                System.out.println("____________________________________________________________");
             } else if (order.contains("event")) {
                 int fromIndex = order.indexOf("/from");
                 int toIndex = order.indexOf("/to");
@@ -84,13 +93,11 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
                 System.out.println("Now you have " + array.size() + " tasks in the list.");
-                System.out.print("____________________________________________________________");
-            } else {
-                Task t = new Task(order);
-                array.add(t);
                 System.out.println("____________________________________________________________");
-                System.out.println("added: " + t.description);
-                System.out.print("____________________________________________________________");
+            } else {
+                System.out.println("____________________________________________________________");
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("____________________________________________________________");
             }
         }
     }
