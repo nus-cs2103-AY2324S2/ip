@@ -16,3 +16,8 @@ list 1
 deadline this sunday
 event this sunday
 event birthday party /from 11 to 12
+delete 2
+list
+delete
+delete a
+delete 100

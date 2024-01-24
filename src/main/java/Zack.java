@@ -1,7 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Zack {
-    private static final Task[] tasks = new Task[100];
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
 
     private static void handleInput(String input) throws ZackException {
@@ -26,6 +27,9 @@ public class Zack {
             case "deadline":
             case "event":
                 handleTask(sections);
+                break;
+            case "delete":
+                handleDelete(sections);
                 break;
             default:
                 throw new ZackException("I'm sorry, but I don't know what that means :-(");
@@ -58,11 +62,11 @@ public class Zack {
         }
         System.out.println("____________________________________________________________");
         if (isDone) {
-            tasks[index].markAsDone();
-            System.out.println("Nice! I've marked this task as done:\n" + tasks[index]);
+            tasks.get(index).markAsDone();
+            System.out.println("Nice! I've marked this task as done:\n" + tasks.get(index));
         } else {
-            tasks[index].unmark();
-            System.out.println("OK, I've marked this task as not done yet:\n" + tasks[index]);
+            tasks.get(index).unmark();
+            System.out.println("OK, I've marked this task as not done yet:\n" + tasks.get(index));
         }
         System.out.println("____________________________________________________________\n");
     }
@@ -74,7 +78,7 @@ public class Zack {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasks[i]);
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
         System.out.println("____________________________________________________________\n");
     }
@@ -119,10 +123,33 @@ public class Zack {
     }
 
     private static void addTask(Task task) {
-        tasks[taskCount] = task;
+        tasks.add(task);
         taskCount++;
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:\n" + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("____________________________________________________________\n");
+    }
+
+    private static void handleDelete(String[] sections) throws ZackException {
+        if (sections.length < 2) {
+            throw new ZackException("No task index provided. Please specify the task index to delete.");
+        }
+
+        int index;
+        try {
+            index = Integer.parseInt(sections[1].trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new ZackException("Invalid task index. Please enter a valid number.");
+        }
+        if (index < 0 || index >= taskCount) {
+            throw new ZackException("Task index is out of range. Please enter a number between 1 and " + taskCount + ".");
+        }
+        Task removedTask = tasks.remove(index);
+        taskCount--;
+
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:\n" + removedTask);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________\n");
     }
