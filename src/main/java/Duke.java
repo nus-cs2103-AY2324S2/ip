@@ -23,14 +23,14 @@ public class Duke {
         String logo = "▀█▀ ▄▀█ █▀ █▄▀ █▄█ ▄▀█ █▀█ █▀█ █▀▀ █▀█\n"
                 + "░█░ █▀█ ▄█ █░█ ░█░ █▀█ █▀▀ █▀▀ ██▄ █▀▄\n";
 
-        System.out.println("*YAP* Good morning Yapper! *YAP*\nGreetings from\n" + logo);
+        System.out.println("*YAP* Good morning YAPPER! *YAP*\nGreetings from\n" + logo);
     }
 
     public static void exit() {
         String bye = "█▀▀ █▀█ █▀█ █▀▄ █▄▄ █▄█ █▀▀ █\n"
                 + "█▄█ █▄█ █▄█ █▄▀ █▄█ ░█░ ██▄ ▄\n";
 
-        System.out.println("Stopping the YAP...\n" + bye);
+        System.out.println("Stoppin' the YAP...\n" + bye);
     }
 
     public static void echo(String message) {
