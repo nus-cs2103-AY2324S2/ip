@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
         zhen zh = new zhen();
-        zh.greeting();
-        zhen.print_message("Hello! I'm ZHEN\n What can I do for you? ");
+//        zh.greeting();
+//        zhen.print_message("Hello! I'm ZHEN\n What can I do for you? ");
 //        zh.echo(); // level1
         zh.store_task(); // level2
         zhen.print_message("Bye. Hope to see you again soon");
