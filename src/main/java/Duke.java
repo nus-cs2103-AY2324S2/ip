@@ -23,6 +23,36 @@ public class Duke {
                 int idx = Integer.parseInt(userInput.substring(7));
                 list.get(idx - 1).unmarkTask();
                 System.out.println(line);
+            } else if (userInput.startsWith("todo")) {
+                System.out.println(line);
+                String todoTask = userInput.substring(5);
+                ToDos newTodo = new ToDos(todoTask);
+                list.add(newTodo);
+                newTodo.addTask(list.size());
+                System.out.println(line);
+            } else if (userInput.startsWith("deadline")) {
+                int preIdx = userInput.indexOf("/by");
+                int idx = preIdx + 4;
+                String deadlineTask = userInput.substring(9, preIdx - 1);
+                String deadlineBy = userInput.substring(idx);
+                Deadline newDeadline = new Deadline(deadlineTask, deadlineBy);
+                list.add(newDeadline);
+                newDeadline.addTask(list.size());
+                System.out.println(line);
+            } else if (userInput.startsWith("event")) {
+                System.out.println(line);
+                int preIdxFrom = userInput.indexOf("/from");
+                int preIdxTo = userInput.indexOf("/to");
+                int timeFromStart = preIdxFrom + 6;
+                int timeFromEnd = preIdxTo - 1;
+                int timeToStart = preIdxTo + 4;
+                String eventTask = userInput.substring(6, preIdxFrom - 1);
+                String eventFrom = userInput.substring(timeFromStart, timeFromEnd);
+                String eventTo = userInput.substring(timeToStart);
+                Event newEvent = new Event(eventTask, eventFrom, eventTo);
+                list.add(newEvent);
+                newEvent.addTask(list.size());
+                System.out.println(line);
             } else {
                 switch (userInput) {
                     case "bye":

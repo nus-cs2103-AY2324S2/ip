@@ -23,6 +23,13 @@ public class Task {
         System.out.println(this.toString());
     }
 
+    public void addTask(int total) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(this.toString());
+        String formatted = String.format("Now you have %d tasks in the list.", total);
+        System.out.println(formatted);
+    }
+
     @Override
     public String toString() {
         return getStatusIcon() + " " + this.description;
