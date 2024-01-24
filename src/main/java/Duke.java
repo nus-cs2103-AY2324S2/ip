@@ -58,6 +58,12 @@ abstract class Task {
     }
 }
 
+class DukeException extends Exception {
+    public DukeException(String message) {
+        super(message);
+    }
+}
+
 public class Duke {
     static String line = "____________________________________________________________";
 
@@ -73,63 +79,89 @@ public class Duke {
             String method = input[0];
             String params = input.length == 1 ? "" : input[1];
             System.out.println(line);
-            switch (method) {
-                case "list": {
-                    for (int i = 0; i < data.size(); i++) {
-                        System.out.printf("%d. %s\n", i + 1, data.get(i));
+            try {
+
+                switch (method) {
+                    case "list": {
+                        for (int i = 0; i < data.size(); i++) {
+                            System.out.printf("%d. %s\n", i + 1, data.get(i));
+                        }
+                        break;
                     }
-                    break;
+                    case "mark": {
+                        int index = Integer.parseInt(params) - 1;
+                        data.get(index).checked = true;
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println(data.get(index));
+                        break;
+                    }
+                    case "unmark": {
+                        int index = Integer.parseInt(params) - 1;
+                        data.get(index).checked = false;
+                        System.out.println("Okay! I've marked this task as not done yet");
+                        System.out.println(data.get(index));
+                        break;
+                    }
+                    case "todo": {
+                        if (params.equals("")) {
+                            throw new DukeException("The description of a todo cannot be empty.");
+                        }
+
+                        Task curr = new Todo(params);
+                        data.add(curr);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(curr);
+                        System.out.printf("Now you have %d tasks in the list.\n", data.size());
+                        break;
+                    }
+                    case "deadline": {
+                        if (params.equals("")) {
+                            throw new DukeException("The description of a deadline cannot be empty.");
+                        }
+                        String[] split = params.split(" /by ", 2);
+                        if (split.length == 1) {
+                            throw new DukeException("The deadline of a deadline cannot be empty.");
+                        }
+                        Task curr = new Deadline(split[0], split[1]);
+                        data.add(curr);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(curr);
+                        System.out.printf("Now you have %d tasks in the list.\n", data.size());
+                        break;
+                    }
+                    case "event": {
+                        if (params.equals("")) {
+                            throw new DukeException("The description of a event cannot be empty.");
+                        }
+                        String[] split1 = params.split(" /from ", 2);
+                        if (split1.length == 1) {
+                            throw new DukeException("The from of a event cannot be empty.");
+                        }
+                        String[] split2 = split1[1].split(" /to ", 2);
+                        if (split2.length == 1) {
+                            throw new DukeException("The to of a event cannot be empty.");
+                        }
+                        Task curr = new Event(split1[0], split2[0], split2[1]);
+                        data.add(curr);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(curr);
+                        System.out.printf("Now you have %d tasks in the list.\n", data.size());
+                        break;
+                    }
+                    case "bye": {
+                        System.out.println("Bye. Hope to see you again soon!");
+                        System.exit(0);
+                        break;
+                    }
+                    default: {
+                        throw new DukeException("I'm sorry, but I don't know what that means :-(");
+                    }
                 }
-                case "mark": {
-                    int index = Integer.parseInt(params) - 1;
-                    data.get(index).checked = true;
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(data.get(index));
-                    break;
-                }
-                case "unmark": {
-                    int index = Integer.parseInt(params) - 1;
-                    data.get(index).checked = false;
-                    System.out.println("Okay! I've marked this task as not done yet");
-                    System.out.println(data.get(index));
-                    break;
-                }
-                case "todo": {
-                    Task curr = new Todo(params);
-                    data.add(curr);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(curr);
-                    System.out.printf("Now you have %d tasks in the list.\n", data.size());
-                    break;
-                }
-                case "deadline": {
-                    String[] split = params.split(" /by ");
-                    Task curr = new Deadline(split[0], split[1]);
-                    data.add(curr);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(curr);
-                    System.out.printf("Now you have %d tasks in the list.\n", data.size());
-                    break;
-                }
-                case "event": {
-                    String[] split1 = params.split(" /from ");
-                    String[] split2 = split1[1].split(" /to ");
-                    Task curr = new Event(split1[0], split2[0], split2[1]);
-                    data.add(curr);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(curr);
-                    System.out.printf("Now you have %d tasks in the list.\n", data.size());
-                    break;
-                }
-                case "bye": {
-                    System.out.println("Bye. Hope to see you again soon!");
-                    System.exit(0);
-                    break;
-                }
-                default: {
-                }
+            } catch (DukeException e) {
+                System.out.println("OOPS!!! " + e.getMessage());
+            } finally {
+                System.out.println(line);
             }
-            System.out.println(line);
         }
     }
 }
