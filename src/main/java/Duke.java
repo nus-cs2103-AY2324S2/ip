@@ -1,8 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         // Greeting
@@ -30,10 +31,14 @@ public class Duke {
                 } else if (userInput.equalsIgnoreCase("list")) {
                     // Display the list of tasks
                     System.out.println("____________________________________________________________");
-                    System.out.println(" Here" + (taskCount == 1 ? " is the " : " are the ") + taskCount +
-                            (taskCount == 1 ? " task " : " tasks ") + "in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println(" " + (i + 1) + "." + tasks[i]);
+                    if (tasks.isEmpty()) {
+                        System.out.println(" There are no tasks in your list.");
+                    } else {
+                        System.out.println(" Here" + (tasks.size() == 1 ? " is the " : " are the ") + tasks.size() +
+                                (tasks.size() == 1 ? " task " : " tasks ") + "in your list:");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println(" " + (i + 1) + "." + tasks.get(i));
+                        }
                     }
                     System.out.println("____________________________________________________________");
                 } else if (userInput.startsWith("mark")) {
@@ -46,15 +51,18 @@ public class Duke {
                     unmarkTaskAsDone(taskIndex);
                 } else if (userInput.trim().isEmpty()) {
                     throw new DukeException("Please enter an action and a task");
+                } else if (userInput.startsWith("delete")) {
+                    // Delete a task
+                    int taskIndex = parseTaskIndex(userInput);
+                    deleteTask(taskIndex);
                 } else {
                     // Add the task to the array
-                    createTask(userInput);
-                    tasks[taskCount++] = createTask(userInput);
+                    tasks.add(createTask(userInput));
                     // Display confirmation
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks[taskCount - 1]);
-                    System.out.println(" Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
+                    System.out.println("   " + tasks.get(tasks.size() - 1));
+                    System.out.println(" Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
                     System.out.println("____________________________________________________________");
                 }
             } catch (DukeException e) {
@@ -73,22 +81,39 @@ public class Duke {
         // Close the scanner
         scanner.close();
     }
+    // Delete a task
+    private static void deleteTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            Task removedTask = tasks.remove(index);
+            System.out.println("____________________________________________________________");
+            System.out.println(" Noted. I've removed this task:");
+            System.out.println("   " + removedTask);
+            System.out.println(" Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+            System.out.println("____________________________________________________________");
+        } else {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Invalid task index. Please enter a valid task index.");
+            System.out.println("____________________________________________________________");
+        }
+    }
     // Parse task index from user input
     private static int parseTaskIndex(String userInput) throws DukeException {
         try {
-            return Integer.parseInt(userInput.substring(5).trim()) - 1;
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            // Assuming the input is in the format "mark 2" or "unmark 2"
+            String indexString = userInput.split(" ", 2)[1].trim();
+            return Integer.parseInt(indexString) - 1;
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new DukeException("Please enter a valid task index :(");
         }
     }
 
     // Mark a task as done
     private static void markTaskAsDone(int index) {
-        if (index >= 0 && index < taskCount) {
-            tasks[index].setDone(true);
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).setDone(true);
             System.out.println("____________________________________________________________");
             System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("   " + tasks[index]);
+            System.out.println("   " + tasks.get(index));
             System.out.println("____________________________________________________________");
         } else {
             System.out.println("____________________________________________________________");
@@ -99,11 +124,11 @@ public class Duke {
 
     // Mark a task as not done
     private static void unmarkTaskAsDone(int index) {
-        if (index >= 0 && index < taskCount) {
-            tasks[index].setDone(false);
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).setDone(false);
             System.out.println("____________________________________________________________");
             System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println("   " + tasks[index]);
+            System.out.println("   " + tasks.get(index));
             System.out.println("____________________________________________________________");
         } else {
             System.out.println("____________________________________________________________");
