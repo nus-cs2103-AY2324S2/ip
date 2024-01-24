@@ -78,6 +78,11 @@ public class Duke {
                             }
                         }
                     }
+                } else if (s.equalsIgnoreCase("delete")) {
+                    int num = Integer.parseInt(in.next()) - 1;
+                    Task task = taskList.get(num);
+                    taskList.remove(num);
+                    printingString("Noted. I've removed this task: \n" + task + "\nNow you have " + taskList.size() + " tasks in the list.\n");
                 } else {
                     throw new DukeException("Please do enter a new proper command.\n");
                 }
