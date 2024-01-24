@@ -1,8 +1,8 @@
-public class Task {
+abstract class Task {
 
-    private Boolean done;
-    private final String name;
-    private Type type;
+    protected Boolean done;
+    protected final String name;
+    protected Type type;
     enum Type {
         T,D,E;
 
