@@ -11,7 +11,15 @@ public class Duke {
     /**
      * The Chatbot uses a Task array to keep track of ongoing tasks
      */
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
+
+    /**
+     * Constructor for a Duke instance (Different chatbot instances for different users)
+     */
+    public Duke(){
+        tasks = new ArrayList<>();
+    }
+
 
     /**
      * Activates once Chatbot is booted up
@@ -23,9 +31,9 @@ public class Duke {
                 "Todo: todo + task ;\n" +
                 "Event: event + task + /from... + /to... ;\n" +
                 "Deadline: deadline + task + /by...;\n" +
-                "View the task list with List/list, or close the chat with Bye/bye!---\n" +
+                "View the task list with List/list, or close the chat with Bye/bye!\n" +
                 "Mark/Unmark a task in the list with mark (number) or unmark (number)\n" +
-                "Delete a task in the list with delete (number)\n";
+                "Delete a task in the list with delete (number)---\n";
     }
 
     /**
@@ -54,7 +62,7 @@ public class Duke {
     }
 
     /**
-     * Marks/Unmarks a Task in the Task array as requested by the user
+     * Marks/Unmarks a Task in the Task Arraylist as requested by the user
      * @param echo string to be assessed and operated on
      */
     private void markMechanism(String echo) throws DukeException{
@@ -76,7 +84,7 @@ public class Duke {
     }
 
     /**
-     * Creates a Task in the Task array as requested by the user
+     * Creates a Task in the Task Arraylist as requested by the user
      * @param echo string to be assessed and operated on
      */
     private void taskMechanism(String echo) throws DukeException {
@@ -133,6 +141,10 @@ public class Duke {
 
     }
 
+    /**
+     * Delete a Task in the Task Arraylist as requested by the user
+     * @param echo string to be assessed and operated on
+     */
     private void deleteMechanism(String echo) {
         String echo1[] = echo.split("delete ", 2);
         int numberToRemove = Integer.parseInt(echo1[1]);

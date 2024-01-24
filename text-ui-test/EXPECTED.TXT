@@ -5,9 +5,9 @@ What can I do for you today?
 Todo: todo + task ;
 Event: event + task + /from... + /to... ;
 Deadline: deadline + task + /by...;
-View the task list with List/list, or close the chat with Bye/bye!---
+View the task list with List/list, or close the chat with Bye/bye!
 Mark/Unmark a task in the list with mark (number) or unmark (number)
-Delete a task in the list with delete (number)
+Delete a task in the list with delete (number)---
 
 Add tasks to list first! Type something other than List/list or Bye/bye.
 
@@ -49,8 +49,11 @@ Very well. This task is now completed.
 
 This task is already completed.
 
+Very well. This task is now marked as not completed.
+[D][ ] read book  (by: Sunday)
+
 Very well. I have removed this task.
-[D][X] read book  (by: Sunday)
+[D][ ] read book  (by: Sunday)
 Now you have 2 task(s) in the list.
 
 There are only: 2 task(s) in the list to delete.
