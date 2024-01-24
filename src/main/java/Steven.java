@@ -51,7 +51,7 @@ public class Steven {
                     break;
                 case "todo":
                     try {
-                        String name = command.split(" ")[1];
+                        String name = command.split(" ", 2)[1];
                         if (name.isEmpty()) {
                             throw new EmptyFieldException();
                         }
@@ -67,7 +67,7 @@ public class Steven {
                 case "deadline":
                     try {
                         String due = command.split("/by ")[1];
-                        String name = command.split(" ")[1].split("/by")[0];
+                        String name = command.split(" ", 2)[1].split("/by")[0];
                         if (name.isEmpty() || due.isEmpty()) {
                             throw new EmptyFieldException();
                         }
@@ -84,7 +84,7 @@ public class Steven {
                     try {
                         String start = command.split("/from ")[1].split("/to ")[0];
                         String end = command.split("/to ")[1];
-                        String name = command.split(" ")[1].split("/by")[0];
+                        String name = command.split(" ", 2)[1].split("/from")[0];
                         if (name.isEmpty() || start.isEmpty() || end.isEmpty()) {
                             throw new EmptyFieldException();
                         }
