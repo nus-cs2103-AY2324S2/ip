@@ -94,6 +94,12 @@ public class Duke {
       printOutput("Please specify which task. (format: mark/unmark <task no.>)");
       return;
     }
+
+    if (!isInteger(input[1])) {
+      printOutput("Task number not found! (format: mark/unmark <task no.>)");
+      return;
+    }
+
     int index = Integer.parseInt(input[1]) - 1;
 
     // check if index is within bounds
@@ -131,10 +137,10 @@ public class Duke {
     }
 
     ToDo todoTask = new ToDo(input[1]);
+    tasks.add(todoTask);
     printOutput("Got it. I've added this task:", indentation +
         todoTask.toString(),
-        "Now you have " + (tasks.size() + 1) + " tasks in the list.");
-    tasks.add(todoTask);
+        "Now you have " + tasks.size() + 1 + " tasks in the list.");
   }
 
   public static void insertDeadline(String[] input, ArrayList<Task> tasks) {
@@ -156,9 +162,9 @@ public class Duke {
 
     String[] deadlineDetails = input[1].split("/by");
     Deadline deadlineTask = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
-    printOutput("Got it. I've added this task:", indentation + deadlineTask.toString(),
-        "Now you have " + (tasks.size() + 1) + " tasks in the list.");
     tasks.add(deadlineTask);
+    printOutput("Got it. I've added this task:", indentation + deadlineTask.toString(),
+        "Now you have " + tasks.size() + " tasks in the list.");
   }
 
   public static void insertEvent(String[] input, ArrayList<Task> tasks) {
@@ -182,9 +188,9 @@ public class Duke {
 
     String[] eventDetails = input[1].split("/from|/to");
     Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2]);
-    printOutput("Got it. I've added this task:", indentation + eventTask.toString(),
-        "Now you have " + (tasks.size() + 1) + " tasks in the list.");
     tasks.add(eventTask);
+    printOutput("Got it. I've added this task:", indentation + eventTask.toString(),
+        "Now you have " + tasks.size() + " tasks in the list.");
   }
 
   public static void deleteTask(ArrayList<Task> tasks, String[] input) {
@@ -195,6 +201,7 @@ public class Duke {
 
     if (!isInteger(input[1])) {
       printOutput("Task number not found! (format: delete <task no.>)");
+      return;
     }
 
     tasks.remove(Integer.parseInt(input[1]) - 1);
