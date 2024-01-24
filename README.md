@@ -16,7 +16,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 3. After that, locate the `src/main/java/Capone.java` file, right-click it, and choose `Run Capone.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
-   ░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░"
-   ░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░"
-   ░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░"
+   ░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░
+   ░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░
+   ░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░
    ```
