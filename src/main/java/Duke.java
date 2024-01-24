@@ -11,7 +11,7 @@ public class Duke {
     private static final String LINE = "\t____________________________________________________________";
 
     private Scanner sc = new Scanner(System.in);
-    private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<Task> list = new ArrayList<>();
 
 
     private void sayGreetings() {
@@ -32,7 +32,7 @@ public class Duke {
     }
 
     private void add(String input) {
-        this.list.add(input);
+        this.list.add(new Task(input));
         System.out.println("\tadded: " + input);
         System.out.println(LINE);
     }
@@ -55,6 +55,14 @@ public class Duke {
                 break;
             } else if (input.equals("list")) {
                 duke.list();
+                continue;
+            } else if (input.startsWith("mark")){
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                duke.list.get(index).markAsDone();
+                continue;
+            } else if (input.startsWith("unmark")){
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                duke.list.get(index).markNotDone();
                 continue;
             }
             duke.add(input);
