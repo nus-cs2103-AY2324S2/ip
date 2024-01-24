@@ -66,6 +66,25 @@ public class Riz {
                         System.out.println(result);
                     }
                     System.out.println(dotted);
+                } else if (token[0].equals("delete")) {
+                    boolean isNumber = true;
+                    if (token.length != 2) {
+                        throw new RizException("Oh you sure you wanna delete the task?...");
+                    }
+                    for (char c : token[1].toCharArray()) {
+                        if (!Character.isDigit(c)) {
+                            isNumber = false;
+                        }
+                    }
+                    if (!isNumber) {
+                        throw new RizException("Oh you sure you wanna delete the task?...");
+                    }
+                    int curr = Integer.parseInt(token[1]) - 1;
+                    Task task = tasks.get(curr);
+                    tasks.remove(curr);
+                    System.out.println("Boo... planning to slack off?");
+                    System.out.println("Removed: " + task + "...");
+                    System.out.println(dotted);
                 } else {
                     if (token[0].equals("todo")) {
                         if (token.length != 2) {
@@ -80,7 +99,7 @@ public class Riz {
                             throw new RizException("seems like the deadline isn't so soon after all...");
                         }
                         String[] details = token[1].split(" /by ");
-                        if (details.length != 2) {
+                        if (details.length < 2) {
                             throw new RizException("seems like the deadline isn't so soon after all...");
                         } else {
                             Task task = new Deadline(details[0], details[1]);
