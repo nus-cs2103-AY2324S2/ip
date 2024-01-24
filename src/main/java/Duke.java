@@ -89,7 +89,7 @@ public class Duke {
         while (true) {
             String userInput = scanner.nextLine();
 
-            System.out.println("____________________________________________________________");
+            System.out.println("____________________________________________________________\n");
 
             try {
                 if (userInput.equalsIgnoreCase("bye")) {
