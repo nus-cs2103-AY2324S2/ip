@@ -41,7 +41,7 @@ public class TaskManager {
             this.userTasks.get(index).markCompleted();
             return true;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No task with index " + (index + 1) + ". Enter list to view tasks.");
+            System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
             return false;
         }
     }
@@ -51,7 +51,7 @@ public class TaskManager {
             this.userTasks.get(index).markIncomplete();
             return true;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No task with index " + (index + 1) + ". Enter list to view tasks.");
+            System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
             return false;
         }
     }

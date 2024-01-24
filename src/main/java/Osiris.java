@@ -20,8 +20,8 @@ public class Osiris {
         while (!terminateChat){
 
             String userInput = scanner.nextLine();
-
             String[] inputtedWords = userInput.split(" ");
+            String taskName;
 
             switch (inputtedWords[0]) {
                 case "bye":
@@ -31,7 +31,7 @@ public class Osiris {
                     this.printUserTasks();
                     break;
                 case "mark":
-                    if (inputtedWords.length >= 2) {
+                    if (inputtedWords.length == 2) {
                         String taskIndexString = inputtedWords[1];
                         if (taskIndexString.matches("\\d+")) {
                             int taskIndex = Integer.parseInt(taskIndexString);
@@ -40,11 +40,11 @@ public class Osiris {
                             System.out.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
                         }
                     } else {
-                        System.out.println("Unprovided task Index. Please Reenter");
+                        System.out.println("Invalid task index. Please Reenter");
                     }
                     break;
                 case "unmark":
-                    if (inputtedWords.length >= 2) {
+                    if (inputtedWords.length == 2) {
                         String taskIndexString = inputtedWords[1];
                         if (taskIndexString.matches("\\d+")) {
                             int taskIndex = Integer.parseInt(taskIndexString);
@@ -53,40 +53,53 @@ public class Osiris {
                             System.out.println("Invalid task index: " + taskIndexString + ". Please enter a valid integer.");
                         }
                     } else {
-                        System.out.println("Unprovided task Index. Please Reenter");
+                        System.out.println("Invalid task index. Please Reenter");
                     }
                     break;
                 case "todo":
-                    this.addToDoTask(userInput.substring("todo".length()));
+                    taskName = userInput.substring("todo".length()).trim();
+
+                    if (!taskName.isEmpty()) {
+                        this.addToDoTask(taskName);
+                    } else {
+                        System.out.println("Task name not provided. Please Reenter.");
+                    }
                     break;
                 case "deadline":
                     int byIndex = userInput.indexOf("/by");
 
                     if (byIndex != -1) {
-                        String taskName = userInput.substring("deadline".length(), byIndex - 1);
-                        String deadline = userInput.substring(byIndex + "/by".length()).trim();
+                        taskName = userInput.substring("deadline".length(), byIndex - 1).trim();
 
-                        this.addDeadlineTask(taskName, deadline);
+                        if (!taskName.isEmpty()) {
+                            String deadline = userInput.substring(byIndex + "/by".length()).trim();
+                            this.addDeadlineTask(taskName, deadline);
+                        } else {
+                            System.out.println("Task name not provided. Please Reenter.");
+                        }
                     } else {
-                        System.out.println("Invalid input format.");
+                        System.out.println("Invalid input format. Please Reenter. Ensure '/by' is specified for a Deadline Task. E.g. deadline Do Homework /by Sunday.");
                     }
                     break;
                 case "event":
                     int fromIndex = userInput.indexOf("/from");
                     int toIndex = userInput.indexOf("/to");
 
-                    if (fromIndex != -1 && toIndex != -1) {
-                        String taskName = userInput.substring("event".length(), fromIndex - 1);
-                        String startDateTime = userInput.substring(fromIndex + "/from".length(), toIndex - 1).trim();
-                        String endDateTime = userInput.substring(toIndex + "/to".length()).trim();
-
-                        this.addEventTask(taskName, startDateTime, endDateTime);
+                    if (fromIndex != -1 && toIndex != -1 && fromIndex < toIndex) {
+                        taskName = userInput.substring("event".length(), fromIndex - 1).trim();
+                        if (!taskName.isEmpty()) {
+                            String startDateTime = userInput.substring(fromIndex + "/from".length(), toIndex - 1).trim();
+                            String endDateTime = userInput.substring(toIndex + "/to".length()).trim();
+                            this.addEventTask(taskName, startDateTime, endDateTime);
+                        } else {
+                            System.out.println("Task name not provided. Please Reenter.");
+                        }
                     } else {
-                        System.out.println("Invalid input format.");
+                        System.out.println("Invalid input format. Please Reenter. Ensure '/from' & '/to' is specified for a Event Task. E.g. event School Meeting /from Mon 2pm /to 4pm. Please Reenter." );
                     }
                     break;
                 default:
-                    System.out.println("Unable to comprehend instructions. Please Reenter. ");
+                    System.out.println("Sorry, but I am unable to comprehend the instruction at my current development stage. Please enter something else.");
                     break;
             }
 
