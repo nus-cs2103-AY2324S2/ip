@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -5,7 +6,7 @@ import java.util.Scanner;
  */
 public class Duke {
     private Scanner sc = new Scanner(System.in);
-    private Task[] list;
+    private ArrayList<Task> list;
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.startChat();
@@ -15,7 +16,7 @@ public class Duke {
      * Constructs a task list of size.
      */
     private Duke() {
-        this.list = new Task[100];
+        this.list = new ArrayList<>();
     }
 
     /**
@@ -93,7 +94,7 @@ public class Duke {
         }
         int taskNumber = Integer.parseInt(taskNumString);
 
-        if (taskNumber < 1 || taskNumber > list.length || list[taskNumber - 1] == null) {
+        if (taskNumber < 1 || taskNumber > list.size() || list.get(taskNumber - 1) == null) {
             throw new DukeException("\nError! Task number '" + taskNumber + "' does not exist.\n");
         }
 
@@ -178,8 +179,8 @@ public class Duke {
      * @param num The task number to mark as done.
      */
     private void markAsDone(int num) {
-        list[num - 1].markAsDone();
-        System.out.println("\nNice! I've marked this task as done:\n" + list[num - 1] + "\n");
+        list.get(num - 1).markAsDone();
+        System.out.println("\nNice! I've marked this task as done:\n" + list.get(num - 1) + "\n");
     }
 
     /**
@@ -188,8 +189,8 @@ public class Duke {
      * @param num The task number to mark as not done.
      */
     private void unMarkAsDone(int num) {
-        list[num - 1].unMarkAsDone();
-        System.out.println("\nOK, I've marked this task as not done yet:\n\t" + list[num - 1] + "\n");
+        list.get(num - 1).unMarkAsDone();
+        System.out.println("\nOK, I've marked this task as not done yet:\n\t" + list.get(num - 1) + "\n");
     }
 
     /**
@@ -198,9 +199,9 @@ public class Duke {
      */
     private void displayList() {
         System.out.println();
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] != null) {
-                System.out.printf("%d. %s\n", i + 1, list[i]);
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) != null) {
+                System.out.printf("%d. %s\n", i + 1, list.get(i));
             }
         }
         System.out.println();
@@ -213,13 +214,8 @@ public class Duke {
      */
     private void appendToDo(String input) {
         Todo todo = new Todo(input);
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] == null) {
-                list[i] = todo;
-                taskResponse(todo);
-                return;
-            }
-        }
+        list.add(todo);
+        taskResponse(todo);
     }
 
     /**
@@ -230,13 +226,8 @@ public class Duke {
      */
     private void appendDeadline(String description, String by) {
         Deadline deadline = new Deadline(description, by);
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] == null) {
-                list[i] = deadline;
-                taskResponse(deadline);
-                return;
-            }
-        }
+        list.add(deadline);
+        taskResponse(deadline);
     }
 
     /**
@@ -248,34 +239,16 @@ public class Duke {
      */
     private void appendEvent(String description, String startTime, String endTime) {
         Event event = new Event(description, startTime, endTime);
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] == null) {
-                list[i] = event;
-                taskResponse(event);
-                return;
-            }
-        }
+        list.add(event);
+        taskResponse(event);
     }
-    /**
-     * Counts number of non-null tasks in the array, which are tasks given by the user
-     * @param array the array of tasks
-     * @return the number of non-null tasks in the given array.
-     */
-    private int countNonNullElements(Task[] array) {
-        int count = 0;
-        for (Task element : array) {
-            if (element != null) {
-                count++;
-            }
-        }
-        return count;
-    }
+
     /**
      * Prints out the response, specific to the type of task, after adding the task to the list
      * @param task the task that is added to the list.
      */
     private void taskResponse(Task task) {
-        int numTasks = countNonNullElements(list);
+        int numTasks = list.size();
         System.out.println();
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
@@ -286,7 +259,6 @@ public class Duke {
             System.out.println("Now you have " + numTasks + " tasks in the list.");
         }
         System.out.println();
-
     }
 
     /**
@@ -298,13 +270,8 @@ public class Duke {
      */
     private void deleteTask(int oneItem) throws DukeException {
         int zeroItem = oneItem - 1;
-
-        if (zeroItem >= 0 && zeroItem < list.length && list[zeroItem] != null) {
-            Task deletedTask = list[zeroItem];
-            for (int i = zeroItem; i < list.length - 1; i++) {
-                list[i] = list[i + 1];
-            }
-            list[list.length - 1] = null;
+        if (zeroItem >= 0 && zeroItem < list.size() && list.get(zeroItem) != null) {
+            Task deletedTask = list.remove(zeroItem);
             deleteResponse(deletedTask);
         } else {
             throw new DukeException("\nError! Task number '" + oneItem + "' does not exist.\n");
@@ -317,7 +284,7 @@ public class Duke {
      * @param task The task that has been deleted.
      */
     private void deleteResponse(Task task) {
-        int numTasks = countNonNullElements(list);
+        int numTasks = list.size();
         System.out.println();
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
@@ -328,6 +295,5 @@ public class Duke {
             System.out.println("Now you have " + numTasks + " tasks in the list.");
         }
         System.out.println();
-
     }
 }
