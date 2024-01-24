@@ -20,15 +20,21 @@ public class Duke {
                 Integer index = Integer.parseInt(inputs[1]);
                 Task task = taskList[index - 1];
                 task.markDone();
-
             } else if (message.startsWith("unmark ")) {
                 String[] inputs = message.split(" ");
                 Integer index = Integer.parseInt(inputs[1]);
                 Task task = taskList[index - 1];
                 task.unmarkDone();
+            } else if (message.startsWith("todo ")) {
+
+            } else if (message.startsWith("deadline ")) {
+
+            } else if (message.startsWith("event ")) {
+
             } else {
-                Duke.echo(message);
-                taskList[listSize] = new Task(message);
+                Task task = new Task(message);
+                taskList[listSize] = task;
+                Duke.echo(task.toString());
                 listSize++;
             }
         }
@@ -52,7 +58,7 @@ public class Duke {
     }
 
     public static void echo(String message) {
-        System.out.println("added: " + message);
+        System.out.println("Added task: \n" + message);
     }
 
     public static void listYaps(Task[] taskList, int listSize) {
