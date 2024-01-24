@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class Duke {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Jojo :)");
@@ -10,8 +9,8 @@ public class Duke {
         int i = 0;
         while (!userTxt.equals("bye")) {
             if (userTxt.equals("list")) {
-                for (int j = 0; j < 100; j++) {
-                    if (listArr[j] == null) {
+                for (int j = 0; j < 100; j++) { // printing out all items in the list
+                    if (listArr[j] == null) { // for early termination
                         break;
                     } else {
                         System.out.println(j + 1 + ". " + listArr[j]);
@@ -19,7 +18,7 @@ public class Duke {
                 }
             } else {
                 System.out.println("added: " + userTxt);
-                listArr[i] = userTxt;
+                listArr[i] = userTxt; // add item to list 
                 i++;
             }
             userTxt = sc.nextLine();
