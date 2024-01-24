@@ -19,10 +19,10 @@ public class Duke {
             String[] words = input.split("\\s+");
             String command = words[0];
 
-            if (input.equals("bye")) {
+            if (command.equals("bye")) {
                 break;
 
-            } else if (input.equals("list")) {
+            } else if (command.equals("list")) {
                 int num = 1;
                 Iterator<Task> it = list.iterator();
                 System.out.println("Here are the tasks in the list:");
@@ -39,10 +39,37 @@ public class Duke {
                 int index = Integer.parseInt(words[1]);
                 list.get(index-1).markAsUndone();
 
-            } else {
-                list.add(new Task(input));
-                System.out.println("added: " + input);
+            } else if (command.equals("todo")) {
+                String description = input.trim().substring("todo".length()).trim();
+                list.add(new ToDo(description));
+                String task = list.get(list.size() - 1).toString();
+                String numberOfTasks = "Now you have "
+                        + String.valueOf(list.size())
+                        + " task(s) left";
+                System.out.println("Ok. I added this task:\n" + task + "\n" + numberOfTasks);
 
+            } else if (command.equals("deadline")) {
+                String[] parts = input.split("/by");
+                String description = parts[0].trim().substring("deadline".length()).trim();
+                String deadline = parts[1];
+                list.add(new Deadline(description, deadline));
+                String task = list.get(list.size() - 1).toString();
+                String numberOfTasks = "Now you have "
+                        + String.valueOf(list.size())
+                        + " task(s) left";
+                System.out.println("Ok. I added this task:\n" + task + "\n" + numberOfTasks);
+
+            } else if (command.equals("event")) {
+                String[] parts = input.split("/from| /to");
+                String description = parts[0].trim().substring("event".length()).trim();
+                String start = parts[1];
+                String end = parts[2];
+                list.add(new Event(description, start, end));
+                String task = list.get(list.size() - 1).toString();
+                String numberOfTasks = "Now you have "
+                        + String.valueOf(list.size())
+                        + " task(s) left";
+                System.out.println("Ok. I added this task:\n" + task + "\n" + numberOfTasks);
             }
         }
         s.close();
