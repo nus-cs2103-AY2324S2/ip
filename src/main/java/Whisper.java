@@ -16,18 +16,26 @@ public class Whisper {
     // method for chats
     public static void startChat() {
         Scanner sc = new Scanner(System.in);
+        TaskList taskList = new TaskList();
 
         while (true) {
             // read user input
             System.out.println("Enter your input: ");
-            String input = sc.nextLine();
+            String input = sc.next();
 
             // break if user exists the bot
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println(byeMsg);
                 break;
+                // show user's list
+            } else if (input.equalsIgnoreCase("list")) {
+                System.out.println(line + "Your Task List: ");
+                taskList.getTasks();
+                System.out.println(line);
+                // store user list and display them back
             } else {
-                System.out.println(line + input + "\n" + line);
+                taskList.addTask(input);
+                //System.out.println(line + "Task added: " + input + "\n" + line);
             }
         }
         sc.close();
