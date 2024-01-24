@@ -11,14 +11,17 @@ public class TaskList {
         return tasks.isEmpty();
     }
 
-    public void addElements(String str) {
-        Task task = new Task(str);
+    public int taskCount() {
+        return tasks.size();
+    }
+
+    public void addElements(Task task) {
         tasks.add(task);
     }
 
     public void printElements() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 
