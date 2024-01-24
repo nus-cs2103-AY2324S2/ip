@@ -40,6 +40,17 @@ public class TaskList {
         replyToUser.displayMessage();
     }
 
+    public void deleteTask(int i) throws TheCountException {
+        if (i < 1 || i > tasks.size()) {
+            // Throw an exception if the task number is out of bounds
+            throw new TheCountException("Invalid task number. I can't delete that!");
+        }
+        Task currTask = this.tasks.get(i - 1);
+        this.tasks.remove(i - 1);
+        Reply replyToUser = new RemoveFromListReply(currTask.toString(), this.tasks.size());
+        replyToUser.displayMessage();
+    }
+
     public int length() {
         return this.tasks.size();
     }

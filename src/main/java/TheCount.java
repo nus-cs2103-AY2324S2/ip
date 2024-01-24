@@ -39,8 +39,11 @@ public class TheCount {
                     try {
                         taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
                         tasks.markTask(taskNumber);
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        Reply errorMsg = new Reply("Please put a number. I can't count that!");
+                        errorMsg.displayMessage();
                     } catch (TheCountException e) {
-                        Reply errorMsg = new Reply("Invalid task number. I can't count that!");
+                        Reply errorMsg = new Reply(e.getMessage());
                         errorMsg.displayMessage();
                     }
                     break;
@@ -48,8 +51,11 @@ public class TheCount {
                     try {
                         taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
                         tasks.unmarkTask(taskNumber);
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        Reply errorMsg = new Reply("Please put a number. I can't count that!");
+                        errorMsg.displayMessage();
                     } catch (TheCountException e) {
-                        Reply errorMsg = new Reply("Invalid task number. I can't count that!");
+                        Reply errorMsg = new Reply(e.getMessage());
                         errorMsg.displayMessage();
                     }
                     break;
@@ -129,6 +135,18 @@ public class TheCount {
                     } catch (TheCountException e) {
                         Reply errorMsg = new Reply(e.getMessage() +
                                 "\n      Example: event meeting /from 2pm /to 4pm");
+                        errorMsg.displayMessage();
+                    }
+                    break;
+                case "DELETE":
+                    try {
+                        taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
+                        tasks.deleteTask(taskNumber);
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        Reply errorMsg = new Reply("Please put a number. I can't count that!");
+                        errorMsg.displayMessage();
+                    } catch (TheCountException e) {
+                        Reply errorMsg = new Reply(e.getMessage());
                         errorMsg.displayMessage();
                     }
                     break;
