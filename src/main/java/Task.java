@@ -26,4 +26,8 @@ public class Task {
     public String toString() {
         return "[" + getStatus() + "] " + this.name;
     }
+
+    public String fileString() {
+        return "| " + (this.isDone ? "1": "0") + " | " + this.name;
+    }
 }
