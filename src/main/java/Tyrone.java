@@ -23,7 +23,8 @@ public class Tyrone {
         DEADLINE,
         EVENT,
         MARK,
-        UNMARK
+        UNMARK,
+        DELETE
     }
 
     private static final HashMap<String, Command> cmdMap = new HashMap<>();
@@ -65,6 +66,9 @@ public class Tyrone {
                     case UNMARK:
                         handleUnmarkCommand(input);
                         break;
+                    case DELETE:
+                        handleDeleteCommand(input);
+                        break;
                     default:
                         throw new TyroneCmdException("Command entered doesn't exist.");
                 }
@@ -82,6 +86,7 @@ public class Tyrone {
         cmdMap.put("event", Command.EVENT);
         cmdMap.put("mark", Command.MARK);
         cmdMap.put("unmark", Command.UNMARK);
+        cmdMap.put("delete", Command.DELETE);
 
         writer.println(logo + greetMsg);
     }
@@ -104,7 +109,8 @@ public class Tyrone {
         // extract input param
         ToDo newItem = new ToDo(input.substring(5));
         taskList.addItem(newItem);
-        writer.println(Tyrone.formatStringOutput("Got it added homie:\n" + "\t\t" + newItem + "\n\tNow you have " + taskList.getListSize() + " in the list."));
+        writer.println(Tyrone.formatStringOutput("Got it added homie:\n" + "\t\t" + newItem +
+                "\n\tNow you have " + taskList.getListSize() + " in the list."));
     }
 
     public static void handleDeadlineCommand(String input) throws TyroneCmdException {
@@ -179,7 +185,7 @@ public class Tyrone {
                         "\t\tDouble-check that your 0 <= id < task list size.");
             taskList.markItemDone(index);
             writer.println(Tyrone.formatStringOutput("Dope! Check it, I've tagged this task as handled:\n" +
-                    "\t\t" + taskList.getItemToString(index)));
+                    "\t\t" + taskList.getItem(index)));
         } catch (NumberFormatException e) {
             throw new TyroneCmdException("Your mark parameter id is acting up.\n" +
                     "\t\tIt's gotta be a legit number matchin' up with the right task.");
@@ -201,9 +207,32 @@ public class Tyrone {
             taskList.unmarkItemDone(index);
             writer.println(Tyrone.formatStringOutput(
                     "A'ight, I've stamped this task as still in the works:\n" +
-                            "\t\t" + taskList.getItemToString(index)));
+                            "\t\t" + taskList.getItem(index)));
         } catch (NumberFormatException e) {
             throw new TyroneCmdException("Your unmark parameter id is acting up.\n" +
+                    "\t\tIt's gotta be a legit number matchin' up with the right task.");
+        }
+    }
+
+    public static void handleDeleteCommand(String input) throws TyroneCmdException {
+        // validate general input
+        if (isEmptyParam(input)) {
+            throw new TyroneCmdException("Can't leave that delete id empty. Gotta drop some number in there!");
+        }
+
+        try {
+            String param = input.substring(6).trim();
+            int index = Integer.parseInt(param) - 1;
+            if (taskList.getListSize() == 0 || index < 0 || index >= taskList.getListSize())
+                throw new TyroneCmdException("It looks like you're trying to delete with an invalid id.\n" +
+                        "\t\tDouble-check that your 0 <= id < task list size.");
+            Task delItem = taskList.deleteItem(index);
+            writer.println(Tyrone.formatStringOutput(
+                    "Boom! Task officially evicted from the list. Consider it gone:\n" +
+                            "\t\t" + delItem +
+                            "\n\tNow you have " + taskList.getListSize() + " in the list."));
+        } catch (NumberFormatException e) {
+            throw new TyroneCmdException("Your delete parameter id is acting up.\n" +
                     "\t\tIt's gotta be a legit number matchin' up with the right task.");
         }
     }

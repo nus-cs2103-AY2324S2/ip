@@ -10,8 +10,8 @@ public class TaskList {
         return this.items.size();
     }
 
-    public String getItemToString(int index) {
-        return this.items.get(index).toString();
+    public Task getItem(int index) {
+        return this.items.get(index);
     }
 
     public void addItem(Task item) {
@@ -29,6 +29,11 @@ public class TaskList {
         if (index < 0 || index >= this.getListSize()) return;
         Task currItem = this.items.get(index);
         currItem.unmarkItem();
+    }
+
+    public Task deleteItem(int index) {
+        if (index < 0 || index >= this.getListSize()) return null;
+        return this.items.remove(index);
     }
 
     @Override
