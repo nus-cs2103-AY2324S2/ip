@@ -7,50 +7,55 @@
 	Now you have 1 task in the list
 	_________________________________________________
 	Got it. I've added this task:
-	[D][ ] return book (by: Monday)
+	[D][ ] return book (by: May 13 2020 12:00 AM)
 	Now you have 2 tasks in the list
 	_________________________________________________
 	Here are the tasks in your list:
 	1.[T][ ] borrow book
-	2.[D][ ] return book (by: Monday)
+	2.[D][ ] return book (by: May 13 2020 12:00 AM)
 	_________________________________________________
 	Got it. I've added this task:
-	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
 	Now you have 3 tasks in the list
 	_________________________________________________
 	Here are the tasks in your list:
 	1.[T][ ] borrow book
-	2.[D][ ] return book (by: Monday)
-	3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	2.[D][ ] return book (by: May 13 2020 12:00 AM)
+	3.[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
 	_________________________________________________
 	Nice! I've marked this task as done:
 	_________________________________________________
 	Here are the tasks in your list:
 	1.[T][ ] borrow book
-	2.[D][X] return book (by: Monday)
-	3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	2.[D][X] return book (by: May 13 2020 12:00 AM)
+	3.[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
 	_________________________________________________
 	Nice! I've marked this task as done:
 	_________________________________________________
 	Here are the tasks in your list:
 	1.[T][X] borrow book
-	2.[D][X] return book (by: Monday)
-	3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	2.[D][X] return book (by: May 13 2020 12:00 AM)
+	3.[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
 	_________________________________________________
 	OK, I've marked this task as not done yet:
 	_________________________________________________
 	Here are the tasks in your list:
 	1.[T][ ] borrow book
-	2.[D][X] return book (by: Monday)
-	3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	2.[D][X] return book (by: May 13 2020 12:00 AM)
+	3.[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
+	_________________________________________________
+	Got it. I've added this task:
+	[E][ ] lunch meeting (from: Jan 5 2023 12:00 PM to: Jan 5 2023 02:00 PM)
+	Now you have 4 tasks in the list
 	_________________________________________________
 	Noted. I've removed this task:
-		[D][X] return book (by: Monday)
-	Now you have 2 tasks in the list
+		[D][X] return book (by: May 13 2020 12:00 AM)
+	Now you have 3 tasks in the list
 	_________________________________________________
 	Here are the tasks in your list:
 	1.[T][ ] borrow book
-	2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	2.[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
+	3.[E][ ] lunch meeting (from: Jan 5 2023 12:00 PM to: Jan 5 2023 02:00 PM)
 	_________________________________________________
 	OOPS! Please enter a task name
 	_________________________________________________
@@ -65,13 +70,16 @@
 	Index out of range
 	_________________________________________________
 	Noted. I've removed this task:
-		[E][ ] project meeting (from: Mon 2pm to: 4pm)
-	Now you have 1 task in the list
+		[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
+	Now you have 2 tasks in the list
+	_________________________________________________
+	Invalid Date and time format
 	_________________________________________________
 	OK, I've marked this task as not done yet:
 	_________________________________________________
 	Here are the tasks in your list:
 	1.[T][ ] borrow book
+	2.[E][ ] lunch meeting (from: Jan 5 2023 12:00 PM to: Jan 5 2023 02:00 PM)
 	_________________________________________________
 	_________________________________________________
 	Bye. Hope to see you again soon!
