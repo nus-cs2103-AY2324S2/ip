@@ -21,18 +21,27 @@ public class Duke {
                 markTask(input);
             } else if (input.startsWith("unmark ")) {
                 unmarkTask(input);
+            } else if (input.startsWith("todo")) {
+                addTask(new ToDo(input.substring(5)));
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.substring(9).split(" /by ");
+                addTask(new Deadline(parts[0], parts[1]));
+            } else if (input.startsWith("event")) {
+                String[] parts = input.substring(6).split(" /from | /to ");
+                addTask(new Event(parts[0], parts[1], parts[2]));
             } else {
-                addTask(input);
+                System.out.println("Invalid task!\n");
             }
         }
 
         scanner.close();
     }
-    private static void addTask(String task) {
-        Task newTask = new Task(task);
-        tasks[taskCount] = newTask;
+    private static void addTask(Task task) {
+        tasks[taskCount] = task;
         taskCount++;
-        System.out.println("added: " + task + "\n");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.\n");
     }
 
     private static void listTasks() {
