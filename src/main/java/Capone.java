@@ -37,26 +37,31 @@ public class Capone {
         }
     }
 
-    public static void markTask(int ndx) {
-        // TODO: Add error checking for index out of bounds.
-
+    public static void markTask(int ndx) throws CaponeException {
         // Mark task as done.
-        Task markedTask = tasks.get(ndx-1);
-        markedTask.markTask();
+        try {
+            Task markedTask = tasks.get(ndx-1);
+            markedTask.markTask();
 
-        // Inform user that task has been marked.
-        System.out.println("Nice! I've marked this task as done:\n" + markedTask);
+            // Inform user that task has been marked.
+            System.out.println("Nice! I've marked this task as done:\n" + markedTask);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CaponeException("Sorry, you have entered an invalid index.\n" +
+                    "You can check the list of valid indices using the 'list' command.");
+        }
     }
 
-    public static void unmarkTask(int ndx) {
-        // TODO: Add error checking for index out of bounds.
+    public static void unmarkTask(int ndx) throws CaponeException{
+        try {
+            Task unmarkedTask = tasks.get(ndx-1);
+            unmarkedTask.unmarkTask();
 
-        // Mark task as done.
-        Task unmarkedTask = tasks.get(ndx-1);
-        unmarkedTask.unmarkTask();
-
-        // Inform user that task has been marked.
-        System.out.println("OK, I've marked this task as not done yet:\n" + unmarkedTask);
+            // Inform user that task has been marked.
+            System.out.println("OK, I've marked this task as not done yet:\n" + unmarkedTask);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CaponeException("Sorry, you have entered an invalid index.\n" +
+                    "You can check the list of valid indices using the 'list' command.");
+        }
     }
 
     public static void processTodo(ArrayList<String> inputList) throws CaponeException {
@@ -83,9 +88,20 @@ public class Capone {
                 "Now you have %d task(s) in the list.\n", newTodo.toString(), tasks.size());
     }
 
-    public static void processDeadline(ArrayList<String> inputList) {
-        // TODO: Error checking if date is empty?
+    public static void processDeadline(ArrayList<String> inputList) throws CaponeException {
+        // If the inputList has only one string, throw error (insufficient args).
+        if (inputList.size() == 1) {
+            throw new CaponeException("Insufficient arguments!\n" +
+                    "Usage: deadline [description] /by [date]");
+        }
+
         int byNdx = inputList.indexOf("/by");
+
+        // Catch potential erros from date entry.
+        if (byNdx == inputList.size() - 1 || byNdx == -1) {
+            throw new CaponeException("Please enter a date for this deadline task!\n" +
+                    "Usage: deadline [description] /by [date]");
+        }
 
         // Combine the remaining words into a single string
         StringBuilder description = new StringBuilder();
@@ -95,6 +111,11 @@ public class Capone {
                 break;
             }
             description.append(inputList.get(i)).append(" ");
+        }
+
+        if (description.toString().equalsIgnoreCase("")) {
+            throw new CaponeException("Insufficient arguments!\n" +
+                    "Usage: deadline [description] /by [date]");
         }
 
         StringBuilder byDate = new StringBuilder();
@@ -114,11 +135,27 @@ public class Capone {
                 "Now you have %d task(s) in the list.\n", newDeadline.toString(), tasks.size());
     }
 
-    public static void processEvent(ArrayList<String> inputList) {
+    public static void processEvent(ArrayList<String> inputList) throws CaponeException {
+        // If the inputList has only one string, throw error (insufficient args).
+        if (inputList.size() == 1) {
+            throw new CaponeException("Insufficient arguments!\n" +
+                    "Usage: event [description] /from [date] /to [date]");
+        }
+
         int fromNdx = inputList.indexOf("/from");
         int toNdx = inputList.indexOf("/to");
 
-        // TODO: Error checking for invalid from and to inputs
+        if (toNdx < fromNdx) {
+            throw new CaponeException("Please input from date followed by to date!\n" +
+                    "Usage: event [description] /from [date] /to [date]");
+        }
+
+        // Catch potential errors from date entry.
+        if (fromNdx == -1 || toNdx == -1 || toNdx - fromNdx == 1 || fromNdx - toNdx == 1 ||
+                fromNdx == inputList.size() - 1 || toNdx == inputList.size() - 1) {
+            throw new CaponeException("Please enter a start and end date!\n" +
+                    "Usage: event [description] /from [date] /to [date]");
+        }
 
         // Combine the task description into a single string.
         StringBuilder description = new StringBuilder();
@@ -128,6 +165,11 @@ public class Capone {
                 break;
             }
             description.append(inputList.get(i)).append(" ");
+        }
+
+        if (description.toString().equalsIgnoreCase("")) {
+            throw new CaponeException("Insufficient arguments!\n" +
+                    "Usage: event [description] /from [date] /to [date]");
         }
 
         StringBuilder fromDate = new StringBuilder();
@@ -185,17 +227,13 @@ public class Capone {
             // Split inputs by space and store them in an arraylist for processing.
             ArrayList<String> inputList = new ArrayList<>(Arrays.asList(input.split("\\s+")));
 
-            // TODO: Error checking for empty input?
             String firstWord = inputList.get(0);
-
             try {
                 if (firstWord.equalsIgnoreCase("list")) {
                     listTasks();
                 } else if (firstWord.equalsIgnoreCase("mark")) {
-                    // TODO: Error checking for insufficient args/out of bounds.
                     markTask(Integer.parseInt(inputList.get(1)));
                 } else if (firstWord.equalsIgnoreCase("unmark")) {
-                    // TODO: Error checking for insufficient args/out of bounds.
                     unmarkTask(Integer.parseInt(inputList.get(1)));
                 } else if (firstWord.equalsIgnoreCase("todo")) {
                     processTodo(inputList);
