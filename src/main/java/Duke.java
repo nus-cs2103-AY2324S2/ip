@@ -133,7 +133,7 @@ public class Duke {
   }
 
   private static void error(String msg) {
-    reply(String.format("ERROR: %s", msg));
+    reply(String.format("OOPS!! %s", msg));
   }
 
   private static void message_start() {
@@ -153,6 +153,7 @@ public class Duke {
     String input = ctx.scanner.nextLine();
     String[] commands = input.split(" ");
     String c = commands[0];
+    String error_str;
 
     message_start();
     switch (c) {
@@ -167,18 +168,35 @@ public class Duke {
         return true;
       case "mark":
       case "unmark":
-        boolean is_mark = c.equals("mark");
-        if (commands.length != 2) break;
-        String idx_s = commands[1];
-        if (!is_number(idx_s)) break;
-        int idx = Integer.parseInt(idx_s) - 1;
-        if (!ctx.check_taskidx(idx)) break;
-        ctx.stored_tasks.get(idx).set_done(is_mark);
-        reply(is_mark ? MARK_MESSAGE : UNMARK_MESSAGE);
-        reply(String.format("  %s", ctx.stored_tasks.get(idx)));
-        return true;
+        {
+          boolean is_mark = c.equals("mark");
+          String ferr1 = "%s command: expected an integer argument.";
+          String ferr2 = "%s command: no such task numbered %s.";
+          if (commands.length != 2) {
+            error_str = String.format(ferr1, c);
+            break;
+          }
+          String idx_s = commands[1];
+          if (!is_number(idx_s)) {
+            error_str = String.format(ferr1, c);
+            break;
+          }
+          int idx = Integer.parseInt(idx_s) - 1;
+          if (!ctx.check_taskidx(idx)) {
+            error_str = String.format(ferr2, c, idx_s);
+            break;
+          }
+          ctx.stored_tasks.get(idx).set_done(is_mark);
+          reply(is_mark ? MARK_MESSAGE : UNMARK_MESSAGE);
+          reply(String.format("  %s", ctx.stored_tasks.get(idx)));
+          return true;
+        }
       case "todo":
         {
+          if (commands.length < 2) {
+            error_str = "todo command: description cannot be empty.";
+            break;
+          }
           String task_str = cmd_join(range(commands, 1, commands.length));
           Task task = new Todo(task_str);
           ctx.stored_tasks.add(task);
@@ -190,10 +208,23 @@ public class Duke {
       case "deadline":
         {
           List<String> cmds = Arrays.asList(commands);
-          if (!cmds.contains(BY_CMD)) break;
+          String ferr1 = "deadline command: expected `%s` argument.";
+          String ferr2 = "deadline command: %s description cannot be empty.";
+          if (!cmds.contains(BY_CMD)) {
+            error_str = String.format(ferr1, BY_CMD);
+            break;
+          }
           int by_idx = cmds.indexOf(BY_CMD);
           String task_str = cmd_join(range(commands, 1, by_idx));
           String deadline = cmd_join(range(commands, by_idx + 1, cmds.size()));
+          if (task_str.length() == 0) {
+            error_str = String.format(ferr2, "task");
+            break;
+          }
+          if (deadline.length() == 0) {
+            error_str = String.format(ferr2, "deadline");
+            break;
+          }
           Task task = new Deadline(task_str, deadline);
           ctx.stored_tasks.add(task);
           reply(TODO_MESSAGE);
@@ -204,14 +235,39 @@ public class Duke {
       case "event":
         {
           List<String> cmds = Arrays.asList(commands);
-          if (!cmds.contains(FROM_CMD)) break;
-          if (!cmds.contains(TO_CMD)) break;
+          String ferr1 = "event command: expected `%s` argument.";
+          String ferr2 = "event command: %s description cannot be empty.";
+          String ferr3 =
+            "event command: `%s` argument expected before `%s` argument.";
+          if (!cmds.contains(FROM_CMD)) {
+            error_str = String.format(ferr1, FROM_CMD);
+            break;
+          }
+          if (!cmds.contains(TO_CMD)) {
+            error_str = String.format(ferr1, TO_CMD);
+            break;
+          }
           int from_idx = cmds.indexOf(FROM_CMD);
           int to_idx = cmds.indexOf(TO_CMD);
-          if (to_idx < from_idx) break;
+          if (to_idx < from_idx) {
+            error_str = String.format(ferr3, FROM_CMD, TO_CMD);
+            break;
+          }
           String task_str = cmd_join(range(commands, 1, from_idx));
           String from_str = cmd_join(range(commands, from_idx + 1, to_idx));
           String to_str = cmd_join(range(commands, to_idx + 1, cmds.size()));
+          if (task_str.length() == 0) {
+            error_str = String.format(ferr2, "task");
+            break;
+          }
+          if (from_str.length() == 0) {
+            error_str = String.format(ferr2, "from");
+            break;
+          }
+          if (to_str.length() == 0) {
+            error_str = String.format(ferr2, "to");
+            break;
+          }
           Task task = new Event(task_str, from_str, to_str);
           ctx.stored_tasks.add(task);
           reply(TODO_MESSAGE);
@@ -220,9 +276,10 @@ public class Duke {
           return true;
         }
       default:
+        error_str = String.format("Unhandled command: %s", c);
         break;
     }
-    error(String.format("Error processing command: %s", input));
+    error(error_str);
     return true;
   }
 
