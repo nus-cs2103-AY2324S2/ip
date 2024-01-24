@@ -5,16 +5,21 @@ event c /from y /to z
 list
 mark 1
 unmark 1
+delete 1
+list
 bye a
 list a
 mark a
 mark 4
 unmark a
 unmark 4
+delete a
+delete 4
 todo
 deadline
 deadline a
 event a
 event a /from b
 event a /to c
+blah
 bye

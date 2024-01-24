@@ -19,6 +19,35 @@
     [T][X] a
     Verily, I have marked this task as not yet done:
     [T][ ] a
-    Take heed, for thou shouldst reference the task thou wishest to alter by its index.
+    Indeed, this task hath been wiped from thy list:
+    [T][ ] a
+    Behold, the duties thou hast assigned:
+    1.[D][ ] b (by: x)
+    2.[E][ ] c (from: y to: z)
+    Thou canst bid me farewell simply with:
+    bye
+    Though canst view thy list simply with:
+    list
+    Take heed, for thou shouldst reference the task thou wishest to alter by its index:
+    mark [index]
     I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.
+    Take heed, for thou shouldst reference the task thou wishest to alter by its index:
+    unmark [index]
+    I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.
+    Take heed, for thou shouldst reference the task thou wishest to alter by its index:
+    delete [index]
+    I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.
+    Thou shouldst forge a todo task such as so:
+    todo [description]
+    Thou shouldst forge a deadline task such as so:
+    deadline [description] /by [time]
+    Thou shouldst forge a deadline task such as so:
+    deadline [description] /by [time]
+    Thou shouldst forge an event task such as so:
+    event [description] /from [start time] /to [end time]
+    Thou shouldst forge an event task such as so:
+    event [description] /from [start time] /to [end time]
+    Thou shouldst forge an event task such as so:
+    event [description] /from [start time] /to [end time]
+    I beg thine pardon, but I am clueless of the meaning of your utterance.
     Farewell, Your Excellency! May we cross paths once more in the near future.

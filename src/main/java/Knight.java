@@ -13,6 +13,7 @@ public class Knight {
         LIST,
         MARK,
         UNMARK,
+        DELETE,
         TODO,
         EVENT,
         DEADLINE;
@@ -22,23 +23,12 @@ public class Knight {
         System.out.println("    " + s);
     }
 
-    private static Task locateTask(String s) {
-        int index = Integer.parseInt(s);
-        Task task;
-        try {
-            task = tasks.get(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            speak("I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.");
-            throw new TaskNotFoundException();
-        }
-        return task;
-    }
-
     private static Command parseCommand(String s) {
         if (s.equals("bye")) return Command.BYE;
         else if (s.equals("list")) return Command.LIST;
         else if (s.matches("mark [1-9]\\d*")) return Command.MARK;
         else if (s.matches("unmark [1-9]\\d*")) return Command.UNMARK;
+        else if (s.matches("delete [1-9]\\d*")) return Command.DELETE;
         else if (s.matches("todo \\S.*")) return Command.TODO;
         else if (s.matches("deadline \\S.* /by \\S.*")) return Command.DEADLINE;
         else if (s.matches("event \\S.* /from \\S.* /to \\S.*")) return Command.EVENT;
@@ -60,10 +50,10 @@ public class Knight {
                 command = parseCommand(message);
             } catch (NonstandardCommandException e) {
                 if (message.startsWith("bye")) {
-                    speak("Thou canst bid me farewell simply with\n    bye");
+                    speak("Thou canst bid me farewell simply with:\n    bye");
                 }
                 else if (message.startsWith("list")) {
-                    speak("Though canst view thy list simply with\n    list");
+                    speak("Though canst view thy list simply with:\n    list");
                 }
                 else if (message.startsWith("mark")) {
                     speak("Take heed, for thou shouldst reference the task thou wishest to alter by its index:");
@@ -72,6 +62,10 @@ public class Knight {
                 else if (message.startsWith("unmark")) {
                     speak("Take heed, for thou shouldst reference the task thou wishest to alter by its index:");
                     speak("unmark [index]");
+                }
+                else if (message.startsWith("delete")) {
+                    speak("Take heed, for thou shouldst reference the task thou wishest to alter by its index:");
+                    speak("delete [index]");
                 }
                 else if (message.startsWith("todo")) {
                     speak("Thou shouldst forge a todo task such as so:");
@@ -93,7 +87,7 @@ public class Knight {
 
             if (command == Command.BYE) break;
 
-            if (command == Command.LIST) {
+            else if (command == Command.LIST) {
                 if (tasks.isEmpty()) {
                     speak("Your Excellency, thy list remaineth free of tasks at this present moment.");
                 } else {
@@ -104,56 +98,70 @@ public class Knight {
                         i++;
                     }
                 }
-                continue;
             }
 
-            if (command == Command.MARK) {
+            else if (command == Command.MARK) {
+                int index = Integer.parseInt(message.substring(5));
                 Task task;
+
                 try {
-                    task = locateTask(message.substring(5));
-                } catch (TaskNotFoundException e) {
+                    task = tasks.get(index - 1);
+                } catch (IndexOutOfBoundsException e) {
+                    speak("I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.");
                     continue;
                 }
 
                 task.mark();
                 speak("Well met! This task hath been marked as fulfilled:\n    " + task);
-                continue;
             }
 
-            if (command == Command.UNMARK) {
+            else if (command == Command.UNMARK) {
+                int index = Integer.parseInt(message.substring(7));
                 Task task;
+
                 try {
-                    task = locateTask(message.substring(7));
-                } catch (TaskNotFoundException e) {
+                    task = tasks.get(index - 1);
+                } catch (IndexOutOfBoundsException e) {
+                    speak("I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.");
                     continue;
                 }
 
                 task.unmark();
                 speak("Verily, I have marked this task as not yet done:\n    " + task);
-                continue;
             }
 
-            if (command == Command.TODO) {
+            else if (command == Command.DELETE) {
+                int index = Integer.parseInt(message.substring(7));
+                Task task;
+                try {
+                    task = tasks.get(index - 1);
+                } catch (IndexOutOfBoundsException e) {
+                    speak("I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.");
+                    continue;
+                }
+
+                tasks.remove(index - 1);
+                speak("Indeed, this task hath been wiped from thy list:\n    " + task);
+            }
+
+            else if (command == Command.TODO) {
                 Task task = new ToDo(message.substring(5));
                 tasks.add(task);
                 speak("Understood. This task hath been added to thy list:\n    " + task);
-                continue;
             }
 
-            if (command == Command.DEADLINE) {
+            else if (command == Command.DEADLINE) {
                 String[] params = message.split(" /");
                 Task task = new Deadline(params[0].substring(9), params[1].substring(3));
                 tasks.add(task);
                 speak("Understood. This task hath been added to thy list:\n    " + task);
-                continue;
             }
 
-            if (command == Command.EVENT) {
+            else if (command == Command.EVENT) {
                 String[] params = message.split(" /");
                 Task task = new Event(params[0].substring(6), params[1].substring(5), params[2].substring(3));
                 tasks.add(task);
                 speak("Understood. This task hath been added to thy list:\n    " + task);
-                continue;
             }
         }
 
