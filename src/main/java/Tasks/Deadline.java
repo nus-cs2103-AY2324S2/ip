@@ -1,3 +1,8 @@
+package Tasks;
+
+import Exceptions.InvalidFormatException;
+import Exceptions.InvalidInputException;
+
 public class Deadline extends Task {
     protected String deadline;
     public Deadline(String taskName, String deadline) {
@@ -6,7 +11,7 @@ public class Deadline extends Task {
     }
 
     public static Deadline DeadlineOf(String input) throws InvalidInputException {
-        if (input.equals("deadline")) {
+        if (input.replaceAll(" ", "").equals("deadline")) {
             InvalidFormatException.callInvalidFormatException("deadline");
         }
         String[] t = input.replaceFirst("deadline ", "").split("/by ");

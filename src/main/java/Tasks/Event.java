@@ -1,3 +1,7 @@
+package Tasks;
+
+import Exceptions.InvalidFormatException;
+
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -9,7 +13,7 @@ public class Event extends Task {
     }
 
     public static Event EventOf(String input) throws InvalidFormatException {
-        if (input.equals("event")) {
+        if (input.replaceAll(" ", "").equals("event")) {
             InvalidFormatException.callInvalidFormatException("event");
         }
         String[] t = input.replaceFirst("event ", "").split("/from ");

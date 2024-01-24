@@ -1,10 +1,14 @@
+package Tasks;
+
+import Exceptions.InvalidFormatException;
+
 public class ToDo extends Task {
     public ToDo(String taskName) {
         super(taskName);
     }
 
     public static ToDo ToDoOf(String input) throws InvalidFormatException {
-        if (input.equals("todo")) {
+        if (input.replaceAll(" ", "").equals("todo")) {
             InvalidFormatException.callInvalidFormatException("todo");
         }
         String t = input.replaceFirst("todo ", "");
