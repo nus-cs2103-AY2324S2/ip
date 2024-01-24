@@ -33,40 +33,23 @@ public class Duke {
         case VIEW_LIST:
           printList(tasks);
           break;
-
-        case BYE:
-          printOutput("Goodbye my friend. See you soon!");
-          isChatting = false;
+        case EXIT:
+          exit();
           break;
-
-        case UPDATE_MARK:
-          tasks.get(Integer.parseInt(input[1]) - 1).setStatus(true);
-          printOutput("Nice! I've marked this task as done:", tasks.get(Integer.parseInt(input[1]) - 1).toString());
+        case SET_MARK:
+          updateMarkStatus(true, tasks, input);
           break;
-        case UPDATE_UNMARK:
-          tasks.get(Integer.parseInt(input[1]) - 1).setStatus(false);
-          printOutput("OK, I've marked this task as not done yet: ",
-              tasks.get(Integer.parseInt(input[1]) - 1).toString());
+        case SET_UNMARK:
+          updateMarkStatus(false, tasks, input);
           break;
         case INSERT_TODO:
-          ToDo todoTask = new ToDo(input[1]);
-          printOutput("Got it. I've added this task:", indentation + todoTask.toString(),
-              "Now you have " + (tasks.size() + 1) + " tasks in the list.");
-          tasks.add(todoTask);
+          insertToDo(input, tasks);
           break;
         case INSERT_DEADLINE:
-          String[] deadlineDetails = input[1].split("/by");
-          Deadline deadlineTask = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
-          printOutput("Got it. I've added this task:", indentation + deadlineTask.toString(),
-              "Now you have " + (tasks.size() + 1) + " tasks in the list.");
-          tasks.add(deadlineTask);
+          insertDeadline(input, tasks);
           break;
         case INSERT_EVENT:
-          String[] eventDetails = input[1].split("/from|/to");
-          Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2]);
-          printOutput("Got it. I've added this task:", indentation + eventTask.toString(),
-              "Now you have " + (tasks.size() + 1) + " tasks in the list.");
-          tasks.add(eventTask);
+          insertEvent(input, tasks);
           break;
         default:
           break;
@@ -92,5 +75,46 @@ public class Duke {
       i++;
     }
     printOutput("Here are the tasks in your list:", sb.toString());
+  }
+
+  public static void exit() {
+    printOutput("Goodbye my friend. See you soon!");
+    System.exit(0);
+  }
+
+  public static void updateMarkStatus(boolean isMark, ArrayList<Task> tasks, String[] input) {
+    if (isMark) {
+      tasks.get(Integer.parseInt(input[1]) - 1).setStatus(true);
+      printOutput("Nice! I've marked this task as done:",
+          tasks.get(Integer.parseInt(input[1]) - 1).toString());
+    } else {
+      tasks.get(Integer.parseInt(input[1]) - 1).setStatus(false);
+      printOutput("OK, I've marked this task as not done yet: ",
+          tasks.get(Integer.parseInt(input[1]) - 1).toString());
+    }
+  }
+
+  public static void insertToDo(String[] input, ArrayList<Task> tasks) {
+    ToDo todoTask = new ToDo(input[1]);
+    printOutput("Got it. I've added this task:", indentation +
+        todoTask.toString(),
+        "Now you have " + (tasks.size() + 1) + " tasks in the list.");
+    tasks.add(todoTask);
+  }
+
+  public static void insertDeadline(String[] input, ArrayList<Task> tasks) {
+    String[] deadlineDetails = input[1].split("/by");
+    Deadline deadlineTask = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
+    printOutput("Got it. I've added this task:", indentation + deadlineTask.toString(),
+        "Now you have " + (tasks.size() + 1) + " tasks in the list.");
+    tasks.add(deadlineTask);
+  }
+
+  public static void insertEvent(String[] input, ArrayList<Task> tasks) {
+    String[] eventDetails = input[1].split("/from|/to");
+    Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2]);
+    printOutput("Got it. I've added this task:", indentation + eventTask.toString(),
+        "Now you have " + (tasks.size() + 1) + " tasks in the list.");
+    tasks.add(eventTask);
   }
 }
