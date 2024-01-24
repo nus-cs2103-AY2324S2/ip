@@ -24,7 +24,7 @@ public class Duke {
             System.out.printf("      Nothing added to list yet!");
         }
         for (Task task : list) {
-            System.out.printf("%d. %s\n", count, task.toString());
+            System.out.printf("      %d. %s\n", count, task.toString());
             count++;
         }
         System.out.println("    ____________________________________________________________");

@@ -1,0 +1,12 @@
+todo catch up with friends
+list
+deadline tutorial /by 30 February
+deadline tutorial2 /by 32 March
+list
+event lunch with friends /from tomorrow 1pm /to tomorrow 3pm
+list
+mark 2
+mark 3
+unmark 2
+list
+bye
