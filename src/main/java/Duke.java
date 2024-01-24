@@ -146,8 +146,9 @@ public class Duke {
         String str = bfn.nextLine();
 
 
-        try {
+
             while (true) {
+                try {
                 String[] tokens = str.split("\\s+");// split read string into individual components to read keywords
                 String identifier = tokens[0];// store keywords
 
@@ -185,11 +186,14 @@ public class Duke {
 
 
                 str = bfn.nextLine();
-            }
+            }catch(DukeException ex){
+                    System.out.println("Exception occured: " + ex);
+                    str = bfn.nextLine();
+
+
+                }
         }
-        catch(DukeException ex){
-            System.out.println("Exception occured: " + ex);
-        }
+
     }
 }
 
