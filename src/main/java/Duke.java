@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
     public static void main(String[] args) {
@@ -9,12 +9,22 @@ public class Duke {
         System.out.println(greeting_msg);
 
         Scanner reader = new Scanner(System.in);
+
+        List<String> taskList = new ArrayList<String>();
+
         while (true) {
-            String user_input = reader.next();
+            String user_input = reader.nextLine();
             if (user_input.equals("bye")) {
                 break;
+            } else if (user_input.equals("list")) {
+                for (int i = 0; i < taskList.size(); i++) {
+                    int k = i + 1;
+                    System.out.println(k + ". " + taskList.get(i));
+                }
+            } else {
+                taskList.add(user_input);
+                System.out.println("added :" + user_input);
             }
-            System.out.println(user_input);
         }
         System.out.println(exit_msg);
     }
