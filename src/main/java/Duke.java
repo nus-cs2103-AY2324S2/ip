@@ -24,7 +24,7 @@ public class Duke {
         int count = 1;
         System.out.println("    ____________________________________________________________");
         if (list.size() == 0) {
-            System.out.printf("      Nothing added to list yet!");
+            System.out.println("      Nothing added to list yet!");
         }
         for (Task task : list) {
             System.out.printf("      %d. %s\n", count, task.toString());
@@ -69,6 +69,24 @@ public class Duke {
         }
     }
 
+    private static void deleteTask(String[] split, ArrayList<Task> list) throws InvalidCommandException {
+        if (split.length == 1) {
+            throw new InvalidCommandException("Wrong format! Please include the number that you want me to delete >:(");
+        } else {
+            int number = Integer.parseInt(split[1]);
+            if (number < 1 || number > list.size()) {
+                throw new InvalidTaskNumberException("Invalid number! Index does not exist >:((");
+            } else {
+                Task task = list.get(number - 1);
+                list.remove(number - 1);
+                System.out.println("    ____________________________________________________________");
+                System.out.println("      Successfully removed task!");
+                System.out.printf("        %s\n", task.toString());
+                System.out.printf("      You have %d tasks left in the list :D\n", list.size());
+                System.out.println("    ____________________________________________________________");
+            }
+        }
+    }
     private static void createTask(String[] split, ArrayList<Task> list) throws InvalidCommandException {
         Task newTask;
         if (!validCommands.contains(split[0].toLowerCase())) {
@@ -138,7 +156,15 @@ public class Duke {
             } else if (split[0].toLowerCase().equals("unmark")) {
                 try {
                     unmarkTask(split, list);
-                } catch(InvalidCommandException e) {
+                } catch (InvalidCommandException e) {
+                    System.out.println("    ____________________________________________________________");
+                    System.out.printf("      %s\n", e.getMessage());
+                    System.out.println("    ____________________________________________________________");
+                }
+            } else if (split[0].toLowerCase().equals("delete")) {
+                try {
+                    deleteTask(split, list);
+                } catch (InvalidCommandException e) {
                     System.out.println("    ____________________________________________________________");
                     System.out.printf("      %s\n", e.getMessage());
                     System.out.println("    ____________________________________________________________");

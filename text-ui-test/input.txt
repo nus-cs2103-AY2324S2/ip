@@ -13,4 +13,8 @@ invalidcommand
 todo
 deadline something
 event something /from now
+delete
+delete 0
+delete 1
+list
 bye
