@@ -1,4 +1,4 @@
-package controller;
+package command;
 
 import duke.DukeException;
 import duke.Storage;

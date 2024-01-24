@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
-import controller.Command;
-import controller.ExitCommand;
-import controller.GreetCommand;
+import command.Command;
+import command.ExitCommand;
+import command.GreetCommand;
 import duke.DukeException;
 import duke.Parser;
 import duke.Storage;
