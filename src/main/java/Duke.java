@@ -27,6 +27,50 @@ import java.io.*;
     }
 }
 
+class Todo extends Task {
+
+    public Todo(String description) {
+        super(description);
+    }
+    @Override
+    public String toString() {
+        return ("[T]" + super.toString());
+    }
+}
+
+ class Deadline extends Task {
+
+    protected String by;
+
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+
+ class Event extends Task {
+
+    protected String from;
+    protected String to;
+
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (from: " + from + ") " + "to: " + to + ")";
+    }
+}
+
+
 
 public class Duke {
     public static void main(String[] args) throws IOException {
@@ -43,7 +87,8 @@ public class Duke {
 
         while (true) {
             String io = br.readLine();
-            String[] words = io.split("\\s+"); 
+            String[] words = io.split("\\s+", 2); 
+            String detail = words.length > 1 ? words[1] : ""; 
 
             pw.println("____________________________________________________________\n");
 
@@ -74,11 +119,35 @@ public class Duke {
                 pw.println("OK, I've marked this task as not done yet:");
                 pw.println(myList[c-1]);
                 pw.println("____________________________________________________________\n");
-            } else {
-                Task t = new Task(io);
+            } 
+            else if (words[0].equals("todo")) {
+                pw.println("Got it. I've added this task:");
+                Todo t = new Todo(detail);
+                pw.println(t);
                 myList[pointer] = t;
                 pointer++;
-                pw.println("added: " + io);
+                pw.println("Now you have " + pointer + " tasks in the list.");
+                pw.println("____________________________________________________________\n");
+            }
+            
+            else if (words[0].equals("deadline")) {
+                pw.println("Got it. I've added this task:");
+                String[] parts = detail.split("\\s*/by\\s*", 2);
+                Deadline t = new Deadline(parts[0], parts[1]);
+                pw.println(t);
+                myList[pointer] = t;
+                pointer++;
+                pw.println("Now you have " + pointer + " tasks in the list.");
+                pw.println("____________________________________________________________\n");
+            } else {
+                pw.println("Got it. I've added this task:");
+                String[] firstSplit = detail.split("\\s*/from\\s*", 2);
+                String[] secondSplit = firstSplit[1].split("\\s*/to\\s*", 2);
+                Event t = new Event(firstSplit[0], secondSplit[0], secondSplit[1]);
+                pw.println(t);
+                myList[pointer] = t;
+                pointer++;
+                pw.println("Now you have " + pointer + " tasks in the list.");
                 pw.println("____________________________________________________________\n");
             }
         }
