@@ -75,19 +75,29 @@ public class Capone {
     }
 
     public static void processDeadline(ArrayList<String> inputList) {
-        String deadline = "";
+        // TODO: Error checking if date is empty?
+        int byNdx = inputList.indexOf("/by");
+
         // Combine the remaining words into a single string
-        StringBuilder combinedString = new StringBuilder();
-        for (int i = 1; i < inputList.size(); i++) {
-            if (inputList.get(i).equals("/by")) {
-                deadline = inputList.get(i + 1);
+        StringBuilder description = new StringBuilder();
+        for (int i = 1; i < byNdx; i++) {
+            if (i == byNdx - 1) {
+                description.append(inputList.get(i));
                 break;
             }
-
-            combinedString.append(inputList.get(i)).append(" ");
+            description.append(inputList.get(i)).append(" ");
         }
 
-        Deadline newDeadline = new Deadline(combinedString.toString(), deadline);
+        StringBuilder byDate = new StringBuilder();
+        for (int i = byNdx + 1; i < inputList.size(); i++) {
+            if (i == inputList.size() - 1) {
+                byDate.append(inputList.get(i));
+                break;
+            }
+            byDate.append(inputList.get(i)).append(" ");
+        }
+
+        Deadline newDeadline = new Deadline(description.toString(), byDate.toString());
 
         tasks.add(newDeadline);
 
@@ -96,7 +106,45 @@ public class Capone {
     }
 
     public static void processEvent(ArrayList<String> inputList) {
+        int fromNdx = inputList.indexOf("/from");
+        int toNdx = inputList.indexOf("/to");
 
+        // TODO: Error checking for invalid from and to inputs
+
+        // Combine the task description into a single string.
+        StringBuilder description = new StringBuilder();
+        for (int i = 1; i < fromNdx; i++) {
+            if (i == fromNdx - 1) {
+                description.append(inputList.get(i));
+                break;
+            }
+            description.append(inputList.get(i)).append(" ");
+        }
+
+        StringBuilder fromDate = new StringBuilder();
+        for (int i = fromNdx + 1; i < toNdx; i ++) {
+            if (i == toNdx - 1) {
+                fromDate.append(inputList.get(i));
+                break;
+            }
+            fromDate.append(inputList.get(i)).append(" ");
+        }
+
+        StringBuilder toDate = new StringBuilder();
+        for (int i = toNdx + 1; i < inputList.size(); i++) {
+            if (i == inputList.size() - 1) {
+                toDate.append(inputList.get(i));
+                break;
+            }
+            toDate.append(inputList.get(i)).append(" ");
+        }
+
+        Event newEvent = new Event(description.toString(), fromDate.toString(), toDate.toString());
+
+        tasks.add(newEvent);
+
+        System.out.printf("Got it. I've added this task:\n%s\n" +
+                "Now you have %d task(s) in the list.\n", newEvent.toString(), tasks.size());
     }
 
     public static void invalidCommand() {
