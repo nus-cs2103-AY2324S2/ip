@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,11 +57,16 @@ public class Parser {
         }
     }
 
-    public static int parseDeleteTask(String[] words) {
-        if (words.length == 2) {
-            return Integer.parseInt(words[1]) - 1;
+    public static int parseDeleteTask(String[] words) throws UkeCatException {
+        try{
+            if (words.length == 2) {
+                return Integer.parseInt(words[1]) - 1;
+            } else {
+                throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
+            }
+        }  catch (NumberFormatException e) {
+            throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
         }
-        return -1;
     }
 
     public static int parseMarkTask(String[] words) throws UkeCatException{

@@ -49,11 +49,18 @@ public class Storage {
     }
 
     public static void deleteTask() {
-        int deleteIndex = Parser.parseDeleteTask(words);
-        Task deletedTask = tasks.remove(deleteIndex);
-        numT--;
-        System.out.println("  I removed this task: " + deletedTask);
-        report();
+        try {
+            int deleteIndex = Parser.parseDeleteTask(words);
+            Task deletedTask = tasks.remove(deleteIndex);
+            numT--;
+            System.out.println("  I removed this task: " + deletedTask);
+            report();
+        } catch (UkeCatException e) {
+            System.out.println(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Task not found. Please delete task from list:");
+            printTasks();
+        }
     }
 
     public static void markTask() {
@@ -63,7 +70,7 @@ public class Storage {
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task not found. Please choose a task from the list:");
+            System.out.println("Task not found. Please mark task from list:");
             printTasks();
         }
     }
