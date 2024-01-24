@@ -4,9 +4,23 @@ Hello! I'm
 ░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░
 What can I do for you?
 
+Commands I understand:
+1. list - Lists the tasks entered.
+2. todo [description] - Creates a new ToDo task. Remember to enter the description!
+3. deadline [description] /by [date] - Creates a new Deadline task.
+   Remember to enter the description and date!
+4. event [description] /from [date] /to [date] - Creates a new Event task.
+   Remember to enter the description, as well as the start and end date!
+5. mark [index] - Marks a task as completed. Use this in conjunction with the 'list' command!
+6. unmark [index] - Unmarks a task. Use this in conjunction with the 'list' command!
+
 Got it. I've added this task:
 [T][ ] make cake
 Now you have 1 task(s) in the list.
+Please enter a description for this ToDo task!
+Usage: todo [description]
+I'm sorry, I don't understand what you just said.
+Use -h to display the list of valid commands
 Got it. I've added this task:
 [D][ ] submit weekly report (by: friday 26 Jan 2023)
 Now you have 2 task(s) in the list.

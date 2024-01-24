@@ -1,4 +1,7 @@
+-h
 todo make cake
+todo
+thisisaninvalidinput
 deadline submit weekly report /by friday 26 Jan 2023
 list
 mark 1
