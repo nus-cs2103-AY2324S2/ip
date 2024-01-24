@@ -17,7 +17,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String status_icon = this.isDone ? "X" : "";
+        String status_icon = this.isDone ? "X" : " ";
         return "[" + status_icon + "] " + this.description;
     }
 }

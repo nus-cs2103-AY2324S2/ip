@@ -14,7 +14,7 @@ public class Duke {
 
         while (true) {
             String user_input = reader.nextLine();
-            String[] inputs = user_input.split(" ");
+            String[] inputs = user_input.split(" ", 2);
 
             if (inputs[0].equals("bye")) {
                 break;
@@ -34,9 +34,25 @@ public class Duke {
                 tmp.unmark();
                 System.out.println("Nice! I've marked this task as done:\n" + tmp);
             } else {
-                Task tmp = new Task(user_input);
-                taskList.add(tmp);
-                System.out.println("added :" + user_input);
+                System.out.println("Got it. I've added this task:");
+                Task tmp;
+                if (inputs[0].equals("todo")) {
+                    tmp = new Todo(inputs[1]);
+                    taskList.add(tmp);
+                    System.out.println(tmp);
+                } else if (inputs[0].equals("deadline")) {
+                    String[] str = inputs[1].split(" /by ");
+                    tmp = new Deadline(str[0], str[1]);
+                    taskList.add(tmp);
+                    System.out.println(tmp);
+                } else if (inputs[0].equals("event")) {
+                    String[] str = inputs[1].split(" /from ");
+                    String[] from_to = str[1].split(" /to ");
+                    tmp = new Event(str[0], from_to[0], from_to[1]);
+                    taskList.add(tmp);
+                    System.out.println(tmp);
+                }
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             }
         }
         System.out.println(exit_msg);
