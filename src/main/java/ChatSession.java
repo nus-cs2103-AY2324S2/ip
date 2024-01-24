@@ -1,13 +1,14 @@
 import java.util.List;
 
 public class ChatSession {
-    public List<Task> taskList;
+    public TaskList taskList;
     public List<Command> commandList;
     public boolean continueSession;
 
     ChatSession() {
         this.continueSession = true;
-        this.taskList = List.of();
+        this.initCommands();
+        this.taskList = new TaskList();
         this.initChat();
     }
 
@@ -15,14 +16,12 @@ public class ChatSession {
         String message = "____________________________________________________________\n" +
         "Hello! I'm GoldBot!\n" +
         "What can I do for you?\n" +
-       "____________________________________________________________" +
-        "Bye. Hope to see you again soon!" +
-       "____________________________________________________________";
+        "____________________________________________________________\n";
         System.out.println(message);
     }
 
     public void initCommands() {
-        this.commandList = List.of();
+        this.commandList = List.of(new Bye());
     }
 
     public void printMessage(String message) {
@@ -42,7 +41,29 @@ public class ChatSession {
     public void handleMessage(String message) {
         String[] result = message.split(" ", 2);
         String command = result[0];
-        String commandArgs = result[1];
-        
+        String commandArgs;
+
+        if (result.length > 1) {
+            commandArgs = result[1];
+        } else {
+            commandArgs = "";
+        }
+
+        for (Command cmd : commandList) {
+            if (command.equals(cmd.getName())) {
+                cmd.execute(this, commandArgs);
+                return;
+            }
+        }
+
+        this.unmatchedCommand(message);
+    }
+
+    public void unmatchedCommand(String message) {
+        this.echo(message);
+    }
+
+    public void echo(String message) {
+        this.printMessage(message);
     }
 }

@@ -7,6 +7,8 @@ public class GoldBot {
 
         while (session.continueSession) {
             String input = scanner.nextLine();
+            session.handleMessage(input);
         }
+        scanner.close();
     }
 }
