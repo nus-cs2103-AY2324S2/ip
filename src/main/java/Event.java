@@ -11,6 +11,6 @@ public class Event extends Task{
     @Override
     public String toString(){
         String tag = super.getTag() ? "[X]" : "[ ]";
-        return "[E]" + tag + " " + super.getName() + "(from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + tag + " " + super.getName().strip() + " (from: " + this.from + " to: " + this.to + ")";
     }
 }

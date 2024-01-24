@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 import YapchitExceptions.YapchitException;
 import YapchitExceptions.InvalidDetailException;
@@ -6,6 +7,17 @@ import YapchitExceptions.InvalidKeywordException;
 
 public class Yapchit {
     ArrayList<Task> list = new ArrayList<>();
+
+    enum Operations {
+        LIST,
+        MARK,
+        UNMARK,
+        DEADLINE,
+        EVENT,
+        TODO,
+        DELETE;
+    }
+
     public static void main(String[] args) {
 
         Yapchit bot = new Yapchit();
@@ -15,7 +27,7 @@ public class Yapchit {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
-        while(!(input.equals("bye"))){
+        while(!(input.toLowerCase().equals("bye"))){
             try{
                 bot.parseInput(input);
             } catch (YapchitException e){
@@ -31,9 +43,16 @@ public class Yapchit {
     private void parseInput(String input) throws YapchitException{
 
         String[] parts = input.split(" ");
+        Operations k;
+        try{
+            k = Operations.valueOf(parts[0].toUpperCase());
+        } catch (IllegalArgumentException e){
+            throw new InvalidKeywordException("You have entered an invalid keyword. " +
+                    "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', 'event', 'bye', 'list', 'delete']");
+        }
 
-        switch(parts[0]){
-            case "list":
+        switch(k){
+            case LIST:
                 if(parts.length != 1){
                     throw new InvalidDetailException("Invalid detail after keyword. Please retry");
                 } else {
@@ -41,7 +60,7 @@ public class Yapchit {
                 }
                 break;
 
-            case "mark":
+            case MARK:
                 if(parts.length != 2){
                     throw new InvalidDetailException("Invalid detail after mark. Please retry");
                 } else {
@@ -54,7 +73,7 @@ public class Yapchit {
                 }
                 break;
 
-            case "unmark":
+            case UNMARK:
                 if(parts.length != 2){
                     throw new InvalidDetailException("Invalid detail after unmark. Please retry");
                 } else {
@@ -67,7 +86,7 @@ public class Yapchit {
                 }
                 break;
 
-            case "delete":
+            case DELETE:
                 if(parts.length != 2){
                     throw new InvalidDetailException("Invalid detail after delete. Please retry");
                 } else {
@@ -80,7 +99,7 @@ public class Yapchit {
                 }
                 break;
 
-            case "deadline":
+            case DEADLINE:
                 int byStart = input.indexOf("/by");
                 if(byStart == -1){
                     throw new InvalidDetailException("Missing 'by' parameter in deadline detail");
@@ -88,10 +107,10 @@ public class Yapchit {
                     if(9 == byStart || byStart + 4 >= input.length()){
                         throw new InvalidDetailException("Deadline description and/or by parameter cannot be empty");
                     }
-                    String desc = input.substring(9, byStart);
-                    String by = input.substring(byStart + 4);
+                    String desc = input.substring(9, byStart).strip();
+                    String by = input.substring(byStart + 4).strip();
 
-                    if(desc.strip().length() == 0 || by.strip().length() == 0){
+                    if(desc.length() == 0 || by.length() == 0){
                         throw new InvalidDetailException("Deadline description and/or by parameter cannot be empty");
                     } else {
                         Task t = new Deadline(desc, by);
@@ -101,7 +120,7 @@ public class Yapchit {
                 }
                 break;
 
-            case "event":
+            case EVENT:
                 int fromStart = input.indexOf("/from");
                 int toStart = input.indexOf("/to");
 
@@ -111,11 +130,11 @@ public class Yapchit {
                     if(6 == fromStart || fromStart + 6 == toStart || toStart + 4 >= input.length()){
                         throw new InvalidDetailException("Event description and/or to/from parameters cannot be empty");
                     }
-                    String desc = input.substring(6, fromStart);
-                    String from = input.substring(fromStart + 6, toStart);
-                    String to = input.substring(toStart + 4);
+                    String desc = input.substring(6, fromStart).strip();
+                    String from = input.substring(fromStart + 6, toStart).strip();
+                    String to = input.substring(toStart + 4).strip();
 
-                    if(desc.strip().length() == 0 || from.strip().length() == 0 || to.strip().length() == 0){
+                    if(desc.length() == 0 || from.length() == 0 || to.length() == 0){
                         throw new InvalidDetailException("Event description and/or to/from parameters cannot be empty");
                     } else {
                         Task t = new Event(desc, from, to);
@@ -125,13 +144,13 @@ public class Yapchit {
                 }
                 break;
 
-            case "todo":
+            case TODO:
                 if(5 >= input.length()){
                     throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
                 }
-                String desc = input.substring(5);
+                String desc = input.substring(5).strip();
 
-                if(desc.strip().length() == 0){
+                if(desc.length() == 0){
                     throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
                 } else {
                     Task t = new ToDo(desc);

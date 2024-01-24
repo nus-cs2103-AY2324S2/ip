@@ -9,6 +9,6 @@ public class Deadline extends Task{
     @Override
     public String toString(){
         String tag = super.getTag() ? "[X]" : "[ ]";
-        return "[D]" + tag + " " + super.getName() + "(by: " + this.by + ")";
+        return "[D]" + tag + " " + super.getName().strip() + " (by: " + this.by + ")";
     }
 }
