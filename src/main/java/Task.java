@@ -18,5 +18,7 @@ public class Task {
         isDone = false;
     }
 
-    //...
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
 }
