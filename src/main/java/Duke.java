@@ -23,25 +23,35 @@ public class Duke {
         d.runBot();
     }
 
-    public void greet() {
+    private void greet() {
         System.out.println("Hello, I'm Baymax " + "\n" + "What can I do for you?");
     }
 
-    public void bye() {
+    private void bye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public void echo(String task) {
+    private void echo(String task) {
         System.out.println("added: " + task);
     }
 
-    public void addTask(String name) {
-        this.tasks[counter] = new Task(name);
+    private void addTask(String name) {
+        String[] details = name.split("/");
+        Task t = null;
+        if (details.length == 1) {
+            t = new ToDo(details[0].substring(5));
+        } else if (details.length == 2) {
+            t = new Deadline(details[0].substring(9), this.processDeadline(details[1]));
+        } else {
+            t = new Event(details[0].substring(6), this.processEvent(details[1] +
+                    "/" + details[2]));
+        }
+        this.tasks[counter] = t;
         this.counter += 1;
-        System.out.println("added: " + name);
+//        System.out.println("added: " + name);
     }
 
-    public void listTask() {
+    private void listTask() {
         for (int i = 0; i < counter; i++) {
             System.out.println(i + 1 + ". " + this.tasks[i]);
         }
@@ -52,8 +62,23 @@ public class Duke {
         this.tasks[i].doTask();
     }
 
-    public void unmark(int i) {
+    private void unmark(int i) {
         this.tasks[i].undoTask();
+    }
+
+    private String processDeadline(String date) {
+        return date.substring(3);
+    }
+
+    private String processEvent(String date) {
+        String[] lst = date.split("/");
+        //System.out.println(Arrays.toString(lst));
+        String start = lst[0].split(" ")[1];
+        //System.out.println(start);
+        String end = lst[1].split(" ")[1];
+        //System.out.println("from: " + start + " to: " + end);
+        return "from: " + start + " to: " + end;
+
     }
 
     public void runBot() {
@@ -97,7 +122,7 @@ public class Duke {
 }
 
 
-class Task {
+abstract class Task {
 
     private String name;
 
@@ -141,4 +166,51 @@ class Task {
 
     }
 }
+
+class ToDo extends Task{
+
+    public ToDo(String name) {
+        super(name);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+
+class Deadline extends Task{
+
+    private String deadline;
+
+    public Deadline(String name, String deadline) {
+        super(name);
+        this.deadline = deadline;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + "(by: " + this.deadline + ")";
+    }
+}
+
+class Event extends Task{
+
+    private String time;
+
+    public Event(String name, String time) {
+        super(name);
+        this.time = time;
+    }
+
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + this.time;
+    }
+}
+
+
+
 
