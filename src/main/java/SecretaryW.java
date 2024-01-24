@@ -9,8 +9,6 @@ public class SecretaryW {
 
         // counter for number of task
         int count = 0;
-
-        String line = "------------------------------------------\n";
         String greeting = "Hello! I'm SecretaryW\n" + "What can I do for you?\n";
         String farewell = "Bye. Hope to see you again soon!\n";
 
@@ -32,7 +30,7 @@ public class SecretaryW {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < count; i++) {
                         Task currTask = tasklist[i];
-                        System.out.println(" " + (i + 1) + ". " + currTask.getStatusIcon() + " " + currTask.getDescription());
+                        System.out.println(" " + (i + 1) + ". " + tasklist[i]);
                     }
                     System.out.println(line);
                 }
@@ -56,12 +54,45 @@ public class SecretaryW {
                 } else {
                     System.out.println(line + " Index is out of bounds!\n" + line);
                 }
-            } else {
-                // Add to tasklist
-                tasklist[count] = new Task(userInput);
+            } else if (userInput.startsWith("todo")) {
+                // add to do task
+                String description = userInput.substring(5).trim();
+                tasklist[count] = new Todo(description);
                 count++;
-                String echo = userInput + "\n";
-                System.out.println(line + "added: " + echo + line);
+                printTaskAdded(tasklist, count);
+            } else if (userInput.startsWith("deadline")) {
+                // Add a deadline task
+                String[] parts = userInput.substring(8).split("/by");
+                if (parts.length == 2) {
+                    String description = parts[0].trim();
+                    String by = parts[1].trim();
+                    tasklist[count] = new Deadline(description, by);
+                    count++;
+                    printTaskAdded(tasklist, count);
+                } else {
+                    printInvalid();
+                }
+            } else if (userInput.startsWith("event")) {
+                // Add an event task
+                String[] parts = userInput.substring(5).split("/from"); // first split
+                if (parts.length == 2) {
+                    String description = parts[0].trim();
+                    String[] time = parts[1].split("/to"); // second split
+                    if (time.length == 2) {
+                        String from = time[0].trim();
+                        String to = time[1].trim();
+                        tasklist[count] = new Event(description, from, to);
+                        count++;
+                        printTaskAdded(tasklist, count);
+                    } else {
+                        printInvalid();
+                    }
+                } else {
+                    printInvalid();
+                }
+            } else {
+                // Invalid command
+                    printInvalid();
             }
         }
 
@@ -69,4 +100,14 @@ public class SecretaryW {
         System.out.println(line + farewell + line);
         scanner.close();
     }
+    private static void printTaskAdded(Task[] tasklist, int count) {
+        System.out.println(line + "Got it. I've added this task:\n" + " " + tasklist[count - 1]);
+        System.out.println(" Now you have " + count + " tasks in the list.\n" + line);
+    }
+
+    private static void printInvalid() {
+        System.out.println("Invalid command!");
+    }
+
+    private static String line = "-----------------------------------------------------------------\n";
 }
