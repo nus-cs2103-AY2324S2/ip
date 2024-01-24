@@ -3,6 +3,7 @@ public class Ken {
     private static final int MAX_TASKS = 100;
     private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
+
     public static void main(String[] args) {
         //greet
         System.out.println("Hi Barbie!");
@@ -20,16 +21,20 @@ public class Ken {
 
             if (command.equals("list")) {
                 listTasks();
-            }
-            else if (command.startsWith("mark ")) {
+            } else if (command.startsWith("mark ")) {
                 markTask(Integer.parseInt(command.substring(5)));
-            }
-            else if (command.startsWith("unmark ")) {
+            } else if (command.startsWith("unmark ")) {
                 unmarkTask(Integer.parseInt(command.substring(7)));
+            } else if (command.startsWith("todo ")) {
+                addTodoTask(command.substring(5));
+            } else if (command.startsWith("deadline ")) {
+                addDeadlineTask(command.substring(9));
+            } else if (command.startsWith("event ")) {
+                addEventTask(command.substring(6));
             }
-            else if (!command.equalsIgnoreCase("bye")) {
-                addTask(command);
-            }
+//            else if (!command.equalsIgnoreCase("bye")) {
+//                addTask(command);
+//            }
             else {
             }
 
@@ -46,10 +51,13 @@ public class Ken {
         System.out.println(command);
     }
 
-    private static void addTask(String task) {
+    private static void addTask(Task task) {
         if (taskCount < MAX_TASKS) {
-            tasks[taskCount++] = new Task(task);
+            tasks[taskCount++] = task;
+            System.out.println("Got it!");
             System.out.println("added task: " + task);
+            System.out.println("Now Barbie has " + taskCount + " tasks in list\n");
+
         } else {
             System.out.println("Way too many too many tasks for today Barbie!");
             System.out.println("Slow the Slayy\n");
@@ -90,6 +98,46 @@ public class Ken {
 
         } else {
             System.out.println("Barbie has no task " + index);
+        }
+    }
+
+    private static void addTodoTask(String description) {
+        Todo todo = new Todo(description);
+        addTask(todo);
+    }
+
+    private static void addDeadlineTask(String description) {
+        try {
+            int indexOfBy = description.indexOf("/by");
+            if (indexOfBy != -1) {
+                String deadlineDescription = description.substring(0, indexOfBy).trim();
+                String by = description.substring(indexOfBy + 3).trim();
+                Deadline deadline = new Deadline(deadlineDescription, by);
+                addTask(deadline);
+            } else {
+                System.out.println("That's not how you declare a deadline. p.s. use /by.");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid deadline command. Please provide a valid deadline description and /by.");
+        }
+    }
+
+    private static void addEventTask(String description) {
+        try {
+            int indexOfFrom = description.indexOf("/from");
+            int indexOfTo = description.indexOf("/to");
+
+            if (indexOfFrom != -1 && indexOfTo != -1) {
+                String eventDescription = description.substring(0, indexOfFrom).trim();
+                String from = description.substring(indexOfFrom + 5, indexOfTo).trim();
+                String to = description.substring(indexOfTo + 3).trim();
+                Event event = new Event(eventDescription, from, to);
+                addTask(event);
+            } else {
+                System.out.println("That's not how you declare an event. p.s. use /from, and /to.");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid event command. Please provide a valid event description, /from, and /to.");
         }
     }
 }
