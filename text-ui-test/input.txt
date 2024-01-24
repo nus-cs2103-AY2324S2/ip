@@ -1,0 +1,16 @@
+list
+todo wakeup
+deadline eat breakfast /by 8am
+event attend lectures /from 8am /to 12 noon
+list
+mark 1
+mark 2
+list
+unmark 2
+unmark 2
+list
+mark 0
+mark 4
+unmark 0
+unmark 4
+bye
