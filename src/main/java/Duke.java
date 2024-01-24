@@ -31,21 +31,48 @@ public class Duke {
                 System.out.println(divider);
                 command = myCom.nextLine();
             } else if (command.startsWith("unmark")) {
-                int taskNum = Integer.valueOf(command.replaceAll("[^0-9]", ""));
-                Task tk = ls.get(taskNum - 1);
+                try {
+                    int taskNum = Integer.valueOf(command.replaceAll("[^0-9]", ""));
+                    Task tk = ls.get(taskNum - 1);
 
-                tk.unmark();
-                System.out.println(markNotDone+"\n"+ "  " + tk.toString());
-                System.out.println(divider);
-                command = myCom.nextLine();
+                    tk.unmark();
+                    System.out.println(markNotDone+"\n"+ "  " + tk.toString());
+                    System.out.println(divider);
+                    command = myCom.nextLine();
+                } catch (Exception exc) {
+                    System.out.println("Plz tell me which task." + "\n" + divider);
+                    command = myCom.nextLine();
+                }
+
             } else if (command.startsWith("mark")) {
-                int taskNum = Integer.valueOf(command.replaceAll("[^0-9]", ""));
-                Task tk = ls.get(taskNum - 1);
+                try {
+                    int taskNum = Integer.valueOf(command.replaceAll("[^0-9]", ""));
+                    Task tk = ls.get(taskNum - 1);
 
-                tk.mark();
-                System.out.println(markDone+"\n"+ "  " + tk.toString());
-                System.out.println(divider);
-                command = myCom.nextLine();
+                    tk.mark();
+                    System.out.println(markDone+"\n"+ "  " + tk.toString());
+                    System.out.println(divider);
+                    command = myCom.nextLine();
+                } catch (Exception exc) {
+                    System.out.println("Plz tell me which task." + "\n" + divider);
+                    command = myCom.nextLine();
+                }
+
+            } else if (command.startsWith("delete")) {
+                try {
+                    int taskNum = Integer.valueOf(command.replaceAll("[^0-9]", ""));
+                    Task tk = ls.get(taskNum - 1);
+                    System.out.println("Noted. Task Removed:"+"\n"+ "  " + tk.toString());
+                    ls.remove(taskNum - 1);
+
+                    System.out.println("Now u have " + ls.size() +
+                            " tasks in the list." + "\n" + divider);
+                    command = myCom.nextLine();
+                } catch (Exception exc) {
+                    System.out.println("Plz tell me which task." + "\n" + divider);
+                    command = myCom.nextLine();
+                }
+
             } else {
                 String[] cmd = command.split(" ", 2);
                 if (cmd[0].equals("todo")) {
