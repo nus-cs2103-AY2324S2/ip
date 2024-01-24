@@ -26,24 +26,24 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!\n" + this.horizontalLine);
     }
 
+    //process commands
     public void echo() {
-
         Scanner myScannerObj = new Scanner(System.in);
         System.out.print("Message Zenify: ");
         while (myScannerObj.hasNext()) {
             System.out.print(this.horizontalLine);
-            String task = myScannerObj.nextLine();
-            if (task.equalsIgnoreCase("bye")) {
+            String msg = myScannerObj.nextLine();
+            if (msg.equalsIgnoreCase("bye")) {
                 this.exit();
                 break;
-            } else if (task.equalsIgnoreCase("list")) {
+            } else if (msg.equalsIgnoreCase("list")) {
                 this.toDoList();
-            } else if (task.startsWith("mark")){
-                this.markToDo(task, true);
-            } else if (task.startsWith("unmark")) {
-                this.markToDo(task, false);
+            } else if (msg.toUpperCase().startsWith("MARK")){
+                this.markToDo(msg, true);
+            } else if (msg.toUpperCase().startsWith("UNMARK")) {
+                this.markToDo(msg, false);
             } else {
-                this.addToDo(task);
+                this.addToDo(msg);
             }
             System.out.print(this.horizontalLine);
             System.out.print("\nMessage Zenify: ");
@@ -53,17 +53,36 @@ public class Duke {
 
     }
 
-    private void addToDo(String description) {
-        Task task = new Task(description);
-        tasks.add(task);
-        System.out.println(" added: " + description);
+    private void addToDo(String msg) {
+        Task t;
+
+        if (msg.toUpperCase().startsWith("TODO")) {
+            t = todo(msg.substring(4).trim());
+        } else if (msg.toUpperCase().startsWith("DEADLINE")) {
+            t = dueDate(msg.substring(8).trim());
+        } else if ( msg.toUpperCase().startsWith("EVENT")) {
+            t = schedule(msg.substring(5).trim());
+        } else {
+            System.out.println("Invalid task format. Please use 'todo', 'deadline', or 'event'.");
+            return;
+        }
+
+        if (t == null) {
+            return;
+        }
+
+        tasks.add(t);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + t);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+
     }
 
     private void toDoList() {
         if (tasks.isEmpty()) {
             System.out.println(" Please add task!");
         } else {
-            System.out.println("Here are the tasks in your list:");
+            System.out.println(" Here are the tasks in your list:");
             int taskCount = INDEX_START;
             for (Task task : tasks) {
                 System.out.println(" " + taskCount + "." + task);
@@ -76,17 +95,57 @@ public class Duke {
         try {
             int taskIndex = Integer.parseInt(command.split(" ")[1]) - INDEX_START;
             if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                Task task = this.tasks.get(taskIndex);
-                task.setDone(isDone);
+                Task t = this.tasks.get(taskIndex);
+                t.setDone(isDone);
                 System.out.println(isDone ? " Nice! I've marked this task as done:" :
                         " OK, I've marked this task as not done yet:");
-                System.out.println("   " + task);
+                System.out.println("   " + t);
             } else {
                 System.out.println("Task not found: Index is out of bounds.");
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println(" Invalid command format.");
         }
+    }
+
+    private Deadline dueDate(String command) {
+        int byIndex = command.indexOf(" /by ");
+        if ( byIndex != 0 && byIndex != -1) {
+            String description = command.substring(0, byIndex).trim();
+            String by = command.substring(byIndex + 4).trim();
+            return new Deadline(description, by);
+        } else {
+            System.out.println("Invalid format. Please use 'deadline <description> /by <datetime>'.");
+            return null;
+        }
+    }
+
+    private Event schedule(String command) {
+        int byIndex = command.indexOf(" /from ");
+        if ( byIndex != 0 && byIndex != -1) {
+            String description = command.substring(0, byIndex).trim();
+            String fromTo = command.substring(byIndex + 6).trim();
+            String[] part = fromTo.split(" /to ", 2);
+            if (part.length == 2) {
+                String from = part[0].trim();
+                String to = part[1].trim();
+                return new Event(description, from, to);
+            }
+        }
+        System.out.println("Invalid format. Please use 'event <description> /from <datetime> /to <datetime>'.");
+        return null;
+    }
+
+    private Todo todo(String command) {
+
+        String description = command.trim();
+
+        if (command.isEmpty()) {
+            System.out.println("Invalid format Please use 'todo <description>'.");
+            return null;
+        }
+
+        return new Todo(description);
     }
 
     public static void main(String[] args) {
