@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -79,22 +80,38 @@ public class Duke {
         Task task;
         try {
             if (taskType.equals("todo")) {
-                String[] inputs = message.split("todo ");
-                task = new ToDo(inputs[1]);
+                try {
+                    String[] inputs = message.split("todo ");
+                    task = new ToDo(inputs[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("Whats the task, yapper???");
+                }
             } else if (taskType.equals("deadline")) {
-                message = message.substring("deadline ".length());
-                String[] inputs = message.split("/by");
-                task = new Deadline(inputs[0].trim(), inputs[1].trim());
+                try {
+                    message = message.substring("deadline ".length());
+                    String[] inputs = message.split("/by");
+                    task = new Deadline(inputs[0].trim(), inputs[1].trim());
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("Deadlines need a deadline, yapper!");
+                } catch (StringIndexOutOfBoundsException e ) {
+                    throw new DukeException("Whats the task, yapper???");
+                }
             } else if (taskType.equals("event")) {
-                message = message.substring("event ".length());
-                String[] inputs = message.split("/from");
-                String[] innerInputs = inputs[1].split("/to");
-                task = new Event(inputs[0].trim(), innerInputs[0].trim(), innerInputs[1].trim());
-            } else {
+                try {
+                    message = message.substring("event ".length());
+                    String[] inputs = message.split("/from");
+                    String[] innerInputs = inputs[1].split("/to");
+                    task = new Event(inputs[0].trim(), innerInputs[0].trim(), innerInputs[1].trim());
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("YAPYAP, What time is your from and to?");
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new DukeException("Whats the task, yapper???");
+                }
+            } else { //should not reach here because of filter in main logic
                 task = new Task(message);
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Whats the task, yapper???");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
             return null;
         }
         return task;
