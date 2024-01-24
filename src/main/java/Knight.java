@@ -59,8 +59,35 @@ public class Knight {
             try {
                 command = parseCommand(message);
             } catch (NonstandardCommandException e) {
-                // exception to be dealt with later
-                speak("Take heed, for thou shouldst reference the task thou wishest to alter by its index.");
+                if (message.startsWith("bye")) {
+                    speak("Thou canst bid me farewell simply with\n    bye");
+                }
+                else if (message.startsWith("list")) {
+                    speak("Though canst view thy list simply with\n    list");
+                }
+                else if (message.startsWith("mark")) {
+                    speak("Take heed, for thou shouldst reference the task thou wishest to alter by its index:");
+                    speak("mark [index]");
+                }
+                else if (message.startsWith("unmark")) {
+                    speak("Take heed, for thou shouldst reference the task thou wishest to alter by its index:");
+                    speak("unmark [index]");
+                }
+                else if (message.startsWith("todo")) {
+                    speak("Thou shouldst forge a todo task such as so:");
+                    speak("todo [description]");
+                }
+                else if (message.startsWith("deadline")) {
+                    speak("Thou shouldst forge a deadline task such as so:");
+                    speak("deadline [description] /by [time]");
+                }
+                else if (message.startsWith("event")) {
+                    speak("Thou shouldst forge an event task such as so:");
+                    speak("event [description] /from [start time] /to [end time]");
+                }
+                else {
+                    speak("I beg thine pardon, but I am clueless of the meaning of your utterance.");
+                }
                 continue;
             }
 
