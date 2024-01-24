@@ -10,6 +10,7 @@ public class Duke {
         String markDone = "Good job! I've marked this task as done:";
         String markNotDone = "Okie, Rest well. Marked this task as not done yet: ";
         String added = "Got it. I've added this task:";
+        String dkEmpty = "Oops! Sorry, I don't know what that means. Description is empty";
         ArrayList<Task> ls = new ArrayList<>();
 
 
@@ -48,31 +49,57 @@ public class Duke {
             } else {
                 String[] cmd = command.split(" ", 2);
                 if (cmd[0].equals("todo")) {
-                    Task t = new ToDo(cmd[1]);
-                    ls.add(t);
-                    System.out.println("  " + added + "\n" +
-                            "    " + t.toString() + "\n" +
-                            "  Now u have " + ls.size() +
-                            " tasks in the list."+ "\n" + divider);
-                    command = myCom.nextLine();
-                } else if (cmd[0].equals("deadline")) {
-                    String[] date = cmd[1].split("/by", 2);
-                    Task t = new Deadline(date[0], date[1]);
-                    ls.add(t);
-                    System.out.println("  " + added + "\n" +
-                            "    " + t.toString() + "\n" +
-                            "  Now u have " + ls.size() +
-                            " tasks in the list."+ "\n" + divider);
-                    command = myCom.nextLine();
+                    try {
+                        Task t = new ToDo(cmd[1]);
+                        ls.add(t);
+                        System.out.println("  " + added + "\n" +
+                                "    " + t.toString() + "\n" +
+                                "  Now u have " + ls.size() +
+                                " tasks in the list." + "\n" + divider);
+                        command = myCom.nextLine();
+                    } catch (Exception exc) {
+                        System.out.println(dkEmpty + "\n" + divider);
+                        command = myCom.nextLine();
+                    }
+                }
+                 else if (cmd[0].equals("deadline")) {
+                     try {
+                         String[] date = cmd[1].split("/by", 2);
+                         try {
+                             Task t = new Deadline(date[0], date[1]);
+                             ls.add(t);
+                             System.out.println("  " + added + "\n" +
+                                     "    " + t.toString() + "\n" +
+                                     "  Now u have " + ls.size() +
+                                     " tasks in the list."+ "\n" + divider);
+                             command = myCom.nextLine();
+                         } catch (Exception exc) {
+                             System.out.println("Plz enter a date for the deadline using '/by'\n" + divider);
+                             command = myCom.nextLine();
+                         }
+                     } catch (Exception exc) {
+                         System.out.println(dkEmpty + "\n" + divider);
+                         command = myCom.nextLine();
+                     }
                 } else if (cmd[0].equals("event")) {
-                    String[] date = cmd[1].split("/", 3);
-                    Task t = new Event(date[0], date[1], date[2]);
-                    ls.add(t);
-                    System.out.println("  " + added + "\n" +
-                            "    " + t.toString() + "\n" +
-                            "  Now u have " + ls.size() +
-                            " tasks in the list."+ "\n" + divider);
-                    command = myCom.nextLine();
+                     try {
+                         String[] date = cmd[1].split("/", 3);
+                         try {
+                             Task t = new Event(date[0], date[1], date[2]);
+                             ls.add(t);
+                             System.out.println("  " + added + "\n" +
+                                     "    " + t.toString() + "\n" +
+                                     "  Now u have " + ls.size() +
+                                     " tasks in the list."+ "\n" + divider);
+                             command = myCom.nextLine();
+                         } catch (Exception exc) {
+                             System.out.println("Plz enter a date for the event using '/from' and '/to'\n" + divider);
+                             command = myCom.nextLine();
+                         }
+                     } catch (Exception exc) {
+                         System.out.println(dkEmpty + "\n" + divider);
+                         command = myCom.nextLine();
+                     }
                 } else {
                     System.out.println("Oops! I don't understand the instruction." + "\n" + divider);
                     command = myCom.nextLine();
@@ -80,7 +107,6 @@ public class Duke {
 
             }
         }
-
 
         if (command.equals("bye")) {
             String sayBye = "Bye Bye. See u later!\n";
