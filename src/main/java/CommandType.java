@@ -6,5 +6,6 @@ public enum CommandType {
     TODO,
     DEADLINE,
     EVENT,
+    DELETE,
     UNDEFINED
 }

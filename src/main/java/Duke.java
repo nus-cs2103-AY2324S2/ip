@@ -22,6 +22,8 @@ public class Duke {
                 return CommandType.DEADLINE;
             case "event":
                 return CommandType.EVENT;
+            case "delete":
+                return CommandType.DELETE;
             default:
                 return CommandType.UNDEFINED;
         }
@@ -112,6 +114,21 @@ public class Duke {
         }
     }
 
+    private void deleteTask(String[] words) throws DukeException {
+        try {
+            int index = Integer.parseInt(words[1]) - 1;
+            Task task = this.tasks.getTask(index);
+            this.tasks.deleteTask(index);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(task);
+            System.out.printf("Now you have %d tasks in the list.\n", this.tasks.getCount());
+        } catch (IndexOutOfBoundsException err) {
+            int index = Integer.parseInt(words[1]) - 1;
+            throw new DukeException(String.format("You have %d tasks, provide a valid index in the range [1,%d]", this.tasks.getCount(), this.tasks.getCount()));
+        } catch (NumberFormatException err) {
+            throw new DukeException("Enter a number after \"delete\"");
+        }
+    }
     public static void main(String[] args) {
         Duke duke = new Duke();
         Scanner scanner = new Scanner(System.in);
@@ -145,9 +162,10 @@ public class Duke {
                     duke.addDeadline(words);
                 } else if (command == CommandType.EVENT) {
                     duke.addEvent(words);
-                } else {
-                    throw new DukeException("Unrecognised command");
+                } else if (command == CommandType.DELETE) {
+                    duke.deleteTask(words);
                 }
+                else throw new DukeException("Unrecognised command");
             } catch (DukeException dukeErr) {
                 System.out.println(dukeErr.getMessage());
             }

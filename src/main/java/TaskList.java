@@ -18,6 +18,10 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    public void deleteTask(int i) {
+        this.taskList.remove(i);
+    }
+
     @Override
     public String toString() {
         StringBuffer output = new StringBuffer();
