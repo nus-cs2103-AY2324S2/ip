@@ -1,9 +1,8 @@
 public interface Task {
-    boolean checked = false;
 
-    public String getDesc();
+    String getDesc();
 
-    public String getCheck();
+    String getCheck();
 
-    public void setCheck(boolean x);
+    void setCheck(boolean x);
 }

@@ -5,9 +5,9 @@ public class Deadline implements Task {
     protected boolean checked;
     protected String type;
 
-    public Deadline(String params){
-        this.desc = params.split("/by")[0];
-        this.date = params.split("/by")[1];
+    public Deadline(String desc, String date){
+        this.desc = desc;
+        this.date = date;
         this.checked = false;
         this.type = "D";
     }

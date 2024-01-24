@@ -6,10 +6,10 @@ public class Event implements Task {
     protected boolean checked;
     protected String type;
 
-    public Event(String params) {
-        this.desc = params.split("/from")[0];
-        this.start = params.split("/from")[1].split("/to")[0];
-        this.end = params.split("/from")[1].split("/to")[1];
+    public Event(String desc, String start, String end) {
+        this.desc = desc;
+        this.start = start;
+        this.end = end;
         this.checked = false;
         this.type = "E";
     }

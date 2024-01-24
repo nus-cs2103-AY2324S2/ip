@@ -1,7 +1,10 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+-----------------------------
+Greetings friend! I am Datuk
+How can I serve you today? ^_^' 
 
+-----------------------------
+-----------------------------
+Understood. Added the following:
+	 [T][ ] this
+You have 1 remaining tasks.
+-----------------------------

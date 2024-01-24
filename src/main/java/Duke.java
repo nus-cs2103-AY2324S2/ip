@@ -23,18 +23,24 @@ public class Duke {
                 String text = br.readLine();
                 String[] split = text.split(" ");
 
-                if (text.equals("bye")) {
-                    finish = true;
-                } else if (text.equals("list")) { //(split[0].equals("list));
-                    printList();
-                } else if (split[0].equals("mark") || split[0].equals("unmark")) {
-                    marked(split[0], Integer.parseInt(split[1]));
-                } else if (split[0].equals("todo") || split[0].equals("deadline") || split[0].equals("event")){
-                    addList(text);
-                } else {
-                    System.out.println(line);
-                    System.out.println("Incorrect input");
-                    System.out.println(line);
+                try {
+                    if (text.equals("bye")) {
+                        finish = true;
+                    } else if (text.equals("list")) { //(split[0].equals("list));
+                        printList();
+                    } else if (split[0].equals("mark") || split[0].equals("unmark")) {
+                        marked(split[0], Integer.parseInt(split[1]));
+                    } else if (split[0].equals("todo") || split[0].equals("deadline") || split[0].equals("event")){
+                        try {
+                            addList(text);
+                        } catch (DukeException de) {
+                            System.out.println(de.toString());
+                        }
+                    } else {
+                        throw new DukeException("Your input is invalid!");
+                    }
+                } catch (DukeException de) {
+                    System.out.println(de.toString());
                 }
             }
         }
@@ -44,7 +50,7 @@ public class Duke {
         System.out.println(line);
     }
 
-    public static void printList() {
+    private static void printList() {
         System.out.println(line);
         for (int i = 0; i < ls.size(); i++) {
             System.out.println(i + 1 + ". " + ls.get(i));
@@ -52,20 +58,55 @@ public class Duke {
         System.out.println(line);
     }
 
-    public static void addList(String cmd) {
-        String[] split = cmd.split(" ",2);
+    private static void addList(String cmd) throws DukeException {
+        String[] split;
+        String desc, from, to, by;
+        split = cmd.split(" ", 2);
+
         Task t;
 
-        //error check for missing params;
-
         if (split[0].equals("todo")) {
+            if (split.length != 2) {
+                throw new DukeException("Missing params for todo!");
+            }
             t = new Todo(split[1]);
             ls.add(t);
-        } else if (split[0].equals("deadline")){
-            t = new Deadline(split[1]);
+        } else if (split[0].equals("deadline")) {
+            if (split.length != 2) {
+                throw new DukeException("Missing params for deadline!");
+            }
+
+            String[] temp = split[1].split("/by");
+
+            if (temp.length != 2) {
+                throw new DukeException("Missing deadline for deadline!");
+            }
+
+            desc = temp[0];
+            by = temp[1];
+            t = new Deadline(desc, by);
             ls.add(t);
         } else {
-            t = new Event(split[1]);
+            if (split.length != 2) {
+                throw new DukeException("Missing params for event!");
+            }
+
+            String[] temp = split[1].split("/from");
+
+            if (temp.length != 2) {
+                throw new DukeException("Missing [from] and [to] for event!");
+            }
+
+            desc = split[1].split("/from")[0];
+
+            String[] temp2 = split[1].split("/from")[1].split("/to");
+
+            if (temp2.length != 2) {
+                throw new DukeException("Missing [to] for event!");
+            }
+            from = temp2[0];
+            to = temp2[1];
+            t = new Event(desc, from, to);
             ls.add(t);
         }
 
@@ -77,13 +118,14 @@ public class Duke {
         System.out.println(line);
     }
 
-    public static void marked(String cmd, int index) {
+    private static void marked(String cmd, int index) {
         if (index > ls.size()) {
             System.out.println(line);
             System.out.println("Index out of bounds.");
             System.out.println(line);
             return;
         }
+
         index--;
         System.out.println(line);
 
@@ -99,3 +141,4 @@ public class Duke {
     }
 
 }
+
