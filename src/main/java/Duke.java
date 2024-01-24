@@ -6,27 +6,53 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
 
-        // initialise tasklist array
-        String[] tasks = new String[100];
-        int count = 0;
+        // initialise tasks array
+        TaskList taskList = new TaskList();
+        boolean exit = false;
 
-        while (true) {
-            String echoCommand = sc.nextLine();
-            if (echoCommand.equalsIgnoreCase("bye")) {
-                System.out.println("Goodbye! Till we meet again ~");
-                break;
-            } else if (echoCommand.equalsIgnoreCase("list")) {
-                System.out.println("------------------------------------");
-                for (int i = 0; i < count; i++) {
-                    System.out.println(i+1 + ". " + tasks[i]);
+        while (!exit) {
+            String fullCommand = sc.nextLine();
+            String[] commandArr = fullCommand.split(" ");
+            String command = commandArr[0].toLowerCase();
+
+            switch (command) {
+                case "bye": {
+                    System.out.println("Goodbye! Till we meet again ~");
+                    exit = true;
+                    break;
                 }
-                System.out.println("------------------------------------");
-            } else {
-                tasks[count] =  echoCommand;
-                count++;
-                System.out.println("------------------------------------");
-                System.out.println("Added: " + echoCommand);
-                System.out.println("------------------------------------");
+                case "list": {
+                    System.out.println("------------------------------------");
+                    taskList.printAllTasks();
+                    System.out.println("------------------------------------");
+                    break;
+                }
+                case "mark": {
+                    System.out.println("------------------------------------");
+                    System.out.println("Great job agent 47. I've marked this task as DONE: ");
+
+                    int taskNo = Integer.parseInt(commandArr[1]);
+                    taskList.markDoneAtInd(taskNo);
+                    System.out.println("------------------------------------");
+                    break;
+                }
+                case "unmark": {
+                    System.out.println("------------------------------------");
+                    System.out.println("Alright, marking this task as NOT DONE :( : ");
+
+                    int taskNo = Integer.parseInt(commandArr[1]);
+                    taskList.markNotDoneAtInd(taskNo);
+
+                    System.out.println("------------------------------------");
+                    break;
+                }
+                default: {
+                    Task newTask = new Task(fullCommand);
+                    taskList.addTask(newTask);
+                    System.out.println("------------------------------------");
+                    System.out.println("Added: " + newTask.getDescription());
+                    System.out.println("------------------------------------");
+                }
             }
 
         }
