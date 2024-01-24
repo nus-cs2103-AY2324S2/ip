@@ -33,6 +33,36 @@ Nice! I've completed this task successfully:
 ------------------------------
 
 ------------------------------
+Sorry, I don't understand that command, please check for potential spelling errors
+------------------------------
+
+------------------------------
+Error! A todo task must have a name, please follow the following syntax: todo <task name>
+
+------------------------------
+
+------------------------------
+Error! A deadline task must have parameters, please follow the following syntax: deadline <deadline name> /by <endDateTime>
+
+------------------------------
+
+------------------------------
+Error! An event task must have parameters, please follow the following syntax: event <event name> /from <startDateTime> /to <endDateTime>
+
+------------------------------
+
+------------------------------
+Got it. I've added this to our list of tasks:
+added: [E] [ ] photoshoot (from: this week saturday to: about 5pm)
+Now you have 3 task(s) in the list.
+------------------------------
+
+------------------------------
+Ok, this task is still not done yet:
+[T] [ ] read book
+------------------------------
+
+------------------------------
 Bye. Hope to see you again soon!
 
 ------------------------------

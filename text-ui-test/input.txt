@@ -3,4 +3,10 @@ list
 deadline return book /by Sunday
 mark 1
 list
+blah
+todo
+deadline
+event
+event photoshoot /from this week saturday /to about 5pm
+unmark 1
 bye
