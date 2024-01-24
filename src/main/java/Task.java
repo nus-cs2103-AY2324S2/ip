@@ -4,6 +4,7 @@
 public class Task {
     private String description;
     private boolean isDone;
+    private String taskType;
 
     /**
      * Constructor of task.
@@ -54,6 +55,11 @@ public class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    @Override
+    public String toString() {
+        return this.getStatusIcon() + " " + this.getDescription();
     }
 
 

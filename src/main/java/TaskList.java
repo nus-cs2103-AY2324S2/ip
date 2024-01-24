@@ -31,6 +31,11 @@ public class TaskList {
     public void addTask(Task newTask) {
         this.taskList[count] = newTask;
         count++;
+
+        System.out.println("Cool! Adding new task: ");
+        System.out.println(newTask.toString());
+        System.out.println("Now you have " + this.count +
+                            " tasks in your list.");
     }
 
     /**
@@ -64,10 +69,7 @@ public class TaskList {
         currentTask.markAsDone();
         this.setTask(currentTask, taskNo);
 
-        System.out.println(
-                "  " + currentTask.getStatusIcon() +
-                        " " + currentTask.getDescription()
-        );
+        System.out.println(currentTask.toString());
     }
 
     /**
@@ -81,10 +83,7 @@ public class TaskList {
         currentTask.markAsNotDone();
         this.setTask(currentTask, taskNo);
 
-        System.out.println(
-                "  " + currentTask.getStatusIcon() +
-                        " " + currentTask.getDescription()
-        );
+        System.out.println(currentTask.toString());
     }
 
     /**
@@ -94,11 +93,7 @@ public class TaskList {
         System.out.println("Here are all your tasks so far! ^.^ : ");
         for (int i = 0; i < count; i++) {
             Task currentTask = this.taskList[i];
-            System.out.println(
-                    (i + 1) + ". " +
-                    currentTask.getStatusIcon() + " " +
-                    currentTask.getDescription()
-            );
+            System.out.println((i + 1) + ". " + currentTask.toString());
         }
     }
 }
