@@ -12,6 +12,6 @@ public class Todo extends Task {
         } else {
             checkbox = "[T][ ] ";
         }
-        return checkbox + this;
+        return checkbox + name;
     }
 }
