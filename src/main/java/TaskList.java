@@ -4,7 +4,6 @@ public class TaskList {
     private Task[] tasks = new Task[100];
 
     public void addTask(Task newTask) {
-
         this.tasks[numTasks] = newTask;
         this.numTasks++;
         this.remTasks++;
