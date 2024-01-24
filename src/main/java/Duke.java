@@ -3,13 +3,13 @@ import java.util.Scanner;
 
 public class Duke {
     public static ArrayList<Task> taskList = new ArrayList<>();
-    public static String line = "    ___________________________________________________________\n";
+    public static String line = "    ____________________________________________________________";
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
 
         System.out.printf(
-                "%s     Hello! I'm Buto\n     What can I do for you?\n%s",
+                "%s\n     Hello! I'm Buto\n     What can I do for you?\n%s\n",
                 line, line
         );
 
@@ -50,18 +50,18 @@ public class Duke {
 
         sc.close();
 
-        System.out.printf("%s     Bye. Hope to see you again soon!\n%s",
+        System.out.printf("%s\n     Bye. Hope to see you again soon!\n%s",
                 line, line);
     }
 
     public static void addTask(Task newTask) {
         taskList.add(newTask);
-        System.out.println(line + "     Got it. I've added this task:\n       " + newTask.toString());
+        System.out.println(line + "\n     Got it. I've added this task:\n       " + newTask.toString());
         System.out.println("     Now you have " + taskList.size() + " tasks in the list.\n" + line);
     }
 
     public static void printTaskList() {
-        System.out.println(line + "     Here are the tasks in your list:");
+        System.out.println(line + "\n     Here are the tasks in your list:");
         for (int i = 1; i <= taskList.size(); i++) {
             System.out.printf("     %d.%s\n", i, taskList.get(i - 1).toString());
         }
@@ -69,7 +69,7 @@ public class Duke {
     }
 
     public static void printResponse(String response, int taskIndex) {
-        System.out.printf("%s     %s\n       %s\n%s",
+        System.out.printf("%s\n     %s\n       %s\n%s\n",
                 line, response, taskList.get(taskIndex).toString(), line);
     }
 }
