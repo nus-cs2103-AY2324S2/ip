@@ -16,6 +16,10 @@ public class Task {
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
+    }
+
+    public void markAsUndone() {
+        isDone = false;
     }
 }
