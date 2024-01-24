@@ -19,7 +19,9 @@ public class TaskList {
 
     public void addTask(Task task) {
         mylist.add(task);
-        System.out.println("added: " + task.getDescription());
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + size() + " tasks in the list.");
     }
 
     public void markTask(int index) {
