@@ -45,8 +45,27 @@ public class Duke {
     }
 
     private static void addTask(String description) {
-        Task newTask = new Task(description);
+        Task newTask;
+        if (description.toLowerCase().startsWith("todo")) {
+            String[] descriptionArr = description.split(" ");
+            newTask = new ToDo(descriptionArr[1]);
+        } else if (description.toLowerCase().startsWith("deadline")) {
+            String[] descriptionArr = description.split(" ");
+            /*if (descriptionArr[2].toLowerCase().equals("/by")) {
+                System.out.println("*HONKS ANGRILIY* Pengu thinks that the description of the deadline has to be followed by '/by'");
+            }*/
+            newTask = new Deadline(descriptionArr[1], descriptionArr[3]);
+        } else if (description.toLowerCase().startsWith("event")) {
+            String[] descriptionArr = description.split(" ");
+            newTask = new Event(descriptionArr[1], descriptionArr[3], descriptionArr[5]);
+        }
+        else {
+            newTask = new Task(description);
+        }
         Duke.storage.add(newTask);
+        System.out.println( String.format("*Honk! Honk!* Pengu has added this task:\n" + newTask.toString()
+                + "\nGet back to work! you have %s tasks in the list\n"
+                + "―――――――――――――――――――――――――――――――――――", Duke.storage.size()));
     }
 
     private static void listTasks() {
@@ -54,8 +73,8 @@ public class Duke {
         System.out.println("*Honk!* Pengu has listed your current tasks below:");
         for (int k = 0; k < storageSize; k++){
             int curr = k + 1;
-            System.out.println(curr + ". " + Duke.storage.get(k).getStatusIcon() + " "
-                    + Duke.storage.get(k).getDescription());
+            Task currTask = storage.get(k);
+            System.out.println(curr + ". " + currTask.toString());
         }
         System.out.println("―――――――――――――――――――――――――――――――――――");
     }
@@ -63,16 +82,14 @@ public class Duke {
     private static void markTask(int index) {
         Task currTask = storage.get(index);
         currTask.updateTask(true);
-        System.out.println("*Honk!* Good Job!, Pengu has marked this task as done:\n" + currTask.getStatusIcon() + " "
-                + currTask.getDescription());
+        System.out.println("*Honk!* Good Job!, Pengu has marked this task as done:\n" + currTask.toString());
         System.out.println("―――――――――――――――――――――――――――――――――――");
     }
 
     private static void unmarkTask(int index) {
         Task currTask = storage.get(index);
         currTask.updateTask(false);
-        System.out.println("*Honk!* Pengu has marked this task as not done yet:\n" + currTask.getStatusIcon() + " "
-                + currTask.getDescription());
+        System.out.println("*Honk!* Pengu has marked this task as not done yet:\n" + currTask.toString());
         System.out.println("―――――――――――――――――――――――――――――――――――");
     }
 
@@ -88,17 +105,17 @@ public class Duke {
                 listTasks();
                 continue;
             } else if (userInput.toLowerCase().startsWith("mark")) {
-                int index = Integer.parseInt(userInput.substring(5)) - 1;
+                String[] inputArr = userInput.split(" ");
+                int index = Integer.parseInt(inputArr[1]) - 1;
                 markTask(index);
                 continue;
             } else if (userInput.toLowerCase().startsWith("unmark")) {
-                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                String[] inputArr = userInput.split(" ");
+                int index = Integer.parseInt(inputArr[1]) - 1;
                 unmarkTask(index);
                 continue;
             }
             addTask(userInput);
-            System.out.println("Added: " + userInput + "\n*Honk! Honk!*\n" +
-                    "―――――――――――――――――――――――――――――――――――");
         }
     }
 }
