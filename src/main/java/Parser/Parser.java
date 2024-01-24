@@ -37,14 +37,16 @@ public class Parser {
                     ans[0] = "bye";
                 }
                 break;
+            case "delete":
             case "unmark":
             case "mark":
                 if (split.length != 2) {
                     throw new MissingArgumentsExceptionMarking(split[0]);
                 } else {
-                    flag = Integer.parseInt(split[1]);
-                    if (flag == -1) {
-                        throw new MissingArgumentsException(split[0]);
+                    try {
+                        flag = Integer.parseInt(split[1]);
+                    } catch (NumberFormatException e) {
+                        throw new InvalidCommandException("InvalidCommandException");
                     }
                     ans = split;
                 }

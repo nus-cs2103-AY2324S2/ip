@@ -53,6 +53,18 @@ public class UI {
         System.out.println(lines);
     }
 
+    public void removeTask(int input) throws ListOutofBoundsException {
+
+        if (input < 0 || input > this.storage.taskLength() - 1) {
+            throw new ListOutofBoundsException(String.format("%d", this.storage.taskLength()));
+        }
+        System.out.println(lines);
+        System.out.println("    Noted. I've removed this task:");
+        this.storage.remove(input);
+        System.out.println(String.format("    Now you have %d tasks in the list.",this.storage.taskLength()));
+        System.out.println(lines);
+    }
+
     public void listItems() {
         System.out.println(storage);
     }

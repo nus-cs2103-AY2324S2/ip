@@ -64,6 +64,16 @@ public class Duke {
                 case "event":
                    task = new Events(output[1], output[2], output[3]);
                     ui.addItem(task);
+                    break;
+                case "delete":
+                    try {
+                        ui.removeTask(Integer.parseInt(output[1]) - 1);
+                    } catch (ListOutofBoundsException e) {
+                        ui.error(e.getMessage());
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }

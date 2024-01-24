@@ -22,6 +22,11 @@ public class Storage {
        System.out.println("      " + this.storage.get(number).toString());
 
     }
+
+    public void remove(int number) {
+        System.out.println("      " + this.storage.get(number).toString());
+        this.storage.remove(number);
+    }
     public int taskLength() {
         return this.storage.size();
     }

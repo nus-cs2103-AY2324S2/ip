@@ -8,6 +8,6 @@ public class InvalidCommandException extends Exception {
     @Override
     public String getMessage() {
         return "    " + super.getMessage() + "\n    You have entered an invalid command:\n" +
-                "    Try todo, event, deadline, list instead.";
+                "    Try todo, event, deadline, list , delete , mark {index},\n    or unmark {index} instead.";
     }
 }
