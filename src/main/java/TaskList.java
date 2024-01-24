@@ -1,16 +1,13 @@
 import java.util.*;
 public class TaskList {
     private ArrayList<Task> taskList;
-    private int taskCount;
 
     TaskList() {
         this.taskList = new ArrayList<Task>();
-        this.taskCount = 0;
     }
 
     public void addTask(Task t) {
         this.taskList.add(t);
-        this.taskCount++;
     }
 
     public Task getTask(int i) {
@@ -18,7 +15,7 @@ public class TaskList {
     }
 
     public int getCount() {
-        return this.taskCount;
+        return this.taskList.size();
     }
 
     @Override
