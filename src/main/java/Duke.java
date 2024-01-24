@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class Duke {
     
@@ -42,7 +44,6 @@ public class Duke {
         // Duke will exit at the end of the loop
         done = true;
     }
-
 
     public static void addCommand(String name, Consumer<String[]> executor) {
         commandMap.put(name, new Command(name, executor));
@@ -97,6 +98,98 @@ public class Duke {
             );
         });
         
+        Duke.addCommand("todo", (args) -> {
+            String str = Arrays.stream(args)
+                    .skip(1)
+                    .collect(Collectors.joining(" "));
+
+            var t = new ToDo(str);
+            Duke.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
+            taskList.add(t);
+        });
+        
+        Duke.addCommand("deadline", (args) -> {
+            int state = 0;
+            StringBuilder by = new StringBuilder();
+            StringBuilder name = new StringBuilder();
+            
+            for (String arg : args) {
+                switch (state) {
+                    case 0: // read command name
+                        state = 1;
+                        break;
+                    case 1: // reading task name
+                        if (arg.equals("/by")) {
+                            state = 2;
+                        } else {
+                            if (!name.isEmpty()) {
+                                name.append(" ");
+                            }
+                            name.append(arg);
+                        }
+                        break;
+                    case 2: // reading by
+                        if (!by.isEmpty()) {
+                            by.append(" ");
+                        }
+                        by.append(arg);
+                        break;
+                }
+            }
+            var t = new Deadline(name.toString(), by.toString());
+            Duke.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
+            Duke.taskList.add(t);
+            
+        });
+        
+        Duke.addCommand("event", (args) -> {
+            int state = 0;
+            StringBuilder from = new StringBuilder();
+            StringBuilder to = new StringBuilder();
+            StringBuilder name = new StringBuilder();
+
+            for (String arg : args) {
+                switch (state) {
+                    case 0: // read command name
+                        state = 1;
+                        break;
+                        
+                    case 1: // reading task name
+                        if (arg.equals("/from")) {
+                            state = 2;
+                        } else {
+                            if (!name.isEmpty()) {
+                                name.append(" ");
+                            }
+                            name.append(arg);
+                        }
+                        break;
+                        
+                    case 2: // reading from
+                        if (arg.equals("/to")) {
+                            state = 3;
+                        } else {
+                            if (!from.isEmpty()) {
+                                from.append(" ");
+                            }
+                            from.append(arg);
+                        }
+                        break;
+                        
+                    case 3: // reading to
+                        if (!to.isEmpty()) {
+                            to.append(" ");
+                        }
+                        to.append(arg);
+                        break;
+                }
+            }
+
+            var t = new Event(name.toString(), from.toString(), to.toString());
+            Duke.print(String.format("Ok, I've added a new Event...\n  %s", t.describe()));
+            Duke.taskList.add(t);
+        });
+        
         Duke.print("Hello, my name is... Louie!!!!\n" + 
                    "What can I do for you today?");
         while (!done) {
@@ -105,8 +198,7 @@ public class Duke {
             if (commandMap.containsKey(args[0])) {
                 commandMap.get(args[0]).run(args);
             } else {
-                taskList.add(new Task(str));
-                Duke.print("Ok, I've added a new todo item: " + str);
+                Duke.print("no matching command...");
             }
         }
     }

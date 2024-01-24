@@ -3,32 +3,54 @@
             What can I do for you today?
 
 
-    (>^.^<) 
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ] read book
 
 
-    (>^.^<) Ok, I've added a new todo item: hi
+    (>^.^<) Ok, I've added a new deadline...
+              [D][ ] return book (by: June 6th)
 
 
-    (>^.^<) 1. hi
+    (>^.^<) Ok, I've added a new Event...
+              [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 
 
-    (>^.^<) Ok, I've added a new todo item: hi hi
+    (>^.^<) Here's what you've done today...
+            1.[T][ ] read book
+            2.[D][ ] return book (by: June 6th)
+            3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 
 
-    (>^.^<) Ok, I've added a new todo item: list this should just add it to the list
+    (>^.^<) CONGRATULATION!!!!!! you completed this task:
+            [T][X] read book
 
 
-    (>^.^<) Ok, I've added a new todo item: bye this should just add it to the list
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ] join sports club
 
 
-    (>^.^<) Ok, I've added a new todo item: 
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ] borrow book
 
 
-    (>^.^<) 1. hi
-            2. hi hi
-            3. list this should just add it to the list
-            4. bye this should just add it to the list
-            5. 
+    (>^.^<) CONGRATULATION!!!!!! you completed this task:
+            [T][X] join sports club
+
+
+    (>^.^<) Here's what you've done today...
+            1.[T][X] read book
+            2.[D][ ] return book (by: June 6th)
+            3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+            4.[T][X] join sports club
+            5.[T][ ] borrow book
+
+
+    (>^.^<) Ok, I've added a new deadline...
+              [D][ ] return book (by: Sunday)
+
+
+    (>^.^<) Ok, I've added a new Event...
+              [E][ ] project meeting (from: Mon 2pm to: 4pm)
 
 
     (>^.^<) Ok, going to sleep...
