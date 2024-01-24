@@ -2,12 +2,9 @@ public class Task {
     private final static String hRULER = "____________________________________________________________\n";
     private final String description;
     private String status = "[ ]";
-
-
     public Task(String token) {
         this.description = token;
     }
-
     public void markDone() {
         this.status = "[X]";
         System.out.printf("%s Nice! I've marked this task as done:\n   %s\n%s",
