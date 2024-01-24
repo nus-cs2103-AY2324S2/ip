@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -13,9 +15,9 @@ public class Task {
 
     public void setDone(boolean done) {
         if (done) {
-            System.out.println("Nice! I've marked this task as done:\n");
+            System.out.println("Nice! I've marked this task as done:");
         } else {
-            System.out.println("OK, I've marked this task as not done yet:\n");
+            System.out.println("OK, I've marked this task as not done yet:");
         }
         this.isDone = done;
     }
