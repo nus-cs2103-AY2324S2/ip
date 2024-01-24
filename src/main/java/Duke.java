@@ -11,11 +11,8 @@ public class Duke {
         System.out.println("Bye. I will miss you!");
     }
 
-    private void add(String s) {
-        System.out.println("added: " + s);
-        Task t = new Task(s);
+    private void addTask(Task t) {
         tm.addTask(t);
-
     }
 
     private String[] listen() {
@@ -43,6 +40,7 @@ public class Duke {
         boolean end = false;
         while(!end) {
             String[] s = d.listen();
+            String s1 = String.join(" ", s);
             switch (s[0]) {
                 case "bye":
                     d.farewell();
@@ -57,8 +55,26 @@ public class Duke {
                 case "unmark":
                     d.unmark(Integer.parseInt(s[1]));
                     break;
-                default:
-                    d.add(String.join(" ", s));
+                case "todo":
+                    String name = String.join(" ", s).substring(5);
+                    Todo t = new Todo(name);
+                    d.addTask(t);
+                    break;
+                case "deadline":
+                    int byIndex = s1.indexOf("/by");
+                    String deadlineName = s1.substring(9, byIndex - 1);
+                    String deadlineBy = s1.substring(byIndex + 4);
+                    Deadline dl = new Deadline(deadlineName, deadlineBy);
+                    d.addTask(dl);
+                    break;
+                case "event":
+                    int fromIndex = s1.indexOf("/from");
+                    int toIndex = s1.indexOf("/to");
+                    String eventName = s1.substring(6, fromIndex - 1);
+                    String from = s1.substring(fromIndex + 6, toIndex - 1);
+                    String to = s1.substring(toIndex + 4);
+                    Event e = new Event(eventName, from, to);
+                    d.addTask(e);
                     break;
             }
         }
