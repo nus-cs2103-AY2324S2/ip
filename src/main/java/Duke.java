@@ -57,7 +57,11 @@ public class Duke {
                     }
                     case "todo": {
                         String name = sc.nextLine();
-                        add(name.substring(1));
+                        if (name.equals("")) {
+                            System.out.println("The name cannot be empty!");
+                        } else {
+                            add(name.substring(1));
+                        }
                         break;
                     }
                     case "deadline": {
@@ -92,7 +96,6 @@ public class Duke {
 
                         String endDate = sc.nextLine();
                         add(name.toString(), startDate.toString(), endDate);
-
                         break;
                     }
 
