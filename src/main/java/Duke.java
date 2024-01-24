@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Duke {
-    private static final String lineBreak = "____________________________________________________________";
+    private static final String lineBreak = "_______________________________________________________________________________";
     private static ArrayList<Task> lst = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         greet();
@@ -87,6 +87,19 @@ public class Duke {
                 Task newEvent = new Event(eventFromArr[0], eventToArr[0], eventToArr[1]);
                 addLst(newEvent);
                 break;
+            case "delete":
+                if (commandArr.length == 1) {
+                    throw new IncompleteCommandException(String.format("%s\n Sorry, please input the list index for me to delete\n%s", lineBreak, lineBreak));
+                }
+                if (!commandArr[1].matches("\\d+")) {
+                    throw new InvalidCommandException(String.format("%s\n Sorry, please input a valid list index for me to delete\n%s", lineBreak, lineBreak));
+                }
+                int toDelete = Integer.parseInt(commandArr[1]);
+                if (toDelete > lst.size()) {
+                    throw new InvalidCommandException(String.format("%s\n Sorry, please input a valid list index for me to delete\n%s", lineBreak, lineBreak));
+                }
+                deleteTask(toDelete);
+                break;
             default:
                 throw new InvalidCommandException(String.format("%s\n Sorry, %s is not a valid command :(\n%s", lineBreak, cmd, lineBreak));
         }
@@ -132,6 +145,15 @@ public class Duke {
         System.out.println(lineBreak);
         System.out.println(" OK! I've marked this task as not done yet:");
         System.out.println("   " + lst.get(num - 1).toString());
+        System.out.println(lineBreak);
+    }
+
+    public static void deleteTask(int num) {
+        System.out.println(lineBreak);
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println("   " + lst.get(num - 1).toString());
+        lst.remove(num - 1);
+        System.out.println(" Now you have " + lst.size() + " tasks in the list.");
         System.out.println(lineBreak);
     }
 
