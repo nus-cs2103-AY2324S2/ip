@@ -9,4 +9,8 @@ mark 2
 mark 3
 unmark 2
 list
+invalidcommand
+todo
+deadline something
+event something /from now
 bye
