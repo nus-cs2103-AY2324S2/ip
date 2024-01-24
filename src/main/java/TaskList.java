@@ -10,6 +10,21 @@ public class TaskList {
     public void addTask(Task task){
         tasks.add(task);
     }
+    /*
+    This method prints a given task at position i
+     */
+    public String printTask(int i){
+        Task task = tasks.get(i);
+        return task.toString();
+    }
+    public void markCompleteTask(int i){
+        Task task = tasks.get(i);
+        task.markDone();
+    }
+    public void unmarkCompleteTask(int i){
+        Task task = tasks.get(i);
+        task.unmarkDone();
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
