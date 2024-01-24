@@ -26,7 +26,7 @@ public class BartenderBob {
         System.out.println("Here are the tasks in your list!");
         for (int i = 0; i < STORAGE.size(); i++) {
             int number = i + 1;
-            System.out.println(number + ". " + STORAGE.get(i).show());
+            System.out.println(number + "." + STORAGE.get(i).show());
         }
     }
 
