@@ -7,6 +7,8 @@ public class Duke {
         Plana p = new Plana();
         p.greet();
 
+        p.chat();
+
         p.bye();
     }
 }
