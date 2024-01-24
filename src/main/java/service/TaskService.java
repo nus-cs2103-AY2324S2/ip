@@ -6,36 +6,41 @@ public class TaskService {
     private Task[] taskList = new Task[100]; // According to specifications, there cannot be more than 100 tasks
     private int taskListPointer = 0;
 
-    public void addTask(String taskName) {
+    public String addTask(String taskName) {
         Task newTask = new Task(taskName);
         this.taskList[this.taskListPointer++] = newTask;
 
-        System.out.println(String.format("Added: %s", taskName));
+        return String.format("Added: %s", taskName);
     }
 
-    public void markTaskCompleted(int taskId) {
-        this.taskList[taskId].setTaskCompleted();
+    public String markTaskCompleted(int taskId) {
+        this.taskList[taskId].markTaskCompleted();
 
-        // TODO: Fix Printing Format
-        System.out.println("Ok! I've marked this task as completed!");
+        return "Ok! I've marked Task " + (taskId + 1) + " as completed!";
     }
 
-    public void markTaskUncompleted(int taskId) {
-        this.taskList[taskId].setTaskUncompleted();
+    public String markTaskUncompleted(int taskId) {
+        // TODO: Exception handling for if task does not exist
+        this.taskList[taskId].markTaskNotCompleted();
 
-        // TODO: Fix Printing Format
-        System.out.println("Hmmm, were you teasing me? I've marked the task as uncompleted");
+        return "Hmmm, were you teasing me? \n " +
+                "Well, I've marked Task " + (taskId + 1) +  " as uncompleted, \n " +
+                "But don't do this again, you hear me?";
     }
 
-    public void getAllTasks() {
-        for (int i = 0; i < this.taskList.length; i++) {
+    public String[] getAllTasks() {
+        String[] returnVal = new String[this.taskListPointer];
+
+        for (int i = 0; i < this.taskListPointer; i++) {
             Task curTask = this.taskList[i];
 
             if (curTask == null) {
                 break;
             }
 
-            System.out.println(String.format("%d. %s", i + 1, this.taskList[i]));
+            returnVal[i] = String.format("%d. %s", i + 1, this.taskList[i]);
         }
+
+        return returnVal;
     }
 }

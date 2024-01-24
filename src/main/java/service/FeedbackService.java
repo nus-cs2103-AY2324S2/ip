@@ -22,22 +22,26 @@ public class FeedbackService {
         while (!curInput[0].equals(CommandEnum.BYE.getCommandValue())) {
             // NOTE: LIST all tasks
             if (curInput[0].equals(CommandEnum.LIST.getCommandValue())) {
-                this.taskService.getAllTasks();
+                String[] output = this.taskService.getAllTasks();
+
+                for (String task : output) {
+                    this.Echo(task);
+                }
             }
             // NOTE: MARK task as completed
             else if (curInput[0].equals(CommandEnum.MARK.getCommandValue())) {
-                this.taskService.markTaskCompleted(Integer.parseInt(curInput[1]) - 1);
+                this.Echo(this.taskService.markTaskCompleted(Integer.parseInt(curInput[1]) - 1));
             }
             // NOTE: UNMARK task as completed
             else if (curInput[0].equals(CommandEnum.UNMARK.getCommandValue())) {
-                this.taskService.markTaskUncompleted(Integer.parseInt(curInput[1]) - 1);
+                this.Echo(this.taskService.markTaskUncompleted(Integer.parseInt(curInput[1]) - 1));
             }
             // NOTE: Default - Add task
             else {
-                this.taskService.addTask(curInput[0]);
+                this.Echo(this.taskService.addTask(curInput[0]));
             }
 
-            // this.Echo(curInput);  // No longer required?
+            // QUESTION: No longer required? Check if can be removed or if this functionality will still be graded
             curInput = scanner.nextLine().split(" ");
         }
     }
@@ -65,10 +69,10 @@ public class FeedbackService {
 
     }
 
-    // No longer required?
-//     private void Echo(String input) {
-//        System.out.println("----------------------------------------------");
-//        System.out.println(input);
-//        System.out.println("----------------------------------------------");
-//     }
+    // TODO: Allow for String[]?
+     private void Echo(String input) {
+        System.out.println("----------------------------------------------");
+        System.out.println(input);
+        System.out.println("----------------------------------------------");
+     }
 }
