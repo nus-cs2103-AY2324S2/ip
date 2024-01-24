@@ -24,7 +24,7 @@ public class Duchess {
             System.out.println(" No tasks added yet.");
         } else {
             for (int i = 0; i < taskCount; i++) {
-                System.out.println(" " + (i + 1) + ". " + tasks[i]);
+                System.out.println(" " + (i + 1) + ". " + tasks[i].description);
             }
         }
         printHorizontalLine();
