@@ -122,6 +122,17 @@ public class Duke {
         return taskIndex >= 1 && taskIndex <= tasks.size();
     }
 
+    private static void deleteTask(ArrayList<Task> tasks, int taskIndex) {
+        if (isValidTaskIndex(tasks, taskIndex)) {
+            Task removedTask = tasks.remove(taskIndex - 1);
+            messageWithHorizontalLines("Task has been successfully removed:\n" +
+                                       "  " + removedTask + "\n" +
+                                       printCurrentTaskAmount(tasks));
+        } else {
+            messageWithHorizontalLines("Invalid task index!");
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String botName = "Hammy";
@@ -156,6 +167,14 @@ public class Duke {
                         markTaskAsUndone(tasks, taskIndex);
                     } else {
                         messageWithHorizontalLines("Please provide the task index to mark as undone.");
+                    }
+                    break;
+                case "delete":
+                    if (words.length > 1) {
+                        int taskIndex = Integer.parseInt(words[1]);
+                        deleteTask(tasks, taskIndex);
+                    } else {
+                        messageWithHorizontalLines("Please provide the task index to delete.");
                     }
                     break;
                 case "todo":
