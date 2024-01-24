@@ -1,11 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static String WELCOME = "   Hi, I'm Gronk!\n"
             + "   What are we up to today?";
     public static String GOODBYE = "   System closing. Goodbye!";
-    public static Task[] tasks = new Task[100];
-    public static int i = 0;
+    public static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void lines() { // prints out a line
         System.out.println("  ----------------------------------------");
@@ -18,16 +18,17 @@ public class Duke {
     }
 
     public static void reciteList() {
-        if (i == 0) {
-            printMessage("   List empty! Nothing added yet!");
-        } else if (i >= 100) {
-            printMessage("   oh no! too many tasks!");
-        } else {
+        try {
+            if (tasks.size() == 0) {
+                throw new EmptyListException();
+            }
             String m = "";
-            for (int j = 0; j < i; j++) {
-                m += "   " + Integer.toString(j + 1) + ". " + tasks[j].toString() + "\n";
+            for (int j = 0; j < tasks.size(); j++) {
+                m += "   " + Integer.toString(j + 1) + ". " + tasks.get(j).toString() + "\n";
             }
             printMessage(m.substring(0, m.length() - 1));
+        } catch (EmptyListException e) {
+            printMessage(e.toString());
         }
     }
 
@@ -41,16 +42,14 @@ public class Duke {
                     throw new EmptyDescException();
                 }
                 printMessage("   added task: " + t);
-                tasks[i] = new Todo(t, 0);
-                i += 1;
+                tasks.add(new Todo(t, 0));
             } else if (m.startsWith("deadline")) {
                 String[] t = m.substring(9).split(" /by");
                 if (t[1].equals("")) {
                     throw new EmptyDescException();
                 }
                 printMessage("   added deadline: " + t[0]);
-                tasks[i] = new Deadline(t[0], 0, t[1]);
-                i += 1;
+                tasks.add(new Deadline(t[0], 0, t[1]));
             } else if (m.startsWith("event")) {
                 String[] t1 = m.substring(6).split(" /from");
                 if (t1[1].equals("")) {
@@ -61,8 +60,7 @@ public class Duke {
                     throw new EmptyDescException();
                 }
                 printMessage("   added event: " + t1[0]);
-                tasks[i] = new Event(t1[0], 0, t2[0], t2[1]);
-                i += 1;
+                tasks.add(new Event(t1[0], 0, t2[0], t2[1]));
             } else {
                 throw new DukeException();
             }
@@ -87,8 +85,13 @@ public class Duke {
             } else if (message.startsWith("mark")) {
                 String[] t = message.split(" ");
                 int ind = Integer.parseInt(t[1]) - 1;
-                printMessage(tasks[ind].statusMessage());
-                tasks[ind].flip();
+                printMessage(tasks.get(ind).statusMessage());
+                tasks.get(ind).flip();
+            } else if (message.startsWith("delete")) {
+                String[] t = message.split(" ");
+                int ind = Integer.parseInt(t[1]) - 1;
+                printMessage("   Item: " + tasks.get(ind).getDesc() + " removed from list.");
+                tasks.remove(ind);
             } else {
                 parseMessage(message);
             }
