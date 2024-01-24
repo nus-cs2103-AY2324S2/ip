@@ -20,13 +20,8 @@ public class Duke {
   public static void main(String[] args) {
     printOutput(logo, "Hello! I'm Lucky the cat", "What can I do for you?");
     Scanner sc = new Scanner(System.in);
-    // ArrayList<String> tasks = new ArrayList<>();
-    // ArrayList<Boolean> taskStatus = new ArrayList<>();
     ArrayList<Task> tasks = new ArrayList<>();
     boolean isChatting = true;
-    String tick = "[X]";
-    String untick = "[ ]";
-    String checkBox = untick;
     Command command;
 
     while (isChatting) {
@@ -37,18 +32,6 @@ public class Duke {
       switch (command) {
         case VIEW_LIST:
           printList(tasks);
-          // StringBuilder sb = new StringBuilder();
-          // for (int i = 0; i < tasks.size(); i++) {
-          // if (taskStatus.get(i)) {
-          // checkBox = tick;
-          // } else {
-          // checkBox = untick;
-          // }
-          // sb.append(checkBox + " " + (i + 1) + ". " + tasks.get(i) + "\n" +
-          // subIndentation);
-          // }
-
-          // printOutput("Here are the tasks in your list:", sb.toString());
           break;
 
         case BYE:
@@ -58,16 +41,10 @@ public class Duke {
 
         case UPDATE_MARK:
           tasks.get(Integer.parseInt(input[1]) - 1).setStatus(true);
-          // int target = Integer.parseInt(input[1]) - 1;
-          // taskStatus.set(target, true);
-          // checkBox = tick;
           printOutput("Nice! I've marked this task as done:", tasks.get(Integer.parseInt(input[1]) - 1).toString());
           break;
         case UPDATE_UNMARK:
           tasks.get(Integer.parseInt(input[1]) - 1).setStatus(false);
-          // target = Integer.parseInt(input[1]) - 1;
-          // taskStatus.set(target, false);
-          // checkBox = untick;
           printOutput("OK, I've marked this task as not done yet: ",
               tasks.get(Integer.parseInt(input[1]) - 1).toString());
           break;
@@ -83,7 +60,6 @@ public class Duke {
           printOutput("Got it. I've added this task:", indentation + deadlineTask.toString(),
               "Now you have " + (tasks.size() + 1) + " tasks in the list.");
           tasks.add(deadlineTask);
-
           break;
         case INSERT_EVENT:
           String[] eventDetails = input[1].split("/from|/to");
