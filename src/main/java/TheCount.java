@@ -17,22 +17,39 @@ public class TheCount {
 
         // Wait for user input
         String userInput = scanner.nextLine();
-        // Checks for exit condition
-        while (!userInput.equals("bye")) {
-            if (userInput.equals("list")) {
-                // Prints list of tasks
-                tasks.printList();
-            } else {
-                // Adds task to list
-                Task task = new Task(userInput);
-                tasks.add(task);
-                task.displayMessage();
+        // Get first word for CommandType
+        String commandName = userInput.split("\\s+")[0].toUpperCase();
+        int taskNumber = 0;
+        // Checks for BYE command
+        while (!commandName.equals("BYE")) {
+            // Checks for switch case conditions
+            commandName = userInput.split("\\s+")[0].toUpperCase();
+            switch (commandName) {
+                case "BYE":
+                    // Prints goodbye for exit
+                    goodbye.displayMessage();
+                    scanner.close();
+                    System.exit(0);
+                    break;
+                case "LIST":
+                    tasks.printList();
+                    break;
+                case "MARK":
+                    taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
+                    tasks.markTask(taskNumber);
+                    break;
+                case "UNMARK":
+                    taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
+                    tasks.unmarkTask(taskNumber);
+                    break;
+                default:
+                    Task task = new Task(userInput);
+                    tasks.add(task);
+                    task.displayMessage();
+                    break;
             }
             userInput = scanner.nextLine();
         }
         scanner.close();
-
-        // Prints goodbye for exit
-        goodbye.displayMessage();
     }
 }
