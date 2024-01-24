@@ -84,6 +84,12 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Hello from");
+        System.out.println(" ____        _");
+        System.out.println("|  _ \\ _   _| | _____ ");
+        System.out.println("| | | | | | | |/ / _ \\");
+        System.out.println("| |_| | |_| |   <  __/");
+        System.out.println("|____/ \\__,_|_|\\_\\___|");
 
         System.out.println("Hello! I'm SCZL");
         System.out.println("What can I do for you?");
