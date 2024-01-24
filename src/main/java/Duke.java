@@ -1,5 +1,17 @@
+import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
-        System.out.println("Hello, my name is Xilef.\nHow may I help you today?\nBye bye, have a nice day!");
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\t\tHello, my name is Xilef.\n\t\tHow may I help you today??\n");
+
+        while (true) {
+            String str = scanner.nextLine();
+            if (str.equals("bye")) {
+                break;
+            }
+            System.out.println("\t\t"+str);
+        }
+        System.out.println("\t\tBye bye, see you next time !!!");
     }
 }
