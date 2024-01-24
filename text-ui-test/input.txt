@@ -19,4 +19,11 @@ unmark 4
 unmark 6
 unmark 1
 list
+deadline /by
+event /from
+event /to
+event /from /to
+event /from /te
+deadline /be
+deadline /from /from 123 /to
 bye
