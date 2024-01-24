@@ -5,6 +5,7 @@ import io.Message;
 import io.Outputter;
 import model.commands.CommandList;
 import parsing.Parser;
+import utils.RemiError;
 
 public class Chatbot {
 
@@ -25,11 +26,15 @@ public class Chatbot {
         Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
 
         while (!exitLoop) {
-            Message input = Inputter.inputMessage();
-            Message output = parser.parseAndRun(input);
-            Outputter.outputMessage(output);
-            if (exitLoop)
-                break;
+            try {
+                Message input = Inputter.inputMessage();
+                Message output = parser.parseAndRun(input);
+                Outputter.outputMessage(output);
+                if (exitLoop)
+                    break;
+            } catch (RemiError err) {
+                Outputter.outputMessage(new Message(err.getMessage()));
+            }
         }
     }
 
