@@ -1,0 +1,33 @@
+diff a/src/main/java/Echo.java b/src/main/java/Echo.java	(rejected hunks)
+@@ -1,6 +1,9 @@
++import java.util.Scanner;
++
+ public class Echo {
+     public static void main(String[] args) {
+         greetUser();
++        startConversation();
+         System.out.println("Bye. Hope to see you again soon!");
+     }
+ 
+@@ -10,4 +13,21 @@
+         System.out.println("What can I do for you?");
+         System.out.println("____________________________________________________________");
+     }
++
++    public static void startConversation() {
++        Scanner scanner = new Scanner(System.in);
++        String userCommand;
++        do {
++            System.out.print("\n");
++            userCommand = scanner.nextLine();
++            echoCommand(userCommand);
++        } while (!userCommand.equalsIgnoreCase("bye") &&
++                    !userCommand.equalsIgnoreCase("Bye"));
++    }
++
++    public static void echoCommand(String userCommand) {
++        System.out.println("____________________________________________________________");
++        System.out.println(userCommand);
++        System.out.println("____________________________________________________________");
++    }
+ }
