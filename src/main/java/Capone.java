@@ -241,7 +241,8 @@ public class Capone {
                 "4. event [description] /from [date] /to [date] - Creates a new Event task.\n" +
                 "   Remember to enter the description, as well as the start and end date!\n" +
                 "5. mark [index] - Marks a task as completed. Use this in conjunction with the 'list' command!\n" +
-                "6. unmark [index] - Unmarks a task. Use this in conjunction with the 'list' command!\n");
+                "6. unmark [index] - Unmarks a task. Use this in conjunction with the 'list' command!\n" +
+                "7. delete [index] - Deletes a task. Use this in conjunction with the 'list' command!");
     }
 
     public static void processInputs() {
