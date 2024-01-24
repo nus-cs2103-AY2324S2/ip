@@ -17,10 +17,9 @@ public class CommandList {
      *
      * @param option the option to be found, include the "/" at the start
      * @param input the input line to be scanned
-     * @return
+     * @return the string value of the specific option
      */
     private String findOption(String option, String input) throws RemiError {
-        int ctr = 0;
         int idx = input.indexOf(option);
 
         /// TODO: handle this
@@ -72,7 +71,7 @@ public class CommandList {
         });
         commandLookup.put("todo", (args) -> {
             String label = getLabel(args);
-            ToDo todo = new ToDo(args);
+            ToDo todo = new ToDo(label);
             taskList.addTask(todo);
             return new Message(String.format("I've added the task.\n%s\nYou still have %d tasks in the list.", todo, taskList.size()));
         });
@@ -92,6 +91,13 @@ public class CommandList {
             Event event = new Event(label, from, to);
             taskList.addTask(event);
             return new Message(String.format("I've added the task.\n%s\nYou still have %d tasks in the list.", event, taskList.size()));
+        });
+
+        commandLookup.put("delete", (args) -> {
+            int idx = Integer.parseInt(args);
+            Task task = taskList.getTask(idx);
+            taskList.removeTask(idx);
+            return new Message(String.format("I've removed the task.\n%s\nYou still have %d tasks in the list.", task, taskList.size()));
         });
     }
 
