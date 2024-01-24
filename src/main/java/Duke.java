@@ -18,7 +18,7 @@ public class Duke {
                 "   What can I do for you?\n" +
                 line;
 
-        ArrayList<String> userTexts = new ArrayList<>();
+        ArrayList<Task> userTexts = new ArrayList<>();
 
         String[] terminateKeywords = {"bye", "BYE", "Bye"};
         List<String> exitProgramme = Arrays.asList(terminateKeywords);
@@ -30,14 +30,27 @@ public class Duke {
         String currInput = input.nextLine();
 
         while (!exitProgramme.contains(currInput)) {
-
-            if (currInput.equals("list")) { // request for list
+            if (currInput.equals("list")) { // list tasks
+                System.out.println("    Here are the items in your list: ");
                 for (int i = 0; i < userTexts.size(); i++) {
                     String listIdx = i + 1 + ". ";
-                    System.out.println("    " + listIdx + userTexts.get(i));
+                    Task currTask = userTexts.get(i);
+                    System.out.println(
+                            "    " + listIdx +
+                            currTask.getStatusIcon() +
+                            currTask.getDescription()
+                    );
                 }
-            } else {                        // tasks
-                userTexts.add(currInput);
+            } else if (currInput.contains("mark") ||
+                    currInput.contains("unmark")) {     // mark tasks
+                if (currInput.contains("mark")) {
+
+                } else {
+
+                }
+            } else {                        // add tasks
+                Task newTask = new Task(currInput);
+                userTexts.add(newTask);
                 System.out.println("    added: " + currInput);
             }
             System.out.println(line);
