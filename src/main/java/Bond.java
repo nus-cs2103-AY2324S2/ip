@@ -27,7 +27,7 @@ public class Bond {
 
         Scanner sc = new Scanner(System.in);
 
-        ArrayList<Task> List = new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<Task>();
 
         while (true) {
 
@@ -47,7 +47,7 @@ public class Bond {
 
                     if (userInput.equalsIgnoreCase("list")) {
 
-                        ListIterator<Task> toPrint = List.listIterator();
+                        ListIterator<Task> toPrint = taskList.listIterator();
 
                         System.out.println(String.format("\n    Here are the tasks in your list:\n"));
 
@@ -59,22 +59,21 @@ public class Bond {
                         System.out.println(line);
 
                     } else {
-                        List.add(new Task(userInput));
-                        System.out.println(String.format("\n    Added: %s \n%s", userInput, line));
+                        System.out.println(String.format("\n    Invalid query syntax detected! \n%s", line));
                     }
                 }
-            } else if (components.length == 2) {
+            } else if (components.length == 2 && components[0].contains("mark")) {
 
                 if (components[0].equalsIgnoreCase("mark")) {
 
                     if (isNumber(components[1])) {
                         int index = Integer.parseInt(components[1]) - 1;
 
-                        if (index < List.size()) {
-                            List.get(index).markAsComplete();
+                        if (index < taskList.size()) {
+                            taskList.get(index).markAsComplete();
                             System.out
                                     .println(String.format("\n    Nice! I've marked this task as done: \n      %s \n%s",
-                                            List.get(index).toString(), line));
+                                            taskList.get(index).toString(), line));
                         } else {
                             System.out.println(String.format("\n    Invalid index! \n%s", line));
                         }
@@ -87,12 +86,12 @@ public class Bond {
                     if (isNumber(components[1])) {
                         int index = Integer.parseInt(components[1]) - 1;
 
-                        if (index < List.size()) {
-                            List.get(index).markAsIncomplete();
+                        if (index < taskList.size()) {
+                            taskList.get(index).markAsIncomplete();
                             System.out
                                     .println(String.format(
                                             "\n    OK, I've marked this task as not done yet: \n      %s \n%s",
-                                            List.get(index).toString(), line));
+                                            taskList.get(index).toString(), line));
                         } else {
                             System.out.println(String.format("\n    Invalid index! \n%s", line));
                         }
@@ -103,6 +102,14 @@ public class Bond {
                 } else {
                     System.out.println(String.format("\n    Invalid query syntax detected! \n%s", line));
                 }
+            } else if (components[0].equalsIgnoreCase("todo") || components[0].equalsIgnoreCase("deadline")
+                    || components[0].equalsIgnoreCase("event")) {
+
+                Task newTask = Task.makeTask(userInput);
+                taskList.add(newTask);
+                System.out.println(String.format(
+                        "\n    Got it. I've added this task: \n      %s \n    Now you have %d tasks in the list. \n%s",
+                        newTask.toString(), taskList.size(), line));
             } else {
                 System.out.println(String.format("\n    Invalid query syntax detected! \n%s", line));
             }
