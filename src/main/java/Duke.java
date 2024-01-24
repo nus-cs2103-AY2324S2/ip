@@ -8,7 +8,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         boolean input = true;
         while (input) {
-            String message = sc.next();
+            String message = sc.nextLine();
             if (message.equals("bye")) {
                 input = false;
             }
