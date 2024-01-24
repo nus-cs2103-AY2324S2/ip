@@ -16,13 +16,27 @@ public class Dibo {
             if (command.equals("list")) {
                 store.displayStore();
             } else if (command.contains("unmark")) {
-                int id = Integer.parseInt(command.split(" ")[1]);
-                store.unmarkTask(id);
+                try {
+                    int id = Integer.parseInt(command.split(" ")[1]);
+                    store.unmarkTask(id);
+                } catch (NumberFormatException e) {
+                    System.out.println("Oh no! You have to unmark the items based on their index," +
+                            "if you are not sure of the index, enter 'list' to check it out:)");
+                }
             } else if (command.contains("mark")) {
-                int id = Integer.parseInt(command.split(" ")[1]);
-                store.markTask(id);
+                try {
+                    int id = Integer.parseInt(command.split(" ")[1]);
+                    store.markTask(id);
+                } catch (NumberFormatException e) {
+                    System.out.println("Oh no! You have to mark the items based on their index," +
+                            "if you are not sure of the index, enter 'list' to check it out:)");
+                }
             } else {
-                System.out.println(store.addText(command));
+                try {
+                    System.out.println(store.addText(command));
+                } catch (DukeException d) {
+                    System.out.println(d.getMessage());
+                }
             }
             command = sc.nextLine();
 
