@@ -52,24 +52,36 @@ public class Duke {
                 }
             } else if (splitted[0].equals("todo")) {
                 if (splitted.length == 1) {
-                    System.out.println(FormatOutput.format("Please re-enter Todo with a name"));
+                    System.out.println(FormatOutput.format("Please re-enter Todo with a valid name"));
                 } else {
                     System.out.println(FormatOutput.format(itemList.addToDo(splitted)));
                 }
             } else if (splitted[0].equals("deadline")) {
                 if (splitted.length == 1) {
-                    System.out.println(FormatOutput.format("Please re-enter Deadline with a name"));
+                    System.out.println(FormatOutput.format("Please re-enter Deadline with a valid name."));
                 } else {
-                    System.out.println(FormatOutput.format(itemList.addDeadline(splitted)));
+                    try {
+                        System.out.println(FormatOutput.format(itemList.addDeadline(splitted)));
+                    } catch (CustomExceptions.namelessTaskException e) {
+                        System.out.println(FormatOutput.format("Please re-enter Deadline with a valid name"));
+                    }  catch (CustomExceptions e) {
+                        System.out.println(FormatOutput.format("Could not parse command: " + command));
+                    }
                 }
             } else if (splitted[0].equals("event")) {
                 if (splitted.length == 1) {
-                    System.out.println(FormatOutput.format("Please re-enter Event with a name"));
+                    System.out.println(FormatOutput.format("Please re-enter Event with a valid name"));
                 } else {
                     try {
                         System.out.println(FormatOutput.format(itemList.addEvent(splitted)));
                     } catch (CustomExceptions.toBeforeFromException e) {
-                        System.out.println(FormatOutput.format("Please re-enter Event /from BEFORE /to"));
+                        System.out.println(FormatOutput.format("Please re-enter Event /from BEFORE /to: " + command));
+                    } catch (CustomExceptions.eventExceptionForFromTo e) {
+                        System.out.println(FormatOutput.format("Could not parse /from and /to strings: " + command));
+                    } catch (CustomExceptions.namelessTaskException e) {
+                        System.out.println(FormatOutput.format("Please re-enter Event with a valid name"));
+                    } catch (CustomExceptions e) {
+                        System.out.println(FormatOutput.format("Could not parse command: " + command));
                     }
                 }
             } else if (command.equals("list")) {

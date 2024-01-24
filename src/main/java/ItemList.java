@@ -16,13 +16,13 @@ public class ItemList {
         return listOfItems[itemCount-1].addMessage(itemCount);
     }
 
-    String addEvent(String[] info) throws CustomExceptions.toBeforeFromException {
+    String addEvent(String[] info) throws CustomExceptions {
         listOfItems[itemCount] = new Event(info);
         itemCount++;
         return listOfItems[itemCount-1].addMessage(itemCount);
     }
 
-    String addDeadline(String[] info) {
+    String addDeadline(String[] info) throws CustomExceptions{
         listOfItems[itemCount] = new Deadline(info);
         itemCount++;
         return listOfItems[itemCount-1].addMessage(itemCount);

@@ -3,7 +3,7 @@ public class Deadline extends Item{
     private boolean isDone = false;
     private String name = "";
     private String doneBy = "";
-    public Deadline(String[] info) {
+    public Deadline(String[] info) throws CustomExceptions {
         int index = 1;
         String s = "";
         while ((index < info.length) && !info[index].equals("/by")) {
@@ -16,6 +16,9 @@ public class Deadline extends Item{
         this.name = this.name.trim();
         this.doneBy = this.doneBy.trim();
         this.isDone = false;
+        if (this.name.equals("")) {
+            throw new CustomExceptions.namelessTaskException("Missing Event Name");
+        }
     }
 
     @Override
