@@ -13,9 +13,9 @@ public class BadPingGuo {
         Scanner sc = new Scanner(System.in);
 
         while(true) {
-            String response = sc.nextLine();
-            if (response.equalsIgnoreCase("bye")) break;
-            System.out.println(response);
+            String request = sc.nextLine();
+            if (request.equalsIgnoreCase("bye")) break;
+            Tracker.ProcessQuery(request);
         }
 
         System.out.println("--------------------------------");
