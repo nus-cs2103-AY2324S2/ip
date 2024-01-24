@@ -20,7 +20,7 @@ public class Duke {
                         break;
                     }
                     int n = i + 1;
-                    System.out.println(n + ". [" + task[i].getStatusIcon() + "] " + task[i].description);
+                    System.out.println(n + ". [" + task[i].getStatusIcon() + "] " + task[i].toString());
                 }
                 String userCmd = cmd.nextLine();
             } else if (cmd.hasNext("mark")) {
@@ -29,14 +29,14 @@ public class Duke {
                 int index = Integer.parseInt(uCmd[1]) - 1;
                 task[index].markAsDone();
                 System.out.println("Nice! I've marked this task as done:\n" +
-                        "\t[X] " + task[index].description);
+                        "\t[X] " + task[index].toString());
             } else if (cmd.hasNext("unmark")) {
                 String userCmd = cmd.nextLine();
                 String [] uCmd = userCmd.split(" ");
                 int index = Integer.parseInt(uCmd[1]) - 1;
                 task[index].unmark();
                 System.out.println("OK, I've marked this task as not done yet:\n" +
-                        "\t[ ] " + task[index].description);
+                        "\t[ ] " + task[index].toString());
             } else {
                 if (count > 100) {
                     break;
