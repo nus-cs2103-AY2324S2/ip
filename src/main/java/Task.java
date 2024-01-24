@@ -36,6 +36,20 @@ public class Task {
     }
 
     /**
+     * Add a task to the list and print out the details.
+     * Also updates the list count
+     *
+     * @param num task number
+     * @return the new list count
+     */
+    public int addTask(int num) {
+        num++;
+        System.out.println("Oink! Nice I have added this task:\n"
+                + " >> " + this + "\nOink's task count: " + num);
+        return num;
+    }
+
+    /**
      * toString method for printing task description.
      * @return task status + task name
      */
