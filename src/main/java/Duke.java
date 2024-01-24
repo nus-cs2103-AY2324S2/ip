@@ -41,6 +41,29 @@ public class Duke {
                     System.out.println(lineBreak);
                 }
 
+                else if (input.toUpperCase().contains("DELETE")) {
+                    try {
+                        int item_index = Character.getNumericValue(input.charAt(7));
+                        Task t = list.remove(item_index - 1);
+                        System.out.println(lineBreak);
+                        System.out.println("\t\tNoted. I've removed this task:");
+                        System.out.println("\t\t  " + t);
+                        System.out.println("\t\tNow you have " + list.size() + " tasks in the list.");
+                        System.out.println(lineBreak);
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println(lineBreak);
+                        System.out.println("\t\tOOPS!!! Please specify a valid task number.");
+                        System.out.println(lineBreak);
+                        input = "list";
+                        continue;
+                    } catch (IndexOutOfBoundsException f) {
+                        System.out.println(lineBreak);
+                        System.out.println("\t\tOOPS!!! Please specify a valid task number.");
+                        System.out.println(lineBreak);
+                        input = "list";
+                        continue;
+                    }
+                }
 
                 else if (input.toUpperCase().contains("TODO")) {
                     System.out.println(lineBreak);
