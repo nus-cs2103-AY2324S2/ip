@@ -11,7 +11,7 @@ public class Duke {
         String line = "--------------------------------------";
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(line);
         System.out.println(logo);
@@ -24,30 +24,43 @@ public class Duke {
         while(!temp.equalsIgnoreCase("bye")) {
             System.out.println(line);
 
-            if (temp.equalsIgnoreCase("list")) {
-                System.out.println("Here are the tasks in your list:");
+            switch (temp.toLowerCase()) {
+                case "list":
+                    System.out.println("Here are the tasks in your list:");
 
-                for (int i = 0; i < tasks.size(); ++i) {
-                    Task t = tasks.get(i);
-                    System.out.print(i + 1);
-                    System.out.println(".[" + t.getStatusIcon() + "] " + t.getDescription());
-                }
-            } else if (temp.equalsIgnoreCase("mark")) {
-                int num = Integer.parseInt(st.nextToken());
-                tasks.get(num - 1).updateIsDone(true);
+                    for (int i = 0; i < tasks.size(); ++i) {
+                        Task t = tasks.get(i);
+                        System.out.print(i + 1);
+                        System.out.println("." + t.toString());
+                    }
+                    break;
 
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  [" + tasks.get(num - 1).getStatusIcon() + "] " + tasks.get(num - 1).getDescription());
+                case "mark":
+                    int num = Integer.parseInt(st.nextToken());
+                    tasks.get(num - 1).updateIsDone(true);
 
-            } else if (temp.equalsIgnoreCase("unmark")) {
-                int num = Integer.parseInt(st.nextToken());
-                tasks.get(num - 1).updateIsDone(false);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(" " + tasks.get(num - 1).toString());
+                    break;
 
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  [" + tasks.get(num - 1).getStatusIcon() + "] " + tasks.get(num - 1).getDescription());
-            } else {
-                tasks.add(new Task(action));
-                System.out.println("added: " + action);
+                case "unmark":
+                    int n = Integer.parseInt(st.nextToken());
+                    tasks.get(n - 1).updateIsDone(false);
+
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(" " + tasks.get(n - 1).toString());
+                    break;
+
+                case "todo":
+                    tasks.add(new ToDo(action));
+                    System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list");
+                    break;
+
+                default:
+                    tasks.add(new Task(action));
+                    System.out.println("added: " + action);
+                    break;
             }
 
             System.out.println(line);
