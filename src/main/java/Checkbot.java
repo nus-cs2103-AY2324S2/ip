@@ -32,9 +32,25 @@ public class Checkbot {
                 todoList.unmarkTask(i);
                 toPrint = "Alright, I have marked this task as incomplete:\n"
                         + INDENTATION + todoList.getTask(i);
+            } else if (input.startsWith("todo")
+                    || input.startsWith("deadline")
+                    || input.startsWith("event")) {
+                Task task;
+                if (input.startsWith("todo")) {
+                    task = new Todo(input.split("todo ")[1]);
+                } else if (input.startsWith("deadline")) {
+                    String[] splitString = input.split("deadline |\\/by ");
+                    task = new Deadline(splitString[1], splitString[2]);
+                } else {
+                    String[] splitString = input.split("event |\\/(from|to) ");
+                    task = new Event(splitString[1], splitString[2], splitString[3]);
+                }
+                toPrint = "I have added this task to the list:\n"
+                        + INDENTATION + INDENTATION + task + "\n"
+                        + INDENTATION + "You have now " + (todoList.getLength()+1) + " task" + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
+                todoList.addTask(task);
             } else {
-                toPrint = "added: " + toPrint;
-                todoList.addTask(input);
+                // TODO: Handle?
             }
             txt = SEPARATOR
                     + INDENTATION + toPrint + "\n"

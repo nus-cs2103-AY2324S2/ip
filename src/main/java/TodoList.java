@@ -2,8 +2,8 @@ public class TodoList {
     private final Task[] taskList = new Task[100];
     private int length = 0;
 
-    public void addTask(String name) {
-        taskList[this.length] = new Task(name);
+    public void addTask(Task task) {
+        taskList[length] = task;
         length++;
     }
 
@@ -17,6 +17,10 @@ public class TodoList {
 
     public Task getTask(int i) {
         return taskList[i];
+    }
+
+    public int getLength() {
+        return length;
     }
 
     @Override
