@@ -175,36 +175,35 @@ public class Tyrone {
             String param = input.substring(4).trim();
             int index = Integer.parseInt(param) - 1;
             if (taskList.getListSize() <= 0 || index < 0 || index >= taskList.getListSize())
-                throw new TyroneCmdException("Hold up! It looks like you're trying to mark with an invalid id.\n" +
+                throw new TyroneCmdException("It looks like you're trying to mark with an invalid id.\n" +
                         "\t\tDouble-check that your 0 <= id < task list size.");
             taskList.markItemDone(index);
             writer.println(Tyrone.formatStringOutput("Dope! Check it, I've tagged this task as handled:\n" +
                     "\t\t" + taskList.getItemToString(index)));
         } catch (NumberFormatException e) {
-            throw new TyroneCmdException(
-                    "Yo, slow down! Your mark parameter identifier is acting up—it's gotta be a legit number matchin' up with the right task.");
+            throw new TyroneCmdException("Your mark parameter id is acting up.\n" +
+                    "\t\tIt's gotta be a legit number matchin' up with the right task.");
         }
     }
 
     public static void handleUnmarkCommand(String input) throws TyroneCmdException {
         // validate general input
         if (isEmptyParam(input)) {
-            throw new TyroneCmdException("Yo, slow down! Your unmark parameter id is acting up.\n" +
-                    "\t\tIt's gotta be a legit number matchin' up with the right task.");
+            throw new TyroneCmdException("Can't leave that unmarkup id empty. Gotta drop some number in there!");
         }
 
         try {
             String param = input.substring(6).trim();
             int index = Integer.parseInt(param) - 1;
             if (taskList.getListSize() == 0 || index < 0 || index >= taskList.getListSize())
-                throw new TyroneCmdException("Hold up! It looks like you're trying to unmark with an invalid id.\n" +
+                throw new TyroneCmdException("It looks like you're trying to unmark with an invalid id.\n" +
                         "\t\tDouble-check that your 0 <= id < task list size.");
             taskList.unmarkItemDone(index);
             writer.println(Tyrone.formatStringOutput(
                     "A'ight, I've stamped this task as still in the works:\n" +
                             "\t\t" + taskList.getItemToString(index)));
         } catch (NumberFormatException e) {
-            throw new TyroneCmdException("Yo, slow down! Your unmark parameter id is acting up.\n" +
+            throw new TyroneCmdException("Your unmark parameter id is acting up.\n" +
                     "\t\tIt's gotta be a legit number matchin' up with the right task.");
         }
     }
