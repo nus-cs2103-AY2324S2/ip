@@ -21,7 +21,7 @@ public class Duchess {
     private static void printTaskList() {
         printHorizontalLine();
         if (taskCount == 0) {
-            System.out.println(" No tasks added yet.");
+            System.out.println(" No tasks have been added yet.");
         } else {
             System.out.println(" Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
@@ -39,7 +39,7 @@ public class Duchess {
             System.out.println(" added: " + task.toString());
             printHorizontalLine();
         } else {
-            System.out.println("Task list is full. Cannot add more tasks.");
+            System.out.println("The task list is full. I cannot add more tasks.");
         }
     }
 
@@ -48,7 +48,7 @@ public class Duchess {
         if (isValidTaskIndex(taskIndex)) {
             tasks[taskIndex].markAsDone();
             printHorizontalLine();
-            System.out.println(" Nice! I've marked this task as done:");
+            System.out.println(" Perfect! I've marked this task as done:");
             System.out.println(" [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].toString());
             printHorizontalLine();
         } else {
@@ -61,7 +61,7 @@ public class Duchess {
         if (isValidTaskIndex(taskIndex)) {
             tasks[taskIndex].unmarkAsDone();
             printHorizontalLine();
-            System.out.println(" OK, I've marked this task as not done yet:");
+            System.out.println(" Understood, I've marked this task as not done yet:");
             System.out.println(" [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].toString());
             printHorizontalLine();
         } else {
