@@ -35,18 +35,34 @@ public class ItemList {
             } catch (NumberFormatException n) {
             }
         }
-        Item item = new Item(accessCommand);
-        this.addItem(item);
+        this.addItem(accessCommand);
     }
 
     /**
-     * Adds an item to this list.
+     * Creates and adds an item to this list.
      *
      * @param item Item to be added.
      */
-    public void addItem(Item item) {
-        items.add(item);
-        System.out.println(CommandHandler.indentLine("added: " + item.getDescription()));
+    public void addItem(String item) {
+        Item createdItem = null;
+        if (item.length() >= 6 && item.substring(0, 5).equals("todo ")) {
+            createdItem = new ToDo(item.substring(5));
+        } else if (item.length() >= 15 && item.substring(0, 9).equals("deadline ")) {
+            int deadlineIndex = item.indexOf("/by ");
+            String description = item.substring(9, deadlineIndex);
+            String givenDeadline = item.substring(deadlineIndex + 4);
+            createdItem = new Deadline(description, givenDeadline);
+        }
+        else if (item.length() >= 19 && item.substring(0, 6).equals("event ")) {
+            int fromIndex = item.indexOf("/from ");
+            int toIndex = item.indexOf("/to ");
+            String description = item.substring(6, fromIndex);
+            String start = item.substring(fromIndex + 6, toIndex);
+            String end = item.substring(toIndex + 4);
+            createdItem = new Event(description, start, end);
+        }
+        items.add(createdItem);
+        System.out.println(CommandHandler.indentLine("added: " + createdItem.getDescription()));
     }
 
     /**

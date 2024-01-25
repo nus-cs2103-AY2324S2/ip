@@ -1,4 +1,4 @@
-public class Item {
+public abstract class Item {
     private String description;
     private boolean isDone = false;
 
