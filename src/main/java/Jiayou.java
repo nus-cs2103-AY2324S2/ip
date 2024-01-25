@@ -37,6 +37,13 @@ public class Jiayou {
                         unmarkTask(content);
                         break;
                     }
+                case "delete":
+                    if (content.isEmpty()) {
+                        throw new ParseException("OOPS!!! I don't know which task to delete. Please add the index after the keyword delete!");
+                    } else {
+                        deleteTask(content);
+                        break;
+                    }
                 case "todo":
                     if (content.isEmpty()) {
                         throw new ParseException("OOPS!!! The description of a todo cannot be empty. Please add a description after the keyword todo!");
@@ -71,6 +78,26 @@ public class Jiayou {
             System.out.println(e.getMessage());
         }
     }
+
+    private void deleteTask(String content) {
+        try {
+            int taskId = Integer.parseInt(content) - 1;
+            if (taskId < 0 || taskId >= taskList.size()) {
+                int max = taskList.size();
+                throw new ParseException("OOPS!!! The task you wanna delete doesn't exist. Please input a valid number!");
+            }
+
+            Task removedTask = taskList.remove(taskId);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            System.out.println("OOPS!!! Please enter a valid task number!");
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     private void markTask(String content) {
         int taskId = Integer.parseInt(content);
