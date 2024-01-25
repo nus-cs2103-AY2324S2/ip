@@ -60,6 +60,20 @@ public class KBot {
         }
     }
 
+    private static void delete(int index) {
+        try {
+            taskManager.delete(index);
+        } catch (KException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Execute whatever command thrown at the bot by the user
+     * 
+     * @param userInput String representing command to the bot.
+     * @throws KException Exceptions thrown when the command is not valid.
+     */
     private static void executeCommand(String userInput) throws KException {
         String[] input = userInput.split(" ", 2);
         String ins = input[0];
@@ -74,6 +88,10 @@ public class KBot {
             case "unmark":
                 int indexToUnmark = Integer.parseInt(input[1]);
                 unmark(indexToUnmark - 1);
+                break;
+            case "delete":
+                int indexToDelete = Integer.parseInt(input[1]);
+                delete(indexToDelete - 1);
                 break;
             case "todo":
             case "deadline":

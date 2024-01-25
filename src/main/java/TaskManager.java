@@ -86,7 +86,7 @@ public class TaskManager {
      * @param index Index of Task to be marked in the TASKS ArrayList.
      */
     protected void markTask(int index) throws KException {
-        if (index + 1 > TASKS.size()) {
+        if (index + 1 > TASKS.size() || index < 0) {
             throw new KException("Error: " + "Index out of range!");
         }
         Task t = TASKS.get(index);
@@ -100,11 +100,20 @@ public class TaskManager {
      * @param index Index of Task to be marked in the TASKS ArrayList.
      */
     protected void unmarkTask(int index) throws KException {
-        if (index + 1 > TASKS.size()) {
+        if (index + 1 > TASKS.size() || index < 0) {
             throw new KException("Error: " + "Index out of range!");
         }
         Task t = TASKS.get(index);
         t.setNotCompleted();
         System.out.println("OK, I've marked this task as not done yet:\n" + t);
+    }
+
+    protected void delete(int index) throws KException {
+        if (index + 1 > TASKS.size() || index < 0) {
+            throw new KException("Error: " + "Index out of range!");
+        }
+        Task t = TASKS.remove(index);
+        System.out.println("OK, I've deleted this task:\n" + t
+                + "\nNow you have " + TASKS.size() + " tasks in this list!");
     }
 }
