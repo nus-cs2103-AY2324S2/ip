@@ -12,15 +12,13 @@ public class Asher {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void echoCommand(String command) {
-        System.out.println("added:" + " " + command);
-    }
-
-    private static void addTask(String task) {
-        Task newTask = new Task(task);
+    private static void addTask(Task task) {
         if (count < tasks.length) {
-            tasks[count] = newTask;
+            tasks[count] = task;
             count++;
+            System.out.println("Got it. I've added this task:");
+            System.out.println(" " + task);
+            System.out.println("Now you have " + count + " tasks in the list.");
         } else {
             System.out.println("Task List is full, unable to add more.");
         }
@@ -30,7 +28,7 @@ public class Asher {
         System.out.println("Here are the tasks in your list:");
 
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + "." + tasks[i].getStatusIcon() + tasks[i]);
+            System.out.println((i + 1) + "." + tasks[i]);
         }
     }
 
@@ -50,7 +48,7 @@ public class Asher {
         if (taskNumber != -1) {
             tasks[taskNumber].markDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + "[X]" + " " + tasks[taskNumber]);
+            System.out.println(" "  + tasks[taskNumber]);
         } else {
             System.out.println("Invalid Task!");
         }
@@ -61,10 +59,31 @@ public class Asher {
         if (taskNumber != -1) {
             tasks[taskNumber].markUndone();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + "[X]" + " " + tasks[taskNumber]);
+            System.out.println("  " + tasks[taskNumber]);
         } else {
             System.out.println("Invalid Task!");
         }
+    }
+
+    private static Todo createtoDo(String command) {
+        return new Todo(command.substring(5).trim());
+
+    }
+
+    private static Deadline createDeadline(String command) {
+        int split = command.indexOf("/by");
+        String description = command.substring(9, split).trim();
+        String deadline = command.substring(split + 4).trim();
+        return new Deadline(description, deadline);
+    }
+
+    private static Event createEvent(String command) {
+        int split1 = command.indexOf("/from");
+        int split2 = command.indexOf("/to");
+        String description = command.substring(6, split1).trim();
+        String startDate = command.substring(split1 + 6, split2).trim();
+        String deadline = command.substring(split2 + 4).trim();
+        return new Event(description, startDate, deadline);
     }
 
     public static void processCommand(String command) {
@@ -78,9 +97,14 @@ public class Asher {
             markTaskDone(command);
         } else if (word[0].equals("unmark")) {
             markTaskUndone(command);
+        } else if (word[0].equals("todo")) {
+            addTask(createtoDo(command));
+        } else if (word[0].equals("deadline")) {
+            addTask(createDeadline(command));
+        } else if (word[0].equals("event")) {
+            addTask(createEvent(command));
         } else {
-            addTask(command);
-            echoCommand(command);
+            System.out.println("Invalid Command!");
         }
     }
 
