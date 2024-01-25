@@ -51,7 +51,6 @@ public class Duke {
                     }
                     Integer task = Integer.parseInt(currInput[1]);
                     int numTasks = userTasks.size();
-
                     if (task > numTasks) {
                         throw new DukeException(
                                 "you have " + numTasks + " tasks. Please fill in a number lower than or equal to it!"
@@ -66,6 +65,26 @@ public class Duke {
                     } else if (cmd.equals("unmark")) {
                         currTask.markAsUndone();
                     }
+
+                // delete tasks
+                } else if (cmd.equals("delete")) {
+                    if (currInput.length < 2) {
+                        throw new DukeException(String.format(DukeException.NON_EMPTY_DESC, cmd));
+                    }
+                    Integer task = Integer.parseInt(currInput[1]);
+                    int numTasks = userTasks.size();
+                    if (task > numTasks) {
+                        throw new DukeException(
+                                "you have " + numTasks + " tasks. Please fill in a number lower than or equal to it!"
+                        );
+                    }
+                    int taskIdx = task - 1;
+
+                    Task delTask = userTasks.remove(taskIdx);
+                    System.out.println("    Noted. I've removed this task:\n" +
+                            "        " + delTask + "\n" +
+                            "    Now you have " + (numTasks - 1) + " tasks in the list."
+                    );
 
                 // add tasks
                 } else if (cmd.equals("deadline")) {
