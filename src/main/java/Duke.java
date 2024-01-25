@@ -11,9 +11,9 @@ public class Duke {
         System.out.println("Hello! I'm GHBot");
         System.out.println("What can I do for you?");
         List<Task> lst = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
 
         while (true) {
-            Scanner sc = new Scanner(System.in);
             String str = sc.nextLine();
             String[] subStr = str.split(" ", 2);
             String instr = subStr[0];
