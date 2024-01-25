@@ -22,4 +22,9 @@ public class Task {
     public void unmarkAsDone() {
         this.isDone = false;
     }
+
+    public String print() {
+        String str = "";
+        return str;
+    }
 }

@@ -12,39 +12,63 @@ public class Lemona {
 
         while (true) {
             String input = scanner.nextLine();
-            String[] parts = input.split(" ");
+            String[] parts = input.split(" ", 2);
 
-            if (input.equals("bye")) {                        // exits when user types in "bye"
+            // EXIT when user types in "bye"
+            if (input.equals("bye")) {
                 System.out.println("\t______________________________________________________");
                 System.out.println("\t" + " Bye. Hope to see you again soon!");
                 System.out.println("\t______________________________________________________");
                 break;
-            } else if (input.equals("list")) {                // lists up when user types in "list"
+
+            // LIST up when user types in "list"
+            } else if (input.equals("list")) {
                 System.out.println("\t______________________________________________________");
+                System.out.println("\t Here are the tasks in your list:");
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println("\t " + (i + 1) + ".[" + list.get(i).getStatusIcon() + "] " +
-                            list.get(i).getDescription());
+                    System.out.println("\t " + (i + 1) + "." + list.get(i).print());
                 }
                 System.out.println("\t______________________________________________________");
-            } else if (parts[0].equals("mark")) {             // marks the @th task when user types in "mark @"
+
+            // MARK the @th task when user types in "mark @"
+            } else if (parts[0].equals("mark")) {
                 int index = Integer.parseInt(parts[1]);
                 list.get(index - 1).markAsDone();
                 System.out.println("\t______________________________________________________");
                 System.out.println("\t" + " Nice! I've marked this task as done:" + "\n\t\t" +
-                        "[" + list.get(index - 1).getStatusIcon() + "]" + " " + list.get(index - 1).getDescription());
+                        list.get(index - 1).print());
                 System.out.println("\t______________________________________________________");
-            } else if (parts[0].equals("unmark")) {           // unmarks the @th task when user types in "unmark @"
+
+            // UNMARK the @th task when user types in "unmark @"
+            } else if (parts[0].equals("unmark")) {
                 int index = Integer.parseInt(parts[1]);
                 list.get(index - 1).unmarkAsDone();
                 System.out.println("\t______________________________________________________");
                 System.out.println("\t" + " OK, I've marked this task as not done yet:" + "\n\t\t" +
-                        "[" + list.get(index - 1).getStatusIcon() + "]" + " " + list.get(index - 1).getDescription());
+                        list.get(index - 1).print());
                 System.out.println("\t______________________________________________________");
-            } else {                                          // adds the task into the list when user types in new task
+
+            // ADD the task into the list when user types in new task
+            } else {
                 System.out.println("\t______________________________________________________");
-                Task t = new Task(input);
-                list.add(t);
-                System.out.println("\t " + "added: " + input);
+                System.out.println("\t Got it. I've added this task:");
+                if (parts[0].equals("todo")) {
+                    Task task = new Todo(parts[1]);
+                    list.add(task);
+                    System.out.print("\t   " + task.print());
+                } else if(parts[0].equals("deadline")) {
+                    String[] content = parts[1].split("/by ");
+                    Task task = new Deadline(content[0], content[1]);
+                    list.add(task);
+                    System.out.print("\t   " + task.print());
+                } else {
+                    String[] content = parts[1].split("/from ");
+                    String[] dates = content[1].split("/to ");
+                    Task task = new Event(content[0], dates[0], dates[1]);
+                    list.add(task);
+                    System.out.print("\t  " + task.print());
+                }
+                System.out.println("\n\t " + "Now you have " + list.size() + " tasks in the list.");
                 System.out.println("\t______________________________________________________");
             }
         }
