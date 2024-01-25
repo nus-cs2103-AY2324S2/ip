@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.StringTokenizer;
 public class Duke {
     public static final String CHATBOTNAME = "Sophia";
     public static void main(String[] args) {
@@ -7,23 +8,31 @@ public class Duke {
         // Initialization of common commands
         Greetings greetings = new Greetings();
         Goodbye goodbye = new Goodbye();
-        Tasks tasks = new Tasks();
+        TaskManager taskManager = new TaskManager();
 
         greetings.printDialogue("greeting2");
 
         while (true) {
-            String userMessage = scanner.nextLine();
+            String input = scanner.nextLine();
+            String[] userMessage = input.split(" ");
 
-            if (!userMessage.equalsIgnoreCase("bye")) {
-                if (userMessage.equalsIgnoreCase("list")){
-                    tasks.printTasks();
+            if (!userMessage[0].equalsIgnoreCase("bye")) {
+                if (userMessage[0].equalsIgnoreCase("list")) {
+                    taskManager.displayTask(input);
                     continue;
+                } else if (userMessage[0].equalsIgnoreCase("mark")) {
+                    taskManager.markAsComplete(Integer.parseInt(userMessage[1]) - 1);
+                    taskManager.displayTask(input);
+                } else if (userMessage[0].equalsIgnoreCase("unmark")) {
+                    taskManager.markAsIncomplete(Integer.parseInt(userMessage[1]) - 1);
+                    taskManager.displayTask(input);
                 }
-
-                tasks.addTasks(userMessage);
-                tasks.printDialogue(userMessage);
+                else {
+                    taskManager.addTask(input);
+                    taskManager.displayTask(input);
+                }
             } else {
-                goodbye.printDialogue("goodbye2");
+                goodbye.printDialogue("goodbye1");
                 break;
             }
         }
