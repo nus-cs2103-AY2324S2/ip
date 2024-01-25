@@ -7,6 +7,7 @@ public class Tyler {
     public static void main(String[] args) {
         System.out.println("    Hello from Tyler");
         System.out.println("    What can I do for you?");
+        System.out.println("    list, todo, deadline, event, mark, unmark, bye");
         System.out.println("    --------------------------------------------------");
 
         Scanner sc = new Scanner(System.in);
@@ -22,11 +23,33 @@ public class Tyler {
             } else if (input.equals("unmark")) {
                 int taskNumber = Integer.parseInt(sc.nextLine());
                 taskList[taskNumber - 1].unmark();
-            } else {
-                Task newTask = new Task(input);
+            } else if (input.equals("todo")) {
+                String task = sc.nextLine();
+                Task newTask = new Todo(task);
                 taskList[curr] = newTask;
-                System.out.println("    added: " + input);
+                System.out.println("    Got it! I've added this task:");
+                System.out.println("      " + newTask.toString());
                 curr++;
+                System.out.println("    Now you have " + curr + " tasks in the list");
+            } else if (input.equals("deadline")) {
+                String task = sc.nextLine();
+                String end = sc.nextLine();
+                Task newTask = new Deadline(task, end);
+                taskList[curr] = newTask;
+                System.out.println("    Got it! I've added this task:");
+                System.out.println("      " + newTask.toString());
+                curr++;
+                System.out.println("    Now you have " + curr + " tasks in the list");
+            } else if (input.equals("event")) {
+                String task = sc.nextLine();
+                String start = sc.nextLine();
+                String end = sc.nextLine();
+                Task newTask = new Event(task, start, end);
+                taskList[curr] = newTask;
+                System.out.println("    Got it! I've added this task:");
+                System.out.println("      " + newTask.toString());
+                curr++;
+                System.out.println("    Now you have " + curr + " tasks in the list");
             }
             System.out.println("    --------------------------------------------------");
             input = sc.nextLine();
