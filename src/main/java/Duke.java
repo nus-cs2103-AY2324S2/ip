@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class Duke {
     public static void main(String[] args) {
@@ -16,18 +17,45 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         String input;
-        ArrayList<String> stored = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         while (!"bye".equals((input = scanner.nextLine()))) {
             if (input.equals("list")) {
-                for (int i = 0; i < stored.size(); i++) {
-                    System.out.println("\t" + (i + 1) + ". " + stored.get(i));
+                for (int i = 0; i < tasks.size(); i++) {
+                    Task curr = tasks.get(i);
+                    System.out.println("\t" + (i + 1) + ". "
+                            + curr.printStatus() + " "
+                            + curr.desc);
                 }
+            } else if (input.split(" ")[0].equals("mark")) {
+                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
+                tasks.get(idx).completed = true;
+                System.out.println("Aight marked this task as done:\n\t"
+                        + tasks.get(idx).printStatus() + " " + tasks.get(idx).desc);
+            } else if (input.split(" ")[0].equals("unmark")) {
+                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
+                tasks.get(idx).completed = false;
+                System.out.println("Sian marked this task as undone:\n\t"
+                        + tasks.get(idx).printStatus() + " " + tasks.get(idx).desc);
             } else {
-                stored.add(input);
+                tasks.add(new Task(input));
                 System.out.println("\t" + input);
             }
         }
         System.out.println(exit);
+    }
+
+    public static class Task {
+        public String desc;
+        public boolean completed;
+
+        public Task(String desc) {
+            this.desc = desc;
+            this.completed = false;
+        }
+
+        public String printStatus() {
+            return (completed ? "[X]" : "[ ]");
+        }
     }
 
     public static class FastScanner {
