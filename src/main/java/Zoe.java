@@ -10,7 +10,6 @@ public class Zoe {
         System.out.println("Hello! I'm Zoe");
         System.out.println("What can I do for you?");
     }
-
     public void process(String command) {
         int idx = command.indexOf(' ');
         if (idx > -1) {
@@ -63,7 +62,7 @@ public class Zoe {
             } else {
                 tasks.get(i - 1).markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks.get(i).getStatus());
+                System.out.println(tasks.get(i - 1).getStatus());
             }
         } else if (command.equals("unmark")) {
             int i = Integer.parseInt(commandDescription);
@@ -73,11 +72,22 @@ public class Zoe {
             } else {
                 tasks.get(i - 1).unmark();
                 System.out.println("Ok, I've marked this task as not done yet:");
-                System.out.println(tasks.get(i).getStatus());
+                System.out.println(tasks.get(i - 1).getStatus());
+            }
+        } else if (command.equals("delete")) {
+            int i = Integer.parseInt(commandDescription);
+            if (i > tasks.size() || i < 1) {
+                System.out.println("This task does not exist! " +
+                        "Input a positive number among tasks in list starting from 1");
+            } else {
+                System.out.println("Noted! this task gon like pentagon:");
+                System.out.println(tasks.get(i - 1).getStatus());
+                tasks.remove(Integer.valueOf(i) - 1);
+                System.out.println(String.format("There are %d tasks left in the list", tasks.size()));
             }
         } else {
             System.out.println("You have keyed in an invalid command, " +
-                    "Zoe can only perform todo, event, deadline, mark and unmark");
+                    "Zoe can only perform todo, event, deadline, mark, unmark and delete");
         }
     }
 }
