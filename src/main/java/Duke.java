@@ -154,7 +154,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new DukeException("      Please enter a valid integer value.");
         }
-        if (choiceMark <= tasks.size()) {
+        if (choiceMark <= tasks.size() && choiceMark > 0) {
             tasks.get(choiceMark - 1).markAsDone();
             System.out.println("      Nice! I've marked this task as done:");
 //            System.out.println("        " + "[X] " + tasks.get(choiceMark - 1).toString());
@@ -178,7 +178,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new DukeException("      Please enter a valid integer value.");
         }
-        if (choiceUnmark <= tasks.size()) {
+        if (choiceUnmark <= tasks.size() && choiceUnmark > 0) {
             tasks.get(choiceUnmark - 1).markAsUndone();
             System.out.println("      OK, I've marked this task as not done yet:");
 //            System.out.println("        " + "[ ] " + tasks.get(choiceUnmark - 1).toString());
@@ -201,7 +201,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new DukeException("      Please enter a valid integer value.");
         }
-        if (choiceDelete <= tasks.size()) {
+        if (choiceDelete <= tasks.size() && choiceDelete > 0) {
             Task deletedTask = tasks.get(choiceDelete - 1);
             tasks.remove(choiceDelete - 1);
             System.out.println("      Noted, I've removed this task:");
