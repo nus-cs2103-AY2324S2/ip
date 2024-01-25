@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+// to add: tag for A-Classes
 public class Panna {
 
     private static String command = "";
