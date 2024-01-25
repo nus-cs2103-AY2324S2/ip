@@ -1,0 +1,15 @@
+list
+todo 1
+list
+mark 1
+deadline 2 /by monday
+unmark 1
+list
+event 3 /from tuesday /to friday
+mark 3
+list
+unmark 3
+event 3 asd asdf as fd
+deadline 3 123123 123
+todo
+bye

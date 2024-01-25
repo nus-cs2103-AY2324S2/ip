@@ -48,7 +48,7 @@ public class UserInterface {
 
     public static void showError(String error) {
         System.out.println(INDENT + LINE);
-        System.out.println("Error: " + error);
+        System.out.println(INDENT + "Error: " + error);
         System.out.println(INDENT + LINE + "\n");
     }
 }
