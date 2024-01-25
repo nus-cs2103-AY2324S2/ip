@@ -1,13 +1,14 @@
 import java.util.*;
 public class MyList {
-    private List<String> items;
+    private List<Task> items;
 
     public MyList() {
         this.items = new ArrayList<>();
     }
 
     public String addItem(String item) {
-        this.items.add(item);
+        Task t = new Task(item);
+        this.items.add(t);
         return "added: " + item;
     }
 
@@ -15,11 +16,20 @@ public class MyList {
         StringBuilder stringBuilder = new StringBuilder();
         int index = 1;
 
-        for (String item : this.items) {
-            stringBuilder.append(index).append(". ").append(item).append("\n");
+        for (Task task : this.items) {
+            String itemString = String.format("%d. [%s] %s\n", index, task.getStatusIcon(), task.getDescription());
+            stringBuilder.append(itemString);
             index++;
         }
 
         return stringBuilder.toString();
+    }
+
+    public String markTask(int index) {
+        if (index > this.items.size()) {
+            return "Number is longer than list";
+        } else {
+            return this.items.get(index - 1).markAsDone();
+        }
     }
 }

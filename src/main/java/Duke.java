@@ -22,8 +22,15 @@ public class Duke {
                     break;
                 }
 
-                if (userInput.equals("list")) {
+                if (userInput.equalsIgnoreCase("list")) {
                     System.out.println(myList.getItems());
+                } else if (userInput.startsWith("mark")) {
+                    try {
+                        int index = Integer.parseInt(userInput.substring("mark".length()).trim());
+                        System.out.println(myList.markTask(index));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter a valid number.");
+                    }
                 } else {
                     System.out.println(myList.addItem(userInput));
                 }
