@@ -57,23 +57,28 @@ public class Lindi {
                 System.out.println("\t" + task.toString());
             }
         }
-        String[] userInputTokens = userInput.split(" ", 2);
+        // if command called, will be index 0, rest of string in index 1
+        String[] userInputTokens = userInput.split(" ", 2); 
+        LocalFuncs lf = new LocalFuncs();
 
         switch (userInputTokens[0]) {
             case "list":
-                new LocalFuncs().executeList();
+                lf.executeList();
                 break;
             case "unmark":
-                new LocalFuncs().executeUnmark(Integer.parseInt(userInputTokens[1]));
+                lf.executeUnmark(Integer.parseInt(userInputTokens[1]));
                 break;
             case "mark":
-                new LocalFuncs().executeMark(Integer.parseInt(userInputTokens[1]));
+                lf.executeMark(Integer.parseInt(userInputTokens[1]));
                 break;
+            case "todo":
+            case "event":
+            case "deadline":
             case "bye":
-                new LocalFuncs().goodByeAndExit();
+                lf.goodByeAndExit();
                 break;
             default:
-                new LocalFuncs().executeNone(new Task(userInput));
+//                lf.executeNone(new Task(userInput));
                 break;
         }
     }
