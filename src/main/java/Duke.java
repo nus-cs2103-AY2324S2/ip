@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 public class Duke {
 
@@ -16,8 +17,8 @@ public class Duke {
             return (isDone ? "X" : " "); // mark done task with X
         }
 
-        public String getTask() {
-            return " [" + getStatusIcon() + "] " + this.description;
+        public String toString() {
+            return "[" + getStatusIcon() + "] " + this.description;
         }
 
         public String commandMark() {
@@ -25,7 +26,7 @@ public class Duke {
                     ? "Task " + (this.index + 1) + " is already done! Yay!\n"
                     : "Nice! I've marked this task as done:\n";
             this.isDone = true;
-            return response + getTask();
+            return response + "  " + toString();
         }
 
         public String commandUnmark() {
@@ -33,7 +34,49 @@ public class Duke {
                     ? "Task " + (this.index + 1) + " is not done yet!\n"
                     : "OK, I've marked this task as undone:\n";
             this.isDone = false;
-            return response + getTask();
+            return response + "  " + toString();
+        }
+
+
+    }
+
+    public static class ToDo extends Task {
+        public ToDo(String description, int index) {
+            super(description, index);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    public static class Deadline extends Task {
+        protected String by;
+        public Deadline(String description, String by, int index) {
+            super(description, index);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + "(by: " + by + ")";
+        }
+    }
+
+    public static class Event extends Task {
+        protected String start;
+        protected String end;
+
+        public Event(String description, String start, String end, int index) {
+            super(description, index);
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + "(from: " + start +  " to: " + end + ")";
         }
     }
 
@@ -94,12 +137,38 @@ public class Duke {
      * @param input Input collected from the user.
      */
     public static void commandAdded(String input) {
-//        list[index] = input;
-//        checkDone[index] = false;
         taskList[index] = new Task(input, index);
         index += 1;
         signalSays("Added: " + input);
     }
+
+    public static void commandAddTask(String type, String input) {
+        if (type.equals("todo")) {
+            taskList[index] = new ToDo(input, index);
+        } else {
+            String command[] = input.split("/");
+            if (type.equals("deadline")) {
+                String deadline = command[1] != null && command[1].length() > 3 ? command[1].substring(3) : command[1];
+                taskList[index] = new Deadline(command[0], deadline, index);
+            } else if (type.equals("event")){
+                String start = command[1] != null && command[1].length() > 5 ? command[1].substring(5): command[1];
+                String end = command[2] != null && command[2].length() > 3 ? command[2].substring(3) : command[2];
+                taskList[index] = new Event(command[0], start, end, index);
+            } else {
+                taskList[index] = new Task(input, index);
+            }
+        }
+        commandAdded((taskList[index]));
+    }
+
+    public static void commandAdded(Task t) {
+        index += 1;
+        signalSays("Got it! I've added this task to your list: \n"
+                + "  " + t.toString() + "\n"
+                + "Now you have " + (t.index + 1) + (t.index == 0 ? " task" : " tasks") + " in the list.");
+    }
+
+
 
     /**
      * Prints the list of inputs collected from the user.
@@ -109,7 +178,7 @@ public class Duke {
         System.out.println(div);
         System.out.println("Here is your tasklist!");
         for (int i = 0; i < index; i++) {
-            System.out.println((i + 1) + ". " + taskList[i].getTask());
+            System.out.println((i + 1) + ". " + taskList[i].toString());
         }
         System.out.println(div);
     }
@@ -141,7 +210,8 @@ public class Duke {
                 // Exit program
                 System.out.println(div);
                 break;
-            } else if (userInput.equals("")) { // input is blank
+            } else if (userInput.equals("")) {
+                // input is blank
                 signalSays("Brevity is the soul of wit, but you have to tell me something still!");
             } else if (inputArray.length == 2 && inputArray[0].equals("mark")) {
                 // Mark item at index as done
@@ -152,6 +222,7 @@ public class Duke {
                 int itemIndex = Integer.parseInt(inputArray[1]) - 1;
                 signalSays(taskList[itemIndex].commandUnmark());
             } else if (inputArray.length == 2 && (isPermutationMatch(inputArray[0], "mark") || isPermutationMatch(inputArray[0], "unmark"))) {
+                // check typo of "mark" or "unmark"
                 if (checkCommandTypo(inputArray[0], "mark")) { // command mark typo
                     int itemIndex = Integer.parseInt(inputArray[1]) - 1;
                     signalSays(taskList[itemIndex].commandMark());
@@ -159,7 +230,7 @@ public class Duke {
                     int itemIndex = Integer.parseInt(inputArray[1]) - 1;
                     signalSays(taskList[itemIndex].commandUnmark());
                 } else {
-                    signalSays("Do you want to add " + userInput + "? (y/n)");
+                    signalSays("Do you want to add '" + userInput + "'? (y/n)");
                     String addCommandCheck = scanner.nextLine();
                     if (addCommandCheck.equals("n")) {
                         signalSays("What else can I help you with?");
@@ -168,8 +239,14 @@ public class Duke {
                     }
                 }
             } else if (userInput.equals("list")) {
-                commandList();
+                // command list
+                if (taskList[0] == null) {
+                    signalSays("Oops, looks like you haven't added any tasks!");
+                } else {
+                    commandList();
+                }
             } else if (isPermutationMatch(userInput, "list")) {
+                // check typo of command list
                 if (checkCommandTypo(userInput, "list")) {
                     commandList();
                 } else {
@@ -181,8 +258,10 @@ public class Duke {
                         commandAdded(userInput);
                     }
                 }
-            }
-            else {
+            } else if (inputArray.length > 1 && (inputArray[0].equals("todo") || inputArray[0].equals("deadline") || inputArray[0].equals("event"))) {
+                String task = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+                commandAddTask(inputArray[0], task);
+            } else {
                 commandAdded(userInput);
             }
         }
