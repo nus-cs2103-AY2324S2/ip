@@ -33,6 +33,29 @@ public class Duke {
                             System.out.println(lineBreak);
                         }
                         break;
+
+                    case "mark": {
+                        int taskNum = Integer.parseInt(inputArray[1]);
+                        Task currTask = taskList.get(taskNum - 1);
+                        currTask.check();
+                        taskList.set(taskNum - 1, currTask);
+                        System.out.println(lineBreak + '\n' +
+                                "Nice! I've marked this task as done:" + '\n' +
+                                currTask + '\n' +
+                                lineBreak);
+                        break;
+                    }
+                    case "unmark": {
+                        int taskNum = Integer.parseInt(inputArray[1]);
+                        Task currTask = taskList.get(taskNum - 1);
+                        currTask.uncheck();
+                        taskList.set(taskNum - 1, currTask);
+                        System.out.println(lineBreak + '\n' +
+                                "OK, I've marked this task as not done yet:" + '\n' +
+                                currTask + '\n' +
+                                lineBreak);
+                        break;
+                    }
                 }
             } catch (Exception e) {
                 System.out.println(lineBreak + '\n' +
