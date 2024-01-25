@@ -19,41 +19,63 @@ public class Duke {
         System.out.println("Type your command and press Enter. Type 'bye' to quit.");
         List<Task> tasks = new ArrayList<Task>();
         while (true) {
-            String input = scanner.nextLine();
-            String[] parts = input.split(" ",2);
-
-            String command = parts[0];
-            String number = "";
-            if (parts.length >=2 && (command.equalsIgnoreCase("mark") || command.equalsIgnoreCase("unmark"))) {
-                number = parts[1];
-            }
-            if (command.equalsIgnoreCase("bye")) {
-                ending(horizontalLine);
-                break;
-            } else if (command.equalsIgnoreCase("list")) {
-                System.out.println(horizontalLine);
-                for (int i = 0; i < tasks.size(); i++) {
-                    int j = i+1;
-                    System.out.print(j + "." + tasks.get(i).getStatusIcon() + " ");
-                    tasks.get(i).displayTask();
+            String userInput = scanner.nextLine();
+            String[] parts = userInput.split(" ",2);
+            if (parts.length == 1) {
+                if (userInput.equalsIgnoreCase("bye")) {
+                    ending(horizontalLine);
+                    break;
+                } else if (userInput.equalsIgnoreCase("list")) {
+                    System.out.println(horizontalLine);
+                    System.out.println("Here are the tasks in your list: ");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        int j = i+1;
+                        System.out.println(j + "." + tasks.get(i).toString());
+                    }
+                    System.out.println(horizontalLine);
                 }
-                System.out.println(horizontalLine);
-                continue;
-            } else if (command.equalsIgnoreCase("mark")) {
-                int index = Integer.parseInt(number);
-                tasks.get(index-1).markDone(horizontalLine);
-                continue;
-            } else if (command.equalsIgnoreCase("unmark")) {
-                int index = Integer.parseInt(number);
-                tasks.get(index-1).unmark(horizontalLine);
-                continue;
+            } else if (parts.length >= 2) {
+                String command = parts[0];
+                if (command.equalsIgnoreCase("mark")) {
+                    String number = parts[1];
+                    int index = Integer.parseInt(number);
+                    tasks.get(index-1).markDone(horizontalLine);
+                    continue;
+                } else if (command.equalsIgnoreCase("unmark")) {
+                    String number = parts[1];
+                    int index = Integer.parseInt(number);
+                    tasks.get(index-1).unmark(horizontalLine);
+                    continue;
+                } else if (command.equalsIgnoreCase("todo")) {
+                    ToDo newTask = new ToDo(parts[1]);
+                    tasks.add(newTask);
+                    System.out.println(horizontalLine);
+                    newTask.displayTask(tasks.size());
+                    System.out.println(horizontalLine);
+                } else if (command.equalsIgnoreCase("deadline")) {
+                    String[] instruction = parts[1].split(" by ",2);
+                    String description = instruction[0];
+                    String deadline = instruction[1];
+                    Deadline newTask = new Deadline(description, deadline);
+                    tasks.add(newTask);
+                    System.out.println(horizontalLine);
+                    newTask.displayTask(tasks.size());
+                    System.out.println(horizontalLine);
+                } else if (command.equalsIgnoreCase("event")) {
+                    String[] instruction = parts[1].split(" from ", 2);
+                    String description = instruction[0];
+                    String[] subInstruction = instruction[1].split(" to ", 2);
+                    String from = subInstruction[0];
+                    String to = subInstruction[1];
+                    Event newTask = new Event(description, from, to);
+                    tasks.add(newTask);
+                    System.out.println(horizontalLine);
+                    newTask.displayTask(tasks.size());
+                    System.out.println(horizontalLine);
+                }
             }
-            Task newTask = new Task(input);
-            tasks.add(newTask);
-            command(input, horizontalLine);
         }
         scanner.close();
-
     }
 
     public static void greeting(String chatbotName, String horizontalLine) {
@@ -63,11 +85,6 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
-    public static void command(String command, String horizontalLine) {
-        System.out.println(horizontalLine);
-        System.out.println("added: " + command);
-        System.out.println(horizontalLine);
-    }
     public static void ending(String horizontalLine) {
         System.out.println(horizontalLine);
         System.out.println("Bye. Hope to see you again soon!");
