@@ -129,7 +129,7 @@ public class Harper {
      * Informs the user that the index entered is invalid.
      */
     public void handleIndexOutOfBounds() {
-        System.out.println(line + "\n" + "Index is out of bounds. Please provide a valid index!\n" + line);
+        System.out.println(line + "\n" + "Index is out of bounds. Please provide a valid task index!\n" + line);
     }
 
     /**
@@ -196,6 +196,22 @@ public class Harper {
         this.markOrUnmark(commands[0], taskIndex);
     }
 
+    public void handleDelete(String input) {
+        String[] commands = input.split(" ", 2);
+        int taskIndex = Integer.parseInt(commands[1]) - 1;
+        this.delete(taskIndex);
+    }
+
+    public void delete(int taskIndex) {
+        Task task = this.list.remove(taskIndex);
+        int listSize = this.list.size();
+        System.out.println(line + "\n"
+                + "Ok! I've removed this task for you:\n"
+                + task.toString() + "\n"
+                + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ") + "in the list.\n"
+                + line);
+    }
+
     /**
      * Starts the chat, reads user's input and respond to user.
      * Saves user's input and displays back when requested.
@@ -234,6 +250,11 @@ public class Harper {
 
                 if (input.startsWith("mark ") || input.startsWith("unmark ")) {
                     this.handleMarkOrUnmark(input);
+                    continue;
+                }
+
+                if (input.startsWith("delete ")) {
+                    this.handleDelete(input);
                     continue;
                 }
                 throw new HarperInvalidInputException();
