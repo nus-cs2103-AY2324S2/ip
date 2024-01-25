@@ -6,13 +6,21 @@ public class Duke {
         );
 
         Scanner sc = new Scanner(System.in);
+        String[] storage = new String[100];
+        int count = 0;
         while(true){
             String instruction = sc.nextLine();
             if(instruction.equals("bye")){
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+            }else if(instruction.equals("list")){
+                for(int i=0;i<count;i++){
+                    System.out.println( i + 1 +". " + storage[i]);
+                }
             }else{
-                System.out.println(instruction);
+               storage[count] = instruction;
+               count++;
+               System.out.println("added: " + instruction );
             }
         }
     }
