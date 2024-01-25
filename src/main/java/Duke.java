@@ -1,7 +1,7 @@
 import java.util.*;
 public class Duke {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CinnamoException {
         Scanner sc = new Scanner(System.in);
         CinnamoRoll cin = new CinnamoRoll();
         cin.greet();
@@ -10,8 +10,7 @@ public class Duke {
             if (input.equals("bye")) {
                 break;
             }
-            String output = cin.respond(input);
-            System.out.println(output);
+            cin.respond(input);
         }
         cin.exit();
     }
