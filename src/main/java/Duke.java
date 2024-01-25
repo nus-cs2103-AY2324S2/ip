@@ -1,5 +1,13 @@
+import java.util.Scanner;
+
 public class Duke {
+
+    private static final String longLine = "____________________________________________________________";
+
     public static void main(String[] args) {
+
+        // Input reader
+        Scanner inputReader = new Scanner(System.in);
 
         // Print logo
         String logo = " __   ___  _____   __       __       __    __      ___ \n"
@@ -9,14 +17,28 @@ public class Duke {
                 + "|__| \\__\\ |_____| |______| |______|  \\______/  /_/     \\_\\ \n";
         System.out.println(logo);
 
-        // Initial skeletal version that simply greets the user and exits.
-        String longLine = "_______________________________________________";
-        System.out.println(longLine);
-        System.out.println("Hello, I'm Killua.");
-        System.out.println("What can I do for you?");
-        System.out.println(longLine);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(longLine);
+        // Greet
+        System.out.println(Duke.longLine);
+        System.out.println("Killua online. What's my next quest?");
+        System.out.println(Duke.longLine);
+
+        // Echo
+        while (true) {
+            String task = inputReader.nextLine();
+            if (task.equals("bye")) {
+                break;
+            } else {
+                System.out.println(Duke.longLine);
+                System.out.println(task);
+                System.out.println(Duke.longLine);
+            }
+        }
+
+        // Exit
+        System.out.println(Duke.longLine);
+        System.out.println("Alright, I'm always one call away.");
+        System.out.println(Duke.longLine);
+
 
     }
 }
