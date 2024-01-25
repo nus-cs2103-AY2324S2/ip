@@ -48,4 +48,10 @@ public class Ui {
         System.out.println(task.getDescriptionStatus());
         System.out.println(Ui.LONG_LINE);
     }
+
+    public void print(String message) {
+        System.out.println(Ui.LONG_LINE);
+        System.out.println(message);
+        System.out.println(Ui.LONG_LINE);
+    }
 }
