@@ -6,7 +6,9 @@ public class Greet {
         String logo = Utils.getFile(LOGO_PATH);
         String greeting = Utils.getFile(GREETING_PATH);
 
+
         System.out.println(logo);
+        Utils.printLine();
         System.out.println(greeting);
     }
 }

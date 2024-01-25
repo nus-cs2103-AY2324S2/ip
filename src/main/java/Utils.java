@@ -3,10 +3,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Utils {
-    public static void print(String string) {
-        System.out.println("____________________________________________________________");
+    private static final String LINE_PATH = "./src/main/Line.txt";
+
+    public static void printLine() {
+        String character = Utils.getFile(LINE_PATH);
+        String line = String.valueOf(character).repeat(60);
+
+        System.out.println(line);
+    }
+    public static void encaseLines(String string) {
+        Utils.printLine();
         System.out.println(string);
-        System.out.println("____________________________________________________________");
+        Utils.printLine();
     }
     public static String getFile(String Path) {
         try {

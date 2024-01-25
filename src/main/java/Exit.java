@@ -3,6 +3,6 @@ public class Exit {
 
     public static void exit() {
         String exit = Utils.getFile(EXIT_PATH);
-        Utils.print(exit);
+        Utils.encaseLines(exit);
     }
 }
