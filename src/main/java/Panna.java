@@ -18,8 +18,21 @@ public class Panna {
         while (!Panna.command.equals("bye")) {
 
             Task t = new Task(Panna.command);
+
             if (Panna.command.equals("list")) {
                 t.display();
+            }
+
+            else if (Panna.command.equals("mark")) {
+                t.mark();
+
+
+            }
+
+            else if (Panna.command.equals("unmark")) {
+                t.unmark();
+
+
             }
 
             else {
@@ -28,6 +41,8 @@ public class Panna {
 
             Panna.command = s.nextLine();
         }
+
+
 
         System.out.println("----------------------------------------------------------\n"  +
                 "Bye. Hope to see you again soon!\n\n" +
