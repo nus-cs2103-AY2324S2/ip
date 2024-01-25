@@ -1,4 +1,16 @@
 Hello! I'm HeadCube
 What can I do for you?
 
-Bye. Hope to see you again soon!.
+Here are the tasks in your list:
+
+Got it. I've added this task:
+  [T][ ] hi
+Now you have 1 tasks in the list.
+
+Nice! I've marked this task as done:
+  [T][X] hi
+Noted. I've removed this task:
+  [T][X] hi
+Now you have 0 tasks in the list.
+
+Bye. Hope to see you again soon!
