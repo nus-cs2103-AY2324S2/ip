@@ -49,11 +49,14 @@ public class Command {
                         boolean argumentsValid = false;
                         String arguments = "";
                         try {
+                            if (userInput.length() <= command.length() + 1) {
+                                throw new ArgumentNotFoundException(command);
+                            }
                             arguments = userInput.substring(command.length()+1);
                             argumentsValid = true;
-                        } catch (StringIndexOutOfBoundsException e) {
-                            System.out.println("Error: Arguments are required for " + command);
-                        }
+                        } catch (ArgumentNotFoundException e) {
+                            System.out.println(e.getMessage());
+                        } 
                         
                         if (argumentsValid) {
                             switch (command) {
@@ -88,6 +91,14 @@ public class Command {
     }
 
     private static Deadline processDeadline(String arguments) {
+        try {
+            if (!arguments.contains("/by ")) {
+                throw new InvalidDeadlineFormatException();
+            }
+        } catch (InvalidDeadlineFormatException e) {
+            System.out.println(e.getMessage());
+        }
+
         String[] parts = arguments.split("/by ");
         return new Deadline(parts[0], parts[1]);
     }

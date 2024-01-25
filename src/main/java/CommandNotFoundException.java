@@ -1,5 +1,5 @@
-public class CommandNotFoundException extends Exception{
-    public CommandNotFoundException(String Command) {
-        super("Error: " + Command + " is not a valid command!");
+public class CommandNotFoundException extends DukeException{
+    public CommandNotFoundException(String command) {
+        super(command + " is not a valid command!");
     }
 }
