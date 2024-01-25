@@ -9,9 +9,14 @@ class CinnamoRoll {
             + "|____/ \\__,_|_|\\_\\___|\n";
     void greet() {
         System.out.println(logo);
-        System.out.println("Hello! I'm CinnamoRoll!" + "\n" + "What can I do for you?");
+        System.out.println("Hello! I'm CinnamoRoll!" + "\n" + "What can I do for you? \n");
     }
     void exit() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    void echo(String str) {
+
+        System.out.println(str + "\n");
     }
 }
