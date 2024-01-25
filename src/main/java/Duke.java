@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,10 +18,27 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
 
+        ArrayList<String> taskList = new ArrayList<>();
+
         while (!userInput.toLowerCase().equals("bye")) {
-            System.out.println("\n________________________________________");
-            System.out.println("\'" + userInput + "\' command is not found!");
-            System.out.println("________________________________________\n");
+            
+            if (userInput.toLowerCase().equals("list")) {
+                System.out.println("\n________________________________________");
+
+                for (int i = 1; i <= taskList.size(); i++) {
+                    System.out.println(i + ". " + taskList.get(i - 1));
+                }
+
+                System.out.println("________________________________________\n");
+
+            } else {
+                taskList.add(userInput);
+
+                System.out.println("\n________________________________________");
+                System.out.println("added:" + userInput);
+                System.out.println("________________________________________\n");
+            }
+
             userInput = scanner.nextLine();
         }    
 
