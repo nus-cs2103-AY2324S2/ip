@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -13,12 +14,22 @@ public class Duke {
                          + "How can I assist you?\n" + gap);
         Scanner input = new Scanner(System.in);
         String command;
+        ArrayList<String> tasks = new ArrayList<>();
         while (true) {
             command = input.nextLine();
             if (command.toLowerCase().equals("bye")) {
                 break;
             }
-            System.out.println(gap + command + "\n" + gap);
+            if (command.toLowerCase().equals("list")) {
+                String taskList = "";
+                for (int i = 0; i < tasks.size(); i++) {
+                    taskList += ((i+1) + ". " + tasks.get(i) + "\n");
+                }
+                System.out.println(gap + taskList + gap);
+            } else {
+                tasks.add(command);
+                System.out.println(gap + "Added: " + command + "\n" + gap);
+            }
         }
         System.out.println(gap + "Goodbye! Have a pleasant day!\n" + gap);
     }
