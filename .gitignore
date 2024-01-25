@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+#my code
+testing/*
+
 # Gradle build files
 /.gradle/
 /build/
