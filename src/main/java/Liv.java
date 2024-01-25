@@ -1,6 +1,8 @@
 import javax.xml.stream.events.StartDocument;
+import java.util.LinkedList;
 import java.util.Scanner;
 
+// name of the chat bot
 public class Liv {
     // to adhere to the singleton pattern
     private enum State {
@@ -21,12 +23,16 @@ public class Liv {
     private static HorizontalLine horizontalLine = null;
     private State currentState = null;
     private static Scanner scanner = null;
+    private static LinkedList<Task> tasks = null;
+    private static int numberOfTasks;
 
     private Liv() {
         // initial setup
         horizontalLine = HorizontalLine.getInstance();
         currentState = State.INACTIVE;
         scanner = new Scanner(System.in);
+        tasks = new LinkedList<>();
+        numberOfTasks = 0;
     }
 
     public static Liv getInstance() {
@@ -110,8 +116,16 @@ public class Liv {
             EndSession();
             return;
         }
+
+        if (input.equals("list")) {
+            ListTasks();
+            return;
+        }
+
         if (input != null) {
-            Speak(input);
+            Task newTask = new Task(input);
+            addTask(newTask);
+            Speak("added: " + input);
             return;
         }
     }
@@ -120,5 +134,18 @@ public class Liv {
         ToggleConversationState();
         System.out.println(output);
         ToggleConversationState();
+    }
+
+    private void ListTasks() {
+        ToggleConversationState();
+        for (int i = 1; i <= numberOfTasks; i++) {
+            System.out.println(i + ". " + tasks.get(i - 1).getDescription());
+        }
+        ToggleConversationState();
+    }
+
+    private void addTask(Task task) {
+        tasks.add(task);
+        numberOfTasks++;
     }
 }

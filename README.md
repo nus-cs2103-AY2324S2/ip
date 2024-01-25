@@ -8,7 +8,7 @@ The project aims to build a Personal Assistant Chatbot that helps a person to ke
 
 
 
-Level 1
+Level 0
 
 Requirements:
 - rename: Liv
@@ -23,7 +23,7 @@ Design:
 
 
 
-Level 2
+Level 1
 
 Requirements:
 - echo the user input when it is not "bye"
@@ -32,3 +32,26 @@ Requirements:
 Design:
 - uses enum for states
 - implement a ProcessInput function to handle inputs
+
+
+
+Level 2
+
+Requirements:
+- add: add items to the agenda
+- list: list the items added, in chronological order
+	- the index by which it is listed must provide access to the item when searching/deleting
+
+Design:
+- item: implement as class Task
+- list: implement with LinkedList
+	- rationale: to allow ease of access and update
+
+
+
+
+
+
+
+
+
