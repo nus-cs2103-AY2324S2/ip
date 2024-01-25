@@ -74,7 +74,6 @@ public class BMO {
                 + "    Completed: " + taskLog.get(index - 1) + "\n"
                 + "-----------------------------------------";
         System.out.println(donePrint);
-
     }
 
     static void unDone(int index) {
@@ -86,6 +85,5 @@ public class BMO {
                 + "    Incomplete again: " + taskLog.get(index - 1) + "\n"
                 + "-----------------------------------------";
         System.out.println(unDonePrint);
-
     }
 }
