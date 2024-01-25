@@ -7,7 +7,6 @@ public class Fredricksen {
         System.out.println("What can I do for you?");
         System.out.println(line);
     }
-
     public static void listOfCommands() {
         System.out.println("You might have entered an invalid command!");
         System.out.println("Below are the available commands and formats to follow!");
@@ -20,6 +19,9 @@ public class Fredricksen {
         System.out.println("4. To mark task as completed: mark <task number>");
         System.out.println("5. To unmark completed task: unmark <task number>");
         System.out.println("6. To exit program: bye");
+    }
+    public enum commands {
+        list, todo, deadline, event, mark, unmark, delete, bye
     }
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
