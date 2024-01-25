@@ -2,6 +2,7 @@ public class Task {
     String nameOfTask;
     boolean status;
 
+    public Task(){}
     public Task(String nameOfTask){
         this.nameOfTask = nameOfTask;
         this.status = false;
