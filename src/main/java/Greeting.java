@@ -1,9 +1,14 @@
-/** Encapsulates the generic greeting for chatbot.
- *  Made an abstract class as it doesn't make sense to make a greeting object.
+/**
+ * Encapsulates the generic greeting for the chatbot.
+ * Made an abstract class as it doesn't make sense to make a greeting object.
+ *
  * @author Tan Qin Yong
  */
 public abstract class Greeting {
-    // Prints the default greeting message.
+
+    /**
+     * Prints the default greeting message.
+     */
     public static void print() {
         String name = "Felix";
         String logo = " _____    _ _      \n"
