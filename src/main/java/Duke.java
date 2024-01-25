@@ -21,7 +21,7 @@ public class Duke {
                     System.out.println(INDENT + (i + 1) + "." + tasks.get(i));
                 }
                 System.out.print(LINE);
-            } else if (cmdarg[0].equals("mark") || cmdarg[0].equals("unmark")) {
+            } else if (cmdarg[0].equals("mark") || cmdarg[0].equals("unmark") || cmdarg[0].equals("delete")) {
                 if (cmdarg.length == 2) {
                     try {
                         int i = Integer.parseInt(cmdarg[1]);
@@ -30,21 +30,28 @@ public class Duke {
                         } else if (i < 1) { // incorrect index
                             System.out.print(LINE + INDENT + "Start from task 1 lil bro!\n" + LINE);
                         } else if (cmdarg[0].equals("mark")) {
-                            tasks.get(i - 1).markAsDone();
+                            Task task = tasks.get(i - 1);
+                            task.markAsDone();
                             System.out.print(LINE + INDENT + "Yasss King/Queen! This task is officially slayed:\n  "
-                                    + INDENT + tasks.get(i - 1) + "\n" + LINE);
+                                    + INDENT + task + "\n" + LINE);
+                        } else if (cmdarg[0].equals("unmark")){
+                            Task task = tasks.get(i - 1);
+                            task.unmark();
+                            System.out.print(LINE + INDENT + "You forgor:\n  "
+                                    + INDENT + task + "\n" + LINE);
                         } else {
-                            tasks.get(i - 1).unmark();
-                            System.out.print(LINE + INDENT + "Bruh! This task never happened:\n  "
-                                    + INDENT + tasks.get(i - 1) + "\n" + LINE);
+                            Task task = tasks.get(i - 1);
+                            tasks.remove(i - 1);
+                            System.out.print(LINE + INDENT + "Zamn! This task never happened:\n  "
+                                    + INDENT + task + "\n" + LINE);
                         }
                     } catch (java.lang.NumberFormatException e) { // non number typed
-                        System.out.print(LINE + INDENT + "Ain't no way! We lackin' just numbers after mark/unmark.\n"
+                        System.out.print(LINE + INDENT + "Ain't no way! We lackin' just numbers after mark/unmark/delete.\n"
                                 + INDENT + "e.g. unmark 2\n" + LINE);
                     }
                 } else { // no arguments
                     System.out.print(LINE + INDENT + "Ain't no way! Which task we vibin' with?\n"
-                            + INDENT + "e.g. mark 1\n" + LINE);
+                            + INDENT + "e.g. mark/unmark/delete 1\n" + LINE);
                 }
             } else if (cmdarg[0].equals("todo")) {
                 if (cmdarg.length == 2) {
@@ -69,7 +76,7 @@ public class Duke {
                 }
             } else { // invalid command
                 System.out.print(LINE + INDENT + "What is blud yappin'? Here's the legit commands:"
-                        + INDENT + "todo, deadline, event, mark, unmark, list, bye"); // error
+                        + INDENT + "list, todo, deadline, event, mark, unmark, delete, bye"); // error
             }
         }
     }
