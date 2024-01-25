@@ -11,11 +11,23 @@ public class TaskList {
         this.list.add(t);
     }
 
+    public Task markTask(int i) {
+        Task t = this.list.get(i);
+        t.mark();
+        return t;
+    }
+
+    public Task unmarkTask(int i) {
+        Task t = this.list.get(i);
+        t.unmark();
+        return t;
+    }
+
     public String toString() {
         StringBuilder displayString = new StringBuilder();
         int count = 1;
         for (Task t: list) {
-            displayString.append(count).append(". ").append(t.getDescription()).append("\n");
+            displayString.append(count).append(". ").append(t.toString()).append("\n");
             count++;
         }
         return displayString.toString();
