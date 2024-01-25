@@ -10,7 +10,7 @@ public class Duke {
 
         while (true) {
             String input = sc.nextLine();
-            String inputs[] = input.split(" ");
+            String inputs[] = input.split(" ", 2);
             String firstWord = inputs[0];
 
             if (firstWord.equalsIgnoreCase("bye")) {
@@ -20,6 +20,7 @@ public class Duke {
             switch (firstWord) {
                 case "list":
                     printDiv();
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < AL.size(); i++) {
                         int num = i + 1;
                         System.out.println("\t" + num + ". " + AL.get(i));
@@ -42,9 +43,18 @@ public class Duke {
                     System.out.println("\t" + taskToUnmark);
                     printDiv();
                     break;
+                case "deadline":
+                    // separate to description: deadlineInfo[0]: return book 
+                    // and deadline: deadlineInfo[1]: by Sunday
+                    String[] deadlineInfo = inputs[1].split("/", 2);
+                    printDiv();
+                    System.out.println("\tGot it. I've added this task:");
+                    Deadline deadline = new Deadline(deadlineInfo[0], deadlineInfo[1].replaceFirst("by", ""));
+                    AL.add(deadline);
+                    System.out.println("\t" + deadline);
+                    printListCounter(AL);
+                    printDiv();
                 default:
-                    printEcho("added: " + input);
-                    AL.add(new Task(input));
                     break;
             }
         }
@@ -68,9 +78,7 @@ public class Duke {
         System.out.println("\t" + DIV);
     }
 
-    public static void printEcho(String msg) {
-        printDiv();
-        System.out.println("\t" + msg);
-        printDiv();
+    public static void printListCounter(ArrayList<Task> AL) {
+        System.out.println("\tNow you have " + AL.size() + " tasks in the list.");
     }
 }
