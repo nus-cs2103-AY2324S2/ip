@@ -1,6 +1,2 @@
-T | 0 | borrow book
-D | 0 | return book | 2019-10-15T00:00
-E | 0 | project meeting | 2019-12-02T16:00 to 2030-12-02T00:00
-D | 0 | testMe | 2020-05-13T00:00
-E | 0 | project meeting | 2023-05-23T00:00 to 2024-07-01T00:00
-E | 0 | lunch meeting | 2023-01-05T12:00 to 2023-01-05T14:00
+T | 1 | test1
+T | 1 | test2

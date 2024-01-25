@@ -4,7 +4,6 @@ list
 event project meeting /from 05/23/2023 /to 01/07/2024
 list
 mark 2
-list
 mark 1
 list
 unmark 1
