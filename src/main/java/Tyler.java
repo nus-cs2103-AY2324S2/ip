@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Tyler {
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static int curr = 0;
 
     public static void main(String[] args) throws EmptyNameException, UndefinedActionException, MarkNothingException {
@@ -23,27 +23,21 @@ public class Tyler {
                       if (arr.length < 2) {
                           throw new MarkNothingException();
                       }
-                      for (int i = 1; i < arr.length; i++) {
-                          int taskNumber = Integer.parseInt(arr[i]);
-                          taskList[taskNumber - 1].mark();
-                      }
-
+                      int taskNumber = Integer.parseInt(arr[1]);
+                      taskList.get(taskNumber - 1).mark();
                   } else if (arr[0].equals("unmark")) {
                       if (arr.length < 2) {
                           throw new MarkNothingException();
                       }
-                      for (int i = 1; i < arr.length; i++) {
-                          int taskNumber = Integer.parseInt(arr[i]);
-                          taskList[taskNumber - 1].unmark();
-                      }
-
+                      int taskNumber = Integer.parseInt(arr[1]);
+                      taskList.get(taskNumber - 1).unmark();
                   } else if (arr[0].equals("todo")) {
                       if (arr.length < 2) {
                           throw new EmptyNameException();
                       }
                       String[] rest = input.split(" ", 2);
                       Task newTask = new Todo(rest[1]);
-                      taskList[curr] = newTask;
+                      taskList.add(newTask);
                       System.out.println("    Got it! I've added this task:");
                       System.out.println("      " + newTask.toString());
                       curr++;
@@ -57,7 +51,7 @@ public class Tyler {
                       String[] rest2 = rest1[1].split(" /by ");
                       //String end = sc.nextLine();
                       Task newTask = new Deadline(rest2[0], rest2[1]);
-                      taskList[curr] = newTask;
+                      taskList.add(newTask);
                       System.out.println("    Got it! I've added this task:");
                       System.out.println("      " + newTask.toString());
                       curr++;
@@ -73,11 +67,24 @@ public class Tyler {
                       //String start = sc.nextLine();
                       //String end = sc.nextLine();
                       Task newTask = new Event(rest2[0], rest3[0], rest3[1]);
-                      taskList[curr] = newTask;
+                      taskList.add(newTask);
                       System.out.println("    Got it! I've added this task:");
                       System.out.println("      " + newTask.toString());
                       curr++;
                       System.out.println("    Now you have " + curr + " tasks in the list");
+                  } else if (arr[0].equals("delete")) {
+                      if (arr.length < 2) {
+                          throw new MarkNothingException();
+                      }
+                      int taskNumber = Integer.parseInt(arr[1]);
+                      Task removeTask = taskList.get(taskNumber - 1);
+                      taskList.remove(taskNumber - 1);
+                      curr--;
+                      System.out.println("    Noted! I've deleted this task:");
+                      System.out.println("      " + removeTask.toString());
+                      System.out.println("    Now you have " + curr + " tasks in the list");
+
+
                   } else {
                       throw new UndefinedActionException();
                   }
@@ -94,11 +101,11 @@ public class Tyler {
     }
 
     public static void list() {
-        for(int i = 1; i < 100; i++) {
-            if (taskList[i - 1] == null) {
+        for(int i = 1; i < taskList.size() + 1; i++) {
+            if (taskList.get(i - 1) == null) {
                 break;
             }
-            String task = taskList[i - 1].toString();
+            String task = taskList.get(i - 1).toString();
             System.out.println("    " + i + ". " + task);
         }
     }

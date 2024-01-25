@@ -9,8 +9,18 @@ list
 deadline
 deadline CS2103T ip week1 /by Sunday
 list
-mark 1 2 3 4
+mark 1
+mark 2
+mark 3
+mark 4
 list
-unmark 1 3
+unmark 1
+unmark 3
+list
+delete 2
+list
+delete 2
+list
+delete 3
 list
 bye
