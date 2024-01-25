@@ -47,6 +47,8 @@ public class Duke {
                 listArr[i] = t; // add task to list
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
+                i++;
+                System.out.println("Now you have " + i + " tasks in the list.");
             }
         } catch (DukeException ex) {
             System.out.println(ex.getMessage());
@@ -68,6 +70,8 @@ public class Duke {
                 listArr[i] = t; // add task to list
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
+                i++;
+                System.out.println("Now you have " + i + " tasks in the list.");
             }
         } catch (DukeException ex) {
             System.out.println(ex.getMessage());
