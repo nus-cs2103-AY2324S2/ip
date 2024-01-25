@@ -19,7 +19,7 @@ public class Whisper {
 
         while (true) {
             // read user input
-            System.out.println("Enter your input: ");
+            System.out.println("Enter your input:");
             String input = sc.nextLine();
 
             // break if user exists the bot
@@ -119,7 +119,7 @@ public class Whisper {
 
     // display task list
     public static void getTasks() {
-        System.out.println(line + "Here are your task list: \n");
+        System.out.println(line + "Here are your task list:\n");
 
         for (int i = 0; i < count; i++) {
             Task currentTask = taskList[i];
