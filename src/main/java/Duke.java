@@ -4,11 +4,12 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String name = "Riri";
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
+//        String logo = "  ____        _        \n"
+//                + " |  _ \\ _   _| | _____ \n"
+//                + " | | | | | | | |/ / _ \\\n"
+//                + " | |_| | |_| |   <  __/\n"
+//                + " |____/ \\__,_|_|\\_\\___|\n";
+//        System.out.println(logo);
         System.out.println("-------------------------");
         System.out.println("What's up " + name);
         System.out.println("What can't I do for you?");
@@ -16,7 +17,7 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
 
-        Todo todo = new Todo();
+        Mylist mylist = new Mylist();
 
         boolean on = true;
         while (on) {
@@ -26,21 +27,38 @@ public class Duke {
                 break;
             }
             else if (command.matches("list")) {
-                todo.returnList();
+                mylist.returnList();
                 continue;
             }
             else if (command.matches("\\bmark\\b.*")) {
                 String[] words = command.split("\\s+");
-                todo.mark(Integer.parseInt(words[1]));
+                mylist.mark(Integer.parseInt(words[1]));
                 continue;
             }
             else if (command.matches("\\bunmark\\b.*")) {
                 String[] words = command.split("\\s+");
-                todo.unmark(Integer.parseInt(words[1]));
+                mylist.unmark(Integer.parseInt(words[1]));
                 continue;
             }
-            System.out.println("added: " + command);
-            todo.addTodo(new Task(command));
+            else if (command.matches("\\bdeadline\\b.*")) {
+                String[] words = command.split("/by");
+                mylist.addTodo(new Deadline(words[0].trim(), words[1].trim()));
+                System.out.println("Added deadline");
+                continue;
+            }
+            else if (command.matches("\\bevent\\b.*")) {
+                String[] words = command.split("/from+");
+                String[] from = words[1].split("/to");
+                mylist.addTodo(new Event(words[0].trim(), from[0].trim(),from[1].trim()));
+                System.out.println("Added event.");
+                continue;
+            }
+            else if (command.matches("\\btodo\\b.*")) {
+                String[] words = command.split("todo");
+                mylist.addTodo(new Todo(words[1].trim()));
+                System.out.println("Added todo.");
+                continue;
+            }
         }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("-------------------------");
