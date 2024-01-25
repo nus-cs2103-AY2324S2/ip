@@ -1,6 +1,6 @@
 package simpli.exceptions;
 
-public class TaskException extends CommandException {
+public class TaskException extends ActionException {
     public TaskException() {
         super();
     }

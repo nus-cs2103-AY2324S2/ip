@@ -1,4 +1,4 @@
-package simpli;
+package simpli.tasks;
 
 public class Deadline extends Task {
     protected String by;

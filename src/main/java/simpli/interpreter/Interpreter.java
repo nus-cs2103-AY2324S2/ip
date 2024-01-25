@@ -1,6 +1,7 @@
-package simpli;
+package simpli.interpreter;
 
-import simpli.exceptions.CommandException;
+import simpli.core.Simpli;
+import simpli.exceptions.ActionException;
 import simpli.exceptions.TaskException;
 
 public class Interpreter {
@@ -8,28 +9,28 @@ public class Interpreter {
     public Interpreter() {
         this.simpli = new Simpli();
     }
-    public void execute(String[] tokens) throws CommandException {
+    public void interpret(String[] tokens) throws ActionException {
         switch (tokens[0]) {
             case "list":  // list stored tasks
                 this.simpli.list();
                 break;
             case "mark": {  // mark task as done
                 if (tokens[1].isEmpty()) {
-                    throw new CommandException();
+                    throw new ActionException();
                 }
                 this.simpli.mark(Integer.parseInt(tokens[1]));
                 break;
             }
             case "unmark": {  // mark task as undone
                 if (tokens[1].isEmpty()) {
-                    throw new CommandException();
+                    throw new ActionException();
                 }
                 this.simpli.unmark(Integer.parseInt(tokens[1]));
                 break;
             }
             case "delete": {  // delete task
                 if (tokens[1].isEmpty()) {
-                    throw new CommandException();
+                    throw new ActionException();
                 }
                 this.simpli.deleteTask(Integer.parseInt(tokens[1]));
                 break;
@@ -57,7 +58,7 @@ public class Interpreter {
                 break;
             }
             default: {
-                throw new CommandException();
+                throw new ActionException();
             }
         }
     }

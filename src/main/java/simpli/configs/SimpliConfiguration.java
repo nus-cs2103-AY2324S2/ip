@@ -1,7 +1,7 @@
-package simpli;
+package simpli.configs;
 
-public final class Config {
-    private Config() {}
+public final class SimpliConfiguration {
+    private SimpliConfiguration() {}
 
     // chatbot response placeholder
     public static final String PLACEHOLDER = "\t------------------------------------------------------------\n" +

@@ -1,4 +1,4 @@
-package simpli;
+package simpli.tasks;
 
 public class Todo extends Task {
     public Todo(String name) {

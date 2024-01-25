@@ -1,4 +1,4 @@
-package simpli;
+package simpli.parser;
 
 import java.util.Arrays;
 

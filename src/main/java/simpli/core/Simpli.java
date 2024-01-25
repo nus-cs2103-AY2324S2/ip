@@ -1,8 +1,14 @@
-package simpli;
+package simpli.core;
 
-import simpli.exceptions.CommandException;
-import simpli.exceptions.SimpliException;
+import simpli.configs.SimpliConfiguration;
+import simpli.exceptions.ActionException;
 import simpli.exceptions.TaskException;
+import simpli.interpreter.Interpreter;
+import simpli.parser.Parser;
+import simpli.tasks.Deadline;
+import simpli.tasks.Event;
+import simpli.tasks.Task;
+import simpli.tasks.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,12 +16,7 @@ import java.util.Scanner;
 public class Simpli {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void main(String[] args) throws SimpliException {
-        Simpli simpli = new Simpli();
-        simpli.start();
-    }
-
-    public void start() throws SimpliException {
+    public void start() {
         // welcome message
         this.greet();
 
@@ -30,10 +31,10 @@ public class Simpli {
             String[] tokens = parser.parse(userIn);
 
             try {
-                intrpr.execute(tokens);
+                intrpr.interpret(tokens);
             } catch (TaskException e) {
                 this.respond("Invalid task parameters, cannot simp :(");
-            } catch (CommandException e) {
+            } catch (ActionException e) {
                 this.respond("No such command to simp for :(");
             }
 
@@ -115,7 +116,7 @@ public class Simpli {
     }
 
     public void respond(String content) {
-        String msg = String.format(Config.PLACEHOLDER, content.replace("\n", "\n\t\t"));
+        String msg = String.format(SimpliConfiguration.PLACEHOLDER, content.replace("\n", "\n\t\t"));
 
         System.out.println(msg);
     }
