@@ -13,8 +13,8 @@ public class Dav {
 
     public static void greetUser() {
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Dav");
-        System.out.println(" What can I do for you?");
+        System.out.println(" What's up! I'm Dav");
+        System.out.println(" How may I help you?");
         System.out.println("____________________________________________________________");
     }
 
@@ -45,17 +45,52 @@ public class Dav {
         } else if (input.startsWith("unmark ")) {
             int taskIndex = Integer.parseInt(input.substring(7).trim());
             unmarkTaskDone(taskIndex);
+        } else if (input.startsWith("todo ")) {
+            addTodoTask(input.substring(5).trim());
+        } else if (input.startsWith("deadline ")) {
+            addDeadlineTask(input.substring(9).trim());
+        } else if (input.startsWith("event ")) {
+            addEventTask(input.substring(6).trim());
         } else if (!input.equalsIgnoreCase("bye")) {
-            addTask(input);
+            System.out.println("Invalid command. Please try again.");
         }
 
         System.out.println("____________________________________________________________");
     }
 
-    public static void addTask(String taskDescription) {
+    public static void addTodoTask(String taskDescription) {
+        addTask(new TodoTask(taskDescription));
+    }
+
+    public static void addDeadlineTask(String taskDetails) {
+        String[] details = taskDetails.split(" /by ");
+        if (details.length == 2) {
+            addTask(new DeadlineTask(details[0], details[1]));
+        } else {
+            System.out.println("Invalid deadline task format.");
+        }
+    }
+
+    public static void addEventTask(String taskDetails) {
+        String[] details = taskDetails.split(" /from ");
+        if (details.length == 2) {
+            String[] timeDetails = details[1].split(" /to ");
+            if (timeDetails.length == 2) {
+                addTask(new EventTask(details[0], timeDetails[0], timeDetails[1]));
+            } else {
+                System.out.println("Invalid event task format.");
+            }
+        } else {
+            System.out.println("Invalid event task format.");
+        }
+    }
+
+    public static void addTask(Task task) {
         if (taskCount < MAX_TASKS) {
-            tasks[taskCount++] = new Task(taskDescription);
-            System.out.println(" added: " + taskDescription);
+            tasks[taskCount++] = task;
+            System.out.println(" Got it. I've added this task:");
+            System.out.println("   " + task);
+            System.out.println(" Now you have " + taskCount + " tasks in the list.");
         } else {
             System.out.println(" Sorry, task list is full. Cannot add more tasks.");
         }
@@ -75,7 +110,7 @@ public class Dav {
     public static void markTaskDone(int taskIndex) {
         if (isValidIndex(taskIndex)) {
             tasks[taskIndex - 1].markAsDone();
-            System.out.println(" I've marked this task as done:");
+            System.out.println(" Nice! I've marked this task as done:");
             System.out.println("   " + tasks[taskIndex - 1]);
         } else {
             System.out.println(" Invalid task index.");
@@ -85,7 +120,7 @@ public class Dav {
     public static void unmarkTaskDone(int taskIndex) {
         if (isValidIndex(taskIndex)) {
             tasks[taskIndex - 1].unmarkAsDone();
-            System.out.println(" I've marked this task as not done yet:");
+            System.out.println(" OK, I've marked this task as not done yet:");
             System.out.println("   " + tasks[taskIndex - 1]);
         } else {
             System.out.println(" Invalid task index.");
@@ -97,7 +132,7 @@ public class Dav {
     }
 
     public static void exit() {
-        System.out.println(" Goodbye.");
+        System.out.println(" Goodbye. ");
         System.out.println("____________________________________________________________");
     }
 }
@@ -129,5 +164,43 @@ class Task {
     }
 }
 
+class TodoTask extends Task {
+    public TodoTask(String description) {
+        super(description);
+    }
 
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
 
+class DeadlineTask extends Task {
+    protected String by;
+
+    public DeadlineTask(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+
+class EventTask extends Task {
+    protected String from;
+    protected String to;
+
+    public EventTask(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}
