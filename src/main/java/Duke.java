@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-  private static String[] taskList = new String[100]; // List of tasks
+  private static Task[] taskList = new Task[100]; // Array of tasks
 
   public static void main(String[] args) {
     String input = "";
@@ -17,9 +17,14 @@ public class Duke {
         break;
       } else if (input.equals("list")) {
         printList(taskList);
+      } else if (input.startsWith("mark")) {
+        int index = Integer.parseInt(input.split(" ")[1]);
+        taskList[index - 1].markAsDone();
+      } else if (input.startsWith("unmark")) {
+        int index = Integer.parseInt(input.split(" ")[1]);
+        taskList[index - 1].unmarkAsDone();
       } else {
         addTask(input);
-        System.out.println("added: " + input);
       }
     }
     // Exit Message
@@ -29,23 +34,27 @@ public class Duke {
   /*
    * Prints the list of tasks
    */
-  public static void printList(String[] list) {
+  public static void printList(Task[] list) {
+    System.out.println("Here are the tasks in your list:");
     for (int i = 0; i < list.length; i++) {
-      if (list[i] != null) {
-        System.out.println(i + 1 + ". " + list[i]);
+      if (list[i] == null) {
+        break;
       }
+      System.out.println((i + 1) + ". " + list[i]);
     }
   }
 
   /*
-   * Adds a task to the taskList
+   * Adds a task to the list
    */
-  private static void addTask(String task) {
+  public static void addTask(String task) {
     for (int i = 0; i < taskList.length; i++) {
       if (taskList[i] == null) {
-        taskList[i] = task;
+        taskList[i] = new Task(task);
+        System.out.println("added: " + task);
         break;
       }
     }
   }
+
 }
