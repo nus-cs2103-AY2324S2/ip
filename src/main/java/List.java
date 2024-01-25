@@ -9,66 +9,53 @@ public class List {
 
     public void printList() {
         if (list.isEmpty()) {
-            System.out.println(horizontalLine + "The task list is currently empty! Add tasks!\n" + horizontalLine);
+            System.out.println("The task list is currently empty! Add tasks!\n");
             return;
         }
 
-        System.out.println(horizontalLine + "Here are the tasks in your list:\n");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
             int index = i + 1;
             System.out.println(index + ". " + task.printTask());
         }
-        System.out.println(horizontalLine);
+        System.out.println("");
     }
 
     public void addTask(Task task) {
         list.add(task);
-        System.out.println(horizontalLine + "Got it I've added this task:\n" +
+        System.out.println("Got it I've added this task:\n" +
                 task.printTask() + "\n" +
-                "You now have " + list.size() + " tasks in the list\n" +
-                horizontalLine);
+                "You now have " + list.size() + " tasks in the list\n");
     }
 
-    public void markTask(int index) {
-        System.out.println(horizontalLine);
+    public void markTask(int index) throws InvalidArgsException {
         if (index >= list.size()) {
-            System.out.println("Sorry that item does not exist in your list!\n");
-            System.out.println(horizontalLine);
-            return;
+            throw new InvalidArgsException("Sorry that item does not exist in your list!\n");
         }
 
         else if (index < 0) {
-            System.out.println("Please input a positive task number!\n");
-            System.out.println(horizontalLine);
-            return;
+            throw new InvalidArgsException("Please input a positive task number!\n");
         }
 
         Task currTask = list.get(index);
         currTask.markTask();
-        System.out.println("Nice! I've marked this task as done\n");
-        System.out.println(currTask.printTask());
-        System.out.println(horizontalLine);
+        System.out.println("Nice! I've marked this task as done");
+        System.out.println(currTask.printTask()+ "\n");
     }
 
-    public void unmarkTask(int index){
-        System.out.println(horizontalLine);
+    public void unmarkTask(int index) throws InvalidArgsException {
         if (index >= list.size()) {
-            System.out.println("Sorry that item does not exist in your list!");
-            System.out.println(horizontalLine);
-            return;
+            throw new InvalidArgsException("Sorry that item does not exist in your list!\n");
         }
 
         else if (index < 0) {
-            System.out.println("Please input a positive task number!\n");
-            System.out.println(horizontalLine);
-            return;
+            throw new InvalidArgsException("Please input a positive task number!\n");
         }
 
         Task currTask = list.get(index);
         currTask.unmarkTask();
-        System.out.println("Alright, I've marked this task as not done yet\n");
-        System.out.println(currTask.printTask());
-        System.out.println(horizontalLine);
+        System.out.println("Alright, I've marked this task as not done yet");
+        System.out.println(currTask.printTask() + "\n");
     }
 }
