@@ -103,6 +103,7 @@ class Activity {
         System.out.println(act.get(2));
         return act.get(2);
     }
+
     public void printActivity() {
         System.out.format("\t\t [%s][%s]%s", act.get(0), act.get(1), act.get(2));
         if(act.size() == 5) {
