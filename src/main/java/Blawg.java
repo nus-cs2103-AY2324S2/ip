@@ -64,7 +64,7 @@ public class Blawg {
                     ToDos task = new ToDos(description);
                     taskList.add(task);
                     System.out.print(line +
-                            "Got it. I've added this task:\n" + task + "\n" +
+                            "Got it. I've added this task:\n" + task +
                             String.format("Now you have %d tasks in the list\n", taskList.size()) +
                             line);
                 } else if (userInput.equalsIgnoreCase("deadline")) {
@@ -89,7 +89,7 @@ public class Blawg {
                     Deadlines task = new Deadlines(description, date);
                     taskList.add(task);
                     System.out.print(line +
-                            "Got it. I've added this task:\n" + task + "\n" +
+                            "Got it. I've added this task:\n" + task +
                             String.format("Now you have %d tasks in the list\n", taskList.size()) +
                             line);
                 } else if (userInput.equalsIgnoreCase("event")) {
@@ -120,9 +120,25 @@ public class Blawg {
                     Events task = new Events(description, startDate, endDate);
                     taskList.add(task);
                     System.out.print(line +
-                            "Got it. I've added this task:\n" + task + "\n" +
+                            "Got it. I've added this task:\n" + task +
                             String.format("Now you have %d tasks in the list\n", taskList.size()) +
                             line);
+                } else if (userInput.equalsIgnoreCase("delete")) {
+                    while (true) {
+                        int num = sc.nextInt();
+                        if (num > taskList.size() || num <= 0) {
+                            throw new InvalidInputException("Please enter a valid number\n");
+                        } else {
+                            Task removedTask = taskList.get(num - 1);
+                            taskList.remove(num - 1);
+                            String output = line + "Noted. I've removed this task:\n" +
+                                    removedTask +
+                                    String.format("Now you have %d tasks in the list\n", taskList.size()) +
+                                    line;
+                            System.out.print(output);
+                            break;
+                        }
+                    }
                 } else {
                     throw new EmptyException("I don't know what that means :( Valid commands are: \n" +
                             "list, todo, deadline, event, mark, unmark, bye\n");
