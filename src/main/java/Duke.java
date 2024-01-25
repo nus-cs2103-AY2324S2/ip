@@ -39,6 +39,8 @@ public class Duke {
                 this.toDoList();
             } else if (msg.toUpperCase().startsWith("MARK") || (msg.toUpperCase().startsWith("UNMARK"))){
                 this.markToDo(msg);
+            } else if (msg.toUpperCase().startsWith("DELETE")) {
+                this.deleteToDo(msg);
             } else {
                 this.addToDo(msg);
             }
@@ -71,6 +73,34 @@ public class Duke {
         }
 
     }
+    
+    private void deleteToDo(String msg) {
+        try {
+            String[] part = msg.split(" ");
+            if (part.length == 2) {
+                String index = part[1].trim();
+
+                int taskIndex = Integer.parseInt(index) - INDEX_START;
+                if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                    Task t = this.tasks.remove(taskIndex);
+
+                    System.out.println(" Noted. I've removed this task:");
+                    System.out.println("   " + t);
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+
+                } else {
+                    throw new DukeException(" Task not found.");
+                }
+            } else {
+                throw new DukeException(" Invalid format. Please use 'delete <index>'.");
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println(" Error: Invalid format. Please use integers only.");
+        } catch (DukeException e) {
+            System.out.println(" Error:" + e.getMessage());
+        }
+    }
 
     private void toDoList() {
 
@@ -87,17 +117,17 @@ public class Duke {
 
     }
 
-    private void markToDo(String command) {
+    private void markToDo(String msg) {
         try {
-            String[] part = command.split(" ");
+            String[] part = msg.split(" ");
             if (part.length == 2) {
-                String action = part[0].trim().toLowerCase();
+                String command = part[0].trim().toLowerCase();
                 String index = part[1].trim();
 
                 int taskIndex = Integer.parseInt(index) - INDEX_START;
                 if (taskIndex >= 0 && taskIndex < tasks.size()) {
                     Task t = this.tasks.get(taskIndex);
-                    boolean isDone = action.equals("mark");
+                    boolean isDone = command.equals("mark");
                     t.setDone(isDone);
                     System.out.println(isDone ? " Nice! I've marked this task as done:" :
                             " OK, I've marked this task as not done yet:");
@@ -106,7 +136,7 @@ public class Duke {
                     throw new DukeException(" Task not found.");
                 }
             } else {
-                throw new DukeException(" Invalid format. Please use 'mark <index>'.");
+                throw new DukeException(" Invalid format. Please use 'mark <index>' or 'unmark <index>'.");
             }
 
         } catch (NumberFormatException e) {
