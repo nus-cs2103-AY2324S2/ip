@@ -14,6 +14,7 @@ public class Duke {
         System.out.println(bot + "What can I do for you?");
         Scanner sc = new Scanner(System.in);
         List<Task> taskList  = new ArrayList<>();
+        Task task = null;
         while(true){
             String reply = sc.nextLine();
 
@@ -22,27 +23,44 @@ public class Duke {
             } else if (reply.startsWith("list")) {
                 System.out.println(bot + "Here are your tasks:");
                 for (int i = 0; i < taskList.size(); i++) {
-                    Task task = taskList.get(i);
-                    System.out.println(String.format(i+1+". ["+task.getStatusIcon()+"] " + task.getDescription() ));
+                    task = taskList.get(i);
+                    System.out.println(i+1 + " " + task.toString());
                 }
                 continue;
             } else if (reply.startsWith("mark")) {
                 int index = Integer.parseInt(reply.replaceAll("[\\D]", ""));
-                Task task = taskList.get(index-1);
+                task = taskList.get(index-1);
                 task.markDone();
-                System.out.println(String.format(bot + "I have marked ["+task.getStatusIcon()+"] " + task.getDescription() + " as done") );
+                System.out.println(bot + task.toString());
                 continue;
             } else if (reply.startsWith("unmark")) {
                 int index = Integer.parseInt(reply.replaceAll("[\\D]", ""));
-                Task task = taskList.get(index-1);
+                task = taskList.get(index-1);
                 task.markUndone();
-                System.out.println(String.format(bot +"I have marked ["+task.getStatusIcon()+"] " + task.getDescription() + " as not done") );
+                System.out.println(bot + task.toString());
+                continue;
+            } else if (reply.startsWith("todo")) {
+                String description = reply.substring(5,reply.length());
+                task = new ToDos(description);
+            } else if (reply.startsWith("deadline")) {
+                String split[] = reply.split(" /");
+                String description = split[0].substring(9, split[0].length());
+                String by = split[1].substring(3, split[1].length());
+                task = new Deadlines(description, by);
+
+            } else if (reply.startsWith("event")) {
+                String split[] = reply.split(" /");
+                String description = split[0].substring(7, split[0].length());
+                String from = split[1].substring(5, split[1].length());
+                String to = split[2].substring(4, split[2].length());
+                task = new Events(description, from, to);
+            } else {
+                System.out.println(reply);
                 continue;
             }
-
-            Task task = new Task(reply);
             taskList.add(task);
-            System.out.println(bot + "added: " + task.getDescription());
+            System.out.println(bot + "I have added " + task.toString() + " to your list of tasks. You have " + taskList.size() + " task(s) in list");
+
         }
 
 
