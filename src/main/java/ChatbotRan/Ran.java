@@ -19,27 +19,75 @@ public class Ran {
         Scanner sc = new Scanner(System.in);
         do {
             System.out.println("____________________________________________________________");
-            String command = sc.nextLine();
+            String line = sc.nextLine();
+            int space = line.indexOf(' ');
+            String command = space == -1 ? line : line.substring(0, space);
             switch (command) {
-                case "bye":
-                    running = false;
-                    break;
-                case "list":
-                    if (tasks.isEmpty()) {
-                        System.out.println("You haven't got any tasks.");
+                case "mark":
+                    if (space == -1) {
+                        System.out.println("Missing task number");
+                    }
+                    Integer taskNo = parseNumber(line, space);
+
+                    if (taskNo == null || taskNo < 1) {
+                        System.out.println("Invalid task number.");
+                    } else if (taskNo > tasks.size()) {
+                        System.out.println("No task by that number.");
                     } else {
-                        for (int i = 0; i < tasks.size(); i++) {
-                            System.out.println("Task " + i + " : " + tasks.get(i).getContents());
-                        }
+                        tasks.get(taskNo - 1).setCompleted(true);
+                        System.out.println("Alright. I have marked this task as complete: ");
+                        System.out.println(tasks.get(taskNo - 1));
+                    }
+                    break;
+                case "unmark":
+                    if (space == -1) {
+                        System.out.println("Missing task number");
+                    }
+                    taskNo = parseNumber(line, space);
+
+                    if (taskNo == null || taskNo < 1) {
+                        System.out.println("Invalid task number.");
+                    } else if (taskNo > tasks.size()) {
+                        System.out.println("No task by that number.");
+                    } else {
+                        tasks.get(taskNo - 1).setCompleted(false);
+                        System.out.println("If that's the case, I'll set that task as incomplete.");
+                        System.out.println(tasks.get(taskNo - 1));
                     }
                     break;
                 default:
-                    tasks.add(new Task(command));
-                    System.out.println("Added task: " + command);
+                    switch (line) {
+                        case "bye":
+                            running = false;
+                            break;
+                        case "list":
+                            if (tasks.isEmpty()) {
+                                System.out.println("You haven't got any tasks.");
+                            } else {
+                                for (int i = 0; i < tasks.size(); i++) {
+                                    System.out.println("Task " + (i + 1) + ":" + tasks.get(i));
+                                }
+                            }
+                            break;
+                        default:
+                            tasks.add(new Task(line));
+                            System.out.println("Added task: " + line);
+                    }
+
+
             }
         } while (running);
 
         System.out.println("Goodbye, please return soon.");
+    }
+
+
+    private static Integer parseNumber(String line, int spacePos) {
+        try {
+            return Integer.parseInt(line.substring(spacePos + 1));
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }
 
@@ -51,6 +99,7 @@ class Task {
         this.contents = contents;
         this.completed = false;
     }
+
     public String getContents() {
         return contents;
     }
@@ -65,5 +114,10 @@ class Task {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + (this.completed ? "X" : " ") + "] " + this.contents;
     }
 }
