@@ -85,6 +85,9 @@
      OOPS!!! The task number to be deleted is not specified.
     ____________________________________________________________
     ____________________________________________________________
+     OOPS!!! Task number must be an integer.
+    ____________________________________________________________
+    ____________________________________________________________
      Noted. I've removed this task:
        [D][X] return book (by: Sunday)
      Now you have 2 tasks in the list.

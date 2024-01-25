@@ -17,6 +17,7 @@ event
 list
 unmark
 delete
+delete one
 delete 2
 list
 bye

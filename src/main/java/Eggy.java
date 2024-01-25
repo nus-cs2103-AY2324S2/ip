@@ -80,9 +80,13 @@ public class Eggy {
                 if (commandArr.length < 2) {
                     throw new IncompleteCommandException(commandType.name().toLowerCase());
                 } else {
-                    int taskNumber = Integer.parseInt(commandArr[1]);
-                    if (taskNumber < 1 || taskNumber > taskList.size()) {
-                        throw new TaskListIndexOutOfBoundsException(taskNumber, taskList.size());
+                    try {
+                        int taskNumber = Integer.parseInt(commandArr[1]);
+                        if (taskNumber < 1 || taskNumber > taskList.size()) {
+                            throw new TaskListIndexOutOfBoundsException(taskNumber, taskList.size());
+                        }
+                    } catch (NumberFormatException e) {
+                        throw new TaskNumberFormatException();
                     }
                 }
             }
