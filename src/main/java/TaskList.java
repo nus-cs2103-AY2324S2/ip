@@ -8,24 +8,28 @@ public class TaskList {
         this.list = new ArrayList<Task>();
     }
 
-    public void addTask(String task, String fullDescription, PrintList printList) throws DukeCeption{
-        try {
-            if (task.toLowerCase().equals("todo")) {
-                this.addTodo(fullDescription, printList);
-            } else if (task.toLowerCase().equals("deadline")) {
-                this.addDeadline(fullDescription, printList);
-            } else {
-                this.addEvent(fullDescription, printList);
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeCeption("Make sure your /from/to/by is correct");
-        }
-    }
-
     public void printListAddNewTask(Task task, PrintList printList) {
         printList.add(String.format("Okay! added this task:"));
         printList.add(task.toString());
         printList.add(String.format("Now you have %d tasks in the list.", this.list.size()));
+    }
+
+    public void addTask(String task, String fullDescription, PrintList printList) throws DukeCeption {
+        try {
+            switch (task) {
+                case "todo":
+                    this.addTodo(fullDescription, printList);
+                    break;
+                case "deadline":
+                    this.addDeadline(fullDescription, printList);
+                    break;
+                case "event":
+                    this.addEvent(fullDescription, printList);
+                    break;
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeCeption("Make sure your /from/to/by is correct");
+        }
     }
 
     public void addTodo(String description, PrintList printList) throws DukeCeption {
@@ -39,31 +43,41 @@ public class TaskList {
     }
 
     public void addDeadline(String description, PrintList printList) throws DukeCeption {
-        if (description.isEmpty()) {
-            throw new DukeCeption("Deadline cannot be empty!");
-        } else {
-            int indexOfBy = description.indexOf("/by");
-            String taskDescription = description.substring(0, indexOfBy - 1);
-            String by = description.substring(indexOfBy + 4);
-            Task task = new Deadline(taskDescription, by);
-            this.list.add(task);
-            this.printListAddNewTask(task, printList);
+        String[] descriptionList = description.split("/by", 2);
+        try {
+            if (description.isEmpty()) {
+                throw new DukeCeption("Deadline cannot be empty!");
+            } else {
+                String taskDescription = descriptionList[0].trim();
+                String by = descriptionList[1].trim();
+                Task task = new Deadline(taskDescription, by);
+                this.list.add(task);
+                this.printListAddNewTask(task, printList);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeCeption("Make sure /by is written properly");
         }
+        
     }
 
     public void addEvent(String description, PrintList printList) throws DukeCeption {
-        if (description.isEmpty()) {
-            throw new DukeCeption("Event cannot be empty!");
-        } else {
-            int indexOfBy = description.indexOf("/from");
-            int indexOfTo = description.indexOf("/to");
-            String taskDescription = description.substring(0, indexOfBy - 1);
-            String from = description.substring(indexOfBy + 6, indexOfTo - 1);
-            String to = description.substring(indexOfTo + 4);
-            Task task = new Event(taskDescription, from, to);
-            this.list.add(task);
-            this.printListAddNewTask(task, printList);
+        try {
+            if (description.isEmpty()) {
+                throw new DukeCeption("Event cannot be empty!");
+            } else {
+                String[] descriptionList = description.split("/from", 2);
+                String[] fromAndToList = descriptionList[1].split("/to", 2);
+                String taskDescription = descriptionList[0].trim();
+                String from = fromAndToList[0].trim();
+                String to = fromAndToList[1].trim();
+                Task task = new Event(taskDescription, from, to);
+                this.list.add(task);
+                this.printListAddNewTask(task, printList);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeCeption("Make sure /from and /to is written properly");
         }
+        
     }
 
     public void markOrDelete(String command, String taskNumberString, PrintList printList) throws DukeCeption {

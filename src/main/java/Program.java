@@ -38,18 +38,24 @@ public class Program {
                     this.taskList.getList(this.printList);
                     break;
                 case "mark": case "unmark": case "delete":
-                    taskNumber = userInput[1];
-                    this.taskList.markOrDelete(command, taskNumber, this.printList);
+                    if (userInput.length != 2) {
+                        throw new DukeCeption("A number is required after writing this command");
+                    } else {
+                        taskNumber = userInput[1];
+                        this.taskList.markOrDelete(command, taskNumber, this.printList);
+                    }
                     break;
                 case "todo": case "deadline": case "event":
+                if (userInput.length != 2) {
+                    throw new DukeCeption("Event description cannot be empty");
+                } else {
                     String task = userInput[1];
                     this.taskList.addTask(command, task, this.printList);
+                }
                     break;
                 default:
                     throw new DukeCeption("Sorry I don't recognize that command :/");
             }
-        } catch (DukeCeption e) {
-            printList.add(e.getMessage());
         } catch (Exception e) {
             printList.add(e.getMessage());
         } finally {
