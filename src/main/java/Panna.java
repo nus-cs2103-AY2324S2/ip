@@ -124,10 +124,29 @@ public class Panna {
                 }
 
             }
+            else if (Panna.command.equals("delete")) {
+                System.out.println("Which one should I delete? Write the label number :] ");
+                try {
+                    int label = s.nextInt();
+                    Task t = tasks.get(label-1);
+                    tasks.remove(label-1);
+
+                    System.out.println("----------------------------------------------------------");
+                    System.out.println("Task successfully removed! \n"
+                            + t);
+                    System.out.println("----------------------------------------------------------");
+
+                }
+                catch (Exception e) {
+                    throw new PannaException("Invalid label! The number of tasks now is " + tasks.size() +
+                            "\nPlease try with a more appropriate value! ");
+                }
+            }
 
 
             Panna.command = s.nextLine();
         }
+
 
 
 
