@@ -1,12 +1,34 @@
+
 class Task {
+    protected SecretaryW.TaskType type;
     protected String description;
     protected boolean isDone;
+    protected String time1;
+    protected String time2;
 
-    public Task(String description) {
+    //constructor for TODO
+    public Task(SecretaryW.TaskType type, String description) {
+        this.type = type;
         this.description = description;
         this.isDone = false;
     }
 
+    //constructor for DEADLINE
+    public Task(SecretaryW.TaskType type, String description, String time1) {
+        this.type = type;
+        this.description = description;
+        this.isDone = false;
+        this.time1 = time1;
+    }
+
+    //constructor for EVENT
+    public Task(SecretaryW.TaskType type, String description, String time1, String time2) {
+        this.type = type;
+        this.description = description;
+        this.isDone = false;
+        this.time1 = time1;
+        this.time2 = time2;
+    }
     public String getDescription() {
         return this.description;
     }
@@ -29,47 +51,19 @@ class Task {
 
     @Override
     public String toString() {
-        return getStatusIcon() + " " + this.description;
+        switch (type) {
+            case TODO: //todo
+                return "[T]" + getStatusIcon() + " " + description;
+            case DEADLINE: // deadline
+                return "[D]" + getStatusIcon() + " " + description + " (by: " + time1 + ")";
+            case EVENT: // event
+                return "[E]" + getStatusIcon() + " " + description + " (from: " + time1 + " to: " + time2 + ")";
+            default:
+                return ""; // Other types
+        }
     }
 }
 
-class Todo extends Task {
-    public Todo(String description) {
-        super(description);
-    }
-
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
-    }
-}
-
-class Deadline extends Task {
-    protected String by;
-
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
-    }
-}
-
-class Event extends Task {
-    protected String from;
-    protected String to;
-
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
-    }
+enum TaskType {
+    TODO, DEADLINE, EVENT
 }

@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class SecretaryW {
+    public enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
     public static void main(String[] args) {
         // Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
@@ -66,7 +69,7 @@ public class SecretaryW {
                     // add to do task
                     String description = userInput.substring(4).trim();
                     checkTodo(description);
-                    taskList.add(new Todo(description));
+                    taskList.add(new Task(TaskType.TODO, description));
                     printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
                 } else if (userInput.startsWith("deadline")) {
                     // Add a deadline task
@@ -75,7 +78,7 @@ public class SecretaryW {
                     String description = parts[0].trim();
                     String by = parts[1].trim();
                     checkDeadline(by);
-                    taskList.add(new Deadline(description, by));
+                    taskList.add(new Task(TaskType.DEADLINE, description, by));
                     printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
                 } else if (userInput.startsWith("event")) {
                     // Add an event task
@@ -87,7 +90,7 @@ public class SecretaryW {
                     String from = time[0].trim();
                     String to = time[1].trim();
                     checkEvent(from, to);
-                    taskList.add(new Event(description, from, to));
+                    taskList.add(new Task(TaskType.EVENT, description, from, to));
                     printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
 
                 } else {
