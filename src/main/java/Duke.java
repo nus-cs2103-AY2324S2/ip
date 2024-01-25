@@ -7,9 +7,15 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         ActivityList list = new ActivityList();
 
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tHello! I'm Dad\n\tWhat can I do for you?");
-        System.out.println("\t____________________________________________________________");
+//        System.out.println("\t____________________________________________________________");
+//        System.out.println("\tHello! I'm Dad\n\tWhat can I do for you?");
+//        System.out.println("\t____________________________________________________________");
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
 
         while(true) {
             String input = scanner.nextLine();
@@ -112,6 +118,4 @@ class Activity {
                 input, this.act.get(0), this.act.get(1), this.act.get(2));
         System.out.println("\t____________________________________________________________");
     }
-
-
 }
