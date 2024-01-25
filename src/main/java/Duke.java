@@ -33,10 +33,7 @@ public class Duke {
                 System.out.println("______________________________________");
             }
             else {
-                Task t = new Task(command);
-                sl.add(t);
-                System.out.println("added: " + command);
-                System.out.println("______________________________________");
+                Duke.createTask(sl, command, commandSplit[0]);
             }
             command = reader.nextLine();
         }
@@ -55,6 +52,33 @@ public class Duke {
         System.out.println("As I am a Chatbot, I therefore have no arms.");
         System.out.println("Knock knock, who's there? Definitely not BobBot!");
         System.out.println("Jokes aside, what can I do for you?");
+        System.out.println("______________________________________");
+    }
+
+    public static void createTask(ArrayList<Task> arr, String command, String commandType) {
+        Task t = null;
+        if (commandType.equals("deadline")) {
+            String[] newCommandSplit = command.split("/");
+            String taskName = newCommandSplit[0].split("deadline ")[1];
+            t = new Deadlines(taskName, newCommandSplit[1]);
+        }
+        else if (commandType.equals("event")) {
+            String[] newCommandSplit = command.split("/");
+            String taskName = newCommandSplit[0].split("event ")[1];
+            t = new Events(taskName, newCommandSplit[1], newCommandSplit[2]);
+        }
+        else if (commandType.equals("todo")) {
+            String taskName = command.split("todo ")[1];
+            t = new ToDo(taskName);
+        }
+        else {
+            System.out.println("Error!");
+        }
+        
+        arr.add(t);
+        System.out.println("Gotchu! I've added this task: ");
+        System.out.println(t);
+        System.out.println("You now have "+arr.size()+" tasks in the list.");
         System.out.println("______________________________________");
     }
 
