@@ -1,5 +1,9 @@
+import java.util.Scanner;
+
 public class Duke {
     static final String NAME = "jun jie";
+    static final String INTRO_MSG = "hi bro, im " + NAME + "\nwhat you want me to do?";
+    static final String EXIT_MSG = "ok see you bro";
 
     public static void print(String str) {
         System.out.println("-------------------------");
@@ -7,8 +11,16 @@ public class Duke {
         System.out.println("-------------------------");
     }
     public static void main(String[] args) {
-        print("hi bro, im " + NAME);
-        print("what you want me to do?");
-        print("ok see you bro");
+        Scanner scanner = new Scanner(System.in);
+
+        print(INTRO_MSG);
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.equals("bye")) {
+                break;
+            }
+            print(input);
+        }
+        print(EXIT_MSG);
     }
 }
