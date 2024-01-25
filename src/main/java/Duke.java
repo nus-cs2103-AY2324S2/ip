@@ -1,3 +1,5 @@
+import java.util.Scanner; 
+
 public class Duke {
     public static void main(String[] args) {
         String logo = 
@@ -17,35 +19,59 @@ public class Duke {
                 // Got ASCII Word Art from https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Jav
 
         System.out.println("Hello from\n" + logo);
-        
-        System.out.println("____________________________________________________________");
+        System.out.println("<---------------------------------------------------------->");
         PrintGreeting();
-        System.out.println("____________________________________________________________");
+
+        boolean isExiting = false;
+        Scanner scan = new Scanner(System.in);
+        while (!isExiting) {
+            System.out.println("| User Input:");
+
+            System.out.print("> ");
+            String s = scan.next();
+            if (s.equals("bye")) {
+                isExiting = true;
+            } else {
+                Echo(s);
+            }
+        }
+
         PrintExit();
-        System.out.println("____________________________________________________________");
+        System.out.println("<---------------------------------------------------------->");
     }
 
     /*
 
-    * The function prints the greeting to greet the user
+    * The function prints the greeting message when the user enters
     * Returns void
     */
     public static void PrintGreeting() {
-        String greetingMessage = "Welcome! I'm JAV\n"
-                               + "How may I sprinkle a bit of happiness into your day today?\n";
+        String greetingMessage = "| Welcome! I'm JAV\n"
+                               + "| How may I sprinkle a bit of happiness into your day today?";
 
         System.out.println(greetingMessage);
     }
 
     /*
 
-    * The function prints the greeting to greet the user
+    * The function prints the farewell message when the user exits
     * Returns void
     */
     public static void PrintExit() {
-        String greetingMessage = "Farewell!\n"
-                               + "May your days be filled with laughter and warmth!\n";
+        String greetingMessage = "| Farewell!\n"
+                               + "| May your days be filled with laughter and warmth!";
 
         System.out.println(greetingMessage);
+    }
+
+    
+    /*
+
+    * The function echos a given string
+    * Returns void
+    * Parameters: string
+    */
+    public static void Echo(String _input) {
+        System.out.println("| Echoing input \n| " + _input);
     }
 }
