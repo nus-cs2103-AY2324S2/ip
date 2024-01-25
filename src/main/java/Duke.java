@@ -13,19 +13,21 @@ public class Duke {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private static final String[] COMMANDS = {
+    private static final String COMMANDS =
             "bye: Terminate the program.\n" +
             "list: Display the list of tasks.\n" +
             "mark <index>: Mark a task as done.\n" +
             "unmark <index>: Mark a task as not done.\n" +
             "todo <description>: Add a todo task.\n" +
             "deadline <description> /by <dueDate>: Add a deadline task.\n" +
-            "event <description> /from <startDate> /to <endDate>: Add an event task.\n"
+            "event <description> /from <startDate> /to <endDate>: Add an event task.\n";
 
-    };
+
+    private enum Command {
+        HELLO, BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, HELP
+    }
 
     private Scanner scanner;
-
     private ArrayList<Task> tasks;
 
     private int counter;
@@ -48,50 +50,60 @@ public class Duke {
         while (scanner.hasNextLine()) {
             try {
                 String[] input = scanner.nextLine().split(" ", 2);
-                String command = input[0];
+                Command command;
 
+                try {
+                    // convert string to enum and handle case insensitive
+                    command = Command.valueOf(input[0].toUpperCase());
+
+                }  catch (IllegalArgumentException e) {
+                    throw new DukeException("An error occurred: Invalid command.\n" +
+                            "Please enter 'help' for a list of valid commands.\n");
+                }
                 switch (command) {
-                    case "hello":
+                    case HELLO:
                         System.out.println("Hey there! This is Dooloodoodooloodoo!\n" + "What can I do for you?\n");
                         break;
-                    case "bye":
+                    case BYE:
                         exit();
                         break;
-                    case "list":
+                    case LIST:
                         listTasks();
                         break;
-                    case "mark":
+                    case MARK:
                         markTaskAsDone(input);
                         break;
-                    case "unmark":
+                    case UNMARK:
                         markTaskAsUndone(input);
                         break;
-                    case "todo":
+                    case TODO:
                         addToDoTask(input);
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         addDeadline(input);
                         break;
-                    case "event":
+                    case EVENT:
                         addEvent(input);
                         break;
-                    case "delete":
+                    case DELETE:
                         delete(input);
                         break;
-                    case "help":
-                        System.out.println(Arrays.toString(COMMANDS));
+                    case HELP:
+                        System.out.println(COMMANDS);
                         break;
-                    default:
-                        throw new DukeException("I'm sorry, but I don't know what '" + command + "' means :-(\n" +
-                                "Please enter 'help' command to find out more.");
                 }
+
             } catch (DukeException e) {
-                System.out.println("OOPS!!! An error occurred: " + e.getMessage());
+                System.out.println(e.getMessage());
             }
 
         }
     }
 
+    /**
+     * Delete a task from the list.
+     * @param input A string array containing the command and index number of a task.
+     */
     public void delete(String[] input) {
         int index = Integer.parseInt(input[1]) - 1;
         Task deletedTask = tasks.remove(index);
@@ -105,7 +117,7 @@ public class Duke {
     /**
      * Adds a ToDo task to the task list.
      *
-     * @param input A string array containing the task description.
+     * @param input A string array containing the command and task description.
      */
     public void addToDoTask(String[] input) throws DukeException {
         if (input.length == 1) {
@@ -119,7 +131,7 @@ public class Duke {
     /**
      * Adds a Deadline task to the task list.
      *
-     * @param input A string array containing the task description with the "/by" as separator.
+     * @param input A string array containing the command and task description with the "/by" as separator.
      */
     public void addDeadline(String[] input) throws DukeException {
         if (input.length == 1) {
@@ -137,7 +149,7 @@ public class Duke {
     /**
      * Adds an Event task to the task list.
      *
-     * @param input A string array containing the task description with the "/from" and "/to" as separators.
+     * @param input A string array containing the command and task description with the "/from" and "/to" as separators.
      */
     public void addEvent(String[] input) throws DukeException {
         if (input.length == 1) {
@@ -155,7 +167,7 @@ public class Duke {
     /**
      * Marks a task as done.
      *
-     * @param input A string array containing the index of the task to mark as done.
+     * @param input A string array containing the command and the index of the task to mark as done.
      */
     public void markTaskAsDone(String[] input) {
         int index = Integer.parseInt(input[1]);
@@ -167,7 +179,7 @@ public class Duke {
     /**
      * Marks a task as undone.
      *
-     * @param input A string array containing the index of the task to mark as undone.
+     * @param input A string array containing the command and index of the task to mark as undone.
      */
     public void markTaskAsUndone(String[] input) {
         int index = Integer.parseInt(input[1]);

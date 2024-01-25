@@ -18,11 +18,11 @@ Here are the tasks in your list:
 1.[T][ ] grocery shopping
 2.[E][ ] group meeting  (from: 2pm to: 3pm)
 3.[D][ ] ip  (by: 25 Jan 23:59)
-OOPS!!! An error occurred: OOPS! The description of a todo cannot be left blank.
+OOPS! The description of a todo cannot be left blank.
 Please enter 'help' command to find out more.
-OOPS!!! An error occurred: OOPS! The date/time for the deadline cannot be left blank.
+OOPS! The date/time for the deadline cannot be left blank.
 Please enter 'help' command to find out more.
-OOPS!!! An error occurred: OOPS! The start time and end time cannot be left blank.
+OOPS! The start time and end time cannot be left blank.
 Please enter 'help' command to find out more.
 [bye: Terminate the program.
 list: Display the list of tasks.
