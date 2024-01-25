@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoCmdException, EventException, ToDosException, DeadlineException {
         String greet = "Hello! I'm DOUMMI\n" +
                 "What can I do for you?";
 
@@ -40,61 +40,95 @@ public class Duke {
                         "\t" + task[index].toString());
             } else if (cmd.hasNext("todo")) {
                 String userCmd = cmd.nextLine();
-                String [] divided = userCmd.split(" ", 2);
-                String D = divided[1];
-                task[count] = new ToDos(D);
-                int n = count +1;
-                String length = "" + n;
-                System.out.println("Got it. I've added this task:\n" +
-                        "\t" + task[count].toString());
-                System.out.println("Now you have " + length + " tasks in the list.");
-                count++;
+                try {
+                    processToDos(userCmd, count, task);
+                    count++;
+                } catch (ToDosException e){
+                    System.out.println("Sir, " + e.getMessage());
+                }
             } else if (cmd.hasNext("event")) {
                 String userCmd = cmd.nextLine();
-                String [] divided = userCmd.split(" ", 2);
-                String D = divided[1];
-                divided = D.split("/from", 2);
-                D = divided[0];
-                String fromTo = divided[1];
-                divided = fromTo.split("/to", 2);
-                String from = divided[0];
-                String to = divided[1];
-                task[count] = new Events(D, from, to);
-                int n = count +1;
-                String length = "" + n;
-                System.out.println("Got it. I've added this task:\n" +
-                        "\t" + task[count].toString());
-                System.out.println("Now you have " + length + " tasks in the list.");
-                count++;
+                try {
+                    processEvents(userCmd, count, task);
+                    count++;
+                } catch (EventException e){
+                    System.out.println("Sir, " + e.getMessage());
+                }
             } else if (cmd.hasNext("deadline")) {
                 String userCmd = cmd.nextLine();
-                String [] divided = userCmd.split(" ", 2);
-                String D = divided[1];
-                divided = D.split("/by", 2);
-                D = divided[0];
-                String by = divided[1];
-                task[count] = new Deadline(D, by);
-                int n = count +1;
-                String length = "" + n;
-                System.out.println("Got it. I've added this task:\n" +
-                        "\t" + task[count].toString());
-                System.out.println("Now you have " + length + " tasks in the list.");
-                count++;
-            } else {
-                if (count > 100) {
-                    break;
+                try {
+                    processDeadline(userCmd, count, task);
+                    count++;
+                } catch (DeadlineException e){
+                    System.out.println("Sir, " + e.getMessage());
                 }
-                String userCmd = cmd.nextLine();
-
-                task[count] = new Task(userCmd);
-                count++;
-                System.out.println("added: " + userCmd);
+            } else {
+                throw new NoCmdException("Please tell me what you want me to do.");
             }
         }
-
 
         String bye = "Hope to see you again soon!";
 
         System.out.println(bye);
+    }
+
+    public static void processToDos(String cmd, int count, Task[] task) throws ToDosException{
+        String [] divided = cmd.split(" ", 2);
+        if (divided.length < 2) {
+            throw new ToDosException("What todos do you need to record?");
+        }
+        String D = divided[1];
+        task[count] = new ToDos(D);
+        int n = count +1;
+        String length = "" + n;
+        System.out.println("Got it. I've added this task:\n" +
+                "\t" + task[count].toString());
+        System.out.println("Now you have " + length + " tasks in the list.");
+    }
+
+    public static void processDeadline(String cmd, int count, Task[] task) throws DeadlineException{
+        String [] divided = cmd.split(" ",2);
+        if (divided.length < 2) {
+            throw new DeadlineException("What deadline do you need to record?");
+        }
+        String D = divided[1];
+        divided = D.split("/by", 2);
+        if (divided.length < 2) {
+            throw new DeadlineException("When do you have to get it done");
+        }
+        D = divided[0];
+        String by = divided[1];
+        task[count] = new Deadline(D, by);
+        int n = count +1;
+        String length = "" + n;
+        System.out.println("Got it. I've added this task:\n" +
+                "\t" + task[count].toString());
+        System.out.println("Now you have " + length + " tasks in the list.");
+    }
+
+    public static void processEvents(String cmd, int count, Task[] task) throws EventException{
+        String [] divided = cmd.split(" ", 2);
+        if (divided.length < 2) {
+            throw new EventException("What event do you need to record?");
+        }
+        String D = divided[1];
+        divided = D.split("/from", 2);
+        if (divided.length < 2) {
+            throw new EventException("There is no event timeline!");
+        }
+        D = divided[0];
+        String fromTo = divided[1];
+        divided = fromTo.split("/to", 2);
+        if (divided.length < 2) {
+            throw new EventException("There is no event timeline!");
+        }
+        String from = divided[0];
+        String to = divided[1];
+        task[count] = new Events(D, from, to);
+        int n = count +1;
+        String length = "" + n;
+        System.out.println("Got it. I've added this task:\n" +
+                "\t" + task[count].toString());
+        System.out.println("Now you have " + length + " tasks in the list.");
     }
 }
