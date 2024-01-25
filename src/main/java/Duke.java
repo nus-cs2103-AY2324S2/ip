@@ -102,10 +102,6 @@ public class Duke {
 
                 // Event is called
                 else {
-                    /*String[] item_time = restOfInputs.split(" ");
-                    String item = item_time[0] + " " + item_time[1];
-                    String from = item_time[3] + " " + item_time[4];
-                    String to = item_time[6];*/
 
                     String[] item_time = restOfInputs.split("/from");
                     String item = item_time[0];
