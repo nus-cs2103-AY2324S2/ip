@@ -2,7 +2,6 @@ package simpli;
 
 import java.util.Arrays;
 
-
 public final class Parser {
     private static final int MAX_TOKENS = 6;
 

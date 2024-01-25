@@ -1,18 +1,21 @@
 package simpli;
 
+import simpli.exceptions.CommandException;
+import simpli.exceptions.SimpliException;
+import simpli.exceptions.TaskException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-
 
 public class Simpli {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SimpliException {
         Simpli simpli = new Simpli();
         simpli.start();
     }
 
-    public void start() {
+    public void start() throws SimpliException {
         // welcome message
         this.greet();
 
@@ -26,7 +29,13 @@ public class Simpli {
         while (!userIn.equals("bye")) {
             String[] tokens = parser.parse(userIn);
 
-            intrpr.execute(tokens);
+            try {
+                intrpr.execute(tokens);
+            } catch (TaskException e) {
+                this.respond("Invalid task parameters, cannot simp :(");
+            } catch (CommandException e) {
+                this.respond("No such command to simp for :(");
+            }
 
             userIn = scanner.nextLine();
         }
