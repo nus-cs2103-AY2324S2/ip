@@ -11,18 +11,29 @@ public class Duke {
         String userInput = "";
         while (true) {
             userInput = sc.nextLine();
-            if (userInput.equals("bye")) {
+            if (userInput.startsWith("bye")) {
                 // bye
                 System.out.println(Std_msgs.BYE);
                 break;
-            } else if (userInput.equals("list")) {
+            } else if (userInput.startsWith("list")) {
                 // unsure if i should extend Items as a Msg
                 System.out.println(new Msg(Duke.items.toString()));
                 // add new Task
-            } else if (userInput.length() > 6 && userInput.substring(0, 6).equals("unmark")) {
+            } else if (userInput.startsWith("unmark")) {
                 Duke.items.unmark(Integer.parseInt(userInput.substring(7)));
-            } else if (userInput.length() > 4 && userInput.substring(0, 4).equals("mark")) {
+            } else if (userInput.startsWith("mark")) {
                 Duke.items.mark(Integer.parseInt(userInput.substring(5)));
+            } else if (userInput.startsWith("todo")) {
+                Duke.items.add(new Todo(userInput.substring(6)));
+            } else if (userInput.startsWith("deadline")) {
+                String[] inputs = userInput.split("/by", 2);
+                Duke.items.add(new Deadline(inputs[0], inputs[1]));
+            } else if (userInput.startsWith("event")) {
+                String[] inputs = userInput.split("/", 3); // 0 has description, 1 has from, 2 has to
+                Duke.items.add(
+                        new Event(inputs[0],
+                                inputs[1].substring(4),
+                                inputs[2].substring(2)));
             } else {
                 Duke.items.add(new Task(userInput));
             }

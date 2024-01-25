@@ -7,8 +7,10 @@ public class Items {
     public void add(Task item) {
         this.item_list[item_count] = item;
         item_count += 1;
-        // sends msg to user to acknowledge its been added to list
-        System.out.println(new Msg("added: " + item.description));
+        // ack msg
+        System.out.println(new Msg("Got it. I've added this task:", false));
+        System.out.println(item);
+        System.out.println(new Msg(String.format("Now you have %d tasks in the list.", this.item_count)));
     }
 
     public void mark(int i) {
