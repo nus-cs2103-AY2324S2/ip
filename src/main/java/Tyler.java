@@ -4,57 +4,93 @@ public class Tyler {
     private static Task[] taskList = new Task[100];
     private static int curr = 0;
 
-    public static void main(String[] args) {
-        System.out.println("    Hello from Tyler");
-        System.out.println("    What can I do for you?");
-        System.out.println("    list, todo, deadline, event, mark, unmark, bye");
-        System.out.println("    --------------------------------------------------");
-
+    public static void main(String[] args) throws EmptyNameException, UndefinedActionException, MarkNothingException {
+        Tyler.greet();
         Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
 
-        while(!input.equals("bye")) {
-            System.out.println("    --------------------------------------------------");
-            if (input.equals("list")) {
-                Tyler.list();
-            } else if (input.equals("mark")) {
-                int taskNumber = Integer.parseInt(sc.nextLine());
-                taskList[taskNumber - 1].mark();
-            } else if (input.equals("unmark")) {
-                int taskNumber = Integer.parseInt(sc.nextLine());
-                taskList[taskNumber - 1].unmark();
-            } else if (input.equals("todo")) {
-                String task = sc.nextLine();
-                Task newTask = new Todo(task);
-                taskList[curr] = newTask;
-                System.out.println("    Got it! I've added this task:");
-                System.out.println("      " + newTask.toString());
-                curr++;
-                System.out.println("    Now you have " + curr + " tasks in the list");
-            } else if (input.equals("deadline")) {
-                String task = sc.nextLine();
-                String end = sc.nextLine();
-                Task newTask = new Deadline(task, end);
-                taskList[curr] = newTask;
-                System.out.println("    Got it! I've added this task:");
-                System.out.println("      " + newTask.toString());
-                curr++;
-                System.out.println("    Now you have " + curr + " tasks in the list");
-            } else if (input.equals("event")) {
-                String task = sc.nextLine();
-                String start = sc.nextLine();
-                String end = sc.nextLine();
-                Task newTask = new Event(task, start, end);
-                taskList[curr] = newTask;
-                System.out.println("    Got it! I've added this task:");
-                System.out.println("      " + newTask.toString());
-                curr++;
-                System.out.println("    Now you have " + curr + " tasks in the list");
-            }
-            System.out.println("    --------------------------------------------------");
-            input = sc.nextLine();
-        }
-        System.out.println("    Bye. Hope to see you again");
+          while (true) {
+              try {
+                  System.out.println("    --------------------------------------------------");
+                  String input = sc.nextLine();
+                  String[] arr = input.split(" ");
+                  if (arr[0].equals("bye")) {
+                      System.out.println("    Bye. Hope to see you again");
+                      return ;
+                  } else if (arr[0].equals("list")) {
+                      Tyler.list();
+
+                  } else if (arr[0].equals("mark")) {
+                      if (arr.length < 2) {
+                          throw new MarkNothingException();
+                      }
+                      for (int i = 1; i < arr.length; i++) {
+                          int taskNumber = Integer.parseInt(arr[i]);
+                          taskList[taskNumber - 1].mark();
+                      }
+
+                  } else if (arr[0].equals("unmark")) {
+                      if (arr.length < 2) {
+                          throw new MarkNothingException();
+                      }
+                      for (int i = 1; i < arr.length; i++) {
+                          int taskNumber = Integer.parseInt(arr[i]);
+                          taskList[taskNumber - 1].unmark();
+                      }
+
+                  } else if (arr[0].equals("todo")) {
+                      if (arr.length < 2) {
+                          throw new EmptyNameException();
+                      }
+                      String[] rest = input.split(" ", 2);
+                      Task newTask = new Todo(rest[1]);
+                      taskList[curr] = newTask;
+                      System.out.println("    Got it! I've added this task:");
+                      System.out.println("      " + newTask.toString());
+                      curr++;
+                      System.out.println("    Now you have " + curr + " tasks in the list");
+
+                  } else if (arr[0].equals("deadline")) {
+                      if (arr.length < 2) {
+                          throw new EmptyNameException();
+                      }
+                      String[] rest1 = input.split(" ", 2);
+                      String[] rest2 = rest1[1].split(" /by ");
+                      //String end = sc.nextLine();
+                      Task newTask = new Deadline(rest2[0], rest2[1]);
+                      taskList[curr] = newTask;
+                      System.out.println("    Got it! I've added this task:");
+                      System.out.println("      " + newTask.toString());
+                      curr++;
+                      System.out.println("    Now you have " + curr + " tasks in the list");
+
+                  } else if (arr[0].equals("event")) {
+                      if (arr.length < 2) {
+                          throw new EmptyNameException();
+                      }
+                      String[] rest1 = input.split(" ", 2);
+                      String[] rest2 = rest1[1].split(" /from ");
+                      String[] rest3 = rest2[1].split(" /to ");
+                      //String start = sc.nextLine();
+                      //String end = sc.nextLine();
+                      Task newTask = new Event(rest2[0], rest3[0], rest3[1]);
+                      taskList[curr] = newTask;
+                      System.out.println("    Got it! I've added this task:");
+                      System.out.println("      " + newTask.toString());
+                      curr++;
+                      System.out.println("    Now you have " + curr + " tasks in the list");
+                  } else {
+                      throw new UndefinedActionException();
+                  }
+                  System.out.println("    --------------------------------------------------");
+              } catch (MarkNothingException e) {
+                  System.out.println("    " + e.getMessage());
+              } catch (UndefinedActionException e) {
+                  System.out.println("    " + e.getMessage());
+              } catch (EmptyNameException e) {
+                  System.out.println("    " + e.getMessage());
+              }
+              continue;
+          }
     }
 
     public static void list() {
@@ -65,5 +101,12 @@ public class Tyler {
             String task = taskList[i - 1].toString();
             System.out.println("    " + i + ". " + task);
         }
+    }
+
+    public static void greet() {
+        System.out.println("    Hello from Tyler");
+        System.out.println("    What can I do for you?");
+        System.out.println("    list, todo, deadline, event, mark, unmark, bye");
+        System.out.println("    --------------------------------------------------");
     }
 }

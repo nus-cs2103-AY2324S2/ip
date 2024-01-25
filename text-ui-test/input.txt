@@ -1,7 +1,16 @@
-todo
-borrow book
+list
+todo read many book
+deadline wedding /by Sunday
+deadline yuck /by this Morning
+list
+event wedding /from 26/1 7pm /to 12am
+todo CS2103T ip week2
 list
 deadline
-wedding
-25/1
+deadline CS2103T ip week1 /by Sunday
+list
+mark 1 2 3 4
+list
+unmark 1 3
+list
 bye
