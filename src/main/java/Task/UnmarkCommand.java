@@ -5,10 +5,11 @@ public class UnmarkCommand extends Command {
     super(body);
   }
 
-  String execute(TaskList list) {
+  public boolean execute(TaskList list) {
     String body = getBody();
     int index = Integer.parseInt(body);
     list.unmarkTaskAsDone(index);
-    return "Undone: " + list.get(index - 1);
+    System.out.println("Undone: " + list.get(index - 1));
+    return true;
   }
 }

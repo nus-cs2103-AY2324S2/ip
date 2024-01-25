@@ -32,5 +32,5 @@ public abstract class Command {
     }
   }
 
-  abstract String execute(TaskList list);
+  abstract public boolean execute(TaskList list);
 }

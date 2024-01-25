@@ -5,7 +5,8 @@ public class ExitCommand extends Command {
     super("");
   }
 
-  String execute(TaskList list) {
-    return "Cya!";
+  public boolean execute(TaskList list) {
+    System.out.println("Cya!");
+    return false;
   }
 }

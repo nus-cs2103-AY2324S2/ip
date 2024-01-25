@@ -14,9 +14,10 @@ public class EventCommand extends Command {
     this.endTime = parts2[1].trim();
   }
 
-  String execute(TaskList list) {
+  public boolean execute(TaskList list) {
     Task task = new Event(taskDescription, startTime, endTime);
     list.addTask(task);
-    return "Added: " + task + "\nYou now have " + list.size() + " tasks in the list.";
+    System.out.println("Added: " + task + "\nYou now have " + list.size() + " tasks in the list.");
+    return true;
   }
 }

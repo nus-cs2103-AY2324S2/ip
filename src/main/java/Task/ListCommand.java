@@ -5,7 +5,8 @@ public class ListCommand extends Command {
     super("");
   }
 
-  String execute(TaskList list) {
-    return list.toString();
+  public boolean execute(TaskList list) {
+    System.out.println(list.toString());
+    return true;
   }
 }

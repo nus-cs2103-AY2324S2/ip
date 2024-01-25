@@ -11,9 +11,10 @@ public class DeadlineCommand extends Command {
     this.dueTime = parts[1].trim();
   }
 
-  String execute(TaskList list) {
+  public boolean execute(TaskList list) {
     Task task = new Deadline(taskDescription, dueTime);
     list.addTask(task);
-    return "Added: " + task + "\nYou now have " + list.size() + " tasks in the list.";
+    System.out.println("Added: " + task + "\nYou now have " + list.size() + " tasks in the list.");
+    return true;
   }
 }
