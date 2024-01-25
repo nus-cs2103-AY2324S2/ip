@@ -9,6 +9,8 @@ public class Chitty {
     private static final String TASK_LENGTH = "Now you have %d tasks in the list.\n";
     private static final String MARK_TASK = "Nice! I've marked this task as done: \n";
     private static final String UNMARK_TASK = "OK, I've marked this task as not done yet: \n";
+    private static final String UNKNOWN_INPUT = "I'm sorry, but I don't know what that means.\n";
+    private static final String INVALID_INPUT = "The description of a %s cannot be empty.\n";
     private static final String SPACING = "---------------------------------------------------\n";
     private static final TaskList taskList = new TaskList();
 
@@ -61,34 +63,47 @@ public class Chitty {
         System.out.println(SPACING + GOODBYE_MESSAGE + SPACING);
     }
 
+    private static void invalid() { System.out.println(SPACING + UNKNOWN_INPUT + SPACING); }
+
+    private static void invalid(String taskType) {
+        System.out.println(SPACING + String.format(INVALID_INPUT, taskType) + SPACING);
+    }
+
     public static void main(String[] args) {
         greet();
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String[] input = scanner.nextLine().split(" ", 2);
-            String command = input[0].toUpperCase();
-            switch (command) {
-                case "LIST":
-                    listTasks();
-                    break;
-                case "BYE":
-                    bye();
-                    return;
-                case "TODO":
-                    addTodo(input[1]);
-                    break;
-                case "DEADLINE":
-                    addDeadline(input[1].split("/", 2));
-                    break;
-                case "EVENT":
-                    addEvent(input[1].split("/", 2));
-                    break;
-                case "MARK":
-                    markTask(Integer.parseInt(input[1]));
-                    break;
-                case "UNMARK":
-                    unmarkTask(Integer.parseInt(input[1]));
-                    break;
+            String command = input[0];
+            try {
+                switch (command.toUpperCase()) {
+                    case "LIST":
+                        listTasks();
+                        break;
+                    case "BYE":
+                        bye();
+                        return;
+                    case "TODO":
+                        addTodo(input[1]);
+                        break;
+                    case "DEADLINE":
+                        addDeadline(input[1].split("/", 2));
+                        break;
+                    case "EVENT":
+                        addEvent(input[1].split("/", 2));
+                        break;
+                    case "MARK":
+                        markTask(Integer.parseInt(input[1]));
+                        break;
+                    case "UNMARK":
+                        unmarkTask(Integer.parseInt(input[1]));
+                        break;
+                    default:
+                        invalid();
+                        break;
+                }
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                invalid(command);
             }
         }
 
