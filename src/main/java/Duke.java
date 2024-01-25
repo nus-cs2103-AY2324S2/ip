@@ -55,9 +55,36 @@ public class Duke {
                 print("ok i help you unmark this task ah:\n " + task.toString());
                 break;
             }
+            case "todo": {
+                Task task = new TodoTask(content);
+                taskList.addTask(task);
+                print("added this task for you liao:\n" + task.toString());
+                break;
+            }
+            case "deadline": {
+                String[] splitContent = content.split(" /by ");
+                String eventName = splitContent[0];
+                String deadline = splitContent[1];
+                Task task = new DeadlineTask(eventName, deadline);
+
+                taskList.addTask(task);
+                print("added this task for you liao:\n" + task.toString());
+                break;
+            }
+            case "event": {
+                String[] splitContent = content.split(" /from ");
+                String eventName = splitContent[0];
+                splitContent = splitContent[1].split(" /to ");
+                String from = splitContent[0];
+                String to = splitContent[1];
+
+                Task task = new EventTask(eventName, from, to);
+                taskList.addTask(task);
+                print("added this task for you liao:\n" + task.toString());
+                break;
+            }
             default:
-                taskList.addTask(new Task(input));
-                print("ok i added \"" + input + "\" into the list liao");
+                print("what are u saying");
                 break;
         }
         return false;
