@@ -12,6 +12,7 @@ public class Duke {
                 + "               |_|                           \n";
         System.out.println(logo);
         Ui.start();
+        Ui.readCommand();
         Ui.end();
     }
 }
