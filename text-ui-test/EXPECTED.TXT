@@ -1,33 +1,42 @@
-Johnny here. What do you want?
+Johnny here. What do you want bro?
 
-Go get this done:
+Go get this done bro:
 [T][ ] borrow book
-You still have 1 tasks to do.
+You still have 1 tasks in your list bro.
 
-Go get this done:
+Go get this done bro:
 [D][ ] return book (by: Sunday)
-You still have 2 tasks to do.
+You still have 2 tasks in your list bro.
 
-Go get this done:
+Go get this done bro:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
-You still have 3 tasks to do.
+You still have 3 tasks in your list bro.
 
-Get all these done:
+Get all these done bro:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 
-Finally done.
+Finally done bro.
 [T][X] borrow book
 
-Get all these done:
+Get all these done bro:
 1. [T][X] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 
-Get all these done:
-1. [T][X] borrow book
+Why are you not done yet bro?
+[T][ ] borrow book
+
+Get all these done bro:
+1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 
-Bye. I'm going back to sleep.
+Task removed. Why so lazy bro?
+[D][ ] return book (by: Sunday)
+You still have 2 tasks in your list bro.
+
+Your command does not make sense bro.
+
+Bye bro. I'm going back to sleep.

@@ -18,24 +18,25 @@ public class Johnny {
 
         while (true) {
             try {
-                String command = scanner.nextLine();
+                String input = scanner.nextLine();
+                String command = input.split(" ")[0];
 
-                if (command.equals("bye")) {
+                if (command.equals(Command.BYE.getInput())) {
                     break;
-                } else if (command.equals("list")) {
+                } else if (command.equals(Command.LIST.getInput())) {
                     Johnny.list();
-                } else if (command.split(" ")[0].equals("mark")) {
-                    Johnny.mark(command);
-                } else if (command.split(" ")[0].equals("unmark")) {
-                    Johnny.unmark(command);
-                } else if (command.split(" ")[0].equals("todo")) {
-                    Johnny.addToDo(command);
-                } else if (command.split(" ")[0].equals("deadline")) {
-                    Johnny.addDeadline(command);
-                } else if (command.split(" ")[0].equals("event")) {
-                    Johnny.addEvent(command);
-                } else if (command.split(" ")[0].equals("delete")) {
-                    Johnny.delete(command);
+                } else if (command.equals(Command.MARK.getInput())) {
+                    Johnny.mark(input);
+                } else if (command.equals(Command.UNMARK.getInput())) {
+                    Johnny.unmark(input);
+                } else if (command.equals(Command.TODO.getInput())) {
+                    Johnny.addToDo(input);
+                } else if (command.equals(Command.DEADLINE.getInput())) {
+                    Johnny.addDeadline(input);
+                } else if (command.equals(Command.EVENT.getInput())) {
+                    Johnny.addEvent(input);
+                } else if (command.equals(Command.DELETE.getInput())) {
+                    Johnny.delete(input);
                 } else {
                     throw new JohnnyException("Your command does not make sense bro.");
                 }
