@@ -48,6 +48,21 @@ public class TaskManager {
         }
     }
 
+    public void deleteTask(int index) {
+        try {
+            if (index < 0 || index >= taskList.size()) {
+                throw new DukeException("Sorry, the task number does not exist. Please provide a valid task number.");
+            }
+            Task deletedTask = taskList.remove(index);
+            System.out.println(Commands.INDENTATION + "Noted. I've removed this task:");
+            System.out.println(Commands.INDENTATION + "  [" + deletedTask.getTaskType() + "][" + deletedTask.getStatusIcon() + "] " + deletedTask.getTaskDescription());
+            System.out.println(Commands.INDENTATION + "Now you have " + taskList.size() + " tasks in the list.");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
     public void displayTask(String input) {
         String[] tokens = input.split(" ");
         String command = tokens[0].toLowerCase();
@@ -88,6 +103,7 @@ public class TaskManager {
         int count = 1;
         for (Task task : taskList) {
             System.out.println(Commands.INDENTATION + count + ".  [" + task.getTaskType() + "][" + task.getStatusIcon() + "] " + task.getTaskDescription());
+            count++;
         }
     }
 

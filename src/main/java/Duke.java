@@ -53,6 +53,10 @@ public class Duke {
                 taskManager.addTask(input, TaskType.EVENT);
                 taskManager.displayTask(input);
                 break;
+            case "delete":
+                taskManager.deleteTask(Integer.parseInt(userMessage[1]) - 1);
+                taskManager.displayTask(input);
+                break;
             default:
                 taskManager.addTask(input, TaskType.NORMAL);
                 taskManager.displayTask(input);
