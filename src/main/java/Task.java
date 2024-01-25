@@ -1,6 +1,7 @@
 public class Task {
     private String description;
     private int index;
+    private boolean isDone = false;
 
     public Task(int index, String description) {
         this.index = index;
@@ -11,8 +12,17 @@ public class Task {
         return this.description;
     }
 
+    public void setStatus(boolean isDone) {
+        this.isDone = isDone;
+    }
+
     @Override
     public String toString() {
-        return this.index + ". " + this.description;
+        if (this.isDone) {
+            return "[X] " + this.description;
+        } else {
+            return "[ ] " + this.description;
+        }
     }
+
 }

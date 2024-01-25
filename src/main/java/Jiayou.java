@@ -8,9 +8,50 @@ public class Jiayou {
     private int counter = 0;
 
     private void printList() {
-        for (Task task : this.taskList) {
-            System.out.println(task.toString());
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task task = this.taskList.get(i);
+            System.out.println((i + 1) + "." + task.toString());
         }
+    }
+
+    private void parse(String input) {
+        String[] parts = input.split(" ", 2);
+        String command = parts[0];
+        String content = parts.length > 1 ? parts[1] : "";
+
+        switch (command) {
+            case "list":
+                printList();
+                break;
+            case "mark":
+                markTask(content);
+                break;
+            case "unmark":
+                unmarkTask(content);
+                break;
+            default:
+                this.counter += 1;
+                Task newTask = new Task(this.counter, input);
+                this.taskList.add(newTask);
+                System.out.println("added: " + input);
+        }
+    }
+
+    private void markTask(String content) {
+        int taskId = Integer.parseInt(content);
+        Task task = this.taskList.get(taskId - 1);
+        task.setStatus(true);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  " + task);
+    }
+
+    private void unmarkTask(String content) {
+        int taskId = Integer.parseInt(content);
+        Task task = taskList.get(taskId - 1); // taskList is 0-based indexing
+        task.setStatus(false);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("  " + task);
     }
 
     public static void main(String[] args) {
@@ -24,6 +65,7 @@ public class Jiayou {
         while (true) {
             String input = sc.nextLine();
             System.out.println(Jiayou.LINE);
+
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(Jiayou.LINE);
@@ -31,11 +73,7 @@ public class Jiayou {
             } else if (input.equals("list")) {
                 jiayou.printList();
             } else {
-                jiayou.counter += 1;
-                Task newTask = new Task(jiayou.counter, input);
-                jiayou.taskList.add(newTask);
-
-                System.out.println("added: " + input);
+                jiayou.parse(input);
             }
             System.out.println(Jiayou.LINE);
         }
