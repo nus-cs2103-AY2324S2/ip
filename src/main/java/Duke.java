@@ -6,7 +6,7 @@ public class Duke {
         );
 
         Scanner sc = new Scanner(System.in);
-        String[] storage = new String[100];
+        Task[] storage = new Task[100];
         int count = 0;
         while(true){
             String instruction = sc.nextLine();
@@ -15,13 +15,53 @@ public class Duke {
                 break;
             }else if(instruction.equals("list")){
                 for(int i=0;i<count;i++){
-                    System.out.println( i + 1 +". " + storage[i]);
+                    System.out.println( i + 1 +"." + "[" + storage[i].getStatusIcon() + "] " + storage[i].getDescription());
                 }
+                System.out.println();
+            }else if(instruction.contains("unmark")){
+                String[] arr = instruction.split(" ");
+                int num = Integer.parseInt(arr[1]) - 1;
+                storage[num].taskUndone();
+                System.out.println("OK, I've marked this task as not done yet:\n " +
+                        "[" + storage[num].getStatusIcon() + "] " + storage[num].getDescription() + "\n");
+            }else if(instruction.contains("mark")){
+                String[] arr = instruction.split(" ");
+                int num = Integer.parseInt(arr[1]) - 1;
+                storage[num].taskDone();
+                System.out.println("Nice! I've marked this task as done:\n " +
+                        "[" + storage[num].getStatusIcon() + "] " + storage[num].getDescription() + "\n");
             }else{
-               storage[count] = instruction;
+               storage[count] = new Task(instruction);
                count++;
-               System.out.println("added: " + instruction );
+               System.out.println("added: " + instruction + "\n");
             }
         }
     }
+
+    public static class Task {
+        protected String description;
+        protected boolean isDone;
+
+        public Task(String description) {
+            this.description = description;
+            this.isDone = false;
+        }
+
+        public String getStatusIcon() {
+            return (isDone ? "X" : " "); // mark done task with X
+        }
+
+        public String getDescription(){
+            return this.description;
+        }
+
+        public void taskDone(){
+            isDone = true;
+        }
+
+        public void taskUndone(){
+            isDone = false;
+        }
+    }
+
 }
