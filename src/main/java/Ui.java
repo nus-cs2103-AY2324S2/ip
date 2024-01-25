@@ -54,4 +54,12 @@ public class Ui {
         System.out.println(message);
         System.out.println(Ui.LONG_LINE);
     }
+
+    public void delete(Task task, Storage storage) {
+        System.out.println(Ui.LONG_LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task.getDescriptionStatus());
+        System.out.println("Now you have " + (storage.getItems().size() - 1) + " tasks in the list.");
+        System.out.println(Ui.LONG_LINE);
+    }
 }
