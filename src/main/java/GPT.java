@@ -1,10 +1,16 @@
 import java.util.Scanner;
 import java.util.*;
+enum TaskType {
+    T, D, E
+}
 
 public class GPT {
 
 
     public static void main(String[] args) {
+
+
+
 
         Scanner scn = new Scanner(System.in);
         String name = " GPT";
@@ -75,7 +81,7 @@ public class GPT {
         String todoDescription = command.substring(5).trim();
 
         System.out.println("Got it. I've added this task:");
-        Task todoTask = new ToDoTask(todoDescription);
+        Task todoTask = new Task(todoDescription, TaskType.T);
         tl.add(todoTask);
         System.out.println("  " + todoTask.toString());
         System.out.println("Now you have " + tl.size() + " tasks in the list.");
@@ -94,7 +100,7 @@ public class GPT {
             throw new GPTException("Name or deadline date missing for deadline task");
         }
         System.out.println("Got it. I've added this task:");
-        Task deadlineTask = new DeadlineTask(deadlineName, deadlineDate);
+        Task deadlineTask = new Task(deadlineName, TaskType.D, deadlineDate);
         tl.add(deadlineTask);
         System.out.println("  " + deadlineTask.toString());
         System.out.println("Now you have " + tl.size() + " tasks in the list.");
@@ -108,7 +114,7 @@ public class GPT {
         String eventStartDate = splitInput[1].trim();
         String eventEndDate = splitInput[2].trim();
         System.out.println("Got it. I've added this task:");
-        Task eventTask = new EventTask(eventName, eventStartDate, eventEndDate);
+        Task eventTask = new Task(eventName, TaskType.E, eventStartDate, eventEndDate);
         tl.add(eventTask);
         System.out.println("  " + eventTask.toString());
         System.out.println("Now you have " + tl.size() + " tasks in the list.");
