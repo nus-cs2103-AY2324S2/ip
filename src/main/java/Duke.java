@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -14,6 +15,9 @@ public class Duke {
         System.out.println("-------------------------");
 
         Scanner sc = new Scanner(System.in);
+
+        Todo todo = new Todo();
+
         boolean on = true;
         while (on) {
             String command = sc.nextLine();
@@ -21,7 +25,11 @@ public class Duke {
                 on = false;
                 break;
             }
-            System.out.println(command);
+            if (command.matches("list")) {
+                todo.returnList();
+            }
+            System.out.println("added: " + command);
+            todo.addTodo(command);
         }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("-------------------------");
