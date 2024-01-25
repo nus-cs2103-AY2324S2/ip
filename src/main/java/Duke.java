@@ -1,10 +1,14 @@
 public class Duke {
+    static final String NAME = "jun jie";
+
+    public static void print(String str) {
+        System.out.println("-------------------------");
+        System.out.println(str);
+        System.out.println("-------------------------");
+    }
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        print("hi bro, im " + NAME);
+        print("what you want me to do?");
+        print("ok see you bro");
     }
 }
