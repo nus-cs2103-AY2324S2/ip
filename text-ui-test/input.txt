@@ -1,0 +1,11 @@
+list
+todo walk dog
+deadline return books /by 18 Mar
+list
+mark 2
+list
+unmark 2
+mark 1
+event birthday /from 2pm /to 3pm
+list
+bye
