@@ -6,4 +6,5 @@ mark 2
 list
 hello
 todo
+delete 3
 bye

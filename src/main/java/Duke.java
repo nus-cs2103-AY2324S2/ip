@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static int i = 0;
 
     public static void createList(ArrayList<Task> listArr) {
         System.out.println("Here are the tasks in your list:");
@@ -25,8 +24,7 @@ public class Duke {
                 listArr.add(t); // add task to list
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
-                Duke.i++;
-                System.out.println("Now you have " + Duke.i + " tasks in the list.");
+                System.out.println("Now you have " + listArr.size() + " tasks in the list.");
             }
         } catch (DukeException ex) {
             System.out.println(ex.getMessage());
@@ -46,8 +44,7 @@ public class Duke {
                 listArr.add(t); // add task to list
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
-                Duke.i++;
-                System.out.println("Now you have " + Duke.i + " tasks in the list.");
+                System.out.println("Now you have " + listArr.size() + " tasks in the list.");
             }
         } catch (DukeException ex) {
             System.out.println(ex.getMessage());
@@ -69,12 +66,18 @@ public class Duke {
                 listArr.add(t); // add task to list
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
-                Duke.i++;
-                System.out.println("Now you have " + Duke.i + " tasks in the list.");
+                System.out.println("Now you have " + listArr.size() + " tasks in the list.");
             }
         } catch (DukeException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public static void deleteTask(ArrayList<Task> listArr, int taskNum) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(listArr.get(taskNum));
+        listArr.remove(taskNum);
+        System.out.println("Now you have " + listArr.size() + " tasks in the list.");
     }
 
     public static void main(String[] args) {
@@ -89,11 +92,14 @@ public class Duke {
             if (userTxt.equals("list")) {
                 createList(listArr);
             } else if (userTxt.startsWith("mark")) {
-                Integer taskNum = Integer.valueOf(userTxt.substring(5)) - 1;
+                int taskNum = Integer.parseInt(userTxt.substring(5)) - 1;
                 listArr.get(taskNum).setDone();
             } else if (userTxt.startsWith("unmark")) {
-                Integer taskNum = Integer.valueOf(userTxt.substring(7)) - 1;
+                int taskNum = Integer.parseInt(userTxt.substring(7)) - 1;
                 listArr.get(taskNum).setUndone();
+            } else if (userTxt.startsWith("delete")) {
+                int taskNum = Integer.parseInt(userTxt.substring(7)) - 1;
+                deleteTask(listArr, taskNum);
             } else {
                 if (userTxt.startsWith("todo")) {
                     createTodo(userTxt, listArr);
