@@ -1,41 +1,59 @@
 import java.util.Scanner;
 
 public class EdgarChatBot {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String[] tasks = new String[100];
-        int taskCount = 0;
+    private TaskList taskList;
 
+    public EdgarChatBot() {
+        this.taskList = new TaskList();
+    }
+    public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
+    }
+    public static void printGreetings() {
+        printHorizontalLine();
         System.out.println("Hello! I'm Edgar.");
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        printHorizontalLine();
+    }
+    public static void printByeMessage() {
+        printHorizontalLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        printHorizontalLine();
+    }
+
+    public void start() {
+        printGreetings();
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
 
         while (true) {
-            String userInput = scanner.nextLine();
+            userInput = scanner.nextLine();
+            String[] splitInput = userInput.split(" ", 2);
+            String action = splitInput[0];
+
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________");
+                printByeMessage();
                 break;
             }
 
             if (userInput.equalsIgnoreCase("list")) {
-                System.out.println("____________________________________________________________");
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println(" " + (i + 1) + "." + tasks[i] );
-                }
-                System.out.println("____________________________________________________________");
+                this.taskList.listTasks();
                 continue;
             }
 
-            tasks[taskCount] = userInput;
-            taskCount++;
+            if (action.equalsIgnoreCase("mark")) {
+                this.taskList.markTask(Integer.parseInt(splitInput[1]));
+                continue;
+            }
 
-            System.out.println("____________________________________________________________");
-            System.out.println("added:" + userInput);
-            System.out.println("____________________________________________________________");
+            if (action.equalsIgnoreCase("unmark")) {
+                this.taskList.unmarkTask(Integer.parseInt(splitInput[1]));
+                continue;
+            }
+
+            this.taskList.addTask(userInput);
         }
+
         scanner.close();
     }
 }
