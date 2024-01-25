@@ -1,15 +1,17 @@
 import java.util.Scanner;
 
 public class Duke {
-    public void greet() {
+    private TaskList taskList = new TaskList();
+
+    private void greet() {
         System.out.println("Hello! I'm Bot\nWhat can I do for you? \n");
     }
 
-    public void exit() {
+    private void exit() {
         System.out.println("Bye. Hope to see you again soon! \n");
     }
 
-    public void echo(String input) {
+    private void echo(String input) {
         System.out.println(input + "\n");
     }
 
@@ -21,7 +23,12 @@ public class Duke {
         String input = sc.nextLine();
 
         while (!input.equals("bye")) {
-            bot.echo(input);
+            if (input.equals("list")) {
+                bot.taskList.displayTasks();
+            } else {
+                bot.taskList.addTask(input);
+            }
+
             input = sc.nextLine();
         }
 
