@@ -19,17 +19,22 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
-
+        
+        // if user types "bye", program exits
         while (!input.equals("bye")) {
             System.out.println(line);
 
+            // if user types "list", program prints out all the items in the list
             if (input.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (String item : stringList) {
                     System.out.println(item);
                 }
                 System.out.println(line);
                 input = in.nextLine();
                 continue;
+                
+            // if user types anything else, program adds the text to the list
             } else {
                 System.out.println("added: " + input);
                 stringList.add(itemIndex + ". " + input);
