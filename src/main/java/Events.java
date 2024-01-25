@@ -9,6 +9,6 @@ class Events extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (from: %s to: %s) \n", this.startDate, this.endDate);
+        return super.toString() + String.format(" (from: %s to: %s)\n", this.startDate, this.endDate);
     }
 }

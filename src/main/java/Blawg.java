@@ -35,7 +35,7 @@ public class Blawg {
                         System.out.println("Please enter a valid number.");
                     } else {
                         taskList.get(num - 1).markDone();
-                        String output = line + "Nice! I've marked this task as done: \n" +
+                        String output = line + "Nice! I've marked this task as done:\n" +
                                 taskList.get(num - 1) + line;
                         System.out.println(output);
                         break;
@@ -48,7 +48,7 @@ public class Blawg {
                         System.out.println("Please enter a valid number.");
                     } else {
                         taskList.get(num - 1).unmarkDone();
-                        String output = line + "OK, I've marked this task as not done yet: \n" +
+                        String output = line + "OK, I've marked this task as not done yet:\n" +
                                 taskList.get(num - 1) + line;
                         System.out.println(output);
                         break;
@@ -58,10 +58,10 @@ public class Blawg {
                 String description = sc.nextLine();
                 ToDos task = new ToDos(description);
                 taskList.add(task);
-                System.out.println("____________________________________________________________\n" +
-                        "Got it. I've added this task: \n" + task + "\n" +
-                        String.format("Now you have %d tasks in the list \n", taskList.size()) +
-                        "____________________________________________________________\n");
+                System.out.println(line +
+                        "Got it. I've added this task:\n" + task + "\n" +
+                        String.format("Now you have %d tasks in the list\n", taskList.size()) +
+                        line);
             } else if (userInput.equalsIgnoreCase("deadline")){
                 String input = sc.nextLine();
                 String lowerCaseInput = input.toLowerCase();
@@ -79,10 +79,10 @@ public class Blawg {
                 }
                 Deadlines task = new Deadlines(description, date);
                 taskList.add(task);
-                System.out.println("____________________________________________________________\n" +
-                        "Got it. I've added this task: \n" + task + "\n" +
-                        String.format("Now you have %d tasks in the list \n", taskList.size()) +
-                        "____________________________________________________________\n");
+                System.out.println(line +
+                        "Got it. I've added this task:\n" + task + "\n" +
+                        String.format("Now you have %d tasks in the list\n", taskList.size()) +
+                        line);
             } else if (userInput.equalsIgnoreCase("event")){
                     String input = sc.nextLine();
                     String lowerCaseInput = input.toLowerCase();
@@ -106,10 +106,10 @@ public class Blawg {
                     }
                 Events task = new Events(description, startDate, endDate);
                 taskList.add(task);
-                System.out.println("____________________________________________________________\n" +
-                        "Got it. I've added this task: \n" + task + "\n" +
-                        String.format("Now you have %d tasks in the list \n", taskList.size()) +
-                        "____________________________________________________________\n");
+                System.out.println(line +
+                        "Got it. I've added this task:\n" + task + "\n" +
+                        String.format("Now you have %d tasks in the list\n", taskList.size()) +
+                        line);
             }
         }
         sc.close();
