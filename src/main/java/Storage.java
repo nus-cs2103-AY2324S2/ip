@@ -19,24 +19,28 @@ public class Storage {
 
     // Stores the string as a task
     public void Store(String _string, StorageType _type) {
-        Task task;
-        switch (_type) {
-            case TODO:
-                task = new ToDo(_string, false);   
-                break;
-            case DEADLINE:
-                task = new Deadline(_string, false);
-                break;
-            case EVENT:
-                task = new Event(_string, false);
-                break;
-            default:
-                task = new Task(_string, false);   
-                break;
-        }
-
         if (tasks == null) tasks = new ArrayList<>();
+
+        Task task;
+        try {
+            switch (_type) {
+                case TODO:
+                    task = new ToDo(_string, false);   
+                    break;
+                case DEADLINE:
+                    task = new Deadline(_string, false);
+                    break;
+                case EVENT:
+                    task = new Event(_string, false);
+                    break;
+                default:
+                    task = new Task(_string, false);   
+                    break;
+            }
             tasks.add(task);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     // Change the mark of a specific task

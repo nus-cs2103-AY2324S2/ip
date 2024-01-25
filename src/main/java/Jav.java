@@ -31,14 +31,15 @@ public class Jav {
             System.out.print("> ");
             String s = scan.nextLine();
 
-            if (s.equals("bye") || s.equals("b")) { // Check if exiting
-                isExiting = true;
-            } else if (CheckPrintList(s)) {
-            } else {
-                if (s.indexOf(" ") == -1) { // Check if got cmd
-                    MessagePrinter.PrintInvalid();
-                    MessagePrinter.Echo(s);
-                } else {
+            try {
+                if (CheckExiting(s)) {
+                    isExiting = true;
+                } else if (CheckPrintList(s)) {
+                } else if (s.indexOf(" ") != -1){
+                    if (!s.contains(" ")) {
+                        throw new InvalidParamException ("Multi char detected but no spaces found and can't determine cmd", null);
+                    }
+
                     // Check the cmd given by user
                     String cmd = s.substring(0, s.indexOf(' '));
                     String parameters = s.substring(s.indexOf(' ') + 1);
@@ -46,16 +47,29 @@ public class Jav {
                     if (CheckStoring(cmd, parameters)) {} 
                     else if (CheckMarking(cmd, parameters)) {} 
                     else {
-                        MessagePrinter.PrintInvalid();
-                        MessagePrinter.Echo(s);
+                        throw new InvalidParamException ("Multi char detected but cmd entered doesn't exist", null);
                     }
+                } else {
+                    throw new InvalidParamException ("Single char detected but cmd entered doesn't exist", null);
                 }
+            } catch (InvalidParamException e) {
+                MessagePrinter.PrintInvalid();
+                MessagePrinter.Echo(s);
             }
         }
 
         MessagePrinter.PrintExit();
         System.out.println("<---------------------------------------------------------->");
         scan.close();
+    }
+
+    // Check if user wants to exits and exits if requested
+    public static boolean CheckExiting(String _s) {
+        if (_s.equals("bye") || _s.equals("b")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // Check if user wants to print the entire storage and prints if requested
@@ -68,23 +82,26 @@ public class Jav {
         }
     }
 
-
     // Check if user is storing and stores if requested
     public static boolean CheckStoring(String _cmd, String _param) {
-        if (_cmd.equals("todo") || _cmd.equals("t")) {
-            MessagePrinter.PrintStoring();
-            storage.Store(_param, Storage.StorageType.TODO);
-            return true;
-        } else if (_cmd.equals("deadline") || _cmd.equals("d")) {
-            MessagePrinter.PrintStoring();
-            storage.Store(_param, Storage.StorageType.DEADLINE);
-            return true;
-        }  else if (_cmd.equals("event") || _cmd.equals("e")) {
-            MessagePrinter.PrintStoring();
-            storage.Store(_param, Storage.StorageType.EVENT);
-            return true;
-        } else {
-            return false;
+        try {
+            if (_cmd.equals("todo") || _cmd.equals("t")) {
+                storage.Store(_param, Storage.StorageType.TODO);
+                MessagePrinter.PrintStoring();
+                return true;
+            } else if (_cmd.equals("deadline") || _cmd.equals("d")) {
+                storage.Store(_param, Storage.StorageType.DEADLINE);
+                MessagePrinter.PrintStoring();
+                return true;
+            }  else if (_cmd.equals("event") || _cmd.equals("e")) {
+                storage.Store(_param, Storage.StorageType.EVENT);
+                MessagePrinter.PrintStoring();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            throw e;   
         }
     }
     
