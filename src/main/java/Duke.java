@@ -28,6 +28,23 @@ public class Duke {
                     System.out.println(line);
                     break;
                 }
+                case "delete": {
+                    System.out.println(line);
+
+                    try {
+                        int taskNo = Integer.parseInt(commandArr[1]);
+                        taskList.deleteTask(taskNo);
+                    } catch(NumberFormatException nfe) {
+                        System.out.println("Oh dear! Please enter a number instead ^.^");
+                        break;
+                    } catch(NullPointerException | IndexOutOfBoundsException e) {
+                        System.out.println("Oopsies! Please enter a valid task number ^.^");
+                        break;
+                    }
+
+                    System.out.println(line);
+                    break;
+                }
                 case "mark": {
                     System.out.println(line);
                     System.out.println("Great job agent 47. Marking this task as DONE: ");
@@ -38,10 +55,7 @@ public class Duke {
                     } catch(NumberFormatException nfe) {
                         System.out.println("Oh dear! Please enter a number instead ^.^");
                         break;
-                    } catch(NullPointerException ne) {
-                        System.out.println("Oopsies! Please enter a valid task number ^.^");
-                        break;
-                    } catch(IndexOutOfBoundsException ne) {
+                    } catch(NullPointerException | IndexOutOfBoundsException e) {
                         System.out.println("Oopsies! Please enter a valid task number ^.^");
                         break;
                     }
@@ -59,10 +73,7 @@ public class Duke {
                     } catch(NumberFormatException nfe) {
                         System.out.println("Oh dear! Please enter a number instead ^.^");
                         break;
-                    } catch(NullPointerException ne) {
-                        System.out.println("Oopsies! Please enter a valid task number ^.^");
-                        break;
-                    } catch(IndexOutOfBoundsException ne) {
+                    } catch(NullPointerException | IndexOutOfBoundsException e) {
                         System.out.println("Oopsies! Please enter a valid task number ^.^");
                         break;
                     }

@@ -1,8 +1,9 @@
+import java.util.*;
 /** Encapsulates a taskList. An array full of Tasks object.
  * @author Tan Qin Yong
  */
 public class TaskList {
-    private Task[] taskList;
+    private ArrayList<Task> taskList;
     private int count;
 
     /**
@@ -10,16 +11,16 @@ public class TaskList {
      *
      * @param taskList a given list of task.
      */
-    public TaskList(Task[] taskList) {
+    public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
-        this.count = taskList.length;
+        this.count = taskList.size();
     }
 
     /**
      * Overloaded empty constructor.
      */
     public TaskList() {
-        this.taskList = new Task[100];
+        this.taskList = new ArrayList<Task>();
         this.count = 0;
     }
 
@@ -29,7 +30,7 @@ public class TaskList {
      * @param newTask a new task given by user.
      */
     public void addTask(Task newTask) {
-        this.taskList[count] = newTask;
+        this.taskList.add(newTask);
         count++;
 
         System.out.println("Cool! Adding new task: ");
@@ -39,13 +40,28 @@ public class TaskList {
     }
 
     /**
+     * Deletes task at given index.
+     *
+     * @param index the specified index given by user.
+     */
+    public void deleteTask(int index) {
+        Task removedTask = this.taskList.remove(index-1);
+        count--;
+
+        System.out.println("Okay. Deleting the task: ");
+        System.out.println(removedTask.toString());
+        System.out.println("Now you have " + this.count +
+                " tasks in your list.");
+    }
+
+    /**
      * Get a task given the index.
      * The index given will be 1-based, hence -1.
      *
      * @param ind the index to retrieve the task.
      */
     public Task getTask(int ind) {
-        return this.taskList[ind-1];
+        return this.taskList.get(ind-1);
     }
 
     /**
@@ -55,14 +71,14 @@ public class TaskList {
      * @param ind the index to retrieve the task.
      */
     public void setTask(Task task, int ind) {
-        this.taskList[ind-1] = task;
+        this.taskList.set(ind-1, task);
     }
 
     /**
      * Mark task as done at given index.
      * Get task already minuses 1. So pass in the taskNo.
      *
-     * @param ind the index to retrieve the task.
+     * @param taskNo the taskNo to retrieve the task.
      */
     public void markDoneAtInd(int taskNo) {
         Task currentTask = this.getTask(taskNo);
@@ -76,7 +92,7 @@ public class TaskList {
      * Mark task as not done at given index.
      * Get task already minuses 1. So pass in the taskNo.
      *
-     * @param ind the index to retrieve the task.
+     * @param taskNo the taskNo to retrieve the task.
      */
     public void markNotDoneAtInd(int taskNo) {
         Task currentTask = this.getTask(taskNo);
@@ -92,7 +108,7 @@ public class TaskList {
     public void printAllTasks() {
         System.out.println("Here are all your tasks so far! ^.^ : ");
         for (int i = 0; i < count; i++) {
-            Task currentTask = this.taskList[i];
+            Task currentTask = this.taskList.get(i);
             System.out.println((i + 1) + ". " + currentTask.toString());
         }
     }
