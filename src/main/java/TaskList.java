@@ -19,6 +19,10 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public void deleteElements(int id) {
+        tasks.remove(id);
+    }
+
     public void printElements() {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));

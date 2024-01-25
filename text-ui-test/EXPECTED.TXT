@@ -1,19 +1,19 @@
 Welcome, sensei! Arona has been waiting for you.
 Sensei! There are no tasks. Take care of your health too. It's gotta take priority!
 Sorry, sensei! You only have 0 tasks. Please choose a valid task number (>.<)
-Noted, I have added this event
+I've added this event, Sensei!
     [E][ ] CS4231 Lecture (from: 6.30 PM to: 9.30 PM)
 Now, your task list has 1 task.
 Sensei! Pick a task. I'll back you up!
 1. [E][ ] CS4231 Lecture (from: 6.30 PM to: 9.30 PM)
 Sorry, sensei! You only have 1 task. Please choose a valid task number (>.<)
-Noted, I have added this task
+I've added this task, Sensei!
     [T][ ] Wash laundry
 Now, your task list has 2 tasks.
-Noted, I have added this deadline
+I've added this deadline, Sensei!
     [D][ ] CS2108 Homework (by: Monday)
 Now, your task list has 3 tasks.
-Noted, I have added this event
+I've added this event, Sensei!
     [E][ ] side project meeting (from: 10.00PM to: idk)
 Now, your task list has 4 tasks.
 Sensei! Pick a task. I'll back you up!
@@ -21,30 +21,40 @@ Sensei! Pick a task. I'll back you up!
 2. [T][ ] Wash laundry
 3. [D][ ] CS2108 Homework (by: Monday)
 4. [E][ ] side project meeting (from: 10.00PM to: idk)
-Nice, I've marked this task as done!
+I've marked this task as done, Sensei!
     [E][X] CS4231 Lecture (from: 6.30 PM to: 9.30 PM)
-Nice, I've marked this task as done!
+I've marked this task as done, Sensei!
     [D][X] CS2108 Homework (by: Monday)
 Sensei! Pick a task. I'll back you up!
 1. [E][X] CS4231 Lecture (from: 6.30 PM to: 9.30 PM)
 2. [T][ ] Wash laundry
 3. [D][X] CS2108 Homework (by: Monday)
 4. [E][ ] side project meeting (from: 10.00PM to: idk)
-Okay, I've marked this task as not done
+I've marked this task as not done, Sensei!
     [D][ ] CS2108 Homework (by: Monday)
-Nice, I've marked this task as done!
+I've marked this task as done, Sensei!
     [T][X] Wash laundry
 Sensei! Pick a task. I'll back you up!
 1. [E][X] CS4231 Lecture (from: 6.30 PM to: 9.30 PM)
 2. [T][X] Wash laundry
 3. [D][ ] CS2108 Homework (by: Monday)
 4. [E][ ] side project meeting (from: 10.00PM to: idk)
-Sorry, sensei! You only have 4 tasks. Please choose a valid task number (>.<)
-Sorry, sensei! You only have 4 tasks. Please choose a valid task number (>.<)
+I've removed this task, Sensei!
+    [T][X] Wash laundry
+Now, your task list has 3 tasks.
+I've marked this task as done, Sensei!
+    [D][X] CS2108 Homework (by: Monday)
+Sensei! Pick a task. I'll back you up!
+1. [E][X] CS4231 Lecture (from: 6.30 PM to: 9.30 PM)
+2. [D][X] CS2108 Homework (by: Monday)
+3. [E][ ] side project meeting (from: 10.00PM to: idk)
+Sorry, sensei! You only have 3 tasks. Please choose a valid task number (>.<)
+Sorry, sensei! You only have 3 tasks. Please choose a valid task number (>.<)
+Sorry, sensei! You only have 3 tasks. Please choose a valid task number (>.<)
 Sorry, sensei! You are missing the task description argument (>.<)
 Sorry, sensei! You are missing the end time argument (>.<)
 Sorry, sensei! You are missing the deadline time argument (>.<)
 Sorry, sensei! You are missing the start time argument (>.<)
 Sorry, sensei! You are missing the task description argument (>.<)
 Sorry, sensei! I don't understand your message (>_<)
-Thanks for the hard work, Sensei.
+Thanks for the hard work, Sensei!

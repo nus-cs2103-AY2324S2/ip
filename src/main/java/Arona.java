@@ -11,7 +11,7 @@ public class Arona {
     }
 
     private void exit() {
-        System.out.println("Thanks for the hard work, Sensei.");
+        System.out.println("Thanks for the hard work, Sensei!");
     }
 
     private void listTasks() {
@@ -27,7 +27,7 @@ public class Arona {
     private void addTask(String str) {
         Task task = new Task(str);
         tasks.addElements(task);
-        System.out.println("Noted, I have added this task");
+        System.out.println("I've added this task, Sensei!");
         System.out.println("    " + task);
         System.out.println("Now, your task list has " + tasks.taskCount() + " task"
                 + (tasks.taskCount() == 1 ? "" : "s") + ".");
@@ -36,7 +36,7 @@ public class Arona {
     private void addDeadline(String str, String by) {
         Deadline deadline = new Deadline(str, by);
         tasks.addElements(deadline);
-        System.out.println("Noted, I have added this deadline");
+        System.out.println("I've added this deadline, Sensei!");
         System.out.println("    " + deadline);
         System.out.println("Now, your task list has " + tasks.taskCount() + " task"
                 + (tasks.taskCount() == 1 ? "" : "s") + ".");
@@ -45,21 +45,29 @@ public class Arona {
     private void addEvent(String str, String start, String end) {
         Event event = new Event(str, start, end);
         tasks.addElements(event);
-        System.out.println("Noted, I have added this event");
+        System.out.println("I've added this event, Sensei!");
         System.out.println("    " + event);
+        System.out.println("Now, your task list has " + tasks.taskCount() + " task"
+                + (tasks.taskCount() == 1 ? "" : "s") + ".");
+    }
+
+    private void deleteTask(int id) {
+        System.out.println("I've removed this task, Sensei!");
+        System.out.println("    " + tasks.getTask(id));
+        tasks.deleteElements(id);
         System.out.println("Now, your task list has " + tasks.taskCount() + " task"
                 + (tasks.taskCount() == 1 ? "" : "s") + ".");
     }
 
     private void markDone(int id) {
         tasks.markIndexAsDone(id);
-        System.out.println("Nice, I've marked this task as done!");
+        System.out.println("I've marked this task as done, Sensei!");
         System.out.println("    " + tasks.getTask(id));
     }
 
     private void markUndone(int id) {
         tasks.markIndexAsUndone(id);
-        System.out.println("Okay, I've marked this task as not done");
+        System.out.println("I've marked this task as not done, Sensei!");
         System.out.println("    " + tasks.getTask(id));
     }
 
@@ -128,6 +136,17 @@ public class Arona {
             }
 
             addEvent(eventSplit[0], eventSplitTime[0], eventSplitTime[1]);
+        } else if(commandSplit[0].equalsIgnoreCase("delete")) {
+            if (commandSplit.length == 1 || commandSplit[1].equals("")) {
+                throw new AronaIncompleteCommandException("index number");
+            }
+
+            if (Integer.parseInt(commandSplit[1]) <= 0 || Integer.parseInt(commandSplit[1]) > tasks.taskCount()) {
+                throw new AronaInvalidIndexException(Integer.toString(tasks.taskCount()));
+            }
+
+            int index = Integer.parseInt(commandSplit[1]) - 1;
+            deleteTask(index);
         } else {
             throw new AronaInvalidCommandException("");
         }

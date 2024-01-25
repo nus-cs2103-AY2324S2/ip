@@ -13,6 +13,10 @@ list
 unmark 3
 mark 2
 list
+delete 2
+mark 2
+list
+delete -5
 mark 5
 unmark -1
 todo
