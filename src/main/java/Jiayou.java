@@ -66,7 +66,7 @@ public class Jiayou {
 
     private void unmarkTask(String content) {
         int taskId = Integer.parseInt(content);
-        Task task = taskList.get(taskId - 1); // taskList is 0-based indexing
+        Task task = taskList.get(taskId - 1);
         task.setStatus(false);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
