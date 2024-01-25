@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
     // print list of stored tasks
+    //Chatbot stores user commands in a fixed array
+    public static Task[] listStore = new Task[100];
+    public static int listCount = 0;
     public static void printTasks(Task[] listStore, int listCount) {
         for (int i = 0; i < listCount; i++) {
             int taskNum = i + 1;
@@ -22,12 +25,18 @@ public class Duke {
         System.out.println("OK, I've marked this task as not done yet:\n" + listStore[taskNum - 1].toString() + "\n");
     }
 
+    //function to delete task and move remaining tasks up in the list
+    public static void deleteTask(Task[] listStore, int taskNum) {
+        System.out.println("Noted. I've removed this task:\n" + listStore[taskNum - 1].toString());
+        for (int i = taskNum - 1; i < listCount - 1; i++) {
+            listStore[i] = listStore[i + 1];
+        }
+        listCount--;
+        System.out.println("Now you have " + listCount + " tasks in the list.\n");
+    }
+
     public static void main(String[] args) throws Exception {
         System.out.println("Hello! I'm Chatteroo\n" + "What can I do for you?\n");
-
-        //Chatbot stores user commands in a fixed array
-        Task[] listStore = new Task[100];
-        int listCount = 0;
 
         //Chatbot echos user commands
         Scanner sc = new Scanner(System.in);
@@ -45,6 +54,10 @@ public class Duke {
                     String[] inputArr = input.split(" ");
                     int taskNum = Integer.parseInt(inputArr[1]); //retrieve task number from input array
                     markTaskAsNotDone(listStore, taskNum);
+                } else if (input.startsWith("delete")) { //delete specified task
+                    String[] inputArr = input.split(" ");
+                    int taskNum = Integer.parseInt(inputArr[1]);
+                    deleteTask(listStore, taskNum);
                 } else {
                     // add user inputs to list based on what task it is accordingly
                     Task newTask = null;
