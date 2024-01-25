@@ -1,15 +1,37 @@
+import java.util.Scanner;
 public class Duke {
+
+    public static void commandHandler(String divider) {
+        Scanner scanner = new Scanner(System.in);
+        String outro = "Bye. Hope to see you soon!";
+        Boolean isExit = false;
+        String command = "";
+        while (!isExit){
+            command = scanner.nextLine();
+            if (command.equals("bye")) {
+                System.out.println(divider);
+                System.out.println("    "+outro);
+                System.out.println(divider);
+                isExit = true;
+                break;
+            }
+            System.out.println(divider);
+            System.out.println("    "+command);
+            System.out.println(divider);
+        }
+    }
+
+    public static void introPrinter(String botName, String divider) {
+        System.out.println(divider);
+        System.out.println("   Hello there! I'm " + botName);
+        System.out.println("   What can I do for you today ?");
+        System.out.println(divider);
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
         String botName = "TOBIAS";
-        String divider = "--------------------------------------";
-        String intro = divider + "\n" + "Hello! I'm " + botName + "\n" + "What can I do for you ? \n" + divider;
-        String outro = "Bye. Hope to see you soon!\n" + divider;
-        System.out.println(intro);
-        System.out.println(outro);
+        String divider = "  ---------------------------------------------------------------------------------------";
+        introPrinter(botName, divider);
+        commandHandler(divider);
     }
 }
