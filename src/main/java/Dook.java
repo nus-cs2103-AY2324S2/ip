@@ -148,7 +148,7 @@ public class Dook {
                 err = new DookException(String.format("Nooo! " +
                                 "You have %d tasks!" +
                                 " Valid inputs for mark is in the range [0 - %d]",
-                        this.tasks.size()));
+                        this.tasks.size(), this.tasks.size()));
             }
             throw err;
         } catch (NumberFormatException e) {
@@ -172,7 +172,7 @@ public class Dook {
                 err = new DookException(String.format("Nooo! " +
                                 "You have %d tasks!" +
                                 " Valid inputs for unmark is in the range [0 - %d]",
-                        this.tasks.size()));
+                        this.tasks.size(), this.tasks.size()));
             }
             throw err;
         } catch (NumberFormatException e) {
@@ -197,7 +197,7 @@ public class Dook {
                 err = new DookException(String.format("Nooo! " +
                                 "You have %d tasks!" +
                                 " Valid inputs for delete is in the range [0 - %d]",
-                        this.tasks.size()));
+                        this.tasks.size(), this.tasks.size()));
             }
             throw err;
         } catch (NumberFormatException e) {
