@@ -24,7 +24,7 @@ public class Duke {
                     System.out.println(index + "." + s);
                     index++;
                 }
-                System.out.println(line + "\n");
+                System.out.println(line);
                 index = 1; // Reset index to 1
                 command = scanner.nextLine(); // Read next command
                 continue;
