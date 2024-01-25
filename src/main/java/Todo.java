@@ -1,5 +1,5 @@
 class Todo extends Task {
-    public Todo(String description) {
+    public Todo(String description) throws HenryException {
         super(description);
     }
     @Override

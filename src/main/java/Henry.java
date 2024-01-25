@@ -27,6 +27,24 @@ public class Henry {
         System.out.printf("Now you have %d tasks in the list :(\n", numOfItems);
         System.out.println();
     }
+    public static void markTask(int index) throws HenryException {
+        if (index < 0 || index >= numOfItems) {
+            throw new HenryException("The index is out of bounds!");
+        }
+        items[index].markAsDone();
+        System.out.println("This task is marked as done XD");
+        System.out.println(items[index]);
+        System.out.println();
+    }
+    public static void unmarkTask(int index) throws HenryException {
+        if (index < 0 || index >= numOfItems) {
+            throw new HenryException("The index is out of bounds!");
+        }
+        items[index].unmarkAsDone();
+        System.out.println("This task is marked as undone :(");
+        System.out.println(items[index]);
+        System.out.println();
+    }
     public static void main(String[] args) {
         greet();
 
@@ -43,27 +61,62 @@ public class Henry {
                 }
                 System.out.println();
             } else if (currentMessage.startsWith("mark")) {
-                int index = Integer.parseInt(currentMessage.split(" ")[1]) - 1;
-                items[index].markAsDone();
-                System.out.println("This task is marked as done XD");
-                System.out.println(items[index]);
-                System.out.println();
+                try {
+                    if (currentMessage.length() < 5) {
+                        throw new HenryException("No index provided!");
+                    }
+                    int index = Integer.parseInt(currentMessage.split(" ")[1]) - 1;
+                    markTask(index);
+                } catch (HenryException e) {
+                    System.err.println(e);
+                }
             } else if (currentMessage.startsWith("unmark")) {
-                int index = Integer.parseInt(currentMessage.split(" ")[1]) - 1;
-                items[index].unmarkAsDone();
-                System.out.println("This task is marked as undone :(");
-                System.out.println(items[index]);
-                System.out.println();
+                try {
+                    if (currentMessage.length() < 7) {
+                        throw new HenryException("No index provided!");
+                    }
+                    int index = Integer.parseInt(currentMessage.split(" ")[1]) - 1;
+                    unmarkTask(index);
+                } catch (HenryException e) {
+                    System.err.println(e);
+                }
             } else {
                 if (currentMessage.startsWith("todo")) {
-                    String description = currentMessage.substring(5);
-                    addTask(new Todo(description));
+                    try {
+                        if (currentMessage.length() <= 5) {
+                            throw new HenryException("The description of todo cannot be empty");
+                        }
+                        String description = currentMessage.substring(5);
+                        addTask(new Todo(description));
+                    } catch (HenryException e) {
+                        System.err.println(e);
+                    }
                 } else if (currentMessage.startsWith("deadline")) {
-                    String[] temp = currentMessage.substring(9).split(" /by ");
-                    addTask(new Deadline(temp[0], temp[1]));
+                    try {
+                        if (!currentMessage.contains("/by")) {
+                            throw new HenryException("When this has to be done by?");
+                        }
+                        String[] temp = currentMessage.substring(9).split(" /by ");
+                        addTask(new Deadline(temp[0], temp[1]));
+                    } catch (HenryException e) {
+                        System.err.println(e);
+                    }
                 } else if (currentMessage.startsWith("event")) {
-                    String[] temp = currentMessage.substring(6).split(" /from | /to ");
-                    addTask(new Event(temp[0], temp[1], temp[2]));
+                    try {
+                        if (!currentMessage.contains("/from") || !currentMessage.contains("/to")) {
+                            throw new HenryException("Please provide /from and /to.");
+                        }
+                        String[] temp = currentMessage.substring(6).split(" /from | /to ");
+                        addTask(new Event(temp[0], temp[1], temp[2]));
+                    } catch (HenryException e) {
+                        System.err.println(e);
+                    }
+                } else {
+                    try {
+                        throw new HenryException("I don't understand this command...");
+                    } catch (HenryException e) {
+                        System.err.println(e);
+                    }
                 }
             }
         }
