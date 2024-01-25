@@ -5,6 +5,7 @@ import exceptions.DukeUnknownTaskException;
 import java.util.Scanner;
 
 public class Duke {
+    public static int i = 0;
     public static void createList(Task[] listArr) {
         System.out.println("Here are the tasks in your list:");
         for (int j = 0; j < 100; j++) { // printing out all items in the list
@@ -16,25 +17,25 @@ public class Duke {
         }
     }
 
-    public static void createTodo(String userTxt, Task[] listArr, int i) {
+    public static void createTodo(String userTxt, Task[] listArr) {
         String test = userTxt.substring(4);
         try {
             if (test.strip().equals("")) {
                 throw new DukeTaskNoDescException();
             } else {
                 Task t = new ToDo(userTxt.substring(5));
-                listArr[i] = t; // add task to list
+                listArr[Duke.i] = t; // add task to list
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
-                i++;
-                System.out.println("Now you have " + i + " tasks in the list.");
+                Duke.i++;
+                System.out.println("Now you have " + Duke.i + " tasks in the list.");
             }
         } catch (DukeException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    public static void createDeadline(String userTxt, Task[] listArr, int i) {
+    public static void createDeadline(String userTxt, Task[] listArr) {
         String test = userTxt.substring(8);
         try {
             if (test.strip().equals("")) {
@@ -44,16 +45,18 @@ public class Duke {
                 String desc = userTxt.substring(9, splitIdx - 1);
                 String by = userTxt.substring(splitIdx + 3);
                 Task t = new Deadline(desc, by);
-                listArr[i] = t; // add task to list
+                listArr[Duke.i] = t; // add task to list
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
+                Duke.i++;
+                System.out.println("Now you have " + Duke.i + " tasks in the list.");
             }
         } catch (DukeException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    public static void createEvent(String userTxt, Task[] listArr, int i) {
+    public static void createEvent(String userTxt, Task[] listArr) {
         String test = userTxt.substring(5);
         try {
             if (test.strip().equals("")) {
@@ -65,9 +68,11 @@ public class Duke {
                 String frm = userTxt.substring(frmIdx + 6, toIdx);
                 String to = userTxt.substring(toIdx + 3);
                 Task t = new Event(desc, frm, to);
-                listArr[i] = t; // add task to list
+                listArr[Duke.i] = t; // add task to list
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
+                Duke.i++;
+                System.out.println("Now you have " + Duke.i + " tasks in the list.");
             }
         } catch (DukeException ex) {
             System.out.println(ex.getMessage());
@@ -82,7 +87,6 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         Task[] listArr = new Task[100];
         String userTxt = sc.nextLine();
-        int i = 0;
         while (!userTxt.equals("bye")) {
             if (userTxt.equals("list")) {
                 createList(listArr);
@@ -94,11 +98,11 @@ public class Duke {
                 listArr[taskNum].setUndone();
             } else {
                 if (userTxt.startsWith("todo")) {
-                    createTodo(userTxt, listArr, i);
+                    createTodo(userTxt, listArr);
                 } else if (userTxt.startsWith("deadline")) {
-                    createDeadline(userTxt, listArr, i);
+                    createDeadline(userTxt, listArr);
                 } else if (userTxt.startsWith("event")) {
-                    createEvent(userTxt, listArr, i);
+                    createEvent(userTxt, listArr);
                 } else {
                     try {
                         throw new DukeUnknownTaskException();
@@ -106,16 +110,16 @@ public class Duke {
                         System.out.println(ex.getMessage());
                     }
                 }
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("-----------------------------------------------------------------------");
-                userTxt = sc.nextLine();
             }
-
-            if (userTxt.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("-----------------------------------------------------------------------");
-            }
+            System.out.println("-----------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------");
+            userTxt = sc.nextLine();
         }
+        if (userTxt.equals("bye")) {
+            System.out.println("Bye. Hope to see you again soon!");
+            System.out.println("-----------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------");
+        }
+
     }
 }
