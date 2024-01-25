@@ -25,7 +25,11 @@ public class Duke {
                 if (cmdarg.length == 2) {
                     try {
                         int i = Integer.parseInt(cmdarg[1]);
-                        if (cmdarg[0].equals("mark")) {
+                        if (i > taskCount) { // incorrect index
+                            System.out.print(LINE + INDENT + "You ain't got that many tasks bruh!\n" + LINE);
+                        } else if (i < 1) { // incorrect index
+                            System.out.print(LINE + INDENT + "Start from task 1 lil bro!\n" + LINE);
+                        } else if (cmdarg[0].equals("mark")) {
                             tasks[i - 1].markAsDone();
                             System.out.print(LINE + INDENT + "Yasss King/Queen! This task is officially slayed:\n  "
                                     + INDENT + tasks[i - 1] + "\n" + LINE);
@@ -34,20 +38,38 @@ public class Duke {
                             System.out.print(LINE + INDENT + "Bruh! This task never happened:\n  "
                                     + INDENT + tasks[i - 1] + "\n" + LINE);
                         }
-                    } catch (java.lang.NumberFormatException e) {
-                        System.out.println("error"); // edit in error handling
+                    } catch (java.lang.NumberFormatException e) { // non number typed
+                        System.out.print(LINE + INDENT + "Ain't no way! We lackin' just numbers after mark/unmark.\n"
+                                + INDENT + "e.g. unmark 2\n" + LINE);
                     }
-                } else {
-                    System.out.println("error"); // error
+                } else { // no arguments
+                    System.out.print(LINE + INDENT + "Ain't no way! Which task we vibin' with?\n"
+                            + INDENT + "e.g. mark 1\n" + LINE);
                 }
             } else if (cmdarg[0].equals("todo")) {
-                addTask(cmdarg[1], 0);
+                if (cmdarg.length == 2) {
+                    addTask(cmdarg[1], 0);
+                } else { // no arguments
+                    System.out.print(LINE + INDENT + "Ain't no way! You got caught lackin' the format!\n"
+                            + INDENT + "e.g. todo <task>\n" + LINE);
+                }
             } else if (cmdarg[0].equals("deadline")) {
-                addTask(cmdarg[1], 1);
+                if (cmdarg.length == 2) {
+                    addTask(cmdarg[1], 1);
+                } else { // no arguments
+                    System.out.print(LINE + INDENT + "Ain't no way! You got caught lackin' the format!\n"
+                            + INDENT + "e.g. deadline <task> /by <date/time>\n" + LINE);
+                }
             } else if (cmdarg[0].equals("event")) {
-                addTask(cmdarg[1], 2);
-            } else {
-                System.out.println("error"); // error
+                if (cmdarg.length == 2) {
+                    addTask(cmdarg[1], 2);
+                } else { // no arguments
+                    System.out.print(LINE + INDENT + "Ain't no way! You got caught lackin' the format!\n"
+                            + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>\n" + LINE);
+                }
+            } else { // invalid command
+                System.out.print(LINE + INDENT + "What is blud yappin'? Here's the legit commands:"
+                        + INDENT + "todo, deadline, event, mark, unmark, list, bye"); // error
             }
         }
     }
@@ -86,8 +108,9 @@ public class Duke {
                     System.out.println(LINE + INDENT + "Ayo new task just dropped:\n  " + INDENT + tasks[taskCount]);
                     taskCount++;
                     System.out.print(INDENT + "Yo, we're " + taskCount + " task(s) deep! Let's keep this SIGMA GRINDSET!\n" + LINE);
-                } else {
-                    System.out.println("error");
+                } else { // incorrect formatting for /by
+                    System.out.print(LINE + INDENT + "When you wanna do this task by lil bro?\n"
+                            + INDENT + "e.g. deadline <task> /by <date/time>\n" + LINE);
                 }
                 break;
             }
@@ -100,17 +123,18 @@ public class Duke {
                         System.out.println(LINE + INDENT + "Ayo new task just dropped:\n  " + INDENT + tasks[taskCount]);
                         taskCount++;
                         System.out.print(INDENT + "Yo, we're " + taskCount + " task(s) deep! Let's keep this SIGMA GRINDSET!\n" + LINE);
-                    } else {
-                        System.out.println("error");
+                    } else { // incorrect formatting for /to
+                        System.out.println(LINE + INDENT + "When does this event end lil bro?\n"
+                                + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>\n" + LINE);
                     }
-                } else {
-                    System.out.println("error");
+                } else { // incorrect formatting for /from
+                    System.out.println(LINE + INDENT + "When does this event start lil bro?\n"
+                            + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>\n" + LINE);
                 }
                 break;
             }
-            default:
+            default: // Invalid Task ID
                 System.out.println("Invalid Task ID, user shouldn't reach here");
         }
     }
 }
-
