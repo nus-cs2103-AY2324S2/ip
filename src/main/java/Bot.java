@@ -29,13 +29,20 @@ public class Bot {
         String[] tokens = input.split(" ");
         String taskType = tokens[0];
         switch (taskType) {
-            case "mark" -> this.mark(Integer.parseInt(tokens[1]));
-            case "unmark" -> this.unmark(Integer.parseInt(tokens[1]));
-            case "todo" -> this.add("T", String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length)));
-            case "event" -> this.add("E", String.join( " ", Arrays.copyOfRange(tokens, 1, tokens.length)));
-            case "deadline" -> this.add("D", String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length)));
-            case "list" -> this.list();
-            default -> this.echo(String.join(" ", Arrays.copyOfRange(tokens, 0, tokens.length)));
+            case "mark":
+                this.mark(Integer.parseInt(tokens[1]));
+            case "unmark":
+                this.unmark(Integer.parseInt(tokens[1]));
+            case "todo":
+                this.add(new ToDo(String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length))));
+            case "event":
+                this.add(new Event(String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length))));
+            case "deadline":
+                this.add(new Deadline(String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length))));
+            case "list":
+                this.list();
+            default:
+                this.echo(String.join(" ", Arrays.copyOfRange(tokens, 0, tokens.length)));
         }
 
     }
@@ -47,9 +54,9 @@ public class Bot {
         this.pw.flush();
     }
 
-    public void add(String type, String input) {
-        this.echo("added: " + input);
-        list.add(new Task(type,input));
+    public void add(Task task) {
+        this.echo("added: " + task);
+        list.add(task);
     }
 
     public void list() {
