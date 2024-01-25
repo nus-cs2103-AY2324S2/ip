@@ -1,5 +1,4 @@
 import java.util.InputMismatchException;
-import java.util.MissingFormatArgumentException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,8 +7,8 @@ public class Parser {
         Pattern pattern = Pattern.compile("^todo ([^ ].*)$");
         Matcher matcher = pattern.matcher(input);
         if (!matcher.find()) {
-            throw new InputMismatchException("Input format unsupported.\n"
-                    + "Use this format: todo <task>");
+            throw new InputMismatchException("     Input format unsupported.\n"
+                    + "     Use this format: todo <task>");
         }
         return matcher.group(1);
     }
@@ -22,8 +21,8 @@ public class Parser {
             ret[0] = matcher.group(1);
             ret[1] = matcher.group(2);
         } else {
-            throw new InputMismatchException("Input format unsupported.\n"
-                    + "Use this format: deadline <task> /by <time>");
+            throw new InputMismatchException("     Input format unsupported.\n"
+                    + "     Use this format: deadline <task> /by <time>");
         }
         return ret;
     }
@@ -37,8 +36,8 @@ public class Parser {
             ret[1] = matcher.group(2);
             ret[2] = matcher.group(3);
         } else {
-            throw new InputMismatchException("Input format unsupported.\n"
-                    + "Use this format: event <task> /from <time> /to <time>");
+            throw new InputMismatchException("     Input format unsupported.\n"
+                    + "     Use this format: event <task> /from <time> /to <time>");
         }
         return ret;
     }
