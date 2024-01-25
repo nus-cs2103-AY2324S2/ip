@@ -14,7 +14,17 @@ public class EventCommand extends Command {
     this.endTime = parts2[1].trim();
   }
 
-  public boolean execute(TaskList list) {
+  public boolean execute(TaskList list) throws DukeException {
+    if (taskDescription.isEmpty()) {
+      throw new DukeException("The description of an event cannot be empty.",
+          "The description of an event cannot be empty.");
+    } else if (startTime.isEmpty()) {
+      throw new DukeException("The start time of an event cannot be empty.",
+          "The start time of an event cannot be empty.");
+    } else if (endTime.isEmpty()) {
+      throw new DukeException("The end time of an event cannot be empty.",
+          "The end time of an event cannot be empty.");
+    }
     Task task = new Event(taskDescription, startTime, endTime);
     list.addTask(task);
     System.out.println("Added: " + task + "\nYou now have " + list.size() + " tasks in the list.");
