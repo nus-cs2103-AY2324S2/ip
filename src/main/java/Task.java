@@ -15,7 +15,11 @@ public class Task {
         isDone = false;
     }
 
+    private String curStatus() {
+        return "[" + (isDone ? 'X' : ' ') + "]";
+    }
+
     public String toString() {
-        return "[" + (isDone ? 'X' : ' ') + "] " + desc;
+        return curStatus() + ' ' + desc;
     }
 }

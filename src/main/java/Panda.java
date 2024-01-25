@@ -40,16 +40,36 @@ public class Panda {
                 Panda.printTlist();
                 continue;
             }
-            if(userInput.length() > 5 && userInput.substring(0, 5).equals("mark ")) {
-                int target = Integer.parseInt(userInput.substring(5)) - 1;
+            if(userInput.split(" ")[0].equals("mark")) {
+                int target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
                 tlist[target].mark();
                 System.out.println("Nice! I've marked this task as done:\n  " + tlist[target]);
                 continue;
             }
-            if(userInput.length() > 7 && userInput.substring(0, 7).equals("unmark ")) {
-                int target = Integer.parseInt(userInput.substring(7)) - 1;
+            if(userInput.split(" ")[0].equals("unmark")) {
+                int target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
                 tlist[target].unmark();
                 System.out.println("OK, I've marked this task as not done yet:\n  " + tlist[target]);
+                continue;
+            }
+            if(userInput.split(" ")[0].equals("todo")) {
+                tlist[idx] = new Todo(userInput.split(" ", 2)[1].trim());
+                idx = idx + 1;
+                System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
+                continue;
+            }
+            if(userInput.split(" ")[0].equals("deadline")) {
+                String[] args = userInput.split(" ", 2)[1].split("/by");
+                tlist[idx] = new Deadline(args[0].trim(), args[1].trim());
+                idx = idx + 1;
+                System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
+                continue;
+            }
+            if(userInput.split(" ")[0].equals("event")) {
+                String[] args = userInput.split(" ", 2)[1].split("/from");
+                tlist[idx] = new Event(args[0].trim(), args[1].split("/to")[0].trim(), args[1].split("/to")[1].trim());
+                idx = idx + 1;
+                System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
                 continue;
             }
             tlist[idx] = new Task(userInput);
