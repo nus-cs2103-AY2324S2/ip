@@ -120,7 +120,7 @@ public class Duke {
     public static void addList(Task task){
         listItems.add(task);
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tI have added the following task: ");
+        System.out.println("\tI have added the following task:");
         System.out.println("\t   "+task);
         System.out.println("\tNow you have " + listItems.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________\n");
