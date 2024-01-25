@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * A Personal Assistant Chatbot that helps a person to keep track of various things.
+ */
 public class Duke {
 
     private static final String logo = " ____        _        \n"
@@ -20,11 +23,16 @@ public class Duke {
         this.id = 0;
     }
 
+    /**
+     * Runs the program, processing user commands until the "bye" command is entered.
+     * Recognized commands include list, mark, unmark, todo, deadline, event, and others.
+     * The user is prompted with a greeting and can interact with the chatbot.
+     */
     public void run() {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hey there! This is Chitty-Chatty\n" + "What can I do for you?\n");
 
-        while (true) {
+        while (scanner.hasNextLine()) {
             String[] input = scanner.nextLine().split(" ", 2);
             String command = input[0];
 
@@ -58,23 +66,43 @@ public class Duke {
         }
     }
 
+    /**
+     * Adds a ToDo task to the task list.
+     *
+     * @param input A string array containing the task description.
+     */
     public void addToDoTask(String[] input) {
         ToDo todo = new ToDo(input[1]);
         addTasks(todo);
     }
 
+    /**
+     * Adds a Deadline task to the task list.
+     *
+     * @param input A string array containing the task description with the "/by" as separator.
+     */
     public void addDeadline(String[] input) {
         String[] description = input[1].split("/by");
         Deadline dd = new Deadline(description[0], description[1]);
         addTasks(dd);
     }
 
+    /**
+     * Adds an Event task to the task list.
+     *
+     * @param input A string array containing the task description with the "/from" and "/to" as separators.
+     */
     public void addEvent(String[] input) {
         String[] description = input[1].split("/from|/to");
         Event e = new Event(description[0], description[1], description[2]);
         addTasks(e);
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param input A string array containing the index of the task to mark as done.
+     */
     public void markTaskAsDone(String[] input) {
         int index = Integer.parseInt(input[1]);
         tasks[index - 1].markAsDone();
@@ -82,6 +110,11 @@ public class Duke {
         System.out.println(tasks[index - 1].toString());
     }
 
+    /**
+     * Marks a task as undone.
+     *
+     * @param input A string array containing the index of the task to mark as undone.
+     */
     public void markTaskAsUndone(String[] input) {
         int index = Integer.parseInt(input[1]);
         tasks[index - 1].markAsUndone();
@@ -89,6 +122,11 @@ public class Duke {
         System.out.println(tasks[index - 1].toString());
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added to the list.
+     */
     public void addTasks(Task task) {
         tasks[id] = task;
         id++;
@@ -96,6 +134,9 @@ public class Duke {
         System.out.format("Now you have %d tasks in the list.\n", id);
     }
 
+    /**
+     * Prints out the list of tasks.
+     */
     public void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for(int i = 0; i < id; i++) {
@@ -103,6 +144,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Terminates the Chitty-Chatty program.
+     */
     public void exit() {
         System.out.println("Goodbye. Have a great day ahead!");
     }

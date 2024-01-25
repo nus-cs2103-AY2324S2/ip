@@ -5,3 +5,27 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Hey there! This is Chitty-Chatty
+What can I do for you?
+
+todo grocery shopping
+Got it. I've added this task:
+[T][ ] grocery shopping
+Now you have 1 tasks in the list.
+event group meeting /from 2pm /to 3pm
+Got it. I've added this task:
+[E][ ] group meeting  (from: 2pm to: 3pm)
+Now you have 2 tasks in the list.
+deadline ip /by 25 Jan 23:59
+Got it. I've added this task:
+[D][ ] ip  (by: 25 Jan 23:59)
+Now you have 3 tasks in the list.
+list
+Here are the tasks in your list:
+1.[T][ ] grocery shopping
+2.[E][ ] group meeting  (from: 2pm to: 3pm)
+3.[D][ ] ip  (by: 25 Jan 23:59)
+bye
+Goodbye. Have a great day ahead!
+
+
