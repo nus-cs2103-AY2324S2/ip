@@ -12,7 +12,7 @@ public class Asher {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void addTask(Task task) {
+    private static void addTask(Task task) throws BotException {
         if (count < tasks.length) {
             tasks[count] = task;
             count++;
@@ -20,7 +20,7 @@ public class Asher {
             System.out.println(" " + task);
             System.out.println("Now you have " + count + " tasks in the list.");
         } else {
-            System.out.println("Task List is full, unable to add more.");
+            throw new BotException("Task List is full, unable to add more.");
         }
     }
 
@@ -43,50 +43,82 @@ public class Asher {
         return -1;
     }
 
-    private static void markTaskDone(String task) {
+    private static void markTaskDone(String task) throws BotException {
         int taskNumber = getTaskNumber(task);
         if (taskNumber != -1) {
             tasks[taskNumber].markDone();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(" "  + tasks[taskNumber]);
         } else {
-            System.out.println("Invalid Task!");
+            throw new BotException("Invalid Task!");
         }
     }
 
-    private static void markTaskUndone(String task) {
+    private static void markTaskUndone(String task) throws BotException {
         int taskNumber = getTaskNumber(task);
         if (taskNumber != -1) {
             tasks[taskNumber].markUndone();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("  " + tasks[taskNumber]);
         } else {
-            System.out.println("Invalid Task!");
+            throw new BotException("Invalid Task!");
         }
     }
 
-    private static Todo createtoDo(String command) {
-        return new Todo(command.substring(5).trim());
-
+    private static Todo createtoDo(String command) throws BotException {
+        if (command.length() >= 5) {
+            String description = command.substring(5).trim();
+            if (!description.isEmpty()) {
+                return new Todo(description);
+            } else {
+                throw new BotException("Todo cannot be empty.");
+            }
+        } else {
+            throw new BotException("Todo Command is invalid!");
+        }
     }
 
-    private static Deadline createDeadline(String command) {
+    private static Deadline createDeadline(String command) throws BotException {
         int split = command.indexOf("/by");
+        if (split == -1) {
+            throw new BotException("Due date not found!");
+        }
+        if (split + 4 >= command.length()) {
+            throw new BotException("No such deadline!");
+        }
+
         String description = command.substring(9, split).trim();
         String deadline = command.substring(split + 4).trim();
+
+        if (description.isEmpty() || deadline.isEmpty()) {
+            throw new BotException("Description and deadline cannot be empty!");
+        }
         return new Deadline(description, deadline);
     }
 
-    private static Event createEvent(String command) {
+    private static Event createEvent(String command) throws BotException {
         int split1 = command.indexOf("/from");
         int split2 = command.indexOf("/to");
+        if (split1 == -1 || split2 == -1) {
+            throw new BotException("Start and end time not found!");
+        }
+
+        if (split2 + 4 >= command.length()) {
+            throw new BotException("End time not found!");
+        }
+
         String description = command.substring(6, split1).trim();
         String startDate = command.substring(split1 + 6, split2).trim();
         String deadline = command.substring(split2 + 4).trim();
+
+        if (description.isEmpty() || startDate.isEmpty() || deadline.isEmpty()) {
+            throw new BotException("Description, start time and end time not found!");
+        }
+
         return new Event(description, startDate, deadline);
     }
 
-    public static void processCommand(String command) {
+    public static void processCommand(String command) throws BotException {
         String[] word = command.split(" ");
 
         if (word[0].equals("bye")) {
@@ -104,7 +136,7 @@ public class Asher {
         } else if (word[0].equals("event")) {
             addTask(createEvent(command));
         } else {
-            System.out.println("Invalid Command!");
+            throw new BotException("Invalid Command!");
         }
     }
 
@@ -113,10 +145,13 @@ public class Asher {
         Scanner scanner = new Scanner(System.in);
         String command;
 
-        do {
-            command = scanner.nextLine();
-            Asher.processCommand(command);
-
-        } while (!command.equals("bye"));
+        try {
+            do {
+                command = scanner.nextLine();
+                Asher.processCommand(command);
+            } while (!command.equals("bye"));
+        } catch (BotException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
