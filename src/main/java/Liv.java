@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Liv {
-    public static ArrayList<String> list = new ArrayList<>();
+    private static ArrayList<String> list = new ArrayList<>();
     public static void greet() {
         System.out.println("Liv, under your instructions!");
         System.out.println("What is your command?\n");
