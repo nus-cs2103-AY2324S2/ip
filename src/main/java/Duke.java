@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Duke {
 
-    private static List<Task> taskList = new LinkedList<>();
+    private static List<Task> taskList = new ArrayList<>();
     //private static int listSize = 0;
     public static void main(String[] args) {
 

@@ -6,4 +6,6 @@ mark 1
 mark 1
 unmark 1
 yap
+delete 1
+yap
 bye

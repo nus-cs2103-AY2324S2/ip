@@ -19,6 +19,10 @@ YAPYAP! I've unmarked this task...
 1. [D][ ] CS2103T work (by: Wednesday 11am)
 2. [E][ ] CS2103T Lecture (from: Friday 4pm to 6pm)
 3. [T][ ] Learn about Git commands
+Okay, I'll stop yapping about this task:
+[D][ ] CS2103T work (by: Wednesday 11am)
+1. [E][ ] CS2103T Lecture (from: Friday 4pm to 6pm)
+2. [T][ ] Learn about Git commands
 Stoppin' the YAP...
 █▀▀ █▀█ █▀█ █▀▄ █▄▄ █▄█ █▀▀ █
 █▄█ █▄█ █▄█ █▄▀ █▄█ ░█░ ██▄ ▄
