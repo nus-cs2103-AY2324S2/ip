@@ -92,6 +92,23 @@ public class Buddy {
                     System.out.println(lineBreak + e.getMessage() + lineBreak);
                     return true;
                 }
+            case "delete":
+                try {
+                    int deleteIdx = input.indexOf(" ");
+                    if (deleteIdx >= 0) {
+                        int toDelete = Integer.parseInt(input.substring(deleteIdx + 1)) - 1;
+                        deleteTask(taskList.get(toDelete));
+                        return true;
+                    } else {
+                        throw new BuddyException("Please provide a valid task to delete!\n");
+                    }
+                } catch (BuddyException e) {
+                    System.out.println(lineBreak + e.getMessage() + lineBreak);
+                    return true;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(lineBreak + "The index you provided is out of bounds!\n" + lineBreak);
+                    return true;
+                }
             case "deadline":
                 try {
                     int deadlineIdx = input.indexOf(" ");
@@ -149,6 +166,13 @@ public class Buddy {
     public void addTask(Task task) {
         taskList.add(task);
         String msg = "Alrighty! I've added the task to your list!\n" + task + "\n" +
+                     "You have " + taskList.size() + " tasks!\n";
+        System.out.println(lineBreak + msg + lineBreak);
+    }
+
+    public void deleteTask(Task task) {
+        taskList.remove(task);
+        String msg = "I've removed the task from your list!\n" + task + "\n" +
                      "You have " + taskList.size() + " tasks!\n";
         System.out.println(lineBreak + msg + lineBreak);
     }
