@@ -22,7 +22,7 @@ public class Jerry {
                     return;
 
                 case "list":
-                    System.out.println("Here are the items in your list:");
+                    System.out.println("Here are the tasks in your list:");
                     for (int x = 0; tasks[x] != null; x++) {
                         System.out.println((x + 1) + "." + tasks[x]);
                     }
