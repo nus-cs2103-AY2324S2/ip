@@ -23,6 +23,9 @@ public class Haro {
         LIST,
         MARK,
         UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
 
     }
 
@@ -49,6 +52,15 @@ public class Haro {
                 case "unmark":
                     instruction = Instruction.UNMARK;
                     break;
+                case "todo":
+                    instruction = Instruction.TODO;
+                    break;
+                case "deadline":
+                    instruction = Instruction.DEADLINE;
+                    break;
+                case "event":
+                    instruction = Instruction.EVENT;
+                    break;
                 default:
                     instruction = Instruction.NONE;
             }
@@ -61,37 +73,43 @@ public class Haro {
                 if (inputArr.length > 0) {
                     if (inputArr[0].equals("")) {
                         System.out.println( horizontalLine + "Empty command! Type something!\n" + horizontalLine);
+                        input = inputScanner.nextLine();
+                        continue;
                     } else {
-                        Task newTask = new Task(input);
-                        list.addTask(newTask);
-                        System.out.println(horizontalLine + "added: " + input + "\n" + horizontalLine);
+                        System.out.println(horizontalLine + "Sorry, please type a valid command\n" + horizontalLine);
+                        input = inputScanner.nextLine();
+                        continue;
                     }
                 }
 
                 else {
                     System.out.println( horizontalLine + "Empty command! Type something!" + horizontalLine);
+                    input = inputScanner.nextLine();
+                    continue;
                 }
             }
 
             else if (instruction == Instruction.LIST) {
                 list.printList();
+                input = inputScanner.nextLine();
+                continue;
             }
 
             // Commands with arguments
             String commandArg = "";
 
-            if (inputArr.length >= 2) {
-                commandArg = inputArr[1];
+            if (inputArr.length < 2 || inputArr[1].equals("")) {
+                System.out.println(horizontalLine);
+                System.out.println("Please input an argument");
+                System.out.println(horizontalLine);
+                input = inputScanner.nextLine();
+                continue;
             }
 
-            if (instruction == Instruction.MARK) {
-                if (inputArr.length < 2) {
-                    System.out.println(horizontalLine);
-                    System.out.println("Please input task number that you want to mark!");
-                    System.out.println(horizontalLine);
-                }
+            commandArg = inputArr[1];
 
-                else if (!isNumeric(commandArg)) {
+            if (instruction == Instruction.MARK) {
+                if (!isNumeric(commandArg)) {
                     System.out.println(horizontalLine);
                     System.out.println("Please input a number for the task you want to mark!");
                     System.out.println(horizontalLine);
@@ -104,13 +122,7 @@ public class Haro {
             }
 
             else if (instruction == Instruction.UNMARK) {
-                if (inputArr.length < 2) {
-                    System.out.println(horizontalLine);
-                    System.out.println("Please input task number that you want to unmark!\n");
-                    System.out.println(horizontalLine);
-                }
-
-                else if (!isNumeric(commandArg)) {
+                if (!isNumeric(commandArg)) {
                     System.out.println(horizontalLine);
                     System.out.println("Please input a number for the task you want to unmark!\n");
                     System.out.println(horizontalLine);
@@ -119,6 +131,41 @@ public class Haro {
                 else {
                     int taskNumber = Integer.parseInt(commandArg) - 1;
                     list.unmarkTask(taskNumber);
+                }
+            }
+
+            else if (instruction == Instruction.TODO) {
+                Task newTodo = new ToDo(commandArg.trim());
+                list.addTask(newTodo);
+            }
+
+            else if (instruction == Instruction.DEADLINE) {
+                if (!commandArg.contains("/by")) {
+                    System.out.println(horizontalLine + "Please specify a due date using '/by'!\n" + horizontalLine);
+                } else {
+                    String[] taskArr = commandArg.split("/by", 2);
+                    String taskName = taskArr[0].trim();
+                    String taskDue = taskArr[1].trim();
+                    Task newDeadline = new Deadline(taskName, taskDue);
+                    list.addTask(newDeadline);
+                }
+            }
+
+            else if (instruction == Instruction.EVENT) {
+                if (!commandArg.contains("/from")) {
+                    System.out.println(horizontalLine + "Please specify a start date using '/from'!\n" + horizontalLine);
+                } else if (!commandArg.contains("/to")) {
+                    System.out.println(horizontalLine + "Please specify an end date using '/to'!\n" + horizontalLine);
+                } else {
+                    String[] taskArr = commandArg.split("/from", 2);
+                    String taskName = taskArr[0].trim();
+                    String taskDur = taskArr[1];
+                    String[] taskTime = taskDur.split("/to", 2);
+                    String taskFrom = taskTime[0].trim();
+                    String taskTo = taskTime[1].trim();
+
+                    Task newEvent = new Event(taskName, taskFrom, taskTo);
+                    list.addTask(newEvent);
                 }
             }
 

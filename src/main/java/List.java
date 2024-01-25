@@ -10,6 +10,7 @@ public class List {
     public void printList() {
         if (list.isEmpty()) {
             System.out.println(horizontalLine + "The task list is currently empty! Add tasks!\n" + horizontalLine);
+            return;
         }
 
         System.out.println(horizontalLine + "Here are the tasks in your list:\n");
@@ -23,6 +24,10 @@ public class List {
 
     public void addTask(Task task) {
         list.add(task);
+        System.out.println(horizontalLine + "Got it I've added this task:\n" +
+                task.printTask() + "\n" +
+                "You now have " + list.size() + " tasks in the list\n" +
+                horizontalLine);
     }
 
     public void markTask(int index) {
