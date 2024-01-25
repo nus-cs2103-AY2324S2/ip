@@ -2,11 +2,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class Chaterpillar {
     public static boolean exited = false;
-    public static ArrayList<String> listofitems = new ArrayList<String>();
+    public static ArrayList<Task> listoftasks = new ArrayList<Task>();
     public static void greet() {
         print_horizontal_line();
         System.out.println("Hello! I'm Chaterpillar");
@@ -19,34 +19,57 @@ public class Chaterpillar {
     public static void echo(String s) {
         System.out.println(s);
     }
-    public static void parse_input(BufferedReader reader) throws IOException {
-        String input = reader.readLine();
-        print_horizontal_line();
-
-        if (input.equals("list")) {
-            // if asked to list the items stored
-            int i = 1;
-            for (String each_item : listofitems) {
-                echo(i++ + ". " + each_item);
-            }
-
-        } else if (!input.equals("bye")) {
-            // if not asked to exit the chatbot
-            // add to array list and
-            // prints what is added
-            listofitems.add(input);
-            echo("added: " + input);
-        } else {
-            // exits the program
-            exited = true;
-            exit();
-        }
-        print_horizontal_line();
-    }
     public static void print_horizontal_line() {
         String line = "-".repeat(50);
         System.out.println(line);
     }
+    public static void parse_input(BufferedReader reader) throws IOException {
+        String input = reader.readLine();
+        String[] input_sp = input.split(" ");
+        print_horizontal_line();
+
+        int num;
+        Task curr_task;
+        switch(input_sp[0]) {
+            case "list":
+                echo("Here are the tasks in your list: ");
+                int i = 1;
+                for (Task each_task : listoftasks) {
+                    echo(i++ + ". " + each_task);
+                }
+                break;
+            case "mark":
+                echo("Nice! I've marked this task as done:");
+                num = Integer.parseInt(input_sp[1]);
+                curr_task = listoftasks.get(num-1);
+                curr_task.mark();
+                echo(curr_task.toString());
+                break;
+            case "unmark":
+                echo("Ok, I've marked this task as not done yet:");
+                num = Integer.parseInt(input_sp[1]);
+                curr_task = listoftasks.get(num-1);
+                curr_task.unmark();
+                echo(curr_task.toString());
+                break;
+            case "bye":
+                // exits the program
+                exited = true;
+                exit();
+                break;
+            default:
+                // if not asked to exit the chatbot
+                // add to array list and
+                // prints what is added
+                Task task = new Task(input);
+                listoftasks.add(task);
+                echo("added: " + task.taskname);
+                break;
+        }
+        print_horizontal_line();
+    }
+
+
     public static void main(String[] args) {
         greet();
         BufferedReader reader = new BufferedReader(
