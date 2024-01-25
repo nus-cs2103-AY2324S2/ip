@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class Zero {
     private static final String name = "Zero";
-    private static final String divider = "____________________________________________________________\n";
+    private static final String divider = "______\n";
 
-    //
+    //Checks if the string is null, empty or filled with spaces
     private static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty() || s.trim().isEmpty();
     }
@@ -31,81 +31,79 @@ public class Zero {
         }
         return result;
     }
+    
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out));
         
-        pw.println(divider + "Hello! I'm " + name + ".\nWhat can I do for you?\n" + divider);
+        pw.printf(Messages.GREET.toString(), name);
         pw.flush();
 
         ArrayList<Task> tasks = new ArrayList<>();
         String[] cmd;
         int idx;
+        Task t;
         do {
             pw.print(">>>");
             pw.flush();
             cmd = br.readLine().split(" ");
             switch (cmd[0]) {
                 case "bye":
-                    pw.println(divider + "Bye. Hope to see you again soon!\n" + divider);
+                    pw.println(Messages.BYE);
                     break;
                 case "list":
-                    pw.println(divider + "Here are the tasks in your list:");
+                    String list = "";
                     for (int i = 0; i < tasks.size(); i++) {
-                        pw.println((i+1) + "." + tasks.get(i));
+                        list += "\n" + (i+1) + "." + tasks.get(i);
                     }
-                    pw.println(divider);
+                    pw.printf(Messages.LIST.toString(), list);
                     break;
                 case "mark":
                     try{
                         idx = Integer.parseInt(cmd[1]) - 1;
                     } catch (NumberFormatException e) {
-                        pw.println("Please enter a valid entry number!\n" + divider);
+                        pw.println(Messages.INVALID_INDEX);
                         break;
                     }
                     if (idx < 0 || idx >= tasks.size()) {
-                        pw.println(divider + "Invalid task selected.\nTask number must be between 1 to " + tasks.size());
-                        pw.println(divider);
+                        pw.printf(Messages.INVALID_NUMBER.toString(), tasks.size());
                         break;
                     }
                     tasks.set(idx, tasks.get(idx).mark());
-                    pw.println("Nice! I've marked this task as done:\n  " + tasks.get(idx) + '\n' + divider);
+                    pw.printf(Messages.MARKED.toString(), tasks.get(idx));
                     break;
                 case "unmark":
                     try{
                         idx = Integer.parseInt(cmd[1]) - 1;
                     } catch (NumberFormatException e) {
-                        pw.println("Please enter a valid entry number!\n" + divider);
+                        pw.println(Messages.INVALID_INDEX);
                         break;
                     }
                     if (idx < 0 || idx >= tasks.size()) {
-                        pw.println(divider + "Invalid task selected.\nTask number must be between 1 to " + tasks.size());
-                        pw.println(divider);
+                        pw.printf(Messages.INVALID_NUMBER.toString(), tasks.size());
                         break;
                     }
                     tasks.set(idx, tasks.get(idx).unmark());
-                    pw.println("OK, I've marked this task as not done yet:\n  " + tasks.get(idx) + '\n' + divider);
+                    pw.printf(Messages.UNMARKED.toString(), tasks.get(idx));
                     break;
                 case "delete":
                     try{
                         idx = Integer.parseInt(cmd[1]) - 1;
                     } catch (NumberFormatException e) {
-                        pw.println("Please enter a valid entry number!\n" + divider);
+                        pw.println(Messages.INVALID_INDEX);
                         break;
                     }
                     if (idx < 0 || idx >= tasks.size()) {
-                        pw.println(divider + "Invalid task selected.\nTask number must be between 1 to " + tasks.size());
-                        pw.println(divider);
+                        pw.printf(Messages.INVALID_NUMBER.toString(), tasks.size());
                         break;
                     }
-                    pw.println(divider + "Noted. I've removed this task:\n" + tasks.remove(idx));
-                    pw.println("Now you have " + tasks.size() + " tasks in the list.\n" + divider);
+                    t = tasks.remove(idx);
+                    pw.printf(Messages.REMOVE.toString(), t, tasks.size());
                     break;
                 case "todo":
                 case "deadline":
                 case "event":
                     String[] fs = filterCommand(cmd);
-                    Task t;
                     if (fs[0].equals("todo")) {
                         if (isNullOrEmpty(fs[1])) {
                             pw.println("Please name your ToDo task!\n" + divider);
@@ -150,12 +148,10 @@ public class Zero {
                         t = new Event(fs[1], fs[2], fs[3]);
                     }
                     tasks.add(t);
-                    pw.println(divider + "Got it. I've added this task:\n  " + t);
-                    pw.println("Now you have " + tasks.size() + " tasks in the list.\n" + divider);
+                    pw.printf(Messages.ADD.toString(), t, tasks.size());
                     break;
                 default:
-                    pw.println(divider + "I don't understand what you mean by \"" + String.join(" ", cmd) +  ".\"");
-                    pw.println("Please request something like: list, mark, delete, todo, deadline, event, etc.\n" + divider);
+                    pw.printf(Messages.DONT_UNDERSTAND.toString(), String.join(" ", cmd));
                     break;
             }
             pw.flush();
