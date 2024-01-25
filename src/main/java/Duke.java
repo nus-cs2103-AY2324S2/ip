@@ -21,6 +21,11 @@ public class Duke {
             if (userInput.equals("bye")) {
                 break;
             }
+            if (userInput.startsWith("delete")) {
+                processor.userInputDeleteTask(userInput);
+                continue;
+            }
+
             if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
                 processor.userInputProcessMarkUnmark(userInput);
                 continue;

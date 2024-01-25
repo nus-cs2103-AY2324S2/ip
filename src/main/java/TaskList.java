@@ -35,6 +35,10 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    public void deleteAtIndex(int index) {
+            taskList.remove(index);
+    }
+
     public void markTask(int index) {
         taskList.get(index).mark();
     }
