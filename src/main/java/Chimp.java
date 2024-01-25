@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Chimp {
+    private static final String divider = "____________________________________________________________\n";
     private ArrayList<Task> list;
     Chimp() {
         list = new ArrayList<>();
@@ -42,36 +43,42 @@ public class Chimp {
                     chimp.list.get(num - 1).unmark();
                     chimp.say(phrases.get("unmark"), chimp.list.get(num - 1));
                     break;
-                case "todo":
+                case "todo": // TODO: Exception handling
                     chimp.addToList(inp);
                     chimp.say(chimp.list.get(chimp.list.size() - 1));
                     break;
                 case "event":
                     String fromSubCommand = arg.split("/")[1];
-                    String from = fromSubCommand.substring(fromSubCommand.indexOf(' '), fromSubCommand.length());
+                    String from = fromSubCommand.substring(fromSubCommand.indexOf(' '));
                     from = from.strip();
+
                     String toSubCommand = arg.split("/")[2];
-                    String to = toSubCommand.substring(toSubCommand.indexOf(' '), toSubCommand.length());
+                    String to = toSubCommand.substring(toSubCommand.indexOf(' '));
                     to = to.strip();
-                    chimp.addToList(arg.split("/")[0].strip(), from, to);
+
+                    String text = arg.split("/")[0].strip();
+                    chimp.addToList(text, from, to);
                     chimp.say(chimp.list.get(chimp.list.size() - 1));
                     break;
                 case "deadline":
                     String bySubCommand = arg.split("/")[1];
-                    String by = bySubCommand.substring(3, bySubCommand.length());
+                    String by = bySubCommand.substring(3);
                     by = by.strip();
-                    chimp.addToList(arg.split("/")[0].strip(), by);
+
+                    // TODO: switch case scoping best practice?
+                    text = arg.split("/")[0].strip();
+                    chimp.addToList(text, by);
                     chimp.say(chimp.list.get(chimp.list.size() - 1));
                     break;
                 default:
-                    chimp.addToList(inp);
-                    chimp.say(chimp.list.get(chimp.list.size() - 1));
+                    chimp.say(phrases.get("hoo"));
             }
             inp = sc.nextLine();
         }
         chimp.say(phrases.get("bye"));
         sc.close();
     }
+
 
     private HashMap<String, String> getPhrases() {
         HashMap<String, String> phrases = new HashMap<>();
@@ -80,15 +87,18 @@ public class Chimp {
         String bye = "Bye. Hope to see you again soon!\n";
         String mark = "Nice! I've marked this task as done: \n";
         String unmark = "OK, I've marked this task as not done yet: \n";
+        String hoo = "HOO-HOO-HOO-HOO, I don't know what that means\n";
 
         phrases.put("greet", greet);
         phrases.put("bye", bye);
         phrases.put("mark", mark);
         phrases.put("unmark", unmark);
+        phrases.put("hoo", hoo);
 
         return phrases;
     }
 
+    // TODO: Is this a maintainable way of doing things?
     private void addToList(String task){
         this.list.add(new Todo(task, TaskStatus.UNMARKED));
     }
@@ -101,14 +111,12 @@ public class Chimp {
     }
 
     private void say(String phrase) {
-        String divider = "____________________________________________________________\n";
         System.out.println(divider);
         System.out.println(phrase);
         System.out.println(divider);
     }
 
     private void say(Task task) {
-        String divider = "____________________________________________________________\n";
         System.out.println(divider);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
@@ -117,7 +125,6 @@ public class Chimp {
     }
 
     private void say(String phrase, Task task) {
-        String divider = "____________________________________________________________\n";
         System.out.println(divider);
         System.out.println(phrase);
         System.out.println(task);
@@ -125,7 +132,6 @@ public class Chimp {
     }
 
     private void print() {
-        String divider = "____________________________________________________________\n";
         System.out.println(divider);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.list.size(); i++) {
