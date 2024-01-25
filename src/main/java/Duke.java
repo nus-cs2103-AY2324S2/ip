@@ -18,7 +18,7 @@ public class Duke {
         System.out.println("Hello! I'm tars.");
         System.out.println("What can I do for you?");
 
-        while (true) {
+        while (scanner.hasNextLine()) {
             String comd = scanner.nextLine();
 
             if (comd.equals("bye")) {
@@ -62,7 +62,7 @@ public class Duke {
                 String[] res = comd.split(" ");
                 String in = res[1];
                 int index = Integer.parseInt(in);
-                System.out.println(index);
+
                 list.get(index - 1).mark();
                 System.out.println("Nice! I've marked this task as done: ");
                 System.out.println(list.get(index - 1).printWithStatus());
@@ -86,6 +86,6 @@ public class Duke {
 
 
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.print("Bye. Hope to see you again soon!");
     }
 }
