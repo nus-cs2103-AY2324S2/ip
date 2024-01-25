@@ -1,6 +1,6 @@
-package task;
+package tasks;
 
-public class Task {
+public abstract class Task {
     private String name;
     private boolean isDone = false;
 
