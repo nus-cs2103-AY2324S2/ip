@@ -1,10 +1,8 @@
 import java.util.Scanner;
 public class Henry {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Task[] items = new Task[100];
-        int numOfItems = 0;
-
+    private static Task[] items = new Task[100];
+    private static int numOfItems = 0;
+    public static void greet() {
         String logo = "  _    _                       \n" +
                 " | |  | |                      \n" +
                 " | |__| | ___ _ __  _ __ _   _ \n" +
@@ -14,16 +12,29 @@ public class Henry {
                 "                          __/ |\n" +
                 "                         |___/ \n";
         String greetMessage = "Hello! I'm Henry\nWhat can I do for you?";
-        String exitMessage = "See you again bro!";
-
         System.out.println(logo);
         System.out.println(greetMessage);
         System.out.println();
+    }
+    public static void bye() {
+        System.out.println("See you again bro!");
+    }
+    public static void addTask(Task task) {
+        items[numOfItems] = task;
+        numOfItems++;
+        System.out.println("Added this task");
+        System.out.println(items[numOfItems - 1]);
+        System.out.printf("Now you have %d tasks in the list :(\n", numOfItems);
+        System.out.println();
+    }
+    public static void main(String[] args) {
+        greet();
 
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             String currentMessage = scanner.nextLine();
             if (currentMessage.equals("bye")) {
-                System.out.println(exitMessage);
+                bye();
                 break;
             } else if (currentMessage.equals("list")) {
                 System.out.println("Here is a list of tasks:");
@@ -46,21 +57,14 @@ public class Henry {
             } else {
                 if (currentMessage.startsWith("todo")) {
                     String description = currentMessage.substring(5);
-                    items[numOfItems] = new Todo(description);
-                    numOfItems++;
+                    addTask(new Todo(description));
                 } else if (currentMessage.startsWith("deadline")) {
                     String[] temp = currentMessage.substring(9).split(" /by ");
-                    items[numOfItems] = new Deadline(temp[0], temp[1]);
-                    numOfItems++;
+                    addTask(new Deadline(temp[0], temp[1]));
                 } else if (currentMessage.startsWith("event")) {
                     String[] temp = currentMessage.substring(6).split(" /from | /to ");
-                    items[numOfItems] = new Event(temp[0], temp[1], temp[2]);
-                    numOfItems++;
+                    addTask(new Event(temp[0], temp[1], temp[2]));
                 }
-                System.out.println("Added this task");
-                System.out.println(items[numOfItems - 1]);
-                System.out.printf("Now you have %d tasks in the list :(\n", numOfItems);
-                System.out.println();
             }
         }
     }
