@@ -1,9 +1,11 @@
+import javax.lang.model.type.DeclaredType;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class Duke {
-    public static void main(String[] args) {
+    static ArrayList<Task> tasks = new ArrayList<>();
+    public static void main(String[] args) throws DylanBotException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -17,82 +19,89 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         String input;
-        ArrayList<Task> tasks = new ArrayList<>();
 
         while (!"bye".equals((input = scanner.nextLine()))) {
-            String[] splitInput = input.split(" ");
             if (input.equals("list")) {
                 for (int i = 0; i < tasks.size(); i++) {
                     Task curr = tasks.get(i);
                     System.out.println("\t" + (i + 1) + ". " + curr.printTask());
                 }
-            } else if (splitInput[0].equals("mark")) {
-                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
-                tasks.get(idx).completed = true;
+            } else if (input.startsWith("mark")) {
+                int idx = Integer.parseInt(input.split(" ")[1]);
+                if (idx > tasks.size() || idx < 0) {
+                    throw new DylanBotException("HEY index requested is out of bounds");
+                }
+                tasks.get(idx - 1).completed = true;
                 System.out.println("Aight marked this task as done:\n\t"
-                        + tasks.get(idx).printTask());
-            } else if (splitInput[0].equals("unmark")) {
-                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
-                tasks.get(idx).completed = false;
+                        + tasks.get(idx - 1).printTask());
+            } else if (input.startsWith("unmark")) {
+                int idx = Integer.parseInt(input.split(" ")[1]);
+                if (idx > tasks.size() || idx < 0) {
+                    throw new DylanBotException("HEY index requested is out of bounds");
+                }
+                tasks.get(idx - 1).completed = false;
                 System.out.println("Sian marked this task as undone:\n\t"
-                        + tasks.get(idx).printTask());
-            } else if (splitInput[0].equals("todo")){
-                Task curr = new Task("T", input);
-                tasks.add(curr);
-                System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
-            } else if (splitInput[0].equals("deadline")) {
-                int idx = 1;
-                StringBuilder desc = new StringBuilder();
-                StringBuilder deadline = new StringBuilder();
-                while (splitInput[idx].charAt(0) != '/') {
-                    desc.append(splitInput[idx]);
-                    desc.append(" ");
-                    idx++;
-                }
-                idx++;
-                while (idx < splitInput.length) {
-                    deadline.append(splitInput[idx]);
-                    deadline.append(" ");
-                    idx++;
-                }
-                Task curr = new Task("D", desc.toString());
-                curr.deadline = deadline.toString();
-                tasks.add(curr);
-                System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
-            } else if (splitInput[0].equals("event")) {
-                int idx = 1;
-                StringBuilder desc = new StringBuilder();
-                StringBuilder from = new StringBuilder();
-                StringBuilder to = new StringBuilder();
-                while (splitInput[idx].charAt(0) != '/') {
-                    desc.append(splitInput[idx]);
-                    desc.append(" ");
-                    idx++;
-                }
-                idx++;
-                while (splitInput[idx].charAt(0) != '/') {
-                    from.append(splitInput[idx]);
-                    from.append(" ");
-                    idx++;
-                }
-                idx++;
-                while (idx < splitInput.length) {
-                    to.append(splitInput[idx]);
-                    to.append(" ");
-                    idx++;
-                }
-                Task curr = new Task("E", desc.toString());
-                curr.from = from.toString();
-                curr.to = to.toString();
-                tasks.add(curr);
-                System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
-            }
-            else {
-                System.out.println("\t" + input);
+                        + tasks.get(idx - 1).printTask());
+            } else if (input.startsWith("todo")) {
+                createTodo(input);
+            } else if (input.startsWith("deadline")) {
+                createDeadline(input);
+            } else if (input.startsWith("event")) {
+                createEvent(input);
+            } else {
+//                System.out.println("\t" + input);
+                throw new DylanBotException("Hello INVALID INPUT pls make it make sense");
             }
             System.out.println("Wow! Now you have " + tasks.size() + " tasks in your list");
         }
         System.out.println(exit);
+    }
+
+    public static void createTodo(String input) throws DylanBotException {
+        String desc = input.substring(5);
+        if (desc.isEmpty()) {
+            throw new DylanBotException("HEY todo description cannot be empty!");
+        }
+        Task curr = new Task("T", desc);
+        tasks.add(curr);
+        System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
+    }
+
+    public static void createDeadline(String input) throws DylanBotException {
+        String[] inputArr = input.split("/by");
+        String desc = inputArr[0].substring(9).trim();
+        String deadline = inputArr[1].trim();
+        if (desc.isEmpty()) {
+            throw new DylanBotException("HEY deadline description cannot be empty!");
+        }
+        if (deadline.isEmpty()) {
+            throw new DylanBotException("HEY deadline tasks need deadlines!");
+        }
+        Task curr = new Task("D", desc);
+        curr.deadline = deadline;
+        tasks.add(curr);
+        System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
+    }
+
+    public static void createEvent(String input) throws DylanBotException {
+        String[] inputArr = input.split("/from|/to");
+        String desc = inputArr[0].substring(6).trim();
+        String from = inputArr[1].trim();
+        String to = inputArr[2].trim();
+        if (desc.isEmpty()) {
+            throw new DylanBotException("HEY event description cannot be empty!");
+        }
+        if (from.isEmpty()) {
+            throw new DylanBotException("HEY event tasks need starting dates!");
+        }
+        if (to.isEmpty()) {
+            throw new DylanBotException("HEY event tasks need ending dates!");
+        }
+        Task curr = new Task("E", desc);
+        curr.from = from;
+        curr.to = to;
+        tasks.add(curr);
+        System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
     }
 
     public static class Task {
@@ -110,8 +119,8 @@ public class Duke {
             return "[" + type + "] "
             + (completed ? "[X]" : "[ ]")
             + " " + desc
-            + (type.equals("D") ? "(by: " + deadline + ")": "")
-            + (type.equals("E") ? "(from: " + from + " to: " + to + ")": "");
+            + (type.equals("D") ? " (by: " + deadline + ")": "")
+            + (type.equals("E") ? " (from: " + from + " to: " + to + ")": "");
         }
     }
 
