@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -13,8 +14,8 @@ public class Duke {
         }
         return true;
     }
-    private static void run() {
-        Task[] storage = new Task[100];
+    private static void run() s{
+        ArrayList<Task> storage = new ArrayList<Task>();
         int currentIdx = 0;
         Scanner sc = new Scanner(System.in);
 
@@ -29,7 +30,7 @@ public class Duke {
                 if (echoInput.equals("list")) {
                     System.out.printf("%s Here are the tasks in your list:\n", hRULER);
                     for (int i = 0; i < currentIdx; i++) {
-                        System.out.printf(" %d.%s\n", i + 1, storage[i].toString());
+                        System.out.printf(" %d.%s\n", i + 1, storage.get(i).toString());
                     }
                     System.out.println(hRULER);
                     continue;
@@ -37,7 +38,7 @@ public class Duke {
                 if (echoInput.substring(0, 4).equals("mark")
                         && isNumeric(echoInput.substring(5))) {
                     int taskIdx = Integer.parseInt(echoInput.substring(5));
-                    storage[taskIdx - 1].markDone();
+                    storage.get(taskIdx - 1).markDone();
                     continue;
                 }
                 else if (echoInput.substring(0, 4).equals("todo")) {
@@ -81,7 +82,16 @@ public class Duke {
                 else if (echoInput.substring(0, 6).equals("unmark") &&
                         isNumeric(echoInput.substring(7))) {
                     int taskIdx = Integer.parseInt(echoInput.substring(7));
-                    storage[taskIdx - 1].unMarkDone();
+                    storage.get(taskIdx - 1).unMarkDone();
+                    continue;
+                }
+                else if (echoInput.substring(0, 6).equals("delete") &&
+                        isNumeric(echoInput.substring(7))) {
+                    int taskIdx = Integer.parseInt(echoInput.substring(7));
+                    Task removed = storage.remove(taskIdx - 1);
+                    currentIdx--;
+                    System.out.printf("%sNoted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n%s",
+                            hRULER, removed, currentIdx, hRULER);
                     continue;
                 }
                 else if (echoInput.substring(0, 8).equals("deadline")) {
@@ -107,7 +117,8 @@ public class Duke {
                 else {
                     throw new UnknownInputException();
                 }
-                storage[currentIdx++] = newTask;
+                storage.add(newTask);
+                currentIdx++;
                 System.out.printf("%s Got it. I've added this task:\n  " +
                         " %s\n Now you have %d tasks in the list.\n%s", hRULER, newTask, currentIdx, hRULER);
             } catch (StringIndexOutOfBoundsException e) {
