@@ -1,5 +1,7 @@
+import java.util.Scanner;
 public class Henry {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         String logo = "  _    _                       \n" +
                 " | |  | |                      \n" +
                 " | |__| | ___ _ __  _ __ _   _ \n" +
@@ -13,6 +15,17 @@ public class Henry {
 
         System.out.println(logo);
         System.out.println(greetMessage);
-        System.out.println(exitMessage);
+        System.out.println();
+
+        while (true) {
+            String currentMessage = scanner.nextLine();
+            if (currentMessage.equals("bye")) {
+                System.out.println(exitMessage);
+                break;
+            } else {
+                System.out.println(currentMessage);
+                System.out.println();
+            }
+        }
     }
 }
