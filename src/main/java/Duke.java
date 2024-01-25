@@ -15,6 +15,5 @@ public class Duke {
         System.out.println("okay then, bye ( •̯́ ^ •̯̀)");
         System.out.println(HORIZONTAL_LINE);
 
-
     }
 }
