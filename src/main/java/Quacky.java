@@ -18,46 +18,52 @@ public class Quacky {
         Scanner scanner = new Scanner(System.in);
         System.out.println(format("Quack! how u doing, Im Quacky. How can I help you?"));
         String command = scanner.nextLine();
-        while(!command.equals("bye")){
-            if(command.equals("list")) {
-                System.out.println(format(tasks.toString()));
-            } else if(command.startsWith("mark ")) {
-                int space = command.indexOf(' ');
-                int taskNumber = Integer.parseInt(command.substring(space + 1)) - 1;
-                tasks.markCompleteTask(taskNumber);
-                String message = "Quack! I marked this task as done \n\t" + tasks.printTask(taskNumber);
-                System.out.println(format(message));
-            } else if(command.startsWith("unmark ")) {
-                int space = command.indexOf(' ');
-                int taskNumber = Integer.parseInt(command.substring(space + 1)) - 1;
-                tasks.unmarkCompleteTask(taskNumber);
-                String message = "Quack! I marked this task as not \n\t" + tasks.printTask(taskNumber);
-                System.out.println(format(message));
-            } else if(command.startsWith("todo ")) {
-                String taskDescription = command.substring(5);
-                Task newTask = new Todo(taskDescription);
-                tasks.addTask(newTask);
-                System.out.println(format("Quack! I've added this task:\n\t" + newTask +
-                        "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
-            } else if (command.startsWith("deadline ")) {
-                String[] parts = command.substring(9).split(" /by ");
-                Task newTask = new Deadline(parts[0], parts[1]);
-                tasks.addTask(newTask);
-                System.out.println(format("Got it. I've added this task:\n\t" + newTask +
-                        "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
-            } else if(command.startsWith("event ")) {
-                String[] parts = command.substring(6).split(" /from | /to ");
-                Task newTask = new Event(parts[0], parts[1], parts[2]);
-                tasks.addTask(newTask);
-                System.out.println(format("Got it. I've added this task:\n\t" + newTask +
-                        "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
-            } else{
-                    Task newTask = new Task(command);
+        while (!command.equals("bye")) {
+            try {
+                if (command.equals("list")) {
+                    System.out.println(format(tasks.toString()));
+                } else if (command.startsWith("mark ")) {
+                    int space = command.indexOf(' ');
+                    int taskNumber = Integer.parseInt(command.substring(space + 1)) - 1;
+                    tasks.markCompleteTask(taskNumber);
+                    String message = "Quack! I marked this task as done \n\t" + tasks.printTask(taskNumber);
+                    System.out.println(format(message));
+                } else if (command.startsWith("unmark ")) {
+                    int space = command.indexOf(' ');
+                    int taskNumber = Integer.parseInt(command.substring(space + 1)) - 1;
+                    tasks.unmarkCompleteTask(taskNumber);
+                    String message = "Quack! I marked this task as not \n\t" + tasks.printTask(taskNumber);
+                    System.out.println(format(message));
+                } else if (command.startsWith("todo ")) {
+                    if (command.trim().equals("todo")) {
+                        throw new QuackyException("Quack Quack Quack (todos need a description)");
+                    }
+                    String taskDescription = command.substring(5);
+                    Task newTask = new Todo(taskDescription);
                     tasks.addTask(newTask);
-                    System.out.println(format("added: " + command));
+                    System.out.println(format("Quack! I've added this task:\n\t" + newTask +
+                            "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
+                } else if (command.startsWith("deadline ")) {
+                    String[] parts = command.substring(9).split(" /by ");
+                    Task newTask = new Deadline(parts[0], parts[1]);
+                    tasks.addTask(newTask);
+                    System.out.println(format("Got it. I've added this task:\n\t" + newTask +
+                            "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
+                } else if (command.startsWith("event ")) {
+                    String[] parts = command.substring(6).split(" /from | /to ");
+                    Task newTask = new Event(parts[0], parts[1], parts[2]);
+                    tasks.addTask(newTask);
+                    System.out.println(format("Got it. I've added this task:\n\t" + newTask +
+                            "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
+                } else {
+                    throw new QuackyException("Quack? (In confusion)");
                 }
-            command = scanner.nextLine();
+            } catch (QuackyException e) {
+                System.out.println(format(e.getMessage()));
+            } finally {
+                command = scanner.nextLine();
             }
+    }
         System.out.println(format("Quack Quack"));
         scanner.close();
     }
