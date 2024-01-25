@@ -36,22 +36,44 @@ public abstract class Ui {
         Scanner sc = new Scanner(System.in);
         boolean terminate = false;
         while (true) {
-            final String command = sc.nextLine();
-            Ui.printStartLine();
-            switch (command) {
-                case "bye":
-                    terminate = true;
+            final String input = sc.nextLine();
+            final String command = Parser.getCommand(input);
+            if (command != null) {
+                Ui.printStartLine();
+                switch (command) {
+                    case "bye":
+                        terminate = true;
+                        break;
+                    case "list":
+                        Duke.taskList.listItem();
+                        break;
+                    case "mark":
+                        Integer idx = Parser.getInteger(input, 1);
+                        if (idx != null) {
+                            Duke.taskList.checkTask(idx - 1);
+                        } else {
+                            final String output = "Failed to get the index!";
+                            System.out.println(output);
+                        }
+                        break;
+                    case "unmark":
+                        Integer idx2 = Parser.getInteger(input, 1);
+                        if (idx2 != null) {
+                            Duke.taskList.uncheckTask(idx2 - 1);
+                        } else {
+                            final String output = "Failed to get the index!";
+                            System.out.println(output);
+                        }
+                        break;
+                    default:
+                        Duke.taskList.storeItem(new Task(input));
+                }
+                if (terminate) {
                     break;
-                case "list":
-                    Duke.itemStorage.listItem();
-                    break;
-                default:
-                    Duke.itemStorage.storeItem(command);
+                }
+                Ui.printEndLine();
             }
-            if (terminate) {
-                break;
-            }
-            Ui.printEndLine();
         }
+        sc.close();
     }
 }
