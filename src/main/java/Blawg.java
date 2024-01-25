@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Blawg {
@@ -53,11 +54,62 @@ public class Blawg {
                         break;
                     }
                 }
-            } else {
+            } else if (userInput.equalsIgnoreCase("todo")){
+                String description = sc.nextLine();
+                ToDos task = new ToDos(description);
+                taskList.add(task);
                 System.out.println("____________________________________________________________\n" +
-                        "added: " + userInput + "\n" +
+                        "Got it. I've added this task: \n" + task + "\n" +
+                        String.format("Now you have %d tasks in the list \n", taskList.size()) +
                         "____________________________________________________________\n");
-                taskList.add(new Task(userInput));
+            } else if (userInput.equalsIgnoreCase("deadline")){
+                String input = sc.nextLine();
+                String lowerCaseInput = input.toLowerCase();
+
+                int byIndex = lowerCaseInput.indexOf(" /by ");
+                int byAltIndex = lowerCaseInput.indexOf(" by ");
+
+                int indexToUse = (byIndex != -1) ? byIndex : byAltIndex;
+                int lengthToSkip = (byIndex != -1) ? 5 : 4;
+                String description = "";
+                String date = "";
+                if(indexToUse != -1) {
+                    description = input.substring(0, indexToUse).trim();
+                    date = input.substring(indexToUse + lengthToSkip).trim();
+                }
+                Deadlines task = new Deadlines(description, date);
+                taskList.add(task);
+                System.out.println("____________________________________________________________\n" +
+                        "Got it. I've added this task: \n" + task + "\n" +
+                        String.format("Now you have %d tasks in the list \n", taskList.size()) +
+                        "____________________________________________________________\n");
+            } else if (userInput.equalsIgnoreCase("event")){
+                    String input = sc.nextLine();
+                    String lowerCaseInput = input.toLowerCase();
+
+                    int fromIndex = lowerCaseInput.indexOf(" /from ");
+                    int fromAltIndex = lowerCaseInput.indexOf(" from ");
+                    int fromIndexToUse = (fromIndex != -1) ? fromIndex : fromAltIndex;
+                    int fromLengthToSkip = (fromIndex != -1) ? 7 : 6;
+
+                    int toIndex = lowerCaseInput.indexOf(" /to ");
+                    int toAltIndex = lowerCaseInput.indexOf(" to ");
+                    int toIndexToUse = (toIndex != -1) ? toIndex : toAltIndex;
+                    int toLengthToSkip = (toIndex != -1) ? 5 : 4;
+                    String description = "";
+                    String startDate = "";
+                    String endDate = "";
+                    if(fromIndexToUse != -1 && toIndexToUse != -1) {
+                        description = input.substring(0, fromIndexToUse).trim();
+                        startDate = input.substring(fromIndexToUse + fromLengthToSkip, toIndexToUse);
+                        endDate = input.substring(toIndexToUse + toLengthToSkip).trim();
+                    }
+                Events task = new Events(description, startDate, endDate);
+                taskList.add(task);
+                System.out.println("____________________________________________________________\n" +
+                        "Got it. I've added this task: \n" + task + "\n" +
+                        String.format("Now you have %d tasks in the list \n", taskList.size()) +
+                        "____________________________________________________________\n");
             }
         }
         sc.close();

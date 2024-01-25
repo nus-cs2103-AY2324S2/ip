@@ -1,10 +1,18 @@
 public class Task {
     private final String description;
     private boolean isDone;
+    private final char shortForm;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.shortForm = 'T';
+    }
+
+    public Task(String description, char shortForm) {
+        this.description = description;
+        this.isDone = false;
+        this.shortForm = shortForm;
     }
 
     public String getStatusIcon() {
@@ -26,6 +34,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s \n", getStatusIcon(), getDescription());
+        return String.format("[%c][%s] %s", this.shortForm, getStatusIcon(), this.description);
     }
 }
