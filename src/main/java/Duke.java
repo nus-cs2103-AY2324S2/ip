@@ -72,6 +72,16 @@ public class    Duke {
                             + "\n Now you have " + (list.size()) + " tasks in the list.\n"
                             + "____________________________________________________________\n";
                     System.out.print(output);
+                } else if (inputParts[0].equals("delete")) {
+                    //handle delete
+                    int inputInt = Integer.parseInt(inputParts[1]);
+                    String output = "____________________________________________________________\n"
+                            + " Noted. I've removed this task:\n"
+                            + "   " + list.get(inputInt - 1)
+                            + "\n Now you have " + (list.size() - 1) + " tasks in the list.\n"
+                            + "____________________________________________________________\n";
+                    list.remove(inputInt - 1);
+                    System.out.println(output);
                 } else {
                     throw new DukeException("harh what u talking sia walao");
                 }
