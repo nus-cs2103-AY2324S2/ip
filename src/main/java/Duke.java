@@ -30,9 +30,9 @@ public class    Duke {
             } else if (original.equals("list")) {
                 //handle "list"
                 StringBuilder listOutput = new StringBuilder("____________________________________________________________\n"
-                        + "Here are the tasks in your list:\n");
+                        + " Here are the tasks in your list:\n");
                 for (int i = 0; i < list.size(); i++) {
-                    listOutput.append(i + 1).append(". ").append(list.get(i).toString()).append("\n");
+                    listOutput.append(" ").append(i + 1).append(". ").append(list.get(i).toString()).append("\n");
                 }
                 listOutput.append("____________________________________________________________\n");
                 System.out.print(listOutput);
@@ -41,8 +41,8 @@ public class    Duke {
                 Task task = new ToDo(original.replace("todo ", ""));
                 list.add(task);
                 String output = "____________________________________________________________\n"
-                        + "Got it. I've added this task:\n"
-                        + task
+                        + " Got it. I've added this task:\n"
+                        + "   " + task
                         + "\n Now you have " + (list.size()) + " tasks in the list.\n"
                         + "____________________________________________________________\n";
                 System.out.print(output);
@@ -52,8 +52,8 @@ public class    Duke {
                 Task task = new Deadline(parts[0], parts[1].replace("by ", ""));
                 list.add(task);
                 String output = "____________________________________________________________\n"
-                        + "Got it. I've added this task:\n"
-                        + task
+                        + " Got it. I've added this task:\n"
+                        + "   " + task
                         + "\n Now you have " + (list.size()) + " tasks in the list.\n"
                         + "____________________________________________________________\n";
                 System.out.print(output);
@@ -63,8 +63,8 @@ public class    Duke {
                 Task task = new Event(parts[0], parts[1].replace("from ", ""), parts[2].replace("to ", ""));
                 list.add(task);
                 String output = "____________________________________________________________\n"
-                        + "Got it. I've added this task:\n"
-                        + task
+                        + " Got it. I've added this task:\n"
+                        + "   " + task
                         + "\n Now you have " + (list.size()) + " tasks in the list.\n"
                         + "____________________________________________________________\n";
                 System.out.print(output);
