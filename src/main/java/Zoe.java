@@ -1,8 +1,10 @@
 import java.util.*;
 public class Zoe {
     protected ArrayList<Task> tasks;
+    protected ArrayList<String> functions = new ArrayList<String>();
     public Zoe() {
         this.tasks = new ArrayList<Task>();
+        functions.addAll(List.of("list", "mark", "unmark", "todo", "deadline", "event"));
     }
     public void saysHi() {
         System.out.println("Hello! I'm Zoe");
@@ -26,8 +28,11 @@ public class Zoe {
                         ("%d.%s", i + 1, tasks.get(i).getStatus()));
             }
         } else {
-            //add error handling, 1 for each of todo, events, deadlines and mark
-            System.out.println("Please enter a valid command, this is a placeholder");
+            if (command.equals("todo")) {
+                System.out.println("Sorry! todo requires a description like todo XYZ");
+            } else {
+                System.out.println("Sorry! I can't carry this out. I can only perform these currently: " + functions);
+            }
         }
     }
 
@@ -76,4 +81,3 @@ public class Zoe {
         }
     }
 }
-
