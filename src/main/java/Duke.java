@@ -58,7 +58,7 @@ public class Duke {
                 }
             } else if (input.startsWith("todo")) {
                 // Add a ToDo task
-                String description = input.substring(4).trim();
+                String description = input.substring(5).trim();
                 if (description.isEmpty()) {
                     System.out.println("OOPS!!! The description of a todo cannot be empty.");
                 } else {
@@ -92,17 +92,35 @@ public class Duke {
                 } else {
                     System.out.println("Invalid event format. Please use: event <description> /from <start> /to <end>");
                 }
+            } else if (input.startsWith("delete")) {
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCounter) {
+                    Task removedTask = tasks[taskIndex];
+                    // Shift tasks to fill the gap
+                    for (int i = taskIndex; i < taskCounter - 1; i++) {
+                        tasks[i] = tasks[i + 1];
+                    }
+                    tasks[taskCounter - 1] = null; // Clear the last element
+                    taskCounter--;
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + removedTask);
+                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                } else {
+                    System.out.println("Invalid task index.");
+                }
+
             } else {
-                tasks[taskCounter] = new Task(input);
-                taskCounter++;
+                    //tasks[taskCounter] = new Task(input);
+                    //taskCounter++;
 //                System.out.println("added: " + input);
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+                printHorizontalLine();
+
+
             }
-            printHorizontalLine();
-
-
-        } while (!input.equalsIgnoreCase("bye"));
-        scanner.close();
+            while (!input.equalsIgnoreCase("bye")) ;
+            scanner.close();
+        }
     }
-}
 
