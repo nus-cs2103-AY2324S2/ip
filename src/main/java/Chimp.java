@@ -24,59 +24,80 @@ public class Chimp {
                 // split at first space, and take everything on the right
                 arg = inp.substring(inp.indexOf(' '), inp.length());
             }
-            int num;
-            switch (command) {
-                case "list":
-                    chimp.print();
-                    break;
-                case "mark":
-                    num = Integer.parseInt(arg);
-                    if (num < 1 || num > chimp.list.size())
-                        throw new InvalidParameterException();
-                    chimp.list.get(num - 1).mark();
-                    chimp.say(phrases.get("mark"), chimp.list.get(num - 1));
-                    break;
-                case "unmark":
-                    num = Integer.parseInt(arg);
-                    if (num < 1 || num > chimp.list.size())
-                        throw new InvalidParameterException();
-                    chimp.list.get(num - 1).unmark();
-                    chimp.say(phrases.get("unmark"), chimp.list.get(num - 1));
-                    break;
-                case "todo": // TODO: Exception handling
-                    chimp.addToList(inp);
-                    chimp.say(chimp.list.get(chimp.list.size() - 1));
-                    break;
-                case "event":
-                    String fromSubCommand = arg.split("/")[1];
-                    String from = fromSubCommand.substring(fromSubCommand.indexOf(' '));
-                    from = from.strip();
 
-                    String toSubCommand = arg.split("/")[2];
-                    String to = toSubCommand.substring(toSubCommand.indexOf(' '));
-                    to = to.strip();
-
-                    String text = arg.split("/")[0].strip();
-                    chimp.addToList(text, from, to);
-                    chimp.say(chimp.list.get(chimp.list.size() - 1));
-                    break;
-                case "deadline":
-                    String bySubCommand = arg.split("/")[1];
-                    String by = bySubCommand.substring(3);
-                    by = by.strip();
-
-                    // TODO: switch case scoping best practice?
-                    text = arg.split("/")[0].strip();
-                    chimp.addToList(text, by);
-                    chimp.say(chimp.list.get(chimp.list.size() - 1));
-                    break;
-                default:
-                    chimp.say(phrases.get("hoo"));
+            try {
+                commandHandler(chimp, phrases, inp, command, arg);
+            } catch (InvalidCommandException | CommandParseException e) {
+                chimp.say(phrases.get("hoo") + " - " + e);
+            } catch (IndexOutOfBoundsException e) {
+                chimp.say(phrases.get("hoo") + " - " + "Invalid number of arguments provided");
+            } finally {
+                inp = sc.nextLine();
             }
-            inp = sc.nextLine();
         }
         chimp.say(phrases.get("bye"));
         sc.close();
+    }
+
+    private static void commandHandler(Chimp chimp, HashMap<String, String> phrases, String inp, String command, String arg) throws InvalidCommandException, CommandParseException {
+        int num;
+        switch (command) {
+            case "list":
+                chimp.print();
+                break;
+            case "mark":
+                num = Integer.parseInt(arg);
+                if (num < 1 || num > chimp.list.size())
+                    throw new CommandParseException("mark must have number argument");
+                chimp.list.get(num - 1).mark();
+                chimp.say(phrases.get("mark"), chimp.list.get(num - 1));
+                break;
+            case "unmark":
+                num = Integer.parseInt(arg);
+                if (num < 1 || num > chimp.list.size())
+                    throw new CommandParseException("unmark must have number argument");
+                chimp.list.get(num - 1).unmark();
+                chimp.say(phrases.get("unmark"), chimp.list.get(num - 1));
+                break;
+            case "todo": // TODO: Exception handling
+                if (arg == null || arg.equals(""))
+                    throw new CommandParseException("todo must have a desc");
+                chimp.addToList(inp);
+                chimp.say(chimp.list.get(chimp.list.size() - 1));
+                break;
+            case "event":
+                String fromSubCommand = arg.split("/")[1];
+                String from = fromSubCommand.substring(fromSubCommand.indexOf(' '));
+                from = from.strip();
+                if (from == null || from.equals(""))
+                    throw new CommandParseException("deadline needs by date/time!");
+
+                String toSubCommand = arg.split("/")[2];
+                String to = toSubCommand.substring(toSubCommand.indexOf(' '));
+                to = to.strip();
+                if (to == null || to.equals(""))
+                    throw new CommandParseException("deadline needs by date/time!");
+
+                String text = arg.split("/")[0].strip();
+                chimp.addToList(text, from, to);
+                chimp.say(chimp.list.get(chimp.list.size() - 1));
+                break;
+            case "deadline":
+                String bySubCommand = arg.split("/")[1];
+                String by = bySubCommand.substring(3);
+                by = by.strip();
+
+                if (by == null || by.equals(""))
+                    throw new CommandParseException("deadline needs by date/time!");
+
+                // TODO: switch case scoping best practice?
+                text = arg.split("/")[0].strip();
+                chimp.addToList(text, by);
+                chimp.say(chimp.list.get(chimp.list.size() - 1));
+                break;
+            default:
+                throw new InvalidCommandException("command \"" + command + "\" is invalid");
+        }
     }
 
 
