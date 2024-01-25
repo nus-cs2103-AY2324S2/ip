@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        StringList list = new StringList();
+        TaskList tasks = new TaskList();
         Greet.greet();
 
         while (true) {
@@ -14,7 +14,7 @@ public class Duke {
                 break;
 
             } else {
-                Processor.process(input, list);
+                Processor.process(input, tasks);
 
             }
         }

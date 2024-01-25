@@ -1,11 +1,12 @@
 import java.util.Objects;
 
 public class Processor {
-    public static void process (String input, StringList taskList) {
+    public static void process (String input, TaskList tasks) {
         if (Objects.equals(input, "list")) {
-            taskList.printList();
+            tasks.printTasks();
+
         } else {
-            taskList.add(input);
+            tasks.addTask(input);
 
         }
     }
