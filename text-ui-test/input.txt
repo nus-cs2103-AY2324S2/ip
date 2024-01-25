@@ -1,0 +1,9 @@
+deadline CS4269 Assignment 2 /by Sunday
+todo MA5211 Assignment 1
+list
+event CS2101 Presentation Meeting /from Jan 25th 7:30pm /to 9pm
+mark 3
+mark 1
+list
+unmark 1
+bye

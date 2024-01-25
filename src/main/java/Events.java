@@ -14,7 +14,7 @@ class Events extends Task {
     }
 
     public String toString() {
-        return super.toString() + " (from:" + this.from + " to:" + this.to + ")";
+        return super.toString() + " (from: " + this.from + " to:" + this.to + ")";
     }
 
     String added(int length) {
