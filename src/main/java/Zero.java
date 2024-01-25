@@ -4,43 +4,65 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Zero {
     private static final String name = "Zero";
     private static final String divider = "____________________________________________________________\n";
-    private static final String greeting = "Hello! I'm " + name + ".\nWhat can I do for you?";
-    private static final String goodbye = "Bye. Hope to see you again soon!";
+    private static final String unmarked = "";
+    private static final String goodbye = "";
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out));
         
-        pw.println(divider + greeting + '\n' + divider);
+        pw.println(divider + "Hello! I'm " + name + ".\nWhat can I do for you?\n" + divider);
         pw.flush();
 
-        ArrayList<String> inputs = new ArrayList<>();
-        String cmd;
+        ArrayList<Task> tasks = new ArrayList<>();
+        String[] cmd;
+        int idx;
         do {
-            cmd = br.readLine();
-            switch (cmd) {
+            pw.print(">>>");
+            pw.flush();
+            cmd = br.readLine().split(" ");
+            switch (cmd[0]) {
                 case "bye":
-                    pw.println(divider + goodbye + '\n' + divider);
+                    pw.println(divider + "Bye. Hope to see you again soon!\n" + divider);
                     break;
                 case "list":
-                    pw.print(divider);
-                    for (int i = 0; i < inputs.size(); i++) {
-                        pw.println((i+1) + ". " + inputs.get(i));
+                    pw.println(divider + "Here are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        pw.println((i+1) + "." + tasks.get(i));
                     }
                     pw.println(divider);
                     break;
+                case "mark":
+                    idx = Integer.parseInt(cmd[1]) - 1;
+                    if (idx < 0 || idx >= tasks.size()) {
+                        pw.println(divider + "Invalid task selected.\nTask number must be between 1 to " + tasks.size());
+                        pw.println(divider);
+                        break;
+                    }
+                    tasks.set(idx, tasks.get(idx).mark());
+                    pw.println("Nice! I've marked this task as done:\n  " + tasks.get(idx) + '\n' + divider);
+                    break;
+                case "unmark":
+                    idx = Integer.parseInt(cmd[1]) - 1;
+                    if (idx < 0 || idx >= tasks.size()) {
+                        pw.println(divider + "Invalid task selected.\nTask number must be between 1 to " + tasks.size());
+                        pw.println(divider);
+                        break;
+                    }
+                    tasks.set(idx, tasks.get(idx).unmark());
+                    pw.println("OK, I've marked this task as not done yet:\n  " + tasks.get(idx) + '\n' + divider);
+                    break;
                 default:
-                    inputs.add(cmd);
-                    pw.println(divider + "Added: " + cmd + '\n' + divider);
+                    String item = String.join(" ", cmd);
+                    tasks.add(new Task(item));
+                    pw.println(divider + "Added: " + item + '\n' + divider);
                     break;
             }
             pw.flush();
-        } while (!cmd.equals("bye"));
+        } while (!cmd[0].equals("bye"));
 
         br.close();
         pw.close();
