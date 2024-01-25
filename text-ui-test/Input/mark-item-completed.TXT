@@ -1,0 +1,11 @@
+todo test
+deadline something /by A day
+event lecture /from Today /to Next Year
+list
+mark 2
+list
+mark 1
+list
+mark 3
+list
+bye
