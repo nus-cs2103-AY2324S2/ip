@@ -129,6 +129,23 @@ public class Liv {
             return;
         }
 
+        if (words[0].equals("delete")) {
+            if (isInteger(words[1])) {
+                int taskIndex = Integer.parseInt(words[1]);
+                Task deletedTask = deleteTask(taskIndex);
+                speak("Noted. I've removed this task:"
+                        + "\n"
+                        + "    "
+                        + deletedTask
+                        + "\n"
+                        + "Now you have " + numberOfTasks + " tasks in the list.");//input);
+                return;
+            } else {
+                speak("Action failed: task index input is not an integer");
+            }
+            return;
+        }
+
         if (words[0].equals("todo")
                 || words[0].equals("deadline")
                 || words[0].equals("event")) {
@@ -197,6 +214,15 @@ public class Liv {
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException(index);
         }
+    }
 
+    private Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
+        try {
+            Task deletedTask = tasks.remove(index - 1);
+            numberOfTasks--;
+            return deletedTask;
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskIndexOutOfBoundsException(index);
+        }
     }
 }
