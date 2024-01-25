@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Duke {
     private boolean isActive;
+    private List<String> myList;
 
     public Duke() {
         this.isActive = true;
+        this.myList = new ArrayList<>();
     }
     public static void main(String[] args) {
         Duke ft = new Duke();
@@ -28,11 +32,26 @@ public class Duke {
     private void nextAction(String input) {
         if (input.equalsIgnoreCase("bye")) {
             this.isActive = false;
+        } else if (input.equalsIgnoreCase("list")) {
+            showList();
         } else {
-            System.out.println("    ____________________________________________________________\n"
-                    + "    "
-                    + input
-                    + "\n    ____________________________________________________________\n");
+            addTask(input);
         }
+    }
+
+    private void addTask(String input) {
+        myList.add(input);
+        System.out.println("    ____________________________________________________________\n"
+                + "    added: "
+                + input
+                + "\n    ____________________________________________________________\n");
+    }
+
+    private void showList() {
+        System.out.println("    ____________________________________________________________\n");
+        for (int i = 1; i < myList.size() + 1; i++) {
+            System.out.println("    " + i + ". " + myList.get(i-1));
+        }
+        System.out.println("    ____________________________________________________________\n");
     }
 }
