@@ -1,6 +1,6 @@
 public class CommandHandler {
     /**
-     * Indents a given command.
+     * Indents a given line.
      *
      * @param line Line to be indented.
      *
