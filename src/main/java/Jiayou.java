@@ -1,11 +1,9 @@
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Jiayou {
     private static final String LINE = "____________________________________________________________";
     private ArrayList<Task> taskList = new ArrayList<Task>();
-    private int counter = 0;
 
     private void printList() {
         System.out.println("Here are the tasks in your list:");
@@ -30,11 +28,31 @@ public class Jiayou {
             case "unmark":
                 unmarkTask(content);
                 break;
+            case "todo":
+                ToDo newToDo = new ToDo(content);
+                taskList.add(newToDo);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newToDo);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                break;
+            case "deadline":
+                String[] deadlineParts = content.split(" /by ");
+                Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                taskList.add(newDeadline);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newDeadline);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                break;
+            case "event":
+                String[] eventParts = content.split(" /from | /to ");
+                Event newEvent = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                taskList.add(newEvent);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newEvent);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                break;
             default:
-                this.counter += 1;
-                Task newTask = new Task(this.counter, input);
-                this.taskList.add(newTask);
-                System.out.println("added: " + input);
+                System.out.println("Command not recognized: " + input + "!");
         }
     }
 
@@ -70,8 +88,6 @@ public class Jiayou {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(Jiayou.LINE);
                 break;
-            } else if (input.equals("list")) {
-                jiayou.printList();
             } else {
                 jiayou.parse(input);
             }

@@ -1,10 +1,9 @@
 public class Task {
     private String description;
-    private int index;
     private boolean isDone = false;
+    private char taskType;
 
-    public Task(int index, String description) {
-        this.index = index;
+    public Task(String description) {
         this.description = description;
     }
 
