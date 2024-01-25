@@ -1,8 +1,8 @@
 import java.util.*;
 
 class Task {
-    private final String taskname;
-    private boolean is_marked;
+    protected final String taskname;
+    boolean is_marked;
 
     Task(String str) {
         this.taskname = str;
@@ -21,7 +21,7 @@ class Task {
         return (is_marked ? "[X]" : "[ ]");
     }
 
-    String added() {
+    String added(int i) {
         return "   added: " + this.taskname;
     }
 

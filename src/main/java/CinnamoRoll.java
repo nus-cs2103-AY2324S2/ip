@@ -21,10 +21,25 @@ class CinnamoRoll {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private String add(String str) {
-        Task task = new Task(str);
-        this.tasks.add(task);
-        return task.added();
+    private String add(String[] instruction) {
+        if (instruction[0].equals("todo")) {
+            Task task = new Todos(instruction[1]);
+            this.tasks.add(task);
+            return task.added(this.tasks.size());
+        }
+        if (instruction[0].equals("deadline")) {
+            String[] schedule = instruction[1].split("/by", 2);
+            Task task = new Deadlines(schedule[0], schedule[1]);
+            this.tasks.add(task);
+            return task.added(this.tasks.size());
+        }
+        if (instruction[0].equals("event")) {
+            String[] schedule = instruction[1].split("/from | /to");
+            Task task = new Events(schedule[0], schedule[1], schedule[2]);
+            this.tasks.add(task);
+            return task.added(this.tasks.size());
+        }
+        return "";
     }
 
     private String list() {
@@ -42,28 +57,32 @@ class CinnamoRoll {
 
     String unmark(int index) {
         this.tasks.get(index).unmarked();
-        return "   Nice! I've marked this task as done:\n" + "      " + this.tasks.get(index).toString();
+        return "   Ok! I've marked this task as not done yet:\n" + "      " + this.tasks.get(index).toString();
     }
 
     String respond(String str) {
-        if (str.length() >= 6) {
 
-            if (str.substring(0, 4).equals("mark")) {
-                int input = Integer.parseInt(str.substring(str.length() - 1));
+        String[] arr = str.split(" ", 2);
+        String instruction = arr[0];
 
-                return (input > this.tasks.size() ? "Your input integer value is out of range!" : this.mark(input - 1));
+        if (instruction.equals("mark")) {
+            int input = Integer.parseInt(arr[1]);
 
-            }
-            if (str.substring(0, 6).equals("unmark")) {
-                int input = Integer.parseInt(str.substring(str.length() - 1));
-
-                return (input > this.tasks.size() ? "Your input integer value is out of range!" : this.unmark(input - 1));
-            }
+            return (input > this.tasks.size() ? "Your input integer value is out of range!" : this.mark(input - 1));
         }
-        if (str.equals("list")) {
+        if (instruction.equals("unmark")) {
+            int input = Integer.parseInt(arr[1]);
+
+            return (input > this.tasks.size() ? "Your input integer value is out of range!" : this.unmark(input - 1));
+
+        }
+        if (instruction.equals("list")) {
             return this.list();
+        }
+        if (instruction.equals("todo") || instruction.equals("deadline") || instruction.equals("event")){
+            return this.add(arr);
         } else {
-            return this.add(str);
+            return "";
         }
     }
 }
