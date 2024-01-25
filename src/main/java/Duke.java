@@ -18,43 +18,101 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input;
         ArrayList<Task> tasks = new ArrayList<>();
+
         while (!"bye".equals((input = scanner.nextLine()))) {
+            String[] splitInput = input.split(" ");
             if (input.equals("list")) {
                 for (int i = 0; i < tasks.size(); i++) {
                     Task curr = tasks.get(i);
                     System.out.println("\t" + (i + 1) + ". "
-                            + curr.printStatus() + " "
-                            + curr.desc);
+                            + curr.printTask());
                 }
-            } else if (input.split(" ")[0].equals("mark")) {
+            } else if (splitInput[0].equals("mark")) {
                 int idx = Integer.parseInt(input.split(" ")[1]) - 1;
                 tasks.get(idx).completed = true;
                 System.out.println("Aight marked this task as done:\n\t"
-                        + tasks.get(idx).printStatus() + " " + tasks.get(idx).desc);
-            } else if (input.split(" ")[0].equals("unmark")) {
+                        + tasks.get(idx).printTask());
+            } else if (splitInput[0].equals("unmark")) {
                 int idx = Integer.parseInt(input.split(" ")[1]) - 1;
                 tasks.get(idx).completed = false;
                 System.out.println("Sian marked this task as undone:\n\t"
-                        + tasks.get(idx).printStatus() + " " + tasks.get(idx).desc);
-            } else {
-                tasks.add(new Task(input));
+                        + tasks.get(idx).printTask());
+            } else if (splitInput[0].equals("todo")){
+                Task curr = new Task("T", input);
+                tasks.add(curr);
+                System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
+            } else if (splitInput[0].equals("deadline")) {
+                int idx = 1;
+                StringBuilder desc = new StringBuilder();
+                StringBuilder deadline = new StringBuilder();
+                while (splitInput[idx].charAt(0) != '/') {
+                    desc.append(splitInput[idx]);
+                    desc.append(" ");
+                    idx++;
+                }
+                idx++;
+                while (idx < splitInput.length) {
+                    deadline.append(splitInput[idx]);
+                    deadline.append(" ");
+                    idx++;
+                }
+                Task curr = new Task("D", desc.toString());
+                curr.deadline = deadline.toString();
+                tasks.add(curr);
+                System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
+            } else if (splitInput[0].equals("event")) {
+                int idx = 1;
+                StringBuilder desc = new StringBuilder();
+                StringBuilder from = new StringBuilder();
+                StringBuilder to = new StringBuilder();
+                while (splitInput[idx].charAt(0) != '/') {
+                    desc.append(splitInput[idx]);
+                    desc.append(" ");
+                    idx++;
+                }
+                idx++;
+                while (splitInput[idx].charAt(0) != '/') {
+                    from.append(splitInput[idx]);
+                    from.append(" ");
+                    idx++;
+                }
+                idx++;
+                while (idx < splitInput.length) {
+                    to.append(splitInput[idx]);
+                    to.append(" ");
+                    idx++;
+                }
+                Task curr = new Task("E", desc.toString());
+                curr.from = from.toString();
+                curr.to = to.toString();
+                tasks.add(curr);
+                System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
+            }
+            else {
                 System.out.println("\t" + input);
             }
+            System.out.println("Wow! Now you have " + tasks.size() + " tasks in your list");
         }
         System.out.println(exit);
     }
 
     public static class Task {
-        public String desc;
+
+        public String type, desc, deadline, from, to;
         public boolean completed;
 
-        public Task(String desc) {
+        public Task(String type, String desc) {
+            this.type  = type;
             this.desc = desc;
             this.completed = false;
         }
 
-        public String printStatus() {
-            return (completed ? "[X]" : "[ ]");
+        public String printTask() {
+            return "[" + type + "] "
+            + (completed ? "[X]" : "[ ]")
+            + " " + desc
+            + (type.equals("D") ? "(by: " + deadline + ")": "")
+            + (type.equals("E") ? "(from: " + from + " to: " + to + ")": "");
         }
     }
 
