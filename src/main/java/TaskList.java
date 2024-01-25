@@ -11,6 +11,10 @@ public class TaskList {
         this.list.add(t);
     }
 
+    public int getLength() {
+        return this.list.size();
+    }
+
     public Task markTask(int i) {
         Task t = this.list.get(i);
         t.mark();
@@ -23,6 +27,7 @@ public class TaskList {
         return t;
     }
 
+    @Override
     public String toString() {
         StringBuilder displayString = new StringBuilder();
         int count = 1;

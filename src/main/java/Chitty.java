@@ -4,25 +4,47 @@ public class Chitty {
     private static final String CHATBOT_NAME = "Chitty";
     private static final String GREETING_MESSAGE = String.format("Hello! I'm %s \nWhat can I do for you?\n", CHATBOT_NAME);
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!\n";
+    private static final String ADD_TASK = "Got it. I've added this task:\n";
+    private static final String LIST_TASKS = "Here are the tasks in your list:\n";
+    private static final String TASK_LENGTH = "Now you have %d tasks in the list.\n";
     private static final String MARK_TASK = "Nice! I've marked this task as done: \n";
     private static final String UNMARK_TASK = "OK, I've marked this task as not done yet: \n";
     private static final String SPACING = "---------------------------------------------------\n";
     private static final TaskList taskList = new TaskList();
 
-
-
     private static void greet() {
         System.out.println(SPACING + GREETING_MESSAGE + SPACING);
     }
 
-    private static void addTask(String taskDescription) {
-        Task newTask = new Task(taskDescription);
+    private static void addTodo(String taskDescription) {
+        Task newTask = new Todo(taskDescription);
         taskList.addTask(newTask);
-        System.out.println(SPACING + "added: " + newTask + "\n" + SPACING);
+        System.out.println(SPACING + ADD_TASK + newTask + "\n" +
+                String.format(TASK_LENGTH, taskList.getLength())+ SPACING);
+    }
+
+    private static void addDeadline(String[] deadlineDetails) {
+        String deadlineDescription = deadlineDetails[0];
+        String deadline = deadlineDetails[1].split(" ", 2)[1];
+        Task newTask = new Deadline(deadlineDescription, deadline);
+        taskList.addTask(newTask);
+        System.out.println(SPACING + ADD_TASK + newTask + "\n" +
+                String.format(TASK_LENGTH, taskList.getLength())+ SPACING);
+    }
+
+    private static void addEvent(String[] eventDetails) {
+        String eventDescription = eventDetails[0];
+        String[] fromToDetails = eventDetails[1].split("/", 2);
+        String from = fromToDetails[0].split(" ", 2)[1];
+        String to = fromToDetails[1].split(" ", 2)[1];
+        Task newTask = new Event(eventDescription, from, to);
+        taskList.addTask(newTask);
+        System.out.println(SPACING + ADD_TASK + newTask + "\n" +
+                String.format(TASK_LENGTH, taskList.getLength())+ SPACING);
     }
 
     private static void listTasks() {
-        System.out.println(SPACING + taskList + SPACING);
+        System.out.println(SPACING + LIST_TASKS + taskList + SPACING);
     }
 
     private static void markTask(int i) {
@@ -43,8 +65,8 @@ public class Chitty {
         greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            String input = scanner.nextLine();
-            String command = input.split(" ")[0].toUpperCase();
+            String[] input = scanner.nextLine().split(" ", 2);
+            String command = input[0].toUpperCase();
             switch (command) {
                 case "LIST":
                     listTasks();
@@ -52,14 +74,20 @@ public class Chitty {
                 case "BYE":
                     bye();
                     return;
+                case "TODO":
+                    addTodo(input[1]);
+                    break;
+                case "DEADLINE":
+                    addDeadline(input[1].split("/", 2));
+                    break;
+                case "EVENT":
+                    addEvent(input[1].split("/", 2));
+                    break;
                 case "MARK":
-                    markTask(Integer.parseInt(input.split(" ")[1]));
+                    markTask(Integer.parseInt(input[1]));
                     break;
                 case "UNMARK":
-                    unmarkTask(Integer.parseInt(input.split(" ")[1]));
-                    break;
-                default:
-                    addTask(input);
+                    unmarkTask(Integer.parseInt(input[1]));
                     break;
             }
         }

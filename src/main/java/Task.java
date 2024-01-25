@@ -7,10 +7,6 @@ public class Task {
         this.done = false;
     }
 
-    public String getDescription() {
-        return this.description;
-    }
-
     public void mark() {
         this.done = true;
     }
@@ -19,8 +15,9 @@ public class Task {
         this.done = false;
     }
 
+    @Override
     public String toString() {
-        String checkBox = this.done ? "[X]" : "[]";
+        String checkBox = this.done ? "[X]" : "[ ]";
         return checkBox + " " + this.description;
     }
 }
