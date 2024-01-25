@@ -21,8 +21,8 @@ public class Duke {
                 for (int i = 1; i <= counter; i++) {
                     Task task = tasks[i - 1];
                     String taskStatus = task.getStatusIcon();
-                    String taskDesc = task.getDescription();
-                    System.out.println(i + ". [" + taskStatus + "]"  + taskDesc);
+                    String taskDesc = task.toString();
+                    System.out.println(i + "." + taskDesc);
                 }
                 continue;
             }
@@ -34,16 +34,66 @@ public class Duke {
                     Task task = tasks[taskNumber - 1];
                     task.markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[x] " + task.getDescription());
+                    System.out.println(task.toString());
                 } else {
                     System.out.println("Invalid task number. Please provide a valid task number.");
                 }
                 continue;
             }
-            Task t = new Task(input);
-            tasks[counter] = t;
-            counter++;
+
+            if (input.startsWith("todo")) {
+                String taskDesc = input.substring(5);
+                Task t = new Todo(taskDesc);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(t.toString());
+
+                tasks[counter] = t;
+                counter++;
+
+                System.out.println("Now you have " + counter + " tasks in the list.");
+
+            }
+
+            if (input.startsWith("deadline")) {
+                String toSplit = input.substring(9);
+                String[] parts = toSplit.split("/by");
+
+                String taskDesc = parts[0].trim();
+                String deadline = parts[1].trim();
+
+                Task t = new Deadline(taskDesc, deadline);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(t.toString());
+
+                tasks[counter] = t;
+                counter++;
+
+                System.out.println("Now you have " + counter + " tasks in the list.");
+            }
+
+            if (input.startsWith("event")) {
+                String toSplit = input.substring(6);
+                String[] parts = toSplit.split("/from");
+
+                String taskDesc = parts[0].trim();
+                String[] timeParts = parts[1].split("/to");
+                String from = timeParts[0].trim();
+                String to = timeParts[1].trim();
+
+                Task t = new Event(taskDesc, from, to);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(t.toString());
+
+                tasks[counter] = t;
+                counter++;
+
+                System.out.println("Now you have " + counter + " tasks in the list.");
+            }
+
+
         }
     }
 }
+
+
 
