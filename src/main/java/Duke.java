@@ -26,7 +26,8 @@ public class Duke {
                 Integer taskNum = Integer.valueOf(userTxt.substring(5)) - 1;
                 listArr[taskNum].setDone();
             } else if (userTxt.startsWith("unmark")) {
-
+                Integer taskNum = Integer.valueOf(userTxt.substring(7)) - 1;
+                listArr[taskNum].setUndone();
             } else {
                 System.out.println("added: " + userTxt);
                 Task t = new Task(userTxt);
