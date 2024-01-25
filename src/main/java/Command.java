@@ -1,6 +1,17 @@
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Command {
+    static final Set<String> commandSet = new HashSet<>(Set.of(
+        "bye",
+        "list",
+        "mark",
+        "unmark",
+        "todo",
+        "deadline",
+        "event"
+    ));
     
     public static void scan() {
         Scanner scanner = new Scanner(System.in);
@@ -12,34 +23,57 @@ public class Command {
             String[] words = userInput.split("\\s+");
 
             String command = words[0];
-            switch (command) {
-                case "bye":
-                    Bird.goodbye();
-                    exitScan = true;
-                    break;
-                case "list":
-                    Bird.list();
-                    break;
-                default:
-                    // 2nd switch is for commands with arguments
-                    String arguments = userInput.substring(command.length()+1);
-                    switch (command) {
-                        case "mark":
-                            Bird.markTask(Integer.parseInt(arguments));
-                            break; 
-                        case "unmark":
-                            Bird.unmarkTask(Integer.parseInt(arguments));
-                            break;
-                        case "todo":
-                            Bird.addTask(processToDo(arguments));
-                            break;
-                        case "deadline":
-                            Bird.addTask(processDeadline(arguments));
-                            break;
-                        case "event":
-                            Bird.addTask(processEvent(arguments));
-                            break;
-                    }      
+            
+            boolean commandValid = true;
+            try {
+                if (!commandSet.contains(command)) {
+                    commandValid = false;
+                    throw new CommandNotFoundException(command);
+                }
+            } catch (CommandNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+
+            if (commandValid) {
+                switch (command) {
+                    case "bye":
+                        Bird.goodbye();
+                        exitScan = true;
+                        break;
+                    case "list":
+                        Bird.list();
+                        break;
+                    default:
+                        // The logic below is for commands with arguments
+                        boolean argumentsValid = false;
+                        String arguments = "";
+                        try {
+                            arguments = userInput.substring(command.length()+1);
+                            argumentsValid = true;
+                        } catch (StringIndexOutOfBoundsException e) {
+                            System.out.println("Error: Arguments are required for " + command);
+                        }
+                        
+                        if (argumentsValid) {
+                            switch (command) {
+                                case "mark":
+                                    Bird.markTask(Integer.parseInt(arguments));
+                                    break; 
+                                case "unmark":
+                                    Bird.unmarkTask(Integer.parseInt(arguments));
+                                    break;
+                                case "todo":
+                                    Bird.addTask(processToDo(arguments));
+                                    break;
+                                case "deadline":
+                                    Bird.addTask(processDeadline(arguments));
+                                    break;
+                                case "event":
+                                    Bird.addTask(processEvent(arguments));
+                                    break;
+                            }  
+                        }
+                }
             }
         }
         scanner.close();
