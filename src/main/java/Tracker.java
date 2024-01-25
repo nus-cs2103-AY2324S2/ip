@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import static java.lang.Integer.parseInt;
@@ -56,53 +58,47 @@ public class Tracker {
 
     public static void ProcessQuery(String s) {
         String[] tokens = s.split(" ");
-        switch (tokens[0].toLowerCase()) {
+        ArrayList<String> args = new ArrayList<String>(Arrays.asList(tokens));
+
+        switch (args.getFirst().toLowerCase()) {
             case "list":
                 listTasks();
                 break;
             case "mark":
-                if (tasks.isEmpty()) {
-                    System.out.println("There's nothing to mark, Yay!");
-                    break;
-                }
                 try {
-                    if (parseInt(tokens[1]) > tasks.size() || parseInt(tokens[1]) <= 0) {
-                        System.out.println("You don't have that task silly!");
-                        break;
-                    }
-                    Task t = tasks.get(parseInt(tokens[1]) - 1);
-                    t.mark(true);
-                    System.out.println("I've marked task " + tokens[1]);
-                } catch(NumberFormatException | ArrayIndexOutOfBoundsException  e) {
+                    int taskIndex = parseInt(tokens[1]) - 1;
+                    Task t = tasks.get(taskIndex);
+                    t.mark(true, taskIndex);
+                } catch(NumberFormatException | IndexOutOfBoundsException e) {
                     System.out.println("Usage: mark <taskNumber>");
                 }
                 break;
             case "unmark":
-                if (tasks.isEmpty()) {
-                    System.out.println("Hmm Where is there a task to unmark... THERE'S NONE!");
-                    break;
-                }
                 try {
-                    if (parseInt(tokens[1]) > tasks.size() || parseInt(tokens[1]) <= 0) {
-                        System.out.println("You don't have that many tasks silly!");
-                        break;
-                    }
-                    Task t = tasks.get(parseInt(tokens[1]) - 1);
-                    t.mark(false);
-                    System.out.println("I've unmarked task " + tokens[1]);
-                } catch(NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    int taskIndex = parseInt(tokens[1]) - 1;
+                    Task t = tasks.get(taskIndex);
+                    t.mark(false, taskIndex);
+                } catch(NumberFormatException | IndexOutOfBoundsException e) {
                     System.out.println("Usage: mark <taskNumber>");
                 }
                 break;
+            case "todo":
+                // Can we get the class itself to perform regex?
+                addTask(Todo.extractDetails(s));
+                break;
+            case "deadline":
+                addTask(Deadline.extractDetails(args));
+                break;
+            case "event":
+                addTask(Event.extractDetails(args));
+                break;
             default:
-                addTask(s);
-                //System.out.println("Whatcha sayin? scream 'help!' for list of my services");
+                System.out.println("Whatcha sayin? scream 'help!' for list of my services");
         }
     }
-    public static void addTask(String task) {
-        Task t = new Task(task);
-        tasks.add(t);
-        System.out.println(PrependMessages.randomMsg() + task + AppendMessages.randomMsg());
+    public static void addTask(Task task) {
+        tasks.add(task);
+        System.out.println(PrependMessages.randomMsg() + task.brief() + AppendMessages.randomMsg());
     }
 
     public static String listTasks() {
@@ -116,4 +112,5 @@ public class Tracker {
         System.out.println(result);
         return result.toString();
     }
+
 }
