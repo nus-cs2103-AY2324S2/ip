@@ -1,19 +1,91 @@
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.Formatter;
+import java.io.BufferedReader;
+import java.io.StringReader;
+
 public class Duke {
-    public static final String HORIZONTAL_LINE = "____________________________________________________________";
-    public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
-        String name = "[_NAME_PLACERHOLDER]";
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("hello! my name is " + name + "૮ ˶ᵔ ᵕ ᵔ˶ ა");
-        System.out.println("What would you like for me to do?");
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("okay then, bye ( •̯́ ^ •̯̀)");
-        System.out.println(HORIZONTAL_LINE);
+
+    public static void main(String[] args) throws Exception{
+
+        String NAME = "pipi"; // TENTATIVE
+
+//        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        String ln = sc.nextLine();
+
+        bot_functions.shifted_print(bot_functions.greetingString(NAME));
+
+        Boolean exitFlag = false;
+
+        while (!exitFlag) {
+            String input_command = br.readLine();
+
+            if (input_command.equalsIgnoreCase("exit")) {
+                bot_functions.shifted_print(bot_functions.signoffString());
+                System.exit(0);
+
+            } else {
+                bot_functions.shifted_print(bot_functions.echoString(input_command));
+            }
+        }
+
+//
+//
+//        bot_functions.shifted_print(bot_functions.greetingString(NAME));
+//        bot_functions.shifted_print(bot_functions.signoffString());
+
+    }
+
+    public static class bot_functions {
+        public static final String HORIZONTAL_LINE = "____________________________________________________________\n";
+
+        public static String greetingString(String name){
+            String msg = "";
+            msg += String.format("%35s", "૮ ˶ᵔ ᵕ ᵔ˶ ა\n");
+            msg += "heyo! my name is " + name + "\n";
+            msg += "What would you like for me to do?\n";
+            return msg;
+        }
+
+        public static String sadcat() {
+            return
+        "⠀               />    フ\n" +
+        "               | 　_  _|\n" +
+        "             ／` ミ＿_xノ\n" +
+        "          /　　　     |\n" +
+        "         /　 ヽ　     ﾉ\n" +
+        "        │　    |　|　|\n" +
+        "    ／￣|　    |　|　|\n" +
+        "    | (￣ ヽ＿ヽ_)__)\n" +
+        "    ＼二つ⠀⠀\n";
+        }
+        public static String signoffString(){
+            String msg = "";
+            msg += "okay then, bye\n";
+//            msg += String.format("%40s", "( •̯́ ^ •̯̀)]\n");
+            msg += sadcat();
+
+            return msg;
+        }
+
+        public  static String echoString(String text) {
+            return text;
+        }
+
+        public static void shifted_print(String text) throws Exception{
+            BufferedReader br = new BufferedReader(new StringReader(text));
+            String readText = br.readLine();
+            String output = "";
+            output += "      " + HORIZONTAL_LINE;
+            while (readText != null) {
+                output += "      " + readText + "\n";
+                readText = br.readLine();
+            }
+            output += "      " + HORIZONTAL_LINE;
+            System.out.print(output);
+        }
 
     }
 }
+
