@@ -3,51 +3,132 @@ import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
+        ListAdder newList = new ListAdder();
+        newList.start();
+    }    
+}
 
-        String name = "Big Boy";
-        String greeting = "Hello! I'm " + name + ", your new friend!" + "\n" + "What can I do for you?";
-        String line = "____________________________________________________________";
-        String exit = "Bye. Hope to see you again soon!";
-        ArrayList<String> stringList = new ArrayList<>();
-        int itemIndex = 1;
+class ListAdder {
+    private ArrayList<Item> itemList = new ArrayList<>();
+    private int itemIndex;
+    private static final String line = "____________________________________________________________";
 
+    public ListAdder() {
+        this.itemIndex = 1;
+    }
 
-        // add input. program repeats user's input until user types "bye"
-        System.out.println(line);
-        System.out.println(greeting);
-        System.out.println(line);
-
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        
-        // if user types "bye", program exits
+    public void start() {
+        greeting();
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
         while (!input.equals("bye")) {
-            System.out.println(line);
-
-            // if user types "list", program prints out all the items in the list
             if (input.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (String item : stringList) {
-                    System.out.println(item);
-                }
-                System.out.println(line);
-                input = in.nextLine();
-                continue;
-                
-            // if user types anything else, program adds the text to the list
+                printList();
+            } else if (input.startsWith("mark done")) { // item is already done
+                int index = Integer.parseInt(input.substring(9).trim()) - 1;
+                markDone(index);
+
+            } else if (input.startsWith("mark undone")) { // item is already undone
+                int index = Integer.parseInt(input.substring(11).trim()) - 1;
+                markUndone(index);
+
             } else {
-                System.out.println("added: " + input);
-                stringList.add(itemIndex + ". " + input);
-                itemIndex++;
+                addItem(input);
             }
-
+            // System.out.println(line);
+            input = sc.nextLine();
             System.out.println(line);
-            input = in.nextLine();
         }
+        // System.out.println(line);
+        System.out.println("Bye. Hope to see you again soon!");
+        // System.out.println(line);
+    }
 
-        in.close();
-        System.out.println(line);
-        System.out.println(exit);
-        System.out.println(line);
+
+    private void greeting() {
+        // System.out.println(line);
+        System.out.println("Hello! My name is Computer Helper Boy."+ "\n");
+        System.out.println("Provide an input to add it to your to-do list." + "\n");
+        System.out.println("Type 'list' to see your list, and 'bye' to exit the program.");
+        // System.out.println(line);
+    }
+
+    // Adds item to list with ability to mark as done
+    private void addItem(String item) {
+        Item newItem = new Item(item);
+        this.itemList.add(newItem);
+        // System.out.println(line);
+        System.out.println("Added task: " + item);
+        // System.out.println(line);
+    }
+
+    private void printList() {
+        System.out.println("Here is your to-do list:");
+        for (Item item : this.itemList) {
+            System.out.println(item.isDone() ? "[X] " + item : "[ ] " + item);
+            this.itemIndex++;
+        }
+        // System.out.println(line);
+    }
+
+    private void markDone(int index) {
+        try {
+            if (this.itemList.get(index).isDone()) {
+                System.out.println("You completed this task already!");
+            } else {
+                this.itemList.get(index).markDone();
+                System.out.println("Good job! I've marked this task as done:");
+                System.out.println("[X] " + this.itemList.get(index));
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Oops! Your list isn't that long :P");
+        } catch (NumberFormatException e) {
+            System.out.println("This number isn't valid!");
+        }
+        // System.out.println(line);
+    }
+
+    private void markUndone(int index) {
+        try {
+            if (!this.itemList.get(index).isDone()) {
+                System.out.println("Oops! You still haven't done this task!");
+            } else {
+                this.itemList.get(index).markUndone();
+                System.out.println("I've marked this task as undone:");
+                System.out.println("[ ] " + this.itemList.get(index));
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Oops! Your list isn't that long :P");
+        } catch (NumberFormatException e) {
+            System.out.println("This number isn't valid!");
+        }
+        // System.out.println(line);
+    }
+}
+
+class Item {
+    private String item;
+    private boolean isDone;
+
+    public Item(String item) {
+        this.item = item;
+        this.isDone = false;
+    }
+
+    public void markDone() {
+        this.isDone = true;
+    }
+
+    public void markUndone() {
+        this.isDone = false;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    @Override
+    public String toString() {
+        return this.item;
     }
 }
