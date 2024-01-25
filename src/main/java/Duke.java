@@ -30,7 +30,7 @@ public class Duke {
         Scanner input = new Scanner(System.in);
         String[] currInput = input.nextLine().split(" ", 2);
 
-        while (!exitProgramme.contains(currInput)) {
+        while (!exitProgramme.contains(currInput[0])) {
             String cmd = currInput[0];
 
             if (cmd.equals("list")) {               // list tasks
@@ -84,6 +84,7 @@ public class Duke {
             currInput = input.nextLine().split(" ", 2);
         }
 
-        System.out.println("   Bye! " + catchphrases[random.nextInt(catchphrases.length)] + "\n" + line);
+        // System.out.print("   Bye! " + catchphrases[random.nextInt(catchphrases.length)] + "\n" + line);
+        System.out.print("   Bye! " + catchphrases[0] + "\n" + line);
     }
 }
