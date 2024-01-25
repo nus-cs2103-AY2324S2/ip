@@ -41,15 +41,7 @@ public class Duke {
                         System.out.println("     Nice! I've marked this task as done:");
                         System.out.println("       " + tasks[taskNumber]);
                         System.out.println("    ____________________________________________________________");
-                    } else if (taskNumber >= tasknum) {
-                        System.out.println("    ____________________________________________________________");
-                        System.out.println("    ERROR! YOU DON'T HAVE THAT MANY TASKS. TRY AGAIN.");
-                        System.out.println("    ____________________________________________________________");
-                    } else {
-                        System.out.println("    ____________________________________________________________");
-                        System.out.println("    NEGATIVE TASKS? THAT DOESN'T EXIST. TRY AGAIN.");
-                        System.out.println("    ____________________________________________________________");
-                    }
+                    } else erroring(tasknum, taskNumber);
                 }
             } else if (echo.startsWith("unmark") || echo.startsWith("Unmark")) {
                 int pos = echo.indexOf(" ");
@@ -63,14 +55,8 @@ public class Duke {
                         System.out.println("     Nice! I've marked this task as not done:");
                         System.out.println("       " + tasks[taskNumber]);
                         System.out.println("    ____________________________________________________________");
-                    } else if (taskNumber >= tasknum) {
-                        System.out.println("    ____________________________________________________________");
-                        System.out.println("    ERROR! YOU DON'T HAVE THAT MANY TASKS. TRY AGAIN.");
-                        System.out.println("    ____________________________________________________________");
                     } else {
-                        System.out.println("    ____________________________________________________________");
-                        System.out.println("    NEGATIVE TASKS? THAT DOESN'T EXIST. TRY AGAIN.");
-                        System.out.println("    ____________________________________________________________");
+                        erroring(tasknum, taskNumber);
                     }
                 }
             } else {
@@ -80,6 +66,18 @@ public class Duke {
                 tasknum++;
                 System.out.println("    _______________________________________________________");
             }
+        }
+    }
+
+    private static void erroring(int tasknum, int taskNumber) {
+        if (taskNumber >= tasknum) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("    ERROR! YOU DON'T HAVE THAT MANY TASKS. TRY AGAIN.");
+            System.out.println("    ____________________________________________________________");
+        } else {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("    NEGATIVE TASKS? THAT DOESN'T EXIST. TRY AGAIN.");
+            System.out.println("    ____________________________________________________________");
         }
     }
 }
