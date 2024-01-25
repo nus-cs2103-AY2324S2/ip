@@ -16,7 +16,7 @@ public class Todo extends Task {
         Todo curr = new Todo(taskName.strip());
         Duke.taskList.add(curr);
         System.out.println("Yer task has been added: \n  " + curr);
-        System.out.println("Now you have " + Duke.taskList.size() + " task(s) in the list.");
+        Task.getNumberOfTasks();
     }
     @Override
     public String toString() {

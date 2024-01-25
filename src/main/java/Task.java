@@ -33,10 +33,25 @@ public class Task {
         System.out.println("added: " + curr);
     }
 
+    public static void removeTask(String description) {
+        String[] tokens = description.split(" ");
+        if (tokens.length == 1)
+            throw new ArrayIndexOutOfBoundsException("Please enter the index of the task to be deleted.");
+        int index = Integer.parseInt(tokens[1]);
+        Task curr = Duke.taskList.remove(index-1);
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println("  " + curr);
+        getNumberOfTasks();
+    }
+
     public static void listTask() {
         for (int i = 0; i < Duke.taskList.size(); i++) {
             System.out.println(i+1 + ". " + Duke.taskList.get(i));
         }
+    }
+
+    public static void getNumberOfTasks() {
+        System.out.println("Now you have " + Duke.taskList.size() + " task(s) in the list.");
     }
 
     @Override

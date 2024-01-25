@@ -33,14 +33,20 @@ public class Duke {
         String command = tokens[0].split(" ")[0];
         while (!command.equals("bye")) {
             Duke.line();
-            if (command.equals("list")) {
-                Task.listTask();
-            } else if (command.equals("mark")) {
-                Task.setDone(Integer.parseInt(tokens[0].split(" ")[1]));
-            } else if (command.equals("unmark")) {
-                Task.setNotDone(Integer.parseInt(tokens[0].split(" ")[1]));
-            } else {
-                handleTask(command, description);
+            try {
+                if (command.equals("list")) {
+                    Task.listTask();
+                } else if (command.equals("mark")) {
+                    Task.setDone(Integer.parseInt(tokens[0].split(" ")[1]));
+                } else if (command.equals("unmark")) {
+                    Task.setNotDone(Integer.parseInt(tokens[0].split(" ")[1]));
+                } else if (command.equals("delete")) {
+                    Task.removeTask(description);
+                } else {
+                    addingTask(command, description);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
             Duke.line();
             description = br.readLine();
@@ -50,8 +56,8 @@ public class Duke {
         Duke.bye();
     }
 
-    public static void handleTask(String command, String description) {
-        try {
+    public static void addingTask(String command, String description) throws Exception{
+
             if (command.equals("todo")) {
                 Todo.addTask(description);
             } else if (command.equals("deadline")) {
@@ -59,13 +65,9 @@ public class Duke {
             } else if (command.equals("event")) {
                 Event.addTask(description);
             } else {
-                throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
+                throw new IllegalArgumentException("Please enter a valid command.");
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     public static void bye() {

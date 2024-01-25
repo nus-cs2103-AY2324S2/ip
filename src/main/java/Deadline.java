@@ -20,7 +20,7 @@ public class Deadline extends Task {
         Deadline curr = new Deadline(taskName.strip(), tokens[1].split(" ")[1]);
         Duke.taskList.add(curr);
         System.out.println("Yer task has been added: \n  " + curr);
-        System.out.println("Now you have " + Duke.taskList.size() + " task(s) in the list.");
+        Task.getNumberOfTasks();
     }
     @Override
     public String toString() {

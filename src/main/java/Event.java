@@ -23,7 +23,7 @@ public class Event extends Task {
         Event curr = new Event(taskName.strip(), tokens[1], tokens[2]);
         Duke.taskList.add(curr);
         System.out.println("Yer task has been added: \n  " + curr);
-        System.out.println("Now you have " + Duke.taskList.size() + " task(s) in the list.");
+        Task.getNumberOfTasks();
     }
     @Override
     public String toString() {
