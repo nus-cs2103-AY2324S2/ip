@@ -14,7 +14,7 @@ public class Lindi {
 
             void executeNone(String task){
                 taskList[taskListCount++] = task;
-                System.out.println(task);
+                System.out.println("Added: " + task);
             }
 
             /**
