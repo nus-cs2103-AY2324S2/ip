@@ -22,12 +22,14 @@ public class Duke {
             if (input_command.equalsIgnoreCase("exit")) {
                 bot_functions.shifted_print(bot_functions.signoffString());
                 exitFlag = true;
-                System.exit(0);
+
 
             } else {
                 bot_functions.shifted_print(bot_functions.echoString(input_command));
             }
         }
+
+        System.exit(0);
 
     }
 
@@ -44,15 +46,15 @@ public class Duke {
 
         public static String sadcat() {
             return
-        "⠀               />    フ\n" +
-        "               | 　_  _|\n" +
-        "             ／` ミ＿_xノ\n" +
-        "          /　　　     |\n" +
-        "         /　 ヽ　     ﾉ\n" +
-        "        │　    |　|　|\n" +
-        "    ／￣|　    |　|　|\n" +
-        "    | (￣ ヽ＿ヽ_)__)\n" +
-        "    ＼二つ⠀⠀\n";
+                    "⠀               />    フ\n" +
+                            "               | 　_  _|\n" +
+                            "             ／` ミ＿_xノ\n" +
+                            "          /　　　     |\n" +
+                            "         /　 ヽ　     ﾉ\n" +
+                            "        │　    |　|　|\n" +
+                            "    ／￣|　    |　|　|\n" +
+                            "    | (￣ ヽ＿ヽ_)__)\n" +
+                            "    ＼二つ⠀⠀\n";
         }
         public static String signoffString(){
             String msg = "";
