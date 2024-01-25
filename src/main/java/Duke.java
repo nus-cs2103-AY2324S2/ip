@@ -7,6 +7,46 @@ import java.util.Scanner;
  * This is the main class for the chatbot.
  */
 public class Duke {
+    /**
+     * validateInput Method
+     * To check whether the user have key in the input correctly.
+     * @param input
+     * @return String array containing instruction and descriptions.
+     * @throws DukeException
+     */
+    public static String[] validateInput(String input) throws DukeException {
+        if (input.isEmpty()) {
+            throw new DukeException("Helloooo!! please type something and follow the format below!!\n" +
+                    "todo 'task description'\n" +
+                    "deadline 'task description' /by 'time'\n" +
+                    "event 'task description' /from 'start time' /to 'end time'");
+        }
+        String[] subStr = input.split(" ", 2);
+        if (!subStr[0].equalsIgnoreCase("todo")
+                && !subStr[0].equalsIgnoreCase("deadline")
+                && !subStr[0].equalsIgnoreCase("event")
+                && !subStr[0].equalsIgnoreCase("list")
+                && !subStr[0].equalsIgnoreCase("mark")
+                && !subStr[0].equalsIgnoreCase("unmark")
+                && !subStr[0].equalsIgnoreCase("bye")) {
+            throw new DukeException("Sorry! I don't get the instruction!\n" +
+                    "please use either todo, deadline, event, list, mark, unmark or bye!");
+        }
+
+        if (subStr[0].equalsIgnoreCase("todo") && subStr.length < 2) {
+            throw new DukeException("Sorry! You need to include a description for your task!");
+        } else if (subStr[0].equalsIgnoreCase("deadline") && subStr.length < 2) {
+            throw new DukeException("Sorry! You need to include a description and deadline for your task!");
+        } else if (subStr[0].equalsIgnoreCase("event") && subStr.length < 2) {
+            throw new DukeException("Sorry! You need to include a description, start time and end time for your task!");
+        } else if (subStr[0].equalsIgnoreCase("mark") && subStr.length < 2) {
+            throw new DukeException("Sorry! You need to include a number to mark your task!");
+        } else if (subStr[0].equalsIgnoreCase("unmark") && subStr.length < 2) {
+            throw new DukeException("Sorry! You need to include a number to unmark your task!");
+        } else {
+            return subStr;
+        }
+    }
     public static void main(String[] args) {
         System.out.println("Hello! I'm GHBot");
         System.out.println("What can I do for you?");
@@ -15,53 +55,61 @@ public class Duke {
 
         while (true) {
             String str = sc.nextLine();
-            String[] subStr = str.split(" ", 2);
-            String instr = subStr[0];
+            try {
+                String[] subStr = validateInput(str);
+                String instr = subStr[0];
 
-            if (instr.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                break;
-            } else if (instr.equalsIgnoreCase("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < lst.size(); i++) {
-                    System.out.println(i + 1 + "." + lst.get(i));
-                }
-            } else if (instr.equalsIgnoreCase("mark")) {
-                int lstNo = Integer.parseInt(subStr[1]);
-                for (int i = 0; i < lst.size(); i++) {
-                    if (i + 1 == lstNo) {
-                        lst.get(i).isCompleted();
-                        System.out.println("Nice! I've marked this task as done:\n" + lst.get(i));
+                if (instr.equalsIgnoreCase("bye")) {
+                    System.out.println("Bye. Hope to see you again soon!");
+                    break;
+
+                } else if (instr.equalsIgnoreCase("list")) {
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < lst.size(); i++) {
+                        System.out.println(i + 1 + "." + lst.get(i));
                     }
-                }
-            } else if (instr.equalsIgnoreCase("unmark")) {
-                int lstNo = Integer.parseInt(subStr[1]);
-                for (int i = 0; i < lst.size(); i++) {
-                    if (i + 1 == lstNo) {
-                        lst.get(i).isNotCompleted();
-                        System.out.println("OK, I've marked this task as not done yet:\n" + lst.get(i));
+
+                } else if (instr.equalsIgnoreCase("mark")) {
+                    int lstNo = Integer.parseInt(subStr[1]);
+                    for (int i = 0; i < lst.size(); i++) {
+                        if (i + 1 == lstNo) {
+                            lst.get(i).isCompleted();
+                            System.out.println("Nice! I've marked this task as done:\n" + lst.get(i));
+                        }
                     }
+
+                } else if (instr.equalsIgnoreCase("unmark")) {
+                    int lstNo = Integer.parseInt(subStr[1]);
+                    for (int i = 0; i < lst.size(); i++) {
+                        if (i + 1 == lstNo) {
+                            lst.get(i).isNotCompleted();
+                            System.out.println("OK, I've marked this task as not done yet:\n" + lst.get(i));
+                        }
+                    }
+
+                } else if (instr.equalsIgnoreCase("todo")) {
+                    Todo todo = new Todo(subStr[1]);
+                    lst.add(todo);
+                    System.out.println("Got it. I've added this task:\n" + todo);
+                    System.out.println("Now you have " + lst.size() + " tasks in the list.");
+
+                } else if (instr.equalsIgnoreCase("deadline")) {
+                    String[] ss = subStr[1].split("/by");
+                    Deadline deadline = new Deadline(ss[0], ss[1]);
+                    lst.add(deadline);
+                    System.out.println("Got it. I've added this task:\n" + deadline);
+                    System.out.println("Now you have " + lst.size() + " tasks in the list.");
+
+                } else if (instr.equalsIgnoreCase("event")) {
+                    String[] ss = subStr[1].split("/from");
+                    String[] ss2 = ss[1].split("/to");
+                    Event event = new Event(ss[0], ss2[0], ss2[1]);
+                    lst.add(event);
+                    System.out.println("Got it. I've added this task:\n" + event);
+                    System.out.println("Now you have " + lst.size() + " tasks in the list.");
                 }
-            } else if (instr.equalsIgnoreCase("todo")) {
-                Todo todo = new Todo(subStr[1]);
-                lst.add(todo);
-                System.out.println("Got it. I've added this task:\n" + todo);
-                System.out.println("Now you have " + lst.size() + " tasks in the list.");
-
-            } else if (instr.equalsIgnoreCase("deadline")) {
-                String[] ss = subStr[1].split("/by");
-                Deadline deadline = new Deadline(ss[0], ss[1]);
-                lst.add(deadline);
-                System.out.println("Got it. I've added this task:\n" + deadline);
-                System.out.println("Now you have " + lst.size() + " tasks in the list.");
-
-            } else if (instr.equalsIgnoreCase("event")) {
-                String[] ss = subStr[1].split("/from");
-                String[] ss2 = ss[1].split("/to");
-                Event event = new Event(ss[0], ss2[0], ss2[1]);
-                lst.add(event);
-                System.out.println("Got it. I've added this task:\n" + event);
-                System.out.println("Now you have " + lst.size() + " tasks in the list.");
+            } catch (DukeException e){
+                System.out.println(e.getMessage());
             }
         }
     }
