@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Storage <T> {
-    private final ArrayList<T> storage;
+    protected final ArrayList<T> storage;
 
     public Storage() {
         this.storage = new ArrayList<T>();
