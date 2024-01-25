@@ -1,6 +1,4 @@
-import javax.xml.stream.events.Characters;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Scanner;
 
 public class Lindi {
     private final static Task[] taskList = new Task[100];
@@ -82,7 +80,7 @@ public class Lindi {
                 lf.goodByeAndExit();
                 break;
             default:
-                System.out.println("UNknown command");
+                System.out.println("Unknown command");
                 break;
         }
     }
@@ -110,9 +108,10 @@ public class Lindi {
 
 
     private static void chatLoop() {
+        Scanner scanner = new Scanner(System.in);
         String userInput;
         while (true) { // This will not be an infinite loop, because goodByeAndExit() terminates the program when called
-            userInput = System.console().readLine(); // Note that System.console() does not work with IDE run
+            userInput = scanner.nextLine();
             printSeparator();
             parseInputAndExecute(userInput);
             printSeparator();
