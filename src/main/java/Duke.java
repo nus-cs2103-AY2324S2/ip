@@ -29,7 +29,6 @@ public class Duke {
     //process commands
     public void echo() {
         Scanner myScannerObj = new Scanner(System.in);
-        System.out.print("Message Zenify: ");
         while (myScannerObj.hasNext()) {
             System.out.print(this.horizontalLine);
             String msg = myScannerObj.nextLine();
@@ -45,8 +44,7 @@ public class Duke {
             } else {
                 this.addToDo(msg);
             }
-            System.out.print(this.horizontalLine);
-            System.out.print("\nMessage Zenify: ");
+            System.out.print(this.horizontalLine + "\n");
         }
 
         myScannerObj.close();
