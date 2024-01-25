@@ -9,6 +9,7 @@ public class Chitty {
     private static final String TASK_LENGTH = "Now you have %d tasks in the list.\n";
     private static final String MARK_TASK = "Nice! I've marked this task as done: \n";
     private static final String UNMARK_TASK = "OK, I've marked this task as not done yet: \n";
+    private static final String DELETE_TASK = "Noted. I've removed this task:\n";
     private static final String UNKNOWN_INPUT = "I'm sorry, but I don't know what that means.\n";
     private static final String INVALID_INPUT = "The description of a %s cannot be empty.\n";
     private static final String SPACING = "---------------------------------------------------\n";
@@ -59,6 +60,12 @@ public class Chitty {
         System.out.println(SPACING + UNMARK_TASK + updatedTask + "\n" + SPACING);
     }
 
+    private static void delete(int i) {
+        Task deletedTask = taskList.deleteTask(i - 1);
+        System.out.println(SPACING + DELETE_TASK + deletedTask + "\n" +
+                String.format(TASK_LENGTH, taskList.getLength()) + SPACING);
+    }
+
     private static void bye() {
         System.out.println(SPACING + GOODBYE_MESSAGE + SPACING);
     }
@@ -97,6 +104,9 @@ public class Chitty {
                         break;
                     case "UNMARK":
                         unmarkTask(Integer.parseInt(input[1]));
+                        break;
+                    case "DELETE":
+                        delete(Integer.parseInt(input[1]));
                         break;
                     default:
                         invalid();

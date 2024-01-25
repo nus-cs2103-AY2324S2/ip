@@ -4,7 +4,7 @@ public class TaskList {
     private final ArrayList<Task> list;
 
     TaskList() {
-        this.list = new ArrayList<Task>();
+        this.list = new ArrayList<>();
     }
 
     public void addTask(Task t) {
@@ -25,6 +25,10 @@ public class TaskList {
         Task t = this.list.get(i);
         t.unmark();
         return t;
+    }
+
+    public Task deleteTask(int i) {
+        return this.list.remove(i);
     }
 
     @Override
