@@ -120,6 +120,25 @@ public class Duke {
                     System.out.println("→ " + newTask);
                     System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
                 }
+            } else if (input.equalsIgnoreCase("delete")) {
+                if (taskList.getTaskCount() == 0) {
+                    throw new DukeException("There are currently no tasks to be deleted.");
+                } else {
+                    if (inputArr.size() == 0) {
+                        throw new DukeException("Please enter a task number.");
+                    } else {
+                        int taskNumber = Integer.parseInt(inputArr.get(0));
+                        if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
+                            throw new DukeException("Please enter a valid task number.");
+                        } else {
+                            Task task = taskList.getTaskByNumber(taskNumber);
+                            taskList.deleteTask(task);
+                            System.out.println("The following task has been deleted.");
+                            System.out.println("→ " + task);
+                            System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+                        }
+                    }
+                }
             } else {
                 System.out.println("I'm sorry, I didn't quite understand that.");
             }

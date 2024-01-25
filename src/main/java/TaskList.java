@@ -14,6 +14,11 @@ public class TaskList {
         taskCount++;
     }
 
+    public void deleteTask(Task task) {
+        taskList.remove(task);
+        taskCount--;
+    }
+
     public Task getTaskByNumber(int taskNum) {
         return taskList.get(taskNum - 1);
     }
