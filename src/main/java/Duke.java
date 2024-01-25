@@ -24,6 +24,14 @@ public class Duke {
                 list.get(idx - 1).unmarkTask();
                 System.out.println(line);
             } else if (userInput.startsWith("todo")) {
+                try {
+                    if (userInput.length() < 6) {
+                        throw new DukeException("Remember to add an actual task. Try again!");
+                    }
+                } catch (DukeException e) {
+                    System.err.println(e.getMessage());
+                    continue;
+                }
                 System.out.println(line);
                 String todoTask = userInput.substring(5);
                 ToDos newTodo = new ToDos(todoTask);
@@ -31,6 +39,18 @@ public class Duke {
                 newTodo.addTask(list.size());
                 System.out.println(line);
             } else if (userInput.startsWith("deadline")) {
+                try {
+                    // other improvements: no content, empty deadline
+                    if (userInput.length() < 10) {
+                        throw new DukeException("Remember to add an actual task. Try again!");
+                    }
+                    if (!(userInput.contains("/by"))) {
+                        throw new DukeException("Remember to state the deadline after a '/by'!");
+                    }
+                } catch (DukeException e) {
+                    System.err.println(e.getMessage());
+                    continue;
+                }
                 int preIdx = userInput.indexOf("/by");
                 int idx = preIdx + 4;
                 String deadlineTask = userInput.substring(9, preIdx - 1);
@@ -40,6 +60,21 @@ public class Duke {
                 newDeadline.addTask(list.size());
                 System.out.println(line);
             } else if (userInput.startsWith("event")) {
+                try {
+                    // other improvements: no content, empty start and end
+                    if (userInput.length() < 7) {
+                        throw new DukeException("Remember to add an actual task. Try again!");
+                    }
+                    if (!(userInput.contains("/from"))) {
+                        throw new DukeException("Remember to state the start of your event after a '/from'!");
+                    }
+                    if (!(userInput.contains("/to"))) {
+                        throw new DukeException("Remember to state the end of your event after a '/to'!");
+                    }
+                } catch (DukeException e) {
+                    System.err.println(e.getMessage());
+                    continue;
+                }
                 System.out.println(line);
                 int preIdxFrom = userInput.indexOf("/from");
                 int preIdxTo = userInput.indexOf("/to");
@@ -57,7 +92,7 @@ public class Duke {
                 switch (userInput) {
                     case "bye":
                         System.out.println(line);
-                        System.out.println("Bye. Hope to see you again soon!");
+                        System.out.println("BYE BYE! Come back soon~~ YOUR WISH IS MY COMMAND <33");
                         System.out.println(line);
                         scanner.close();
                         break loop;
