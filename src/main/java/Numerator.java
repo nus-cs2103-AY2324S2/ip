@@ -1,40 +1,36 @@
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.IntStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Numerator {
-    public static void main(String[] args) {
-        String line = "    ____________________________________________________________\n";
-        String logo = line +
-                "    Hello! I'm Numerator\n" +
-                "    What can I do for you?\n" + line;
-        String bye = line +
-                "     Bye. Hope to see you again soon!\n" +
-                line;
+    public static String line = "____________________________________________________________";
 
-        String added = line +
-                "     added: %s\n" +
-                line;
+
+    public static void main(String[] args) {
+
+        String logo =
+                "Hello! I'm Numerator\n" +
+                        "What can I do for you?";
+        System.out.println(logo);
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println(logo);
-        ArrayList<Task> store = new ArrayList<>();
+
+        TaskList taskList = new TaskList();
 
         while (true) {
             String input = scanner.nextLine();
+            System.out.println(line);
             if (input.equals("bye")) {
-                System.out.println(bye);
+                System.out.println("Bye. Hope to see you again soon!\n");
+                System.out.println(line);
                 break;
             } else if (input.startsWith("mark ")) {
                 String[] inputArray = input.split(" ");
                 try {
                     int taskNum = Integer.parseInt(inputArray[1]) - 1;
-                    Task t = store.get(taskNum);
-                    t.setIsDone();
-                    System.out.println(line);
+                    taskList.markAsDone(taskNum);
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("   " + t);
-                    System.out.println(line);
+                    taskList.printTask(taskNum);
                 } catch (NumberFormatException e) {
                     System.out.print("Please input a valid number");
                 } catch (IndexOutOfBoundsException e) {
@@ -45,39 +41,52 @@ public class Numerator {
                 String[] inputArray = input.split(" ");
                 try {
                     int taskNum = Integer.parseInt(inputArray[1]) - 1;
-                    Task t = store.get(taskNum);
-                    t.setIsNotDone();
-                    System.out.println(line);
+                    taskList.markAsUndone(taskNum);
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("   " + t);
-                    System.out.println(line);
+                    taskList.printTask(taskNum);
                 } catch (NumberFormatException e) {
                     System.out.print("Please input a valid number");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Task does not exist");
                 }
+            } else if (input.startsWith("todo ")) {
+                String taskDesc = input.substring("todo ".length());
+                Task t = taskList.addToDo(taskDesc);
+                taskList.printAddTask(t);
 
-            } else if (input.equals("list")) {
-                System.out.print(line);
-                if (store.isEmpty()) {
-                    System.out.println("Nothing in list");
+            } else if (input.startsWith("deadline ")) {
+                Pattern p = Pattern.compile("deadline (.+) /by (.+)");
+                Matcher m = p.matcher(input);
+                if (!m.matches()) {
+                    System.out.println("Please use the format: deadline <task> /by <date>");
                 } else {
-                    System.out.println("Here are the tasks in your list:");
-                    IntStream.iterate(1, x -> x + 1)
-                            .limit(store.size())
-                            .forEachOrdered(i -> {
-                                String s = String.format("    %d. %s", i, store.get(i - 1));
-                                System.out.println(s);
-                            });
+                    String taskDesc = m.group(1);
+                    String by = m.group(2);
+                    Task t = taskList.addDeadline(taskDesc, by);
+                    taskList.printAddTask(t);
                 }
-                System.out.print(line);
+
+            } else if (input.startsWith("event ")) {
+                Pattern p = Pattern.compile("event (.+) /from (.+) /to (.+)");
+                Matcher m = p.matcher(input);
+                if (!m.matches()) {
+                    System.out.println("Please use the format: event <task> /from <date> /to <date>");
+                } else {
+                    String taskDesc = m.group(1);
+                    String from = m.group(2);
+                    String to = m.group(3);
+                    Task t = taskList.addEvent(taskDesc, from, to);
+                    taskList.printAddTask(t);
+                }
+            } else if (input.equals("list")) {
+                System.out.println(taskList);
             } else {
-                Task t = new Task(input);
-                store.add(t);
-                System.out.println(t);
+                System.out.println("Input not recognised");
             }
-
-
+            System.out.println(line);
         }
+
+
     }
 }
+

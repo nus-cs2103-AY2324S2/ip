@@ -1,6 +1,7 @@
 public class Task {
-    private String description;
-    private boolean isDone;
+    final String description;
+    boolean isDone;
+
 
 
 
@@ -9,15 +10,17 @@ public class Task {
         this.isDone = false;
     }
 
+
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
-    public void setIsDone() {
+    public void markAsDone() {
         this.isDone = true;
     }
 
-    public void setIsNotDone() {
+    public void markAsNotDone() {
         this.isDone = false;
     }
 
