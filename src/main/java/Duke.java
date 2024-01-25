@@ -67,6 +67,15 @@ public class Duke {
                             throw new DukeException("mark");
                         }
 
+                        // Index out of bound handler
+                        if (index >= storage.getItems().size()) {
+                            ui.print("The index of task cannot be larger than number of task.");
+                            continue;
+                        } else if (index < 0) {
+                            ui.print("The index of task must be positive integer.");
+                            continue;
+                        }
+
                         storage.markDone(index);
                         ui.mark(storage.getItem(index));
                         break;
@@ -81,6 +90,15 @@ public class Duke {
                             index = Integer.parseInt(splitedTask[1]) - 1;
                         } catch (NumberFormatException e) {
                             throw new DukeException("unmark");
+                        }
+
+                        // Index out of bound handler
+                        if (index >= storage.getItems().size()) {
+                            ui.print("The index of task cannot be larger than number of task.");
+                            continue;
+                        } else if (index < 0) {
+                            ui.print("The index of task must be positive integer.");
+                            continue;
                         }
 
                         storage.unmarkDone(index);
@@ -148,6 +166,31 @@ public class Duke {
                         Task newTask = new Event(splitedFrom[0].substring(6), splitedTo[0], splitedTo[1]);
                         storage.add(newTask);
                         ui.add(newTask, storage);
+                        break;
+                    }
+                    case "delete": {
+                        // Incorrect command syntax handler
+                        if (splitedTask.length != 2) {
+                            throw new DukeException("delete");
+                        }
+                        int index = 0;
+                        try {
+                            index = Integer.parseInt(splitedTask[1]) - 1;
+                        } catch (NumberFormatException e) {
+                            throw new DukeException("delete");
+                        }
+
+                        // Index out of bound handler
+                        if (index >= storage.getItems().size()) {
+                            ui.print("The index of task cannot be larger than number of task.");
+                            continue;
+                        } else if (index < 0) {
+                            ui.print("The index of task must be positive integer.");
+                            continue;
+                        }
+
+                        ui.delete(storage.getItem(index), storage);
+                        storage.delete(index);
                         break;
                     }
                     default: {
