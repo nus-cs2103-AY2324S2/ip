@@ -95,29 +95,28 @@ public class Duke {
                 list.remove(idx - 1);
                 removed.deleteTask(list.size());
                 System.out.println(line);
-            } else {
-                switch (userInput) {
-                    case "bye":
-                        System.out.println(line);
-                        System.out.println("BYE BYE! Come back soon~~ YOUR WISH IS MY COMMAND <33");
-                        System.out.println(line);
-                        scanner.close();
-                        break loop;
-                    case "list":
-                        System.out.println(line);
-                        for (int i = 0; i < list.size(); i++) {
-                            String numberedOutput = String.format("%d. %s", i + 1, list.get(i).toString());
-                            System.out.println(numberedOutput);
-                        }
-                        System.out.println(line);
-                        break;
-                    default:
-                        Task newTask = new Task(userInput);
-                        list.add(newTask);
-                        System.out.println(line);
-                        System.out.println("added: " + userInput);
-                        System.out.println(line);
+            } else if (userInput.startsWith("bye")) {
+                System.out.println(line);
+                System.out.println("BYE BYE! Come back soon~~ YOUR WISH IS MY COMMAND <33");
+                System.out.println(line);
+                scanner.close();
+                break loop;
+            } else if (userInput.startsWith("list")) {
+                System.out.println(line);
+                for (int i = 0; i < list.size(); i++) {
+                    String numberedOutput = String.format("%d. %s", i + 1, list.get(i).toString());
+                    System.out.println(numberedOutput);
                 }
+                System.out.println(line);
+                break;
+            } else {
+                try {
+                    throw new DukeException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
+                } catch (DukeException e) {
+                    System.err.println(e.getMessage());
+                    continue;
+                }
+
             }
         }
     }
