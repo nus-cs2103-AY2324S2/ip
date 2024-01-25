@@ -8,7 +8,8 @@ public class WhisperException extends Exception {
     // Invalid command
     public static WhisperException unknownCommand() {
         return new WhisperException("\nInvalid Command, please try again.\nWe only support commands such as:" +
-                "\n- todo [description]\n- event [description] /from [start] /to [end]\n- deadline [description] /by[time]\n- mark [taskID]\n- unmark [taskID]\n");
+                "\n- todo [description]\n- event [description] /from [start] /to [end]" +
+                "\n- deadline [description] /by[time]\n- mark [taskID]\n- unmark [taskID]\n- delete [taskID]\n");
     }
 
     // tasks has more than 100 task

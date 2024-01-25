@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Whisper {
     static String line = "-------------------------------------------------\n";
@@ -6,16 +6,17 @@ public class Whisper {
     static String welcomeMsg = "Hello! I'm " + name + " , your personal chatbot!\n" +
             "What can I do for you?\n";
     static String byeMsg = line + "Bye. Hope to see you soon!\n" + line;
-    static Task[] taskList; // store tasks in array
-    static int count;
+    static ArrayList<Task> taskList; // store tasks in ArrayList
+//    static int count;
 
     // Main method
     public static void main(String[] args) {
         System.out.println(line + welcomeMsg + line);
 
         Scanner sc = new Scanner(System.in);
-        taskList = new Task[100];
-        count = 0;
+//        taskList = new Task[100];
+        taskList = new ArrayList<>();
+//        count = 0;
 
         while (true) {
             // read user input
@@ -44,13 +45,15 @@ public class Whisper {
                     addEvent(input);
                 } else if (input.startsWith("deadline")) {
                     addDeadline(input);
+                } else if (input.startsWith("delete")) {
+                    int index = getIndex(input);
+                    deleteTask(index);
                 } else {
                     throw WhisperException.unknownCommand();
                 }
             } catch (WhisperException e) {
                 System.out.println(e.getMessage());
             }
-
         }
         sc.close();
     }
@@ -65,9 +68,12 @@ public class Whisper {
                 throw WhisperException.invalidTodo();
             }
 
-            taskList[count] = new Todo(description);
-            System.out.println(line + "Got it. I've added this task:\n" + taskList[count].toString() + "\n" + printTaskCount(count) + "\n" + line);
-            count++;
+//            taskList[count] = new Todo(description);
+            Task todo = new Todo(description);
+            taskList.add(todo);
+            System.out.println(line + "Got it. I've added this task:\n" + todo.toString() + "\n" +
+                    printTaskCount(taskList.size()) + "\n" + line);
+//            count++;
 
         } catch (NumberFormatException e) {
             //System.out.println("Sorry, list is full. Can't add anymore.");
@@ -111,9 +117,11 @@ public class Whisper {
             }
 
             // add new event to task list
-            taskList[count] = new Event(eventName, from, to);
-            System.out.println(line + "Got it. I've added this task:\n" + taskList[count].toString() + "\n" + printTaskCount(count) + "\n" + line);
-            count++;
+//            taskList[count] = new Event(eventName, from, to);
+            Task event = new Event(eventName, from, to);
+            taskList.add(event);
+            System.out.println(line + "Got it. I've added this task:\n" + event.toString() + "\n" + printTaskCount(taskList.size()) + "\n" + line);
+//            count++;
         } catch (WhisperException e) {
             System.out.println(e.getMessage());
         }
@@ -142,9 +150,12 @@ public class Whisper {
             }
 
             // add new deadline to task list
-            taskList[count] = new Deadline(deadlineName, by);
-            System.out.println(line + "Got it. I've added this task:\n" + taskList[count].toString() + "\n" + printTaskCount(count) + "\n" + line);
-            count++;
+//            taskList[count] = new Deadline(deadlineName, by);
+            Task deadline = new Deadline(deadlineName, by);
+            taskList.add(deadline);
+            System.out.println(line + "Got it. I've added this task:\n" + deadline.toString() + "\n" +
+                    printTaskCount(taskList.size()) + "\n" + line);
+//            count++;
         } catch (WhisperException | NumberFormatException e) {
             System.out.println(e.getMessage());
         }
@@ -154,8 +165,9 @@ public class Whisper {
     public static void printTaskDone(int index) throws WhisperException {
         try {
             // check index bound
-            if (index >= 0 && index < count) {
-                Task t = taskList[index];
+            if (index >= 0 && index < taskList.size()) {
+//                Task t = taskList[index];
+                Task t = taskList.get(index);
                 t.markAsDone();
                 System.out.println(line + "Nice! I've marked this task as done:\n" + t.toString() + "\n" + line);
             } else {
@@ -170,8 +182,9 @@ public class Whisper {
     public static void printTaskUndone(int index) throws WhisperException {
         try {
             // check index bound
-            if (index >= 0 && index < count) {
-                Task t = taskList[index];
+            if (index >= 0 && index < taskList.size()) {
+//                Task t = taskList[index];
+                Task t = taskList.get(index);
                 t.markAsUndone();
                 System.out.println(line + "Nice! I've marked this task as not done:\n" + t.toString() + "\n" + line);
             } else {
@@ -183,16 +196,17 @@ public class Whisper {
     }
 
     public static String printTaskCount(int count) {
-        return "Now you have " + (count + 1) + " tasks in the list.";
+        return "Now you have " + taskList.size() + " tasks in the list.";
     }
 
     // display task list
     public static void getTasks() {
         System.out.println(line + "Here are your task list:\n");
 
-        for (int i = 0; i < count; i++) {
-            Task currentTask = taskList[i];
-            System.out.println((i + 1) + ". " + taskList[i]);
+        for (int i = 0; i < taskList.size(); i++) {
+//            Task currentTask = taskList[i];
+            Task currentTask = taskList.get(i);
+            System.out.println((i + 1) + ". " + currentTask);
         }
         System.out.println(line);
     }
@@ -208,8 +222,28 @@ public class Whisper {
 
     // check if task list has more than 100 tasks
     public static void checkTaskListFull() throws WhisperException {
-        if (count >= 100) {
+        if (taskList.size() >= 100) {
             throw WhisperException.taskFull();
+        }
+    }
+
+    // check if index is valid
+    public static void checkIndex(int index) throws WhisperException {
+        if (index < 0 || index >= taskList.size()) {
+            throw WhisperException.invalidTaskID();
+        }
+    }
+
+    // Delete task method
+    public static void deleteTask(int index) throws WhisperException {
+        try {
+            checkIndex(index);
+            Task deletedTask = taskList.remove(index);
+//            count--;
+            System.out.println(line + "Noted! I've marked removed this task:\n" + deletedTask.toString() + "\n" +
+                    printTaskCount(taskList.size()) + "\n" + line);
+        } catch (WhisperException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
