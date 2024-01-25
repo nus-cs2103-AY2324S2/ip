@@ -10,7 +10,7 @@ public class TaskList {
 
     }
 
-    public void markAsUndone(int idx) {
+    public void markAsUndone(int idx) throws IndexOutOfBoundsException {
         Task t = this.taskList.get(idx);
         t.markAsNotDone();
 
