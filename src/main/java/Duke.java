@@ -25,6 +25,12 @@ public class Duke {
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 bot.taskList.displayTasks();
+            } else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                bot.taskList.markTaskAsDone(index);
+            } else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.substring(7));
+                bot.taskList.unmarkTaskAsDone(index);
             } else {
                 bot.taskList.addTask(input);
             }
