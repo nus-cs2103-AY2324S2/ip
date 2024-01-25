@@ -29,6 +29,16 @@ public class Duke {
                 list.markActivity(str, input.substring(input.indexOf(" ") + 1));
             } else if(Objects.equals(str, "todo") || Objects.equals(str, "deadline") || Objects.equals(str, "event")){
                 list.addActivity(input);
+            } else if(Objects.equals(str, "delete")) {
+                try {
+                    int index = Integer.parseInt(input.split(" ")[1]);
+                    list.deleteActivity(index - 1);
+                } catch (NumberFormatException e) {
+                    System.out.println("The string does not contain a valid integer.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("to long or too short won't do the job");
+                }
+
             } else {
                 System.out.println("unbearable");
             }
@@ -75,6 +85,19 @@ class ActivityList {
     public void markActivity(String input, String key) {
         int index = this.searchTable.indexOf(key);
         this.activities.get(index).setCompletion(input);
+    }
+
+    public void deleteActivity(int index) {
+        try {
+            Activity removed = this.activities.remove(index);
+            this.searchTable.remove(index);
+            System.out.println("\t____________________________________________________________");
+            System.out.format("\tI have removed: ");
+            removed.printActivity();
+            System.out.println("\t____________________________________________________________");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("you are going too far");
+        }
     }
 }
 
