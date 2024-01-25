@@ -4,8 +4,7 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> list = new ArrayList<>();
-        HashMap<Integer, String> hashMap = new HashMap<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         //Greetings
         String logo = "Tommy";
@@ -19,35 +18,38 @@ public class Duke {
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {
 
-            if (userInput.equals("list")) {
-                // listing
+            if (userInput.contains("unmark")) {
+                // Unmark the tasks
                 System.out.println(divider);
 
-                for (int i = 0; i < list.size(); i++) {
-                    int index = i + 1;
-                    System.out.println(index + "." + hashMap.get(index) + " " + list.get(i));
-                }
+                int indexToUnmark = Integer.parseInt(userInput.substring(7));
+                Task taskToUnmark = tasks.get(indexToUnmark - 1);
+                taskToUnmark.isDone = false;
 
-                System.out.println(divider);
-            } else if (userInput.contains("unmark")) {
-                // Unmarking
-                System.out.println(divider);
-
-                int index = Integer.parseInt(userInput.substring(7));
-                hashMap.put(index, "[ ]");
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(hashMap.get(index) + " " + list.get(index - 1));
+                System.out.println(taskToUnmark.getStatusIcon() + " " + taskToUnmark.description);
 
                 System.out.println(divider);
 
             } else if (userInput.contains("mark")) {
-                // Marking done
                 System.out.println(divider);
 
-                int index = Integer.parseInt(userInput.substring(5));
-                hashMap.put(index, "[X]");
+                int indexToMark = Integer.parseInt(userInput.substring(5));
+                Task taskToMark = tasks.get(indexToMark - 1);
+                taskToMark.isDone = true;
+
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(hashMap.get(index) + " " + list.get(index - 1));
+                System.out.println(taskToMark.getStatusIcon() + " " + taskToMark.description);
+
+                System.out.println(divider);
+
+            } else if (userInput.equals("list")) {
+                // listing
+                System.out.println(divider);
+
+                for (Task task: tasks) {
+                    System.out.println(task.index + "." + task.getStatusIcon() + " " + task.description);
+                }
 
                 System.out.println(divider);
 
@@ -55,8 +57,8 @@ public class Duke {
                 // Adding tasks
                 System.out.println(divider);
 
-                list.add(userInput);
-                hashMap.put(list.size(), "[ ]");
+                Task task = new Task(userInput);
+                tasks.add(task);
                 System.out.println("added: " + userInput);
 
                 System.out.println(divider);
@@ -74,3 +76,4 @@ public class Duke {
         scanner.close();
     }
 }
+
