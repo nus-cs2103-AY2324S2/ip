@@ -9,12 +9,11 @@ public class Duke {
 //        System.out.println("Hello from\n" + logo);
         String name = "[NAME_PLACERHOLDER]";
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("helo! my name is " + name + "૮ ˶ᵔ ᵕ ᵔ˶ ა");
+        System.out.println("hello! my name is " + name + "૮ ˶ᵔ ᵕ ᵔ˶ ა");
         System.out.println("What would you like for me to do?");
         System.out.println(HORIZONTAL_LINE);
         System.out.println("okay then, bye ( •̯́ ^ •̯̀)");
         System.out.println(HORIZONTAL_LINE);
-
 
     }
 }
