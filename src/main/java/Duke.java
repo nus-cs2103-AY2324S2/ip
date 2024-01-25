@@ -10,7 +10,8 @@ public class Duke {
             if (input.equals("bye")) {
                 break;
             }
-            cin.echo(input);
+            String output = cin.respond(input);
+            System.out.println(output);
         }
         cin.exit();
     }
