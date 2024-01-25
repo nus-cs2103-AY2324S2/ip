@@ -21,7 +21,15 @@ public class ChatSession {
     }
 
     public void initCommands() {
-        this.commandList = List.of(new Bye(), new ListTasks(), new Mark(), new Unmark());
+        this.commandList = List.of(
+            new Bye(),
+            new ListTasks(), 
+            new Mark(), 
+            new Unmark(), 
+            new ToDoCommand(), 
+            new EventCommand(), 
+            new DeadlineCommand()
+            );
     }
 
     public void printMessage(String message) {

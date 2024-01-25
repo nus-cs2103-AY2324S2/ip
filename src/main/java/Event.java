@@ -18,6 +18,10 @@ public class Event extends Task {
         this.toDate = Optional.of(toString);
     }
 
+    public String typeOfTask() {
+        return "E";
+    }
+
     public String constructTimeString() {
         List<String> arr = new ArrayList<>();
         if (this.fromDate.isPresent()) {
@@ -34,4 +38,11 @@ public class Event extends Task {
         return String.format("%s, %s", super.getName(), this.constructTimeString());
     }
     
+    public void setFromDate(String fromDate) {
+        this.fromDate = Optional.of(fromDate);
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = Optional.of(toDate);
+    }
 }

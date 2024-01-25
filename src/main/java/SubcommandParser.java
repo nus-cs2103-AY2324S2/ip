@@ -20,7 +20,11 @@ public class SubcommandParser {
                 matched = true;
                 Pair<String, List<String>> subcommand = new Pair<String, List<String>>(word, new ArrayList<String>());
                 subcommandInternalList.add(subcommand);
-                while (i < words.length && (!p.matcher(word).matches())) {
+                while (i < words.length) {
+                    word = words[i];
+                    if (p.matcher(word).matches()) {
+                        break;
+                    }
                     subcommand.getSecond().add(word);
                     i++;
                 }

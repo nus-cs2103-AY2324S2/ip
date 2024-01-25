@@ -1,20 +1,23 @@
 import java.util.List;
 
-public class DeadlineCommand implements NamedCommand {
-    public String getName() { return "deadline"; }
+public class EventCommand implements NamedCommand {
+    public String getName() { return "event"; }
     public void execute(ChatSession session, String commandArgs) {
         Pair<String, List<Pair<String, String>>> data = SubcommandParser.parseSubcommands(commandArgs, "/");
         String name = data.getFirst();
         List<Pair<String, String>> subcommPairs = data.getSecond();
-        Deadline t = new Deadline(name);
+        Event t = new Event(name);
 
         for (Pair<String, String> subcommPair : subcommPairs) {
             String subcommString = subcommPair.getFirst();
             switch (subcommString) {
-                case "/by":
-                    String date = subcommPair.getSecond();
-                    t.setByDate(date);
+                case "/from":
+                    String fromDate = subcommPair.getSecond();
+                    t.setFromDate(fromDate);
                     break;
+                case "/to":
+                    String toDate = subcommPair.getSecond();
+                    t.setToDate(toDate);
                 default:
                     // add exception handling later
                     break;

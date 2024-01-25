@@ -13,6 +13,10 @@ public class Deadline extends Task {
         this.byDate = Optional.of(byDate);
     }
 
+    public String typeOfTask() {
+        return "D";
+    }
+
     public String constructTimeString() {
         if (this.byDate.isPresent()) {
             return String.format("(by: %s)", this.byDate.get());
