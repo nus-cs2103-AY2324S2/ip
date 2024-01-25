@@ -212,9 +212,8 @@ public class Dook {
         Dook dook = new Dook();
         dook.introduceSelf();
         Scanner sc = new Scanner(System.in);
-        String input = "";
         while (true) {
-            input = sc.nextLine();
+            String input = sc.nextLine();
             Dook.printSeparator();
             boolean exitLoop = false;
             try {
@@ -228,6 +227,7 @@ public class Dook {
                 break;
             }
             Dook.printSeparator();
-        }
+        }ele
+                
     }
 }
