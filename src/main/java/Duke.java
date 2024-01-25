@@ -2,39 +2,55 @@ import java.util.*;
 public class Duke {
 
     protected static ArrayList<Task> lst = new ArrayList<>();
+    private enum Command {
+        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         intro();
-        while (sc.hasNext()) {
+        while (sc.hasNextLine()) {
             String s = sc.nextLine();
-            if (s.equals("list")) {
-                displayList();
-            } else if (s.equals("bye")) {
-                exit();
-                return;
-            } else {
+
+            try {
+                String[] words = s.split(" ", 2);
+                String firstWord = words.length > 0 ? words[0] : "";
+                String taskName = words.length > 1 ? words[1] : "";
+                Command command;
                 try {
-                    String[] words = s.split(" ", 2);
-                    String firstWord = words[0];
-                    String taskName = words[1];
-                    if (firstWord.equals("mark")) {
-                        markComplete(Integer.parseInt(s.split(" ")[1]));
-                    } else if (firstWord.equals("unmark")) {
-                        unmarkComplete(Integer.parseInt(s.split(" ")[1]));
-                    } else if (firstWord.equals("todo")) {
-                        addToList(new Todo(taskName));
-                    } else if (firstWord.equals("deadline")) {
-                        addToList(new Deadline(taskName));
-                    } else if (firstWord.equals("event")) {
-                        addToList(new Event(taskName));
-                    } else if (firstWord.equals("delete")) {
-                        deleteTask(Integer.parseInt(taskName));
-                    } else {
-                        throw new AllyException();
-                    }
-                } catch (Exception e) {
-                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    command = Command.valueOf(firstWord.toUpperCase());
+                } catch (IllegalArgumentException e) {
+                    command = Command.UNKNOWN;
                 }
+                switch (command) {
+                    case LIST:
+                        displayList();
+                        break;
+                    case BYE:
+                        exit();
+                        return;
+                    case MARK:
+                        markComplete(Integer.parseInt(taskName.trim()));
+                        break;
+                    case UNMARK:
+                        unmarkComplete(Integer.parseInt(taskName.trim()));
+                        break;
+                    case TODO:
+                        addToList(new Todo(taskName));
+                        break;
+                    case DEADLINE:
+                        addToList(new Deadline(taskName));
+                        break;
+                    case EVENT:
+                        addToList(new Event(taskName));
+                        break;
+                    case DELETE:
+                        deleteTask(Integer.parseInt(taskName.trim()));
+                        break;
+                    case UNKNOWN:
+                        throw new AllyException();
+                }
+            } catch (Exception e) {
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }
