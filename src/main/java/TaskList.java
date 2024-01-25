@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     // List of tasks to be done by the user
@@ -14,15 +15,18 @@ public class TaskList {
     }
 
     // Method to remove task
+    // TODO: Implement this later
     public void removeTask(int taskNumber) {
         tasks.remove(taskNumber - 1);
     }
 
     // Method to list all tasks
-    public void listTasks() {
+    public List<String> listTasks() {
+        List<String> taskDescriptions = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println((i + 1) + ". " + task.getDescription());
+            taskDescriptions.add((i + 1) + ". " + task.getDescription());
         }
+        return taskDescriptions;
     }
 }
