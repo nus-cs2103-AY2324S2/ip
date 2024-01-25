@@ -58,11 +58,16 @@ public class Duke {
                 }
             } else if (input.startsWith("todo")) {
                 // Add a ToDo task
-                tasks[taskCounter] = new ToDo(input.substring(5).trim());
-                taskCounter++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCounter - 1]);
-                System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                String description = input.substring(4).trim();
+                if (description.isEmpty()) {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    tasks[taskCounter] = new ToDo(description);
+                    taskCounter++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCounter - 1]);
+                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                }
             } else if (input.startsWith("deadline")) {
                 // Add a Deadline task
                 String[] deadlineDetails = input.substring(9).split("/by");
@@ -90,7 +95,8 @@ public class Duke {
             } else {
                 tasks[taskCounter] = new Task(input);
                 taskCounter++;
-                System.out.println("added: " + input);
+//                System.out.println("added: " + input);
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             printHorizontalLine();
 
