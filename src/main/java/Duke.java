@@ -13,7 +13,6 @@ public class Duke {
         while (!(line = br.readLine()).equals("bye")) {
             bot.consume(line);
         }
-
         bot.exit();
     }
 }

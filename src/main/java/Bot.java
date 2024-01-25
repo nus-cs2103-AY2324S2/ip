@@ -31,16 +31,22 @@ public class Bot {
         switch (taskType) {
             case "mark":
                 this.mark(Integer.parseInt(tokens[1]));
+                break;
             case "unmark":
                 this.unmark(Integer.parseInt(tokens[1]));
+                break;
             case "todo":
                 this.add(new ToDo(String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length))));
+                break;
             case "event":
                 this.add(new Event(String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length))));
+                break;
             case "deadline":
                 this.add(new Deadline(String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length))));
+                break;
             case "list":
                 this.list();
+                break;
             default:
                 this.echo(String.join(" ", Arrays.copyOfRange(tokens, 0, tokens.length)));
         }
