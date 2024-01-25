@@ -1,14 +1,34 @@
+import java.util.*;
+
 public class Duke {
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Dad\nWhat can I do for you?");
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        List<String> list = new ArrayList<>();
+
+        System.out.println("    ____________________________________________________________");
+        System.out.println("    Hello! I'm Dad\n    What can I do for you?");
+        System.out.println("    ____________________________________________________________");
+        Scanner scanner = new Scanner(System.in);
+        loop: {
+            while(true) {
+                String input = scanner.nextLine();
+                switch (input) {
+                    case "list":
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("    List: \n        " + list);
+                        System.out.println("    ____________________________________________________________");
+                        break;
+                    case "talk":
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("    talk");
+                        System.out.println("    ____________________________________________________________");
+                        break;
+                    case "bye":
+                        break loop;
+                }
+            }
+        }
+        System.out.println("    ____________________________________________________________");
+        System.out.println("    Later");
+        System.out.println("    ____________________________________________________________");
     }
 }
