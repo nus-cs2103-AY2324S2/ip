@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 public class Duke {
     // class variables
-    private static final String CHATBOT_NAME = "ByteBuddy";
     private static final String solidLineBreak = "____________________________________________________________";
+    private static final String CHATBOT_NAME = "ByteBuddy";
     private static final String START_MESSAGE = "Hello! I'm " + CHATBOT_NAME + "\n" + "\t What can I do for you?";
     private static final String BYE_MESSAGE = "Sad to see you leave :(";
     public static final String EVENT_FORMAT = "event [task] /from [date] /to [date]";
@@ -18,7 +18,7 @@ public class Duke {
 
     private static ArrayList<Task> taskList;
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         taskList = new ArrayList<>();
 
