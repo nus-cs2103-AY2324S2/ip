@@ -57,7 +57,12 @@ public class Zero {
                     pw.println(divider);
                     break;
                 case "mark":
-                    idx = Integer.parseInt(cmd[1]) - 1;
+                    try{
+                        idx = Integer.parseInt(cmd[1]) - 1;
+                    } catch (NumberFormatException e) {
+                        pw.println("Please enter a valid entry number!\n" + divider);
+                        break;
+                    }
                     if (idx < 0 || idx >= tasks.size()) {
                         pw.println(divider + "Invalid task selected.\nTask number must be between 1 to " + tasks.size());
                         pw.println(divider);
@@ -67,7 +72,12 @@ public class Zero {
                     pw.println("Nice! I've marked this task as done:\n  " + tasks.get(idx) + '\n' + divider);
                     break;
                 case "unmark":
-                    idx = Integer.parseInt(cmd[1]) - 1;
+                    try{
+                        idx = Integer.parseInt(cmd[1]) - 1;
+                    } catch (NumberFormatException e) {
+                        pw.println("Please enter a valid entry number!\n" + divider);
+                        break;
+                    }
                     if (idx < 0 || idx >= tasks.size()) {
                         pw.println(divider + "Invalid task selected.\nTask number must be between 1 to " + tasks.size());
                         pw.println(divider);
@@ -75,6 +85,21 @@ public class Zero {
                     }
                     tasks.set(idx, tasks.get(idx).unmark());
                     pw.println("OK, I've marked this task as not done yet:\n  " + tasks.get(idx) + '\n' + divider);
+                    break;
+                case "delete":
+                    try{
+                        idx = Integer.parseInt(cmd[1]) - 1;
+                    } catch (NumberFormatException e) {
+                        pw.println("Please enter a valid entry number!\n" + divider);
+                        break;
+                    }
+                    if (idx < 0 || idx >= tasks.size()) {
+                        pw.println(divider + "Invalid task selected.\nTask number must be between 1 to " + tasks.size());
+                        pw.println(divider);
+                        break;
+                    }
+                    pw.println(divider + "Noted. I've removed this task:\n" + tasks.remove(idx));
+                    pw.println("Now you have " + tasks.size() + " tasks in the list.\n" + divider);
                     break;
                 case "todo":
                 case "deadline":
@@ -129,7 +154,8 @@ public class Zero {
                     pw.println("Now you have " + tasks.size() + " tasks in the list.\n" + divider);
                     break;
                 default:
-                    pw.println(divider + "Sorry, I am currently unable to process your request.\n" + divider);
+                    pw.println(divider + "I don't understand what you mean by \"" + String.join(" ", cmd) +  ".\"");
+                    pw.println("Please request something like: list, mark, delete, todo, deadline, event, etc.\n" + divider);
                     break;
             }
             pw.flush();
