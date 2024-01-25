@@ -21,7 +21,7 @@ public class Duke {
                 switch (command) {
                     case "list":
                         printDiv();
-                        System.out.println("Here are the tasks in your list:");
+                        System.out.println("\tHere are the tasks in your list:");
                         for (int i = 0; i < AL.size(); i++) {
                             int num = i + 1;
                             System.out.println("\t" + num + ". " + AL.get(i));
@@ -129,12 +129,34 @@ public class Duke {
                         printListCounter(AL);
                         printDiv();
                         break;
+                    case "delete":
+                        if (inputs.length != 2) {
+                            throw new DukeException("OOPS!!! The delete command "
+                                                    + "cannot be empty.");
+                        }
+
+                        int delIndex = Integer.parseInt(inputs[1]) - 1;
+
+                        if (delIndex < 0 || delIndex >= AL.size()) {
+                            throw new DukeException("Oh no!!! Invalid task index!");
+                        }
+                        printDiv();
+                        System.out.println("\tNoted. I've removed this task:");
+                        System.out.println("\t" + AL.get(delIndex));
+                        AL.remove(delIndex);
+                        printListCounter(AL);
+                        printDiv();
+                        break;
                     default:
                         throw new DukeException("OOPS!!! Your command " 
                                                 + "triggered a virtual avalanche of confusion.");
                 }
+            } catch (NumberFormatException e) {
+                printMsg("Enter a numeric value!!");
             } catch (DukeException e) {
-                printError(e);
+                printMsg(e.toString());
+            } catch (Exception e) {
+                printMsg("Invalid input.");
             }
         }
 
@@ -157,7 +179,7 @@ public class Duke {
         System.out.println("\t" + DIV);
     }
 
-    public static void printError(Exception msg) {
+    public static void printMsg(String msg) {
         printDiv();
         System.out.println("\t" + msg);
         printDiv();
