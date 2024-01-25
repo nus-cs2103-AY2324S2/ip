@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) throws Exception {
@@ -18,21 +17,16 @@ public class Duke {
 
         System.out.println(logo + "\n" + msg);
 
-        String indent = "    ";
-
         boolean output = true;
         String input;
-        ArrayList<Task> list = new ArrayList<>();
 
         while (output) {
             System.out.println(" ");
-            input = sc.next();
+            input = sc.nextLine();
 
                 // end the program
             if (input.equals("bye")) {
-                System.out.println(indent + "------------------------------------------------");
-                System.out.println(indent + "Bye. Hope to see you again soon!");
-                System.out.println(indent + "------------------------------------------------");
+                System.out.println("Bye. Hope to see you again soon!");
                 output = false;
 
                 // print the entire task list
@@ -114,7 +108,5 @@ public class Duke {
                 System.out.println(indent + "------------------------------------------------");
             }
         }
-
-        sc.close();
     }
 }
