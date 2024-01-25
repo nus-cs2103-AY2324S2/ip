@@ -1,13 +1,13 @@
 public class Deadline extends Task {
-  protected String endDate;
+  protected String by;
 
-  public Deadline(String description, String endDate) {
+  public Deadline(String description, String by) {
     super(description);
-    this.endDate = endDate;
+    this.by = by;
   }
 
   @Override
-  public String getStatus() {
-    return "[D]" + super.getStatus() + " (by: " + this.endDate + ")";
+  public String toString() {
+    return "[D]" + super.toString() + " (by: " + this.by + ")";
   }
 }

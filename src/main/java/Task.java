@@ -14,7 +14,8 @@ public class Task {
   }
 
   // get status for task
-  public String getStatus() {
+  @Override
+  public String toString() {
     return this.getStatusIcon() + " " + this.description;
   }
 

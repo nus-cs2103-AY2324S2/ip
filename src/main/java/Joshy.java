@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Joshy {
@@ -17,10 +16,13 @@ public class Joshy {
 
         // Read the text entered by user line by line
         Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
 
         // runs the program until user inputs "bye"
-        while (!Objects.equals(input, "bye")) {
+        while (sc.hasNext()) {
+
+            // scan next line
+            String input = sc.nextLine();
+
             System.out.println("   ______________________________________________");
 
             // delimited using " "
@@ -29,13 +31,18 @@ public class Joshy {
 
             switch (command) {
 
+                // exits the program
+                case "bye":
+                    System.out.println("   Bye. Hope to see you again soon!");
+                    System.out.println("   ______________________________________________");
+                    System.exit(0);
+
                 // list out items in task-list
                 case "list":
                     System.out.println("   Here are the tasks in your list:");
                     for (int i = 0; i < taskList.size(); i++) {
                         Task currTask = taskList.get(i);
-                        String currDesc = currTask.getStatus();
-                        System.out.println("   " + (i + 1) + ". " + currDesc);
+                        System.out.println("   " + (i + 1) + ". " + currTask);
                     }
                     break;
 
@@ -46,7 +53,7 @@ public class Joshy {
                     currTask.markTask();
 
                     System.out.println("   Nice! I've marked this task as done:");
-                    System.out.println("      " + currTask.getStatus());
+                    System.out.println("      " + currTask);
                     break;
                 }
 
@@ -57,7 +64,7 @@ public class Joshy {
                     currTask.unmarkTask();
 
                     System.out.println("   OK, I've marked this task as not done yet:");
-                    System.out.println("      " + currTask.getStatus());
+                    System.out.println("      " + currTask);
                     break;
                 }
 
@@ -68,7 +75,7 @@ public class Joshy {
                     taskList.add(newTodoTask);
 
                     System.out.println("   Got it. I've added this task:");
-                    System.out.println("      " + newTodoTask.getStatus());
+                    System.out.println("      " + newTodoTask);
                     System.out.println("   Now you have " + taskList.size() + " tasks in the list.");
                     break;
                 }
@@ -79,14 +86,14 @@ public class Joshy {
                     String information = tokens[1];
                     String[] descTokens = information.split(" /by ");
                     String description = descTokens[0];
-                    String endDate = descTokens[1];
+                    String by = descTokens[1];
 
                     // create new task
-                    Task newDeadlineTask = new Deadline(description, endDate);
+                    Task newDeadlineTask = new Deadline(description, by);
                     taskList.add(newDeadlineTask);
 
                     System.out.println("   Got it. I've added this task:");
-                    System.out.println("      " + newDeadlineTask.getStatus());
+                    System.out.println("      " + newDeadlineTask);
                     System.out.println("   Now you have " + taskList.size() + " tasks in the list.");
                     break;
                 }
@@ -107,7 +114,7 @@ public class Joshy {
                     taskList.add(newEventTask);
 
                     System.out.println("   Got it. I've added this task:");
-                    System.out.println("      " + newEventTask.getStatus());
+                    System.out.println("      " + newEventTask);
                     System.out.println("   Now you have " + taskList.size() + " tasks in the list.");
                     break;
                 }
@@ -122,14 +129,6 @@ public class Joshy {
             }
 
             System.out.println("   ______________________________________________");
-
-            // scan next line
-            input = sc.nextLine();
         }
-
-        // Bye message
-        System.out.println("   ______________________________________________");
-        System.out.println("   Bye. Hope to see you again soon!");
-        System.out.println("   ______________________________________________");
     }
 }
