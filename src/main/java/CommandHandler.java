@@ -17,6 +17,7 @@ public class CommandHandler {
     public static void echoCommand(String command) {
         System.out.println(indentLine(command));
     }
+
     /**
      * Prints the exit line.
      */

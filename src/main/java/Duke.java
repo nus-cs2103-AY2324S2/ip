@@ -16,12 +16,7 @@ public class Duke {
                 CommandHandler.exit();
                 break;
             }
-            if (nextUserCommand.equals("list")) {
-                itemList.printItems();
-                continue;
-            }
-            Item item = new Item(nextUserCommand);
-            itemList.addItem(item);
+            itemList.access(nextUserCommand);
         }
     }
 }
