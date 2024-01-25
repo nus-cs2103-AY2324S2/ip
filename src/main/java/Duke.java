@@ -138,7 +138,7 @@ public class Duke {
             String input) throws InvalidInputException, MissingInputException, InvalidInputFormatException,
             InvalidKeyWordException {
         String[] splitInput = input.split("/");
-        String example = "E.g. deadline SU All Courses /by 9pm";
+        String example = "E.g. deadline SU All Courses /by 2022-01-01 18:00";
         if (splitInput[0].substring(8).trim().isEmpty()) {
             throw new MissingInputException(
                     "Bro, we need a task description for your deadline.\n"
@@ -164,7 +164,7 @@ public class Duke {
     public static void validateEventInput(
             String input) throws InvalidInputException, MissingInputException, InvalidKeyWordException {
         String[] splitInput = input.split("/");
-        String example = "E.g. event Exam /from 9am /to 9pm";
+        String example = "E.g. event Exam /from 2022-01-01 18:00 /to 2022-01-02 19:00";
         if (splitInput[0].substring(5).trim().isEmpty()) {
             throw new MissingInputException(
                     "Bro, please specify your task description for event.\n"

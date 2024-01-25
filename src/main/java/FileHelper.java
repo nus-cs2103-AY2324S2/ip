@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,14 +41,13 @@ public class FileHelper {
                 taskString.add("E");
                 taskString.add(hasDone);
                 taskString.add(task.getDescription());
-                taskString.add(((Event) task).getStartDate() + "-" + ((Event) task).getEndDate());
+                taskString.add(((Event) task).getStartDateString() + "-" + ((Event) task).getEndDateString());
             } else {
                 taskString.add("D");
                 taskString.add(hasDone);
                 taskString.add(task.getDescription());
-                taskString.add(((Deadline) task).getDeadline());
+                taskString.add(((Deadline) task).getDeadlineString());
             }
-            System.out.println(String.join(" | ", taskString));
             fileWriter.write(String.join(" | ", taskString));
             fileWriter.write("\n");
         } catch (IOException e) {
@@ -54,13 +56,18 @@ public class FileHelper {
     }
 
     public List<Task> loadTask() throws IOException, FileCorruptedException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
-        List<Task> tasks = new ArrayList<>();
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            tasks.add(parseTask(line));
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            List<Task> tasks = new ArrayList<>();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                tasks.add(parseTask(line));
+            }
+            return tasks;
+        } catch (DateTimeParseException e) {
+            e.printStackTrace();
+            throw new FileCorruptedException("Bro, sorry ah, the file data may be corrupted");
         }
-        return tasks;
     }
 
     private Task parseTask(String taskString) throws FileCorruptedException {
@@ -86,12 +93,15 @@ public class FileHelper {
                 }
                 String starDate = taskArray[3].split("-")[0];
                 String endDate = taskArray[3].split("-")[1];
-                return new Event(taskArray[2], hasDone, starDate, endDate);
+                return new Event(taskArray[2], hasDone, LocalDateTime.parse(starDate,
+                        DateTimeFormatter.ofPattern("MM dd yyyy HH:mm")) , LocalDateTime.parse(endDate,
+                        DateTimeFormatter.ofPattern("MM dd yyyy HH:mm")));
             case "D":
                 if (taskArray.length != 4) {
                     throw new FileCorruptedException("Bro, sorry ah, the file data may be corrupted");
                 }
-                return new Deadline(taskArray[2], hasDone, taskArray[3]);
+                return new Deadline(taskArray[2], hasDone, LocalDateTime.parse(taskArray[3],
+                        DateTimeFormatter.ofPattern("MM dd yyyy HH:mm")));
             default:
                 throw new FileCorruptedException("Bro, sorry ah, the file data may be corrupted");
         }
