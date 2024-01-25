@@ -20,7 +20,8 @@ public class Duke {
      * Greets the user when the bot is started.
      */
     private void greet() {
-        System.out.println("Hello, I'm Baymax " + "\n" + "What can I do for you?");
+        System.out.println("Hello, I'm Baymin");
+        System.out.println("What can I do for you?");
     }
 
     /**
@@ -64,10 +65,7 @@ public class Duke {
             };
 
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> TestBranch
 
 
     }
