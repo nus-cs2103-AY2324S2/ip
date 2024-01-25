@@ -75,32 +75,32 @@ Please try another number.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! The 'delete' command is missing arguments! ;(
+ERROR!! The 'DELETE' command is missing arguments! ;(
 Please fill it in.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! The 'mark' command is missing arguments! ;(
+ERROR!! The 'MARK' command is missing arguments! ;(
 Please fill it in.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! I don't know what 'blah' means ;(
+ERROR!! I don't know what 'BLAH' means ;(
 Please try again.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! The description of the 'todo' task cannot be empty ;(
+ERROR!! The description of the 'TODO' task cannot be empty ;(
 Please fill it in.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! The description of the 'deadline' task cannot be empty ;(
+ERROR!! The description of the 'DEADLINE' task cannot be empty ;(
 Please fill it in.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! The description of the 'event' task cannot be empty ;(
+ERROR!! The description of the 'EVENT' task cannot be empty ;(
 Please fill it in.
 __________________________________________________________________
 

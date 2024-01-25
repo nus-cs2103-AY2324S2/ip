@@ -7,10 +7,10 @@ public abstract class Task {
     }
 
     public String changeMark(String command) {
-        if (command.equals("mark")) {
+        if (command.equals("MARK")) {
             isDone = true;
             return "Nice! I've marked this task as done:\n";
-        } else { // unmark command
+        } else { // UNMARK command
             isDone = false;
             return "OK, I've marked this task as not done yet:\n";
         }
