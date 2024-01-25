@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Task {
     protected String description;
     protected boolean isDone;
-    private static ArrayList<Task> taskList = new ArrayList<>();
 
     public Task(String description) {
         this.description = description;
@@ -16,26 +15,27 @@ public class Task {
 
     public static void setDone(int index) {
         System.out.println("Cha Ching! Task Completed.");
-        Task curr = taskList.get(index - 1);
+        Task curr = Duke.taskList.get(index - 1);
         curr.isDone = true;
         System.out.println(curr);
     }
 
     public static void setNotDone(int index) {
         System.out.println("$$$ Task Incomplete :(");
-        Task curr = taskList.get(index - 1);
+        Task curr = Duke.taskList.get(index - 1);
         curr.isDone = false;
         System.out.println(curr);
     }
 
     public static void addTask(String description) {
-        taskList.add(new Task(description));
-        System.out.println("added: " + description);
+        Task curr = new Task(description);
+        Duke.taskList.add(curr);
+        System.out.println("added: " + curr);
     }
 
     public static void listTask() {
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i+1 + ". " + taskList.get(i));
+        for (int i = 0; i < Duke.taskList.size(); i++) {
+            System.out.println(i+1 + ". " + Duke.taskList.get(i));
         }
     }
 
