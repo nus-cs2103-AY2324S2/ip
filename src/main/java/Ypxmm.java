@@ -6,58 +6,72 @@ public class Ypxmm {
     public static void main(String[] args) throws YpxmmException {
         Scanner sc = new Scanner(System.in);
         sayHello();
+        boolean condition = true;
 
-        while (true) {
+        while (condition) {
             try {
                 String input = sc.nextLine();
-                if (input.equals("bye")) {
-                    sayGoodbye();
-                    break;
-                } else if (input.equals("list")) {
-                    list();
-                } else if (input.startsWith("mark")) {
-                    String[] vals = input.split(" ");
-                    try {
-                        int index = Integer.parseInt(vals[1]);
-                        mark(index);
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new YpxmmException("Brother, key in mark <space> then a valid number");
-                    } catch (NumberFormatException n) {
-                        throw new YpxmmException("You tell me now what task am I supposed to mark if you don't provide me with a number?");
-                    }
-                } else if (input.startsWith("unmark")) {
-                    String[] vals = input.split(" ");
-                    try {
-                        int index = Integer.parseInt(vals[1]);
-                        unmark(index);
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new YpxmmException("Brother, key in unmark <space> then a valid number");
-                    } catch (NumberFormatException n) {
-                        throw new YpxmmException("You tell me now what task am I supposed to unmark if you don't provide me with a number?");
-                    }
-                } else if (input.startsWith("todo")) {
-                    addTask(input, "todo");
-                } else if (input.startsWith("deadline")) {
-                    addTask(input, "deadline");
-                } else if (input.startsWith("event")) {
-                    addTask(input, "event");
-                } else if (input.equals("get commands")) {
-                    getCommands();
-                } else if (input.startsWith("delete")) {
-                    String[] vals = input.split(" ");
-                    try {
-                        int index = Integer.parseInt(vals[1]);
-                        delete(index);
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new YpxmmException("Brother, key in delete <space> then a valid number");
-                    } catch (NumberFormatException n) {
-                        throw new YpxmmException("You tell me now what task am I supposed to delete if you don't provide me with a number?");
-                    }
-                } else {
-                    throw new YpxmmException("Sorry bro, idk what that means. You try type in \"get commands\" then see if got what u want.");
+                String[] splitInput = input.split(" ");
+                EnumCommands enumc = EnumCommands.valueOf(splitInput[0].toUpperCase());
+                switch (enumc) {
+                    case BYE:
+                        sayGoodbye();
+                        condition = false;
+                        break;
+                    case LIST:
+                        list();
+                        break;
+                    case MARK:
+                        String[] valsMark = input.split(" ");
+                        try {
+                            int index = Integer.parseInt(valsMark[1]);
+                            mark(index);
+                        } catch (IndexOutOfBoundsException e) {
+                            throw new YpxmmException("Brother, key in mark <space> then a valid number");
+                        } catch (NumberFormatException n) {
+                            throw new YpxmmException("You tell me now what task am I supposed to mark if you don't provide me with a number?");
+                        }
+                        break;
+                    case UNMARK:
+                        String[] valsUnmark = input.split(" ");
+                        try {
+                            int index = Integer.parseInt(valsUnmark[1]);
+                            unmark(index);
+                        } catch (IndexOutOfBoundsException e) {
+                            throw new YpxmmException("Brother, key in unmark <space> then a valid number");
+                        } catch (NumberFormatException n) {
+                            throw new YpxmmException("You tell me now what task am I supposed to unmark if you don't provide me with a number?");
+                        }
+                        break;
+                    case TODO:
+                        addTask(input, "todo");
+                        break;
+                    case DEADLINE:
+                        addTask(input, "deadline");
+                        break;
+                    case EVENT:
+                        addTask(input, "event");
+                        break;
+                    case GETCOMMANDS:
+                        getCommands();
+                        break;
+                    case DELETE:
+                        String[] vals = input.split(" ");
+                        try {
+                            int index = Integer.parseInt(vals[1]);
+                            delete(index);
+                        } catch (IndexOutOfBoundsException e) {
+                            throw new YpxmmException("Brother, key in delete <space> then a valid number");
+                        } catch (NumberFormatException n) {
+                            throw new YpxmmException("You tell me now what task am I supposed to delete if you don't provide me with a number?");
+                        }
+                        break;
                 }
+
             } catch (YpxmmException y) {
                 System.out.println(y.getMessage());
+            } catch (IllegalArgumentException i) {
+                System.out.println("Sorry bro, idk what that means. You try type in \"getcommands\" then see if got what u want.");
             }
         }
         sc.close();
