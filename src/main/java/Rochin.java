@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -14,15 +16,14 @@ public class Rochin {
  * Represent a chatbot with more abilities.
  */
 class Chatbot {
-    private final Task[] tasks;
-    private int taskCount;
+    private final List<Task> tasks;
+
 
     /**
      * Construct a Chatbot and initialize the task storage array.
      */
     public Chatbot() {
-        this.tasks = new Task[100];
-        this.taskCount = 0;
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -72,11 +73,11 @@ class Chatbot {
      * @param newTask The task to be added.
      */
     private void addTask(Task newTask) {
-        tasks[taskCount++] = newTask;
+        tasks.add(newTask);
         System.out.println("    ____________________________________________________________");
         System.out.println("     Got it. I've added this task:");
         System.out.println("       " + newTask);
-        System.out.println("     Now you have " + taskCount + " tasks in the list.");
+        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
     }
 
@@ -86,10 +87,26 @@ class Chatbot {
     private void listTasks() {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println("     " + (i + 1) + "." + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("     " + (i + 1) + "." + tasks.get(i));
         }
         System.out.println("    ____________________________________________________________");
+    }
+
+    /**
+     * Remove the specified task from the list.
+     *
+     * @param taskIndex The index of the task to be removed.
+     */
+    private void deleteTask(int taskIndex) {
+        if (isValidTaskIndex(taskIndex)) {
+            Task removedTask = tasks.remove(taskIndex - 1);
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Noted. I've removed this task:");
+            System.out.println("       " + removedTask);
+            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("    ____________________________________________________________");
+        }
     }
 
     /**
@@ -99,10 +116,10 @@ class Chatbot {
      */
     private void markTaskAsDone(int taskIndex) {
         if (isValidTaskIndex(taskIndex)) {
-            tasks[taskIndex - 1].markAsDone();
+            tasks.get(taskIndex - 1).markAsDone();
             System.out.println("    ____________________________________________________________");
             System.out.println("     Nice! I've marked this task as done:");
-            System.out.println("       " + tasks[taskIndex - 1]);
+            System.out.println("       " + tasks.get(taskIndex - 1));
             System.out.println("    ____________________________________________________________");
         }
     }
@@ -114,10 +131,10 @@ class Chatbot {
      */
     private void unmarkTaskAsDone(int taskIndex) {
         if (isValidTaskIndex(taskIndex)) {
-            tasks[taskIndex - 1].markAsNotDone();
+            tasks.get(taskIndex - 1).markAsNotDone();
             System.out.println("    ____________________________________________________________");
             System.out.println("     OK, I've marked this task as not done yet:");
-            System.out.println("       " + tasks[taskIndex - 1]);
+            System.out.println("       " + tasks.get(taskIndex - 1));
             System.out.println("    ____________________________________________________________");
         }
     }
@@ -128,7 +145,7 @@ class Chatbot {
      * @param taskIndex The index of the task to be checked.
      */
     private boolean isValidTaskIndex(int taskIndex) {
-        if (taskIndex >= 1 && taskIndex <= taskCount) {
+        if (taskIndex >= 1 && taskIndex <= tasks.size()) {
             return true;
         } else {
             System.out.println("    ____________________________________________________________");
@@ -174,6 +191,9 @@ class Chatbot {
                 } else if (command.startsWith("event")) {
                     String descriptionWithDate = command.substring("event".length()).trim();
                     addTask(EventTask.createTask(descriptionWithDate));
+                } else if (command.startsWith("delete")) {
+                    int taskIndex = getTaskIndex("delete");
+                    deleteTask(taskIndex);
                 } else if (command.startsWith("mark")) {
                     int taskIndex = getTaskIndex("mark");
                     markTaskAsDone(taskIndex);
@@ -236,15 +256,6 @@ class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
-
-//    /**
-//     * Get the description of the task.
-//     *
-//     * @return The description of the task.
-//     */
-//    public String getDescription() {
-//        return description;
-//    }
 
     /**
      * Mark the task as done.
