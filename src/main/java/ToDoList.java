@@ -5,10 +5,11 @@ public class ToDoList {
     private final ArrayList<Task>  tasks = new ArrayList<>();
 
     public void addToList(String s){
+        //handling empty task
         if (s.trim().isEmpty()) {
             System.out.println("Task cannot be empty. Please enter a valid task.");
         }
-        //regex thing
+        //regex to split type of task and possible dates for non-todo task
         String[] parts = s.trim().split("\\s+", 2);
         String taskType = parts[0].toLowerCase();
         String taskDescription = parts.length > 1 ? parts[1].trim() : "";
@@ -19,7 +20,9 @@ public class ToDoList {
                 System.out.println("____________________________________________________________\n"+"Got it. I've added this task:\n  " + new ToDoTask(taskDescription));
                 break;
             case "deadline":
+                //splitting event details from date details (using by)
                 String[] deadlineParts = taskDescription.split("\\s+by\\s+", 2);
+                //handling case that does not include by
                 if (deadlineParts.length != 2) {
                     System.out.println("Invalid deadline format. Please specify the deadline using 'by'.");
                     return;
@@ -28,17 +31,19 @@ public class ToDoList {
                 System.out.println("____________________________________________________________\n" + "Got it. I've added this task:\n  " + new DeadLineTask(deadlineParts[1], deadlineParts[0]));
                 break;
             case "event":
+                //splitting event details from date details using whitespace between words and time
                 String[] eventParts = taskDescription.split("\\s+(?=\\S+(-|\\sto\\s))", 2);
-                System.out.println("event description GROUPing " +  Arrays.toString(eventParts));
+                System.out.println(Arrays.toString(eventParts));
+                //handling case that does not include x to y or x-y
                 if (eventParts.length != 2) {
-                    System.out.println("Invalid event format. Please specify the event using follow by <Date (optional)> <time1> to <time2>");
+                    System.out.println("Invalid event format. Please use the following format event <task name> time1 to time2 or time1-time2)");
                     return;
                 }
                 String[] eventTimingParts = eventParts[1].split("(-|\\s+to\\s+)", 2);
-                if (eventTimingParts.length != 2) {
-                    System.out.println("Invalid event format. Please specify the event ending using from to");
-                    return;
-                }
+//                if (eventTimingParts.length != 2) {
+//                    System.out.println("Invalid event format. Please specify the event using to");
+//                    return;
+//                }
                 tasks.add(new EventTask(eventTimingParts[0], eventTimingParts[1], eventParts[0]));
                 System.out.println("____________________________________________________________\n"+"Got it. I've added this task:\n  " + new EventTask(eventTimingParts[0], eventTimingParts[1], eventParts[0]) +"\n" );
                 break;
@@ -65,6 +70,7 @@ public class ToDoList {
         }
     }
     public void showMark(int taskNumber) {
+        //handling invalid index of taskNumber
         if (!isValidIndex(taskNumber)) {
             System.out.println("Please input valid number  \n to see the available number(s) of your task type list");
         } else {
@@ -77,6 +83,7 @@ public class ToDoList {
         }
     }
     public void showUnmark(int taskNumber){
+        //handling invalid index of taskNumber
         if (!isValidIndex(taskNumber)) {
             System.out.println("Please input valid number  \nto see the available number(s) of your task type list");
         } else {

@@ -37,6 +37,7 @@ public class HASSTNT {
                     int index = Integer.parseInt(numberString);
                     l.showMark(index);
                 } catch (NumberFormatException e) {
+                    //handling invalid format of mark xxx
                     System.out.println("Invalid input. Please enter 'mark' followed by an integer");
                 }
             } else if (input.startsWith("unmark ")) {
@@ -46,6 +47,7 @@ public class HASSTNT {
                         int index = Integer.parseInt(numberString);
                         l.showUnmark(index);
                     } catch (NumberFormatException e) {
+                        //handling invalid format of unmark xxx
                         System.out.println("Invalid input. Please enter 'unmark' followed by an interger");
                     }
                 }
