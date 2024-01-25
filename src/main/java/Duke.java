@@ -114,6 +114,21 @@ public class Duke {
                         System.out.println(layer(temp));
                     }
                 }
+                else if (input.startsWith("delete")) {
+                    if (input.trim().equals("delete")) {
+                        throw new DukeException("OOPS!!! Invalid delete command");
+                    } else {
+                        int index = Integer.parseInt(input.substring(7));
+                        String temp = "Noted. I've removed this task: \n";
+                        Task t = inventory.get(index - 1);
+                        inventory.remove(index-1);
+                        temp += " " + t.toString();
+                        num--;
+                        temp += "\nNow you have " + num + " tasks in this list.";
+                        System.out.println(layer(temp));
+                    }
+
+                }
                 else {
                     System.out.println(layer("OOPS!!! I'm sorry, but that's an invalid command :-("));
                 }
