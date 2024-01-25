@@ -3,7 +3,7 @@ import java.util.*;
 public class Eggy {
     public static void main(String[] args) {
         String name = "Eggy";
-        List<String> taskList = new ArrayList<>();
+        List<Task> taskList = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         System.out.println("    ____________________________________________________________");
@@ -11,13 +11,20 @@ public class Eggy {
         System.out.println("     What can I do for you?");
         System.out.println("    ____________________________________________________________");
 
-        String command = sc.nextLine();;
+        String command = sc.nextLine();
         while (!command.equals("bye")) {
-            if (!command.equals("list")) {
-                addTask(command, taskList);
-            } else {
+            String[] commandArr = command.split(" ");
+            System.out.println("    ____________________________________________________________");
+            if (command.equals("list")) {
                 showList(taskList);
+            } else if (commandArr[0].equals("mark")) {
+                taskList.get(Integer.parseInt(commandArr[1]) - 1).markDone();
+            } else if (commandArr[0].equals("unmark")) {
+                taskList.get(Integer.parseInt(commandArr[1]) - 1).unmarkDone();
+            } else {
+                addTask(command, taskList);
             }
+            System.out.println("    ____________________________________________________________");
             command = sc.nextLine();
         }
 
@@ -27,18 +34,15 @@ public class Eggy {
         sc.close();
     }
 
-    public static void addTask(String task, List<String> taskList) {
-        taskList.add(task);
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     added: " + task);
-        System.out.println("    ____________________________________________________________");
+    public static void addTask(String taskName, List<Task> taskList) {
+        taskList.add(new Task(taskName));
+        System.out.println("     added: " + taskName);
     }
 
-    public static void showList(List<String> taskList) {
-        System.out.println("    ____________________________________________________________");
+    public static void showList(List<Task> taskList) {
+        System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("     " + (i + 1) + ". " + taskList.get(i));
+            System.out.println("     " + (i + 1) + "." + taskList.get(i).toString());
         }
-        System.out.println("    ____________________________________________________________");
     }
 }
