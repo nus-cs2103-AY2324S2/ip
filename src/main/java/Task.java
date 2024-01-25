@@ -23,6 +23,7 @@ public class Task {
     System.out.println(this);
   }
 
+  @Override
   public String toString() {
     return "[" + this.getStatusIcon() + "] " + this.description;
   }
