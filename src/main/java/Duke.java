@@ -46,6 +46,26 @@ public class Duke {
                     if (cmd.equals("store") || cmd.equals("s")) {
                         MessagePrinter.PrintStoring();
                         storage.Store(parameters);
+                    } else if (cmd.equals("mark") || cmd.equals("m")) {
+                        if (Integer.parseInt(parameters) >= 1) {
+                            if (storage.UpdateTask(Integer.parseInt(parameters) - 1, true)) {
+                                MessagePrinter.PrintMarkingTask();
+                            } else {
+                                MessagePrinter.PrintInvalidParameters();
+                            }
+                        } else {
+                            MessagePrinter.PrintInvalidParameters();
+                        }
+                    } else if (cmd.equals("unmark") || cmd.equals("u")) {
+                        if (Integer.parseInt(parameters) >= 1) {
+                            if (storage.UpdateTask(Integer.parseInt(parameters) - 1, false)) {
+                                MessagePrinter.PrintUnmarkingTask();
+                            } else {
+                                MessagePrinter.PrintInvalidParameters();
+                            }
+                        } else {
+                            MessagePrinter.PrintInvalidParameters();
+                        }
                     } else {
                         MessagePrinter.PrintInvalid();
                         MessagePrinter.Echo(s);

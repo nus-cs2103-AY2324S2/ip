@@ -2,18 +2,29 @@ import java.util.ArrayList;
 
 /* Handles storages */
 public class Storage {
-    // ArrayList of all strings stored
-    private ArrayList<String> mList;
+    // ArrayList of all stored tasks
+    private ArrayList<Task> tasks;
 
-    // Return the strings stored as an ArrayList
-    public ArrayList<String> Get() {
-        if (mList == null) mList = new ArrayList<String>();
-        return mList;
+    // Return the tasks stored as an ArrayList
+    public ArrayList<Task> Get() {
+        if (tasks == null) tasks = new ArrayList<>();
+        return tasks;
     }
 
-    // Return the strings stored as an ArrayList
+    // Stores the string as a task
     public void Store(String _string) {
-        if (mList == null) mList = new ArrayList<String>();
-        mList.add(_string);
+        if (tasks == null) tasks = new ArrayList<>();
+        tasks.add(new Task(_string, false));
+    }
+
+    // Change the mark of a specific task
+    // Returns true if the task exists and false otherwise
+    public boolean UpdateTask(int _i, boolean _flag) {
+        if (tasks.size() >= _i + 1) {
+            tasks.get(_i).UpdateMark(_flag);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

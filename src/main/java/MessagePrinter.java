@@ -3,44 +3,74 @@
 import java.util.ArrayList;
 
 public class MessagePrinter {
-    // Prints the List message with the given list of strings
-    public static void PrintStorage(ArrayList<String> _strings) {
+    // Prints the List message with the given list of tasks
+    public static void PrintStorage(ArrayList<Task> _tasks) {
         System.out.println("| Here's everything that I'd stored!");
         int i = 1;
-        for(String s : _strings) {
-            System.out.println("| " + i + ". " + s);
+        for(Task t : _tasks) {
+            String s = "| " + i + ".[";
+            if (t.IsMarked()) {
+                s += "X";
+            } else {
+                s += " ";
+            }
+            s += "] "  + t.Name();
+
+            System.out.println(s);
             i++;
         }
     }
 
     // Prints the storing message
     public static void PrintStoring() {
-        System.out.println("| Sure I'll store it right away!");
+        String msg = "| Sure I'll store it right away!";
+        System.out.println(msg);
     }
 
     // Prints the invalid message
     public static void PrintInvalid() {
-        System.out.println("| I'm not sure what that command is...");
+        String msg = "| I'm not sure what that command is...";
+        System.out.println(msg);
     }
 
     // Prints the echo of a given string
     public static void Echo(String _input) {
-        System.out.println("| Echoing input \n| " + _input);
+        String msg = "| Echoing input \n| " + _input;
+        System.out.println(msg);
     }
 
     // Prints the greeting message when the user enters
     public static void PrintGreeting() {
-        String greetingMessage = "| Welcome! I'm JAV\n"
-                            + "| How may I sprinkle a bit of happiness into your day today?";
-
-        System.out.println(greetingMessage);
+        String msg = "| Welcome! I'm JAV\n"
+                   + "| How may I sprinkle a bit of happiness into your day today?";
+        System.out.println(msg);
     }
 
     // Prints the farewell message when the user exits
     public static void PrintExit() {
-        String greetingMessage = "| Farewell!\n"
-                            + "| May your days be filled with laughter and warmth!";
+        String msg = "| Farewell!\n"
+                   + "| May your days be filled with laughter and warmth!";
+        System.out.println(msg);
+    }
 
-        System.out.println(greetingMessage);
+    // Prints the marking message
+    public static void PrintMarkingTask() {
+        String msg = "| Fantastic news!\n"
+                   + "| You've just upgraded that task from a to-do to a ta-daa!";
+        System.out.println(msg);
+    }
+
+    // Prints the unmarking message
+    public static void PrintUnmarkingTask() {
+        String msg = "| Task status reversed!\n"
+                   + "| Sometimes even completed tasks could use an encore.";
+        System.out.println(msg);
+    }
+
+    // Prints the unmarking message
+    public static void PrintInvalidParameters() {
+        String msg = "| It appears the parameters might be doing a little dance of confusion!\n"
+                   + "| Could you please check the parameters and give them another whirl?";
+        System.out.println(msg);
     }
 }
