@@ -1,0 +1,7 @@
+todo test
+deadline asldn /by something
+event meeting /from 2pm /to 4pm
+list
+delete 2
+list
+bye
