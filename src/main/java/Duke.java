@@ -34,19 +34,44 @@ public class Duke {
                     break;
 
                 case "mark":
-                    int m = Integer.parseInt(st.nextToken());
-                    tasks.get(m - 1).updateIsDone(true);
+                    try {
+                        if (!st.hasMoreTokens()) {
+                            throw new DukeException();
+                        }
 
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(" " + tasks.get(m - 1).toString());
+                        int m = Integer.parseInt(st.nextToken());
+                        if (((m - 1) < 0) || (m > tasks.size())) {
+                            throw new DukeException();
+                        }
+
+                        tasks.get(m - 1).updateIsDone(true);
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println(" " + tasks.get(m - 1).toString());
+
+                    } catch (DukeException de) {
+                        System.out.println("Missing the target with your input, what to mark?");
+                    }
+
                     break;
 
                 case "unmark":
-                    int u = Integer.parseInt(st.nextToken());
-                    tasks.get(u - 1).updateIsDone(false);
+                    try {
+                        if (!st.hasMoreTokens()) {
+                            throw new DukeException();
+                        }
 
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(" " + tasks.get(u - 1).toString());
+                        int u = Integer.parseInt(st.nextToken());
+                        if (((u - 1) < 0) || (u > tasks.size())) {
+                            throw new DukeException();
+                        }
+
+                        tasks.get(u - 1).updateIsDone(false);
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println(" " + tasks.get(u - 1).toString());
+                    } catch (DukeException de) {
+                        System.out.println("Missing the target with your input, what to unmark?");
+                    }
+
                     break;
 
                 case "todo":
@@ -110,6 +135,30 @@ public class Duke {
 
                     } catch (DukeException de) {
                         System.out.println("To survive is to procrastinate death, when is this due?");
+                    }
+
+                    break;
+
+                case "delete":
+                    try {
+                        if (!st.hasMoreTokens()) {
+                            throw new DukeException();
+                        }
+
+                        int del = Integer.parseInt(st.nextToken());
+                        if (((del - 1) < 0) || (del > tasks.size())) {
+                            throw new DukeException();
+                        }
+
+                        Task task = tasks.get(del - 1);
+                        tasks.remove(del - 1);
+
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(" " + task.toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+                    } catch (DukeException de) {
+                        System.out.println("Missing the target with your input, what to remove?");
                     }
 
                     break;
