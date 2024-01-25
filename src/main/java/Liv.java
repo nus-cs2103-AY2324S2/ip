@@ -112,34 +112,56 @@ public class Liv {
     }
 
     private void ProcessInput(String input) {
+
+        String[] words = input.split(" ");
+
+        // for multi-word commands
+        if (words.length != 1) {
+
+            // mark & unmark
+            if (words[0].equals("mark") || words[0].equals("unmark")) {
+                if (isInteger(words[1])) {
+                    int taskIndex = Integer.parseInt(words[1]);
+                    speak(toggleTaskDoneWithIndex(taskIndex, words[0]));
+                } else {
+                    System.out.println("Action failed: task index input is not an integer");
+                }
+                return;
+            }
+
+            //...
+        }
+
+
         if (input.equals("bye")) {
             EndSession();
             return;
         }
 
         if (input.equals("list")) {
-            ListTasks();
+            listTasks();
             return;
         }
 
         if (input != null) {
             Task newTask = new Task(input);
             addTask(newTask);
-            Speak("added: " + input);
+            speak("added: " + input);
             return;
         }
     }
 
-    private void Speak(String output) {
+    private void speak(String output) {
         ToggleConversationState();
         System.out.println(output);
         ToggleConversationState();
     }
 
-    private void ListTasks() {
+    private void listTasks() {
         ToggleConversationState();
+        System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= numberOfTasks; i++) {
-            System.out.println(i + ". " + tasks.get(i - 1).getDescription());
+            System.out.println(i + ". " + tasks.get(i - 1).toString());
         }
         ToggleConversationState();
     }
@@ -147,5 +169,20 @@ public class Liv {
     private void addTask(Task task) {
         tasks.add(task);
         numberOfTasks++;
+    }
+
+    private boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    // takes in the listed index of the task (1 larger than storage index)
+    private String toggleTaskDoneWithIndex(int index, String isDoneUpdateString) {
+        tasks.get(index - 1).toggleIsDone(isDoneUpdateString);
+        return tasks.get(index - 1).updateIsDoneMessage();
     }
 }

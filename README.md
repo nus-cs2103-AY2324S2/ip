@@ -49,6 +49,28 @@ Design:
 
 
 
+Level 3:
+
+Requirements:
+- mark task as done
+- mark task as not done
+
+Design:
+- add isDone boolean field to Task class and implement relevant functions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
