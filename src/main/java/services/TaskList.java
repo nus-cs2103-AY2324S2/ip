@@ -1,3 +1,8 @@
+package services;
+
+import exceptions.DukeException;
+import tasks.Task;
+import services.parser.Parser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,7 +36,7 @@ public class TaskList {
 
     public void deleteTask(int index) throws DukeException {
         if (this.tasks.size() == 0) {
-            throw new DukeException("Task index is out of range.");
+            throw new DukeException("tasks.Task index is out of range.");
         }
         if (index <= 0 || index > this.tasks.size()) {
             throw new DukeException("Index out of range");
@@ -46,7 +51,7 @@ public class TaskList {
 
     public void markTask(int index) throws DukeException {
         if (index <= 0 || index > this.tasks.size()) {
-            throw new DukeException("Task index is out of range.");
+            throw new DukeException("tasks.Task index is out of range.");
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsDone();
@@ -54,9 +59,9 @@ public class TaskList {
         currTask.toString();
     }
 
-    public void unmarkTask(int index) throws DukeException{
+    public void unmarkTask(int index) throws DukeException {
         if (index <= 0 || index > this.tasks.size()) {
-            throw new DukeException("Task index is out of range.");
+            throw new DukeException("tasks.Task index is out of range.");
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsUndone();
@@ -113,7 +118,7 @@ public class TaskList {
         }
     }
 
-//    private Task parseTaskFromString(String taskString) throws DukeException {
+//    private tasks.Task parseTaskFromString(String taskString) throws exceptions.DukeException {
 //        String[] parts = taskString.split(" \\| ");
 //        String taskType = parts[0];
 //        boolean isDone = parts[1].trim().equals("1");
@@ -122,28 +127,28 @@ public class TaskList {
 //
 //        switch (taskType) {
 //            case "T":
-//                ToDo todo = new ToDo(description);
+//                tasks.ToDo todo = new tasks.ToDo(description);
 //                if (isDone) todo.markAsDone();
 //                tasks.add(todo);
 //                return todo;
 //            case "D":
 //                if (additionalInfo == null) {
-//                    throw new DukeException("Invalid Deadline format in file");
+//                    throw new exceptions.DukeException("Invalid tasks.Deadline format in file");
 //                }
 //                LocalDateTime by = LocalDateTime.parse(additionalInfo);
-//                Deadline deadline = new Deadline(description, by);
+//                tasks.Deadline deadline = new tasks.Deadline(description, by);
 //                if (isDone) deadline.markAsDone();
 //                tasks.add(deadline);
 //                return deadline;
 //            case "E":
 //                String[] times = additionalInfo.split(" to ");
 //                if (times.length < 2) {
-//                    throw new DukeException("Invalid Event time format in file.");
+//                    throw new exceptions.DukeException("Invalid tasks.Event time format in file.");
 //                }
 //                LocalDateTime start = LocalDateTime.parse(times[0].trim());
 //                LocalDateTime end = LocalDateTime.parse(times[1].trim());
 //
-//                Event event = new Event(description, start, end);
+//                tasks.Event event = new tasks.Event(description, start, end);
 //                if (isDone) event.markAsDone();
 //                tasks.add(event);
 //                return event;
@@ -153,24 +158,24 @@ public class TaskList {
 //        }
 //    }
 
-    //    public void addTask(String task) throws DukeException {
+    //    public void addTask(String task) throws exceptions.DukeException {
 //        if (this.tasks.size() < MAX_ITEMS) {
 //            try {
 //                // need to command !!!!
 //                // :DDD
-//                Parser.parseTask(task);
-//                // Storage.saveTasks(..);
+//                services.parser.Parser.parseTask(task);
+//                // services.Storage.saveTasks(..);
 //                saveTasks();
 //                System.out.println("\tGot it. I've added this task: ");
 //                System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
 //                System.out.println(
 //                        "\tNow you have " + this.tasks.size() + " task" +
 //                                (this.tasks.size() == 1 ? "" : "s") + " in the list");
-//            } catch (DukeException e) {
+//            } catch (exceptions.DukeException e) {
 //                System.out.println(e.getMessage());
 //            }
 //        } else {
-//            throw new DukeException("The task list is full.");
+//            throw new exceptions.DukeException("The task list is full.");
 //        }
 //    }
 
