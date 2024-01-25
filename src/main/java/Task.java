@@ -13,24 +13,28 @@ public class Task {
     public void mark() {
         isDone = true;
     }
-    public String mark(int number, String name) {
+    public String mark(int number, String name, Task task) {
         isDone = true;
         return "    Nice! I've marked this task as done: \n"
-                + "        " + marked()
+                + "        " + task.getCat() + marked() + " "
                 + name;
     }
 
-
+    public String delete(Task task) {
+        return "    Noted. I've removed this task: \n"
+                + "        " + task.getCat() + task.marked() + " "
+                + task.getTask();
+    }
 
     public void unmark() {
         isDone = false;
     }
 
-    public String unmark(int number, String name) {
+    public String unmark(int number, String name, Task task) {
         isDone = false;
         return "    Ok, I've marked this task as not done yet: \n"
-        + "        " + marked()
-                + name;
+        + "        " + task.getCat() + marked() + " "
+                        + name;
     }
 
 /*    public String marked () {
@@ -53,9 +57,9 @@ public class Task {
 
     public String marked() {
         if (isDone) {
-            return "[X]: ";
+            return "[X]";
         } else {
-            return "[ ]: ";
+            return "[ ]";
         }
     }
 

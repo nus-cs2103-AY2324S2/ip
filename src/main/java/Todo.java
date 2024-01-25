@@ -3,12 +3,14 @@ public class Todo extends Task {
         super(task);
     }
 
+
+
     public String isTodo() {
         return "[T]";
     }
 
     public String addTodo() {
         return "Got it. I've added this task: \n"
-                + "    " + this.isTodo() + this.marked() + this.getTask();
+                + "    " + this.isTodo() + this.marked() + " " + this.getTask();
     }
 }

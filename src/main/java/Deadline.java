@@ -17,7 +17,7 @@ public class Deadline extends Task{
 
     public String addDeadline() {
         return "Got it. I've added this task:\n"
-                + "    " + this.isDeadline() + this.marked()
+                + "    " + this.isDeadline() + this.marked() + " "
                 + this.getTask()
                 + this.getDeadline();
     }

@@ -18,7 +18,7 @@ public class Event extends Task {
 
     public String addEvent() {
         return "Got it. I've added this task:\n"
-                + "    " + this.isEvent() + this.marked()
+                + "    " + this.isEvent() + this.marked() + " "
                 + this.getTask() + this.getEvent();
     }
 }
