@@ -152,7 +152,26 @@ public class Duke {
                 }
                 System.out.println(indent + "------------------------------------------------");
 
-                // echo the words
+                // delete a task
+            } else if (input.equals("delete")) {
+                int position = sc.nextInt() - 1;
+                System.out.println(indent + "------------------------------------------------");
+
+                // check for error
+                if (position + 1 > list.size()) {
+                    System.out.println(indent + "Task does not exist");
+                } else if (position < 0) {
+                    System.out.println(indent + "Task does not exist");
+
+                } else {
+                    Task t = list.get(position);
+                    list.remove(t);
+                    System.out.println(indent + "Noted. I've removed this task:");
+                    System.out.println(indent + "  " + t.toString());
+                    System.out.println(indent + "Now you have " + list.size() + " tasks in the list.");
+                }
+                System.out.println(indent + "------------------------------------------------");
+
             } else {
                 System.out.println(indent + "------------------------------------------------");
                 System.out.println(indent + "Sorry this is an invalid input :(");
