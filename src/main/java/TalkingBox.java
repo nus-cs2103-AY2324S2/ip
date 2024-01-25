@@ -1,9 +1,12 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TalkingBox {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String NAME = "Talking Box";
+        ArrayList<String> taskList = new ArrayList<>();
+
         /*
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -18,7 +21,14 @@ public class TalkingBox {
 
         String input = in.nextLine();
         while (!(input.equals("bye"))) {
-            System.out.println(input);
+            if (!(input.equals("list"))) {
+                taskList.add(input);
+                System.out.println("added: " + input);
+            } else {
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println((i + 1) + ": " + taskList.get(i));
+                }
+            }
             input = in.nextLine();
         }
 
