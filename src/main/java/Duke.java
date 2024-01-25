@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private static final String line = "      ________________________________________________________\n";
     private static String logo = "     _______       ______     _______    _______    ___  ___  \n"
             + "    |   _  \"\\     /    \" \\   |   _  \"\\  |   _  \"\\  |\"  \\/\"  | \n"
             + "    (. |_)  :)   // ____  \\  (. |_)  :) (. |_)  :)  \\   \\  /  \n"
@@ -42,7 +43,7 @@ public class Duke {
             }
             userInput = scanner.nextLine();
         }
-        UI.printBye();
+        System.out.print(Duke.line + "      Bye! Have a great day ahead :>\n" + Duke.line);
 
     }
 }
