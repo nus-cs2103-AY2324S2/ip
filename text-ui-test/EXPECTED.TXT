@@ -35,6 +35,16 @@ The Joy Amplifying Virtuoso!
 | 2.[D][ ] return book (by: Sunday)
 | 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 | User Input:
+> | Sure! Time to delete it from the storage!
+| Now, isn't that a task-tastic disappearing act?
+| User Input:
+> | Here's everything that I'd stored!
+| 1.[T][ ] borrow book
+| 2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+| User Input:
+> | It appears the parameters might be doing a little dance of confusion!
+| Could you please check the parameters and give them another whirl?
+| User Input:
 > | Farewell!
 | May your days be filled with laughter and warmth!
 <---------------------------------------------------------->

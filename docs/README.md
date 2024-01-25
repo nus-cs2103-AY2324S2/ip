@@ -22,13 +22,20 @@ Chat bot is able to modify stored tasks as done or undone.
 
 ## Usage
 
-### `add *` or `a *` - Add a task, where * is the name of the task
+### Adding a task
+### `todo *` or `t *` - Add a task (todo), where * is the name of the task
+### `deadline *` or `d *` - Add a task (deadline), where * is the name of the task
+### `event *` or `e *` - Add a task (event), where * is the name of the task
 
-Stores a string into the storage.
+Stores a task into the storage. Todos only have a string as its name. Deadlines have a string as its name and a string as its deadline. Events have a string as its name and 2 strings as its start and end.
 
 Example of usage:
 
-`store userinputedstring` or `s userinputedstring`
+`todo userinputedstring` or `t userinputedstring`
+
+`deadline userinputedstring \by customdeadline` or `d userinputedstring \by customdeadline`
+
+`event userinputedstring \from customstarttime \to customendtime` or `e userinputedstring \from customstarttime \to customendtime`
 
 Expected outcome:
 
@@ -36,7 +43,15 @@ Bot replies with a confirmation message and stores the string.
 
 ```sh {"id":"01HMZD4NRPP8TSXCEWV6YPTZE0"}
 | User Input:
-> s read book
+> t read book
+| Sure I'll store it right away!
+
+| User Input:
+> d read book \by tues
+| Sure I'll store it right away!
+
+| User Input:
+> e read book \from 1 jan \to 1 dec
 | Sure I'll store it right away!
 ```
 
@@ -107,6 +122,32 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 // If invalid
 | User Input:
 > u 0
+| It appears the parameters might be doing a little dance of confusion!
+| Could you please check the parameters and give them another whirl?
+```
+
+### `remove *` or `r *` - Deletes a task, where * is index of the task (starting from 1)
+
+Deletes a task from the storage, given its index as a integer.
+
+Example of usage:
+
+`remove 1` or `r 1`
+
+Expected outcome:
+
+If the task exists, the bot replies with a confirmation message and deletes the specified task from the storage. Otherwise, the bot replies with a error messsage.
+
+```sh {"id":"01HN13MPSVX0V5J4FSCYWCMSYY"}
+// If valid
+| User Input:
+> r 1
+| Sure! Time to delete it from the storage!
+| Now, isn't that a task-tastic disappearing act? 
+
+// If invalid
+| User Input:
+> r 0
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
 ```

@@ -46,6 +46,7 @@ public class Jav {
 
                     if (CheckStoring(cmd, parameters)) {} 
                     else if (CheckMarking(cmd, parameters)) {} 
+                    else if (CheckDeleting(cmd, parameters)) {} 
                     else {
                         throw new InvalidParamException ("Multi char detected but cmd entered doesn't exist", null);
                     }
@@ -76,6 +77,24 @@ public class Jav {
     public static boolean CheckPrintList(String _s) {
         if (_s.equals("list") || _s.equals("l")) {
             MessagePrinter.PrintStorage(storage.Get());
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    // Check if user is deleting and deletes respectively if requested
+    public static boolean CheckDeleting(String _cmd, String _param) {
+        if (_cmd.equals("remove") || _cmd.equals("r")) {
+            if (Integer.parseInt(_param) >= 1) {
+                if (storage.DeleteTask(Integer.parseInt(_param) - 1)) {
+                    MessagePrinter.PrintDeletingTask();
+                } else {
+                    MessagePrinter.PrintInvalidParameters();
+                }
+            } else {
+                MessagePrinter.PrintInvalidParameters();
+            }
             return true;
         } else {
             return false;

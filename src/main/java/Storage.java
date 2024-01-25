@@ -46,8 +46,23 @@ public class Storage {
     // Change the mark of a specific task
     // Returns true if the task exists and false otherwise
     public boolean UpdateTask(int _i, boolean _flag) {
+        if (tasks == null) return false;
+
         if (tasks.size() >= _i + 1) {
             tasks.get(_i).UpdateMark(_flag);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Deletes a specific task
+    // Returns true if the task exists and false otherwise
+    public boolean DeleteTask(int _i) {
+        if (tasks == null) return false;
+
+        if (tasks.size() >= _i + 1) {
+            tasks.remove(_i);
             return true;
         } else {
             return false;

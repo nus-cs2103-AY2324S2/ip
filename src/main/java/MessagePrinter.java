@@ -1,5 +1,6 @@
 /* Handles printing messages  */
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class MessagePrinter {
@@ -58,6 +59,13 @@ public class MessagePrinter {
     public static void PrintUnmarkingTask() {
         String msg = "| Task status reversed!\n"
                    + "| Sometimes even completed tasks could use an encore.";
+        System.out.println(msg);
+    }
+
+    // Prints the unmarking message
+    public static void PrintDeletingTask() {
+        String msg = "| Sure! Time to delete it from the storage!\n"
+                   + "| Now, isn't that a task-tastic disappearing act?";
         System.out.println(msg);
     }
 

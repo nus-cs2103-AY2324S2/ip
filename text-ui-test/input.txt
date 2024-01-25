@@ -6,4 +6,7 @@ deadline return book /by Sunday
 l
 event project meeting /from Mon 2pm /to 4pm
 l
+r 2
+l
+r 0
 bye
