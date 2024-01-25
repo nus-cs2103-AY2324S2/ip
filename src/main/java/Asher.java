@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Asher {
     private static List<Task> tasks = new ArrayList<>();
-    private static int count = 0;
 
     private static void greet() {
         System.out.println("Hello! I'm Asher. What can I do for you?");
@@ -22,77 +21,6 @@ public class Asher {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } else {
             throw new BotException("Task List is full, unable to add more.");
-        }
-    }
-
-    private static int getTaskIndexById(int taskId) {
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getTaskId() == taskId) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private static void deleteTask(int taskId) throws BotException{
-        int taskIndex = getTaskIndexById(taskId);
-        if (taskIndex != -1) {
-            Task removedTask = tasks.remove(taskIndex);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(" " + removedTask);
-            updateTaskIds();
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        } else {
-            throw new BotException("Task not found!");
-        }
-    }
-
-    private static void displayTasks() {
-        System.out.println("Here are the tasks in your list:");
-
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
-        }
-    }
-
-    private static int getTaskNumber(String task) {
-        String[] word = task.split(" ");
-        if (word.length == 2) {
-            int taskId = Integer.parseInt(word[1]);
-            for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i).getId() == taskId) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-    private static void updateTaskIds() {
-        for (int i = 0; i < tasks.size(); i++) {
-            tasks.get(i).setId(i + 1);
-        }
-    }
-
-    private static void markTaskDone(String task) throws BotException {
-        int taskNumber = getTaskNumber(task);
-        if (taskNumber != -1) {
-            tasks.get(taskNumber).markDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(" "  + tasks.get(taskNumber));
-        } else {
-            throw new BotException("Invalid Task!");
-        }
-    }
-
-    private static void markTaskUndone(String task) throws BotException {
-        int taskNumber = getTaskNumber(task);
-        if (taskNumber != -1) {
-            tasks.get(taskNumber).markUndone();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + tasks.get(taskNumber));
-        } else {
-            throw new BotException("Invalid Task!");
         }
     }
 
@@ -147,6 +75,77 @@ public class Asher {
         }
 
         return new Event(description, startDate, deadline);
+    }
+
+    private static void displayTasks() {
+        System.out.println("Here are the tasks in your list:");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
+
+    private static int getTaskNumber(String task) {
+        String[] word = task.split(" ");
+        if (word.length == 2) {
+            int taskId = Integer.parseInt(word[1]);
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).getId() == taskId) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private static void markTaskDone(String task) throws BotException {
+        int taskNumber = getTaskNumber(task);
+        if (taskNumber != -1) {
+            tasks.get(taskNumber).markDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(" "  + tasks.get(taskNumber));
+        } else {
+            throw new BotException("Invalid Task!");
+        }
+    }
+
+    private static void markTaskUndone(String task) throws BotException {
+        int taskNumber = getTaskNumber(task);
+        if (taskNumber != -1) {
+            tasks.get(taskNumber).markUndone();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("  " + tasks.get(taskNumber));
+        } else {
+            throw new BotException("Invalid Task!");
+        }
+    }
+
+    private static int getTaskIndexById(int taskId) {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getTaskId() == taskId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static void updateTaskIds() {
+        for (int i = 0; i < tasks.size(); i++) {
+            tasks.get(i).setId(i + 1);
+        }
+    }
+
+    private static void deleteTask(int taskId) throws BotException{
+        int taskIndex = getTaskIndexById(taskId);
+        if (taskIndex != -1) {
+            Task removedTask = tasks.remove(taskIndex);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(" " + removedTask);
+            updateTaskIds();
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } else {
+            throw new BotException("Task not found!");
+        }
     }
 
     public static void processCommand(String command) throws BotException {
