@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ChatBox {
@@ -37,32 +38,29 @@ public class ChatBox {
             return;
         }
         String[] words = input.split(" ");
-        if (words.length == 2) {
-            if (Parser.isMark(words)) {
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                mark(taskIndex);
-                return;
-            }
-            if (Parser.isUnmark(words)) {
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                unmark(taskIndex);
-                return;
-            }
+        if (words[0].equals("mark")) {
+            mark(words);
+            return;
+        }
+        if (words[0].equals("unmark")) {
+            unmark(words);
+            return;
         }
         if (words[0].equals("todo")) {
-            String description = Parser.parseTodo(this.input);
-            addTodo(description);
+            addTodo();
             return;
         }
         if (words[0].equals("deadline")) {
-            String[] parsedString = Parser.parseDeadline(this.input);
-            addDeadline(parsedString[0], parsedString[1]);
+            addDeadline();
             return;
         }
         if (words[0].equals("event")) {
-            String[] parsedString = Parser.parseEvent(this.input);
-            addEvent(parsedString[0], parsedString[1], parsedString[2]);
+            addEvent();
+            return;
         }
+        printDecorator();
+        WisException.UnknownInputFormatExceptionHandler();
+        printDecorator();
     }
 
     private void printDecorator() {
@@ -76,37 +74,66 @@ public class ChatBox {
         printDecorator();
     }
 
-    private void addTodo(String description) {
-        printDecorator();
-        Todo todo = new Todo(description);
-        this.tasks[this.taskCount] = todo;
-        this.taskCount++;
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + todo);
-        System.out.println("     Now you have " + this.taskCount + " tasks in the list.");
-        printDecorator();
+    private void addTodo() {
+        try {
+            String description = Parser.parseTodo(this.input);
+            Todo todo = new Todo(description);
+            this.tasks[this.taskCount] = todo;
+            this.taskCount++;
+
+            printDecorator();
+            System.out.println("     Got it. I've added this task:");
+            System.out.println("       " + todo);
+            System.out.println("     Now you have " + this.taskCount + " tasks in the list.");
+            printDecorator();
+        } catch (InputMismatchException e) {
+            printDecorator();
+            System.out.println(e.getMessage());
+            printDecorator();
+        }
     }
 
-    private void addDeadline(String description, String time) {
-        printDecorator();
-        Deadline deadline = new Deadline(description, time);
-        this.tasks[this.taskCount] = deadline;
-        this.taskCount++;
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + deadline);
-        System.out.println("     Now you have " + this.taskCount + " tasks in the list.");
-        printDecorator();
+    private void addDeadline() {
+        try {
+            String[] parsedString = Parser.parseDeadline(this.input);
+            String description = parsedString[0];
+            String time = parsedString[1];
+            Deadline deadline = new Deadline(description, time);
+            this.tasks[this.taskCount] = deadline;
+            this.taskCount++;
+
+            printDecorator();
+            System.out.println("     Got it. I've added this task:");
+            System.out.println("       " + deadline);
+            System.out.println("     Now you have " + this.taskCount + " tasks in the list.");
+            printDecorator();
+        } catch (InputMismatchException e) {
+            printDecorator();
+            System.out.println(e.getMessage());
+            printDecorator();
+        }
     }
 
-    private void addEvent(String description, String beginTime, String endTime) {
-        printDecorator();
-        Event event = new Event(description, beginTime, endTime);
-        this.tasks[this.taskCount] = event;
-        this.taskCount++;
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + event);
-        System.out.println("     Now you have " + this.taskCount + " tasks in the list.");
-        printDecorator();
+    private void addEvent() {
+        try {
+            String[] parsedString = Parser.parseEvent(this.input);
+            String description = parsedString[0];
+            String beginTime = parsedString[1];
+            String endTime = parsedString[2];
+            Event event = new Event(description, beginTime, endTime);
+            this.tasks[this.taskCount] = event;
+            this.taskCount++;
+
+            printDecorator();
+            System.out.println("     Got it. I've added this task:");
+            System.out.println("       " + event);
+            System.out.println("     Now you have " + this.taskCount + " tasks in the list.");
+            printDecorator();
+        } catch (InputMismatchException e) {
+            printDecorator();
+            System.out.println(e.getMessage());
+            printDecorator();
+        }
     }
 
     private void printList() {
@@ -124,33 +151,57 @@ public class ChatBox {
         printDecorator();
     }
 
-    private void mark(int taskIndex) {
-        if (taskIndex < 0 || taskIndex >= taskCount) {
+    private void mark(String[] words) {
+        try {
+            int taskIndex = Integer.parseInt(words[1]) - 1;
+            Task task = tasks[taskIndex];
+            task.setDone();
             printDecorator();
-            System.out.println("     Task index out of bound. Failed to mark.");
+            System.out.println("     Nice! I've marked this task as done:");
+            System.out.println("       " + task);
             printDecorator();
-            return;
+        } catch (NullPointerException e) {
+            printDecorator();
+            System.out.println("     Please enter a valid index.\n"
+                    + "     Use this format: mark <task_index>");
+            printDecorator();
+        } catch (NumberFormatException e) {
+            printDecorator();
+            System.out.println("     Please enter a valid index.\n"
+                    + "     Use this format: mark <task_index>");
+            printDecorator();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printDecorator();
+            System.out.println("     Please enter a valid index.\n"
+                    + "     Use this format: mark <task_index>");
+            printDecorator();
         }
-        Task task = tasks[taskIndex];
-        task.setDone();
-        printDecorator();
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + task);
-        printDecorator();
     }
 
-    private void unmark(int taskIndex) {
-        if (taskIndex < 0 || taskIndex >= taskCount) {
+    private void unmark(String[] words) {
+        try {
+            int taskIndex = Integer.parseInt(words[1]) - 1;
+            Task task = tasks[taskIndex];
+            task.setUndone();
             printDecorator();
-            System.out.println("     Task index out of bound. Failed to unmark.");
+            System.out.println("     OK, I've marked this task as not done yet:");
+            System.out.println("       " + task);
             printDecorator();
-            return;
+        } catch (NullPointerException e) {
+            printDecorator();
+            System.out.println("     Please enter a valid index.\n"
+                    + "     Use this format: unmark <task_index>");
+            printDecorator();
+        } catch (NumberFormatException e) {
+            printDecorator();
+            System.out.println("     Please enter a valid index.\n"
+                    + "     Use this format: unmark <task_index>");
+            printDecorator();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printDecorator();
+            System.out.println("     Please enter a valid index.\n"
+                    + "     Use this format: unmark <task_index>");
+            printDecorator();
         }
-        Task task = tasks[taskIndex];
-        task.setUndone();
-        printDecorator();
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("       " + task);
-        printDecorator();
     }
 }

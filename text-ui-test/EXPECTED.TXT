@@ -17,14 +17,14 @@
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
-       [E][ ] attend lectures  (from: 8am to: 12 noon)
+       [E][ ] attend lectures (from: 8am to: 12 noon)
      Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Here are the tasks in your list:
      1.[T][ ] wakeup
      2.[D][ ] eat breakfast (by: 8am)
-     3.[E][ ] attend lectures  (from: 8am to: 12 noon)
+     3.[E][ ] attend lectures (from: 8am to: 12 noon)
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
@@ -38,7 +38,7 @@
      Here are the tasks in your list:
      1.[T][X] wakeup
      2.[D][X] eat breakfast (by: 8am)
-     3.[E][ ] attend lectures  (from: 8am to: 12 noon)
+     3.[E][ ] attend lectures (from: 8am to: 12 noon)
     ____________________________________________________________
     ____________________________________________________________
      OK, I've marked this task as not done yet:
@@ -52,19 +52,23 @@
      Here are the tasks in your list:
      1.[T][X] wakeup
      2.[D][ ] eat breakfast (by: 8am)
-     3.[E][ ] attend lectures  (from: 8am to: 12 noon)
+     3.[E][ ] attend lectures (from: 8am to: 12 noon)
     ____________________________________________________________
     ____________________________________________________________
-     Task index out of bound. Failed to mark.
+     Please enter a valid index.
+     Use this format: mark <task_index>
     ____________________________________________________________
     ____________________________________________________________
-     Task index out of bound. Failed to mark.
+     Please enter a valid index.
+     Use this format: mark <task_index>
     ____________________________________________________________
     ____________________________________________________________
-     Task index out of bound. Failed to unmark.
+     Please enter a valid index.
+     Use this format: unmark <task_index>
     ____________________________________________________________
     ____________________________________________________________
-     Task index out of bound. Failed to unmark.
+     Please enter a valid index.
+     Use this format: unmark <task_index>
     ____________________________________________________________
     ____________________________________________________________
     Bye. Hope to see you again soon!
