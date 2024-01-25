@@ -93,6 +93,19 @@ public class Duke {
                 System.out.println("-----------------------------------------------------");
             }
 
+            else if (command.equals("delete")) {
+                int indexToDelete = Integer.parseInt(parts[1]) - 1;
+                if (indexToDelete < 0 || indexToDelete >= tasks.size()) {
+                    throw new UnknownCommandException("Task number out of range.");
+                }
+                Task removedTask = tasks.remove(indexToDelete);
+                System.out.println("-----------------------------------------------------");
+                System.out.println("Noted. I've removed this task:\n  " + removedTask);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("-----------------------------------------------------");
+            }
+
+
             else {
                 throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
