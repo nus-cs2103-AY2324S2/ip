@@ -7,8 +7,7 @@ public class Lai {
         System.out.println("---------------------------------------------------------");
     }
 
-    public static String[] processInput() {
-        Scanner scanner = new Scanner(System.in);
+    public static String[] processInput(Scanner scanner) {
         System.out.print("> ");
 
         // Separating the command and description from user input
@@ -26,18 +25,19 @@ public class Lai {
         tasks.add(newTask);
         printDottedLine();
         System.out.println("Added: " + newTask);
-        System.out.println(String.format("Total number of tasks:", tasks.size()));
+        System.out.println(String.format("Total number of tasks: %s", tasks.size()));
         printDottedLine();
     }
 
     public static void main(String[] args) {
         List<Task> tasks = new ArrayList<Task>();
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Hi there, I am Lai. Your friendly fairly useless chatbot.");
         System.out.println("What can I assist you with today?");
         printDottedLine();
 
-        String[] input = processInput();
+        String[] input = processInput(scanner);
         String command = input[0];
         String desc = input[1];
 
@@ -100,7 +100,7 @@ public class Lai {
                 printDottedLine();
             }
 
-            input = processInput();
+            input = processInput(scanner);
             command = input[0];
             desc = input[1];
         }
