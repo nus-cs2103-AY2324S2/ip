@@ -18,6 +18,9 @@ Oink! Here are the Command Words:
 'todo ...' - to add new task
 'deadline ... /by ...' - to add task with deadline
 'event ... /from ... /to ...' - to add an event
+'mark <task no.>' - to mark a task done
+'unmark <task no.>' - to unmark a task
+'delete <task no.>' - to delete a task
 'bye' - to exit the chatbot
 _____________________________________________________
 _____________________________________________________
