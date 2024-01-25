@@ -4,6 +4,7 @@ public class Task {
 
         protected String type;
 
+
         public Task(String description, String type) {
             this.description = description;
             this.isDone = false;

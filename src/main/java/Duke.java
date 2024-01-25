@@ -30,7 +30,7 @@ public class Duke {
                 System.out.println(barrier);
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < todoList.size(); i++) {
-                    System.out.println(i+1 + ".[" + todoList.get(i).getStatusIcon() + "] " + todoList.get(i).getDes());
+                    System.out.println(i+1 + ".[" + todoList.get(i).getType() + "][" + todoList.get(i).getStatusIcon() + "] " + todoList.get(i).getDes());
                 }
                 System.out.println(barrier);
             } else if (inputList[0].equals("mark")) {
@@ -54,35 +54,34 @@ public class Duke {
                 System.out.println("[T][ ] " + inputList[1]);
                 System.out.println("Now you have " + todoList.size() + " tasks in the list.");
                 System.out.println(barrier);
-                System.out.println(inputList[1]);
             } else if (inputList[0].equals("deadline")) {
                 String[] differentParts = inputList[1].split("/");
-                System.out.println(differentParts[0]);
-                System.out.println(differentParts[1]);
-                Task userTask = new Task(inputList[1],"D");
+                String[] deadLine = differentParts[1].split(" ", 2);
+                String newdescription = differentParts[0] + "(by: " + deadLine[1] + ")";
+                Task userTask = new Task(newdescription,"D");
                 todoList.add(userTask);
                 System.out.println(barrier);
-                System.out.println("[D][ ] " + differentParts[0]);
+                System.out.println("[D][ ] " + newdescription);
                 System.out.println("Now you have " + todoList.size() + " tasks in the list.");
                 System.out.println(barrier);
             } else if (inputList[0].equals("event")) {
                 String[] differentParts = inputList[1].split("/");
-                System.out.println(differentParts[0]);
-                System.out.println(differentParts[1]);
-                System.out.println(differentParts[2]);
-                Task userTask = new Task(inputList[1],"E");
+                String[] startDate = differentParts[1].split(" ", 2);
+                String[] endDate = differentParts[2].split(" ", 2);
+                String newdescription = differentParts[0] + "(from: " + startDate[1] + "to : " + endDate[1] + ")";
+                Task userTask = new Task(newdescription,"E");
                 todoList.add(userTask);
                 System.out.println(barrier);
-                System.out.println("[E][ ] " + differentParts[0]);
+                System.out.println("[E][ ] " + newdescription);
                 System.out.println("Now you have " + todoList.size() + " tasks in the list.");
                 System.out.println(barrier);
             }
             else {
-                Task userTask = new Task(inputList[0] + " " + inputList[1],"E");
+                Task userTask = new Task(inputList[0] + " " + inputList[1]," ");
                 todoList.add(userTask);
                 System.out.println(barrier);
                 System.out.println("added: " + inputList[0] + " " + inputList[1]);
-                System.out.println("Now you have " + todoList.size() + " tasks in the list.");
+                System.out.println("Now you have " + todoList.size() + " task(s) in the list.");
                 System.out.println(barrier);
             }
         }
