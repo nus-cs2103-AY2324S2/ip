@@ -23,4 +23,9 @@ public class Task {
         return description;
     }
 
+    @Override
+    public String toString() {
+        return this.getCompletionIcon() + this.getTask();
+    }
+
 }
