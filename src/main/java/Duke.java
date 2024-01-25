@@ -22,22 +22,22 @@ public class Duke {
                 System.out.println("    ____________________________________________________________");
             } else if (Objects.equals(input, "bye")) {
                 break;
-//            } else if(Objects.equals(input, "mark")) {
-//                System.out.println("    ____________________________________________________________");
-//                System.out.format("    Which activity you wish to %s: ", input);
-//                String key = scanner.next();
-//                completion.set(activity.indexOf(key), "√");
-//                System.out.println("    ____________________________________________________________");
-//                System.out.format("    %sed: %s%n", input, key);
-//                System.out.println("    ____________________________________________________________");
-//            } else if (Objects.equals(input, "unmark")) {
-//                System.out.println("    ____________________________________________________________");
-//                System.out.format("    Which activity you wish to %s: ", input);
-//                String key = scanner.next();
-//                completion.set(activity.indexOf(key), "√");
-//                System.out.println("    ____________________________________________________________");
-//                System.out.format("    %sed: %s%n", input, key);
-//                System.out.println("    ____________________________________________________________");
+            } else if(Objects.equals(input, "mark")) {
+                System.out.println("    ____________________________________________________________");
+                System.out.format("    Which activity you wish to %s: ", input);
+                String key = scanner.next();
+                completion.set(activity.indexOf(key), "√");
+                System.out.println("    ____________________________________________________________");
+                System.out.format("    %sed: %s%n", input, key);
+                System.out.println("    ____________________________________________________________");
+            } else if (Objects.equals(input, "unmark")) {
+                System.out.println("    ____________________________________________________________");
+                System.out.format("    Which activity you wish to %s: ", input);
+                String key = scanner.next();
+                completion.set(activity.indexOf(key), "√");
+                System.out.println("    ____________________________________________________________");
+                System.out.format("    %sed: %s%n", input, key);
+                System.out.println("    ____________________________________________________________");
             } else {
                 System.out.println("    ____________________________________________________________");
                 System.out.println("    added: " + input);
