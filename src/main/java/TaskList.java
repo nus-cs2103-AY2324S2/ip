@@ -16,6 +16,12 @@ public class TaskList {
 
     }
 
+    public Task removeTask(int idx) throws IndexOutOfBoundsException {
+        Task t = this.taskList.get(idx);
+        this.taskList.remove(idx);
+        return t;
+    }
+
     public Task addToDo(String taskDesc) {
         Task t = new ToDos(taskDesc);
         this.taskList.add(t);

@@ -57,6 +57,22 @@ public class Numerator {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Task does not exist");
                     }
+                } else if (input.startsWith("delete")) {
+                    try {
+                        Pattern p = Pattern.compile("delete (\\d+)");
+                        Matcher m = p.matcher(input);
+                        if (!m.find()) {
+                            System.out.println("Please use the format: delete <task number>");
+                        } else {
+                            int taskNum = Integer.parseInt(m.group(1)) - 1;
+                            Task t = taskList.removeTask(taskNum);
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.printf("%s\n", t);
+                            System.out.printf("Now you have %d tasks in the list\n", taskList.taskList.size());
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Task does not exist");
+                    }
                 } else if (input.startsWith("todo")) {
                     Pattern p = Pattern.compile("todo (\\S+.*)");
                     Matcher m = p.matcher(input);
