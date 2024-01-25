@@ -17,7 +17,8 @@ public class Lindi {
             void executeCreateTask(String s){
                 Task task = Task.create(s);
                 taskList[taskListCount++] = task;
-                System.out.println("Added: " + task);
+                System.out.println("Got it. I've added this task:\n\t" + task +
+                                   "\nNow you have " + taskListCount + " tasks in the list.");
             }
 
             /**
