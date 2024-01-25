@@ -1,5 +1,5 @@
 todo read book
-deadline return book /by Sunday
+deadline return book /by Monday
 event project meeting /from Mon 2pm /to 4pm
 todo join sports club
 todo borrow book
