@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -9,7 +10,7 @@ public class Duke {
 
         String goodbye = horizontalLine + "Bye. Hope to see you again soon!\n" + horizontalLine;
 
-        Task[] tasks = new Task[100]; // Assume there are no more than 100 tasks
+        ArrayList<Task> tasks = new ArrayList<>();
         int counter = 0;
 
         Scanner sc = new Scanner(System.in);
@@ -29,7 +30,7 @@ public class Duke {
                     System.out.println(horizontalLine + "Here are the tasks in your list:");
 
                     for (int i = 0; i < counter; i++) {
-                        System.out.printf("%d. %s\n", i + 1, tasks[i]);
+                        System.out.printf("%d. %s\n", i + 1, tasks.get(i));
                     }
                     System.out.println(horizontalLine);
                     continue;
@@ -38,12 +39,34 @@ public class Duke {
                 // Handle more complex commands
                 String[] parts = input.split(" ", 2);
 
+                // Handle 'delete' commands
+                if (parts[0].equals("delete")) {
+                    try {
+                        int taskId = Integer.parseInt(parts[1]) - 1;
+                        Task task = tasks.get(taskId);
+                        tasks.remove(taskId);
+                        counter--;
+                        String taskCounter = String.format("Now you have %s tasks in the list.\n", counter);
+                        System.out.println(horizontalLine +
+                                "OK. I've deleted this task:\n" +
+                                task + "\n" + taskCounter +
+                                horizontalLine);
+                        continue;
+
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new MissingArgumentException(parts[0]);
+
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new NoTaskFoundException(parts[1]);
+                    }
+                }
+
                 // Handle 'mark' commands
                 if (parts[0].equals("mark") || parts[0].equals("unmark")) {
 
                     try {
                         int taskId = Integer.parseInt(parts[1]) - 1;
-                        Task task = tasks[taskId];
+                        Task task = tasks.get(taskId);
                         String statement = task.changeMark(parts[0]);
                         System.out.println(horizontalLine + statement + task + "\n" + horizontalLine);
                         continue;
@@ -51,7 +74,7 @@ public class Duke {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new MissingArgumentException(parts[0]);
 
-                    } catch (NullPointerException e) {
+                    } catch (IndexOutOfBoundsException e) {
                         throw new NoTaskFoundException(parts[1]);
                     }
                 }
@@ -94,7 +117,7 @@ public class Duke {
                         }
                     }
 
-                    tasks[counter] = newTask;
+                    tasks.add(newTask);
                     counter++;
                     String taskCounter = String.format("Now you have %s tasks in the list.\n", counter);
                     System.out.println(horizontalLine
