@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Panda {
 
     private static boolean running = false;
+    private static String[] tlist;
+    private static int idx = 0;
 
     private static void startUp() {
         System.out.println(
@@ -10,13 +12,19 @@ public class Panda {
             "What can I do for you?"
         );
         running = true;
+        tlist = new String[100];
     }
 
     private static void shutDown() {
         System.out.println(
             "Bye. Hope to see you again soon!"
         );
-        running = true;
+    }
+
+    private static void printTlist() {
+        for(int i = 0; i < idx; i++) {
+            System.out.println((i + 1) + ". " + tlist[i]);
+        }
     }
 
     private static void comm() {
@@ -29,7 +37,14 @@ public class Panda {
                 myObj.close();
             }
             else {
-                System.out.println(userInput);
+                if(userInput.equals(("list"))) {
+                    Panda.printTlist();
+                }
+                else {
+                    tlist[idx] = userInput;
+                    idx = idx + 1;
+                    System.out.println("added: " + userInput);
+                }
             }
         }
     }
