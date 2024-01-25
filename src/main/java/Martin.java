@@ -20,9 +20,25 @@ public class Martin {
             } else if (command.equals("list")) {
                 printList();
             } else if (command.equals("mark")) {
-
+                // pending error throwing for invalid input
+                if(words.length < 2) {
+                    System.out.println("Please specify a task number to mark");
+                    continue;
+                }
+                int taskNumber = Integer.parseInt(words[1]);
+                todoList.get(taskNumber).markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(todoList.get(taskNumber));
             } else if (command.equals("unmark")) {
-
+                // pending error throwing for invalid input
+                if(words.length < 2) {
+                    System.out.println("Please specify a task number to mark");
+                    continue;
+                }
+                int taskNumber = Integer.parseInt(words[1]);
+                todoList.get(taskNumber).unmarkAsDone();
+                System.out.println("Okay, I've unmarked it");
+                System.out.println(todoList.get(taskNumber));
             } else {
                 addToList(command);
             }
