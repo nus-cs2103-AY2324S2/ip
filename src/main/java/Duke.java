@@ -2,7 +2,7 @@ import java.util.ArrayList; // import the ArrayList class
 import java.util.Scanner;  // Import the Scanner class
 
 public class Duke {
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args){
         String line = "____________________________________________________________";
         System.out.println(line + "\nHello! I'm Homie");
         System.out.println("What can I do for you?\n" + line);
@@ -35,6 +35,19 @@ public class Duke {
                 }
                 System.out.println(line);
                 index = 1; // Reset index to 1
+                command = scanner.nextLine(); // Read next command
+                continue;
+            }
+
+            if (command.startsWith("delete")) {
+                tempArr = command.split(" ");
+                currTask = myList.get(Integer.parseInt(tempArr[1]) - 1);
+                myList.remove(Integer.parseInt(tempArr[1]) - 1);
+                System.out.println(line);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(currTask);
+                System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                System.out.println(line);
                 command = scanner.nextLine(); // Read next command
                 continue;
             }
@@ -119,7 +132,7 @@ public class Duke {
     }
     public static void checkCommand (String command) throws DukeException {
         String line = "____________________________________________________________";
-        if (!(command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event") || command.startsWith("list") || command.startsWith("bye"))) {
+        if (!(command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event") || command.startsWith("list") || command.startsWith("bye") || command.startsWith("delete"))) {
             throw new DukeException("\n" + line + "\nOPPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
         }
     }
