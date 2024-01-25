@@ -1,3 +1,10 @@
+package parser;
+
+import commands.*;
+import tasks.Deadline;
+import tasks.Task;
+import tasks.ToDo;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -178,7 +185,7 @@ public class Parser {
                 return todo;
             case "D":
                 if (additionalInfo == null) {
-                    throw new DukeException("Invalid Deadline format in file");
+                    throw new DukeException("Invalid tasks.Deadline format in file");
                 }
                 LocalDateTime by = LocalDateTime.parse(additionalInfo);
                 Deadline deadline = new Deadline(description, by);
@@ -187,7 +194,7 @@ public class Parser {
             case "E":
                 String[] times = additionalInfo.split(" to ");
                 if (times.length < 2) {
-                    throw new DukeException("Invalid Event time format in file.");
+                    throw new DukeException("Invalid tasks.Event time format in file.");
                 }
                 LocalDateTime start = LocalDateTime.parse(times[0].trim());
                 LocalDateTime end = LocalDateTime.parse(times[1].trim());
