@@ -15,18 +15,22 @@ public class TaskList {
         return task.toString();
     }
 
-    public String markTaskDone(int idx) {
+    public String markTaskDone(int idx) throws DukeException {
         if (idx >= 0 && idx < tasks.size()) {
             tasks.get(idx).markDone();
+            return tasks.get(idx).toString();
+        } else {
+            throw new DukeException("Invalid task index: " + idx);
         }
-        return tasks.get(idx).toString();
     }
 
-    public String markTaskUndone(int idx) {
+    public String markTaskUndone(int idx) throws DukeException {
         if (idx >= 0 && idx < tasks.size()) {
             tasks.get(idx).markUndone();
+            return tasks.get(idx).toString();
+        } else {
+            throw new DukeException("Invalid task index: " + idx);
         }
-        return tasks.get(idx).toString();
     }
 
     public int getNumberTasks() {
