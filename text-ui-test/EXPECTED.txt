@@ -3,6 +3,9 @@ hi bro, im jun jie
 what you want me to do?
 -------------------------
 -------------------------
+DukeException: oi the task needs a name la 😡😡
+-------------------------
+-------------------------
 what are u saying
 -------------------------
 -------------------------
@@ -22,32 +25,16 @@ good job bro, marked this task as done:
 [T][X] borrow book
 -------------------------
 -------------------------
-what are u saying
--------------------------
--------------------------
 1. [T][X] borrow book
 2. [D][ ] return book (by: Sunday)
 -------------------------
 -------------------------
-added this task for you liao:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+ok deleted this one:
+[T][X] borrow book
 -------------------------
 -------------------------
-1. [T][X] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+1. [D][ ] return book (by: Sunday)
 -------------------------
 -------------------------
-1. [T][X] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
--------------------------
--------------------------
-good job bro, marked this task as done:
-[E][X] project meeting (from: Mon 2pm to: 4pm)
--------------------------
--------------------------
-1. [T][X] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+ok see you bro
 -------------------------

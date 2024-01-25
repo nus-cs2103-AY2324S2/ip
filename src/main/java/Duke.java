@@ -55,32 +55,51 @@ public class Duke {
                 print("ok i help you unmark this task ah:\n" + task.toString());
                 break;
             }
+            case "delete": {
+                Task task = taskList.remove(Integer.parseInt(content) - 1);
+                print("ok deleted this one:\n" + task.toString());
+                break;
+            }
             case "todo": {
-                Task task = new TodoTask(content);
-                taskList.addTask(task);
-                print("added this task for you liao:\n" + task.toString());
+                try {
+                    Task task = new TodoTask(content);
+                    taskList.add(task);
+                    print("added this task for you liao:\n" + task.toString());
+                } catch (DukeException e) {
+                    print(e.toString());
+                }
+
                 break;
             }
             case "deadline": {
                 String[] splitContent = content.split(" /by ");
                 String eventName = splitContent[0];
-                String deadline = splitContent[1];
-                Task task = new DeadlineTask(eventName, deadline);
-
-                taskList.addTask(task);
-                print("added this task for you liao:\n" + task.toString());
+                String deadline = splitContent.length > 1 ? splitContent[1] : "";
+                try {
+                    Task task = new DeadlineTask(eventName, deadline);
+                    taskList.add(task);
+                    print("added this task for you liao:\n" + task.toString());
+                } catch (DukeException e) {
+                    print(e.toString());
+                }
                 break;
             }
             case "event": {
                 String[] splitContent = content.split(" /from ");
                 String eventName = splitContent[0];
-                splitContent = splitContent[1].split(" /to ");
-                String from = splitContent[0];
-                String to = splitContent[1];
+                String temp = splitContent.length > 1 ? splitContent[1] : "";
 
-                Task task = new EventTask(eventName, from, to);
-                taskList.addTask(task);
-                print("added this task for you liao:\n" + task.toString());
+                splitContent = temp.split(" /to ");
+                String from = splitContent[0];
+                String to = splitContent.length > 1 ? splitContent[1] : "";
+
+                try {
+                    Task task = new EventTask(eventName, from, to);
+                    taskList.add(task);
+                    print("added this task for you liao:\n" + task.toString());
+                } catch (DukeException e) {
+                    print(e.toString());
+                }
                 break;
             }
             default:

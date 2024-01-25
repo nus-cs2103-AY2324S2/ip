@@ -1,12 +1,10 @@
-h
+event
+hi
 todo borrow book
 deadline return book /by Sunday
 list
 mark 1
-ls
 list
-event project meeting /from Mon 2pm /to 4pm
+delete 1
 list
-list
-mark 3
-list
+bye
