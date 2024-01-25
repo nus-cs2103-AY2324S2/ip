@@ -1,15 +1,19 @@
 Welcome, sensei! Arona has been waiting for you.
 Sensei! There are no tasks. Take care of your health too. It's gotta take priority!
-Noted, I have added this event.
+Sorry, sensei! You only have 0 tasks. Please choose a valid task number (>.<)
+Noted, I have added this event
     [E][ ] CS4231 Lecture (from: 6.30 PM to: 9.30 PM)
 Now, your task list has 1 task.
-Noted, I have added this task.
+Sensei! Pick a task. I'll back you up!
+1. [E][ ] CS4231 Lecture (from: 6.30 PM to: 9.30 PM)
+Sorry, sensei! You only have 1 task. Please choose a valid task number (>.<)
+Noted, I have added this task
     [T][ ] Wash laundry
 Now, your task list has 2 tasks.
-Noted, I have added this task with deadline.
+Noted, I have added this deadline
     [D][ ] CS2108 Homework (by: Monday)
 Now, your task list has 3 tasks.
-Noted, I have added this event.
+Noted, I have added this event
     [E][ ] side project meeting (from: 10.00PM to: idk)
 Now, your task list has 4 tasks.
 Sensei! Pick a task. I'll back you up!
@@ -26,7 +30,7 @@ Sensei! Pick a task. I'll back you up!
 2. [T][ ] Wash laundry
 3. [D][X] CS2108 Homework (by: Monday)
 4. [E][ ] side project meeting (from: 10.00PM to: idk)
-Okay, I've marked this task as not done.
+Okay, I've marked this task as not done
     [D][ ] CS2108 Homework (by: Monday)
 Nice, I've marked this task as done!
     [T][X] Wash laundry
@@ -35,4 +39,12 @@ Sensei! Pick a task. I'll back you up!
 2. [T][X] Wash laundry
 3. [D][ ] CS2108 Homework (by: Monday)
 4. [E][ ] side project meeting (from: 10.00PM to: idk)
+Sorry, sensei! You only have 4 tasks. Please choose a valid task number (>.<)
+Sorry, sensei! You only have 4 tasks. Please choose a valid task number (>.<)
+Sorry, sensei! You are missing the task description argument (>.<)
+Sorry, sensei! You are missing the end time argument (>.<)
+Sorry, sensei! You are missing the deadline time argument (>.<)
+Sorry, sensei! You are missing the start time argument (>.<)
+Sorry, sensei! You are missing the task description argument (>.<)
+Sorry, sensei! I don't understand your message (>_<)
 Thanks for the hard work, Sensei.

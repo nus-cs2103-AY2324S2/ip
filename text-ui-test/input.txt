@@ -1,5 +1,8 @@
 list
+mark 3
 Event CS4231 Lecture /from 6.30 PM /to 9.30 PM
+list
+unmark -1
 todo Wash laundry
 deadLine CS2108 Homework /by Monday
 event side project meeting /from 10.00PM /to idk
@@ -10,4 +13,12 @@ list
 unmark 3
 mark 2
 list
+mark 5
+unmark -1
+todo
+event a /from v /to
+deadline x /by
+event cc
+deadline
+exit
 bye

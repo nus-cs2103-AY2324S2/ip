@@ -5,6 +5,7 @@ public class Arona {
     Arona() {
         tasks = new TaskList();
     }
+
     private void greet() {
         System.out.println("Welcome, sensei! Arona has been waiting for you.");
     }
@@ -26,7 +27,7 @@ public class Arona {
     private void addTask(String str) {
         Task task = new Task(str);
         tasks.addElements(task);
-        System.out.println("Noted, I have added this task.");
+        System.out.println("Noted, I have added this task");
         System.out.println("    " + task);
         System.out.println("Now, your task list has " + tasks.taskCount() + " task"
                 + (tasks.taskCount() == 1 ? "" : "s") + ".");
@@ -35,7 +36,7 @@ public class Arona {
     private void addDeadline(String str, String by) {
         Deadline deadline = new Deadline(str, by);
         tasks.addElements(deadline);
-        System.out.println("Noted, I have added this task with deadline.");
+        System.out.println("Noted, I have added this deadline");
         System.out.println("    " + deadline);
         System.out.println("Now, your task list has " + tasks.taskCount() + " task"
                 + (tasks.taskCount() == 1 ? "" : "s") + ".");
@@ -44,7 +45,7 @@ public class Arona {
     private void addEvent(String str, String start, String end) {
         Event event = new Event(str, start, end);
         tasks.addElements(event);
-        System.out.println("Noted, I have added this event.");
+        System.out.println("Noted, I have added this event");
         System.out.println("    " + event);
         System.out.println("Now, your task list has " + tasks.taskCount() + " task"
                 + (tasks.taskCount() == 1 ? "" : "s") + ".");
@@ -58,8 +59,79 @@ public class Arona {
 
     private void markUndone(int id) {
         tasks.markIndexAsUndone(id);
-        System.out.println("Okay, I've marked this task as not done.");
+        System.out.println("Okay, I've marked this task as not done");
         System.out.println("    " + tasks.getTask(id));
+    }
+
+    private boolean processCommand(String command) throws AronaIncompleteCommandException, AronaInvalidIndexException, AronaInvalidCommandException {
+        String[] commandSplit = command.split(" ", 2);
+
+        if (commandSplit[0].equalsIgnoreCase("bye")) {
+            return false;
+        } else if (commandSplit[0].equalsIgnoreCase("list")) {
+            listTasks();
+        } else if (commandSplit[0].equalsIgnoreCase("mark")) {
+            if (commandSplit.length == 1 || commandSplit[1].equals("")) {
+                throw new AronaIncompleteCommandException("index number");
+            }
+
+            if (Integer.parseInt(commandSplit[1]) <= 0 || Integer.parseInt(commandSplit[1]) > tasks.taskCount()) {
+                throw new AronaInvalidIndexException(Integer.toString(tasks.taskCount()));
+            }
+
+            int index = Integer.parseInt(commandSplit[1]) - 1;
+            markDone(index);
+        } else if (commandSplit[0].equalsIgnoreCase("unmark")) {
+            if (commandSplit.length == 1 || commandSplit[1].equals("")) {
+                throw new AronaIncompleteCommandException("index number");
+            }
+
+            if (Integer.parseInt(commandSplit[1]) <= 0 || Integer.parseInt(commandSplit[1]) > tasks.taskCount()) {
+                throw new AronaInvalidIndexException(Integer.toString(tasks.taskCount()));
+            }
+
+            int index = Integer.parseInt(commandSplit[1]) - 1;
+            markUndone(index);
+        } else if (commandSplit[0].equalsIgnoreCase("todo")) {
+            if (commandSplit.length == 1 || commandSplit[1].equals("")) {
+                throw new AronaIncompleteCommandException("task description");
+            }
+
+            addTask(commandSplit[1]);
+        } else if (commandSplit[0].equalsIgnoreCase("deadline")) {
+            if (commandSplit.length == 1 || commandSplit[1].equals("")) {
+                throw new AronaIncompleteCommandException("task description");
+            }
+
+            String[] deadlineSplit = commandSplit[1].split(" /by ");
+
+            if (deadlineSplit.length == 1 || deadlineSplit[1].equals("")) {
+                throw new AronaIncompleteCommandException("deadline time");
+            }
+
+            addDeadline(deadlineSplit[0], deadlineSplit[1]);
+        } else if (commandSplit[0].equalsIgnoreCase("event")) {
+            if (commandSplit.length == 1 || commandSplit[1].equals("")) {
+                throw new AronaIncompleteCommandException("task description");
+            }
+
+            String[] eventSplit = commandSplit[1].split(" /from ");
+
+            if (eventSplit.length == 1 || eventSplit[1].equals("")) {
+                throw new AronaIncompleteCommandException("start time");
+            }
+
+            String[] eventSplitTime = eventSplit[1].split(" /to ");
+
+            if (eventSplitTime.length == 1 || eventSplitTime[1].equals("")) {
+                throw new AronaIncompleteCommandException("end time");
+            }
+
+            addEvent(eventSplit[0], eventSplitTime[0], eventSplitTime[1]);
+        } else {
+            throw new AronaInvalidCommandException("");
+        }
+        return true;
     }
 
     public static void main(String[] args) {
@@ -71,29 +143,11 @@ public class Arona {
 
         while (true) {
             command = scanner.nextLine();
-            String[] commandSplit = command.split(" ", 2);
-
-            if (commandSplit[0].toLowerCase().equals("bye")) {
-                break;
-            } else if (commandSplit[0].toLowerCase().equals("list")) {
-                arona.listTasks();
-            } else if (commandSplit[0].toLowerCase().equals("mark")) {
-                int index = Integer.parseInt(commandSplit[1]) - 1;
-                arona.markDone(index);
-            } else if (commandSplit[0].toLowerCase().equals("unmark")) {
-                int index = Integer.parseInt(commandSplit[1]) - 1;
-                arona.markUndone(index);
-            } else if (commandSplit[0].toLowerCase().equals("todo")) {
-                arona.addTask(commandSplit[1]);
-            } else if (commandSplit[0].toLowerCase().equals("deadline")) {
-                String[] deadlineSplit = commandSplit[1].split(" /by ");
-                arona.addDeadline(deadlineSplit[0], deadlineSplit[1]);
-            } else if (commandSplit[0].toLowerCase().equals("event")) {
-                String[] eventSplit = commandSplit[1].split(" /from ");
-                String[] eventSplitTime = eventSplit[1].split(" /to ");
-                arona.addEvent(eventSplit[0], eventSplitTime[0], eventSplitTime[1]);
-            } else {
-                System.out.println(command);
+            try {
+                if (!arona.processCommand(command))
+                    break;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
 
