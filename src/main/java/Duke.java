@@ -1,10 +1,18 @@
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = 
+                        " _____   _____  _    _ \n"
+                        + "|  __ \\ / ____|| |  | |\n"
+                        + "| |__) | (___  | |__| |\n"
+                        + "|  _  / \\___ \\ |  __  |\n"
+                        + "| | \\ \\ ____) || |  | |\n"
+                        + "|_|  \\_|_____/ |_|  |_|\n";
+        System.out.println(layer("Hello! I'm \n" + logo));
+        System.out.println(layer("Bye. Hope to see you again soon!"));
+    }
+
+    public static String layer(String s) {
+        String line = "____________________________________________________________";
+        return line + "\n" + s + "\n" + line; 
     }
 }
