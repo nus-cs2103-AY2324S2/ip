@@ -11,7 +11,7 @@ public abstract class Command {
     return body;
   }
 
-  public static Command newCommand(String name, String body) {
+  public static Command newCommand(String name, String body) throws DukeException {
     switch (name) {
       case "list":
         return new ListCommand();
@@ -28,9 +28,10 @@ public abstract class Command {
       case "event":
         return new EventCommand(body);
       default:
-        return new AddCommand(body);
+        throw new DukeException("Unknown command: " + name + " " + body,
+            "I'm sorry, but I don't know what that means :<");
     }
   }
 
-  abstract public boolean execute(TaskList list);
+  abstract public boolean execute(TaskList list) throws DukeException;
 }
