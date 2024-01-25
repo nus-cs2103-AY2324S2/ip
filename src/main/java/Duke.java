@@ -1,6 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
+
+    private static ArrayList<String> list = new ArrayList<>();
+
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -14,6 +18,7 @@ public class Duke {
 
         String bye = "See you soon!";
 
+        String indent = "    ";
 
         while (true) {
             Scanner input = new Scanner(System.in);
@@ -21,8 +26,14 @@ public class Duke {
             if (str.equals("bye") || str.equals("Bye")) {
                 System.out.println(bye);
                 break;
+            } else if (str.equals("list")){
+                for (int i = 0; i < list.size(); i++) {
+                    int n = i + 1;
+                    System.out.println(indent + n + ". " + list.get(i));
+                }
             } else {
-                System.out.println(str);
+                list.add(str);
+                System.out.println(indent + "added: " + str);
             }
         }
     }
