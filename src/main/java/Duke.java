@@ -100,7 +100,7 @@ public class Duke {
                     addEvent(input);
                     break;
                 default:
-                    break;
+                    erroMsg("I regret to inform you that I currently lack an understanding of the intended meaning behind that statement.");
             }
             input = scanner.nextLine();
         }
@@ -120,28 +120,40 @@ public class Duke {
     public static void addList(Task task){
         listItems.add(task);
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tI have added the following task:");
+        System.out.println("\tI am pleased to convey that the following task has been added to the outlined list:");
         System.out.println("\t   "+task);
-        System.out.println("\tNow you have " + listItems.size() + " tasks in the list.");
+        System.out.println("\tCurrently, the list comprises  " + listItems.size() + " tasks.");
         System.out.println("\t____________________________________________________________\n");
     }
     public static void addTodo(String cmd){
         String[] statement = cmd.split(" ", 2);
-        ToDo todo = new ToDo(statement[1]);
-        addList(todo);
+        try {
+            ToDo todo = new ToDo(statement[1]);
+            addList(todo);
+        }catch(ArrayIndexOutOfBoundsException e) {
+            erroMsg("It is imperative that the description of a to-do is not left empty.");
+        }
     }
     public static void addDeadline(String cmd){
         String[] statement1 = cmd.split(" ", 2);
-        String[] statement2 = statement1[1].split(" /by ", 2);
-        Deadline ddl = new Deadline(statement2[0], statement2[1]);
-        addList(ddl);
+        try {
+            String[] statement2 = statement1[1].split(" /by ", 2);
+            Deadline ddl = new Deadline(statement2[0], statement2[1]);
+            addList(ddl);
+        }catch(ArrayIndexOutOfBoundsException e) {
+            erroMsg("It is imperative that the description and the date of a deadline is not left empty.");
+        }
     }
     public static void addEvent(String cmd){
         String[] statement1 = cmd.split(" ", 2);
-        String[] statement2 = statement1[1].split(" /from ", 2);
-        String[] statement3 = statement2[1].split(" /to ", 2);
-        Event event = new Event(statement2[0], statement3[0], statement3[1]);
-        addList(event);
+        try {
+            String[] statement2 = statement1[1].split(" /from ", 2);
+            String[] statement3 = statement2[1].split(" /to ", 2);
+            Event event = new Event(statement2[0], statement3[0], statement3[1]);
+            addList(event);
+        }catch(ArrayIndexOutOfBoundsException e) {
+            erroMsg("It is imperative that the description and from-to information of an event is not left empty.");
+        }
     }
     public static void showList(){
         System.out.println("\t____________________________________________________________");
@@ -167,4 +179,10 @@ public class Duke {
         System.out.println("\t   " + listItems.get(index-1));
         System.out.println("\t____________________________________________________________\n" );
     }
+    public static void erroMsg(String content){
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t" + content);
+        System.out.println("\t____________________________________________________________\n" );
+    }
+
 }

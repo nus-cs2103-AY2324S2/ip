@@ -4,33 +4,33 @@
 	____________________________________________________________
 
 	____________________________________________________________
-	I have added the following task:
+	I am pleased to convey that the following task has been added to the outlined list:
 	   [T][ ] read book
-	Now you have 1 tasks in the list.
+	Currently, the list comprises  1 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
-	I have added the following task:
+	I am pleased to convey that the following task has been added to the outlined list:
 	   [D][ ] return book (by: June 6th)
-	Now you have 2 tasks in the list.
+	Currently, the list comprises  2 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
-	I have added the following task:
+	I am pleased to convey that the following task has been added to the outlined list:
 	   [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	Now you have 3 tasks in the list.
+	Currently, the list comprises  3 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
-	I have added the following task:
+	I am pleased to convey that the following task has been added to the outlined list:
 	   [T][ ] join sports club
-	Now you have 4 tasks in the list.
+	Currently, the list comprises  4 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
-	I have added the following task:
+	I am pleased to convey that the following task has been added to the outlined list:
 	   [T][ ] borrow book
-	Now you have 5 tasks in the list.
+	Currently, the list comprises  5 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
@@ -53,21 +53,21 @@
 	____________________________________________________________
 
 	____________________________________________________________
-	I have added the following task:
+	I am pleased to convey that the following task has been added to the outlined list:
 	   [D][ ] return book (by: Sunday)
-	Now you have 6 tasks in the list.
+	Currently, the list comprises  6 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
-	I have added the following task:
+	I am pleased to convey that the following task has been added to the outlined list:
 	   [E][ ] project meeting (from: Mon 2pm to: 4pm)
-	Now you have 7 tasks in the list.
+	Currently, the list comprises  7 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
-	I have added the following task:
+	I am pleased to convey that the following task has been added to the outlined list:
 	   [D][ ] do homework (by: no idea :-p)
-	Now you have 8 tasks in the list.
+	Currently, the list comprises  8 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
