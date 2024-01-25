@@ -2,6 +2,10 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public enum TaskType {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+    }
+
     public static void main(String[] args) {
 
         // Ui
@@ -20,16 +24,16 @@ public class Duke {
         while (true) {
             String task = inputReader.nextLine();
             String[] splitedTask = task.split(" ");
-            String taskType = "";
+            TaskType taskType = TaskType.UNKNOWN;
 
             // Empty command handler
             try {
-                taskType = splitedTask[0];
-                if (taskType.isBlank()) {
-                    throw new ArrayIndexOutOfBoundsException();
-                }
+                taskType = TaskType.valueOf(splitedTask[0].toUpperCase());
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.print("Sorry, we are not sync enough to communicate through empty command.");
+                continue;
+            } catch (IllegalArgumentException e) {
+                ui.print("Syntax error, unknown command.");
                 continue;
             }
 
@@ -37,7 +41,7 @@ public class Duke {
 
             try {
                 switch (taskType) {
-                    case "bye": {
+                    case BYE: {
                         // Incorrect command syntax handler
                         if (splitedTask.length > 1) {
                             throw new DukeException("bye");
@@ -46,7 +50,7 @@ public class Duke {
                         isEnd = true;
                         break;
                     }
-                    case "list": {
+                    case LIST: {
                         // Incorrect command syntax handler
                         if (splitedTask.length > 1) {
                             throw new DukeException("list");
@@ -55,7 +59,7 @@ public class Duke {
                         ui.list(storage);
                         break;
                     }
-                    case "mark": {
+                    case MARK: {
                         // Incorrect command syntax handler
                         if (splitedTask.length != 2) {
                             throw new DukeException("mark");
@@ -80,7 +84,7 @@ public class Duke {
                         ui.mark(storage.getItem(index));
                         break;
                     }
-                    case "unmark": {
+                    case UNMARK: {
                         // Incorrect command syntax handler
                         if (splitedTask.length != 2) {
                             throw new DukeException("unmark");
@@ -105,7 +109,7 @@ public class Duke {
                         ui.mark(storage.getItem(index));
                         break;
                     }
-                    case "todo": {
+                    case TODO: {
                         // Incorrect command syntax handler
                         if (splitedTask.length == 1) {
                             throw new DukeException("todo");
@@ -116,7 +120,7 @@ public class Duke {
                         ui.add(newTask, storage);
                         break;
                     }
-                    case "deadline": {
+                    case DEADLINE: {
                         // Incorrect command syntax handler
                         if (splitedTask.length == 1) {
                             throw new DukeException("deadline");
@@ -138,7 +142,7 @@ public class Duke {
                         ui.add(newTask, storage);
                         break;
                     }
-                    case "event": {
+                    case EVENT: {
                         // Incorrect command syntax handler
                         if (splitedTask.length == 1) {
                             throw new DukeException("event");
@@ -168,7 +172,7 @@ public class Duke {
                         ui.add(newTask, storage);
                         break;
                     }
-                    case "delete": {
+                    case DELETE: {
                         // Incorrect command syntax handler
                         if (splitedTask.length != 2) {
                             throw new DukeException("delete");
