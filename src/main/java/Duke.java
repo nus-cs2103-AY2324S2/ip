@@ -1,5 +1,6 @@
 public class Duke {
     public static final String botName = "Raphael";
+    public static final Storage<String> itemStorage = new Storage<String>();
     public static void main(String[] args) {
         String logo = "\n"
                 + "  _____                _                   _ \n"
