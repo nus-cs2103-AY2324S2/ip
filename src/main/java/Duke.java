@@ -21,7 +21,8 @@ public class Duke {
         System.out.println("____________________________________________________________");
         PrintGreeting();
         System.out.println("____________________________________________________________");
-
+        PrintExit();
+        System.out.println("____________________________________________________________");
     }
 
     /*
@@ -30,8 +31,20 @@ public class Duke {
     * Returns void
     */
     public static void PrintGreeting() {
-        String greetingMessage = "Hello! I'm JAV\n"
-                               + "What can I do for you?\n";
+        String greetingMessage = "Welcome! I'm JAV\n"
+                               + "How may I sprinkle a bit of happiness into your day today?\n";
+
+        System.out.println(greetingMessage);
+    }
+
+    /*
+
+    * The function prints the greeting to greet the user
+    * Returns void
+    */
+    public static void PrintExit() {
+        String greetingMessage = "Farewell!\n"
+                               + "May your days be filled with laughter and warmth!\n";
 
         System.out.println(greetingMessage);
     }
