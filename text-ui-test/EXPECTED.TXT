@@ -44,6 +44,15 @@ Noted. I've removed this task:
 Now you have 2 tasks in the list.
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
+Hmm...seems like the task to delete does not exist. To delete a task, input the keyword followed by the task's no. in the list. E.g.: delete 3
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Hmm...seems like the task to mark does not exist. To mark a task, input the keyword followed by the task's no. in the list. E.g.: mark 3
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Hmm...seems like the task to unmark does not exist. To unmark a task, input the keyword followed by the task's no. in the list. E.g.: unmark 3
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
 Bye. Hope to see you again soon!
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------

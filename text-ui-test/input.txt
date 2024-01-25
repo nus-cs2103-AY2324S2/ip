@@ -7,4 +7,7 @@ list
 hello
 todo
 delete 3
+delete 5
+mark fry egg
+unmark
 bye
