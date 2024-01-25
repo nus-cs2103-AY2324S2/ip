@@ -23,7 +23,6 @@ public class HASSTNT {
             String input;
             while (true){
                 input = scanner.nextLine().toLowerCase();
-                System.out.println(input);
                 if (input.equalsIgnoreCase("bye")){
                     System.out.println(goodbye_message);
                     break;

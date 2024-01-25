@@ -16,7 +16,7 @@ public class ToDoList {
         switch (taskType) {
             case "todo":
                 tasks.add(new ToDoTask(taskDescription));
-                System.out.println("Got it. I've added this task:\n  " + new ToDoTask(taskDescription));
+                System.out.println("____________________________________________________________\n"+"Got it. I've added this task:\n  " + new ToDoTask(taskDescription));
                 break;
             case "deadline":
                 String[] deadlineParts = taskDescription.split("\\s+by\\s+", 2);
@@ -25,7 +25,7 @@ public class ToDoList {
                     return;
                 }
                 tasks.add(new DeadLineTask(deadlineParts[1], deadlineParts[0]));
-                System.out.println("Got it. I've added this task:\n  " + new DeadLineTask(deadlineParts[1], deadlineParts[0]));
+                System.out.println("____________________________________________________________\n" + "Got it. I've added this task:\n  " + new DeadLineTask(deadlineParts[1], deadlineParts[0]));
                 break;
             case "event":
                 String[] eventParts = taskDescription.split("\\s+(?=\\S+(-|\\sto\\s))", 2);
@@ -40,7 +40,7 @@ public class ToDoList {
                     return;
                 }
                 tasks.add(new EventTask(eventTimingParts[0], eventTimingParts[1], eventParts[0]));
-                System.out.println("Got it. I've added this task:\n  " + new EventTask(eventTimingParts[0], eventTimingParts[1], eventParts[0]));
+                System.out.println("____________________________________________________________\n"+"Got it. I've added this task:\n  " + new EventTask(eventTimingParts[0], eventTimingParts[1], eventParts[0]) +"\n" );
                 break;
             default:
                 System.out.println("Invalid input. Please type 'todo', 'deadline', or 'event' follow by your task requirement.");
@@ -60,7 +60,7 @@ public class ToDoList {
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1).append('.').append("\t").append(tasks.get(i)).append("\n");
         }
-            System.out.println("____________________________________________________________\n" + sb + "____________________________________________________________\n");
+            System.out.println("____________________________________________________________\n" + "Here are the tasks in your list:\n"+ sb + "____________________________________________________________");
 
         }
     }
