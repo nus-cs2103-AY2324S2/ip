@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Henry {
+    private enum CommandType {
+        LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, BYE, UNKNOWN
+    }
     private static ArrayList<Task> items = new ArrayList<Task>();
     public static void greet() {
         String logo = "  _    _                       \n" +
@@ -53,34 +56,34 @@ public class Henry {
         System.out.println();
         items.remove(index);
     }
-    public static void handleCommand(String commandType, String params) throws HenryException {
+    private static void handleCommand(CommandType commandType, String params) throws HenryException {
         switch (commandType) {
-            case "list":
+            case LIST:
                 System.out.println("Here is a list of tasks:");
                 for (int i = 0; i < items.size(); i = i + 1) {
                     System.out.printf("%d. %s\n", i + 1, items.get(i));
                 }
                 System.out.println();
                 break;
-            case "mark":
+            case MARK:
                 if (params.isBlank()) {
                     throw new HenryException("No index provided");
                 }
                 markTask(Integer.parseInt(params) - 1);
                 break;
-            case "unmark":
+            case UNMARK:
                 if (params.isBlank()) {
                     throw new HenryException("No index provided");
                 }
                 unmarkTask(Integer.parseInt(params) - 1);
                 break;
-            case "todo":
+            case TODO:
                 if (params.isBlank()) {
                     throw new HenryException("No description provided");
                 }
                 addTask(new Todo(params));
                 break;
-            case "deadline":
+            case DEADLINE:
                 if (params.isBlank()) {
                     throw new HenryException("No description and /by provided");
                 }
@@ -90,7 +93,7 @@ public class Henry {
                 String[] deadlineParams = params.split(" /by ");
                 addTask(new Deadline(deadlineParams[0], deadlineParams[1]));
                 break;
-            case "event":
+            case EVENT:
                 if (params.isBlank()) {
                     throw new HenryException("No description, /from and /to provided");
                 }
@@ -100,7 +103,7 @@ public class Henry {
                 String[] eventParams = params.split(" /from | /to ");
                 addTask(new Event(eventParams[0], eventParams[1], eventParams[2]));
                 break;
-            case "delete":
+            case DELETE:
                 if (params.isBlank()) {
                     throw new HenryException("No index provided");
                 }
@@ -121,12 +124,17 @@ public class Henry {
         while (true) {
             String currentLine = scanner.nextLine();
             String[] command = currentLine.split(" ", 2);
-            String commandType = command[0];
+            CommandType commandType;
             String params = command.length < 2 ? "" : command[1];
 
-            if (commandType.equals("bye")) {
-                bye();
-                break;
+            try {
+                commandType = CommandType.valueOf(command[0].toUpperCase());
+                if (commandType.equals(CommandType.BYE)) {
+                    bye();
+                    break;
+                }
+            } catch (IllegalArgumentException e) {
+                commandType = CommandType.UNKNOWN;
             }
 
             try {
