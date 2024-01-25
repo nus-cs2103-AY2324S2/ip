@@ -48,6 +48,8 @@ public class Duke {
                 createDeadline(input);
             } else if (input.startsWith("event")) {
                 createEvent(input);
+            } else if (input.startsWith("delete")) {
+                deleteTask(input);
             } else {
 //                System.out.println("\t" + input);
                 throw new DylanBotException("Hello INVALID INPUT pls make it make sense");
@@ -102,6 +104,17 @@ public class Duke {
         curr.to = to;
         tasks.add(curr);
         System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
+    }
+
+    public static void deleteTask(String input) throws DylanBotException {
+        String[] inputArr = input.split(" ");
+        int idx = Integer.parseInt(inputArr[1]);
+        if (idx > tasks.size() || idx < 0) {
+            throw new DylanBotException("HEY index requested is out of bounds");
+        }
+        Task toRemove = tasks.get(idx - 1);
+        tasks.remove(idx - 1);
+        System.out.println("Aight removed this task:\n\t" + toRemove.printTask());
     }
 
     public static class Task {
