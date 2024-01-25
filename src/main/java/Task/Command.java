@@ -27,6 +27,8 @@ public abstract class Command {
         return new DeadlineCommand(body);
       case "event":
         return new EventCommand(body);
+      case "delete":
+        return new DeleteCommand(body);
       default:
         throw new DukeException("Unknown command: " + name + " " + body,
             "I'm sorry, but I don't know what that means :<");

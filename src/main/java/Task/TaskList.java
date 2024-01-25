@@ -14,6 +14,10 @@ public class TaskList {
     return list.add(task);
   }
 
+  public Task deleteTask(int index) {
+    return list.remove(index - 1);
+  }
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
