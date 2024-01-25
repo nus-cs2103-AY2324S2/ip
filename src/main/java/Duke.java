@@ -25,11 +25,22 @@ public class Duke {
                 on = false;
                 break;
             }
-            if (command.matches("list")) {
+            else if (command.matches("list")) {
                 todo.returnList();
+                continue;
+            }
+            else if (command.matches("\\bmark\\b.*")) {
+                String[] words = command.split("\\s+");
+                todo.mark(Integer.parseInt(words[1]));
+                continue;
+            }
+            else if (command.matches("\\bunmark\\b.*")) {
+                String[] words = command.split("\\s+");
+                todo.unmark(Integer.parseInt(words[1]));
+                continue;
             }
             System.out.println("added: " + command);
-            todo.addTodo(command);
+            todo.addTodo(new Task(command));
         }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("-------------------------");
