@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 public class Duke {
     public static final String CHATBOTNAME = "Sophia";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -17,20 +18,7 @@ public class Duke {
             String[] userMessage = input.split(" ");
 
             if (!userMessage[0].equalsIgnoreCase("bye")) {
-                if (userMessage[0].equalsIgnoreCase("list")) {
-                    taskManager.displayTask(input);
-                    continue;
-                } else if (userMessage[0].equalsIgnoreCase("mark")) {
-                    taskManager.markAsComplete(Integer.parseInt(userMessage[1]) - 1);
-                    taskManager.displayTask(input);
-                } else if (userMessage[0].equalsIgnoreCase("unmark")) {
-                    taskManager.markAsIncomplete(Integer.parseInt(userMessage[1]) - 1);
-                    taskManager.displayTask(input);
-                }
-                else {
-                    taskManager.addTask(input);
-                    taskManager.displayTask(input);
-                }
+                handleCommand(input, userMessage, taskManager);
             } else {
                 goodbye.printDialogue("goodbye1");
                 break;
@@ -38,7 +26,37 @@ public class Duke {
         }
 
         scanner.close();
+    }
 
+    private static void handleCommand(String input, String[] userMessage, TaskManager taskManager) {
+        switch (userMessage[0].toLowerCase()) {
+            case "list":
+                taskManager.displayTask(input);
+                break;
+            case "mark":
+                taskManager.markAsComplete(Integer.parseInt(userMessage[1]) - 1);
+                taskManager.displayTask(input);
+                break;
+            case "unmark":
+                taskManager.markAsIncomplete(Integer.parseInt(userMessage[1]) - 1);
+                taskManager.displayTask(input);
+                break;
+            case "todo":
+                taskManager.addTask(input, TaskType.TODO);
+                taskManager.displayTask(input);
+                break;
+            case "deadline":
+                taskManager.addTask(input, TaskType.DEADLINE);
+                taskManager.displayTask(input);
+                break;
+            case "event":
+                taskManager.addTask(input, TaskType.EVENT);
+                taskManager.displayTask(input);
+                break;
+            default:
+                taskManager.addTask(input, TaskType.NORMAL);
+                taskManager.displayTask(input);
+                break;
+        }
     }
 }
-

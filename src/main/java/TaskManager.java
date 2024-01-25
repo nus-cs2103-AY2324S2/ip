@@ -5,8 +5,23 @@ public class TaskManager {
     public TaskManager() {
         this.taskList = new ArrayList<>();
     }
-    public void addTask(String taskDescription) {
-        Task task = new Task(taskDescription);
+    public void addTask(String taskDescription, TaskType type) {
+        Task task;
+        switch (type) {
+            case TODO:
+                task = new Todo(taskDescription);
+                break;
+            case EVENT:
+                task = new Event(taskDescription);
+                break;
+            case DEADLINE:
+                task = new Deadline(taskDescription);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid task type");
+        }
+
+        task.setTaskDescription(taskDescription);
         taskList.add(task);
     }
 
@@ -61,27 +76,29 @@ public class TaskManager {
 
     public void printTaskList() {
         System.out.println(Commands.INDENTATION + "Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
-            System.out.println(Commands.INDENTATION + "  " + (i + 1) + ". [" + task.getStatusIcon() + "] " + task.getTaskDescription());
+        int count = 1;
+        for (Task task : taskList) {
+            System.out.println(Commands.INDENTATION + count + ".  [" + task.getTaskType() + "][" + task.getStatusIcon() + "] " + task.getTaskDescription());
         }
     }
 
     private void printMarkTask(int index) {
         Task task = taskList.get(index);
         System.out.println(Commands.INDENTATION + "Nice! I've marked this task as done: ");
-        System.out.println(Commands.INDENTATION + "  [" + task.getStatusIcon() + "]" + " " + task.getTaskDescription());
+        System.out.println(Commands.INDENTATION + "  [" + task.getTaskType() + "][" + task.getStatusIcon() + "] " + task.getTaskDescription());
     }
 
     private void printUnmarkTask(int index) {
         Task task = taskList.get(index);
         System.out.println(Commands.INDENTATION + "OK, I've marked this task as not done yet: ");
-        System.out.println(Commands.INDENTATION + "  [" + task.getStatusIcon() + "]" + " " + task.getTaskDescription());
+        System.out.println(Commands.INDENTATION + "  [" + task.getTaskType() + "][" + task.getStatusIcon() + "] " + task.getTaskDescription());
     }
 
     private void printAddedTask(int index) {
         Task task = taskList.get(index);
-        System.out.println(Commands.INDENTATION + "added: " + task.getTaskDescription());
+        System.out.println(Commands.INDENTATION + "Got it. I've added this task: " + task.getTaskDescription());
+        System.out.println(Commands.INDENTATION + "  [" + task.getTaskType() + "][" + task.getStatusIcon() + "] " + task.getTaskDescription());
+        System.out.println(Commands.INDENTATION + "Now you have " + taskList.size() + " tasks in the list.");
     }
 
     private static boolean isNumeric(String str) {

@@ -1,9 +1,11 @@
 public class Task {
     protected String taskDescription;
     protected boolean isCompleted;
-    public Task(String taskDescription) {
+    protected TaskType taskType;
+    public Task(String taskDescription, TaskType taskType) {
         this.taskDescription = taskDescription;
         this.isCompleted = false;
+        this.taskType = taskType;
     }
     public void setTaskDescription(String taskDescription) {
         this.taskDescription = taskDescription;
@@ -16,9 +18,21 @@ public class Task {
     }
 
     public String getTaskDescription() {
-        return this.taskDescription;
+        return taskDescription;
     }
     public String getStatusIcon() {
         return (isCompleted ? "X" : " ");
+    }
+    public String getTaskType() {
+        String type = taskType.toString();
+        if (type.equalsIgnoreCase("todo")) {
+            return "T";
+        } else if (type.equalsIgnoreCase("event")) {
+            return "E";
+        } else if (type.equalsIgnoreCase("deadline")) {
+            return "D";
+        } else {
+            return "";
+        }
     }
 }
