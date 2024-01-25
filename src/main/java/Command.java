@@ -1,3 +1,3 @@
 public enum Command {
-    LIST, MARK, UNMARK, ADD, UNKNOWN
+    LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, ADD, UNKNOWN
 }
