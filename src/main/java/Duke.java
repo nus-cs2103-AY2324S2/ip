@@ -4,18 +4,20 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> AL = new ArrayList<>();
+        ArrayList<Task> AL = new ArrayList<>();
 
         printGreeting();
 
         while (true) {
             String input = sc.nextLine();
+            String inputs[] = input.split(" ");
+            String firstWord = inputs[0];
 
-            if (input.equalsIgnoreCase("bye")) {
+            if (firstWord.equalsIgnoreCase("bye")) {
                 break;
             }
             
-            switch (input) {
+            switch (firstWord) {
                 case "list":
                     printDiv();
                     for (int i = 0; i < AL.size(); i++) {
@@ -24,9 +26,25 @@ public class Duke {
                     }
                     printDiv();
                     break;
+                case "mark":
+                    printDiv();
+                    Task taskToMark = AL.get(Integer.parseInt(inputs[1]) - 1);
+                    taskToMark.mark();
+                    System.out.println("\t" + "Nice! I've marked this task as done: ");
+                    System.out.println("\t" + taskToMark);
+                    printDiv();
+                    break;
+                case "unmark":
+                    printDiv();
+                    Task taskToUnmark = AL.get(Integer.parseInt(inputs[1]) - 1);
+                    taskToUnmark.unmark();
+                    System.out.println("\t" + "OK, I've marked this task as not done yet: ");
+                    System.out.println("\t" + taskToUnmark);
+                    printDiv();
+                    break;
                 default:
                     printEcho("added: " + input);
-                    AL.add(input);
+                    AL.add(new Task(input));
                     break;
             }
         }
