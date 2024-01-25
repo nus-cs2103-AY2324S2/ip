@@ -50,34 +50,61 @@ public class Duke {
                     break;
 
                 case "todo":
-                    tasks.add(new ToDo(action.substring(action.indexOf(" ") + 1)));
-                    System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    String[] t = action.split(" ", 2);
+                    try {
+                        if (t.length == 1) {
+                            throw new DukeException();
+                        } else {
+                            tasks.add(new ToDo(t[1]));
+                            System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        }
+                    } catch (DukeException de) {
+                        System.out.println("Need to check my eyesight, nothing to do.");
+                    }
+
                     break;
 
                 case "event":
-                    String e = action.substring(action.indexOf(" ") + 1);
-                    st = new StringTokenizer(e, "/");
+                    String[] e = action.split(" ", 2);
+                    try {
+                        if (e.length < 3) {
+                            throw new DukeException();
+                        } else {
+                            st = new StringTokenizer(e[1], "/");
+                            tasks.add(new Event(st.nextToken().strip(),
+                                    st.nextToken().substring(5).strip(),
+                                    st.nextToken().substring(3)));
 
-                    tasks.add(new Event(st.nextToken().strip(),
-                                        st.nextToken().substring(5).strip(),
-                                        st.nextToken().substring(3)));
-                    System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                            System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        }
+                    } catch (DukeException de) {
+                        System.out.println("This event is the highlight of the social “calen-darling.”");
+                        System.out.println("Got all the details?");
+                    }
+
                     break;
 
                 case "deadline":
-                    String d = action.substring(action.indexOf(" ") + 1);
-                    st = new StringTokenizer(d, "/");
+                    String[] d = action.split(" ", 2);
+                    try {
+                        if (d.length < 2) {
+                            throw new DukeException();
+                        } else {
+                            st = new StringTokenizer(d[1], "/");
+                            tasks.add(new Deadline(st.nextToken().strip(), st.nextToken().substring(3)));
+                            System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        }
+                    } catch (DukeException de) {
+                        System.out.println("To survive is to procrastinate death, when is this due?");
+                    }
 
-                    tasks.add(new Deadline(st.nextToken().strip(), st.nextToken().substring(3)));
-                    System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     break;
 
                 default:
-                    tasks.add(new Task(action));
-                    System.out.println("added: " + action);
+                    System.out.println("Are you as clueless about “" + temp + "” as I am?");
                     break;
             }
 
