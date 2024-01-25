@@ -16,6 +16,8 @@ public class Duke {
 
             if (input.equals("bye")) {
                 break;
+            } else if(input.equals("blah")) {
+                throw new DukeException("SOMETHING WENT WRONG!! Invalid input.");
             } else if (input.equals("list")) {
                 System.out.println("    ____________________________________________________________");
                 for (int i = 1; i <= AL.size(); i++) {
@@ -45,7 +47,10 @@ public class Duke {
                 System.out.println("     Now you have " + AL.size() + " tasks in the list.");
                 System.out.println("    ____________________________________________________________");
             } else if(token[0].equals("todo")) {
-                Task t = new Todos(input.substring(5));
+                if(input.substring(4).trim().isEmpty()) {
+                    throw new DukeException("SOMETHING WENT WRONG!! No description found for your todo.");
+                }
+                Task t = new Todos(input.substring(4).trim());
                 AL.add(t);
                 System.out.println("    ____________________________________________________________");
                 System.out.println("     Got it. I've added this task:");
