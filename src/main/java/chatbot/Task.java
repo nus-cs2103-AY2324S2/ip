@@ -15,6 +15,9 @@ public class Task {
     public void toggleDone() {
         this.isDone = !this.isDone;
     }
+    public boolean isDone() {
+        return this.isDone;
+    }
     @Override
     public String toString() {
         return String.format("[%s] %s",this.getStatusIcon(), this.getDescription());
