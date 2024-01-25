@@ -5,16 +5,20 @@ import java.util.Scanner;
 
 public class Ran {
     ArrayList<Task> tasks;
+
     public static void main(String[] args) {
 
 
         Ran chatbot = new Ran();
         chatbot.run();
     }
+
     public Ran() {
         this.tasks = new ArrayList<>();
     }
-    public void run() {System.out.println("Hello. I am ");
+
+    public void run() {
+        System.out.println("Hello. I am ");
         String art = "__________                \n" +
                 "\\______   \\_____    ____  \n" +
                 " |       _/\\__  \\  /    \\ \n" +
