@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 // to add: tag for A-Classes
+// to add: tag for A-Collections
 public class Panna {
 
     private static String command = "";
