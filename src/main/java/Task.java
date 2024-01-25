@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -7,15 +7,16 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String toString() {
+        return this.getStatusIcon() + " " + this.description;
     }
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
     /* toggle status and returns string */
     public String toggle() {
-        String output = "";
+        String output;
         if (this.isDone) {
             this.isDone = false;
             output = "OK, I've marked this task as not done yet:\n" + this.getStatusIcon() + " " + this.description + "\n";
