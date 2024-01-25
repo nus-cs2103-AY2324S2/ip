@@ -12,6 +12,32 @@ public class Duke {
         }
     }
 
+    public static void createTodo(String userTxt, Task[] listArr, int i) {
+        Task t = new ToDo(userTxt.substring(5));
+        listArr[i] = t; // add task to list
+        System.out.println(t.toString());
+    }
+
+    public static void createDeadline(String userTxt, Task[] listArr, int i) {
+        int splitIdx = userTxt.lastIndexOf("/");
+        String desc = userTxt.substring(9, splitIdx - 1);
+        String by = userTxt.substring(splitIdx + 3);
+        Task t = new Deadline(desc, by);
+        listArr[i] = t; // add task to list
+        System.out.println(t.toString());
+    }
+
+    public static void createEvent(String userTxt, Task[] listArr, int i) {
+        int frmIdx = userTxt.lastIndexOf(" /from");
+        int toIdx = userTxt.lastIndexOf("/to");
+        String desc = userTxt.substring(6, frmIdx);
+        String frm = userTxt.substring(frmIdx + 6, toIdx);
+        String to = userTxt.substring(toIdx + 3);
+        Task t = new Event(desc, frm, to);
+        listArr[i] = t; // add task to list
+        System.out.println(t.toString());
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm Jojo :)");
         System.out.println("What can I do for you?");
@@ -29,10 +55,16 @@ public class Duke {
                 Integer taskNum = Integer.valueOf(userTxt.substring(7)) - 1;
                 listArr[taskNum].setUndone();
             } else {
-                System.out.println("added: " + userTxt);
-                Task t = new Task(userTxt);
-                listArr[i] = t; // add task to list
+                System.out.println("Got it. I've added this task:");
+                if (userTxt.startsWith("todo")) {
+                    createTodo(userTxt, listArr, i);
+                } else if (userTxt.startsWith("deadline")) {
+                   createDeadline(userTxt, listArr, i);
+                } else if (userTxt.startsWith("event")) {
+                    createEvent(userTxt, listArr, i);
+                }
                 i++;
+                System.out.println("Now you have " + i + " tasks in the list.");
             }
             userTxt = sc.nextLine();
         }
