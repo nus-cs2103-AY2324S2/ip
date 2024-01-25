@@ -1,37 +1,7 @@
-----------------------------------------------------------
-Hello! I'm Panna.
-What can I do for you?
+Hello from
+ ____        _        
+|  _ \ _   _| | _____ 
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
 
-----------------------------------------------------------
-What kind of todo?
-Got it! I've added the
-[T] [ ] borrow book
- todo!
-Now you have 1 task(s) in the list!
-What kind of event?
-When does it start?
-When does it end?
-Got it! I've added the
-[E] [ ] world chess championships (from: 7 april to 30 april)
- event!
-Now you have 2 task(s) in the list!
-What kind of deadline?
-When is the deadline?
-Got it! I've added the
-[D] [ ] homework 1 (By: 27th january 2024)
- deadline!
-Now you have 3 task(s) in the list!
-Which one should I mark? Write the label number :]
-----------------------------------------------------------
-Nice! I've marked this task as done:
-[T] [X] borrow book
-----------------------------------------------------------
-----------------------------------------------------------
-1. [T] [X] borrow book
-2. [E] [ ] world chess championships (from: 7 april to 30 april)
-3. [D] [ ] homework 1 (By: 27th january 2024)
-----------------------------------------------------------
-----------------------------------------------------------
-Bye. Hope to see you again soon!
-
-----------------------------------------------------------
