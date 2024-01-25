@@ -39,6 +39,12 @@ public class Duke {
                 task.markUndone();
                 System.out.println(bot + task.toString());
                 continue;
+            } else if (reply.startsWith("delete")) {
+                int index = Integer.parseInt(reply.replaceAll("[\\D]", ""));
+                task = taskList.get(index - 1);
+                taskList.remove(task);
+                System.out.println(bot + "I have removed " + task.toString() + " from your list. You have " + taskList.size() + " task(s) in list");
+                continue;
             } else if (reply.startsWith("todo")) {
                 try {
                     if (reply.length() <= 5) {
