@@ -10,7 +10,7 @@ class Process {
         this.chatbotUi = chatbotUi;
     }
 
-    public void userInputProcessMarkUnmark(String userInput) throws NumberFormatException {
+    public void userInputProcessMarkUnmark(String userInput){
         String[] array = userInput.split(" ");
         String command = array[0];
 
@@ -25,12 +25,18 @@ class Process {
                 System.out.println(chatbotUi.dividerWrapper(chatbotUi.unmark() + "\n" + taskList.getTaskAtIndex(number - 1)));
             }
         } catch (NumberFormatException e) {
-            throw new NumberFormatException();
+            System.out.println(chatbotUi.dividerWrapper("You must use a number to mark."));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(chatbotUi.dividerWrapper("You must select a number below the size of the Task List."));
         }
     }
 
     public void userInputAddTask(String userInput) {
         String[] tokens = userInput.split(" ", 2);
+        if (tokens.length <= 1) {
+            System.out.println(chatbotUi.dividerWrapper("Description of todo can't be blank"));
+            return;
+        }
         String command = tokens[0];
         String description = tokens[1].trim();
         String times[] = userInput.split("/");
