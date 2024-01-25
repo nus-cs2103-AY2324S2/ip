@@ -26,6 +26,8 @@ public class Duke {
         while (!command.equals("bye")) {
             String output = new String();
             switch (command) {
+                case "":
+                    break;
                 case "list":
                     int i = 1;
                     for(String todo : todolist) {
@@ -38,9 +40,12 @@ public class Duke {
                     todolist.add(command);
             }
 
-            System.out.println(sep);
-            System.out.println("\t" + output);
-            System.out.println(sep);
+            if (!output.isEmpty()) {
+                System.out.println(sep);
+                System.out.println("\t" + output);
+                System.out.println(sep);
+            }
+
             command = scanner.nextLine();
         }
     }
