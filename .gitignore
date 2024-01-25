@@ -1,3 +1,7 @@
+# Manually added
+*.class
+
+
 # IDEA files
 /.idea/
 /out/
