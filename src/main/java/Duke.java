@@ -1,3 +1,6 @@
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -14,12 +17,22 @@ public class Duke {
         greeting("Cicada", horizontalLine);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type your command and press Enter. Type 'bye' to quit.");
+        List<String> tasks = new ArrayList<String>();
         while (true) {
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("bye")) {
                 ending(horizontalLine);
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                System.out.println(horizontalLine);
+                for (int i = 0; i < tasks.size(); i++) {
+                    int j = i+1;
+                    System.out.println(j + ". " + tasks.get(i));
+                }
+                System.out.println(horizontalLine);
+                continue;
             }
+            tasks.add(input);
             command(input, horizontalLine);
         }
         scanner.close();
@@ -35,10 +48,11 @@ public class Duke {
 
     public static void command(String command, String horizontalLine) {
         System.out.println(horizontalLine);
-        System.out.println(command);
+        System.out.println("added: " + command);
         System.out.println(horizontalLine);
     }
     public static void ending(String horizontalLine) {
+        System.out.println(horizontalLine);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(horizontalLine);
     }
