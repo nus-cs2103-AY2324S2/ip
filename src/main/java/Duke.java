@@ -1,6 +1,4 @@
 import java.io.InputStreamReader;
-import java.util.Scanner;
-import java.util.Formatter;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
@@ -16,24 +14,20 @@ public class Duke {
 
         bot_functions.shifted_print(bot_functions.greetingString(NAME));
 
-        Boolean exitFlag = false;
+        boolean exitFlag = false;
 
         while (!exitFlag) {
             String input_command = br.readLine();
 
             if (input_command.equalsIgnoreCase("exit")) {
                 bot_functions.shifted_print(bot_functions.signoffString());
+                exitFlag = true;
                 System.exit(0);
 
             } else {
                 bot_functions.shifted_print(bot_functions.echoString(input_command));
             }
         }
-
-//
-//
-//        bot_functions.shifted_print(bot_functions.greetingString(NAME));
-//        bot_functions.shifted_print(bot_functions.signoffString());
 
     }
 
@@ -79,7 +73,7 @@ public class Duke {
             String output = "";
             output += "      " + HORIZONTAL_LINE;
             while (readText != null) {
-                output += "      " + readText + "\n";
+                output = output + "      " + readText + "\n";
                 readText = br.readLine();
             }
             output += "      " + HORIZONTAL_LINE;
