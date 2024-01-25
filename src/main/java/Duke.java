@@ -16,8 +16,16 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         String input;
+        ArrayList<String> stored = new ArrayList<>();
         while (!"bye".equals((input = scanner.nextLine()))) {
-            System.out.println("\t" + input);
+            if (input.equals("list")) {
+                for (int i = 0; i < stored.size(); i++) {
+                    System.out.println("\t" + (i + 1) + ". " + stored.get(i));
+                }
+            } else {
+                stored.add(input);
+                System.out.println("\t" + input);
+            }
         }
         System.out.println(exit);
     }
