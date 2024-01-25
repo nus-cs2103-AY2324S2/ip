@@ -187,9 +187,26 @@ public class Fireraya {
                     continue;
                 }
 
+                if (keyword.equals("delete")) {
+                    if (all.length > 2) {
+                        throw new InvalidNumOfArgsException();
+                    }
+                    int curr = Integer.parseInt(all[1]) - 1;
+                    if (tasks.size() <= curr || curr == -1) {
+                        throw new FirerayaException("That task does not exist!");
+                    }
+                    System.out.println("Noted. I've removed this task:");
+                    listTask(curr);
+                    tasks.remove(curr);
+                    taskCount();
+                    continue;
+                }
+
                 throw new FirerayaException("Error: " + input + " not supported");
             }
+
             scanner.close();
+
         } catch (FirerayaException e) {
             System.out.println(e.getMessage());
         }
