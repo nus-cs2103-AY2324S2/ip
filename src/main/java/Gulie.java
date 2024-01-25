@@ -12,26 +12,56 @@ public class Gulie {
         this.greet();
         System.out.println(line);
         this.list = new ArrayList<>();
-
     }
 
     public boolean input(String str) {
+        String[] splitted = str.split(" ");
         System.out.println(line);
-        if (str.equals("bye")) {
-            this.exit();
-            System.out.println(line);
-            return false;
-        } else if (str.equals("list")) {
-            this.list();
-        } else if (str.startsWith("mark ")) {
-            this.mark(Integer.parseInt(str.split(" ")[1]));
-        } else if (str.startsWith("unmark ")) {
-            this.unmark(Integer.parseInt(str.split(" ")[1]));
-        } else {
-            this.store(str);
+        switch (splitted[0]) {
+            case "bye": {
+                this.exit();
+                System.out.println(line);
+                return false;
+            } case "list": {
+                this.list();
+                break;
+            } case "mark": {
+                this.mark(Integer.parseInt(splitted[1]));
+                break;
+            } case "unmark": {
+                this.unmark(Integer.parseInt(splitted[1]));
+                break;
+            } case "todo": {
+                this.store(new ToDo(splitted[1]));
+                break;
+            } case "deadline": {
+                String name = Gulie.getArgument(str,"deadline");
+                String by = Gulie.getArgument(str, "/by");
+                this.store(new Deadline(name, by));
+                break;
+            } case "event": {
+                String name = Gulie.getArgument(str, "event");
+                String from = Gulie.getArgument(str, "/from");
+                String to = Gulie.getArgument(str, "/to");
+                this.store(new Event(name, from, to));
+                break;
+            } default: {
+                System.out.println(line);
+                return false;
+            }
         }
         System.out.println(line);
         return true;
+    }
+
+    private static String getArgument(String inp, String name) {
+        name = " " + name + " ";
+        inp = " " + inp;
+        String str = inp.substring(inp.indexOf(name) + name.length());
+        if (str.indexOf(" /") == -1)
+            return str;
+        else
+            return str.substring(0, str.indexOf(" /"));
     }
 
     private void greet() {
@@ -48,9 +78,10 @@ public class Gulie {
         }
     }
 
-    private void store(String str) {
-        System.out.println(" added: " + str);
-        this.list.add(new Task(str));
+    private void store(Task task) {
+        System.out.println(" Understood. I have added this task:\n   " + task);
+        this.list.add(task);
+        System.out.println(String.format("You now have %d tasks in the list", list.size()));
     }
 
     private void mark(int i) {
