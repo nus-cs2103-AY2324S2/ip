@@ -10,6 +10,11 @@ public class Duke {
     private static final String solidLineBreak = "____________________________________________________________";
     private static final String START_MESSAGE = "Hello! I'm " + CHATBOT_NAME + "\n" + "\t What can I do for you?";
     private static final String BYE_MESSAGE = "Sad to see you leave :(";
+    public static final String EVENT_FORMAT = "event [task] /from [date] /to [date]";
+    public static final String DEADLINE_FORMAT = "deadline [task] /by [date]";
+    public static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description cannot be empty??";
+    public static final String NUMBER_FORMAT_ERROR_MESSAGE = "Invalid task number format! Please enter a valid number.";
+    public static final String NO_SUCH_TASK_NUMBER_ERROR_MESSAGE = "We do not have this task number!!";
 
     private static ArrayList<Task> taskList;
 
@@ -64,8 +69,6 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 printWithSolidLineBreak(e.getMessage());
-            } catch (NumberFormatException e) {
-                printWithSolidLineBreak("Invalid task number format! Please enter a valid number.");
             }
         }
     }
@@ -74,36 +77,49 @@ public class Duke {
         return Arrays.stream(info.split(separator)).map(String::trim).collect(Collectors.toList());
     }
 
-    public static void mark(String info) throws DukeException, NumberFormatException {
-        int markIndex = Integer.parseInt(info.trim()) - 1;
-        if (markIndex < 0 || markIndex >= taskList.size()) {
-            throw new DukeException("we do not have this task number!!");
+    public static void mark(String info) throws DukeException {
+        try {
+            int markIndex = Integer.parseInt(info.trim()) - 1;
+            if (markIndex < 0 || markIndex >= taskList.size()) {
+                throw new DukeException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+            }
+            String markToPrint = taskList.get(markIndex).markAsDone();
+            printWithSolidLineBreak(markToPrint);
+        } catch (NumberFormatException e) {
+            throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
         }
-        String markToPrint = taskList.get(markIndex).markAsDone();
-        printWithSolidLineBreak(markToPrint);
+
     }
 
-    public static void unmark(String info) throws DukeException, NumberFormatException {
-        int unmarkIndex = Integer.parseInt(info.trim()) - 1;
-        if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) {
-            throw new DukeException("we do not have this task number!!");
+    public static void unmark(String info) throws DukeException {
+        try {
+            int unmarkIndex = Integer.parseInt(info.trim()) - 1;
+            if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) {
+                throw new DukeException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+            }
+            String unmarkToPrint =taskList.get(unmarkIndex).unmarkAsDone();
+            printWithSolidLineBreak(unmarkToPrint);
+        } catch (NumberFormatException e) {
+            throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
         }
-        String unmarkToPrint =taskList.get(unmarkIndex).unmarkAsDone();
-        printWithSolidLineBreak(unmarkToPrint);
     }
 
     public static void delete(String info) throws DukeException, NumberFormatException {
-        int deleteIndex = Integer.parseInt(info.trim()) - 1;
-        if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
-            throw new DukeException("we do not have this task number!!");
+        try {
+            int deleteIndex = Integer.parseInt(info.trim()) - 1;
+            if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
+                throw new DukeException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+            }
+            Task removed = taskList.remove(deleteIndex);
+            printTaskRemovedWithSolidLineBreak(removed);
+        } catch (NumberFormatException e) {
+            throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
         }
-        Task removed = taskList.remove(deleteIndex);
-        printTaskRemovedWithSolidLineBreak(removed);
     }
 
     public static void todo(String info) throws DukeException {
         if (info.isEmpty()) {
-            throw new DukeException("The description of a todo cannot be empty??");
+            throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
         }
         Task todo = new Todo(info);
         taskList.add(todo);
@@ -111,23 +127,32 @@ public class Duke {
     }
 
     public static void deadline(String info) throws DukeException {
-        if (info.isEmpty()) {
-            throw new DukeException("The description of a deadline cannot be empty??");
+        try {
+            if (info.isEmpty()) {
+                throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+            }
+            List<String> deadlineInfo = splitStringWithTrim(info, "/");
+            Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1).substring(3));
+            taskList.add(deadline);
+            printTaskAddedWithSolidLineBreak(deadline);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The correct usage is: " + DEADLINE_FORMAT);
         }
-        List<String> deadlineInfo = splitStringWithTrim(info, "/");
-        Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1).substring(3));
-        taskList.add(deadline);
-        printTaskAddedWithSolidLineBreak(deadline);
     }
 
     public static void event(String info) throws DukeException {
-        if (info.isEmpty()) {
-            throw new DukeException("The description of a event cannot be empty??");
+        try {
+            if (info.isEmpty()) {
+                throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+            }
+            List<String> eventInfo = splitStringWithTrim(info, "/");
+            Task event = new Event(eventInfo.get(0), eventInfo.get(1).substring(5), eventInfo.get(2).substring(3));
+            taskList.add(event);
+            printTaskAddedWithSolidLineBreak(event);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The correct usage is: " + EVENT_FORMAT);
         }
-        List<String> eventInfo = splitStringWithTrim(info, "/");
-        Task event = new Event(eventInfo.get(0), eventInfo.get(1).substring(5), eventInfo.get(2).substring(3));
-        taskList.add(event);
-        printTaskAddedWithSolidLineBreak(event);
+
     }
 
     public static void printWithSolidLineBreak(String s) {
