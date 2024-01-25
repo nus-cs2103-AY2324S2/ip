@@ -95,6 +95,15 @@ public class Chimp {
                 chimp.addToList(text, by);
                 chimp.say(chimp.list.get(chimp.list.size() - 1));
                 break;
+            case "delete":
+                num = Integer.parseInt(arg.strip());
+                System.out.println(num);
+                if (num - 1 < 0 || num - 1 >= chimp.list.size())
+                    throw new CommandParseException("Invalid number argument provided to delete");
+                Task task = chimp.list.get(num - 1);
+                chimp.list.remove(num - 1);
+                chimp.say(phrases.get("delete"), task);
+                break;
             default:
                 throw new InvalidCommandException("command \"" + command + "\" is invalid");
         }
@@ -109,12 +118,14 @@ public class Chimp {
         String mark = "Nice! I've marked this task as done: \n";
         String unmark = "OK, I've marked this task as not done yet: \n";
         String hoo = "HOO-HOO-HOO-HOO, I don't know what that means\n";
+        String delete = "Noted. I've removed this task:\n";
 
         phrases.put("greet", greet);
         phrases.put("bye", bye);
         phrases.put("mark", mark);
         phrases.put("unmark", unmark);
         phrases.put("hoo", hoo);
+        phrases.put("delete", delete);
 
         return phrases;
     }
@@ -149,6 +160,7 @@ public class Chimp {
         System.out.println(divider);
         System.out.println(phrase);
         System.out.println(task);
+        System.out.println("Now you have " + this.list.size() + " tasks in the list.");
         System.out.println(divider);
     }
 
