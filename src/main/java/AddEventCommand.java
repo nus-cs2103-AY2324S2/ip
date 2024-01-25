@@ -1,16 +1,16 @@
 public class AddEventCommand extends AddCommand {
-    private final String fromDate;
-    private final String toDate;
+    private final String startDate;
+    private final String endDate;
 
-    AddEventCommand(String description, String fromDate, String toDate) {
+    AddEventCommand(String description, String startDate, String endDate) {
         super(description);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     void execute(TaskList taskList, Ui ui) throws MikeException {
-        Task newTask = new Event(description, fromDate, toDate);
+        Task newTask = new Event(description, startDate, endDate);
         taskList.add(newTask);
         respond(taskList, ui, newTask);
     }

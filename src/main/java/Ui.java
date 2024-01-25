@@ -71,7 +71,7 @@ public class Ui {
     }
 
     public void displayLine() {
-        String horizontalLine = "=====================================";
+        String horizontalLine = "==========================================";
         display(horizontalLine);
     }
 

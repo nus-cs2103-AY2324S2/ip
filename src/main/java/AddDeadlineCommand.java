@@ -1,14 +1,14 @@
 public class AddDeadlineCommand extends AddCommand {
-    private final String byDate;
+    private final String deadline;
 
-    AddDeadlineCommand(String description, String byDate) {
+    AddDeadlineCommand(String description, String deadline) {
         super(description);
-        this.byDate = byDate;
+        this.deadline = deadline;
     }
 
     @Override
     void execute(TaskList taskList, Ui ui) throws MikeException {
-        Task newTask = new Deadline(description, byDate);
+        Task newTask = new Deadline(description, deadline);
         taskList.add(newTask);
         respond(taskList, ui, newTask);
     }
