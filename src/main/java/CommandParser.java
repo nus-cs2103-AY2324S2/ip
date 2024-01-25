@@ -13,6 +13,8 @@ public class CommandParser {
                 return new MarkCommand(arguments);
             case "bye":
                 return new ByeCommand();
+            case "unmark":
+                return new UnmarkCommand(arguments);
 
             default:
                 return new AddCommand(List.of(userInput));

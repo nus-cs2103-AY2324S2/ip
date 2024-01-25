@@ -19,6 +19,10 @@ public class Task {
         isDone = true;
     }
 
+    public void markUndone() {
+        isDone = false;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", isDone ? "X" : " ", description);

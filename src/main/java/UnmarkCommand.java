@@ -1,8 +1,8 @@
 import java.util.List;
 
-class MarkCommand extends Command<List<Task>> {
-    public MarkCommand(List<String> arguments) {
-        super("mark", arguments);
+class UnmarkCommand extends Command<List<Task>> {
+    public UnmarkCommand(List<String> arguments) {
+        super("unmark", arguments);
     }
 
     @Override
@@ -13,11 +13,11 @@ class MarkCommand extends Command<List<Task>> {
                 int index = Integer.parseInt(arguments.get(0)) - 1;
                 if (index >= 0 && index < tasks.size()) {
                     Task task = tasks.get(index);
-                    if (!task.isDone()) {
-                        task.markAsDone();
-                        System.out.printf("\n(^-^)~~   Marked task %d as done: %s\n", index + 1, task.getDescription());
+                    if (task.isDone()) {
+                        task.markUndone();
+                        System.out.printf("\n(^-^)~~   Marked task %d as undone: %s\n", index + 1, task.getDescription());
                     } else {
-                        System.out.printf("\n(^-^)~~   Task %d is already done\n", index + 1);
+                        System.out.printf("\n(^-^)~~   Task %d is already undone\n", index + 1);
                     }
                 } else {
                     System.out.printf("\n(^-^)~~   Task index %s is out of range\n", arguments.get(0));
