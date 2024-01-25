@@ -40,6 +40,20 @@ public class Duke {
         }
     }
 
+    public int getListSize() {
+        return this.list.size();
+    }
+
+    public String getListUpdate() {
+        if (this.getListSize() == 0) {
+            return "Wow!! i didn't expect you to actually do work.... great job i guess..";
+        }
+        if (this.getListSize() <= 5) {
+            return "A little bit more work u lazy fool";
+        }
+        return "HUMAN! stop WATCHING YOUTUBE and start DOING WORK!!!";
+    }
+
     public void markTask(int index) {
         try {
             this.list.get(index - 1).markAsDone();
@@ -57,6 +71,19 @@ public class Duke {
             System.out.println("No task at that index! you fool");
         }
     }
+
+    public void deleteTask(int index) {
+        try {
+            Task t = this.list.remove(index - 1);
+            System.out.println("Noted. Task is removed, you careless human being!\n");
+            System.out.println(String.format("[%s] [%s] %s", t.getTypeIcon(), t.getStatusIcon(), t.getDescription() ));
+            System.out.println(String.format("Now you only have %d tasks left. %s", this.getListSize(), this.getListUpdate()));
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("No task at that index! you fool");
+        }
+    }
+
     public void readCommand(String command){
 
         String[] split_command = command.split(" ", 2);
@@ -77,6 +104,9 @@ public class Duke {
                         throw new DukeException("There is no task at that index!");
                     }
                     String s = split_command[1];
+                    if (Integer.valueOf(s) > this.getListSize()) {
+                        throw new DukeException("Invalid Index, is that a typo??");
+                    }
                     this.markTask(Integer.valueOf(s));
                     break;
 
@@ -85,6 +115,9 @@ public class Duke {
                         throw new DukeException("There is no task at that index!");
                     }
                     String s2 = split_command[1];
+                    if (Integer.valueOf(s2) > this.getListSize()) {
+                        throw new DukeException("Invalid Index, is that a typo??");
+                    }
                     this.unmarkTask(Integer.valueOf(s2));
                     break;
 
@@ -112,18 +145,28 @@ public class Duke {
                     if (split_command.length <= 1) {
                         throw new DukeException("Please write a description and the time period for your task!");
                     }
-                    String[] info_split2 = split_command[1].split("/by ", 2);
-                    if (info_split2.length <= 1) {
+                    String[] info_split2 = split_command[1].split("/from ", 2);
+                    String[] info_split3 = info_split2[1].split("/to ", 2);
+                    if (info_split2.length <= 1 && info_split3.length <= 1) {
                         throw new DukeException("Please include a time period by using from and to keyword such as" +
                                     "'/from today /to tomorrow");
                     }
-                    String event_desc = split_command[1].split("/from ", 2)[0];
-                    String dates = split_command[1].split("/from ", 2)[1];
-                    String from = dates.split("/to ",2)[0];
-                    String to = dates.split("/to ", 2)[1];
+                    String event_desc = info_split2[0];
+                    String from = info_split3[0];
+                    String to = info_split3[1];
                     this.addToList((new Event(event_desc, from, to)));
                     break;
 
+                case "delete":
+                    if (split_command.length <= 1) {
+                        throw new DukeException("Please write a description and the time period for your task!");
+                    }
+                    String s3 = split_command[1];
+                    if (Integer.valueOf(s3) > this.getListSize()) {
+                        throw new DukeException("Invalid Index, is that a typo??");
+                    }
+                    this.deleteTask(Integer.valueOf(s3));
+                    break;
                 default:
                     throw new DukeException("Unknown command");
             }
