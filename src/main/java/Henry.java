@@ -2,6 +2,9 @@ import java.util.Scanner;
 public class Henry {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        String[] items = new String[100];
+        int numOfItems = 0;
+
         String logo = "  _    _                       \n" +
                 " | |  | |                      \n" +
                 " | |__| | ___ _ __  _ __ _   _ \n" +
@@ -22,9 +25,17 @@ public class Henry {
             if (currentMessage.equals("bye")) {
                 System.out.println(exitMessage);
                 break;
-            } else {
-                System.out.println(currentMessage);
+            } else if (currentMessage.equals("list")) {
+                for (int i = 0; i < numOfItems; i = i + 1) {
+                    System.out.printf("%d. %s\n", i + 1, items[i]);
+                }
                 System.out.println();
+            } else {
+                System.out.println("added: " + currentMessage);
+                System.out.println();
+
+                items[numOfItems] = currentMessage;
+                numOfItems = numOfItems + 1;
             }
         }
     }
