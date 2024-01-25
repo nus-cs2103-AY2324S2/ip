@@ -18,8 +18,9 @@ public class Duke {
                     }
                 }
             } else {
-                System.out.println("added: " + userTxt);
+//                System.out.println("added: " + userTxt);
                 Task t = new Task(userTxt);
+                t.toString();
                 listArr[i] = t; // add task to list
                 i++;
             }

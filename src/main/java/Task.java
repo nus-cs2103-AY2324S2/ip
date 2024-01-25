@@ -11,12 +11,20 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void updateStatus() {
-        if (this.isDone) {
-            this.isDone = false;
-        } else {
-            this.isDone = true;
-        }
+    public void setDone() {
+        this.isDone = true;
     }
+
+    public void setUndone() {
+        this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        System.out.println("[" + this.getStatusIcon() + "] " + this.description);
+        return "[" + this.getStatusIcon() + "] " + this.description;
+//        System.out.println("[" + this.getStatusIcon() + "] " + this.description);
+    }
+
 }
 
