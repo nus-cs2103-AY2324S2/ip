@@ -17,7 +17,7 @@ public class Duke {
 
     public static void greetUser() {
         System.out.println("__________________________________________________________\n");
-        System.out.println(" | Hello! I'm Duke");
+        System.out.println(" | Hello! I'm FICIN");
         System.out.println(" | What can I do for you?");
         System.out.println("__________________________________________________________\n");
     }
