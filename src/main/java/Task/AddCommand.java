@@ -5,7 +5,7 @@ public class AddCommand extends Command {
     super(body);
   }
 
-  public boolean execute(TaskList list) {
+  public boolean execute(TaskList list) throws DukeException {
     String body = getBody();
     Task task = new Task(body);
     list.addTask(task);
