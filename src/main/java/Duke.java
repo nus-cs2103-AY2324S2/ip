@@ -16,61 +16,74 @@ public class    Duke {
         ArrayList<Task> list = new ArrayList<>();
 
         while (!original.equals("bye")) {
+            try {
+                String[] inputParts = original.split("\\s+");
 
-            String[] inputParts = original.split("\\s+");
+                //handle mark || unmark
+                if (inputParts.length == 2 && (inputParts[0].equals("mark") || inputParts[0].equals("unmark"))) {
+                    int inputInt = Integer.parseInt(inputParts[1]);
 
-            //handle mark || unmark
-            if (inputParts.length == 2 && (inputParts[0].equals("mark")|| inputParts[0].equals("unmark"))) {
-                int inputInt = Integer.parseInt(inputParts[1]);
-
-                String output = "____________________________________________________________\n"
-                        + list.get(inputInt - 1).toggle()
-                        + "____________________________________________________________\n";
-                System.out.println(output);
-            } else if (original.equals("list")) {
-                //handle "list"
-                StringBuilder listOutput = new StringBuilder("____________________________________________________________\n"
-                        + " Here are the tasks in your list:\n");
-                for (int i = 0; i < list.size(); i++) {
-                    listOutput.append(" ").append(i + 1).append(". ").append(list.get(i).toString()).append("\n");
+                    String output = "____________________________________________________________\n"
+                            + list.get(inputInt - 1).toggle()
+                            + "____________________________________________________________\n";
+                    System.out.println(output);
+                } else if (original.equals("list")) {
+                    //handle "list"
+                    StringBuilder listOutput = new StringBuilder("____________________________________________________________\n"
+                            + " Here are the tasks in your list:\n");
+                    for (int i = 0; i < list.size(); i++) {
+                        listOutput.append(" ").append(i + 1).append(". ").append(list.get(i).toString()).append("\n");
+                    }
+                    listOutput.append("____________________________________________________________\n");
+                    System.out.print(listOutput);
+                } else if (inputParts[0].equals("todo")) {
+                    //handle "todoo"
+                    String description = original.replace("todo", "");
+                    if (description.isEmpty()) {
+                        throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
+                    }
+                    Task task = new ToDo(description);
+                    list.add(task);
+                    String output = "____________________________________________________________\n"
+                            + " Got it. I've added this task:\n"
+                            + "   " + task
+                            + "\n Now you have " + (list.size()) + " tasks in the list.\n"
+                            + "____________________________________________________________\n";
+                    System.out.print(output);
+                } else if (inputParts[0].equals("deadline")) {
+                    //handle "deadline"
+                    String[] parts = original.replace("deadline", "").split(" /");
+                    Task task = new Deadline(parts[0], parts[1].replace("by ", ""));
+                    list.add(task);
+                    String output = "____________________________________________________________\n"
+                            + " Got it. I've added this task:\n"
+                            + "   " + task
+                            + "\n Now you have " + (list.size()) + " tasks in the list.\n"
+                            + "____________________________________________________________\n";
+                    System.out.print(output);
+                } else if (inputParts[0].equals("event")) {
+                    //handle event
+                    String[] parts = original.replace("event", "").split(" /");
+                    Task task = new Event(parts[0], parts[1].replace("from ", ""), parts[2].replace("to ", ""));
+                    list.add(task);
+                    String output = "____________________________________________________________\n"
+                            + " Got it. I've added this task:\n"
+                            + "   " + task
+                            + "\n Now you have " + (list.size()) + " tasks in the list.\n"
+                            + "____________________________________________________________\n";
+                    System.out.print(output);
+                } else {
+                    throw new DukeException("harh what u talking sia walao");
                 }
-                listOutput.append("____________________________________________________________\n");
-                System.out.print(listOutput);
-            } else if (inputParts[0].equals("todo")) {
-                //handle "todoo"
-                Task task = new ToDo(original.replace("todo ", ""));
-                list.add(task);
-                String output = "____________________________________________________________\n"
-                        + " Got it. I've added this task:\n"
-                        + "   " + task
-                        + "\n Now you have " + (list.size()) + " tasks in the list.\n"
-                        + "____________________________________________________________\n";
-                System.out.print(output);
-            } else if (inputParts[0].equals("deadline")) {
-                //handle "deadline"
-                String[] parts = original.replace("deadline ", "").split(" /");
-                Task task = new Deadline(parts[0], parts[1].replace("by ", ""));
-                list.add(task);
-                String output = "____________________________________________________________\n"
-                        + " Got it. I've added this task:\n"
-                        + "   " + task
-                        + "\n Now you have " + (list.size()) + " tasks in the list.\n"
-                        + "____________________________________________________________\n";
-                System.out.print(output);
-            } else if (inputParts[0].equals("event")) {
-                //handle event
-                String[] parts = original.replace("event ", "").split(" /");
-                Task task = new Event(parts[0], parts[1].replace("from ", ""), parts[2].replace("to ", ""));
-                list.add(task);
-                String output = "____________________________________________________________\n"
-                        + " Got it. I've added this task:\n"
-                        + "   " + task
-                        + "\n Now you have " + (list.size()) + " tasks in the list.\n"
-                        + "____________________________________________________________\n";
-                System.out.print(output);
+            } catch (DukeException e) {
+                String message = "____________________________________________________________\n"
+                        + e.getMessage()
+                        + "\n____________________________________________________________\n";
+                System.out.println(message);
             }
             original = sc.nextLine();
+            }
+            System.out.print(outro);
         }
-        System.out.print(outro);
     }
-}
+
