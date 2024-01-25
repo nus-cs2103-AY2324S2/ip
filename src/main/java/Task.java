@@ -32,4 +32,9 @@ public class Task {
     public String printTask(String type, boolean isDone, String task) {
         return "[" + type + "][" + (isDone ? "X" : "") + "]" + " " + task;
     }
+
+    public void deleteTask(int index, ArrayList<Task> list) {
+        Task task = list.get(index-1);
+        list.remove(task);
+    }
 }

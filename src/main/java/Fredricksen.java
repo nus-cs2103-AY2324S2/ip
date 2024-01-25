@@ -16,9 +16,10 @@ public class Fredricksen {
         System.out.println("    a. todos: todo <task>");
         System.out.println("    b. deadlines: deadline <task> /by <deadline>");
         System.out.println("    c. event: event <event> /from <startdate, starttiming> /to <enddate, endtiming>");
-        System.out.println("3. To mark task as completed: mark <task number>");
-        System.out.println("4. To unmark completed task: unmark <task number>");
-        System.out.println("5. To exit program: bye");
+        System.out.println("3. To delete a task: delete <task number>");
+        System.out.println("4. To mark task as completed: mark <task number>");
+        System.out.println("5. To unmark completed task: unmark <task number>");
+        System.out.println("6. To exit program: bye");
     }
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -65,6 +66,24 @@ public class Fredricksen {
                         String single = list.size() <= 1 ? "task" : "tasks";
                         System.out.println("You only have " + list.size() + " " + single + " currently. Type \"list\" to view all your current " + single);
                     }
+                    System.out.println(line);
+                    break;
+                case "delete":
+                    if (split.length <= 1) {
+                        listOfCommands();
+                        break;
+                    }
+                    String single = list.size() <= 1 ? "task" : "tasks";
+                    System.out.println(line);
+                    try {
+                        Task t2 = list.get(Integer.parseInt(split[1]) - 1);
+                        System.out.println("Noted. I've removed this task:");
+                        list.remove(Integer.parseInt(split[1]) - 1);
+                        System.out.println("    " + t2.printTask(t2.getType(), t2.getDone(), t2.getTask()));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("You only have " + list.size() + " " + single + " currently. Type \"list\" to view all your current " + single);
+                    }
+                    System.out.println("Now you have " + list.size() + " " + single + " in the list.");
                     System.out.println(line);
                     break;
                 case "bye":
@@ -132,8 +151,8 @@ public class Fredricksen {
                     String t = newTask.printTask(res, false, newTask.getTask());
                     // String task = "  [" + res + "]" + "[] " + s.substring(first.length() + 1, s.length());
                     System.out.println("    " + t);
-                    String single = list.size() == 1 ? "task" : "tasks";
-                    System.out.println("Now you have " + list.size() + " " + single + " in the list.");
+                    String single1 = list.size() == 1 ? "task" : "tasks";
+                    System.out.println("Now you have " + list.size() + " " + single1 + " in the list.");
                     System.out.println(line);
                     break;
                 default:
