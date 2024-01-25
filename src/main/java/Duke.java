@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.*;
 public class Duke {
 
@@ -10,7 +9,6 @@ public class Duke {
             String s = sc.nextLine();
             if (s.equals("list")) {
                 displayList();
-                continue;
             } else if (s.equals("bye")) {
                 exit();
                 return;
@@ -29,6 +27,8 @@ public class Duke {
                         addToList(new Deadline(taskName));
                     } else if (firstWord.equals("event")) {
                         addToList(new Event(taskName));
+                    } else if (firstWord.equals("delete")) {
+                        deleteTask(Integer.parseInt(taskName));
                     } else {
                         throw new AllyException();
                     }
@@ -63,7 +63,7 @@ public class Duke {
         lst.add(t);
         System.out.println("Got it. I've added this task:");
         System.out.println(t);
-        System.out.println("Now you have " + lst.size() + " tasks in the list.");
+        countTasks();
     }
 
     private static void displayList() {
@@ -85,4 +85,14 @@ public class Duke {
         System.out.println(lst.get(i-1));
     }
 
+    private static void deleteTask(int i) {
+        Task t = lst.remove(i-1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(t);
+        countTasks();
+    }
+
+    private static void countTasks() {
+        System.out.println("Now you have " + lst.size() + " tasks in the list.");
+    }
 }
