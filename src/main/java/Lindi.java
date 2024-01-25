@@ -57,38 +57,17 @@ public class Lindi {
                 System.out.println("\t" + task.toString());
             }
         }
-        String[] userInputTokens = userInput.split(" ", 3);
-        System.out.println(userInputTokens.length);
+        String[] userInputTokens = userInput.split(" ", 2);
+
         switch (userInputTokens[0]) {
             case "list":
                 new LocalFuncs().executeList();
                 break;
             case "unmark":
-                // Now check if the second token 1) exists, 2) is a number. Else, treat it as a new task.
-                if (userInputTokens.length == 2) { // check if there is only 1 argument after unmark command
-                    // check if it is a number
-                    if (isNumber(userInputTokens[1])) {
-                        System.out.println("is number");
-                        int taskIndex = Integer.parseInt(userInputTokens[1]);
-                        new LocalFuncs().executeUnmark(taskIndex);
-                    }
-                }
-                else {
-                    new LocalFuncs().executeNone(new Task(userInput));
-                }
+                new LocalFuncs().executeUnmark(Integer.parseInt(userInputTokens[1]));
                 break;
             case "mark":
-                // Now check if the second token 1) exists, 2) is a number. Else, treat it as a new task.
-                if (userInputTokens.length == 2) { // check if there is only 1 argument after unmark command
-                    // check if it is a number
-                    if (isNumber(userInputTokens[1])) {
-                        int taskIndex = Integer.parseInt(userInputTokens[1]);
-                        new LocalFuncs().executeMark(taskIndex);
-                    }
-                }
-                else {
-                    new LocalFuncs().executeNone(new Task(userInput));
-                }
+                new LocalFuncs().executeMark(Integer.parseInt(userInputTokens[1]));
                 break;
             case "bye":
                 new LocalFuncs().goodByeAndExit();
