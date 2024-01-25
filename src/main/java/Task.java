@@ -17,6 +17,10 @@ public class Task {
 
     public String markAsDone() {
         this.isDone = true;
-        return "[" + this.getStatusIcon() + "] " + this.getDescription();
+        return this.toString();
+    }
+
+    public String toString() {
+        return String.format("[%s] %s", this.getStatusIcon(), this.getDescription());
     }
 }

@@ -6,18 +6,18 @@ public class MyList {
         this.items = new ArrayList<>();
     }
 
-    public String addItem(String item) {
-        Task t = new Task(item);
+    public String addItem(Task t) {
         this.items.add(t);
-        return "added: " + item;
+        return "Got it. I've added this task:\n" + t.toString() + "\nNow you have " + this.items.size() + " tasks in the list.";
     }
 
     public String getItems() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the tasks in your list:\n");
         int index = 1;
 
         for (Task task : this.items) {
-            String itemString = String.format("%d. [%s] %s\n", index, task.getStatusIcon(), task.getDescription());
+            String itemString = String.format("%d. %s\n", index, task.toString());
             stringBuilder.append(itemString);
             index++;
         }
@@ -29,7 +29,7 @@ public class MyList {
         if (index > this.items.size()) {
             return "Number is longer than list";
         } else {
-            return this.items.get(index - 1).markAsDone();
+            return "Nice! I've marked this task as done:\n" + this.items.get(index - 1).markAsDone();
         }
     }
 }

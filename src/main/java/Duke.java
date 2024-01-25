@@ -31,8 +31,23 @@ public class Duke {
                     } catch (NumberFormatException e) {
                         System.out.println("Please enter a valid number.");
                     }
+                } else if (userInput.startsWith("todo")) {
+                    String s = userInput.substring("todo".length()).trim();
+                    Task task = new Todo(s);
+                    System.out.println(myList.addItem(task));
+                } else if (userInput.startsWith("deadline")) {
+                    String s = userInput.substring("deadline".length()).trim();
+                    String[] s1 = s.split("/by");
+                    Task task = new Deadline(s1[0].trim(), s1[1].trim());
+                    System.out.println(myList.addItem(task));
+                } else if (userInput.startsWith("event")) {
+                    String s = userInput.substring("event".length()).trim();
+                    String[] s1 = s.split("/from");
+                    String[] s2 = s1[1].split("/to");
+                    Task task = new Event(s1[0].trim(), s2[0].trim(), s2[1].trim());
+                    System.out.println(myList.addItem(task));
                 } else {
-                    System.out.println(myList.addItem(userInput));
+                    System.out.println("Invalid input");
                 }
             }
             System.out.println("Bye. Hope to see you again soon!");
