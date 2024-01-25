@@ -24,17 +24,26 @@ public class Ui {
         System.out.println(Ui.longLine);
     }
 
-    public void add(String task) {
+    public void add(Task task) {
         System.out.println(Ui.longLine);
-        System.out.println("added: " + task);
+        System.out.println("added: " + task.getDescription());
         System.out.println(Ui.longLine);
     }
 
     public void list(Storage storage) {
         System.out.println(Ui.longLine);
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < storage.getItems().size(); i++) {
-            System.out.println((i + 1) + ". " + storage.getItems().get(i));
+            Task nextTask = storage.getItems().get(i);
+            System.out.println((i + 1) + ". [" + nextTask.getStatusIcon() + "] " + nextTask.getDescription());
         }
+        System.out.println(Ui.longLine);
+    }
+
+    public void mark(Task task) {
+        System.out.println(Ui.longLine);
+        System.out.println(task.getMarkStatus());
+        System.out.println("[" + task.getStatusIcon() + "] " + task.getDescription());
         System.out.println(Ui.longLine);
     }
 }
