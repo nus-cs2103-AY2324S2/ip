@@ -6,8 +6,6 @@ public class UnknownCommand extends Command<List<Task>> {
     }
 
     List<Task> execute(List<Task> tasks) {
-        // To-do: UI
-        System.out.printf("sry idk what u meant\n");
         return null;
     }
 }
