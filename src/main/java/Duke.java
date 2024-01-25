@@ -15,19 +15,25 @@ public class Duke {
                 exit();
                 return;
             } else {
-                String[] words = s.split(" ", 2);
-                String firstWord = words[0];
-                String taskName = words[1];
-                if (firstWord.equals("mark")) {
-                    markComplete(Integer.parseInt(s.split(" ")[1]));
-                } else if (firstWord.equals("unmark")) {
-                    unmarkComplete(Integer.parseInt(s.split(" ")[1]));
-                } else if (firstWord.equals("todo")) {
-                    addToList(new Todo(taskName));
-                } else if (firstWord.equals("deadline")) {
-                    addToList(new Deadline(taskName));
-                } else if (firstWord.equals("event")) {
-                    addToList(new Event(taskName));
+                try {
+                    String[] words = s.split(" ", 2);
+                    String firstWord = words[0];
+                    String taskName = words[1];
+                    if (firstWord.equals("mark")) {
+                        markComplete(Integer.parseInt(s.split(" ")[1]));
+                    } else if (firstWord.equals("unmark")) {
+                        unmarkComplete(Integer.parseInt(s.split(" ")[1]));
+                    } else if (firstWord.equals("todo")) {
+                        addToList(new Todo(taskName));
+                    } else if (firstWord.equals("deadline")) {
+                        addToList(new Deadline(taskName));
+                    } else if (firstWord.equals("event")) {
+                        addToList(new Event(taskName));
+                    } else {
+                        throw new AllyException();
+                    }
+                } catch (Exception e) {
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
         }
