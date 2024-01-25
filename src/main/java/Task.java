@@ -9,12 +9,12 @@ public class Task {
 
     public String markAsDone() {
         this.isDone = true;
-        return "Nice! I've mark this task as done:\n\t\t" + this.toString();
+        return "Nice! I've mark this task as done:\n\t\t" + this;
     }
 
     public String unmarkAsDone() {
         this.isDone = false;
-        return "OK, I've marked this task as not done yet:\n\t\t" + this.toString();
+        return "OK, I've marked this task as not done yet:\n\t\t" + this;
     }
 
     public String getStatusIcon() {
