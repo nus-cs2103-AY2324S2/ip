@@ -1,10 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Earl {
 
     private static final String padding = " ".repeat(4);
-    private static final Task[] tasks = new Task[100];
-    private static int count = 0;
+    private static final List<Task> tasks = new ArrayList<>();
 
     private static void printDivider() {
         System.out.println(padding + "_".repeat(50));
@@ -22,10 +23,10 @@ public class Earl {
         String[] command = input.split("\\s", 2);
         switch (command[0]) {
             case "list":
-                if (count > 0) {
-                    String[] temp = new String[count];
-                    for (int i = 0; i < count; ++i) {
-                        temp[i] = i+1 + "." + tasks[i];
+                if (!tasks.isEmpty()) {
+                    String[] temp = new String[tasks.size()];
+                    for (int i = 0; i < tasks.size(); ++i) {
+                        temp[i] = i+1 + "." + tasks.get(i);
                     }
                     makeResponse(temp);
                 } else {
@@ -35,13 +36,10 @@ public class Earl {
             case "mark": {
                 try {
                     int idx = Integer.parseInt(command[1]) - 1;
-                    if (idx >= count) {
-                        throw new IndexOutOfBoundsException();
-                    }
-                    if (tasks[idx].markAsDone()) {
+                    if (tasks.get(idx).markAsDone()) {
                         makeResponse(
                                 "Item marked as done.",
-                                padding + tasks[idx]
+                                padding + tasks.get(idx)
                         );
                     } else {
                         makeResponse("Item already marked as done.");
@@ -64,13 +62,10 @@ public class Earl {
             case "unmark": {
                 try {
                     int idx = Integer.parseInt(command[1]) - 1;
-                    if (idx >= count) {
-                        throw new IndexOutOfBoundsException();
-                    }
-                    if (tasks[idx].markUndone()) {
+                    if (tasks.get(idx).markUndone()) {
                         makeResponse(
                                 "Item marked as not done.",
-                                padding + tasks[idx]
+                                padding + tasks.get(idx)
                         );
                     } else {
                         makeResponse("Item already marked as not done.");
@@ -92,11 +87,11 @@ public class Earl {
             }
             case "todo":
                 try {
-                    tasks[count++] = new Todo(command[1]);
+                    tasks.add(new Todo(command[1]));
                     makeResponse(
                             "Added new todo.",
-                            padding + tasks[count - 1],
-                            "There are " + count + " tasks tracked."
+                            padding + tasks.get(tasks.size()-1),
+                            "There are " + tasks.size() + " tasks tracked."
                     );
                 } catch (IndexOutOfBoundsException e) {
                     throw new EarlException(
@@ -115,11 +110,11 @@ public class Earl {
             case "deadline":
                 try {
                     command = command[1].split("\\s/by\\s");
-                    tasks[count++] = new Deadline(command[0], command[1]);
+                    tasks.add(new Deadline(command[0], command[1]));
                     makeResponse(
                             "Added new deadline.",
-                            padding + tasks[count - 1],
-                            "There are " + count + " tasks tracked."
+                            padding + tasks.get(tasks.size()-1),
+                            "There are " + tasks.size() + " tasks tracked."
                     );
                 } catch (IndexOutOfBoundsException e) {
                     throw new EarlException(
@@ -140,15 +135,11 @@ public class Earl {
             case "event":
                 try {
                     command = command[1].split("\\s/(from|to)\\s");
-                    tasks[count++] = new Event(
-                            command[0],
-                            command[1],
-                            command[2]
-                    );
+                    tasks.add(new Event(command[0], command[1], command[2]));
                     makeResponse(
                             "Added new event.",
-                            padding + tasks[count - 1],
-                            "There are " + count + " tasks tracked."
+                            padding + tasks.get(tasks.size() - 1),
+                            "There are " + tasks.size() + " tasks tracked."
                     );
                 } catch (IndexOutOfBoundsException e) {
                     throw new EarlException(
@@ -166,10 +157,33 @@ public class Earl {
                     );
                 }
                 break;
+            case "delete": {
+                try {
+                    int idx = Integer.parseInt(command[1]) - 1;
+                    makeResponse(
+                            "Item deleted.",
+                            padding + tasks.remove(idx)
+                    );
+                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    throw new EarlException(
+                            "Error, not a valid item number within range.\n"
+                            + padding + "Example use:\n"
+                            + padding + padding + "unmark 3"
+                    );
+                } catch (Exception e) {
+                    throw new EarlException(
+                            "Error, unknown use of delete.\n"
+                            + padding + "Example use:\n"
+                            + padding + padding + "delete 3"
+                    );
+                }
+                break;
+            }
             default:
                 makeResponse(
                         "Error, unknown command.",
-                        "Valid commands: list, mark, unmark, todo, deadline, event"
+                        "Valid commands:",
+                        padding + "list, mark, unmark, todo, deadline, event"
                 );
         }
     }
