@@ -3,40 +3,62 @@
     What can I do for you?
     __________________________________________________________________
     __________________________________________________________________
-    added: [D][ ] do homework(by: no idea :-p)
+    added: [D][ ] do homework (by: no idea :-p)
     __________________________________________________________________
     __________________________________________________________________
-    added: [D][ ] return book(by: Sunday)
+    added: [D][ ] return book (by: Sunday)
     __________________________________________________________________
     __________________________________________________________________
-    added: [E][ ] project meeting(from: Mon 2pm to: 4pm)
+    added: [E][ ] project meeting (from: Mon 2pm to: 4pm)
     __________________________________________________________________
     __________________________________________________________________
     added: [T][ ] borrow book
     __________________________________________________________________
     __________________________________________________________________
-    1.[D][ ] do homework(by: no idea :-p)
-    2.[D][ ] return book(by: Sunday)
-    3.[E][ ] project meeting(from: Mon 2pm to: 4pm)
+    1.[D][ ] do homework (by: no idea :-p)
+    2.[D][ ] return book (by: Sunday)
+    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
     4.[T][ ] borrow book
     __________________________________________________________________
     __________________________________________________________________
     Nice! I've marked this task as done:
-        [D][X] do homework(by: no idea :-p)
+        [D][X] do homework (by: no idea :-p)
     __________________________________________________________________
     __________________________________________________________________
     Nice! I've marked this task as done:
-        [D][X] return book(by: Sunday)
+        [D][X] return book (by: Sunday)
     __________________________________________________________________
     __________________________________________________________________
     OK, I've marked this task as not done yet:
-        [D][ ] do homework(by: no idea :-p)
+        [D][ ] do homework (by: no idea :-p)
     __________________________________________________________________
     __________________________________________________________________
-    1.[D][ ] do homework(by: no idea :-p)
-    2.[D][X] return book(by: Sunday)
-    3.[E][ ] project meeting(from: Mon 2pm to: 4pm)
+    1.[D][ ] do homework (by: no idea :-p)
+    2.[D][X] return book (by: Sunday)
+    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
     4.[T][ ] borrow book
+    __________________________________________________________________
+    __________________________________________________________________
+    Error! index 5 out of bounds of size 5
+    __________________________________________________________________
+    __________________________________________________________________
+    1.[D][ ] do homework (by: no idea :-p)
+    2.[D][X] return book (by: Sunday)
+    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    4.[T][ ] borrow book
+    __________________________________________________________________
+    __________________________________________________________________
+    Noted, I've deleted this task from the list:
+        [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Following is the current list:
+    1.[D][ ] do homework (by: no idea :-p)
+    2.[D][X] return book (by: Sunday)
+    3.[T][ ] borrow book
+    __________________________________________________________________
+    __________________________________________________________________
+    1.[D][ ] do homework (by: no idea :-p)
+    2.[D][X] return book (by: Sunday)
+    3.[T][ ] borrow book
     __________________________________________________________________
     __________________________________________________________________
     Bye. Hope to see u again soon!

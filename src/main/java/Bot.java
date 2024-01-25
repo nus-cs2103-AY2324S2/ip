@@ -6,7 +6,7 @@ public class Bot {
     private final PrintWriter pw = new PrintWriter(System.out);
     private static final String SEPARATOR = "__________________________________________________________________\n";
     private static final String INDENTATION = "    ";
-    private LinkedList<Task> list = new LinkedList<Task>();
+    private final LinkedList<Task> list = new LinkedList<Task>();
 
     public Bot(){}
 
@@ -29,11 +29,35 @@ public class Bot {
         String[] tokens = input.split(" ");
         String taskType = tokens[0];
         String content = String.join(" ", Arrays.copyOfRange(tokens, 1, tokens.length));
+        int index;
+
         switch (taskType) {
+            default:
+                this.echo("Sorry! I don't understand your words. you can try to use key words like "
+                        +  "'todo', 'event', 'deadline' at the beginning of each sentences");
+                break;
             case "mark":
+                if (content.isEmpty()) {
+                    this.echo("Error! mark need a command body of a integer representing the index of the task");
+                    break;
+                }
+                index = Integer.parseInt(tokens[1]);
+                if (index > this.list.size()) {
+                    this.echo(String.format("Error! index %d out of bounds of size %d", index, this.list.size() + 1));
+                    break;
+                }
                 this.mark(Integer.parseInt(tokens[1]));
                 break;
             case "unmark":
+                if (content.isEmpty()) {
+                    this.echo("Error! unmark need a command body of a integer representing the index of the task");
+                    break;
+                }
+                index = Integer.parseInt(tokens[1]);
+                if (index > this.list.size()) {
+                    this.echo(String.format("Error! index %d out of bounds of size %d", index, this.list.size() + 1));
+                    break;
+                }
                 this.unmark(Integer.parseInt(tokens[1]));
                 break;
             case "todo":
@@ -70,11 +94,18 @@ public class Bot {
             case "list":
                 this.list();
                 break;
-            default:
-                this.echo("Sorry! I don't understand your words. you can try to use key words like "
-                        +  "'todo', 'event', 'deadline' at the beginning of each sentences");
+            case "delete":
+                if (content.isEmpty()) {
+                    this.echo("Error! delete need a command body of a integer representing the index of the task");
+                    break;
+                }
+                index = Integer.parseInt(tokens[1]);
+                if (index > this.list.size()) {
+                    this.echo(String.format("Error! index %d out of bounds of size %d", index, this.list.size() + 1));
+                    break;
+                }
+                this.delete(index);
         }
-
     }
 
     public void echo(String input) {
@@ -112,6 +143,19 @@ public class Bot {
         pw.print(INDENTATION + SEPARATOR);
         pw.print(INDENTATION +  "OK, I've marked this task as not done yet:\n");
         pw.print(INDENTATION + INDENTATION + list.get(index - 1) + "\n");
+        pw.print(INDENTATION + SEPARATOR);
+        pw.flush();
+    }
+
+    public void delete(Integer index) {
+        Task deleted = list.remove(index - 1);
+        pw.print(INDENTATION + SEPARATOR);
+        pw.print(INDENTATION +  "Noted, I've deleted this task from the list:\n");
+        pw.print(INDENTATION + INDENTATION + deleted + "\n");
+        pw.print(INDENTATION + "Following is the current list:\n");
+        for (int i = 0; i < list.size(); i += 1) {
+            pw.print(INDENTATION + String.format("%d.%s\n", i + 1, list.get(i)));
+        }
         pw.print(INDENTATION + SEPARATOR);
         pw.flush();
     }
