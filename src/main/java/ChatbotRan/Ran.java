@@ -39,16 +39,24 @@ public class Ran {
                 case "mark":
                     Task task = this.handleTaskNo(line, space);
                     if (task != null) {
-                        task.setCompleted(true);
-                        System.out.println("Alright. I have marked this task as complete: ");
+                        if (!task.isCompleted()) {
+                            task.setCompleted(true);
+                            System.out.println("Alright. I have marked this task as complete: ");
+                        } else {
+                            System.out.println("That task is already complete: ");
+                        }
                         System.out.println(task);
                     }
                     break;
                 case "unmark":
                     task = this.handleTaskNo(line, space);
                     if (task != null) {
-                        task.setCompleted(false);
-                        System.out.println("If that's the case, I'll set that task as incomplete.");
+                        if (task.isCompleted()){
+                            task.setCompleted(false);
+                            System.out.println("If that's the case, I'll set that task as incomplete: ");
+                        } else {
+                            System.out.println("That task is already incomplete: ");
+                        }
                         System.out.println(task);
                     }
                     break;
