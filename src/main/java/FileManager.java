@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FileManager {
 
@@ -34,6 +35,22 @@ public class FileManager {
     } catch (IOException e) {
       System.out.println("Problem writing to log! " + e.getMessage());
     }
+  }
+
+  public void loadHistory(ArrayList<Task> current_list) {
+    File log_entry = new File(this.path);
+    try {
+      Scanner sc = new Scanner(log_entry);
+      while (sc.hasNextLine()) {
+        String next_entry = sc.nextLine();
+        Task loaded_task = this.parseEntry(next_entry);
+        current_list.add(loaded_task);
+      }
+      sc.close();
+    } catch (IOException e) {
+      System.out.println("Problem loading history: " + e.getMessage());
+    }
+
   }
 
   public Task parseEntry(String log_entry) {
