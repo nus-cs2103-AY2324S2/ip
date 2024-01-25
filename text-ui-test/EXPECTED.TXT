@@ -4,14 +4,14 @@ What can I do for you?
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
 These are the available commands :
-0. List all commands : list command
+0. Do list commands : list commands
 1. Add todo task : todo [your task]
-2. Add deadline task : deadline [your task] /by [deadline
+2. Add deadline task : deadline [your task] /by [deadline]
 3. Add event task : event [your task] /from [start time] /to [end time]
-4. List all tasks : list
-5. Mark task done : mark [task number (integer)]
-6. Mark task undone : unmark [task number (integer)]
-7. Delete a task : delete [task number (integer)]
+4. To list all tasks : list
+5. To mark task done : mark [task number (integer)]
+6. To unmark task : unmark [task number (integer)]
+7. To delete a task : delete [task number (integer)]
 8. Close chatbot : bye
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------

@@ -24,15 +24,15 @@ public class Duke {
     public static void printCommandList() {
         drawLine();
         System.out.println("These are the available commands :");
-        System.out.println("0. List all commands : list command");
-        System.out.println("1. Add todo task : todo [your task]");
-        System.out.println("2. Add deadline task : deadline [your task] /by [deadline");
-        System.out.println("3. Add event task : event [your task] /from [start time] /to [end time]");
-        System.out.println("4. List all tasks : list");
-        System.out.println("5. Mark task done : mark [task number (integer)]");
-        System.out.println("6. Mark task undone : unmark [task number (integer)]");
-        System.out.println("7. Delete a task : delete [task number (integer)]");
-        System.out.println("8. Close chatbot : bye");
+        System.out.println("0. Do " + CommandType.LISTCOMMANDS.toString() + " : " + CommandType.LISTCOMMANDS.getCommand());
+        System.out.println("1. Add " + CommandType.TODO.toString() + " task : " + CommandType.TODO.getCommand());
+        System.out.println("2. Add " + CommandType.DEADLINE.toString() + " task : " + CommandType.DEADLINE.getCommand());
+        System.out.println("3. Add " + CommandType.EVENT.toString() + " task : " + CommandType.EVENT.getCommand());
+        System.out.println("4. To " + CommandType.LIST.toString() +" all tasks : " + CommandType.LIST.getCommand());
+        System.out.println("5. To " + CommandType.MARK.toString() + " task done : " + CommandType.MARK.getCommand());
+        System.out.println("6. To " + CommandType.UNMARK.toString() + " task : " + CommandType.UNMARK.getCommand());
+        System.out.println("7. To " + CommandType.DELETE.toString() + " a task : " + CommandType.DELETE.getCommand());
+        System.out.println("8. Close chatbot : " + CommandType.BYE.getCommand());
         drawLine();
     }
 
@@ -47,35 +47,35 @@ public class Duke {
     public static void addTask(String type, String task, List<Task> storage) throws DukeException {
         Task newTask;
 
-        if (type.equals("todo")) {
+        if (type.equals(CommandType.TODO.toString())) {
             if (task.equals("")) {
                 throw new DukeException("The description is not provided. " +
                         "Write command using format: " +
-                        "todo [your task]");
+                        CommandType.TODO.getCommand());
             }
             newTask = new ToDo(task);
 
-        } else if (type.equals("deadline")) {
+        } else if (type.equals(CommandType.DEADLINE.toString())) {
 
             String[] taskArr = task.split(" /by ");
 
             if (taskArr.length <= 1) {
                 throw new DukeException("The description or deadline is not provided. " +
                         "Write command using format: " +
-                        "deadline [your task] /by [deadline]");
+                        CommandType.DEADLINE.getCommand());
             }
 
             String by = taskArr[1];
             String description = taskArr[0];
             newTask = new Deadline(description, by);
 
-        } else if (type.equals("event")) {
+        } else if (type.equals(CommandType.EVENT.toString())) {
             String[] taskArr = task.split(" /from ");
 
             if (taskArr.length <= 1) {
                 throw new DukeException("The description or event period is not provided. " +
                         "Write command using format: " +
-                        "event [your task] /from [start time] /to [end time]");
+                        CommandType.EVENT.getCommand());
             }
 
             String[] fromArr = taskArr[1].split(" /to ");
@@ -83,7 +83,7 @@ public class Duke {
             if (fromArr.length <= 1) {
                 throw new DukeException("The description or event period is not provided. " +
                         "Write command using format: " +
-                        "event [your task] /from [start time] /to [end time]");
+                        CommandType.EVENT.getCommand());
             }
 
             String by = fromArr[0];
@@ -92,7 +92,7 @@ public class Duke {
             newTask = new Event(description, by, to);
         } else {
             throw new DukeException("This command is unavailable. Please refer to command list by using command: " +
-                    "list command");
+                    CommandType.LIST.getCommand());
         }
 
         storage.add(newTask);
@@ -128,9 +128,11 @@ public class Duke {
         try {
             int index = Integer.parseInt(input);
             if (index > storage.size() || index <= 0) {
-                throw new DukeException("Invalid task number. Please check your task list using command : list\n" +
+                throw new DukeException("Invalid task number. Please check your task list using command : " +
+                        CommandType.LIST.getCommand() +
+                        "\n" +
                         "Write command using format: " +
-                        "mark [task number (integer)]");
+                        CommandType.MARK.getCommand());
             }
 
             Task curr = storage.get(index - 1);
@@ -139,7 +141,7 @@ public class Duke {
             drawLine();
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: " +
-                    "mark [task number (integer)]");
+                    CommandType.MARK.getCommand());
         }
     }
 
@@ -152,9 +154,11 @@ public class Duke {
         try {
             int index = Integer.parseInt(input);
              if (index > storage.size() || index <= 0) {
-                throw new DukeException("Invalid task number. Please check your task list using command : list.\n" +
+                throw new DukeException("Invalid task number. Please check your task list using command : " +
+                        CommandType.LIST.getCommand() +
+                        ".\n" +
                         "Write command using format: " +
-                        "mark [task number (integer)]");
+                        CommandType.UNMARK.getCommand());
             }
 
             Task curr = storage.get(index - 1);
@@ -163,7 +167,7 @@ public class Duke {
             drawLine();
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: " +
-                    "mark [task number (integer)]");
+                    CommandType.UNMARK.getCommand());
         }
     }
 
@@ -178,7 +182,7 @@ public class Duke {
             if (index > storage.size() || index <= 0) {
                 throw new DukeException("Invalid task number. Please check your task list using command : list.\n" +
                         "Write command using format: " +
-                        "delete [task number (integer)]");
+                        CommandType.DELETE.getCommand());
             }
 
             Task curr = storage.get(index - 1);
@@ -188,7 +192,7 @@ public class Duke {
                     + storage.size() + temp + " in the list.");
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: " +
-                    "delete [task number (integer)]");
+                    CommandType.DELETE.getCommand());
         }
     }
 
@@ -208,18 +212,18 @@ public class Duke {
             String[] commandArr = command.split(" ", 2);
 
             try {
-                if (command.equals("bye")) {
+                if (command.equals(CommandType.BYE.toString())) {
                     displayToScreen("Bye. Hope to see you again soon!");
                     break;
-                } else if (command.equals("list command")) {
+                } else if (command.equals(CommandType.LISTCOMMANDS.toString())) {
                     printCommandList();
-                } else if (command.equals("list")) {
+                } else if (command.equals(CommandType.LIST.toString())) {
                     listTask(storage);
-                } else if (commandArr[0].equals("mark")) {
+                } else if (commandArr[0].equals(CommandType.MARK.toString())) {
                     markDone(storage, commandArr.length > 1 ? commandArr[1] : "");
-                } else if (commandArr[0].equals("unmark")) {
+                } else if (commandArr[0].equals(CommandType.UNMARK.toString())) {
                     markUndone(storage, commandArr.length > 1 ? commandArr[1] : "");
-                } else if (commandArr[0].equals("delete")) {
+                } else if (commandArr[0].equals(CommandType.DELETE.toString())) {
                     deleteTask(storage, commandArr.length > 1 ? commandArr[1] : "");
                 } else {
                     addTask(commandArr[0], commandArr.length > 1 ? commandArr[1] : "", storage);

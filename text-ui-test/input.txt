@@ -1,4 +1,4 @@
-list command
+list commands
 todo study
 deadline submission /by Sunday 1pm
 event workshop /from Jan 4pm /to 8pm
