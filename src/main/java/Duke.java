@@ -39,6 +39,7 @@ public class Duke {
         }
 
 
+
     }
 
     public static class ToDo extends Task {
@@ -137,7 +138,7 @@ public class Duke {
      *
      * @param input Input collected from the user.
      */
-    public static void commandAdded(String input) {
+    public static void taskAdded(String input) {
         taskList[index] = new Task(input, index);
         index += 1;
         signalSays("Added: " + input);
@@ -168,16 +169,15 @@ public class Duke {
                 taskList[index] = new Task(input, index);
             }
         }
-        commandAdded((taskList[index]));
+        taskAdded((taskList[index]));
     }
 
-    public static void commandAdded(Task t) {
+    public static void taskAdded(Task t) {
         index += 1;
         signalSays("Got it! I've added this task to your list: \n"
                 + "  " + t.toString() + "\n"
                 + "Now you have " + (t.index + 1) + (t.index == 0 ? " task" : " tasks") + " in the list.");
     }
-
 
 
     /**
@@ -192,6 +192,35 @@ public class Duke {
         }
         System.out.println(div);
     }
+
+    public static void commandDelete(Task t) throws DukeException {
+        if (index == 0) {
+            throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
+        }
+        if (t.index >= 0 && t.index <= index) {
+            // Shift the remaining elements up
+            for (int i = t.index; i <= index - 1; i++) {
+                // Adjust the index of each element
+                taskList[i] = taskList[i + 1];
+            }
+            index -= 1;
+            signalSays("Noted, I've deleted this task from your list: \n"
+                    + "  " + t.toString() + "\n"
+                    + "Now you have " + (index) + (index == 0 ? " task" : " tasks") + " in the list.");
+        } else {
+            throw new DukeException("I'd say shoot for the stars but in this case there are only "
+                    + (index - 1) + ((index - 1) == 1 ? " item" : " items") + " in this list");
+        }
+    }
+    public static void commandDeleteInvalid(int x) throws DukeException {
+        if (x < 0) {
+            throw new DukeException("Negative numbers might exist in maths but not in this list!");
+        }
+        if (x > 100) {
+            throw new DukeException("Oops! You only have " + (index) + (index == 0 ? " task" : " tasks") + ". Better get on it then!");
+        }
+    }
+
     public static void commandBlah() throws DukeException {
         throw new DukeException("All words are made up, but this one seems more nonsensical than usual. Try something else!");
     }
@@ -252,7 +281,7 @@ public class Duke {
                     if (addCommandCheck.equals("n")) {
                         signalSays("What else can I help you with?");
                     } else if (addCommandCheck.equals("y")) {
-                        commandAdded(userInput);
+                        taskAdded(userInput);
                     }
                 }
             } else if (userInput.equals("list")) {
@@ -272,7 +301,7 @@ public class Duke {
                     if(addCommandCheck.equals("n")) {
                         signalSays("What else can I help you with?");
                     } else if(addCommandCheck.equals("y")) {
-                        commandAdded(userInput);
+                        taskAdded(userInput);
                     }
                 }
             } else if (inputArray[0].equals("todo") || inputArray[0].equals("deadline") || inputArray[0].equals("event")) {
@@ -294,8 +323,21 @@ public class Duke {
                 } catch (DukeException e) {
                     signalSays(e.getMessage());
                 }
+            } else if (inputArray.length == 2 && inputArray[0].equals("delete")) {
+                try {
+                    int itemIndex = Integer.parseInt(inputArray[1]) - 1;
+                    if (itemIndex > index - 1) {
+                        commandDeleteInvalid(101);
+                    }
+                    if (itemIndex < 0) {
+                        commandDeleteInvalid(-1);
+                    }
+                    commandDelete(taskList[itemIndex]);
+                } catch (DukeException e) {
+                    signalSays(e.getMessage());
+                }
             } else {
-                commandAdded(userInput);
+                taskAdded(userInput);
             }
         }
 
