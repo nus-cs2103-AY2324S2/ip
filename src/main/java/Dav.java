@@ -37,35 +37,52 @@ public class Dav {
     public static void processUserInput(String input) {
         System.out.println("____________________________________________________________");
 
-        if (input.equalsIgnoreCase("list")) {
-            listTasks();
-        } else if (input.startsWith("mark ")) {
-            int taskIndex = Integer.parseInt(input.substring(5).trim());
-            markTaskDone(taskIndex);
-        } else if (input.startsWith("unmark ")) {
-            int taskIndex = Integer.parseInt(input.substring(7).trim());
-            unmarkTaskDone(taskIndex);
-        } else if (input.startsWith("todo ")) {
-            addTodoTask(input.substring(5).trim());
-        } else if (input.startsWith("deadline ")) {
-            addDeadlineTask(input.substring(9).trim());
-        } else if (input.startsWith("event ")) {
-            addEventTask(input.substring(6).trim());
-        } else if (!input.equalsIgnoreCase("bye")) {
-            System.out.println("Invalid command. Please try again.");
+        try {
+            if (input.equalsIgnoreCase("list")) {
+                listTasks();
+            } else if (input.startsWith("mark ")) {
+                int taskIndex = Integer.parseInt(input.substring(5).trim());
+                markTaskDone(taskIndex);
+            } else if (input.startsWith("unmark ")) {
+                int taskIndex = Integer.parseInt(input.substring(7).trim());
+                unmarkTaskDone(taskIndex);
+            } else if (input.startsWith("todo")) {
+                addTodoTask(input.substring(4).trim());
+            } else if (input.startsWith("deadline")) {
+                addDeadlineTask(input.substring(8).trim());
+            } else if (input.startsWith("event")) {
+                addEventTask(input.substring(5).trim());
+            } else if (!input.equalsIgnoreCase("bye")) {
+                throw new IllegalArgumentException("Huh? what's that?");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("This is not valid task index.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
 
         System.out.println("____________________________________________________________");
     }
 
     public static void addTodoTask(String taskDescription) {
-        addTask(new TodoTask(taskDescription));
+        if (taskDescription.isEmpty()) {
+            System.out.println("Do nothing?");
+        } else {
+            addTask(new TodoTask(taskDescription));
+        }
     }
 
     public static void addDeadlineTask(String taskDetails) {
         String[] details = taskDetails.split(" /by ");
         if (details.length == 2) {
-            addTask(new DeadlineTask(details[0], details[1]));
+            String description = details[0].trim();
+            String by = details[1].trim();
+
+            if (description.isEmpty()) {
+                System.out.println("No deadline?");
+            } else {
+                addTask(new DeadlineTask(description, by));
+            }
         } else {
             System.out.println("Invalid deadline task format.");
         }
@@ -74,9 +91,13 @@ public class Dav {
     public static void addEventTask(String taskDetails) {
         String[] details = taskDetails.split(" /from ");
         if (details.length == 2) {
+            String description = details[0].trim();
             String[] timeDetails = details[1].split(" /to ");
-            if (timeDetails.length == 2) {
-                addTask(new EventTask(details[0], timeDetails[0], timeDetails[1]));
+
+            if (description.isEmpty()) {
+                System.out.println("No event?");
+            } else if (timeDetails.length == 2) {
+                addTask(new EventTask(description, timeDetails[0], timeDetails[1]));
             } else {
                 System.out.println("Invalid event task format.");
             }
