@@ -30,6 +30,8 @@ public class Chaterpillar {
 
         int num;
         Task curr_task;
+        String name;
+        String[] temp;
         switch(input_sp[0]) {
             case "list":
                 echo("Here are the tasks in your list: ");
@@ -57,19 +59,43 @@ public class Chaterpillar {
                 exited = true;
                 exit();
                 break;
+            case "todo":
+                name = input.substring(5);
+                curr_task = new TodoTask(name);
+                add_task(curr_task);
+                break;
+            case "deadline":
+                temp = input.split("/");
+                name = temp[0].substring(9);
+                String date = temp[1].substring(3);
+                curr_task = new DeadlineTask(name, date);
+                add_task(curr_task);
+                break;
+            case "event":
+                temp = input.split("/");
+                name = temp[0].substring(6);
+                String date1 = temp[1].substring(5);
+                String date2 = temp[2].substring(3);
+                curr_task = new EventTask(name, date1, date2);
+                add_task(curr_task);
+                break;
             default:
                 // if not asked to exit the chatbot
                 // add to array list and
                 // prints what is added
                 Task task = new Task(input);
-                listoftasks.add(task);
-                echo("added: " + task.taskname);
+                add_task(task);
                 break;
         }
         print_horizontal_line();
     }
+    public static void add_task(Task task) {
+        listoftasks.add(task);
+        echo("Got it. I've added this task:");
+        echo(task.toString());
+        echo("Now you have " + listoftasks.size() + " tasks in the list.");
 
-
+    }
     public static void main(String[] args) {
         greet();
         BufferedReader reader = new BufferedReader(
