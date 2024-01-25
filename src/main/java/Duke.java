@@ -17,7 +17,13 @@ public class Duke {
                 System.out.println(line);
                 return;
             }
+
             String[] key = res.split(" ", 2);
+            if(key.length <= 1){
+                System.out.println("Say something valid please -_-");
+                System.out.println(line);
+                continue;
+            }
             switch (key[0]) {
                 case "list":
                     System.out.println("Here are the tasks in your list!");
@@ -85,7 +91,7 @@ public class Duke {
                     System.out.println(line);
                     break;
                 default:
-                    System.out.println("Sorry, I did not get that!");
+                    System.out.println("Sorry what??, I did not get that!");
 
 
             }
