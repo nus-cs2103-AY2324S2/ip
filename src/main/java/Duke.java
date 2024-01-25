@@ -38,19 +38,31 @@ public class Duke {
                 bot_functions.shifted_print(text.toString());
 
                 // MARK AND UNMARK COMMANDS
+//            } else if (input_command.equalsIgnoreCase("delete")){
+//                String [] keys = input_command.split(" ", 2);
+//                if (Arrays.asList(keys).size() < 2) {
+//                    bot_functions.shifted_print("Insufficient commands");
+//                } else {
+//
+//                }
             } else {
                 String [] keys = input_command.split(" ", 2);
 
-                if (keys[0].equalsIgnoreCase("unmark") || keys[0].equalsIgnoreCase("mark")) {
+                if (keys[0].equalsIgnoreCase("unmark") || keys[0].equalsIgnoreCase("mark") || keys[0].equalsIgnoreCase("delete")) {
                     if (Arrays.asList(keys).size() < 2) {
                         bot_functions.shifted_print("Missing inputs");
                     } else if (!bot_functions.isNumeric(keys[1])) {
-                        bot_functions.shifted_print("Invalid number for a mark/unmark command");
+                        bot_functions.shifted_print("Please input a number after the command E.g (mark/unmark/delete) 3");
                     } else {
                         int pos = Integer.parseInt(keys[1]);
                         if (pos <= user_list.size() && pos > 0) {
                             list_Entry ent = user_list.get(pos-1);
-                            if (keys[0].equalsIgnoreCase("mark")) {
+                            if (keys[0].equalsIgnoreCase("delete")) {
+                                user_list.remove(pos-1);
+                                bot_functions.shifted_print("Deleting the following task:\n " + ent
+                                        + "\nThere are " + user_list.size() + " tasks in the list");
+                            }
+                            else if (keys[0].equalsIgnoreCase("mark")) {
                                 ent.markEntry();
                                 bot_functions.shifted_print("Nice! I've marked this task as done:\n" + ent);
                             } else {
