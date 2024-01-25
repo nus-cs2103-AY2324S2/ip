@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ran {
     public static void main(String[] args) {
         System.out.println("Hello. I am ");
@@ -9,8 +11,19 @@ public class Ran {
                 "        \\/      \\/     \\/ ";
         System.out.println(art);
         System.out.println("What would you like to do today?");
-        System.out.println("____________________________________________________________");
-
+        boolean running = true;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.println("____________________________________________________________");
+            String command = sc.nextLine();
+            switch (command) {
+                case "bye":
+                    running = false;
+                    break;
+                default:
+                    System.out.println(command+"?");
+            }
+        } while (running);
 
         System.out.println("Goodbye, please return soon.");
     }
