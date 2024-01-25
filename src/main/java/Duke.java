@@ -81,6 +81,18 @@ public class Duke {
                 System.out.println(list.get(index - 1).printWithStatus());
             }
 
+            else if (comd.startsWith("delete ")) {
+                String[] result = comd.split(" ");
+                int in = Integer.parseInt(result[1]);
+
+                System.out.println("Noted. I've removed this task: ");
+                System.out.println(list.get(in - 1).printWithStatus());
+                list.remove(in - 1);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+
+            }
+
             else {
                 throw new DukeException("Invalid Command!");
             }
