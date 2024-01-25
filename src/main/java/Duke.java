@@ -6,17 +6,56 @@ import java.util.Arrays;
 
 public class Duke {
 
+    enum commandHints {
+        LIST,
+        TODO,
+        DEADLINE,
+        EVENT,
+        MARK,
+//        UNMARK,
+//        DELETE,
+        EXIT
+    }
     public static void main(String[] args) throws Exception{
 
         String NAME = "Luna"; // TENTATIVE
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         bot_functions.shifted_print(bot_functions.greetingString(NAME));
         boolean exitFlag = false;
+        commandHints currentHint = commandHints.EXIT;
         ArrayList<list_Entry> user_list = new ArrayList<>();
 
         while (!exitFlag) {
             String input_command = br.readLine();
+            if (input_command.equalsIgnoreCase("help")) {
+                switch(currentHint) {
+                    case LIST:
+                        bot_functions.shifted_print("To display all the task in your list\n--> Type: list");
+                        break;
+                    case TODO:
+                        bot_functions.shifted_print("To add a to-do task to your list\n--> Type: todo <task name>");
+                        break;
+                    case DEADLINE:
+                        bot_functions.shifted_print("To add a deadline task to your list\n--> Type: deadline <task name> <end date>");
+                        break;
+                    case EVENT:
+                        bot_functions.shifted_print("To add a event task to your list\n--> Type: event <task name> <start date> <end date>");
+                        break;
+                    case MARK:
+                        bot_functions.shifted_print("To mark a task as done\n--> Type: mark <list num>");
+//                        break;
+//                    case UNMARK:
+                        bot_functions.shifted_print("To unmark a task as not done\n--> Type: unmark <list num>");
+//                        break;
+//                    case DELETE:
+                        bot_functions.shifted_print("To delete a task from the list\n--> Type: delete <list num>");
+                        break;
+                    case EXIT:
+                        bot_functions.shifted_print("End the program :(\n--> Type: bye");
+                        break;
 
+                }
+            }
             // IF EXIT
             if (input_command.equalsIgnoreCase("bye") || input_command.equalsIgnoreCase("exit")) {
                 bot_functions.shifted_print(bot_functions.signoffString());
@@ -24,6 +63,8 @@ public class Duke {
 
             // IF LIST IS REQUESTED
             } else if (input_command.equalsIgnoreCase("list")){
+                currentHint = commandHints.LIST;
+
                 StringBuilder text = new StringBuilder();
                 if (user_list.isEmpty()) {
                     text.append("List is Empty");
@@ -32,20 +73,13 @@ public class Duke {
                     for (int i = 0; i < user_list.size(); i++) {
                         list_Entry ent = user_list.get(i);
                         text.append((i+1)).append(".").append(ent.toString()).append("\n");
-//                        text = text.concat((i).toString()).append(". ").append(user_list.get(i)).append("\n").toString();
                     }
                 }
                 bot_functions.shifted_print(text.toString());
 
-                // MARK AND UNMARK COMMANDS
-//            } else if (input_command.equalsIgnoreCase("delete")){
-//                String [] keys = input_command.split(" ", 2);
-//                if (Arrays.asList(keys).size() < 2) {
-//                    bot_functions.shifted_print("Insufficient commands");
-//                } else {
-//
-//                }
             } else {
+                currentHint = commandHints.MARK;
+
                 String [] keys = input_command.split(" ", 2);
 
                 if (keys[0].equalsIgnoreCase("unmark") || keys[0].equalsIgnoreCase("mark") || keys[0].equalsIgnoreCase("delete")) {
@@ -74,6 +108,8 @@ public class Duke {
                         }
                     }
                 } else {
+                    currentHint = commandHints.TODO;
+
                     boolean successFlag = false;
                     list_Entry ent = new list_Entry();
                     if (Arrays.asList(keys).size() == 2) {
@@ -81,12 +117,16 @@ public class Duke {
                             successFlag = true;
                             ent = new list_Entry_Todo(keys[1], false);
                         } else if (keys[0].equalsIgnoreCase("deadline")) {
+                            currentHint = commandHints.DEADLINE;
+
                             String[] keys_entry = keys[1].split(" /by ", 2);
                             if (Arrays.asList(keys_entry).size() == 2) {
                                 successFlag = true;
                                 ent = new list_Entry_Deadline(keys_entry[0], false, keys_entry[1]);
                             }
                         } else if (keys[0].equalsIgnoreCase("event")) {
+                            currentHint = commandHints.EVENT;
+
                             String[] keys_entry1 = keys[1].split(" /from ", 2);
                             if (Arrays.asList(keys_entry1).size() == 2) {
                                 String[] keys_entry2 = keys_entry1[1].split(" /to ", 2);
