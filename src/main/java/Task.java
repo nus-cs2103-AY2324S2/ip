@@ -1,10 +1,9 @@
 public class Task {
     private String description;
+    private int taskNumber;
     private boolean isComplete;
 
-    /**
-     * Private constructor to create a new Task with the given description
-     */
+    // Private constructor to create a new Task with the given description
     private Task(String description) {
         this.description = description;
         this.isComplete = false;
@@ -19,23 +18,18 @@ public class Task {
         return new Task(description);
     }
 
-    /**
-     * @return The description of the task
-     */
+    // The description of the task
     public String getDescription() {
         return description;
     }
 
-    /**
-     * Mark task as done
-     */
+
+    // Mark task as done
     public void markAsDone() {
         this.isComplete = true;
     }
 
-    /**
-     * @return True if the task is done, else no
-     */
+    // True if the task is done, else no
     public boolean isDone() {
         return isComplete;
     }
