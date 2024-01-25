@@ -9,12 +9,12 @@ public class Event extends Task{
         to = t;
     }
 
-    public String getSymbol() {
+    public String getSymbol() { //method to get symbol
         return symbol;
     }
 
     @Override
-    public String toString() {
+    public String toString() { //method to get the string representation of Event
         String s = "[" + this.getSymbol() + "][" + this.getStatusIcon() + "] " + this.description
                 + " (from: " + this.from + " to: " + this.to + ")";
         return s;

@@ -13,17 +13,17 @@ Now you have 3 tasks in the list.
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 Nice! I've marked this task as done:
- [X] read book
+[T][X] read book
 1.[T][X] read book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 Nice! I've marked this task as done:
- [X] return book
+[D][X] return book (by: Sunday)
 1.[T][X] read book
 2.[D][X] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 OK, I've marked this task as not done yet:
- [ ] return book
+[D][ ] return book (by: Sunday)
 1.[T][X] read book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)

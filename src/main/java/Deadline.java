@@ -8,11 +8,11 @@ public class Deadline extends Task{
         deadline = dl;
     }
 
-    public String getSymbol() {
+    public String getSymbol() { //method to get symbol
         return symbol;
     }
     @Override
-    public String toString() {
+    public String toString() { //method to get the string representation of Deadline
         String s = "[" + this.getSymbol() + "][" + this.getStatusIcon() + "] " + this.description
                 + " (by: " + this.deadline + ")";
         return s;
