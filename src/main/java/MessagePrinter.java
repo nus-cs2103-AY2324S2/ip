@@ -8,14 +8,8 @@ public class MessagePrinter {
         System.out.println("| Here's everything that I'd stored!");
         int i = 1;
         for(Task t : _tasks) {
-            String s = "| " + i + ".[";
-            if (t.IsMarked()) {
-                s += "X";
-            } else {
-                s += " ";
-            }
-            s += "] "  + t.Name();
-
+            String s = "| " + i + ".";
+            s += t.ToString();
             System.out.println(s);
             i++;
         }
