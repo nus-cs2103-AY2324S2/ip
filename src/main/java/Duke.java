@@ -1,5 +1,42 @@
 import java.util.Scanner;
 public class Duke {
+
+    public static class Task {
+        protected String description;
+        protected boolean isDone;
+        protected int index;
+
+        public Task(String description, int index) {
+            this.description = description;
+            this.index = index;
+            this.isDone = false;
+        }
+
+        public String getStatusIcon() {
+            return (isDone ? "X" : " "); // mark done task with X
+        }
+
+        public String getTask() {
+            return " [" + getStatusIcon() + "] " + this.description;
+        }
+
+        public String commandMark() {
+            String response = this.isDone == true
+                    ? "Task " + (this.index + 1) + " is already done! Yay!\n"
+                    : "Nice! I've marked this task as done:\n";
+            this.isDone = true;
+            return response + getTask();
+        }
+
+        public String commandUnmark() {
+            String response = this.isDone == false
+                    ? "Task " + (this.index + 1) + " is not done yet!\n"
+                    : "OK, I've marked this task as undone:\n";
+            this.isDone = false;
+            return response + getTask();
+        }
+    }
+
     private static String logo = " _______  __                       __ \n"
             + "|     __||__|.-----..-----..---.-.|  |\n"
             + "|__     ||  ||  _  ||     ||  _  ||  |\n"
@@ -7,34 +44,23 @@ public class Duke {
             + "             |_____|                  \n";
     private static String div = "\n" + "~~**~~";
     private static Scanner scanner = new Scanner(System.in);
-    private static String[] list = new String[100];
+    private static Task[] taskList = new Task[100];
     private static int index = 0;
 
-    /**
-     * Prints the list of inputs collected from the user.
-     *
-     */
-    public static void commandList() {
-        System.out.println(div);
-        for (int i = 0; i < index; i++) {
-            int listNum = i + 1;
-            System.out.println(listNum + ". " + list[i]);
 
-        }
-        System.out.println(div);
-    }
 
     /**
-     * Checks with the user if the command is a typo of 'list'.
+     * Checks with the user if the input is a typo of a command.
      *
      * @param input Input collected from the user.
-     * @return True if input is a typo of 'list'.
+     * @param command Command to check.
+     * @return True if input is a typo of the command.
      */
-    public static boolean checkListTypo(String input) {
-        if(!input.equals("list")) {
-            signalSays("Did you mean 'list'? (y/n)");
-            String isListCheck = scanner.nextLine();
-            if(isListCheck.equals("y")) {
+    public static boolean checkCommandTypo(String input, String command) {
+        if(!input.equals(command)) {
+            signalSays("Did you mean '"+ command + "'? (y/n)");
+            String isCommandCheck = scanner.nextLine();
+            if(isCommandCheck.equals("y")) {
                 return true;
             } else {
                 return false;
@@ -68,10 +94,26 @@ public class Duke {
      * @param input Input collected from the user.
      */
     public static void commandAdded(String input) {
-        list[index] = input;
+//        list[index] = input;
+//        checkDone[index] = false;
+        taskList[index] = new Task(input, index);
         index += 1;
         signalSays("Added: " + input);
     }
+
+    /**
+     * Prints the list of inputs collected from the user.
+     *
+     */
+    public static void commandList() {
+        System.out.println(div);
+        System.out.println("Here is your tasklist!");
+        for (int i = 0; i < index; i++) {
+            System.out.println((i + 1) + ". " + taskList[i].getTask());
+        }
+        System.out.println(div);
+    }
+
 
     /**
      * Prints Signal's response enclosed in the dividers.
@@ -93,24 +135,50 @@ public class Duke {
 
         while(true) {
             String userInput = scanner.nextLine();
+            String[] inputArray = userInput.split(" ");
+
             if (userInput.equals("bye")) {
+                // Exit program
                 System.out.println(div);
                 break;
-            }
-            if (userInput.equals("list")) {
+            } else if (userInput.equals("")) { // input is blank
+                signalSays("Brevity is the soul of wit, but you have to tell me something still!");
+            } else if (inputArray.length == 2 && inputArray[0].equals("mark")) {
+                // Mark item at index as done
+                int itemIndex = Integer.parseInt(inputArray[1]) - 1;
+                signalSays(taskList[itemIndex].commandMark());
+            } else if (inputArray.length == 2 && inputArray[0].equals("unmark")) {
+                // Mark item at index as done
+                int itemIndex = Integer.parseInt(inputArray[1]) - 1;
+                signalSays(taskList[itemIndex].commandUnmark());
+            } else if (inputArray.length == 2 && (isPermutationMatch(inputArray[0], "mark") || isPermutationMatch(inputArray[0], "unmark"))) {
+                if (checkCommandTypo(inputArray[0], "mark")) { // command mark typo
+                    int itemIndex = Integer.parseInt(inputArray[1]) - 1;
+                    signalSays(taskList[itemIndex].commandMark());
+                } else if (checkCommandTypo(inputArray[0], "unmark")) { // command unmark typo
+                    int itemIndex = Integer.parseInt(inputArray[1]) - 1;
+                    signalSays(taskList[itemIndex].commandUnmark());
+                } else {
+                    signalSays("Do you want to add " + userInput + "? (y/n)");
+                    String addCommandCheck = scanner.nextLine();
+                    if (addCommandCheck.equals("n")) {
+                        signalSays("What else can I help you with?");
+                    } else if (addCommandCheck.equals("y")) {
+                        commandAdded(userInput);
+                    }
+                }
+            } else if (userInput.equals("list")) {
                 commandList();
-            }
-            if(isPermutationMatch(userInput, "list")) {
-                if (checkListTypo(userInput)) {
+            } else if (isPermutationMatch(userInput, "list")) {
+                if (checkCommandTypo(userInput, "list")) {
                     commandList();
                 } else {
                     signalSays("Do you want to add " + userInput + "? (y/n)");
                     String addCommandCheck = scanner.nextLine();
                     if(addCommandCheck.equals("n")) {
                         signalSays("What else can I help you with?");
-                    } else {
+                    } else if(addCommandCheck.equals("y")) {
                         commandAdded(userInput);
-
                     }
                 }
             }
