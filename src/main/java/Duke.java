@@ -164,7 +164,7 @@ public class Duke {
         String description = input.substring(5).trim();
         Todo todo = new Todo(description);
         storage.add(todo);
-        System.out.println("Ok! I've added this task: " + todo);
+        System.out.println("Ok! I've added this todo: " + todo);
         System.out.println("Now you have " + storage.size() + " tasks in your list.");
     }
 
@@ -176,7 +176,7 @@ public class Duke {
             String date = splitParts[1].trim();
             Deadlines deadline = new Deadlines(description, date);
             storage.add(deadline);
-            System.out.println("Ok! I've added this task: " + deadline);
+            System.out.println("Ok! I've added this deadline: " + deadline);
             System.out.println("Now you have " + storage.size() + " tasks in your list.");
         }
         else {
@@ -194,7 +194,7 @@ public class Duke {
             String toDate = splitTo[1].trim();
             Event event = new Event(description, fromDate, toDate);
             storage.add(event);
-            System.out.println("Ok! I've added this task: " + event);
+            System.out.println("Ok! I've added this event: " + event);
             System.out.println("Now you have " + storage.size() + " tasks in your list.");
         }
         else {

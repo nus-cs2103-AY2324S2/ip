@@ -1,0 +1,4 @@
+todo eat lunch
+deadline finish assignment /by Sunday 10am
+event project meeting /from Mon 10pm /to 12pm
+bye
