@@ -6,4 +6,5 @@ todo
 deadline ip
 event Career Fair
 help
+delete 1
 bye

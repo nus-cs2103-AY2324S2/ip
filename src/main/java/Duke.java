@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -25,20 +26,21 @@ public class Duke {
 
     private Scanner scanner;
 
-    private Task[] tasks;
+    private ArrayList<Task> tasks;
 
-    private int id;
+    private int counter;
 
     public Duke() {
         this.scanner = new Scanner(System.in);
-        this.tasks = new Task[100];
-        this.id = 0;
+        this.tasks = new ArrayList<Task>();
+        this.counter = 0;
     }
 
     /**
      * Runs the program, processing user commands until the "bye" command is entered.
-     * Recognized commands include list, mark, unmark, todo, deadline, event, and others.
      * The user is prompted with a greeting and can interact with the chatbot.
+     * Recognized commands include list, mark, unmark, todo, deadline, event, and more.
+     * Further carry out the following functions based on the command entered.
      */
     public void run() {
         System.out.println("Hello from\n" + logo);
@@ -73,6 +75,9 @@ public class Duke {
                     case "event":
                         addEvent(input);
                         break;
+                    case "delete":
+                        delete(input);
+                        break;
                     case "help":
                         System.out.println(Arrays.toString(COMMANDS));
                         break;
@@ -85,6 +90,16 @@ public class Duke {
             }
 
         }
+    }
+
+    public void delete(String[] input) {
+        int index = Integer.parseInt(input[1]) - 1;
+        Task deletedTask = tasks.remove(index);
+        counter--;
+        System.out.println("Noted. I've removed this task:\n" +
+                deletedTask);
+        System.out.format("Now you have %d tasks in the list.\n", counter);
+
     }
 
     /**
@@ -144,9 +159,9 @@ public class Duke {
      */
     public void markTaskAsDone(String[] input) {
         int index = Integer.parseInt(input[1]);
-        tasks[index - 1].markAsDone();
+        tasks.get(index - 1).markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[index - 1].toString());
+        System.out.println(tasks.get(index - 1).toString());
     }
 
     /**
@@ -156,9 +171,9 @@ public class Duke {
      */
     public void markTaskAsUndone(String[] input) {
         int index = Integer.parseInt(input[1]);
-        tasks[index - 1].markAsUndone();
+        tasks.get(index - 1).markAsUndone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks[index - 1].toString());
+        System.out.println(tasks.get(index - 1).toString());
     }
 
     /**
@@ -167,10 +182,10 @@ public class Duke {
      * @param task The task to be added to the list.
      */
     public void addTasks(Task task) {
-        tasks[id] = task;
-        id++;
+        tasks.add(task);
+        counter++;
         System.out.println("Got it. I've added this task: \n" + task);
-        System.out.format("Now you have %d tasks in the list.\n", id);
+        System.out.format("Now you have %d tasks in the list.\n", counter);
     }
 
     /**
@@ -178,8 +193,8 @@ public class Duke {
      */
     public void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for(int i = 0; i < id; i++) {
-            System.out.println((i + 1) + "." + tasks[i]);
+        for(int i = 0; i < counter; i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
     }
 
