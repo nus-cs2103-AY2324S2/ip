@@ -1,3 +1,6 @@
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
 class Process {
     private TaskList taskList;
     private Ui chatbotUi;
@@ -12,15 +15,14 @@ class Process {
         String command = array[0];
 
         try {
-
             int number = Integer.parseInt(array[1]);
 
             if (command.equals("mark")) {
-                taskList.setMark(number - 1);
-                System.out.println(chatbotUi.dividerWrapper(chatbotUi.mark() + "\n" + taskList.showTaskAtIndex(number - 1)));
+                taskList.markTask(number - 1);
+                System.out.println(chatbotUi.dividerWrapper(chatbotUi.mark() + "\n" + taskList.getTaskAtIndex(number - 1)));
             } else if (command.equals("unmark")) {
-                taskList.setUnmark(number - 1);
-                System.out.println(chatbotUi.dividerWrapper(chatbotUi.unmark() + "\n" + taskList.showTaskAtIndex(number - 1)));
+                taskList.unmarkTask(number - 1);
+                System.out.println(chatbotUi.dividerWrapper(chatbotUi.unmark() + "\n" + taskList.getTaskAtIndex(number - 1)));
             }
         } catch (NumberFormatException e) {
             throw new NumberFormatException();
@@ -28,7 +30,43 @@ class Process {
     }
 
     public void userInputAddTask(String userInput) {
-        taskList.add(new Task(userInput, false));
-        System.out.println(chatbotUi.dividerWrapper("added: " + userInput));
+        String[] tokens = userInput.split(" ", 2);
+        String command = tokens[0];
+        String description = tokens[1].trim();
+        String times[] = userInput.split("/");
+
+        String desc = times[0];
+        int firstSpaceIndex = desc.indexOf(' ');
+        String substringAfterSpace = desc.substring(firstSpaceIndex + 1);
+
+        switch (command) {
+            case "todo":
+                taskList.addTask(new Task(description, false));
+                System.out.println(chatbotUi.dividerWrapper("Got it. I've added this task:\n" + taskList.getTaskAtIndex(taskList.size() - 1)
+                        + "\nNow you have " + taskList.size() + " tasks in the list."));
+                break;
+            case "deadline":
+                String deadline = times[1].trim();
+                taskList.addDeadlineTask(substringAfterSpace, deadline);
+                System.out.println(chatbotUi.dividerWrapper("Got it. I've added this task:\n" + taskList.getTaskAtIndex(taskList.size() - 1)
+                        + "\nNow you have " + taskList.size() + " tasks in the list."));
+                break;
+            case "event":
+                String start = times[1].trim();
+                String end = times[2].trim();
+                taskList.addEventTask(substringAfterSpace, start, end);
+                System.out.println(chatbotUi.dividerWrapper("Got it. I've added this task:\n" + taskList.getTaskAtIndex(taskList.size() - 1)
+                        + "\nNow you have " + taskList.size() + " tasks in the list."));
+                break;
+            default:
+                System.out.println(chatbotUi.dividerWrapper("Invalid command. Please enter a valid command."));
+        }
+
     }
+
+
+    public void userInputListTasks() {
+        System.out.println(chatbotUi.dividerWrapper("Here are the tasks in your list: \n" + taskList.showList()));
+    }
+
 }

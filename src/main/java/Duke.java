@@ -26,7 +26,7 @@ public class Duke {
                 continue;
             }
             if (userInput.equals("list")) {
-                System.out.println(chatbotUi.dividerWrapper(taskList.showList()));
+                processor.userInputListTasks();
                 continue;
             }
             processor.userInputAddTask(userInput);
