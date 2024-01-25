@@ -1,11 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Duke {
 
     public static void commandHandler(String divider) {
         Scanner scanner = new Scanner(System.in);
         String outro = "Bye. Hope to see you soon!";
+
         Boolean isExit = false;
         String command = "";
+
+        List<String> tasks = new ArrayList<String>();
+
         while (!isExit){
             command = scanner.nextLine();
             if (command.equals("bye")) {
@@ -14,10 +20,22 @@ public class Duke {
                 System.out.println(divider);
                 isExit = true;
                 break;
+            } else if (command.equals("list")) {
+                if (tasks.size() == 0) {
+                    System.out.println("    Your list is empty at the moment !");
+                } else {
+                    System.out.println(divider);
+                    for (String task : tasks) {
+                        System.out.println("    " + (tasks.indexOf(task) + 1) + ". " + task);
+                    }
+                    System.out.println(divider);
+                }
+            } else {
+                tasks.add(command);
+                System.out.println(divider);
+                System.out.println("    added: " + command);
+                System.out.println(divider);
             }
-            System.out.println(divider);
-            System.out.println("    "+command);
-            System.out.println(divider);
         }
     }
 
