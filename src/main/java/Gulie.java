@@ -45,6 +45,9 @@ public class Gulie {
                     String to = Gulie.getArgument(inp, "/to");
                     this.store(new Event(name, from, to));
                     break;
+                } case "delete": {
+                    this.delete(Gulie.getArgument(inp, "delete", "index"));
+                    break;
                 } default:
                     throw new GulieException("Apologies. I do not understand.");
             }
@@ -113,6 +116,20 @@ public class Gulie {
             Task task = list.get(i - 1);
             task.setMark(false);
             System.out.println(" I have marked this task as incomplete:\n   " + task);
+        } catch (NumberFormatException e) {
+            throw new GulieException("Argument must in integer: " + str);
+        }
+    }
+
+    private void delete(String str) throws GulieException {
+        try {
+            int i = Integer.parseInt(str);
+            if (i > list.size() || i < 0)
+                throw new GulieException("Invalid index: " + i);
+            Task task = list.get(i - 1);
+            list.remove(i - 1);
+            System.out.println(" I have removed this task:\n   " + task);
+            System.out.println(String.format(" You now have %d tasks in the list", list.size()));
         } catch (NumberFormatException e) {
             throw new GulieException("Argument must in integer: " + str);
         }
