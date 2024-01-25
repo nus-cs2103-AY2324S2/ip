@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -15,9 +16,10 @@ public class Duke {
 
         while (true) {
             String input = sc.nextLine();
-            String[] parts = input.split(" ");
 
+            String[] parts = input.split(" ", 2);
             String command = parts[0];
+            String restOfInputs = parts.length > 1 ? parts[1] : "";
 
             if (command.equals("mark")) {
                 System.out.println("");
@@ -28,6 +30,7 @@ public class Duke {
                     task.markAsDone();
                     System.out.println("Nice! I've marked this task as done: ");
                     System.out.println(task);
+
                 } else {
                     System.out.println("Invalid task number.");
                 }
@@ -41,12 +44,14 @@ public class Duke {
                     task.markAsNotDone();
                     System.out.println("Ok, I've marked this task as not done yet: ");
                     System.out.println(task);
+
                 } else {
                     System.out.println("Invalid task number.");
                 }
 
             } else if (command.equals("list")) {
                 System.out.println("Here are the tasks in your list: ");
+
                 for (Task task : myList) {
                     System.out.println((myList.indexOf(task) + 1) + "." + task);
                 }
@@ -55,10 +60,56 @@ public class Duke {
                 break;
 
             } else {
-                String combine = parts[0] + " " + parts [1];
-                Task newTask = new Task(combine);
-                myList.add(newTask);
-                System.out.println("Added: " + newTask);
+                
+
+                // Todo is called
+                if (command.equals("todo")) {
+                    String item = restOfInputs;
+
+                    Todo newTodo = new Todo(item);
+                    myList.add(newTodo);
+
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newTodo);
+                    System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                }
+
+                // Deadline is called
+                else if (command.equals("deadline")) {
+                    String[] item_time = restOfInputs.split("/by");
+                    String item = item_time[0];
+                    String time = item_time[1];
+
+                    Deadline newDeadline = new Deadline(item, time);
+                    myList.add(newDeadline);
+
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newDeadline);
+                    System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                }
+
+                // Event is called
+                else {
+                    /*String[] item_time = restOfInputs.split(" ");
+                    String item = item_time[0] + " " + item_time[1];
+                    String from = item_time[3] + " " + item_time[4];
+                    String to = item_time[6];*/
+
+                    String[] item_time = restOfInputs.split("/from");
+                    String item = item_time[0];
+                    String time = item_time[1];
+
+                    String[] from_to = time.split("/to");
+                    String from = from_to[0];
+                    String to = from_to[1];
+
+                    Event newEvent = new Event(item, from, to);
+                    myList.add(newEvent);
+
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newEvent);
+                    System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                }
             }
 
             System.out.print(" ");
