@@ -1,0 +1,14 @@
+public class Event extends Task {
+    protected String from, to;
+
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+    //Overridden toString method to print type of task, description and time
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + "(from:" + from + "to:" + to + ")";
+    }
+}

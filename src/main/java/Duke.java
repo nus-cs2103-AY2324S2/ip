@@ -21,6 +21,15 @@ public class Duke {
         listStore[taskNum - 1].markAsNotdone();
         System.out.println("OK, I've marked this task as not done yet:\n" + listStore[taskNum - 1].toString() + "\n");
     }
+
+    public static void printAddedTask(String input) {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
+    }
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -49,10 +58,33 @@ public class Duke {
                 String[] inputArr = input.split(" ");
                 int taskNum = Integer.parseInt(inputArr[1]); //retrieve task number from input array
                 markTaskAsNotDone(listStore, taskNum);
-            } else { // add user inputs to list
-                listStore[listCount] = new Task(input);
+            } else {
+                // add user inputs to list based on what task it is accordingly
+                Task newTask = new Task(input);
+                if (input.startsWith("todo")) {
+                    input = input.substring(5);
+                    newTask = new ToDo(input);
+                } else if (input.startsWith("deadline")) {
+                    String[] inputArr = input.substring(9).split("/by");
+                    input = inputArr[0];
+                    String by = inputArr[1];
+                    newTask = new Deadline(input, by);
+                } else if (input.startsWith("event")) {
+                    input = input.substring(6);
+                    String[] inputArr = input.split("/from");
+                    input = inputArr[0];
+                    String[] timeArr = inputArr[1].split("/to");
+                    String from = timeArr[0];
+                    String to = timeArr[1];
+                    newTask = new Event(input, from, to);
+                }
+                listStore[listCount] = newTask;
                 listCount++;
-                System.out.println("added: " + input + "\n");
+                System.out.println("Got it. I've added this task:\n" + newTask.toString());
+                if (listCount == 1) {
+                    System.out.println("Now you have " + listCount + " task in the list.\n");
+                } else
+                    System.out.println("Now you have " + listCount + " tasks in the list.\n");
             }
 //            System.out.println("added: " + input + "\n");
             input = sc.nextLine();
