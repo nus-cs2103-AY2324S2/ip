@@ -12,17 +12,16 @@ public class Duke {
         System.out.println("\t____________________________________________________________");
 
         while(true) {
-            String input = scanner.next();
-
-            if(Objects.equals(input, "list")) {
+            String input = scanner.nextLine();
+            String str = input.split(" ")[0];
+            if(Objects.equals(str, "list")) {
                 list.printActivity();
-            } else if (Objects.equals(input, "bye")) {
+            } else if (Objects.equals(str, "bye")) {
                 break;
-            } else if(Objects.equals(input, "mark") || Objects.equals(input, "unmark")) {
-                System.out.println("\t____________________________________________________________");
-                System.out.format("\tWhich activity you wish to %s: ", input);
-                String key = scanner.next();
-                list.markActivity(input, key);
+            } else if (Objects.equals(str, "mark") || Objects.equals(str, "unmark")) {
+                System.out.println(input.substring(input.indexOf(" ") + 1));
+                list.markActivity(str, input.substring(input.indexOf(" ") + 1));
+
             } else {
                 list.addActivity(input);
             }
@@ -34,42 +33,85 @@ public class Duke {
 }
 
 class ActivityList {
-    private List<String> activity;
-    List<String> completion;
+    private List<Activity> activities;
+    private List<String> searchTable;
 
     public ActivityList() {
-         this.activity = new ArrayList<>();
-         this.completion = new ArrayList<>();
+         this.activities = new ArrayList<>();
+         this.searchTable = new ArrayList<>();
     }
 
-    public boolean duplicate(String act) {
-        return activity.contains(act);
-    }
-    public void addActivity(String act) {
-        this.activity.add(act);
-        this.completion.add("X");
+    public void addActivity(String input) {
+        Activity activity = new Activity(input);
+        this.activities.add(activity);
+        this.searchTable.add(activity.getName());
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tadded: " + act);
+        System.out.print("\tadded: ");
+        activity.printActivity();
         System.out.println("\t____________________________________________________________");
     }
 
     public void printActivity() {
         System.out.println("\t____________________________________________________________");
         System.out.println("\tList: ");
-        for(int i = 0; i < activity.size(); i++) {
-            System.out.format("\t\t%d. [%s]%s%n", i + 1,completion.get(i), activity.get(i));
+        for(int i = 0; i < activities.size(); i++) {
+            System.out.format("%s. ", i + 1);
+            activities.get(i).printActivity();
         }
         System.out.println("\t____________________________________________________________");
     }
 
     public void markActivity(String input, String key) {
+        int index = this.searchTable.indexOf(key);
+        this.activities.get(index).setCompletion(input);
+    }
+}
+
+class Activity {
+    private List<String> act;
+
+    public Activity(String input) {
+        act = new ArrayList<>();
+        act.add(input.substring(0,1).toUpperCase());
+        act.add("X");
+        String subStr = input.substring(input.indexOf(" ") + 1);
+        if(subStr.contains(" /")) {
+            String[] slips = subStr.split(" /");
+            act.addAll(List.of(slips));
+        } else {
+            act.add(subStr);
+        }
+    }
+
+    public String getName() {
+        System.out.println(act.get(2));
+        return act.get(2);
+    }
+    public void printActivity() {
+        System.out.format("\t\t [%s][%s]%s", act.get(0), act.get(1), act.get(2));
+
+        if(act.size() == 5) {
+            System.out.format("(%s %s)", act.get(3),act.get(4));
+        } else if (act.size() == 4){
+            System.out.format("(%s)", act.get(3));
+        }
+        System.out.format("%n");
+    }
+
+    public void setType(String type) {
+        this.act.set(0, type);
+    }
+    public void setCompletion(String input) {
         if(Objects.equals(input, "mark")) {
-            completion.set(activity.indexOf(key), "√");
+            this.act.set(1, "√");
         } else if (Objects.equals(input, "unmark")) {
-            completion.set(activity.indexOf(key), "X");
+            this.act.set(1, "X");
         }
         System.out.println("\t____________________________________________________________");
-        System.out.format("\t%sed: %s%n", input, key);
+        System.out.format("\t%sed: [%s][%s]%s%n",
+                input, this.act.get(0), this.act.get(1), this.act.get(2));
         System.out.println("\t____________________________________________________________");
     }
+
+
 }
