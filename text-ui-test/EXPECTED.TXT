@@ -78,5 +78,19 @@ Here are the task(s) you have:
 → 7. [E] project meeting (from: Mon 2pm to: 4pm)
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
+The following task has been deleted.
+→ [D] return book (by: Sunday)
+You have a total of 6 tasks in the list.
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
+Here are the task(s) you have:
+→ 1. [T] read book ✓
+→ 2. [D] return book (by: June 6th)
+→ 3. [E] project meeting (from: Aug 6th 2pm to: 4pm)
+→ 4. [T] join sports club ✓
+→ 5. [T] borrow book
+→ 6. [E] project meeting (from: Mon 2pm to: 4pm)
+────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────
 Goodbye! If you ever need assistance in the future, don't hesitate to reach out. Take care!
 ────────────────────────────────────────────────────────────
