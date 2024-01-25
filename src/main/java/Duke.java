@@ -1,15 +1,28 @@
+import java.util.*;
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ___  __    ________  ________  ___    \n"
-                + "|\\  \\|\\  \\ |\\   __  \\|\\   __  \\|\\  \\\n"
-                + "\\ \\  \\/  /|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\\n"
-                + " \\ \\   ___  \\ \\   __  \\ \\   _  _\\ \\  \\\n"
-                + "  \\ \\  \\\\ \\  \\ \\  \\ \\  \\ \\  \\\\  \\\\ \\  \\____  \n"
-                + "   \\ \\__\\\\ \\__\\ \\__\\ \\__\\ \\__\\\\ _\\\\ \\_______\\\n"
-                + "    \\|__| \\|__|\\|__|\\|__|\\|__|\\|__|\\|_______|\n";
+        String logo
+                = "██████╗  ██████╗ ██╗      █████╗ ███╗   ██╗██████╗\n"
+                + "██╔══██╗██╔═══██╗██║     ██╔══██╗████╗  ██║██╔══██╗\n"
+                + "██████╔╝██║   ██║██║     ███████║██╔██╗ ██║██║  ██║\n"
+                + "██╔══██╗██║   ██║██║     ██╔══██║██║╚██╗██║██║  ██║\n"
+                + "██║  ██║╚██████╔╝███████╗██║  ██║██║ ╚████║██████╔╝\n"
+                + "╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ \n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I am KARL");
-        System.out.println("What can I do for you?");
-        System.out.println("Bye. Hope to see you again soon!");
+        String bot = "[ROLAND]: ";
+        System.out.println(bot + "Hello! I am ROLAND");
+        System.out.println(bot + "What can I do for you?");
+        Scanner sc = new Scanner(System.in);
+
+        while(true){
+            String reply = sc.nextLine();
+            if (reply.equals("bye")) {
+                break;
+            }
+            System.out.println(bot + reply);
+        }
+
+
+        System.out.println(bot + "Bye. Hope to see you again soon!");
     }
 }
