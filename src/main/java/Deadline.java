@@ -1,10 +1,10 @@
 public class Deadline extends Task {
     private String date;
-    public Deadline (String desc,int type, String date) {
-        super(desc, type);
+    public Deadline (String desc, String date) {
+        super(desc);
         this.date = date;
     }
     public String toString() {
-        return super.toString() + "(" + date + ")";
+        return "[D]" + super.toString() + "(" + date + ")";
     }
 }

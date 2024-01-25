@@ -1,12 +1,9 @@
 public class Task {
     private String description;
     private boolean isDone;
-    private int type;
-
-    public Task(String description, int type) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.type = type;
     }
 
     public String getStatusIcon() {
@@ -16,20 +13,9 @@ public class Task {
         isDone = !isDone;
         return getStatusIcon();
     }
-    public String getType() {
-        if (type == 0) {
-            return "T";
-        } else if (type ==1) {
-            return "E";
-        } else if (type == 2) {
-            return "D";
-        } else {
-            return "None";
-        }
-    }
     @Override
     public String toString(){
-        return description;
+        return "["+getStatusIcon()+"]"+ description;
     }
     //...
 }
