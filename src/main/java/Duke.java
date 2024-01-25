@@ -24,8 +24,7 @@ public class Duke {
             if (input.equals("list")) {
                 for (int i = 0; i < tasks.size(); i++) {
                     Task curr = tasks.get(i);
-                    System.out.println("\t" + (i + 1) + ". "
-                            + curr.printTask());
+                    System.out.println("\t" + (i + 1) + ". " + curr.printTask());
                 }
             } else if (splitInput[0].equals("mark")) {
                 int idx = Integer.parseInt(input.split(" ")[1]) - 1;
