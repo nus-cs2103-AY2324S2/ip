@@ -16,6 +16,7 @@ public class Duke {
                 break;
             } else if (cmdarg[0].equals("list")) {
                 System.out.print(LINE);
+                System.out.println("I gotchu bruv. Here's your list:");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println(INDENT + (i + 1) + "." + tasks[i]);
                 }
@@ -26,7 +27,7 @@ public class Duke {
                         int i = Integer.parseInt(cmdarg[1]);
                         if (cmdarg[0].equals("mark")) {
                             tasks[i - 1].markAsDone();
-                            System.out.print(LINE + "Yasss! This task is officially slayed:\n  "
+                            System.out.print(LINE + "Yasss King/Queen! This task is officially slayed:\n  "
                                     + INDENT + tasks[i - 1] + " " + tasks[i - 1] + "\n" + LINE);
                         } else {
                             tasks[i - 1].unmark();
@@ -74,17 +75,17 @@ public class Duke {
         switch (id) {
             case 0:
                 tasks[taskCount] = new Todo(arg);
-                System.out.println(LINE + INDENT + "added: \n  " + INDENT + tasks[taskCount]);
+                System.out.println(LINE + INDENT + "Ayo new task just dropped: \n  " + INDENT + tasks[taskCount]);
                 taskCount++;
-                System.out.print(INDENT + "Now you have " + taskCount + " tasks in the list.\n" + LINE);
+                System.out.print(INDENT + "Yo, we're " + taskCount + " task deep! Let's keep this SIGMA GRINDSET'!\n" + LINE);
                 break;
             case 1: {
                 String[] descTime = arg.split(" /by "); // [description, by]
                 if (descTime.length == 2) {
                     tasks[taskCount] = new Deadline(descTime[0], descTime[1]);
-                    System.out.println(LINE + INDENT + "added: \n  " + INDENT + tasks[taskCount]);
+                    System.out.println(LINE + INDENT + "Ayo new task just dropped: \n  " + INDENT + tasks[taskCount]);
                     taskCount++;
-                    System.out.print(INDENT + "Now you have " + taskCount + " tasks in the list.\n" + LINE);
+                    System.out.print(INDENT + "Yo, we're " + taskCount + " task deep! Let's keep this SIGMA GRINDSET'!\n" + LINE);
                 } else {
                     System.out.println("error");
                 }
@@ -96,9 +97,9 @@ public class Duke {
                     String[] fromTo = descTime[1].split(" /to "); // [from , to]
                     if (fromTo.length == 2) {
                         tasks[taskCount] = new Event(descTime[0], fromTo[0], fromTo[1]);
-                        System.out.println(LINE + INDENT + "added: \n  " + INDENT + tasks[taskCount]);
+                        System.out.println(LINE + INDENT + "Ayo new task just dropped: \n  " + INDENT + tasks[taskCount]);
                         taskCount++;
-                        System.out.print(INDENT + "Now you have " + taskCount + " tasks in the list.\n" + LINE);
+                        System.out.print(INDENT + "Yo, we're " + taskCount + " task deep! Let's keep this SIGMA GRINDSET'!\n" + LINE);
                     } else {
                         System.out.println("error");
                     }
