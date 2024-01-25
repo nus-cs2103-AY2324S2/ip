@@ -95,6 +95,22 @@ public class Duke {
                     tasks.get(i).markDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(tasks.get(i).toString());
+                } else if (tokens[0].equals("delete")) {
+                    // Mark a task as done
+                    if (tokens.length < 2) {
+                        throw new DukeException("☹ OOPS!!! The task number cannot be empty.");
+                    }
+                    if (!tokens[1].matches("\\d+")) {
+                        throw new DukeException("☹ OOPS!!! The task number must be an integer.");
+                    }
+                    int i = Integer.parseInt(tokens[1]) - 1;
+                    if (i < 0 || i >= tasks.size()) {
+                        throw new DukeException("☹ OOPS!!! The task number is invalid.");
+                    }
+                    tasks.remove(i);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(tasks.get(i).toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
