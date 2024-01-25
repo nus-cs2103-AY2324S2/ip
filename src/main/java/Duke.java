@@ -14,7 +14,7 @@ public class Duke {
         ArrayList<Task> tasks = new ArrayList<Task>();
         int noOfTasks = 0;
 
-        while (true) {
+        while (sc.hasNextLine()) {
             String command = sc.nextLine();
             String[] token = command.split(" ", 2);
 
@@ -96,5 +96,7 @@ public class Duke {
                 }
             }
         }
+
+        sc.close();
     }
 }
