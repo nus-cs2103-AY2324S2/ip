@@ -24,7 +24,7 @@ public class Duke {
         while (exit) {
             Scanner myObj = new Scanner(System.in);
             String userInput = myObj.nextLine();
-            String[] inputList = userInput.split(" ");
+            String[] inputList = userInput.split(" ", 2);
             if (userInput.equals("bye")) {
                 exit = false;
             } else if (userInput.equals("list")) {
@@ -52,11 +52,34 @@ public class Duke {
                 System.out.println("[ ] " + todoList.get(position-1));
                 checkList.set(position-1, false);
                 System.out.println(barrier);
-            } else {
+            } else if (inputList[0].equals("todo")) {
                 todoList.add(userInput);
                 checkList.add(false);
                 System.out.println(barrier);
                 System.out.println("added: " + userInput);
+                System.out.println("Now you have " + todoList.size() + "in the list.");
+                System.out.println(barrier);
+                System.out.println(inputList[1]);
+            } else if (inputList[0].equals("deadline")) {
+                String[] differentParts = inputList[1].split("/");
+                System.out.println(differentParts[0]);
+                System.out.println(differentParts[1]);
+                todoList.add(userInput);
+                checkList.add(false);
+                System.out.println(barrier);
+                System.out.println("added: " + userInput);
+                System.out.println("Now you have " + todoList.size() + "in the list.");
+                System.out.println(barrier);
+            } else if (inputList[0].equals("event")) {
+                String[] differentParts = inputList[1].split("/");
+                System.out.println(differentParts[0]);
+                System.out.println(differentParts[1]);
+                System.out.println(differentParts[2]);
+                todoList.add(userInput);
+                checkList.add(false);
+                System.out.println(barrier);
+                System.out.println("added: " + userInput);
+                System.out.println("Now you have " + todoList.size() + "in the list.");
                 System.out.println(barrier);
             }
         }
