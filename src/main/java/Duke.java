@@ -1,12 +1,13 @@
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 public class Duke {
 
     public static void main(String[] args) throws Exception{
 
-        String NAME = "pipi"; // TENTATIVE
+        String NAME = "Luna"; // TENTATIVE
 
 //        Scanner sc = new Scanner(System.in);
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -15,16 +16,32 @@ public class Duke {
         bot_functions.shifted_print(bot_functions.greetingString(NAME));
 
         boolean exitFlag = false;
+        ArrayList<String> user_list = new ArrayList<>();
 
         while (!exitFlag) {
             String input_command = br.readLine();
 
-            if (input_command.equalsIgnoreCase("exit")) {
+            if (input_command.equalsIgnoreCase("bye") || input_command.equalsIgnoreCase("exit")) {
                 bot_functions.shifted_print(bot_functions.signoffString());
                 exitFlag = true;
 
+            } else if (input_command.equalsIgnoreCase("list")){
+                StringBuilder text = new StringBuilder();
+                if (user_list.isEmpty()) {
+                    text.append("List is Empty");
+                } else {
+                    for (int i = 0; i < user_list.size(); i++) {
+                        text.append((i+1)).append(". ").append(user_list.get(i)).append("\n");
+
+//                        text = text.concat((i).toString()).append(". ").append(user_list.get(i)).append("\n").toString();
+                    }
+                }
+
+                bot_functions.shifted_print(text.toString());
+
             } else {
-                bot_functions.shifted_print(bot_functions.echoString(input_command));
+                user_list.add(input_command);
+                bot_functions.shifted_print("added: " + input_command);
             }
         }
 
@@ -43,7 +60,7 @@ public class Duke {
             return msg;
         }
 
-        public static String sadcat() {
+        public static String sad_cat_img() {
             return
                     "⠀               />    フ\n" +
                             "               | 　_  _|\n" +
@@ -59,25 +76,25 @@ public class Duke {
             String msg = "";
             msg += "okay then, bye\n";
 //            msg += String.format("%40s", "( •̯́ ^ •̯̀)]\n");
-            msg += sadcat();
+            msg += sad_cat_img();
 
             return msg;
-        }
-
-        public  static String echoString(String text) {
-            return text;
         }
 
         public static void shifted_print(String text) throws Exception{
             BufferedReader br = new BufferedReader(new StringReader(text));
             String readText = br.readLine();
-            String output = "";
-            output += "      " + HORIZONTAL_LINE;
+            StringBuilder output = new StringBuilder();
+            output.append("      " + HORIZONTAL_LINE);
             while (readText != null) {
-                output = output + "      " + readText + "\n";
+                output.append("      ").append(readText).append("\n");
+//                output = new String(output + "      " + readText + "\n");
+
                 readText = br.readLine();
             }
-            output += "      " + HORIZONTAL_LINE;
+            output.append("      " + HORIZONTAL_LINE);
+
+//            output += "      " + HORIZONTAL_LINE;
             System.out.print(output);
         }
 
