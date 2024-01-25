@@ -53,8 +53,8 @@ public class FileManager {
         ret = new Events(desc, entry[3], entry[4]);
         ret.setCompletion(completeStatus);
         return ret;
+      default:
+        return null;
     }
-
   }
-
 }
