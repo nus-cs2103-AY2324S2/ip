@@ -1,8 +1,12 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        //create dependencies
         Scanner reader = new Scanner(System.in);
+        StoreCommand sl = new StoreCommand();
+
         String logo = "  ____        _     ____        _   \n"
                 + " |  _ \\      | |   |  _ \\      | |  \n"
                 + " | |_) | ___ | |__ | |_) | ___ | |_ \n"
@@ -16,11 +20,24 @@ public class Duke {
         System.out.println("______________________________________");
         String command = reader.nextLine();
         while (!command.equals("bye")) {
-            System.out.println(command);
-            System.out.println("______________________________________");
+            if (command.equals("list")) {
+                ArrayList<String> arr = sl.returnCommands();
+                for (int i = 0; i < arr.size(); i ++) {
+                    System.out.println((i + 1) + ". " + arr.get(i));
+                }
+            }
+            else {
+                sl.addCommand(command);
+                System.out.println("added: " + command);
+                System.out.println("______________________________________");
+            }
             command = reader.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
         reader.close();
     }
+    
+    
+
+    
 }
