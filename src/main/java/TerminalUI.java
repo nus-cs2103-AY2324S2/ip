@@ -3,12 +3,14 @@ import java.util.List;
 public class TerminalUI {
     private static final String SEPARATOR_LINE = "_____________________________________________________________";
 
-    public static String wrapWithSepLine(String input) {
-        return SEPARATOR_LINE + "\n" + input + "\n" + SEPARATOR_LINE;
-    }
+
 
     public static void printSepLine() {
         System.out.println(SEPARATOR_LINE);
+    }
+
+    public static String wrapWithSepLine(String input) {
+        return SEPARATOR_LINE + "\n" + input + "\n" + SEPARATOR_LINE;
     }
 
     // Overloaded method to print list of strings
