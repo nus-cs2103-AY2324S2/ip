@@ -1,10 +1,10 @@
 import javax.swing.*;
 import javax.swing.plaf.synth.SynthSpinnerUI;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.*;
 
 public class Duke {
+    private static ArrayList<String> commandList = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String logo = " ____        _        \n"
@@ -28,7 +28,14 @@ public class Duke {
         String command = br.readLine();
         while (!command.equals("bye")) {
             Duke.line();
-            System.out.println(command);
+            if (command.equals("list")) {
+                for (int i = 0; i < commandList.size(); i++) {
+                    System.out.println(i+1 + ". " + commandList.get(i));
+                }
+            } else {
+                System.out.println("added: " + command);
+                commandList.add(command);
+            }
             Duke.line();
             command = br.readLine();
         }
