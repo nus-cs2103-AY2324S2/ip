@@ -41,4 +41,8 @@ public abstract class Task implements Serializable {
     public void unmark() {
         this.isDone = false;
     }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
 }
