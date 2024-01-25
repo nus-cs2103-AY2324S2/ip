@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Duke {
     public static ArrayList<Task> taskList = new ArrayList<>();
     public static String line = "    ____________________________________________________________";
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EmptyTaskNameException, NoTaskTypeException{
         Scanner sc = new Scanner(System.in);
 
 
@@ -21,16 +21,32 @@ public class Duke {
                     printTaskList();
                     break;
                 case "todo" :
-                    addTask(new ToDo(sc.nextLine()));
+                    try {
+                        String todoName = sc.nextLine();
+                        checkEmptyTask(todoName);
+                        addTask(new ToDo(todoName.trim()));
+                    } catch (EmptyTaskNameException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "deadline" :
-                    String[] splitDeadline = sc.nextLine().split(" /by ");
-                    addTask(new Deadline(splitDeadline[0], splitDeadline[1]));
+                    try {
+                        String[] splitDeadline = sc.nextLine().split(" /by ");
+                        checkEmptyTask(splitDeadline[0]);
+                        addTask(new Deadline(splitDeadline[0].trim(), splitDeadline[1]));
+                    } catch (EmptyTaskNameException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "event" :
-                    String[] splitName = sc.nextLine().split(" /from ");
-                    String[] startEnd = splitName[1].split(" /to ");
-                    addTask(new Event(splitName[0], startEnd[0], startEnd[1]));
+                    try {
+                        String[] splitName = sc.nextLine().split(" /from ");
+                        checkEmptyTask(splitName[0]);
+                        String[] startEnd = splitName[1].split(" /to ");
+                        addTask(new Event(splitName[0].trim(), startEnd[0], startEnd[1]));
+                    } catch (EmptyTaskNameException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "mark" :
                     int markIndex = sc.nextInt() - 1;
@@ -43,7 +59,11 @@ public class Duke {
                     printResponse("OK, I've marked this task as not done yet:", unmarkIndex);
                     break;
                 default :
-                    addTask(new Task(command + sc.nextLine()));
+                    try {
+                        throw new NoTaskTypeException();
+                    } catch (NoTaskTypeException e) {
+                        System.out.println(e.getMessage());
+                    }
             }
             command = sc.next();
         }
@@ -52,6 +72,12 @@ public class Duke {
 
         System.out.printf("%s\n     Bye. Hope to see you again soon!\n%s",
                 line, line);
+    }
+
+    public static void checkEmptyTask(String taskName) throws EmptyTaskNameException {
+        if (taskName.trim().isEmpty()) {
+            throw new EmptyTaskNameException();
+        }
     }
 
     public static void addTask(Task newTask) {
