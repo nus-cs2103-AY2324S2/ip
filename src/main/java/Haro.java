@@ -26,6 +26,7 @@ public class Haro {
         TODO,
         DEADLINE,
         EVENT,
+        DELETE,
 
     }
 
@@ -60,6 +61,9 @@ public class Haro {
                     break;
                 case "event":
                     instruction = Instruction.EVENT;
+                    break;
+                case "delete":
+                    instruction = Instruction.DELETE;
                     break;
                 default:
                     instruction = Instruction.NONE;
@@ -181,6 +185,21 @@ public class Haro {
                     list.addTask(newEvent);
 
                 } catch(MissingEventTimeException e) {
+                    System.out.println(e.getMessage());
+                    input = inputScanner.nextLine();
+                    continue;
+                }
+            }
+
+            else if (instruction == Instruction.DELETE) {
+                try {
+                    if (!isNumeric(commandArg)) {
+                        throw new InvalidArgsException("Please input a number for the task you want to delete!\n");
+                    }
+
+                    int taskNumber = Integer.parseInt(commandArg) - 1;
+                    list.deleteTask(taskNumber);
+                } catch (InvalidArgsException e) {
                     System.out.println(e.getMessage());
                     input = inputScanner.nextLine();
                     continue;

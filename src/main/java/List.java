@@ -58,4 +58,20 @@ public class List {
         System.out.println("Alright, I've marked this task as not done yet");
         System.out.println(currTask.printTask() + "\n");
     }
+
+    public void deleteTask(int index) throws InvalidArgsException {
+        if (index >= list.size()) {
+            throw new InvalidArgsException("Sorry that item does not exist in your list!\n");
+        }
+
+        else if (index < 0) {
+            throw new InvalidArgsException("Please input a positive task number!\n");
+        }
+
+        Task currTask = list.get(index);
+        list.remove(index);
+        System.out.println("Noted. I've removed this task");
+        System.out.println(currTask.printTask() + "\n");
+        System.out.println("You now have " + list.size() + " tasks in the list\n");
+    }
 }
