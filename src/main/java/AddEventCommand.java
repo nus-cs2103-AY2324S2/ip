@@ -16,12 +16,7 @@ public class AddEventCommand extends AddCommand {
          */
         Task newTask = new Event(description, fromDate, toDate);
         taskList.add(newTask);
-
-        String message =
-                "Got it, I've added this task:\n  "
-                + newTask + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.";
-        ui.display(message);
+        respond(taskList, ui, newTask);
     }
 
     @Override

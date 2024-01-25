@@ -21,6 +21,7 @@ public class CommandParser {
             case "todo": return parseTodo();
             case "deadline": return parseDeadline();
             case "event": return parseEvent();
+            case "delete": return parseDelete();
             default: {
                 throw new MikeException("That is the weirdest thing you've ever said.");
             }
@@ -143,12 +144,29 @@ public class CommandParser {
         String fromDate = fromAndToDates[0].strip();
         String toDate = fromAndToDates[1].strip();
 
-        if (fromDate.isBlank()) {
-            throw new MikeException("Required argument missing in '/from [date]'.\nUsage: event [description] /from [date] /to [date]");
-        } else if (toDate.isBlank()) {
-            throw new MikeException("Required argument missing in '/to [date]'.\nUsage: event [description] /from [date] /to [date]");
+        if (fromDate.isBlank() || toDate.isBlank()) {
+            String errorMessage = "Required argument missing in '/from [date]'.\nUsage: event [description] /from [date] /to [date]";
+            throw new MikeException(errorMessage);
         }
 
         return new AddEventCommand(description, fromDate, toDate);
+    }
+
+    private Command parseDelete() throws MikeException {
+        if (numberOfCommands != 2) {
+            throw new MikeException("Usage: delete [number]");
+        }
+
+        String argument = commands[1];
+
+        try {
+            int taskNumber = Integer.parseInt(argument);
+            return new DeleteCommand(taskNumber);
+        } catch(InputMismatchException e) {
+            String errorMessage =
+                    "One, two, three, four, get the kid back through the door!\n" +
+                            String.format("'%s' is not an integer Sulley...", argument);
+            throw new MikeException(errorMessage);
+        }
     }
 }
