@@ -26,7 +26,6 @@ public abstract class Ui {
     }
 
     public static void end() {
-        Ui.printStartLine();
         final String endings = "Bye. It is an honor to serve you.\n"
                 + "Hope to see you again soon!";
         System.out.println(endings);
@@ -38,13 +37,21 @@ public abstract class Ui {
         boolean terminate = false;
         while (true) {
             final String command = sc.nextLine();
-            if (command.equals("bye")) {
-                break;
-            } else {
-                Ui.printStartLine();
-                System.out.println(command);
-                Ui.printEndLine();
+            Ui.printStartLine();
+            switch (command) {
+                case "bye":
+                    terminate = true;
+                    break;
+                case "list":
+                    Duke.itemStorage.listItem();
+                    break;
+                default:
+                    Duke.itemStorage.storeItem(command);
             }
+            if (terminate) {
+                break;
+            }
+            Ui.printEndLine();
         }
     }
 }
