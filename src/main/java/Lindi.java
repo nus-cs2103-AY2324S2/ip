@@ -1,10 +1,57 @@
 import java.util.Objects;
 
 public class Lindi {
-    public static void printSeparator() {
+    private final static String[] taskList = new String[100];
+    private static int taskListCount = 0;
+
+    private static void parseInputAndExecute(String userInput) {
+        class LocalFuncs {
+            void executeList(){
+                for (int i = 0; i < taskListCount; i++) {
+                    System.out.println(i+1 + ". " + taskList[i]);
+                }
+            }
+
+            void executeNone(String task){
+                taskList[taskListCount++] = task;
+                System.out.println(task);
+            }
+
+            /**
+             * Prints a goodbye message and Exits the program (return code 0)
+             */
+            void goodByeAndExit() {
+                System.out.println("Bye. Hope to see you again soon!");
+                printSeparator();
+                System.exit(0); // exit with code 0, terminates program
+            }
+        }
+
+        switch (userInput) {
+            case "list":
+                new LocalFuncs().executeList();
+                break;
+            case "bye":
+                new LocalFuncs().goodByeAndExit();
+                break;
+            default:
+                new LocalFuncs().executeNone(userInput);
+                break;
+        }
+    }
+
+
+    /**
+     * Prints a horizontal line for better readability
+     */
+    private static void printSeparator() {
         System.out.println("-".repeat(50));
     }
-    public static void greeting() {
+
+    /**
+     * Prints a greeting message.
+     */
+    private static void greeting() {
         String name = "Lindi";  // Log It N Do It -> LINDI
 
         printSeparator();
@@ -12,28 +59,20 @@ public class Lindi {
         System.out.println("What can I do for you?");
         printSeparator();
     }
-    public static void goodByeAndExit() {
-        System.out.println("Bye. Hope to see you again soon!");
-        printSeparator();
-        System.exit(0); // exit with code 0, terminates program
-    }
 
-    public static void chatLoop() {
+
+
+    private static void chatLoop() {
         String userInput;
         while (true) { // This will not be an infinite loop, because goodByeAndExit() terminates the program when called
             userInput = System.console().readLine(); // Note that System.console() does not work with IDE run
             printSeparator();
-            if (Objects.equals(userInput, "bye")) {
-                goodByeAndExit();
-            } else {
-                System.out.println("You said this: " + userInput);
-            }
+            parseInputAndExecute(userInput);
             printSeparator();
         }
     }
     public static void main(String[] args) {
         greeting();
         chatLoop();
-        goodByeAndExit();
     }
 }
