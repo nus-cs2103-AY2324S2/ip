@@ -3,16 +3,10 @@ import java.util.Scanner;
 import java.util.*;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
 
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
-
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
 
 
         System.out.println("Hello! I'm tars.");
@@ -32,6 +26,9 @@ public class Duke {
             }
 
             else if (comd.startsWith("todo ")) {
+                if (comd.length() <= 5) {
+                    throw new DukeException("Empty Description");
+                }
                 list.add(new Todo(comd.substring(5)));
                 System.out.println("Got it. I've added this task: ");
                 System.out.println(list.get(list.size() - 1));
@@ -40,6 +37,9 @@ public class Duke {
             }
 
             else if (comd.startsWith("deadline ")) {
+                if (comd.length() <= 9) {
+                    throw new DukeException("Empty Description");
+                }
                 String[] data = comd.split("/");
                 String task = data[0].substring(9);
                 list.add(new Deadline(task, data[1].substring(3)));
@@ -49,6 +49,9 @@ public class Duke {
             }
 
             else if (comd.startsWith("event ")) {
+                if (comd.length() <= 6) {
+                    throw new DukeException("Empty Description");
+                }
                 String[] data = comd.split("/");
                 String task = data[0].substring(6);
                 list.add(new Event(task, data[1].substring(5), data[2].substring(3)));
@@ -79,9 +82,7 @@ public class Duke {
             }
 
             else {
-                list.add(new Task(comd));
-                System.out.println("added: "+ list.get(list.size() - 1));
-
+                throw new DukeException("Invalid Command!");
             }
 
 
