@@ -99,6 +99,9 @@ public class Duke {
                 case "event":
                     addEvent(input);
                     break;
+                case "delete":
+                    deleteList(Integer.parseInt(cmds[1]));
+                    break;
                 default:
                     erroMsg("I regret to inform you that I currently lack an understanding of the intended meaning behind that statement.");
             }
@@ -183,6 +186,14 @@ public class Duke {
         System.out.println("\t____________________________________________________________");
         System.out.println("\t" + content);
         System.out.println("\t____________________________________________________________\n" );
+    }
+    public static void deleteList(int index){
+        Task task = listItems.remove(index-1);
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\tI acknowledge your update. The specified task has been duly removed:");
+        System.out.println("\t   "+task);
+        System.out.println("\tCurrently, the list comprises  " + listItems.size() + " tasks.");
+        System.out.println("\t____________________________________________________________\n");
     }
 
 }
