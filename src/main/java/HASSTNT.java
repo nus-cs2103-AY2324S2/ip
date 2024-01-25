@@ -1,7 +1,9 @@
+
 import java.util.Scanner;
 public class HASSTNT {
         private final Scanner scanner;
         private final ToDoList  l;
+
         private static final String welcome_message = "____________________________________________________________\n" +
             "Hello! I'm HASSTNT\n" +
             "What can I do for you?\n" +
@@ -20,14 +22,33 @@ public class HASSTNT {
             System.out.println(welcome_message);
             String input;
             while (true){
-                input = scanner.nextLine();
+                input = scanner.nextLine().toLowerCase();
                 System.out.println(input);
                 if (input.equalsIgnoreCase("bye")){
                     System.out.println(goodbye_message);
                     break;
                 }
-                if(input.equalsIgnoreCase("list")) {
-                    System.out.println(l);
+                if(input.equals("list")) {
+                    l.showLists();
+                }
+                 else if (input.startsWith("mark ")) {
+                // Extract the number after "mark " using substring
+                String numberString = input.substring("mark ".length()); // Substring from index of 'k' to end
+                try {
+                    int index = Integer.parseInt(numberString);
+                    l.showMark(index);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter 'mark' followed by an integer");
+                }
+            } else if (input.startsWith("unmark ")) {
+                    // Extract the number after "unmark " using substring
+                    String numberString = input.substring("unmark ".length()); // Substring from index of 'k' to end
+                    try {
+                        int index = Integer.parseInt(numberString);
+                        l.showUnmark(index);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter 'unmark' followed by an interger");
+                    }
                 }
                 else{
                     l.addToList(input);
