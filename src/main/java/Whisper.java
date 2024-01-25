@@ -107,7 +107,7 @@ public class Whisper {
         if (index >= 0 && index < count) {
             Task t = taskList[index];
             t.markAsUndone();
-            System.out.println(line + "Nice! I've marked this task as done:\n" + t.toString() + "\n" + line);
+            System.out.println(line + "Nice! I've marked this task as not done:\n" + t.toString() + "\n" + line);
         } else {
             System.out.println("Invalid task number, please try again.");
         }
