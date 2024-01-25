@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
