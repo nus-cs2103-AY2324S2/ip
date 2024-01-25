@@ -4,17 +4,22 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Zero {
     private static final String name = "Zero";
     private static final String divider = "____________________________________________________________\n";
+
+    //
+    private static boolean isNullOrEmpty(String s) {
+        return s == null || s.isEmpty() || s.trim().isEmpty();
+    }
 
     //filters input commands to give: [0] cmd, [1] name, [2] from/by, [3] to
     private static String[] filterCommand(String[] s) {
         String[] result = new String[4];
         int idx = 1;
         result[0] = s[0];
+        if (s.length == 1) return result;
         result[1] = s[1];
         for (int i = 2; i < s.length; i++) {
             if (s[i].startsWith("/")) {
@@ -76,9 +81,49 @@ public class Zero {
                 case "event":
                     String[] fs = filterCommand(cmd);
                     Task t;
-                    if (fs[0].equals("todo")) t = new ToDo(fs[1]);
-                    else if (fs[0].equals("deadline")) t = new Deadline(fs[1], fs[2]);
-                    else t = new Event(fs[1], fs[2], fs[3]);
+                    if (fs[0].equals("todo")) {
+                        if (isNullOrEmpty(fs[1])) {
+                            pw.println("Please name your ToDo task!\n" + divider);
+                            break;
+                        }
+                        t = new ToDo(fs[1]);
+                    }
+                    else if (fs[0].equals("deadline")) {
+                        if (isNullOrEmpty(fs[1]) && isNullOrEmpty(fs[2])) {
+                            pw.println("Please enter a name and date for your Deadline task!\n" + divider);
+                            break;
+                        }
+                        else if (isNullOrEmpty(fs[1])) {
+                            pw.println("Please name your Deadline task!\n" + divider);
+                            break;
+                        } else if (isNullOrEmpty(fs[2])) {
+                            pw.println("Please enter a date for your Deadline task!\n" + divider);
+                            break;
+                        }
+                        t = new Deadline(fs[1], fs[2]);
+                    }
+                    else {
+                        boolean errDetected = false;
+                        if (isNullOrEmpty(fs[1])) {
+                            pw.println(divider + "Please NAME your Event task!\n");
+                            errDetected = true;
+                        }
+                        if (isNullOrEmpty(fs[2])) {
+                            if (errDetected) pw.print("And p");
+                            else pw.print(divider + "P");
+                            pw.println("lease enter a START DATE for your Event task!\n");
+                            errDetected = true;
+                        }
+                        if (isNullOrEmpty(fs[3])) {
+                            if (errDetected) pw.print("And p");
+                            else pw.print(divider + "P");
+                            pw.println("lease enter a END DATE for your Event task!\n");
+                            errDetected = true;
+                        }
+                        pw.print(divider);
+                        if (errDetected) break;
+                        t = new Event(fs[1], fs[2], fs[3]);
+                    }
                     tasks.add(t);
                     pw.println(divider + "Got it. I've added this task:\n  " + t);
                     pw.println("Now you have " + tasks.size() + " tasks in the list.\n" + divider);
