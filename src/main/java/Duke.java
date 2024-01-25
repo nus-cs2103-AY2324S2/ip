@@ -20,18 +20,47 @@ public class Duke {
 
         while (true) {
             String comd = scanner.nextLine();
+
             if (comd.equals("bye")) {
                 break;
             }
             if (comd.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println(i+1 + ". " + list.get(i).printWithStatus());
+                    System.out.println(i+1 + ". " + list.get(i));
                 }
             }
+
+            else if (comd.startsWith("todo ")) {
+                list.add(new Todo(comd.substring(5)));
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(list.get(list.size() - 1));
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+            }
+
+            else if (comd.startsWith("deadline ")) {
+                String[] data = comd.split("/");
+                String task = data[0].substring(9);
+                list.add(new Deadline(task, data[1].substring(3)));
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(list.get(list.size() - 1));
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            }
+
+            else if (comd.startsWith("event ")) {
+                String[] data = comd.split("/");
+                String task = data[0].substring(6);
+                list.add(new Event(task, data[1].substring(5), data[2].substring(3)));
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(list.get(list.size() - 1));
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            }
+
+
             else if(comd.startsWith("mark ")) {
-                String[] result = comd.split(" ");
-                String in = result[1];
+                String[] res = comd.split(" ");
+                String in = res[1];
                 int index = Integer.parseInt(in);
                 System.out.println(index);
                 list.get(index - 1).mark();
