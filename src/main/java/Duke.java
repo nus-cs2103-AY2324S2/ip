@@ -32,13 +32,29 @@ public class Duke {
      * @return true if exit command is given, otherwise false
      */
     public boolean handleInput(String input) {
-        switch(input){
+        String[] splitInput = input.split(" ", 2);
+        String keyword = splitInput[0];
+        String content = splitInput.length > 1 ? splitInput[1] : "";
+
+        switch(keyword){
             case "list":
                 print(taskList.toString());
                 break;
             case "bye":
                 print(EXIT_MSG);
                 return true;
+            case "mark": {
+                Task task = taskList.get(Integer.parseInt(content) - 1);
+                task.markDone(true);
+                print("good job bro, marked this task as done:\n " + task.toString());
+                break;
+            }
+            case "unmark": {
+                Task task = taskList.get(Integer.parseInt(content) - 1);
+                task.markDone(false);
+                print("ok i help you unmark this task ah:\n " + task.toString());
+                break;
+            }
             default:
                 taskList.addTask(new Task(input));
                 print("ok i added \"" + input + "\" into the list liao");

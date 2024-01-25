@@ -7,11 +7,15 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public Task get(int index) {
+        return tasks.get(index);
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            str.append(String.format("%d. %s", i + 1, tasks.get(i).getName()));
+            str.append(String.format("%d. %s", i + 1, tasks.get(i).toString()));
             if (i != tasks.size() - 1) {
                 str.append("\n");
             }
