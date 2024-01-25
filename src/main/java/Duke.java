@@ -15,6 +15,16 @@ public class Duke {
                                     + " ____) | __/| || | \\ | |\n"
                                     + "|_____/\\___||_||_|\\_\\|_|\n";
     protected TaskList taskList;
+    private enum Command {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE
+    }
     public Duke() {
         taskList = new TaskList();
     }
@@ -24,26 +34,40 @@ public class Duke {
         while (true) {
             ArrayList<String> inputArr = new ArrayList<>(Arrays.asList(br.readLine().split(" ")));
             String input = inputArr.remove(0);
-
             System.out.println(DIVIDER);
-            if (input.equalsIgnoreCase("bye")) {
-                end();
-            } else if (input.equalsIgnoreCase("list")) {
-                printList(inputArr);
-            } else if (input.equalsIgnoreCase("mark")) {
-                markTask(inputArr);
-            } else if (input.equalsIgnoreCase("unmark")) {
-                unmarkTask(inputArr);
-            } else if (input.equalsIgnoreCase("todo")) {
-                addToDo(inputArr);
-            } else if (input.equalsIgnoreCase("deadline")) {
-                addDeadline(inputArr);
-            } else if (input.equalsIgnoreCase("event")) {
-                addEvent(inputArr);
-            } else if (input.equalsIgnoreCase("delete")) {
-                deleteTask(inputArr);
-            } else {
-                System.out.println("I'm sorry, I didn't quite understand that.");
+            Command command;
+            try {
+                command = Command.valueOf(input.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("I'm sorry, I didn't quite understand that.");
+            }
+
+            switch (command) {
+                case BYE:
+                    end();
+                case LIST:
+                    printList(inputArr);
+                    break;
+                case MARK:
+                    markTask(inputArr);
+                    break;
+                case UNMARK:
+                    unmarkTask(inputArr);
+                    break;
+                case TODO:
+                    addToDo(inputArr);
+                    break;
+                case DEADLINE:
+                    addDeadline(inputArr);
+                    break;
+                case EVENT:
+                    addEvent(inputArr);
+                    break;
+                case DELETE:
+                    deleteTask(inputArr);
+                    break;
+                default:
+                    throw new DukeException("I'm sorry, I didn't quite understand that.");
             }
             System.out.println(DIVIDER);
         }
@@ -52,7 +76,7 @@ public class Duke {
     private void start() throws DukeException, IOException {
         try {
             run();
-        } catch (DukeException e) {
+        } catch (DukeException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
             System.out.println(DIVIDER);
             start();
