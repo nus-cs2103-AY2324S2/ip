@@ -93,7 +93,7 @@ public class Duke {
         }
         ToDo newToDo= new ToDo(name.trim());
         tasks.add(newToDo);
-        System.out.println("      Got it. I've added this task: ");
+        System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newToDo.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
 
@@ -115,7 +115,7 @@ public class Duke {
         String by = deadlineSplit[1].substring(3).trim();
         Deadline newDeadline = new Deadline(name, by);
         tasks.add(newDeadline);
-        System.out.println("      Got it. I've added this task: ");
+        System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newDeadline.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -136,7 +136,7 @@ public class Duke {
         String end = eventSplit[2].substring(3).trim();
         Event newEvent = new Event(name, start, end);
         tasks.add(newEvent);
-        System.out.println("      Got it. I've added this task: ");
+        System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newEvent.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -156,7 +156,7 @@ public class Duke {
         }
         if (choiceMark <= tasks.size()) {
             tasks.get(choiceMark - 1).markAsDone();
-            System.out.println("      Nice! I've marked this task as done: ");
+            System.out.println("      Nice! I've marked this task as done:");
 //            System.out.println("        " + "[X] " + tasks.get(choiceMark - 1).toString());
             System.out.println("        " + tasks.get(choiceMark - 1).toString());
         } else {
@@ -180,7 +180,7 @@ public class Duke {
         }
         if (choiceUnmark <= tasks.size()) {
             tasks.get(choiceUnmark - 1).markAsUndone();
-            System.out.println("      OK, I've marked this task as not done yet: ");
+            System.out.println("      OK, I've marked this task as not done yet:");
 //            System.out.println("        " + "[ ] " + tasks.get(choiceUnmark - 1).toString());
             System.out.println("        " + tasks.get(choiceUnmark - 1).toString());
         } else {
@@ -204,7 +204,7 @@ public class Duke {
         if (choiceDelete <= tasks.size()) {
             Task deletedTask = tasks.get(choiceDelete - 1);
             tasks.remove(choiceDelete - 1);
-            System.out.println("      Noted, I've removed this task: ");
+            System.out.println("      Noted, I've removed this task:");
             System.out.println("      " + deletedTask.toString());
             System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
         } else {
