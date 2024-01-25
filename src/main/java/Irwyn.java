@@ -38,6 +38,35 @@ public class Irwyn {
                     System.out.println(i + 1 + "." + list.get(i));
                 }
                 System.out.println(linebreak);
+            } else if (userInput.startsWith("todo")) {
+                String taskDescription = userInput.substring(5);
+                list.add(new ToDo(taskDescription));
+                System.out.println(linebreak
+                        + "Got it. I've added this task:\n"
+                        + "  " + list.get(list.size() - 1) + "\n"
+                        + "Now you have " + list.size() + " tasks in the list.\n"
+                        + linebreak);
+            } else if (userInput.startsWith("deadline")) {
+                String[] parts = userInput.split(" /by ");
+                String taskDescription = parts[0].substring(9);
+                String by = parts[1];
+                list.add(new Deadline(taskDescription, by));
+                System.out.println(linebreak
+                        + "Got it. I've added this task:\n"
+                        + "  " + list.get(list.size() - 1) + "\n"
+                        + "Now you have " + list.size() + " tasks in the list.\n"
+                        + linebreak);
+            } else if (userInput.startsWith("event")) {
+                String[] parts = userInput.split(" /from | /to ");
+                String taskDescription = parts[0].substring(6);
+                String from = parts[1];
+                String to = parts[2];
+                list.add(new Event(taskDescription, from, to));
+                System.out.println(linebreak
+                        + "Got it. I've added this task:\n"
+                        + "  " + list.get(list.size() - 1) + "\n"
+                        + "Now you have " + list.size() + " tasks in the list.\n"
+                        + linebreak);
             } else {
                 System.out.println(linebreak
                         + "added: " + userInput + "\n"
