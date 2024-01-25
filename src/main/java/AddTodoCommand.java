@@ -5,10 +5,6 @@ public class AddTodoCommand extends AddCommand {
 
     @Override
     void execute(TaskList taskList, Ui ui) throws MikeException {
-        /*
-        TODO:
-            1. Ensure that there are no duplicates
-         */
         Task newTask = new Todo(description);
         taskList.add(newTask);
         respond(taskList, ui, newTask);

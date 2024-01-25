@@ -10,10 +10,6 @@ public class AddEventCommand extends AddCommand {
 
     @Override
     void execute(TaskList taskList, Ui ui) throws MikeException {
-        /*
-        TODO:
-            1. Refactor to enforce DRY Principle.
-         */
         Task newTask = new Event(description, fromDate, toDate);
         taskList.add(newTask);
         respond(taskList, ui, newTask);
