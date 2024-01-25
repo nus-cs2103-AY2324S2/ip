@@ -1,10 +1,8 @@
 import javax.swing.*;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 import java.io.*;
-import java.util.*;
 
 public class Duke {
-    private static ArrayList<String> commandList = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String logo = " ____        _        \n"
@@ -25,19 +23,20 @@ public class Duke {
     }
 
     public static void echo(BufferedReader br) throws IOException {
-        String command = br.readLine();
-        while (!command.equals("bye")) {
+        String[] tokens = br.readLine().split(" ");
+        while (!tokens[0].equals("bye")) {
             Duke.line();
-            if (command.equals("list")) {
-                for (int i = 0; i < commandList.size(); i++) {
-                    System.out.println(i+1 + ". " + commandList.get(i));
-                }
+            if (tokens[0].equals("list")) {
+                Task.listTask();
+            } else if (tokens[0].equals("mark")) {
+                Task.setDone(Integer.parseInt(tokens[1]));
+            } else if (tokens[0].equals("unmark")) {
+                Task.setNotDone(Integer.parseInt(tokens[1]));
             } else {
-                System.out.println("added: " + command);
-                commandList.add(command);
+                Task.addTask(tokens[0]);
             }
             Duke.line();
-            command = br.readLine();
+            tokens = br.readLine().split(" ");
         }
         Duke.line();
         System.out.println("Bye. Hope to see you again soon!");
