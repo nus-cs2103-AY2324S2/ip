@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
 
@@ -10,13 +9,17 @@ public class Duke {
         System.out.println(Std_msgs.WELCOME);
         // await input from user
         String userInput = "";
-        while (!Objects.equals(userInput, Commands.BYE.toString())) {
+        while (true) {
             userInput = sc.nextLine();
-            System.out.println(Std_msgs.DIVIDER);
-            System.out.println(new Msg(userInput));
+            if (userInput.equals("bye")) {
+                // bye
+                System.out.println(Std_msgs.BYE);
+                break;
+            } else {
+                // echo
+                System.out.println(Std_msgs.DIVIDER);
+                System.out.println(new Msg(userInput));
+            }
         }
-        // bye
-        System.out.println(Std_msgs.BYE);
-
     }
 }
