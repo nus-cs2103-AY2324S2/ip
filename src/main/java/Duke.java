@@ -88,6 +88,13 @@ public class Duke {
                 list.add(newEvent);
                 newEvent.addTask(list.size());
                 System.out.println(line);
+            } else if (userInput.startsWith("delete")) {
+                System.out.println(line);
+                int idx = Integer.parseInt(userInput.substring(7));
+                Task removed = list.get(idx - 1);
+                list.remove(idx - 1);
+                removed.deleteTask(list.size());
+                System.out.println(line);
             } else {
                 switch (userInput) {
                     case "bye":

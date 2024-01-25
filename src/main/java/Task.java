@@ -30,6 +30,13 @@ public class Task {
         System.out.println(formatted);
     }
 
+    public void deleteTask(int newTotal) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(this.toString());
+        String formatted = String.format("Now you have %d tasks in the list.", newTotal);
+        System.out.println(formatted);
+    }
+
     @Override
     public String toString() {
         return getStatusIcon() + " " + this.description;
