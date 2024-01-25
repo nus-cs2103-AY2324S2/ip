@@ -8,7 +8,7 @@ public class TaskList {
         this.list = new ArrayList<Task>();
     }
 
-    public void addTask(String task, String fullDescription, PrintList printList) {
+    public void addTask(String task, String fullDescription, PrintList printList) throws DukeCeption{
         try {
             if (task.toLowerCase().equals("todo")) {
                 this.addTodo(fullDescription, printList);
@@ -18,11 +18,8 @@ public class TaskList {
                 this.addEvent(fullDescription, printList);
             }
         } catch (StringIndexOutOfBoundsException e) {
-            printList.add("Make sure your /from/to/by is correct");
-        } catch (Exception e) {
-            printList.add(e.toString());
+            throw new DukeCeption("Make sure your /from/to/by is correct");
         }
-
     }
 
     public void printListAddNewTask(Task task, PrintList printList) {
@@ -31,9 +28,9 @@ public class TaskList {
         printList.add(String.format("Now you have %d tasks in the list.", this.list.size()));
     }
 
-    public void addTodo(String description, PrintList printList) throws Exception {
+    public void addTodo(String description, PrintList printList) throws DukeCeption {
         if (description.isEmpty()) {
-            throw new EmptyMessegeException("Todo cannot be empty!");
+            throw new DukeCeption("Todo cannot be empty!");
         } else {
             Task task = new ToDo(description);
             this.list.add(task);
@@ -41,9 +38,9 @@ public class TaskList {
         }
     }
 
-    public void addDeadline(String description, PrintList printList) throws Exception {
+    public void addDeadline(String description, PrintList printList) throws DukeCeption {
         if (description.isEmpty()) {
-            throw new EmptyMessegeException("Deadline cannot be empty!");
+            throw new DukeCeption("Deadline cannot be empty!");
         } else {
             int indexOfBy = description.indexOf("/by");
             String taskDescription = description.substring(0, indexOfBy - 1);
@@ -54,9 +51,9 @@ public class TaskList {
         }
     }
 
-    public void addEvent(String description, PrintList printList) throws Exception {
+    public void addEvent(String description, PrintList printList) throws DukeCeption {
         if (description.isEmpty()) {
-            throw new EmptyMessegeException("Event cannot be empty!");
+            throw new DukeCeption("Event cannot be empty!");
         } else {
             int indexOfBy = description.indexOf("/from");
             int indexOfTo = description.indexOf("/to");
@@ -69,27 +66,31 @@ public class TaskList {
         }
     }
 
-    public void delete(int taskNumber, PrintList printList) {
+    public void delete(String taskNumberString, PrintList printList) throws DukeCeption {
         try {
+            int taskNumber = Integer.parseInt(taskNumberString);
             Task removedTask = this.list.get(taskNumber - 1);
             this.list.remove(taskNumber - 1);
             printList.add("This task is now removed:");
             printList.add(removedTask.toString());
             printList.add(String.format("Now you have %d tasks in the list.", this.list.size()));
         } catch(IndexOutOfBoundsException e) {
-            printList.add("The number is not in this list!");
+            throw new DukeCeption("The number is not in this list!");
+        } catch (NumberFormatException e) {
+            throw new DukeCeption("The number given is unrecognizable");
         }
     }
 
-    public void changeMark(String markStatus, int taskNumber, PrintList printList) {
+    public void changeMark(String markStatus, String taskNumberString, PrintList printList) throws DukeCeption {
         try {
+            int taskNumber = Integer.parseInt(taskNumberString);
             if (markStatus.equalsIgnoreCase("mark")) {
                 this.mark(taskNumber, printList);
             } else {
                 this.unmark(taskNumber, printList);
             }
         } catch (IndexOutOfBoundsException e) {
-            printList.add("The number is not in this list!");
+            throw new DukeCeption("The number is not in this list!");
         }
     }
 
@@ -101,9 +102,9 @@ public class TaskList {
     }
 
     public void unmark(int taskNumber, PrintList printList) {
-        printList.add("Alright! this task is now unmarked:");
         Task task = this.list.get(taskNumber - 1);
         task.markAsNotDone();
+        printList.add("Alright! this task is now unmarked:");
         printList.add(task.toString());
     }
 
