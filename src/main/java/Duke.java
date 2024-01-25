@@ -13,6 +13,10 @@ public class Duke {
     private Scanner sc = new Scanner(System.in);
     private ArrayList<Task> list = new ArrayList<>();
 
+    private static enum Command {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE,
+    }
+
 
     private void sayGreetings() {
         System.out.println(LINE);
@@ -129,32 +133,42 @@ public class Duke {
             try {
                 String userInput = duke.sc.nextLine();
                 String[] input = userInput.split(" ", 2);
-                String action = input[0];
+                String action = input[0].toUpperCase();
                 System.out.println(LINE);
-                if (action.equals("bye")) {
-                    break;
-                } else if (action.equals("list")) {
-                    duke.list();
-                } else if (action.equals("mark")) {
-                    duke.mark(input);
-                } else if (action.equals("unmark")) {
-                    duke.unmark(input);
-                } else if (action.equals("todo")) {
-                    duke.addTodo(input);
-                } else if (action.equals("deadline")) {
-                    duke.addDeadline(input);
-                } else if (action.equals("event")) {
-                    duke.addEvent(input);
-                } else if (action.equals("delete")) {
-                    duke.delete(input);
-                } else {
-                    throw new UnknownCommandException();
+                switch (Command.valueOf(action)) {
+                    case BYE:
+                        duke.sayBye();
+                        return;
+                    case LIST:
+                        duke.list();
+                        break;
+                    case MARK:
+                        duke.mark(input);
+                        break;
+                    case UNMARK:
+                        duke.unmark(input);
+                        break;
+                    case TODO:
+                        duke.addTodo(input);
+                        break;
+                    case DEADLINE:
+                        duke.addDeadline(input);
+                        break;
+                    case EVENT:
+                        duke.addEvent(input);
+                        break;
+                    case DELETE:
+                        duke.delete(input);
+                        break;
+                    default:
+                        throw new UnknownCommandException();
                 }
+            } catch (IllegalArgumentException e) {
+                System.out.println("\t" + new UnknownCommandException());
             } catch (Exception e) {
                 System.out.println("\t" + e);
             }
             System.out.println(LINE);
         }
-        duke.sayBye();
     }
 }
