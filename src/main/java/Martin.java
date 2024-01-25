@@ -37,8 +37,9 @@ public class Martin {
     }
 
     public static void printList() {
+        // 1-indexed todolist 
         for (int i = 1; i < todoList.size(); i++) {
-            System.out.println(i + ". " + todoList.get(i));
+            System.out.println(i + "." + todoList.get(i));
         }
     }
 
