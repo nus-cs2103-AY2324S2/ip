@@ -34,4 +34,8 @@ public class TaskList {
   public Task get(int index) {
     return list.get(index);
   }
+
+  public int size() {
+    return list.size();
+  }
 }
