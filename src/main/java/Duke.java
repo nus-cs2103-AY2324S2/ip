@@ -25,7 +25,7 @@ public class Duke {
         System.out.println("Hey there! This is Chitty-Chatty\n" + "What can I do for you?\n");
 
         while (true) {
-            String[] input = scanner.nextLine().split(" ");
+            String[] input = scanner.nextLine().split(" ", 2);
             String command = input[0];
 
             switch (command) {
@@ -41,11 +41,38 @@ public class Duke {
                 case "unmark":
                     markTaskAsUndone(input);
                     break;
+                case "todo":
+                    addToDoTask(input);
+                    break;
+                case "deadline":
+                    addDeadline(input);
+                    break;
+                case "event":
+                    addEvent(input);
+                    break;
                 default:
-                    addTasks(String.join(" ", input));
+                    Task t = new Task(String.join(" "));
+                    addTasks(t);
                     break;
             }
         }
+    }
+
+    public void addToDoTask(String[] input) {
+        ToDo todo = new ToDo(input[1]);
+        addTasks(todo);
+    }
+
+    public void addDeadline(String[] input) {
+        String[] description = input[1].split("/by");
+        Deadline dd = new Deadline(description[0], description[1]);
+        addTasks(dd);
+    }
+
+    public void addEvent(String[] input) {
+        String[] description = input[1].split("/from|/to");
+        Event e = new Event(description[0], description[1], description[2]);
+        addTasks(e);
     }
 
     public void markTaskAsDone(String[] input) {
@@ -62,10 +89,11 @@ public class Duke {
         System.out.println(tasks[index - 1].toString());
     }
 
-    public void addTasks(String task) {
-        tasks[id] = new Task(task);
+    public void addTasks(Task task) {
+        tasks[id] = task;
         id++;
-        System.out.println("added: " + task);
+        System.out.println("Got it. I've added this task: \n" + task);
+        System.out.format("Now you have %d tasks in the list.\n", id);
     }
 
     public void listTasks() {
