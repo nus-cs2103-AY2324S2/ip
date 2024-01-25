@@ -16,22 +16,31 @@ public class Duke {
         while (running){
             input = inp.nextLine();
             String[] inputs = input.split(" ");
-            if(input.equals("bye")) { //if the user use bye command
-                running = false;
-                break;
-            } else if (inputs.length == 2 && (inputs[0].equals("mark") || inputs[0].equals("unmark") )) {
-                //if the user use mark or unmark command
-                if (inputs[0].equals("mark")){
-                    mark(inputs[1]);
-                } else if (inputs[0].equals("unmark")) {
-                    unMark(inputs[1]);
+            boolean commV = valid(input);
+            try {
+                if (commV == true) {
+                    if (input.equals("bye")) { //if the user use bye command
+                        running = false;
+                        break;
+                    } else if (inputs[0].equals("mark") || inputs[0].equals("unmark")) {
+                        //if the user use mark or unmark command
+                        if (inputs[0].equals("mark")) {
+                            mark(input);
+                        } else if (inputs[0].equals("unmark")) {
+                            unMark(input);
+                        }
+                    } else if (input.equals("list")) { //if the user use list command
+                        showTask();
+                    } else if (inputs[0].equals("delete")) { //if the user use delete command
+                        delete(input);
+                    } else { //if the user want to add task(todo, deadline, and event)
+                        addTask(input);
+                    }
+                } else {
+                    throw new CommandInvalidException();
                 }
-            } else if (input.equals("list")) { //if the user use list command
-                showTask();
-            } else if (inputs.length == 2 && (inputs[0].equals("delete"))) { //if the user use delete command
-                delete(inputs[1]);
-            } else { //if the user want to add task(todo, deadline, and event)
-                addTask(input);
+            } catch (CommandInvalidException e){
+                System.out.println("Invalid command -_-, please use the available commands!!");
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
@@ -101,7 +110,11 @@ public class Duke {
     public static void mark(String n){ // method to mark task (mark command)
         int noArr;
         try {
-            noArr = Integer.parseInt(n)-1;
+            String[] inputs = n.split(" ");
+            if(!(inputs.length == 2)){
+                throw new CommandFormatException();
+            }
+            noArr = Integer.parseInt(inputs[1])-1;
             task.get(noArr).mark();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(task.get(noArr).toString());
@@ -109,13 +122,19 @@ public class Duke {
             System.out.println("No task number " + n);
         } catch (NumberFormatException e){ //when the given number is not a number (exception handling)
             System.out.println("The task number given is not a number");
+        } catch (CommandFormatException e){
+            System.out.println("The command format for mark is mark number (e.g.: mark 1)");
         }
     }
 
     public static void unMark(String n){ //method to unmark task (unmark command)
         int noArr;
         try {
-            noArr = Integer.parseInt(n)-1;
+            String[] inputs = n.split(" ");
+            if(!(inputs.length == 2)){
+                throw new CommandFormatException();
+            }
+            noArr = Integer.parseInt(inputs[1])-1;
             task.get(noArr).unMark();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(task.get(noArr).toString());
@@ -123,13 +142,19 @@ public class Duke {
             System.out.println("No task number " + n);
         } catch (NumberFormatException e){ //when the given number is not a number (exception handling)
             System.out.println("The task number given is not a number");
+        } catch (CommandFormatException e){
+            System.out.println("The command format for unmark is unmark number (e.g.: unmark 1)");
         }
     }
 
     public static void delete(String n){ //method to delete task (delete command)
         int noArr;
         try {
-            noArr = Integer.parseInt(n)-1;
+            String[] inputs = n.split(" ");
+            if(!(inputs.length == 2)){
+                throw new CommandFormatException();
+            }
+            noArr = Integer.parseInt(inputs[1])-1;
             Task delT = task.get(noArr);
             task.remove(noArr);
             System.out.println("Noted. I've removed this task:");
@@ -139,6 +164,18 @@ public class Duke {
             System.out.println("No task number " + n);
         } catch (NumberFormatException e){ //when the given number is not a number (exception handling)
             System.out.println("The task number given is not a number");
+        } catch (CommandFormatException e){
+            System.out.println("The command format for delete is delete number (e.g.: delete 1)");
         }
+    }
+
+    public static boolean valid(String n){ //check if the given command is valid
+        String[] inputs = n.split(" ");
+        for (Command com : Command.values()) {
+            if (com.name().equalsIgnoreCase(inputs[0])) {
+                return true;
+            }
+        }
+        return false;
     }
 }
