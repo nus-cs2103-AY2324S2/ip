@@ -1,6 +1,6 @@
 Hello I'm Wind
 What can I do for you?
-Bro, it seems that you have entered the wrong command. You can enter one of the following commands:
+Bro, it seems that you have entered the wrong duke.command. You can enter one of the following commands:
 1. list
 2. mark
 3. unmark
@@ -29,9 +29,9 @@ Bro, please specify your deadline date.
 E.g. deadline SU All Courses /by 9pm
 Bro, please specify your task description for event.
 E.g. event Exam /from 9am /to 9pm
-Bro, it seems that you have entered the command in wrong format.
+Bro, it seems that you have entered the duke.command in wrong format.
 E.g. event Exam /from 9am /to 9pm
-Bro, it seems that you have entered the command in wrong format.
+Bro, it seems that you have entered the duke.command in wrong format.
 E.g. event Exam /from 9am /to 9pm
 Bro, please use "from" and "to" keyword to specify your event start date and end date.
 E.g. event Exam /from 9am /to 9pm

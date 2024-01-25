@@ -1,9 +1,11 @@
-class Todo extends Task {
+package duke.task;
+
+public class Todo extends Task {
     public Todo(String input) {
         super(input);
     }
     public Todo(String description, Boolean hasDone) {
-        this.setHasDone(hasDone);
+        super.setHasDone(hasDone);
         super.setDescription(description);
     }
     @Override
