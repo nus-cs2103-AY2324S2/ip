@@ -28,17 +28,15 @@ public class Duke {
                 if (input.length() > 5 ) {
                     String listStringNumber =  input.substring(5);
                     int convertedToNumber = Integer.parseInt(listStringNumber) - 1;
-                    System.out.println(convertedToNumber);
                     String doneness = list.get(convertedToNumber).toggleIsDone();
                     // check if already marked then return error
-                    System.out.println("Nice! I've marked this task as done:" + "\n");
+                    System.out.println("Nice! I've marked this task as done:");
                     System.out.println("[" + list.get(convertedToNumber).getType() + "]" +
                             "[" + doneness + "] " + list.get(convertedToNumber));
                 }
             } else if (input.startsWith("unmark")) {
                 String listStringNumber =  input.substring(7);
                 int convertedToNumber = Integer.parseInt(listStringNumber) - 1;
-                System.out.println(convertedToNumber);
                 String doneness = list.get(convertedToNumber).toggleIsDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("[" + list.get(convertedToNumber).getType() + "]" +
@@ -69,7 +67,7 @@ public class Duke {
                 }
 
                 list.add(task);
-                System.out.println("You entered: " );
+                System.out.println("You entered:" );
                 System.out.println("[" + task.getType() + "]" +
                         "[" + task.getStatusIcon() + "] "+ task);
 
