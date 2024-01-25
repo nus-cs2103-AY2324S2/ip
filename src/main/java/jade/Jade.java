@@ -45,15 +45,20 @@ public class Jade {
             } else if (command[0].equals("list")) {
                 printList();
             } else if (command[0].equals("mark")) {
-                if (command.length == 1 || Integer.parseInt(command[1]) >= userList.size()) {
+                if (command.length == 1 || Integer.parseInt(command[1]) > userList.size()) {
                     throw new JadeException("Please input a valid number to mark Done.");
                 }
                 markDone(command[1]);
             } else if (command[0].equals("unmark")) {
-                if (command.length == 1 || Integer.parseInt(command[1]) >= userList.size()) {
+                if (command.length == 1 || Integer.parseInt(command[1]) > userList.size()) {
                     throw new JadeException("Please input a valid number to unmark Done.");
                 }
                 unmarkDone(command[1]);
+            } else if (command[0].equals("delete")) {
+                if (command.length == 1 || Integer.parseInt(command[1]) > userList.size()) {
+                    throw new JadeException("Please input a valid number to delete the task.");
+                }
+                deleteTask(command[1]);
             } else if (command[0].equals("bye")) {
                 goodbye();
             } else {
@@ -109,6 +114,13 @@ public class Jade {
         int indexUnmark = Integer.parseInt(inputIndex);
         userList.get(indexUnmark-1).unMark();
         System.out.printf("%s\tOK, I've marked this task as not done yet:\n\t  %s\n%s", line, userList.get(indexUnmark-1), line);
+    }
+
+    public void deleteTask(String inputIndex) {
+        int indexUnmark = Integer.parseInt(inputIndex);
+        Task deletedTask = userList.get(indexUnmark-1);
+        userList.remove(indexUnmark-1);
+        System.out.printf("%s\tOK, I've deleted this task:\n\t  %s\n\tNow you have %d task(s) in the list.\n%s", line, deletedTask, userList.size(), line);
     }
 
     public void goodbye() {
