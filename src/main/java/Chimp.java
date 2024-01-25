@@ -62,7 +62,7 @@ public class Chimp {
             case "todo": // TODO: Exception handling
                 if (arg == null || arg.equals(""))
                     throw new CommandParseException("todo must have a desc");
-                chimp.addToList(inp);
+                chimp.addToList(arg);
                 chimp.say(chimp.list.get(chimp.list.size() - 1));
                 break;
             case "event":
