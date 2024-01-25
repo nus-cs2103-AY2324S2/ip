@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Panda {
 
     private static boolean running = false;
-    private static String[] tlist;
+    private static Task[] tlist;
     private static int idx = 0;
 
     private static void startUp() {
@@ -12,7 +12,7 @@ public class Panda {
             "What can I do for you?"
         );
         running = true;
-        tlist = new String[100];
+        tlist = new Task[100];
     }
 
     private static void shutDown() {
@@ -28,25 +28,35 @@ public class Panda {
     }
 
     private static void comm() {
+        Scanner myObj  = new Scanner(System.in);
         while(running) {
-            Scanner myObj  = new Scanner(System.in);
             System.out.print("> ");
             String userInput = myObj.nextLine();
             if(userInput.equals("bye")) {
                 running = false;
-                myObj.close();
+                continue;
             }
-            else {
-                if(userInput.equals(("list"))) {
-                    Panda.printTlist();
-                }
-                else {
-                    tlist[idx] = userInput;
-                    idx = idx + 1;
-                    System.out.println("added: " + userInput);
-                }
+            if(userInput.equals(("list"))) {
+                Panda.printTlist();
+                continue;
             }
+            if(userInput.length() > 5 && userInput.substring(0, 5).equals("mark ")) {
+                int target = Integer.parseInt(userInput.substring(5)) - 1;
+                tlist[target].mark();
+                System.out.println("Nice! I've marked this task as done:\n  " + tlist[target]);
+                continue;
+            }
+            if(userInput.length() > 7 && userInput.substring(0, 7).equals("unmark ")) {
+                int target = Integer.parseInt(userInput.substring(7)) - 1;
+                tlist[target].unmark();
+                System.out.println("OK, I've marked this task as not done yet:\n  " + tlist[target]);
+                continue;
+            }
+            tlist[idx] = new Task(userInput);
+            idx = idx + 1;
+            System.out.println("added: " + userInput);
         }
+        myObj.close();
     }
 
     public static void main(String[] args) {
