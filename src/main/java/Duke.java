@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Class representing a task with an identifier, title, and completion status.
@@ -161,13 +162,14 @@ public class Duke {
         System.out.println("\nHello I'm\n" + logo);
         System.out.println("What can I do for you?\n");
 
+        Scanner scanner = new Scanner(System.in);
         List<Task> tasks = new ArrayList<Task>();
 
         // Main loop for command processing
         while (true) {
 
             // Read and process user input
-            String command = System.console().readLine();
+            String command = scanner.nextLine();
             String[] tokens = command.split(" ", 2);
             System.out.println("\n============================================================\n");
 
@@ -223,5 +225,7 @@ public class Duke {
             }
             System.out.println("\n============================================================\n");
         }
+
+        scanner.close();
     }
 }
