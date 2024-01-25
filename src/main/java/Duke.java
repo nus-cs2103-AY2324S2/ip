@@ -28,8 +28,11 @@ public class Duke {
                 if (num >= 0 && num < myList.size()) {
                     Task task = myList.get(num);
                     task.markAsDone();
+
+                    System.out.println("____________________________________________________________");
                     System.out.println("Nice! I've marked this task as done: ");
                     System.out.println(task);
+                    System.out.println("____________________________________________________________");
 
                 } else {
                     System.out.println("Invalid task number.");
@@ -42,19 +45,24 @@ public class Duke {
                 if (num >= 0 && num < myList.size()) {
                     Task task = myList.get(num);
                     task.markAsNotDone();
+
+                    System.out.println("____________________________________________________________");
                     System.out.println("Ok, I've marked this task as not done yet: ");
                     System.out.println(task);
+                    System.out.println("____________________________________________________________");
 
                 } else {
                     System.out.println("Invalid task number.");
                 }
 
             } else if (command.equals("list")) {
+                System.out.println("____________________________________________________________");
                 System.out.println("Here are the tasks in your list: ");
 
                 for (Task task : myList) {
                     System.out.println((myList.indexOf(task) + 1) + "." + task);
                 }
+                System.out.println("____________________________________________________________");
 
             } else if (command.equals("bye")) {
                 break;
@@ -69,9 +77,11 @@ public class Duke {
                     Todo newTodo = new Todo(item);
                     myList.add(newTodo);
 
+                    System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task: ");
                     System.out.println(newTodo);
                     System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
                 }
 
                 // Deadline is called
@@ -83,9 +93,11 @@ public class Duke {
                     Deadline newDeadline = new Deadline(item, time);
                     myList.add(newDeadline);
 
+                    System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task: ");
                     System.out.println(newDeadline);
                     System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
                 }
 
                 // Event is called
@@ -106,15 +118,18 @@ public class Duke {
                     Event newEvent = new Event(item, from, to);
                     myList.add(newEvent);
 
+                    System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task: ");
                     System.out.println(newEvent);
                     System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
                 }
             }
 
             System.out.print(" ");
         }
 
+        System.out.println("____________________________________________________________");
         System.out.println("Bye! Hope to see you again!!");
     }
 }
