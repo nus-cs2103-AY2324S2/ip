@@ -1,0 +1,5 @@
+todo sleep
+deadline cs2103 /by 23:59
+event cs2101 meeting /from 2pm /to 3pm
+list
+bye
