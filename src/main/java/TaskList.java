@@ -33,6 +33,16 @@ public class TaskList {
         }
     }
 
+    public String deleteTask(int idx) throws DukeException {
+        if (idx >= 0 && idx < tasks.size()) {
+            String taskDescription = tasks.get(idx).toString();
+            tasks.remove(idx);
+            return taskDescription;
+        } else {
+            throw new DukeException("Invalid task index: " + idx);
+        }
+    }
+
     public int getNumberTasks() {
         return tasks.size();
     }

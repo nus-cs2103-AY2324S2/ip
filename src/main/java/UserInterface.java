@@ -46,6 +46,14 @@ public class UserInterface {
         System.out.println(INDENT + LINE + "\n");
     }
 
+    public static void printTaskDeleted(String msg, int numTasks) {
+        System.out.println(INDENT + LINE);
+        System.out.println(INDENT + "Deleted Task:");
+        System.out.println(INDENT + "  " + msg);
+        System.out.println(INDENT + "Now you have " + numTasks + " tasks in the list.");
+        System.out.println(INDENT + LINE + "\n");
+    }
+
     public static void showError(String error) {
         System.out.println(INDENT + LINE);
         System.out.println(INDENT + "Error: " + error);

@@ -27,6 +27,10 @@ public class Duke {
                     handleUnmark(userInput);
                     break;
 
+                    case DELETE:
+                    handleDelete(userInput);
+                    break;
+
                     case TODO:
                     handleToDo(userInput);
                     break;
@@ -73,6 +77,13 @@ public class Duke {
         int idx = CommandParser.parseTaskIndex(userInput);
         String response = taskList.markTaskUndone(idx);
         UserInterface.print(response);
+    }
+
+    private static void handleDelete(String userInput) throws DukeException {
+        int idx = CommandParser.parseTaskIndex(userInput);
+        String response = taskList.deleteTask(idx);
+        int totalTasks = taskList.getNumberTasks();
+        UserInterface.printTaskDeleted(response, totalTasks);
     }
 
     private static void handleToDo(String userInput) throws DukeException {
