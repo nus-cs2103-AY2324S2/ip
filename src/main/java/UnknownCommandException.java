@@ -6,6 +6,7 @@ public class UnknownCommandException extends Throwable {
                 + "todo\n"
                 + "deadline\n"
                 + "event\n"
+                + "delete\n"
                 + "bye";
     }
 }

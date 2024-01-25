@@ -78,6 +78,16 @@ public class Duke {
                     throw new InvalidSyntaxException("event");
                 }
             }
+            if (input.split(" ")[0].equalsIgnoreCase("delete")) {
+                if (input.split(" ").length != 2) {
+                    throw new InvalidSyntaxException("delete");
+                } else if (taskList.validTaskNum(Integer.parseInt(input.split(" ")[1]))) {
+                    taskList.deleteTask(Integer.parseInt(input.split(" ")[1]) - 1);
+                    continue;
+                } else {
+                    throw new TaskNotFoundException(taskList);
+                }
+            }
             throw new UnknownCommandException();
         }
     }

@@ -14,6 +14,8 @@ public class InvalidSyntaxException extends Throwable {
             case "deadline": this.syntax = "deadline [task description] /by [deadline]";
             break;
             case "event": this.syntax = "event [task description] /from [start date] /to [end date]";
+            break;
+            case "delete": this.syntax = "delete [task number]";
         }
     }
     @Override

@@ -17,13 +17,23 @@ public class List {
     }
 
     public void displayTasks() {
-        System.out.println("__________________________________________________________\n" +
-                "Here are the tasks in your list:"
+        System.out.println("__________________________________________________________\n"
+                + "Here are the tasks in your list:"
         );
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
         System.out.println("__________________________________________________________\n");
+    }
+
+    public void deleteTask(int taskNum) {
+        String task_s = this.tasks.size() - 1 == 1 ? " task " : " tasks ";
+        System.out.println("__________________________________________________________\n"
+                + "Noted. I've removed this task:\n"
+                + tasks.get(taskNum).toString()
+                + "\nNow you have " + (this.tasks.size() - 1) + task_s + "in the list.\n"
+                + "__________________________________________________________\n");
+        this.tasks.remove(taskNum);
     }
 
     public boolean validTaskNum(int taskNum) {
