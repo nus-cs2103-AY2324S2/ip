@@ -52,6 +52,10 @@ public class Ran {
                         System.out.println(task);
                     }
                     break;
+                case "deadline":
+                    Deadline deadline = Deadline.parse(line, space);
+                    this.addTask(deadline);
+                    break;
                 default:
                     switch (line) {
                         case "bye":
@@ -67,8 +71,7 @@ public class Ran {
                             }
                             break;
                         default:
-                            tasks.add(new Task(line));
-                            System.out.println("Added task: " + line);
+                            System.out.println("I didn't understand that.");
                     }
 
 
@@ -77,6 +80,7 @@ public class Ran {
 
         System.out.println("Goodbye, please return soon.");
     }
+
 
     private Task handleTaskNo(String line, int space) {
         if (space == -1) {
@@ -93,7 +97,13 @@ public class Ran {
         }
         return null;
     }
-
+    private void addTask(Task task) {
+        if (task != null) {
+            System.out.println("I've added this task to the list: ");
+            System.out.println(task);
+            System.out.println("There are now "+tasks.size()+" tasks in the list");
+        }
+    }
 
     private static Integer parseNumber(String line, int spacePos) {
         try {
