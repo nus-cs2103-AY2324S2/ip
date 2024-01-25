@@ -28,7 +28,7 @@
 	Now you have 5 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
-Here are the tasks in your list:
+	Here are the tasks in your list:
 	1. [T][ ] read book
 	2. [D][ ] return book (by: June 6th)
 	3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
@@ -48,12 +48,39 @@ Here are the tasks in your list:
 	[T][ ] read book
 	____________________________________________________________
 	____________________________________________________________
-Here are the tasks in your list:
+	Here are the tasks in your list:
 	1. [T][ ] read book
 	2. [D][ ] return book (by: June 6th)
 	3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 	4. [T][ ] join sports club
 	5. [T][X] borrow book
+	____________________________________________________________
+	____________________________________________________________
+	Noted. I've removed this task:
+	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	Now you have 4 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [T][ ] read book
+	2. [D][ ] return book (by: June 6th)
+	3. [T][ ] join sports club
+	4. [T][X] borrow book
+	____________________________________________________________
+	____________________________________________________________
+	Oh no!!! Invalid task index!
+	____________________________________________________________
+	____________________________________________________________
+	Oh no! Your todo command is as silent as a snowball rolling down a mountain.
+	____________________________________________________________
+	____________________________________________________________
+	OOPS!!! Your command triggered a virtual avalanche of confusion.
+	____________________________________________________________
+	____________________________________________________________
+	OOPS!!! Please add a valid deadline.
+	____________________________________________________________
+	____________________________________________________________
+	OOPS!!! Please check the event format again.
 	____________________________________________________________
 	____________________________________________________________
 	Bye. Hope to see you again soon!

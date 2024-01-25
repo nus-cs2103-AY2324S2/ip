@@ -8,4 +8,11 @@ mark 1
 mark 5
 unmark 1
 list
+delete 3
+list
+delete 10
+todo
+blah
+deadline run
+event sleep /from Mon 10pm
 bye
