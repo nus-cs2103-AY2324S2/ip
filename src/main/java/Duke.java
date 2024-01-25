@@ -28,7 +28,6 @@ public class Duke {
 
     private void echo(String input) {
         System.out.println(input);
-        System.out.println(LINE);
     }
 
     private void add(Task task) {
@@ -36,7 +35,6 @@ public class Duke {
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + this.list.size() + " tasks in the list.");
-        System.out.println(LINE);
     }
 
     private void list() {
@@ -44,7 +42,6 @@ public class Duke {
         for (int i = 0; i < this.list.size(); i++) {
             System.out.println("\t" + (i + 1) + ". " + this.list.get(i));
         }
-        System.out.println(LINE);
     }
 
     private void mark(String[] input) throws IncompleteCommandException, InvalidArgumentException {
@@ -108,6 +105,22 @@ public class Duke {
         this.add(new Event(description, arr[0], arr[1]));
     }
 
+    private void delete(String[] input) throws IncompleteCommandException, InvalidArgumentException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        } 
+        try {
+            int index = Integer.parseInt(input[1]) - 1;
+            Task task = this.list.get(index);
+            this.list.remove(index);
+            System.out.println("\tNoted. I've removed this task:");
+            System.out.println("\t  " + task);
+            System.out.println("\tNow you have " + this.list.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentException();
+        }
+    }
+
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.sayGreetings();
@@ -132,13 +145,15 @@ public class Duke {
                     duke.addDeadline(input);
                 } else if (action.equals("event")) {
                     duke.addEvent(input);
+                } else if (action.equals("delete")) {
+                    duke.delete(input);
                 } else {
                     throw new UnknownCommandException();
                 }
             } catch (Exception e) {
                 System.out.println("\t" + e);
-                System.out.println(LINE);
             }
+            System.out.println(LINE);
         }
         duke.sayBye();
     }
