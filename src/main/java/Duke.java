@@ -28,9 +28,10 @@ public class Duke {
                 && !subStr[0].equalsIgnoreCase("list")
                 && !subStr[0].equalsIgnoreCase("mark")
                 && !subStr[0].equalsIgnoreCase("unmark")
-                && !subStr[0].equalsIgnoreCase("bye")) {
+                && !subStr[0].equalsIgnoreCase("bye")
+                && !subStr[0].equalsIgnoreCase("delete")) {
             throw new DukeException("Sorry! I don't get the instruction!\n" +
-                    "please use either todo, deadline, event, list, mark, unmark or bye!");
+                    "please use either todo, deadline, event, list, mark, unmark, bye or delete!");
         }
 
         if (subStr[0].equalsIgnoreCase("todo") && subStr.length < 2) {
@@ -43,6 +44,8 @@ public class Duke {
             throw new DukeException("Sorry! You need to include a number to mark your task!");
         } else if (subStr[0].equalsIgnoreCase("unmark") && subStr.length < 2) {
             throw new DukeException("Sorry! You need to include a number to unmark your task!");
+        } else if (subStr[0].equalsIgnoreCase("delete") && subStr.length < 2) {
+            throw new DukeException("Sorry! You need to include a number to delete your task!");
         } else {
             return subStr;
         }
@@ -106,6 +109,11 @@ public class Duke {
                     Event event = new Event(ss[0], ss2[0], ss2[1]);
                     lst.add(event);
                     System.out.println("Got it. I've added this task:\n" + event);
+                    System.out.println("Now you have " + lst.size() + " tasks in the list.");
+                } else if (instr.equalsIgnoreCase("delete")) {
+                    int lstNo = Integer.parseInt(subStr[1]);
+                    System.out.println("Noted. I've removed this task:\n" + lst.get(lstNo - 1));
+                    lst.remove(lstNo - 1);
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
                 }
             } catch (DukeException e){
