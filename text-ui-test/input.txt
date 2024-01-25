@@ -1,10 +1,9 @@
-event coldplay concert /from today /to tomorrow
-deadline cs2103t assignment /by today
+deadline cs2103 /by today
+event concert /from today /to tomorrow
+todo homework
 list
-todo make money
-mark 2
+mark 3
+delete 2
 list
-oops undo that
-mark 5
-event cs2109s assignment
+unmark 2
 bye

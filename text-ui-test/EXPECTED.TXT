@@ -10,39 +10,32 @@ As I am a Chatbot, I therefore have no arms.
 Knock knock, who's there? Definitely not BobBot!
 Jokes aside, what can I do for you?
 ______________________________________
-Gotchu! I've added this task: 
-[E][ ] coldplay concert (from: today to: tomorrow)
+Gotchu! I've added this deadline for you: 
+[D][ ] cs2103 (by: today)
 You now have 1 tasks in the list.
 ______________________________________
-Gotchu! I've added this task: 
-[D][ ] cs2103t assignment (by: today)
+Fun! I've added this event for you: 
+[E][ ] concert (from: today to: tomorrow)
 You now have 2 tasks in the list.
 ______________________________________
-1.[E][ ] coldplay concert (from: today to: tomorrow)
-2.[D][ ] cs2103t assignment (by: today)
-______________________________________
 Gotchu! I've added this task: 
-[T][ ] make money
+[T][ ] homework
 You now have 3 tasks in the list.
 ______________________________________
+1.[D][ ] cs2103 (by: today)
+2.[E][ ] concert (from: today to: tomorrow)
+3.[T][ ] homework
+______________________________________
 Nicely done! I've marked this task as done: 
-[D][X] cs2103t assignment (by: today)
+[T][X] homework
 ______________________________________
-1.[E][ ] coldplay concert (from: today to: tomorrow)
-2.[D][X] cs2103t assignment (by: today)
-3.[T][ ] make money
+Alright-o, I have deleted the following task:
+[E][ ] concert (from: today to: tomorrow)
 ______________________________________
-Hey! I don't know that command yet, I only recognize: list, bye, mark, todo, event, deadlines.
+1.[D][ ] cs2103 (by: today)
+2.[T][X] homework
 ______________________________________
-Check the list! The task id of 5 you are referring to doesn't exist!
-______________________________________
-Wait a second, your command has missing dependencies! 
-Please follow the following format for the commands: 
-1. list 
-2. mark <number of task in list> 
-3. todo <event name> 
-4. deadlines <deadline name> <deadline date> 
-5. event <event name> <event from date> <event to date> 
-6. bye
+Hey you! I've marked this task as not done, yet: 
+[T][ ] homework
 ______________________________________
 Bye. Hope to see you again soon!
