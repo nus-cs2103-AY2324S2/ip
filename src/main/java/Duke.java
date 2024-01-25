@@ -43,6 +43,15 @@ public class Duke {
                     System.out.println("\t" + taskToUnmark);
                     printDiv();
                     break;
+                case "todo":
+                    printDiv();
+                    System.out.println("\tGot it. I've added this task:");
+                    Todo todo = new Todo(inputs[1]);
+                    AL.add(todo);
+                    System.out.println("\t" + todo);
+                    printListCounter(AL);
+                    printDiv();
+                    break;
                 case "deadline":
                     // separate to description: deadlineInfo[0]: return book 
                     // and deadline: deadlineInfo[1]: by Sunday
