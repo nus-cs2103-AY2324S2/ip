@@ -17,6 +17,9 @@ public class TaskList {
         Task task = tasks.get(i);
         return task.toString();
     }
+    public int taskNumber() {
+        return tasks.size();
+    }
     public void markCompleteTask(int i){
         Task task = tasks.get(i);
         task.markDone();
