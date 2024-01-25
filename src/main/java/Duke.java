@@ -46,13 +46,13 @@ public class Duke {
             case "mark": {
                 Task task = taskList.get(Integer.parseInt(content) - 1);
                 task.markDone(true);
-                print("good job bro, marked this task as done:\n " + task.toString());
+                print("good job bro, marked this task as done:\n" + task.toString());
                 break;
             }
             case "unmark": {
                 Task task = taskList.get(Integer.parseInt(content) - 1);
                 task.markDone(false);
-                print("ok i help you unmark this task ah:\n " + task.toString());
+                print("ok i help you unmark this task ah:\n" + task.toString());
                 break;
             }
             case "todo": {
