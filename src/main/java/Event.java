@@ -9,8 +9,6 @@ public class Event extends Task {
         String n = _s.substring(_s.indexOf(" /from ") + 7);
         startDate = n.substring(0, n.indexOf(" /to "));
         endDate = n.substring(n.indexOf(" /to ") + 5);
-        System.out.println("DEDDDED " + startDate);
-        System.out.println("ddd " + _s.substring(_s.indexOf(" /from")));
         isMarked = _flag;
     } 
 

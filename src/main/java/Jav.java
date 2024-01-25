@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Jav {
     public static Storage storage = new Storage();
 
     public static void main(String[] args) {
@@ -13,10 +13,10 @@ public class Duke {
 
                   "      ____.  _________   ____\n"
                 + "     |    | /  _  \\   \\ /   /\n"
-                + "     |    |/  /_\\  \\   Y   / \n"
-                + " /\\__|    /    |    \\     /  \n"
-                + " \\________\\____|__  /\\___/   \n"
-                + "                  \\/         \n"
+                + "     |    |/  /_\\  \\   Y   /\n"
+                + " /\\__|    /    |    \\     /\n"
+                + " \\________\\____|__  /\\___/\n"
+                + "                  \\/\n"
                 + "The Joy Amplifying Virtuoso!\n";
                 // Got ASCII Word Art from https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Jav
 
@@ -30,7 +30,7 @@ public class Duke {
             System.out.println("| User Input:");
             System.out.print("> ");
             String s = scan.nextLine();
-            
+
             if (s.equals("bye") || s.equals("b")) { // Check if exiting
                 isExiting = true;
             } else if (CheckPrintList(s)) {
