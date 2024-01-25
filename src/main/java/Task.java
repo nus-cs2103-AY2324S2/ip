@@ -4,6 +4,11 @@ public class Task {
     private static String taskList[] = new String[100];
 
     private static boolean done[] = new boolean[100];
+
+
+    private static boolean event[] = new boolean[100];
+
+
     private static int counter = 0;
 
     public Task() {
@@ -30,18 +35,41 @@ public class Task {
         }
     }
 
+    public String taskToString(String t) {
+        if (t.equals("event")) {
+            return "[E]";
+        }
+        else if (t.equals("deadline")) {
+            return "[D]";
+        }
+
+        else if (t.equals("todo")) {
+            return "[T]";
+        }
+        return "";
+    }
+
     public void display() {
 
         System.out.println("----------------------------------------------------------");
         for (int i = 0; i < Task.counter; i++) {
             if (Task.done[i]) {
+
+
+
                 System.out.println(i + 1 + ". " + "[X] " + Task.taskList[i]);
+
             }
             else {
                 System.out.println(i + 1 + ". " + "[ ] " + Task.taskList[i]);
             }
         }
         System.out.println("----------------------------------------------------------");
+    }
+
+    public void markEvent() {
+        Task.event[Task.counter + 1] = true;
+
     }
 
 

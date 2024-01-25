@@ -19,6 +19,8 @@ public class Panna {
 
             Task t = new Task(Panna.command);
 
+            System.out.println(Panna.command);
+
             if (Panna.command.equals("list")) {
                 t.display();
             }
@@ -34,6 +36,14 @@ public class Panna {
 
 
             }
+
+            else if (Panna.command.startsWith("event")) {
+                t.markEvent();
+            }
+
+
+
+
 
             else {
                 t.add();
