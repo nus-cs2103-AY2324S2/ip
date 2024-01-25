@@ -98,7 +98,7 @@ public class Harper {
      * @param start Start time of the task.
      * @param end End time of the task.
      */
-    public void addEvenet(String description, String start, String end) {
+    public void addEvent(String description, String start, String end) {
         Task newEvent = new Event(description, start, end);
         this.list.add(newEvent);
         int listSize = this.list.size();
@@ -178,7 +178,7 @@ public class Harper {
         String[] startAndEnd = parts[1].trim().split("/to", 2);
         String start = startAndEnd[0].trim();
         String end = startAndEnd[1].trim();
-        this.addEvenet(description, start, end);
+        this.addEvent(description, start, end);
     }
 
     /**

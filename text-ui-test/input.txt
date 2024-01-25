@@ -1,0 +1,14 @@
+list
+todo read book
+deadline return book /by Sunday
+event math class /from Mon 2pm /to 4pm
+list
+mark 1
+mark 3
+unmark 1
+list
+mark 5
+deadline math assignment
+event science workshop
+mark1
+bye
