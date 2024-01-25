@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import Task.Command;
 import Task.Task;
 import Task.TaskList;
 
@@ -83,30 +84,23 @@ public class Duke {
     chatbot.greet();
     String input = "";
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    boolean loopSignal = true;
 
-    while (true) {
+    while (loopSignal) {
       try {
         input = reader.readLine();
+        // get the first word of the input
+        String[] words = input.split(" ", 2);
+        Command command = Command.newCommand(words[0], words.length > 1 ? words[1] : "");
+        System.out.println("____________________________________________________________");
+        loopSignal = command.execute(chatbot.list);
+        System.out.println("____________________________________________________________");
+
       } catch (IOException e) {
         System.out.println("Sorry, I don't understand that.");
         break;
       }
-      // get the first word of the input
-      String[] words = input.split(" ", 2);
-      if (isQuitCommand(words[0])) {
-        chatbot.exit();
-        break;
-      } else if (words[0].equals("list")) {
-        chatbot.list();
-      } else if (words[0].equals("mark")) {
-        int index = Integer.parseInt(words[1]);
-        chatbot.markTaskAsDone(index);
-      } else if (words[0].equals("unmark")) {
-        int index = Integer.parseInt(words[1]);
-        chatbot.unmarkTaskAsDone(index);
-      } else {
-        chatbot.add(input);
-      }
+
     }
   }
 }
