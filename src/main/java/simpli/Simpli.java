@@ -104,6 +104,16 @@ public class Simpli {
         );
     }
 
+    public void deleteTask(int taskNum) {
+        Task removedTask = this.tasks.get(taskNum - 1);
+        this.tasks.remove(taskNum - 1);
+        this.respond(
+                "Noted. I've removed this task:\n" +
+                        removedTask + "\n" +
+                        "Now you have " + this.tasks.size() + " task(s) in the list."
+        );
+    }
+
     public void respond(String content) {
         String msg = String.format(Config.PLACEHOLDER, content.replace("\n", "\n\t\t"));
 

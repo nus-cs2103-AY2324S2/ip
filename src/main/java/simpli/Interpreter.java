@@ -14,11 +14,24 @@ public class Interpreter {
                 this.simpli.list();
                 break;
             case "mark": {  // mark task as done
+                if (tokens[1].isEmpty()) {
+                    throw new CommandException();
+                }
                 this.simpli.mark(Integer.parseInt(tokens[1]));
                 break;
             }
             case "unmark": {  // mark task as undone
+                if (tokens[1].isEmpty()) {
+                    throw new CommandException();
+                }
                 this.simpli.unmark(Integer.parseInt(tokens[1]));
+                break;
+            }
+            case "delete": {  // delete task
+                if (tokens[1].isEmpty()) {
+                    throw new CommandException();
+                }
+                this.simpli.deleteTask(Integer.parseInt(tokens[1]));
                 break;
             }
             case "todo": {  // creates todo task
