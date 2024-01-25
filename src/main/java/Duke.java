@@ -13,14 +13,24 @@ public class Duke {
         String exit = horizontalLine
                 + "Farewell, fleeting soul! 'Til our paths entwine once more.\n"
                 + horizontalLine;
-        System.out.println(greet);
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> list = new ArrayList<String>(100);
+
+        System.out.println(greet);
         while (true) {
             String input = sc.nextLine();
             if (input.equals("bye")) {
                 break;
             }
-            System.out.println(horizontalLine + input +"\n" + horizontalLine);
+            if (input.equals("list")) {
+                System.out.print(horizontalLine);
+                for (String added:list)
+                    System.out.println(list.indexOf(added) + ". " + added);
+                System.out.print(horizontalLine);
+                continue;
+            }
+            list.add(input);
+            System.out.println(horizontalLine + "added: " + input + "\n" + horizontalLine);
         }
         System.out.println(exit);
     }
