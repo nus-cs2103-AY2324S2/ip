@@ -1,23 +1,44 @@
+import java.util.Scanner;
+
 public class Duke {
-    public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
+    private Ui chatbotUi;
+    private TaskList taskList;
+    private Process processor;
 
-        String chatbotName = "Tartar"; // Replace with your actual chatbot name
-
-        String message = String.format(
-                "____________________________________________________________\n" +
-                        " Hello! I'm %s\n" +
-                        " What can I do for you?\n" +
-                        "____________________________________________________________\n" +
-                        " Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________",
-                chatbotName
-        );
-        System.out.println(message);
+    public Duke() {
+        chatbotUi = new Ui();
+        taskList = new TaskList();
+        processor = new Process(taskList, chatbotUi);
     }
+
+    public void run() {
+        // Greet User
+        System.out.print(chatbotUi.greetingBox());
+
+        String userInput;
+        do {
+            userInput = chatbotUi.getCommand();
+            if (userInput.equals("bye")) {
+                break;
+            }
+            if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
+                processor.userInputProcessMarkUnmark(userInput);
+                continue;
+            }
+            if (userInput.equals("list")) {
+                System.out.println(chatbotUi.dividerWrapper(taskList.showList()));
+                continue;
+            }
+            processor.userInputAddTask(userInput);
+        } while (true);
+
+        System.out.println(chatbotUi.dividerWrapper(chatbotUi.bye()));
+    }
+
+    public static void main(String[] args) {
+        Duke d = new Duke();
+        d.run();
+    }
+
 }
+
