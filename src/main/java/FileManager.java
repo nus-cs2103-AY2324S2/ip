@@ -2,6 +2,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,14 +11,19 @@ public class FileManager {
   String path;
 
   public FileManager(String path) {
-    this.path = path;
+    String wd = System.getProperty("user.dir");
+    this.path = wd.toString() + "/" + path;
+    //System.out.println("Creating file at: " + this.path);
   }
   public void createLog() {
     File log_file = new File(this.path);
     try {
-      log_file.createNewFile();
+      boolean response = log_file.createNewFile();
+      if (response) {
+        System.out.println("No original log was found, a new file has been created.");
+      }
     } catch (IOException e) {
-      System.out.println("Problem reading log! " + e.getMessage());
+      System.out.println("Problem creating log! " + e.getMessage());
     }
   }
 
@@ -55,7 +61,8 @@ public class FileManager {
 
   public Task parseEntry(String log_entry) {
     String[] entry = log_entry.split(",");
-    boolean completeStatus = entry[1] == "T" ? true : false;
+    boolean completeStatus = entry[1] .equals("T");
+    //System.out.println("Entry " + entry[1] + ": " + completeStatus);
     String desc = entry[2];
     switch (entry[0]) {
       case "T":
