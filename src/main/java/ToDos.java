@@ -7,6 +7,13 @@ public class ToDos extends Task {
   public String getTimeData() {return "";}
 
   @Override
+  public String getLogRepresentation() {
+    String complete_status = "F";
+    if (this.isDone) {complete_status = "T";}
+    return "T" + "," + complete_status + "," + this.description;
+  }
+
+  @Override
   public String getFullStatus() {
     return this.getStatusIcon() + " " + this.getDescription();
   }

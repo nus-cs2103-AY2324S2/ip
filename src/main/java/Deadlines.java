@@ -12,6 +12,14 @@ public class Deadlines extends Task {
   }
 
   @Override
+  public String getLogRepresentation() {
+    String complete_status = "F";
+    if (this.isDone) {complete_status = "T";}
+    return "D" + "," + complete_status + ","
+      + this.description + "," + this.deadline;
+  }
+
+  @Override
   public String getTimeData() {
     return "(by: " + this.getDeadline() + ")";
   }
