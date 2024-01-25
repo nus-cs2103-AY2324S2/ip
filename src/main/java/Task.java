@@ -19,10 +19,10 @@ public abstract class Task {
         String output;
         if (this.isDone) {
             this.isDone = false;
-            output = "OK, I've marked this task as not done yet:\n" + this.getStatusIcon() + " " + this.description + "\n";
+            output = "OK, I've marked this task as not done yet:\n" + this + "\n";
         } else {
             this.isDone = true;
-            output = "Nice! I've marked this task as done:\n" + this.getStatusIcon() + " " + this.description + "\n";
+            output = "Nice! I've marked this task as done:\n" + this + "\n";
         }
         return output;
     }
