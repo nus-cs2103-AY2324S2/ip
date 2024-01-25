@@ -5,25 +5,6 @@ public class TaskManager {
     public TaskManager() {
         this.taskList = new ArrayList<>();
     }
-    public void addTask(String taskDescription, TaskType type) {
-        Task task;
-        switch (type) {
-            case TODO:
-                task = new Todo(taskDescription);
-                break;
-            case EVENT:
-                task = new Event(taskDescription);
-                break;
-            case DEADLINE:
-                task = new Deadline(taskDescription);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid task type");
-        }
-
-        task.setTaskDescription(taskDescription);
-        taskList.add(task);
-    }
 
     public void markAsComplete(int index) {
         if (index >= 0 && index < taskList.size()) {
@@ -36,6 +17,34 @@ public class TaskManager {
         if (index >= 0 && index < taskList.size()) {
             Task task = taskList.get(index);
             task.markAsIncomplete();
+        }
+    }
+
+    public void addTask(String taskDescription, TaskType type) {
+        try {
+            if (taskDescription.trim().equalsIgnoreCase(type.toString())) {
+                throw new DukeException("Sorry, the description of " + type + " cannot be empty. Please add details, so that I can assist you better!");
+            }
+
+            Task task;
+            switch (type) {
+                case TODO:
+                    task = new Todo(taskDescription);
+                    break;
+                case EVENT:
+                    task = new Event(taskDescription);
+                    break;
+                case DEADLINE:
+                    task = new Deadline(taskDescription);
+                    break;
+                default:
+                    throw new DukeException("Hey, I'm not quite sure what that means. Mind giving me another shot at understanding?");
+            }
+
+            task.setTaskDescription(taskDescription);
+            taskList.add(task);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -83,18 +92,27 @@ public class TaskManager {
     }
 
     private void printMarkTask(int index) {
+        if (index < 0) {
+            return;
+        }
         Task task = taskList.get(index);
         System.out.println(Commands.INDENTATION + "Nice! I've marked this task as done: ");
         System.out.println(Commands.INDENTATION + "  [" + task.getTaskType() + "][" + task.getStatusIcon() + "] " + task.getTaskDescription());
     }
 
     private void printUnmarkTask(int index) {
+        if (index < 0) {
+            return;
+        }
         Task task = taskList.get(index);
         System.out.println(Commands.INDENTATION + "OK, I've marked this task as not done yet: ");
         System.out.println(Commands.INDENTATION + "  [" + task.getTaskType() + "][" + task.getStatusIcon() + "] " + task.getTaskDescription());
     }
 
     private void printAddedTask(int index) {
+        if (index < 0) {
+            return;
+        }
         Task task = taskList.get(index);
         System.out.println(Commands.INDENTATION + "Got it. I've added this task: " + task.getTaskDescription());
         System.out.println(Commands.INDENTATION + "  [" + task.getTaskType() + "][" + task.getStatusIcon() + "] " + task.getTaskDescription());
