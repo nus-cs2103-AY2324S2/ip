@@ -51,7 +51,7 @@ public class Ran {
                 case "unmark":
                     task = this.handleTaskNo(line, space);
                     if (task != null) {
-                        if (task.isCompleted()){
+                        if (task.isCompleted()) {
                             task.setCompleted(false);
                             System.out.println("If that's the case, I'll set that task as incomplete: ");
                         } else {
@@ -103,7 +103,7 @@ public class Ran {
             System.out.println("Missing task number");
             return null;
         }
-        Integer taskNo = parseNumber(line, space);
+        Integer taskNo = Util.parseNumber(line, space);
         if (taskNo == null || taskNo < 1) {
             System.out.println("Invalid task number.");
         } else if (taskNo > tasks.size()) {
@@ -123,12 +123,5 @@ public class Ran {
         }
     }
 
-    private static Integer parseNumber(String line, int spacePos) {
-        try {
-            return Integer.parseInt(line.substring(spacePos + 1));
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
 }
 

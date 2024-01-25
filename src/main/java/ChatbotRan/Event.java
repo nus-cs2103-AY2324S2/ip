@@ -37,7 +37,7 @@ public class Event extends Task {
     }
 
     public static Event parse(String line, int space) {
-        String[] texts = Task.parse(line, space, "/from", "/to");
+        String[] texts = Util.parse(line, space, "/from", "/to");
         if (texts != null) {
             return new Event(texts[0], texts[1], texts[2]);
         }
