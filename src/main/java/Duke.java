@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class Item {
+class Task {
     private static int count = 0;
     private final int id;
     private String title;
     private boolean isDone;
 
-    public Item(String title) {
+    public Task(String title) {
         this.id = ++count;
         this.title = title;
         this.isDone = false;
@@ -40,7 +40,7 @@ public class Duke {
         System.out.println("\nHello I'm\n" + logo);
         System.out.println("What can I do for you?\n");
 
-        List<Item> list = new ArrayList<Item>();
+        List<Task> tasks = new ArrayList<Task>();
         while (true) {
             String command = System.console().readLine();
             String[] tokens = command.split(" ");
@@ -49,18 +49,18 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else if (command.equals("list")) {
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + ". " + list.get(i).toString());
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i).toString());
                 }
             } else if (tokens[0].equals("done")) {
                 int i = Integer.parseInt(tokens[1]) - 1;
-                list.get(i).markDone();
+                tasks.get(i).markDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(list.get(i).toString());
+                System.out.println(tasks.get(i).toString());
             } else {
-                Item newItem = new Item(command);
-                list.add(newItem);
-                System.out.println("added: " + newItem.toString());
+                Task newTask = new Task(command);
+                tasks.add(newTask);
+                System.out.println("added: " + newTask.toString());
             }
             System.out.println("\n============================================================\n");
         }
