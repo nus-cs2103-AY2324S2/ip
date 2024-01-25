@@ -2,4 +2,8 @@ todo grocery shopping
 event group meeting /from 2pm /to 3pm
 deadline ip /by 25 Jan 23:59
 list
+todo
+deadline ip
+event Career Fair
+help
 bye
