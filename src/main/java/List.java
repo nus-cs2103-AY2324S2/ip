@@ -8,10 +8,11 @@ public class List {
 
     public void addTask(Task task) {
         tasks.add(task);
+        String task_s = this.tasks.size() == 1 ? " task " : " tasks ";
         System.out.println("__________________________________________________________\n"
                 + "Got it. I've added this task:\n"
                 + task.toString()
-                + "\nNow you have " + this.tasks.size() + " tasks in the list.\n"
+                + "\nNow you have " + this.tasks.size() + task_s + "in the list.\n"
                 + "__________________________________________________________\n");
     }
 
@@ -35,6 +36,10 @@ public class List {
 
     public void unmarkTask(int taskNum) {
         this.tasks.get(taskNum).unmark();
+    }
+
+    public int getListSize() {
+        return this.tasks.size();
     }
 
     public int getNumberOfTasks() {
