@@ -13,6 +13,16 @@ public class TaskList {
         Utils.encaseLines("added: " + name);
     }
 
+    public Task getTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            return tasks.get(index);
+
+        } else {
+            return null;
+
+        }
+    }
+
     public void printTasks() {
         StringBuilder output = new StringBuilder();
 

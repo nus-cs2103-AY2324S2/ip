@@ -5,6 +5,18 @@ public class Processor {
         if (Objects.equals(input, "list")) {
             tasks.printTasks();
 
+        } else if (input.contains("mark")) {
+            int i = Integer.parseInt(input.split("\\s+")[1]) - 1;
+            Task task = tasks.getTask(i);
+
+            if (input.startsWith("mark")) {
+                task.mark();
+
+            } else if (input.startsWith("unmark")) {
+                task.unmark();
+
+            }
+
         } else {
             tasks.addTask(input);
 
