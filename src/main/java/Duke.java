@@ -23,7 +23,7 @@ public class Duke {
                     System.out.println("Here are the tasks in your list!");
                     for (int j = 0; j < i; j++) {
                         int nr = j + 1;
-                        System.out.println(nr + ". [" + lst[j].getStatusIcon() + "]" + lst[j].description);
+                        System.out.println(nr + lst[j].toString()+ ".");
                     }
                     break;
                 case "bye":
@@ -55,16 +55,39 @@ public class Duke {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("[ ] " + key[1] );
                     break;
-
-
-                default:
-                    Task item = new Task(res);
+                case "todo":
+                    Task item = new ToDo(key[1]);
                     lst[i] = item;
-                    System.out.println("added:" + res);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(item.toString());
                     i++;
-
-
+                    System.out.println("Now you have " + i + " task(s) in your list!");
                     System.out.println(line);
+                    break;
+                case "deadline":
+                    String[] by = key[1].split("/", 2);
+                    Task dline = new Deadline(by[0], by[1]);
+                    lst[i] = dline;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(dline.toString());
+                    i++;
+                    System.out.println("Now you have " + i + " task(s) in your list!");
+                    System.out.println(line);
+                    break;
+                case "event":
+                    String[] fromto = key[1].split("/", 3);
+                    Task e = new Event(fromto[0], fromto[1], fromto[2]);
+                    lst[i] = e;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(e.toString());
+                    i++;
+                    System.out.println("Now you have " + i + " task(s) in your list!");
+                    System.out.println(line);
+                    break;
+                default:
+                    System.out.println("Sorry, I did not get that!");
+
+
             }
 
         }
