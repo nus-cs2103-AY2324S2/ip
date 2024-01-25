@@ -26,10 +26,19 @@ public class MyList {
     }
 
     public String markTask(int index) {
-        if (index > this.items.size()) {
-            return "Number is longer than list";
+        if (index < 1 || index > this.items.size()) {
+            return "Number is outside length of list";
         } else {
             return "Nice! I've marked this task as done:\n" + this.items.get(index - 1).markAsDone();
+        }
+    }
+
+    public String delete(int index) {
+        if (index < 1 || index > this.items.size()) {
+            return "Number is outside length of list";
+        } else {
+            Task t = this.items.remove(index - 1);
+            return "Noted. I've removed this task:\n" + t.toString() + "\nNow you have " + this.items.size() + " tasks in the list.";
         }
     }
 }

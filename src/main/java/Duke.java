@@ -29,7 +29,7 @@ public class Duke {
                         int index = Integer.parseInt(userInput.substring("mark".length()).trim());
                         System.out.println(myList.markTask(index));
                     } catch (NumberFormatException e) {
-                        System.out.println("Please enter a valid number.");
+                        System.out.println("Please enter a number after mark.");
                     }
                 } else if (userInput.startsWith("todo")) {
                     try {
@@ -73,6 +73,13 @@ public class Duke {
                         System.out.println("Error: " + e.getMsg());
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("Please enter format event (task) /from (input) /to (input)");
+                    }
+                } else if (userInput.startsWith("delete")) {
+                    try {
+                        int index = Integer.parseInt(userInput.substring("delete".length()).trim());
+                        System.out.println(myList.delete(index));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter a number after delete.");
                     }
                 } else {
                     System.out.println("OOPS! That was an invalid input");
