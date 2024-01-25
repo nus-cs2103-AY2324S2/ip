@@ -6,7 +6,7 @@ public class Duke {
         System.out.println("Hello! I'm Cookie");
         System.out.println("What can I do for you?\n");
 
-        String[] added = new String[100];
+        Task[] tasks = new Task[100];
         int counter = 0;
 
         while (true) {
@@ -19,12 +19,31 @@ public class Duke {
             if (input.equals("list")) {
                 //print added items
                 for (int i = 1; i <= counter; i++) {
-                    System.out.println(i + ". " + added[i - 1]);
+                    Task task = tasks[i - 1];
+                    String taskStatus = task.getStatusIcon();
+                    String taskDesc = task.getDescription();
+                    System.out.println(i + ". [" + taskStatus + "]"  + taskDesc);
                 }
                 continue;
             }
-            added[counter] = input;
+            if (input.startsWith("mark ")) {
+                String taskNum = input.substring(5);
+                int taskNumber = Integer.valueOf(taskNum);
+
+                if (taskNumber >= 1 && taskNumber <= counter) {
+                    Task task = tasks[taskNumber - 1];
+                    task.markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[x] " + task.getDescription());
+                } else {
+                    System.out.println("Invalid task number. Please provide a valid task number.");
+                }
+                continue;
+            }
+            Task t = new Task(input);
+            tasks[counter] = t;
             counter++;
         }
     }
 }
+
