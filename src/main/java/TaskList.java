@@ -13,10 +13,10 @@ public class TaskList {
         System.out.println("____________________________________________________________");
     }
 
-    public void splitTask(String task) {
+    public void splitTask(String task) throws ChatBotException {
         String[] splitTask = task.split(" ", 2);
         if (splitTask.length <= 1) {
-            System.out.println("Oops! You have not entered a task");
+            throw new ChatBotException("Oops! You have not entered a task");
         }
         String taskType = splitTask[0];
         String taskName = splitTask[1];
@@ -29,7 +29,7 @@ public class TaskList {
         if (taskType.equalsIgnoreCase("deadline")) {
             String[] splitDeadline = taskName.split("/by");
             if (splitDeadline.length <= 1) {
-                System.out.println("Oops! Please enter the date/day in this format: '/by date/day '");
+                throw new ChatBotException("Oops! Please enter the date/day in this format: '/by date/day '");
             }
             String action = splitDeadline[0];
             String due = splitDeadline[1];
@@ -40,8 +40,8 @@ public class TaskList {
         if (taskType.equalsIgnoreCase("event")) {
             String[] splitEvent = taskName.split("/from | /to");
             if (splitEvent.length <= 2) {
-                System.out.println("Oops! Please enter the date/day/time in this format: '/from date/day/time " +
-                        "/to date/day/time'");
+                throw new ChatBotException("Oops! Please enter the date/day/time in this format:" +
+                        " '/from date/day/time " + "/to date/day/time'");
             }
             String eventName = splitEvent[0];
             String eventStart = splitEvent[1];
@@ -49,21 +49,24 @@ public class TaskList {
             this.tasks.add(new Event(eventName, eventStart, eventEnd));
             return;
         }
-        System.out.println("Oops! Please enter task type of 'Todo/Event/Deadline");
+        throw new ChatBotException("Oops! Please enter task type of 'Todo/Event/Deadline");
     }
 
-    public void addTask(String task) {
+    public void addTask(String task) throws ChatBotException {
         if (this.tasks.size() < MAX_TASKS) {
-            splitTask(task);
-            printHorizontalLine();
-            System.out.println("Got it. I've added this task:");
-            System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
-            System.out.println("Now you have " + this.tasks.size() +  " task" +
-                            (this.tasks.size() == 1 ? "" : "s") + " in the list");
-            printHorizontalLine();
+            try {
+                splitTask(task);
+                printHorizontalLine();
+                System.out.println("Got it. I've added this task:");
+                System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
+                System.out.println("Now you have " + this.tasks.size() + " task" +
+                        (this.tasks.size() == 1 ? "" : "s") + " in the list");
+                printHorizontalLine();
+            } catch (ChatBotException e) {
+                System.out.println(e.getMessage());
+            }
         } else {
-            System.out.println("Oops! The task list is full.");
-            printHorizontalLine();
+            throw new ChatBotException("Oops! The task list is full.");
         }
     }
 

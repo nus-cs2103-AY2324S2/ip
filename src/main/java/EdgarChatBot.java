@@ -26,6 +26,7 @@ public class EdgarChatBot {
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
+    try {
         while (true) {
             userInput = scanner.nextLine();
             String[] splitInput = userInput.split(" ", 2);
@@ -53,6 +54,9 @@ public class EdgarChatBot {
 
             this.taskList.addTask(userInput);
         }
+    } catch (ChatBotException e) {
+        System.out.println(e.getMessage());
+    }
 
         scanner.close();
     }
