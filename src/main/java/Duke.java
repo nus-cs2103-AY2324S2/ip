@@ -20,12 +20,11 @@ public class Duke {
         while (true) {
             String task = inputReader.nextLine();
             String[] splitedTask = task.split(" ");
-            Task newTask = new Task(task);
 
-            String choice = splitedTask[0];
+            String taskType = splitedTask[0];
             boolean isEnd = false;
 
-            switch (choice) {
+            switch (taskType) {
                 case "bye": {
                     isEnd = true;
                     break;
@@ -44,9 +43,39 @@ public class Duke {
                     ui.mark(storage.getItem(Integer.parseInt(splitedTask[1]) - 1));
                     break;
                 }
-                default: {
+                case "todo": {
+                    Task newTask = new Todo(task);
                     storage.add(newTask);
-                    ui.add(newTask);
+                    ui.add(newTask, storage);
+                    break;
+                }
+                case "deadline": {
+                    // Find the keyword /by, and form description and due date
+                    String[] splitedBy = task.split(" /by ");
+                    String description = splitedBy[0].substring(9);
+
+                    // Create deadline task
+                    Task newTask = new Deadline(description, splitedBy[1]);
+                    storage.add(newTask);
+                    ui.add(newTask, storage);
+                    break;
+                }
+                case "event": {
+                    // Find the keyword /from and /to, and form description, from, and to
+                    String[] splitedFrom = task.split(" /from ");
+                    String description = splitedFrom[0].substring(6);
+                    String[] splitedTo = splitedFrom[1].split(" /to ");
+
+                    // Create event task
+                    Task newTask = new Event(description, splitedTo[0], splitedTo[1]);
+                    storage.add(newTask);
+                    ui.add(newTask, storage);
+                    break;
+                }
+                default: {
+                    Task newTask = new Task(task);
+                    storage.add(newTask);
+                    ui.add(newTask, storage);
                 }
             }
 
