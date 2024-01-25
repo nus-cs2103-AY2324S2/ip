@@ -29,116 +29,19 @@ public class Duke {
             if (input.equalsIgnoreCase("bye")) {
                 end();
             } else if (input.equalsIgnoreCase("list")) {
-                if (inputArr.size() == 0) {
-                    taskList.printList();
-                } else {
-                    throw new DukeException("Additional inputs have been detected.\nPlease only type 'list' to view your list.");
-                }
+                printList(inputArr);
             } else if (input.equalsIgnoreCase("mark")) {
-                if (taskList.getTaskCount() == 0) {
-                    throw new DukeException("There are currently no tasks to be marked.");
-                } else {
-                    if (inputArr.size() == 0) {
-                        throw new DukeException("Please enter a task number.");
-                    } else {
-                        int taskNumber = Integer.parseInt(inputArr.get(0));
-                        if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
-                            throw new DukeException("Please enter a valid task number.");
-                        } else {
-                            Task task = taskList.getTaskByNumber(taskNumber);
-                            task.markAsDone();
-                            System.out.println("The following task has been marked.");
-                            System.out.println("→ " + task);
-                        }
-                    }
-                }
+                markTask(inputArr);
             } else if (input.equalsIgnoreCase("unmark")) {
-                if (taskList.getTaskCount() == 0) {
-                    throw new DukeException("There are currently no tasks to be unmarked.");
-                } else {
-                    if (inputArr.size() == 0) {
-                        throw new DukeException("Please enter a task number.");
-                    } else {
-                        int taskNumber = Integer.parseInt(inputArr.get(0));
-                        if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
-                            throw new DukeException("Please enter a valid task number.");
-                        } else {
-                            Task task = taskList.getTaskByNumber(taskNumber);
-                            task.markAsNotDone();
-                            System.out.println("The following task has not been unmarked.");
-                            System.out.println("→ " + task);
-                        }
-                    }
-                }
+                unmarkTask(inputArr);
             } else if (input.equalsIgnoreCase("todo")) {
-                if (inputArr.size() == 0) {
-                    throw new DukeException("The task title is missing.\nPlease use the following format: todo [task title]");
-                } else {
-                    String taskName = String.join(" ", inputArr);
-                    ToDo newTask = new ToDo(taskName);
-                    taskList.addTask(newTask);
-                    System.out.println("The following task has been added:");
-                    System.out.println("→ " + newTask);
-                    System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
-                }
+                addToDo(inputArr);
             } else if (input.equalsIgnoreCase("deadline")) {
-                if (inputArr.size() == 0 || (inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()).size() == 0 && inputArr.subList(0, inputArr.indexOf("/by")).size() == 0)) {
-                    throw new DukeException("The task title and date time for the task is missing.\nPlease use the following format: deadline [task title] /by [datetime]");
-                } else if (!inputArr.contains("/by") || inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()).size() == 0) {
-                    throw new DukeException("The date time for the task is not found.\nPlease use the following format: deadline [task title] /by [datetime]");
-                } else if (inputArr.subList(0, inputArr.indexOf("/by")).size() == 0) {
-                    throw new DukeException("The task title is missing.\nPlease use the following format: deadline [task title] /by [datetime]");
-                } else {
-                    String taskName = String.join(" ", inputArr.subList(0, inputArr.indexOf("/by")));
-                    String dateTime = String.join(" ", inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()));
-                    Deadline newTask = new Deadline(taskName, dateTime);
-                    taskList.addTask(newTask);
-                    System.out.println("The following task has been added:");
-                    System.out.println("→ " + newTask);
-                    System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
-                }
+                addDeadline(inputArr);
             } else if (input.equalsIgnoreCase("event")) {
-                if (inputArr.size() == 0) {
-                    throw new DukeException("The task title, start and end date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-                } else if (!inputArr.contains("/from") && !inputArr.contains("/to")) {
-                    throw new DukeException("The date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-                } else if (inputArr.contains("/from") && inputArr.contains("/to") && (inputArr.subList(0, inputArr.indexOf("/from")).size() == 0 && inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()).size() == 0 && inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")).size() == 0)) {
-                    throw new DukeException("The task title, start and end date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-                } else if (!inputArr.contains("/to") || inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()).size() == 0) {
-                    throw new DukeException("The date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-                } else if (!inputArr.contains("/from") || inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")).size() == 0) {
-                    throw new DukeException("The date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-                } else if (inputArr.subList(0, inputArr.indexOf("/from")).size() == 0) {
-                    throw new DukeException("The task title is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-                } else {
-                    String taskName = String.join(" ", inputArr.subList(0, inputArr.indexOf("/from")));
-                    String startDateTime = String.join(" ", inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")));
-                    String endDateTime = String.join(" ", inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()));
-                    Event newTask = new Event(taskName, startDateTime, endDateTime);
-                    taskList.addTask(newTask);
-                    System.out.println("The following task has been added:");
-                    System.out.println("→ " + newTask);
-                    System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
-                }
+                addEvent(inputArr);
             } else if (input.equalsIgnoreCase("delete")) {
-                if (taskList.getTaskCount() == 0) {
-                    throw new DukeException("There are currently no tasks to be deleted.");
-                } else {
-                    if (inputArr.size() == 0) {
-                        throw new DukeException("Please enter a task number.");
-                    } else {
-                        int taskNumber = Integer.parseInt(inputArr.get(0));
-                        if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
-                            throw new DukeException("Please enter a valid task number.");
-                        } else {
-                            Task task = taskList.getTaskByNumber(taskNumber);
-                            taskList.deleteTask(task);
-                            System.out.println("The following task has been deleted.");
-                            System.out.println("→ " + task);
-                            System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
-                        }
-                    }
-                }
+                deleteTask(inputArr);
             } else {
                 System.out.println("I'm sorry, I didn't quite understand that.");
             }
@@ -160,6 +63,131 @@ public class Duke {
         System.out.println(FAREWELL);
         System.out.println(DIVIDER);
         System.exit(0);
+    }
+
+    private void printList(ArrayList<String> inputArr) throws DukeException {
+        if (inputArr.size() == 0) {
+            taskList.printList();
+        } else {
+            throw new DukeException("Additional inputs have been detected.\nPlease only type 'list' to view your list.");
+        }
+    }
+
+    private void markTask(ArrayList<String> inputArr) throws DukeException {
+        if (taskList.getTaskCount() == 0) {
+            throw new DukeException("There are currently no tasks to be marked.");
+        } else {
+            if (inputArr.size() == 0) {
+                throw new DukeException("Please enter a task number.");
+            } else {
+                int taskNumber = Integer.parseInt(inputArr.get(0));
+                if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
+                    throw new DukeException("Please enter a valid task number.");
+                } else {
+                    Task task = taskList.getTaskByNumber(taskNumber);
+                    task.markAsDone();
+                    System.out.println("The following task has been marked.");
+                    System.out.println("→ " + task);
+                }
+            }
+        }
+    }
+
+    private void unmarkTask(ArrayList<String> inputArr) throws DukeException {
+        if (taskList.getTaskCount() == 0) {
+            throw new DukeException("There are currently no tasks to be unmarked.");
+        } else {
+            if (inputArr.size() == 0) {
+                throw new DukeException("Please enter a task number.");
+            } else {
+                int taskNumber = Integer.parseInt(inputArr.get(0));
+                if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
+                    throw new DukeException("Please enter a valid task number.");
+                } else {
+                    Task task = taskList.getTaskByNumber(taskNumber);
+                    task.markAsNotDone();
+                    System.out.println("The following task has not been unmarked.");
+                    System.out.println("→ " + task);
+                }
+            }
+        }
+    }
+
+    private void addToDo(ArrayList<String> inputArr) throws DukeException {
+        if (inputArr.size() == 0) {
+            throw new DukeException("The task title is missing.\nPlease use the following format: todo [task title]");
+        } else {
+            String taskName = String.join(" ", inputArr);
+            ToDo newTask = new ToDo(taskName);
+            taskList.addTask(newTask);
+            System.out.println("The following task has been added:");
+            System.out.println("→ " + newTask);
+            System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+        }
+    }
+
+    private void addDeadline(ArrayList<String> inputArr) throws DukeException {
+        if (inputArr.size() == 0 || (inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()).size() == 0 && inputArr.subList(0, inputArr.indexOf("/by")).size() == 0)) {
+            throw new DukeException("The task title and date time for the task is missing.\nPlease use the following format: deadline [task title] /by [datetime]");
+        } else if (!inputArr.contains("/by") || inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()).size() == 0) {
+            throw new DukeException("The date time for the task is not found.\nPlease use the following format: deadline [task title] /by [datetime]");
+        } else if (inputArr.subList(0, inputArr.indexOf("/by")).size() == 0) {
+            throw new DukeException("The task title is missing.\nPlease use the following format: deadline [task title] /by [datetime]");
+        } else {
+            String taskName = String.join(" ", inputArr.subList(0, inputArr.indexOf("/by")));
+            String dateTime = String.join(" ", inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()));
+            Deadline newTask = new Deadline(taskName, dateTime);
+            taskList.addTask(newTask);
+            System.out.println("The following task has been added:");
+            System.out.println("→ " + newTask);
+            System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+        }
+    }
+
+    private void addEvent(ArrayList<String> inputArr) throws DukeException {
+        if (inputArr.size() == 0) {
+            throw new DukeException("The task title, start and end date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+        } else if (!inputArr.contains("/from") && !inputArr.contains("/to")) {
+            throw new DukeException("The date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+        } else if (inputArr.contains("/from") && inputArr.contains("/to") && (inputArr.subList(0, inputArr.indexOf("/from")).size() == 0 && inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()).size() == 0 && inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")).size() == 0)) {
+            throw new DukeException("The task title, start and end date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+        } else if (!inputArr.contains("/to") || inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()).size() == 0) {
+            throw new DukeException("The date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+        } else if (!inputArr.contains("/from") || inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")).size() == 0) {
+            throw new DukeException("The date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+        } else if (inputArr.subList(0, inputArr.indexOf("/from")).size() == 0) {
+            throw new DukeException("The task title is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+        } else {
+            String taskName = String.join(" ", inputArr.subList(0, inputArr.indexOf("/from")));
+            String startDateTime = String.join(" ", inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")));
+            String endDateTime = String.join(" ", inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()));
+            Event newTask = new Event(taskName, startDateTime, endDateTime);
+            taskList.addTask(newTask);
+            System.out.println("The following task has been added:");
+            System.out.println("→ " + newTask);
+            System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+        }
+    }
+
+    private void deleteTask(ArrayList<String> inputArr) throws DukeException {
+        if (taskList.getTaskCount() == 0) {
+            throw new DukeException("There are currently no tasks to be deleted.");
+        } else {
+            if (inputArr.size() == 0) {
+                throw new DukeException("Please enter a task number.");
+            } else {
+                int taskNumber = Integer.parseInt(inputArr.get(0));
+                if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
+                    throw new DukeException("Please enter a valid task number.");
+                } else {
+                    Task task = taskList.getTaskByNumber(taskNumber);
+                    taskList.deleteTask(task);
+                    System.out.println("The following task has been deleted.");
+                    System.out.println("→ " + task);
+                    System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+                }
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
