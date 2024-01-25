@@ -18,8 +18,16 @@ public class Duke {
         taskList = new ArrayList<>();
 
         // start
-        printWithSolidLineBreak(START_MESSAGE);
+        printStartMessage();
 
+        // Run main functionality of ByteBuddy
+        runByteBuddy(sc, taskList);
+
+        // bye
+        printByeMessage();
+    }
+
+    public static void runByteBuddy(Scanner sc, ArrayList<Task> taskList) throws DukeException {
         // repeating user commands
         label:
         while (true) {
@@ -60,9 +68,6 @@ public class Duke {
                 printWithSolidLineBreak("Invalid task number format! Please enter a valid number.");
             }
         }
-
-        // bye
-        printWithSolidLineBreak(BYE_MESSAGE);
     }
 
     public static List<String> splitStringWithTrim(String info, String separator) {
@@ -129,6 +134,14 @@ public class Duke {
         System.out.println("\t" + solidLineBreak);
         System.out.println("\t " + s);
         System.out.println("\t" + solidLineBreak);
+    }
+
+    public static void printStartMessage() {
+        printWithSolidLineBreak(START_MESSAGE);
+    }
+
+    public static void printByeMessage() {
+        printWithSolidLineBreak(BYE_MESSAGE);
     }
 
     public static void printTaskAddedWithSolidLineBreak(Task task) {
