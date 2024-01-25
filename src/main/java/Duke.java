@@ -3,6 +3,13 @@ import java.util.List;
 import java.util.Scanner;
 public class Duke {
 
+    public static void addedTaskPrinter(Task task, int size, String divider) {
+        System.out.println(divider);
+        System.out.println("    Got it. I've added this task: ");
+        task.taskPrinter();
+        System.out.println("    Now you have " + size + " tasks in the list!");
+        System.out.println(divider);
+    }
     public static void commandHandler(String divider) {
         Scanner scanner = new Scanner(System.in);
         String outro = "Bye. Hope to see you soon!";
@@ -21,7 +28,9 @@ public class Duke {
                 isExit = true;
             } else if (command.equals("list")) {
                 if (tasks.size() == 0) {
+                    System.out.println(divider);
                     System.out.println("    Your list is empty at the moment !");
+                    System.out.println(divider);
                 } else {
                     System.out.println(divider);
                     System.out.println("    Here are the tasks in your list:");
@@ -60,13 +69,43 @@ public class Duke {
                     System.out.println("    Invalid number provided! Please give a valid index!");
                 }
             } else {
-                Task newTask = new Task(command);
-                tasks.add(newTask);
-                System.out.println(divider);
-                System.out.println("    added: " + command);
-                System.out.println(divider);
+
+                if (command.startsWith("todo ")) {
+                    String description = command.substring(5);
+
+                    Task newTask = new ToDo(description);
+                    tasks.add(newTask);
+
+                    addedTaskPrinter(newTask, tasks.size(), divider);
+                }
+
+                if (command.startsWith("deadline ")) {
+                    int byIndex = command.indexOf("/by");
+                    String description = command.substring(9, byIndex);
+                    String deadline = command.substring(byIndex+4).trim();
+
+                    Task newTask = new Deadline(description, deadline);
+                    tasks.add(newTask);
+
+                    addedTaskPrinter(newTask, tasks.size(), divider);
+                }
+
+                if (command.startsWith("event ")) {
+                    int fromIndex = command.indexOf("/from");
+                    int toIndex = command.indexOf("/to");
+
+                    String description = command.substring(6, fromIndex);
+                    String from = command.substring(fromIndex + 6, toIndex);
+                    String to = command.substring(toIndex + 4);
+
+                    Task newTask = new Event(description, from, to);
+                    tasks.add(newTask);
+
+                    addedTaskPrinter(newTask, tasks.size(), divider);
+                }
             }
         }
+
     }
 
     public static void introPrinter(String botName, String divider) {
