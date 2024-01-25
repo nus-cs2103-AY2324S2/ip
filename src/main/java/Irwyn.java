@@ -77,6 +77,14 @@ public class Irwyn {
                             + "  " + list.get(list.size() - 1) + "\n"
                             + "Now you have " + list.size() + " tasks in the list.\n"
                             + linebreak);
+                } else if (userInput.startsWith("delete")) {
+                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    Task removedTask = list.remove(index);
+                    System.out.println(linebreak
+                            + "Noted. I've removed this task:\n"
+                            + "  " + removedTask + "\n"
+                            + "Now you have " + list.size() + " tasks in the list.\n"
+                            + linebreak);
                 } else {
                     throw new TaskException();
                 }
