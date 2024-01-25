@@ -47,6 +47,8 @@ public class CommandParser {
                     return new ByeCommand();
                 case "unmark":
                     return new UnmarkCommand(arguments);
+                case "delete":
+                    return new DeleteCommand(arguments);
                 case "todo":
                     if (taskDescription.isEmpty()) {
                         throw new CoatException("Error: Todo description cannot be empty.");
