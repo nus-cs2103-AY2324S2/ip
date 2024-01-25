@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     private static final String NAME = "Fatnom";
     private static final int lineLength = 60;
@@ -16,9 +18,20 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String welcomeMessage = "Hello! I'm " + NAME + "\nWhat can I do for you?";
+        Scanner sc = new Scanner(System.in);
+
+        String welcomeMessage = "hello! i'm " + NAME + ", your personal chatbot!\n" + "how can i help you today?";
         Duke.printMessage(welcomeMessage);
-        System.out.println("Bye. Hope to see you again soon!");
-        Duke.printLine();
+
+        while (true) {
+            String input = sc.nextLine();
+            if (input.equalsIgnoreCase("bye")) {
+                Duke.printMessage("bye! come visit me again!");
+                break;
+            } else {
+                Duke.printMessage(input);
+            }
+        }
+        sc.close();
     }
 }
