@@ -3,22 +3,35 @@ import java.util.List;
 
 public class Todo {
 
-    private List<String> list;
+    private List<Task> list;
 
     public Todo() {
         this.list = new ArrayList<>(100);
     }
 
     public String add(String item) {
-        this.list.add(item);
+        Task task = new Task(item);
+        this.list.add(task);
         return "added: " + item;
     }
 
     public String[] getList() {
-        List<String> list = this.list;
-        for (int i = 0; i < list.size(); i++) {
-            list.set(i, i+1 + ". " + list.get(i));
+        String[] output = new String[this.list.size()];
+        for (int i = 0; i < this.list.size(); i++) {
+            output[i] = i+1 + ". " + this.list.get(i);
         }
-        return list.toArray(new String[0]);
+        return output;
+    }
+
+    public String[] mark(int i) {
+        Task task = this.list.get(i-1);
+        String description = task.markAsDone();
+        return new String[]{"Nice! I've marked this task as done:", "  " + description};
+    }
+
+    public String[] unmark(int i) {
+        Task task = this.list.get(i-1);
+        String description = task.markAsNotDone();
+        return new String[]{"OK, I've marked this task as not done yet:", "  " + description};
     }
 }

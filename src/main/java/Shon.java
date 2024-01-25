@@ -11,11 +11,23 @@ public class Shon {
         print("Hello! I'm Shon", "What can I do for you?");
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                print(todo.getList());
-            } else {
-                print(todo.add(input));
+
+            String[] s = input.split(" ", 2);
+            String action = s[0];
+            switch (action) {
+                case "list":
+                    print(todo.getList());
+                    break;
+                case "mark":
+                    print(todo.mark(Integer.parseInt(s[1])));
+                    break;
+                case "unmark":
+                    print(todo.unmark(Integer.parseInt(s[1])));
+                    break;
+                default:
+                    print(todo.add(input));
             }
+
             input = scanner.nextLine();
         }
         print("Bye. Hope to see you again soon!");
