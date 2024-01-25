@@ -1,13 +1,26 @@
 public class Items {
     private int item_count = 0;
-    private String[] item_list = new String[100];
+    private Task[] item_list = new Task[100];
 
     public Items() {}
 
-    public void add(String item) {
+    public void add(Task item) {
         this.item_list[item_count] = item;
         item_count += 1;
-        System.out.println(new Msg("added: " + item));
+        // sends msg to user to acknowledge its been added to list
+        System.out.println(new Msg("added: " + item.description));
+    }
+
+    public void mark(int i) {
+        this.item_list[i - 1].markAsDone();
+        System.out.println(Std_msgs.MARK);
+        System.out.println(new Msg(this.item_list[i - 1].toString()));
+    }
+
+    public void unmark(int i) {
+        this.item_list[i - 1].unMarkAsDone();
+        System.out.println(Std_msgs.UNMARK);
+        System.out.println(new Msg(this.item_list[i - 1].toString()));
     }
 
     @Override

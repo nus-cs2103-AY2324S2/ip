@@ -10,7 +10,9 @@ public enum Std_msgs {
             + " /        \\|  ||  | \\/  |    `   \\  |  /    <\\  ___/ \n"
             + "/_______  /|__||__|    /_______  /____/|__|_ \\\\___  >\n"
             + "        \\/                     \\/           \\/    \\/ \n")),
-    DIVIDER(new Msg(""));
+    DIVIDER(new Msg("")),
+    MARK(new Msg("Nice! I've marked this task as done:", false)),
+    UNMARK(new Msg("OK, I've marked this task as not done yet:", false));
     private final Msg msg;
     Std_msgs(Msg msg){
         this.msg = msg;

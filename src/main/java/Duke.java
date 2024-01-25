@@ -16,10 +16,15 @@ public class Duke {
                 System.out.println(Std_msgs.BYE);
                 break;
             } else if (userInput.equals("list")) {
-                System.out.println(new Msg(items.toString()));
+                // unsure if i should extend Items as a Msg
+                System.out.println(new Msg(Duke.items.toString()));
+                // add new Task
+            } else if (userInput.length() > 6 && userInput.substring(0, 6).equals("unmark")) {
+                Duke.items.unmark(Integer.parseInt(userInput.substring(7)));
+            } else if (userInput.length() > 4 && userInput.substring(0, 4).equals("mark")) {
+                Duke.items.mark(Integer.parseInt(userInput.substring(5)));
             } else {
-                // add list
-                Duke.items.add(userInput);
+                Duke.items.add(new Task(userInput));
             }
         }
     }
