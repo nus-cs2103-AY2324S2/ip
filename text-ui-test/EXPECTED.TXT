@@ -28,5 +28,5 @@
 	1.[D] [ ]  return book
 	2.[E] [X]  project meeting
 	3.[T] [ ]  borrow book
-	 Specify the type of task eg. todo, deadline or event to create a task.
+	 I'm not sure what that means. Please specify the type of task eg. todo, deadline or event to create a task.
 	Bye. Hope to see you again soon!
