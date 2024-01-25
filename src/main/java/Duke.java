@@ -10,7 +10,7 @@ public class Duke {
         Boolean isExit = false;
         String command = "";
 
-        List<String> tasks = new ArrayList<String>();
+        List<Task> tasks = new ArrayList<Task>();
 
         while (!isExit){
             command = scanner.nextLine();
@@ -19,19 +19,49 @@ public class Duke {
                 System.out.println("    "+outro);
                 System.out.println(divider);
                 isExit = true;
-                break;
             } else if (command.equals("list")) {
                 if (tasks.size() == 0) {
                     System.out.println("    Your list is empty at the moment !");
                 } else {
                     System.out.println(divider);
-                    for (String task : tasks) {
-                        System.out.println("    " + (tasks.indexOf(task) + 1) + ". " + task);
+                    System.out.println("    Here are the tasks in your list:");
+                    for (Task task : tasks) {
+                        int index = tasks.indexOf(task);
+                        task.taskPrinter(index);
                     }
                     System.out.println(divider);
                 }
+            } else if (command.startsWith("mark ")) {
+                // retrieve the index
+                int index = Integer.parseInt(command.substring(5)) - 1;
+                if (index >= 0 && index <= tasks.size()) {
+                    Task curr = tasks.get(index);
+                    curr.markAsDone();
+
+                    System.out.println(divider);
+                    System.out.println("    Nice! I've marked this task as done: ");
+                    curr.taskPrinter(index);
+                    System.out.println(divider);
+                } else {
+                    System.out.println("    Invalid number provided! Please give a valid index!");
+                }
+            } else if (command.startsWith("unmark ")) {
+                // retrieve the index
+                int index = Integer.parseInt(command.substring(7)) - 1;
+                if (index >= 0 && index <= tasks.size()) {
+                    Task curr = tasks.get(index);
+                    curr.markAsUndone();
+
+                    System.out.println(divider);
+                    System.out.println("    OK, I've marked this task as not done yet: ");
+                    curr.taskPrinter(index);
+                    System.out.println(divider);
+                } else {
+                    System.out.println("    Invalid number provided! Please give a valid index!");
+                }
             } else {
-                tasks.add(command);
+                Task newTask = new Task(command);
+                tasks.add(newTask);
                 System.out.println(divider);
                 System.out.println("    added: " + command);
                 System.out.println(divider);
