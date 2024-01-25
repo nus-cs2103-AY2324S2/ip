@@ -50,6 +50,9 @@ public class Shodan {
                     case "event":
                         addTask(tokens);
                         break;
+                    case "delete":
+                        delete(tokens);
+                        break;
                     default:
                         System.out.println("Command not recognised.");
                         break;
@@ -75,17 +78,39 @@ public class Shodan {
         } else if (tokens.size() != 2) {
             throw new ShodanException("Too many arguments. Please specify the task number, for example: \n\t mark 1");
         }
-        int taskNum = Integer.parseInt(tokens.get(1));
-        if (taskNum < 1 || taskNum > taskList.size()) {
-            throw new ShodanException("Couldn't find task with that number. Use the list command to view all current tasks.");
+        try {
+            int taskNum = Integer.parseInt(tokens.get(1));
+            if (taskNum < 1 || taskNum > taskList.size()) {
+                throw new ShodanException("Couldn't find task with that number. Use the list command to view all current tasks.");
+            }
+            Task selectedTask = taskList.get(taskNum - 1);
+            if (done) {
+                selectedTask.done();
+                System.out.println("Task set to done:\n\t" + selectedTask);
+            } else {
+                selectedTask.undone();
+                System.out.println("Task has been set as not done yet:\n\t" + selectedTask);
+            }
+        } catch (NumberFormatException e) {
+            throw new ShodanException("Input argument not recognised, please enter the task number.");
         }
-        Task selectedTask = taskList.get(taskNum - 1);
-        if (done) {
-            selectedTask.done();
-            System.out.println("Task set to done: " + selectedTask);
-        } else {
-            selectedTask.undone();
-            System.out.println("Task has been set as not done yet: " + selectedTask);
+    }
+    public static void delete(List<String> tokens) throws ShodanException {
+        if (tokens.size() == 1) {
+            throw new ShodanException("No arguments provided. Please specify the task number, for example: \n\tdelete 1");
+        } else if (tokens.size() != 2) {
+            throw new ShodanException("Too many arguments. Please specify the task number, for example: \n\t delete 1");
+        }
+        try {
+            int taskNum = Integer.parseInt(tokens.get(1));
+            if (taskNum < 1 || taskNum > taskList.size()) {
+                throw new ShodanException("Couldn't find task with that number. Use the list command to view all current tasks.");
+            }
+            Task selectedTask = taskList.remove(taskNum - 1);
+            System.out.println("The following task has been removed:\n\t" + selectedTask);
+            System.out.printf("There are now %d tasks remaining in the list.\n", taskList.size());
+        } catch (NumberFormatException e) {
+            throw new ShodanException("Input argument not recognised, please enter the task number.");
         }
     }
 
@@ -159,7 +184,7 @@ public class Shodan {
                 newTask = new Event(taskName.toString(), startDate.toString(), endDate.toString());
                 break;
         }
-        if (taskName.toString().isBlank()) {
+        if (newTask.getName().isBlank()) {
             throw new ShodanException("You need to specify a name for your task.");
         }
         taskList.add(newTask);

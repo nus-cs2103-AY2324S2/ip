@@ -19,4 +19,8 @@ public abstract class Task {
     public void undone() {
         this.isDone = false;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }
