@@ -13,7 +13,7 @@ public class ItemList {
     public void access(String accessCommand) {
         try {
             if (accessCommand.equals("list")) {
-                this.printItems();
+                printItems();
                 return;
             }
             if (accessCommand.equals("mark") || accessCommand.equals("unmark")) {
@@ -22,7 +22,7 @@ public class ItemList {
             if (accessCommand.indexOf("mark ") == 0) {
                 int itemNumber = Integer.parseInt(accessCommand.substring(5));
                 if (1 <= itemNumber && itemNumber <= items.size()) {
-                    this.markItemAsDone(itemNumber);
+                    markItemAsDone(itemNumber);
                     return;
                 }
                 throw new IllegalArgumentException("Invalid item number!");
@@ -30,14 +30,22 @@ public class ItemList {
             if (accessCommand.indexOf("unmark ") == 0) {
                 int itemNumber = Integer.parseInt(accessCommand.substring(7));
                 if (1 <= itemNumber && itemNumber <= items.size()) {
-                    this.markItemAsUndone(itemNumber);
+                    markItemAsUndone(itemNumber);
                     return;
                 }
                 throw new IllegalArgumentException("Invalid item number!");
             }
-            this.addItem(accessCommand);
+            if (accessCommand.equals("delete")) {
+                throw new IllegalArgumentException("You need to choose an item number to delete!");
+            }
+            if (accessCommand.indexOf("delete ") == 0) {
+                int itemNumber = Integer.parseInt(accessCommand.substring(7));
+                deleteItem(itemNumber);
+                return;
+            }
+            addItem(accessCommand);
         } catch (NumberFormatException n) {
-            System.out.println(CommandHandler.indentLine("Zzz... The target item to unmark must be an integer! Nice try, you won't catch me sleeping :p"));
+            System.out.println(CommandHandler.indentLine("Zzz... The target item must be an integer! Nice try, you won't catch me sleeping :p"));
         } catch (IllegalArgumentException i) {
             String errorMessage = CommandHandler.indentLine(i.getMessage());
             System.out.println(errorMessage + " Nice try, you won't catch me sleeping :p");
@@ -89,6 +97,21 @@ public class ItemList {
         }
         items.add(createdItem);
         System.out.println(CommandHandler.indentLine("added: " + createdItem.getDescription()));
+    }
+
+    /**
+     * Deletes an item from this list.
+     *
+     * @param itemNumber Item number to be deleted.
+     */
+    public void deleteItem(int itemNumber) throws IllegalArgumentException {
+        if (itemNumber <= 0 || itemNumber > items.size()) {
+            throw new IllegalArgumentException("Invalid item number!");
+        }
+        Item removedItem = items.remove(itemNumber - 1);
+        System.out.println(CommandHandler.indentLine("Noted. I've removed this task:"));
+        System.out.println(CommandHandler.indentLine("  " + removedItem.getDescription()));
+        System.out.println(CommandHandler.indentLine(String.format("Now you have %d task(s) in the list.", items.size())));
     }
 
     /**
