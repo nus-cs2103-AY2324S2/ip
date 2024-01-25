@@ -11,31 +11,37 @@ public class ItemList {
      * @param accessCommand Access command given.
      */
     public void access(String accessCommand) {
-        if (accessCommand.equals("list")) {
-            this.printItems();
-            return;
-        }
-        if (accessCommand.length() >= 6 && accessCommand.substring(0, 5).equals("mark ")) {
-            try {
+        try {
+            if (accessCommand.equals("list")) {
+                this.printItems();
+                return;
+            }
+            if (accessCommand.equals("mark") || accessCommand.equals("unmark")) {
+                throw new IllegalArgumentException("You need to choose an item number to mark/unmark!");
+            }
+            if (accessCommand.indexOf("mark ") == 0) {
                 int itemNumber = Integer.parseInt(accessCommand.substring(5));
                 if (1 <= itemNumber && itemNumber <= items.size()) {
                     this.markItemAsDone(itemNumber);
                     return;
                 }
-            } catch (NumberFormatException n) {
+                throw new IllegalArgumentException("Invalid item number!");
             }
-        }
-        if (accessCommand.length() >= 8 && accessCommand.substring(0, 7).equals("unmark ")) {
-            try {
+            if (accessCommand.indexOf("unmark ") == 0) {
                 int itemNumber = Integer.parseInt(accessCommand.substring(7));
                 if (1 <= itemNumber && itemNumber <= items.size()) {
                     this.markItemAsUndone(itemNumber);
                     return;
                 }
-            } catch (NumberFormatException n) {
+                throw new IllegalArgumentException("Invalid item number!");
             }
+            this.addItem(accessCommand);
+        } catch (NumberFormatException n) {
+            System.out.println(CommandHandler.indentLine("Zzz... The target item to unmark must be an integer! Nice try, you won't catch me sleeping :p"));
+        } catch (IllegalArgumentException i) {
+            String errorMessage = CommandHandler.indentLine(i.getMessage());
+            System.out.println(errorMessage + " Nice try, you won't catch me sleeping :p");
         }
-        this.addItem(accessCommand);
     }
 
     /**
@@ -43,23 +49,43 @@ public class ItemList {
      *
      * @param item Item to be added.
      */
-    public void addItem(String item) {
+    public void addItem(String item) throws IllegalArgumentException {
         Item createdItem = null;
-        if (item.length() >= 6 && item.substring(0, 5).equals("todo ")) {
+        if (item.equals("todo") || item.equals("deadline") || item.equals("event")) {
+            throw new IllegalArgumentException("You forgot to include the description at all!");
+        }
+        boolean isToDo = item.indexOf("todo ") == 0;
+        boolean isDeadline = item.indexOf("deadline ") == 0;
+        boolean isEvent = item.indexOf("event ") == 0;
+        if (isToDo) {
             createdItem = new ToDo(item.substring(5));
-        } else if (item.length() >= 15 && item.substring(0, 9).equals("deadline ")) {
+        } else if (isDeadline) {
             int deadlineIndex = item.indexOf("/by ");
-            String description = item.substring(9, deadlineIndex);
+            if (deadlineIndex == -1) {
+                throw new IllegalArgumentException("Missing the '/by' field! Try again.");
+            }
+            String description = item.substring(9, deadlineIndex - 1);
             String givenDeadline = item.substring(deadlineIndex + 4);
             createdItem = new Deadline(description, givenDeadline);
         }
-        else if (item.length() >= 19 && item.substring(0, 6).equals("event ")) {
+        else if (isEvent) {
             int fromIndex = item.indexOf("/from ");
             int toIndex = item.indexOf("/to ");
-            String description = item.substring(6, fromIndex);
-            String start = item.substring(fromIndex + 6, toIndex);
+            if (fromIndex == -1) {
+                throw new IllegalArgumentException("Missing the '/from' field! Try again.");
+            }
+            if (toIndex == -1) {
+                throw new IllegalArgumentException("Missing the '/to' field! Try again.");
+            }
+            if (fromIndex >= toIndex) {
+                throw new IllegalArgumentException("Your '/from' field must be before your '/to' field! Try again.");
+            }
+            String description = item.substring(6, fromIndex - 1);
+            String start = item.substring(fromIndex + 6, toIndex - 1);
             String end = item.substring(toIndex + 4);
             createdItem = new Event(description, start, end);
+        } else {
+            throw new IllegalArgumentException("This is not a task!");
         }
         items.add(createdItem);
         System.out.println(CommandHandler.indentLine("added: " + createdItem.getDescription()));

@@ -4,8 +4,8 @@ public class Duke {
         // Initialise chatbot
         ItemList itemList = new ItemList();
         String name = "Sleepy";
-        String welcomeLine = "Hello! I'm " + name;
-        String questionLine = "What can I do for you?";
+        String welcomeLine = CommandHandler.indentLine("Hello! I'm " + name);
+        String questionLine = CommandHandler.indentLine("What can I do for you?");
         System.out.println(welcomeLine);
         System.out.println(questionLine);
         // Await next command from user
