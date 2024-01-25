@@ -36,6 +36,45 @@ public class Duke {
             return output;
         }
     }
+    public static class ToDo extends Task {
+        public ToDo(String description) {
+            super(description);
+        }
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+    public static class Deadline extends Task {
+
+        protected String by;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        }
+    }
+    public static class Event extends Task {
+
+        protected String from;
+        protected String to;
+
+        public Event(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to +")";
+        }
+    }
     public static void command() {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -51,8 +90,17 @@ public class Duke {
                 case "unmark":
                     unmarkList(Integer.parseInt(cmds[1]));
                     break;
+                case "todo":
+                    addTodo(input);
+                    break;
+                case "deadline":
+                    addDeadline(input);
+                    break;
+                case "event":
+                    addEvent(input);
+                    break;
                 default:
-                    addList(input);
+                    break;
             }
             input = scanner.nextLine();
         }
@@ -69,11 +117,31 @@ public class Duke {
         System.out.println("\tFarewell. Wishing for the opportunity to meet you again soon.");
         System.out.println("\t____________________________________________________________\n");
     }
-    public static void addList(String content){
-        listItems.add(new Task(content));
+    public static void addList(Task task){
+        listItems.add(task);
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tAdded: " + content);
+        System.out.println("\tI have added the following task: ");
+        System.out.println("\t   "+task);
+        System.out.println("\tNow you have " + listItems.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________\n");
+    }
+    public static void addTodo(String cmd){
+        String[] statement = cmd.split(" ", 2);
+        ToDo todo = new ToDo(statement[1]);
+        addList(todo);
+    }
+    public static void addDeadline(String cmd){
+        String[] statement1 = cmd.split(" ", 2);
+        String[] statement2 = statement1[1].split(" /by ", 2);
+        Deadline ddl = new Deadline(statement2[0], statement2[1]);
+        addList(ddl);
+    }
+    public static void addEvent(String cmd){
+        String[] statement1 = cmd.split(" ", 2);
+        String[] statement2 = statement1[1].split(" /from ", 2);
+        String[] statement3 = statement2[1].split(" /to ", 2);
+        Event event = new Event(statement2[0], statement3[0], statement3[1]);
+        addList(event);
     }
     public static void showList(){
         System.out.println("\t____________________________________________________________");
