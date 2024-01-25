@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -5,7 +7,6 @@ import java.util.Scanner;
 public class Duke {
     private Storage storage;
     private static TaskList tasks;
-    private static Duke duke;
 
     public Duke(String filePath) throws DukeException {
         storage = new Storage(filePath);
@@ -18,7 +19,7 @@ public class Duke {
     }
     public static void main(String[] args) throws IOException {
         try {
-            duke = new Duke("./data/duke.txt");
+            Duke duke = new Duke("./data/duke.txt");
         } catch (DukeException e) {
             Ui.showLoadingError();
             tasks = new TaskList();
@@ -34,7 +35,7 @@ public class Duke {
             isRunning = !message.equals("bye");
         }
 
-        Storage.saveCurrentList(tasks); // Assuming this method exists
+        Storage.saveCurrentList(tasks);
         Ui.printWithLines("Bye. Hope to see you again soon!");
         System.out.println("------------------------------------------");
     }
