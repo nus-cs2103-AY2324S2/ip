@@ -9,14 +9,14 @@ public class Coat {
 
         Scanner scanner = new Scanner(System.in);
         List<Task> tasks = new ArrayList<>();
-        Command currentCommand = null;
+        Command<List<Task>> currentCommand = null;
 
         while (true) {
             System.out.printf("\n-> ");
             String userInput = scanner.nextLine();
 
             // Parse user input
-            Command parsedCommand = CommandParser.parseInput(userInput);
+            Command<List<Task>> parsedCommand = CommandParser.parseInput(userInput);
 
             // Execute the command
             if (parsedCommand != null) {

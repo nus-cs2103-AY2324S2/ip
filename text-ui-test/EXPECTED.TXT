@@ -1,7 +1,55 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+  _____            _     _   _             _____      _   _           _
+ / ____|          | |   | | | |           / ____|    | | | |         | |
+| |     ___   __ _| |_  | |_| |__   ___  | |     __ _| |_| |__   ___ | |_
+| |    / _ \ / _` | __| | __| '_ \ / _ \ | |    / _` | __| '_ \ / _ \| __|
+| |___| (_) | (_| | |_  | |_| | | |  __/ | |___| (_| | |_| |_) | (_) | |_
+\_____/\___/ \__,_|\__|  \__|_| |_|\___| \_____|\__,_|\__|_.__/ \___/ \__|
+
+                        _    _      _ _       _
+                       | |  | |    | | |     | |         /\_/\  meow
+  ___  __ _ _   _ ___  | |__| | ___| | | ___ | |        ( o.o )
+ / __|/ _` | | | / __| |  __  |/ _ \ | |/ _ \| |         > ^ <
+ \__ \ (_| | |_| \__ \ | |  | |  __/ | | (_) |_|
+ |___/\__,_|\__, |___/ |_|  |_|\___|_|_|\___/(_)
+             __/ |
+            |___/
+
+(^-^)~~   What are we doing today?
+
+-> sry idk what u meant
+
+->
+(^-^)~~
+Got it! I've added this task:
+   [T][ ] borrow book
+
+You have 1 task(s) in the list.
+
+->
+(^-^)~~   Here's your list!
+1. [T][ ] borrow book
+
+->
+(^-^)~~
+Got it! I've added this task:
+   [D][ ] return book (by: Sunday)
+
+You have 2 task(s) in the list.
+
+->
+(^-^)~~
+Got it! I've added this task:
+   [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+You have 3 task(s) in the list.
+
+->
+(^-^)~~
+Got it! I've added this task:
+   [D][ ] do homework (by: no idea :-p)
+
+You have 4 task(s) in the list.
+
+->
+(^-^)~~   Aw, see you soon!
 

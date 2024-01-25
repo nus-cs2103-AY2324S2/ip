@@ -1,11 +1,12 @@
 import java.util.List;
 
-public class UnknownCommand extends Command<Void> {
+public class UnknownCommand extends Command<List<Task>> {
     public UnknownCommand() {
         super("", List.of());
     }
 
-    Void execute(List<Task> tasks) {
+    List<Task> execute(List<Task> tasks) {
+        // To-do: UI
         System.out.printf("sry idk what u meant\n");
         return null;
     }
