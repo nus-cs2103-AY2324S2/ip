@@ -22,8 +22,9 @@ public class Panda {
     }
 
     private static void printTlist() {
+        System.out.println("Here are the tasks in your list:");
         for(int i = 0; i < idx; i++) {
-            System.out.println((i + 1) + ". " + tlist[i]);
+            System.out.println((i + 1) + "." + tlist[i]);
         }
     }
 
