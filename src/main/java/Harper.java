@@ -34,14 +34,14 @@ public class Harper {
     /**
      * Lists out the tasks in the list.
      */
-    public void list() {
+    public void listTasks() {
         System.out.println(line);
         if (this.list.isEmpty()) {
             System.out.println("Nothing is in your list!");
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < this.list.size(); i++) {
-                System.out.println(i + 1 + ". " + this.list.get(i).getStatus());
+                System.out.println(i + 1 + ". " + this.list.get(i).toString());
             }
         }
         System.out.println(line);
@@ -55,7 +55,58 @@ public class Harper {
     public void addTask(String input) {
         Task newTask = new Task(input);
         this.list.add(newTask);
-        System.out.println(line + "\n" + "added: " + newTask.getStatus() + "\n" + line);
+        System.out.println(line + "\n" + "added: " + newTask.toString() + "\n" + line);
+    }
+
+    /**
+     * Creates a todo task with the description and adds it into the list.
+     *
+     * @param description Description of the task.
+     */
+    public void addToDo(String description) {
+        Task newToDo = new ToDo(description);
+        this.list.add(newToDo);
+        int listSize = this.list.size();
+        System.out.println(line + "\n"
+                + "Got it. I've added this task into your list:\n"
+                + newToDo.toString() + "\n"
+                + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ") + "in the list.\n"
+                + line);
+    }
+
+    /**
+     * Creates a deadline task with the description and deadline and adds it into the list.
+     *
+     * @param description Description of the task.
+     * @param by Deadline of the task.
+     */
+    public void addDeadline(String description, String by) {
+        Task newDeadline = new Deadline(description, by);
+        this.list.add(newDeadline);
+        int listSize = this.list.size();
+        System.out.println(line + "\n"
+                + "Got it. I've added this task into your list:\n"
+                + newDeadline.toString() + "\n"
+                + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ") + "in the list.\n"
+                + line);
+    }
+
+    /**
+     * Creates an event task with desciption, start time and end time, and adds it into the list.
+     *
+     * @param description Description of the task.
+     * @param start Start time of the task.
+     * @param end End time of the task.
+     */
+    public void addEvenet(String description, String start, String end) {
+        Task newEvent = new Event(description, start, end);
+        this.list.add(newEvent);
+        int listSize = this.list.size();
+        System.out.println(line + "\n"
+                + "Got it. I've added this task into your list:\n"
+                + newEvent.toString() + "\n"
+                + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ") + "in the list.\n"
+                + line);
     }
 
     /**
@@ -75,44 +126,120 @@ public class Harper {
             taskToMark.markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println(taskToMark.getStatus() + "\n" + line);
+        System.out.println(taskToMark.toString() + "\n" + line);
+    }
+
+    /**
+     * Informs the user that the command entered is invalid.
+     */
+    public void handleInvalidInput() {
+        System.out.println(line + "\n" + "Please enter an valid input!\n" + line);
+    }
+
+    /**
+     * Informs the user that the index entered is invalid.
+     */
+    public void handleIndexOutOfBounds() {
+        System.out.println(line + "\n" + "Index is out of bounds. Please provide a valid index!\n" + line);
+    }
+
+    /**
+     * Handles the logic when todo is entered.
+     *
+     * @param input The input of user.
+     */
+    public void handleToDO(String input) {
+        String taskDescription = input.substring("todo".length()).trim();
+        this.addToDo(taskDescription);
+    }
+
+    /**
+     * Handles the logic when deadline is entered.
+     *
+     * @param input The input of user.
+     */
+    public void handleDeadline(String input) {
+        String taskDescriptionAndDeadline = input.substring("deadline".length()).trim();
+        String[] parts = taskDescriptionAndDeadline.split("/by", 2);
+        String description = parts[0].trim();
+        String deadline = parts[1].trim();
+        this.addDeadline(description, deadline);
+    }
+
+    /**
+     * Handles the logic when event is entered.
+     *
+     * @param input The input of user.
+     */
+    public void handleEvent(String input) {
+        String taskDescriptionAndStartEnd = input.substring("event".length()).trim();
+        String[] parts = taskDescriptionAndStartEnd.split("/from", 2);
+        String description = parts[0].trim();
+        String[] startAndEnd = parts[1].trim().split("/to", 2);
+        String start = startAndEnd[0].trim();
+        String end = startAndEnd[1].trim();
+        this.addEvenet(description, start, end);
+    }
+
+    /**
+     * Handles the logic when mark or unmark is entered.
+     *
+     * @param input The input of user.
+     */
+    public void handleMarkOrUnmark(String input) {
+        String[] commands = input.split(" ", 2);
+        int taskIndex = Integer.parseInt(commands[1]) - 1;
+        this.markOrUnmark(commands[0], taskIndex);
     }
 
     /**
      * Starts the chat, reads user's input and respond to user.
      * Saves user's input and displays back when requested.
      * Marks tasks as done or not done.
+     * Add different types of tasks into the list.
      */
     public void startChat() {
         this.greet();
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             if (input.equals("bye")) {
                 this.exit();
                 scanner.close();
                 break;
             }
             if (input.equals("list")) {
-                this.list();
+                this.listTasks();
                 continue;
             }
 
-            String[] commands = input.split(" ");
-            if (commands.length == 2) {
-                try {
-                    int taskIndex = Integer.parseInt(commands[1]) - 1;
-                    if (commands[0].equals("mark") || commands[0].equals("unmark")) {
-                        this.markOrUnmark(commands[0], taskIndex);
-                    }
-                } catch (NumberFormatException e) {
-                    this.addTask(input);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(line + "\n" + "Index is out of bounds. Please provide a valid index!\n" + line);
+            try {
+                if (input.startsWith("todo ")) {
+                    this.handleToDO(input);
+                    continue;
                 }
-            } else {
-                this.addTask(input);
+                if (input.startsWith("deadline ")) {
+                    this.handleDeadline(input);
+                    continue;
+                }
+
+                if (input.startsWith("event ")) {
+                    this.handleEvent(input);
+                    continue;
+                }
+
+                if (input.startsWith("mark") || input.startsWith("unmark")) {
+                    this.handleMarkOrUnmark(input);
+                    continue;
+                }
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                this.handleInvalidInput();
+                continue;
+            } catch (IndexOutOfBoundsException e) {
+                this.handleIndexOutOfBounds();
+                continue;
             }
+            this.handleInvalidInput();
         }
     }
 }

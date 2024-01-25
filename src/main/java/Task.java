@@ -33,7 +33,8 @@ public class Task {
      *
      * @return The status icon of the task followed by its description.
      */
-    public String getStatus() {
+    @Override
+    public String toString() {
         String statusSymbol = this.isDone ? "[X]" : "[ ]";
         return statusSymbol + " " + this.description;
     }
