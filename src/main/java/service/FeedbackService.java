@@ -70,6 +70,20 @@ public class FeedbackService {
                 String[] eventValues = this.parseEventInput(cur);
                 feedback = new Feedback(false, this.taskService.addEvent(eventValues[0], eventValues[1], eventValues[2]));
                 break;
+            case DELETE:
+                if (cur.length <= 1) {
+                    throw new InvalidInputException("No TaskId detected, please provide a TaskId");
+                }
+
+                try {
+                    taskId = Integer.parseInt(cur[1]) - 1;
+                }
+                catch (NumberFormatException e) {
+                    throw new InvalidInputException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command");
+                }
+
+                feedback = new Feedback(false, this.taskService.deleteTask(taskId));
+                break;
         }
 
         return feedback;

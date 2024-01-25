@@ -5,7 +5,7 @@ public enum CommandEnum {
     LIST("list"),
     MARK("mark"),
     UNMARK("unmark"),
-//    ADD("add"),
+    DELETE("delete"),
 
     TODO("todo"),
     DEADLINE("deadline"),
