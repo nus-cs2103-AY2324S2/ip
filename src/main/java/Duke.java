@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class Aether {
+public class Duke {
 
     private static void printHorizontalLine() {
         System.out.println(" _____________________________");
@@ -14,7 +14,7 @@ public class Aether {
         System.out.println("What can I do for you?");
         System.out.println("_____________________________");
 
-//        String[] tasks = new String[100];
+
         Task[] tasks = new Task[100];
         int taskCounter = 0;
 
@@ -25,7 +25,7 @@ public class Aether {
             printHorizontalLine();
 
             if (input.equalsIgnoreCase("bye")) {
-                printHorizontalLine();
+                //printHorizontalLine();
                 System.out.println("Bye. Hope to see you again soon!");
             } else if (input.equalsIgnoreCase("list")) {
                 if (taskCounter > 0) {
@@ -91,7 +91,6 @@ public class Aether {
                 tasks[taskCounter] = new Task(input);
                 taskCounter++;
                 System.out.println("added: " + input);
-
             }
             printHorizontalLine();
 
