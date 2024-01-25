@@ -58,7 +58,7 @@ public class Duke {
                     case "todo": {
                         String[] tempArray = user_input.split(" ", 2);
                         if (tempArray.length == 1) {
-                            throw new Exception("OOPS!!! The description of a todo cannot be empty.");
+                            throw new ExceptionDuke("OOPS!!! The description of a todo cannot be empty.");
                         }
                         Task currTask = new Todo(tempArray[1]);
                         taskList.add(currTask);
@@ -102,10 +102,10 @@ public class Duke {
                     }
 
                     default: {
-                        throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                        throw new ExceptionDuke("OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
                 }
-            } catch (Exception e) {
+            } catch (ExceptionDuke e) {
                 System.out.println(lineBreak + '\n' +
                         e.getMessage() + '\n' +
                         lineBreak);
