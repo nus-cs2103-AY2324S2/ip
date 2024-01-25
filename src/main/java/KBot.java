@@ -20,7 +20,11 @@ public class KBot {
      * @param info The information from userInput
      */
     private static void store(String userInput, String ins) {
-        taskManager.addTask(userInput, ins);
+        try {
+            taskManager.addTask(userInput, ins);
+        } catch (KException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     /**
@@ -36,7 +40,11 @@ public class KBot {
      * @param index Index of Task to be marked in the TASKS ArrayList.
      */
     private static void mark(int index) {
-        taskManager.markTask(index);
+        try {
+            taskManager.markTask(index);
+        } catch (KException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -45,10 +53,14 @@ public class KBot {
      * @param index Index of Task to be marked in the TASKS ArrayList.
      */
     private static void unmark(int index) {
-        taskManager.unmarkTask(index);
+        try {
+            taskManager.unmarkTask(index);
+        } catch (KException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    private static void executeCommand(String userInput) {
+    private static void executeCommand(String userInput) throws KException {
         String[] input = userInput.split(" ", 2);
         String ins = input[0];
         switch (ins) {
@@ -66,13 +78,17 @@ public class KBot {
             case "todo":
             case "deadline":
             case "event":
+                if (input.length == 1) {
+                    throw new KException("Error: " + "Invalid parameters for " + ins);
+                }
                 String info = input[1];
                 store(info, ins);
                 break;
             case "help":
                 System.out.println("list\n" + "mark\n" + "unmark\n" + "todo\n" + "deadline\n" + "event\n");
             default:
-                System.out.println("Please input the correct commands. Input help to see list of commands.");
+                throw new KException("Invalid command: " + ins
+                        + "\nPlease input the correct commands. Input help to see list of commands.");
         }
     }
 
@@ -88,7 +104,11 @@ public class KBot {
             if (userInput.equals("bye")) {
                 break;
             } else {
-                executeCommand(userInput);
+                try {
+                    executeCommand(userInput);
+                } catch (KException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
             }
             System.out.print(Messages.getLine());
         }

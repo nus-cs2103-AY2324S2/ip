@@ -24,7 +24,7 @@ public class TaskManager {
      * 
      * @param info The information from userInput
      */
-    protected void addTask(String info, String ins) {
+    protected void addTask(String info, String ins) throws KException {
         Task t = null;
         switch (ins) {
             case "todo":
@@ -32,15 +32,24 @@ public class TaskManager {
                 break;
             case "deadline":
                 String[] deadlineParts = info.split(" /by ", 2);
+                if (deadlineParts.length == 1) { // if there is command but no input
+                    throw new KException("Invalid parameters for " + ins);
+                }
                 String dName = deadlineParts[0];
                 String dEndTime = deadlineParts[1];
                 t = new Deadline(dName, dEndTime);
                 break;
             case "event":
                 String[] eventParts = info.split(" /from ", 2);
+                if (eventParts.length == 1) { // if there is command but no input
+                    throw new KException("Invalid parameters for " + ins);
+                }
                 String eName = eventParts[0];
                 String time = eventParts[1];
                 String[] timeParts = time.split(" /to ", 2);
+                if (timeParts.length == 1) { // if there is command but no input
+                    throw new KException("Invalid parameters for " + ins);
+                }
                 String startTime = timeParts[0];
                 String endTime = timeParts[1];
                 t = new Event(eName, startTime, endTime);
@@ -76,7 +85,10 @@ public class TaskManager {
      * 
      * @param index Index of Task to be marked in the TASKS ArrayList.
      */
-    protected void markTask(int index) {
+    protected void markTask(int index) throws KException {
+        if (index + 1 > TASKS.size()) {
+            throw new KException("Error: " + "Index out of range!");
+        }
         Task t = TASKS.get(index);
         t.setCompleted();
         System.out.println("Nice! I've marked this task as done:\n" + t);
@@ -87,7 +99,10 @@ public class TaskManager {
      * 
      * @param index Index of Task to be marked in the TASKS ArrayList.
      */
-    protected void unmarkTask(int index) {
+    protected void unmarkTask(int index) throws KException {
+        if (index + 1 > TASKS.size()) {
+            throw new KException("Error: " + "Index out of range!");
+        }
         Task t = TASKS.get(index);
         t.setNotCompleted();
         System.out.println("OK, I've marked this task as not done yet:\n" + t);
