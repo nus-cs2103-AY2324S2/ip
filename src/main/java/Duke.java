@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -36,20 +37,108 @@ public class Duke {
     }
 
     private void addTask(String name) {
-        String[] details = name.split("/");
-        Task t = null;
-        if (details.length == 1) {
-            t = new ToDo(details[0].substring(5));
-        } else if (details.length == 2) {
-            t = new Deadline(details[0].substring(9), this.processDeadline(details[1]));
+        String[] details = name.split(" ");
+        String type = details[0];
+        if (!check(type)) {
+            System.out.println("please enter a valid task type");
+            return;
         } else {
-            t = new Event(details[0].substring(6), this.processEvent(details[1] +
-                    "/" + details[2]));
-        }
-        this.tasks[counter] = t;
-        this.counter += 1;
+            switch(type) {
+                case "todo" :
+                    addToDo(name);
+                    break;
+                case "deadline":
+                    addDeadline(name);
+                    break;
+                default:
+                    addEvent(name);
+                    break;
+            };
 
-//        System.out.println("added: " + name);
+        }
+//        Task t = null;
+//        if (details.length == 1) {
+//            String task_name = details[0].substring(4);
+//            if (task_name.length() == 0) {
+//                System.out.println("todo task cannot be blank");
+//                return;
+//            }
+//            t = new ToDo(task_name);
+//        } else if (details.length == 2) {
+//            t = new Deadline(details[0].substring(8), this.processDeadline(details[1]));
+//        } else {
+//            t = new Event(details[0].substring(5), this.processEvent(details[1] +
+//                    "/" + details[2]));
+//        }
+//        this.tasks[counter] = t;
+        //this.counter += 1;
+
+
+    }
+
+    private boolean checkBlankString(String s) {
+        return s.trim().isEmpty();
+    }
+
+    private void addToDo(String name) {
+        String[] lst = name.split("todo");
+        if (lst.length == 0 || checkBlankString(lst[1])) {
+            System.out.println("Don't leave the task description blank");
+        } else {
+            Task t = new ToDo(lst[1]);
+            this.tasks[this.counter] = t;
+            this.counter += 1;
+        }
+
+    }
+
+
+
+    private void addDeadline(String name) {
+        String[] lst = name.split("deadline");
+        if (lst.length == 0 || checkBlankString(lst[1])) {
+            System.out.println("Don't leave the task description blank");
+        } else if (!name.contains("/")) {
+            System.out.println("Please leave a \" / \" for the due date");
+        } else {
+            lst = lst[1].split("/");
+            name = lst[0];
+            String date = lst[1];
+            if (checkBlankString(name) || checkBlankString(date)) {
+                System.out.println("Please fill in both the name and due date");
+                return;
+            }
+            Task t = new Deadline(name, date);
+            this.tasks[this.counter] = t;
+            this.counter += 1;
+        }
+
+    }
+
+    public void addEvent(String name) {
+        String[] lst = name.split("event");
+        if (lst.length == 0 || checkBlankString(lst[1])) {
+            System.out.println("Don't leave the task description blank");
+        } else if (!name.contains("/")) {
+            System.out.println("Please leave a \" / \" for the due date");
+        } else {
+            lst = lst[1].split("/");
+            if (lst.length != 3) {
+                System.out.println("Please enter the correct format for event");
+                return;
+            }
+            name = lst[0];
+            String start = lst[1];
+            String end = lst[2];
+            if (checkBlankString(name) || checkBlankString(start) || checkBlankString(end)) {
+                System.out.println("Please fill in both the name and due date");
+                return;
+            }
+            Task t = new Event(name, start + " " + end);
+            this.tasks[this.counter] = t;
+            this.counter += 1;
+        }
+
     }
 
     private void listTask() {
@@ -82,6 +171,11 @@ public class Duke {
 
     }
 
+    private boolean check(String cmd) {
+        String[] cmds = {"todo", "event", "deadline"};
+        return Arrays.stream(cmds).anyMatch(cmd::equals);
+    }
+
     public void runBot() {
         Scanner s = new Scanner(System.in);
         this.greet();
@@ -93,17 +187,16 @@ public class Duke {
                 active = false;
                 this.bye();
             } else if (cmd.equals("list")) {
-//                System.out.println("correct");
+
                 this.listTask();
             } else if (cmd.contains("unmark")) {
                     String[] lst = cmd.split(" ");
                     int pos = Integer.parseInt(lst[1]);
-                    this.tasks[pos].undoTask();
+                    this.tasks[pos - 1].undoTask();
             } else if (cmd.contains("mark")) {
                 String[] lst = cmd.split(" ");
                 int pos = Integer.parseInt(lst[1]);
-                this.tasks[pos].doTask();
-
+                this.tasks[pos - 1].doTask();
             } else {
 //                System.out.println("wrong" + cmd.equals("list"));
 //                System.out.println(cmd);
