@@ -1,4 +1,3 @@
-import javax.xml.stream.events.StartDocument;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -21,7 +20,7 @@ public class Liv {
     }
     private static Liv instance = null;
     private static HorizontalLine horizontalLine = null;
-    private State currentState = null;
+    private State currentState;
     private static Scanner scanner = null;
     private static LinkedList<Task> tasks = null;
     private static int numberOfTasks;
@@ -129,6 +128,25 @@ public class Liv {
                 return;
             }
 
+            if (words[0].equals("todo")
+                    || words[0].equals("deadline")
+                    || words[0].equals("event")) {
+                Task newTask = null;
+                if (words[0].equals("todo")) {
+                    newTask = new ToDo(input);
+                } else if (words[0].equals("deadline")) {
+                    newTask = new Deadline(input);
+                } else if (words[0].equals("event")) {
+                    newTask = new Event(input);
+                }
+                addTask(newTask);
+                speak("Got it. I've added this task:"
+                        + "\n"
+                        + "    "
+                        + newTask.toString()
+                        + "\n"
+                        + "Now you have " + numberOfTasks + " tasks in the list.");//input);
+            }
             //...
         }
 
@@ -143,12 +161,14 @@ public class Liv {
             return;
         }
 
+        /*
         if (input != null) {
-            Task newTask = new Task(input);
+            Task newTask = new ToDo(input);//new Task(input);
             addTask(newTask);
             speak("added: " + input);
             return;
         }
+         */
     }
 
     private void speak(String output) {
@@ -161,7 +181,7 @@ public class Liv {
         ToggleConversationState();
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= numberOfTasks; i++) {
-            System.out.println(i + ". " + tasks.get(i - 1).toString());
+            System.out.println(i + "." + tasks.get(i - 1).toString());
         }
         ToggleConversationState();
     }

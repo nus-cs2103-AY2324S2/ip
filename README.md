@@ -7,6 +7,7 @@ Overall Description:
 The project aims to build a Personal Assistant Chatbot that helps a person to keep track of various things
 
 
+_____________________________________________________
 
 Level 0
 
@@ -21,7 +22,7 @@ Design:
 - store lines locally in functions, simply as strings. 
 	- rationale: given the purpose of the bot being to track various things, it is likely not to need many lines
 
-
+_____________________________________________________
 
 Level 1
 
@@ -34,6 +35,7 @@ Design:
 - implement a ProcessInput function to handle inputs
 
 
+_____________________________________________________
 
 Level 2
 
@@ -48,6 +50,7 @@ Design:
 	- rationale: to allow ease of access and update
 
 
+_____________________________________________________
 
 Level 3:
 
@@ -60,12 +63,25 @@ Design:
 
 
 
+_____________________________________________________
 
+Level 4:
 
+Requirements:
+- split task into three types:
+	- todo: basically a task
+	- deadline: a task with a deadline
+		- additional param: /by
+	- events: a task with a start and end time
+		- additional param: /from /to
+- when adding a task, finish by giving the number of tasks in the list
 
+Implementation:
+- make task an abstract class with the method 
 
-
-
+Challenges:
+- the different parsing delimiter for different tasks
+	- observation: the information can be processed and stored by individual classes
 
 
 

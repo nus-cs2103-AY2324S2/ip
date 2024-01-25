@@ -1,19 +1,41 @@
-public class Task {
-    private String description;
+public abstract class Task {
+    protected String description;
     private boolean isDone;
 
-    public Task(String description) {
-        this.description = description;
+    protected TaskType type;
+
+    public static String delimiter;
+    public static String command;
+
+    // temporary solution
+    public static String[] NextWords(String[] words) {
+
+        String[] result = new String[words.length];
+        int index = 0;
+
+        for (String s : words) {
+            if (!s.isEmpty()) {
+                result[index] = s;
+                index++;
+            }
+        }
+
+        return result;
+    }
+
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
+    public Task(TaskType type) {
+        this.type = type;
         isDone = false;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + isDoneStatus() + "] " + description;
     }
 
     public void toggleIsDone(String isDoneUpdateString) {
@@ -24,7 +46,7 @@ public class Task {
         isDone = !isDone;
     }
 
-    private char isDoneStatus() {
+    protected char getIsDoneStatus() {
         return isDone ? 'X' : ' ';
     }
 
@@ -41,4 +63,11 @@ public class Task {
 
         return null;
     }
+
+    public String[] parseInput(String input) {
+        return input.split(delimiter);
+    }
+
+    public abstract String printType();
+    public abstract void setUpTask(String input);
 }

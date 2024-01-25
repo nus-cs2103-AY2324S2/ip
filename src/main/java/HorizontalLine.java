@@ -1,7 +1,7 @@
 public class HorizontalLine {
     private static HorizontalLine instance = null;
 
-    // default linelength is set to 10
+    // default line length is set to 10
     private static int lineLength = 50;
 
     private HorizontalLine() {
