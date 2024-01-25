@@ -5,6 +5,11 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String botName = "TOBIAS";
+        String divider = "--------------------------------------";
+        String intro = divider + "\n" + "Hello! I'm " + botName + "\n" + "What can I do for you ? \n" + divider;
+        String outro = "Bye. Hope to see you soon!\n" + divider;
+        System.out.println(intro);
+        System.out.println(outro);
     }
 }
