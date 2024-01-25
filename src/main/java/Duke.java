@@ -42,51 +42,127 @@ public class Duke {
     }
 
     public void markTask(int index) {
-        this.list.get(index - 1).markAsDone();
+        try {
+            this.list.get(index - 1).markAsDone();
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("No task at that index! you fool");
+        }
     }
 
     public void unmarkTask(int index) {
-        this.list.get(index - 1).maskAsUndone();
+        try {
+            this.list.get(index - 1).maskAsUndone();
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("No task at that index! you fool");
+        }
     }
     public void readCommand(String command){
 
         String[] split_command = command.split(" ", 2);
         String method = split_command[0];
-        System.out.println(method);
+
         switch(method) {
+
             case "list":
                 this.displayList();
                 break;
+
             case "bye":
                 this.exit();
                 System.exit(0);
                 break;
+
             case "mark":
+                if (split_command.length <= 1) {
+                    try {
+                        throw new DukeException("There is no task at that index!");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                }
                 String s = split_command[1];
                 this.markTask(Integer.valueOf(s));
                 break;
+
             case "unmark":
+                if (split_command.length <= 1) {
+                    try {
+                        throw new DukeException("There is no task at that index!");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                }
                 String s2 = split_command[1];
                 this.unmarkTask(Integer.valueOf(s2));
                 break;
+
             case "todo":
+                if (split_command.length <= 1) {
+                    throw new IllegalArgumentException("Please write a description for your task!");
+                }
                 this.addToList(new Todo(split_command[1]));
                 break;
+
             case "deadline":
-                String deadline_desc = split_command[1].split("/by ", 2)[0];
-                String date = split_command[1].split("/by ", 2)[1];
+                if (split_command.length <= 1) {
+                    try {
+                        throw new DukeException("Please write a description and a deadline for your task!");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                }
+                String[] info_split = split_command[1].split("/by ", 2);
+                if (info_split.length <= 1) {
+                    try {
+                        throw new DukeException("Please include a deadline by using by keyword like '/by Thursday'");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                }
+                String deadline_desc = info_split[0];
+                String date = info_split[1];
                 this.addToList(new Deadline(deadline_desc, date));
                 break;
+
             case "event":
+                if (split_command.length <= 1) {
+                    try {
+                        throw new DukeException("Please write a description and the time period for your task!");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                }
+                String[] info_split2 = split_command[1].split("/by ", 2);
+                if (info_split2.length <= 1) {
+                    try {
+                        throw new DukeException("Please include a time period by using from and to keyword such as" +
+                                "'/from today /to tomorrow");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                }
                 String event_desc = split_command[1].split("/from ", 2)[0];
                 String dates = split_command[1].split("/from ", 2)[1];
                 String from = dates.split("/to ",2)[0];
                 String to = dates.split("/to ", 2)[1];
                 this.addToList((new Event(event_desc, from, to)));
                 break;
+
             default:
-                this.addToList(command);
-                break;
+                try {
+                    throw new DukeException("Unknown command");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                    break;
+                }
         }
     }
 
