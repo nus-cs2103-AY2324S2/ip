@@ -14,13 +14,6 @@ public class Duke {
     public static void main(String[] args) {
         Duke d = new Duke();
 
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
-
         d.runBot();
     }
 
@@ -56,22 +49,7 @@ public class Duke {
             };
 
         }
-//        Task t = null;
-//        if (details.length == 1) {
-//            String task_name = details[0].substring(4);
-//            if (task_name.length() == 0) {
-//                System.out.println("todo task cannot be blank");
-//                return;
-//            }
-//            t = new ToDo(task_name);
-//        } else if (details.length == 2) {
-//            t = new Deadline(details[0].substring(8), this.processDeadline(details[1]));
-//        } else {
-//            t = new Event(details[0].substring(5), this.processEvent(details[1] +
-//                    "/" + details[2]));
-//        }
-//        this.tasks[counter] = t;
-        //this.counter += 1;
+
 
 
     }
