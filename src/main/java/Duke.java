@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String logo =  " _____ _               _\n"
                 +       "/  __ (_)             | |\n"
                 +       "| /  \\/_  ___ __ _  __| | __ _\n"
@@ -18,6 +18,25 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type your command and press Enter. Type 'bye' to quit.");
         List<Task> tasks = new ArrayList<Task>();
+        List<String> commands = new ArrayList<String>() {
+            {
+                add("bye");
+                add("list");
+                add("mark");
+                add("unmark");
+                add("todo");
+                add("deadline");
+                add("event");
+            }
+        };
+        List<String> taskTypes = new ArrayList<String>() {
+            {
+                add("todo");
+                add("deadline");
+                add("event");
+            }
+        };
+
         while (true) {
             String userInput = scanner.nextLine();
             String[] parts = userInput.split(" ",2);
@@ -33,19 +52,33 @@ public class Duke {
                         System.out.println(j + "." + tasks.get(i).toString());
                     }
                     System.out.println(horizontalLine);
+                } else if (commands.contains(userInput.toLowerCase())){
+                    if (taskTypes.contains(userInput.toLowerCase())) {
+                        throw new DukeException("Error: Missing task description. The description of a " + userInput.toLowerCase() + "cannot be empty");
+                    } else if (userInput.equalsIgnoreCase("mark") || userInput.equalsIgnoreCase("unmark")) {
+                        throw new DukeException("Error: Missing information. Please state you want to " + userInput.toLowerCase() + " which task.");
+                    }
+                } else {
+                    throw new DukeException("Error: Unable to recognise this command.");
                 }
             } else if (parts.length >= 2) {
                 String command = parts[0];
                 if (command.equalsIgnoreCase("mark")) {
-                    String number = parts[1];
-                    int index = Integer.parseInt(number);
-                    tasks.get(index-1).markDone(horizontalLine);
-                    continue;
+                    try {
+                        String number = parts[1];
+                        int index = Integer.parseInt(number);
+                        tasks.get(index-1).markDone(horizontalLine);
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("Error: Unable to parse the input as an integer.");
+                    }
                 } else if (command.equalsIgnoreCase("unmark")) {
-                    String number = parts[1];
-                    int index = Integer.parseInt(number);
-                    tasks.get(index-1).unmark(horizontalLine);
-                    continue;
+                    try {
+                        String number = parts[1];
+                        int index = Integer.parseInt(number);
+                        tasks.get(index-1).unmark(horizontalLine);
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("Error: Unable to parse the input as an integer.");
+                    }
                 } else if (command.equalsIgnoreCase("todo")) {
                     ToDo newTask = new ToDo(parts[1]);
                     tasks.add(newTask);
@@ -53,6 +86,9 @@ public class Duke {
                     newTask.displayTask(tasks.size());
                     System.out.println(horizontalLine);
                 } else if (command.equalsIgnoreCase("deadline")) {
+                    if (!parts[1].contains(" by ")) {
+                        throw new DukeException("Error: 'by' keyword is missing. You are required to state the deadline using the 'by' keyword ");
+                    }
                     String[] instruction = parts[1].split(" by ",2);
                     String description = instruction[0];
                     String deadline = instruction[1];
@@ -62,6 +98,9 @@ public class Duke {
                     newTask.displayTask(tasks.size());
                     System.out.println(horizontalLine);
                 } else if (command.equalsIgnoreCase("event")) {
+                    if (!parts[1].contains(" from ") || !parts[1].contains(" to ")) {
+                        throw new DukeException("Error: 'from' and/or 'to' keywords are missing. You are required to state the starting and ending time using these two keywords.");
+                    }
                     String[] instruction = parts[1].split(" from ", 2);
                     String description = instruction[0];
                     String[] subInstruction = instruction[1].split(" to ", 2);
