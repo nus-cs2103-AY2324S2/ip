@@ -1,5 +1,7 @@
 package service;
 
+import exceptions.InvalidCommandException;
+import exceptions.InvalidInputException;
 import model.Feedback;
 import type.CommandEnum;
 
@@ -9,12 +11,16 @@ import java.util.stream.Collectors;
 public class FeedbackService {
     private TaskService taskService = new TaskService();
 
-    public Feedback run(String userInput) {
+    public Feedback run(String userInput) throws InvalidCommandException, InvalidInputException {
         String[] cur = userInput.split(" ");
         CommandEnum curCommand = CommandEnum.getCommandEnum(cur[0]);
         Feedback feedback = null;
 
         int taskId = -1;
+
+        if (curCommand == null) {
+            throw new InvalidCommandException(cur[0]);
+        }
 
         // TODO: Exception Handling for incorrect input
         switch (curCommand) {
@@ -25,11 +31,31 @@ public class FeedbackService {
                 feedback = new Feedback(false, this.taskService.getAllTasks());
                 break;
             case MARK:
-                taskId = Integer.parseInt(cur[1]) - 1;
+                if (cur.length <= 1) {
+                    throw new InvalidInputException("No TaskId detected, please provide a TaskId");
+                }
+
+                try {
+                    taskId = Integer.parseInt(cur[1]) - 1;
+                }
+                catch (NumberFormatException e) {
+                    throw new InvalidInputException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command");
+                }
+
                 feedback = new Feedback(false, this.taskService.markTaskCompleted(taskId));
                 break;
             case UNMARK:
-                taskId = Integer.parseInt(cur[1]) - 1;
+                if (cur.length <= 1) {
+                    throw new InvalidInputException("No TaskId detected, please provide a TaskId");
+                }
+
+                try {
+                    taskId = Integer.parseInt(cur[1]) - 1;
+                }
+                catch (NumberFormatException e) {
+                    throw new InvalidInputException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command");
+                }
+
                 feedback = new Feedback(false, this.taskService.markTaskUncompleted(taskId));
                 break;
             case TODO:
@@ -43,9 +69,6 @@ public class FeedbackService {
             case EVENT:
                 String[] eventValues = this.parseEventInput(cur);
                 feedback = new Feedback(false, this.taskService.addEvent(eventValues[0], eventValues[1], eventValues[2]));
-                break;
-            default:
-                // TODO: Throw exception
                 break;
         }
 
@@ -82,7 +105,7 @@ public class FeedbackService {
         return Arrays.stream(input).skip(1).map(String::trim).collect(Collectors.joining(" "));
     }
 
-    private String[] parseDeadlineInput(String[] input) {
+    private String[] parseDeadlineInput(String[] input) throws InvalidInputException {
         // Sample Deadline Input: deadline return book /by Sunday
 
         // @@author SherisseTJW-reused
@@ -91,10 +114,14 @@ public class FeedbackService {
 
         String[] temp = fullInput.split("/by");
 
+        if (temp.length <= 1) {
+            throw new InvalidInputException("No Due Date for Deadline detected. Please provide a Due Date by using '/by'");
+        }
+
         return new String[] { temp[0].strip(), temp[1].strip() };
     }
 
-    private String[] parseEventInput(String[] input) {
+    private String[] parseEventInput(String[] input) throws InvalidInputException {
         // Sample Event Input: event project meeting /from Mon 2pm /to 4pm
 
         // @@author SherisseTJW-reused
@@ -102,7 +129,14 @@ public class FeedbackService {
         String fullInput = Arrays.stream(input).skip(1).collect(Collectors.joining(" "));
 
         String[] temp = fullInput.split("/from");
+        if (temp.length <= 1) {
+            throw new InvalidInputException("No From Datetime for Event detected. Please provide a From Datetime by using '/from'");
+        }
+
         String[] datetimes = temp[1].split("/to");
+        if (datetimes.length <= 1) {
+            throw new InvalidInputException("No To Datetime for Event detected. Please provide a To Datetime by using '/to'");
+        }
 
         return new String[] { temp[0].strip(), datetimes[0].strip(), datetimes[1].strip() };
     }

@@ -1,5 +1,7 @@
 package controller;
 
+import exceptions.InvalidCommandException;
+import exceptions.InvalidInputException;
 import model.Feedback;
 import service.FeedbackService;
 
@@ -16,9 +18,18 @@ public class TerminalController {
         Scanner scanner = new Scanner(System.in);
         boolean stop = false;
 
+        Feedback feedback;
+
         while (!stop) {
             String curInput = scanner.nextLine();
-            Feedback feedback = feedbackService.run(curInput);
+
+            try {
+                feedback = feedbackService.run(curInput);
+            }
+            catch (InvalidInputException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
 
             System.out.println("----------------------------------------------");
             System.out.println(feedback);
