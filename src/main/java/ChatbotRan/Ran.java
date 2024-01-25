@@ -60,6 +60,14 @@ public class Ran {
                         System.out.println(task);
                     }
                     break;
+                case "delete":
+                    task = this.handleTaskNo(line, space);
+                    if (task != null) {
+                        tasks.remove(task);
+                        System.out.println("I've deleted this task: ");
+                        System.out.println(task);
+                    }
+                    break;
                 case "deadline":
                     Deadline deadline = Deadline.parse(line, space);
                     this.addTask(deadline);
@@ -119,7 +127,9 @@ public class Ran {
             tasks.add(task);
             System.out.println("I've added this task to the list: ");
             System.out.println(task);
-            System.out.println("There are now " + tasks.size() + " tasks in the list");
+            if (tasks.size() == 1) {
+                System.out.println("There is now 1 task in the list");
+            } else System.out.println("There are now " + tasks.size() + " tasks in the list");
         }
     }
 
