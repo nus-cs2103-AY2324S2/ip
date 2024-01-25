@@ -3,6 +3,18 @@ import java.util.Scanner;
 
 public class Duke {
 
+    static class EmptyTodoDescriptionException extends Exception {
+        public EmptyTodoDescriptionException(String message) {
+            super(message);
+        }
+    }
+
+    static class UnknownCommandException extends Exception {
+        public UnknownCommandException(String message) {
+            super(message);
+        }
+    }
+
     public static void exitMessage() {
         String divider = "-----------------------------------------------------";
         System.out.println(divider);
@@ -24,6 +36,8 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+
+            try {
             String input = sc.nextLine();
             String[] parts = input.split(" ", 2);
             String command = parts[0];
@@ -50,6 +64,10 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(index));
                 System.out.println("-----------------------------------------------------");
             } else if (command.equals("todo")) {
+                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    throw new EmptyTodoDescriptionException("OOPS!!! The description of a todo cannot be empty.");
+                }
+
                 Todo newTodo = new Todo(parts[1]);
                 tasks.add(newTodo);
                 System.out.println("-----------------------------------------------------");
@@ -74,6 +92,24 @@ public class Duke {
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("-----------------------------------------------------");
             }
+
+            else {
+                throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+
+        } catch (EmptyTodoDescriptionException | UnknownCommandException e) {
+            System.out.println("-----------------------------------------------------");
+            System.out.println(e.getMessage());
+            System.out.println("-----------------------------------------------------");
+        } catch (NumberFormatException e) {
+            System.out.println("-----------------------------------------------------");
+            System.out.println("OOPS!!! The task number provided is invalid.");
+            System.out.println("-----------------------------------------------------");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("-----------------------------------------------------");
+            System.out.println("OOPS!!! The task number is out of range.");
+            System.out.println("-----------------------------------------------------");
+        }
         }
         exitMessage();
         sc.close();
