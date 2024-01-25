@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class ToDoList {
     private final ArrayList<Task>  tasks = new ArrayList<>();
@@ -33,7 +33,7 @@ public class ToDoList {
             case "event":
                 //splitting event details from date details using whitespace between words and time
                 String[] eventParts = taskDescription.split("\\s+(?=\\S+(-|\\sto\\s))", 2);
-                System.out.println(Arrays.toString(eventParts));
+
                 //handling case that does not include x to y or x-y
                 if (eventParts.length != 2) {
                     System.out.println("Invalid event format. Please use the following format event <task name> time1 to time2 or time1-time2)");
@@ -48,7 +48,7 @@ public class ToDoList {
                 System.out.println("____________________________________________________________\n"+"Got it. I've added this task:\n  " + new EventTask(eventTimingParts[0], eventTimingParts[1], eventParts[0]) +"\n" );
                 break;
             default:
-                System.out.println("Invalid input. Please type 'todo', 'deadline', or 'event' follow by your task requirement.");
+                System.out.println("Invalid input. Please type 'todo', 'deadline', or 'event' follow by your task requirement to add task to your list. ");
         }
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
@@ -67,6 +67,18 @@ public class ToDoList {
         }
             System.out.println("____________________________________________________________\n" + "Here are the tasks in your list:\n"+ sb + "____________________________________________________________");
 
+        }
+    }
+    public void removeTask(int index){
+        if (!isValidIndex(index)) {
+            System.out.println("Please input valid number  \n to see the available number(s) of your task type list");
+        } else {
+            String t = tasks.get(index - 1).toString();
+            tasks.remove(index - 1);
+            System.out.println("____________________________________________________________\n" +
+                    "Noted. I've removed this task:\n" +
+                    t + "\n" +
+                    "____________________________________________________________");
         }
     }
     public void showMark(int taskNumber) {
