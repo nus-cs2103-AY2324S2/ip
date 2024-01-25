@@ -19,75 +19,102 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            String echoInput = sc.nextLine();
+            try {
+                String echoInput = sc.nextLine();
+                Task newTask;
 
-            if (echoInput.equals("bye")) {
-                return;
-            }
-            if (echoInput.equals("list")) {
-                System.out.printf("%s Here are the tasks in your list:\n", hRULER);
-                for (int i = 0; i < currentIdx; i++) {
-                    System.out.printf(" %d.%s\n", i + 1, storage[i].toString());
+                if (echoInput.equals("bye")) {
+                    return;
                 }
-                System.out.println(hRULER);
-                continue;
-            }
-            if (echoInput.substring(0, 4).equals("mark")
-                    && isNumeric(echoInput.substring(5))) {
-                int taskIdx = Integer.parseInt(echoInput.substring(5));
-                storage[taskIdx - 1].markDone();
-                continue;
-            }
-            if (echoInput.substring(0, 6).equals("unmark") &&
-                    isNumeric(echoInput.substring(7))) {
-                int taskIdx = Integer.parseInt(echoInput.substring(7));
-                storage[taskIdx - 1].unMarkDone();
-                continue;
-            }
-
-            Task newTask;
-
-            if (echoInput.substring(0, 4).equals("todo")) {
-                newTask = new ToDo(echoInput.substring(5));
-            }
-            else if (echoInput.substring(0, 8).equals("deadline")) {
-                int deadlineStartIdx = 0;
-                while (deadlineStartIdx < echoInput.length()) {
-                    if (echoInput.charAt(deadlineStartIdx) != '/') {
-                        deadlineStartIdx++;
-                    } else {
-                        break;
+                if (echoInput.equals("list")) {
+                    System.out.printf("%s Here are the tasks in your list:\n", hRULER);
+                    for (int i = 0; i < currentIdx; i++) {
+                        System.out.printf(" %d.%s\n", i + 1, storage[i].toString());
                     }
+                    System.out.println(hRULER);
+                    continue;
                 }
-                newTask = new Deadline(echoInput.substring(9, deadlineStartIdx),
+                if (echoInput.substring(0, 4).equals("mark")
+                        && isNumeric(echoInput.substring(5))) {
+                    int taskIdx = Integer.parseInt(echoInput.substring(5));
+                    storage[taskIdx - 1].markDone();
+                    continue;
+                }
+                else if (echoInput.substring(0, 4).equals("todo")) {
+                    if (echoInput.length() == 4) {
+                        throw new EmptyDescriptionException("todo");
+                    }
+                    newTask = new ToDo(echoInput.substring(5));
+                }
+                else if (echoInput.substring(0, 5).equals("event")) {
+                    if (echoInput.length() == 5) {
+                        throw new EmptyDescriptionException("event");
+                    }
+                    int startIdx = 0;
+                    boolean foundTime = false;
+                    while (startIdx < echoInput.length()) {
+                        if (echoInput.charAt(startIdx) != '/') {
+                            startIdx++;
+                        } else {
+                            foundTime = true;
+                            break;
+                        }
+                    }
+                    if (!foundTime) {
+                        throw new InvalidDeadlineException();
+                    }
+                    int endIdx = startIdx + 1;
+                    while (endIdx < echoInput.length()) {
+                        if (echoInput.charAt(endIdx) != '/') {
+                            endIdx++;
+                        } else {
+                            break;
+                        }
+                    }
+                    if (!foundTime) {
+                        throw new InvalidDeadlineException();
+                    }
+                    newTask = new Event(echoInput.substring(6, startIdx),
+                            echoInput.substring(startIdx + 6, endIdx),
+                            echoInput.substring(endIdx + 4));
+                }
+                else if (echoInput.substring(0, 6).equals("unmark") &&
+                        isNumeric(echoInput.substring(7))) {
+                    int taskIdx = Integer.parseInt(echoInput.substring(7));
+                    storage[taskIdx - 1].unMarkDone();
+                    continue;
+                }
+                else if (echoInput.substring(0, 8).equals("deadline")) {
+                    if (echoInput.length() == 8) {
+                        throw new EmptyDescriptionException("deadline");
+                    }
+                    int deadlineStartIdx = 0;
+                    boolean foundTime = false;
+                    while (deadlineStartIdx < echoInput.length()) {
+                        if (echoInput.charAt(deadlineStartIdx) != '/') {
+                            deadlineStartIdx++;
+                        } else {
+                            foundTime = true;
+                            break;
+                        }
+                    }
+                    if (!foundTime) {
+                        throw new InvalidDeadlineException();
+                    }
+                    newTask = new Deadline(echoInput.substring(9, deadlineStartIdx),
                             echoInput.substring(deadlineStartIdx + 4));
-            }
-            else if (echoInput.substring(0, 5).equals("event")) {
-                int startIdx = 0;
-                while (startIdx < echoInput.length()) {
-                    if (echoInput.charAt(startIdx) != '/') {
-                        startIdx++;
-                    } else {
-                        break;
-                    }
                 }
-                int endIdx = startIdx + 1;
-                while (endIdx < echoInput.length()) {
-                    if (echoInput.charAt(endIdx) != '/') {
-                        endIdx++;
-                    } else {
-                        break;
-                    }
+                else {
+                    throw new UnknownInputException();
                 }
-                newTask = new Event(echoInput.substring(6, startIdx),
-                        echoInput.substring(startIdx + 6, endIdx),
-                        echoInput.substring(endIdx + 4));
-            } else {
-                newTask = new Task(echoInput);
+                storage[currentIdx++] = newTask;
+                System.out.printf("%s Got it. I've added this task:\n  " +
+                        " %s\n Now you have %d tasks in the list.\n%s", hRULER, newTask, currentIdx, hRULER);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.printf("%s%s%s", hRULER, new UnknownInputException(), hRULER);
+            } catch (DukeException e) {
+                System.out.printf("%s%s%s", hRULER, e, hRULER);
             }
-            storage[currentIdx++] = newTask;
-            System.out.printf("%s Got it. I've added this task:\n  " +
-                    " %s\n Now you have %d tasks in the list.\n%s", hRULER, newTask, currentIdx, hRULER);
         }
     }
     public static void main(String[] args) {
