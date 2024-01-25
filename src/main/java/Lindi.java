@@ -1,7 +1,5 @@
-import java.util.Objects;
-
 public class Lindi {
-    private final static String[] taskList = new String[100];
+    private final static Task[] taskList = new Task[100];
     private static int taskListCount = 0;
 
     private static void parseInputAndExecute(String userInput) {
@@ -12,7 +10,7 @@ public class Lindi {
                 }
             }
 
-            void executeNone(String task){
+            void executeNone(Task task){
                 taskList[taskListCount++] = task;
                 System.out.println("Added: " + task);
             }
@@ -35,7 +33,7 @@ public class Lindi {
                 new LocalFuncs().goodByeAndExit();
                 break;
             default:
-                new LocalFuncs().executeNone(userInput);
+                new LocalFuncs().executeNone(new Task(userInput));
                 break;
         }
     }
