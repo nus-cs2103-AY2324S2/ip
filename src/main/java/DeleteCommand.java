@@ -9,22 +9,22 @@ public class DeleteCommand extends Command<List<Task>> {
     List<Task> execute(List<Task> tasks) throws CoatException {
         try {
             if (arguments.isEmpty()) {
-                throw new CoatException("Error: Task index not provided for delete command. Correct format: delete <index>");
+                throw new CoatException("Hey, you need to tell me which one to delete! Try 'delete <NUMBER>'. ~(>_<)\n");
             }
 
             int index = Integer.parseInt(arguments.get(0)) - 1;
 
             if (index >= 0 && index < tasks.size()) {
                 tasks.remove(index);
-                System.out.printf("\n(^-^)~~   Deleted task %d\n", index + 1);
+                System.out.printf("\nDeleted task %d ~(^-^)\n ", index + 1);
             } else {
-                throw new CoatException("Error: Task index out of range for delete command.");
+                throw new CoatException(String.format("I can't do that.. Task index %s is out of range! ~(T_T)\n", arguments.get(0)));
             }
         } catch (CoatException e) {
-            System.out.printf("Error: Invalid task index for delete command.\n");
+            System.out.printf("%s", e.getMessage());
             return tasks;
         } catch (NumberFormatException e) {
-            System.out.printf("Error: Task index not provided for delete command. Correct format: delete <index>\n");
+            System.out.printf("Sigh.. That's not a valid number! Try 'delete <NUMBER>'.\n");
             return tasks;
         }
 

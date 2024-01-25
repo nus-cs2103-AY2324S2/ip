@@ -28,9 +28,9 @@ public class Messages {
             " |___/\\__,_|\\__, |___/ |_|  |_|\\___|_|_|\\___/(_)                   \n" +
             "             __/ |                                                     \n" +
             "            |___/                                                      \n" +
-            "\n(^-^)~~   What are we doing today?\n";
+            "\nWhat are we doing today? ~(^o.o^)\nSay 'help' if you want to know the tricks I can do!";
 
     public static final String EXIT =
-    "\n(^-^)~~   Aw, see you soon!\n";
+    "Aw, see you soon! :3\n";
 
 }

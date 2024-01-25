@@ -39,6 +39,8 @@ public class CommandParser {
             }
 
             switch (command) {
+                case "help":
+                    return new HelpCommand();
                 case "list":
                     return new ListCommand();
                 case "mark":
@@ -68,10 +70,10 @@ public class CommandParser {
                     return new AddCommand(new Event(taskDescription, start, end));
 
                 default:
-                    throw new CoatException("Error: Unknown command. Type 'bye' to exit.");
+                    throw new CoatException("Sorry.. I don't know what that means! If you want to leave, just say 'bye'! :(");
             }
         } catch (CoatException e) {
-            System.out.printf("\n(^-^)~~   " + e.getMessage());
+            System.out.printf("\n%s" + e.getMessage());
             return new UnknownCommand();
         }
     }
