@@ -10,6 +10,7 @@ public class TalkingBox {
             list,
             mark,
             unmark,
+            delete,
             todo,
             deadline,
             event;
@@ -56,6 +57,13 @@ public class TalkingBox {
                         System.out.println("Alright! Task marked as not done");
                         taskList.get(e).unmark();
                         System.out.println(taskList.get(e).toString());
+                        break;
+                    case "delete":
+                        int r = Integer.parseInt(input) - 1;
+                        System.out.println("Removing task from list");
+                        System.out.println(taskList.get(r).toString());
+                        taskList.remove(r);
+                        System.out.println("current number of tasks: " + taskList.size());
                         break;
                     case "todo":
                         taskList.add(new ToDo(input));
