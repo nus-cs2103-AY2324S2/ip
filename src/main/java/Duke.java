@@ -24,14 +24,21 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         while (this.isActive) {
             String input = sc.nextLine();
-            nextAction(input);
+            try {
+                nextAction(input);
+            } catch (ftException e) {
+                System.out.println(e.getMessage());
+            }
         }
         System.out.println("    ____________________________________________________________\n"
                 + "    Bye. Hope to see you again soon!\n"
                 + "    ____________________________________________________________" );
     }
 
-    private void nextAction(String input) {
+    private void nextAction(String input) throws ftException {
+        if (input.isEmpty()) {
+            throw new ftException("Error: Please Type Command");
+        }
         StringTokenizer st = new StringTokenizer(input);
         String arg1 = st.nextToken();
         switch (arg1) {
@@ -42,12 +49,10 @@ public class Duke {
                 showList();
                 break;
             case "mark":
-                int i1 = Integer.parseInt(st.nextToken());
-                mark(i1);
+                mark(st);
                 break;
             case "unmark":
-                int i2 = Integer.parseInt(st.nextToken());
-                unmark(i2);
+                unmark(st);
                 break;
             case "todo":
                 addToDoTask(st);
@@ -59,10 +64,7 @@ public class Duke {
                 addEventTask(st);
                 break;
             default:
-                Task myTask = new Task(arg1);
-                addTask(myTask);
-                break;
-
+                throw new ftException("Unknown Command: " + arg1 + ". Please use a correct command");
         }
     }
 
@@ -75,38 +77,49 @@ public class Duke {
                 + "    ____________________________________________________________\n");
     }
 
-    private void addToDoTask(StringTokenizer st) {
-        StringBuilder name = new StringBuilder();
+    private void addToDoTask(StringTokenizer st) throws ftException {
+        StringBuilder sb = new StringBuilder();
         while (st.hasMoreTokens()) {
             String token = st.nextToken().trim();
-            name.append(" ").append(token);
+            sb.append(" ").append(token);
         }
-        ToDo myToDo = new ToDo(name.toString());
-        addTask(myToDo);
+        String name = sb.toString();
+        if (!name.isEmpty()) {
+            ToDo myToDo = new ToDo(name);
+            addTask(myToDo);
+        } else {
+            throw new ftException("Error: Please tell me what you have TO DO");
+        }
     }
 
-    private void addDeadlineTask(StringTokenizer st) {
-        StringBuilder name = new StringBuilder();
-        StringBuilder by = new StringBuilder();
+    private void addDeadlineTask(StringTokenizer st) throws ftException {
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sbBy = new StringBuilder();
         while (st.hasMoreTokens()) {
             String token = st.nextToken().trim();
             if (token.equals("/by")) {
                 while (st.hasMoreTokens()) {
-                    by.append(" ").append(st.nextToken());
+                    sbBy.append(" ").append(st.nextToken());
                 }
                 break;
             } else {
-            name.append(" ").append(token);
+            sb.append(" ").append(token);
             }
         }
-        Deadline myDeadline = new Deadline(name.toString(), by.toString());
-        addTask(myDeadline);
+        String name = sb.toString();
+        String by = sbBy.toString();
+        if (!name.isEmpty() && !by.isEmpty()) {
+            Deadline myDeadline = new Deadline(name, by);
+            addTask(myDeadline);
+        } else {
+            throw new ftException("Error: Please tell me your task and its deadline");
+        }
     }
 
-    private void addEventTask(StringTokenizer st) {
-        StringBuilder name = new StringBuilder();
-        StringBuilder from = new StringBuilder();
-        StringBuilder to = new StringBuilder();
+    private void addEventTask(StringTokenizer st) throws ftException {
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sbFrom = new StringBuilder();
+        StringBuilder sbTo = new StringBuilder();
         while (st.hasMoreTokens()) {
             String token = st.nextToken().trim();
             if (token.equals("/from")) {
@@ -114,18 +127,25 @@ public class Duke {
                     String curr = st.nextToken().trim();
                     if (curr.equals("/to")) {
                         while (st.hasMoreTokens()) {
-                            to.append(" ").append(st.nextToken());
+                            sbTo.append(" ").append(st.nextToken());
                         }
                     } else {
-                        from.append(" ").append(curr);
+                        sbFrom.append(" ").append(curr);
                     }
                 }
             } else {
-                name.append(" ").append(token);
+                sb.append(" ").append(token);
             }
         }
-        Event myEvent = new Event(name.toString(), from.toString(), to.toString());
-        addTask(myEvent);
+        String name = sb.toString();
+        String from = sbFrom.toString();
+        String to = sbTo.toString();
+        if (!name.isEmpty() && !from.isEmpty() && !to.isEmpty()) {
+            Event myEvent = new Event(name, from, to);
+            addTask(myEvent);
+        } else {
+            throw new ftException("Error: Please tell me your event and its from/to dates");
+        }
     }
     private void showList() {
         System.out.println("    ____________________________________________________________\n"
@@ -141,21 +161,37 @@ public class Duke {
         System.out.println("    ____________________________________________________________\n");
     }
 
-    private void mark(int i) {
-        Task task = myList.get(i - 1);
-        task.mark();
-        System.out.println("    ____________________________________________________________\n"
-                + "    Nice! I've marked this task as done:\n"
-                + "      " + task.toString()
-                + "\n    ____________________________________________________________\n");
+    private void mark(StringTokenizer st) throws ftException {
+        if (!st.hasMoreTokens()) {
+            throw new ftException("Error: No index provided");
+        }
+        int i = Integer.parseInt(st.nextToken());
+        if (i <= myList.size()) {
+            Task task = myList.get(i - 1);
+            task.mark();
+            System.out.println("    ____________________________________________________________\n"
+                    + "    Nice! I've marked this task as done:\n"
+                    + "      " + task.toString()
+                    + "\n    ____________________________________________________________\n");
+        } else {
+            throw new ftException("Error: Please provide valid index");
+        }
     }
 
-    private void unmark(int i) {
-        Task task = myList.get(i - 1);
-        task.unmark();
-        System.out.println("    ____________________________________________________________\n"
-                + "    OK, I've marked this task as not done yet:\n"
-                + "      " + task.toString()
-                + "\n    ____________________________________________________________\n");
+    private void unmark(StringTokenizer st) throws ftException {
+        if (!st.hasMoreTokens()) {
+            throw new ftException("Error: No index provided");
+        }
+        int i = Integer.parseInt(st.nextToken());
+        if (i <= myList.size()) {
+            Task task = myList.get(i - 1);
+            task.unmark();
+            System.out.println("    ____________________________________________________________\n"
+                    + "    OK, I've marked this task as not done yet:\n"
+                    + "      " + task.toString()
+                    + "\n    ____________________________________________________________\n");
+        } else {
+            throw new ftException("Error: Please provide valid index");
+        }
     }
 }
