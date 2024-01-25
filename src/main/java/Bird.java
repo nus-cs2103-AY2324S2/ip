@@ -1,8 +1,8 @@
-
+import java.util.ArrayList;
 
 public class Bird {
-    static Task[] taskList = new Task[100];
-    static int index = 0;
+    static ArrayList<Task> taskList = new ArrayList<>();
+
     public static void main(String[] args) { 
         greet();
         Command.scan();
@@ -22,32 +22,39 @@ public class Bird {
 
     public static void list() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             int number = i + 1;
-            System.out.println(number + ". " + taskList[i].toString());
+            System.out.println(number + ". " + taskList.get(i).toString());
         }
     }
 
     public static void addTask(Task task) {
-        taskList[index] = task;
-        index += 1;
+        taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
-        System.out.println(String.format("Now you have %d tasks in the list.", index));
+        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
     }
 
 
     public static void markTask(int idx) {
-        Task task = taskList[idx-1];
+        Task task = taskList.get(idx-1);
         task.done();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
     }
 
     public static void unmarkTask(int idx) {
-        Task task = taskList[idx-1];
+        Task task = taskList.get(idx-1);
         task.undone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task.toString());
+    }
+
+    public static void deleteTask(int idx) {
+        Task task = taskList.get(idx-1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task.toString());
+        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
+        taskList.remove(idx-1);
     }
 }

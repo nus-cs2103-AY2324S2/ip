@@ -8,6 +8,7 @@ public class Command {
         "list",
         "mark",
         "unmark",
+        "delete",
         "todo",
         "deadline",
         "event"
@@ -62,6 +63,9 @@ public class Command {
                                 case "unmark":
                                     Bird.unmarkTask(Integer.parseInt(arguments));
                                     break;
+                                case "delete":
+                                    Bird.deleteTask(Integer.parseInt(arguments));
+                                    break;
                                 case "todo":
                                     Bird.addTask(processToDo(arguments));
                                     break;
@@ -84,13 +88,14 @@ public class Command {
     }
 
     private static Deadline processDeadline(String arguments) {
-        String[] parts = arguments.split("/");
+        String[] parts = arguments.split("/by ");
         return new Deadline(parts[0], parts[1]);
     }
 
     private static Event processEvent(String arguments) {
-        String[] parts = arguments.split("/");
-        return new Event(parts[0], parts[1], parts[2]);
+        String[] parts = arguments.split("/from ");
+        String[] parts2 = parts[1].split("/to ");
+        return new Event(parts[0], parts2[0], parts2[1]);
     }
 }
 

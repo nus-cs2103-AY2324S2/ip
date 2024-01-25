@@ -6,8 +6,8 @@ public class Event extends Task {
 
     public Event(String name, String from, String to) {
         super(name);
-        this.from = from.substring(5);
-        this.to = to.substring(3);
+        this.from = from;
+        this.to = to;
     }
     
     @Override
