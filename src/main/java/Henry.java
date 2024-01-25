@@ -45,79 +45,80 @@ public class Henry {
         System.out.println(items[index]);
         System.out.println();
     }
-    public static void main(String[] args) {
-        greet();
-
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String currentMessage = scanner.nextLine();
-            if (currentMessage.equals("bye")) {
-                bye();
-                break;
-            } else if (currentMessage.equals("list")) {
+    public static void handleCommand(String commandType, String params) throws HenryException {
+        switch (commandType) {
+            case "list":
                 System.out.println("Here is a list of tasks:");
                 for (int i = 0; i < numOfItems; i = i + 1) {
                     System.out.printf("%d. %s\n", i + 1, items[i]);
                 }
                 System.out.println();
-            } else if (currentMessage.startsWith("mark")) {
+                break;
+            case "mark":
+                if (params.isBlank()) {
+                    throw new HenryException("No index provided");
+                }
+                markTask(Integer.parseInt(params) - 1);
+                break;
+            case "unmark":
+                if (params.isBlank()) {
+                    throw new HenryException("No index provided");
+                }
+                unmarkTask(Integer.parseInt(params) - 1);
+                break;
+            case "todo":
+                if (params.isBlank()) {
+                    throw new HenryException("No description provided");
+                }
+                addTask(new Todo(params));
+                break;
+            case "deadline":
+                if (params.isBlank()) {
+                    throw new HenryException("No description and /by provided");
+                }
+                if (!params.contains("/by")) {
+                    throw new HenryException("When this has to be done by?");
+                }
+                String[] deadlineParams = params.split(" /by ");
+                addTask(new Deadline(deadlineParams[0], deadlineParams[1]));
+                break;
+            case "event":
+                if (params.isBlank()) {
+                    throw new HenryException("No description, /from and /to provided");
+                }
+                if (!params.contains("/from") || !params.contains("/to")) {
+                    throw new HenryException("Please provide /from and /to");
+                }
+                String[] eventParams = params.split(" /from | /to ");
+                addTask(new Event(eventParams[0], eventParams[1], eventParams[2]));
+                break;
+            default:
                 try {
-                    if (currentMessage.length() < 5) {
-                        throw new HenryException("No index provided!");
-                    }
-                    int index = Integer.parseInt(currentMessage.split(" ")[1]) - 1;
-                    markTask(index);
+                    throw new HenryException("I don't understand this command...");
                 } catch (HenryException e) {
                     System.err.println(e);
                 }
-            } else if (currentMessage.startsWith("unmark")) {
-                try {
-                    if (currentMessage.length() < 7) {
-                        throw new HenryException("No index provided!");
-                    }
-                    int index = Integer.parseInt(currentMessage.split(" ")[1]) - 1;
-                    unmarkTask(index);
-                } catch (HenryException e) {
-                    System.err.println(e);
-                }
-            } else {
-                if (currentMessage.startsWith("todo")) {
-                    try {
-                        if (currentMessage.length() <= 5) {
-                            throw new HenryException("The description of todo cannot be empty");
-                        }
-                        String description = currentMessage.substring(5);
-                        addTask(new Todo(description));
-                    } catch (HenryException e) {
-                        System.err.println(e);
-                    }
-                } else if (currentMessage.startsWith("deadline")) {
-                    try {
-                        if (!currentMessage.contains("/by")) {
-                            throw new HenryException("When this has to be done by?");
-                        }
-                        String[] temp = currentMessage.substring(9).split(" /by ");
-                        addTask(new Deadline(temp[0], temp[1]));
-                    } catch (HenryException e) {
-                        System.err.println(e);
-                    }
-                } else if (currentMessage.startsWith("event")) {
-                    try {
-                        if (!currentMessage.contains("/from") || !currentMessage.contains("/to")) {
-                            throw new HenryException("Please provide /from and /to.");
-                        }
-                        String[] temp = currentMessage.substring(6).split(" /from | /to ");
-                        addTask(new Event(temp[0], temp[1], temp[2]));
-                    } catch (HenryException e) {
-                        System.err.println(e);
-                    }
-                } else {
-                    try {
-                        throw new HenryException("I don't understand this command...");
-                    } catch (HenryException e) {
-                        System.err.println(e);
-                    }
-                }
+                break;
+        }
+    }
+    public static void main(String[] args) {
+        greet();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String currentLine = scanner.nextLine();
+            String[] command = currentLine.split(" ", 2);
+            String commandType = command[0];
+            String params = command.length < 2 ? "" : command[1];
+
+            if (commandType.equals("bye")) {
+                bye();
+                break;
+            }
+
+            try {
+                handleCommand(commandType, params);
+            } catch(HenryException e) {
+                System.err.println(e);
             }
         }
     }
