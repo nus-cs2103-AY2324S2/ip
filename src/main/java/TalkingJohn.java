@@ -10,12 +10,12 @@ public class TalkingJohn {
 
 
         while (true) {
-            String userInput = scanner.nextLine();
-            if (Objects.equals(userInput, "bye")) {
+            String input = scanner.nextLine();
+            if (Objects.equals(input, "bye")) {
                 System.out.println("Bye, hope to see you soon");
                 break;
             } else {
-                System.out.println(userInput);
+                System.out.println(input);
             }
         }
         scanner.close();
