@@ -19,7 +19,7 @@ class Deadlines extends Task {
 
     String added(int length) {
         return "   Got it. I've added this task:\n" + "     " +
-                this.getStatusIcon() + " " + this.taskname + "\n" +
+                this.toString() + "\n" +
                 "   Now you have " + String.valueOf(length) + " tasks in the list";
     }
 }

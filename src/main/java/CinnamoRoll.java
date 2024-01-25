@@ -60,6 +60,17 @@ class CinnamoRoll {
         return output;
     }
 
+    private String delete(int index) throws CinnamoIndexException {
+        try {
+            Task temp = this.tasks.get(index - 1);
+            this.tasks.remove(index - 1);
+            return "   Noted. I've removed the following task:\n" + "      " + temp.toString() + "\n" + "   Now, you have " +
+                    String.valueOf(this.tasks.size()) + " tasks in the list";
+        } catch (IndexOutOfBoundsException exception) {
+            throw new CinnamoIndexException();
+        }
+    }
+
     String mark(int index) throws CinnamoIndexException {
         try {
             this.tasks.get(index).marked();
@@ -94,10 +105,12 @@ class CinnamoRoll {
             if (instruction.equals("list")) {
                 System.out.println(this.list());
             }
+            if (instruction.equals("delete")) {
+                int input = Integer.parseInt(arr[1]);
+                System.out.println(this.delete(input));
+            }
             if (instruction.equals("todo") || instruction.equals("deadline") || instruction.equals("event")){
                 System.out.println(this.add(arr));
-            } else {
-                throw new CinnamoException();
             }
         } catch (CinnamoException cin) {
             System.out.println(cin.toString());
