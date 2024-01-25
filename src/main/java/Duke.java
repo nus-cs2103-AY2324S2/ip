@@ -57,7 +57,7 @@ public class Duke {
         }
     }
 
-    public static void addTaskList(String type, String msg) throws BelleException {
+    private static void addTaskList(String type, String msg) throws BelleException {
         Task curr;
         if (type.equals("todo")) {
             try {
@@ -93,14 +93,14 @@ public class Duke {
         list.add(curr);
     }
 
-    public static void greet() {
+    private static void greet() {
         System.out.println("--------------------------");
         System.out.println("Welcome!! I'm Belle <3.");
         System.out.println("What can I do for you?");
         System.out.println("--------------------------");
     }
 
-    public static void mark(String index) throws BelleException {
+    private static void mark(String index) throws BelleException {
         try {
             Task doingtask = list.get(Integer.valueOf(index)-1);
             doingtask.dotask();
@@ -113,7 +113,7 @@ public class Duke {
         }
     }
 
-    public static void unmark(String index) throws BelleException {
+    private static void unmark(String index) throws BelleException {
         try {
             Task doingtask = list.get(Integer.valueOf(index)-1);
             doingtask.undotask();
@@ -126,7 +126,7 @@ public class Duke {
         }
     }
 
-    public static void delete(String index) throws BelleException{
+    private static void delete(String index) throws BelleException{
         try {
             Task deletetask = list.get(Integer.valueOf(index)-1);
             list.remove(Integer.parseInt(index) - 1);
@@ -142,3 +142,5 @@ public class Duke {
         }
     }
 }
+
+//enquire about where to add javadocs comments. only public methods?
