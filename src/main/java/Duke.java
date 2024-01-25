@@ -9,6 +9,11 @@ public class Duke {
     // Separator decorators for chatbot.
     private static final String BLOCK_SEPARATOR = "=".repeat(80);
 
+    // All possible command types.
+    private enum Command {
+        UNKNOWN, BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
+    }
+
     public static void main(String[] args) {
         // Greeting message to be displayed on start.
         final String GREETING = "Hello, I'm Ted. What can I do for you today?";
@@ -22,32 +27,46 @@ public class Duke {
         Duke.echo(GREETING);
 
         while (true) {
-            String input = sc.nextLine();
+            String input = sc.nextLine().trim();
+            Command inputCommand = Duke.getCommand(input);
+            // For commands that expects an index as argument.
+            int index = 0;
 
             try {
-                if (input.equals("bye")) {
-                    break;
-                } else if (input.equals("list")) {
+                switch (inputCommand) {
+                case BYE:
+                    Duke.echo(GOODBYE);
+                    return;
+                case LIST:
                     Duke.echo(taskList.listTasks());
-                } else if (input.startsWith("todo")) {
+                    break;
+                case TODO:
                     ToDo todo = ToDo.createToDo(input.substring(4));
                     Duke.echo(taskList.addTask(todo));
-                } else if (input.startsWith("deadline")) {
+                    break;
+                case DEADLINE:
                     Deadline deadline = Deadline.createDeadline(input.substring(8));
                     Duke.echo(taskList.addTask(deadline));
-                } else if (input.startsWith("event")) {
+                    break;
+                case EVENT:
                     Event event = Event.createEvent(input.substring(5));
                     Duke.echo(taskList.addTask(event));
-                } else if (input.startsWith("mark")) {
-                    int index = Integer.parseInt(input.substring(5));
+                    break;
+                case MARK:
+                    index = Integer.parseInt(input.substring(5));
                     Duke.echo(taskList.markTask(index));
-                } else if (input.startsWith("unmark")) {
-                    int index = Integer.parseInt(input.substring(7));
+                    break;
+                case UNMARK:
+                    index = Integer.parseInt(input.substring(7));
                     Duke.echo(taskList.unmarkTask(index));
-                } else if (input.startsWith("delete")) {
-                    int index = Integer.parseInt(input.substring(7));
+                    break;
+                case DELETE:
+                    index = Integer.parseInt(input.substring(7));
                     Duke.echo(taskList.deleteTask(index));
-                } else {
+                    break;
+                case UNKNOWN:
+                    // Fallthrough
+                default:
                     throw new UnknownCommandException();
                 }
             } catch (NumberFormatException e) {
@@ -56,8 +75,28 @@ public class Duke {
                 Duke.echo(e.getMessage());
             }
         }
+    }
 
-        Duke.echo(GOODBYE);
+    private static Command getCommand(String input) {
+        if (input.equals("bye")) {
+            return Command.BYE;
+        } else if (input.equals("list")) {
+            return Command.LIST;
+        } else if (input.startsWith("todo")) {
+            return Command.TODO;
+        } else if (input.startsWith("deadline")) {
+            return Command.DEADLINE;
+        } else if (input.startsWith("event")) {
+            return Command.EVENT;
+        } else if (input.startsWith("mark")) {
+            return Command.MARK;
+        } else if (input.startsWith("unmark")) {
+            return Command.UNMARK;
+        } else if (input.startsWith("delete")) {
+            return Command.DELETE;
+        }
+
+        return Command.UNKNOWN;
     }
 
     /**
