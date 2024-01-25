@@ -2,12 +2,14 @@ import  java.util.Scanner;
 import java.util.regex.PatternSyntaxException;
 
 public class Duke {
+
+    public static int total = 0;
     public static void main(String[] args) {
 
         System.out.println("Hi! This is Bit!\nWhat shall we do today?\n");
         Scanner scanner = new Scanner(System.in);
         Task[] list = new Task[100];
-        int total = 0;
+
 
         while(true) {
             String input = scanner.nextLine();
@@ -24,21 +26,18 @@ public class Duke {
                     } else if (parts[0].equals("unmark")) {
                         unmark(i, list);
                     } else {
-                        addTo(list, total, input);
-                        total++;
+                        addTo(list, input);
 
 
                     }
 
                 } catch (NumberFormatException e) {
-                    addTo(list, total, input);
-                    total++;
+                    addTo(list, input);
 
 
                 }
             } else {
-                addTo(list, total, input);
-                total++;
+                addTo(list, input);
 
             }
 
@@ -46,24 +45,33 @@ public class Duke {
         System.out.println("Alright. See you soon!");
     }
 
-    public static void addTo(Task[] list, int total, String input) {
+    public static void addTo(Task[] list, String input) {
         if(input.contains("todo ")) {
             String[] parts = input.split(" ", 2);
             if (parts[0].equals("todo")) {
                 list[total] = new Todo(parts[1]);
                 System.out.println("Done! I have added this to the list: " + list[total].toString());
+                total++;
 
             }
 
 
         } else if (input.contains("event ")) {
-            String[] parts = input.split(" ");
+            String[] parts = input.split(" ", 2);
             if (parts[0].equals("event")) {
                 try{
-                    String[] components = input.split("/");
-                    list[total] = new Event(components[0], components[1]);
+                    String[] compo = parts[1].split("/to");
+                    System.out.println(compo[0]);
+                    String end = compo[1];
+                    String[] components = compo[0].split("/from");
+                    String start = components[1];
+                    list[total] = new Event(parts[0], start, end);
+                    System.out.println("Done! I have added this to the list:" + list[total].toString());
+                    total++;
                 } catch (PatternSyntaxException e) {
-                    System.out.println("Wut");
+                    System.out.println("Hmmm, did you use the proper syntax?");
+                } catch (ArrayIndexOutOfBoundsException x) {
+                    System.out.println("Please check your syntax");
                 }
             }
 
