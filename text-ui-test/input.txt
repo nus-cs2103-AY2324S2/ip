@@ -5,4 +5,8 @@ todo borrow book
 mark 2
 list
 unmark 2
+event
+todo
+deadline a
+as
 bye

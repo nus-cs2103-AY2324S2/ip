@@ -2,13 +2,13 @@ import java.io.*;
 import java.util.*;
 public class Duke {
     public static void main(String[] args) throws IOException {
-        String logo = "   __     __   _  _    _  _           \n"
-                    + " / __ \\  |  \\ | | \\ \\/ / | |            \n"
-                    + "| |__| | |   \\| |  \\  /  | |     \n"
+        String logo = "   __     __   _  _    _  _\n"
+                    + " / __ \\  |  \\ | | \\ \\/ / | |\n"
+                    + "| |__| | |   \\| |  \\  /  | |\n"
                     + "|  __  | | |\\   |  /  \\  | |\n"
                     + "|_|  |_| |_| \\__| /_/\\_\\ |_|\n";
         String name = "Anxi";
-        String line = "--------------------------------------";
+        String line = "------------------------------------------------------------";
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         ArrayList<Task> tasks = new ArrayList<>();
@@ -54,11 +54,12 @@ public class Duke {
                     try {
                         if (t.length == 1) {
                             throw new DukeException();
-                        } else {
-                            tasks.add(new ToDo(t[1]));
-                            System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
+
+                        tasks.add(new ToDo(t[1]));
+                        System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
                     } catch (DukeException de) {
                         System.out.println("Need to check my eyesight, nothing to do.");
                     }
@@ -68,19 +69,24 @@ public class Duke {
                 case "event":
                     String[] e = action.split(" ", 2);
                     try {
-                        if (e.length < 3) {
+                        if (e.length == 1) {
                             throw new DukeException();
-                        } else {
-                            st = new StringTokenizer(e[1], "/");
-                            tasks.add(new Event(st.nextToken().strip(),
-                                    st.nextToken().substring(5).strip(),
-                                    st.nextToken().substring(3)));
-
-                            System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
+
+                        st = new StringTokenizer(e[1], "/");
+                        if (st.countTokens() < 3) {
+                            throw new DukeException();
+                        }
+
+                        tasks.add(new Event(st.nextToken().strip(),
+                                st.nextToken().substring(5).strip(),
+                                st.nextToken().substring(3)));
+
+                        System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
                     } catch (DukeException de) {
-                        System.out.println("This event is the highlight of the social “calen-darling.”");
+                        System.out.println("This event is the highlight of the social \"calen-darling.\"");
                         System.out.println("Got all the details?");
                     }
 
@@ -91,12 +97,17 @@ public class Duke {
                     try {
                         if (d.length < 2) {
                             throw new DukeException();
-                        } else {
-                            st = new StringTokenizer(d[1], "/");
-                            tasks.add(new Deadline(st.nextToken().strip(), st.nextToken().substring(3)));
-                            System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
+
+                        st = new StringTokenizer(d[1], "/");
+                        if (st.countTokens() < 2) {
+                            throw new DukeException();
+                        }
+
+                        tasks.add(new Deadline(st.nextToken().strip(), st.nextToken().substring(3)));
+                        System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
                     } catch (DukeException de) {
                         System.out.println("To survive is to procrastinate death, when is this due?");
                     }
@@ -104,7 +115,7 @@ public class Duke {
                     break;
 
                 default:
-                    System.out.println("Are you as clueless about “" + temp + "” as I am?");
+                    System.out.println("Are you as clueless about \"" + temp + "\" as I am?");
                     break;
             }
 
