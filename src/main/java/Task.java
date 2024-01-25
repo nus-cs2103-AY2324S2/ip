@@ -1,15 +1,19 @@
 import java.util.Scanner;
 public class Task {
     private String taskName;
-    private static String taskList[] = new String[100];
+    private boolean done;
+    private String start;
+    private String end;
 
-    private static boolean done[] = new boolean[100];
+    private String deadline;
+
+    private char taskType;
 
 
-    private static boolean event[] = new boolean[100];
-
-
-    private static int counter = 0;
+    // we need to use different constructors for the different classes
+    // for todo: only taskName
+    // for deadline: taskName + deadline
+    // for event: taskName + start + end
 
     public Task() {
 
@@ -18,89 +22,51 @@ public class Task {
 
     public Task(String taskName) {
         this.taskName = taskName;
-        if (this.taskName.equals("list")) {
-
-        }
-
-        else if (this.taskName.equals("mark")) {
-
-        }
-
-        else if (this.taskName.equals("unmark")) {
-
-        }
-        else {
-            Task.taskList[counter] = this.taskName;
-            Task.counter++;
-        }
+        this.done = false;
+        this.taskType = 'T';
     }
 
-    public String taskToString(String t) {
-        if (t.equals("event")) {
-            return "[E]";
-        }
-        else if (t.equals("deadline")) {
-            return "[D]";
-        }
-
-        else if (t.equals("todo")) {
-            return "[T]";
-        }
-        return "";
+    public Task(String taskName, String deadline) {
+        this.taskName = taskName;
+        this.deadline = deadline;
+        this.done = false;
+        this.taskType = 'D';
     }
 
-    public void display() {
-
-        System.out.println("----------------------------------------------------------");
-        for (int i = 0; i < Task.counter; i++) {
-            if (Task.done[i]) {
-
-
-
-                System.out.println(i + 1 + ". " + "[X] " + Task.taskList[i]);
-
-            }
-            else {
-                System.out.println(i + 1 + ". " + "[ ] " + Task.taskList[i]);
-            }
-        }
-        System.out.println("----------------------------------------------------------");
+    public Task(String taskName, String start, String end) {
+        this.taskName = taskName;
+        this.start = start;
+        this.end = end;
+        this.done = false;
+        this.taskType = 'E';
     }
 
-    public void markEvent() {
-        Task.event[Task.counter + 1] = true;
-
+    public String getStatusIcon() {
+        return (this.done ? "X" : " "); // mark done task with X
     }
 
-
-    public void mark() {
-
-        Scanner s = new Scanner(System.in);
-        System.out.println("Which one should I mark? Write the label number :] ");
-        int label = s.nextInt();
-        Task.done[label-1] = true;
-        System.out.println("----------------------------------------------------------");
-        System.out.println("Nice! I've marked this task as done: \n"
-        + "[X] " + Task.taskList[label-1]);
-        System.out.println("----------------------------------------------------------");
+    public String getStart() {
+        return this.start;
     }
 
-    //Test
-    public void unmark() {
-        Scanner s = new Scanner(System.in);
-        System.out.println("Which one should I mark? Write the label number :] ");
-        int label = s.nextInt();
-        Task.done[label-1] = false;
-        System.out.println("----------------------------------------------------------");
-        System.out.println("Ok, I've marked this task as not done yet: \n"
-                + "[ ] " + Task.taskList[label-1]);
-        System.out.println("----------------------------------------------------------");
+    public String getEnd() {
+        return this.end;
     }
-    public void add() {
-        String s = "----------------------------------------------------------\n" +
-                "Added: " + this.taskName
 
-                + "\n----------------------------------------------------------";
-        System.out.println(s);
+    public String getDeadline() {
+        return this.deadline;
+    }
+
+    public void setDone(boolean isDone) {
+        this.done = isDone;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.taskType + "] [" + this.getStatusIcon() + "] " + this.taskName;
     }
 }
+
+
+
+
