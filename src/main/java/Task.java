@@ -10,12 +10,12 @@ public class Task {
 
   // gets Status icon for the Task itself
   public String getStatusIcon() {
-    return (this.isDone ? "X" : " ");
+    return (this.isDone ? "[X]" : "[ ]");
   }
 
   // get status for task
   public String getStatus() {
-    return "[" + getStatusIcon() + "] " + this.description;
+    return this.getStatusIcon() + " " + this.description;
   }
 
   // mark task
