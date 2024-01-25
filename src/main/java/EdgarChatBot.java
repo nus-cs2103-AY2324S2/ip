@@ -52,6 +52,11 @@ public class EdgarChatBot {
                 continue;
             }
 
+            if (action.equalsIgnoreCase("delete")) {
+                this.taskList.deleteTask(Integer.parseInt(splitInput[1]));
+                continue;
+            }
+
             this.taskList.addTask(userInput);
         }
     } catch (ChatBotException e) {

@@ -70,6 +70,27 @@ public class TaskList {
         }
     }
 
+    public void deleteTask(int number) throws ChatBotException {
+        if (this.tasks.size() == 0) {
+            throw new ChatBotException("Oops! There are no tasks in the list");
+        }
+        if (number < 0) {
+            throw new ChatBotException("Oops! Number entered cannot be negative");
+        }
+        if (number > this.tasks.size()) {
+            throw new ChatBotException("Oops! Number entered does not exist in the list");
+        }
+
+        Task taskDeleted = this.tasks.remove(number - 1);
+        printHorizontalLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("\t" + taskDeleted.toString());
+        System.out.println(
+                "Now you have " + this.tasks.size() + " task" +
+                        (this.tasks.size() == 1 ? "" : "s") + " in the list");
+        printHorizontalLine();
+    }
+
     public void markTask(int index) {
         if (index <= 0 || index > this.tasks.size()) {
             System.out.println("Oops! Task index is out of range.");
