@@ -1,0 +1,7 @@
+todo go get breakfast
+deadline finish 2103 /by thursday
+event ace meeting /from thursday 7pm /to 8pm
+list
+mark 2
+list
+bye
