@@ -5,7 +5,7 @@ public class Duke {
     public static void main(String[] args) {
 
         // Ui
-        Ui killua = new Ui();
+        Ui ui = new Ui();
 
         // Storage
         Storage storage = new Storage();
@@ -14,23 +14,49 @@ public class Duke {
         Scanner inputReader = new Scanner(System.in);
 
         // Greet
-        killua.greet();
+        ui.greet();
 
-        // Echo
+        // Perform task
         while (true) {
             String task = inputReader.nextLine();
-            if (task.equals("bye")) {
+            String[] splitedTask = task.split(" ");
+            Task newTask = new Task(task);
+
+            String choice = splitedTask[0];
+            boolean isEnd = false;
+
+            switch (choice) {
+                case "bye": {
+                    isEnd = true;
+                    break;
+                }
+                case "list": {
+                    ui.list(storage);
+                    break;
+                }
+                case "mark": {
+                    storage.markDone(Integer.parseInt(splitedTask[1]) - 1);
+                    ui.mark(storage.getItem(Integer.parseInt(splitedTask[1]) - 1));
+                    break;
+                }
+                case "unmark": {
+                    storage.unmarkDone(Integer.parseInt(splitedTask[1]) - 1);
+                    ui.mark(storage.getItem(Integer.parseInt(splitedTask[1]) - 1));
+                    break;
+                }
+                default: {
+                    storage.add(newTask);
+                    ui.add(newTask);
+                }
+            }
+
+            // Loop breaker check
+            if (isEnd) {
                 break;
-            } else if (task.equals("list")) {
-                killua.list(storage);
-            } else {
-                storage.add(task);
-                killua.add(task);
             }
         }
 
         // Exit
-        killua.exit();
-
+        ui.exit();
     }
 }
