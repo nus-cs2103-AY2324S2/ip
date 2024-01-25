@@ -38,7 +38,13 @@ public class Duke {
             return response + "  " + toString();
         }
 
+        public void editIndex(int x) {
+            this.index = x;
+        }
 
+        public void editDescription(String input) {
+            this.description = input;
+        }
 
     }
 
@@ -193,6 +199,12 @@ public class Duke {
         System.out.println(div);
     }
 
+    /**
+     * Deletes the task from the list and shifts the subsequent tasks forward.
+     *
+     * @param t The task to be deleted.
+     * @throws DukeException
+     */
     public static void commandDelete(Task t) throws DukeException {
         if (index == 0) {
             throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
@@ -202,6 +214,7 @@ public class Duke {
             for (int i = t.index; i <= index - 1; i++) {
                 // Adjust the index of each element
                 taskList[i] = taskList[i + 1];
+                taskList[i].index = i;
             }
             index -= 1;
             signalSays("Noted, I've deleted this task from your list: \n"
@@ -212,6 +225,13 @@ public class Duke {
                     + (index - 1) + ((index - 1) == 1 ? " item" : " items") + " in this list");
         }
     }
+
+    /**
+     * Handles negative and out-of-bounds inputs for deleting tasks.
+     *
+     * @param x
+     * @throws DukeException
+     */
     public static void commandDeleteInvalid(int x) throws DukeException {
         if (x < 0) {
             throw new DukeException("Negative numbers might exist in maths but not in this list!");
@@ -229,6 +249,20 @@ public class Duke {
         throw new DukeException("Haha, very funny. Nice try my guy!");
     }
 
+    public static void commandHelp() {
+        signalSays("Note: Entering any text besides the following creates a new generic task. \n" +
+                "The round brackets indicate you can enter any text, square brackets indicate you should enter a number. \n" +
+                "\nCREATING TASKS: \n" +
+                "* todo () -- creates a To Do task, which has no deadline. \n" +
+                "* deadline () \\by () -- creates a Deadline task, indicate its deadline after '\\by'. \n" +
+                "* event () \\from () \\to () -- creates an Event task, indicate its start and end after '\\from' and '\\to'. \n" +
+                "\nCOMMANDS: \n" +
+                "* list -- prints a numbered list of the tasks created, in input order.\n" +
+                "* mark [] -- marks the task at index [] as completed. \n" +
+                "* unmark [] -- marks the task at index [] as uncompleted. \n" +
+                "* delete [] -- removes the task at index [] from the list.\n" +
+                "* bye -- exits the program.");
+    }
 
     /**
      * Prints Signal's response enclosed in the dividers.
@@ -245,6 +279,7 @@ public class Duke {
     public static void main(String[] args) {
         System.out.println("Hello! My name is\n" + logo);
         System.out.println("How can I help?");
+        System.out.println("Enter 'help' to see the list of commands available :D");
         System.out.println(div);
 
 
