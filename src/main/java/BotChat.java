@@ -3,11 +3,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BotChat {
-    static boolean terminate = false;
-    static Task[] dataStore = new Task[100];
-    static int lastIdx = 0;
-    static Pattern markPattern = Pattern.compile("mark \\d+");
-    static Pattern unmarkPattern = Pattern.compile("unmark \\d+");
+    private static boolean terminate = false;
+    private static Task[] dataStore = new Task[100];
+    private static int lastIdx = 0;
+    private static Pattern markPattern = Pattern.compile("mark \\d+");
+    private static Pattern unmarkPattern = Pattern.compile("unmark \\d+");
+
+    public static void addTask(String s) {
+        if (s.startsWith("todo")) {
+            dataStore[lastIdx] = new ToDo(s.split("todo ")[1]);
+        } else if (s.startsWith("deadline")) {
+            String slicedString = s.substring(8); // slice away "deadline "
+            String[] stringParts = slicedString.split("/by ");
+            dataStore[lastIdx] = new Deadline(stringParts[0], stringParts[1]);
+        } else if (s.startsWith("event")) {
+            String slicedString = s.substring(6);
+            String[] stringParts = slicedString.split("/from |/to ");
+            dataStore[lastIdx] = new Event(stringParts[0], stringParts[1], stringParts[2]);
+        } else {
+            throw new IllegalArgumentException("Invalid command");
+        }
+        lastIdx++;
+    }
 
     public static String response(String s) {
         Matcher markMatcher = markPattern.matcher(s);
@@ -19,13 +36,7 @@ public class BotChat {
             StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list: \n");
             for (int i = 1; i <= lastIdx; i++) {
                 stringBuilder.append(i);
-                stringBuilder.append(". [");
-                if (dataStore[i-1].getDoneStatus()) {
-                    stringBuilder.append("X");
-                } else {
-                    stringBuilder.append(" ");
-                }
-                stringBuilder.append("] ");
+                stringBuilder.append(". ");
                 stringBuilder.append(dataStore[i-1].toString());
                 stringBuilder.append("\n ");;
             }
@@ -33,19 +44,15 @@ public class BotChat {
         } else if (markMatcher.matches()) {
             int taskNum = Integer.parseInt(s.split("\\s+")[1]);
             dataStore[taskNum - 1].markAsDone();
-            StringBuilder stringBuilder = new StringBuilder("Nice! I've marked this task as done: \n [X] ");
-            stringBuilder.append(dataStore[taskNum - 1].toString());
-            return stringBuilder.toString();
+            return String.format("Nice! I've marked this task as done: \n ", dataStore[taskNum - 1].toString());
         } else if (unmarkMatcher.matches()) {
             int taskNum = Integer.parseInt(s.split("\\s+")[1]);
             dataStore[taskNum - 1].markAsUndone();
-            StringBuilder stringBuilder = new StringBuilder("OK, I've marked this task as not done yet: \n [ ] ");
-            stringBuilder.append(dataStore[taskNum - 1].toString());
-            return stringBuilder.toString();
+            return String.format("OK, I've marked this task as not done yet: \n %s", dataStore[taskNum - 1].toString());
         } else {
-            dataStore[lastIdx] = new Task(s);
-            lastIdx++;
-            return "added: " + s;
+            addTask(s);
+            return String.format("Got it. I've added this task:\n %s \n Now you have %d tasks in the list.",
+                    dataStore[lastIdx-1].toString(), lastIdx);
         }
     }
 

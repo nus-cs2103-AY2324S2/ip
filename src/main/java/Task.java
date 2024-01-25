@@ -20,6 +20,10 @@ public class Task {
     }
 
     public String toString() {
-        return this.taskString;
+        if (this.getDoneStatus()) {
+            return String.format("[X] %s", this.taskString);
+        } else {
+            return String.format("[ ] %s", this.taskString);
+        }
     }
 }
