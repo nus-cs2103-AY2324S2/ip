@@ -227,7 +227,6 @@ public class Dook {
                 break;
             }
             Dook.printSeparator();
-        }ele
-                
+        }
     }
 }
