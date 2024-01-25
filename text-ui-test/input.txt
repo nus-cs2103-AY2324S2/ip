@@ -1,0 +1,13 @@
+event project meeting /from Mon 2pm /to 4pm
+event Badminton /from Tues 8pm /to 9pm
+todo Laundry
+deadline Homework /by Sunday
+
+deadline Homework /by Sunday
+deadline Essay /by Sunday
+list
+mark 1
+mark 3
+list
+unmark 1
+list

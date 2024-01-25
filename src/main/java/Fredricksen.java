@@ -103,5 +103,6 @@ public class Fredricksen {
                     break;
             }
         }
+        in.close();
     }
 }
