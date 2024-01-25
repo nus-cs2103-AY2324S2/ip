@@ -27,14 +27,6 @@ public class Alfred {
     }
 
     public void addList(String input) {
-//        try {
-//            if (input.equals("todo") || input.equals("deadline") || input.equals("event")) {
-//                throw new AlfredException("Sorry Master Bruce. The description of a " + input + " cannot be empty. Please specify a description.");
-//            }
-//        } catch (AlfredException e) {
-//            e.printError();
-//            return;
-//        }
         try {
             if (input.startsWith("todo")) {
                 input = input.substring(5).trim();
@@ -87,6 +79,12 @@ public class Alfred {
     }
 
     public void printList() {
+        if (list == null || list.size() == 0) {
+            System.out.println(line);
+            System.out.println("Sorry Master Bruce. There are no tasks in the list.");
+            System.out.println(line);
+            return;
+        }
         System.out.println(line);
         for (int i = 0; i < list.size(); i++) {
             System.out.println(i + 1 + ". " + list.get(i).toString());
@@ -94,45 +92,120 @@ public class Alfred {
         System.out.println(line);
     }
 
-    public void markList(int index) {
+    public void markList(String index) {
+        int extractedIdx = 0;
         try {
+            if (index.isEmpty()) {
+                throw new AlfredException("Sorry Master Bruce. Please enter a number after 'mark'.");
+            }
+            try {
+                extractedIdx = Integer.parseInt(index);
+            }
+            catch (NumberFormatException e) {
+                if (list.size() == 1) {
+                    throw new AlfredException("Sorry Master Bruce. Please enter a number. There is only 1 task in the list.");
+                } else {
+                    throw new AlfredException("Sorry Master Bruce. Please enter a number in the range of 1 to " + list.size() + ".");
+                }
+            }
+            extractedIdx -= 1;
             if (list.size() == 0) {
                 throw new AlfredException("Sorry Master Bruce. There are no tasks in the list.");
-            } else if (list.size() == 1 && index != 1) {
-                throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. There is only 1 task in the list.");
-            } else if (index >= list.size() || index < 0) {
-                throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. Please enter a number in the range of 1 to " + list.size() + ".");
-            } else if (list.get(index).isDone()) {
+            } else if (extractedIdx >= list.size() || extractedIdx < 0) {
+                if (list.size() == 1) {
+                    throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. There is only 1 task in the list.");
+                } else {
+                    throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. Please enter a number in the range of 1 to " + list.size() + ".");
+                }
+            } else if (list.get(extractedIdx).isDone()) {
                 throw new AlfredException("Sorry Master Bruce. This task has already been marked as done.");
             }
         } catch (AlfredException e) {
             e.printError();
             return;
         }
-        list.get(index).toggleDone();
+        list.get(extractedIdx).toggleDone();
         System.out.println(line);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + list.get(index));
+        System.out.println("  " + list.get(extractedIdx));
         System.out.println(line);
     }
 
-    public void unmarkList(int index) {
+    public void unmarkList(String index) {
+        int extractedIdx = 0;
         try {
+        if (index.isEmpty()) {
+            throw new AlfredException("Sorry Master Bruce. Please enter a number after 'unmark'.");
+        }
+        try {
+            extractedIdx = Integer.parseInt(index);
+        }
+        catch (NumberFormatException e) {
+            if (list.size() == 1) {
+                throw new AlfredException("Sorry Master Bruce. Please enter a number. There is only 1 task in the list.");
+            } else {
+                throw new AlfredException("Sorry Master Bruce. Please enter a number in the range of 1 to " + list.size() + ".");
+            }
+        }
+        extractedIdx -= 1;
+        if (list.size() == 0) {
+            throw new AlfredException("Sorry Master Bruce. There are no tasks in the list.");
+        } else if (extractedIdx >= list.size() || extractedIdx < 0) {
+            if (list.size() == 1) {
+                throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. There is only 1 task in the list.");
+            } else {
+                throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. Please enter a number in the range of 1 to " + list.size() + ".");
+            }
+        } else if (!list.get(extractedIdx).isDone()) {
+            throw new AlfredException("Sorry Master Bruce. This task has already been marked as not done.");
+        }
+        } catch (AlfredException e) {
+            e.printError();
+            return;
+        }
+        list.get(extractedIdx).toggleDone();
+        System.out.println(line);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("  " + list.get(extractedIdx));
+        System.out.println(line);
+    }
+
+    public void deleteList(String index) {
+        int extractedIdx = 0;
+        try {
+            if (index.isEmpty()) {
+                throw new AlfredException("Sorry Master Bruce. Please enter a number after 'delete'.");
+            }
+            try {
+                extractedIdx = Integer.parseInt(index);
+            }
+            catch (NumberFormatException e) {
+                if (list.size() == 1) {
+                    throw new AlfredException("Sorry Master Bruce. Please enter a number. There is only 1 task in the list.");
+                } else {
+                    throw new AlfredException("Sorry Master Bruce. Please enter a number in the range of 1 to " + list.size() + ".");
+                }
+            }
+            extractedIdx -= 1;
             if (list.size() == 0) {
                 throw new AlfredException("Sorry Master Bruce. There are no tasks in the list.");
-            } else if (index >= list.size() || index < 0) {
-                throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. Please enter a number in the range of 1 to " + list.size() + ".");
-            } else if (!list.get(index).isDone()) {
-                throw new AlfredException("Sorry Master Bruce. This task has already been marked as not done.");
+            } else if (extractedIdx >= list.size() || extractedIdx < 0) {
+                if (list.size() == 1) {
+                    throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. There is only 1 task in the list.");
+                } else {
+                    throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. Please enter a number in the range of 1 to " + list.size() + ".");
+                }
             }
         } catch (AlfredException e) {
             e.printError();
             return;
         }
-        list.get(index).toggleDone();
+        String removedTask = list.get(extractedIdx).toString();
+        list.remove(extractedIdx);
         System.out.println(line);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + list.get(index));
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + removedTask);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         System.out.println(line);
     }
 
@@ -142,7 +215,7 @@ public class Alfred {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
-            switch (input) {
+            switch (input.trim()) {
                 case "bye":
                     alfred.bye();
                     return;
@@ -151,24 +224,13 @@ public class Alfred {
                     break;
                 default:
                     if (input.startsWith("unmark")) {
-                        int extractedIdx;
-                        try {
-                            extractedIdx = Integer.parseInt(input.substring(7));
-                        } catch (NumberFormatException e) {
-                            alfred.echo("Sorry Master Bruce. Please enter a number after 'unmark'.");
-                            continue;
-                        }
-                        alfred.unmarkList(extractedIdx - 1);
+                        alfred.unmarkList(input.substring(6).trim());
                     } else if (input.startsWith("mark")) {
-                        int extractedIdx;
-                        try {
-                            extractedIdx = Integer.parseInt(input.substring(5));
-                        } catch (NumberFormatException e) {
-                            alfred.echo("Sorry Master Bruce. Please enter a number after 'mark'.");
-                            continue;
-                        }
-                        alfred.markList(extractedIdx - 1);
-                    } else {
+                        alfred.markList(input.substring(4).trim());
+                    } else if (input.startsWith("delete")) {
+                        alfred.deleteList(input.substring(6).trim());
+                    }
+                    else {
                         alfred.addList(input);
                     }
                     break;
