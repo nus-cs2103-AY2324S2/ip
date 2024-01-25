@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ran {
@@ -12,6 +13,7 @@ public class Ran {
         System.out.println(art);
         System.out.println("What would you like to do today?");
         boolean running = true;
+        ArrayList<String> tasks = new ArrayList<>(100);
         Scanner sc = new Scanner(System.in);
         do {
             System.out.println("____________________________________________________________");
@@ -20,8 +22,18 @@ public class Ran {
                 case "bye":
                     running = false;
                     break;
+                case "list":
+                    if (tasks.isEmpty()) {
+                        System.out.println("You haven't got any tasks.");
+                    } else {
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println("Task " + i + " : " + tasks.get(i));
+                        }
+                    }
+                    break;
                 default:
-                    System.out.println(command+"?");
+                    tasks.add(command);
+                    System.out.println("Added task: " + command);
             }
         } while (running);
 
