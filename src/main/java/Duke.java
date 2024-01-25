@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -107,7 +108,12 @@ public class Duke {
                         }
 
                 }
-                echo = new Task (user.nextLine());
+                try {
+                    echo = new Task(user.nextLine());
+                } catch (NoSuchElementException e) {
+                    System.out.println("Say something I'm giving up on you");
+                }
+
         }
 
 
