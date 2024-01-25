@@ -20,7 +20,9 @@ public class TerminalController {
             String curInput = scanner.nextLine();
             Feedback feedback = feedbackService.run(curInput);
 
+            System.out.println("----------------------------------------------");
             System.out.println(feedback);
+            System.out.println("----------------------------------------------");
 
             if (feedback.getIsBye()) {
                 stop = true;

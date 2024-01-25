@@ -5,7 +5,11 @@ public enum CommandEnum {
     LIST("list"),
     MARK("mark"),
     UNMARK("unmark"),
-    ADD("add");
+//    ADD("add"),
+
+    TODO("todo"),
+    DEADLINE("deadline"),
+    EVENT("event");
 
     public final String commandValue;
 
@@ -27,6 +31,6 @@ public enum CommandEnum {
             }
         }
 
-        return CommandEnum.ADD;
+        return null;
     }
 }
