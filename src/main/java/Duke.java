@@ -100,6 +100,18 @@ public class Duke {
 
                         break;
                     }
+                    case "delete": {
+                        int taskNum = Integer.parseInt(inputArray[1]);
+                        Task currtask = taskList.get(taskNum - 1);
+                        taskList.remove(taskNum - 1);
+                        taskCount--;
+                        System.out.println(lineBreak + '\n' +
+                                "Noted. I've removed this task:" + '\n' +
+                                currtask + '\n' +
+                                "Now you have " + taskCount + " tasks in the list." + '\n' +
+                                lineBreak);
+                        break;
+                    }
 
                     default: {
                         throw new ExceptionDuke("OOPS!!! I'm sorry, but I don't know what that means :-(");
