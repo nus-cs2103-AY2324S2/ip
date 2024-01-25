@@ -30,10 +30,22 @@ public class Duke {
                 }
                 case "mark": {
                     System.out.println(line);
-                    System.out.println("Great job agent 47. I've marked this task as DONE: ");
+                    System.out.println("Great job agent 47. Marking this task as DONE: ");
 
-                    int taskNo = Integer.parseInt(commandArr[1]);
-                    taskList.markDoneAtInd(taskNo);
+                    try {
+                        int taskNo = Integer.parseInt(commandArr[1]);
+                        taskList.markDoneAtInd(taskNo);
+                    } catch(NumberFormatException nfe) {
+                        System.out.println("Oh dear! Please enter a number instead ^.^");
+                        break;
+                    } catch(NullPointerException ne) {
+                        System.out.println("Oopsies! Please enter a valid task number ^.^");
+                        break;
+                    } catch(IndexOutOfBoundsException ne) {
+                        System.out.println("Oopsies! Please enter a valid task number ^.^");
+                        break;
+                    }
+
                     System.out.println(line);
                     break;
                 }
@@ -41,8 +53,19 @@ public class Duke {
                     System.out.println(line);
                     System.out.println("Alright, marking this task as NOT DONE :( : ");
 
-                    int taskNo = Integer.parseInt(commandArr[1]);
-                    taskList.markNotDoneAtInd(taskNo);
+                    try {
+                        int taskNo = Integer.parseInt(commandArr[1]);
+                        taskList.markNotDoneAtInd(taskNo);
+                    } catch(NumberFormatException nfe) {
+                        System.out.println("Oh dear! Please enter a number instead ^.^");
+                        break;
+                    } catch(NullPointerException ne) {
+                        System.out.println("Oopsies! Please enter a valid task number ^.^");
+                        break;
+                    } catch(IndexOutOfBoundsException ne) {
+                        System.out.println("Oopsies! Please enter a valid task number ^.^");
+                        break;
+                    }
 
                     System.out.println(line);
                     break;
@@ -53,11 +76,23 @@ public class Duke {
                     fullCommand = fullCommand.replace("deadline", "")
                                              .replace("/by", "/");
                     String[] splitCommand = fullCommand.split("/");
-                    String taskDescription = splitCommand[0].trim();
-                    String byDate = splitCommand[1].trim();
 
-                    Deadline dl = new Deadline(taskDescription, byDate);
-                    taskList.addTask(dl);
+                    try {
+                        String taskDescription = splitCommand[0].trim();
+                        if (taskDescription.isEmpty()) {
+                            System.out.println("Oh dear! The description of task cannot be empty!");
+                            break;
+                        }
+                        String byDate = splitCommand[1].trim();
+                        Deadline dl = new Deadline(taskDescription, byDate);
+                        taskList.addTask(dl);
+                    } catch (IndexOutOfBoundsException ie) {
+                        System.out.println("OH NOES!! Do enter the deadline correctly with: /by [DEADLINE]. ");
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Uh oh. Something went wrong with your input!");
+                        break;
+                    }
 
                     System.out.println(line);
                     break;
@@ -69,12 +104,24 @@ public class Duke {
                                              .replace("/from", "/")
                                              .replace("/to", "/");
                     String[] splitCommand = fullCommand.split("/");
-                    String taskDescription = splitCommand[0].trim();
-                    String from = splitCommand[1].trim();
-                    String to = splitCommand[2].trim();
 
-                    Event event = new Event(taskDescription, from, to);
-                    taskList.addTask(event);
+                    try {
+                        String taskDescription = splitCommand[0].trim();
+                        if (taskDescription.isEmpty()) {
+                            System.out.println("Oh dear! The description of task cannot be empty!");
+                            break;
+                        }
+                        String from = splitCommand[1].trim();
+                        String to = splitCommand[2].trim();
+                        Event event = new Event(taskDescription, from, to);
+                        taskList.addTask(event);
+                    } catch(IndexOutOfBoundsException ie) {
+                        System.out.println("OH NOES!! Do enter the event dates correctly with: /from [start] /to [end]. ");
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Uh oh. Something went wrong with your input!");
+                        break;
+                    }
 
                     System.out.println(line);
                     break;
@@ -83,6 +130,11 @@ public class Duke {
                     System.out.println(line);
 
                     fullCommand = fullCommand.replace("todo", "").trim();
+
+                    if (fullCommand.isEmpty()) {
+                        System.out.println("Oh dear! The description of a todo cannot be empty!");
+                        break;
+                    }
 
                     ToDo toDo = new ToDo(fullCommand);
                     taskList.addTask(toDo);
