@@ -14,13 +14,7 @@ public class Deadline extends Task {
 
     @Override
     public void taskPrinter(int index) {
-        String result = "";
-        if (isDone) {
-            result = "    " + (index+1) + ".[D][X]" + " " + description + "(by: " + deadline+ ")";
-        } else {
-            result = "    " + (index+1) + ".[D][ ]" + " " + description + "(by: " + deadline+ ")";
-        }
-
+        String result = "    " + (index+1) + ".[D]" + getStatusIcon() + " " + description  + "(by: " + deadline+ ")";
         System.out.println(result);
     }
 }

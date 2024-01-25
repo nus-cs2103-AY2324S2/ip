@@ -7,6 +7,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getStatusIcon() {
+        return isDone ? "[✔]" : "[ ]";
+    }
+
     abstract public void taskPrinter();
 
     abstract public void taskPrinter(int index);

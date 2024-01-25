@@ -116,7 +116,7 @@ public class Tobias {
                         }
 
                         int index = Integer.parseInt(command.substring(7)) - 1;
-                        if (index >= 0 && index <= tasks.size()) {
+                        if (index >= 0 && index < tasks.size()) {
                             Task curr = tasks.get(index);
                             tasks.remove(index);
 

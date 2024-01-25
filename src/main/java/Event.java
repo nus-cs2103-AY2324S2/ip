@@ -17,13 +17,7 @@ public class Event extends Task {
 
     @Override
     public void taskPrinter(int index) {
-        String result = "";
-        if (isDone) {
-            result = "    " + (index+1) + ".[E][X]" + " " + description + "(from: " + from + " to: " + to +")";
-        } else {
-            result = "    " + (index+1) + ".[E][ ]" + " " + description + "(from: " + from + " to: " + to +")";
-        }
-
+        String result = "    " + (index+1) + ".[E]" + getStatusIcon() + " " + description  + "(from: " + from + " to: " + to +")";
         System.out.println(result);
     }
 }

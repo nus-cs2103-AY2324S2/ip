@@ -12,13 +12,7 @@ public class ToDo extends Task {
 
     @Override
     public void taskPrinter(int index) {
-        String result = "";
-        if (isDone) {
-            result = "    " + (index+1) + ".[T][X]" + " " + description;
-        } else {
-            result = "    " + (index+1) + ".[T][ ]" + " " + description;
-        }
-
+        String result = "    " + (index+1) + ".[T]" + getStatusIcon() + " " + description;
         System.out.println(result);
     }
 }
