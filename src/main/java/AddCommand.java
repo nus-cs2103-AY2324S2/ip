@@ -1,18 +1,18 @@
 import java.util.List;
 
 public class AddCommand extends Command<List<Task>> {
-    private List<String> arguments;
+    private Task task;
 
-    public AddCommand(List<String> arguments) {
-        super("add", arguments);
-        this.arguments = arguments;
+    public AddCommand(Task task) {
+        super("add", List.of());
+        this.task = task;
     }
 
     @Override
     public List<Task> execute(List<Task> tasks) {
-        String taskDescription = String.join(" ", arguments);
-        tasks.add(new Task(taskDescription));
-        System.out.printf("\n(^-^)~~   Added: %s\n", taskDescription);
+        tasks.add(task);
+        Integer count = tasks.size();
+        System.out.printf("\n(^-^)~~\nGot it! I've added this task:\n   %s\n\nYou have %d task(s) in the list.\n", task, count);
         return tasks;
     }
 }

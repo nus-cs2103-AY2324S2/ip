@@ -25,7 +25,7 @@ public class Coat {
             }
 
             // Exit condition
-            if (parsedCommand.getCommand().equalsIgnoreCase("bye")) {
+            if (parsedCommand.getCommand().equals("bye")) {
                 System.out.printf(Messages.EXIT);
                 break;
             }
