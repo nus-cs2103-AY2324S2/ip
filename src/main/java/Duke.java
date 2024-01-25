@@ -34,7 +34,6 @@ public class Duke {
     private void nextAction(String input) {
         StringTokenizer st = new StringTokenizer(input);
         String arg1 = st.nextToken();
-        String arg2 = st.hasMoreTokens() ? st.nextToken().toLowerCase() : "";
         switch (arg1) {
             case "bye":
                 this.isActive = false;
@@ -43,10 +42,21 @@ public class Duke {
                 showList();
                 break;
             case "mark":
-                mark(Integer.parseInt(arg2));
+                int i1 = Integer.parseInt(st.nextToken());
+                mark(i1);
                 break;
             case "unmark":
-                unmark(Integer.parseInt(arg2));
+                int i2 = Integer.parseInt(st.nextToken());
+                unmark(i2);
+                break;
+            case "todo":
+                addToDoTask(st);
+                break;
+            case "deadline":
+                addDeadlineTask(st);
+                break;
+            case "event":
+                addEventTask(st);
                 break;
             default:
                 Task myTask = new Task(arg1);
@@ -59,19 +69,73 @@ public class Duke {
     private void addTask(Task task) {
         myList.add(task);
         System.out.println("    ____________________________________________________________\n"
-                + "    added: "
-                + task.getName()
-                + "\n    ____________________________________________________________\n");
+                + "    Completed. I've added this task: \n    "
+                + task.toString()
+                + "\n    Now you have " + myList.size() + " tasks in the list.\n"
+                + "    ____________________________________________________________\n");
     }
 
+    private void addToDoTask(StringTokenizer st) {
+        StringBuilder name = new StringBuilder();
+        while (st.hasMoreTokens()) {
+            String token = st.nextToken().trim();
+            name.append(" ").append(token);
+        }
+        ToDo myToDo = new ToDo(name.toString());
+        addTask(myToDo);
+    }
+
+    private void addDeadlineTask(StringTokenizer st) {
+        StringBuilder name = new StringBuilder();
+        StringBuilder by = new StringBuilder();
+        while (st.hasMoreTokens()) {
+            String token = st.nextToken().trim();
+            if (token.equals("/by")) {
+                while (st.hasMoreTokens()) {
+                    by.append(" ").append(st.nextToken());
+                }
+                break;
+            } else {
+            name.append(" ").append(token);
+            }
+        }
+        Deadline myDeadline = new Deadline(name.toString(), by.toString());
+        addTask(myDeadline);
+    }
+
+    private void addEventTask(StringTokenizer st) {
+        StringBuilder name = new StringBuilder();
+        StringBuilder from = new StringBuilder();
+        StringBuilder to = new StringBuilder();
+        while (st.hasMoreTokens()) {
+            String token = st.nextToken().trim();
+            if (token.equals("/from")) {
+                while (st.hasMoreTokens()) {
+                    String curr = st.nextToken().trim();
+                    if (curr.equals("/to")) {
+                        while (st.hasMoreTokens()) {
+                            to.append(" ").append(st.nextToken());
+                        }
+                    } else {
+                        from.append(" ").append(curr);
+                    }
+                }
+            } else {
+                name.append(" ").append(token);
+            }
+        }
+        Event myEvent = new Event(name.toString(), from.toString(), to.toString());
+        addTask(myEvent);
+    }
     private void showList() {
-        System.out.println("    ____________________________________________________________\n");
+        System.out.println("    ____________________________________________________________\n"
+                + "Here are the tasks in your list:");
         for (int i = 1; i < myList.size() + 1; i++) {
             Task task = myList.get(i-1);
             if (task.isDone()) {
-                System.out.println("    " + i + "." + "[X] " +task.getName());
+                System.out.println("    " + i + "." + task.toString());
             } else {
-                System.out.println("    " + i + "." + "[ ] "+ task.getName());
+                System.out.println("    " + i + "." + task.toString());
             }
         }
         System.out.println("    ____________________________________________________________\n");
@@ -82,7 +146,7 @@ public class Duke {
         task.mark();
         System.out.println("    ____________________________________________________________\n"
                 + "    Nice! I've marked this task as done:\n"
-                + "      " + "[X] " +task.getName()
+                + "      " + task.toString()
                 + "\n    ____________________________________________________________\n");
     }
 
@@ -91,7 +155,7 @@ public class Duke {
         task.unmark();
         System.out.println("    ____________________________________________________________\n"
                 + "    OK, I've marked this task as not done yet:\n"
-                + "      " + "[ ] " +task.getName()
+                + "      " + task.toString()
                 + "\n    ____________________________________________________________\n");
     }
 }
