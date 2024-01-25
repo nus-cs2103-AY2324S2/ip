@@ -1,3 +1,11 @@
+package commands;
+
+
+import exceptions.DukeException;
+import services.Storage;
+import services.TaskList;
+import services.UI;
+
 public class MarkTaskCommand extends Command {
     int index;
     public MarkTaskCommand(int index) {
@@ -9,7 +17,7 @@ public class MarkTaskCommand extends Command {
             taskList.markTask(this.index);
             storage.saveTasks(taskList);
         } catch (DukeException e) {
-            System.out.println("\tAn error occurred when marking tasks");
+            System.out.println("\tList index out of range");
         }
     }
 }

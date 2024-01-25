@@ -1,4 +1,12 @@
-public class UnmarkTaskCommand extends Command{
+package commands;
+
+import commands.Command;
+import exceptions.DukeException;
+import services.Storage;
+import services.TaskList;
+import services.UI;
+
+public class UnmarkTaskCommand extends Command {
     int index;
     public UnmarkTaskCommand(int index) {
         this.index = index;
@@ -9,7 +17,7 @@ public class UnmarkTaskCommand extends Command{
             taskList.unmarkTask(this.index);
             storage.saveTasks(taskList);
         } catch (DukeException e) {
-            System.out.println("\tAn error occurred when unmarking");
+            System.out.println("\tList index out of range");
         }
     }
 }
