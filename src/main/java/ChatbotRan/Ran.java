@@ -4,8 +4,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ran {
+    ArrayList<Task> tasks;
     public static void main(String[] args) {
-        System.out.println("Hello. I am ");
+
+
+        Ran chatbot = new Ran();
+        chatbot.run();
+    }
+    public Ran() {
+        this.tasks = new ArrayList<>();
+    }
+    public void run() {System.out.println("Hello. I am ");
         String art = "__________                \n" +
                 "\\______   \\_____    ____  \n" +
                 " |       _/\\__  \\  /    \\ \n" +
@@ -15,8 +24,8 @@ public class Ran {
         System.out.println(art);
         System.out.println("What would you like to do today?");
         boolean running = true;
-        ArrayList<Task> tasks = new ArrayList<>(100);
         Scanner sc = new Scanner(System.in);
+
         do {
             System.out.println("____________________________________________________________");
             String line = sc.nextLine();
@@ -24,35 +33,19 @@ public class Ran {
             String command = space == -1 ? line : line.substring(0, space);
             switch (command) {
                 case "mark":
-                    if (space == -1) {
-                        System.out.println("Missing task number");
-                    }
-                    Integer taskNo = parseNumber(line, space);
-
-                    if (taskNo == null || taskNo < 1) {
-                        System.out.println("Invalid task number.");
-                    } else if (taskNo > tasks.size()) {
-                        System.out.println("No task by that number.");
-                    } else {
-                        tasks.get(taskNo - 1).setCompleted(true);
+                    Task task = this.handleTaskNo(line, space);
+                    if (task != null) {
+                        task.setCompleted(true);
                         System.out.println("Alright. I have marked this task as complete: ");
-                        System.out.println(tasks.get(taskNo - 1));
+                        System.out.println(task);
                     }
                     break;
                 case "unmark":
-                    if (space == -1) {
-                        System.out.println("Missing task number");
-                    }
-                    taskNo = parseNumber(line, space);
-
-                    if (taskNo == null || taskNo < 1) {
-                        System.out.println("Invalid task number.");
-                    } else if (taskNo > tasks.size()) {
-                        System.out.println("No task by that number.");
-                    } else {
-                        tasks.get(taskNo - 1).setCompleted(false);
+                    task = this.handleTaskNo(line, space);
+                    if (task != null) {
+                        task.setCompleted(false);
                         System.out.println("If that's the case, I'll set that task as incomplete.");
-                        System.out.println(tasks.get(taskNo - 1));
+                        System.out.println(task);
                     }
                     break;
                 default:
@@ -81,6 +74,22 @@ public class Ran {
         System.out.println("Goodbye, please return soon.");
     }
 
+    private Task handleTaskNo(String line, int space) {
+        if (space == -1) {
+            System.out.println("Missing task number");
+            return null;
+        }
+        Integer taskNo = parseNumber(line, space);
+        if (taskNo == null || taskNo < 1) {
+            System.out.println("Invalid task number.");
+        } else if (taskNo > tasks.size()) {
+            System.out.println("No task by that number.");
+        } else {
+            return tasks.get(taskNo - 1);
+        }
+        return null;
+    }
+
 
     private static Integer parseNumber(String line, int spacePos) {
         try {
@@ -91,33 +100,3 @@ public class Ran {
     }
 }
 
-class Task {
-    private String contents;
-    private boolean completed;
-
-    public Task(String contents) {
-        this.contents = contents;
-        this.completed = false;
-    }
-
-    public String getContents() {
-        return contents;
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + (this.completed ? "X" : " ") + "] " + this.contents;
-    }
-}
