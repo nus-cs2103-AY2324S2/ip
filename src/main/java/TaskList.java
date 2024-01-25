@@ -9,8 +9,23 @@ public class TaskList {
     }
 
     public void addTask(String task) {
-        tasks.add(new Task(task));
-        System.out.println("added: " + task.toString() + "\n");
+        Task newTask = null;
+        if (task.startsWith("todo")) {
+            newTask = new ToDo(task.split("todo ")[1]);
+        } else if (task.startsWith("deadline")) {
+            String[] deadline = task.split("deadline ")[1].split(" /by ");
+            newTask = new Deadline(deadline[0], deadline[1]);
+        } else if (task.startsWith("event")) {
+            String[] event = task.split("event ")[1].split(" /");
+            newTask = new Event(event[0], event[1], event[2]);
+        } else {
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+            return;
+        }
+
+        tasks.add(newTask);
+        System.out.println("Got it. I've added this task: \n" + newTask.toString() + "\nNow you have "
+                + tasks.size() + " tasks in the list.\n");
     }
 
     public void displayTasks() {
