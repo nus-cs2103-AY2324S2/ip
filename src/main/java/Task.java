@@ -85,6 +85,7 @@ public class Task {
         System.out.println("----------------------------------------------------------");
     }
 
+    //Test
     public void unmark() {
         Scanner s = new Scanner(System.in);
         System.out.println("Which one should I mark? Write the label number :] ");
