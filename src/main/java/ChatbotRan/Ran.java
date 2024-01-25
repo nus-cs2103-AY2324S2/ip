@@ -56,6 +56,10 @@ public class Ran {
                     Deadline deadline = Deadline.parse(line, space);
                     this.addTask(deadline);
                     break;
+                case "todo":
+                    Todo todo = Todo.parse(line,space);
+                    this.addTask(todo);
+                    break;
                 default:
                     switch (line) {
                         case "bye":
@@ -99,6 +103,7 @@ public class Ran {
     }
     private void addTask(Task task) {
         if (task != null) {
+            tasks.add(task);
             System.out.println("I've added this task to the list: ");
             System.out.println(task);
             System.out.println("There are now "+tasks.size()+" tasks in the list");
