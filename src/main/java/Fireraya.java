@@ -1,7 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 public class Fireraya {
+
+    public static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void Start() {
         System.out.println("--------------------------------");
@@ -11,11 +14,15 @@ public class Fireraya {
     }
 
     public static void AddTask(String a) {
+        tasks.add(new Task(a));
         System.out.println("added: " + a);
     }
 
     public static void ListTasks() {
-
+        System.out.println("Here are your tasks!");
+    for (int i = 0; i < tasks.size(); i++) {
+        System.out.println( i + ". " + tasks.get(i).getTask());
+        }
     }
 
     public static void End() {
@@ -26,6 +33,7 @@ public class Fireraya {
     public static void main(String[] args) {
 
         Start();
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -38,7 +46,7 @@ public class Fireraya {
 
             if (input.equals("list")) {
                 ListTasks();
-                break;
+                continue;
             }
 
             AddTask(input);
