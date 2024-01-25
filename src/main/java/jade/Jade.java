@@ -1,7 +1,7 @@
 package jade;
 import java.util.*;
 
-public class Duke {
+public class Jade {
     public static String line = "\t——————————————————————————————————————————\n";
     public static boolean exitProg = false;
     public static List<Task> userList = new ArrayList<>();
@@ -9,12 +9,12 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        String logo = "\t  ____   ___    ____     ______  \n"
-                    + "\t  |  |  / _ \\  |  ___ \\ / |____/ \n"
-                    + "\t  |  | | | | | | |  | | | |____  \n"
-                    + "\t  |  | | |_| | | |  | | | |____| \n"
-                    + "\t|\\|  | | ___ | | |__| | | |____  \n"
-                    + "\t \\___| |_| |_| |_____/  \\_|____\\ \n";
+        String logo = "\t  ____   ___    ____     ______\n"
+                    + "\t  |  |  / _ \\  |  ___ \\ / |____/\n"
+                    + "\t  |  | | | | | | |  | | | |____\n"
+                    + "\t  |  | | |_| | | |  | | | |____|\n"
+                    + "\t|\\|  | | ___ | | |__| | | |____\n"
+                    + "\t \\___| |_| |_| |_____/  \\_|____\\\n";
 
         System.out.printf("%s%s\tHello! I'm Jade\n\twhat can I do for you?\n%s", logo, line, line);
         Scanner scanner = new Scanner(System.in);
