@@ -75,31 +75,34 @@ public class Duke {
             return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to +")";
         }
     }
+    public enum Command{
+        list, todo, deadline, event, mark, unmark, delete, bye
+    }
     public static void command() {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        while (!input.equals("bye")) {
+        while (!input.equals(Command.bye.toString())) {
             String[] cmds = input.split(" ");
-            switch(cmds[0]) {
-                case "list":
+            switch(Command.valueOf(cmds[0])) {
+                case list:
                     showList();
                     break;
-                case "mark":
+                case mark:
                     markList(Integer.parseInt(cmds[1]));
                     break;
-                case "unmark":
+                case unmark:
                     unmarkList(Integer.parseInt(cmds[1]));
                     break;
-                case "todo":
+                case todo:
                     addTodo(input);
                     break;
-                case "deadline":
+                case deadline:
                     addDeadline(input);
                     break;
-                case "event":
+                case event:
                     addEvent(input);
                     break;
-                case "delete":
+                case delete:
                     deleteList(Integer.parseInt(cmds[1]));
                     break;
                 default:
