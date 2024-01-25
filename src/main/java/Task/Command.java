@@ -30,7 +30,7 @@ public abstract class Command {
       case "delete":
         return new DeleteCommand(body);
       default:
-        throw new DukeException("Unknown command: " + name + " " + body,
+        throw new UnknownCommandException("Unknown command: " + name + " " + body,
             "I'm sorry, but I don't know what that means :<");
     }
   }

@@ -13,10 +13,10 @@ public class DeadlineCommand extends Command {
 
   public boolean execute(TaskList list) throws DukeException {
     if (taskDescription.isEmpty()) {
-      throw new DukeException("The description of a deadline cannot be empty.",
+      throw new EmptyTaskDescriptionException("The description of a deadline cannot be empty.",
           "The description of a deadline cannot be empty.");
     } else if (dueTime.isEmpty()) {
-      throw new DukeException("The due time of a deadline cannot be empty.",
+      throw new EmptyDateTimeException("The due time of a deadline cannot be empty.",
           "The due time of a deadline cannot be empty.");
     }
     Task task = new Deadline(taskDescription, dueTime);
