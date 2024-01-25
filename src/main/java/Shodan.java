@@ -188,7 +188,7 @@ public class Shodan {
             throw new ShodanException("You need to specify a name for your task.");
         }
         taskList.add(newTask);
-        System.out.println("Task has been added: " + newTask);
+        System.out.println("Task has been added:\n\t" + newTask);
         System.out.printf("You have %d tasks now.\n", taskList.size());
     }
     public static void exit() {
