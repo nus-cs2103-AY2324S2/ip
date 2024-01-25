@@ -1,20 +1,35 @@
+import java.util.Scanner;
 public class BMO {
     public static void main(String[] args) {
         greet();
-        salute();
+        echo();
     }
 
     static void greet() {
         String hi = "-----------------------------------------\n"
-                    + "Hello! I'm BMO\nWhat can I do for you?\n"
+                    + "    BMO chop!\n    Do you want to play video games?\n"
                     + "-----------------------------------------";
         System.out.println(hi);
     }
 
     static void salute() {
         String bye = "-----------------------------------------\n"
-                    + "Bye. Hope to see you again soon!\n"
+                    + "    Beep boop BMO shut down :(\n"
                     + "-----------------------------------------";
         System.out.println(bye);
+    }
+
+    static void echo() {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        if (input.equals("bye")) {
+            salute();
+        } else {
+            String output = "-----------------------------------------\n"
+                    + "    " + input + "\n"
+                    + "-----------------------------------------";
+            System.out.println(output);
+            echo();
+        }
     }
 }
