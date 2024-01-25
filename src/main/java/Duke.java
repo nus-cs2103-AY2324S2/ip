@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 public class Duke {
-    private List<String> todolist = new ArrayList<String>();
+    private List<Task> todolist = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     private static final String sep = "\t__________________________________________";
     public static void main(String[] args) {
@@ -30,15 +30,16 @@ public class Duke {
                     break;
                 case "list":
                     int i = 1;
-                    for(String todo : todolist) {
-                        output = output.concat(i + ". " + todo + "\n\t");
+                    for(Task todo : todolist) {
+                        output = output.concat(i + ". " + todo.getTaskDescription() + "\n\t");
                         i++;
                     }
                     output = output.trim();
                     break;
                 default:
+                    Task newtask = new Task(command);
                     output = "added: " + command;
-                    todolist.add(command);
+                    addItem(newtask);
             }
 
             if (!output.isEmpty()) {
@@ -51,7 +52,7 @@ public class Duke {
         }
     }
 
-    public void addItem(String item) {
+    public void addItem(Task item) {
         todolist.add(item);
     }
 }
