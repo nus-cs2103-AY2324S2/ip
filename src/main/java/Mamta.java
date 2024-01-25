@@ -17,6 +17,7 @@ public class Mamta {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+        Mamta myMamta = new Mamta();
         System.out.println(Mamta.greet());
         System.out.println(Mamta.exit());
     }
