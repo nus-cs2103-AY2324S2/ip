@@ -1,4 +1,6 @@
 import  java.util.Scanner;
+import java.util.regex.PatternSyntaxException;
+
 public class Duke {
     public static void main(String[] args) {
 
@@ -22,22 +24,56 @@ public class Duke {
                     } else if (parts[0].equals("unmark")) {
                         unmark(i, list);
                     } else {
-                        list[total] = new Task(input);
+                        addTo(list, total, input);
                         total++;
+
+
                     }
 
                 } catch (NumberFormatException e) {
-                    list[total] = new Task(input);
+                    addTo(list, total, input);
                     total++;
+
+
                 }
             } else {
-                list[total] = new Task(input);
+                addTo(list, total, input);
                 total++;
+
             }
 
         }
         System.out.println("Alright. See you soon!");
     }
+
+    public static void addTo(Task[] list, int total, String input) {
+        if(input.contains("todo ")) {
+            String[] parts = input.split(" ", 2);
+            if (parts[0].equals("todo")) {
+                list[total] = new Todo(parts[1]);
+                System.out.println("Done! I have added this to the list: " + list[total].toString());
+
+            }
+
+
+        } else if (input.contains("event ")) {
+            String[] parts = input.split(" ");
+            if (parts[0].equals("event")) {
+                try{
+                    String[] components = input.split("/");
+                    list[total] = new Event(components[0], components[1]);
+                } catch (PatternSyntaxException e) {
+                    System.out.println("Wut");
+                }
+            }
+
+        } else {
+            System.out.println("Sorry, I don't understand what you mean");
+        }
+
+
+    }
+
 
     public static void toList(Task[] list, int total) {
         for (int i = 0; i < total; i++) {
