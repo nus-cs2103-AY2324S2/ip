@@ -1,0 +1,16 @@
+todo read book
+list
+mark 1
+deadline return book /by friday
+list
+mark 2
+random text
+list
+event book club /from saturday 5pm /to 7pm
+list
+mark 4
+list
+event /from saturday 5pm /to 7pm
+event book club /from saturday 5pm /from /to 7pm
+event book club /to saturday 5pm /from 7pm
+bye

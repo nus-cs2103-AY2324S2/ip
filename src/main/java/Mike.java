@@ -98,11 +98,16 @@ public class Mike {
                     }
                     case "todo": {
                         if (numberOfCommands != 2) {
-                            throw new MikeException("Usage: todo [number]");
+                            throw new MikeException("The description is missing.\nUsage: todo [description]");
                         }
 
-                        String argument = commands[1];
-                        Task newTask = new Todo(argument);
+                        String description = commands[1].strip();
+
+                        if (description.isBlank()) {
+                            throw new MikeException("The description is missing.\nUsage: todo [description]");
+                        }
+
+                        Task newTask = new Todo(description);
                         taskList.add(newTask);
 
                         String message =
@@ -127,6 +132,12 @@ public class Mike {
 
                         String description = descriptionAndDate[0].strip();
                         String date = descriptionAndDate[1].strip();
+
+                        if (description.isBlank()) {
+                            throw new MikeException("The description is missing Sull.\nUsage: deadline [description] /by [date]");
+                        } else if (date.isBlank()) {
+                            throw new MikeException("The date is missing Sull.\nUsage: deadline [description] /by [date]");
+                        }
 
                         Task newTask = new Deadline(description, date);
                         taskList.add(newTask);
@@ -157,6 +168,10 @@ public class Mike {
                         String description = descriptionAndDates[0].strip();
                         String dates = descriptionAndDates[1];
 
+                        if (description.isBlank()) {
+                            throw new MikeException("The description is missing Sull.\nUsage: event [description] /from [date] /to [date]");
+                        }
+
                         String[] fromAndTo = dates.split("/to", 3);
 
                         if (fromAndTo.length != 2) {
@@ -165,6 +180,12 @@ public class Mike {
 
                         String from = fromAndTo[0].strip();
                         String to = fromAndTo[1].strip();
+
+                        if (from.isBlank()) {
+                            throw new MikeException("Required argument missing in '/from [date]'.\nUsage: event [description] /from [date] /to [date]");
+                        } else if (to.isBlank()) {
+                            throw new MikeException("Required argument missing in '/to [date]'.\nUsage: event [description] /from [date] /to [date]");
+                        }
 
                         Task newTask = new Event(description, from, to);
                         taskList.add(newTask);
