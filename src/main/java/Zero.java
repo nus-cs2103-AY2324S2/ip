@@ -4,12 +4,28 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Zero {
     private static final String name = "Zero";
     private static final String divider = "____________________________________________________________\n";
-    private static final String unmarked = "";
-    private static final String goodbye = "";
+
+    //filters input commands to give: [0] cmd, [1] name, [2] from/by, [3] to
+    private static String[] filterCommand(String[] s) {
+        String[] result = new String[4];
+        int idx = 1;
+        result[0] = s[0];
+        result[1] = s[1];
+        for (int i = 2; i < s.length; i++) {
+            if (s[i].startsWith("/")) {
+                i++;
+                result[++idx] = s[i];
+            } else {
+                result[idx] += " " +  s[i];
+            }
+        }
+        return result;
+    }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out));
@@ -55,10 +71,20 @@ public class Zero {
                     tasks.set(idx, tasks.get(idx).unmark());
                     pw.println("OK, I've marked this task as not done yet:\n  " + tasks.get(idx) + '\n' + divider);
                     break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    String[] fs = filterCommand(cmd);
+                    Task t;
+                    if (fs[0].equals("todo")) t = new ToDo(fs[1]);
+                    else if (fs[0].equals("deadline")) t = new Deadline(fs[1], fs[2]);
+                    else t = new Event(fs[1], fs[2], fs[3]);
+                    tasks.add(t);
+                    pw.println(divider + "Got it. I've added this task:\n  " + t);
+                    pw.println("Now you have " + tasks.size() + " tasks in the list.\n" + divider);
+                    break;
                 default:
-                    String item = String.join(" ", cmd);
-                    tasks.add(new Task(item));
-                    pw.println(divider + "Added: " + item + '\n' + divider);
+                    pw.println(divider + "Sorry, I am currently unable to process your request.\n" + divider);
                     break;
             }
             pw.flush();
