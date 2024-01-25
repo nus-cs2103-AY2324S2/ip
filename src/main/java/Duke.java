@@ -40,38 +40,115 @@ public class Duke {
             throw new ftException("Error: Please Type Command");
         }
         StringTokenizer st = new StringTokenizer(input);
-        String arg = st.nextToken();
-        switch (arg) {
-            case "bye":
-                this.isActive = false;
-                break;
-            case "list":
-                showList();
-                break;
-            case "mark":
-                mark(st);
-                break;
-            case "unmark":
-                unmark(st);
-                break;
-            case "todo":
-                addToDoTask(st);
-                break;
-            case "deadline":
-                addDeadlineTask(st);
-                break;
-            case "event":
-                addEventTask(st);
-                break;
-            case "delete":
-                deleteTask(st);
-                break;
-            default:
-                throw new ftException("Unknown Command: " + arg + ". Please use a correct command");
+        try {
+            CommandTypes command = CommandTypes.valueOf(st.nextToken().toUpperCase());
+            switch (command) {
+                case BYE:
+                    this.isActive = false;
+                    break;
+                case LIST:
+                    showList();
+                    break;
+                case MARK:
+                    mark(st);
+                    break;
+                case UNMARK:
+                    unmark(st);
+                    break;
+                case TODO:
+                    addTask(st, CommandTypes.TODO);
+                    break;
+                case DEADLINE:
+                    addTask(st, CommandTypes.DEADLINE);
+                    break;
+                case EVENT:
+                    addTask(st, CommandTypes.EVENT);
+                    break;
+                case DELETE:
+                    deleteTask(st);
+                    break;
+                default:
+                    throw new ftException("Unknown Command: Please use a correct command");
+            }
+        }catch (IllegalArgumentException e) {
+            throw new ftException("Unknown Command: Please use a correct command");
         }
     }
 
-    private void addTask(Task task) {
+    private void addTask(StringTokenizer st, CommandTypes ct) throws ftException {
+        Task task = null;
+        switch (ct) {
+            case TODO:
+                StringBuilder sbTD = new StringBuilder();
+                while (st.hasMoreTokens()) {
+                    String token = st.nextToken().trim();
+                    sbTD.append(" ").append(token);
+                }
+                String todo = sbTD.toString();
+                if (!todo.isEmpty()) {
+                    task = new ToDo(todo);
+                } else {
+                    throw new ftException("Error: Please tell me what you have TO DO");
+                }
+                break;
+
+            case DEADLINE:
+                StringBuilder sbDL = new StringBuilder();
+                StringBuilder sbBy = new StringBuilder();
+                while (st.hasMoreTokens()) {
+                    String token = st.nextToken().trim();
+                    if (token.equals("/by")) {
+                        while (st.hasMoreTokens()) {
+                            sbBy.append(" ").append(st.nextToken());
+                        }
+                        break;
+                    } else {
+                        sbDL.append(" ").append(token);
+                    }
+                }
+                String dt = sbDL.toString();
+                String by = sbBy.toString();
+                if (!dt.isEmpty() && !by.isEmpty()) {
+                   task = new Deadline(dt, by);
+                } else {
+                    throw new ftException("Error: Please tell me your task and its deadline");
+                }
+                break;
+
+            case EVENT:
+                StringBuilder sb = new StringBuilder();
+                StringBuilder sbFrom = new StringBuilder();
+                StringBuilder sbTo = new StringBuilder();
+                while (st.hasMoreTokens()) {
+                    String token = st.nextToken().trim();
+                    if (token.equals("/from")) {
+                        while (st.hasMoreTokens()) {
+                            String curr = st.nextToken().trim();
+                            if (curr.equals("/to")) {
+                                while (st.hasMoreTokens()) {
+                                    sbTo.append(" ").append(st.nextToken());
+                                }
+                            } else {
+                                sbFrom.append(" ").append(curr);
+                            }
+                        }
+                    } else {
+                        sb.append(" ").append(token);
+                    }
+                }
+                String name = sb.toString();
+                String from = sbFrom.toString();
+                String to = sbTo.toString();
+                if (!name.isEmpty() && !from.isEmpty() && !to.isEmpty()) {
+                    task = new Event(name, from, to);
+                } else {
+                    throw new ftException("Error: Please tell me your event and its from/to dates");
+                }
+                break;
+            default:
+                throw new ftException("Error: Invalid Task Type");
+
+        }
         myList.add(task);
         System.out.println("    ____________________________________________________________\n"
                 + "    Completed. I've added this task: \n    "
@@ -80,76 +157,6 @@ public class Duke {
                 + "    ____________________________________________________________\n");
     }
 
-    private void addToDoTask(StringTokenizer st) throws ftException {
-        StringBuilder sb = new StringBuilder();
-        while (st.hasMoreTokens()) {
-            String token = st.nextToken().trim();
-            sb.append(" ").append(token);
-        }
-        String name = sb.toString();
-        if (!name.isEmpty()) {
-            ToDo myToDo = new ToDo(name);
-            addTask(myToDo);
-        } else {
-            throw new ftException("Error: Please tell me what you have TO DO");
-        }
-    }
-
-    private void addDeadlineTask(StringTokenizer st) throws ftException {
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sbBy = new StringBuilder();
-        while (st.hasMoreTokens()) {
-            String token = st.nextToken().trim();
-            if (token.equals("/by")) {
-                while (st.hasMoreTokens()) {
-                    sbBy.append(" ").append(st.nextToken());
-                }
-                break;
-            } else {
-            sb.append(" ").append(token);
-            }
-        }
-        String name = sb.toString();
-        String by = sbBy.toString();
-        if (!name.isEmpty() && !by.isEmpty()) {
-            Deadline myDeadline = new Deadline(name, by);
-            addTask(myDeadline);
-        } else {
-            throw new ftException("Error: Please tell me your task and its deadline");
-        }
-    }
-
-    private void addEventTask(StringTokenizer st) throws ftException {
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sbFrom = new StringBuilder();
-        StringBuilder sbTo = new StringBuilder();
-        while (st.hasMoreTokens()) {
-            String token = st.nextToken().trim();
-            if (token.equals("/from")) {
-                while (st.hasMoreTokens()) {
-                    String curr = st.nextToken().trim();
-                    if (curr.equals("/to")) {
-                        while (st.hasMoreTokens()) {
-                            sbTo.append(" ").append(st.nextToken());
-                        }
-                    } else {
-                        sbFrom.append(" ").append(curr);
-                    }
-                }
-            } else {
-                sb.append(" ").append(token);
-            }
-        }
-        String name = sb.toString();
-        String from = sbFrom.toString();
-        String to = sbTo.toString();
-        if (!name.isEmpty() && !from.isEmpty() && !to.isEmpty()) {
-            Event myEvent = new Event(name, from, to);
-            addTask(myEvent);
-        } else {
-            throw new ftException("Error: Please tell me your event and its from/to dates");
-        }
-    }
     private void showList() {
         System.out.println("    ____________________________________________________________\n"
                 + "Here are the tasks in your list:");
