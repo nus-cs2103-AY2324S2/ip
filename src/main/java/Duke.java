@@ -116,6 +116,19 @@ public class Duke {
                 System.out.println(indent + "OK, I've marked this task as not done yet:");
                 System.out.println(indent + taskList.get(position).getStatus());
                 spacing();
+            } else if (current.startsWith("delete")){
+                String[] marking = current.split(" ");
+                int position = Integer.parseInt(marking[1]) - 1;
+
+                separate();
+                System.out.println(indent + "Noted. I've removed this task:");
+                System.out.println(indent + "  " + taskList.get(position).getStatus());
+                taskList.remove(position);
+                System.out.println(indent + "Now you have " + Integer.toString(taskList.size()) +
+                        " tasks in the list.");
+                spacing();
+
+
             } else {
                 try {
                     task newTask = identify(current);
@@ -226,5 +239,5 @@ public class Duke {
     public static void main(String[] args){
         Duke duke = new Duke();
         duke.start();
-    }  
+    }
 }
