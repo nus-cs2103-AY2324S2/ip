@@ -4,4 +4,6 @@ event meeting /from Tues 5pm /to 8pm
 list
 mark 2
 list
+hello
+todo
 bye
