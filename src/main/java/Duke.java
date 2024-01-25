@@ -23,7 +23,6 @@ public class Duke {
                 bot_functions.shifted_print(bot_functions.signoffString());
                 exitFlag = true;
 
-
             } else {
                 bot_functions.shifted_print(bot_functions.echoString(input_command));
             }
