@@ -1,3 +1,3 @@
 public enum Tasks {
-    TODO,DEADLINE,EVENT
+    TODO, DEADLINE, EVENT
 }

@@ -1,4 +1,3 @@
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -74,7 +73,7 @@ public class TaskManager {
             throw new DukeException("number");
         }
         int id = Integer.parseInt(getNumber[1]) - 1; //Index 0 based
-        if (id < 0 || id > items.size()) {
+        if (id < 0 || id >= items.size()) {
             throw new DukeException("outOfRange");
         }
         Task item = items.get(id);
