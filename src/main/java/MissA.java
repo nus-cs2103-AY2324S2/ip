@@ -6,18 +6,18 @@ public class MissA {
     private String emptyLine = "____________________________________________________________\n";
     private String greeting = "What can I do for you?\n"
             + emptyLine
-            + "I can record 3 types of tasks now (●ﾟωﾟ●)\n"
+            + "I can record 3 types of tasks now.\n"
             + "ToDos: e.g. todo clean my room\n"
             + "Deadlines: e.g. deadline submit homework /by 7pm\n"
             + "Events: e.g. event lecture /from 1pm /to 3pm\n"
             + emptyLine
             + "Here are the commands that I can understand:)\n"
-            + "\"list\": I will display the latest task list |●´∀`|σ \n"
+            + "\"list\": I will display the latest task list.\n"
             + "\"mark/unmark + number\": I will mark/unmark task in the list!\n"
-            + "\"delete + number\": I will remove task from the list (*`ェ´*) \n"
-            + "\"bye\": this program will be closed (O_O)\n"
+            + "\"delete + number\": I will remove task from the list.\n"
+            + "\"bye\": this program will be closed.\n"
             + emptyLine;
-    private String goodBye = "Bye ┭┮﹏┭┮. Have a nice day!\n"
+    private String goodBye = "Bye. Have a nice day!\n"
             + emptyLine;
     // store existing tasks in list
     private ArrayList<Task> taskList = new ArrayList<>(100);
@@ -28,7 +28,7 @@ public class MissA {
      * @return A string containing all tasks added by user.
      */
     public String getTasks() {
-        String str = emptyLine + "Here are your tasks <(￣︶￣)>: \n";
+        String str = emptyLine + "Here are your tasks:\n";
         for (int i = 0; i < taskList.size(); i++) {
             int index = i + 1;
             str += index + ". " + taskList.get(i) + "\n";
@@ -69,7 +69,7 @@ public class MissA {
         MissA missA = new MissA();
 
         // greet users when first enter the program
-        System.out.println("Hello from Miss A (●´∀｀●)ﾉ\n" + missA.greeting);
+        System.out.println("Hello from Miss A\n" + missA.greeting);
 
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
@@ -172,10 +172,10 @@ public class MissA {
                         throw new IncorrectTaskTypeException();
                     }
                     System.out.println(missA.emptyLine
-                            + "Ok, I will add in this task: \n"
+                            + "Ok, I will add in this task:\n"
                             + "  " + nextTask
                             + "\n"
-                            + "Now there are " + missA.taskList.size() + " tasks in the list. (｡♥‿♥｡)\n"
+                            + "Now there are " + missA.taskList.size() + " tasks in the list.\n"
                             + missA.emptyLine);
                 }
             } catch (IncorrectTaskTypeException

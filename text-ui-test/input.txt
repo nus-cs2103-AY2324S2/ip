@@ -1,7 +1,9 @@
 todo clean room
-deadline hw2 /by 2pm
-event lecture /from 2pm /to 5pm
+deadline submit hw /by 5pm
 list
-mark 2
+mark 1
+mark 5
+list
+unmark 1
 list
 bye
