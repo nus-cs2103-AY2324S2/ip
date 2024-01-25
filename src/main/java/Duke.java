@@ -9,12 +9,12 @@ public class Duke {
 }
 
 class ListAdder {
-    private ArrayList<Item> itemList = new ArrayList<>();
-    private int itemIndex;
+    private ArrayList<Task> taskList = new ArrayList<>();
+    private int taskIndex;
     private static final String line = "____________________________________________________________";
 
     public ListAdder() {
-        this.itemIndex = 1;
+        this.taskIndex = 1;
     }
 
     public void start() {
@@ -24,16 +24,16 @@ class ListAdder {
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 printList();
-            } else if (input.startsWith("mark done")) { // item is already done
+            } else if (input.startsWith("mark done")) { // task is already done
                 int index = Integer.parseInt(input.substring(9).trim()) - 1;
                 markDone(index);
 
-            } else if (input.startsWith("mark undone")) { // item is already undone
+            } else if (input.startsWith("mark undone")) { // task is already undone
                 int index = Integer.parseInt(input.substring(11).trim()) - 1;
                 markUndone(index);
 
             } else {
-                addItem(input);
+                addTask(input);
             }
             // System.out.println(line);
             input = sc.nextLine();
@@ -53,32 +53,32 @@ class ListAdder {
         // System.out.println(line);
     }
 
-    // Adds item to list with ability to mark as done
-    private void addItem(String item) {
-        Item newItem = new Item(item);
-        this.itemList.add(newItem);
+    // Adds task to list with ability to mark as done
+    private void addTask(String task) {
+        Task newTask = new Task(task);
+        this.taskList.add(newTask);
         // System.out.println(line);
-        System.out.println("Added task: " + item);
+        System.out.println("Added task: " + task);
         // System.out.println(line);
     }
 
     private void printList() {
         System.out.println("Here is your to-do list:");
-        for (Item item : this.itemList) {
-            System.out.println(item.isDone() ? "[X] " + item : "[ ] " + item);
-            this.itemIndex++;
+        for (Task task : this.taskList) {
+            System.out.println(task.isDone() ? "[X] " + task : "[ ] " + task);
+            this.taskIndex++;
         }
         // System.out.println(line);
     }
 
     private void markDone(int index) {
         try {
-            if (this.itemList.get(index).isDone()) {
+            if (this.taskList.get(index).isDone()) {
                 System.out.println("You completed this task already!");
             } else {
-                this.itemList.get(index).markDone();
+                this.taskList.get(index).markDone();
                 System.out.println("Good job! I've marked this task as done:");
-                System.out.println("[X] " + this.itemList.get(index));
+                System.out.println("[X] " + this.taskList.get(index));
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Oops! Your list isn't that long :P");
@@ -90,12 +90,12 @@ class ListAdder {
 
     private void markUndone(int index) {
         try {
-            if (!this.itemList.get(index).isDone()) {
+            if (!this.taskList.get(index).isDone()) {
                 System.out.println("Oops! You still haven't done this task!");
             } else {
-                this.itemList.get(index).markUndone();
+                this.taskList.get(index).markUndone();
                 System.out.println("I've marked this task as undone:");
-                System.out.println("[ ] " + this.itemList.get(index));
+                System.out.println("[ ] " + this.taskList.get(index));
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Oops! Your list isn't that long :P");
@@ -106,12 +106,12 @@ class ListAdder {
     }
 }
 
-class Item {
-    private String item;
+class Task {
+    private String task;
     private boolean isDone;
 
-    public Item(String item) {
-        this.item = item;
+    public Task(String task) {
+        this.task = task;
         this.isDone = false;
     }
 
@@ -129,6 +129,6 @@ class Item {
 
     @Override
     public String toString() {
-        return this.item;
+        return this.task;
     }
 }
