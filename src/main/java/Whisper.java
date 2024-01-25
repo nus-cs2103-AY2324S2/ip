@@ -7,16 +7,13 @@ public class Whisper {
             "What can I do for you?\n";
     static String byeMsg = line + "Bye. Hope to see you soon!\n" + line;
     static ArrayList<Task> taskList; // store tasks in ArrayList
-//    static int count;
 
     // Main method
     public static void main(String[] args) {
         System.out.println(line + welcomeMsg + line);
 
         Scanner sc = new Scanner(System.in);
-//        taskList = new Task[100];
         taskList = new ArrayList<>();
-//        count = 0;
 
         while (true) {
             // read user input
@@ -69,11 +66,10 @@ public class Whisper {
             }
 
 //            taskList[count] = new Todo(description);
-            Task todo = new Todo(description);
+            Task todo = new Task(description, Task.TaskCategory.T);
             taskList.add(todo);
             System.out.println(line + "Got it. I've added this task:\n" + todo.toString() + "\n" +
                     printTaskCount(taskList.size()) + "\n" + line);
-//            count++;
 
         } catch (NumberFormatException e) {
             //System.out.println("Sorry, list is full. Can't add anymore.");
@@ -117,11 +113,10 @@ public class Whisper {
             }
 
             // add new event to task list
-//            taskList[count] = new Event(eventName, from, to);
-            Task event = new Event(eventName, from, to);
+            Task event = new Task(eventName, Task.TaskCategory.E).setFrom(from).setTo(to);
             taskList.add(event);
-            System.out.println(line + "Got it. I've added this task:\n" + event.toString() + "\n" + printTaskCount(taskList.size()) + "\n" + line);
-//            count++;
+            System.out.println(line + "Got it. I've added this task:\n" + event.toString() +
+                    "\n" + printTaskCount(taskList.size()) + "\n" + line);
         } catch (WhisperException e) {
             System.out.println(e.getMessage());
         }
@@ -150,12 +145,10 @@ public class Whisper {
             }
 
             // add new deadline to task list
-//            taskList[count] = new Deadline(deadlineName, by);
-            Task deadline = new Deadline(deadlineName, by);
+            Task deadline = new Task(deadlineName, Task.TaskCategory.D).setBy(by);
             taskList.add(deadline);
             System.out.println(line + "Got it. I've added this task:\n" + deadline.toString() + "\n" +
                     printTaskCount(taskList.size()) + "\n" + line);
-//            count++;
         } catch (WhisperException | NumberFormatException e) {
             System.out.println(e.getMessage());
         }
@@ -166,7 +159,6 @@ public class Whisper {
         try {
             // check index bound
             if (index >= 0 && index < taskList.size()) {
-//                Task t = taskList[index];
                 Task t = taskList.get(index);
                 t.markAsDone();
                 System.out.println(line + "Nice! I've marked this task as done:\n" + t.toString() + "\n" + line);
@@ -183,7 +175,6 @@ public class Whisper {
         try {
             // check index bound
             if (index >= 0 && index < taskList.size()) {
-//                Task t = taskList[index];
                 Task t = taskList.get(index);
                 t.markAsUndone();
                 System.out.println(line + "Nice! I've marked this task as not done:\n" + t.toString() + "\n" + line);
@@ -204,7 +195,6 @@ public class Whisper {
         System.out.println(line + "Here are your task list:\n");
 
         for (int i = 0; i < taskList.size(); i++) {
-//            Task currentTask = taskList[i];
             Task currentTask = taskList.get(i);
             System.out.println((i + 1) + ". " + currentTask);
         }
@@ -239,7 +229,6 @@ public class Whisper {
         try {
             checkIndex(index);
             Task deletedTask = taskList.remove(index);
-//            count--;
             System.out.println(line + "Noted! I've marked removed this task:\n" + deletedTask.toString() + "\n" +
                     printTaskCount(taskList.size()) + "\n" + line);
         } catch (WhisperException e) {
