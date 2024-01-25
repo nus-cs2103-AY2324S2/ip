@@ -27,6 +27,7 @@ public class Jerry {
                         System.out.println((x + 1) + "." + tasks[x]);
                     }
                     break;
+
                 case "mark":
                     taskIndex = Integer.parseInt(parts[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < index) {
@@ -34,6 +35,7 @@ public class Jerry {
                         System.out.println("Nice! I've marked this task as done:\n  " + tasks[taskIndex]);
                     }
                     break;
+
                 case "unmark":
                     taskIndex = Integer.parseInt(parts[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < index) {
@@ -41,28 +43,46 @@ public class Jerry {
                         System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[taskIndex]);
                     }
                     break;
+
                 case "todo":
-                    tasks[index] = new ToDo(parts[1]);
-                    index++;
-                    System.out.println("Got it. I've added this task:\n  " + tasks[index - 1]);
-                    System.out.println("Now you have " + index + " tasks in the list.");
+                    if (parts.length < 2) {
+                        System.out.println("Error: Wrong format \nUsage: todo <task description>");
+                    } else {
+                        tasks[index] = new ToDo(parts[1]);
+                        index++;
+                        System.out.println("Got it. I've added this task:\n  " + tasks[index - 1]);
+                        System.out.println("Now you have " + index + " tasks in the list.");
+
+                    }
                     break;
 
                 case "deadline":
-                    String[] deadlineParts = parts[1].split(" /by ", 2);
-                    tasks[index] = new Deadline(deadlineParts[0], deadlineParts[1]);
-                    index++;
-                    System.out.println("Got it. I've added this task:\n  " + tasks[index - 1]);
-                    System.out.println("Now you have " + index + " tasks in the list.");
+                    if (parts.length < 2 || !parts[1].contains(" /by ")) {
+                        System.out.println("Error: Wrong format, please include deadline \nUsage: deadline <task description> /by <date/time>");
+                    } else {
+                        String[] deadlineParts = parts[1].split(" /by ", 2);
+                        tasks[index] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                        index++;
+                        System.out.println("Got it. I've added this task:\n  " + tasks[index - 1]);
+                        System.out.println("Now you have " + index + " tasks in the list.");
+                    }
                     break;
 
                 case "event":
-                    String[] eventParts = parts[1].split(" /from ", 2);
-                    String[] fromTo = eventParts[1].split(" /to ", 2);
-                    tasks[index] = new Event(eventParts[0], fromTo[0], fromTo[1]);
-                    index++;
-                    System.out.println("Got it. I've added this task:\n  " + tasks[index - 1]);
-                    System.out.println("Now you have " + index + " tasks in the list.");
+                    if (parts.length < 2 || !parts[1].contains(" /from ") || !parts[1].contains(" /to ")) {
+                        System.out.println("Error: Wrong format, please include start and end time \nUsage: event <task description> /from <start time> /to <end time>");
+                    } else {
+                        String[] eventParts = parts[1].split(" /from ", 2);
+                        String[] fromTo = eventParts[1].split(" /to ", 2);
+                        tasks[index] = new Event(eventParts[0], fromTo[0], fromTo[1]);
+                        index++;
+                        System.out.println("Got it. I've added this task:\n  " + tasks[index - 1]);
+                        System.out.println("Now you have " + index + " tasks in the list.");
+                    }
+                    break;
+
+                default:
+                    System.out.println("Invalid Command");
                     break;
             }
         }
