@@ -1,10 +1,18 @@
 aaa
 todo aaa
-deadline bbb /by aaa
-event ccc /from aaa /to bbb
+deadline bbb fff /by aaa bbb
+event ccc ddd /from aaa ddd /to bbb ccc
 mark 1
 mark 2
 mark 3
 unmark 1
 unmark 2
 unmark 3
+unmark -1
+unmark 9999
+mark 1
+mark 9999
+todo
+deadline
+event
+blah
