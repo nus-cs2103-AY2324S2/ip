@@ -7,11 +7,14 @@ public class Duke {
     protected static ArrayList<Task> taskList = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "$$\\      $$\\  $$$$$$\\  $$\\   $$\\       $$\\      $$\\ $$$$$$\\ $$\\   $$\\ \n"
+                + "$$$\\    $$$ |$$  __$$\\ $$ |  $$ |      $$ | $\\  $$ |\\_$$  _|$$$\\  $$ | \n"
+                + "$$$$\\  $$$$ |$$ /  $$ |\\$$\\ $$  |      $$ |$$$\\ $$ |  $$ |  $$$$\\ $$ | \n"
+                + "$$\\$$\\$$ $$ |$$$$$$$$ | \\$$$$  /       $$ $$ $$\\$$ |  $$ |  $$ $$\\$$ | \n"
+                + "$$ \\$$$  $$ |$$  __$$ | $$  $$<        $$$$  _$$$$ |  $$ |  $$ \\$$$$ | \n"
+                + "$$ |\\$  /$$ |$$ |  $$ |$$  /\\$$\\       $$$  / \\$$$ |  $$ |  $$ |\\$$$ | \n"
+                + "$$ | \\_/ $$ |$$ |  $$ |$$ /  $$ |      $$  /   \\$$ |$$$$$$\\ $$ | \\$$ | \n"
+                + "\\__|     \\__|\\__|  \\__|\\__|  \\__|      \\__/     \\__|\\______|\\__|  \\__| \n";
         System.out.println("Hello from\n" + logo);
         Duke.greet();
         Duke.echo(br);
@@ -44,19 +47,31 @@ public class Duke {
             tokens = description.split("/");
             command = tokens[0].split(" ")[0];
         }
-        Duke.line();
-        System.out.println("Bye. Hope to see you again soon!");
-        Duke.line();
+        Duke.bye();
     }
 
     public static void handleTask(String command, String description) {
-        if (command.equals("todo")) {
-            Todo.addTask(description);
-        } else if (command.equals("deadline")) {
-            Deadline.addTask(description);
-        } else if (command.equals("event")) {
-            Event.addTask(description);
+        try {
+            if (command.equals("todo")) {
+                Todo.addTask(description);
+            } else if (command.equals("deadline")) {
+                Deadline.addTask(description);
+            } else if (command.equals("event")) {
+                Event.addTask(description);
+            } else {
+                throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
+    }
+
+    public static void bye() {
+        Duke.line();
+        System.out.println("Bye. Hope to see you again soon!");
+        Duke.line();
     }
 
     public static void line() {

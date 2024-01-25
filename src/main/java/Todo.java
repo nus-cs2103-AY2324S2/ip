@@ -4,9 +4,12 @@ public class Todo extends Task {
         super(description);
     }
 
-    public static void addTask(String description) {
+    public static void addTask(String description) throws ArrayIndexOutOfBoundsException {
         String[] tokens = description.split(" ");
         String taskName = "";
+        if (tokens.length == 1)
+            throw new ArrayIndexOutOfBoundsException("The description of a deadline cannot be empty.");
+
         for (int i = 1; i < tokens.length; i++) {
             taskName += tokens[i] + " ";
         }
