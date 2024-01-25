@@ -1,0 +1,10 @@
+todo borrow book
+deadline return book /by Thurs 1000
+event CS3230 exam /from 1300 /to 1500
+list
+mark 1
+mark 3
+unmark 3
+mark 2
+list
+bye
