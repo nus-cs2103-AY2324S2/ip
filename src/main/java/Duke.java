@@ -47,37 +47,96 @@ public class Duke {
         System.out.println(LINE);
     }
 
+    private void mark(String[] input) throws IncompleteCommandException, InvalidArgumentException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        } 
+        try {
+            int index = Integer.parseInt(input[1]) - 1;
+            this.list.get(index).markAsDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentException();
+        }
+    }
+
+    private void unmark(String[] input) throws IncompleteCommandException, InvalidArgumentException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        } 
+        try {
+            int index = Integer.parseInt(input[1]) - 1;
+            this.list.get(index).markNotDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentException();
+        }
+    }
+
+    private void addTodo(String[] input) throws IncompleteCommandException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        } 
+        String description = input[1];
+        this.add(new Todo(description));
+    }
+
+    private void addDeadline(String[] input) throws IncompleteCommandException, NoDeadlineException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        } 
+        input = input[1].split(" /by ", 2);
+        if (input.length == 1) {
+            throw new NoDeadlineException();
+        }
+        String description = input[0];
+        String by = input[1];
+        this.add(new Deadline(description, by));
+    }
+
+    private void addEvent(String[] input) throws IncompleteCommandException, NoPeriodException {
+        if (input.length == 1 || input[1].equals("")) {
+            throw new IncompleteCommandException(input[0]);
+        } 
+        input = input[1].split(" /from ", 2);
+        if (input.length == 1) {
+            throw new NoPeriodException();
+        }
+        String description = input[0];
+        String[] arr = input[1].split(" /to ", 2);
+        if (arr.length == 1) {
+            throw new NoPeriodException();
+        }
+        this.add(new Event(description, arr[0], arr[1]));
+    }
+
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.sayGreetings();
 
         while (true) {
-            String input = duke.sc.nextLine();
-            System.out.println(LINE);
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                duke.list();
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                duke.list.get(index).markAsDone();
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                duke.list.get(index).markNotDone();
-            } else if (input.startsWith("todo")) {
-                input = input.replaceFirst("todo ", "");
-                duke.add(new Todo(input));
-            } else if (input.startsWith("deadline")) {
-                input = input.replaceFirst("deadline ", "");
-                String[] arr = input.split(" /by ");
-                duke.add(new Deadline(arr[0], arr[1]));
-            } else if (input.startsWith("event")) {
-                input = input.replaceFirst("event ", "");
-                String[] arr = input.split(" /from ");
-                String[] arr1 = arr[1].split(" /to ");
-                duke.add(new Event(arr[0], arr1[0], arr1[1]));
-            } else {
-                System.out.println("\tI don't understand what you mean :(");
+            try {
+                String userInput = duke.sc.nextLine();
+                String[] input = userInput.split(" ", 2);
+                String action = input[0];
+                System.out.println(LINE);
+                if (action.equals("bye")) {
+                    break;
+                } else if (action.equals("list")) {
+                    duke.list();
+                } else if (action.equals("mark")) {
+                    duke.mark(input);
+                } else if (action.equals("unmark")) {
+                    duke.unmark(input);
+                } else if (action.equals("todo")) {
+                    duke.addTodo(input);
+                } else if (action.equals("deadline")) {
+                    duke.addDeadline(input);
+                } else if (action.equals("event")) {
+                    duke.addEvent(input);
+                } else {
+                    throw new UnknownCommandException();
+                }
+            } catch (Exception e) {
+                System.out.println("\t" + e);
                 System.out.println(LINE);
             }
         }
