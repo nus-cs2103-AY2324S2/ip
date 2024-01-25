@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class Duke {
+public class Sleepy {
     public static void main(String[] args) {
         // Initialise chatbot
         ItemList itemList = new ItemList();
