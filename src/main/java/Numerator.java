@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Numerator {
     public static void main(String[] args) {
         String logo =
                 "____________________________________________________________\n" +
