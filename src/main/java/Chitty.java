@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Chitty {
     private static final String CHATBOT_NAME = "Chitty";
-    private static final String GREETING_MESSAGE = String.format("Hello! I'm %s \nWhat can I do for you?\n", CHATBOT_NAME);
+    private static final String GREETING_MESSAGE = String.format("Hello! I'm %s\nWhat can I do for you?\n", CHATBOT_NAME);
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!\n";
     private static final String ADD_TASK = "Got it. I've added this task:\n";
     private static final String LIST_TASKS = "Here are the tasks in your list:\n";
@@ -64,7 +64,7 @@ public class Chitty {
     public static void main(String[] args) {
         greet();
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        while (scanner.hasNextLine()) {
             String[] input = scanner.nextLine().split(" ", 2);
             String command = input[0].toUpperCase();
             switch (command) {
