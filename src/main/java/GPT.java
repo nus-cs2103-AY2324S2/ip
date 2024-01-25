@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.*;
 public class GPT {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
@@ -8,10 +9,23 @@ public class GPT {
         System.out.println("Hello! I'm" + name);
         System.out.println(secLine);
         String s = scn.nextLine();
+        ArrayList<String> sl = new ArrayList<>();
         while(!s.equals("bye")) {
-            System.out.println(s);
+            if (s.equals("list")) {
+                for (int i=1; i<=sl.size(); i++) {
+                    System.out.println( i + ". " + sl.get(i-1));
+                }
+
+            } else {
+                System.out.println("added " + s);
+                sl.add(s);
+
+            }
             s = scn.nextLine();
+
         }
+
+
         System.out.println( "Bye. Hope to see you soon");
     }
 }
