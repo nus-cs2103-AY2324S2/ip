@@ -1,6 +1,6 @@
-public class Task {
-    private String description;
-    private boolean isDone;
+public abstract class Task {
+    protected String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -15,9 +15,11 @@ public class Task {
         isDone = false;
     }
 
+    public abstract String getTypeIcon();
+
     @Override
     public String toString() {
-        return (isDone ? "[X] " : "[ ] ") + description;
+        return "[" + getTypeIcon() + "]" + (isDone ? "[X] " : "[ ] ") + description;
     }
 }
 
