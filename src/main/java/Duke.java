@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 public class Duke {
     public static void main(String[] args) {
@@ -13,7 +14,14 @@ public class Duke {
         System.out.println(bot + "Hello! I am ROLAND");
         System.out.println(bot + "What can I do for you?");
         Scanner sc = new Scanner(System.in);
-        List<Task> taskList  = new ArrayList<>();
+        String filePath = "/Users/lay/IdeaProjects/ip/src/main/java/roland.txt";
+        ArrayList<Task> taskList;
+        if (new File(filePath).length()!=0) {
+            taskList  = deserializeArrayList(filePath);
+        } else {
+            taskList  = new ArrayList<>();
+        }
+
         Task task = null;
         while(true){
             String reply = sc.nextLine();
@@ -106,10 +114,25 @@ public class Duke {
 
             taskList.add(task);
             System.out.println(bot + "I have added " + task.toString() + " to your list of tasks. You have " + taskList.size() + " task(s) in list");
-
         }
-
-
+        serializeArrayList(taskList, filePath);
         System.out.println(bot + "Bye. Hope to see you again soon!");
+    }
+    private static void serializeArrayList(ArrayList<Task> list, String filePath) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static ArrayList<Task> deserializeArrayList(String filePath) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            return (ArrayList<Task>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }
