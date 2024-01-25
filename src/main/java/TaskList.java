@@ -1,15 +1,10 @@
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class TaskList {
@@ -19,113 +14,19 @@ public class TaskList {
 
     public TaskList() {
         this.tasks = new ArrayList<>();
-        loadTasks();
     }
 
-    public enum TaskType {
-        TODO,
-        DEADLINE,
-        EVENT
+    public List<Task> getTasks() {
+        return this.tasks;
     }
 
-    public void addTask(String task) throws DukeException {
-        if (this.tasks.size() < MAX_ITEMS) {
-            try {
-                parseTask(task);
-                saveTasks();
-                System.out.println("\tGot it. I've added this task: ");
-                System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
-                System.out.println(
-                        "\tNow you have " + this.tasks.size() + " task" +
-                                (this.tasks.size() == 1 ? "" : "s") + " in the list");
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-            throw new DukeException("The task list is full.");
-        }
-    }
-    private LocalDateTime parseDate(String dateString) throws DukeException {
-        List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
-                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
-                DateTimeFormatter.ofPattern("d-M-yyyy HHmm"),
-                DateTimeFormatter.ofPattern("yyyy-M-d HHmm"),
-                DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"),
-                DateTimeFormatter.ofPattern("M/d/yyyy h:mm a"),
-                DateTimeFormatter.ofPattern("yyyy-M-d HHmm"),
-                DateTimeFormatter.ofPattern("d MMM yyyy h:mma"),
-                DateTimeFormatter.ofPattern("MMM d, yyyy HH:mm"),
-                DateTimeFormatter.ofPattern("yyyyMMdd h:mm a"),
-                DateTimeFormatter.ofPattern("d-M-yyyy HH:mm"),
-                DateTimeFormatter.ofPattern("yyyy/M/d h:mma"),
-                DateTimeFormatter.ofPattern("d MMMM yyyy HHmm"),
-                DateTimeFormatter.ofPattern("yyyy-M-d h:mm a")
-        );
-
-        List<DateTimeFormatter> dateFormatters = Arrays.asList(
-                DateTimeFormatter.ofPattern("d/M/yyyy"),
-                DateTimeFormatter.ofPattern("M/d/yyyy"),
-                DateTimeFormatter.ofPattern("yyyy/M/d"),
-                DateTimeFormatter.ofPattern("d-M-yyyy"),
-                DateTimeFormatter.ofPattern("M-d-yyyy"),
-                DateTimeFormatter.ofPattern("yyyy-M-d"),
-                DateTimeFormatter.ofPattern("d MMM yyyy"),
-                DateTimeFormatter.ofPattern("MMM d, yyyy"),
-                DateTimeFormatter.ofPattern("d MMMM yyyy"),
-                DateTimeFormatter.ofPattern("yyyyMMdd")
-        );
-
-        for (DateTimeFormatter formatter : dateTimeFormatters) {
-            try {
-                return LocalDateTime.parse(dateString, formatter);
-            } catch (DateTimeParseException e) {
-                // Continue to try the next format
-            }
-        }
-
-        for (DateTimeFormatter formatter : dateFormatters) {
-            try {
-                return LocalDate.parse(dateString, formatter).atStartOfDay();
-            } catch (DateTimeParseException e) {
-                // Continue to try the next format
-            }
-        }
-        throw new DukeException("Invalid Date and time format");
-    }
-
-    private void parseTask(String task) throws DukeException {
-        String[] parsed = task.split(" ", 2);
-        if (parsed.length <= 1 || parsed[1].isEmpty()) {
-            throw new DukeException("OOPS! Please enter a task name");
-        }
-        TaskType taskType = TaskType.valueOf(parsed[0].toUpperCase());
-        String taskDesc = parsed[1];
-        switch (taskType) {
-            case TODO:
-                this.tasks.add(new ToDo(taskDesc));
-                break;
-            case DEADLINE:
-                String[] parsedDeadline = taskDesc.split(" /by ");
-                if (parsedDeadline.length <= 1) {
-                    throw new DukeException("Please enter a valid deadline format");
-                }
-                String deadlineName = parsedDeadline[0];
-                LocalDateTime by = parseDate(parsedDeadline[1]);
-                this.tasks.add(new Deadline(deadlineName, by));
-                break;
-            case EVENT:
-                String[] parsedEvent = taskDesc.split(" /from | /to ");
-                if (parsedEvent.length <= 2) {
-                    throw new DukeException("Please enter valid event format");
-                }
-                String eventName = parsedEvent[0];
-                LocalDateTime start = parseDate(parsedEvent[1]);
-                LocalDateTime end = parseDate(parsedEvent[2]);
-                this.tasks.add(new Event(eventName, start, end));
-                break;
-            default:
-                throw new DukeException("Please enter valid task type");
-        }
+    public void addTask(Task task) {
+        this.tasks.add(task);
+        System.out.println("\tGot it. I've added this task: ");
+        System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
+        System.out.println(
+                "\tNow you have " + this.tasks.size() + " task" +
+                        (this.tasks.size() == 1 ? "" : "s") + " in the list");
     }
 
     public void deleteTask(int index) throws DukeException {
@@ -136,9 +37,8 @@ public class TaskList {
             throw new DukeException("Index out of range");
         }
         Task deletedTask = this.tasks.remove(index - 1);
-        saveTasks();
         System.out.println("\tNoted. I've removed this task:");
-        System.out.println("\t\t" + deletedTask.toString());
+        System.out.println("\t" + deletedTask.toString());
         System.out.println(
                 "\tNow you have " + this.tasks.size() + " task" +
                         (this.tasks.size() == 1 ? "" : "s") + " in the list");
@@ -150,7 +50,6 @@ public class TaskList {
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsDone();
-        saveTasks();
         System.out.println("\tNice! I've marked this task as done:");
         currTask.toString();
     }
@@ -161,7 +60,6 @@ public class TaskList {
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsUndone();
-        saveTasks();
         System.out.println("\tOK, I've marked this task as not done yet:");
         currTask.toString();
     }
@@ -188,7 +86,9 @@ public class TaskList {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String taskString = scanner.nextLine();
-                parseTaskFromString(taskString);
+                // need to add to tasklist
+                Task currTask = Parser.parseTaskFromString(taskString);
+                this.tasks.add(currTask);
             }
         } catch (IOException e) {
             System.out.println("Error occurred when writing to file");
@@ -213,43 +113,66 @@ public class TaskList {
         }
     }
 
-    private Task parseTaskFromString(String taskString) throws DukeException {
-        String[] parts = taskString.split(" \\| ");
-        String taskType = parts[0];
-        boolean isDone = parts[1].trim().equals("1");
-        String description = parts[2].trim();
-        String additionalInfo = parts.length > 3 ? parts[3].trim() : null;
+//    private Task parseTaskFromString(String taskString) throws DukeException {
+//        String[] parts = taskString.split(" \\| ");
+//        String taskType = parts[0];
+//        boolean isDone = parts[1].trim().equals("1");
+//        String description = parts[2].trim();
+//        String additionalInfo = parts.length > 3 ? parts[3].trim() : null;
+//
+//        switch (taskType) {
+//            case "T":
+//                ToDo todo = new ToDo(description);
+//                if (isDone) todo.markAsDone();
+//                tasks.add(todo);
+//                return todo;
+//            case "D":
+//                if (additionalInfo == null) {
+//                    throw new DukeException("Invalid Deadline format in file");
+//                }
+//                LocalDateTime by = LocalDateTime.parse(additionalInfo);
+//                Deadline deadline = new Deadline(description, by);
+//                if (isDone) deadline.markAsDone();
+//                tasks.add(deadline);
+//                return deadline;
+//            case "E":
+//                String[] times = additionalInfo.split(" to ");
+//                if (times.length < 2) {
+//                    throw new DukeException("Invalid Event time format in file.");
+//                }
+//                LocalDateTime start = LocalDateTime.parse(times[0].trim());
+//                LocalDateTime end = LocalDateTime.parse(times[1].trim());
+//
+//                Event event = new Event(description, start, end);
+//                if (isDone) event.markAsDone();
+//                tasks.add(event);
+//                return event;
+//
+//            default:
+//                return null;
+//        }
+//    }
 
-        switch (taskType) {
-            case "T":
-                ToDo todo = new ToDo(description);
-                if (isDone) todo.markAsDone();
-                tasks.add(todo);
-                return todo;
-            case "D":
-                if (additionalInfo == null) {
-                    throw new DukeException("Invalid Deadline format in file");
-                }
-                LocalDateTime by = LocalDateTime.parse(additionalInfo);
-                Deadline deadline = new Deadline(description, by);
-                if (isDone) deadline.markAsDone();
-                tasks.add(deadline);
-                return deadline;
-            case "E":
-                String[] times = additionalInfo.split(" to ");
-                if (times.length < 2) {
-                    throw new DukeException("Invalid Event time format in file.");
-                }
-                LocalDateTime start = LocalDateTime.parse(times[0].trim());
-                LocalDateTime end = LocalDateTime.parse(times[1].trim());
+    //    public void addTask(String task) throws DukeException {
+//        if (this.tasks.size() < MAX_ITEMS) {
+//            try {
+//                // need to command !!!!
+//                // :DDD
+//                Parser.parseTask(task);
+//                // Storage.saveTasks(..);
+//                saveTasks();
+//                System.out.println("\tGot it. I've added this task: ");
+//                System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
+//                System.out.println(
+//                        "\tNow you have " + this.tasks.size() + " task" +
+//                                (this.tasks.size() == 1 ? "" : "s") + " in the list");
+//            } catch (DukeException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        } else {
+//            throw new DukeException("The task list is full.");
+//        }
+//    }
 
-                Event event = new Event(description, start, end);
-                if (isDone) event.markAsDone();
-                tasks.add(event);
-                return event;
 
-            default:
-                return null;
-        }
-    }
 }

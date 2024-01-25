@@ -1,77 +1,34 @@
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class RoeBot {
+    private Storage storage;
     private TaskList taskList;
-    public enum Command {
-        MARK,
-        UNMARK,
-        DELETE,
-        LIST,
-        BYE,
-        TODO,
-        DEADLINE,
-        EVENT
-    }
+    private UI ui;
+    private Parser parser;
+
     public RoeBot() {
+        this.storage = new Storage();
         this.taskList = new TaskList();
+        this.ui = new UI();
+        this.parser = new Parser();
     }
 
     public void start() {
-        printIntroMessage();
-        Scanner scanner = new Scanner(System.in);
+        try {
+            storage.loadTasks(this.taskList);
+        } catch (IOException e) {
+            System.out.println("FIX THIS ERROR");
+        }
+        this.ui.printIntroMessage();
         String userInput;
         do {
-            userInput = scanner.nextLine();
-            parseUserInput(userInput);
-            printHorizontalLine();
+            userInput = this.ui.nextCommand();
+            Command c = this.parser.parseCommand(userInput);
+            c.execute(taskList, ui, storage);
+            ui.printHorizontalLine();
         } while (!userInput.equals("bye"));
-        printExitMessage();
     }
 
-    private void parseUserInput(String userInput) {
-        try {
-            String[] parsed = userInput.split(" ", 2);
-            Command command = Command.valueOf(parsed[0].toUpperCase());
-            switch (command) {
-                case MARK:
-                    this.taskList.markTask(Integer.parseInt(parsed[1]));
-                    break;
-                case UNMARK:
-                    this.taskList.unmarkTask(Integer.parseInt(parsed[1]));
-                    break;
-                case DELETE:
-                    this.taskList.deleteTask(Integer.parseInt(parsed[1]));
-                    break;
-                case LIST:
-                    this.taskList.listTasks();
-                    break;
-                case BYE:
-                    break;
-                default:
-                    this.taskList.addTask(userInput);
-                    break;
-            }
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.out.println("\tInvalid event/input type, Please try again");
-        }
-    }
-
-    public void printIntroMessage() {
-        printHorizontalLine();
-        System.out.println("\tHello! I'm RoeBot!");
-        System.out.println("\tWhat can I do for you?");
-        printHorizontalLine();
-    }
-
-    public void printExitMessage() {
-        System.out.println("\tBye. Hope to see you again soon!");
-        printHorizontalLine();
-    }
-
-    public void printHorizontalLine() {
-        System.out.println("\t_________________________________________________");
-    }
 }
