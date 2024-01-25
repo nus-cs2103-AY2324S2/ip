@@ -6,6 +6,8 @@ Overall Description:
 
 The project aims to build a Personal Assistant Chatbot that helps a person to keep track of various things
 
+
+
 Level 1
 
 Requirements:
@@ -20,3 +22,13 @@ Design:
 	- rationale: given the purpose of the bot being to track various things, it is likely not to need many lines
 
 
+
+Level 2
+
+Requirements:
+- echo the user input when it is not "bye"
+- exits when the input is "bye"
+
+Design:
+- uses enum for states
+- implement a ProcessInput function to handle inputs
