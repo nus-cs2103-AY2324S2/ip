@@ -106,9 +106,9 @@ class ListAdder {
     }
 }
 
-class Task {
-    private String task;
-    private boolean isDone;
+abstract class Task {
+    protected String task;
+    protected boolean isDone;
 
     public Task(String task) {
         this.task = task;
@@ -130,5 +130,44 @@ class Task {
     @Override
     public String toString() {
         return this.task;
+    }
+}
+
+class Deadline extends Task {
+    protected String by;
+
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+
+class Events extends Task {
+    protected String at;
+
+    public Events(String description, String at) {
+        super(description);
+        this.at = at;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (at: " + at + ")";
+    }
+}
+
+class Todo extends Task {
+    public Todo (String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
     }
 }
