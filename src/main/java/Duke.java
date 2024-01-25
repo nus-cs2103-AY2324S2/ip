@@ -42,6 +42,27 @@ public class Duke {
                     continue;
                 }
 
+                if (input.startsWith("delete ")) {
+                    String taskNum = input.substring(7);
+                    int taskNumber = Integer.valueOf(taskNum);
+
+                    if (taskNumber >= 1 && taskNumber <= counter) {
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(tasks[taskNumber - 1].toString());
+
+                        for (int i = taskNumber - 1; i < counter - 1; i++) {
+                            tasks[i] = tasks[i + 1];
+                        }
+                        tasks[counter - 1] = null;
+                        counter--;
+
+                        System.out.println("Now you have " + counter + " tasks in the list.");
+                    } else {
+                        throw new DukeException("UH OH! Invalid task number, please provide a valid task number!");
+                    }
+                    continue;
+                }
+
                 if (input.startsWith("todo")) {
                     if (input.length() <= 5) {
                         throw new DukeException("UH OH! Description for todo cannot be empty!");
