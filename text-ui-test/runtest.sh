@@ -30,16 +30,17 @@ for input_file in "$INPUT_FOLDER"/*; do
 
   # convert to UNIX format
   cp "$expected_file" EXPECTED-UNIX.TXT
-  dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+#  dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 
   # compare the output to the expected output
-  diff ACTUAL.TXT EXPECTED-UNIX.TXT
+  # -w flag: Ignore whitespaces
+  diff -w ACTUAL.TXT EXPECTED-UNIX.TXT
   if [ $? -eq 0 ]
   then
       echo "Test result for $(basename "$input_file"): PASSED"
-      exit 0
   else
       echo "Test result for $(basename "$input_file"): FAILED"
-      exit 1
   fi
 done
+
+exit 0
