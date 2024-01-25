@@ -1,6 +1,9 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
+    private static ArrayList<String> storage = new ArrayList<>();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -22,14 +25,28 @@ public class Duke {
                 break;
             }
 
+            if("list".equalsIgnoreCase(input)) {
+                printList(storage);
+                printLine();
+            }
 
-            System.out.println(input);
-            printLine();
+            if(!"list".equalsIgnoreCase(input)) {
+                storage.add(input);
+                System.out.println("added: " + input);
+                printLine();
+            }
         }
-
     }
 
     private static void printLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    private static void printList(ArrayList<String> list) {
+        if(!list.isEmpty()) {
+            for(int i = 0; i < list.size(); i++) {
+                System.out.println((i + 1) + "." + list.get(i));
+            }
+        }
     }
 }
