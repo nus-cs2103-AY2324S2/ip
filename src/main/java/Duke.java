@@ -9,13 +9,8 @@ public class Duke {
     public static void main(String[] args) throws Exception{
 
         String NAME = "Luna"; // TENTATIVE
-
-//        Scanner sc = new Scanner(System.in);
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        String ln = sc.nextLine();
-
         bot_functions.shifted_print(bot_functions.greetingString(NAME));
-
         boolean exitFlag = false;
         ArrayList<list_Entry> user_list = new ArrayList<>();
 
@@ -33,13 +28,13 @@ public class Duke {
                 if (user_list.isEmpty()) {
                     text.append("List is Empty");
                 } else {
+                    text.append("These are your outstanding tasks\n");
                     for (int i = 0; i < user_list.size(); i++) {
                         list_Entry ent = user_list.get(i);
                         text.append((i+1)).append(".").append(ent.toString()).append("\n");
 //                        text = text.concat((i).toString()).append(". ").append(user_list.get(i)).append("\n").toString();
                     }
                 }
-
                 bot_functions.shifted_print(text.toString());
 
                 // MARK AND UNMARK COMMANDS
@@ -67,23 +62,45 @@ public class Duke {
                         }
                     }
                 } else {
-                    list_Entry ent = new list_Entry(input_command, false);
-                    user_list.add(ent);
-                    StringBuilder text = new StringBuilder();
-                    String count_msg = "Now you have " + user_list.size() + " tasks in the list.";
-                    text.append(count_msg);
-                    bot_functions.shifted_print(text.toString());
-//                bot_functions.shifted_print("added: " + input_command);
+                    boolean successFlag = false;
+                    list_Entry ent = new list_Entry();
+                    if (Arrays.asList(keys).size() == 2) {
+                        if (keys[0].equalsIgnoreCase("todo")) {
+                            successFlag = true;
+                            ent = new list_Entry_Todo(keys[1], false);
+                        } else if (keys[0].equalsIgnoreCase("deadline")) {
+                            String[] keys_entry = keys[1].split(" /by ", 2);
+                            if (Arrays.asList(keys_entry).size() == 2) {
+                                successFlag = true;
+                                ent = new list_Entry_Deadline(keys_entry[0], false, keys_entry[1]);
+                            }
+                        } else if (keys[0].equalsIgnoreCase("event")) {
+                            String[] keys_entry1 = keys[1].split(" /from ", 2);
+                            if (Arrays.asList(keys_entry1).size() == 2) {
+                                String[] keys_entry2 = keys_entry1[1].split(" /to ", 2);
+                                if (Arrays.asList(keys_entry2).size() == 2) {
+                                    successFlag = true;
+                                    ent = new list_Entry_Event(keys_entry1[0], false, keys_entry2[0], keys_entry2[1]);
+                                }
+                            }
+                        }
+                    }
+
+                    if (successFlag) {
+                        user_list.add(ent);
+                        StringBuilder text = new StringBuilder();
+                        String count_msg = "okie! Added a task to the list:\n   " + ent + "\nNow you have " + user_list.size() + " tasks in the list.";
+                        text.append(count_msg);
+                        bot_functions.shifted_print(text.toString());
+                    } else {
+                        bot_functions.shifted_print("Wrong format");
+                    }
 
                 }
-
             }
         }
-
         System.exit(0);
-
     }
-
 
 
     public static class bot_functions {
