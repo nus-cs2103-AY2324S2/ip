@@ -7,7 +7,7 @@ public class Duke {
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
-        String name = "[NAME_PLACERHOLDER]";
+        String name = "[_NAME_PLACERHOLDER]";
         System.out.println(HORIZONTAL_LINE);
         System.out.println("hello! my name is " + name + "૮ ˶ᵔ ᵕ ᵔ˶ ა");
         System.out.println("What would you like for me to do?");
