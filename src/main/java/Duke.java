@@ -89,6 +89,19 @@ public class Duke {
                             throw new DukeException("Please enter a valid task number to unmark.");
                         }
                         break;
+                    case "delete":
+                        try {
+                            int taskIndexToDelete = Integer.parseInt(parts[1]) - 1;
+                            if (taskIndexToDelete < 0 || taskIndexToDelete >= tasks.size()) {
+                                throw new DukeException("The task number you are trying to delete does not exist.");
+                            }
+                            Task removedTask = tasks.remove(taskIndexToDelete);
+                            System.out.println("Noted. I've removed this task:\n" + removedTask);
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        } catch (NumberFormatException e) {
+                            throw new DukeException("Please enter a valid task number to delete.");
+                        }
+                        break;
                     default:
                         throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
