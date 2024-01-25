@@ -32,29 +32,56 @@ public class Duke {
                         System.out.println("Please enter a valid number.");
                     }
                 } else if (userInput.startsWith("todo")) {
-                    String s = userInput.substring("todo".length()).trim();
-                    Task task = new Todo(s);
-                    System.out.println(myList.addItem(task));
+                    try {
+                        String s = userInput.substring("todo".length()).trim();
+                        if (s.isEmpty()) {
+                            throw new DukeException("Task description cannot be empty.");
+                        }
+                        Task task = new Todo(s);
+                        System.out.println(myList.addItem(task));
+                    } catch (DukeException e) {
+                        System.out.println("Error: " + e.getMsg());
+                    }
                 } else if (userInput.startsWith("deadline")) {
-                    String s = userInput.substring("deadline".length()).trim();
-                    String[] s1 = s.split("/by");
-                    Task task = new Deadline(s1[0].trim(), s1[1].trim());
-                    System.out.println(myList.addItem(task));
+                    try {
+                        String s = userInput.substring("deadline".length()).trim();
+                        String[] s1 = s.split("/by");
+                        if (s1.length > 2) {
+                            throw new DukeException("Multiple /by");
+                        }
+                        Task task = new Deadline(s1[0].trim(), s1[1].trim());
+                        System.out.println(myList.addItem(task));
+                    } catch (DukeException e) {
+                        System.out.println("Error: " + e.getMsg());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please enter format deadline (task) /by (input)");
+                    }
                 } else if (userInput.startsWith("event")) {
-                    String s = userInput.substring("event".length()).trim();
-                    String[] s1 = s.split("/from");
-                    String[] s2 = s1[1].split("/to");
-                    Task task = new Event(s1[0].trim(), s2[0].trim(), s2[1].trim());
-                    System.out.println(myList.addItem(task));
+                    try {
+                        String s = userInput.substring("event".length()).trim();
+                        String[] s1 = s.split("/from");
+                        if (s1.length > 2) {
+                            throw new DukeException("Multiple /from");
+                        }
+                        String[] s2 = s1[1].split("/to");
+                        if (s2.length > 2) {
+                            throw new DukeException("Multiple /to");
+                        }
+                        Task task = new Event(s1[0].trim(), s2[0].trim(), s2[1].trim());
+                        System.out.println(myList.addItem(task));
+                    } catch (DukeException e) {
+                        System.out.println("Error: " + e.getMsg());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please enter format event (task) /from (input) /to (input)");
+                    }
                 } else {
-                    System.out.println("Invalid input");
+                    System.out.println("OOPS! That was an invalid input");
                 }
             }
             System.out.println("Bye. Hope to see you again soon!");
 
         } catch (IOException e) {
             System.err.println("Error");
-            //e.printStackTrace();
         }
     }
 }
