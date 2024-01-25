@@ -1,9 +1,13 @@
 import java.util.*;
 
 public class Eggy {
+    public static final String name = "Eggy";
+    public static List<Task> taskList = new ArrayList<>();
+    public enum CommandType {
+        LIST, DELETE, MARK, UNMARK, TODO, DEADLINE, EVENT
+    }
+
     public static void main(String[] args) throws Exception {
-        String name = "Eggy";
-        List<Task> taskList = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         System.out.println("    ____________________________________________________________");
@@ -17,35 +21,36 @@ public class Eggy {
             System.out.println("    ____________________________________________________________");
             try {
                 validateCommand(commandArr);
-                switch (commandArr[0]) {
-                    case "list":
-                        showList(taskList);
+                CommandType commandType = CommandType.valueOf(commandArr[0].toUpperCase());
+                switch (commandType) {
+                    case LIST:
+                        showList();
                         break;
-                    case "delete":
+                    case DELETE:
                         Task task = taskList.remove(Integer.parseInt(commandArr[1]) - 1);
                         System.out.println("     Noted. I've removed this task:");
                         System.out.println("       " + task.toString());
                         System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
                         break;
-                    case "mark":
+                    case MARK:
                         taskList.get(Integer.parseInt(commandArr[1]) - 1).markDone();
                         break;
-                    case "unmark":
+                    case UNMARK:
                         taskList.get(Integer.parseInt(commandArr[1]) - 1).unmarkDone();
                         break;
-                    case "todo":
+                    case TODO:
                         Todo newTodo = new Todo(commandArr[1]);
-                        addTask(newTodo, taskList);
+                        addTask(newTodo);
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         String[] deadlineSplit = commandArr[1].split(" /by ");
                         Deadline newDeadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
-                        addTask(newDeadline, taskList);
+                        addTask(newDeadline);
                         break;
-                    case "event":
+                    case EVENT:
                         String[] eventSplit = commandArr[1].split(" /from | /to ");
                         Event newEvent = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
-                        addTask(newEvent, taskList);
+                        addTask(newEvent);
                         break;
                     default:
                         throw new EggyException("");
@@ -65,29 +70,35 @@ public class Eggy {
     }
 
     public static void validateCommand(String[] commandArr) throws Exception {
-        if (commandArr[0].equals("list")) {
-            return;
-        } else if (commandArr.length < 2 && (commandArr[0].equals("todo") || commandArr[0].equals("deadline")
-                || commandArr[0].equals("event"))) {
-            throw new IncompleteTaskException(commandArr[0]);
-        } else if (commandArr.length < 2 && (commandArr[0].equals("delete") || commandArr[0].equals("mark")
-                || commandArr[0].equals("unmark"))) {
-            throw new IncompleteCommandException(commandArr[0]);
-        } else if (!(commandArr[0].equals("todo") || commandArr[0].equals("deadline")
-                || commandArr[0].equals("event") || commandArr[0].equals("delete") || commandArr[0].equals("mark")
-                || commandArr[0].equals("unmark"))) {
+        try {
+            CommandType commandType = CommandType.valueOf(commandArr[0].toUpperCase());
+            if (commandArr.length < 2 && (commandType == CommandType.TODO || commandType == CommandType.DEADLINE
+                    || commandType == CommandType.EVENT)) {
+                throw new IncompleteTaskException(commandType.name().toLowerCase());
+            } else if (commandType == CommandType.DELETE || commandType == CommandType.MARK
+                    || commandType == CommandType.UNMARK) {
+                if (commandArr.length < 2) {
+                    throw new IncompleteCommandException(commandType.name().toLowerCase());
+                } else {
+                    int taskNumber = Integer.parseInt(commandArr[1]);
+                    if (taskNumber < 1 || taskNumber > taskList.size()) {
+                        throw new TaskListIndexOutOfBoundsException(taskNumber, taskList.size());
+                    }
+                }
+            }
+        } catch (IllegalArgumentException e) {
             throw new InvalidCommandException();
         }
     }
 
-    public static void addTask(Task task, List<Task> taskList) {
+    public static void addTask(Task task) {
         taskList.add(task);
         System.out.println("     Got it. I've added this task:");
         System.out.println("       " + task.toString());
         System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
     }
 
-    public static void showList(List<Task> taskList) {
+    public static void showList() {
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println("     " + (i + 1) + "." + taskList.get(i).toString());
