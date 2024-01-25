@@ -41,6 +41,8 @@ public class Duke {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Jojo :)");
         System.out.println("What can I do for you?");
+        System.out.println("-----------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------");
         Scanner sc = new Scanner(System.in);
         Task[] listArr = new Task[100];
         String userTxt = sc.nextLine();
@@ -66,8 +68,12 @@ public class Duke {
                 i++;
                 System.out.println("Now you have " + i + " tasks in the list.");
             }
+            System.out.println("-----------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------");
             userTxt = sc.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("-----------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------");
     }
 }
