@@ -33,33 +33,34 @@ public class Jade {
     public void echo(String inputCommand) {
         try {
             String[] command = inputCommand.split(" ");
-            if (command[0].equals("todo")) {
+            Command commandHeader = Command.valueOf(command[0]);
+            if (commandHeader.equals(Command.todo)) {
                 if (command.length == 1) {
                     throw new JadeException("Sorry, your task to do cannot be empty.");
                 }
                  addTodo(command);
-            } else if (command[0].equals("deadline")) {
+            } else if (commandHeader.equals(Command.deadline)) {
                 addDeadline(command);
-            } else if (command[0].equals("event")) {
+            } else if (commandHeader.equals(Command.event)) {
                 addEvent(command);
-            } else if (command[0].equals("list")) {
+            } else if (commandHeader.equals(Command.list)) {
                 printList();
-            } else if (command[0].equals("mark")) {
+            } else if (commandHeader.equals(Command.mark)) {
                 if (command.length == 1 || Integer.parseInt(command[1]) > userList.size()) {
                     throw new JadeException("Please input a valid number to mark Done.");
                 }
                 markDone(command[1]);
-            } else if (command[0].equals("unmark")) {
+            } else if (commandHeader.equals(Command.unmark)) {
                 if (command.length == 1 || Integer.parseInt(command[1]) > userList.size()) {
                     throw new JadeException("Please input a valid number to unmark Done.");
                 }
                 unmarkDone(command[1]);
-            } else if (command[0].equals("delete")) {
+            } else if (commandHeader.equals(Command.delete)) {
                 if (command.length == 1 || Integer.parseInt(command[1]) > userList.size()) {
                     throw new JadeException("Please input a valid number to delete the task.");
                 }
                 deleteTask(command[1]);
-            } else if (command[0].equals("bye")) {
+            } else if (commandHeader.equals(Command.bye)) {
                 goodbye();
             } else {
                 throw new JadeException("Sorry, I don't have this command currently.");
@@ -67,7 +68,7 @@ public class Jade {
         } catch (JadeException je) {
             System.out.printf("%s\t%s\n%s", line, je.getMessage(), line);
         } catch (IllegalArgumentException iae) {
-            System.out.printf("%s\tInput format of the task type is invalid, please retry. \n%s", line, line);
+            System.out.printf("%s\tInput is invalid, please retry. \n%s", line, line);
         }
     }
 
