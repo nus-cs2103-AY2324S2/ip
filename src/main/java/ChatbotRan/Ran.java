@@ -57,8 +57,12 @@ public class Ran {
                     this.addTask(deadline);
                     break;
                 case "todo":
-                    Todo todo = Todo.parse(line,space);
+                    Todo todo = Todo.parse(line, space);
                     this.addTask(todo);
+                    break;
+                case "event":
+                    Event event = Event.parse(line, space);
+                    this.addTask(event);
                     break;
                 default:
                     switch (line) {
@@ -101,12 +105,13 @@ public class Ran {
         }
         return null;
     }
+
     private void addTask(Task task) {
         if (task != null) {
             tasks.add(task);
             System.out.println("I've added this task to the list: ");
             System.out.println(task);
-            System.out.println("There are now "+tasks.size()+" tasks in the list");
+            System.out.println("There are now " + tasks.size() + " tasks in the list");
         }
     }
 
