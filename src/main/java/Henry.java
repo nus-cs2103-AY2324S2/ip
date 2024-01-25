@@ -1,7 +1,7 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Henry {
-    private static Task[] items = new Task[100];
-    private static int numOfItems = 0;
+    private static ArrayList<Task> items = new ArrayList<Task>();
     public static void greet() {
         String logo = "  _    _                       \n" +
                 " | |  | |                      \n" +
@@ -20,37 +20,45 @@ public class Henry {
         System.out.println("See you again bro!");
     }
     public static void addTask(Task task) {
-        items[numOfItems] = task;
-        numOfItems++;
+        items.add(task);
         System.out.println("Added this task");
-        System.out.println(items[numOfItems - 1]);
-        System.out.printf("Now you have %d tasks in the list :(\n", numOfItems);
+        System.out.println(items.get(items.size() - 1));
+        System.out.printf("Now you have %d tasks in the list :(\n", items.size());
         System.out.println();
     }
     public static void markTask(int index) throws HenryException {
-        if (index < 0 || index >= numOfItems) {
+        if (index < 0 || index >= items.size()) {
             throw new HenryException("The index is out of bounds!");
         }
-        items[index].markAsDone();
+        items.get(index).markAsDone();
         System.out.println("This task is marked as done XD");
-        System.out.println(items[index]);
+        System.out.println(items.get(index));
         System.out.println();
     }
     public static void unmarkTask(int index) throws HenryException {
-        if (index < 0 || index >= numOfItems) {
+        if (index < 0 || index >= items.size()) {
             throw new HenryException("The index is out of bounds!");
         }
-        items[index].unmarkAsDone();
+        items.get(index).unmarkAsDone();
         System.out.println("This task is marked as undone :(");
-        System.out.println(items[index]);
+        System.out.println(items.get(index));
         System.out.println();
+    }
+    public static void deleteTask(int index) throws HenryException {
+        if (index < 0 || index >= items.size()) {
+            throw new HenryException("The index is out of bounds!");
+        }
+        System.out.println("This task is deleted :)");
+        System.out.println(items.get(index));
+        System.out.println();
+        items.remove(index);
     }
     public static void handleCommand(String commandType, String params) throws HenryException {
         switch (commandType) {
             case "list":
                 System.out.println("Here is a list of tasks:");
-                for (int i = 0; i < numOfItems; i = i + 1) {
-                    System.out.printf("%d. %s\n", i + 1, items[i]);
+                for (int i = 0; i < items.size(); i = i + 1) {
+                    System.out.printf("%d. %s\n", i + 1, items.get(i));
                 }
                 System.out.println();
                 break;
@@ -91,6 +99,12 @@ public class Henry {
                 }
                 String[] eventParams = params.split(" /from | /to ");
                 addTask(new Event(eventParams[0], eventParams[1], eventParams[2]));
+                break;
+            case "delete":
+                if (params.isBlank()) {
+                    throw new HenryException("No index provided");
+                }
+                deleteTask(Integer.parseInt(params) - 1);
                 break;
             default:
                 try {
