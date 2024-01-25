@@ -1,0 +1,10 @@
+todo cry
+deadline homework /by tmr morn
+event party rock /from 6 am /to 7 pm
+list
+mark 2
+list
+unmark 2
+list
+hello
+bye
