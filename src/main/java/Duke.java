@@ -28,9 +28,8 @@ public class Duke {
                 } else {
                     int num = 1;
                     for(Task t: list) {
-                        String toPrint = num + "." + t.toString() + "\n";
                         num++;
-                        System.out.println(toPrint);
+                        System.out.println(t.toString() + "\n");
                     }
                     System.out.println("___________________________________");
                 }
@@ -50,9 +49,31 @@ public class Duke {
                 System.out.println("___________________________________");
             }
             else {
-                String echo = "added: " + inputFromUser + "\n___________________________________" ;
+                Task task = null;
+                if (inputFromUser.toLowerCase().startsWith("todo")) {
+                    String description = inputFromUser.substring(5);
+                    task = new ToDos(description);
+                }
+                if (inputFromUser.toLowerCase().startsWith("deadline")) {
+                    int indexOfBy = inputFromUser.indexOf("/by");
+                    String description = inputFromUser.substring(9, indexOfBy - 1);
+                    String by = inputFromUser.substring(indexOfBy + 4);
+                    task = new Deadlines(description, by);
+                }
+                if (inputFromUser.toLowerCase().startsWith("event")) {
+                    int indexOfFrom = inputFromUser.indexOf("/from");
+                    int indexOfTo = inputFromUser.indexOf("/to");
+                    String description = inputFromUser.substring(6, indexOfFrom - 1);
+                    String start = inputFromUser.substring(indexOfFrom + 6, indexOfTo - 1);
+                    String end = inputFromUser.substring(indexOfTo + 4);
+                    task = new Events(description, start, end);
+                }
+                
+                String echo = "Got it. I've added this task:\n" + "  " + task.toString() + "\n"
+                    + "Now you have " + (list.size() + 1) + " tasks in the list"
+                    + "\n___________________________________" ;
                 System.out.println(echo);
-                list.add(new Task(inputFromUser));
+                list.add(task);
             }
         }
         sc.close();
