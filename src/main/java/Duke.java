@@ -4,49 +4,56 @@ public class Duke {
     private static final String LINE = "    ____________________________________________________________\n";
     private static final String INDENT = "    ";
     private static int taskCount = 0;
-    private static Task[] tasks = new Task[100];
+    private static final Task[] tasks = new Task[100];
     public static void main(String[] args) {
         Duke.hello();
         Scanner in = new Scanner(System.in);
         while (true) {
-            String input = in.nextLine();
-            if (input.equals("bye")) {
+            String input = in.nextLine().trim();
+            String[] cmdarg = input.split(" ", 2); // [command, arguments]
+            if (cmdarg[0].equals("bye")) {
                 Duke.bye();
                 break;
-            } else if (input.equals("list")) {
+            } else if (cmdarg[0].equals("list")) {
                 System.out.print(LINE);
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println(INDENT + (i + 1) + ". " + tasks[i]);
+                    System.out.println(INDENT + (i + 1) + "." + tasks[i]);
                 }
                 System.out.print(LINE);
-            } else if (input.indexOf("mark") == 0 || input.indexOf("unmark") == 0) {
-                String[] split = input.split(" ");
-                if (split.length == 2 && (split[0].equals("mark") || split[0].equals("unmark"))) {
+            } else if (cmdarg[0].equals("mark") || cmdarg[0].equals("unmark")) {
+                if (cmdarg.length == 2) {
                     try {
-                        int i = Integer.parseInt(split[1]);
-                        if (split[0].equals("mark")) {
+                        int i = Integer.parseInt(cmdarg[1]);
+                        if (cmdarg[0].equals("mark")) {
                             tasks[i - 1].markAsDone();
-                            System.out.println(LINE + "Yasss! This task is officially slayed:\n  "
-                                    + INDENT + tasks[i - 1].getStatusIcon() + " " + tasks[i - 1] + "\n" + LINE);
+                            System.out.print(LINE + "Yasss! This task is officially slayed:\n  "
+                                    + INDENT + tasks[i - 1] + " " + tasks[i - 1] + "\n" + LINE);
                         } else {
                             tasks[i - 1].unmark();
-                            System.out.println(LINE + "Bruh! This task never happened:\n  "
-                                    + INDENT + tasks[i - 1].getStatusIcon() + " " + tasks[i - 1] + "\n" + LINE);
+                            System.out.print(LINE + "Bruh! This task never happened:\n  "
+                                    + INDENT + tasks[i - 1] + " " + tasks[i - 1] + "\n" + LINE);
                         }
                     } catch (java.lang.NumberFormatException e) {
-                        addTask(input);
+                        System.out.println("error"); // edit in error handling
                     }
                 } else {
-                    addTask(input);
+                    System.out.println("error"); // error
                 }
+            } else if (cmdarg[0].equals("todo")) {
+                addTask(cmdarg[1], 0);
+            } else if (cmdarg[0].equals("deadline")) {
+                addTask(cmdarg[1], 1);
+            } else if (cmdarg[0].equals("event")) {
+                addTask(cmdarg[1], 2);
             } else {
-                addTask(input);
+                addTask(cmdarg[1], 3);// System.out.println("error"); // error
             }
         }
     }
 
     public static void hello() {
-        String logo = "       :::   :::           :::        :::::::::       :::::::::       ::::::::::       ::::::::: \n" +
+        String logo =
+                "       :::   :::           :::        :::::::::       :::::::::       ::::::::::       ::::::::: \n" +
                 "      :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+: \n" +
                 "      +:+ +:+         +:+   +:+     +:+    +:+      +:+    +:+      +:+              +:+    +:+  \n" +
                 "      +#++:         +#++:++#++:    +#++:++#+       +#++:++#+       +#++:++#         +#++:++#:    \n" +
@@ -61,10 +68,48 @@ public class Duke {
         System.out.print(LINE + "    Peace out, fam! Stay lit and keep those good vibes rollin'!\n" + LINE);
     }
 
-    public static void addTask(String input) {
-        tasks[taskCount] = new Task(input);
-        taskCount++;
-        System.out.print(LINE + INDENT + "added: " + input + "\n" + LINE);
+    // add task according to what type they are
+    // ID = { 0 : Todo, 1 : Deadline, 2 : Event }
+    public static void addTask(String arg, int id) {
+        switch (id) {
+            case 0:
+                tasks[taskCount] = new Todo(arg);
+                System.out.println(LINE + INDENT + "added: \n  " + INDENT + tasks[taskCount]);
+                taskCount++;
+                System.out.print(INDENT + "Now you have " + taskCount + " tasks in the list.\n" + LINE);
+                break;
+            case 1: {
+                String[] descTime = arg.split(" /by "); // [description, by]
+                if (descTime.length == 2) {
+                    tasks[taskCount] = new Deadline(descTime[0], descTime[1]);
+                    System.out.println(LINE + INDENT + "added: \n  " + INDENT + tasks[taskCount]);
+                    taskCount++;
+                    System.out.print(INDENT + "Now you have " + taskCount + " tasks in the list.\n" + LINE);
+                } else {
+                    System.out.println("error");
+                }
+                break;
+            }
+            case 2: {
+                String[] descTime = arg.split(" /from "); // [description, fromTo]
+                if (descTime.length == 2) {
+                    String[] fromTo = descTime[1].split(" /to "); // [from , to]
+                    if (fromTo.length == 2) {
+                        tasks[taskCount] = new Event(descTime[0], fromTo[0], fromTo[1]);
+                        System.out.println(LINE + INDENT + "added: \n  " + INDENT + tasks[taskCount]);
+                        taskCount++;
+                        System.out.print(INDENT + "Now you have " + taskCount + " tasks in the list.\n" + LINE);
+                    } else {
+                        System.out.println("error");
+                    }
+                } else {
+                    System.out.println("error");
+                }
+                break;
+            }
+            default:
+                System.out.println("Invalid Task ID, user shouldn't reach here");
+        }
     }
 }
 

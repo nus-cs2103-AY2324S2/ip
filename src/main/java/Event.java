@@ -9,7 +9,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[T][" + this.getStatusIcon() + "] " + this.description
+        return "[E][" + this.getStatusIcon() + "] " + this.description
                 + " (from: " + this.from + " to: " + this.to + " )";
     }
 }
