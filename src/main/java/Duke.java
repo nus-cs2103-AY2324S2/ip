@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static int i = 0;
+
     public static void createList(Task[] listArr) {
         System.out.println("Here are the tasks in your list:");
         for (int j = 0; j < 100; j++) { // printing out all items in the list
@@ -122,3 +123,4 @@ public class Duke {
         }
     }
 }
+
