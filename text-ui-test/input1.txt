@@ -1,0 +1,8 @@
+todo wash dishes
+list
+mark 1
+unmark 1
+mark 2
+unmark 2
+mark -1
+bye

@@ -1,0 +1,10 @@
+Hello! I'm Bob
+What can I do for you?
+
+Please write a description and the time period for your task!
+added: birthday  (from: today  to: tomorrow)
+Please include a time period by using from and to keyword such as'/from today /to tomorrow
+Please include a time period by using from and to keyword such as'/from today /to tomorrow
+Please include a time period by using from and to keyword such as'/from today /to tomorrow
+Bye. Hope to see you again soon!
+

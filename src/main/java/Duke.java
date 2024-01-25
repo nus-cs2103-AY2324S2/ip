@@ -4,6 +4,15 @@ public class Duke {
     private String name;
     private ArrayList<Task> list;
 
+    private enum Command{
+        todo,
+        delete,
+        bye,
+        mark,
+        unmark,
+        deadline,
+        event
+    }
     public Duke(String name) {
         this.name = name;
         this.list = new ArrayList<Task>();
@@ -75,8 +84,8 @@ public class Duke {
     public void deleteTask(int index) {
         try {
             Task t = this.list.remove(index - 1);
-            System.out.println("Noted. Task is removed, you careless human being!\n");
-            System.out.println(String.format("[%s] [%s] %s", t.getTypeIcon(), t.getStatusIcon(), t.getDescription() ));
+            System.out.println("Noted. The following task is removed, you careless human being!");
+            System.out.println(String.format("[%s] [%s] %s\n", t.getTypeIcon(), t.getStatusIcon(), t.getDescription() ));
             System.out.println(String.format("Now you only have %d tasks left. %s", this.getListSize(), this.getListUpdate()));
         }
         catch (IndexOutOfBoundsException e) {
@@ -146,10 +155,14 @@ public class Duke {
                         throw new DukeException("Please write a description and the time period for your task!");
                     }
                     String[] info_split2 = split_command[1].split("/from ", 2);
-                    String[] info_split3 = info_split2[1].split("/to ", 2);
-                    if (info_split2.length <= 1 && info_split3.length <= 1) {
+                    if (info_split2.length <= 1) {
                         throw new DukeException("Please include a time period by using from and to keyword such as" +
                                     "'/from today /to tomorrow");
+                    }
+                    String[] info_split3 = info_split2[1].split("/to ", 2);
+                    if (info_split3.length <= 1) {
+                        throw new DukeException("Please include a time period by using from and to keyword such as" +
+                                "'/from today /to tomorrow");
                     }
                     String event_desc = info_split2[0];
                     String from = info_split3[0];

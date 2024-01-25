@@ -1,0 +1,8 @@
+Hello! I'm Bob
+What can I do for you?
+
+Please write a description and a deadline for your task!
+added: homework  (by: today)
+Please include a deadline by using by keyword like '/by Thursday'
+Bye. Hope to see you again soon!
+

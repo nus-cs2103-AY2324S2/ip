@@ -1,0 +1,6 @@
+event
+event birthday /from today /to tomorrow
+event birthday
+event birthday /from today
+event birthday /to tomorrow
+bye
