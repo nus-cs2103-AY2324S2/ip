@@ -251,7 +251,7 @@ public class Duke {
 
     public static void commandHelp() {
         signalSays("Note: Entering any text besides the following creates a new generic task. \n" +
-                "The round brackets indicate you can enter any text, square brackets indicate you should enter a number. \n" +
+                "The round brackets indicate you can enter any text, square brackets indicate you should enter a number, without the brackets. \n" +
                 "\nCREATING TASKS: \n" +
                 "* todo () -- creates a To Do task, which has no deadline. \n" +
                 "* deadline () \\by () -- creates a Deadline task, indicate its deadline after '\\by'. \n" +
@@ -371,6 +371,8 @@ public class Duke {
                 } catch (DukeException e) {
                     signalSays(e.getMessage());
                 }
+            } else if (userInput.equals("help")) {
+                commandHelp();
             } else {
                 taskAdded(userInput);
             }
