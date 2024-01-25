@@ -1,12 +1,43 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
-        final String DIV = "____________________________________________________________";
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println(DIV);
-        System.out.println("Hello! I'm Puffin.");
-        System.out.println("What can I do for you?");
-        System.out.println(DIV);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(DIV);
+        printGreeting();
+
+        while (true) {
+            String input = sc.nextLine();
+            
+            if (input.equalsIgnoreCase("bye")) {
+                break;
+            } else {
+                printEcho(input);
+            }
+        }
+
+        printDiv();
+        System.out.println("\tBye. Hope to see you again soon!");
+        printDiv();
+
+        sc.close();
+    }
+
+    public static void printGreeting() {
+        printDiv();
+        System.out.println("\tHello! I'm Puffin.");
+        System.out.println("\tWhat can I do for you?");
+        printDiv();
+    }
+
+    public static void printDiv() {
+        String DIV = "____________________________________________________________";
+        System.out.println("\t" + DIV);
+    }
+
+    public static void printEcho(String msg) {
+        printDiv();
+        System.out.println("\t" + msg);
+        printDiv();
     }
 }
