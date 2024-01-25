@@ -1,9 +1,13 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
-    public static void main(String[] args) {
-        ArrayList<Task> list = new ArrayList<>();
+    protected static final String savePath = "./data/duke.txt";
+    public static void main(String[] args) throws IOException {
+        ArrayList<Task> list = initiateList();
         Scanner scanner = new Scanner(System.in);
         printWithLines("Hello! I'm Bob!", "What can I do for you?");
         String message = null;
@@ -32,12 +36,21 @@ public class Duke {
                 printWithLines(e.getMessage());
             }
         } while (!message.equals("bye"));
-
+        saveCurrentList(list);
         printWithLines("Bye. Hope to see you again soon!");
         System.out.println("------------------------------------------");
     }
 
-    private static void handleTodo(ArrayList<Task> list, String message) throws DukeException {
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        File file = new File(filePath);
+        file.getParentFile().mkdirs(); // This will create the data directory if it doesn't exist
+        FileWriter fw = new FileWriter(file);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+
+    private static void handleTodo(ArrayList<Task> list, String message) throws DukeException, IOException {
         if (message.trim().equals("todo")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty buddy.");
         }
@@ -127,4 +140,39 @@ public class Duke {
             System.out.println(message);
         }
     }
+
+    private static void saveCurrentList(ArrayList<Task> list) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        for (Task task : list) {
+            sb.append(task.toFileString());
+            sb.append("\n");
+        }
+        writeToFile(savePath, sb.toString());
+    }
+
+    private static ArrayList<Task> initiateList() throws IOException {
+        File file = new File(savePath);
+        if (!file.exists()) {
+            return new ArrayList<>();
+        }
+        Scanner scanner = new Scanner(file);
+        ArrayList<Task> list = new ArrayList<>();
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String type = line.substring(0, 1);
+            switch (type) {
+                case "T":
+                    list.add(Task.fromFileString(line));
+                    break;
+                case "D":
+                    list.add(Deadline.fromFileString(line));
+                    break;
+                case "E":
+                    list.add(Event.fromFileString(line));
+                    break;
+            }
+        }
+        return list;
+    }
+
 }
