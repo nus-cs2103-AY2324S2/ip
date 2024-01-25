@@ -2,7 +2,7 @@ import java.util.ArrayList; // import the ArrayList class
 import java.util.Scanner;  // Import the Scanner class
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String line = "____________________________________________________________";
         System.out.println(line + "\nHello! I'm Homie");
         System.out.println("What can I do for you?\n" + line);
@@ -16,6 +16,15 @@ public class Duke {
         Task currTask;
 
         while (!command.equals("bye")) {
+
+            try {
+                Duke.checkCommand(command);
+            }
+            catch (DukeException ex) {
+                System.err.println(ex);
+                command = scanner.nextLine(); // Read next command
+                continue;
+            }
 
             if (command.equals("list")) {
                 System.out.println(line);
@@ -34,13 +43,17 @@ public class Duke {
                 tempArr = command.split(" ");
                 switch (tempArr[0]) {
                     case ("todo"):
-                        System.out.println(line);
-                        Todo currTodo = new Todo(command.substring(5));
-                        myList.add(currTodo);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(currTodo);
-                        System.out.println("Now you have " + myList.size() + " tasks in the list.");
-                        System.out.println(line);
+                        try {
+                            System.out.println(line);
+                            Todo currTodo = new Todo(command.substring(5));
+                            myList.add(currTodo);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(currTodo);
+                            System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                            System.out.println(line);
+                        } catch (TodoException ex) {
+                            System.err.println(ex);
+                        }
                         break;
 
                     case ("deadline"):
@@ -102,5 +115,12 @@ public class Duke {
         }
 
         System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
+
+    }
+    public static void checkCommand (String command) throws DukeException {
+        String line = "____________________________________________________________";
+        if (!(command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event") || command.startsWith("list") || command.startsWith("bye"))) {
+            throw new DukeException("\n" + line + "\nOPPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
+        }
     }
 }
