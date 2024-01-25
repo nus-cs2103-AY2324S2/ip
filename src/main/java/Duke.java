@@ -28,11 +28,17 @@ public class Duke {
             String input = sc.nextLine();
             if (input.equals("bye")) {
                 break;
+            } if (input.equals("list")) {
+                System.out.println(divider);
+                for (int i = 0; i < al.size(); i++) {
+                    System.out.println(i+1 + ". " + al.get(i));
+                }
+                System.out.println(divider);
             }
             else {
                 al.add(input);
                 System.out.println(divider);
-                System.out.println(input);
+                System.out.println("added: " + input);
                 System.out.println(divider);
             }
         }
