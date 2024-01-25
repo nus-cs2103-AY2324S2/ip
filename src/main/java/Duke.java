@@ -111,7 +111,7 @@ public class Duke {
                 try {
                     echo = new Task(user.nextLine());
                 } catch (NoSuchElementException e) {
-                    System.out.println("Say something I'm giving up on you");
+                    System.out.println("Say something I'm giving up on you ");
                 }
 
         }
