@@ -68,100 +68,130 @@ public class Fireraya {
 
     public static void parse() {};
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FirerayaException {
 
         start();
 
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            String input = scanner.nextLine();
-            String[] all = input.split(" ");
-            String keyword = all[0];
-            int arrLen = all.length;
+        try {
+
+            while (true) {
+                String input = scanner.nextLine();
+                String[] all = input.split(" ");
+                String keyword = all[0];
+                int arrLen = all.length;
 
 
-            if (keyword.equals("bye")) {
-                end();
-                break;
-            }
+                if (keyword.equals("bye")) {
+                    end();
+                    break;
+                }
 
-            if (keyword.equals("list")) {
-                listTasks();
-                continue;
-            }
-
-            if (keyword.equals("mark")) {
-                int curr =  Integer.parseInt(all[1]) - 1;
-                tasks.get(curr).markAsDone();
-                System.out.println("Good job completing these tasks!:");
-                listTask(curr);
-                continue;
-            }
-
-            if (keyword.equals("unmark")) {
-                int curr = Integer.parseInt(all[1]) - 1;
-                tasks.get(curr).markAsUndone();
-                System.out.println("Oh no :<. Task Undone.");
-                listTask(curr);
+                if (keyword.equals("list")) {
+                    listTasks();
                     continue;
                 }
 
-            if (keyword.equals("todo")) {
-                    String rest = String.join(" ",Arrays.copyOfRange(all, 1, arrLen));
+                if (keyword.equals("mark")) {
+                    if (all.length > 2) {
+                        throw new InvalidNumOfArgsException();
+                    }
+                    int curr = Integer.parseInt(all[1]) - 1;
+                    if (tasks.size() <= curr || curr == -1) {
+                        throw new FirerayaException("That task does not exist!");
+                    }
+                    tasks.get(curr).markAsDone();
+                    System.out.println("Good job completing these tasks!:");
+                    listTask(curr);
+                    continue;
+                }
+
+                if (keyword.equals("unmark")) {
+                    if (all.length > 2) {
+                        throw new InvalidNumOfArgsException();
+                    }
+                    int curr = Integer.parseInt(all[1]) - 1;
+                    if (tasks.size() <= curr || curr == -1) {
+                        throw new FirerayaException("That task does not exist!");
+                    }
+                    tasks.get(curr).markAsUndone();
+                    System.out.println("Oh no :<. Task Undone.");
+                    listTask(curr);
+                    continue;
+                }
+
+                if (keyword.equals("todo")) {
+                    if (arrLen == 1) {
+                        throw new FirerayaException("Error! Description of a todo cannot be empty");
+                    }
+                    String rest = String.join(" ", Arrays.copyOfRange(all, 1, arrLen));
                     addTodo(rest);
                     continue;
                 }
 
-            if (keyword.equals("deadline")) {
-                int index = -1;
-                int i = 0;
-                String breakpoint = "/by";
-                for (String element : all) {
-                    if (element.equals(breakpoint)) {
-                        index = i;
-                        break;
+                if (keyword.equals("deadline")) {
+                    int index = -1;
+                    int i = 0;
+                    String breakpoint = "/by";
+                    for (String element : all) {
+                        if (element.equals(breakpoint)) {
+                            index = i;
+                            break;
                         }
-                    i++;
+                        i++;
                     }
-                String deadline = String.join(" ",Arrays.copyOfRange(all, index + 1, arrLen));
-                String task = String.join(" ",Arrays.copyOfRange(all, 1, index));
-                addDeadline(task, deadline);
-                continue;
+                    if (index == -1) {
+                        throw new FirerayaException("No /by detected in deadline");
+                    }
+                    String deadline = String.join(" ", Arrays.copyOfRange(all, index + 1, arrLen));
+                    String task = String.join(" ", Arrays.copyOfRange(all, 1, index));
+                    addDeadline(task, deadline);
+                    continue;
                 }
 
 
-            if (keyword.equals("event")) {
-                int indexf = -1;
-                int indext = -1;
-                int f = 0;
-                int t = 0;
-                String fromPoint = "/from";
-                String toPoint = "/to";
+                if (keyword.equals("event")) {
+                    int indexf = -1;
+                    int indext = -1;
+                    int f = 0;
+                    int t = 0;
+                    String fromPoint = "/from";
+                    String toPoint = "/to";
 
-                for (String element : all) {
-                    if (element.equals(fromPoint)) {
-                        indexf = f;
-                        break; }
-                    f++;
+                    for (String element : all) {
+                        if (element.equals(fromPoint)) {
+                            indexf = f;
+                            break;
+                        }
+                        f++;
+                    }
+                    if (indexf == -1) {
+                        throw new FirerayaException("No /from detected in deadline");
+                    }
+                    for (String element : all) {
+                        if (element.equals(toPoint)) {
+                            indext = t;
+                            break;
+                        }
+                        t++;
+                    }
+                    if (indext == -1) {
+                        throw new FirerayaException("No /to detected in deadline");
+                    }
+
+                    String task = String.join(" ", Arrays.copyOfRange(all, 1, indexf));
+                    String from = String.join(" ", Arrays.copyOfRange(all, indexf + 1, indext));
+                    String to = String.join(" ", Arrays.copyOfRange(all, indext + 1, arrLen));
+                    addEvent(task, from, to);
+                    continue;
                 }
 
-                for (String element : all) {
-                    if (element.equals(toPoint)) {
-                        indext = t;
-                        break; }
-                    t++;
-                }
-
-                String task = String.join(" ",Arrays.copyOfRange(all, 1, indexf));
-                String from = String.join(" ",Arrays.copyOfRange(all, indexf + 1, indext));
-                String to = String.join(" ",Arrays.copyOfRange(all, indext + 1, arrLen));
-                addEvent(task, from, to);
-                continue;
+                throw new FirerayaException("Error: " + input + " not supported");
             }
-
-            addTask(input);
+            scanner.close();
+        } catch (FirerayaException e) {
+            System.out.println(e.getMessage());
         }
-        scanner.close();
     }
 }
