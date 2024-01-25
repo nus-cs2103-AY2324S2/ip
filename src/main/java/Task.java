@@ -21,9 +21,7 @@ public class Task {
 
     @Override
     public String toString() {
-        System.out.println("[" + this.getStatusIcon() + "] " + this.description);
         return "[" + this.getStatusIcon() + "] " + this.description;
-//        System.out.println("[" + this.getStatusIcon() + "] " + this.description);
     }
 
 }
