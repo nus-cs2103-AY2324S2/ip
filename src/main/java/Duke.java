@@ -32,7 +32,7 @@ public class Duke {
         printByeMessage();
     }
 
-    public static void runByteBuddy(Scanner sc, ArrayList<Task> taskList) throws DukeException {
+    public static void runByteBuddy(Scanner sc, ArrayList<Task> taskList) {
         // repeating user commands
         label:
         while (true) {
@@ -104,7 +104,7 @@ public class Duke {
         }
     }
 
-    public static void delete(String info) throws DukeException, NumberFormatException {
+    public static void delete(String info) throws DukeException {
         try {
             int deleteIndex = Integer.parseInt(info.trim()) - 1;
             if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
