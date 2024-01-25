@@ -28,9 +28,10 @@ public class Duke {
             String category = array[0];
             int taskId = 0;
             try {
-                if (input.contains("mark") || input.contains("unmark")) {
-                    taskId = Integer.parseInt(array[1]) - 1; // subtract 1 for array index.
+                if (input.contains("mark") || input.contains("unmark") || input.contains("delete")) {
+                    taskId = Integer.parseInt(array[1]) - 1; // subtract 1 for actual index.
                 }
+                // Farewell message.
                 if (input.equalsIgnoreCase("bye")) {
                     System.out.println(indentedLine);
                     System.out.println(indentation +
@@ -38,7 +39,7 @@ public class Duke {
                     System.out.println(indentedLine);
                     break;
                 }
-                // Display the current list of tasks
+                // Display the current list of tasks.
                 else if (input.equalsIgnoreCase("list")) {
                     System.out.println(indentedLine);
                     System.out.println(indentation + "Here are the tasks in your list:");
@@ -48,7 +49,12 @@ public class Duke {
                     }
                     System.out.println(indentedLine);
                 }
-                // For Unmarking selected task
+                // For Unmarking selected task exception.
+                else if (input.equalsIgnoreCase("unmark")) {
+                    System.out.println(indentedLine);
+                    throw new DukeException("Sorry, but which task do you want me to unmark?");
+                }
+                // For Unmarking selected task.
                 else if (category.startsWith("unmark")) {
                     inputList.get(taskId).markNotDone();
                     System.out.println(indentedLine);
@@ -56,7 +62,12 @@ public class Duke {
                     System.out.println(inputList.get(taskId).toString());
                     System.out.println(indentedLine);
                 }
-                // For marking selected task
+                // For Marking selected task exception.
+                else if (input.equalsIgnoreCase("mark")) {
+                    System.out.println(indentedLine);
+                    throw new DukeException("Sorry, but which task do you want me to mark?");
+                }
+                // For Marking selected task.
                 else if (category.startsWith("mark")) {
                     inputList.get(taskId).markDone();
                     System.out.println(indentedLine);
@@ -64,6 +75,21 @@ public class Duke {
                     System.out.println(inputList.get(taskId).toString());
                     System.out.println(indentedLine);
                 }
+                // For deleting selected task exception.
+                else if (input.equalsIgnoreCase("delete")) {
+                    System.out.println(indentedLine);
+                    throw new DukeException("Sorry, but which task do you want me to delete?");
+                }
+                // For deleting selected task.
+                else if (category.startsWith("delete")) {
+                    inputList.remove(taskId - 1);
+                    System.out.println(indentedLine);
+                    System.out.println(indentation + "Noted. I've removed this task:");
+                    System.out.println(indentation + inputList.get(taskId - 1).toString());
+                    System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
+                    System.out.println(indentedLine);
+                }
+                // For todos exception.
                 else if (input.equalsIgnoreCase("todo")) {
                     System.out.println(indentedLine);
                     throw new DukeException("Sorry, please give me a description of the todo as well! >.<\n" +
@@ -79,6 +105,7 @@ public class Duke {
                     System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
                     System.out.println(indentedLine);
                 }
+                // For Deadlines exception.
                 else if (input.equalsIgnoreCase(("deadline"))) {
                     System.out.println(indentedLine);
                     throw new DukeException("Sorry, please give me a description of the deadline as well! >.<\n" +
@@ -95,6 +122,7 @@ public class Duke {
                     System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
                     System.out.println(indentedLine);
                 }
+                // For Events exception.
                 else if (input.equalsIgnoreCase("event")) {
                     System.out.println(indentedLine);
                     throw new DukeException("Sorry, please give me a description of the event as well! >.<\n" +
@@ -112,6 +140,7 @@ public class Duke {
                     System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
                     System.out.println(indentedLine);
                 }
+                // For unregistered commands.
                 else {
                     System.out.println(indentedLine);
                     throw new DukeException("Sorry, I cannot understand what this is!");
