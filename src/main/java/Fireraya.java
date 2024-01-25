@@ -4,7 +4,6 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 public class Fireraya {
-
     public static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void start() {
@@ -67,6 +66,8 @@ public class Fireraya {
         System.out.println("Bye, hope to see you soon!");
     }
 
+    public static void parse() {};
+
     public static void main(String[] args) {
 
         start();
@@ -78,6 +79,7 @@ public class Fireraya {
             String[] all = input.split(" ");
             String keyword = all[0];
             int arrLen = all.length;
+
 
             if (keyword.equals("bye")) {
                 end();
