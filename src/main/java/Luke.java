@@ -134,7 +134,6 @@ public class Luke {
                         String eventDescription = eventSplit[0].substring(6);
                         String from = eventSplit[1].substring(5);
                         String to = eventSplit[2].substring(3);
-
                         Event event = new Event(eventDescription, from, to);
                         taskList.add(event);
                         System.out.println("Got it. I've added this task:");
