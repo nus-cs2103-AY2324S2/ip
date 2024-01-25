@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.Scanner;
 public class Haro {
     private String haroLogo = " ___  ___  ________  ________  ________ \n"
@@ -11,12 +10,15 @@ public class Haro {
     private String horizontalLine = "______________________________________________ \n";
     private String openingMsg = "Heya! I'm Haro! \n" + "What can I do for you today?";
     private String closingMSg = "Bye. Hope to see you some time soon!";
+    private List list;
     public Haro() {
+        this.list = new List();
     }
 
     enum Instruction {
         BYE,
         NONE,
+        LIST,
     }
 
     public void initialise() {
@@ -33,6 +35,9 @@ public class Haro {
                 case "bye":
                     instruction = Instruction.BYE;
                     break;
+                case "list":
+                    instruction = Instruction.LIST;
+                    break;
                 default:
                     instruction = Instruction.NONE;
             }
@@ -43,8 +48,16 @@ public class Haro {
 
             else if (instruction == Instruction.NONE) {
                 if (inputArr.length > 0) {
-                    System.out.println(horizontalLine + input + "\n" + horizontalLine);
+                    list.addTask(input);
+                    System.out.println(horizontalLine + "added: " + input + "\n" + horizontalLine);
                 }
+                else {
+                    System.out.println("Empty command! Type something!");
+                }
+            }
+
+            else if (instruction == Instruction.LIST) {
+                list.printList();
             }
 
             input = inputScanner.nextLine();
