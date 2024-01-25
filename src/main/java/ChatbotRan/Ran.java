@@ -66,6 +66,7 @@ public class Ran {
                         tasks.remove(task);
                         System.out.println("I've deleted this task: ");
                         System.out.println(task);
+                        this.printNumber();
                     }
                     break;
                 case "deadline":
@@ -127,10 +128,14 @@ public class Ran {
             tasks.add(task);
             System.out.println("I've added this task to the list: ");
             System.out.println(task);
-            if (tasks.size() == 1) {
-                System.out.println("There is now 1 task in the list");
-            } else System.out.println("There are now " + tasks.size() + " tasks in the list");
+            this.printNumber();
         }
+    }
+
+    private void printNumber() {
+        if (tasks.size() == 1) {
+            System.out.println("There is now 1 task in the list");
+        } else System.out.println("There are now " + tasks.size() + " tasks in the list");
     }
 
 }
