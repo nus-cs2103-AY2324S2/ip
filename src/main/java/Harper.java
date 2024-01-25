@@ -48,17 +48,6 @@ public class Harper {
     }
 
     /**
-     * Adds task into the list.
-     *
-     * @param input The description of the task added.
-     */
-    public void addTask(String input) {
-        Task newTask = new Task(input);
-        this.list.add(newTask);
-        System.out.println(line + "\n" + "added: " + newTask.toString() + "\n" + line);
-    }
-
-    /**
      * Creates a todo task with the description and adds it into the list.
      *
      * @param description Description of the task.
@@ -148,7 +137,7 @@ public class Harper {
      *
      * @param input The input of user.
      */
-    public void handleToDO(String input) {
+    public void handleToDo(String input) {
         String taskDescription = input.substring("todo".length()).trim();
         this.addToDo(taskDescription);
     }
@@ -161,8 +150,14 @@ public class Harper {
     public void handleDeadline(String input) {
         String taskDescriptionAndDeadline = input.substring("deadline".length()).trim();
         String[] parts = taskDescriptionAndDeadline.split("/by", 2);
+        if (parts.length != 2) {
+            throw new HarperInvalidDeadlineException();
+        }
         String description = parts[0].trim();
         String deadline = parts[1].trim();
+        if (description.isEmpty() || deadline.isEmpty()) {
+            throw new HarperInvalidDeadlineException();
+        }
         this.addDeadline(description, deadline);
     }
 
@@ -174,10 +169,19 @@ public class Harper {
     public void handleEvent(String input) {
         String taskDescriptionAndStartEnd = input.substring("event".length()).trim();
         String[] parts = taskDescriptionAndStartEnd.split("/from", 2);
+        if (parts.length != 2) {
+            throw new HarperInvalidEventException();
+        }
         String description = parts[0].trim();
         String[] startAndEnd = parts[1].trim().split("/to", 2);
+        if (startAndEnd.length != 2 || description.isEmpty()) {
+            throw new HarperInvalidEventException();
+        }
         String start = startAndEnd[0].trim();
         String end = startAndEnd[1].trim();
+        if (start.isEmpty() || end.isEmpty()) {
+            throw new HarperInvalidEventException();
+        }
         this.addEvent(description, start, end);
     }
 
@@ -215,7 +219,7 @@ public class Harper {
 
             try {
                 if (input.startsWith("todo ")) {
-                    this.handleToDO(input);
+                    this.handleToDo(input);
                     continue;
                 }
                 if (input.startsWith("deadline ")) {
@@ -228,18 +232,18 @@ public class Harper {
                     continue;
                 }
 
-                if (input.startsWith("mark") || input.startsWith("unmark")) {
+                if (input.startsWith("mark ") || input.startsWith("unmark ")) {
                     this.handleMarkOrUnmark(input);
                     continue;
                 }
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                throw new HarperInvalidInputException();
+            } catch (NumberFormatException e) {
                 this.handleInvalidInput();
-                continue;
             } catch (IndexOutOfBoundsException e) {
                 this.handleIndexOutOfBounds();
-                continue;
+            } catch (HarperException e) {
+                System.out.println(e.getMessage());
             }
-            this.handleInvalidInput();
         }
     }
 }

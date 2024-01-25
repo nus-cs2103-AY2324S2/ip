@@ -48,13 +48,31 @@ _________________________________________________________
 Index is out of bounds. Please provide a valid index!
 _________________________________________________________
 _________________________________________________________
-Please enter an valid input!
+What do you mean? :-(
 _________________________________________________________
 _________________________________________________________
-Please enter an valid input!
+What do you mean? :-(
 _________________________________________________________
 _________________________________________________________
-Please enter an valid input!
+What do you mean? :-(
+_________________________________________________________
+_________________________________________________________
+Please follow the format: "deadline [description] /by [deadline]"
+to add a deadline task into your list.
+All fields are required.
+Only the whitespace after "deadline" is required.
+_________________________________________________________
+_________________________________________________________
+Please follow the format: "event [description] /from [start time] /to [end time]"
+to add a event task into your list.
+All fields are required!
+Only the whitespace after "event" is required
+_________________________________________________________
+_________________________________________________________
+What do you mean? :-(
+_________________________________________________________
+_________________________________________________________
+What do you mean? :-(
 _________________________________________________________
 _________________________________________________________
 Hope to see you again soon! Peace out!

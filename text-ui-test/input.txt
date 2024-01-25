@@ -1,14 +1,18 @@
 list
 todo read book
-deadline return book /by Sunday
-event math class /from Mon 2pm /to 4pm
+deadline return book/bySunday
+event math class/from Mon 2pm /to 4pm
 list
 mark 1
 mark 3
 unmark 1
 list
 mark 5
+todo
+deadline
+event
 deadline math assignment
-event science workshop
+event /from a /to b
 mark1
+lalala
 bye
