@@ -37,13 +37,9 @@ public class Program {
                 case "list":
                     this.taskList.getList(this.printList);
                     break;
-                case "mark": case "unmark":
+                case "mark": case "unmark": case "delete":
                     taskNumber = userInput[1];
-                    this.taskList.changeMark(command, taskNumber, this.printList);
-                    break;
-                case "delete":
-                    taskNumber = userInput[1];
-                    this.taskList.delete(taskNumber, printList);
+                    this.taskList.markOrDelete(command, taskNumber, this.printList);
                     break;
                 case "todo": case "deadline": case "event":
                     String task = userInput[1];

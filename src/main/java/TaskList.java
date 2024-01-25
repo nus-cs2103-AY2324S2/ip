@@ -66,32 +66,33 @@ public class TaskList {
         }
     }
 
-    public void delete(String taskNumberString, PrintList printList) throws DukeCeption {
+    public void markOrDelete(String command, String taskNumberString, PrintList printList) throws DukeCeption {
         try {
             int taskNumber = Integer.parseInt(taskNumberString);
-            Task removedTask = this.list.get(taskNumber - 1);
-            this.list.remove(taskNumber - 1);
-            printList.add("This task is now removed:");
-            printList.add(removedTask.toString());
-            printList.add(String.format("Now you have %d tasks in the list.", this.list.size()));
-        } catch(IndexOutOfBoundsException e) {
-            throw new DukeCeption("The number is not in this list!");
+            switch (command) {
+                case "mark":
+                    this.mark(taskNumber, printList);
+                    break;
+                case "unmark":
+                    this.unmark(taskNumber, printList);
+                    break;
+                case "delete":
+                    this.delete(taskNumber, printList);
+                    break;
+            }
         } catch (NumberFormatException e) {
             throw new DukeCeption("The number given is unrecognizable");
-        }
-    }
-
-    public void changeMark(String markStatus, String taskNumberString, PrintList printList) throws DukeCeption {
-        try {
-            int taskNumber = Integer.parseInt(taskNumberString);
-            if (markStatus.equalsIgnoreCase("mark")) {
-                this.mark(taskNumber, printList);
-            } else {
-                this.unmark(taskNumber, printList);
-            }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeCeption("The number is not in this list!");
         }
+    }
+           
+    public void delete(int taskNumber, PrintList printList) throws DukeCeption {
+        Task removedTask = this.list.get(taskNumber - 1);
+        this.list.remove(taskNumber - 1);
+        printList.add("This task is now removed:");
+        printList.add(removedTask.toString());
+        printList.add(String.format("Now you have %d tasks in the list.", this.list.size()));
     }
 
     public void mark(int taskNumber, PrintList printList) {
