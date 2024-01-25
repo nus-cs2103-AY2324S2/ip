@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task{
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -31,8 +34,11 @@ public class Event extends Task{
         }
         String from = times[0].trim();
         String to = times[1].trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+        LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
         boolean isDone = parts[1].trim().equals("1");
-        Event event = new Event(description, from, to);
+        Event event = new Event(description, dateTimeFrom, dateTimeTo);
         if (isDone) event.markAsDone();
         return event;
     }

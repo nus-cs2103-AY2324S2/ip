@@ -1,8 +1,12 @@
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class Duke {
     protected static final String savePath = "./data/duke.txt";
@@ -67,9 +71,22 @@ public class Duke {
         }
         String description = parts[0].substring(9).trim();
         String by = parts[1].trim();
-        Deadline task = new Deadline(description, by);
-        list.add(task);
-        printWithLines("Got it. I've added this task:", task.toString(), "Now you have " + list.size() + " tasks in the list.");
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(by, formatter);
+            Deadline task = new Deadline(description, date);
+            list.add(task);
+            printWithLines("Got it. I've added this task:", task.toString(), "Now you have " + list.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("OOPS!!! The deadline date format is incorrect. Please use yyyy-MM-dd format.");
+        }
+    }
+
+    private static void printDateEvents(String d) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(d, formatter);
+
     }
 
     private static void handleEvent(ArrayList<Task> list, String message) throws DukeException {
@@ -81,9 +98,16 @@ public class Duke {
         String[] timeParts = parts[1].split(" /to ", 2);
         String fromTime = timeParts[0].trim();
         String toTime = timeParts[1].trim();
-        Event task = new Event(description, fromTime, toTime);
-        list.add(task);
-        printWithLines("Got it. I've added this task:", task.toString(), "Now you have " + list.size() + " tasks in the list.");
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTimeFrom = LocalDateTime.parse(fromTime, formatter);
+            LocalDateTime dateTimeTo = LocalDateTime.parse(toTime, formatter);
+            Event task = new Event(description, dateTimeFrom, dateTimeTo);
+            list.add(task);
+            printWithLines("Got it. I've added this task:", task.toString(), "Now you have " + list.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("OOPS!!! The deadline date format is incorrect. Please use yyyy-MM-dd HH:mm format.");
+        }
     }
 
     private static void handleList(ArrayList<Task> list) {

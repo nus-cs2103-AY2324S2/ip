@@ -1,8 +1,10 @@
+import java.time.LocalDate;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
@@ -23,7 +25,7 @@ public class Deadline extends Task {
             return null;
         }
         String description = parts[2].trim();
-        String by = parts[3].trim();
+        LocalDate by = LocalDate.parse(parts[3].trim());
         boolean isDone = parts[1].trim().equals("1");
         Deadline deadline = new Deadline(description, by);
         if (isDone) deadline.markAsDone();
