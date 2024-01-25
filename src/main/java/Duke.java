@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 
 public class Duke {
+
     public static void main(String[] args) {
         String line = "------------------------------";
         Scanner obj = new Scanner(System.in);
