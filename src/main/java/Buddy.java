@@ -30,26 +30,19 @@ public class Buddy {
             String input = sc.nextLine().trim();
 
             if (!input.equals("")) {
-                int idx = input.indexOf(" ");
-                String command;
-
-                if (idx >= 0) {
-                    command = input.substring(0, idx);
-                } else {
-                    command = input;
-                }
-
+                Command command;
+                command = setCommand(input);
                 running = command(command, input);
             }
         }
         sc.close();
     }
 
-    private boolean command(String cmd, String input) {
+    private boolean command(Command cmd, String input) {
         switch (cmd) {
-            case "bye":
+            case BYE:
                 return false;
-            case "list":
+            case LIST:
                 System.out.print(lineBreak);
                 System.out.println("Here you go bud!:");
 
@@ -59,8 +52,8 @@ public class Buddy {
 
                 System.out.println(lineBreak);
                 return true;
-            case "mark":
-            case "unmark":
+            case MARK:
+            case UNMARK:
                 try {
                     int intIdx = input.indexOf(" ") + 1;
                     int taskIdx = Integer.parseInt(input.substring(intIdx)) - 1;
@@ -78,7 +71,7 @@ public class Buddy {
                                        "Please provide a valid integer!\n" + lineBreak);
                     return true;
                 }
-            case "todo":
+            case TODO:
                 try {
                     int todoIdx = input.indexOf(" ");
                     if (todoIdx >= 0) {
@@ -92,7 +85,7 @@ public class Buddy {
                     System.out.println(lineBreak + e.getMessage() + lineBreak);
                     return true;
                 }
-            case "delete":
+            case DELETE:
                 try {
                     int deleteIdx = input.indexOf(" ");
                     if (deleteIdx >= 0) {
@@ -109,7 +102,7 @@ public class Buddy {
                     System.out.println(lineBreak + "The index you provided is out of bounds!\n" + lineBreak);
                     return true;
                 }
-            case "deadline":
+            case DEADLINE:
                 try {
                     int deadlineIdx = input.indexOf(" ");
                     if (deadlineIdx >= 0) {
@@ -130,7 +123,7 @@ public class Buddy {
                     System.out.println(lineBreak + e.getMessage() + lineBreak);
                     return true;
                 }
-            case "event":
+            case EVENT:
                 try {
                     int eventIdx = input.indexOf(" ");
                     if (eventIdx >= 0) {
@@ -175,6 +168,28 @@ public class Buddy {
         String msg = "I've removed the task from your list!\n" + task + "\n" +
                      "You have " + taskList.size() + " tasks!\n";
         System.out.println(lineBreak + msg + lineBreak);
+    }
+
+    public Command setCommand(String input) {
+        if (input.startsWith("mark")) {
+            return Command.MARK;
+        } else if (input.startsWith("unmark")) {
+            return Command.UNMARK;
+        } else if (input.startsWith("todo")) {
+            return Command.TODO;
+        } else if (input.startsWith("deadline")) {
+            return Command.DEADLINE;
+        } else if (input.startsWith("event")) {
+            return Command.EVENT;
+        } else if (input.startsWith("delete")) {
+            return Command.DELETE;
+        } else if (input.startsWith("bye")) {
+            return Command.BYE;
+        } else if (input.startsWith("list")) {
+            return Command.LIST;
+        } else {
+            return Command.INVALID;
+        }
     }
 
     public static void main(String[] args) {

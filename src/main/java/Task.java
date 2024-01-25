@@ -11,10 +11,10 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void changeStatus(String cmd) {
-        if (cmd.equals("mark")) {
+    public void changeStatus(Command cmd) {
+        if (cmd.equals(Command.MARK)) {
             isDone = true;
-        } else if (cmd.equals("unmark")) {
+        } else if (cmd.equals(Command.UNMARK)) {
             isDone = false;
         }
     }
