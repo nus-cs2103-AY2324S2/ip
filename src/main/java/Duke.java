@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Task - Represents a basic task with a description and completion status.
+ */
 class Task {
     protected String userInput;
     protected boolean isDone;
@@ -28,6 +31,9 @@ class Task {
     }
 }
 
+/**
+ * Todo - Represents a todo task, a subclass of Task.
+ */
 class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -39,6 +45,9 @@ class Todo extends Task {
     }
 }
 
+/**
+ * Event - Represents an event task with start and end dates, a subclass of Task.
+ */
 class Event extends Task {
     private String fromDate;
     private String toDate;
@@ -54,6 +63,9 @@ class Event extends Task {
     }
 }
 
+/**
+ * Deadlines - Represents a task with a deadline, a subclass of Task.
+ */
 class Deadlines extends Task {
     private String byDate;
     public Deadlines(String description, String byDate) {
@@ -66,6 +78,9 @@ class Deadlines extends Task {
     }
 }
 
+/**
+ * Duke - Main class that handles user interactions and task management.
+ */
 public class Duke {
     private static ArrayList<Task> storage = new ArrayList<>();
     public static void main(String[] args) {
@@ -138,20 +153,38 @@ public class Duke {
                 continue;
             }
 
+            if (input.startsWith("remove")) {
+                handleRemove(input);
+                printLine();
+                continue;
+            }
+
             System.out.println("I'm sorry, I don't understand! Please type your request again.");
             printLine();
         }
     }
 
+    /**
+     * Prints a line of underscores for formatting purposes.
+     */
     private static void printLine() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints the list of tasks with their corresponding indices.
+     * @param list ArrayList of Task objects.
+     */
     private static void printList(ArrayList<Task> list) {
         for(int i = 0; i < list.size(); i++) {
             System.out.println((i + 1) + "." + list.get(i));
         }
     }
+
+    /**
+     * Handles marking or unmarking tasks as done based on user input.
+     * @param input User input specifying the action and task index.
+     */
 
     private static void markingHandler(String input) {
         String[] split = input.split(" ");
@@ -178,6 +211,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Handles the creation and addition of Todo tasks to the task list.
+     * @param input User input specifying the Todo description.
+     */
     private static void handleTodos(String input) {
         String description = input.substring(5).trim();
         Todo todo = new Todo(description);
@@ -186,6 +223,10 @@ public class Duke {
         System.out.println("Now you have " + storage.size() + " tasks in your list.");
     }
 
+    /**
+     * Handles the creation and addition of Deadline tasks to the task list.
+     * @param input User input specifying the Deadline description and due date.
+     */
     private static void handleDeadlines(String input) {
         String[] splitParts = input.substring(9).split("/by", 2);
 
@@ -202,6 +243,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Handles the creation and addition of Event tasks to the task list.
+     * @param input User input specifying the Event description and date range.
+     */
     private static void handleEvents(String input) {
         String[] splitParts = input.substring(6).split("/from", 2);
         String[] splitTo = splitParts[1].split("/to", 2);
@@ -220,18 +265,50 @@ public class Duke {
         }
     }
 
+    /**
+     * Validates the input format for creating Deadlines.
+     * @param input User input specifying the Deadline description and due date.
+     * @return True if the input format is valid, false otherwise.
+     */
     private static boolean validateDeadlineInput(String input) {
         String[] splitParts = input.substring(9).split("/by", 2);
         return splitParts.length > 1;
     }
 
+    /**
+     * Validates the input format for creating Todo tasks.
+     * @param input User input specifying the Todo description.
+     * @return True if the input format is valid, false otherwise.
+     */
     private static boolean validateTodoInput(String input) {
         return input.length() > 5;
     }
 
+    /**
+     * Validates the input format for creating Events.
+     * @param input User input specifying the Event description and date range.
+     * @return True if the input format is valid, false otherwise.
+     */
     private static boolean validateEventInput(String input) {
         String[] splitParts = input.substring(6).split("/from", 2);
         return splitParts.length > 1;
+    }
+
+    private static void handleRemove(String input) {
+        String[] splitParts = input.split(" ");
+        if (splitParts.length < 2) {
+            System.out.println("Please specify which task number you want to remove!");
+            return;
+        }
+
+        try {
+            int index = Integer.parseInt(splitParts[1]) - 1;
+            Task removedTask = storage.remove(index);
+            System.out.println("Ok! I have removed this task from your list:\n  " + removedTask);
+            System.out.println("Now you have " + storage.size() + " tasks in your list.");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            System.out.println("Invalid task number. Please refer to your to-do list again.");
+        }
     }
 }
 
