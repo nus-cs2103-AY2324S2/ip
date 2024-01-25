@@ -7,8 +7,8 @@ public class Duke {
                 + "██████╔╝██║   ██║██║     ███████║██╔██╗ ██║██║  ██║\n"
                 + "██╔══██╗██║   ██║██║     ██╔══██║██║╚██╗██║██║  ██║\n"
                 + "██║  ██║╚██████╔╝███████╗██║  ██║██║ ╚████║██████╔╝\n"
-                + "╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ \n";
-        System.out.println("Hello from\n" + logo);
+                + "╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝\n";
+        System.out.println(logo);
         String bot = "[ROLAND] ";
         System.out.println(bot + "Hello! I am ROLAND");
         System.out.println(bot + "What can I do for you?");
@@ -24,7 +24,7 @@ public class Duke {
                 System.out.println(bot + "Here are your tasks:");
                 for (int i = 0; i < taskList.size(); i++) {
                     task = taskList.get(i);
-                    System.out.println(i+1 + " " + task.toString());
+                    System.out.println(i+1 + ". " + task.toString());
                 }
                 continue;
             } else if (reply.startsWith("mark")) {
@@ -50,7 +50,7 @@ public class Duke {
 
             } else if (reply.startsWith("event")) {
                 String split[] = reply.split(" /");
-                String description = split[0].substring(7, split[0].length());
+                String description = split[0].substring(6, split[0].length());
                 String from = split[1].substring(5, split[1].length());
                 String to = split[2].substring(4, split[2].length());
                 task = new Events(description, from, to);
