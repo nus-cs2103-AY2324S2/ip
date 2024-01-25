@@ -18,10 +18,10 @@ public class Simpli {
 
     public void start() {
         // welcome message
-        this.greet();
+        greet();
 
         Parser parser = new Parser();
-        Interpreter intrpr = new Interpreter();
+        Interpreter intrpr = new Interpreter(this);
 
         Scanner scanner = new Scanner(System.in);
         String userIn = scanner.nextLine();
@@ -33,85 +33,85 @@ public class Simpli {
             try {
                 intrpr.interpret(tokens);
             } catch (TaskException e) {
-                this.respond("Invalid task parameters, cannot simp :(");
+                respond("Invalid task parameters, cannot simp :(");
             } catch (ActionException e) {
-                this.respond("No such command to simp for :(");
+                respond("No such command to simp for :(");
             }
 
             userIn = scanner.nextLine();
         }
 
         // goodbye message
-        this.bye();
+        bye();
     }
 
     public void list() {
         StringBuilder strItems = new StringBuilder();
-        for (int i = 0; i < this.tasks.size() - 1; i++) {
-            strItems.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
+        for (int i = 0; i < tasks.size() - 1; i++) {
+            strItems.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
         }
-        strItems.append(String.format("%d. %s", this.tasks.size(), this.tasks.get(this.tasks.size() - 1)));
+        strItems.append(String.format("%d. %s", tasks.size(), tasks.getLast()));
 
-        this.respond(strItems.toString());
+        respond(strItems.toString());
     }
 
     public void mark(int taskNum) {
         int itemIndex = taskNum - 1;
-        this.tasks.get(itemIndex).done();
+        tasks.get(itemIndex).done();
 
-        this.respond(
+        respond(
                 "Nice! I've marked this task as done:\n\t" +
-                        this.tasks.get(itemIndex)
+                        tasks.get(itemIndex)
         );
     }
 
     public void unmark(int taskNum) {
         int itemIndex = taskNum - 1;
-        this.tasks.get(itemIndex).undone();
+        tasks.get(itemIndex).undone();
 
-        this.respond(
+        respond(
                 "OK, I've marked this task as not done yet:\n\t" +
-                        this.tasks.get(itemIndex)
+                        tasks.get(itemIndex)
         );
     }
 
     public void addTodo(String taskName) {
         Todo todo = new Todo(taskName);
-        this.tasks.add(todo);
-        this.respond(
+        tasks.add(todo);
+        respond(
                 "Got it. I've added this task:\n\t" +
                         todo + "\n" +
-                        "Now you have " + this.tasks.size() + " task(s) in the list."
+                        "Now you have " + tasks.size() + " task(s) in the list."
         );
     }
 
     public void addDeadline(String taskName, String dueDate) {
         Deadline deadline = new Deadline(taskName, dueDate);
-        this.tasks.add(deadline);
-        this.respond(
+        tasks.add(deadline);
+        respond(
                 "Got it. I've added this task:\n\t" +
                         deadline + "\n" +
-                        "Now you have " + this.tasks.size() + " task(s) in the list."
+                        "Now you have " + tasks.size() + " task(s) in the list."
         );
     }
 
     public void addEvent(String taskName, String start, String end) {
         Event event = new Event(taskName, start, end);
-        this.tasks.add(event);
-        this.respond(
+        tasks.add(event);
+        respond(
                 "Got it. I've added this task:\n\t" +
                         event + "\n" +
-                        "Now you have " + this.tasks.size() + " task(s) in the list."
+                        "Now you have " + tasks.size() + " task(s) in the list."
         );
     }
 
     public void deleteTask(int taskNum) {
-        Task removedTask = this.tasks.get(taskNum - 1);
-        this.tasks.remove(taskNum - 1);
-        this.respond(
+        Task removedTask = tasks.get(taskNum - 1);
+        tasks.remove(taskNum - 1);
+        respond(
                 "Noted. I've removed this task:\n" +
                         removedTask + "\n" +
-                        "Now you have " + this.tasks.size() + " task(s) in the list."
+                        "Now you have " + tasks.size() + " task(s) in the list."
         );
     }
 
@@ -122,14 +122,14 @@ public class Simpli {
     }
 
     public void greet() {
-        this.respond(
+        respond(
                 "Hello! I'm SIMP-LI\n" +
                         "How can I simp-lify your life?"
         );
     }
 
     public void bye() {
-        this.respond("Bye. Hope to simp for you again soon!");
+        respond("Bye. Hope to simp for you again soon!");
     }
 
     @Override
