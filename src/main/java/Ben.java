@@ -10,7 +10,7 @@ public class Ben {
 
         // Introduction
         System.out.println("   ______________________________________________");
-        System.out.println("   Hello! I'm Joshy");
+        System.out.println("   Hello! I'm Ben");
         System.out.println("   What can I do for you?");
         System.out.println("   ______________________________________________");
 
@@ -170,6 +170,34 @@ public class Ben {
                     System.out.println("   Now you have " + taskList.size() + " tasks in the list.");
                     break;
                 }
+
+                // delete a current task
+                case "delete":
+                    // empty field
+                    if (tokens.length < 2) {
+                        System.out.println("   Key in a value");
+                        break;
+                    }
+
+                    int index = Integer.parseInt(tokens[1]) - 1;
+
+                    if (taskList.isEmpty()) {
+                        System.out.println("   No tasks to delete :)");
+                        break;
+                    }
+
+                    if (index < 0 || index > taskList.size() - 1) {
+                        System.out.println("   Please input a valid number between 1 and " + taskList.size());
+                        break;
+                    }
+
+                    // delete task from list
+                    Task deletedTask = taskList.remove(index);
+
+                    System.out.println("   Noted. I've removed this task:");
+                    System.out.println("      " + deletedTask);
+                    System.out.println("   Now you have " + taskList.size() + " tasks in the list.");
+                    break;
 
                 // add general task to task-list
                 default:
