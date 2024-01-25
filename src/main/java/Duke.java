@@ -34,6 +34,7 @@ public class Duke {
                         output = output.concat(i + ". " + todo + "\n\t");
                         i++;
                     }
+                    output = output.trim();
                     break;
                 default:
                     output = "added: " + command;
