@@ -26,6 +26,7 @@ public class Henry {
                 System.out.println(exitMessage);
                 break;
             } else if (currentMessage.equals("list")) {
+                System.out.println("Here is a list of tasks:");
                 for (int i = 0; i < numOfItems; i = i + 1) {
                     System.out.printf("%d. %s\n", i + 1, items[i]);
                 }
@@ -43,10 +44,23 @@ public class Henry {
                 System.out.println(items[index]);
                 System.out.println();
             } else {
-                System.out.println("added: " + currentMessage);
+                if (currentMessage.startsWith("todo")) {
+                    String description = currentMessage.substring(5);
+                    items[numOfItems] = new Todo(description);
+                    numOfItems++;
+                } else if (currentMessage.startsWith("deadline")) {
+                    String[] temp = currentMessage.substring(9).split(" /by ");
+                    items[numOfItems] = new Deadline(temp[0], temp[1]);
+                    numOfItems++;
+                } else if (currentMessage.startsWith("event")) {
+                    String[] temp = currentMessage.substring(6).split(" /from | /to ");
+                    items[numOfItems] = new Event(temp[0], temp[1], temp[2]);
+                    numOfItems++;
+                }
+                System.out.println("Added this task");
+                System.out.println(items[numOfItems - 1]);
+                System.out.printf("Now you have %d tasks in the list :(\n", numOfItems);
                 System.out.println();
-                items[numOfItems] = new Task(currentMessage);
-                numOfItems = numOfItems + 1;
             }
         }
     }
