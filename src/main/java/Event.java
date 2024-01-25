@@ -29,6 +29,6 @@ public class Event extends Task {
     public String toString() {
         return printType() + "[" + getIsDoneStatus() + "] "
                 + description + " " + "(from: "
-                + from + " to :" + to + ")";
+                + from + " to: " + to + ")";
     }
 }
