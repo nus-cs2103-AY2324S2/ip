@@ -58,11 +58,27 @@ public class Duke {
                     String[] deadlineInfo = inputs[1].split("/", 2);
                     printDiv();
                     System.out.println("\tGot it. I've added this task:");
-                    Deadline deadline = new Deadline(deadlineInfo[0], deadlineInfo[1].replaceFirst("by", ""));
+                    Deadline deadline = new Deadline(
+                                            deadlineInfo[0].strip(), 
+                                            deadlineInfo[1].replaceFirst("by", "").strip());
                     AL.add(deadline);
                     System.out.println("\t" + deadline);
                     printListCounter(AL);
                     printDiv();
+                    break;
+                case "event":
+                    String[] eventInfo = inputs[1].split("/", 3);
+                    printDiv();
+                    System.out.println("\tGot it. I've added this task:");
+                    Event event = new Event(
+                                        eventInfo[0].strip(), 
+                                        eventInfo[1].replaceFirst("from", "").strip(), 
+                                        eventInfo[2].replaceFirst("to", "").strip());
+                    AL.add(event);
+                    System.out.println("\t" + event);
+                    printListCounter(AL);
+                    printDiv();
+                    break;
                 default:
                     break;
             }
