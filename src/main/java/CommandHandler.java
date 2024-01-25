@@ -22,7 +22,7 @@ public class CommandHandler {
      * Prints the exit line.
      */
     public static void exit() {
-        String exitLine = "Bye. Hope to see you again soon!";
+        String exitLine = "Bye. Gonna go back to sleep now *yawn*";
         System.out.println(indentLine(exitLine));
     }
 }

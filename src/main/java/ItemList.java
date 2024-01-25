@@ -72,6 +72,12 @@ public class ItemList {
             if (deadlineIndex == -1) {
                 throw new IllegalArgumentException("Missing the '/by' field! Try again.");
             }
+            if (deadlineIndex <= 10) {
+                throw new IllegalArgumentException("Your task description is empty!");
+            }
+            if (deadlineIndex + 4 >= item.length()) {
+                throw new IllegalArgumentException("Your '/by' field is empty!");
+            }
             String description = item.substring(9, deadlineIndex - 1);
             String givenDeadline = item.substring(deadlineIndex + 4);
             createdItem = new Deadline(description, givenDeadline);
@@ -87,6 +93,15 @@ public class ItemList {
             }
             if (fromIndex >= toIndex) {
                 throw new IllegalArgumentException("Your '/from' field must be before your '/to' field! Try again.");
+            }
+            if (fromIndex <= 7) {
+                throw new IllegalArgumentException("Your task description is empty!");
+            }
+            if (fromIndex >= toIndex + 7) {
+                throw new IllegalArgumentException("Your '/from' field is empty!");
+            }
+            if (toIndex + 4 >= item.length()) {
+                throw new IllegalArgumentException("Your '/to' field is empty!");
             }
             String description = item.substring(6, fromIndex - 1);
             String start = item.substring(fromIndex + 6, toIndex - 1);
