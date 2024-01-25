@@ -55,7 +55,7 @@ public class Duke {
                         } else {
                             try {
                                 int i = Integer.parseInt(token[1]);
-                                if (i >= 0 && i <= tasks.size() - 1) {
+                                if (i >= 1 && i <= tasks.size() + 1) {
                                     int selectedTaskNumberToBeMarked = Integer.parseInt(token[1]);
                                     Task selectedTaskToBeMarked = tasks.get(selectedTaskNumberToBeMarked - 1);
                                     selectedTaskToBeMarked.setMarked();
@@ -84,7 +84,7 @@ public class Duke {
                         } else {
                             try {
                                 int i = Integer.parseInt(token[1]);
-                                if (i >= 0 && i <= tasks.size() - 1) {
+                                if (i >= 1 && i <= tasks.size() + 1) {
                                     int selectedTaskNumberToBeUnmarked = Integer.parseInt(token[1]);
                                     Task selectedTaskToBeUnmarked = tasks.get(selectedTaskNumberToBeUnmarked - 1);
                                     selectedTaskToBeUnmarked.setUnmarked();
@@ -162,6 +162,37 @@ public class Duke {
                             System.out.println("        Invalid command. Please include a task name and a valid due date following the syntax of the example below:");
                             System.out.println("        e.g. event project meeting /from 2 Feb 2pm /to 2 Feb 4pm");
                             System.out.println(divider);
+                        }
+                        break;
+                    case "delete":
+                        if (token.length != 2 || token[1].trim().isEmpty()) {
+                            System.out.println(divider);
+                            System.out.println("        Missing task number. Please include the task number to be deleted.");
+                            System.out.println(divider);
+                        } else {
+                            try {
+                                int i = Integer.parseInt(token[1]);
+                                if (i >= 1 && i <= tasks.size() + 1) {
+                                    Task deletedTask = tasks.get(i - 1);
+                                    noOfTasks--;
+
+                                    System.out.println(divider);
+                                    System.out.println("        Noted. I've removed this task:");
+                                    System.out.println("          " + deletedTask);
+                                    System.out.println("        Now you have " + noOfTasks + " tasks in the list.");
+                                    System.out.println(divider);
+
+                                    tasks.remove(i - 1);
+                                } else {
+                                    System.out.println(divider);
+                                    System.out.println("        Task number out of range. Please include a valid task number.");
+                                    System.out.println(divider);
+                                }
+                            } catch (NumberFormatException nfe) {
+                                System.out.println(divider);
+                                System.out.println("        Task number is not an integer. Please include a valid task number.");
+                                System.out.println(divider);
+                            }
                         }
                         break;
                     default:
