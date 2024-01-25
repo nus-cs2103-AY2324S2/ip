@@ -1,5 +1,19 @@
 class Deadline extends Task {
-    private final String deadLine;
+    private String deadline;
+
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public Deadline(String description, boolean hasDone, String deadline) {
+        this.deadline = deadline;
+        super.setDescription(description);
+        super.setHasDone(hasDone);
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
 
     public static Deadline buildDeadLine(String input) {
         String[] splitedInput = input.split("/");
@@ -9,15 +23,15 @@ class Deadline extends Task {
         return new Deadline(taskDescription, tmp[1]);
     }
 
-    public Deadline(String description, String deadLine) {
+    public Deadline(String description, String deadline) {
         super(description);
-        this.deadLine = deadLine;
+        this.deadline = deadline;
 
     }
 
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadLine + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
     }
 }

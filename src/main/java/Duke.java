@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,16 +12,28 @@ public class Duke {
         //                + "| |_| | |_| |   <  __/\n"
         //                + "|____/ \\__,_|_|\\_\\___|\n";
         //        System.out.println("Hello from\n" + logo);
+
+
         String botName = "Wind";
         System.out.println("Hello I'm " + botName + "\n"
                 + "What can I do for you?");
         Scanner scanner = new Scanner(System.in);
         List<Task> tasks = new ArrayList<>(100);
+
+        try {
+            tasks = FileHelper.getInstance().loadTask();
+        } catch (FileCorruptedException e) {
+            System.out.println(e.getDisplayMessage());
+        } catch (IOException e) {
+            System.out.println("Bro, we failed to load your data, it could be we do not have a copy of that");
+        }
+
         while (true) {
             try {
                 String input = scanner.nextLine();
                 if (input.equals("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
+                    FileHelper.getInstance().backupTasks(tasks);
                     break;
                 }
                 if (input.equals("list")) {
@@ -44,7 +58,7 @@ public class Duke {
                 if (splitedInput[0].equals("mark")) {
                     validateTaskOperation(input, 4, tasks);
                     int taskNumber = Integer.parseInt(splitedInput[1]);
-                    tasks.get(taskNumber - 1).setIsDone(true);
+                    tasks.get(taskNumber - 1).setHasDone(true);
                     System.out.println("Nice! I've marked this task as done:\n"
                             + " " + tasks.get(taskNumber - 1));
                     continue;
@@ -52,7 +66,7 @@ public class Duke {
                 if (splitedInput[0].equals("unmark")) {
                     validateTaskOperation(input, 6, tasks);
                     int taskNumber = Integer.parseInt(splitedInput[1]);
-                    tasks.get(taskNumber - 1).setIsDone(false);
+                    tasks.get(taskNumber - 1).setHasDone(false);
                     System.out.println(
                             "OK, I've marked this task as not done yet:\n"
                                     + " " + tasks.get(taskNumber - 1));
@@ -81,6 +95,8 @@ public class Duke {
                 throw new InvalidCommandException();
             } catch (DukeException e) {
                 System.out.println(e.getDisplayMessage());
+            } catch (IOException e) {
+                System.out.println("Sorry ah bro, I failed to save your tasks.");
             }
         }
 
@@ -119,7 +135,8 @@ public class Duke {
     }
 
     public static void validateDeadlineInput(
-            String input) throws InvalidInputException, MissingInputException, InvalidInputFormatException, InvalidtKeyWordException {
+            String input) throws InvalidInputException, MissingInputException, InvalidInputFormatException,
+            InvalidKeyWordException {
         String[] splitInput = input.split("/");
         String example = "E.g. deadline SU All Courses /by 9pm";
         if (splitInput[0].substring(8).trim().isEmpty()) {
@@ -133,7 +150,7 @@ public class Duke {
                             + example);
         }
         if (!splitInput[1].split(" ")[0].equals("by")) {
-            throw new InvalidtKeyWordException(
+            throw new InvalidKeyWordException(
                     "Bro, please use a \"by\" keyword to specify your deadline date.\n"
                             + example);
         }
@@ -145,7 +162,7 @@ public class Duke {
     }
 
     public static void validateEventInput(
-            String input) throws InvalidInputException, MissingInputException, InvalidtKeyWordException {
+            String input) throws InvalidInputException, MissingInputException, InvalidKeyWordException {
         String[] splitInput = input.split("/");
         String example = "E.g. event Exam /from 9am /to 9pm";
         if (splitInput[0].substring(5).trim().isEmpty()) {
@@ -154,7 +171,7 @@ public class Duke {
                             + example);
         }
         if (splitInput.length < 3) {
-            throw new InvalidtKeyWordException(
+            throw new InvalidKeyWordException(
                     "Bro, it seems that you have entered the command in wrong format.\n" +
                             example);
         }

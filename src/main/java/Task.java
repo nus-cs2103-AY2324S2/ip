@@ -1,19 +1,35 @@
 public class Task {
-    private final String description;
-    private boolean isDone;
+    private String description;
+    private boolean hasDone;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean getHasDone() {
+        return hasDone;
+    }
+
+    public Task() {
+
+    }
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.hasDone = false;
     }
 
-    public void setIsDone(boolean isDone) {
-        this.isDone = isDone;
+    public void setHasDone(boolean isDone) {
+        this.hasDone = isDone;
     }
 
     @Override
     public String toString() {
-        if (this.isDone) {
+        if (this.hasDone) {
             return "[X] " + this.description;
         } else {
             return "[ ] " + this.description;

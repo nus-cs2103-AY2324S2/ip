@@ -1,12 +1,35 @@
 class Event extends Task {
-    private final String startDate;
-    private final String endDate;
+    private String startDate;
+    private String endDate;
+
+    public Event(String description, boolean hasDone, String startDate, String endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        super.setDescription(description);
+        super.setHasDone(hasDone);
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
     public static Event buildEvent(String input) {
-        String[] splitedInput = input.split("/");
-        String taskDescription = splitedInput[0].substring(5).trim();
-        String startDate = splitedInput[1].substring(4).trim();
-        String endDate = splitedInput[2].substring(2).trim();
+        String[] formattedInput = input.split("/");
+        String taskDescription = formattedInput[0].substring(5).trim();
+        String startDate = formattedInput[1].substring(4).trim();
+        String endDate = formattedInput[2].substring(2).trim();
         return new Event(taskDescription, startDate, endDate);
     }
 
