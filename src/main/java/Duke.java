@@ -36,31 +36,31 @@ public class Duke {
 
             try {
                 switch (command) {
-                    case "bye":
-                        break label;
-                    case "list":
-                        printTaskList(taskList);
-                        break;
-                    case "mark":
-                        mark(info);
-                        break;
-                    case "unmark":
-                        unmark(info);
-                        break;
-                    case "delete":
-                        delete(info);
-                        break;
-                    case "todo":
-                        todo(info);
-                        break;
-                    case "deadline":
-                        deadline(info);
-                        break;
-                    case "event":
-                        event(info);
-                        break;
-                    default:
-                        throw new DukeException("Sorry but this command does not exist~");
+                case "bye":
+                    break label;
+                case "list":
+                    printTaskList(taskList);
+                    break;
+                case "mark":
+                    mark(info);
+                    break;
+                case "unmark":
+                    unmark(info);
+                    break;
+                case "delete":
+                    delete(info);
+                    break;
+                case "todo":
+                    todo(info);
+                    break;
+                case "deadline":
+                    deadline(info);
+                    break;
+                case "event":
+                    event(info);
+                    break;
+                default:
+                    throw new DukeException("Sorry but this command does not exist~");
                 }
             } catch (DukeException e) {
                 printWithSolidLineBreak(e.getMessage());
