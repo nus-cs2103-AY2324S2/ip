@@ -6,20 +6,25 @@ public abstract class Task { // Adapted from Course Website
         this.description = description;
         this.isDone = false;
     }
-    public static Task create(String s) {
+    public static Task create(String fullString) {
         // s is either `todo`, `event` or `deadline`
-        String[] sTokens = s.split(" ", 2);
+        String[] sTokens = fullString.split(" ", 2);
         switch (sTokens[0]) {
             case "todo":
                 return new ToDo(sTokens[1]);
             case "deadline":
-                String[] descriptionNBy = s.split("/by", 2);
-                return new Deadline(descriptionNBy[0].trim(), descriptionNBy[1].trim());
+                // Further split the remaining string based on /by
+                String[] descriptionNBy = sTokens[1].split("/by", 2);
+                return new Deadline(descriptionNBy[0].trim(),
+                                    descriptionNBy[1].trim());
             case "event":
-                String[] descriptionNFromNTo = s.split("/from |/to ", 3);
-                return new Event(descriptionNFromNTo[0].trim(), descriptionNFromNTo[1].trim(), descriptionNFromNTo[2].trim());
+                // Further split the remaining string based on /from and /to
+                String[] descriptionNFromNTo = sTokens[1].split("/from |/to ", 3);
+                return new Event(descriptionNFromNTo[0].trim(),
+                                 descriptionNFromNTo[1].trim(),
+                                 descriptionNFromNTo[2].trim());
         }
-        return null;
+        return null; // shouldn't come here, since we done the check already before calling this factory function
     }
     public void markDone() {
         this.isDone = true;

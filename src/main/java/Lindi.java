@@ -14,7 +14,8 @@ public class Lindi {
                 }
             }
 
-            void executeNone(Task task){
+            void executeCreateTask(String s){
+                Task task = Task.create(s);
                 taskList[taskListCount++] = task;
                 System.out.println("Added: " + task);
             }
@@ -74,11 +75,13 @@ public class Lindi {
             case "todo":
             case "event":
             case "deadline":
+                lf.executeCreateTask(userInput);
+                break;
             case "bye":
                 lf.goodByeAndExit();
                 break;
             default:
-//                lf.executeNone(new Task(userInput));
+                System.out.println("UNknown command");
                 break;
         }
     }
