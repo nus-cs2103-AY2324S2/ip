@@ -162,14 +162,20 @@ public class Duke {
     }
 
     // Create a deadline task based on user input
-    private static Task createDeadlineTask(String input) {
+    private static Task createDeadlineTask(String input) throws DukeException{
         String[] parts = input.split("/by", 2);
+        if (parts.length < 2) {
+            throw new DukeException("Please provide a deadline in the format '/by <deadline>'");
+        }
         return new Deadline(parts[0].trim(), parts[1].trim());
     }
 
     // Create an event task based on user input
-    private static Task createEventTask(String input) {
+    private static Task createEventTask(String input) throws DukeException {
         String[] parts = input.split("/from", 2);
+        if (parts.length < 2) {
+            throw new DukeException("Please provide an event in the format '/from <start time> /to <end time>'");
+        }
         String[] dateParts = parts[1].trim().split("/to", 2);
         return new Event(parts[0].trim(), dateParts[0].trim(), dateParts[1].trim());
     }
