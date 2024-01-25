@@ -25,6 +25,7 @@ public class Duke {
                 System.out.print(horizontalLine);
                 continue;
             }
+
             if (input.startsWith("mark")) {
                 int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
                 list.get(index).mark();
@@ -35,12 +36,37 @@ public class Duke {
                 continue;
             }
             if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.split(" ",2)[1]) - 1;
+                int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
                 list.get(index).unmark();
                 System.out.print(horizontalLine
                         + "Very well, my dear! I've noted this task as yet untouched.\n"
                         + "  " + list.get(index).toString() + "\n"
                         + horizontalLine);
+                continue;
+            }
+
+            if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+                Task temp = null;
+                if (input.startsWith("todo")) {
+                    String todo = input.split(" ", 2)[1];
+                    temp = new ToDo(todo);
+                }
+                if (input.startsWith("deadline")) {
+                    String[] deadline = input.split(" ", 2)[1].split("/by", 2);
+                    temp = new Deadline(deadline[0], deadline[1]);
+                }
+                if (input.startsWith("event")) {
+                    String[] event = input.split(" ", 2)[1].split("/from", 2);
+                    temp = new Event(event[0], event[1].split("/to")[0], event[1].split("/to")[1]);
+                }
+                list.add(temp);
+                System.out.println(horizontalLine
+                        + "Marvelous! Another task graces our repertoire:\n"
+                        + "  " + temp.toString() +"\n"
+                        + "And with this latest addition, our list of tasks swells to a delightful "
+                        + list.size() + ".\n"
+                        + horizontalLine);
+
                 continue;
             }
 
