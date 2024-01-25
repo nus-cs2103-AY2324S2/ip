@@ -54,30 +54,31 @@ public class Shodan {
                         System.out.println("Command not recognised.");
                         break;
                 }
-            } catch (Exception e) {
-                System.err.println(e);
-                System.out.println("Something went wrong. Did you type your command correctly?");
+            } catch (ShodanException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
-    public static void list() {
+    public static void list() throws ShodanException {
         if (taskList.isEmpty()) {
-            System.out.println("You currently have no tasks.");
-        } else {
-            System.out.println("Here is your list of tasks:");
+            throw new ShodanException("You currently have no tasks.");
         }
+        System.out.println("Here is your list of tasks:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.print(i + 1 + ". ");
             System.out.println(taskList.get(i));
         }
     }
-    public static void mark(List<String> tokens, boolean done) {
+    public static void mark(List<String> tokens, boolean done) throws ShodanException {
+        if (tokens.size() == 1) {
+            throw new ShodanException("No arguments provided. Please specify the task number, for example: \n\tmark 1");
+        } else if (tokens.size() != 2) {
+            throw new ShodanException("Too many arguments. Please specify the task number, for example: \n\t mark 1");
+        }
         int taskNum = Integer.parseInt(tokens.get(1));
-        //TODO: invalid input check
-//        if (taskNum < 1 || taskNum > taskList.size()) {
-//            System.out.println("Couldn't find task. Try again?");
-//            continue;
-//        }
+        if (taskNum < 1 || taskNum > taskList.size()) {
+            throw new ShodanException("Couldn't find task with that number. Use the list command to view all current tasks.");
+        }
         Task selectedTask = taskList.get(taskNum - 1);
         if (done) {
             selectedTask.done();
@@ -88,14 +89,13 @@ public class Shodan {
         }
     }
 
-    public static void addTask(List<String> tokens) {
-        //TODO: need to handle exceptions when adding tasks
+    public static void addTask(List<String> tokens) throws ShodanException {
         Task newTask = null;
         StringJoiner taskName = new StringJoiner(" ");
         StringJoiner startDate = new StringJoiner(" ");
         StringJoiner endDate = new StringJoiner(" ");
         int state = 0;
-
+        int sections = 1;
         switch(tokens.remove(0).toLowerCase()) {
             case "todo":
                 newTask = new Todo(String.join(" ", tokens));
@@ -104,6 +104,7 @@ public class Shodan {
                 for (String token : tokens) {
                     if (token.equals("/by")) {
                         state = 1;
+                        sections++;
                         continue;
                     }
                     switch (state) {
@@ -115,15 +116,23 @@ public class Shodan {
                             break;
                     }
                 }
+                if (sections < 2) {
+                    throw new ShodanException("Adding a deadline requires a end date specified with /by. For example:\n\tdeadline return books /by 2pm");
+                }
+                if (endDate.toString().isBlank()) {
+                    throw new ShodanException("The /by field cannot be empty. Please specify a end date/time.");
+                }
                 newTask = new Deadline(taskName.toString(), endDate.toString());
                 break;
             case "event":
                 for (String token : tokens) {
                     if (token.equals("/to")) {
                         state = 1;
+                        sections++;
                         continue;
                     } else if (token.equals("/from")) {
                         state = 2;
+                        sections++;
                         continue;
                     }
                     switch (state) {
@@ -138,8 +147,20 @@ public class Shodan {
                             break;
                     }
                 }
+                if (sections < 3) {
+                    throw new ShodanException("Adding an event requires both a start and end date/time using /from and /to. For example:\n\tevent attend birthday party /from 5pm /to 6pm");
+                }
+                if (startDate.toString().isBlank()) {
+                    throw new ShodanException("The /from field cannot be empty. Please specify a end date/time.");
+                }
+                if (endDate.toString().isBlank()) {
+                    throw new ShodanException("The /to field cannot be empty. Please specify a end date/time.");
+                }
                 newTask = new Event(taskName.toString(), startDate.toString(), endDate.toString());
                 break;
+        }
+        if (taskName.toString().isBlank()) {
+            throw new ShodanException("You need to specify a name for your task.");
         }
         taskList.add(newTask);
         System.out.println("Task has been added: " + newTask);
