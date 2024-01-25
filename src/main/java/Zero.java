@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Zero {
     private static final String name = "Zero";
@@ -16,19 +19,28 @@ public class Zero {
         pw.println(divider + greeting + '\n' + divider);
         pw.flush();
 
-        String input;
+        ArrayList<String> inputs = new ArrayList<>();
+        String cmd;
         do {
-            input = br.readLine();
-            switch (input) {
+            cmd = br.readLine();
+            switch (cmd) {
                 case "bye":
                     pw.println(divider + goodbye + '\n' + divider);
                     break;
+                case "list":
+                    pw.print(divider);
+                    for (int i = 0; i < inputs.size(); i++) {
+                        pw.println((i+1) + ". " + inputs.get(i));
+                    }
+                    pw.println(divider);
+                    break;
                 default:
-                    pw.println(divider + input + '\n' + divider);
+                    inputs.add(cmd);
+                    pw.println(divider + "Added: " + cmd + '\n' + divider);
                     break;
             }
             pw.flush();
-        } while (!input.equals("bye"));
+        } while (!cmd.equals("bye"));
 
         br.close();
         pw.close();
