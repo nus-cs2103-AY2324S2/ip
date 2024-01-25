@@ -2,11 +2,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Item {
-    Integer id;
-    String title;
+    private static int count = 0;
+    private final int id;
+    private String title;
+    private boolean isDone;
 
     public Item(String title) {
+        this.id = ++count;
         this.title = title;
+        this.isDone = false;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void markDone() {
+        this.isDone = true;
+    }
+
+    @Override
+    public String toString() {
+        return (isDone ? "[\u2713] " : "[\u2718] ") + title;
     }
 }
 
@@ -26,24 +43,26 @@ public class Duke {
         List<Item> list = new ArrayList<Item>();
         while (true) {
             String command = System.console().readLine();
+            String[] tokens = command.split(" ");
+            System.out.println("\n============================================================\n");
             if (command.equals("bye")) {
-                System.out.println("\n============================================================");
                 System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("\n============================================================\n");
                 break;
             } else if (command.equals("list")) {
-                System.out.println("\n============================================================\n");
-                for (Item s : list) {
-                    System.out.println(s.title);
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println((i + 1) + ". " + list.get(i).toString());
                 }
-                System.out.println("\n============================================================\n");
+            } else if (tokens[0].equals("done")) {
+                int i = Integer.parseInt(tokens[1]) - 1;
+                list.get(i).markDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(list.get(i).toString());
             } else {
-                System.out.println("\n============================================================\n");
                 Item newItem = new Item(command);
                 list.add(newItem);
-                System.out.println("added: " + newItem.title);
-                System.out.println("\n============================================================\n");
+                System.out.println("added: " + newItem.toString());
             }
+            System.out.println("\n============================================================\n");
         }
     }
 }
