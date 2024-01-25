@@ -6,6 +6,11 @@ public abstract class Task {
         this.name = name;
     }
 
+    /**
+     * Marks the task as done or not done.
+     *
+     * @param done The completion status to set for the task (true if done, false if not done).
+     */
     public void markDone(boolean done) {
         this.done = done;
     }
