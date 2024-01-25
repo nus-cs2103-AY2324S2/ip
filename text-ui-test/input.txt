@@ -14,4 +14,8 @@ todo
 blah
 event
 list
+unmark
+delete
+delete 2
+list
 bye
