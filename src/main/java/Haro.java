@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.lang.Integer;
+import java.lang.NumberFormatException;
 public class Haro {
     private String haroLogo = " ___  ___  ________  ________  ________ \n"
             + "|\\  \\|\\  \\|\\   __  \\|\\   __  \\|\\   __  \\ \n"
@@ -19,6 +21,9 @@ public class Haro {
         BYE,
         NONE,
         LIST,
+        MARK,
+        UNMARK,
+
     }
 
     public void initialise() {
@@ -38,6 +43,12 @@ public class Haro {
                 case "list":
                     instruction = Instruction.LIST;
                     break;
+                case "mark":
+                    instruction = Instruction.MARK;
+                    break;
+                case "unmark":
+                    instruction = Instruction.UNMARK;
+                    break;
                 default:
                     instruction = Instruction.NONE;
             }
@@ -48,16 +59,67 @@ public class Haro {
 
             else if (instruction == Instruction.NONE) {
                 if (inputArr.length > 0) {
-                    list.addTask(input);
-                    System.out.println(horizontalLine + "added: " + input + "\n" + horizontalLine);
+                    if (inputArr[0].equals("")) {
+                        System.out.println( horizontalLine + "Empty command! Type something!\n" + horizontalLine);
+                    } else {
+                        Task newTask = new Task(input);
+                        list.addTask(newTask);
+                        System.out.println(horizontalLine + "added: " + input + "\n" + horizontalLine);
+                    }
                 }
+
                 else {
-                    System.out.println("Empty command! Type something!");
+                    System.out.println( horizontalLine + "Empty command! Type something!" + horizontalLine);
                 }
             }
 
             else if (instruction == Instruction.LIST) {
                 list.printList();
+            }
+
+            // Commands with arguments
+            String commandArg = "";
+
+            if (inputArr.length >= 2) {
+                commandArg = inputArr[1];
+            }
+
+            if (instruction == Instruction.MARK) {
+                if (inputArr.length < 2) {
+                    System.out.println(horizontalLine);
+                    System.out.println("Please input task number that you want to mark!");
+                    System.out.println(horizontalLine);
+                }
+
+                else if (!isNumeric(commandArg)) {
+                    System.out.println(horizontalLine);
+                    System.out.println("Please input a number for the task you want to mark!");
+                    System.out.println(horizontalLine);
+                }
+
+                else {
+                    int taskNumber = Integer.parseInt(commandArg) - 1;
+                    list.markTask(taskNumber);
+                }
+            }
+
+            else if (instruction == Instruction.UNMARK) {
+                if (inputArr.length < 2) {
+                    System.out.println(horizontalLine);
+                    System.out.println("Please input task number that you want to unmark!\n");
+                    System.out.println(horizontalLine);
+                }
+
+                else if (!isNumeric(commandArg)) {
+                    System.out.println(horizontalLine);
+                    System.out.println("Please input a number for the task you want to unmark!\n");
+                    System.out.println(horizontalLine);
+                }
+
+                else {
+                    int taskNumber = Integer.parseInt(commandArg) - 1;
+                    list.unmarkTask(taskNumber);
+                }
             }
 
             input = inputScanner.nextLine();
@@ -76,6 +138,15 @@ public class Haro {
     private void bye() {
         System.out.println(horizontalLine + closingMSg + "\n" +
                 horizontalLine);
+    }
+
+    private boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
 
