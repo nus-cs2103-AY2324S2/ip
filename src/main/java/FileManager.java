@@ -37,7 +37,7 @@ public class FileManager {
     }
   }
 
-  public void loadHistory(ArrayList<Task> current_list) {
+  public void loadHistory(ArrayList<Task> current_list) throws CorruptedLogException {
     File log_entry = new File(this.path);
     try {
       Scanner sc = new Scanner(log_entry);
@@ -48,7 +48,7 @@ public class FileManager {
       }
       sc.close();
     } catch (IOException e) {
-      System.out.println("Problem loading history: " + e.getMessage());
+      throw new CorruptedLogException(e.getMessage());
     }
 
   }
