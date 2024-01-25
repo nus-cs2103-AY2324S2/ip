@@ -1,4 +1,3 @@
-
 public abstract class Task {
 
   private Boolean isCompleted;
@@ -11,27 +10,40 @@ public abstract class Task {
 
   public static final Task makeTask(String taskDetails) {
     String[] components = taskDetails.split(" ");
+    String taskName = "";
 
-    if (taskDetails.startsWith("todo") && components.length == 2) {
-      return new ToDoTask(components[1]);
+    if (taskDetails.startsWith("todo")) {
+
+      for (int i = 1; i < components.length; i++) {
+        taskName += components[i] + " ";
+      }
+
+      return new ToDoTask(taskName.trim());
     } else if (taskDetails.startsWith("deadline")) {
 
-      for (int i = 0; i < components.length; i++) {
+      String deadline = "";
+
+      for (int i = 1; i < components.length; i++) {
+
         if (components[i].equals("/by")) {
-          String deadline = "";
+
           for (int j = i + 1; j < components.length; j++) {
             deadline += components[j] + " ";
           }
-          return new DeadlineTask(components[1], deadline.trim());
+          break;
+        } else {
+          taskName += components[i] + " ";
         }
       }
+
+      return new DeadlineTask(taskName.trim(), deadline.trim());
     } else if (taskDetails.startsWith("event")) {
 
       int state = 0;
       String start = "";
       String end = "";
 
-      for (int i = 0; i < components.length; i++) {
+      for (int i = 1; i < components.length; i++) {
 
         if (components[i].equals("/from")) {
           state = 1;
@@ -40,6 +52,11 @@ public abstract class Task {
         }
 
         switch (state) {
+
+          case 0:
+            taskName += components[i] + " ";
+            break;
+
           case 1:
             if (!components[i].equals("/from")) {
               start += components[i] + " ";
@@ -57,7 +74,7 @@ public abstract class Task {
         }
       }
 
-      return new EventTask(components[1], start.trim(), end.trim());
+      return new EventTask(taskName.trim(), start.trim(), end.trim());
     }
 
     // Invalid task description
@@ -74,6 +91,6 @@ public abstract class Task {
 
   @Override
   public String toString() {
-    return String.format(" [%s] %s", this.isCompleted ? "X" : " ", this.name);
+    return String.format(" [%s] %s", this.isCompleted ? "X" : " ", this.name.trim());
   }
 }
