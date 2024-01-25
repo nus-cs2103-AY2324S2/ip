@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+
 public class Duke {
     private boolean isActive;
-    private List<String> myList;
+    private List<Task> myList;
 
     public Duke() {
         this.isActive = true;
@@ -30,28 +32,66 @@ public class Duke {
     }
 
     private void nextAction(String input) {
-        if (input.equalsIgnoreCase("bye")) {
-            this.isActive = false;
-        } else if (input.equalsIgnoreCase("list")) {
-            showList();
-        } else {
-            addTask(input);
+        StringTokenizer st = new StringTokenizer(input);
+        String arg1 = st.nextToken();
+        String arg2 = st.hasMoreTokens() ? st.nextToken().toLowerCase() : "";
+        switch (arg1) {
+            case "bye":
+                this.isActive = false;
+                break;
+            case "list":
+                showList();
+                break;
+            case "mark":
+                mark(Integer.parseInt(arg2));
+                break;
+            case "unmark":
+                unmark(Integer.parseInt(arg2));
+                break;
+            default:
+                Task myTask = new Task(arg1);
+                addTask(myTask);
+                break;
+
         }
     }
 
-    private void addTask(String input) {
-        myList.add(input);
+    private void addTask(Task task) {
+        myList.add(task);
         System.out.println("    ____________________________________________________________\n"
                 + "    added: "
-                + input
+                + task.getName()
                 + "\n    ____________________________________________________________\n");
     }
 
     private void showList() {
         System.out.println("    ____________________________________________________________\n");
         for (int i = 1; i < myList.size() + 1; i++) {
-            System.out.println("    " + i + ". " + myList.get(i-1));
+            Task task = myList.get(i-1);
+            if (task.isDone()) {
+                System.out.println("    " + i + "." + "[X] " +task.getName());
+            } else {
+                System.out.println("    " + i + "." + "[ ] "+ task.getName());
+            }
         }
         System.out.println("    ____________________________________________________________\n");
+    }
+
+    private void mark(int i) {
+        Task task = myList.get(i - 1);
+        task.mark();
+        System.out.println("    ____________________________________________________________\n"
+                + "    Nice! I've marked this task as done:\n"
+                + "      " + "[X] " +task.getName()
+                + "\n    ____________________________________________________________\n");
+    }
+
+    private void unmark(int i) {
+        Task task = myList.get(i - 1);
+        task.unmark();
+        System.out.println("    ____________________________________________________________\n"
+                + "    OK, I've marked this task as not done yet:\n"
+                + "      " + "[ ] " +task.getName()
+                + "\n    ____________________________________________________________\n");
     }
 }
