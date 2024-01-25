@@ -26,7 +26,7 @@ public class Duke {
                 continue;
             }
             if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
                 list.get(index).mark();
                 System.out.print(horizontalLine
                         + "Well, isn't this delightful! I've marked this task as done, my dear.\n"
@@ -35,7 +35,7 @@ public class Duke {
                 continue;
             }
             if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                int index = Integer.parseInt(input.split(" ",2)[1]) - 1;
                 list.get(index).unmark();
                 System.out.print(horizontalLine
                         + "Very well, my dear! I've noted this task as yet untouched.\n"
