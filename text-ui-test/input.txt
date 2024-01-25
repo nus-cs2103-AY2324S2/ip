@@ -1,6 +1,10 @@
-todo borrow book
+event coldplay concert /from today /to tomorrow
+deadline cs2103t assignment /by today
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+todo make money
+mark 2
 list
+oops undo that
+mark 5
+event cs2109s assignment
 bye
