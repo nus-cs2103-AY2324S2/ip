@@ -16,7 +16,7 @@ public class Duke {
             } else if (input.equals("list")) {
                 System.out.print(LINE);
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println(INDENT + (i + 1) + ". " + tasks[i].getStatusIcon() + " " + tasks[i]);
+                    System.out.println(INDENT + (i + 1) + ". " + tasks[i]);
                 }
                 System.out.print(LINE);
             } else if (input.indexOf("mark") == 0 || input.indexOf("unmark") == 0) {
