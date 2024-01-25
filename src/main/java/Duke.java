@@ -21,37 +21,62 @@ public class Duke {
         System.out.println(indent + "Bye. Hope to see you again soon!");
         spacing();
     }
-    public task identify(String request){
+
+    public int finder(String checker, String[] list) {
+        for (int i = 0; i < list.length; i++) {
+            if (list[i].equals(checker)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public task identify(String request) throws taskException {
         if (request.startsWith("todo")) {
-            String[] reqList = request.split("todo ");
-            todo current = new todo(reqList[1]);
+            String[] reqList = request.split(" ");
+            if (reqList.length < 2) {
+                throw new taskException("What do you want to do? Description of todo cannot be empty.");
+            }
+            String desc = String.join(" ", Arrays.copyOfRange(reqList, 1, reqList.length));
+            todo current = new todo(desc);
             return current;
+
         } else if (request.startsWith("deadline")) {
-            String[] reqList = request.split("deadline ");
-            String[] timeList = reqList[1].split("/by ");
-            String name = timeList[0];
-            String time = timeList[1];
-            deadline current = new deadline(name, time);
-            return current;
+            String[] reqList = request.split(" ");
+            if (Arrays.asList(reqList).contains("/by")) {
+                int byIndex = finder("/by", reqList);
+                String desc = String.join(" ", Arrays.copyOfRange(reqList, 1, byIndex));
+                String time = String.join(" ", Arrays.copyOfRange(reqList, byIndex + 1, reqList.length));
+                deadline current = new deadline(desc, time);
+                return current;
+            } else{
+                throw new taskException("Please specify when is the deadline.");
+            }
 
         } else if (request.startsWith("event")) {
-            String[] reqList = request.split("event ");
-            String[] startList = reqList[1].split(" /from ");
-            String name = startList[0];
-            String[] endList = startList[1].split(" /to ");
-            String start = endList[0];
-            String end = endList[1];
+            String[] reqList = request.split(" ");
+            if (Arrays.asList(reqList).contains("/from") && Arrays.asList(reqList).contains("/to")){
+                int fromIndex = finder("/from", reqList);
+                int toIndex = finder("/to", reqList);
+                String desc = String.join(" ", Arrays.copyOfRange(reqList, 1, fromIndex));
+                String start = String.join(" ", Arrays.copyOfRange(reqList, fromIndex + 1, toIndex));
+                String end = String.join(" ", Arrays.copyOfRange(reqList, toIndex + 1, reqList.length));
 
-            event current = new event(name, start, end);
-            return current;
+                event current = new event(desc, start, end);
+                return current;
+            } else if (Arrays.asList(reqList).contains("/from")){
+                throw new taskException("Please specify when the event ends.");
+            } else if (Arrays.asList(reqList).contains("/to")){
+                throw new taskException("Please specify when the event starts.");
+            } else {
+                throw new taskException("Please specify the event timeframe.");
+            }
 
-        } else{
-            task current = new task(request);
-            return current;
+        } else {
+            throw new taskException("Apologies, I don't understand you. Please try again");
         }
     }
 
-    public void start() {
+    public void start(){
         intro();
         Scanner input = new Scanner(System.in);
         ArrayList<task> taskList = new ArrayList<task>();
@@ -82,7 +107,6 @@ public class Duke {
                 spacing();
 
             } else if (current.startsWith("unmark")) {
-                /* removing from done */
                 String[] marking = current.split(" ");
                 int position = Integer.parseInt(marking[1]) - 1;
                 task curr = taskList.get(position);
@@ -93,14 +117,20 @@ public class Duke {
                 System.out.println(indent + taskList.get(position).getStatus());
                 spacing();
             } else {
-                task newTask = identify(current);
-                taskList.add(newTask);
-                separate();
-                System.out.println(indent + "Got it. I've added this task:");
-                System.out.println(indent + "  " + newTask.getStatus());
-                System.out.println(indent + "Now you have " + Integer.toString(taskList.size()) +
-                        " tasks in the list.");
-                spacing();
+                try {
+                    task newTask = identify(current);
+                    taskList.add(newTask);
+                    separate();
+                    System.out.println(indent + "Got it. I've added this task:");
+                    System.out.println(indent + "  " + newTask.getStatus());
+                    System.out.println(indent + "Now you have " + Integer.toString(taskList.size()) +
+                            " tasks in the list.");
+                    spacing();
+                } catch (taskException e) {
+                    separate();
+                    System.out.println(indent +e.getMessage());
+                    spacing();
+                }
             }
         }
     }
@@ -188,7 +218,12 @@ public class Duke {
 
     }
 
-    public static void main(String[] args) {
+    public class taskException extends Exception {
+        public taskException(String message) {
+            super(message);
+        }
+    }
+    public static void main(String[] args){
         Duke duke = new Duke();
         duke.start();
     }
