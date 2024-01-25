@@ -23,7 +23,7 @@ public class Duke {
     }
 
     public void exit() {
-        System.out.println("Bye. Hope to see you again soon!\n" + this.horizontalLine);
+        System.out.println(" Bye. Hope to see you again soon!\n" + this.horizontalLine);
     }
 
     //process commands
@@ -37,10 +37,8 @@ public class Duke {
                 break;
             } else if (msg.equalsIgnoreCase("list")) {
                 this.toDoList();
-            } else if (msg.toUpperCase().startsWith("MARK")){
-                this.markToDo(msg, true);
-            } else if (msg.toUpperCase().startsWith("UNMARK")) {
-                this.markToDo(msg, false);
+            } else if (msg.toUpperCase().startsWith("MARK") || (msg.toUpperCase().startsWith("UNMARK"))){
+                this.markToDo(msg);
             } else {
                 this.addToDo(msg);
             }
@@ -53,32 +51,31 @@ public class Duke {
 
     private void addToDo(String msg) {
         Task t;
+        try {
+            if (msg.toUpperCase().startsWith("TODO")) {
+                t = todo(msg.substring(4).trim());
+            } else if (msg.toUpperCase().startsWith("DEADLINE")) {
+                t = dueDate(msg.substring(8).trim());
+            } else if ( msg.toUpperCase().startsWith("EVENT")) {
+                t = schedule(msg.substring(5).trim());
+            } else {
+                throw new DukeException(" Invalid format. Please use 'todo', 'deadline', or 'event'.");
+            }
 
-        if (msg.toUpperCase().startsWith("TODO")) {
-            t = todo(msg.substring(4).trim());
-        } else if (msg.toUpperCase().startsWith("DEADLINE")) {
-            t = dueDate(msg.substring(8).trim());
-        } else if ( msg.toUpperCase().startsWith("EVENT")) {
-            t = schedule(msg.substring(5).trim());
-        } else {
-            System.out.println("Invalid task format. Please use 'todo', 'deadline', or 'event'.");
-            return;
+            tasks.add(t);
+            System.out.println(" Got it. I've added this task:");
+            System.out.println("   " + t);
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        } catch (DukeException e) {
+            System.out.println(" Error:" + e.getMessage());
         }
-
-        if (t == null) {
-            return;
-        }
-
-        tasks.add(t);
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + t);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
 
     }
 
     private void toDoList() {
+
         if (tasks.isEmpty()) {
-            System.out.println(" Please add task!");
+            System.out.println(" There are no tasks in the list.");
         } else {
             System.out.println(" Here are the tasks in your list:");
             int taskCount = INDEX_START;
@@ -87,38 +84,50 @@ public class Duke {
                 taskCount++;
             }
         }
+
     }
 
-    private void markToDo(String command, boolean isDone) {
+    private void markToDo(String command) {
         try {
-            int taskIndex = Integer.parseInt(command.split(" ")[1]) - INDEX_START;
-            if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                Task t = this.tasks.get(taskIndex);
-                t.setDone(isDone);
-                System.out.println(isDone ? " Nice! I've marked this task as done:" :
-                        " OK, I've marked this task as not done yet:");
-                System.out.println("   " + t);
+            String[] part = command.split(" ");
+            if (part.length == 2) {
+                String action = part[0].trim().toLowerCase();
+                String index = part[1].trim();
+
+                int taskIndex = Integer.parseInt(index) - INDEX_START;
+                if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                    Task t = this.tasks.get(taskIndex);
+                    boolean isDone = action.equals("mark");
+                    t.setDone(isDone);
+                    System.out.println(isDone ? " Nice! I've marked this task as done:" :
+                            " OK, I've marked this task as not done yet:");
+                    System.out.println("   " + t);
+                } else {
+                    throw new DukeException(" Task not found.");
+                }
             } else {
-                System.out.println("Task not found: Index is out of bounds.");
+                throw new DukeException(" Invalid format. Please use 'mark <index>'.");
             }
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println(" Invalid command format.");
+
+        } catch (NumberFormatException e) {
+            System.out.println(" Error: Invalid format. Please use integers only.");
+        } catch (DukeException e) {
+            System.out.println(" Error:" + e.getMessage());
         }
     }
 
-    private Deadline dueDate(String command) {
+    private Deadline dueDate(String command) throws DukeException{
         int byIndex = command.indexOf(" /by ");
         if ( byIndex != 0 && byIndex != -1) {
             String description = command.substring(0, byIndex).trim();
             String by = command.substring(byIndex + 4).trim();
             return new Deadline(description, by);
         } else {
-            System.out.println("Invalid format. Please use 'deadline <description> /by <datetime>'.");
-            return null;
+            throw new DukeException(" Invalid format. Please use 'deadline <description> /by <datetime>'.");
         }
     }
 
-    private Event schedule(String command) {
+    private Event schedule(String command) throws DukeException {
         int byIndex = command.indexOf(" /from ");
         if ( byIndex != 0 && byIndex != -1) {
             String description = command.substring(0, byIndex).trim();
@@ -130,17 +139,15 @@ public class Duke {
                 return new Event(description, from, to);
             }
         }
-        System.out.println("Invalid format. Please use 'event <description> /from <datetime> /to <datetime>'.");
-        return null;
+        throw new DukeException(" Invalid format. Please use 'event <description> /from <datetime> /to <datetime>'.");
     }
 
-    private Todo todo(String command) {
+    private Todo todo(String command) throws DukeException{
 
         String description = command.trim();
 
         if (command.isEmpty()) {
-            System.out.println("Invalid format Please use 'todo <description>'.");
-            return null;
+            throw new DukeException(" Invalid format. Please use 'todo <description>'.");
         }
 
         return new Todo(description);
