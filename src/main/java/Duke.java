@@ -10,15 +10,14 @@ public class Duke {
 //                + " | |_| | |_| |   <  __/\n"
 //                + " |____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println(logo);
-        System.out.println("-------------------------");
-        System.out.println("What's up " + name);
-        System.out.println("What can't I do for you?");
-        System.out.println("-------------------------");
+        System.out.println("--------------------------------------------------");
+        System.out.println("What's up. I'm " + name + ".");
+        System.out.println("I'm about to blow your world.");
+        System.out.println("--------------------------------------------------");
 
         Scanner sc = new Scanner(System.in);
 
         Mylist mylist = new Mylist();
-
         boolean on = true;
         while (on) {
             String command = sc.nextLine();
@@ -43,7 +42,7 @@ public class Duke {
             else if (command.matches("\\bdeadline\\b.*")) {
                 String[] words = command.split("/by");
                 mylist.addTodo(new Deadline(words[0].trim(), words[1].trim()));
-                System.out.println("Added deadline");
+                System.out.println("Added deadline.");
                 continue;
             }
             else if (command.matches("\\bevent\\b.*")) {

@@ -10,6 +10,7 @@ public class Mylist {
     }
     public void addTodo(Task item) {
         mylist.add(item);
+        System.out.println("Sorry but you got more work now: " + item.toString());
     }
     public void mark(int i) {
         this.mylist.get(i-1).markDone();
@@ -18,5 +19,8 @@ public class Mylist {
     public void unmark(int i) {
         this.mylist.get(i-1).markUndone();
         this.returnList();
+    }
+    public int len() {
+        return mylist.size();
     }
 }
