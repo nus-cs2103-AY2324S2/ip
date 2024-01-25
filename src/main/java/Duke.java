@@ -5,48 +5,48 @@ public class Duke {
     public static void main(String[] args) {
         String horizontalLine = "__________________________________________________________________\n";
 
-        String greeting = horizontalLine + "Hello! I'm KwunBot!\nWhat can I do for you?\n" + horizontalLine;
+        String greeting = horizontalLine + "Hello! I'm KwunTalk!\nWhat can I do for you?\n" + horizontalLine;
         System.out.println(greeting);
 
         String goodbye = horizontalLine + "Bye. Hope to see you again soon!\n" + horizontalLine;
 
         ArrayList<Task> tasks = new ArrayList<>();
-        int counter = 0;
 
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNextLine()) {
-            String input = sc.nextLine().toLowerCase(); // Read user input
+            String input = sc.nextLine(); // Read user input
+
+            // Handle commands
+            String[] parts = input.split(" ", 2);
 
             try {
+                String command = parts[0].toLowerCase();
                 // Handle 'bye' command
-                if (input.equals("bye")) {
+                if (command.equals("bye")) {
                     System.out.println(goodbye);
                     break;
                 }
 
                 // Handle 'list' command
-                if (input.equals("list")) {
+                if (command.equals("list")) {
                     System.out.println(horizontalLine + "Here are the tasks in your list:");
 
-                    for (int i = 0; i < counter; i++) {
+                    for (int i = 0; i < tasks.size(); i++) {
                         System.out.printf("%d. %s\n", i + 1, tasks.get(i));
                     }
                     System.out.println(horizontalLine);
                     continue;
                 }
 
-                // Handle more complex commands
-                String[] parts = input.split(" ", 2);
-
                 // Handle 'delete' commands
-                if (parts[0].equals("delete")) {
+                if (command.equals("delete")) {
+
                     try {
                         int taskId = Integer.parseInt(parts[1]) - 1;
                         Task task = tasks.get(taskId);
                         tasks.remove(taskId);
-                        counter--;
-                        String taskCounter = String.format("Now you have %s tasks in the list.\n", counter);
+                        String taskCounter = String.format("Now you have %s tasks in the list.\n", tasks.size());
                         System.out.println(horizontalLine +
                                 "OK. I've deleted this task:\n" +
                                 task + "\n" + taskCounter +
@@ -54,7 +54,7 @@ public class Duke {
                         continue;
 
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new MissingArgumentException(parts[0]);
+                        throw new MissingArgumentException(command);
 
                     } catch (IndexOutOfBoundsException e) {
                         throw new NoTaskFoundException(parts[1]);
@@ -62,17 +62,17 @@ public class Duke {
                 }
 
                 // Handle 'mark' commands
-                if (parts[0].equals("mark") || parts[0].equals("unmark")) {
+                if (command.equals("mark") || command.equals("unmark")) {
 
                     try {
                         int taskId = Integer.parseInt(parts[1]) - 1;
                         Task task = tasks.get(taskId);
-                        String statement = task.changeMark(parts[0]);
+                        String statement = task.changeMark(command);
                         System.out.println(horizontalLine + statement + task + "\n" + horizontalLine);
                         continue;
 
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new MissingArgumentException(parts[0]);
+                        throw new MissingArgumentException(command);
 
                     } catch (IndexOutOfBoundsException e) {
                         throw new NoTaskFoundException(parts[1]);
@@ -80,17 +80,17 @@ public class Duke {
                 }
 
                 // Handle add tasks commands
-                if (parts[0].equals("todo") || parts[0].equals("deadline") || parts[0].equals("event")) {
+                if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
 
                     Task newTask = null;
 
-                    switch (parts[0]) {
+                    switch (command) {
                         case "todo": {
                             try {
                                 newTask = new Todo(parts[1]);
 
                             } catch (ArrayIndexOutOfBoundsException e) {
-                                throw new EmptyDescriptionException(parts[0]);
+                                throw new EmptyDescriptionException(command);
                             }
                             break;
                         }
@@ -100,7 +100,7 @@ public class Duke {
                                 newTask = new Deadline(splitDate[0], splitDate[1]);
 
                             } catch (ArrayIndexOutOfBoundsException e) {
-                                throw new EmptyDescriptionException(parts[0]);
+                                throw new EmptyDescriptionException(command);
                             }
                             break;
                         }
@@ -111,15 +111,14 @@ public class Duke {
                                 newTask = new Event(splitTaskName[0], splitFromToDates[0], splitFromToDates[1]);
 
                             } catch (ArrayIndexOutOfBoundsException e) {
-                                throw new EmptyDescriptionException(parts[0]);
+                                throw new EmptyDescriptionException(command);
                             }
                             break;
                         }
                     }
 
                     tasks.add(newTask);
-                    counter++;
-                    String taskCounter = String.format("Now you have %s tasks in the list.\n", counter);
+                    String taskCounter = String.format("Now you have %s tasks in the list.\n", tasks.size());
                     System.out.println(horizontalLine
                             + "Got it. I've added this task:\n" + newTask + "\n" + taskCounter
                             + horizontalLine);
