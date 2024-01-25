@@ -7,7 +7,7 @@
 
 public class Messages {
 
-      /**
+    /**
      * The ASCII art representing a welcome message.
      * Includes a stylized text and an ASCII art cat saying "meow."
      */

@@ -1,44 +1,36 @@
-import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Optional;
 
 public class Coat {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<String> userInputs = new ArrayList<>();
-
         System.out.printf(Messages.WELCOME);
+
+        Scanner scanner = new Scanner(System.in);
+        List<Task> tasks = new ArrayList<>();
+        Command currentCommand = null;
+
         while (true) {
             System.out.printf("\n-> ");
             String userInput = scanner.nextLine();
 
-            // switch (userInput) {
-            // case ""
-            // }
+            // Parse user input
+            Command parsedCommand = CommandParser.parseInput(userInput);
 
-            // Exit condition: say "bye"
-            if (userInput.equalsIgnoreCase("bye")) {
+            // Execute the command
+            if (parsedCommand != null) {
+                currentCommand = parsedCommand;
+                currentCommand.execute(tasks);
+            }
+
+            // Exit condition
+            if (parsedCommand.getCommand().equalsIgnoreCase("bye")) {
                 System.out.printf(Messages.EXIT);
                 break;
             }
-
-            if (userInput.equalsIgnoreCase("list")) {
-                listUserInputs(userInputs);
-            } else {
-                userInputs.add(userInput);
-                System.out.printf("\n(^-^)~~   Added: %s\n", userInput);
-            }
-
         }
 
         scanner.close();
-    }
-
-
-    private static void listUserInputs(List<String> userInputs) {
-        System.out.printf("\n(^-^)~~   Here's your list!\n");
-        for (int i = 0; i < userInputs.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, userInputs.get(i));
-        }
     }
 }
