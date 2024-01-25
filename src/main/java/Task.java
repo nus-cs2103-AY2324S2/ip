@@ -7,6 +7,12 @@ public abstract class Task {
     public static String delimiter;
     public static String command;
 
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT,
+        UNRECOGNIZED
+    }
     // temporary solution
     public static String[] NextWords(String[] words) {
 
@@ -23,11 +29,19 @@ public abstract class Task {
         return result;
     }
 
-    public enum TaskType {
-        TODO,
-        DEADLINE,
-        EVENT
+    public static Task createTask(String type, String input) throws MissingInputFieldException {
+        if (type.equals("todo")) {
+            return new ToDo(input);
+        } else if (type.equals("deadline")) {
+            return new Deadline(input);
+        } else if (type.equals("event")) {
+            return new Event(input);
+        }
+
+        return null;
     }
+
+
 
     public Task(TaskType type) {
         this.type = type;
@@ -69,5 +83,5 @@ public abstract class Task {
     }
 
     public abstract String printType();
-    public abstract void setUpTask(String input);
+    public abstract void setUpTask(String input) throws MissingInputFieldException;
 }

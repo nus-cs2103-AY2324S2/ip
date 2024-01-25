@@ -51,7 +51,11 @@ public class Liv {
         while (IsActive()) {
             // should start the cycle talking
             String userInput = StartListening();
-            ProcessInput(userInput);
+            try{
+                ProcessInput(userInput);
+            } catch (InputException e) {
+                speak(e.getMessage());
+            }
         }
     }
 
@@ -110,44 +114,35 @@ public class Liv {
         return currentState != State.INACTIVE;
     }
 
-    private void ProcessInput(String input) {
+    private void ProcessInput(String input) throws InputException {
 
         String[] words = input.split(" ");
 
         // for multi-word commands
-        if (words.length != 1) {
-
-            // mark & unmark
-            if (words[0].equals("mark") || words[0].equals("unmark")) {
-                if (isInteger(words[1])) {
-                    int taskIndex = Integer.parseInt(words[1]);
-                    speak(toggleTaskDoneWithIndex(taskIndex, words[0]));
-                } else {
-                    System.out.println("Action failed: task index input is not an integer");
-                }
-                return;
+        if (words[0].equals("mark") || words[0].equals("unmark")) {
+            if (isInteger(words[1])) {
+                int taskIndex = Integer.parseInt(words[1]);
+                speak(toggleTaskDoneWithIndex(taskIndex, words[0]));
+            } else {
+                speak("Action failed: task index input is not an integer");
             }
+            return;
+        }
 
-            if (words[0].equals("todo")
-                    || words[0].equals("deadline")
-                    || words[0].equals("event")) {
-                Task newTask = null;
-                if (words[0].equals("todo")) {
-                    newTask = new ToDo(input);
-                } else if (words[0].equals("deadline")) {
-                    newTask = new Deadline(input);
-                } else if (words[0].equals("event")) {
-                    newTask = new Event(input);
-                }
-                addTask(newTask);
-                speak("Got it. I've added this task:"
-                        + "\n"
-                        + "    "
-                        + newTask.toString()
-                        + "\n"
-                        + "Now you have " + numberOfTasks + " tasks in the list.");//input);
-            }
-            //...
+        if (words[0].equals("todo")
+                || words[0].equals("deadline")
+                || words[0].equals("event")) {
+
+            Task newTask = null;
+            newTask = Task.createTask(words[0], input);
+            addTask(newTask);
+            speak("Got it. I've added this task:"
+                    + "\n"
+                    + "    "
+                    + newTask
+                    + "\n"
+                    + "Now you have " + numberOfTasks + " tasks in the list.");//input);
+            return;
         }
 
 
@@ -161,14 +156,7 @@ public class Liv {
             return;
         }
 
-        /*
-        if (input != null) {
-            Task newTask = new ToDo(input);//new Task(input);
-            addTask(newTask);
-            speak("added: " + input);
-            return;
-        }
-         */
+        throw new CommandNotFoundException(input);
     }
 
     private void speak(String output) {
@@ -201,8 +189,14 @@ public class Liv {
     }
 
     // takes in the listed index of the task (1 larger than storage index)
-    private String toggleTaskDoneWithIndex(int index, String isDoneUpdateString) {
-        tasks.get(index - 1).toggleIsDone(isDoneUpdateString);
-        return tasks.get(index - 1).updateIsDoneMessage();
+    private String toggleTaskDoneWithIndex(int index, String isDoneUpdateString)
+            throws TaskIndexOutOfBoundsException {
+        try {
+            tasks.get(index - 1).toggleIsDone(isDoneUpdateString);
+            return tasks.get(index - 1).updateIsDoneMessage();
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            throw new TaskIndexOutOfBoundsException(index);
+        }
+
     }
 }

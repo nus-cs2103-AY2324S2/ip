@@ -85,11 +85,24 @@ Challenges:
 
 
 
+_____________________________________________________
+
+Level 5:
+
+Requirements:
+- error handling
+
+Design:
+- introduced various exception classes
 
 
 
+_____________________________________________________
 
+Level 6:
 
+Requirement:
+- delete task
 
-
-
+Design:
+- use delete method of LinkedList
