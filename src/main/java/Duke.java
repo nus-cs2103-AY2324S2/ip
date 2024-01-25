@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String logo =  " _____ _               _\n"
-                +       "/  __ (_)             | |      \n"
-                +       "| /  \\/_  ___ __ _  __| | __ _ \n"
+                +       "/  __ (_)             | |\n"
+                +       "| /  \\/_  ___ __ _  __| | __ _\n"
                 +       "| |   | |/ __/ _` |/ _` |/ _` |\n"
                 +       "| \\__/\\ | (_| (_| | (_| | (_| |\n"
                 +       " \\____/_|\\___\\__,_|\\__,_|\\__,_|\n";
@@ -27,7 +27,7 @@ public class Duke {
                     break;
                 } else if (userInput.equalsIgnoreCase("list")) {
                     System.out.println(horizontalLine);
-                    System.out.println("Here are the tasks in your list: ");
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
                         int j = i+1;
                         System.out.println(j + "." + tasks.get(i).toString());
