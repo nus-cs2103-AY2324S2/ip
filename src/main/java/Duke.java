@@ -58,6 +58,11 @@ public class Duke {
                     taskList.get(unmarkIndex).unmark();
                     printResponse("OK, I've marked this task as not done yet:", unmarkIndex);
                     break;
+                case "delete" :
+                    Task removed = taskList.remove(sc.nextInt()-1);
+                    System.out.println(line + "\n     Got it. I've removed this task:\n       " + removed.toString());
+                    System.out.println("     Now you have " + taskList.size() + " tasks in the list.\n" + line);
+                    break;
                 default :
                     try {
                         throw new NoTaskTypeException();
