@@ -30,7 +30,7 @@
     I gotchu bruv. Here's your list:
     1.[T][ ] cry
     2.[D][ ] homework (by: tmr morn)
-    3.[E][ ] party (from: 6 am to: 7 pm)
+    3.[E][ ] party rock (from: 6 am to: 7 pm)
     ____________________________________________________________
     ____________________________________________________________
     Yasss King/Queen! This task is officially slayed:
@@ -40,17 +40,17 @@
     I gotchu bruv. Here's your list:
     1.[T][ ] cry
     2.[D][X] homework (by: tmr morn)
-    3.[E][ ] party (from: 6 am to: 7 pm)
+    3.[E][ ] party rock (from: 6 am to: 7 pm)
     ____________________________________________________________
     ____________________________________________________________
     Bruh! This task never happened:
-      [D][ ] homework (by: tmr )
+      [D][ ] homework (by: tmr morn)
     ____________________________________________________________
     ____________________________________________________________
-        I gotchu bruv. Here's your list:
-        1.[T][ ] cry
-        2.[D][ ] homework (by: tmr morn)
-        3.[E][ ] party (from: 6 am to: 7 pm)
+    I gotchu bruv. Here's your list:
+    1.[T][ ] cry
+    2.[D][ ] homework (by: tmr morn)
+    3.[E][ ] party rock (from: 6 am to: 7 pm)
     ____________________________________________________________
 error
     ____________________________________________________________
