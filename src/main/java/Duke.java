@@ -50,7 +50,8 @@ public class Duke {
             String[] parts = input.split(" ", 2);
             if (parts[0].equals("todo")) {
                 list[total] = new Todo(parts[1]);
-                System.out.println("Done! I have added this to the list: " + list[total].toString());
+                System.out.println("Done! I have added this to the list: " + list[total].toString()
+                        + "\n There are now " + (total + 1) + " items");
                 total++;
 
             }
@@ -66,7 +67,8 @@ public class Duke {
                     String[] components = compo[0].split("/from");
                     String start = components[1];
                     list[total] = new Event(parts[0], start, end);
-                    System.out.println("Done! I have added this to the list:" + list[total].toString());
+                    System.out.println("Done! I have added this to the list:" + list[total].toString()
+                            + "\n There are now " + (total + 1) + " items");
                     total++;
                 } catch (PatternSyntaxException e) {
                     System.out.println("Hmmm, did you use the proper syntax?");
@@ -75,8 +77,22 @@ public class Duke {
                 }
             }
 
+        } else if (input.contains("deadline ")) {
+            try {
+                String[] parts = input.split(" ", 2);
+                if (parts[0].equals("deadline")) {
+                    String[] compo = parts[1].split("/by");
+                    list[total] = new Deadline(compo[0], compo[1]);
+                    System.out.println("Done! I have added this to the list:" + list[total].toString()
+                     + "\n There are now " + (total + 1) + " items");
+                    total++;
+                }
+            } catch (ArrayIndexOutOfBoundsException x) {
+                System.out.println("Please check your syntax");
+            }
+
         } else {
-            System.out.println("Sorry, I don't understand what you mean");
+            System.out.println("Sorry, I don't understand what you mean\n");
         }
 
 
