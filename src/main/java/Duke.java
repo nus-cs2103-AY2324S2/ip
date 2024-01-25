@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+enum TodoState {
+    UNDONE,
+    DONE
+}
 class Todo extends Task {
     public Todo(String task) {
         super(task);
@@ -44,17 +48,18 @@ class Event extends Task {
 }
 
 abstract class Task {
-    boolean checked;
+    TodoState todoState;
     String task;
 
     public Task(String task) {
-        this.checked = false;
+        this.todoState = TodoState.UNDONE;
         this.task = task;
     }
 
+
     @Override
     public String toString() {
-        return "[" + (checked ? "X" : " ") + "] " + task;
+        return "[" + (todoState == TodoState.DONE ? "X" : " ") + "] " + task;
     }
 }
 
@@ -93,7 +98,7 @@ public class Duke {
                             throw new DukeException("The id of a mark cannot be empty.");
                         }
                         int index = Integer.parseInt(params) - 1;
-                        data.get(index).checked = true;
+                        data.get(index).todoState = TodoState.DONE;
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(data.get(index));
                         break;
@@ -103,7 +108,7 @@ public class Duke {
                             throw new DukeException("The id of a unmark cannot be empty.");
                         }
                         int index = Integer.parseInt(params) - 1;
-                        data.get(index).checked = false;
+                        data.get(index).todoState = TodoState.UNDONE;
                         System.out.println("Okay! I've marked this task as not done yet");
                         System.out.println(data.get(index));
                         break;
