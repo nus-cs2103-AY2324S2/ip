@@ -20,58 +20,42 @@ public class Duke {
 
         System.out.println("Hello from\n" + logo);
         System.out.println("<---------------------------------------------------------->");
-        PrintGreeting();
+        MessagePrinter.PrintGreeting();
 
         boolean isExiting = false;
         Scanner scan = new Scanner(System.in);
+        Storage storage = new Storage();
         while (!isExiting) {
             System.out.println("| User Input:");
 
             System.out.print("> ");
-            String s = scan.next();
-            if (s.equals("bye")) {
+            String s = scan.nextLine();
+            if (s.equals("bye") || s.equals("b")) { // Check if exiting
                 isExiting = true;
+            } else if (s.equals("list") || s.equals("l")) {
+                MessagePrinter.PrintStorage(storage.Get());
             } else {
-                Echo(s);
+                if (s.indexOf(" ") == -1) { // Check if got cmd
+                    MessagePrinter.PrintInvalid();
+                    MessagePrinter.Echo(s);
+                } else {
+                    // Check the cmd given by user
+                    String cmd = s.substring(0, s.indexOf(' '));
+                    String parameters = s.substring(s.indexOf(' ') + 1);
+
+                    if (cmd.equals("store") || cmd.equals("s")) {
+                        MessagePrinter.PrintStoring();
+                        storage.Store(parameters);
+                    } else {
+                        MessagePrinter.PrintInvalid();
+                        MessagePrinter.Echo(s);
+                    }
+                }
             }
         }
 
-        PrintExit();
+        MessagePrinter.PrintExit();
         System.out.println("<---------------------------------------------------------->");
-    }
-
-    /*
-
-    * The function prints the greeting message when the user enters
-    * Returns void
-    */
-    public static void PrintGreeting() {
-        String greetingMessage = "| Welcome! I'm JAV\n"
-                               + "| How may I sprinkle a bit of happiness into your day today?";
-
-        System.out.println(greetingMessage);
-    }
-
-    /*
-
-    * The function prints the farewell message when the user exits
-    * Returns void
-    */
-    public static void PrintExit() {
-        String greetingMessage = "| Farewell!\n"
-                               + "| May your days be filled with laughter and warmth!";
-
-        System.out.println(greetingMessage);
-    }
-
-    
-    /*
-
-    * The function echos a given string
-    * Returns void
-    * Parameters: string
-    */
-    public static void Echo(String _input) {
-        System.out.println("| Echoing input \n| " + _input);
+        scan.close();
     }
 }
