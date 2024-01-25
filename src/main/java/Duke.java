@@ -40,8 +40,8 @@ public class Duke {
             throw new ftException("Error: Please Type Command");
         }
         StringTokenizer st = new StringTokenizer(input);
-        String arg1 = st.nextToken();
-        switch (arg1) {
+        String arg = st.nextToken();
+        switch (arg) {
             case "bye":
                 this.isActive = false;
                 break;
@@ -63,8 +63,11 @@ public class Duke {
             case "event":
                 addEventTask(st);
                 break;
+            case "delete":
+                deleteTask(st);
+                break;
             default:
-                throw new ftException("Unknown Command: " + arg1 + ". Please use a correct command");
+                throw new ftException("Unknown Command: " + arg + ". Please use a correct command");
         }
     }
 
@@ -166,7 +169,7 @@ public class Duke {
             throw new ftException("Error: No index provided");
         }
         int i = Integer.parseInt(st.nextToken());
-        if (i <= myList.size()) {
+        if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.mark();
             System.out.println("    ____________________________________________________________\n"
@@ -183,13 +186,30 @@ public class Duke {
             throw new ftException("Error: No index provided");
         }
         int i = Integer.parseInt(st.nextToken());
-        if (i <= myList.size()) {
+        if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.unmark();
             System.out.println("    ____________________________________________________________\n"
                     + "    OK, I've marked this task as not done yet:\n"
                     + "      " + task.toString()
                     + "\n    ____________________________________________________________\n");
+        } else {
+            throw new ftException("Error: Please provide valid index");
+        }
+    }
+
+    private void deleteTask(StringTokenizer st) throws ftException {
+        if (!st.hasMoreTokens()) {
+            throw new ftException("Error: No index provided");
+        }
+        int i = Integer.parseInt(st.nextToken());
+        if ((0 < i) && (i <= myList.size())) {
+            String task = myList.remove(i - 1).toString();
+            System.out.println("    ____________________________________________________________\n"
+                    + "    Great!, You have completed the task:\n"
+                    + "      " + task
+                    + "\n    Now you have " + myList.size() + " tasks in the list.\n"
+                    + "    ____________________________________________________________\n");
         } else {
             throw new ftException("Error: Please provide valid index");
         }
