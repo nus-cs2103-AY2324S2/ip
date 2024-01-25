@@ -103,24 +103,42 @@ public class Duke {
             }
 
             if(input.startsWith("deadline")) {
+                if (!validateDeadlineInput(input)) {
+                    System.out.println("Sorry, please complete your request by specifying the details of the task!");
+                    printLine();
+                    continue;
+                }
+
                 handleDeadlines(input);
                 printLine();
                 continue;
             }
 
             if(input.startsWith("todo")) {
+                if (!validateTodoInput(input)) {
+                    System.out.println("Sorry, please complete your request by specifying the details of the task!");
+                    printLine();
+                    continue;
+                }
+
                 handleTodos(input);
                 printLine();
                 continue;
             }
 
             if(input.startsWith("event")) {
+                if (!validateEventInput(input)) {
+                    System.out.println("Sorry, please complete your request by specifying the details of the task!");
+                    printLine();
+                    continue;
+                }
+
                 handleEvents(input);
                 printLine();
                 continue;
             }
 
-            System.out.println("Invalid command. Please try again.");
+            System.out.println("I'm sorry, I don't understand! Please type your request again.");
             printLine();
         }
     }
@@ -200,6 +218,20 @@ public class Duke {
         else {
             System.out.println("Invalid input format for event. Please provide a valid date/time.");
         }
+    }
+
+    private static boolean validateDeadlineInput(String input) {
+        String[] splitParts = input.substring(9).split("/by", 2);
+        return splitParts.length > 1;
+    }
+
+    private static boolean validateTodoInput(String input) {
+        return input.length() > 5;
+    }
+
+    private static boolean validateEventInput(String input) {
+        String[] splitParts = input.substring(6).split("/from", 2);
+        return splitParts.length > 1;
     }
 }
 
