@@ -6,12 +6,12 @@ public class Duke {
         ArrayList<Task> tasks = new ArrayList<>();
         String name = "James";
         System.out.println("Hello! I'm " + name + "\n");
-        System.out.println("What can I do for you? \n");
+        System.out.println("What can I do for you?\n");
 
         while(true) {
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to see you again soon! \n");
+                System.out.println("Bye. Hope to see you again soon!\n");
                 break;
             }
 
