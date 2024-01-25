@@ -38,7 +38,9 @@ public class GPT {
             processDeadlineCommand(command, tl);
         } else if (command.startsWith("event")) {
             processEventCommand(command, tl);
-        } else if (command.startsWith("unmark")) {
+        } else if (command.startsWith("delete")) {
+            processDeleteCommand(command, tl); }
+        else if (command.startsWith("unmark")) {
             String[] splitInput = command.split("\\s+");
             if (splitInput[0].equals("unmark") && Integer.valueOf(splitInput[1]) <= tl.size()) {
                 tl.get(Integer.valueOf(splitInput[1]) - 1).unmark();
@@ -51,6 +53,20 @@ public class GPT {
         }else {
             throw new GPTException("HEY YOU mESsEd UP!!! Your input don't make sense to me :-(");
         }
+    }
+    private static void processDeleteCommand(String command, ArrayList<Task> tl) throws GPTException {
+        String[] splitInput = command.split("\\s+");
+        if (splitInput.length < 2) {
+            throw new GPTException("OIII!!! Please specify the task number to delete.");
+        }
+        int taskNumber = Integer.parseInt(splitInput[1]);
+        if (taskNumber <= 0 || taskNumber > tl.size()) {
+            throw new GPTException("OOPS!!! Task number is out of range.");
+        }
+
+        Task deletedTask = tl.remove(taskNumber - 1);
+        System.out.println("Noted. I've removed this task:\n" + deletedTask);
+        System.out.println("Now you have " + tl.size() + " tasks in the list.");
     }
     private static void processTodoCommand(String command, ArrayList<Task> tl) throws GPTException {
         if (command.length() < 5) {
