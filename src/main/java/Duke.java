@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -26,6 +25,44 @@ class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + userInput;
+    }
+}
+
+class Todo extends Task {
+    public Todo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class Event extends Task {
+    private String fromDate;
+    private String toDate;
+
+    public Event(String description, String fromDate, String toDate) {
+        super(description);
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + fromDate + " to: " + toDate + ")";
+    }
+}
+
+class Deadlines extends Task {
+    private String byDate;
+    public Deadlines(String description, String byDate) {
+        super(description);
+        this.byDate = byDate;
+    }
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + byDate + ")";
     }
 }
 
@@ -65,9 +102,25 @@ public class Duke {
                 continue;
             }
 
-            Task task = new Task(input);
-            storage.add(task);
-            System.out.println("added: " + input);
+            if(input.startsWith("deadline")) {
+                handleDeadlines(input);
+                printLine();
+                continue;
+            }
+
+            if(input.startsWith("todo")) {
+                handleTodos(input);
+                printLine();
+                continue;
+            }
+
+            if(input.startsWith("event")) {
+                handleEvents(input);
+                printLine();
+                continue;
+            }
+
+            System.out.println("Invalid command. Please try again.");
             printLine();
         }
     }
@@ -104,6 +157,48 @@ public class Duke {
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println("Invalid task number. Please refer to your to-do list again.");
+        }
+    }
+
+    private static void handleTodos(String input) {
+        String description = input.substring(5).trim();
+        Todo todo = new Todo(description);
+        storage.add(todo);
+        System.out.println("Ok! I've added this task: " + todo);
+        System.out.println("Now you have " + storage.size() + " tasks in your list.");
+    }
+
+    private static void handleDeadlines(String input) {
+        String[] splitParts = input.substring(9).split("/by", 2);
+
+        if (splitParts.length > 1) {
+            String description = splitParts[0].trim();
+            String date = splitParts[1].trim();
+            Deadlines deadline = new Deadlines(description, date);
+            storage.add(deadline);
+            System.out.println("Ok! I've added this task: " + deadline);
+            System.out.println("Now you have " + storage.size() + " tasks in your list.");
+        }
+        else {
+            System.out.println("Invalid input format for deadline. Please provide a valid date/time.");
+        }
+    }
+
+    private static void handleEvents(String input) {
+        String[] splitParts = input.substring(6).split("/from", 2);
+        String[] splitTo = splitParts[1].split("/to", 2);
+
+        if (splitParts.length > 1) {
+            String description = splitParts[0].trim();
+            String fromDate = splitTo[0].trim();
+            String toDate = splitTo[1].trim();
+            Event event = new Event(description, fromDate, toDate);
+            storage.add(event);
+            System.out.println("Ok! I've added this task: " + event);
+            System.out.println("Now you have " + storage.size() + " tasks in your list.");
+        }
+        else {
+            System.out.println("Invalid input format for event. Please provide a valid date/time.");
         }
     }
 }
