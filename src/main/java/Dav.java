@@ -1,9 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Dav {
-    private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    private static List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         greetUser();
@@ -52,6 +52,9 @@ public class Dav {
                 addDeadlineTask(input.substring(8).trim());
             } else if (input.startsWith("event")) {
                 addEventTask(input.substring(5).trim());
+            } else if (input.startsWith("delete")) {
+                int taskIndex = Integer.parseInt(input.substring(6).trim());
+                deleteTask(taskIndex);
             } else if (!input.equalsIgnoreCase("bye")) {
                 throw new IllegalArgumentException("Huh? what's that?");
             }
@@ -107,32 +110,28 @@ public class Dav {
     }
 
     public static void addTask(Task task) {
-        if (taskCount < MAX_TASKS) {
-            tasks[taskCount++] = task;
-            System.out.println(" Got it. I've added this task:");
-            System.out.println("   " + task);
-            System.out.println(" Now you have " + taskCount + " tasks in the list.");
-        } else {
-            System.out.println(" Sorry, task list is full. Cannot add more tasks.");
-        }
+        tasks.add(task);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void listTasks() {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println(" No tasks added yet.");
         } else {
             System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(" " + (i + 1) + "." + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(" " + (i + 1) + "." + tasks.get(i));
             }
         }
     }
 
     public static void markTaskDone(int taskIndex) {
         if (isValidIndex(taskIndex)) {
-            tasks[taskIndex - 1].markAsDone();
+            tasks.get(taskIndex - 1).markAsDone();
             System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("   " + tasks[taskIndex - 1]);
+            System.out.println("   " + tasks.get(taskIndex - 1));
         } else {
             System.out.println(" Invalid task index.");
         }
@@ -140,16 +139,27 @@ public class Dav {
 
     public static void unmarkTaskDone(int taskIndex) {
         if (isValidIndex(taskIndex)) {
-            tasks[taskIndex - 1].unmarkAsDone();
+            tasks.get(taskIndex - 1).unmarkAsDone();
             System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println("   " + tasks[taskIndex - 1]);
+            System.out.println("   " + tasks.get(taskIndex - 1));
+        } else {
+            System.out.println(" Invalid task index.");
+        }
+    }
+
+    public static void deleteTask(int taskIndex) {
+        if (isValidIndex(taskIndex)) {
+            Task removedTask = tasks.remove(taskIndex - 1);
+            System.out.println(" Task removed:");
+            System.out.println("   " + removedTask);
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         } else {
             System.out.println(" Invalid task index.");
         }
     }
 
     public static boolean isValidIndex(int index) {
-        return index >= 1 && index <= taskCount;
+        return index >= 1 && index <= tasks.size();
     }
 
     public static void exit() {
