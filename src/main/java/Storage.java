@@ -25,4 +25,8 @@ public class Storage {
     public void unmarkDone(int index) {
         items.get(index).unmarkDone();
     }
+
+    public void delete(int index) {
+        items.remove(index);
+    }
 }
