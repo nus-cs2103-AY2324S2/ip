@@ -32,11 +32,20 @@ public class Quacky {
                     int space = command.indexOf(' ');
                     int taskNumber = Integer.parseInt(command.substring(space + 1)) - 1;
                     tasks.unmarkCompleteTask(taskNumber);
-                    String message = "Quack! I marked this task as not \n\t" + tasks.printTask(taskNumber);
+                    String message = "Quack! I marked this task as not done\n\t" + tasks.printTask(taskNumber);
                     System.out.println(format(message));
-                } else if (command.startsWith("todo ")) {
+                } else if (command.startsWith("delete ")) {
+                    int space = command.indexOf(' ');
+                    int taskNumber = Integer.parseInt(command.substring(space + 1)) - 1;
+                    tasks.deleteTask(taskNumber);
+                    String message = "Quack! I removed this task:  \n\t" + tasks.printTask(taskNumber)
+                                            + "\nNow you have " + tasks.taskNumber() + " tasks in the list.";
+                    System.out.println(format(message));
+                }
+                else if (command.startsWith("todo ")) {
                     if (command.trim().equals("todo")) {
-                        throw new QuackyException("Quack Quack Quack (todos need a description)");
+                        int space = command.indexOf(' ');
+
                     }
                     String taskDescription = command.substring(5);
                     Task newTask = new Todo(taskDescription);

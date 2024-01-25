@@ -28,6 +28,9 @@ public class TaskList {
         Task task = tasks.get(i);
         task.unmarkDone();
     }
+    public void deleteTask(int i){
+        tasks.remove(i);
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
