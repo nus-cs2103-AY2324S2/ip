@@ -11,7 +11,7 @@ public class Duke {
             }
         }
     }
-    
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm Jojo :)");
         System.out.println("What can I do for you?");
@@ -23,7 +23,8 @@ public class Duke {
             if (userTxt.equals("list")) {
                 createList(listArr);
             } else if (userTxt.startsWith("mark")) {
-
+                Integer taskNum = Integer.valueOf(userTxt.substring(5)) - 1;
+                listArr[taskNum].setDone();
             } else if (userTxt.startsWith("unmark")) {
 
             } else {
