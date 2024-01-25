@@ -53,7 +53,6 @@ public class Chatbot {
       String formattedOutput = String.format("\t%d. %s", (i + 1), this.storage[i]);
       System.out.println(formattedOutput);
     }
-    System.out.println(this.line);
   }
 
   // Level 2 onwards
@@ -64,18 +63,17 @@ public class Chatbot {
     while (true) {
       String input = scanner.nextLine();
       System.out.print(this.line);
-      Task newTask = new Task(input);
-      String[] parts = input.split(" "); // split the input into parts
+      String[] parts = input.split(" "); // split the input
 
       if (input.equals("bye")) {
         System.out.print(this.goodbye);
         break;
-      } else if (input.equals("")) {
-        continue;
+      } else if (input.replaceAll("\\s", "").equals("")) {
+        System.out.println("\tEnter a non-empty command!");
       } else if (input.equals("list")) {
         this.list();
       } else {
-        String firstWord = parts[0]; // check for commands
+        String firstWord = parts[0]; // check for mark/unmark
         if (parts.length == 2 && firstWord.equals("mark")
             || firstWord.equals("unmark")) { // is a command
           try {
@@ -95,14 +93,11 @@ public class Chatbot {
               this.storage[taskNumber - 1].unmark();
             }
           }
-        } else if (parts.length == 2 && firstWord.equals("todo") || parts.length > 2) {
+        } else {
           this.addTask(input);
-        } else { // 1 word
-          System.out.println("\tadded: " + input);
-          this.storage[this.storageFill++] = newTask;
         }
-        System.out.println(this.line);
       }
+      System.out.println(this.line);
     }
 
     scanner.close();
@@ -112,28 +107,53 @@ public class Chatbot {
     String[] parts = input.split(" ", 2);
     String firstWord = parts[0];
     Task newTask = null;
-
-    if (firstWord.equals("todo")) {
-      newTask = new Todo(parts[1]);
-    } else if (firstWord.equals("deadline")) {
-      String[] deadlineParts = parts[1].split(" /by ", 2);
-      newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
-    } else if (firstWord.equals("event")) {
-      // Split the details into description and time parts
-      String[] eventParts = parts[1].split(" /from ", 2);
-      if (eventParts.length < 2) {
-        // Handle error: not enough parts for an event
-      } else {
-        // Further split the second part into start and end times
-        String[] timeParts = eventParts[1].split(" /to ", 2);
-        if (timeParts.length < 2) {
-          // Handle error: not enough parts for time
+    if (parts.length >= 2) {
+      if (firstWord.equals("todo")) {
+        if (parts[1].replaceAll("\\s", "").equals("")) {
+          System.out.println("\tTask should not be empty!");
         } else {
-          // Construct the event string
-          String eventTime = timeParts[0] + " to: " + timeParts[1];
-          newTask = new Event(eventParts[0], eventTime);
+          newTask = new Todo(parts[1]);
+        }
+      } else if (firstWord.equals("deadline")) {
+        String[] deadlineParts = parts[1].split(" /by ", 2);
+        if (deadlineParts.length < 2) {
+          System.out.println("\tSpecify /by xxx!");
+        } else if (deadlineParts[0].replaceAll("\\s", "").equals("")) {
+          System.out.println("\tTask should not be empty!");
+        } else if (deadlineParts[1].replaceAll("\\s", "").equals("")) {
+          System.out.println("\tDue date should not be empty!");
+        } else {
+          newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+        }
+      } else if (firstWord.equals("event")) {
+        // Split the details into description and time parts
+        String[] eventParts = parts[1].split(" /from ", 2);
+        if (eventParts[0].replaceAll("\\s", "").equals("")) {
+          System.out.println("\tTask should not be empty!");
+        } else if (eventParts.length < 2) {
+          // not enough parts for an event
+          System.out.println("\tSpecify /from xxx and /to xxx!");
+        } else {
+          String[] timeParts = eventParts[1].split(" /to ", 2);
+          if (timeParts[0].replaceAll("\\s", "").equals("")) {
+            System.out.println("\tStart time should not be empty!");
+          } else if (timeParts.length < 2) {
+            System.out.println("\tSpecify xxx /to xxx!");
+          } else if (timeParts[1].replaceAll("\\s", "").equals("")) {
+            System.out.println("\tEnd time should not be empty!");
+          } else {
+            // Construct the event string
+            String eventTime = timeParts[0] + " to: " + timeParts[1];
+            newTask = new Event(eventParts[0], eventTime);
+          }
         }
       }
+    } else {
+      System.out.println("\tOOPS!!! That is not a valid command! "
+          + "Try the following: \n"
+          + "\ttodo xxx\n"
+          + "\tdeadline xxx /by xxx\n"
+          + "\tevent xxx /from xxx /to xxx");
     }
 
     if (newTask != null) {

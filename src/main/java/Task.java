@@ -15,11 +15,11 @@ public class Task {
     return String.format("[%s] %s", this.getStatusIcon(), this.description);
   }
 
-  private void setComplete() {
+  public void setComplete() {
     this.isDone = true;
   }
 
-  private void setIncomplete() {
+  public void setIncomplete() {
     this.isDone = false;
   }
 
