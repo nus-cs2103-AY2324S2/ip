@@ -90,6 +90,25 @@ public class Duke {
                     System.out.println("Now you have " + i + " task(s) in your list!");
                     System.out.println(line);
                     break;
+                case "delete":
+                    int toDelete = Integer.valueOf(key[1]) -1;
+                    if(toDelete >=0 && toDelete< i){
+                        Task taskToDelete = lst[toDelete];
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(taskToDelete.toString());
+                        for(int p = toDelete; p< i; p++){
+                            lst[p] = lst[p+1];
+
+                        }
+                        lst[i - 1] = null;
+                        i--;
+                        System.out.println("Now you have " + i + " task(s) in the list.");
+                    } else {
+                        System.out.println("That is an invalid task to delete sir??");
+                    }
+                    System.out.println(line);
+                    break;
+
                 default:
                     System.out.println("Sorry what??, I did not get that!");
 
