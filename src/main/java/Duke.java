@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import Task.Command;
+import Task.DukeException;
 import Task.TaskList;
 
 public class Duke {
@@ -38,8 +39,14 @@ public class Duke {
         System.out.println("____________________________________________________________");
 
       } catch (IOException e) {
-        System.out.println("Sorry, I don't understand that.");
+        System.out.println("____________________________________________________________");
+        System.out.println("Sorry, something went wrong: " + e.getMessage());
+        System.out.println("____________________________________________________________");
         break;
+      } catch (DukeException e) {
+        System.out.println("____________________________________________________________");
+        System.out.println(e.getBotMessage());
+        System.out.println("____________________________________________________________");
       }
 
     }
