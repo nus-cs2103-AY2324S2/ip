@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
+
 public class Duke {
 
     public static class Task {
@@ -142,15 +143,24 @@ public class Duke {
         signalSays("Added: " + input);
     }
 
-    public static void commandAddTask(String type, String input) {
+    public static void commandAddTask(String type, String input) throws DukeException {
+        if (input == "") {
+            throw new DukeException("Looks like you haven't entered a task description!");
+        }
         if (type.equals("todo")) {
             taskList[index] = new ToDo(input, index);
         } else {
             String command[] = input.split("/");
             if (type.equals("deadline")) {
+                if (command.length < 2) {
+                    throw new DukeException("Looks like you haven't added a deadline!");
+                }
                 String deadline = command[1] != null && command[1].length() > 3 ? command[1].substring(3) : command[1];
                 taskList[index] = new Deadline(command[0], deadline, index);
             } else if (type.equals("event")){
+                if (command.length < 3) {
+                    throw new DukeException("Looks like you haven't added a start or end time!");
+                }
                 String start = command[1] != null && command[1].length() > 5 ? command[1].substring(5): command[1];
                 String end = command[2] != null && command[2].length() > 3 ? command[2].substring(3) : command[2];
                 taskList[index] = new Event(command[0], start, end, index);
@@ -181,6 +191,13 @@ public class Duke {
             System.out.println((i + 1) + ". " + taskList[i].toString());
         }
         System.out.println(div);
+    }
+    public static void commandBlah() throws DukeException {
+        throw new DukeException("All words are made up, but this one seems more nonsensical than usual. Try something else!");
+    }
+
+    public static void commandSomethingelse() throws DukeException {
+        throw new DukeException("Haha, very funny. Nice try my guy!");
     }
 
 
@@ -258,9 +275,25 @@ public class Duke {
                         commandAdded(userInput);
                     }
                 }
-            } else if (inputArray.length > 1 && (inputArray[0].equals("todo") || inputArray[0].equals("deadline") || inputArray[0].equals("event"))) {
+            } else if (inputArray[0].equals("todo") || inputArray[0].equals("deadline") || inputArray[0].equals("event")) {
                 String task = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
-                commandAddTask(inputArray[0], task);
+                try {
+                    commandAddTask(inputArray[0], task);
+                } catch (DukeException e) {
+                    signalSays("WHOOPSIE! " + e.getMessage());
+                }
+            } else if (userInput.equals("blah")) {
+                try {
+                    commandBlah();
+                } catch (DukeException e) {
+                    signalSays(e.getMessage());
+                }
+            } else if (userInput.equals("something else")) {
+                try {
+                    commandSomethingelse();
+                } catch (DukeException e) {
+                    signalSays(e.getMessage());
+                }
             } else {
                 commandAdded(userInput);
             }
@@ -269,5 +302,11 @@ public class Duke {
         System.out.println("Bye! Hope you come back soon :D");
         System.out.println(div);
 
+    }
+}
+
+class DukeException extends Exception {
+    public DukeException(String message) {
+        super(message);
     }
 }
