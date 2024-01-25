@@ -132,6 +132,12 @@ public class Duke {
                         break;
                     }
                     System.out.println("Total task count: " + tasks.size() + ".\n" + gap);
+                } else if (identifier.equals("delete")) {
+                    int delIndex = Integer.parseInt(st.nextToken()) - 1;
+                    Task toDelete = tasks.remove(delIndex);
+                    System.out.println(gap + "Acknowledged. The following task has been removed:\n"
+                                      + toDelete.toString());
+                    System.out.println("\nTasks remaining: " + tasks.size() + ".\n" + gap);
                 } else {
                     throw new DukeException("I do not recognize that command.\n"
                                            + "Please enter a valid command.");
