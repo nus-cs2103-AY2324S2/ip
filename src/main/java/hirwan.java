@@ -33,18 +33,29 @@ public class hirwan {
                 String typestr = "";
                 if (todo) {
                     typestr = "[T]";
-                    System.out.println(" Got it. I've added this task: ");
+                    System.out.println("Got it. I've added this task: \n  " + typestr + "[ ] " + text.substring(5));
                     List.add(count + ". " + typestr + "[ ] " + text.substring(5));
                     type.add(typestr);
                 } else if (deadline) {
                     typestr = "[D]";
-                    System.out.println(" Got it. I've added this task: ");
-                    List.add(count + ". " + typestr + "[ ] " + text.substring(9));
+                    String delimiter = " /by";
+                    int Index = text.indexOf(delimiter);
+                    String Day = text.substring(Index + 3);
+                    String item =  text.substring(9, Index);
+                    List.add(count + ". " + typestr + "[ ] " + item + " (by: " + Day + ")");
+                    System.out.println("Got it. I've added this task:\n  " + typestr + "[ ] " + item + " (by: " + Day + ")");
                     type.add(typestr);
                 } else if (event) {
                     typestr = "[E]";
-                    System.out.println(" Got it. I've added this task: ");
-                    List.add(count + ". " + typestr + "[ ] " + text.substring(6));
+                    String delimiterstart = " /from";
+                    String delimiterend = " /to";
+                    int Indexstart = text.indexOf(delimiterstart);
+                    int Indexend = text.indexOf(delimiterend);
+                    String start = text.substring(Indexstart + 7, Indexend);
+                    String end = text.substring(Indexend + 5);
+                    String item =  text.substring(6, Indexstart);
+                    List.add(count + ". " + typestr + "[ ] " + item + " (from: " + start + " to: " + end + ")");
+                    System.out.println("Got it. I've added this task:\n  " + typestr + "[ ] " + item + " (from: " + start + " to: " + end + ")");
                     type.add(typestr);
                 }
                 System.out.println("Now you have " + count + " tasks in the list.");
