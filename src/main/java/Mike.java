@@ -17,7 +17,7 @@ public class Mike {
                 String userInput = ui.scanInput();
                 ui.displayLine();
                 List<Token> tokens = new CommandScanner(userInput).scanTokens();
-                // System.out.println(tokens);
+                System.out.println(tokens);
                 Command command = new CommandParser(tokens).parse();
                 command.execute(taskList, ui);
                 if (command.isExit()) {
