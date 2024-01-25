@@ -4,7 +4,7 @@ import java.util.Scanner;
  * The main class representing my chatbot application.
  */
 public class Rochin {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RochinException {
         Chatbot chatbot = new Chatbot();
         chatbot.start();
     }
@@ -28,7 +28,7 @@ class Chatbot {
     /**
      * Start the chat.
      */
-    public void start() {
+    public void start() throws RochinException {
         greetMessage();
         processCommands();
         exitMessage();
@@ -47,7 +47,7 @@ class Chatbot {
         System.out.println("____________________________________________________________");
     }
 
-    private void processCommands() {
+    private void processCommands() throws RochinException {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -158,12 +158,15 @@ class Chatbot {
         /**
          * Processe the user command.
          */
-        public void process() {
+        public void process() throws RochinException {
             if (!isExitCommand) {
                 if (command.startsWith("list")) {
                     listTasks();
                 } else if (command.startsWith("todo")) {
                     String description = command.substring("todo".length()).trim();
+                    if (description.isEmpty()) {
+                        throw new RochinException("OOPS!!! The description of a todo cannot be empty.");
+                    }
                     addTask(new TodoTask(description));
                 } else if (command.startsWith("deadline")) {
                     String descriptionWithDate = command.substring("deadline".length()).trim();
@@ -178,9 +181,7 @@ class Chatbot {
                     int taskIndex = getTaskIndex("unmark");
                     unmarkTaskAsDone(taskIndex);
                 } else {
-                    System.out.println("    ____________________________________________________________");
-                    System.out.println("     Invalid command. Please enter a valid command.");
-                    System.out.println("    ____________________________________________________________");
+                    throw new RochinException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
         }
@@ -308,14 +309,14 @@ class DeadlineTask extends Task {
      * @param descriptionWithDate description with date.
      * @return A new deadline task.
      */
-    public static DeadlineTask createTask(String descriptionWithDate) {
+    public static DeadlineTask createTask(String descriptionWithDate) throws RochinException {
         String[] parts = descriptionWithDate.split("/by");
         if (parts.length == 2) {
             String description = parts[0].trim();
             String by = parts[1].trim();
             return new DeadlineTask(description, by);
         } else {
-            return null;
+            throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task.");
         }
     }
 
@@ -350,7 +351,7 @@ class EventTask extends Task {
      * @param descriptionWithDate description with date.
      * @return A new event task.
      */
-    public static EventTask createTask(String descriptionWithDate) {
+    public static EventTask createTask(String descriptionWithDate) throws RochinException {
         String[] parts = descriptionWithDate.split("/from");
         if (parts.length == 2) {
             String description = parts[0].trim();
@@ -361,7 +362,7 @@ class EventTask extends Task {
                 return new EventTask(description, from, to);
             }
         }
-        return null;
+        throw new RochinException("OOPS!!! Please provide a description, start time, and end time for an event task.");
     }
 
     /**
@@ -372,5 +373,20 @@ class EventTask extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}
+
+/**
+ * Represents exceptions specific to Rochin.
+ */
+class RochinException extends Exception {
+
+    /**
+     * Constructs an exception with the specified error message.
+     *
+     * @param message The error message.
+     */
+    public RochinException(String message) {
+        super(message);
     }
 }
