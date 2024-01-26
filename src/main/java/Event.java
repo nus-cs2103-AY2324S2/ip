@@ -8,6 +8,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String isDone, String description, String start, String end) {
+        super(isDone, description);
+        this.start = start;
+        this.end = end;
+    }
+
     public String getStart() {
         return this.start;
     }
