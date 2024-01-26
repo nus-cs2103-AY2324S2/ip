@@ -1,13 +1,10 @@
 blah
+todo x
 todo
+todon
 list
-todo a
-deadline b /by 2000
-event c /from 8am /to 9pm
+event y /from 1 /to 2
+event   /from 2 /to 3
+event i /from  /to 4
+event j /fron 4 /to 5
 list
-mark a
-mark 1
-2 mark
-mark 3
-list
-bye

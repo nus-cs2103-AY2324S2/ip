@@ -5,31 +5,26 @@ What shall we do today?
 Sorry, I don't understand what you mean
 
 ---------------------------------------------------------
+I have added this todo: 1 [T][ ] x
+---------------------------------------------------------
 DukeException: Hmmm, that todo is empty!
 ---------------------------------------------------------
+DukeException: I have no idea what that means!
 ---------------------------------------------------------
----------------------------------------------------------
-Done! I have added this to the list:[D][ ] b  (by:  2000)
- There are now 1 items
----------------------------------------------------------
-Done! I have added this to the list:[E][ ] c  (from:  8am  to:  9pm)
- There are now 2 items
----------------------------------------------------------
-1.[D][ ] b  (by:  2000)
-2.[E][ ] c  (from:  8am  to:  9pm)
----------------------------------------------------------
-Sorry, I don't understand what you mean
+Sure! Here is the list:
 
+1.[T][ ] x
 ---------------------------------------------------------
-Alright! Task has been done and dusted:
-[D][X] b  (by:  2000)
+I have added this event: 2 [E][ ] y  (from:  1  to:  2)
 ---------------------------------------------------------
-Sorry, I don't understand what you mean
+DukeException: Missing something?
+---------------------------------------------------------
+DukeException: Missing something?
+---------------------------------------------------------
+DukeException: Did you make a mistake?
+---------------------------------------------------------
+Sure! Here is the list:
 
+1.[T][ ] x
+2.[E][ ] y  (from:  1  to:  2)
 ---------------------------------------------------------
-Sorry, but I couldn't find that task!
----------------------------------------------------------
-1.[D][X] b  (by:  2000)
-2.[E][ ] c  (from:  8am  to:  9pm)
----------------------------------------------------------
-Alright. See you soon!!
