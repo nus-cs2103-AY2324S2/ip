@@ -1,0 +1,12 @@
+blah
+list
+todo a
+deadline b /by 2000
+event c /from 8am /to 9pm
+list
+mark a
+mark 1
+2 mark
+mark 3
+list
+bye

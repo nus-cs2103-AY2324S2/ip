@@ -1,9 +1,11 @@
 import  java.util.Scanner;
 import java.util.regex.PatternSyntaxException;
 
-public class Duke {
+public class Bit {
 
     public static int total = 0;
+
+    public static String seperator = "---------------------------------------------------------";
     public static void main(String[] args) {
 
         System.out.println("Hi! This is Bit!\nWhat shall we do today?\n");
@@ -12,6 +14,7 @@ public class Duke {
 
 
         while(true) {
+            System.out.println(seperator);
             String input = scanner.nextLine();
             if (input.equals("bye")) {
                 break;
@@ -41,6 +44,8 @@ public class Duke {
 
             }
 
+
+
         }
         System.out.println("Alright. See you soon!");
     }
@@ -62,11 +67,10 @@ public class Duke {
             if (parts[0].equals("event")) {
                 try{
                     String[] compo = parts[1].split("/to");
-                    System.out.println(compo[0]);
                     String end = compo[1];
                     String[] components = compo[0].split("/from");
                     String start = components[1];
-                    list[total] = new Event(parts[0], start, end);
+                    list[total] = new Event(components[0], start, end);
                     System.out.println("Done! I have added this to the list:" + list[total].toString()
                             + "\n There are now " + (total + 1) + " items");
                     total++;
