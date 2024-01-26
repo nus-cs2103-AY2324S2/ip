@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 public class TaskList {
     private final List<Task> tasks;
+    private final Storage storage;
 
-    public TaskList() {
+    public TaskList(Storage storage) {
         this.tasks = new ArrayList<>();
+        this.storage = storage;
     }
 
     public void addTask(Task task) {
@@ -43,6 +46,13 @@ public class TaskList {
      */
     public boolean validIndex(int index) {
         return index >= 1 && index <= this.tasks.size();
+    }
+
+    public void save() throws IOException {
+        this.storage.empty();
+        for (Task task : this.tasks) {
+            this.storage.writeLine(task.toCsv());
+        }
     }
 
     @Override
