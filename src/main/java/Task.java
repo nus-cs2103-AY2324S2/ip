@@ -1,10 +1,13 @@
-public abstract class Task {
-    private boolean done;
-    private String taskName;
 
-    public Task(String taskName) {
+public abstract class Task {
+    private Boolean done;
+    private String taskName;
+    protected String identifier;
+
+    public Task(String taskName, Boolean done) {
         this.taskName = taskName;
-        this.done = false;
+        this.done = done;
+        this.identifier = "";
     }
 
     public void markDone() {
@@ -15,9 +18,19 @@ public abstract class Task {
         done = false;
     }
 
+    public String getIdentifier() {
+        return identifier;
+    }
+
     @Override
     public String toString() {
-        return String.format("[%s] %s", done ? "X" : " ", taskName);
+        return String.format("[%s] [%s] %s",identifier,  done ? "X" : " ", taskName);
+    }
+
+    public String[] encode() {
+        return new String[]{identifier, done.toString() , taskName};
     }
 
 }
+
+
