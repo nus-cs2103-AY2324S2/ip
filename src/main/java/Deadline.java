@@ -8,6 +8,12 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String textFormattedOutput() {
+        int intIsDone = isDone ? 1 : 0;
+        return String.format("D | %d | %s | %s", intIsDone, description, by);
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }

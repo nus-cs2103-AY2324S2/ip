@@ -19,7 +19,7 @@ public class Duke {
     private static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description cannot be empty??";
     private static final String NUMBER_FORMAT_ERROR_MESSAGE = "Invalid task number format! Please enter a valid number.";
     private static final String NO_SUCH_TASK_NUMBER_ERROR_MESSAGE = "We do not have this task number!!";
-    // private static final String FAILED_DIR_CREATION_ERROR_MESSAGE = "Failed to create directory";
+    private static final String FAILED_WRITE_TO_FILE_ERROR_MESSAGE = "Failed to write to file";
     private static final String RELATIVE_DATA_DIRECTORY_PATH = "./data";
     private static final String RELATIVE_OUTPUT_TXT_FILE_PATH = "./data/output.txt";
 
@@ -27,6 +27,9 @@ public class Duke {
     private static ArrayList<Task> taskList;
 
     public static void main(String[] args) throws DukeException {
+        // initialisation of data dir and output file
+        init();
+
         taskList = new ArrayList<>();
 
         // start
@@ -41,10 +44,6 @@ public class Duke {
 
     public static void runByteBuddy(ArrayList<Task> taskList) throws DukeException {
         Scanner sc = new Scanner(System.in);
-        File dataDir = new File(RELATIVE_DATA_DIRECTORY_PATH);
-        File outputTxt = new File(RELATIVE_OUTPUT_TXT_FILE_PATH);
-        createOutputDirectoryAndFile(dataDir, outputTxt);
-
 
         // repeating user commands
         label:
@@ -84,9 +83,12 @@ public class Duke {
                 printWithSolidLineBreak(e.getMessage());
             }
         }
+
+        // closing
+        sc.close();
     }
 
-    private static void createOutputDirectoryAndFile(File dataDir, File outputTxt) throws DukeException {
+    public static void createOutputDirectoryAndFile(File dataDir, File outputTxt) throws DukeException {
         try {
             if (!dataDir.isDirectory()) {
                 dataDir.mkdirs();
@@ -101,7 +103,13 @@ public class Duke {
         }
     }
 
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+    public static void init() throws DukeException {
+        File dataDir = new File(RELATIVE_DATA_DIRECTORY_PATH);
+        File outputTxt = new File(RELATIVE_OUTPUT_TXT_FILE_PATH);
+        createOutputDirectoryAndFile(dataDir, outputTxt);
+    }
+
+    public static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
@@ -119,8 +127,11 @@ public class Duke {
             }
             String markToPrint = taskList.get(markIndex).markAsDone();
             printWithSolidLineBreak(markToPrint);
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
             throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
+        } catch (IOException e) {
+            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
 
     }
@@ -133,8 +144,11 @@ public class Duke {
             }
             String unmarkToPrint = taskList.get(unmarkIndex).unmarkAsDone();
             printWithSolidLineBreak(unmarkToPrint);
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
             throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
+        } catch (IOException e) {
+            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
     }
 
@@ -146,18 +160,26 @@ public class Duke {
             }
             Task removed = taskList.remove(deleteIndex);
             printTaskRemovedWithSolidLineBreak(removed);
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
             throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
+        } catch (IOException e) {
+            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
     }
 
     public static void todo(String info) throws DukeException {
-        if (info.isEmpty()) {
-            throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+        try {
+            if (info.isEmpty()) {
+                throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+            }
+            Task todo = new Todo(info);
+            taskList.add(todo);
+            printTaskAddedWithSolidLineBreak(todo);
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
+        } catch (IOException e) {
+            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
-        Task todo = new Todo(info);
-        taskList.add(todo);
-        printTaskAddedWithSolidLineBreak(todo);
     }
 
     public static void deadline(String info) throws DukeException {
@@ -169,8 +191,11 @@ public class Duke {
             Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1).substring(3));
             taskList.add(deadline);
             printTaskAddedWithSolidLineBreak(deadline);
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The correct usage is: " + DEADLINE_FORMAT);
+        } catch (IOException e) {
+            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
     }
 
@@ -183,8 +208,11 @@ public class Duke {
             Task event = new Event(eventInfo.get(0), eventInfo.get(1).substring(5), eventInfo.get(2).substring(3));
             taskList.add(event);
             printTaskAddedWithSolidLineBreak(event);
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The correct usage is: " + EVENT_FORMAT);
+        } catch (IOException e) {
+            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
 
     }
@@ -225,5 +253,13 @@ public class Duke {
             System.out.println("\t " + (i+1) + "." + taskList.get(i));
         }
         System.out.println("\t" + solidLineBreak);
+    }
+
+    public static String TaskListFormattedStringOutput (ArrayList<Task> taskList) {
+        StringBuilder s = new StringBuilder();
+        for (Task task : taskList) {
+            s.append(task.textFormattedOutput()).append("\n");
+        }
+        return s.toString();
     }
 }

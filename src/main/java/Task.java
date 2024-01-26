@@ -21,6 +21,10 @@ public class Task {
         return (isDone ? "✓" : "✕"); // mark done task with ✓
     }
 
+    public String textFormattedOutput() {
+        return "";
+    }
+
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
