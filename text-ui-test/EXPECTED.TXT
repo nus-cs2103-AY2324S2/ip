@@ -2,6 +2,7 @@ Hello! I'm Refinement
 What can I do for you?
 
 
+Could not load class file for reason: OOPS!!! Error reading duke logs file:duke.ser (No such file or directory)
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
@@ -11,28 +12,28 @@ Here are the tasks in your list:
 
 
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Dec 20 2019)
 Now you have 2 tasks in the list.
 
 Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[E][ ] project meeting (from: Dec 2 2019 to: Dec 2 2019)
 Now you have 3 tasks in the list.
 
 Nice! I've marked this task as done:
-[D][X] return book (by: Sunday)
+[D][X] return book (by: Dec 20 2019)
 
 Here are the tasks in your list:
 1. [T][ ] borrow book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][X] return book (by: Dec 20 2019)
+3. [E][ ] project meeting (from: Dec 2 2019 to: Dec 2 2019)
 
 
 OK, I've marked this task as not done yet:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Dec 20 2019)
 
 
 Noted. I've removed this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Dec 20 2019)
 Now you have 2 tasks in the list.
 
 
