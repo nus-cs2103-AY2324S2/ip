@@ -25,7 +25,7 @@ public class Duke {
                 } else if (userInput.startsWith("mark")) {
                     Duke.items.mark(Integer.parseInt(userInput.substring(5)));
                 } else if (userInput.startsWith("todo")) {
-                    Duke.items.add(new Todo(userInput.substring(6)));
+                    Duke.items.add(new Todo(userInput.substring(5)));
                 } else if (userInput.startsWith("deadline")) {
                     String[] inputs = userInput.substring(8).split("/by", 2);
                     if (inputs.length != 2) {
@@ -43,6 +43,8 @@ public class Duke {
                                     inputs[2].substring(2)));
                 } else if (userInput.startsWith("add")) {
                     Duke.items.add(new Task(userInput));
+                } else if (userInput.startsWith("delete")) {
+                    Duke.items.delete(Integer.parseInt(userInput.substring(7)));
                 } else {
                     throw new InvalidCmd(userInput);
                 }
