@@ -1,12 +1,9 @@
 import java.util.ArrayList;
 import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class MissMinutes {
     private Ui ui;
+    private Storage storage;
     private ArrayList<Task> tasks;
 
     public enum CommandType {
@@ -35,8 +32,9 @@ public class MissMinutes {
         }
     }
 
-    public MissMinutes() {
+    public MissMinutes(String filePath) {
         this.ui = new Ui();
+        this.storage = new Storage(filePath);
         this.tasks = new ArrayList<Task>(100);
     }
 
@@ -111,6 +109,15 @@ public class MissMinutes {
 
     public void run() {
         ui.greet();
+
+        try {
+            this.tasks = storage.loadTasks();
+        } catch (IOException err) {
+            ui.sendMsg("No storage found, creating empty task list");
+        } catch (ClassNotFoundException err) {
+            ui.sendMsg(err.getMessage());
+        }
+
         while (true) {
             String request = ui.getInput();
             CommandType cmdType = parseCommand(request);
@@ -160,7 +167,7 @@ public class MissMinutes {
 
             if (tasksChanged) {
                 try {
-                    this.saveTasks();
+                    storage.saveTasks(tasks);
                 } catch (IOException err) {
                     ui.sendMsg("Failed to save `tasks.bin`: " + err.getMessage());
                 }
@@ -168,38 +175,8 @@ public class MissMinutes {
         }
     }
 
-    private void saveTasks() throws IOException {
-        FileOutputStream fileOut = new FileOutputStream("tasks.bin");
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(tasks);
-        out.close();
-        fileOut.close();
-    }
-
-    private void loadTasks() throws IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream("tasks.bin");
-        ObjectInputStream out = new ObjectInputStream(fileIn);
-
-        @SuppressWarnings("unchecked")
-        ArrayList<Task> tasks = (ArrayList<Task>) out.readObject();
-
-        this.tasks = tasks;
-
-        out.close();
-        fileIn.close();
-    }
-
     public static void main(String[] args) {
-        MissMinutes mm = new MissMinutes();
-
-        try {
-            mm.loadTasks();
-        } catch (IOException err) {
-            mm.ui.sendMsg("No `tasks.bin` found, creating empty task list");
-        } catch (ClassNotFoundException err) {
-            mm.ui.sendMsg(err.getMessage());
-        }
-
+        MissMinutes mm = new MissMinutes("tasks.bin");
         mm.run();
     }
 }
