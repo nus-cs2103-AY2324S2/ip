@@ -45,8 +45,9 @@ public class Ui {
 
     public void listTask() {
         System.out.println(line);
+        System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= this.taskList.getSize(); i++) {
-            System.out.println("    " + i + ". "  + this.taskList.getTask(i));
+            System.out.println("    " + i + ". "  + this.taskList.getTask(i - 1));
         }
         System.out.println(line);
     }
