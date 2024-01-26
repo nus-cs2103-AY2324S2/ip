@@ -1,12 +1,12 @@
 todo read book
 mark 1
-deadline return book /by June 6th
+deadline return book /by 2002/09/30
 event project meeting /from Aug 6th 2pm /to 4pm
 todo join sports club
 todo borrow book
 mark 4
 unmark 3
-deadline return book /by Sunday
+deadline return book /by 2002/08/24
 event project meeting /from Mon 2pm /to 4pm
 list
 bye

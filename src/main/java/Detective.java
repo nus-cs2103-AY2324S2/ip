@@ -121,9 +121,11 @@ public class Detective {
                         case "deadline":
                             Deadline deadlineTask;
                             try {
-                                String[] ddlInfo = inputContent[1].split(" /");
+                                String[] ddlInfo = inputContent[1].split(" /by ", 2);
                                 String ddlName = ddlInfo[0];
-                                String ddlBy = ddlInfo[1].split("by ")[1];
+                                String ddlBy = ddlInfo[1];
+                                System.out.println(ddlName);
+                                System.out.println(ddlBy);
                                 deadlineTask = new Deadline(ddlName, ddlBy);
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 handleException("What is the deadline?");

@@ -32,8 +32,9 @@ public class Task {
                 return isMark(new ToDo(inputContent[1]), inputContent[0]);
             case 'D':
                 String ddlName = inputContent[1].split(" \\| by: ")[0];
-                String ddlBy = inputContent[1].split(" \\| by: ")[1];
-                return isMark(new Deadline(ddlName, ddlBy), inputContent[0]);
+                String[] ddlBy = inputContent[1].split(" \\| by: ")[1].split("/");
+                String ddlDate = ddlBy[2] + "/" + ddlBy[1] + "/" + ddlBy[0];
+                return isMark(new Deadline(ddlName, ddlDate), inputContent[0]);
             case 'E':
                 String evtName = inputContent[1].split(" \\| from: ")[0];
                 String evtFrom = inputContent[1].split(" \\| from: ")[1].split(" \\| to: ")[0];
