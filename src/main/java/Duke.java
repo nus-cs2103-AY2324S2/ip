@@ -160,8 +160,8 @@ public class Duke {
 
         public static String greetingString(String name){
             String msg = "";
-            msg += String.format("%35s", "૮ ˶ᵔ ᵕ ᵔ˶ ა\n");
-            msg += "heyo! my name is " + name + "\n";
+            msg += String.format("%30s", "（„• ֊ •„)♡\n");
+            msg += "heyo! my name is ✦" + name + "✦\n";
             msg += "What would you like for me to do?\n";
             return msg;
         }
@@ -170,18 +170,21 @@ public class Duke {
             return
                     "⠀               />    フ\n" +
                             "               | 　_  _|\n" +
-                            "             ／` ミ＿_xノ\n" +
+                            "           ___/` ミ＿_xノ\n" +
                             "          /　　　     |\n" +
                             "         /　 ヽ　     ﾉ\n" +
                             "        │　    |　|　|\n" +
-                            "    ／￣|　    |　|　|\n" +
+                            "     /￣|　    |　|　|\n" +
                             "    | (￣ ヽ＿ヽ_)__)\n" +
-                            "    ＼二つ⠀⠀\n";
+                            "    ＼二二)⠀⠀\n";
         }
+
+
+
+
         public static String signoffString(){
             String msg = "";
             msg += "okay then, bye\n";
-//            msg += String.format("%40s", "( •̯́ ^ •̯̀)]\n");
             msg += sad_cat_img();
 
             return msg;
