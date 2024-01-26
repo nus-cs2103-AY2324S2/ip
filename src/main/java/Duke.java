@@ -15,10 +15,6 @@ public class Duke {
         }
         scanner.close();
         System.out.println("Bye. Hope to see you again soon!");
-
-
         System.exit(0);
     }
-
-
 }

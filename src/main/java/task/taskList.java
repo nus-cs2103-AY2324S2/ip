@@ -12,8 +12,10 @@ public class taskList {
 
     public void addTask(Task task) {
         listOfTasks.add(task);
-        System.out.println("Got it. I've added this task:\n" + task
-                + "\n" + "Now you have " + getSize() + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n"
+                + task + "\n"
+                + "Now you have " + getSize()
+                + " tasks in the list.");
     }
 
     public int getSize() {
