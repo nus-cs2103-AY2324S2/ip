@@ -3,7 +3,16 @@ package duke;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Represents a command that can be executed by the user.
+ */
 public abstract class Command {
+    /**
+     * Executes the command.
+     * 
+     * @param ui The user interface where the command is executed.
+     * @throws DukeException If an error occurs while executing the command.
+     */
     public abstract void execute(UI ui) throws DukeException;
 }
 

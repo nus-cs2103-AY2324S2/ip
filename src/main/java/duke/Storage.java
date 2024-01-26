@@ -7,10 +7,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+/**
+ * Represents the disk storage for the task list.
+ */
 public class Storage {
     private TaskList taskList;
     private File file;
 
+    /**
+     * Creates a new Storage object.
+     * 
+     * @param filePath The path to the file that stores the task list.
+     * @throws DukeException If the file does not exist and cannot be created.
+     */
     public Storage(String filePath) throws DukeException {
         this.file = new File(filePath);
         if (!this.file.exists()) {
@@ -23,6 +32,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the task list to the file.
+     * Assumption: load should be called before save.
+     * 
+     * @throws DukeException If there is an error writing to file.
+     */
     public void save() throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(file);
@@ -37,6 +52,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task list from the file.
+     * 
+     * @return The task list.
+     * @throws DukeException If there is an error reading from file.
+     */
     public TaskList load() throws DukeException {
         this.taskList = new TaskList();
         try {

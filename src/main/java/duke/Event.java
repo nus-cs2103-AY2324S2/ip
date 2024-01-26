@@ -3,10 +3,21 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
 
+    /**
+     * Creates an event task.
+     * 
+     * @param description Description of the task.
+     * @param fromDate Start date of the task.
+     * @param toDate End date of the task.
+     * @throws DukeException If the start or end date is not in the correct format.
+     */
     public Event(String description, String fromDate, String toDate) throws DukeException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

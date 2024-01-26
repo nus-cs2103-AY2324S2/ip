@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Creates a command object from a command string.
+ */
 public class CommandCreator {
     private TaskList taskList;
 
@@ -49,6 +52,13 @@ public class CommandCreator {
         throw new DukeException("OOPS!!! The argument /" + name + " is missing.");
     }
 
+    /**
+     * Creates a command object from a command string.
+     * 
+     * @param command The command string.
+     * @return The command object.
+     * @throws DukeException If the command string is invalid.
+     */
     public Command createCommand(String command) throws DukeException {
         if (command.equals("bye")) {
             return new ByeCommand();
