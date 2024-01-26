@@ -68,15 +68,17 @@ public class Duke {
      */
     private static Command commandDistributor(String input) throws DukeException{
         String[] inputs = input.split(" ");
-        if (input.equals("bye")) {
+        if (input.equals("bye") || input.equals("exit") || input.equals("quit")) {
             return new Bye();
-        } else if (input.equals("list")) {
+        } else if (input.equals("list") || input.equals("ls")) {
             return new List();
+        } else if (input.equals("current") || input.equals("curr")) {
+            return new CurrentTask();
         } else if (inputs[0].equals("mark") && inputs.length==2) {
             return new Mark(Integer.parseInt(inputs[1])-1);
         } else if (inputs[0].equals("unmark") && inputs.length==2) {
             return new Unmark(Integer.parseInt(inputs[1])-1);
-        } else if (inputs[0].equals("delete") && inputs.length==2) {
+        } else if ((inputs[0].equals("delete") || inputs[0].equals("remove")) && inputs.length==2) {
             return new Delete(Integer.parseInt(inputs[1])-1);
         } else {
             return new Add(input);

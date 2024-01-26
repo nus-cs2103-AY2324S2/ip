@@ -65,4 +65,16 @@ public class Event extends Task{
     public String getTo() {
         return this.to.toString();
     }
+
+    /**
+     * Whether we have to start doing it
+     * @param current current time
+     * @return yes/no
+     */
+    public boolean isTimeForStart(LocalDate current) {
+        if (isDone) {
+            return false;
+        }
+        return current.compareTo(to)<=0 && current.compareTo(from)>=0;
+    }
 }

@@ -51,4 +51,15 @@ public class Deadline extends Task{
     public String getBy() {
         return this.by.toString();
     }
+
+    /**
+     * Whether we have to start doing it
+     * @param current current time
+     * @return yes/no
+     */
+    public boolean isTimeForStart(LocalDate current) {
+        if (isDone)
+            return false;
+        return current.compareTo(by)<=0;
+    }
 }
