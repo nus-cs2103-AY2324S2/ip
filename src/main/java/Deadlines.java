@@ -1,13 +1,16 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Deadlines extends Task {
 
-  String deadline;
+  LocalDateTime deadline;
 
-  public Deadlines (String description, String deadline) {
+  public Deadlines (String description, LocalDateTime deadline) {
     super(description, "[D]");
     this.deadline = deadline;
   }
 
-  public String getDeadline() {
+  public LocalDateTime getDeadline() {
     return this.deadline;
   }
 
@@ -16,12 +19,12 @@ public class Deadlines extends Task {
     String complete_status = "F";
     if (this.isDone) {complete_status = "T";}
     return "D" + "," + complete_status + ","
-      + this.description + "," + this.deadline;
+      + this.description + "," + this.getDeadline().toString();
   }
 
   @Override
   public String getTimeData() {
-    return "(by: " + this.getDeadline() + ")";
+    return "(by: " + this.decomposeDateTime(this.deadline) + ")";
   }
 
 }
