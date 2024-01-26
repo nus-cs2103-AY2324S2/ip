@@ -17,6 +17,8 @@ public class Task {
         return isDone;
     }
 
+    public String type() { return type; }
+
     public void mark() {
         isDone = true;
     }
