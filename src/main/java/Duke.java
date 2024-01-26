@@ -1,9 +1,13 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
     // The scanner the chatbot uses to scan users' inputs.
     Scanner sc = new Scanner(System.in);
+
+    // The task list.
+    ArrayList<String> taskList = new ArrayList<>();
 
     // A horizontal line.
     private final String horizontalLine = "____________________________________________________________";
@@ -32,21 +36,22 @@ public class Duke {
         printHorizontalLine();
     }
 
-    // Echos the command.
-    private void echo(String command) {
+    // Adds the task to the task list.
+    private void addTask(String task) {
+        taskList.add(task);
         printHorizontalLine();
-        printWithIndent(command);
+        printWithIndent(" added: " + task);
         printHorizontalLine();;
     }
 
-    // Echos the users' commands until bye has been input.
-    private void echoUntilBye() {
+    // Adds tasks to task list until bye has been input.
+    private void addTaskUntilBye() {
         // Waits for command from user
         String command = sc.nextLine();
 
-        // While user hasn't input bye, echo command
+        // While user hasn't input bye, add command to command list
         while (!Objects.equals(command, "bye")) {
-            echo(command);
+            addTask(command);
             command = sc.nextLine();
         }
     }
@@ -54,7 +59,7 @@ public class Duke {
     // Runs the chatbot.
     private void run() {
         greet();
-        echoUntilBye();
+        addTaskUntilBye();
         bye();
     }
 
