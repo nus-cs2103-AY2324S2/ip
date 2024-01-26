@@ -2,9 +2,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Path;
 
 public class FileManager {
 
@@ -12,16 +14,21 @@ public class FileManager {
 
   public FileManager(String path) {
     String wd = System.getProperty("user.dir");
-    this.path = wd.toString() + "/" + path;
-    //System.out.println("Creating file at: " + this.path);
+    try {
+      // Create directory
+      Path dir_= Paths.get(wd + "/" + path);
+      //System.out.println("Attempting to create: " + dir_);
+      Files.createDirectories(dir_);
+      this.path = wd + "/" + path + "/log.txt";
+      //System.out.println("Creating file at: " + this.path);
+    } catch (IOException e) {
+      System.out.println("Problem setting up file manager: " + e.getMessage());
+    }
   }
   public void createLog() {
     File log_file = new File(this.path);
     try {
       boolean response = log_file.createNewFile();
-      if (response) {
-        System.out.println("No original log was found, a new file has been created.");
-      }
     } catch (IOException e) {
       System.out.println("Problem creating log! " + e.getMessage());
     }
