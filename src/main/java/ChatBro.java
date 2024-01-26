@@ -9,13 +9,14 @@ public class ChatBro {
                 "  /_/\\___/ (_)\n\n" +
                 "I'm ChatBro!\n" +
                 "What can I do for you bro?\n" +
-                "Use the available commands: list, blah, bye, mark, unmark\n" +
-                "or type anything else to store it in your list bro.\n" +
+                "Use the available commands: list, bye, mark, unmark, OR\n" +
+                "create a new task (todo, deadline, event) to store in your list bro.\n" +
                 "_________________________\n");
 
         Scanner sc = new Scanner(System.in);
         boolean isQuit = false;
         Task[] taskList = new Task[101]; // First element left empty for 1-based indexing
+        int taskCount = 0;
 
         while (!isQuit) {
             String input = sc.nextLine();
@@ -34,8 +35,53 @@ public class ChatBro {
                     System.out.println("_________________________\n");
                     break;
 
-                case "blah":
-                    System.out.println("This is the blah reply bro.\n");
+                case "todo":
+                    String[] todoSplit = input.split("todo ");
+                    for (int i = 1; i <= 100; i++) {
+                        if (taskList[i] == null) {
+                            taskList[i] = new ToDo(todoSplit[1]);
+                            taskCount++;
+                            System.out.println("_________________________\n" +
+                                    "Ok bro, I've added: \n" + taskList[i].toString() + "\n into your list.\n" +
+                                    "You've got " + taskCount + " task(s) now.\n" +
+                                    "_________________________\n");
+                            break;
+                        }
+                    }
+                    break;
+
+                case "deadline":
+                    String[] deadlineSplit = input.split(" /by ");
+                    String deadlineName = deadlineSplit[0].substring(9); // 9 is the length of "deadline "
+                    for (int i = 1; i <= 100; i++) {
+                        if (taskList[i] == null) {
+                            taskList[i] = new Deadline(deadlineName, deadlineSplit[1]);
+                            taskCount++;
+                            System.out.println("_________________________\n" +
+                                    "Ok bro, I've added: \n" + taskList[i].toString() + "\n into your list.\n" +
+                                    "You've got " + taskCount + " task(s) now.\n" +
+                                    "_________________________\n");
+                            break;
+                        }
+                    }
+                    break;
+
+                case "event":
+                    String[] eventFromSplit = input.split(" /from ");
+                    String eventName = eventFromSplit[0].substring(6); // 6 is the length of "event "
+                    String[] eventToSplit = eventFromSplit[1].split(" /to "); // ETS[0] is from, ETS[1] is to
+
+                    for (int i = 1; i <= 100; i++) {
+                        if (taskList[i] == null) {
+                            taskList[i] = new Event(eventName, eventToSplit[0], eventToSplit[1]);
+                            taskCount++;
+                            System.out.println("_________________________\n" +
+                                    "Ok bro, I've added: \n" + taskList[i].toString() + "\n into your list.\n" +
+                                    "You've got " + taskCount + " task(s) now.\n" +
+                                    "_________________________\n");
+                            break;
+                        }
+                    }
                     break;
 
                 case "mark":
@@ -71,19 +117,13 @@ public class ChatBro {
                 case "bye":
                     isQuit = true;
                     System.out.println("_________________________\n" +
-                            "Bye bro! Hope to see you again soon!\n" +
+                            "Hasta la vista, bro!\n" +
                             "_________________________\n");
                     break;
 
-                default: // Other input will be stored into taskList
-                    for (int i = 1; i <= 100; i++) {
-                        if (taskList[i] == null) {
-                            taskList[i] = new Task(input);
-                            break;
-                        }
-                    }
+                default:
                     System.out.println("_________________________\n" +
-                            "Ok bro, I've added: " + input + "\n" +
+                            "Sorry bro, I don't understand what you mean.\n" +
                             "_________________________\n");
                     break;
             }
