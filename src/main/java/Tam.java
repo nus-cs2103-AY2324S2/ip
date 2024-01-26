@@ -2,10 +2,12 @@ import java.util.Scanner;
 public class Tam {
     static String dividerText = "____________________________________________________________\n";
     static Scanner scannerObj = new Scanner(System.in);
+    static String[] taskList = new String[100];
+    static int numTasks = 0;
     public static void main(String[] args) {
         Tam.greet();
         int status = readCommand();
-        while (status == 0) {
+        while (status == 1) {
             status = readCommand();
         }
         Tam.exit();
@@ -26,15 +28,26 @@ public class Tam {
 
     public static int readCommand() {
         String input = scannerObj.nextLine();
-        if (input.toLowerCase().equals("bye")) {
+        System.out.print(dividerText);
+        // exit command
+        if (input.toLowerCase().equals("bye") || input.toLowerCase().equals("exit")) {
+            return 0;
+        }
+        // list tasks command
+        else if (input.toLowerCase().equals("list")) {
+            for (int i = 0; i < numTasks; i++) {
+                System.out.println((i+1) + ". " + taskList[i]);
+            }
             System.out.print(dividerText);
             return 1;
         }
+        // add task command
         else {
+            System.out.println("Added: " + input);
+            taskList[numTasks] = input;
+            numTasks++;
             System.out.print(dividerText);
-            System.out.println(input);
-            System.out.print(dividerText);
-            return 0;
+            return 1;
         }
     }
 }
