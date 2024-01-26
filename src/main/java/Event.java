@@ -4,12 +4,13 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) {
         super(description);
+        this.type = "E";
         this.from = from;
         this.to = to;
     }
 
     public String getStatus() {
         String statusIcon = (isDone ? "X" : " ");
-        return "[D][" + statusIcon + "] " + description + " (from: " + from + " to: " + to + ")";
+        return "[" + type + "][" + statusIcon + "] " + description + " (from: " + from + " to: " + to + ")";
     }
 }
