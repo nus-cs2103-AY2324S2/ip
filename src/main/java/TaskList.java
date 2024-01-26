@@ -5,35 +5,42 @@ public class TaskList extends Storage<Task> {
         super();
     }
     public void checkTask(int idx) {
-        if (idx < 0 || idx >= this.storage.size()) {
-            System.out.println("Invalid task index!");
+        Task toCheck = super.getItem(idx);
+        if (toCheck != null) {
+            toCheck.check();
+            final String output = String.format("Nice! I've marked this task as done:\n"+
+                    "%s", super.getItem(idx).toString());
+            System.out.println(output);
         } else {
-            this.storage.get(idx).check();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(this.storage.get(idx).toString());
+            System.out.println("Invalid task index!");
         }
     }
     public void uncheckTask(int idx) {
-        if (idx < 0 || idx >= this.storage.size()) {
-            System.out.println("Invalid task index!");
+        Task toUncheck = super.getItem(idx);
+        if (toUncheck != null) {
+            toUncheck.uncheck();
+            final String output = String.format("Nice! I've marked this task as done:\n"+
+                    "%s", super.getItem(idx).toString());
+            System.out.println(output);
         } else {
-            this.storage.get(idx).uncheck();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(this.storage.get(idx).toString());
+            System.out.println("Invalid task index!");
         }
     }
     @Override
     public void storeItem(Task task) {
-        this.storage.add(task);
-        final String output = String.format("added: %s", task.getDescription());
+        super.storeItem(task);
+        final String output = String.format("Got it. I've added this task:\n"
+                + "    %s\n"
+                + "Now you have %d tasks in the list.", task.toString(), super.getSize());
         System.out.println(output);
     }
     @Override
     public void listItem() {
-        if (this.storage.isEmpty()) {
+        if (super.getSize() == 0) {
             System.out.println("YAY! You have no tasks ongoing ^_^");
+        } else {
+            System.out.println("Here are the tasks in your list:\n");
+            super.listItem();
         }
-        System.out.println("Here are the tasks in your list:\n");
-        super.listItem();
     }
 }
