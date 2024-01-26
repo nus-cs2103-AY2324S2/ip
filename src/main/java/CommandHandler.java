@@ -66,13 +66,13 @@ public class CommandHandler {
                 }
                 switch (command) {
                     case MARK:
-                        Bird.markTask(Integer.parseInt(arguments));
+                        Bird.markTask(processTaskIdx(arguments));
                         break;
                     case UNMARK:
-                        Bird.unmarkTask(Integer.parseInt(arguments));
+                        Bird.unmarkTask(processTaskIdx(arguments));
                         break;
                     case DELETE:
-                        Bird.deleteTask(Integer.parseInt(arguments));
+                        Bird.deleteTask(processTaskIdx(arguments));
                         break;
                     case TODO:
                         Bird.addTask(processToDo(arguments));
@@ -91,6 +91,14 @@ public class CommandHandler {
         return false;
     }
     
+    private static int processTaskIdx(String arguments) throws IndexOutOfRange{
+        int idx = Integer.parseInt(arguments);
+        int size = Bird.listSize();
+        if (idx <= 0 || idx > size) {
+            throw new IndexOutOfRange(idx, size);
+        }
+        return idx;
+    }
 
     private static ToDo processToDo(String arguments) {
         return new ToDo(arguments);

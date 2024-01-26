@@ -33,6 +33,10 @@ public class Bird {
         }
     }
 
+    public static int listSize() {
+        return taskList.size();
+    }
+
     public static void addTask(Task task) {
         taskList.add(task);
         System.out.println("Got it. I've added this task:");
