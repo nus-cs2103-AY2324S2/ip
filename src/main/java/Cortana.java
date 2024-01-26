@@ -49,6 +49,14 @@ public class Cortana {
             return sb.toString();
         }
         
+        public static String deleteTask(Task task, int numTasks) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Noted. I've removed this task:\n");
+            sb.append("  " + task.toString() + "\n");
+            sb.append("Now you have " + numTasks + " tasks in the list.");
+            return sb.toString();
+        }
+
     }
 
     enum Command {
@@ -115,90 +123,76 @@ public class Cortana {
         }
     }
 
-    public String validateInput(Command command, String input) {
+    public void validateInput(Command command, String input) throws InvalidInputException {
         if (command == Command.TODO) {
-            if (input.length() > 4) {
-                return null;
-            } else {
-                return "Please enter a valid todo! Tip: todo <description> \nMissing description";
+            if (input.length() <= 4) {
+                throw new InvalidInputException("Please enter a valid todo! Tip: todo <description> \nMissing description");
             }
         } else if (command == Command.DEADLINE) {
             if (input.length() > 8) {
                 String[] arr = input.substring(9).split("/by");
-                if (arr.length == 2) {
-                    return null;
-                } else {
-                    return "Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nMissing /by";
+                if (arr.length != 2) {
+                    throw new InvalidInputException("Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nMissing /by");
                 }
             } else {
-                return "Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nMissing description";
+                throw new InvalidInputException("Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nMissing description");
             }
         } else if (command == Command.EVENT) {
             if (input.length() > 5) {
                 String[] arr = input.substring(6).split("/from");
                 if (arr.length == 2) {
                     String[] arr2 = arr[1].split("/to");
-                    if (arr2.length == 2) {
-                        return null;
-                    } else {
-                        return "Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing /to";
+                    if (arr2.length != 2) {
+                        throw new InvalidInputException("Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing /to");
                     }   
                 } else {
-                    return "Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing /from";
+                    throw new InvalidInputException("Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing /from");
                 }
             } else {
-                return "Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing description";
+                throw new InvalidInputException("Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing description");
             }
         } else if (command == Command.MARK) {
             if (input.length() > 4) {
                 String suffix = input.substring(5);
                 if (isNumeric(suffix)) {
                     int index = Integer.parseInt(suffix) - 1;
-                    if (this.memory.getNumTasks() > index) {
-                        return null;
-                    } else {
-                        return "Please enter a valid number! Tip: mark <number> \nNumber out of range";
+                    if (this.memory.getNumTasks() <= index) {
+                        throw new InvalidInputException("Please enter a valid number! Tip: mark <number> \nNumber out of range");
                     }
                 } else {
-                    return "Please enter a valid number! Tip: mark <number> \nMissing number";
+                    throw new InvalidInputException("Please enter a valid number! Tip: mark <number> \nMissing number");
                 }
             } else {
-                return "Please enter a valid number! Tip: mark <number> \nMissing number";
+                throw new InvalidInputException("Please enter a valid number! Tip: mark <number> \nMissing number");
             }
         } else if (command == Command.UNMARK) {
             if (input.length() > 6) {
                 String suffix = input.substring(7);
                 if (isNumeric(suffix)) {
                     int index = Integer.parseInt(suffix) - 1;
-                    if (this.memory.getNumTasks() > index) {
-                        return null;
-                    } else {
-                        return "Please enter a valid number! Tip: unmark <number> \nNumber out of range";
+                    if (this.memory.getNumTasks() <= index) {
+                        throw new InvalidInputException("Please enter a valid number! Tip: unmark <number> \nNumber out of range");
                     }
                 } else {
-                    return "Please enter a valid number! Tip: unmark <number> \nMissing number";
+                    throw new InvalidInputException("Please enter a valid number! Tip: unmark <number> \nMissing number");
                 }
             } else {
-                return "Please enter a valid number! Tip: unmark <number> \nMissing number";
+                throw new InvalidInputException("Please enter a valid number! Tip: unmark <number> \nMissing number");
             }
         } else if (command == Command.DELETE) {
             if (input.length() > 6) {
                 String suffix = input.substring(7);
                 if (isNumeric(suffix)) {
                     int index = Integer.parseInt(suffix) - 1;
-                    if (this.memory.getNumTasks() > index) {
-                        return null;
-                    } else {
-                        return "Please enter a valid number! Tip: delete <number> \nNumber out of range";
+                    if (this.memory.getNumTasks() <= index) {
+                        throw new InvalidInputException("Please enter a valid number! Tip: delete <number> \nNumber out of range");
                     }
                 } else {
-                    return "Please enter a valid number! Tip: delete <number> \nMissing number";
+                    throw new InvalidInputException("Please enter a valid number! Tip: delete <number> \nMissing number");
                 }
             } else {
-                return "Please enter a valid number! Tip: delete <number> \nMissing number";
+                throw new InvalidInputException("Please enter a valid number! Tip: delete <number> \nMissing number");
             }
-        } else {
-            return null;
         }
     }
 
@@ -206,32 +200,30 @@ public class Cortana {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         Command command = parseCommand(input);
-        boolean success;
         ArrayList<Task> tasks; 
         int numTasks;
         Task curr_task;
         String response;
-        String errorMsg;
         while (command != Command.BYE) {
-            errorMsg = validateInput(command, input);
-            if (errorMsg == null) {
+            try {
+                validateInput(command, input);
                 switch (command) {
                     case TODO:
                         curr_task = new TodoTask(input.substring(5));
-                        success = this.memory.add(curr_task);
+                        this.memory.add(curr_task);
                         response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
                         break;
                     case DEADLINE:
                         String[] arr = input.substring(9).split("/by");
                         curr_task = new DeadlineTask(arr[0].trim(), arr[1].trim());
-                        success = this.memory.add(curr_task);
+                        this.memory.add(curr_task);
                         response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
                         break;
                     case EVENT:
                         String[] arr2 = input.substring(6).split("/from");
                         String[] arr3 = arr2[1].split("/to");
                         curr_task = new EventTask(arr2[0].trim(), arr3[0].trim(), arr3[1].trim());
-                        success = this.memory.add(curr_task);
+                        this.memory.add(curr_task);
                         response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
                         break;
                     case MARK:
@@ -246,12 +238,8 @@ public class Cortana {
                         break;
                     case DELETE:
                         int index3 = Integer.parseInt(input.substring(7)) - 1;
-                        StringBuilder sb = new StringBuilder();
                         curr_task = this.memory.deleteTask(index3);
-                        sb.append("Noted. I've removed this task:\n");
-                        sb.append("  " + curr_task.toString() + "\n");
-                        sb.append("Now you have " + this.memory.getNumTasks() + " tasks in the list.");
-                        response = sb.toString();
+                        response = Response.deleteTask(curr_task, this.memory.getNumTasks());
                         break;
                     case LIST:
                         tasks = this.memory.getTasks();
@@ -261,8 +249,8 @@ public class Cortana {
                     default:
                         response = "I'm sorry, but I don't know what that means :-(";
                 }
-            } else {
-                response = errorMsg;
+            } catch (InvalidInputException e) {
+                response = e.getMessage();
             }
             output(response);
             input = sc.nextLine();
