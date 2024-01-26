@@ -38,22 +38,38 @@ public class EdgarChatBot {
             }
 
             if (userInput.equalsIgnoreCase("list")) {
+                try {
+                    this.taskList.listTasks();
+                } catch (ChatBotException e) {
+                    System.out.println(e.getMessage());
+                }
                 this.taskList.listTasks();
-                continue;
             }
 
             if (action.equalsIgnoreCase("mark")) {
-                this.taskList.markTask(Integer.parseInt(splitInput[1]));
+                try {
+                    this.taskList.markTask(Integer.parseInt(splitInput[1]));
+                } catch (ChatBotException e) {
+                    System.out.println(e.getMessage());
+                }
                 continue;
             }
 
             if (action.equalsIgnoreCase("unmark")) {
-                this.taskList.unmarkTask(Integer.parseInt(splitInput[1]));
+                try {
+                    this.taskList.unmarkTask(Integer.parseInt(splitInput[1]));
+                } catch (ChatBotException e) {
+                    System.out.println(e.getMessage());
+                }
                 continue;
             }
 
             if (action.equalsIgnoreCase("delete")) {
-                this.taskList.deleteTask(Integer.parseInt(splitInput[1]));
+                try {
+                    this.taskList.deleteTask(Integer.parseInt(splitInput[1]));
+                } catch (ChatBotException e) {
+                    System.out.println(e.getMessage());
+                }
                 continue;
             }
 

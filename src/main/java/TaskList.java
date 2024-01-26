@@ -16,7 +16,7 @@ public class TaskList {
     public void splitTask(String task) throws ChatBotException {
         String[] splitTask = task.split(" ", 2);
         if (splitTask.length <= 1) {
-            throw new ChatBotException("Oops! You have not entered a task");
+            throw new ChatBotException("Oops! You have not entered a task.");
         }
         String taskType = splitTask[0];
         String taskName = splitTask[1];
@@ -29,7 +29,7 @@ public class TaskList {
         if (taskType.equalsIgnoreCase("deadline")) {
             String[] splitDeadline = taskName.split("/by");
             if (splitDeadline.length <= 1) {
-                throw new ChatBotException("Oops! Please enter the date/day in this format: '/by date/day '");
+                throw new ChatBotException("Oops! Please enter the date/day in this format: '/by date/day'.");
             }
             String action = splitDeadline[0];
             String due = splitDeadline[1];
@@ -41,7 +41,7 @@ public class TaskList {
             String[] splitEvent = taskName.split("/from | /to");
             if (splitEvent.length <= 2) {
                 throw new ChatBotException("Oops! Please enter the date/day/time in this format:" +
-                        " '/from date/day/time " + "/to date/day/time'");
+                        " '/from date/day/time " + "/to date/day/time'.");
             }
             String eventName = splitEvent[0];
             String eventStart = splitEvent[1];
@@ -49,7 +49,7 @@ public class TaskList {
             this.tasks.add(new Event(eventName, eventStart, eventEnd));
             return;
         }
-        throw new ChatBotException("Oops! Please enter task type of 'Todo/Event/Deadline");
+        throw new ChatBotException("Oops! Please enter task type of 'Todo/Event/Deadline.");
     }
 
     public void addTask(String task) throws ChatBotException {
@@ -71,14 +71,14 @@ public class TaskList {
     }
 
     public void deleteTask(int number) throws ChatBotException {
-        if (this.tasks.size() == 0) {
-            throw new ChatBotException("Oops! There are no tasks in the list");
-        }
         if (number < 0) {
-            throw new ChatBotException("Oops! Number entered cannot be negative");
+            throw new ChatBotException("Oops! Number entered cannot be negative.");
+        }
+        if (this.tasks.size() == 0) {
+            throw new ChatBotException("Oops! There are no tasks in the list.");
         }
         if (number > this.tasks.size()) {
-            throw new ChatBotException("Oops! Number entered does not exist in the list");
+            throw new ChatBotException("Oops! Number entered does not exist in the list.");
         }
 
         Task taskDeleted = this.tasks.remove(number - 1);
@@ -91,11 +91,12 @@ public class TaskList {
         printHorizontalLine();
     }
 
-    public void markTask(int index) {
-        if (index <= 0 || index > this.tasks.size()) {
-            System.out.println("Oops! Task index is out of range.");
-            printHorizontalLine();
-            return;
+    public void markTask(int index) throws ChatBotException {
+        if (index < 0) {
+            throw new ChatBotException("Oops! Number entered cannot be negative.");
+        }
+        if (index == 0 || index > this.tasks.size()) {
+            throw new ChatBotException("Oops! Invalid task number.");
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsDone();
@@ -105,11 +106,12 @@ public class TaskList {
         printHorizontalLine();
     }
 
-    public void unmarkTask(int index) {
-        if (index <= 0 || index > this.tasks.size()) {
-            System.out.println("Oops! Invalid task number.");
-            printHorizontalLine();
-            return;
+    public void unmarkTask(int index) throws ChatBotException {
+        if (index < 0) {
+            throw new ChatBotException("Oops! Number entered cannot be negative.");
+        }
+        if (index == 0 || index > this.tasks.size()) {
+            throw new ChatBotException("Oops! Invalid task number.");
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsNotDone();
@@ -119,10 +121,9 @@ public class TaskList {
         printHorizontalLine();
     }
 
-    public void listTasks() {
+    public void listTasks() throws ChatBotException {
         if (this.tasks.size() == 0) {
-            System.out.println("Oops! The task list is currently empty.");
-            printHorizontalLine();
+            throw new ChatBotException("Oops! The task list is currently empty.");
         } else {
             printHorizontalLine();
             System.out.println("Here are the tasks in your list: ");

@@ -1,0 +1,23 @@
+todo watch lecture
+deadline eat dinner /by 6pm
+list
+test wrong input
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 1
+list
+mark 2
+list
+unmark 1
+list
+unmark 2
+list
+delete 2
+list
+deadline
+event
+event test
+mark 60
+unmark -4
+delete -1
+bye
