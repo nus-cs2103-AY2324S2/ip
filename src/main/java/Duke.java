@@ -8,29 +8,34 @@ public class Duke {
     // A horizontal line.
     private final String horizontalLine = "____________________________________________________________";
 
+    // Prints with an indention.
+    private void printWithIndent(String str) {
+        System.out.println("    " + str);
+    }
+
     // Prints a horizontal line.
     private void printHorizontalLine() {
-        System.out.println(horizontalLine);
+        printWithIndent(horizontalLine);
     }
 
     // Greets the user.
     private void greet() {
         printHorizontalLine();
-        System.out.println("Hello! I'm Virtue \nWhat can I do for you?");
+        printWithIndent("Hello! I'm Virtue \n    What can I do for you?");
         printHorizontalLine();
     }
 
     // Exits with a goodbye message.
     private void bye() {
         printHorizontalLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        printWithIndent("Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
 
     // Echos the command.
     private void echo(String command) {
         printHorizontalLine();
-        System.out.println(command);
+        printWithIndent(command);
         printHorizontalLine();;
     }
 
