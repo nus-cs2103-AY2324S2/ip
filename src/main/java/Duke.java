@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 public class Duke {
@@ -39,7 +40,7 @@ public class Duke {
                     taskToUnmark.isDone = false;
 
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(taskToUnmark.getStatusIcon()  + taskToUnmark.description);
+                    System.out.println(taskToUnmark.toString());
 
                     System.out.println(divider);
 
@@ -54,7 +55,7 @@ public class Duke {
                     taskToMark.isDone = true;
 
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(taskToMark.getStatusIcon() + taskToMark.description);
+                    System.out.println(taskToMark.toString());
 
                     System.out.println(divider);
 
@@ -63,8 +64,10 @@ public class Duke {
                     // listing
                     System.out.println(divider);
 
-                    for (Task task : tasks) {
-                        System.out.println(task.index + "." + task.getType() + task.getStatusIcon() + task.description);
+                    int length = tasks.size();
+                    for (int i = 0; i < length; i++) {
+                        Task task = tasks.get(i);
+                        System.out.println( i + 1 + "." + task.toString());
                     }
 
                     System.out.println(divider);
@@ -155,6 +158,25 @@ public class Duke {
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     System.out.println(divider);
+                }
+                else if (userInput.contains("delete")) {
+
+                    System.out.println(divider);
+
+                    int indexToDelete = Integer.parseInt(userInput.substring(7));
+                    validateIndex(indexToDelete, tasks.size());
+
+                    Task taskToDelete = tasks.get(indexToDelete - 1);
+                    String desc = taskToDelete.toString();
+                    tasks.remove(taskToDelete);
+
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(desc);
+
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+                    System.out.println(divider);
+
                 }
                 else if (userInput.equals("bye")) {
                     break;
