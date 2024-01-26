@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.HashMap;
 
 public class ChatBro {
     public static void main(String[] args) {
