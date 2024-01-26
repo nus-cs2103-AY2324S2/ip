@@ -60,4 +60,18 @@ public class TodoList {
         String description = task.markAsNotDone();
         return new String[]{"OK, I've marked this task as not done yet:", "  " + description};
     }
+
+    public String[] deleteTask(int i) throws ParameterException {
+        if (this.list.size() == 0) {
+            throw new ParameterException("Your list is empty. Nothing to delete.");
+        }
+        if (i > this.list.size() || i < 1) {
+            throw new ParameterException("Please select a valid task number to delete from the list.");
+        }
+        Task task = this.list.get(i-1);
+        this.list.remove(i-1);
+        int size = this.list.size();
+        return new String[]{"Noted. I've removed this task:", "  " + task,
+                String.format("Now you have %s %s in the list.", size, size < 2 ? "task" : "tasks")};
+    }
 }

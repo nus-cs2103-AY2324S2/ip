@@ -1,9 +1,6 @@
 import java.util.Scanner;
 
 public class Shon {
-
-    private final static String LINE = "    _______________" +
-            "_____________________________________________";
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TodoList list = new TodoList();
@@ -36,6 +33,9 @@ public class Shon {
                     case "event":
                         print(addEvent(input, list));
                         break;
+                    case "delete":
+                        print(deleteEvent(input, list));
+                        break;
                     default:
                         print("OOPS!!! I'm sorry, but I don't know what that means :-)");
                 }
@@ -51,11 +51,13 @@ public class Shon {
     }
 
     private static void print(String... messages) {
-        System.out.println(LINE);
+        String line = "    _______________" +
+                "_____________________________________________";
+        System.out.println(line);
         for (String msg : messages) {
             System.out.println("     " + msg);
         }
-        System.out.println(LINE);
+        System.out.println(line);
         System.out.println();
     }
 
@@ -136,5 +138,9 @@ public class Shon {
         }
         String[] datetimes = task[1].split("/to", 2);
         return list.addEvent(description, datetimes[0].strip(), datetimes[1].strip());
+    }
+
+    private static String[] deleteEvent(String input, TodoList list) throws ParameterException {
+        return list.deleteTask(getIndex(input));
     }
 }
