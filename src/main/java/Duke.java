@@ -28,8 +28,8 @@ public class Duke {
                 } else {
                     int num = 1;
                     for(Task t: list) {
+                        System.out.println(num + "." + t.toString() + "\n");
                         num++;
-                        System.out.println(t.toString() + "\n");
                     }
                     System.out.println("___________________________________");
                 }
@@ -65,8 +65,17 @@ public class Duke {
             && !inputFromUser.toLowerCase().startsWith("deadline")
             && !inputFromUser.toLowerCase().startsWith("event")
             && !inputFromUser.toLowerCase().startsWith("list")
-            && !inputFromUser.toLowerCase().startsWith("bye")) {
+            && !inputFromUser.toLowerCase().startsWith("bye")
+            && !inputFromUser.toLowerCase().startsWith("delete")) {
                 throw new DukeException("Can't understand your command");
+            } else if (inputFromUser.toLowerCase().startsWith("delete")) {
+                int indexOfTaskToDelete = Integer.parseInt(inputFromUser.substring(7));
+                Task taskToDelete = list.get(indexOfTaskToDelete - 1);
+                String toPrint = "Noted. I've removed this task:\n" + "  " + taskToDelete.toString() + "\n"
+                    + "Now you have " + (list.size() - 1) + " tasks in  the list"
+                    + "\n___________________________________" ;
+                System.out.println(toPrint);
+                list.remove(taskToDelete);
             }
             else {
                 Task task = null;
