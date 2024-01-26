@@ -1,6 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String type;
 
     public Task(String description) {
         this.description = description;
@@ -14,6 +15,12 @@ public class Task {
 
     public boolean done() {
         return isDone;
+    }
+
+    public String type() { return type; }
+
+    public String toText() {
+        return type + " / " + (isDone ? "1" : "0") + " / " + description;
     }
 
     public void mark() {
