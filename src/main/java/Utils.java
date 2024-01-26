@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Utils {
@@ -18,12 +19,15 @@ public class Utils {
 
     public static String getFile(String path) {
         try {
+            if (System.getProperty("user.dir").contains("text-ui-test")) {
+                path = "." + path;
+            }
+
             return Files.readString(Paths.get(path));
 
         } catch (IOException e) {
-//            e.printStackTrace();
-            System.out.println("Current Directory: " + System.getProperty("user.dir"));
-            return "";
+            e.printStackTrace();
+            return null;
 
         }
     }
