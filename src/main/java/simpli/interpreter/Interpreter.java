@@ -1,5 +1,6 @@
 package simpli.interpreter;
 
+import simpli.actions.Action;
 import simpli.core.Simpli;
 import simpli.exceptions.ActionException;
 import simpli.exceptions.TaskException;
@@ -12,51 +13,53 @@ public class Interpreter {
     }
 
     public void interpret(String[] tokens) throws ActionException {
-        switch (tokens[0]) {
-            case "list":  // list stored tasks
-                this.app.list();
+        Simpli app = this.app;
+        Action actionType = Action.valueOf(tokens[0].toUpperCase());
+        switch (actionType) {
+            case Action.LIST:  // list stored tasks
+                app.list();
                 break;
-            case "mark": {  // mark task as done
+            case Action.MARK: {  // mark task as done
                 if (tokens[1].isEmpty()) {
                     throw new ActionException();
                 }
-                this.app.mark(Integer.parseInt(tokens[1]));
+                app.mark(Integer.parseInt(tokens[1]));
                 break;
             }
-            case "unmark": {  // mark task as undone
+            case Action.UNMARK: {  // mark task as undone
                 if (tokens[1].isEmpty()) {
                     throw new ActionException();
                 }
-                this.app.unmark(Integer.parseInt(tokens[1]));
+                app.unmark(Integer.parseInt(tokens[1]));
                 break;
             }
-            case "delete": {  // delete task
+            case Action.DELETE: {  // delete task
                 if (tokens[1].isEmpty()) {
                     throw new ActionException();
                 }
-                this.app.deleteTask(Integer.parseInt(tokens[1]));
+                app.deleteTask(Integer.parseInt(tokens[1]));
                 break;
             }
-            case "todo": {  // creates todo task
+            case Action.TODO: {  // creates todo task
                 if (tokens[1].isEmpty()) {
                     throw new TaskException();
                 }
-                this.app.addTodo(tokens[1]);
+                app.addTodo(tokens[1]);
                 break;
             }
-            case "deadline": {  // creates deadline task
+            case Action.DEADLINE: {  // creates deadline task
                 if (tokens[1].isEmpty() || !tokens[2].equals("by") || tokens[3].isEmpty()) {
                     throw new TaskException();
                 }
-                this.app.addDeadline(tokens[1], tokens[3]);
+                app.addDeadline(tokens[1], tokens[3]);
                 break;
             }
-            case "event": {  // creates event task
+            case Action.EVENT: {  // creates event task
                 if (tokens[1].isEmpty() || !tokens[2].equals("from") || tokens[3].isEmpty() ||
                         !tokens[4].equals("to") || tokens[5].isEmpty()) {
                     throw new TaskException();
                 }
-                this.app.addEvent(tokens[1], tokens[3], tokens[5]);
+                app.addEvent(tokens[1], tokens[3], tokens[5]);
                 break;
             }
             default: {
