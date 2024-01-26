@@ -62,5 +62,56 @@ Here are the tasks in your list:
 5.[E][ ] chinese new year party  (from: Feb 2nd 10am to: 5pm)
 ____________________________________________________________
 ____________________________________________________________
+Check how many items are in the list again. The number you gave is too high.
+Can't unmark an item not in the list
+The format to unmark a task is: unmark (task list number)
+____________________________________________________________
+____________________________________________________________
+Sorry, I'm only smart enough to find the task based on numbers.
+Please give a number. If you refuse, too bad, this is all I can do.
+____________________________________________________________
+____________________________________________________________
+Check how many items are in the list again. The number you gave is too high
+Can't mark an item not in the list
+The format to mark a task is: mark (task list number)
+____________________________________________________________
+____________________________________________________________
+Sorry, I'm only smart enough to find the task based on numbers.
+Please give a number. If you refuse, too bad, this is all I can do.
+____________________________________________________________
+____________________________________________________________
+Sorry pal, but your description is empty.
+Please redo the command and remember to add a description of the action
+The format to schedule a todo task is: todo (Description)
+____________________________________________________________
+____________________________________________________________
+Oh, you forgot to indicate when is the deadline or maybe you forgot the description.
+Please redo the command and remember to add the necessary information.
+The format to schedule a deadline is: deadline (Description) /by (Deadline Date + time)
+____________________________________________________________
+____________________________________________________________
+Oh, you forgot to indicate when is the deadline or maybe you forgot the description.
+Please redo the command and remember to add the necessary information.
+The format to schedule a deadline is: deadline (Description) /by (Deadline Date + time)
+____________________________________________________________
+____________________________________________________________
+You forgot to provide either a description, an start date or an end date for this event.
+Sorry, but mind reading is not installed in me yet.
+Please redo the command and remember to add the necessary information.
+The format to schedule a event is: event (Description) /from (Start date + time) /to (End date + time)
+____________________________________________________________
+____________________________________________________________
+You forgot to provide either a description, an start date or an end date for this event.
+Sorry, but mind reading is not installed in me yet.
+Please redo the command and remember to add the necessary information.
+The format to schedule a event is: event (Description) /from (Start date + time) /to (End date + time)
+____________________________________________________________
+____________________________________________________________
+You forgot to provide either a description, an start date or an end date for this event.
+Sorry, but mind reading is not installed in me yet.
+Please redo the command and remember to add the necessary information.
+The format to schedule a event is: event (Description) /from (Start date + time) /to (End date + time)
+____________________________________________________________
+____________________________________________________________
  Bye. Hope to see you again soon!
 ____________________________________________________________

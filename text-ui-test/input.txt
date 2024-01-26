@@ -9,4 +9,14 @@ event chinese new year party /from Feb 2nd 10am /to 5pm
 unmark 1
 mark 3
 list
+unmark
+unmark read book
+mark
+mark sports club
+todo
+deadline
+deadline task1
+event
+event help
+event hello world /from Mar 24th 4pm
 bye
