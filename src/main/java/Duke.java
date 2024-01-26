@@ -30,9 +30,9 @@ public class Duke {
         Boolean exit = true;
         ArrayList<Task> todoList = new ArrayList<Task>();
         System.out.println(Greeting);
+        Scanner sc = new Scanner(System.in);
         while (exit) {
-            Scanner myObj = new Scanner(System.in);
-            String userInput = myObj.nextLine();
+            String userInput = sc.nextLine();
             String[] inputList = userInput.split(" ", 2);
             if (userInput.equals("bye")) {
                 exit = false;
@@ -103,6 +103,7 @@ public class Duke {
 //            }
         }
         System.out.println(Ending);
+        sc.close();
 
     }
 }
