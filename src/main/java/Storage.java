@@ -18,6 +18,10 @@ public class Storage {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int numT = 0;
 
+    public static ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     public static void addTask() {
         Task t = new Task();
         try{
