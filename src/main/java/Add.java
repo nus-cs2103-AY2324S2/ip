@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Add implements Command{
     private Task task;
-
+    private TaskList tasks;
     /**
      * Constructor
      * add task to task list.
@@ -14,14 +14,14 @@ public class Add implements Command{
      * @param text the description of a task
      * @throws DukeException wrong inputs might happens
      */
-    public Add(String text) throws DukeException{
+    public Add(String text, TaskList taskList) throws DukeException{
         if (text.startsWith("todo")) {
             if (text.length()<=5) {
                 throw new EmptyTextException("description","todo");
             }
             String descrip=text.substring(5);
             this.task=new Todo(descrip);
-            Task.task_list.add(this.task);
+            taskList.addTask(this.task);
         } else if (text.startsWith("deadline")) {
             String[] token = text.split("/");
             if (token.length != 2) {
@@ -43,7 +43,7 @@ public class Add implements Command{
                 throw new TimeFormatException();
             }
             this.task=new Deadline(descrip, LocalDate.parse(byText));
-            Task.task_list.add(this.task);
+            taskList.addTask(this.task);
         } else if (text.startsWith("event")) {
             String[] token = text.split("/");
             if (token.length != 3) {
@@ -78,10 +78,11 @@ public class Add implements Command{
                 throw new TimeInconsistException();
             }
             this.task=new Event(descrip, fromDay, toDay);
-            Task.task_list.add(this.task);
+            taskList.addTask(this.task);
         } else {
             throw new CommandNotDefinedException();
         }
+        this.tasks=taskList;
     }
 
     /**
@@ -91,7 +92,7 @@ public class Add implements Command{
     public void reply() {
         System.out.printf(
                 "    Got it. I've added this task:\n      %s\n    Now you have %s tasks in the list.\n"
-                ,this.task,Task.task_list.size());
+                ,this.task,this.tasks.getListLength());
     }
 
     private boolean timeFormCheck(String time) {

@@ -4,17 +4,18 @@
 public class Delete implements Command{
     private final int operand;
     private final Task deletedTask;
-
+    private TaskList tasks;
     /**
      * Constructor
      * @param operand the index count from 0;
      */
-    public Delete(int operand) throws WrongIndexException{
+    public Delete(int operand, TaskList taskList) throws WrongIndexException{
         this.operand=operand;
-        if (operand>=Task.task_list.size() || operand<0) {
-            throw new WrongIndexException();
+        if (operand>=taskList.getListLength() || operand<0) {
+            throw new WrongIndexException(taskList.getListLength());
         }
-        this.deletedTask=Task.task_list.remove(operand);
+        this.deletedTask=taskList.removeTask(operand);
+        this.tasks=taskList;
     }
 
     /**
@@ -24,6 +25,6 @@ public class Delete implements Command{
     public void reply() {
         System.out.println("    Noted. I've removed this task:");
         System.out.printf("      %s\n", this.deletedTask);
-        System.out.printf("    Now you have %s tasks in the list.\n", Task.task_list.size());
+        System.out.printf("    Now you have %s tasks in the list.\n", this.tasks);
     }
 }
