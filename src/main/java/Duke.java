@@ -48,21 +48,59 @@ public class Duke {
                 System.out.println(divider);
 
                 for (Task task: tasks) {
-                    System.out.println(task.index + "." + task.getStatusIcon() + " " + task.description);
+                    System.out.println(task.index + "." + task.getType() + task.getStatusIcon() + " " + task.description);
                 }
 
                 System.out.println(divider);
 
-            } else {
-                // Adding tasks
+            } else if (userInput.contains("todo")) {
+                // to-do
                 System.out.println(divider);
 
-                Task task = new Task(userInput);
-                tasks.add(task);
-                System.out.println("added: " + userInput);
+                Todo todo = new Todo(userInput.substring(5));
+                tasks.add(todo);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(todo.getType() + todo.getStatusIcon() + " " + todo.description);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 System.out.println(divider);
 
+            } else if (userInput.contains("deadline")){
+                // Deadline
+                System.out.println(divider);
+
+                //extract date
+                int indexOfBy = userInput.indexOf("/by");
+                int indexOfDate = indexOfBy + 4;
+                String dateOfDeadline = userInput.substring(indexOfDate);
+                String desc = userInput.substring(9, indexOfBy - 1 ) + " (by: " + dateOfDeadline + ")";
+
+                Deadline deadline = new Deadline(desc, dateOfDeadline);
+                tasks.add(deadline);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(deadline.getType() + deadline.getStatusIcon() + " " + deadline.description);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+                System.out.println(divider);
+            } else if (userInput.contains("event")){
+                // Event
+                System.out.println(divider);
+
+                //extract dates
+                int indexOfFrom = userInput.indexOf("/from");
+                int indexOfTo = userInput.indexOf("/to");
+
+                String from = userInput.substring(indexOfFrom + 6, indexOfTo - 1);
+                String to = userInput.substring(indexOfTo + 4);
+                String desc = userInput.substring(6, indexOfFrom - 1 ) + " (from: " + from + " to: " + to + ")";
+
+                Event event = new Event(desc, from, to);
+                tasks.add(event);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(event.getType() + event.getStatusIcon() + " " + event.description);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+                System.out.println(divider);
             }
 
             userInput = scanner.nextLine();
