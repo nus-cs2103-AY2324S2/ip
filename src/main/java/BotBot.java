@@ -10,22 +10,24 @@ public class BotBot {
 
         while (scanner.hasNext()) {
             String nextTask = scanner.next();
-
-            // Exit sequence
+            BotBot.divider();
+            // Logic sequence
             if (nextTask.equals("bye")) {
                 BotBot.exit();
                 break;
+            } else if (nextTask.startsWith("mark ")) {
+                System.out.println("Good job on completing the task:");
+                list.mark(Integer.parseInt(nextTask.substring(5)));
+            } else if (nextTask.startsWith("unmark ")) {
+                System.out.println("I have unmarked a task:");
+                list.unmark(Integer.parseInt(nextTask.substring(7)));
+            } else {
+                list.addTask(nextTask);
+                BotBot.divider();
+                list.printList();
             }
-
-            // Main functionality
             BotBot.divider();
-            list.addTask(nextTask);
-            BotBot.divider();
-            list.printList();
-            BotBot.divider();
-
         }
-
         scanner.close();
     }
 
