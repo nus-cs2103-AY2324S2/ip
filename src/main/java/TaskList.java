@@ -19,7 +19,7 @@ public class TaskList extends Storage<Task> {
         Task toUncheck = super.getItem(idx);
         if (toUncheck != null) {
             toUncheck.uncheck();
-            final String output = String.format("Nice! I've marked this task as done:\n"+
+            final String output = String.format("OK, I've marked this task as not done yet:\n"+
                     "%s", super.getItem(idx).toString());
             System.out.println(output);
         } else {
