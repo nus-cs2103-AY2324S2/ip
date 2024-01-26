@@ -48,4 +48,11 @@ public class DukeException extends Exception {
             super("A deadline task must have a description and a 'by' time :3");
         }
     }
+
+    // Custom exception for getTask where index is wrong, or the entry is not of type T, E, D
+    public static class GetTaskException extends DukeException {
+        public GetTaskException() {
+            super("An error occurred when getting task, reinput your index!");
+        }
+    }
 }
