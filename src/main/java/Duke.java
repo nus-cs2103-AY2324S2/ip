@@ -40,6 +40,8 @@ public class Duke {
                 throw new ChatException("I'm sorry, but I don't know what that means :-(");
             }
 
+            messages.save();
+
         } catch (ChatException e) {
             output = e.getMessage();
         }
@@ -55,6 +57,12 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
         messages = new ListOfMessages();
+        try {
+            messages.load();
+        } catch (ChatException e) {
+            System.out.println("Could not load class file for reason: " + e.getMessage());
+        }
+
         while (loop(sc) == 0);
         sc.close();
         System.out.println("Bye. Hope to see you again soon!");

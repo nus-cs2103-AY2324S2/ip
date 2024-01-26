@@ -1,6 +1,8 @@
 package task;
 
-public abstract class Task {
+import java.io.Serializable;
+
+public abstract class Task implements Serializable {
     protected String msg;
     protected boolean done;
 

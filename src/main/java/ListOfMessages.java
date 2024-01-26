@@ -3,12 +3,14 @@ import task.Event;
 import task.Task;
 import task.ToDo;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ListOfMessages {
 
 
-    private final ArrayList<Task> listOfMessages;
+    private ArrayList<Task> listOfMessages;
 
     public ListOfMessages() {
         this.listOfMessages = new ArrayList<>();
@@ -95,4 +97,13 @@ public class ListOfMessages {
         }
         return "Here are the tasks in your list:\n" + res + "\n";
     }
+
+    public void save() {
+        Save.save(this.listOfMessages.toArray());
+    }
+
+    public void load() {
+        this.listOfMessages = Save.load();
+    }
+
 }
