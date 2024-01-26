@@ -44,4 +44,10 @@ class ParserTest {
             fail("Exception should not be thrown for valid input");
         }
     }
+
+    @Test
+    void handleDeadline_emptyDescription_throwsDukeException() {
+        Executable todoWithEmptyDescription = () -> Parser.handleDeadline(list, "deadline");
+        assertThrows(DukeException.class, todoWithEmptyDescription, "Exception was expected for empty todo description");
+    }
 }
