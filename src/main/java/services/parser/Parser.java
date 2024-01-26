@@ -49,7 +49,6 @@ public class Parser {
         default:
             // return new HelpCommand();
             return new InvalidCommand("INVALID");
-
         }
     }
     /**
@@ -175,7 +174,7 @@ public class Parser {
         return new FindCommand(parsed[1]);
 
     }
-
+    
     /**
      * Parses a date string into a LocalDateTime object.
      *
@@ -245,33 +244,36 @@ public class Parser {
         String description = parts[2].trim();
         String additionalInfo = parts.length > 3 ? parts[3].trim() : null;
         switch (taskType) {
-            case "T":
-                ToDo todo = new ToDo(description);
-                if (isDone) todo.markAsDone();
-                return todo;
-            case "D":
-                if (additionalInfo == null) {
-                    throw new DukeException("Invalid tasks.Deadline format in file");
-                }
-                LocalDateTime by = LocalDateTime.parse(additionalInfo);
-                Deadline deadline = new Deadline(description, by);
-                if (isDone) deadline.markAsDone();
-                return deadline;
-            case "E":
-                String[] times = additionalInfo.split(" to ");
-                if (times.length < 2) {
-                    throw new DukeException("Invalid tasks.Event time format in file.");
-                }
-                LocalDateTime start = LocalDateTime.parse(times[0].trim());
-                LocalDateTime end = LocalDateTime.parse(times[1].trim());
+        case "T":
+            ToDo todo = new ToDo(description);
+            if (isDone) {
+                todo.markAsDone();
+            }
+            return todo;
+        case "D":
+            if (additionalInfo == null) {
+                throw new DukeException("Invalid tasks.Deadline format in file");
+            }
+            LocalDateTime by = LocalDateTime.parse(additionalInfo);
+            Deadline deadline = new Deadline(description, by);
+            if (isDone) {
+                deadline.markAsDone();
+            }
+            return deadline;
+        case "E":
+            String[] times = additionalInfo.split(" to ");
+            if (times.length < 2) {
+                throw new DukeException("Invalid tasks.Event time format in file.");
+            }
+            LocalDateTime start = LocalDateTime.parse(times[0].trim());
+            LocalDateTime end = LocalDateTime.parse(times[1].trim());
 
-                Event event = new Event(description, start, end);
-                if (isDone) event.markAsDone();
-                return event;
+            Event event = new Event(description, start, end);
+            if (isDone) event.markAsDone();
+            return event;
 
-            default:
-                return null;
+        default:
+            return null;
         }
     }
-
 }

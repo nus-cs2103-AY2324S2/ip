@@ -128,6 +128,19 @@ public class TaskList {
             if (matcher.find()) {
                 foundTasks.add(task);
             }
+<<<<<<< HEAD
+=======
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String taskString = scanner.nextLine();
+                Task currTask = Parser.parseTaskFromString(taskString);
+                this.tasks.add(currTask);
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred when writing to file");
+        } catch (DukeException e) {
+            System.out.println("Error occurred when parsing file");
+>>>>>>> branch-A-CodingStandard
         }
         if (foundTasks.size() == 0) {
             throw new DukeException("No tasks with " + word + " found");
