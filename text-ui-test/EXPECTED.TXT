@@ -3,7 +3,7 @@
 ():::()
  VV-VV
 What can I do for you?
-Here are the tasks in your list:
+You have no tasks! Hooray!!!!!!!!!!
 Got it. I've added this task:
 [D][ ]  (by: Friday)
 Now you have 1 tasks in the list.
