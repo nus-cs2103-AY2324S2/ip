@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -6,6 +7,7 @@ import java.util.stream.Collectors;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
 
 public class Duke {
@@ -30,7 +32,7 @@ public class Duke {
         // initialisation of data dir and output file
         init();
 
-        taskList = new ArrayList<>();
+        taskList = initTaskList(RELATIVE_OUTPUT_TXT_FILE_PATH);
 
         // start
         printStartMessage();
@@ -99,6 +101,34 @@ public class Duke {
         } catch (SecurityException e) {
             throw new DukeException(e.toString());
         } catch (IOException e) {
+            throw new DukeException(e.toString());
+        }
+    }
+
+    public static ArrayList<Task> initTaskList(String filePath) throws DukeException {
+        try {
+            ArrayList<Task> list = new ArrayList<>();
+            File f = new File(filePath); // create a File for the given file path
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            while (s.hasNext()) {
+                String[] parts = s.nextLine().split(" \\| ");
+                switch (parts[0]) {
+                case "T":
+                    list.add(new Todo(parts[1], parts[2]));
+                    break;
+                case "D":
+                    list.add(new Deadline(parts[1], parts[2], parts[3]));
+                    break;
+                case "E":
+                    list.add(new Event(parts[1], parts[2], parts[3], parts[4]));
+                    break;
+                default:
+                    break;
+                }
+            }
+            s.close();
+            return list;
+        } catch (FileNotFoundException e) {
             throw new DukeException(e.toString());
         }
     }

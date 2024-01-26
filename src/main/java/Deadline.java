@@ -7,6 +7,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String completed, String description, String by) {
+        super(description, completed.equals("1"));
+        this.by = by;
+    }
+
     @Override
     public String textFormattedOutput() {
         int intIsDone = isDone ? 1 : 0;

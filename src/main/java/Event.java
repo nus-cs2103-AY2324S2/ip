@@ -8,6 +8,12 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
+
+    public Event(String completed, String description, String from, String to) {
+        super(description, completed.equals("1"));
+        this.from = from;
+        this.to = to;
+    }
     @Override
     public String textFormattedOutput() {
         int intIsDone = isDone ? 1 : 0;
