@@ -1,3 +1,4 @@
+import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -9,35 +10,56 @@ public class Duke {
 
         while (true) {
             String str = scanner.nextLine();
+            String[] arr = str.split(" ");
             if (str.equals("bye")) {
                 break;
-            } else if (str.equals("list")) {
+            } else if (arr[0].equals("list")) {
                 System.out.println("\t\tThese are the things on your agenda today");
                 for (int i = 1; i < list.size() + 1; i++) {
                     Task t = list.get(i -1);
-                    System.out.println("\t\t" + i +"." + t.getStatusIcon() + " " + t.description);
+                    System.out.println("\t\t" + i +"." + t.toString());
                 }
-            } else if (str.contains("unmark ")) {
-                Task t = list.get(getPos(str, 7));
+            } else if (arr[0].equals("unmark")) {
+                Task t = list.get(getIndex(arr));
                 t.unmarkDone();
-                System.out.println("\t\t Reminder, you have not completed this task yet:\n\t\t  " + t.getStatusIcon() +
-                        " " + t.description);
-            } else if (str.contains("mark ")) {
-                Task t = list.get(getPos(str, 5));
+                System.out.println("\t\tReminder, you have not completed this task yet:\n\t\t  " + t.toString());
+            } else if (arr[0].equals("mark")) {
+                Task t = list.get(getIndex(arr));
                 t.markDone();
-                System.out.println("\t\t Great job, you have accomplished this task:\n\t\t  " + t.getStatusIcon() +
-                        " " + t.description);
+                System.out.println("\t\tGreat job, you have accomplished this task:\n\t\t  " + t.toString());
             } else {
-                Task t = new Task(str);
-                list.add(t);
-                System.out.println("\t\tadded: " + str);
+                String s = getDescripition(arr);
+                String[] newArr = s.split(" /");
+                System.out.println("\t\tAdded a new task to the list!");
+                if (arr[0].equals("deadline")) {
+                    Deadline d = new Deadline(newArr[0], newArr[1]);
+                    list.add(d);
+                    System.out.println("\t\t  " + d.toString());
+                } else if (arr[0].equals("todo")) {
+                    Todo td = new Todo(newArr[0]);
+                    list.add(td);
+                    System.out.println("\t\t  " + td.toString());
+                } else if (arr[0].equals("event")) {
+                    Event e = new Event(newArr[0], newArr[1], newArr[2]);
+                    list.add(e);
+                    System.out.println("\t\t  " + e.toString());
+                }
+                System.out.println("\t\tYou have " + list.size() + " too many tasks to do!!!" +
+                        "\n\t\tQuickly start working on them!!!");
             }
         }
         System.out.println("\t\tBye bye, see you next time !!!");
     }
-    private static int getPos(String str, int i) {
-        String index = str.substring(i);
-        int pos = Integer.parseInt(index);
-        return pos - 1;
+    private static int getIndex(String[] arr) {
+        int index = Integer.parseInt(arr[1]);
+        return index - 1;
+    }
+
+    private static String getDescripition(String[] arr) {
+        StringBuilder s = new StringBuilder();
+        for (int i = 1; i < arr.length; i++) {
+            s.append(arr[i]).append(" ");
+        }
+        return s.toString();
     }
 }
