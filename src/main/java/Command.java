@@ -20,87 +20,79 @@ public class Command {
         boolean exitScan = false;
         while (!exitScan) {
             String userInput = scanner.nextLine();
-
-            String[] words = userInput.split("\\s+");
-
-            String command = words[0];
-            
-            boolean commandValid = true;
             try {
-                if (!commandSet.contains(command)) { 
-                    commandValid = false;
-                    throw new CommandNotFoundException(command);
-                }
-            } catch (CommandNotFoundException e) {
+                exitScan = executeCommand(userInput);
+            } catch (DukeException e) {
                 System.out.println(e.getMessage());
-            }
-
-            if (commandValid) {
-                switch (command) {
-                    case "bye":
-                        Bird.goodbye();
-                        exitScan = true;
-                        break;
-                    case "list":
-                        Bird.list();
-                        break;
-                    default:
-                        // The logic below is for commands with arguments
-                        boolean argumentsValid = false;
-                        String arguments = "";
-                        try {
-                            if (userInput.length() <= command.length() + 1) {
-                                throw new ArgumentNotFoundException(command);
-                            }
-                            arguments = userInput.substring(command.length()+1);
-                            argumentsValid = true;
-                        } catch (ArgumentNotFoundException e) {
-                            System.out.println(e.getMessage());
-                        } 
-                        
-                        if (argumentsValid) {
-                            switch (command) {
-                                case "mark":
-                                    Bird.markTask(Integer.parseInt(arguments));
-                                    break; 
-                                case "unmark":
-                                    Bird.unmarkTask(Integer.parseInt(arguments));
-                                    break;
-                                case "delete":
-                                    Bird.deleteTask(Integer.parseInt(arguments));
-                                    break;
-                                case "todo":
-                                    Bird.addTask(processToDo(arguments));
-                                    break;
-                                case "deadline":
-                                    Bird.addTask(processDeadline(arguments));
-                                    break;
-                                case "event":
-                                    Bird.addTask(processEvent(arguments));
-                                    break;
-                            }  
-                        }
-                }
             }
         }
         scanner.close();
     }
 
+    private static boolean executeCommand(String userInput) throws DukeException {
+        String[] words = userInput.split("\\s+");
+
+        String command = words[0];
+        
+       
+        if (!commandSet.contains(command)) { 
+            throw new CommandNotFoundException(command);
+        }
+
+      
+        switch (command) {
+            case "bye":
+                Bird.goodbye();
+                return true;
+            case "list":
+                Bird.list();
+                break;
+            default:
+                // The logic below is for commands with arguments
+                String arguments = "";
+                try {
+                    arguments = userInput.substring(command.length()+1); 
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new ArgumentNotFoundException(command);
+                } 
+                
+            
+                switch (command) {
+                    case "mark":
+                        Bird.markTask(Integer.parseInt(arguments));
+                        break; 
+                    case "unmark":
+                        Bird.unmarkTask(Integer.parseInt(arguments));
+                        break;
+                    case "delete":
+                        Bird.deleteTask(Integer.parseInt(arguments));
+                        break;
+                    case "todo":
+                        Bird.addTask(processToDo(arguments));
+                        break;
+                    case "deadline":  
+                        Bird.addTask(processDeadline(arguments));
+                        break;
+                    case "event":
+                        Bird.addTask(processEvent(arguments));
+                        break;    
+                }  
+            }    
+        return false;
+    }
+    
+
     private static ToDo processToDo(String arguments) {
         return new ToDo(arguments);
     }
 
-    private static Deadline processDeadline(String arguments) {
+    private static Deadline processDeadline(String arguments) throws InvalidDeadlineFormatException {
         try {
-            if (!arguments.contains("/by ")) {
-                throw new InvalidDeadlineFormatException();
-            }
-        } catch (InvalidDeadlineFormatException e) {
-            System.out.println(e.getMessage());
+            String[] parts = arguments.split("/by ");
+            return new Deadline(parts[0], parts[1]);
+        } catch (Exception e) {
+            throw new InvalidDeadlineFormatException();
         }
-
-        String[] parts = arguments.split("/by ");
-        return new Deadline(parts[0], parts[1]);
     }
 
     private static Event processEvent(String arguments) {
