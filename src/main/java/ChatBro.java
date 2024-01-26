@@ -16,8 +16,7 @@ public class ChatBro {
 
         Scanner sc = new Scanner(System.in);
         boolean isQuit = false;
-        String[] taskList = new String[101]; // First element left empty for 1-based indexing
-        HashMap<Integer, Boolean> taskDone = new HashMap<>();
+        Task[] taskList = new Task[101]; // First element left empty for 1-based indexing
 
         while (!isQuit) {
             String input = sc.nextLine();
@@ -31,7 +30,7 @@ public class ChatBro {
                         if (taskList[i] == null) {
                             break;
                         }
-                        System.out.println(i + ".[" + (taskDone.get(i) ? "X" : " ") + "] " + taskList[i]);
+                        System.out.println(i + "." + taskList[i].toString());
                     }
                     System.out.println("_________________________\n");
                     break;
@@ -42,20 +41,32 @@ public class ChatBro {
 
                 case "mark":
                     int taskNum = Integer.parseInt(inputSplit[1]);
-                    taskDone.put(taskNum, true);
+                    if (taskList[taskNum] == null) {
+                        System.out.println("_________________________\n" +
+                                "Sorry bro, this task doesn't exist in your list.\n" +
+                                "_________________________\n");
+                        break;
+                    }
+                    taskList[taskNum].markAsDone();
                     System.out.println("_________________________\n" +
                             "Got it bro! Task " + taskNum + " is marked as done:\n" +
-                            "[" + (taskDone.get(taskNum) ? "X" : " ") + "] " + taskList[taskNum] + "\n" +
-                            "_________________________\n");
+                            taskList[taskNum].toString() +
+                            "\n_________________________\n");
                     break;
 
                 case "unmark":
                     int taskNum2 = Integer.parseInt(inputSplit[1]);
-                    taskDone.put(taskNum2, false);
+                    if (taskList[taskNum2] == null) {
+                        System.out.println("_________________________\n" +
+                                "Sorry bro, this task doesn't exist in your list.\n" +
+                                "_________________________\n");
+                        break;
+                    }
+                    taskList[taskNum2].markAsUndone();
                     System.out.println("_________________________\n" +
                             "Got it bro! Task " + taskNum2 + " is marked as not done yet:\n" +
-                            "[" + (taskDone.get(taskNum2) ? "X" : " ") + "] " + taskList[taskNum2] + "\n" +
-                            "_________________________\n");
+                            taskList[taskNum2].toString() +
+                            "\n_________________________\n");
                     break;
 
                 case "bye":
@@ -68,8 +79,7 @@ public class ChatBro {
                 default: // Other input will be stored into taskList
                     for (int i = 1; i <= 100; i++) {
                         if (taskList[i] == null) {
-                            taskList[i] = input;
-                            taskDone.put(i, false);
+                            taskList[i] = new Task(input);
                             break;
                         }
                     }
