@@ -15,7 +15,7 @@ public class Task {
         this.uuid = UUID.randomUUID().toString();
     }
 
-    public Task setUUID(String uuid) {
+    public Task setUuid(String uuid) {
         this.uuid = uuid;
         return this;
     }

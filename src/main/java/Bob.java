@@ -1,4 +1,8 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +15,6 @@ public class Bob {
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
-
 
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
@@ -46,7 +49,7 @@ public class Bob {
      */
     private void greet() {
         this.printLine();
-        System.out.println("    Hello! I'm Bob, a personal assistant." );
+        System.out.println("    Hello! I'm Bob, a personal assistant.");
         System.out.println("    How can I help you?");
         this.printLine();
     }
@@ -169,7 +172,8 @@ public class Bob {
 
                     if (invalidFile) {
                         throw new BobException
-                                .CorruptedSaveData("Save file is corrupt. The application will create a new save file.");
+                                .CorruptedSaveData("Save file is corrupt. "
+                                + "The application will create a new save file.");
                     }
 
                     if (taskType.equals("T")
@@ -183,20 +187,20 @@ public class Bob {
                     try {
 
                         switch (taskType) {
-                        case "T":
-                            this.addItem(new Task(properties[2])
-                                            .setUUID(properties[0])
-                                            .updateStatus(properties[3].equals("true")));
-                            break;
                         case "E":
                             this.addItem(new Event(properties[2], properties[4], properties[5])
-                                            .setUUID(properties[0])
+                                            .setUuid(properties[0])
                                             .updateStatus(properties[3].equals("true")));
                             break;
                         case "D":
                             this.addItem(new Deadline(properties[2], properties[4])
-                                            .setUUID(properties[0])
+                                            .setUuid(properties[0])
                                             .updateStatus(properties[3].equals("true")));
+                            break;
+                        default:
+                            this.addItem(new Task(properties[2])
+                                    .setUuid(properties[0])
+                                    .updateStatus(properties[3].equals("true")));
                             break;
                         }
 
