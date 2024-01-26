@@ -38,6 +38,6 @@ public class FORMAT {
     };
 
     public static final String[] TIMES = {
-            "H:mm", "H:mm:[ss] a", "Ha", "HHmm", "H:mm a", "H:mma"
+            "H:mm", "H:mm:[ss] a", "Ha", "HHmm", "H:mm a", "HH:mma"
     };
 }

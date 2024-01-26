@@ -19,19 +19,8 @@ public class Date {
     private LocalDateTime formattedDateTime;
     private LocalTime formattedTime;
 
-    private void formatDate() throws SquidDateException {
-        String[] params = this.date.split(",", 2);
-        String date = "";
-        String time = "";
-
-        if (params.length > 1) {
-            // Take time first.
-            time = params[0].toUpperCase().strip();
-            date = params[1].toLowerCase().strip();
-        } else {
-            date = this.date;
-        }
-
+    private void formatTime(String time) throws SquidDateException {
+        System.out.println(time);
         switch (time) {
         case (""):
             break;
@@ -42,8 +31,10 @@ public class Date {
             String[] formats = FORMAT.TIMES;
             LocalTime found = null;
             for (int i = 0; i < formats.length; i++) {
+                System.out.println("format" + formats[i]);
                 try {
                     found = LocalTime.parse(time, DateTimeFormatter.ofPattern(formats[i], Locale.ENGLISH));
+                    System.out.println(found);
                 } catch (DateTimeParseException e) {
                     try{
                         found = LocalTime.parse(time);
@@ -52,12 +43,15 @@ public class Date {
                 }
             }
             if (found == null) {
-                throw new SquidDateException(String.format(EXCEPTIONS.SQUID_DATE, time, CORRECT_USAGE.DATE));
+                throw new SquidDateException(String.format(EXCEPTIONS.SQUID_DATE, time, "time", CORRECT_USAGE.DATE));
             } else {
                 this.formattedTime = found;
             }
         }
+    }
 
+
+    private void formatDate(String date) throws SquidDateException {
         switch (date) {
         case ("today"):
             this.formattedDate = LocalDate.now();
@@ -81,18 +75,23 @@ public class Date {
                 }
             }
             if (found == null) {
-                throw new SquidDateException(String.format(EXCEPTIONS.SQUID_DATE, date, CORRECT_USAGE.DATE));
+                throw new SquidDateException(String.format(EXCEPTIONS.SQUID_DATE, date, "date", CORRECT_USAGE.DATE));
             } else {
                 this.formattedDate = found;
             }
         }
-
-
-
     }
     public Date(String date) throws SquidDateException {
         this.date = date;
-        formatDate();
+        String[] params = this.date.split(",", 2);
+
+        if (params.length > 1) {
+            // Take time first.
+            formatTime(params[0].toUpperCase().strip());
+            formatDate(params[1].toLowerCase().strip());
+        } else {
+            formatDate(date);
+        }
     }
 
     public String toString() {

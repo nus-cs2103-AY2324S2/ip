@@ -9,5 +9,5 @@ public class EXCEPTIONS {
     public static final String INCORRECT_INDEX = "Please enter a valid integer!\nUsage: %s";
     public static final String PARSE_FAIL = "Not parsing a Task String: \n%s";
     public static final String SQUID_DATE
-            = "I can't read this! \n%s\nInput the date in a cat-readable format, something like:\n%s";
+            = "I can't read this! \n%s\nInput the %s in a cat-readable format, something like:\n%s";
 }
