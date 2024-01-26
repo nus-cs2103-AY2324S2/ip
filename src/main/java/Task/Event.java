@@ -14,4 +14,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (at: " + startTime + " - " + endTime + ")";
     }
+
+    @Override
+    public String serialize() {
+        return "E | " + super.serialize() + " | " + startTime + " | " + endTime;
+    }
 }

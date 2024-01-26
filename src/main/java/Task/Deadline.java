@@ -12,4 +12,9 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (due: " + dueTime + ")";
     }
+
+    @Override
+    public String serialize() {
+        return "D | " + super.serialize() + " | " + dueTime; // assuming that the dueTime does not contain "|"
+    }
 }
