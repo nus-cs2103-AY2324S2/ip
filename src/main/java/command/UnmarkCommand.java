@@ -1,17 +1,24 @@
-public class DeleteCommand extends Command {
+package command;
+
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
+
+public class UnmarkCommand extends Command {
     private int taskIndex;
 
-    public DeleteCommand(int taskIndex) {
+    public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task curr = tasks.getTask(taskIndex);
-        tasks.removeFromList(taskIndex);
+        curr.markAsUndone();
 
         ui.printDivider();
-        System.out.println("    Noted, I've removed this task: ");
-        curr.taskPrinter();
+        System.out.println("    OK, I've marked this task as not done : ");
+        curr.taskPrinter(taskIndex);
         ui.printDivider();
     }
 

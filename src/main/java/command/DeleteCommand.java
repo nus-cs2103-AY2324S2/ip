@@ -1,19 +1,24 @@
-public class MarkCommand extends Command {
+package command;
 
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
+
+public class DeleteCommand extends Command {
     private int taskIndex;
 
-    public MarkCommand(int taskIndex) {
+    public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
-
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task curr = tasks.getTask(taskIndex);
-        curr.markAsDone();
+        tasks.removeFromList(taskIndex);
 
         ui.printDivider();
-        System.out.println("    Nice! I've marked this task as done: ");
-        curr.taskPrinter(taskIndex);
+        System.out.println("    Noted, I've removed this task: ");
+        curr.taskPrinter();
         ui.printDivider();
     }
 

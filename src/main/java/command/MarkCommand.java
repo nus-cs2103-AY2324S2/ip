@@ -1,16 +1,25 @@
-public class UnmarkCommand extends Command {
+package command;
+
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
+
+public class MarkCommand extends Command {
+
     private int taskIndex;
 
-    public UnmarkCommand(int taskIndex) {
+    public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task curr = tasks.getTask(taskIndex);
-        curr.markAsUndone();
+        curr.markAsDone();
 
         ui.printDivider();
-        System.out.println("    OK, I've marked this task as not done : ");
+        System.out.println("    Nice! I've marked this task as done: ");
         curr.taskPrinter(taskIndex);
         ui.printDivider();
     }

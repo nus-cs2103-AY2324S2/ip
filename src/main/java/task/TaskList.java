@@ -1,3 +1,8 @@
+package task;
+
+import exception.TobiasException;
+import ui.Ui;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +37,6 @@ public class TaskList {
 
     public int taskNum() {
         return tasks.size();
-    }
-
-    public boolean isNull() {
-        return tasks.isEmpty();
     }
 
     public void printList() {

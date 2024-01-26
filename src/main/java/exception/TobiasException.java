@@ -1,3 +1,5 @@
+package exception;
+
 public class TobiasException extends Exception {
     public TobiasException(String message) {
         super(message);
