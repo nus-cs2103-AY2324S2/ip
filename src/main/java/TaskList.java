@@ -1,7 +1,8 @@
-import java.util.*;
+import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
+
     public TaskList() {
         tasks = new ArrayList<>();
     }
@@ -21,7 +22,7 @@ public class TaskList {
     public void deleteTask(int index) throws TaskNotFound {
         try {
             tasks.remove(index);
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new TaskNotFound(index, e);
         }
     }

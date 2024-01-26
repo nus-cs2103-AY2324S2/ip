@@ -1,5 +1,6 @@
 public class Event extends Task {
     private String from, to;
+
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
