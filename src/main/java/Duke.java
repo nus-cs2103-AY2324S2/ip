@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int counter = 0;
-        Task[] task = new Task[100];
+        List<Task> task = new ArrayList<>();
         String horizontalLine = "_".repeat(60);
         System.out.println(horizontalLine);
         System.out.println("Hello! I'm Friday");
@@ -19,7 +21,7 @@ public class Duke {
                 case "list":
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < counter; i++) {
-                        System.out.println((i + 1) + ". " + task[i].toString());
+                        System.out.println((i + 1) + ". " + task.get(i).toString());
                     }
                     break;
                 case "mark":
@@ -28,10 +30,14 @@ public class Duke {
                         System.out.println("Error. Unknown number.");
                         break;
                     }
-                    System.out.println("Nice! I've marked this task as done:");
                     int id = Integer.parseInt(userInput.split(" ")[1]);
-                    task[id - 1].markAsDone();
-                    System.out.println(task[id - 1].toString());
+                    if (id > counter) {
+                        System.out.println("Error. Task does not exist.");
+                        break;
+                    }
+                    System.out.println("Nice! I've marked this task as done:");
+                    task.get(id - 1).markAsDone();
+                    System.out.println(task.get(id - 1).toString());
                     break;
                 case "unmark":
                     String[] toUnmark = userInput.split(" ");
@@ -39,10 +45,14 @@ public class Duke {
                         System.out.println("Error. Unknown number.");
                         break;
                     }
-                    System.out.println("OK, I've marked this task as not done yet:");
                     int num = Integer.parseInt(userInput.split(" ")[1]);
-                    task[num - 1].markAsUndone();
-                    System.out.println(task[num - 1].toString());
+                    if (num > counter) {
+                        System.out.println("Error. Task does not exist.");
+                        break;
+                    }
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    task.get(num - 1).markAsUndone();
+                    System.out.println(task.get(num - 1).toString());
                     break;
                 case "todo":
                     String[] todos = userInput.split(" ");
@@ -53,7 +63,7 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     Todo t = new Todo(userInput.substring(5));
                     System.out.println(t);
-                    task[counter] = t;
+                    task.add(t);
                     counter++;
                     System.out.println(taskCounter(counter));
                     break;
@@ -68,7 +78,7 @@ public class Duke {
                     String by = userInput.split("/")[1].substring(3).trim();
                     Deadline d = new Deadline(description, by);
                     System.out.println(d);
-                    task[counter] = d;
+                    task.add(d);
                     counter++;
                     System.out.println(taskCounter(counter));
                     break;
@@ -85,8 +95,25 @@ public class Duke {
                     String to = input.split("/")[2].substring(3).trim();
                     Event e = new Event(descr, from, to);
                     System.out.println(e);
-                    task[counter] = e;
+                    task.add(e);
                     counter++;
+                    System.out.println(taskCounter(counter));
+                    break;
+                case "delete":
+                    String[] toDelete = userInput.split(" ");
+                    if (toDelete.length <= 1) {
+                        System.out.println("Error. Unknown number.");
+                        break;
+                    }
+                    int j = Integer.parseInt(userInput.split(" ")[1]);
+                    if (j > counter) {
+                        System.out.println("Error. Task does not exist.");
+                        break;
+                    }
+                    System.out.println("Noted. I have removed this task:");
+                    System.out.println(task.get(j - 1));
+                    task.remove(j - 1);
+                    counter--;
                     System.out.println(taskCounter(counter));
                     break;
                 default:
@@ -111,4 +138,3 @@ public class Duke {
         }
     }
 }
-
