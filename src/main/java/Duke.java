@@ -5,6 +5,8 @@ public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+        String confirmation = "Got it. I've added this task:";
+
 
         //Greetings
         String logo = "Tommy";
@@ -59,8 +61,8 @@ public class Duke {
 
                 Todo todo = new Todo(userInput.substring(5));
                 tasks.add(todo);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(todo.getType() + todo.getStatusIcon() + " " + todo.description);
+                System.out.println(confirmation);
+                System.out.println(todo.toString());
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 System.out.println(divider);
@@ -77,8 +79,8 @@ public class Duke {
 
                 Deadline deadline = new Deadline(desc, dateOfDeadline);
                 tasks.add(deadline);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(deadline.getType() + deadline.getStatusIcon() + " " + deadline.description);
+                System.out.println(confirmation);
+                System.out.println(deadline.toString());
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 System.out.println(divider);
@@ -96,8 +98,8 @@ public class Duke {
 
                 Event event = new Event(desc, from, to);
                 tasks.add(event);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(event.getType() + event.getStatusIcon() + " " + event.description);
+                System.out.println(confirmation);
+                System.out.println(event.toString());
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 System.out.println(divider);

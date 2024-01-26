@@ -11,5 +11,8 @@ public class Deadline extends Task {
     public String getType() {
         return type;
     }
-
+    @Override
+    public String toString() {
+        return "[D]" + this.getStatusIcon() + " " + this.description;
+    }
 }

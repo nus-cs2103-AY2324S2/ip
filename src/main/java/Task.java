@@ -10,10 +10,9 @@ abstract public class Task {
         this.isDone = false;
         this.index = counter;
     }
-    abstract String getType();
-
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
+    abstract String getType();
 }
 
