@@ -17,6 +17,7 @@ public final class Bond {
             add("mark");
             add("unmark");
             add("bye");
+            add("delete");
         }
     };
 
@@ -44,6 +45,14 @@ public final class Bond {
         System.out.println(String.format(
                 "%s\n\n    Got it. I've added this task:\n      %s \n    Now you have %d tasks in the list.\n%s\n",
                 line, newTask.toString(), taskList.size(), line));
+    }
+
+    private static void deleteTask(int taskIndex, ArrayList<Task> taskList) {
+        Task deletedTask = taskList.get(taskIndex);
+        taskList.remove(taskIndex);
+        System.out.println(String.format(
+                "%s\n\n    Got it. I've removed this task:\n      %s \n    Now you have %d tasks in the list.\n%s\n",
+                line, deletedTask.toString(), taskList.size(), line));
     }
 
     public static void main(String[] args) {
@@ -107,7 +116,7 @@ public final class Bond {
 
                     ListIterator<Task> toprintln = taskList.listIterator();
 
-                    System.out.println(String.format("%s\n\n    Here are the tasks in your list:\n", line));
+                    System.out.println(String.format("%s\n\n    Here are the tasks in your list:", line));
 
                     while (toprintln.hasNext()) {
                         System.out.println(String.format("    %d. %s",
@@ -163,6 +172,21 @@ public final class Bond {
                     System.out.println(String.format("%s\n\nBye. Hope to see you again soon! \n%s", line, line));
                     sc.close();
                     System.exit(0);
+                } else if (components[0].equalsIgnoreCase("delete")) {
+
+                    if (taskList.isEmpty()) {
+                        BondException.raiseException("delete", "EMPTY_LIST");
+                    } else if (components.length == 1) {
+                        BondException.raiseException("delete", "MISSING_INDEX");
+                    } else if (!isNumber(components[1])) {
+                        BondException.raiseException("delete", "INVALID_INDEX");
+                    } else if (Integer.parseInt(components[1]) - 1 >= taskList.size()) {
+                        BondException.raiseException("delete", "INVALID_INDEX");
+                    }
+
+                    int index = Integer.parseInt(components[1]) - 1;
+
+                    Bond.deleteTask(index, taskList);
                 }
 
             } catch (BondException e) {
