@@ -1,7 +1,36 @@
-public class Duke {
-    public static void main(String[] args) {
-        System.out.println("Hello! I'm Virtue \nWhat can I do for you? \n");
-        System.out.println("Bye. Hope to see you again soon! \n");
+import java.util.Scanner;
 
+public class Duke {
+    // A horizontal line.
+    private final String horizontalLine = "____________________________________________________________";
+
+    // Prints a horizontal line.
+    private void printHorizontalLine() {
+        System.out.println(horizontalLine);
+    }
+
+    // Greets the user.
+    private void greet() {
+        printHorizontalLine();
+        System.out.println("Hello! I'm Virtue \nWhat can I do for you?");
+        printHorizontalLine();
+    }
+
+    // Exits with a goodbye message.
+    private void bye() {
+        printHorizontalLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        printHorizontalLine();
+    }
+
+    // Runs the chatbot.
+    private void run() {
+        greet();
+        bye();
+    }
+
+    public static void main(String[] args) {
+        Duke virtue = new Duke();
+        virtue.run();
     }
 }
