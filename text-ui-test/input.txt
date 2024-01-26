@@ -13,6 +13,8 @@ mark 1
 list
 unmark 1
 list
+delete 1
+list
 something that does not exist
 mark
 mark a
@@ -30,4 +32,7 @@ event a /from /to
 event a /from 2pm /to
 event a /from /to 4pm
 event a /from  /to 4pm
+delete
+delete a
+delete 9999999
 bye
