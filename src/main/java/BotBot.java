@@ -1,23 +1,35 @@
 import java.util.Scanner;
 
 public class BotBot {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        scanner.useDelimiter("\n");
+        TaskList list = new TaskList();
         BotBot.greet();
 
         while (scanner.hasNext()) {
-            String next = scanner.next();
-            if (next.equals("bye")) {
+            String nextTask = scanner.next();
+
+            // Exit sequence
+            if (nextTask.equals("bye")) {
                 BotBot.exit();
                 break;
             }
-            BotBot.print(next);
+
+            // Main functionality
             BotBot.divider();
+            list.addTask(nextTask);
+            BotBot.divider();
+            list.printList();
+            BotBot.divider();
+
         }
 
         scanner.close();
     }
 
+    // Print functionalities
     private static void print(String string) {
         System.out.println(string);
     }
@@ -26,11 +38,12 @@ public class BotBot {
     }
     public static void greet() {
         BotBot.divider();
-        BotBot.print("I am BotBot!\nWhat can I do for you?\n");
+        BotBot.print("I am BotBot!\nWhat can I do for you?");
         BotBot.divider();
     }
     public static void exit() {
-        BotBot.print("Goodbye! See you soon!\n");
+        BotBot.print("Goodbye! See you soon!");
         BotBot.divider();
     }
+
 }
