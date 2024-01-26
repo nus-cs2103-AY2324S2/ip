@@ -1,6 +1,39 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
+    public enum Instruction {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, ANYTHING_ELSE
+    }
+    
+    private static Instruction getInstr(String input) {
+        if (input.toLowerCase().startsWith("list")) {
+            return Instruction.LIST;
+        } else if (input.toLowerCase().startsWith("mark")) {
+            return Instruction.MARK;
+        } else if (input.toLowerCase().startsWith("unmark")) {
+            return Instruction.UNMARK;
+        } else if (input.toLowerCase().startsWith("todo")) {
+            return Instruction.TODO;
+        } else if (input.toLowerCase().startsWith("deadline")) {
+            return Instruction.DEADLINE;
+        } else if (input.toLowerCase().startsWith("event")) {
+            return Instruction.EVENT;
+        } else if (input.toLowerCase().startsWith("delete")) {
+            return Instruction.DELETE;
+        } else if (input.toLowerCase().startsWith("bye")){
+            return Instruction.BYE;
+        } else {
+            return Instruction.ANYTHING_ELSE;
+        }
+    }
+    
+    private static void echo(Task task, ArrayList<Task> list) {
+        String echo = "Got it. I've added this task:\n" + "  " + task.toString() + "\n"
+            + "Now you have " + (list.size() + 1) + " tasks in the list"
+            + "\n___________________________________" ;
+        System.out.println(echo);
+        list.add(task);
+    }
     public static void main(String[] args) throws DukeException {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
@@ -90,6 +123,12 @@ public class Duke {
                     break;
                 case DELETE:
                     int indexOfTaskToDelete = Integer.parseInt(inputFromUser.substring(7));
+                    if (list.size() < 1) {
+                        throw new DukeException("No task at the moment");
+                    }
+                    if (indexOfTaskToDelete > list.size() || indexOfTaskToDelete < 1) {
+                        throw new DukeException("Check you task number");
+                    }
                     Task taskToDelete = list.get(indexOfTaskToDelete - 1);
                     String toPrint = "Noted. I've removed this task:\n" + "  " + taskToDelete.toString() + "\n"
                         + "Now you have " + (list.size() - 1) + " tasks in  the list"
@@ -108,36 +147,4 @@ public class Duke {
             }
         }
     }
-    public enum Instruction {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
-    }
-    
-    private static Instruction getInstr(String input) {
-        if (input.toLowerCase().startsWith("list")) {
-            return Instruction.LIST;
-        } else if (input.toLowerCase().startsWith("mark")) {
-            return Instruction.MARK;
-        } else if (input.toLowerCase().startsWith("unmark")) {
-            return Instruction.UNMARK;
-        } else if (input.toLowerCase().startsWith("todo")) {
-            return Instruction.TODO;
-        } else if (input.toLowerCase().startsWith("deadline")) {
-            return Instruction.DEADLINE;
-        } else if (input.toLowerCase().startsWith("event")) {
-            return Instruction.EVENT;
-        } else if (input.toLowerCase().startsWith("delete")) {
-            return Instruction.DELETE;
-        } else {
-            return Instruction.BYE;
-        }
-    }
-    
-    private static void echo(Task task, ArrayList<Task> list) {
-        String echo = "Got it. I've added this task:\n" + "  " + task.toString() + "\n"
-            + "Now you have " + (list.size() + 1) + " tasks in the list"
-            + "\n___________________________________" ;
-        System.out.println(echo);
-        list.add(task);
-    }
-    
 }
