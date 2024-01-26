@@ -20,14 +20,15 @@ public class Duke {
 
         String indent = "    ";
 
-        while (true) {
-            Scanner input = new Scanner(System.in);
-            String str = input.nextLine();
+
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNextLine()) {
+            String str = scanner.nextLine();
             String[] arr = str.split(" ", 2);
             String action = arr[0];
             if (action.equalsIgnoreCase("bye")) {
                 System.out.println(bye);
-                break;
+
             } else if (action.equalsIgnoreCase("list")){
                 for (int i = 0; i < list.size(); i++) {
                     int n = i + 1;
@@ -73,5 +74,6 @@ public class Duke {
                 System.out.println("You now have " + n + " tasks in the list.");
             }
         }
+        scanner.close();
     }
 }
