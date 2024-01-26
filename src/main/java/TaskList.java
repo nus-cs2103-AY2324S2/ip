@@ -8,10 +8,6 @@ public class TaskList {
         String taskType = temp[0];
         String taskInfo = temp.length > 1 ? temp[1] : "";
         switch (taskType) {
-            case "list":
-                System.out.println("These are the tasks in your list:");
-                printList();
-                break;
             case "todo":
                 addTask(new ToDo(taskInfo));
                 break;
@@ -23,17 +19,14 @@ public class TaskList {
                 String[] temp3 = taskInfo.split(" /", 3);
                 addTask(new Event(temp3[0], temp3[1].substring(5), temp3[2].substring(3)));
                 break;
-            default:
-                // to implement error
+            // can account for errors here
         }
-
-
     }
     private Task getTask(int i) {
         return this.list.get(i);
     }
     private void addTask(Task task) {
-        System.out.println("I have added the following task:\n" + task.getRep());
+        System.out.printf("I have added the following task:\n%s\n", task.getRep());
         this.list.add(task);
         System.out.printf("You now have %d task(s) in your list!%n", list.size());
     }

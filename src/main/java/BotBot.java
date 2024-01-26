@@ -12,15 +12,19 @@ public class BotBot {
             String nextTask = scanner.next();
             BotBot.divider();
             // Logic sequence
-            if (nextTask.equals("bye")) {
+            if (nextTask.startsWith("bye")) {
                 BotBot.exit();
                 break;
-            } else if (nextTask.startsWith("mark ")) {
+            } else if (nextTask.startsWith("mark")) {
                 System.out.println("Good job on completing the task:");
-                list.mark(Integer.parseInt(nextTask.substring(5)));
-            } else if (nextTask.startsWith("unmark ")) {
+                System.out.println(Integer.parseInt(nextTask.split(" ", 2)[1]));
+                list.mark(Integer.parseInt(nextTask.split(" ", 2)[1]));
+            } else if (nextTask.startsWith("unmark")) {
                 System.out.println("I have unmarked a task:");
-                list.unmark(Integer.parseInt(nextTask.substring(7)));
+                list.unmark(Integer.parseInt(nextTask.split(" ", 2)[1]));
+            } else if (nextTask.startsWith("list")) {
+                System.out.println("These are the tasks in your list:");
+                list.printList();
             } else {
                 list.addTask(nextTask);
             }
