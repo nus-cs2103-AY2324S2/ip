@@ -1,3 +1,6 @@
+import objects.Processor;
+import objects.TaskList;
+
 import java.util.Scanner;
 
 public class Duke {

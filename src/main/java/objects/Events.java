@@ -1,3 +1,5 @@
+package objects;
+
 public class Events extends Task {
     private final String from;
     private final String to;

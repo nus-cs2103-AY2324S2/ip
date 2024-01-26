@@ -1,4 +1,4 @@
-import java.util.Objects;
+package objects;
 
 public class Processor {
     public static void greet() {
