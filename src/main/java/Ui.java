@@ -78,7 +78,7 @@ public abstract class Ui {
                         break;
                     case "todo":
                         String toDo = Parser.removeCommand(input);
-                        if (toDo == null) {
+                        if (toDo == null || toDo.isEmpty()) {
                             System.out.println("Task not found!");
                         } else {
                             Duke.taskList.storeItem(new Todo(toDo));
@@ -116,7 +116,7 @@ public abstract class Ui {
                         }
                         break;
                     default:
-                        Duke.taskList.storeItem(new Task(input));
+                        System.out.println("Oh no! I'm sorry, I can't understand it :(");
                 }
                 if (terminate) {
                     break;
