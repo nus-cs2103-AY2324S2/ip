@@ -19,7 +19,7 @@ public abstract class Ui {
     }
 
     private static void printEndLine() {
-        System.out.print(Ui.END_LINE);
+        System.out.println(Ui.END_LINE);
     }
     private static void printWarningLine() {
         System.out.print(Ui.WARNING_LINE);
