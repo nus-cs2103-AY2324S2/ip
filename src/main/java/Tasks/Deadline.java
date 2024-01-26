@@ -24,4 +24,9 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("%s[%s]: %s%s", getType(), completedIcon(), task, getAdditionalInfo());
     }
+
+    @Override
+    public String parseStr() {
+        return String.format("%s %s %s %s", getType(), completedIcon(), task, deadline);
+    }
 }

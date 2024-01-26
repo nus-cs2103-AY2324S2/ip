@@ -4,9 +4,10 @@ import CONSTANTS.CORRECT_USAGE;
 import CONSTANTS.EXCEPTIONS;
 import Exceptions.DuplicateTaskNameException;
 import Exceptions.IncorrectIndexException;
-import Exceptions.NotEnoughInputsException;
+import Exceptions.ParseFailException;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Tasks {
     private static ArrayList<Task> arr;
@@ -52,5 +53,28 @@ public class Tasks {
         arr = new ArrayList<>();
     }
 
+    public Task parseTask(String s) throws ParseFailException {
+        String[] params = s.split(" ");
+        Task task;
+        switch (params.length) {
+            case (5): // event
+                task = new Event(params[2], new Date(params[3]), new Date(params[4]));
+                task.setCompleted(Objects.equals(params[1], "X"));
+                return task;
+            case (4): // deadline
+                task = new Deadline(params[2], new Date(params[3]));
+                task.setCompleted(Objects.equals(params[1], "X"));
+                return task;
+            case (3): //todo
+                task = new Todo(params[2]);
+                task.setCompleted(Objects.equals(params[1], "X"));
+                return task;
+        }
+        throw new ParseFailException(EXCEPTIONS.PARSE_FAIL);
+    }
 
+
+    public static void save() {
+
+    }
 }

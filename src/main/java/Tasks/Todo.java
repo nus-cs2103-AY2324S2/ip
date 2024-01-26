@@ -19,4 +19,9 @@ public class Todo extends Task {
     public String toString() {
         return String.format("%s[%s]: %s", getType(), completedIcon(), task);
     }
+
+    @Override
+    public String parseStr() {
+        return String.format("%s %s %s", getType(), completedIcon(), task);
+    }
 }

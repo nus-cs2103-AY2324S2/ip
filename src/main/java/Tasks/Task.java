@@ -22,4 +22,6 @@ public abstract class Task {
     public abstract String getAdditionalInfo();
 
     public abstract String toString();
+
+    public abstract String parseStr();
 }

@@ -26,4 +26,9 @@ public class Event extends Task {
     public String toString() {
         return String.format("%s[%s]: %s%s", getType(), completedIcon(), task, getAdditionalInfo());
     }
+
+    @Override
+    public String parseStr() {
+        return String.format("%s %s %s %s %s", getType(), completedIcon(), task, from, to);
+    }
 }

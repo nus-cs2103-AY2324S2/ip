@@ -23,7 +23,6 @@ import Tasks.Task;
 import Tasks.Tasks;
 
 
-
 public class Duke {
 
     private static void Squid() {
@@ -128,7 +127,7 @@ public class Duke {
         Date to = new Date(dates[1]);
         Task t = new Event(params[0], from, to);
         Tasks.add(t);
-        echo(String.format(MESSAGES.EVENT,  t));
+        echo(String.format(MESSAGES.EVENT, t));
     }
 
 
@@ -176,36 +175,39 @@ public class Duke {
 
         try {
             switch (command) {
-                case ("bye"):
-                    loop = false;
-                    bye();
-                    break;
-                case ("echo"):
-                    echo(input, true);
-                    break;
-                case ("list"):
-                    list();
-                    break;
-                case ("mark"):
-                    mark(input, true);
-                    break;
-                case ("unmark"):
-                    mark(input, false);
-                    break;
-                case ("todo"):
-                    todo(input);
-                    break;
-                case ("deadline"):
-                    deadline(input);
-                    break;
-                case ("event"):
-                    event(input);
-                    break;
-                case ("delete"):
-                    delete(input);
-                    break;
-                default:
-                    throw new IncorrectInputException(EXCEPTIONS.INCORRECT_INPUT);
+            case ("bye"):
+                loop = false;
+                bye();
+                break;
+            case ("echo"):
+                echo(input, true);
+                break;
+            case ("list"):
+                list();
+                break;
+            case ("mark"):
+                mark(input, true);
+                break;
+            case ("unmark"):
+                mark(input, false);
+                break;
+            case ("todo"):
+                todo(input);
+                break;
+            case ("deadline"):
+                deadline(input);
+                break;
+            case ("event"):
+                event(input);
+                break;
+            case ("delete"):
+                delete(input);
+                break;
+            case ("save"):
+                Tasks.save();
+                break;
+            default:
+                throw new IncorrectInputException(EXCEPTIONS.INCORRECT_INPUT);
             }
         } catch (IncorrectInputException e) {
             echo(e.getMessage());
