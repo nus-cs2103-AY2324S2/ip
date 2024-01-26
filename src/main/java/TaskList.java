@@ -16,6 +16,25 @@ public class TaskList implements Serializable {
         return tasks.size();
     }
 
+    public Task createTask(String input) throws MissMinutesException {
+        String[] split = input.split(" ", 2);
+        String desc = split.length > 1 ? split[1] : "";
+
+        try {
+            if (split[0].equalsIgnoreCase("TODO")) {
+                return Todo.fromStr(desc);
+            } else if (split[0].equalsIgnoreCase("DEADLINE")) {
+                return Deadline.fromStr(desc);
+            } else if (split[0].equalsIgnoreCase("EVENT")) {
+                return Event.fromStr(desc);
+            } else {
+                throw new MissMinutesException("Invalid command name, please try again!");
+            }
+        } catch (ArrayIndexOutOfBoundsException err) {
+            throw new MissMinutesException("Incomplete command, please try again!");
+        }
+    }
+
     public void addTask(Task task) {
         this.tasks.add(task);
         String reply = "Got it. I've added this task: \n" + task + "\n" +
