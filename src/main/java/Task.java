@@ -7,6 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String markAsDone() {
         this.isDone = true;
         return "Nice! I've mark this task as done:\n\t\t" + this;
@@ -19,6 +24,10 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "✓" : "✕"); // mark done task with ✓
+    }
+
+    public String textFormattedOutput() {
+        return "";
     }
 
     public String toString() {
