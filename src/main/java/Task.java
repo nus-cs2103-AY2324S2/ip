@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -50,6 +51,13 @@ abstract class Task {
     public abstract String getTaskType();
 
     /**
+     * Whether we have to start doing it
+     * @param current current time
+     * @return yes/no
+     */
+    public abstract boolean isTimeForStart(LocalDate current);
+
+    /**
      * Change the status of task from not Done to Done
      */
     public void Done() {
@@ -71,4 +79,5 @@ abstract class Task {
         String temp = String.format("[%s][%s] %s", this.getTaskTypeIcon(), this.getStatusIcon(), this.description);
         return temp;
     }
+
 }

@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * Class for task start with todo
  */
@@ -27,5 +29,15 @@ public class Todo extends Task{
     @Override
     public String getTaskType() {
         return "todo";
+    }
+
+    /**
+     * Whether we have to start doing it
+     * @param current current time
+     * @return yes/no
+     */
+    @Override
+    public boolean isTimeForStart(LocalDate current){
+        return !isDone;
     }
 }
