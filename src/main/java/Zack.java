@@ -5,34 +5,41 @@ public class Zack {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
 
+    public enum TaskType {
+        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE
+    }
+
     private static void handleInput(String input) throws ZackException {
         String[] sections = input.split(" ", 2);
 
-        // Grab first word, which is always the keyword
-        switch (sections[0].toLowerCase()) {
-            case "bye":
-                handleBye(sections);
-                break;
-            case "mark":
-                handleMark(sections, true);
-                break;
-            case "unmark":
-                handleMark(sections, false);
-                break;
-            case "list":
-                handleList(sections);
-                break;
-            // let all tasks 'fallthrough'
-            case "todo":
-            case "deadline":
-            case "event":
-                handleTask(sections);
-                break;
-            case "delete":
-                handleDelete(sections);
-                break;
-            default:
-                throw new ZackException("I'm sorry, but I don't know what that means :-(");
+        try {
+            TaskType taskType = TaskType.valueOf(sections[0].toUpperCase());
+            // Grab first word, which is always the keyword
+            switch (taskType) {
+                case BYE:
+                    handleBye(sections);
+                    break;
+                case MARK:
+                    handleMark(sections, true);
+                    break;
+                case UNMARK:
+                    handleMark(sections, false);
+                    break;
+                case LIST:
+                    handleList(sections);
+                    break;
+                // let all tasks 'fallthrough'
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    handleTask(sections);
+                    break;
+                case DELETE:
+                    handleDelete(sections);
+                    break;
+            }
+        } catch (IllegalArgumentException e) {
+            throw new ZackException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -182,5 +189,4 @@ public class Zack {
 
         }
     }
-
 }
