@@ -265,31 +265,16 @@ public class Duke {
 
     public static LocalDateTime parseDate(String potential_date) throws InvalidDateTimeException {
       String time; Integer year; Integer month; Integer day;
-      switch(potential_date.charAt(4)) {
-        case '-':
-          try {
-            String[] dd = potential_date.split(" ");
-            String[] date_arr = dd[0].split("-");
-            time = dd[1];
-            year = Integer.parseInt(date_arr[0]); month = Integer.parseInt(date_arr[1]);
-            day = Integer.parseInt(date_arr[2]);
-            break;
-          } catch (Exception e) {
-            throw new InvalidDateTimeException();
-          }
-        case ' ':
-          try {
-            String[] date_arr = potential_date.split(" ");
-            year = Integer.parseInt(date_arr[0]); month = Integer.parseInt(date_arr[1]);
-            day = Integer.parseInt(date_arr[2]);
-            time = date_arr[3];
-            break;
-          } catch (Exception e) {
-            throw new InvalidDateTimeException();
-          }
-        default:
-          throw new InvalidDateTimeException();
-      }
+
+      try {
+        String[] dd = potential_date.split(" ");
+        String[] date_arr = dd[0].split("-");
+        time = dd[1];
+        year = Integer.parseInt(date_arr[0]); month = Integer.parseInt(date_arr[1]);
+        day = Integer.parseInt(date_arr[2]);
+      } catch (Exception e) {
+        throw new InvalidDateTimeException();
+        }
       try {
         int hour = Integer.parseInt(time.substring(0, 2));
         int minute = Integer.parseInt(time.substring(2));
