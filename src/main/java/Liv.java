@@ -6,10 +6,12 @@ public class Liv {
     private static void displayBar() {
         System.out.println("____________________________________________________________");
     }
+
     private static void handleGreetCommand() {
         System.out.println("Liv, under your instructions!");
         System.out.println("What is your command?\n");
     }
+
     private static void handleByeCommand() {
         System.out.println("Farewell, see you next time!");
     }
@@ -32,8 +34,12 @@ public class Liv {
         }
     }
 
-    private static void handleMarkOrUnmarkCommand(String command, boolean isDone) {
-        int trueIndex = parseNumberInCommand(command) - 1;
+    private static void handleMarkOrUnmarkCommand(String command, boolean isDone) throws LivException {
+        int index = parseNumberInCommand(command);
+        int trueIndex = index - 1;
+        if ((trueIndex < 0) || (trueIndex >= tasks.size())) {
+            throw new LivException("This command number does not exist in your list!");
+        }
         Task task = tasks.get(trueIndex);
         if (isDone) {
             task.markAsDone();
@@ -42,8 +48,11 @@ public class Liv {
         }
     }
 
-    private static void handleTodoTask(String command) {
+    private static void handleTodoTask(String command) throws LivException {
         int spaceIndex = command.indexOf(' ');
+        if (spaceIndex == -1) {
+            throw new LivException("Description cannot be empty!");
+        }
         String description = command.substring(spaceIndex + 1);
         TodoTask newTodoTask = new TodoTask(description);
         tasks.add(newTodoTask);
@@ -51,10 +60,16 @@ public class Liv {
         System.out.println(newTodoTask.getDisplayedString());
     }
 
-    private static void handleDeadlineTask(String command) {
+    private static void handleDeadlineTask(String command) throws LivException {
         // deadline <description> /by <time>
         int spaceIndex = command.indexOf(' ');
+        if (spaceIndex == -1) {
+            throw new LivException("Description cannot be empty!");
+        }
         int timeIndex = command.indexOf('/');
+        if (timeIndex == -1) {
+            throw new LivException("Time cannot be empty!");
+        }
         String description = command.substring(spaceIndex + 1, timeIndex - 1);
         String time = command.substring(timeIndex + 4);
         Deadline newDeadline = new Deadline(description, time);
@@ -63,10 +78,15 @@ public class Liv {
         System.out.println(newDeadline.getDisplayedString());
     }
 
-    private static void handleEventTask(String command) {
-        // event <description> /from <time> /to <time>
+    private static void handleEventTask(String command) throws LivException {
         int spaceIndex = command.indexOf(' ');
+        if (spaceIndex == -1) {
+            throw new LivException("Description cannot be empty!");
+        }
         int timeIntervalIndex = command.indexOf('/');
+        if (timeIntervalIndex == -1) {
+            throw new LivException("Time cannot be empty!");
+        }
         String description = command.substring(spaceIndex + 1, timeIntervalIndex - 1);
         String timeInterval = command.substring(timeIntervalIndex + 6);
         int splitterIndex = timeInterval.indexOf('/');
@@ -77,7 +97,7 @@ public class Liv {
         System.out.println("Event added:");
         System.out.println(newEvent.getDisplayedString());
     }
-    private static void handleNewTask (String command) {
+    private static void handleNewTask (String command) throws LivException {
         if (command.startsWith("todo")) {
             handleTodoTask(command);
         } else if (command.startsWith("deadline")) {
@@ -85,9 +105,7 @@ public class Liv {
         } else if (command.startsWith("event")) {
             handleEventTask(command);
         } else {
-            Task newTask = new Task(command);
-            tasks.add(newTask);
-            System.out.println("added: " + newTask.getDescription());
+            throw new LivException("Invalid command");
         }
     }
 
@@ -97,19 +115,23 @@ public class Liv {
         while (true) {
             String input = scanner.nextLine();
             displayBar();
-            if (input.equalsIgnoreCase("bye")) {
-                handleByeCommand();
-                displayBar();
-                break;
-            }
-            if (input.equalsIgnoreCase("list")) {
-                handleListCommand();
-            } else if (input.startsWith("mark")) {
-                handleMarkOrUnmarkCommand(input, true);
-            } else if (input.startsWith("unmark")) {
-                handleMarkOrUnmarkCommand(input, false);
-            } else {
-                handleNewTask(input);
+            try {
+                if (input.equalsIgnoreCase("bye")) {
+                    handleByeCommand();
+                    displayBar();
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    handleListCommand();
+                } else if (input.startsWith("mark")) {
+                    handleMarkOrUnmarkCommand(input, true);
+                } else if (input.startsWith("unmark")) {
+                    handleMarkOrUnmarkCommand(input, false);
+                } else {
+                    handleNewTask(input);
+                }
+            } catch (LivException e) {
+                //e.printStackTrace();
+                System.out.println(e.getMessage());
             }
             displayBar();
         }
