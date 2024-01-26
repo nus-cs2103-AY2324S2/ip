@@ -43,6 +43,9 @@
 	[E][ ] lunch meeting (from: Jan 5 2023 12:00 PM to: Jan 5 2023 02:00 PM)
 	Now you have 4 tasks in the list
 	_________________________________________________
+	Here are the matching tasks in your list:
+	1.[E][ ] lunch meeting (from: Jan 5 2023 12:00 PM to: Jan 5 2023 02:00 PM)
+	_________________________________________________
 	Noted. I've removed this task:
 	[D][X] return book (by: May 13 2020 12:00 AM)
 	Now you have 3 tasks in the list
@@ -56,13 +59,13 @@
 	_________________________________________________
 	Please enter valid event format
 	_________________________________________________
-	An error occurred when unmarking
+	List index out of range
 	_________________________________________________
-	An error occurred when unmarking
+	List index out of range
 	_________________________________________________
 	Please enter a valid deadline format
 	_________________________________________________
-	An error occurred when deleting
+	Index out of range!
 	_________________________________________________
 	Noted. I've removed this task:
 	[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
