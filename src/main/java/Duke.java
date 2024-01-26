@@ -48,7 +48,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 Command cmd = parser.parse(fullCommand);
                 if (cmd instanceof Bye) {
-
+                    ui.sayGoodbye();
                 }
                 ui.printReply(cmd.reply());
             } catch (DukeException e) {
