@@ -8,27 +8,38 @@ public class Duke {
         String res = sc.nextLine();
         String output = null;
         try {
-            if (res.equals("bye")) {
+            String command = res.split(" ")[0];
+            switch (command) {
+            case "bye":
                 return -1;
-            } else if (res.equals("list")) {
+            case "list":
                 output = messages.list();
-            } else if (res.startsWith("mark")) {
+                break;
+            case "mark":
                 output = messages.mark(res);
-            } else if (res.startsWith("unmark")) {
+                break;
+            case "unmark":
                 output = messages.unmark(res);
-            } else if (res.startsWith("delete")) {
+                break;
+            case "delete":
                 output = messages.delete(res);
-            } else if (res.startsWith("todo")) {
+                break;
+            case "todo":
                 output = messages.todo(res.substring(4));
-            } else if (res.startsWith("deadline")) {
+                break;
+            case "deadline":
                 output = messages.deadline(res.substring(8));
-            } else if (res.startsWith("event")) {
+                break;
+            case "event":
                 output = messages.event(res.substring(5));
-            } else if (res.isEmpty()) {
+                break;
+            case "":
                 output = "";
-            } else {
+                break;
+            default:
                 throw new ChatException("I'm sorry, but I don't know what that means :-(");
             }
+
         } catch (ChatException e) {
             output = e.getMessage();
         }
