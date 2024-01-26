@@ -3,6 +3,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
+//    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
+    public static final String DBPATH = "data/duke.txt";
     public static void main(String[] args) {
         String greeting = "____________________________________________________________\n" +
                 " Hello! I'm steve\n" +
@@ -15,7 +17,7 @@ public class Duke {
 
         System.out.println(greeting);
 
-        ArrayList<Task> myList = new ArrayList<>();
+        TaskList myTasks = new TaskList();
 
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
         String line = scanner.nextLine(); // Get first input
@@ -31,17 +33,15 @@ public class Duke {
                 switch (cmd) {
                     case "list":
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < myList.size(); i++) {
-                            System.out.println((i + 1) + ". " + myList.get(i));
-                        }
+                        myTasks.printTasks();
                         break;
                     case "mark":
                         if (params.length() == 0) {
                             throw new DukeException.MarkParamsException();
                         }
                         int num = Integer.valueOf(params);
-                        Task t = myList.get(num - 1);
-                        t.markAsDone();
+                        myTasks.markTask(num);
+                        Task t = myTasks.getTask(num);
 
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(t);
@@ -51,8 +51,8 @@ public class Duke {
                             throw new DukeException.MarkParamsException();
                         }
                         num = Integer.valueOf(params);
-                        t = myList.get(num - 1);
-                        t.unmarkAsDone();
+                        myTasks.unmarkTask(num);
+                        t = myTasks.getTask(num);
 
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(t);
@@ -62,11 +62,11 @@ public class Duke {
                             throw new DukeException.DeleteParamsException();
                         }
                         num = Integer.valueOf(params);
-                        Task toDelete = myList.get(num - 1);
-                        myList.remove(num - 1);
+                        Task toDelete = myTasks.getTask(num);
+                        myTasks.deleteTask(num);
                         System.out.println("Noted. I've removed this task:");
                         System.out.println(toDelete);
-                        System.out.println("Now you have " + myList.size() + " tasks in the list");
+                        System.out.println("Now you have " + myTasks.size() + " tasks in the list");
                         break;
                     case "todo":
                         if (params.length() == 0) {
@@ -76,46 +76,46 @@ public class Duke {
                         String desc = params;
 
                         Task newTask = new Todo(desc);
-                        myList.add(newTask);
+                        myTasks.addTask(newTask);
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newTask);
-                        System.out.println("Now you have " + myList.size() + " tasks in the list");
+                        System.out.println("Now you have " + myTasks.size() + " tasks in the list");
                         break;
                     case "deadline":
                         if (!params.contains("/by")) {
                             throw new DukeException.DeadlineDetailsMissingException();
                         }
 
-//                        params = params.substring(cmd.length());
-
                         desc = params.split("/by")[0].trim();
                         String by = params.split("/by")[1].trim();
 
                         newTask = new Deadline(desc, by);
-                        myList.add(newTask);
+                        myTasks.addTask(newTask);
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newTask);
-                        System.out.println("Now you have " + myList.size() + " tasks in the list");
+                        System.out.println("Now you have " + myTasks.size() + " tasks in the list");
                         break;
                     case "event":
                         if (!params.contains("/from") || !params.contains("/to")) {
                             throw new DukeException.EventDetailsMissingException();
                         }
 
-//                        params = params.substring(cmd.length());
-
                         desc = params.split("/from")[0];
                         String from = params.split("/from")[1].split("/to")[0].trim();
                         String to = params.split("/to")[1].trim();
 
                         newTask = new Event(desc, from, to);
-                        myList.add(newTask);
+                        myTasks.addTask(newTask);
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newTask);
-                        System.out.println("Now you have " + myList.size() + " tasks in the list");
+                        System.out.println("Now you have " + myTasks.size() + " tasks in the list");
+                        break;
+                    case "clear":
+                        myTasks.clear();
+                        System.out.println("Got it. I've cleared the database.");
                         break;
                     default:
                         throw new DukeException.UnknownCommandException();
@@ -123,6 +123,7 @@ public class Duke {
             } catch (DukeException e) {
                 System.out.println("DukeException: " + e.getMessage());
             } catch (Exception e) {
+                System.out.println(e);
                 System.out.println("An unexpected error occurred.");
             } finally {
                 System.out.println(border);
