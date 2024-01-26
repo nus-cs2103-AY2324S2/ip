@@ -18,6 +18,10 @@ Storage:
 - Can call parser to help with generating required info
 - Has methods to add or give additional info on tasks
 
+FileManager:
+- Loads data on startup
+- Updates data when add/delete/mark tasks
+
 Task:
 - ToDo
 - Deadline

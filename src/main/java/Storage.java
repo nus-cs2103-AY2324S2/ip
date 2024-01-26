@@ -18,6 +18,10 @@ public class Storage {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static int numT = 0;
 
+    public static ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     public static void addTask() {
         Task t = new Task();
         try{
@@ -43,6 +47,7 @@ public class Storage {
             numT++;
             System.out.println("  I added this task: " + t);
             report();
+            FileManager.updateTasks();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
@@ -55,6 +60,7 @@ public class Storage {
             numT--;
             System.out.println("  I removed this task: " + deletedTask);
             report();
+            FileManager.updateTasks();
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
@@ -67,12 +73,47 @@ public class Storage {
         try {
             int taskIndex = Parser.parseMarkTask(words);
             tasks.get(taskIndex).setDone(markType);
+            FileManager.updateTasks();
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Task not found. Please mark task from list:");
             printTasks();
         }
+    }
+
+    // words[1] is "0"/"1"
+    public static void addCsvTask() {
+        Task t = new Task();
+        try{
+            switch (words[0]) {
+            case "todo":
+                Parser.parseToDo(input);
+                t = new ToDo(words[1], desc);
+                tasks.add(t);
+                break;
+
+            case "deadline":
+                Parser.parseDeadline(input);
+                t = new Deadline(words[1], desc, by);
+                tasks.add(t);
+                break;
+
+            case "event":
+                Parser.parseEvent(input);
+                t = new Event(words[1], desc, start, end);
+                tasks.add(t);
+                break;
+            }
+            numT++;
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadTask(String csv) {
+        Parser.parseCsv(csv);
+        addCsvTask();
     }
 
     public static void printTasks() {

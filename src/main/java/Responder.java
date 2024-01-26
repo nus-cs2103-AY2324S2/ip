@@ -2,11 +2,6 @@
 public class Responder {
     public static void respond(String[] words) {
         switch(words[0]) {
-        case "bye":
-            System.out.println(Storage.BYE);
-            Parser.closeScanner();
-            System.exit(0);
-            break;
         case "hi":
             System.out.println(Storage.HI);
             break;

@@ -2,11 +2,16 @@ public class Task {
     private String description;
     private boolean isDone;
 
-    public Task(){};
+    public Task(){}
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task(String isDone, String description) {
+        this.isDone = isDone.equals("1");
+        this.description = description;
     }
 
     // mark or unmark, can enum later
@@ -24,8 +29,16 @@ public class Task {
         System.out.println("    " + this);
     }
 
+    public int getIntIsDone() {
+        return isDone ? 1 : 0;
+    }
+
     public String getStatusIcon() {
         return isDone ? "[X] " : "[ ] "; // mark done task with X
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     @Override
