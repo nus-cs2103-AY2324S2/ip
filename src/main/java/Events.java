@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import enums.TaskStatus;
 
@@ -31,6 +32,6 @@ class Events extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.getMonth().name() + " " + this.from.getDayOfMonth() + " " + this.from.getYear() + " to: " + this.to.getMonth().name() + " " + this.to.getDayOfMonth() + " " + this.to.getYear() + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

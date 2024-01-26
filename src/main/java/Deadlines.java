@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import enums.TaskStatus;
 
@@ -20,6 +21,6 @@ class Deadlines extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.byDate.getMonth().name() + " " + this.byDate.getDayOfMonth() + " " + this.byDate.getYear() + ")";
+        return "[D]" + super.toString() + " (by: " + this.byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
