@@ -8,7 +8,7 @@ import java.io.File;
  * Main Class for our Chat bot
  */
 public class Duke {
-
+    private Parser parser;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -37,31 +37,7 @@ public class Duke {
             }
             tasks = new TaskList(new ArrayList<>());
         }
-    }
-
-    /**
-     * From input to determine which type of command to generate
-     * @param input scanner's result
-     * @throws DukeException wrong usage
-     * @return the generated command for execute
-     */
-    private Command commandDistributor(String input) throws DukeException{
-        String[] inputs = input.split(" ");
-        if (input.equals("bye") || input.equals("exit") || input.equals("quit")) {
-            return new Bye();
-        } else if (input.equals("list") || input.equals("ls")) {
-            return new List(tasks);
-        } else if (input.equals("current") || input.equals("curr")) {
-            return new CurrentTask(tasks);
-        } else if (inputs[0].equals("mark") && inputs.length==2) {
-            return new Mark(Integer.parseInt(inputs[1])-1,tasks);
-        } else if (inputs[0].equals("unmark") && inputs.length==2) {
-            return new Unmark(Integer.parseInt(inputs[1])-1,tasks);
-        } else if ((inputs[0].equals("delete") || inputs[0].equals("remove")) && inputs.length==2) {
-            return new Delete(Integer.parseInt(inputs[1])-1,tasks);
-        } else {
-            return new Add(input,tasks);
-        }
+        parser = new Parser(tasks);
     }
 
     public void run() {
@@ -70,7 +46,7 @@ public class Duke {
 
         while (true) {
             try{
-                Command cmd = commandDistributor(sc.nextLine());
+                Command cmd = parser.parse(sc.nextLine());
                 cmd.reply();
             } catch (DukeException e) {
                 System.out.printf("    %s\n",e.getMessage());
