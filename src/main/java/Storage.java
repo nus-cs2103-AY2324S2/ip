@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -24,12 +25,12 @@ class Storage {
                     temp.Done();
                 tasks.add(temp);
             } else if (token[0].equals("D")) {
-                Deadline temp = new Deadline(token[2], token[3]);
+                Deadline temp = new Deadline(token[2], LocalDate.parse(token[3]));
                 if (token[1].equals("1"))
                     temp.Done();
                 tasks.add(temp);
             } else if (token[0].equals("E")) {
-                Event temp = new Event(token[2], token[3], token[4]);
+                Event temp = new Event(token[2], LocalDate.parse(token[3]), LocalDate.parse(token[4]));
                 if (token[1].equals("1"))
                     temp.Done();
                 tasks.add(temp);

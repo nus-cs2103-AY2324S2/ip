@@ -1,9 +1,12 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class for task start with event
  */
 public class Event extends Task{
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
 
     /**
      * constructor
@@ -11,7 +14,7 @@ public class Event extends Task{
      * @param from from field.
      * @param to to field.
      */
-    public Event(String descrip, String from, String to) {
+    public Event(String descrip, LocalDate from, LocalDate to) {
         super(descrip);
         this.from = from;
         this.to = to;
@@ -40,7 +43,11 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return String.format("%s(from: %sto: %s)",super.toString(), this.from, this.to);
+        return String.format("%s(from: %s to: %s)",
+                super.toString(),
+                this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+        );
     }
 
     /**
@@ -48,7 +55,7 @@ public class Event extends Task{
      * @return from
      */
     public String getFrom() {
-        return this.from;
+        return this.from.toString();
     }
 
     /**
@@ -56,6 +63,6 @@ public class Event extends Task{
      * @return to
      */
     public String getTo() {
-        return this.to;
+        return this.to.toString();
     }
 }

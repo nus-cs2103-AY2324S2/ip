@@ -1,15 +1,18 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class for task start with deadline
  */
 public class Deadline extends Task{
-    private String by;
+    private LocalDate by;
 
     /**
      * constructor
      * @param descrip the dicription of the task.
      * @param by by field.
      */
-    public Deadline(String descrip, String by) {
+    public Deadline(String descrip, LocalDate by) {
         super(descrip);
         this.by = by;
     }
@@ -38,7 +41,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return String.format("%s(by: %s)",super.toString(), this.by);
+        return String.format("%s(by: %s)",super.toString(), this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     /**
@@ -46,6 +49,6 @@ public class Deadline extends Task{
      * @return return by
      */
     public String getBy() {
-        return this.by;
+        return this.by.toString();
     }
 }

@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Class for adding a task into task list
  */
@@ -35,7 +38,11 @@ public class Add implements Command{
             if (by.length()<=3) {
                 throw new EmptyTextException("due","deadline");
             }
-            this.task=new Deadline(descrip, by.substring(3));
+            String byText = by.substring(3).trim();
+            if (!timeFormCheck(byText)) {
+                throw new TimeFormatException();
+            }
+            this.task=new Deadline(descrip, LocalDate.parse(byText));
             Task.task_list.add(this.task);
         } else if (text.startsWith("event")) {
             String[] token = text.split("/");
@@ -49,10 +56,10 @@ public class Add implements Command{
             }
             String descrip = token[0].substring(6);
             if (!from.startsWith("from ")) {
-                throw new WrongUsageException("event xxx /from xxx /to xxx");
+                throw new WrongUsageException("event xxx /from yyyy-mm-dd /to yyyy-mm-dd");
             }
             if (!to.startsWith("to ")) {
-                throw new WrongUsageException("event xxx /from xxx /to xxx");
+                throw new WrongUsageException("event xxx /from yyyy-mm-dd /to yyyy-mm-dd");
             }
             if (from.length()<=5) {
                 throw new EmptyTextException("start","event");
@@ -60,7 +67,17 @@ public class Add implements Command{
             if (to.length()<=3) {
                 throw new EmptyTextException("end","event");
             }
-            this.task=new Event(descrip, from.substring(5), to.substring(3));
+            String fromText = from.substring(5).trim();
+            String toText = to.substring(3).trim();
+            if (!timeFormCheck(fromText) || !timeFormCheck(toText)) {
+                throw new TimeFormatException();
+            }
+            LocalDate fromDay = LocalDate.parse(fromText);
+            LocalDate toDay = LocalDate.parse(toText);
+            if (fromDay.isAfter(toDay)) {
+                throw new TimeInconsistException();
+            }
+            this.task=new Event(descrip, fromDay, toDay);
             Task.task_list.add(this.task);
         } else {
             throw new CommandNotDefinedException();
@@ -75,5 +92,14 @@ public class Add implements Command{
         System.out.printf(
                 "    Got it. I've added this task:\n      %s\n    Now you have %s tasks in the list.\n"
                 ,this.task,Task.task_list.size());
+    }
+
+    private boolean timeFormCheck(String time) {
+        try {
+            LocalDate.parse(time);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
