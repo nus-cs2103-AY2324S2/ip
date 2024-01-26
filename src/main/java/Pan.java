@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.util.List;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import exceptions.InternalTestCases;
 import exceptions.TaskIndexException;
@@ -32,7 +35,7 @@ public class Pan {
                     mark(Integer.parseInt(index));
                     continue;
                 } else if (instruction.matches("(unmark) \\d+")) {
-                    String index = instruction.substring(4).trim();
+                    String index = instruction.substring(6).trim();
                     if (Integer.parseInt(index) > tasks.size()) {
                         throw new TaskIndexException("You have entered an invalid index!");
                     }
@@ -89,11 +92,6 @@ public class Pan {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void add(Task instruction) {
-        System.out.println("Got it. I've added this task:\n\t" + instruction.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-
     public static void list() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -101,16 +99,24 @@ public class Pan {
         }
     }
 
+    public static void add(Task instruction) {
+        System.out.println("Got it. I've added this task:\n\t" + instruction.toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        save();
+    }
+
     public static void mark(int index) {
         Task task = tasks.get(index - 1);
         task.setIsDone(TaskStatus.COMPLETE);
         System.out.println("Nice! I've marked this task as done:\n\t" + task.toString());
+        save();
     }
 
     public static void unmark(int index) {
         Task task = tasks.get(index - 1);
         task.setIsDone(TaskStatus.INCOMPLETE);
         System.out.println("OK, I've marked this task as not done yet:\n\t" + task.toString());
+        save();
     }
 
     public static void delete(int index) {
@@ -119,5 +125,22 @@ public class Pan {
         System.out.println("Noted. I've removed this task:");
         System.out.println("\t" + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        save();
+    }
+
+    public static void save() {
+        try{
+            String filePath = "./output/pan.txt";
+            File outputFile = new File(filePath);
+            FileWriter writer = new FileWriter(outputFile, false);
+            // attempts to create the new file
+            outputFile.createNewFile();
+            StringBuilder sb = new StringBuilder();
+            tasks.stream().forEach(task -> sb.append(task.toString() + "\n"));
+            writer.write(sb.toString());
+            writer.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        } 
     }
 }
