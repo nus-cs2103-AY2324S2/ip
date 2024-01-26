@@ -1,7 +1,3 @@
-import java.awt.*;
-import java.util.Scanner;
-import java.lang.StringBuilder; // handle string concat
-
 public class UkeCat {
     public static void main(String[] args) {
         try {
