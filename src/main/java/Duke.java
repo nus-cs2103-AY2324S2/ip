@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
@@ -23,8 +24,16 @@ public class Duke {
         printHorizontalLine();
     }
 
+    // Echos the command.
+    private void echo(String command) {
+        printHorizontalLine();
+        System.out.println(command);
+        printHorizontalLine();;
+    }
+
     // Runs the chatbot.
     private void run() {
+        // User greeted
         greet();
         bye();
     }
