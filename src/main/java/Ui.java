@@ -1,21 +1,28 @@
 import java.util.Scanner;
 
 public abstract class Ui {
-    private static final String startLine = "----------------"
+    private static final String START_LINE = "----------------"
             + "------------[Rep"
             + "ort]------------"
             + "----------------\n";
 
-    private static final String endLine = "----------------"
+    private static final String END_LINE = "----------------"
             + "------------[End"
             + "ing]------------"
             + "----------------\n";
+    private static final String WARNING_LINE = "----------------"
+            + "-----------<WARN"
+            + "ing!>-----------"
+            + "----------------\n";
     private static void printStartLine() {
-        System.out.print(Ui.startLine);
+        System.out.print(Ui.START_LINE);
     }
 
     private static void printEndLine() {
-        System.out.print(Ui.endLine);
+        System.out.print(Ui.END_LINE);
+    }
+    private static void printWarningLine() {
+        System.out.print(Ui.WARNING_LINE);
     }
     public static void start() {
         Ui.printStartLine();
@@ -52,8 +59,10 @@ public abstract class Ui {
                         if (idx != null) {
                             Duke.taskList.checkTask(idx - 1);
                         } else {
+                            Ui.printWarningLine();
                             final String output = "Failed to get the index!";
                             System.out.println(output);
+                            Ui.printWarningLine();
                         }
                         break;
                     case "unmark":
@@ -61,8 +70,49 @@ public abstract class Ui {
                         if (idx2 != null) {
                             Duke.taskList.uncheckTask(idx2 - 1);
                         } else {
+                            Ui.printWarningLine();
                             final String output = "Failed to get the index!";
                             System.out.println(output);
+                            Ui.printWarningLine();
+                        }
+                        break;
+                    case "todo":
+                        String toDo = Parser.removeCommand(input);
+                        if (toDo == null) {
+                            System.out.println("Task not found!");
+                        } else {
+                            Duke.taskList.storeItem(new Todo(toDo));
+                        }
+                        break;
+                    case "deadline":
+                        String deadline = Parser.removeCommand(input);
+                        if (deadline == null || deadline.isEmpty()) {
+                            System.out.println("Task not found!");
+                        } else {
+                            String[] inputArr = Parser.getTaskAndDates(deadline, false);
+                            if (inputArr == null) {
+                                final String output = "Due time not found!\n"
+                                        + "Please follow the format: deadline [task] /by [due]\n";
+                                System.out.println(output);
+                            } else {
+                                Duke.taskList.storeItem(new Deadline(inputArr[0], inputArr[1]));
+                            }
+                        }
+                        break;
+                    case "event":
+                        String event = Parser.removeCommand(input);
+                        if (event == null || event.isEmpty()) {
+                            System.out.println("Task not found!");
+                        } else {
+                            String[] inputArr = Parser.getTaskAndDates(event, true);
+                            if (inputArr == null) {
+                                final String output = "Due time not found!\n"
+                                        + "Please follow the format: \n"
+                                        + "deadline [task] /from [start time] /to [end time]\n";
+                                System.out.println(output);
+                            } else {
+                                Duke.taskList.storeItem(new Event(inputArr[0], inputArr[1], inputArr[2]));
+                            }
                         }
                         break;
                     default:
