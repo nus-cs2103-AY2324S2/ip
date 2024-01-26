@@ -23,12 +23,7 @@ public class Lindi {
                     System.out.println(e.getMessage());
                     return;
                 }
-                try {
-                    taskList.add(task);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Oh no! I can't handle that many tasks yet.. shutting down :(((((");
-                    throw new RuntimeException(e.getMessage());
-                }
+                taskList.add(task);
                 System.out.println("Got it. I've added this task:\n\t" + task +
                                    "\nNow you have " + taskList.size() + " tasks in the list.");
             }
@@ -72,6 +67,17 @@ public class Lindi {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("\t" + task.toString());
             }
+
+            public void executeDeleteTask(int listIndex) {
+                if (listIndex < 1 || listIndex > taskList.size()) {
+                    System.out.println("Sorry, I can't find that task. Please enter a valid index\n" +
+                            "You can see the tasks list by inputting \"list\"");
+                    return;
+                }
+                Task task = taskList.remove(listIndex - 1);
+                System.out.println("Okay. I've deleted this task:\n\t" + task +
+                        "\nNow you have " + taskList.size() + " tasks in the list.");
+            }
         }
         // if command called, will be index 0, rest of string in index 1
         String[] userInputTokens = userInput.split(" ", 2); 
@@ -91,6 +97,9 @@ public class Lindi {
             case "event":
             case "deadline":
                 lf.executeCreateTask(userInput);
+                break;
+            case "delete":
+                lf.executeDeleteTask(Integer.parseInt(userInputTokens[1]));
                 break;
             case "bye":
                 lf.goodByeAndExit();
