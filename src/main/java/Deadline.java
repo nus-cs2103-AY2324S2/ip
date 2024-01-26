@@ -40,4 +40,12 @@ public class Deadline extends Task{
     public String toString() {
         return String.format("%s(by: %s)",super.toString(), this.by);
     }
+
+    /**
+     * return by
+     * @return return by
+     */
+    public String getBy() {
+        return this.by;
+    }
 }
