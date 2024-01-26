@@ -1,4 +1,4 @@
-package Exceptions;
+package squid.Exceptions;
 
 public class NotEnoughDatesException extends NotEnoughInputsException {
     public NotEnoughDatesException(String message) {

@@ -1,4 +1,4 @@
-package CONSTANTS;
+package squid.CONSTANTS;
 
 public class MESSAGES {
     public static final String LINE_BREAK = "\n---------------------------------------------\n";

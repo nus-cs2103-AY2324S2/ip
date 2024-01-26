@@ -1,6 +1,6 @@
 package junit.Task;
 
-import Tasks.Todo;
+import squid.Tasks.Todo;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

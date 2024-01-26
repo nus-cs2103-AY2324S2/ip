@@ -1,4 +1,4 @@
-package Tasks;
+package squid.Tasks;
 
 import java.util.Objects;
 

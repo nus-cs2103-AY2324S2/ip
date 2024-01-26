@@ -1,25 +1,27 @@
-package Tasks;
+package squid.Tasks;
 
-import CONSTANTS.MESSAGES;
+import squid.CONSTANTS.MESSAGES;
 
 import java.util.Objects;
 
-public class Deadline extends Task {
-    private Date deadline;
+public class Event extends Task {
+    private Date from;
+    private Date to;
 
-    public Deadline(String task, Date deadline) {
+    public Event(String task, Date from, Date to) {
         super(task);
-        this.deadline = deadline;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public String getType() {
-        return "[D]";
+        return "[E]";
     }
 
     @Override
     public String getAdditionalInfo() {
-        return String.format(MESSAGES.DEADLINE_TO_STRING, deadline);
+        return String.format(MESSAGES.EVENT_TO_STRING, from, to);
     }
 
     @Override
@@ -30,13 +32,14 @@ public class Deadline extends Task {
     @Override
     public String parseStr() {
         return String.format(
-                "%s%c%s%c%s%c%s\n",
-                getType(),
+                "%s%c%s%c%s%c%s%c%s\n",getType(),
                 '\uFFFF',
                 Objects.equals(completedIcon(), "X") ? "X" : "-",
                 '\uFFFF',
                 task,
                 '\uFFFF',
-                deadline);
+                from,
+                '\uFFFF',
+                to);
     }
 }

@@ -1,16 +1,15 @@
-package Tasks;
+package squid.Tasks;
 
-import CONSTANTS.CORRECT_USAGE;
-import CONSTANTS.FORMAT;
-import CONSTANTS.EXCEPTIONS;
-import Exceptions.SquidDateException;
+import squid.CONSTANTS.CORRECT_USAGE;
+import squid.CONSTANTS.FORMAT;
+import squid.CONSTANTS.EXCEPTIONS;
+import squid.Exceptions.SquidDateException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Locale;
 
 
 public class Date {

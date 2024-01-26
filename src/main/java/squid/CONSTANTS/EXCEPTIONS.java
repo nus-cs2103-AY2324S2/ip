@@ -1,4 +1,4 @@
-package CONSTANTS;
+package squid.CONSTANTS;
 
 public class EXCEPTIONS {
     public static final String INCORRECT_INPUT = "You haven't taught me that trick yet..";

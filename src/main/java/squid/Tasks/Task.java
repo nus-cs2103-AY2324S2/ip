@@ -1,4 +1,4 @@
-package Tasks;
+package squid.Tasks;
 
 public abstract class Task {
     public String task;

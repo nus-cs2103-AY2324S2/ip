@@ -1,6 +1,6 @@
-package DukeIO;
+package squid.DukeIO;
 
-import CONSTANTS.FILEPATH;
+import squid.CONSTANTS.FILEPATH;
 
 import java.io.File;
 import java.io.FileWriter;

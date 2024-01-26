@@ -1,21 +1,20 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+package squid;
+
 import java.util.Scanner;
 
-import CONSTANTS.MESSAGES;
-import CONSTANTS.EXCEPTIONS;
-import CONSTANTS.REGEX;
-import CONSTANTS.CORRECT_USAGE;
+import squid.CONSTANTS.MESSAGES;
+import squid.CONSTANTS.EXCEPTIONS;
+import squid.CONSTANTS.REGEX;
+import squid.CONSTANTS.CORRECT_USAGE;
 
-import Exceptions.*;
+import squid.Exceptions.*;
 
-import Tasks.Todo;
-import Tasks.Event;
-import Tasks.Date;
-import Tasks.Deadline;
-import Tasks.Task;
-import Tasks.Tasks;
+import squid.Tasks.Todo;
+import squid.Tasks.Event;
+import squid.Tasks.Date;
+import squid.Tasks.Deadline;
+import squid.Tasks.Task;
+import squid.Tasks.Tasks;
 
 
 public class Duke {
@@ -36,7 +35,7 @@ public class Duke {
             echo(e.toString());
         }
         System.out.println(MESSAGES.LINE_BREAK);
-        echo(CONSTANTS.MESSAGES.HELLO);
+        echo(squid.CONSTANTS.MESSAGES.HELLO);
         System.out.println(MESSAGES.LINE_BREAK);
     }
 

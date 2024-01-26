@@ -1,4 +1,4 @@
-package Exceptions;
+package squid.Exceptions;
 
 public class DuplicateTaskNameException extends IncorrectInputException {
 

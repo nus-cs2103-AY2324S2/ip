@@ -1,4 +1,4 @@
-package CONSTANTS;
+package squid.CONSTANTS;
 
 public class REGEX {
     public static final String DEADLINE = " /by ";
