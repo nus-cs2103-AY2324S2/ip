@@ -1,21 +1,26 @@
 public abstract class Task {
     private String task;
-    private boolean done;
+    private boolean isDone;
 
     public Task(String task) {
         this.task = task;
-        this.done = false;
+        this.isDone = false;
     }
 
     public String printTask() {
-        return String.format("[" + (this.done ? "X" : " ") + "] " + this.task);
+        return String.format("[" + (this.isDone ? "X" : " ") + "] " + this.task);
     }
 
     public void done() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void undo() {
-        this.done = false;
+        this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d | %s", (this.isDone ? 1 : 0), this.task);
     }
 }
