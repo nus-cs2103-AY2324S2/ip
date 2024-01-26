@@ -7,6 +7,7 @@ public class Duke {
     public static void main(String[] args) {
         inventory = new ArrayList<>();
         num = 0;
+        //BOT NAME :RSH
         String logo = " _____   _____  _    _ \n"
                     + "|  __ \\ / ____|| |  | |\n"
                     + "| |__) | (___  | |__| |\n"
