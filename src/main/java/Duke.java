@@ -40,6 +40,8 @@ public class Duke {
                     store.mark(Integer.parseInt(userInput.split(" ")[1]));
                 } else if (userInput.startsWith("unmark")) {
                     store.unmark(Integer.parseInt(userInput.split(" ")[1]));
+                } else if (userInput.startsWith("delete")){
+                    store.delete(Integer.parseInt(userInput.split(" ")[1]));
                 } else if (userInput.startsWith("todo")) {
                     String[] items = userInput.split(" ", 2);
                     if (items.length == 1) {

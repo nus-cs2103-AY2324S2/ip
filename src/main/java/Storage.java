@@ -15,14 +15,23 @@ public class Storage {
         System.out.print("      ________________________________________________________\n");
     }
 
+    public void delete(int num) {
+        System.out.print("      ________________________________________________________\n");
+        System.out.print("      Got it. I've removed this task:\n ");
+        this.list.get(num - 1).printFullDesc();
+        this.list.remove(num - 1);
+        System.out.printf("      Now you have %d %s in the list.\n", this.list.size(), (this.list.size() == 1 ? "task" : "tasks"));
+        System.out.print("      ________________________________________________________\n");
+    }
+
     public void mark(int num) {
-        Task tomark = this.list.get(num - 1);
-        tomark.markDone();
+        Task toMark = this.list.get(num - 1);
+        toMark.markDone();
     }
 
     public void unmark(int num) {
-        Task tounmark = this.list.get(num - 1);
-        tounmark.unmark();
+        Task toUnmark = this.list.get(num - 1);
+        toUnmark.unmark();
     }
 
     public void printList() {
