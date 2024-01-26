@@ -11,6 +11,7 @@ public class Task {
 
     /**
      * Static factory method to create a new Task with the given description
+     * 
      * @param description Description of the task
      * @return A new task object with the specified description
      */
@@ -23,14 +24,24 @@ public class Task {
         return description;
     }
 
-
     // Mark task as done
     public void markAsDone() {
         this.isComplete = true;
     }
 
+    // Unmark task as done
+    public void markAsUndone() {
+        this.isComplete = false;
+    }
+
     // True if the task is done, else no
     public boolean isDone() {
         return isComplete;
+    }
+
+    // To string
+    @Override
+    public String toString() {
+        return "[" + (isComplete ? "✓" : " ") + "]" + description;
     }
 }

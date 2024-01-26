@@ -25,8 +25,18 @@ public class TaskList {
         List<String> taskDescriptions = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            taskDescriptions.add((i + 1) + ". " + task.getDescription());
+            taskDescriptions.add((i + 1) + ". " + task.toString());
         }
         return taskDescriptions;
+    }
+
+    // Method to mark task as done
+    public void markTaskAsDone(int taskNumber) {
+        tasks.get(taskNumber - 1).markAsDone();
+    }
+
+    // Method to mark task as undone
+    public void markTaskAsUndone(int taskNumber) {
+        tasks.get(taskNumber - 1).markAsUndone();
     }
 }
