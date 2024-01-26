@@ -20,4 +20,10 @@ public class BobException extends Exception {
             super(message);
         }
     }
+
+    public static class InvalidDateTimeFormat extends BobException {
+        public InvalidDateTimeFormat(String message) {
+            super(message);
+        }
+    }
 }
