@@ -20,7 +20,7 @@ public class Duke {
             }
 
             String[] key = res.split(" ", 2);
-            if(key.length <= 1){
+            if(key.length <= 1 && !key[0].equals("list")){
                 System.out.println("Say something valid please -_-");
                 System.out.println(line);
                 continue;
@@ -30,7 +30,7 @@ public class Duke {
                     System.out.println("Here are the tasks in your list!");
                     for (int j = 0; j < i; j++) {
                         int nr = j + 1;
-                        System.out.println(nr + lst[j].toString()+ ".");
+                        System.out.println(nr +"." + lst[j].toString()+ ".");
                     }
                     break;
                 case "bye":
