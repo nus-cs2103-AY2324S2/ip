@@ -24,44 +24,11 @@ public class Bob {
     private static final File saveData = new File(Bob.HOME_BASE_PATH + "/save.txt");
 
     private ArrayList<Task> list;
-    private Scanner scanner;
+    private BobUI ui;
 
-    public Bob() {
-        this.scanner = new Scanner(System.in);
+    public Bob(BobUI ui) {
         this.list = new ArrayList<>();
-    }
-
-    /**
-     * Method for getting user input.
-     */
-    private String getUserInput() {
-        return this.scanner.nextLine();
-    }
-
-    /**
-     * Utility function to print dividers.
-     */
-    private void printLine() {
-        System.out.println("    +----------------------------------------------------------+");
-    }
-
-    /**
-     * Method for greeting the user.
-     */
-    private void greet() {
-        this.printLine();
-        System.out.println("    Hello! I'm Bob, a personal assistant.");
-        System.out.println("    How can I help you?");
-        this.printLine();
-    }
-
-    /**
-     * Method for ending the conversation.
-     */
-    private void terminate() {
-        this.printLine();
-        System.out.println("    Until next time! Goodbye!");
-        this.printLine();
+        this.ui = ui;
     }
 
     /**
@@ -92,29 +59,6 @@ public class Bob {
     private void markUndone(int item) {
         this.list.get(item).updateStatus(false);
         this.updateTaskList();
-    }
-
-    /**
-     * List items in list.
-     */
-    private void printList(boolean summarized) {
-
-        if (!summarized) {
-
-            this.printLine();
-
-            System.out.println("    Here are the tasks in your list:");
-
-            for (int i = 0; i < this.list.size(); i++) {
-                Task task = this.list.get(i);
-                System.out.println("    " + (i + 1) + "." + task.getType()
-                        + task.getStatus() + " " + task);
-            }
-            this.printLine();
-        } else {
-            System.out.println("    You have " + this.list.size()
-                    + " tasks in your list.");
-        }
     }
 
     private void updateTaskList() {
@@ -240,21 +184,21 @@ public class Bob {
             System.out.println(e.getMessage());
         }
 
-        this.greet();
+        this.ui.greet();
 
-        while (this.scanner.hasNextLine()) {
+        while (this.ui.acceptingInput()) {
 
-            String input = this.getUserInput().trim();
+            String input = this.ui.getUserInput().trim();
             final String command = input.split("\\s+")[0];
 
             try {
                 switch (command) {
                 case Bob.TERMINATE_COMMAND:
-                    this.terminate();
+                    this.ui.terminate();
                     System.exit(0);
                     break;
                 case Bob.LIST_COMMAND:
-                    this.printList(false);
+                    this.ui.printList(false, this.list);
                     continue;
                 case Bob.MARK_COMMAND:
                 case Bob.UNMARK_COMMAND:
@@ -284,7 +228,7 @@ public class Bob {
             throw new BobException("The command " + args[0] + " requires a task ID.");
         }
 
-        this.printLine();
+        this.ui.printLine();
         int taskId = Integer.parseInt(args[1]) - 1;
 
         if (!(taskId < this.list.size()) || taskId < 0) {
@@ -303,7 +247,7 @@ public class Bob {
 
         Task task = this.list.get(taskId);
         System.out.println("    " + task.getType() + task.getStatus() + " " + task);
-        this.printLine();
+        this.ui.printLine();
     }
 
     private void handleTaskCreation(String input) throws BobException {
@@ -375,7 +319,7 @@ public class Bob {
         }
 
         if (t != null) {
-            this.printTaskAddMessage(t);
+            this.ui.printTaskAddMessage(t, this.list);
         }
     }
 
@@ -385,7 +329,7 @@ public class Bob {
             throw new BobException("The command " + args[0] + " requires a task ID.");
         }
 
-        this.printLine();
+        this.ui.printLine();
         int taskId = Integer.parseInt(args[1]) - 1;
 
         if (!(taskId < this.list.size()) || taskId < 0) {
@@ -398,20 +342,15 @@ public class Bob {
         this.deleteTask(taskId);
         System.out.println("    You have removed the current task:");
         System.out.println(message);
-        this.printList(true);
-        this.printLine();
-    }
-
-    private void printTaskAddMessage(Task t) {
-        this.printLine();
-        System.out.println("    Here is your newly added task:");
-        System.out.println("        " + t.getType() + t.getStatus() + " " + t);
-        this.printList(true);
-        this.printLine();
+        this.ui.printList(true, this.list);
+        this.ui.printLine();
     }
 
     public static void main(String[] args) {
-        Bob bob = new Bob();
+
+        Bob bob = new Bob(
+                new BobUI(new Scanner(System.in)));
+
         bob.start();
     }
 }
