@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Event extends Task {
+public class Event extends Task implements Serializable {
     private final String startTime;
     private final String endTime;
     private static final Pattern formatter = Pattern.compile("(.+) /from (.+) /to (.+)");

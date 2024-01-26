@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Deadline extends Task {
+public class Deadline extends Task implements Serializable {
     private final String by;
     private final static Pattern formatter = Pattern.compile("(.+) /by (.+)");
 
