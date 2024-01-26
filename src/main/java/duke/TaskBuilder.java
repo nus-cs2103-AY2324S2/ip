@@ -1,3 +1,5 @@
+package duke;
+
 public class TaskBuilder {
     public static Task createTaskFromFileLine(String line) throws DukeException {
         String[] lineSplit = line.split(" \\| ");

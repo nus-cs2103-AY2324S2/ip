@@ -1,3 +1,5 @@
+package duke;
+
 public class CommandCreator {
     private TaskList taskList;
 
