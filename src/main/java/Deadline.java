@@ -1,30 +1,36 @@
-public class Deadline extends Task {
-    protected String deadline;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String deadline) {
+public class Deadline extends Task {
+    protected LocalDateTime deadline;
+
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
 
-    public Deadline(String description, boolean isDone, String deadline) {
+    public Deadline(String description, boolean isDone, LocalDateTime deadline) {
         super(description, isDone);
         this.deadline = deadline;
     }
 
     @Override
     public void taskPrinter() {
-        String result = "    " + "[D][ ]" + " " + description + "(by: " + deadline+ ")";
+        DateTimeFormatter output = DateTimeFormatter.ofPattern("dd MMMM yyyy hhmm a");
+        String result = "    " + "[D][ ]" + " " + description + "(by: " + deadline.format(output) + ")";
         System.out.println(result);
     }
 
     @Override
     public void taskPrinter(int index) {
-        String result = "    " + (index+1) + ".[D]" + getStatusIcon() + " " + description  + "(by: " + deadline+ ")";
+        DateTimeFormatter output = DateTimeFormatter.ofPattern("dd MMMM yyyy hhmm a");
+        String result = "    " + (index+1) + ".[D]" + getStatusIcon() + " " + description  + "(by: " + deadline.format(output) + ")";
         System.out.println(result);
     }
 
     @Override
     public String storagePrinter() {
-        return "D" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description + "|by" + deadline;
+        DateTimeFormatter output = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        return "D" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description + "|by" + deadline.format(output);
     }
 }

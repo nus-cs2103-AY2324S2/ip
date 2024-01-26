@@ -2,10 +2,12 @@ import javax.imageio.IIOException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 public class Tobias {
 
     public static void addedTaskPrinter(Task task, int size, String divider) {
@@ -43,18 +45,22 @@ public class Tobias {
                 Task newTask = new ToDo(description, isDone);
                 tasks.add(newTask);
 
-            } else if (data.startsWith("D")) {
+            }
+            else if (data.startsWith("D")) {
                 boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
 
                 int desc = data.indexOf("|desc");
                 int by = data.indexOf("|by");
                 String description = data.substring(desc+5, by);
                 String byDate = data.substring(by+3);
+                LocalDateTime dd = dateFromString(byDate);
 
-                Task newTask = new Deadline(description, isDone, byDate);
+                Task newTask = new Deadline(description, isDone, dd);
+
                 tasks.add(newTask);
 
-            } else if (data.startsWith("E")) {
+            }
+            else if (data.startsWith("E")) {
                 boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
 
                 int desc = data.indexOf("|desc");
@@ -64,13 +70,15 @@ public class Tobias {
                 String fromDate = data.substring(from+5, to);
                 String toDate = data.substring(to+3);
 
-                Task newTask = new Event(description, isDone, fromDate, toDate);
+                LocalDateTime f = dateFromString(fromDate);
+                LocalDateTime t = dateFromString(toDate);
+
+                Task newTask = new Event(description, isDone, f, t);
                 tasks.add(newTask);
-            } else {
+            }
+            else {
                 throw new TobiasException("   Saved file is corrupted!");
             }
-
-
         } catch (Exception e) {
             System.out.println("local to list function " + e.getMessage());
         }
@@ -90,6 +98,14 @@ public class Tobias {
             System.out.println("local to current function " + e.getMessage());
         }
         return tasks;
+    }
+
+    public static LocalDateTime dateFromString(String dateTime) throws TobiasException {
+        try {
+            return LocalDateTime.parse(dateTime.trim(), DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        } catch (Exception e) {
+            throw new TobiasException("    Kindly enter the date or time in this format : dd-MM-yyyy HHmm");
+        }
     }
 
     public static void commandHandler(String divider, List<Task> tasks) {
@@ -256,16 +272,18 @@ public class Tobias {
                         int deadlineIndex = byIndex+4;
 
                         if (deadlineIndex > command.length()) {
-                            throw new TobiasException("     Hey, please enter a date/time !");
+                            throw new TobiasException("     Hey, please enter a date & time in this format : dd-MM-yyyy HHmm !");
                         }
 
                         String deadline = command.substring(byIndex + 4);
 
+                        LocalDateTime dd = dateFromString(deadline);
+
                         if (deadline.isEmpty() || deadline.isBlank()) {
-                            throw new TobiasException("     Hey, please enter a date/time !");
+                            throw new TobiasException("     Hey, please enter a date & time in this format : dd-MM-yyyy HHmm !");
                         }
 
-                        Task newTask = new Deadline(description, deadline);
+                        Task newTask = new Deadline(description, dd);
                         tasks.add(newTask);
                         addedTaskPrinter(newTask, tasks.size(), divider);
 
@@ -324,7 +342,10 @@ public class Tobias {
 
                         String description = command.substring(6, fromIndex);
 
-                        Task newTask = new Event(description, from, to);
+                        LocalDateTime f = dateFromString(from);
+                        LocalDateTime t = dateFromString(to);
+
+                        Task newTask = new Event(description, f, t);
                         tasks.add(newTask);
                         addedTaskPrinter(newTask, tasks.size(), divider);
 
