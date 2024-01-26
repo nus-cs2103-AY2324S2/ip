@@ -118,7 +118,8 @@ public class Parser {
                 parseEvent(Storage.input);
                 break;
             default:
-                System.out.println("Can't read csv");
+                System.out.println("Can't read csv, file corrupted, abort!");
+                System.exit(-1);
             }
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());

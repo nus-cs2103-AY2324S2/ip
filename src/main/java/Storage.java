@@ -47,6 +47,7 @@ public class Storage {
             numT++;
             System.out.println("  I added this task: " + t);
             report();
+            FileManager.updateTasks();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
@@ -59,6 +60,7 @@ public class Storage {
             numT--;
             System.out.println("  I removed this task: " + deletedTask);
             report();
+            FileManager.updateTasks();
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
@@ -71,6 +73,7 @@ public class Storage {
         try {
             int taskIndex = Parser.parseMarkTask(words);
             tasks.get(taskIndex).setDone(markType);
+            FileManager.updateTasks();
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
