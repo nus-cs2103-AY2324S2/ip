@@ -16,7 +16,7 @@ public class Task {
     }
 
     public String getDisplayedString() {
-        throw new RuntimeException();
+        return getStatusIcon() + " " + getDescription();
     }
 
     public void markAsDone() {
