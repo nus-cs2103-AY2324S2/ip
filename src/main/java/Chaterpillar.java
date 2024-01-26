@@ -94,6 +94,19 @@ public class Chaterpillar {
                             "The way to use the command is: event taskname /from date_and_time /to date_and_time");
                 }
                 break;
+            case "delete":
+                try {
+                    temp = input.split(" ");
+                    int index = Integer.parseInt(temp[1])-1;
+                    delete_task(index);
+                } catch (NumberFormatException e) {
+                    echo("Sorry, there is no number detected.\n" +
+                            "The correct way to use the command is: delete number");
+                } catch (IndexOutOfBoundsException e) {
+                    echo("Sorry, the format for this command is wrong.\n" +
+                            "The correct way to use the command is: delete number");
+                }
+                break;
             case "help":
                 String help_message = "Hi! Here are the list of commands I recognise: \n\n" +
                         "'list' - lists the tasks registered in the list\n" +
@@ -119,6 +132,13 @@ public class Chaterpillar {
         echo("Got it. I've added this task:");
         echo(task.toString());
         echo("Now you have " + listoftasks.size() + " tasks in the list.");
+    }
+    public static void delete_task(int index) {
+        Task task = listoftasks.remove(index);
+        echo("Got it. I've removed this task:");
+        echo(task.toString());
+        echo("Now you have " + listoftasks.size() + " tasks in the list.");
+
     }
     public static void main(String[] args) {
         greet();
