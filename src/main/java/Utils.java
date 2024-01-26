@@ -49,4 +49,8 @@ public class Utils {
 
         return new Events(name, from, to);
     };
+
+    public static String firstWord(String input) {
+        return input.split(" ", 2)[0];
+    }
 }

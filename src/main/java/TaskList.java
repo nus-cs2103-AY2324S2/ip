@@ -41,7 +41,7 @@ public class TaskList {
         }
     }
 
-    public void printTasks() {
+    public void listTasks() {
         StringBuilder output = new StringBuilder();
 
         for (int i = 0; i < tasks.size(); i++) {
@@ -53,5 +53,13 @@ public class TaskList {
         }
 
         Utils.encaseLines(output.toString());
+    }
+
+    public void mark(int i) {
+        this.getTask(i).mark();
+    }
+
+    public void unmark(int i){
+        this.getTask(i).unmark();
     }
 }

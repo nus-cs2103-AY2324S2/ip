@@ -2,25 +2,30 @@ import java.util.Objects;
 
 public class Processor {
     public static void process (String input, TaskList tasks) {
-        if (Objects.equals(input, "list")) {
-            tasks.printTasks();
+        input = input.trim();
+        String command = Utils.firstWord(input);
 
-        } else if (input.contains("mark")) {
-            int i = Utils.getIndex(input);
-            Task task = tasks.getTask(i);
+        switch (command) {
+            case "list":
+                tasks.listTasks();
+                break;
 
-            if (input.startsWith("mark")) {
-                task.mark();
+            case "mark":
+                tasks.mark(Utils.getIndex(input));
+                break;
 
-            } else if (input.startsWith("unmark")) {
-                task.unmark();
+            case "unmark":
+                tasks.unmark(Utils.getIndex(input));
+                break;
 
-            }
+            case "todo":
+            case "deadline":
+            case "event":
+                tasks.addTask(input);
+                break;
 
-        } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")){
-            tasks.addTask(input);
-        } else {
-            Utils.encaseLines(input);
+            default:
+                Utils.encaseLines("Invalid command");
         }
     }
 }
