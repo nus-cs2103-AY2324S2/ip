@@ -9,6 +9,7 @@ list
 unmark 1
 list
 event lunch meeting /from 05/01/2023 1200 /to 05/01/2023 1400
+find lunch
 delete 2
 list
 event
