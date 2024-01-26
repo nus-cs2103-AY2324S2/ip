@@ -22,6 +22,7 @@ public class Task {
             }
             System.out.println("I've " + MARK + " task " + (taskIndex+1));
             this.isComplete = b;
+            System.out.println(this);
         } catch(NumberFormatException | IndexOutOfBoundsException  e) {
             System.out.println("Usage: mark <taskNumber>");
         }
@@ -29,7 +30,7 @@ public class Task {
     @Override
     public String toString() {
         String completion = isComplete ? "[X]" : "[ ]";
-        return completion + description;
+        return completion + " " + description;
     }
 
     public String brief() {
