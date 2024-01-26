@@ -1,7 +1,114 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+ /\_/\
+((@v@))
+():::()
+ VV-VV
+What can I do for you?
+Here are the tasks in your list:
+Got it. I've added this task:
+[D][ ]  (by: Friday)
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+[E][ ] hiking  (from: 2pm to: 5pm)
+Now you have 2 tasks in the list.
+Exception: /by argument needed for deadline
+Got it. I've added this task:
+[T][ ] study
+Now you have 3 tasks in the list.
+Got it. I've added this task:
+[E][ ] party  (from: 7pm to: 9pm)
+Now you have 4 tasks in the list.
+Got it. I've added this task:
+[E][ ] conference  (from: 9am to: 11am)
+Now you have 5 tasks in the list.
+Got it. I've added this task:
+[T][ ] board games
+Now you have 6 tasks in the list.
+Got it. I've added this task:
+[E][ ] meeting  (from: 3pm to: 5pm)
+Now you have 7 tasks in the list.
+Nice! I've marked this task as done:
+[D][X]  (by: Friday)
+Here are the tasks in your list:
+1. [D][X]  (by: Friday)
+2. [E][ ] hiking  (from: 2pm to: 5pm)
+3. [T][ ] study
+4. [E][ ] party  (from: 7pm to: 9pm)
+5. [E][ ] conference  (from: 9am to: 11am)
+6. [T][ ] board games
+7. [E][ ] meeting  (from: 3pm to: 5pm)
+Got it. I've added this task:
+[D][ ]  (by: Saturday)
+Now you have 8 tasks in the list.
+Got it. I've added this task:
+[T][ ] reading
+Now you have 9 tasks in the list.
+Got it. I've added this task:
+[E][ ] picnic  (from: 1pm to: 4pm)
+Now you have 10 tasks in the list.
+Here are the tasks in your list:
+1. [D][X]  (by: Friday)
+2. [E][ ] hiking  (from: 2pm to: 5pm)
+3. [T][ ] study
+4. [E][ ] party  (from: 7pm to: 9pm)
+5. [E][ ] conference  (from: 9am to: 11am)
+6. [T][ ] board games
+7. [E][ ] meeting  (from: 3pm to: 5pm)
+8. [D][ ]  (by: Saturday)
+9. [T][ ] reading
+10. [E][ ] picnic  (from: 1pm to: 4pm)
+Nice! I've marked this task as done:
+[D][X]  (by: Friday)
+Here are the tasks in your list:
+1. [D][X]  (by: Friday)
+2. [E][ ] hiking  (from: 2pm to: 5pm)
+3. [T][ ] study
+4. [E][ ] party  (from: 7pm to: 9pm)
+5. [E][ ] conference  (from: 9am to: 11am)
+6. [T][ ] board games
+7. [E][ ] meeting  (from: 3pm to: 5pm)
+8. [D][ ]  (by: Saturday)
+9. [T][ ] reading
+10. [E][ ] picnic  (from: 1pm to: 4pm)
+Nice! I've marked this task as done:
+[E][X] hiking  (from: 2pm to: 5pm)
+Here are the tasks in your list:
+1. [D][X]  (by: Friday)
+2. [E][X] hiking  (from: 2pm to: 5pm)
+3. [T][ ] study
+4. [E][ ] party  (from: 7pm to: 9pm)
+5. [E][ ] conference  (from: 9am to: 11am)
+6. [T][ ] board games
+7. [E][ ] meeting  (from: 3pm to: 5pm)
+8. [D][ ]  (by: Saturday)
+9. [T][ ] reading
+10. [E][ ] picnic  (from: 1pm to: 4pm)
+OK, I've marked this task as not done yet:
+[D][ ]  (by: Friday)
+Here are the tasks in your list:
+1. [D][ ]  (by: Friday)
+2. [E][X] hiking  (from: 2pm to: 5pm)
+3. [T][ ] study
+4. [E][ ] party  (from: 7pm to: 9pm)
+5. [E][ ] conference  (from: 9am to: 11am)
+6. [T][ ] board games
+7. [E][ ] meeting  (from: 3pm to: 5pm)
+8. [D][ ]  (by: Saturday)
+9. [T][ ] reading
+10. [E][ ] picnic  (from: 1pm to: 4pm)
+Noted. I've removed this task:
+[T][ ] study
+Now you have 10 tasks in the list.
+Here are the tasks in your list:
+1. [D][ ]  (by: Friday)
+2. [E][X] hiking  (from: 2pm to: 5pm)
+3. [E][ ] party  (from: 7pm to: 9pm)
+4. [E][ ] conference  (from: 9am to: 11am)
+5. [T][ ] board games
+6. [E][ ] meeting  (from: 3pm to: 5pm)
+7. [D][ ]  (by: Saturday)
+8. [T][ ] reading
+9. [E][ ] picnic  (from: 1pm to: 4pm)
+Noted. I've removed this task:
+[D][ ]  (by: Friday)
+Now you have 9 tasks in the list.
+Bye. Hope to see you again soon!

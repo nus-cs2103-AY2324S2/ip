@@ -27,7 +27,7 @@ public class Command {
             
             boolean commandValid = true;
             try {
-                if (!commandSet.contains(command)) {
+                if (!commandSet.contains(command)) { 
                     commandValid = false;
                     throw new CommandNotFoundException(command);
                 }

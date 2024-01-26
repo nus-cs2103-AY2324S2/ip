@@ -1,0 +1,26 @@
+list
+deadline /by Friday
+event hiking /from 2pm /to 5pm
+deadline /from Sunday
+todo study
+event party /from 7pm /to 9pm
+event conference /from 9am /to 11am
+todo board games
+event meeting /from 3pm /to 5pm
+mark 1
+list
+deadline /by Saturday
+todo reading
+event picnic /from 1pm /to 4pm
+list
+mark 1
+list
+mark 2
+list
+unmark 1
+list
+delete 3
+list
+delete 1
+bye
+
