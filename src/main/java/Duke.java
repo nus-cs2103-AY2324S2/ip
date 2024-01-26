@@ -7,6 +7,8 @@ class DukeException extends Exception {
 //        // Call constructor of parent Exception
 //        super(s);
 //    }
+
+
 }
 public class Duke {
     public static void main(String[] args) {
@@ -79,6 +81,15 @@ public class Duke {
                 todoList.add(userTask);
                 System.out.println(barrier);
                 System.out.println(userTask.toString());
+                System.out.println("Now you have " + todoList.size() + " tasks in the list.");
+                System.out.println(barrier);
+            } else if (inputList[0].equals("delete")) {
+                int position = Integer.parseInt(inputList[1]);
+                Task chosenTask = todoList.get(position-1);
+                System.out.println(barrier);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(chosenTask.toString());
+                todoList.remove(position-1);
                 System.out.println("Now you have " + todoList.size() + " tasks in the list.");
                 System.out.println(barrier);
             }
