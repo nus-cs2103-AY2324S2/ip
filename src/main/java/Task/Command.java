@@ -11,7 +11,7 @@ public abstract class Command {
         return body;
     }
 
-    public static Command newCommand(String name, String body) throws DukeException {
+    public static Command newCommand(String name, String body) throws UnknownCommandException {
         switch (name) {
         case "list":
             return new ListCommand();
