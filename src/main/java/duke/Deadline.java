@@ -33,4 +33,8 @@ public class Deadline extends Task {
         if (isDone) deadline.markAsDone();
         return deadline;
     }
+
+    public String getDate() {
+        return by.toString();
+    }
 }
