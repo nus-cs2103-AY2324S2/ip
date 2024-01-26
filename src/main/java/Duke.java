@@ -22,15 +22,16 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    private void runCommand(String commandString) {
+    private boolean runCommand(String commandString) {
         // get the first word of the input
         String[] words = commandString.split(" ", 2);
         Command command;
         try {
             command = Command.newCommand(words[0], words.length > 1 ? words[1] : "");
             System.out.println("____________________________________________________________");
-            command.execute(list);
+            boolean loopSignal = command.execute(list);
             System.out.println("____________________________________________________________");
+            return loopSignal;
         } catch (UnknownCommandException e) {
             System.out.println("____________________________________________________________");
             System.out.println(e.getBotMessage());
@@ -39,6 +40,7 @@ public class Duke {
             System.out.println(e.getBotMessage());
             System.out.println("____________________________________________________________");
         }
+        return true; // bot should continue running after invalid user input
     }
 
     public void run() {
@@ -55,7 +57,7 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 break;
             }
-            runCommand(input);
+            loopSignal = runCommand(input);
         }
     }
 
