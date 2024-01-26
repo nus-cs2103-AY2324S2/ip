@@ -1,39 +1,73 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
+//Class is to load/save tasks from hard drive for us
 public class Storage {
-    private ArrayList<Task> taskList;
-    public Storage() {
-        this.taskList = new ArrayList<>();
+    private String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
-    public Storage(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+    public ArrayList<Task> parseAndLoadTasks() throws FileNotFoundException, RyanGoslingException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        String pattern = "^\\s*(\\w+)\\s*\\|\\s*(\\w+)\\s*\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*$";
+        ArrayList<Task> listOfTasks = new ArrayList<>();
+        while (s.hasNext()) {
+            String currentLine = s.nextLine();
+            Pattern regex = Pattern.compile(pattern);
+            Matcher matcher = regex.matcher(currentLine);
+            if (!matcher.matches()) {
+                throw new RyanGoslingException("Task lists stored in hard drive is not in expected format!");
+            } else {
+                String typeOfTask = matcher.group(1);
+                int isTaskDone = Integer.parseInt(matcher.group(2));
+                String taskDescription = matcher.group(3);
+                String timeFrom = matcher.group(4);
+                String timeTo = matcher.group(5);
+                switch (typeOfTask) {
+                case "T":
+                    listOfTasks.add(new Todo(taskDescription, isTaskDone));
+                    break;
+                case "D":
+                    listOfTasks.add(new Deadline(taskDescription, timeFrom, isTaskDone));
+                    break;
+                case "E":
+                    listOfTasks.add(new Events(taskDescription, timeFrom, timeTo, isTaskDone));
+                    break;
+                }
+            }
+        }
+        return listOfTasks;
     }
 
-    public void add(Task newTask) {
-        this.taskList.add(newTask);
-        MessagePrinter.commandPrint(newTask, this.taskList.size());
+    public void writeToTaskList(ArrayList<Task> taskList) {
+        StringBuilder toAdd = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i += 1) {
+            Task taskToAdd = taskList.get(i);
+            toAdd.append(taskToAdd.getTaskType());
+            int taskDone = taskToAdd.isTaskDone() ? 1 : 0;
+            String[] possibleTimes = taskToAdd.getTimes();
+            toAdd.append(" | ").append(taskDone).append(" | ").append(taskToAdd.getTaskName()).append(" | ").append(possibleTimes[0]).append(" | ").append(possibleTimes[1]);
+            if (i != taskList.size()-1) {
+                 toAdd.append(System.lineSeparator());
+            }
+        }
+        try {
+            FileWriter fw = new FileWriter(this.filePath);
+            fw.write(toAdd.toString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error writing! Weird as f");
+        }
+
     }
 
-    public void printList() {
-        MessagePrinter.commandListPrint(this.taskList);
-    }
-
-    public void changeStatusOfItem(String action, int which) {
-        this.taskList.get(which).changeStatus(action);
-    }
-
-    public void removeIndex(int index) {
-        MessagePrinter.removePrinter(this.taskList.get(index), this.taskList.size());
-        this.taskList.remove(index);
-    }
-
-    public void writeToFile(TaskLoader td) {
-        td.writeToTaskList(this.taskList);
-    }
-
-    @Override
-    public String toString() {
-        return "Now you have " + taskList.size() + "tasks in the list.";
-    }
 }

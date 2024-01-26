@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class RyanGosling {
     public static String chatBotName = "RyanGosling";
@@ -7,7 +6,7 @@ public class RyanGosling {
     public static void main(String[] args) throws RyanGoslingException, FileNotFoundException {
         MessagePrinter.greeting(chatBotName);
         //We begin listening
-        ChatListener botDispatcher = new ChatListener();
+        Ui botDispatcher = new Ui();
         botDispatcher.chatListener();
     }
 }
