@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package bob;
+
 import java.util.Scanner;
 
 public class Bob {

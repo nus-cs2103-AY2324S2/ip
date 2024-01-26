@@ -1,3 +1,5 @@
+package bob;
+
 public class BobParser {
 
     public static final String TERMINATE_COMMAND = "bye";
