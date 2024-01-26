@@ -17,6 +17,14 @@ public class Storage <T> {
             return null;
         }
     }
+    public int deleteItem(int idx) {
+        if (idx < 0 || idx >= this.storage.size()) {
+            return -1;
+        } else {
+            this.storage.remove(idx);
+            return 0;
+        }
+    }
     public int getSize() {
         return this.storage.size();
     }
