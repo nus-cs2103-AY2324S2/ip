@@ -5,9 +5,19 @@ import java.time.format.DateTimeFormatter;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
     private LocalDateTime byDate;
 
+    /**
+     * Creates a deadline task.
+     * 
+     * @param description Description of the task.
+     * @param byDate Due date of the task.
+     * @throws DukeException If the due date is not in the correct format.
+     */
     public Deadline(String description, String byDate) throws DukeException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

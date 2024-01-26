@@ -1,6 +1,16 @@
 package duke;
 
+/**
+ * Creates a task object from a line in the file.
+ */
 public class TaskBuilder {
+    /**
+     * Creates a task object from a line in the file.
+     * 
+     * @param line Line in the file.
+     * @return Task object.
+     * @throws DukeException If the line is invalid.
+     */
     public static Task createTaskFromFileLine(String line) throws DukeException {
         String[] lineSplit = line.split(" \\| ");
         String type = lineSplit[0];

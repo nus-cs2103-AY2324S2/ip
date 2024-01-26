@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents the main class of the application.
+ */
 public class Duke {
     private static final String FILE_PATH = "data/duke.txt";
 

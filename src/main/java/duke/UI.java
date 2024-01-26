@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of Duke.
+ */
 public class UI {
     private static final String LINE = "_".repeat(60);
     private static final ArrayList<String> WELCOME_MESSAGES = new ArrayList<String>(
@@ -16,6 +19,11 @@ public class UI {
     public UI() {
     }
 
+    /**
+     * Prints a message to the user.
+     * 
+     * @param message The message to be printed.
+     */
     public void printMessage(String message) {
         System.out.println(" ".repeat(LINE_INDENTATION) + LINE);
         System.out.println(" ".repeat(CONTENT_INDENTATION) + message);
@@ -23,6 +31,11 @@ public class UI {
         System.out.println("");
     }
 
+    /**
+     * Prints a multi-line message to the user.
+     * 
+     * @param messages The list of message lines to be printed.
+     */
     public void printMessages(ArrayList<String> messages) {
         System.out.println(" ".repeat(LINE_INDENTATION) + LINE);
         for (String message : messages) {
@@ -32,10 +45,19 @@ public class UI {
         System.out.println("");
     }
 
+    /**
+     * Prints the welcome message to the user.
+     */
     public void printWelcomeMessage() {
         printMessages(WELCOME_MESSAGES);
     }
-
+    
+    /**
+     * Processes the commands entered by the user.
+     * 
+     * @param commandCreator The command creator to create commands.
+     * @param storage The storage to save the task list.
+     */
     public void processCommands(CommandCreator commandCreator, Storage storage) {
         Scanner scanner = new Scanner(System.in);
         while (this.isActive) {
@@ -51,6 +73,12 @@ public class UI {
         scanner.close();
     }
 
+    /**
+     * Sets whether the user interface is active.
+     * Setting the user interface to inactive will cause the user interface to terminate.
+     * 
+     * @param isActive Whether the user interface is active.
+     */
     public void setActive(boolean isActive) {
         this.isActive = isActive;
     }
