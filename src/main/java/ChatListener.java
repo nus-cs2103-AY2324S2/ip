@@ -1,22 +1,16 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //Handles the main chat listening and parsing of messages
 public class ChatListener {
-    private Scanner sc;
-    private Storage taskStorage;
-    private TaskLoader tskLoader = new TaskLoader("data/task_lists.txt");
-
-    public ChatListener() {
-        this.sc = new Scanner(System.in);
-        this.taskStorage = new Storage();
-    }
-
-    public ChatListener(Storage taskStorage) {
-        this.sc = new Scanner(System.in);
-        this.taskStorage = taskStorage;
-    }
+    private Scanner sc = new Scanner(System.in);
+    private Storage taskStorage = new Storage();
+    private String filePath = "data/task_lists.txt";
+    private TaskLoader tskLoader = new TaskLoader(filePath);
 
 
     public int parseCommand(String task) throws RyanGoslingException {
@@ -76,6 +70,16 @@ public class ChatListener {
         return 0;
     }
     public void chatListener() {
+        //First attempt to load the file.
+        try {
+            ArrayList<Task> parsedTasks = this.tskLoader.parseAndLoadTasks();
+            this.taskStorage = new Storage(parsedTasks);
+        } catch (RyanGoslingException | FileNotFoundException e) {
+            MessagePrinter.errorPrinter(e);
+            return;
+        }
+
+        //Begin parsing commands.
         while (true) {
             String task = sc.nextLine();
             int status = 0;

@@ -6,6 +6,10 @@ public class Storage {
         this.taskList = new ArrayList<>();
     }
 
+    public Storage(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+    }
+
     public void add(Task newTask) {
         this.taskList.add(newTask);
         MessagePrinter.commandPrint(newTask, this.taskList.size());
