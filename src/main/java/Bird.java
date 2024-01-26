@@ -21,10 +21,15 @@ public class Bird {
     }
 
     public static void list() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            int number = i + 1;
-            System.out.println(number + ". " + taskList.get(i).toString());
+        if (taskList.size() == 0) {
+            System.out.println("You have no tasks! Hooray!!!!!!!!!!");
+        }
+        else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskList.size(); i++) {
+                int number = i + 1;
+                System.out.println(number + ". " + taskList.get(i).toString());
+            }
         }
     }
 
