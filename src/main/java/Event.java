@@ -1,5 +1,4 @@
 public class Event extends Task {
-
     protected String from;
     protected String to;
 
@@ -7,6 +6,10 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    public String saveToText() {
+        return String.format("E | %s | %s | %s | %s", this.isDone ? 1 : 0, this.description, this.from, this.to);
     }
 
     @Override
