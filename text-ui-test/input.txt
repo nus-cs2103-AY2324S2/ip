@@ -7,4 +7,7 @@ list
 mark 2
 mark 1
 list
+event cca practice /to 10pm
+event cca practice /to 10pm /from 8pm
+deadline cca leader selection
 bye

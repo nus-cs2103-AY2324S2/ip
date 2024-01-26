@@ -10,6 +10,9 @@ public class Lindi {
                 for (int i = 0; i < taskListCount; i++) {
                     System.out.println(i+1 + ". " + taskList[i]);
                 }
+                if (taskListCount == 0) {
+                    System.out.println("There are no tasks for you today. Enjoy :)");
+                }
             }
 
             void executeCreateTask(String s) {
@@ -93,7 +96,7 @@ public class Lindi {
                 lf.goodByeAndExit();
                 break;
             default:
-                System.out.println("Uhh, English please? Haha, just kidding... \n" +
+                System.out.println("Uhh, English please? Haha, just kidding...\n" +
                         "but for reals I didn't really understand that :(");
                 break;
         }

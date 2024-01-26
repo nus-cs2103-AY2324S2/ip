@@ -3,9 +3,11 @@ Hello! I'm Lindi
 What can I do for you?
 --------------------------------------------------
 --------------------------------------------------
-Unknown command
+Uhh, English please? Haha, just kidding...
+but for reals I didn't really understand that :(
 --------------------------------------------------
 --------------------------------------------------
+There are no tasks for you today. Enjoy :)
 --------------------------------------------------
 --------------------------------------------------
 Got it. I've added this task:
@@ -39,6 +41,17 @@ Nice! I've marked this task as done:
 1. [T][X] practice piano
 2. [D][X] finish iP (by: Sat 26 2359)
 3. [E][ ] volunteering (from: Sat 930am to: 1130am)
+--------------------------------------------------
+--------------------------------------------------
+I'm not sure how you're going for an event without a start time or end time
+please include '/from' and '/to' so I can keep track for you :)
+--------------------------------------------------
+--------------------------------------------------
+Sorry! /from must appear before /to :)
+--------------------------------------------------
+--------------------------------------------------
+You can't expect me to track a deadline if you don't give me the.. deadline right? haha
+please include '/by' followed by the deadline :)
 --------------------------------------------------
 --------------------------------------------------
 Bye. Hope to see you again soon!
