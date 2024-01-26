@@ -34,11 +34,12 @@ public class Storage {
                 }
                 // format [D | 0 | borrow book | today]
                 else if (Objects.equals(taskType, "D")) {
-                    task = new Deadline(lineArray[2], lineArray[3]);
+                    task = new Deadline(lineArray[2], Utils.convertStringToDateTime(lineArray[3]));
                 }
                 // format [E | 0 | project meeting | Mon 2pm | 4pm]
                 else if (Objects.equals(taskType, "E")) {
-                    task = new Event(lineArray[2], lineArray[3], lineArray[4]);
+                    task = new Event(lineArray[2], Utils.convertStringToDateTime(lineArray[3]),
+                            Utils.convertStringToDateTime(lineArray[4]));
                 }
 
                 if (task == null) {
