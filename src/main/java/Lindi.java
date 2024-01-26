@@ -12,9 +12,20 @@ public class Lindi {
                 }
             }
 
-            void executeCreateTask(String s){
-                Task task = Task.create(s);
-                taskList[taskListCount++] = task;
+            void executeCreateTask(String s) {
+                Task task;
+                try{
+                    task = Task.create(s);
+                } catch (CreateTaskException e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
+                try {
+                    taskList[taskListCount++] = task;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Oh no! I can't handle that many tasks yet.. shutting down :(((((");
+                    throw new RuntimeException(e.getMessage());
+                }
                 System.out.println("Got it. I've added this task:\n\t" + task +
                                    "\nNow you have " + taskListCount + " tasks in the list.");
             }
@@ -36,6 +47,7 @@ public class Lindi {
                 if (listIndex < 1 || listIndex > taskListCount) {
                     System.out.println("Sorry, I can't find that task. Please enter a valid index\n" +
                             "You can see the tasks list by inputting \"list\"");
+                    return;
                 }
                 Task task = taskList[listIndex - 1];
                 task.markDone();
@@ -50,6 +62,7 @@ public class Lindi {
                 if (listIndex < 1 || listIndex > taskListCount) {
                     System.out.println("Sorry, I can't find that task. Please enter a valid index\n" +
                             "You can see the tasks list by inputting \"list\"");
+                    return;
                 }
                 Task task = taskList[listIndex - 1];
                 task.unmarkDone();
@@ -80,7 +93,8 @@ public class Lindi {
                 lf.goodByeAndExit();
                 break;
             default:
-                System.out.println("Unknown command");
+                System.out.println("Uhh, English please? Haha, just kidding... \n" +
+                        "but for reals I didn't really understand that :(");
                 break;
         }
     }
