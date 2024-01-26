@@ -12,8 +12,6 @@ public class Duke {
         DEADLINE,
         EVENT,
         MARK,
-//        UNMARK,
-//        DELETE,
         EXIT
     }
     public static void main(String[] args) throws Exception{
