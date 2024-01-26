@@ -5,7 +5,7 @@ public class Bird {
 
     public static void main(String[] args) { 
         greet();
-        Command.scan();
+        CommandHandler.scan();
     }
 
     public static void greet() {

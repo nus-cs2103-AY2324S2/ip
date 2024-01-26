@@ -2,16 +2,27 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Command {
-    static final Set<String> commandSet = new HashSet<>(Set.of(
-        "bye",
-        "list",
-        "mark",
-        "unmark",
-        "delete",
-        "todo",
-        "deadline",
-        "event"
+public class CommandHandler {
+    public enum Command {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
+    static final Set<Command> commandSet = new HashSet<>(Set.of(
+        Command.BYE,
+        Command.LIST,
+        Command.MARK,
+        Command.UNMARK,
+        Command.DELETE,
+        Command.TODO,
+        Command.DEADLINE,
+        Command.EVENT
     ));
     
     public static void scan() {
@@ -32,52 +43,51 @@ public class Command {
     private static boolean executeCommand(String userInput) throws DukeException {
         String[] words = userInput.split("\\s+");
 
-        String command = words[0];
-        
+        Command command = Command.valueOf(words[0].toUpperCase());   
        
         if (!commandSet.contains(command)) { 
-            throw new CommandNotFoundException(command);
+            throw new CommandNotFoundException(command.name());
         }
 
-      
         switch (command) {
-            case "bye":
+            case BYE:
                 Bird.goodbye();
                 return true;
-            case "list":
+            case LIST:
                 Bird.list();
                 break;
             default:
                 // The logic below is for commands with arguments
                 String arguments = "";
                 try {
-                    arguments = userInput.substring(command.length()+1); 
+                    arguments = userInput.substring(command.name().length() + 1);
                 } catch (StringIndexOutOfBoundsException e) {
-                    throw new ArgumentNotFoundException(command);
-                } 
-                
-            
+                    throw new ArgumentNotFoundException(command.name());
+                }
                 switch (command) {
-                    case "mark":
+                    case MARK:
                         Bird.markTask(Integer.parseInt(arguments));
-                        break; 
-                    case "unmark":
+                        break;
+                    case UNMARK:
                         Bird.unmarkTask(Integer.parseInt(arguments));
                         break;
-                    case "delete":
+                    case DELETE:
                         Bird.deleteTask(Integer.parseInt(arguments));
                         break;
-                    case "todo":
+                    case TODO:
                         Bird.addTask(processToDo(arguments));
                         break;
-                    case "deadline":  
+                    case DEADLINE:
                         Bird.addTask(processDeadline(arguments));
                         break;
-                    case "event":
+                    case EVENT:
                         Bird.addTask(processEvent(arguments));
-                        break;    
-                }  
-            }    
+                        break;
+                    default:
+                        System.out.println("Error: CommandSet Hashtable contains a command that is not implemented in the switch statement!");
+                        break;
+                }
+        }
         return false;
     }
     
