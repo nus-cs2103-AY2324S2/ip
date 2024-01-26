@@ -1,14 +1,18 @@
+import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
 public class Codec {
 
     String delimiter = ", ";
+    String dateFormat = "dd-MM-yyyy";
+    String timeFormat = "HH:mm";
 
     public String encode(Task task) {
         String[] encodedTask = task.encode();
         String encodedTaskString = buildString(encodedTask);
         return encodedTaskString;
     }
+
 
     public String buildString(String... values) {
         StringJoiner encodedString = new StringJoiner(delimiter);
@@ -40,7 +44,7 @@ public class Codec {
             Boolean done = Boolean.parseBoolean(splitString[1]);
 
             String taskName = splitString[2];
-            String by = splitString[3];
+            LocalDateTime by = TimeProcessor.fromString(splitString[3]);
 
             return new Deadline(taskName, by, done);
         } catch (Exception e) {
@@ -55,8 +59,8 @@ public class Codec {
             Boolean done = Boolean.parseBoolean(splitString[1]);
 
             String taskName = splitString[2];
-            String from = splitString[3];
-            String to = splitString[4];
+            LocalDateTime from = TimeProcessor.fromString(splitString[3]);
+            LocalDateTime to = TimeProcessor.fromString(splitString[4]);
 
             return new Event(taskName, from, to, done);
 

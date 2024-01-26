@@ -1,13 +1,15 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    String from;
-    String to;
+    LocalDateTime from;
+    LocalDateTime to;
 
 
-    public Event(String taskName, String from, String to) {
+    public Event(String taskName, LocalDateTime from, LocalDateTime to) {
         this(taskName, from, to, false);
     }
 
-    public Event(String taskName, String from, String to, Boolean done) {
+    public Event(String taskName, LocalDateTime from, LocalDateTime to, Boolean done) {
         super(taskName, done);
         super.identifier = "E";
         this.from = from;
@@ -16,7 +18,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s from:%s to:%s", super.toString() , from, to);
+        return String.format("%s from: %s to: %s", super.toString(), TimeProcessor.toString(from), TimeProcessor.toString(to));
     }
 
     @Override
@@ -28,8 +30,8 @@ public class Event extends Task {
             encodedEvent[i] = encodedTask[i];
         }
 
-        encodedEvent[4] = from;
-        encodedEvent[5] = to;
+        encodedEvent[4] = TimeProcessor.toString(from);
+        encodedEvent[5] = TimeProcessor.toString(to);
 
         return encodedEvent;
     }
