@@ -1,3 +1,7 @@
+package roland.task;
+
+import roland.task.Task;
+
 public class ToDos extends Task {
 
     public ToDos(String description) {

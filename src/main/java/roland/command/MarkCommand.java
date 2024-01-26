@@ -1,3 +1,10 @@
+package roland.command;
+
+import roland.Storage;
+import roland.task.Task;
+import roland.TaskList;
+import roland.Ui;
+
 public class MarkCommand extends Command {
 
     private final int index;
@@ -9,7 +16,7 @@ public class MarkCommand extends Command {
         this.markDone = markDone;
     }
 
-    public void execute(TaskList tasks,Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(this.index-1);
         if (markDone) {
             task.markDone();
