@@ -1,14 +1,15 @@
+import java.time.LocalDate;
 public class Deadline extends Task {
-    private String by;
+    private LocalDate by;
     public Deadline(String taskName, String deadline) {
         super(taskName, "D");
-        this.by = deadline;
+        this.by = LocalDate.parse(deadline);
         super.setTime(new String[] {deadline, "None"});
     }
 
     public Deadline(String taskName, String deadline, int isTaskDone) {
         super(taskName, "D");
-        this.by = deadline;
+        this.by = LocalDate.parse(deadline);
         super.changeStatus(isTaskDone);
         super.setTime(new String[] {deadline, "NA"});
 
@@ -16,6 +17,6 @@ public class Deadline extends Task {
 
     public String toString() {
         return "[D]" + "[" + this.getStatusIcon() + "] " + super.getTaskName() + " (by: " +
-                this.by + ")";
+                DateTimeParser.parseDate(this.by) + ")";
     }
 }

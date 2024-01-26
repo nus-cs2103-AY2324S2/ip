@@ -1,4 +1,7 @@
 T | 0 | lol | NA | NA
 T | 1 | lol | NA | NA
 T | 1 | ryan | NA | NA
-D | 1 | lwefdewded | 6pm | None
+D | 1 | lwefdewded | 2019-10-15 | NA
+E | 0 | lol | 2019-10-15 | 2019-10-15
+E | 1 | lolwdad | 2019-10-15 | 2019-10-15
+E | 0 | lol | 2018-07-13 | 2026-05-23
