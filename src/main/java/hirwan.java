@@ -32,23 +32,36 @@ public class hirwan {
             } else if (todo || deadline || event) {
                 String typestr = "";
                 if (todo) {
-                    typestr = "[T]";
-                    System.out.println("Got it. I've added this task: \n  " + typestr + "[ ] " + text.substring(5));
-                    List.add(count + ". " + typestr + "[ ] " + text.substring(5));
-                    type.add(typestr);
+                    try {
+                        typestr = "[T]";
+                        System.out.println("Got it. I've added this task: \n  " + typestr + "[ ] " + text.substring(5));
+                        List.add(count + ". " + typestr + "[ ] " + text.substring(5));
+                        type.add(typestr);
+                        System.out.println("Now you have " + count + " tasks in the list.");
+                        count++;
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Please enter a description for your todo command");
+                    }
                 } else if (deadline) {
-                    typestr = "[D]";
-                    String delimiter = " /by";
-                    int Index = text.indexOf(delimiter);
-                    String Day = text.substring(Index + 5);
-                    String item =  text.substring(9, Index);
-                    List.add(count + ". " + typestr + "[ ] " + item + " (by: " + Day + ")");
-                    System.out.println("Got it. I've added this task:\n  " + typestr + "[ ] " + item + " (by: " + Day + ")");
-                    type.add(typestr);
+                    try {
+                        typestr = "[D]";
+                        String delimiter = " /by";
+                        int Index = text.indexOf(delimiter);
+                        String Day = text.substring(Index + 5);
+                        String item = text.substring(9, Index);
+                        List.add(count + ". " + typestr + "[ ] " + item + " (by: " + Day + ")");
+                        System.out.println("Got it. I've added this task:\n  " + typestr + "[ ] " + item + " (by: " + Day + ")");
+                        type.add(typestr);
+                        System.out.println("Now you have " + count + " tasks in the list.");
+                        count++;
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Please enter a description or date for your deadline command");
+                    }
                 } else if (event) {
+                    try {
                     typestr = "[E]";
                     String delimiterstart = " /from";
-                    String delimiterend = " /to";
+                    String delimiterend = " /to"    ;
                     int Indexstart = text.indexOf(delimiterstart);
                     int Indexend = text.indexOf(delimiterend);
                     String start = text.substring(Indexstart + 7, Indexend);
@@ -57,9 +70,12 @@ public class hirwan {
                     List.add(count + ". " + typestr + "[ ] " + item + " (from: " + start + " to: " + end + ")");
                     System.out.println("Got it. I've added this task:\n  " + typestr + "[ ] " + item + " (from: " + start + " to: " + end + ")");
                     type.add(typestr);
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                    count++;
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Please enter a description or date for your event to command");
+                    }
                 }
-                System.out.println("Now you have " + count + " tasks in the list.");
-                count++;
             } else if (mark) {
                 String number = text.substring(5);
                 int numberint = Integer.parseInt(number);
