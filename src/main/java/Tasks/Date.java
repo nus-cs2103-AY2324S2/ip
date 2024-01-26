@@ -20,7 +20,6 @@ public class Date {
     private LocalTime formattedTime;
 
     private void formatTime(String time) throws SquidDateException {
-        System.out.println(time);
         switch (time) {
         case (""):
             break;
@@ -28,26 +27,22 @@ public class Date {
             this.formattedTime = LocalTime.now();
             break;
         default:
-            String[] formats = FORMAT.TIMES;
-            LocalTime found = null;
-            for (int i = 0; i < formats.length; i++) {
-                System.out.println("format" + formats[i]);
-                try {
-                    found = LocalTime.parse(time, DateTimeFormatter.ofPattern(formats[i], Locale.ENGLISH));
-                    System.out.println(found);
-                } catch (DateTimeParseException e) {
-                    try{
-                        found = LocalTime.parse(time);
-                    } catch (DateTimeParseException f) {
-                    }
+            this.formattedTime = parseTime(time);
+        }
+    }
+
+    private LocalTime parseTime(String time) throws SquidDateException {
+        for (int i = 0; i < FORMAT.TIMES.length; i++) {
+            try {
+                return LocalTime.parse(time, DateTimeFormatter.ofPattern(FORMAT.TIMES[i]));
+            } catch (DateTimeParseException e) {
+                try{
+                    return LocalTime.parse(time);
+                } catch (DateTimeParseException f) {
                 }
             }
-            if (found == null) {
-                throw new SquidDateException(String.format(EXCEPTIONS.SQUID_DATE, time, "time", CORRECT_USAGE.DATE));
-            } else {
-                this.formattedTime = found;
-            }
         }
+        throw new SquidDateException(String.format(EXCEPTIONS.SQUID_DATE, time, "time", CORRECT_USAGE.DATE));
     }
 
 
@@ -62,25 +57,25 @@ public class Date {
             this.formattedDate = LocalDate.now().plusDays(1);
             break;
         default:
-            String[] formats = FORMAT.DATES;
-            LocalDate found = null;
-            for (int i = 0; i < formats.length; i++) {
-                try {
-                    found = LocalDate.parse(date, DateTimeFormatter.ofPattern(formats[i]));
-                } catch (DateTimeParseException e) {
-                    try{
-                        found = LocalDate.parse(date);
-                    } catch (DateTimeParseException f) {
-                    }
-                }
-            }
-            if (found == null) {
-                throw new SquidDateException(String.format(EXCEPTIONS.SQUID_DATE, date, "date", CORRECT_USAGE.DATE));
-            } else {
-                this.formattedDate = found;
-            }
+            this.formattedDate = parseDate(date);
         }
     }
+
+    private LocalDate parseDate(String date) throws SquidDateException {
+        for (int i = 0; i < FORMAT.DATES.length; i++) {
+            try {
+                return LocalDate.parse(date, DateTimeFormatter.ofPattern(FORMAT.DATES[i]));
+            } catch (DateTimeParseException e) {
+                try{
+                    return LocalDate.parse(date);
+                } catch (DateTimeParseException f) {
+                }
+            }
+        }
+        throw new SquidDateException(String.format(EXCEPTIONS.SQUID_DATE, date, "date", CORRECT_USAGE.DATE));
+    }
+
+
     public Date(String date) throws SquidDateException {
         this.date = date;
         String[] params = this.date.split(",", 2);
@@ -88,18 +83,17 @@ public class Date {
         if (params.length > 1) {
             // Take time first.
             formatTime(params[0].toUpperCase().strip());
-            formatDate(params[1].toLowerCase().strip());
+            formatDate(params[1].strip());
         } else {
             formatDate(date);
         }
     }
 
     public String toString() {
-//        return this.formattedDate.toString();
         String timeString = "";
         if (this.formattedTime != null) {
-            timeString = formattedTime.format(DateTimeFormatter.ofPattern(FORMAT.TIME));
+            timeString = formattedTime.format(DateTimeFormatter.ofPattern(FORMAT.TIME)) + ", ";
         }
-        return timeString + ", " + this.formattedDate.format(DateTimeFormatter.ofPattern(FORMAT.DATE));
+        return timeString + this.formattedDate.format(DateTimeFormatter.ofPattern(FORMAT.DATE));
     }
 }
