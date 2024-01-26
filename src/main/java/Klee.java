@@ -1,5 +1,9 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileWriter;
 
 public class Klee {
     enum Instruction {
@@ -48,14 +52,61 @@ public class Klee {
         } else throw new KleeException("We should think of a name for the task!");
     }
 
+    public static void saveData(ArrayList<Task> tasks) {
+        try {
+            FileWriter data = new FileWriter("data/Klee.txt");
+            for (int i = 0; i < tasks.size(); i++) {
+                Task currentTask = tasks.get(i);
+                String line = currentTask.toText();
+                data.write(line + "\n");
+            }
+            data.close();
+        } catch (IOException e) {
+            System.out.println("Klee has run out of ink! I cannot write this down!");
+        }
+    }
+
     public static void main(String[] args) {
+        //Initialise variables
         String divider = "____________________________________________________________________________";
+        ArrayList<Task> tasks = new ArrayList<>();
+        Scanner getInput = new Scanner(System.in);
+
+        //Create /data directory only if it does not exist
+        new File("data").mkdirs();
+        try {
+            File data = new File("data/Klee.txt");
+            if (!data.exists()) {
+                data.createNewFile();
+            } else {
+                Scanner readFile = new Scanner(data);
+                while (readFile.hasNext()) {
+                    String read = readFile.nextLine();
+                    String[] line = read.split(" / ");
+                    switch (line[0]) {
+                    case "T":
+                        tasks.add(ToDo.fromText(line[2], line[1]));
+                        break;
+                    case "D":
+                        tasks.add(Deadline.fromText(line[2], line[1], line[3]));
+                        break;
+                    case "E":
+                        tasks.add(Event.fromText(line[2], line[1], line[3], line[4]));
+                        break;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Klee could not find the book we wrote on last time... I'm sorry...");
+        }
+
+        //Greet user
         System.out.println(divider);
         System.out.println("Hello! My name is Klee.");
         System.out.println("Are you here to break Klee out of solitary confinement?");
         System.out.println(divider);
-        ArrayList<Task> tasks = new ArrayList<>();
-        Scanner getInput = new Scanner(System.in);
+
+        //Start accepting user inputs
         while (true) {
             String input = getInput.nextLine();
             if (input.equals("bye")) {
@@ -162,6 +213,7 @@ public class Klee {
                             }
                             System.out.println(divider);
                         }
+                        saveData(tasks);
                     } catch (IllegalArgumentException e) {
                         System.out.println(divider);
                         System.out.println("Klee doesn't understand, what are you talking about?");
