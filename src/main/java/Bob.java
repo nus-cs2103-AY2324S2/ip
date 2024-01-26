@@ -161,8 +161,7 @@ public class Bob {
                         invalidFile = true;
                     }
 
-                    if (!invalidFile
-                            && !(properties[3].equals("false")
+                    if (!invalidFile && !(properties[3].equals("false")
                             || properties[3].equals("true"))) {
                         invalidFile = true;
                     }
@@ -172,8 +171,7 @@ public class Bob {
                                 .CorruptedSaveData("Save file is corrupt. The application will create a new save file.");
                     }
 
-                    if (taskType.equals("T")
-                            && properties.length < 4
+                    if (taskType.equals("T") && properties.length < 4
                             || taskType.equals("E") && properties.length < 6
                             || taskType.equals("D") && properties.length < 5) {
                         throw new BobException
