@@ -3,41 +3,60 @@ import java.util.*;
 public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        List<String> todo = new ArrayList<>();
-        List<String> marked = new ArrayList<>();
-        int count = 1;
+        List<Task> list = new ArrayList<>();
         System.out.println("Hello! I'm Lumiere\n" + "What can I do for you?\n");
         while (true) {
             String command = sc.nextLine();
             if (command.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < count - 1; i++) {
-                    System.out.println(marked.get(i) + " " + todo.get(i));
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println(Integer.toString(i + 1) + "." + list.get(i).stringify());
                 }
             } else if (command.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else if (command.contains("unmark")) {
-                int space = command.indexOf(" ");
-                int task = Integer.valueOf(command.substring(space + 1));
-                String curr = marked.get(task - 1);
-                String newMark = curr.replace("X", " ");
-                marked.set(task - 1, newMark);
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("[ ] " + todo.get(task - 1));
-            } else if (command.contains("mark")) {
                 int space = command.indexOf(" ");
-                int task = Integer.valueOf(command.substring(space + 1));
-                String curr = marked.get(task - 1);
-                String newMark = curr.replace(" ", "X");
-                marked.set(task - 1, newMark);
+                int num = Integer.parseInt(command.substring(space + 1)); // unmark X
+                Task curr = list.get(num - 1);
+                curr.unmark();
+                list.set(num - 1, curr);
+                System.out.println(list.get(num - 1).stringify());
+            } else if (command.contains("mark")) {
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[X] " + todo.get(task - 1));
+                int space = command.indexOf(" ");
+                int num = Integer.parseInt(command.substring(space + 1)); // mark X
+                Task curr = list.get(num - 1);
+                curr.mark();
+                list.set(num - 1, curr);
+                System.out.println(list.get(num - 1).stringify());
             } else { // to add new item
-                System.out.println("added: " + command);
-                todo.add(command);
-                marked.add(Integer.toString(count) + ".[ ]");
-                count++;
+                System.out.println("Got it. I've added this task:");
+                // create Task object with command
+                int space = command.indexOf(" ");
+                String type = command.substring(0, space);
+
+                if (type.equals("todo")) {
+                    Todo task = new Todo(command.substring(space + 1));
+                    System.out.println(task.stringify());
+                    list.add(task);
+                } else if (type.equals("deadline")) {
+                    String rest = command.substring(space + 1);
+                    String[] description = rest.split(" /by ");
+                    Deadline task = new Deadline(description[0], description[1]);
+                    System.out.println(task.stringify());
+                    list.add(task);
+                } else if (type.equals("event")) {
+                    String rest = command.substring(space + 1);
+                    String[] description = rest.split(" /from ");
+                    String[] time = description[1].split(" /to ");
+                    Event task = new Event(description[0], time[0], time[1]);
+                    System.out.println(task.stringify());
+                    list.add(task);
+                }
+
+                System.out.println("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
             }
         }
         sc.close();
