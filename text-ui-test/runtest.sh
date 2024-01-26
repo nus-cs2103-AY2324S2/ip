@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Change the current directory to the directory of this script
+pushd "$(dirname "$0")" >/dev/null
 
 # create bin directory if it doesn't exist
 if [ ! -d "../bin" ]
@@ -36,3 +38,6 @@ else
     echo "Test result: FAILED"
     exit 1
 fi
+
+# Change back to the original directory
+popd > /dev/null
