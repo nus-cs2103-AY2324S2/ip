@@ -23,6 +23,7 @@ class ListAdder {
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             if (input.equals("list")) {
+                this.taskIndex = 1;
                 printList();
             } else if (input.startsWith("mark done")) { // task is already done
                 int index = Integer.parseInt(input.substring(9).trim()) - 1;
@@ -37,7 +38,7 @@ class ListAdder {
             }
             // System.out.println(line);
             input = sc.nextLine();
-            System.out.println(line);
+            // System.out.println(line);
         }
         // System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
@@ -65,7 +66,7 @@ class ListAdder {
     private void printList() {
         System.out.println("Here is your to-do list:");
         for (Task task : this.taskList) {
-            System.out.println(task.isDone() ? "[X] " + task : "[ ] " + task);
+            System.out.println(task.isDone() ? this.taskIndex + ". [X] " + task : this.taskIndex + ". [ ] " + task);
             this.taskIndex++;
         }
         // System.out.println(line);
@@ -78,7 +79,7 @@ class ListAdder {
             } else {
                 this.taskList.get(index).markDone();
                 System.out.println("Good job! I've marked this task as done:");
-                System.out.println("[X] " + this.taskList.get(index));
+                System.out.println((index + 1) + ". [X] " + this.taskList.get(index));
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Oops! Your list isn't that long :P");
@@ -95,7 +96,7 @@ class ListAdder {
             } else {
                 this.taskList.get(index).markUndone();
                 System.out.println("I've marked this task as undone:");
-                System.out.println("[ ] " + this.taskList.get(index));
+                System.out.println((index + 1) + ". [ ] " + this.taskList.get(index));
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Oops! Your list isn't that long :P");
@@ -106,7 +107,7 @@ class ListAdder {
     }
 }
 
-abstract class Task {
+class Task {
     protected String task;
     protected boolean isDone;
 
