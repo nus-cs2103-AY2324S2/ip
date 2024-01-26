@@ -71,31 +71,100 @@ public class Duke {
     public static void main(String[] mainArgs) {
         
         // initialisation
-        Duke.addCommand("list", (args) -> Duke.print(
-                "Here's what you've done today...\n" + taskStrings())
-        );
+        Duke.addCommand("list", (args) -> {
+            try {
+                if (args.length > 1) {
+                    throw new DukeOptionParsingException("options were not expected but were given");
+                }
+                Duke.print("Here's what you've done today...\n" + taskStrings());
+                
+            } catch (DukeOptionParsingException e) {
+                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+            }
+        });
         
         Duke.addCommand("bye", (args) -> {
-            Duke.print("Ok, going to sleep...");
-            Duke.exit();
+            try {
+                if (args.length > 1) {
+                    throw new DukeOptionParsingException("options were not expected but were given");
+                }
+                Duke.print("Ok, going to sleep...");
+                Duke.exit();
+            } catch (DukeOptionParsingException e) {
+                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+            }
         });
         
         Duke.addCommand("mark", (args) -> {
-            int i = Integer.parseInt(args[1]) - 1;
-            Task t = taskList.get(i);
-            t.mark();
-            Duke.print("CONGRATULATION!!!!!! you completed this task:\n" +
-                    t.describe()
-            );
+            try {
+                int i;
+                Task t;
+                
+                try {
+                    i = Integer.parseInt(args[1]) - 1;
+                } catch (NumberFormatException e) {
+                    throw new DukeOptionParsingException(
+                            String.format("I expected a number but %s was given instead", args[1])
+                    );
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeOptionParsingException("command ended when an argument was expected");
+                }
+                
+                if (args.length > 2) {
+                    throw new DukeException("option was not expected but was given: " + args[2]);
+                }
+                
+                try { 
+                    t = taskList.get(i);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeException(
+                            String.format("You tried to access an invalid task index: %s", args[1])
+                    );
+                }
+                
+                t.mark();
+                Duke.print("CONGRATULATION!!!!!! you completed this task:\n" +
+                        t.describe()
+                );
+            } catch (DukeException e) {
+                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+            }
         });
 
         Duke.addCommand("unmark", (args) -> {
-            int i = Integer.parseInt(args[1]) - 1;
-            Task t = taskList.get(i);
-            t.unmark();
-            Duke.print("CONGRATULATION!!!!!! you uncompleted this task:\n" +
-                    t.describe()
-            );
+            try {
+                int i;
+                Task t;
+
+                try {
+                    i = Integer.parseInt(args[1]) - 1;
+                } catch (NumberFormatException e) {
+                    throw new DukeOptionParsingException(
+                            String.format("I expected a number but %s was given instead", args[1])
+                    );
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeOptionParsingException("command ended when an argument was expected");
+                }
+
+                if (args.length > 2) {
+                    throw new DukeException("option was not expected but was given: " + args[2]);
+                }
+
+                try {
+                    t = taskList.get(i);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeException(
+                            String.format("You tried to access an invalid task index: %s", args[1])
+                    );
+                }
+
+                t.unmark();
+                Duke.print("CONGRATULATION!!!!!! you un completed this task:\n" +
+                        t.describe()
+                );
+            } catch (DukeException e) {
+                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+            }
         });
         
         Duke.addCommand("todo", (args) -> {

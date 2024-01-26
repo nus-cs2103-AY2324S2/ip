@@ -1,12 +1,16 @@
 todo read book
 deadline return book /by June 6th
 event project meeting /from Aug 6th 2pm /to 4pm
+list this should throw 
 list
-mark 1
-todo join sports club
-todo borrow book
+mark 0
 mark 4
+mark 1 should throw
+mark 1
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+unmark 0
+unmark 4
+unmark 1 should throw
+unmark 1
+bye this should throw
 bye
