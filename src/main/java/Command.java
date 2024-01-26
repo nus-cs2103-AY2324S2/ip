@@ -6,5 +6,5 @@ public interface Command {
     /**
      * reply to all commands
      */
-    public void reply();
+    public String reply();
 }

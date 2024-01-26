@@ -6,7 +6,6 @@ import java.util.ArrayList;
  */
 abstract class Task {
     /** The task list, update upon creation of task */
-    protected static ArrayList<Task> task_list;
     protected String description;
     protected boolean isDone;
 

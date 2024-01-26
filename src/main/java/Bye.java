@@ -7,8 +7,8 @@ public class Bye implements Command{
      * exit the program
      */
     @Override
-    public void reply() {
-        System.out.println("    Bye. Hope to see you again soon!");
+    public String reply() {
         System.exit(0);
+        return "";
     }
 }

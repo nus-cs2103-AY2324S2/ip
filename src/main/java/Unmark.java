@@ -3,27 +3,27 @@
  */
 public class Unmark implements Command{
     private final int oprand;
-
+    private TaskList tasks;
     /**
      * Constructor
      * change the status of task to unDone.
      * @param operand which task to mark from 0
      * @throws WrongIndexException index invalid
      */
-    public Unmark(int operand) throws WrongIndexException{
-        if (operand>=Task.task_list.size() || operand<0) {
-            throw new WrongIndexException();
+    public Unmark(int operand, TaskList taskList) throws WrongIndexException{
+        if (operand>=taskList.getListLength() || operand<0) {
+            throw new WrongIndexException(taskList.getListLength());
         }
         this.oprand=operand;
-        Task.task_list.get(oprand).unDone();
+        taskList.getTask(oprand).unDone();
+        this.tasks=taskList;
     }
 
     /**
      * Override the reply method in interface
      */
     @Override
-    public void reply() {
-        System.out.println("    OK, I've marked this task as not done yet:");
-        System.out.printf("    %s\n",Task.task_list.get(oprand));
+    public String reply() {
+        return String.format("    OK, I've marked this task as not done yet:\n    %s\n",tasks.getTask(oprand));
     }
 }
