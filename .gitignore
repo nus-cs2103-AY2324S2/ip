@@ -26,3 +26,6 @@ temp.txt
 
 # My own notes
 notes.txt
+
+# Storage file
+data/*
