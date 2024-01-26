@@ -1,0 +1,5 @@
+public class LumiereException extends RuntimeException {
+    public LumiereException(String errorMessage) {
+        super(errorMessage);
+    }
+}

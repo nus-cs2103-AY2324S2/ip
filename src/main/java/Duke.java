@@ -31,32 +31,39 @@ public class Duke {
                 curr.mark();
                 list.set(num - 1, curr);
                 System.out.println(list.get(num - 1).stringify());
-            } else { // to add new item
-                System.out.println("Got it. I've added this task:");
+            } else if (command.contains("todo") || command.contains("deadline") || command.contains("event")) {
                 // create Task object with command
-                int space = command.indexOf(" ");
-                String type = command.substring(0, space);
+                if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    System.out.println("Got it. I've added this task:");
+                    int space = command.indexOf(" ");
+                    String type = command.substring(0, space);
 
-                if (type.equals("todo")) {
-                    Todo task = new Todo(command.substring(space + 1));
-                    System.out.println(task.stringify());
-                    list.add(task);
-                } else if (type.equals("deadline")) {
-                    String rest = command.substring(space + 1);
-                    String[] description = rest.split(" /by ");
-                    Deadline task = new Deadline(description[0], description[1]);
-                    System.out.println(task.stringify());
-                    list.add(task);
-                } else if (type.equals("event")) {
-                    String rest = command.substring(space + 1);
-                    String[] description = rest.split(" /from ");
-                    String[] time = description[1].split(" /to ");
-                    Event task = new Event(description[0], time[0], time[1]);
-                    System.out.println(task.stringify());
-                    list.add(task);
+                    if (type.equals("todo")) {
+                        String rest = command.substring(space + 1);
+                        Todo task = new Todo(rest);
+                        System.out.println(task.stringify());
+                        list.add(task);
+                    } else if (type.equals("deadline")) {
+                        String rest = command.substring(space + 1);
+                        String[] description = rest.split(" /by ");
+                        Deadline task = new Deadline(description[0], description[1]);
+                        System.out.println(task.stringify());
+                        list.add(task);
+                    } else if (type.equals("event")) {
+                        String rest = command.substring(space + 1);
+                        String[] description = rest.split(" /from ");
+                        String[] time = description[1].split(" /to ");
+                        Event task = new Event(description[0], time[0], time[1]);
+                        System.out.println(task.stringify());
+                        list.add(task);
+                    }
+
+                    System.out.println("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
                 }
-
-                System.out.println("Now you have " + Integer.toString(list.size()) + " tasks in the list.");
+            } else {
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
         sc.close();
