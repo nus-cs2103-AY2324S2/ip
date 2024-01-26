@@ -2,6 +2,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    public enum Command {
+        LIST,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        BYE,
+        UNKNOWN;
+
+        public static Command valueOfOrElse(String command) {
+            try {
+                return Command.valueOf(command);
+            } catch (IllegalArgumentException e) {
+                return UNKNOWN;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> AL = new ArrayList<>();
@@ -9,17 +29,26 @@ public class Duke {
         printGreeting();
 
         while (true) {
+            boolean userExit = false;
             String input = sc.nextLine();
             String inputs[] = input.split(" ", 2);
             String command = inputs[0];
 
             if (command.equalsIgnoreCase("bye")) {
+                printMsg("Bye. Hope to see you again soon!");
                 break;
             }
 
             try {
-                switch (command) {
-                    case "list":
+                if (command.length() <= 0) {
+                    throw new DukeException("Your keyboard seems to be frozen! "
+                                            + "I can't see your message!");
+                }
+
+                Command cmd = Command.valueOfOrElse(command.toUpperCase());
+
+                switch (cmd) {
+                    case LIST:
                         printDiv();
                         System.out.println("\tHere are the tasks in your list:");
                         for (int i = 0; i < AL.size(); i++) {
@@ -28,7 +57,7 @@ public class Duke {
                         }
                         printDiv();
                         break;
-                    case "mark":
+                    case MARK:
                         if (inputs.length != 2) {
                             throw new DukeException("You forgot to specify the task!!");
                         }
@@ -46,7 +75,7 @@ public class Duke {
                         System.out.println("\t" + taskToMark);
                         printDiv();
                         break;
-                    case "unmark":
+                    case UNMARK:
                         if (inputs.length != 2) {
                             throw new DukeException("You forgot to specify the task!!");
                         }
@@ -64,7 +93,7 @@ public class Duke {
                         System.out.println("\t" + taskToUnmark);
                         printDiv();
                         break;
-                    case "todo":
+                    case TODO:
                         if (inputs.length != 2) {
                             throw new DukeException("Oh no! Your todo command is as "
                                                     + "silent as a snowball " 
@@ -79,7 +108,7 @@ public class Duke {
                         printListCounter(AL);
                         printDiv();
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         if (inputs.length != 2) {
                             throw new DukeException("OOPS!!! The deadline task "
                                                     + "cannot be empty.");
@@ -106,7 +135,7 @@ public class Duke {
                         printListCounter(AL);
                         printDiv();
                         break;
-                    case "event":
+                    case EVENT:
                         if (inputs.length != 2) {
                             throw new DukeException("OOPS!!! The event task "
                                                     + "cannot be empty.");
@@ -129,7 +158,7 @@ public class Duke {
                         printListCounter(AL);
                         printDiv();
                         break;
-                    case "delete":
+                    case DELETE:
                         if (inputs.length != 2) {
                             throw new DukeException("OOPS!!! The delete command "
                                                     + "cannot be empty.");
@@ -147,6 +176,10 @@ public class Duke {
                         printListCounter(AL);
                         printDiv();
                         break;
+                    case BYE:
+                        printMsg("Bye. Hope to see you again soon!");
+                        userExit = true;
+                        break;
                     default:
                         throw new DukeException("OOPS!!! Your command " 
                                                 + "triggered a virtual avalanche of confusion.");
@@ -158,11 +191,9 @@ public class Duke {
             } catch (Exception e) {
                 printMsg("Invalid input.");
             }
-        }
 
-        printDiv();
-        System.out.println("\tBye. Hope to see you again soon!");
-        printDiv();
+            if (userExit) break;
+        }
 
         sc.close();
     }
