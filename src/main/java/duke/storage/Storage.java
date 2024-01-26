@@ -5,15 +5,12 @@ import duke.common.TaskList;
 import duke.exception.StorageOperationException;
 import duke.task.Task;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    public static final String FILE_PATH = "./data/duke.txt";
+    public static final String FILE_PATH = "duke.txt";
 
     public void save(TaskList taskList) throws StorageOperationException {
         try {

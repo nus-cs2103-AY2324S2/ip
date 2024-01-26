@@ -11,9 +11,14 @@ public class ByeCommand extends Command {
             "Example: bye";
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws StorageOperationException {
-        super.isExit = true;
-        storage.save(taskList);
-        ui.showGoodBye();
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        try {
+            super.isExit = true;
+            storage.save(taskList);
+        } catch (StorageOperationException e) {
+            ui.showError(e.getMessage());
+        } finally {
+            ui.showGoodBye();
+        }
     }
 }
