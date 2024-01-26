@@ -31,6 +31,13 @@ public class Duke {
                 curr.mark();
                 list.set(num - 1, curr);
                 System.out.println(list.get(num - 1).stringify());
+            } else if (command.contains("delete")) {
+                System.out.println("Noted. I've removed this task:");
+                int space = command.indexOf(" ");
+                int num = Integer.parseInt(command.substring(space + 1)); // delete X
+                System.out.println(list.get(num - 1).stringify());
+                list.remove(num - 1);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
             } else if (command.contains("todo") || command.contains("deadline") || command.contains("event")) {
                 // create Task object with command
                 if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
