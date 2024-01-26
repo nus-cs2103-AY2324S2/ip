@@ -11,7 +11,6 @@ public class Shon {
         print("Hello! I'm Shon", "What can I do for you?");
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
-
             String[] s = input.split(" ", 2);
             String action = s[0];
             switch (action) {
