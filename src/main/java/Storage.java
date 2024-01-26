@@ -6,6 +6,10 @@ public class Storage {
         this.taskList = new ArrayList<>();
     }
 
+    public Storage(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+    }
+
     public void add(Task newTask) {
         this.taskList.add(newTask);
         MessagePrinter.commandPrint(newTask, this.taskList.size());
@@ -22,6 +26,10 @@ public class Storage {
     public void removeIndex(int index) {
         MessagePrinter.removePrinter(this.taskList.get(index), this.taskList.size());
         this.taskList.remove(index);
+    }
+
+    public void writeToFile(TaskLoader td) {
+        td.writeToTaskList(this.taskList);
     }
 
     @Override
