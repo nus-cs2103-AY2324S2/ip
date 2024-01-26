@@ -12,8 +12,18 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The Parser class is responsible for interpreting user inputs and converting them into commands.
+ * It handles various types of commands including adding tasks, marking tasks as done or undone,
+ * deleting tasks, and exiting the program.
+ */
 public class Parser {
-    // First parse
+    /**
+     * Parses the user input to determine the type of command to be executed.
+     *
+     * @param userInput The user's input as a string.
+     * @return Command The command corresponding to the user's input.
+     */
     public Command parseCommand(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         String initialCommand = parsed[0].toUpperCase();
@@ -40,7 +50,12 @@ public class Parser {
 
         }
     }
-
+    /**
+     * Parses the user input to create an AddEventCommand.
+     *
+     * @param userInput The user's input as a string.
+     * @return Command An AddEventCommand if input is valid, otherwise an InvalidCommand.
+     */
     public Command parseAddEvent(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
@@ -62,7 +77,12 @@ public class Parser {
         }
         return new AddEventCommand(eventName, start, end);
     }
-
+    /**
+     * Parses the user input to create an AddDeadlineCommand.
+     *
+     * @param userInput The user's input as a string.
+     * @return Command An AddDeadlineCommand if input is valid, otherwise an InvalidCommand.
+     */
     public Command parseAddDeadline(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
@@ -83,6 +103,12 @@ public class Parser {
         return new AddDeadlineCommand(deadlineName, by);
     }
 
+    /**
+     * Parses the user input to create an AddTodoCommand.
+     *
+     * @param userInput The user's input as a string.
+     * @return Command An AddTodoCommand if input is valid, otherwise an InvalidCommand.
+     */
     public Command parseAddTodo(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
@@ -91,7 +117,12 @@ public class Parser {
         String taskDesc = parsed[1];
         return new AddTodoCommand(taskDesc);
     }
-
+    /**
+     * Parses the user input to create a DeleteTaskCommand.
+     *
+     * @param userInput The user's input as a string.
+     * @return Command A DeleteTaskCommand if input is valid, otherwise an InvalidCommand.
+     */
     public Command parseDelete(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
@@ -100,8 +131,13 @@ public class Parser {
         int index = Integer.parseInt(parsed[1]);
         return new DeleteTaskCommand(index);
     }
-
-    private Command parseUnmark(String userInput) {
+    /**
+     * Parses the user input to create a UnmarkTaskCommand.
+     *
+     * @param userInput The user's input as a string.
+     * @return Command A UnmarkTaskCommand if input is valid, otherwise an InvalidCommand.
+     */
+    public Command parseUnmark(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter an index");
@@ -109,8 +145,13 @@ public class Parser {
         int index = Integer.parseInt(parsed[1]);
         return new UnmarkTaskCommand(index);
     }
-
-    private Command parseMark(String userInput) {
+    /**
+     * Parses the user input to create a MarkTaskCommand.
+     *
+     * @param userInput The user's input as a string.
+     * @return Command A MarkTaskCommand if input is valid, otherwise an InvalidCommand.
+     */
+    public Command parseMark(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter an index");
@@ -119,8 +160,13 @@ public class Parser {
         return new MarkTaskCommand(index);
     }
 
-
-
+    /**
+     * Parses a date string into a LocalDateTime object.
+     *
+     * @param dateString The date string to parse.
+     * @return LocalDateTime The parsed LocalDateTime object.
+     * @throws DukeException If the date string cannot be parsed into a valid date and time.
+     */
     public LocalDateTime parseDate(String dateString) throws DukeException {
         List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
@@ -169,15 +215,19 @@ public class Parser {
         throw new DukeException("Invalid Date and time format");
     }
 
-    // for reading from file
+    /**
+     * Parses a task string representation from a file into a Task object.
+     *
+     * @param taskString The string representation of the task.
+     * @return Task The Task object parsed from the string.
+     * @throws DukeException If the task string cannot be parsed into a valid task.
+     */
     public static Task parseTaskFromString(String taskString) throws DukeException {
         String[] parts = taskString.split(" \\| ");
         String taskType = parts[0];
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
         String additionalInfo = parts.length > 3 ? parts[3].trim() : null;
-
-        // need to add tasks to storage
         switch (taskType) {
             case "T":
                 ToDo todo = new ToDo(description);

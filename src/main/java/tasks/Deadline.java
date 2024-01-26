@@ -3,6 +3,9 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline, inherits from Task.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 

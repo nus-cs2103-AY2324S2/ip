@@ -1,5 +1,9 @@
 package tasks;
 
+
+/**
+ * Represents a Task.
+ */
 public class Task {
     private boolean isDone;
     private String name;

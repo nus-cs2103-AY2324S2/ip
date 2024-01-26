@@ -5,6 +5,9 @@ import services.Storage;
 import services.TaskList;
 import services.UI;
 
+/**
+ * List task list command.
+ */
 public class ListCommand extends Command {
 
     @Override

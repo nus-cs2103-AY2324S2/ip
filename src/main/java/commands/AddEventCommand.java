@@ -8,6 +8,9 @@ import tasks.Event;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Add Event to task list command.
+ */
 public class AddEventCommand extends Command {
     private String name;
     private LocalDateTime start;

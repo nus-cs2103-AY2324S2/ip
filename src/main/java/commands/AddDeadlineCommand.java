@@ -7,6 +7,9 @@ import tasks.Deadline;
 
 import java.time.LocalDateTime;
 
+/**
+ * Add Deadline to task list command.
+ */
 public class AddDeadlineCommand extends Command {
     private String name;
     private LocalDateTime by;

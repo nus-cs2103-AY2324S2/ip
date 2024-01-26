@@ -6,6 +6,9 @@ import services.Storage;
 import services.TaskList;
 import services.UI;
 
+/**
+ * Marks task as done command.
+ */
 public class MarkTaskCommand extends Command {
     int index;
     public MarkTaskCommand(int index) {

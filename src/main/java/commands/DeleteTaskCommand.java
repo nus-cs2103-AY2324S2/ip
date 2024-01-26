@@ -6,6 +6,10 @@ import services.Storage;
 import services.TaskList;
 import services.UI;
 
+/**
+ * Deletes a task from the task list.
+ */
+
 public class DeleteTaskCommand extends Command {
     int index;
     public DeleteTaskCommand(int index) {

@@ -5,6 +5,9 @@ import services.TaskList;
 import services.UI;
 import tasks.ToDo;
 
+/**
+ * Add Todo to task list command.
+ */
 public class AddTodoCommand extends Command {
     private String name;
     public AddTodoCommand(String name) {

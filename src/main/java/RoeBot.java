@@ -6,6 +6,9 @@ import services.UI;
 
 import java.io.IOException;
 
+/**
+ * Represents a RoeBot.
+ */
 public class RoeBot {
     private Storage storage;
     private TaskList taskList;
