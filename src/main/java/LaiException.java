@@ -1,2 +1,10 @@
-package PACKAGE_NAME;public class LaiException {
+public class LaiException extends Exception {
+    public LaiException (String message) {
+        super(message);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Error occurred: " + getMessage());
+    }
 }

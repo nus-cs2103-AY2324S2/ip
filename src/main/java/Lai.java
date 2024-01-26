@@ -1,3 +1,4 @@
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,6 +8,12 @@ public class Lai {
         System.out.println("---------------------------------------------------------");
     }
 
+    public static void checkDescription(String desc) throws LaiException {
+        if (desc.equals("")) {
+            throw new LaiException("Dude. What am I supposed to do with an empty description?");
+        }
+    }
+
     public static String[] processInput(Scanner scanner) {
         System.out.print("> ");
 
@@ -14,6 +21,7 @@ public class Lai {
         String[] commandDesc = scanner.nextLine().split("\\s+", 2);
         String command = commandDesc[0];
         String desc = "";
+
         if (commandDesc.length > 1) {
             desc = commandDesc[1];
         }
@@ -42,69 +50,99 @@ public class Lai {
         String desc = input[1];
 
         while (!command.equals("bye")) {
-            if (command.equals("mark")) {
-                int index = Integer.valueOf(desc);
-                Task t = tasks.get(index - 1);
-                t.setDone();
+            try {
+                if (command.equals("mark")) {
+                    checkDescription(desc);
 
-                printDottedLine();
-                System.out.println("You actually did something? Marked done:");
-                System.out.println(t);
-                printDottedLine();
-            } else if (command.equals("unmark")) {
-                int index = Integer.valueOf(desc);
-                Task t = tasks.get(index - 1);
-                t.setNotDone();
+                    int index = Integer.valueOf(desc);
+                    Task t = tasks.get(index - 1);
+                    t.setDone();
 
-                printDottedLine();
-                System.out.println("Come on now, don't be useless. Marked not done:");
-                System.out.println(t);
-                printDottedLine();
-            } else if (command.equals("deadline")) {
-                // Separating the deadline from description
-                String[] descBy = desc.split("/by ", 2);
-                desc = descBy[0];
-                String by = "";
-                if (descBy.length > 1) {
-                    by = descBy[1];
+                    printDottedLine();
+                    System.out.println("You actually did something? Marked done:");
+                    System.out.println(t);
+                    printDottedLine();
+                } else if (command.equals("unmark")) {
+                    checkDescription(desc);
+
+                    int index = Integer.valueOf(desc);
+                    Task t = tasks.get(index - 1);
+                    t.setNotDone();
+
+                    printDottedLine();
+                    System.out.println("Come on now, don't be useless. Marked not done:");
+                    System.out.println(t);
+                    printDottedLine();
+                } else if (command.equals("deadline")) {
+                    checkDescription(desc);
+
+                    // Separating the deadline from description
+                    String[] descBy = desc.split("/by ", 2);
+                    desc = descBy[0];
+                    String by = "";
+                    if (descBy.length > 1) {
+                        by = descBy[1];
+                    }
+
+                    Deadline newTask = new Deadline(desc, by);
+                    addTask(tasks, newTask);
+                } else if (command.equals("todo")) {
+                    checkDescription(desc);
+
+                    ToDo newTask = new ToDo(desc);
+                    addTask(tasks, newTask);
+                } else if (command.equals("event")) {
+                    checkDescription(desc);
+
+                    // Separating the start from description
+                    String[] descFrom = desc.split("/from ", 2);
+                    desc = descFrom[0];
+                    String from = "";
+                    if (descFrom.length > 1) {
+                        from = descFrom[1];
+                    }
+                    // Separating the end out
+                    String[] fromTo = from.split("/to ", 2);
+                    from = fromTo[0];
+                    String to = "";
+                    if (fromTo.length > 1) {
+                        to = fromTo[1];
+                    }
+
+                    Event newTask = new Event(desc, from, to);
+                    addTask(tasks, newTask);
+                } else if (command.equals("list")) {
+                    printDottedLine();
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println(String.format("%s. %s", i + 1, tasks.get(i)));
+                    }
+                    printDottedLine();
+                } else {
+                    throw new LaiException("I don't recognise this command at all. You likely made an extremely " +
+                            "disappointing mistake, or I did. I can't tell for sure.");
                 }
 
-                Deadline newTask = new Deadline(desc, by);
-                addTask(tasks, newTask);
-            } else if (command.equals("todo")) {
-                ToDo newTask = new ToDo(desc);
-                addTask(tasks, newTask);
-            } else if (command.equals("event")) {
-                // Separating the start from description
-                String[] descFrom = desc.split("/from ", 2);
-                desc = descFrom[0];
-                String from = "";
-                if (descFrom.length > 1) {
-                    from = descFrom[1];
-                }
-                // Separating the end out
-                String[] fromTo = from.split("/to ", 2);
-                from = fromTo[0];
-                String to = "";
-                if (fromTo.length > 1) {
-                    to = fromTo[1];
-                }
+                input = processInput(scanner);
+                command = input[0];
+                desc = input[1];
+            } catch (LaiException e) {
+                printDottedLine();
+                System.out.println(e);
+                printDottedLine();
 
-                Event newTask = new Event(desc, from, to);
-                addTask(tasks, newTask);
-            } else if (command.equals("list")) {
+                input = processInput(scanner);
+                command = input[0];
+                desc = input[1];
+            } catch (NumberFormatException e) {
                 printDottedLine();
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(String.format("%s. %s", i + 1, tasks.get(i)));
-                }
+                System.out.println("Error occurred: Numbers only, please.");
                 printDottedLine();
+
+                input = processInput(scanner);
+                command = input[0];
+                desc = input[1];
             }
-
-            input = processInput(scanner);
-            command = input[0];
-            desc = input[1];
         }
-
 
         System.out.println("---------------------------------------------------------");
         System.out.println("Goodbye, we shall meet again. Hopefully.");
