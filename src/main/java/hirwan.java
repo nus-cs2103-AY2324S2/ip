@@ -40,7 +40,7 @@ public class hirwan {
                     typestr = "[D]";
                     String delimiter = " /by";
                     int Index = text.indexOf(delimiter);
-                    String Day = text.substring(Index + 3);
+                    String Day = text.substring(Index + 5);
                     String item =  text.substring(9, Index);
                     List.add(count + ". " + typestr + "[ ] " + item + " (by: " + Day + ")");
                     System.out.println("Got it. I've added this task:\n  " + typestr + "[ ] " + item + " (by: " + Day + ")");
