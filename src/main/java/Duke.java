@@ -67,6 +67,18 @@ public class Duke {
             } else if (command.equals("bye")) {
                 break;
 
+            } else if (command.equals("delete")) {
+                int removed_item = Integer.parseInt(parts[1]) - 1;
+
+                System.out.println("------------------------------------------------------------");
+                System.out.println("Noted. I've removed this task: ");
+                System.out.println(myList.get(removed_item));
+
+                myList.remove(removed_item);
+
+                System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                System.out.println("------------------------------------------------------------");
+
             } else {
                 
                 try {
