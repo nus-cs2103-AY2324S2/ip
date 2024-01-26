@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaskList {
     private static final int MAX_ITEMS = 100;
@@ -36,7 +38,7 @@ public class TaskList {
 
     public void deleteTask(int index) throws DukeException {
         if (this.tasks.size() == 0) {
-            throw new DukeException("tasks.Task index is out of range.");
+            throw new DukeException("Task index is out of range.");
         }
         if (index <= 0 || index > this.tasks.size()) {
             throw new DukeException("Index out of range");
@@ -51,7 +53,7 @@ public class TaskList {
 
     public void markTask(int index) throws DukeException {
         if (index <= 0 || index > this.tasks.size()) {
-            throw new DukeException("tasks.Task index is out of range.");
+            throw new DukeException("Task index is out of range.");
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsDone();
@@ -61,7 +63,7 @@ public class TaskList {
 
     public void unmarkTask(int index) throws DukeException {
         if (index <= 0 || index > this.tasks.size()) {
-            throw new DukeException("tasks.Task index is out of range.");
+            throw new DukeException("Task index is out of range.");
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsUndone();
@@ -81,103 +83,25 @@ public class TaskList {
         }
     }
 
-    private void loadTasks() {
-        try {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
+    public List<Task> findTasks(String word) throws DukeException {
+        Pattern pattern = Pattern.compile(Pattern.quote(word), Pattern.CASE_INSENSITIVE);
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task: this.tasks) {
+            Matcher matcher = pattern.matcher(task.getName());
+            if (matcher.find()) {
+                foundTasks.add(task);
             }
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNext()) {
-                String taskString = scanner.nextLine();
-                // need to add to tasklist
-                Task currTask = Parser.parseTaskFromString(taskString);
-                this.tasks.add(currTask);
-            }
-        } catch (IOException e) {
-            System.out.println("Error occurred when writing to file");
-        } catch (DukeException e) {
-            System.out.println("Error occurred when parsing file");
         }
-    }
-    private void saveTasks() {
-        try {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-            FileWriter fileWriter = new FileWriter(file);
-            for (Task task: this.tasks) {
-                fileWriter.write(task.fileString() + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println("Error occurred when writing to file");
+        if (foundTasks.size() == 0) {
+            throw new DukeException("No tasks with " + word + " found");
         }
+
+        System.out.println("\tHere are the matching tasks in your list: ");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            Task currTask = foundTasks.get(i);
+            System.out.println("\t" + (i + 1) + "." + currTask.toString());
+        }
+        return foundTasks;
     }
-
-//    private tasks.Task parseTaskFromString(String taskString) throws exceptions.DukeException {
-//        String[] parts = taskString.split(" \\| ");
-//        String taskType = parts[0];
-//        boolean isDone = parts[1].trim().equals("1");
-//        String description = parts[2].trim();
-//        String additionalInfo = parts.length > 3 ? parts[3].trim() : null;
-//
-//        switch (taskType) {
-//            case "T":
-//                tasks.ToDo todo = new tasks.ToDo(description);
-//                if (isDone) todo.markAsDone();
-//                tasks.add(todo);
-//                return todo;
-//            case "D":
-//                if (additionalInfo == null) {
-//                    throw new exceptions.DukeException("Invalid tasks.Deadline format in file");
-//                }
-//                LocalDateTime by = LocalDateTime.parse(additionalInfo);
-//                tasks.Deadline deadline = new tasks.Deadline(description, by);
-//                if (isDone) deadline.markAsDone();
-//                tasks.add(deadline);
-//                return deadline;
-//            case "E":
-//                String[] times = additionalInfo.split(" to ");
-//                if (times.length < 2) {
-//                    throw new exceptions.DukeException("Invalid tasks.Event time format in file.");
-//                }
-//                LocalDateTime start = LocalDateTime.parse(times[0].trim());
-//                LocalDateTime end = LocalDateTime.parse(times[1].trim());
-//
-//                tasks.Event event = new tasks.Event(description, start, end);
-//                if (isDone) event.markAsDone();
-//                tasks.add(event);
-//                return event;
-//
-//            default:
-//                return null;
-//        }
-//    }
-
-    //    public void addTask(String task) throws exceptions.DukeException {
-//        if (this.tasks.size() < MAX_ITEMS) {
-//            try {
-//                // need to command !!!!
-//                // :DDD
-//                services.parser.Parser.parseTask(task);
-//                // services.Storage.saveTasks(..);
-//                saveTasks();
-//                System.out.println("\tGot it. I've added this task: ");
-//                System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
-//                System.out.println(
-//                        "\tNow you have " + this.tasks.size() + " task" +
-//                                (this.tasks.size() == 1 ? "" : "s") + " in the list");
-//            } catch (exceptions.DukeException e) {
-//                System.out.println(e.getMessage());
-//            }
-//        } else {
-//            throw new exceptions.DukeException("The task list is full.");
-//        }
-//    }
-
 
 }

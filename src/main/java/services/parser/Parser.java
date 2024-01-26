@@ -18,25 +18,27 @@ public class Parser {
         String[] parsed = userInput.split(" ", 2);
         String initialCommand = parsed[0].toUpperCase();
         switch (initialCommand) {
-            case "EVENT":
-                return parseAddEvent(userInput);
-            case "DEADLINE":
-                return parseAddDeadline(userInput);
-            case "TODO":
-                return parseAddTodo(userInput);
-            case "MARK":
-                return parseMark(userInput);
-            case "UNMARK":
-                return parseUnmark(userInput);
-            case "DELETE":
-                return parseDelete(userInput);
-            case "LIST":
-                return new ListCommand();
-            case "BYE":
-                return new ExitCommand();
-            default:
-                // return new HelpCommand();
-                return new InvalidCommand("INVALID");
+        case "EVENT":
+            return parseAddEvent(userInput);
+        case "DEADLINE":
+            return parseAddDeadline(userInput);
+        case "TODO":
+            return parseAddTodo(userInput);
+        case "MARK":
+            return parseMark(userInput);
+        case "UNMARK":
+            return parseUnmark(userInput);
+        case "DELETE":
+            return parseDelete(userInput);
+        case "FIND":
+            return parseFind(userInput);
+        case "LIST":
+            return new ListCommand();
+        case "BYE":
+            return new ExitCommand();
+        default:
+            // return new HelpCommand();
+            return new InvalidCommand("INVALID");
 
         }
     }
@@ -118,8 +120,20 @@ public class Parser {
         int index = Integer.parseInt(parsed[1]);
         return new MarkTaskCommand(index);
     }
+     /**
+     * Parses the user input to create an FindCommand.
+     *
+     * @param userInput The user's input as a string.
+     * @return Command A FindCommand if input is valid, otherwise an InvalidCommand.
+     */
+    public Command parseFind(String userInput) {
+        String[] parsed = userInput.split(" ", 2);
+        if (parsed.length <= 1 || parsed[1].isEmpty()) {
+            return new InvalidCommand("OOPS! Please enter an task to find");
+        }
+        return new FindCommand(parsed[1]);
 
-
+    }
 
     public LocalDateTime parseDate(String dateString) throws DukeException {
         List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
