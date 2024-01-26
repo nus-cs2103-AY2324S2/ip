@@ -13,35 +13,32 @@ public class Ui {
             " |_|  |_|_|___/___/ |_|  |_|_|_| |_|\\__,_|\\__\\___||___/  \n" +
             "                                                            \n";
 
-    private final Scanner stdin;
+    private static final Scanner stdin = new Scanner(System.in);
 
-    public Ui() {
-        this.stdin = new Scanner(System.in);
-    }
-
-    public void greet() {
-        this.sendMsg("Hello! I'm \n" + MISS_MINUTES_LOGO
+    public static void sayHello() {
+        sendMsg("Hello! I'm \n" + MISS_MINUTES_LOGO
                 + "What can I do for you");
     }
 
-    public void exit() {
-        this.sendMsg("Bye. Hope to see you again soon!");
-        this.stdin.close();
+    public static void sayBye() {
+        sendMsg("Bye. Hope to see you again soon!");
+        stdin.close();
     }
 
-    public String getInput() {
-        return this.stdin.nextLine();
+    public static String getInput() {
+        return stdin.nextLine();
     }
 
-    public void sendMsg(String body) {
+    public static void sendMsg(String body) {
         System.out.println(SEPARATOR);
         System.out.println(body);
         System.out.println(SEPARATOR);
     }
 
-    public void printTasks(ArrayList<Task> tasks) {
+    public static void printTasks(TaskList taskList) {
+        ArrayList<Task> tasks = taskList.getTasks();
         if (tasks.isEmpty()) {
-            this.sendMsg("There are no tasks in your list.");
+            sendMsg("There are no tasks in your list.");
             return;
         }
         StringBuilder reply = new StringBuilder("Here are the tasks in your list: ");
@@ -51,6 +48,6 @@ public class Ui {
                     .append(". ")
                     .append(tasks.get(i));
         }
-        this.sendMsg(reply.toString());
+        sendMsg(reply.toString());
     }
 }

@@ -1,10 +1,6 @@
-import java.util.ArrayList;
-import java.io.IOException;
-
 public class MissMinutes {
-    private Ui ui;
     private Storage storage;
-    private ArrayList<Task> tasks;
+    private TaskList tasks;
 
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
@@ -33,9 +29,13 @@ public class MissMinutes {
     }
 
     public MissMinutes(String filePath) {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
-        this.tasks = new ArrayList<Task>(100);
+        try {
+            this.tasks = this.storage.loadTasks();
+        } catch (MissMinutesException err) {
+            Ui.sendMsg(err.getMessage());
+            this.tasks = new TaskList();
+        }
     }
 
     public Task createTask(String input) throws MissMinutesException {
@@ -57,79 +57,21 @@ public class MissMinutes {
         }
     }
 
-    public void addTask(Task task) {
-        this.tasks.add(task);
-        String reply = "Got it. I've added this task: \n" +
-                task + "\n" +
-                "Now you have " + this.tasks.size() + " tasks in the list.";
-        ui.sendMsg(reply);
-    }
-
-    public void deleteTask(String input) throws MissMinutesException {
-        String[] split = input.split(" ");
-        int idx;
-        try {
-            idx = Integer.parseInt(split[1]) - 1; // 0 indexed
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException err) {
-            throw new MissMinutesException("Please enter a valid index. For e.g, a correct usage is: delete 2");
-        }
-        try {
-            Task curr = this.tasks.get(idx);
-            this.tasks.remove(idx);
-            String reply = "Noted. I've removed this task:\n"
-                    + curr + "\n"
-                    + "Now you have " + this.tasks.size() + " tasks in the list.";
-            ui.sendMsg(reply);
-        } catch (IndexOutOfBoundsException err) {
-            throw new MissMinutesException("This task doesn't exist!", err);
-        }
-    }
-
-    public void markTask(int idx) throws MissMinutesException {
-        try {
-            Task curr = this.tasks.get(idx);
-            curr.markAsDone();
-            String reply = "Nice! I've marked this task as done: \n" + curr;
-            ui.sendMsg(reply);
-        } catch (IndexOutOfBoundsException err) {
-            throw new MissMinutesException("This task doesn't exist!", err);
-        }
-    }
-
-    public void unmarkTask(int idx) throws MissMinutesException {
-        try {
-            Task curr = this.tasks.get(idx);
-            curr.unmark();
-            String reply = "OK, I've marked this task as not done yet: \n" + curr;
-            ui.sendMsg(reply);
-        } catch (IndexOutOfBoundsException err) {
-            throw new MissMinutesException("This task doesn't exist!", err);
-        }
-    }
-
     public void run() {
-        ui.greet();
-
-        try {
-            this.tasks = storage.loadTasks();
-        } catch (IOException err) {
-            ui.sendMsg("No storage found, creating empty task list");
-        } catch (ClassNotFoundException err) {
-            ui.sendMsg(err.getMessage());
-        }
+        Ui.sayHello();
 
         while (true) {
-            String request = ui.getInput();
+            String request = Ui.getInput();
             CommandType cmdType = parseCommand(request);
             boolean tasksChanged = false;
 
             try {
                 switch (cmdType) {
                     case BYE:
-                        ui.exit();
+                        Ui.sayBye();
                         return;
                     case LIST:
-                        ui.printTasks(this.tasks);
+                        Ui.printTasks(tasks);
                         break;
                     case MARK:
                     case UNMARK:
@@ -142,34 +84,34 @@ public class MissMinutes {
                             throw new MissMinutesException("Please enter a valid index. The correct usage is `mark <idx>`");
                         }
                         if (cmdType == CommandType.MARK) {
-                            markTask(idx);
+                            tasks.markTask(idx);
                         } else {
-                            unmarkTask(idx);
+                            tasks.unmarkTask(idx);
                         }
                         break;
                     case DELETE:
                         tasksChanged = true;
-                        deleteTask(request);
+                        tasks.deleteTask(request);
                         break;
                     case TODO:
                     case DEADLINE:
                     case EVENT:
                         tasksChanged = true;
                         Task task = this.createTask(request);
-                        this.addTask(task);
+                        tasks.addTask(task);
                         break;
                     case UNKNOWN:
                         throw new MissMinutesException("Oh, I'm sowwy, I didn't undewstand dat. (>_<) Can I hewp wif sumthin' else, pwease? UwU");
                 }
             } catch (MissMinutesException err) {
-                ui.sendMsg(err.getMessage());
+                Ui.sendMsg(err.getMessage());
             }
 
             if (tasksChanged) {
                 try {
                     storage.saveTasks(tasks);
-                } catch (IOException err) {
-                    ui.sendMsg("Failed to save `tasks.bin`: " + err.getMessage());
+                } catch (MissMinutesException err) {
+                    Ui.sendMsg(err.getMessage());
                 }
             }
         }
