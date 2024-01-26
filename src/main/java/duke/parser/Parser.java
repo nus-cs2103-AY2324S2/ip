@@ -59,10 +59,11 @@ public class Parser {
         }
     }
 
-    private static Command prepareTodo(String arguments) throws UnknownCommandException {
+    private static Command prepareTodo(String arguments) throws InvalidCommandFormatException {
         Matcher matcher = ONE_ARG_COMMAND_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            throw new UnknownCommandException();
+            throw new InvalidCommandFormatException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TodoCommand.COMMAND_USAGE));
         }
         String description = matcher.group("arg");
         return new TodoCommand(description);
