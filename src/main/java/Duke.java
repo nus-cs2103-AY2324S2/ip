@@ -1,5 +1,10 @@
 import java.io.*;
 import java.util.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeParseException;
+
 public class Duke {
     public static void main(String[] args) {
         String logo
@@ -10,7 +15,7 @@ public class Duke {
                 + "██║  ██║╚██████╔╝███████╗██║  ██║██║ ╚████║██████╔╝\n"
                 + "╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝\n";
         System.out.println(logo);
-        String bot = "[ROLAND] ";
+        String bot = "[ROLAND ⌐■-■] ";
         System.out.println(bot + "Hello! I am ROLAND");
         System.out.println(bot + "What can I do for you?");
         Scanner sc = new Scanner(System.in);
@@ -70,15 +75,19 @@ public class Duke {
                     if (reply.length() <= 9) {
                         throw new RolandException("Please provide description for deadline");
                     }
-                    if (reply.split("/").length != 2) {
-                        throw new RolandException("Please include when is the deadline by with /by <deadline>");
+                    if (reply.split("/").length < 2) {
+                        throw new RolandException("Please include when is the deadline by with /by <YYYY-mm-dd>");
                     }
                     String split[] = reply.split(" /");
                     String description = split[0].substring(9, split[0].length());
                     String by = split[1].substring(3, split[1].length());
-                    task = new Deadlines(description, by);
+                    LocalDate date = LocalDate.parse(by);
+                    task = new Deadlines(description, date);
                 } catch (RolandException e) {
                     System.out.println(bot + e.getMessage());
+                    continue;
+                } catch (DateTimeParseException e) {
+                    System.out.println(bot + "Please include when is the deadline by with /by <YYYY-mm-dd>");
                     continue;
                 }
 
