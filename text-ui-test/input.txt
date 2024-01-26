@@ -1,0 +1,14 @@
+todo Read a book
+deadline Return book /by 2024-02-20
+event Project meeting /from 2024-02-15 10:00 /to 12:00
+list
+mark 1
+unmark 2
+list
+delete 2
+list
+hello
+todo Assignment
+deadline homework tonight
+list
+bye
