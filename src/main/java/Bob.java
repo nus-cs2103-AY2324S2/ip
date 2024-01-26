@@ -19,30 +19,20 @@ public class Bob {
     private static final String EVENT_COMMAND = "event";
     private static final String DELETE_COMMAND = "delete";
 
-    private static final String HOME_BASE_PATH = System.getProperty("user.home");
-    private static final String NEW_LINE = System.lineSeparator();
-    private static final File saveData = new File(Bob.HOME_BASE_PATH + "/save.txt");
 
     private ArrayList<Task> list;
     private BobUI ui;
+    private BobStorage storage;
 
-    public Bob(BobUI ui) {
+    public Bob(BobUI ui, BobStorage storage) {
         this.list = new ArrayList<>();
         this.ui = ui;
-    }
-
-    /**
-     * Add items to storage.
-     */
-    private Task addItem(Task t) throws BobException {
-        this.list.add(t);
-        this.updateTaskList();
-        return t;
+        this.storage = storage;
     }
 
     private void deleteTask(int taskId) {
         this.list.remove(taskId);
-        this.updateTaskList();
+        this.storage.updateTaskList(this.list);
     }
 
     /**
@@ -50,7 +40,7 @@ public class Bob {
      */
     private void markDone(int item) {
         this.list.get(item).updateStatus(true);
-        this.updateTaskList();
+        this.storage.updateTaskList(this.list);
     }
 
     /**
@@ -58,117 +48,7 @@ public class Bob {
      */
     private void markUndone(int item) {
         this.list.get(item).updateStatus(false);
-        this.updateTaskList();
-    }
-
-    private void updateTaskList() {
-        try {
-            if (!saveData.exists()) {
-                this.instantiateDirectory();
-            }
-            FileWriter fileWriter = new FileWriter(Bob.saveData, false);
-            for (Task t : this.list) {
-                fileWriter.write(t.toSavableFormat() + Bob.NEW_LINE);
-            }
-            fileWriter.close();
-
-        } catch (Exception e) {
-            System.out.println("An error occurred when trying to access the save file. "
-                    + "Please ensure that the application has permissions to write and read from your HOME directory.");
-        }
-    }
-
-    private void loadSavedTasks() throws BobException.FileAccessError, BobException.CorruptedSaveData {
-
-        try {
-
-            if (!saveData.exists()) {
-                this.instantiateDirectory();
-                return;
-            }
-
-            try (BufferedReader br = new BufferedReader(new FileReader(saveData))) {
-
-                String line;
-                boolean invalidFile = false;
-
-                while ((line = br.readLine()) != null) {
-
-                    String[] properties = line.split("\\|");
-
-                    if (properties.length < 4) {
-                        invalidFile = true;
-                    }
-
-                    String taskType = properties[1];
-
-                    if (!invalidFile
-                            && !(taskType.equals("T")
-                            || taskType.equals("E")
-                            || taskType.equals("D"))) {
-                        invalidFile = true;
-                    }
-
-                    if (!invalidFile && !(properties[3].equals("false")
-                            || properties[3].equals("true"))) {
-                        invalidFile = true;
-                    }
-
-                    if (invalidFile) {
-                        throw new BobException
-                                .CorruptedSaveData("Save file is corrupt. "
-                                + "The application will create a new save file.");
-                    }
-
-                    if (taskType.equals("T") && properties.length < 4
-                            || taskType.equals("E") && properties.length < 6
-                            || taskType.equals("D") && properties.length < 5) {
-                        throw new BobException
-                                .CorruptedSaveData("Tasks are corrupt. The application will create a new save file.");
-                    }
-
-                    try {
-
-                        switch (taskType) {
-                        case "E":
-                            this.addItem(new Event(properties[2], properties[4], properties[5])
-                                            .setUuid(properties[0])
-                                            .updateStatus(properties[3].equals("true")));
-                            break;
-                        case "D":
-                            this.addItem(new Deadline(properties[2], properties[4])
-                                            .setUuid(properties[0])
-                                            .updateStatus(properties[3].equals("true")));
-                            break;
-                        default:
-                            this.addItem(new Task(properties[2])
-                                    .setUuid(properties[0])
-                                    .updateStatus(properties[3].equals("true")));
-                            break;
-                        }
-
-                    } catch (BobException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-            }
-        } catch (BobException.FileAccessError e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            throw new BobException
-                    .FileAccessError("An error occurred when trying to access the save file. "
-                    + "Please ensure that the application has permissions to write and read from your HOME directory.");
-        }
-
-    }
-
-    private void instantiateDirectory() throws BobException.FileAccessError {
-        try {
-            Bob.saveData.createNewFile();
-        } catch (IOException e) {
-            throw new BobException.FileAccessError("An error occurred when trying to access the save file. "
-                    + "Please ensure that the application has permissions to write and read from your HOME directory.");
-        }
+        this.storage.updateTaskList(this.list);
     }
 
     /**
@@ -177,7 +57,7 @@ public class Bob {
     public void start() {
 
         try {
-            this.loadSavedTasks();
+            this.list = this.storage.loadSavedTasks();
         } catch (BobException.FileAccessError e) {
             System.out.println(e.getMessage());
         } catch (BobException.CorruptedSaveData e) {
@@ -263,7 +143,7 @@ public class Bob {
 
                 String description = input.substring(Bob.TODO_COMMAND.length() + 1);
 
-                t = this.addItem(new Task(description));
+                t = this.storage.addItem(new Task(description), this.list);
             }
 
             if (input.contains(Bob.DEADLINE_COMMAND)) {
@@ -286,8 +166,8 @@ public class Bob {
                             + " requires both a task description and a deadline.");
                 }
 
-                t = this.addItem(new Deadline(split[0].substring(0, split[0].length() - 1),
-                        split[1].substring(1)));
+                t = this.storage.addItem(new Deadline(split[0].substring(0, split[0].length() - 1),
+                        split[1].substring(1)), this.list);
             }
 
             if (input.contains(Bob.EVENT_COMMAND)) {
@@ -311,8 +191,8 @@ public class Bob {
                             + " requires a task description, a start date, and an end date.");
                 }
 
-                t = this.addItem(new Event(split[0].substring(0, split[0].length() - 1),
-                        split[1].substring(5), split[2].substring(3)));
+                t = this.storage.addItem(new Event(split[0].substring(0, split[0].length() - 1),
+                        split[1].substring(5), split[2].substring(3)), this.list);
             }
         } catch (StringIndexOutOfBoundsException e) {
             throw new BobException("Incorrect usage of command.");
@@ -349,7 +229,8 @@ public class Bob {
     public static void main(String[] args) {
 
         Bob bob = new Bob(
-                new BobUI(new Scanner(System.in)));
+                new BobUI(new Scanner(System.in)),
+                new BobStorage());
 
         bob.start();
     }
