@@ -4,8 +4,6 @@ import java.util.StringJoiner;
 public class Codec {
 
     String delimiter = ", ";
-    String dateFormat = "dd-MM-yyyy";
-    String timeFormat = "HH:mm";
 
     public String encode(Task task) {
         String[] encodedTask = task.encode();
@@ -48,7 +46,6 @@ public class Codec {
 
             return new Deadline(taskName, by, done);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new ProcessingException("Error while decoding Deadline", e);
 
         }
@@ -65,7 +62,6 @@ public class Codec {
             return new Event(taskName, from, to, done);
 
         } catch (Exception e) {
-            e.printStackTrace();
             throw new ProcessingException("Error while decoding Event", e);
         }
     }
@@ -79,7 +75,6 @@ public class Codec {
             return new Todo(taskName, done);
 
         } catch (Exception e) {
-            e.printStackTrace();
             throw new ProcessingException("Error while decoding Todo", e);
 
         }

@@ -28,7 +28,7 @@ public abstract class Task {
     }
 
     public String[] encode() {
-        return new String[]{identifier, done.toString() , taskName};
+        return new String[]{identifier, done.toString(), taskName};
     }
 
 }

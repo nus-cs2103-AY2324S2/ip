@@ -41,11 +41,31 @@ public class UserInterface {
         boolean polling = true;
         while (polling) {
             String input = scan.nextLine();
-            if (input.equals("bye")) {
-                polling = false;
-            } else {
-                cmd.processData(input);
+            try {
+                Command command = processCommand(input);
+                if (command.isExit()) {
+                    polling = false;
+                } else {
+                    cmd.processData(command, input);
+                }
+            } catch (InputException | ProcessingException e) {
+                System.out.println(e.getMessage());
             }
+        }
+    }
+
+    public Command processCommand(String input) throws InputException {
+        try {
+            String commandString = input.split(" ")[0];
+            Command command = Command.valueOf(commandString.toUpperCase());
+            return command;
+        } catch (IndexOutOfBoundsException e) {
+            String message = "Something went wrong when processing your command: \n"
+            + "Check your input again: " + input;
+            throw  new InputException(message, e);
+        } catch (IllegalArgumentException e) { 
+            String message = "You inputted an unrecognizable command";
+            throw new InputException(message);
         }
     }
 

@@ -5,70 +5,71 @@ import java.util.ArrayList;
 public class CommandProcessor {
     ArrayList<Task> list = new ArrayList<>();
     Storage storage;
-    String dateFormat = "dd-MM-yyyy";
-    String timeFormat = "HH:mm";
 
     public CommandProcessor(Storage storage) {
         this.storage = storage;
     }
 
-    public void processData(String input) {
-        try {
-            String command = input.split(" ")[0];
-            switch (command) {
-                case "delete":
-                    storage.delete(processDelete(input));
-                    break;
+    public void processData(Command command, String input) throws InputException, ProcessingException {
 
-                case "list":
-                    displayList();
-                    break;
+        switch (command) {
+            case DELETE:
+                storage.delete(processDelete(input));
+                break;
 
-                case "mark":
-                    storage.mark(processMark(input));
-                    break;
+            case LIST:
+                displayList();
+                break;
 
-                case "unmark":
-                    storage.unmark(processMark(input));
-                    break;
+            case MARK:
+                storage.mark(processMark(input, Command.MARK));
+                break;
 
-                case "deadline":
-                    storage.add(processDeadline(input));
-                    break;
-                
-                case "event":
-                    storage.add(processEvent(input));
-                    break;
+            case UNMARK:
+                storage.unmark(processMark(input, Command.UNMARK));
+                break;
 
-                case "todo":
-                    storage.add(processTodo(input));
-                    break;
-
-                default:
-                    String message = String.format("I'm sorry I didn't quite get \"%s\"", input);
-                    throw new InputException(message);
-            }
+            case DEADLINE:
+                storage.add(processDeadline(input));
+                break;
             
-            storage.update();
+            case EVENT:
+                storage.add(processEvent(input));
+                break;
 
-        } catch (ProcessingException | InputException e) {
-            System.out.println(e.getMessage());
+            case TODO:
+                storage.add(processTodo(input));
+                break;
+
+            default:
+                break;
         }
         
-
+        storage.update();
         return;
     }
 
+    public Command processCommand(String input) throws InputException {
+        try {
+            String commandString = input.split(" ")[0];
+            Command command = Command.valueOf(commandString.toUpperCase());
+            return command;
+        } catch (IndexOutOfBoundsException e) {
+            String message = "Something went wrong when processing your command: \n"
+            + "Check your input again: " + input;
+            throw  new InputException(message, e);
+        } catch (IllegalArgumentException e) { 
+            String message = "You inputted an unrecognizable command";
+            throw new InputException(message);
+        }
+    }
 
     public Integer processDelete(String input) throws InputException {
         try {
             int i = Integer.parseInt(input.split(" ")[1]) - 1;
             return i;
-
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            String message = "Something went wrong when processing your delete command: \n"
-            + "Check your input again: " + input;
-            throw new InputException(message, e);
+            throw InputException.exceptionCommandProcessing(Command.DELETE, input, e);
         }
     }
     public Task processDeadline(String input) throws InputException {
@@ -82,9 +83,7 @@ public class CommandProcessor {
             return new Deadline(taskName, by);
 
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            String message = "Something went wrong when processing your deadline command: \n"
-                                + "Check your input again: " + input;
-            throw new InputException(message, e);
+            throw InputException.exceptionCommandProcessing(Command.DEADLINE, input, e);
         }
     }
 
@@ -93,9 +92,7 @@ public class CommandProcessor {
             String taskName = input.substring(4);
             return new Todo(taskName);
         } catch (IndexOutOfBoundsException e) {
-            String message = "Something went wrong when processing your todo command: \n"
-                                + "Check your input again: " + input;
-            throw new InputException(message, e);
+            throw InputException.exceptionCommandProcessing(Command.TODO, input, e);
         }
     }
 
@@ -112,21 +109,17 @@ public class CommandProcessor {
             return new Event(taskName, from, to);
 
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            String message = "Something went wrong when processing your event command: \n"
-                                + "Check your input again: " + input;
-            throw new InputException(message, e);
+            throw InputException.exceptionCommandProcessing(Command.EVENT, input, e);
         }
     }
 
-    public Integer processMark(String input) throws InputException {
+    public Integer processMark(String input, Command cmd) throws InputException {
         try {
             int i = Integer.parseInt(input.split(" ")[1]) - 1;
             return i;
 
-        } catch (Exception e) {
-            String message = "Something went wrong when processing your mark command: \n"
-                                + "Check your input again: " + input;
-            throw new InputException(message, e);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw InputException.exceptionCommandProcessing(cmd, input, e);
         }
     }
     

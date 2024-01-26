@@ -23,15 +23,15 @@ public class Event extends Task {
 
     @Override
     public String[] encode() {
-        String[] encodedEvent = new String[6];
+        String[] encodedEvent = new String[5];
         String[] encodedTask = super.encode();
 
         for (int i = 0; i < encodedTask.length; i++) {
             encodedEvent[i] = encodedTask[i];
         }
 
-        encodedEvent[4] = TimeProcessor.toString(from);
-        encodedEvent[5] = TimeProcessor.toString(to);
+        encodedEvent[3] = TimeProcessor.toString(from);
+        encodedEvent[4] = TimeProcessor.toString(to);
 
         return encodedEvent;
     }
