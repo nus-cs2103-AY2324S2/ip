@@ -50,4 +50,24 @@ class ParserTest {
         Executable todoWithEmptyDescription = () -> Parser.handleDeadline(list, "deadline");
         assertThrows(DukeException.class, todoWithEmptyDescription, "Exception was expected for empty todo description");
     }
+
+    @Test
+    void handleTodo_validInput_addsEvent() {
+        try {
+            Parser.handleEvent(list, "event read book /from 2020-02-02 23:00 /to 2020-02-03 23:15");
+            assertEquals(1, list.size());
+            Event addedTask = (Event) list.get(0);
+            assertEquals("read book", addedTask.getDescription());
+            assertEquals("2020-02-02T23:00", addedTask.getFromDate());
+            assertEquals("2020-02-03T23:15", addedTask.getToDate());
+        } catch (DukeException e) {
+            fail("Exception should not be thrown for valid input");
+        }
+    }
+
+    @Test
+    void handleEvent_emptyDescription_throwsDukeException() {
+        Executable todoWithEmptyDescription = () -> Parser.handleDeadline(list, "event");
+        assertThrows(DukeException.class, todoWithEmptyDescription, "Exception was expected for empty todo description");
+    }
 }

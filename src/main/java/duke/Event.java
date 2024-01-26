@@ -45,4 +45,11 @@ public class Event extends Task{
         return event;
     }
 
+    public String getFromDate() {
+        return from.toString();
+    }
+
+    public String getToDate() {
+        return to.toString();
+    }
 }
