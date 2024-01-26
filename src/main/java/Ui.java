@@ -26,7 +26,8 @@ public class Ui {
 
     public void respond(String command) {
         System.out.println(line
-                + "    " + command + "\n"
+                + "    added: " + command + "\n"
                 + line);
     }
+
 }
