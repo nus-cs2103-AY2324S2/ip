@@ -1,20 +1,21 @@
-import java.util.Scanner;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Alpa {
-    private static final int MAX_TASKS = 100;
+  private static final int MAX_TASKS = 100;
+  private static Task[] tasks = new Task[MAX_TASKS];
+  private static int taskCount = 0;
 
-    public static void main(String[] args) {
-      Scanner scanner = new Scanner(System.in);
-      Task[] tasks = new Task[MAX_TASKS];
-      String logo = 
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    String logo = 
               "     _    _             \n"
             + "    / \\  | |_ __   __ _ \n"
             + "   / _ \\ | | '_ \\ / _` |\n"
             + "  / ___ \\| | |_) | (_| |\n"
             + " /_/   \\_\\_| .__/ \\__,_|\n"
             + "           |_|          ";
-        String[] art = {
+    String[] art = {
             "⠀⠀⠀⠀⡾⣦⡀⠀⠀⡀⠀⣰⢷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
             "⠀⠀⠀⣠⠗⠛⠽⠛⠋⠉⢳⡃⢨⢧⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
             "⠀⣰⠋⠁⠀⠀⠀⠀⠀⠀⠙⠛⢾⡈⡏⢧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
@@ -53,82 +54,125 @@ public class Alpa {
     System.out.println("I'm here to help you sort through the woolly world of tasks.\n");
     System.out.println("෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘\n");
     
-    int taskCount = 0;
     boolean exit = false;
     while (!exit) {
-      String input = scanner.nextLine();
-      String[] parts = input.split(" ");
-      String command = parts[0];
+      try {
+        String input = scanner.nextLine();
+        String[] parts = input.split(" ");
+        String command = parts[0];
 
-      switch (command.toLowerCase()) {
+        switch (command.toLowerCase()) {
         
-        case "bye":
-          System.out.println("\nIt's been a pleasure grazing through your tasks! Goodbye human! Stay cozy!\n");
-          System.out.println("𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧");
-          exit = true;
-          break;
+          case "bye":
+            handleBye();
+            exit = true;
+            break;
         
-        case "list":
-          System.out.println("\nYour list, human!");
-          for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
-          }
-          System.out.println("\n↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒ\n");
-          break;
+          case "list":
+            handleList(tasks, taskCount);
+            break;
         
-        case "mark":
-        case "unmark":
-          int index = Integer.parseInt(parts[1]) - 1;
-          if (index >= 0 && index < taskCount) {
-            if (command.equals("mark")) {
-              tasks[index].markAsDone();
-              System.out.println("\nMarked as done, human!\n" + tasks[index]);
-              System.out.println("\n↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ\n"); 
-            } else {
-              tasks[index].markAsNotDone();
-              System.out.println("\nNot done with this yet, human?\n" + tasks[index]);
-              System.out.println("\n↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ\n");
-            }
-          } else {
-          System.out.println("\nInvalid task number human!!!\n");
-          System.out.println("↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟\n");
-          }
-        break;
+          case "mark":
+          case "unmark":
+            handleMarkUnmark(parts, command);
+            break;
         
-        case "todo":
-          String todoDescription = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-          tasks[taskCount] = new ToDo(todoDescription);
-          System.out.println("\nYou added a To-Do task, human!\n" + tasks[taskCount]);
-          taskCount++;
-          System.out.println("Now you have " + taskCount + " tasks human!");
-          System.out.println("\n↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒ↟ᨒ\n");
-          break;
+          case "todo":
+            addTask(handleToDo(parts));
+            break;
         
-        case "deadline":
-          int byIndex = Arrays.asList(parts).indexOf("/by");
-          String deadlineDescription = String.join(" ", Arrays.copyOfRange(parts, 1, byIndex));
-          String deadline = String.join(" ", Arrays.copyOfRange(parts, byIndex + 1, parts.length));
-          tasks[taskCount] = new Deadline(deadlineDescription, deadline);
-          System.out.println("\nYou added a task with deadline, human!\n" + tasks[taskCount]);
-          taskCount++;
-          System.out.println("Now you have " + taskCount + " tasks human!");
-          System.out.println("\n↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒ\n");
-          break;
+          case "deadline":
+            addTask(handleDeadline(parts));
+            break;
         
-        case "event":
-          int fromIndex = Arrays.asList(parts).indexOf("/from");
-          int toIndex = Arrays.asList(parts).indexOf("/to");
-          String eventDescription = String.join(" ", Arrays.copyOfRange(parts, 1, fromIndex));
-          String from = String.join(" ", Arrays.copyOfRange(parts, fromIndex + 1, toIndex));
-          String to = String.join(" ", Arrays.copyOfRange(parts, toIndex + 1, parts.length));
-          tasks[taskCount] = new Event(eventDescription, from, to);
-          System.out.println("\nYou added an event, human!\n" + tasks[taskCount]);
-          taskCount++;
-          System.out.println("Now you have " + taskCount + " tasks human!");
-          System.out.println("\n↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒ\n");
-          break;
+          case "event":
+            addTask(handleEvent(parts));
+            break;
+
+          default:
+            throw new AlpaException("\nOh no, human! I'm sorry but that is not a valid task.");
+        }
+      } catch (AlpaException e) {
+        printDecoratedMessage(e.getMessage());
       }
     }
     scanner.close();
+  }
+
+  private static void addTask(Task task) {
+    tasks[taskCount++] = task;
+    printDecoratedMessage("\nYou added a task human!\n" + task);
+  }
+
+  private static void handleBye() {
+    System.out.println("\nIt's been a pleasure grazing through your tasks! Goodbye human! Stay cozy!\n");
+    System.out.println("𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣\n");
+  }
+
+  private static void handleList(Task[] tasks, int taskCount) {
+    if (taskCount == 0) {
+      printDecoratedMessage("\nYour list is empty, human!");
+      return;
+    }
+    StringBuilder listOutput = new StringBuilder("\nYour list, human!\n");
+    for (int i = 0; i < taskCount; i++) {
+      listOutput.append("  ").append(i + 1).append(". ").append(tasks[i]).append("\n");
+    }
+    printDecoratedMessage(listOutput.toString());
+  }
+
+  private static void handleMarkUnmark(String[] parts, String command) throws AlpaException {
+    try {
+      int index = Integer.parseInt(parts[1]) - 1;
+      if (index >= 0 && index < taskCount) {
+        String response;
+        if (command.equals("mark")) {
+          tasks[index].markAsDone();
+          response = "\nMarked as done, human!\n" + tasks[index];
+        } else {
+          tasks[index].markAsNotDone();
+          response = "\nNot done with this yet, human?\n" + tasks[index];
+        }
+        printDecoratedMessage(response);
+      } else {
+        throw new AlpaException("\nInvalid task number human!!!");
+      }
+    } catch (NumberFormatException e) {
+      throw new AlpaException("\nInvalid input human!!");
+    }
+  }
+  
+  private static Task handleToDo(String[] parts) throws AlpaException {
+    if (parts.length < 2 || parts[1].trim().isEmpty()) {
+      throw new AlpaException("\nBaa-ad news, human! The description of a todo cannot be empty.");
+    }
+    return new ToDo(String.join(" ", Arrays.copyOfRange(parts, 1, parts.length))); 
+  }
+
+  private static Task handleDeadline(String[] parts) throws AlpaException {
+    int byIndex = Arrays.asList(parts).indexOf("/by");
+    if (byIndex == -1 || byIndex >= parts.length - 1) {
+      throw new AlpaException("\nInvalid deadline format, human! Use '/by' to specify the deadline.");
+    }
+    String deadlineDescription = String.join(" ", Arrays.copyOfRange(parts, 1, byIndex));
+    String deadline = String.join(" ", Arrays.copyOfRange(parts, byIndex + 1, parts.length));
+    return new Deadline(deadlineDescription, deadline);
+  }
+
+  private static Task handleEvent(String[] parts) throws AlpaException {
+    int fromIndex = Arrays.asList(parts).indexOf("/from");
+    int toIndex = Arrays.asList(parts).indexOf("/to");
+    if (fromIndex == -1 || toIndex == -1|| fromIndex >= parts.length - 1 || toIndex <= fromIndex) {
+      throw new AlpaException("\nInvalid event format, human! Please use '/from' and '/to' to specify the event time.");
+    }
+    String eventDescription = String.join(" ", Arrays.copyOfRange(parts, 1, fromIndex));
+    String from = String.join(" ", Arrays.copyOfRange(parts, fromIndex + 1, toIndex));
+    String to = String.join(" ", Arrays.copyOfRange(parts, toIndex + 1, parts.length));
+    return new Event(eventDescription, from, to);
+  }
+
+  private static void printDecoratedMessage(String message) {
+    String decoration = "\n↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟ᨒᨒᨒ↟↟ᨒᨒᨒ↟\n";
+    System.out.println(message + decoration);
   }
 }
