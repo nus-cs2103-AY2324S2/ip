@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Univus {
     private static Scanner scanner;
+    private List<String> store;
     public Univus() {
         this.scanner = new Scanner(System.in);
+        this.store = new ArrayList<>();
     }
     public void greet() {
         System.out.println("____________________________________________________________");
@@ -16,13 +20,21 @@ public class Univus {
         System.out.println("____________________________________________________________");
     }
     public void echo(String message) {
-        if(message.equals("bye")){
+        if (message.equals("bye")){
             bye();
             scanner.close();
-        }
-        else {
+        } else if (message.equals("list")) {
             System.out.println("____________________________________________________________");
-            System.out.println(message);
+            int index = 1;
+            for (String msg : store) {
+                System.out.println(index + ". " + msg);
+                index++;
+            }
+            System.out.println("____________________________________________________________");
+        } else {
+            store.add(message);
+            System.out.println("____________________________________________________________");
+            System.out.println("added: " + message);
             System.out.println("____________________________________________________________");
         }
     }
