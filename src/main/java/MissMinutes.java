@@ -1,10 +1,14 @@
 import java.util.Scanner;
-import java.util.List;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class MissMinutes {
     private final Scanner stdin;
-    private final List<Task> tasks;
+    private ArrayList<Task> tasks;
     private static final String separator = "-".repeat(60);
     private static final String logo =
             " __  __ _           __  __ _             _                  \n" +
@@ -150,6 +154,7 @@ public class MissMinutes {
         while (true) {
             String request = this.stdin.nextLine();
             CommandType cmdType = parseCommand(request);
+            boolean tasksChanged = false;
 
             try {
                 switch (cmdType) {
@@ -160,6 +165,7 @@ public class MissMinutes {
                         break;
                     case MARK:
                     case UNMARK:
+                        tasksChanged = true;
                         String[] split = request.split(" ");
                         int idx;
                         try {
@@ -174,11 +180,13 @@ public class MissMinutes {
                         }
                         break;
                     case DELETE:
+                        tasksChanged = true;
                         deleteTask(request);
                         break;
                     case TODO:
                     case DEADLINE:
                     case EVENT:
+                        tasksChanged = true;
                         Task task = this.createTask(request);
                         this.addTask(task);
                         break;
@@ -188,11 +196,48 @@ public class MissMinutes {
             } catch (MissMinutesException err) {
                 this.sendMsg(err.getMessage());
             }
+
+            if (tasksChanged) {
+                try {
+                    this.saveTasks();
+                } catch (IOException err) {
+                    this.sendMsg("Failed to save `tasks.bin`: " + err.getMessage());
+                }
+            }
         }
+    }
+
+    private void saveTasks() throws IOException {
+        FileOutputStream fileOut = new FileOutputStream("tasks.bin");
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(tasks);
+        out.close();
+        fileOut.close();
+    }
+
+    private void loadTasks() throws IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream("tasks.bin");
+        ObjectInputStream out = new ObjectInputStream(fileIn);
+
+        @SuppressWarnings("unchecked")
+        ArrayList<Task> tasks = (ArrayList<Task>) out.readObject();
+
+        this.tasks = tasks;
+
+        out.close();
+        fileIn.close();
     }
 
     public static void main(String[] args) {
         MissMinutes mm = new MissMinutes();
+
+        try {
+            mm.loadTasks();
+        } catch (IOException err) {
+            mm.sendMsg("No `tasks.bin` found, creating empty task list");
+        } catch (ClassNotFoundException err) {
+            mm.sendMsg(err.getMessage());
+        }
 
         mm.greet();
         mm.run();
