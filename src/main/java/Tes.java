@@ -32,6 +32,10 @@ public class Tes {
                     int index = Integer.parseInt(split[1]);
                     this.ui.mark(index - 1);
                     continue;
+                } else if (command.contains("delete")) {
+                    String[] split = command.split(" ");
+                    int index = Integer.parseInt(split[1]);
+                    this.ui.delete(index);
                 } else if (command.contains("deadline")) {
                     try {
                         if (command.equals("deadline")) {

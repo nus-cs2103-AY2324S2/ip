@@ -112,8 +112,18 @@ public class Ui {
      */
     public void unmark(int index) {
         this.taskList.unmark(index);
+        printLine();
         System.out.println("    OK, I've marked this task as not done yet:\n      "
                 + this.taskList.getTaskDescription(index));
+        printLine();
+    }
+
+    public void delete(int index) {
+        printLine();
+        System.out.println("    Noted. I've removed this task:\n      "
+                + this.taskList.getTaskDescription(index - 1)
+                + "\n    Now you have " + Integer.toString(this.taskList.getSize() - 1) + " in the list.");
+        this.taskList.delete(index - 1);
         printLine();
     }
 

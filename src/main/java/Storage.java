@@ -70,4 +70,7 @@ public class Storage {
         this.tasks.get(index).unmark();
     }
 
+    public void delete(int index) {
+        this.tasks.remove(index);
+    }
 }
