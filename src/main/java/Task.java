@@ -24,8 +24,16 @@ public class Task {
         System.out.println("    " + this);
     }
 
+    public int getIntIsDone() {
+        return isDone ? 1 : 0;
+    }
+
     public String getStatusIcon() {
         return isDone ? "[X] " : "[ ] "; // mark done task with X
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     @Override

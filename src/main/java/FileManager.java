@@ -31,11 +31,10 @@ public class FileManager {
     }
 
     // Rewrite file using data in Storage
-    // TODO: change format of data saved, to make it easier to load
     public static void updateTasks() {
         try (FileWriter fw = new FileWriter("data/taskData.txt")){
             for (Task t : Storage.getTasks()) {
-                fw.write(t.toString() + "\n");
+                fw.write(Parser.parseSaveTask(t) + "\n");
             }
 //            System.out.println("Update success");
         } catch (IOException eIO) {

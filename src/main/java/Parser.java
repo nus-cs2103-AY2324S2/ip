@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -78,6 +77,22 @@ public class Parser {
             }
         } catch (NumberFormatException e) {
             throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
+        }
+    }
+
+    // ToDo: T, 0/1, desc
+    // Deadline: D, 0/1, desc, by
+    // Event: E, 0/1, desc, from, to
+    public static String parseSaveTask(Task t) {
+        if (t instanceof ToDo) {
+            return String.format("T,%d,%s", t.getIntIsDone(), t.getDescription());
+        } else if (t instanceof Deadline) {
+            Deadline x = (Deadline) t;
+            return String.format("D,%d,%s,%s", t.getIntIsDone(), t.getDescription(), x.getBy());
+        } else { // instanceof Event
+            Event x = (Event) t;
+            return String.format("E,%d,%s,%s,%s", t.getIntIsDone(), t.getDescription(),
+                    x.getStart(), x.getEnd());
         }
     }
 
