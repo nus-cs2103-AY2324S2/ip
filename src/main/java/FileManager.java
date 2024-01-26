@@ -11,11 +11,11 @@ public class FileManager {
     // TODO: for each line, ask Storage to loadTask()
     // TODO: Storage asks Parser to parse line
     // TODO: Task can be created to be added (with mark info too)
-    public static void fetchTasks() {
+    public static void loadTasks() {
         File f = new File("data/taskData.txt");
         try (Scanner s = new Scanner(f)) {
             while (s.hasNext()) {
-                System.out.println(s.nextLine());
+                Storage.loadTask(s.nextLine());
             }
         } catch (FileNotFoundException eFNF) {
             try {
@@ -34,7 +34,7 @@ public class FileManager {
     public static void updateTasks() {
         try (FileWriter fw = new FileWriter("data/taskData.txt")){
             for (Task t : Storage.getTasks()) {
-                fw.write(Parser.parseSaveTask(t) + "\n");
+                fw.write(Parser.parseTaskToCsv(t) + "\n");
             }
 //            System.out.println("Update success");
         } catch (IOException eIO) {

@@ -1,3 +1,4 @@
+import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -83,7 +84,7 @@ public class Parser {
     // ToDo: T, 0/1, desc
     // Deadline: D, 0/1, desc, by
     // Event: E, 0/1, desc, from, to
-    public static String parseSaveTask(Task t) {
+    public static String parseTaskToCsv(Task t) {
         if (t instanceof ToDo) {
             return String.format("T,%d,%s", t.getIntIsDone(), t.getDescription());
         } else if (t instanceof Deadline) {
@@ -93,6 +94,34 @@ public class Parser {
             Event x = (Event) t;
             return String.format("E,%d,%s,%s,%s", t.getIntIsDone(), t.getDescription(),
                     x.getStart(), x.getEnd());
+        }
+    }
+
+    public static void parseCsv(String csv) {
+        String[] words = csv.split(",");
+        Storage.words = words;
+        try {
+            switch (words[0]) {
+            case ("T"):
+                Storage.words[0] = "todo";
+                Storage.input = String.format("todo %s", words[2]);
+                parseToDo(Storage.input);
+                break;
+            case ("D"):
+                Storage.words[0] = "deadline";
+                Storage.input = String.format("deadline %s /by %s", words[2], words[3]);
+                parseDeadline(Storage.input);
+                break;
+            case ("E"):
+                Storage.words[0] = "event";
+                Storage.input = String.format("deadline %s /from %s to %s", words[2], words[3], words[4]);
+                parseEvent(Storage.input);
+                break;
+            default:
+                System.out.println("Can't read csv");
+            }
+        } catch (UkeCatException e) {
+            System.out.println(e.getMessage());
         }
     }
 

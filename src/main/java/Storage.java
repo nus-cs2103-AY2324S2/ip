@@ -79,6 +79,11 @@ public class Storage {
         }
     }
 
+    public static void loadTask(String csv) {
+        Parser.parseCsv(csv);
+        addTask();
+    }
+
     public static void printTasks() {
         if (numT == 0) {
             System.out.println("  No tasks in list yet!");

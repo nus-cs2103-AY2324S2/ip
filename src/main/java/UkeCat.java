@@ -1,6 +1,6 @@
 public class UkeCat {
     public static void main(String[] args) {
-        FileManager.fetchTasks();
+        FileManager.loadTasks();
 
         try {
             // Welcome msg
