@@ -1,18 +1,20 @@
+import java.time.LocalDate;
+
 import enums.TaskStatus;
 
 class Deadlines extends Task {
-    private String byDate;
+    private LocalDate byDate;
 
-    public Deadlines(String description, TaskStatus isDone, String byDate) {
+    public Deadlines(String description, TaskStatus isDone, LocalDate byDate) {
         super(description, isDone);
         this.byDate = byDate;
     }
 
-    public String getByDate() {
+    public LocalDate getByDate() {
         return this.byDate;
     }
 
-    public void setByDate(String newByDate) {
+    public void setByDate(LocalDate newByDate) {
         this.byDate = newByDate;
     }
 

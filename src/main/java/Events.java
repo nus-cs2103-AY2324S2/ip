@@ -1,29 +1,31 @@
+import java.time.LocalDate;
+
 import enums.TaskStatus;
 
 class Events extends Task {
 
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
 
-    public Events(String description, TaskStatus isDone, String from, String to) {
+    public Events(String description, TaskStatus isDone, LocalDate from, LocalDate to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
     }
 
-    public String getFrom() {
+    public LocalDate getFrom() {
         return this.from;
     }
 
-    public String getTo() {
+    public LocalDate getTo() {
         return this.to;
     }
 
-    public void setFrom(String newFrom) {
+    public void setFrom(LocalDate newFrom) {
         this.from = newFrom;
     }
 
-    public void setTo(String to) {
+    public void setTo(LocalDate to) {
         this.to = to;
     }
 
