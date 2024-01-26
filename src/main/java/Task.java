@@ -8,7 +8,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public void markDone() {
@@ -17,6 +17,10 @@ public class Task {
 
     public void unmarkDone() {
         this.isDone = false;
+    }
+
+    public String saveToText() {
+        return "";
     }
 
     @Override

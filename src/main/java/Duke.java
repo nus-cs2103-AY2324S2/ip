@@ -2,11 +2,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Task> items = new ArrayList<>();
-        int itemCount = 0;
+        Storage storage = new Storage("./test.txt");
+        ArrayList<Task> items = storage.readData();
+        int itemCount = items.size();
         boolean isValid = true;
 
         System.out.println("Hello! I'm GuanGuanBot!");
@@ -19,6 +20,7 @@ public class Duke {
                 Pair<Boolean, Integer> pair = handleInput(command, items, itemCount);
                 isValid = pair.first();
                 itemCount = pair.second();
+                storage.saveData(items);
             } catch (DukeException e) {
                 System.out.printf("[!] %s\n", e.getMessage());
             }
