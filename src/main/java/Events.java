@@ -1,6 +1,6 @@
 public class Events extends Task {
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
     public Events(String name, String from, String to) {
         super(name);
@@ -9,12 +9,7 @@ public class Events extends Task {
     }
 
     @Override
-    public String getType() {
-        return "E";
+    public String toString() {
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
     }
-
-    @Override
-    public String getDesc(){
-        return String.format("%s (from: %s to: %s)", this.getName(), this.from, this.to);
-    };
 }

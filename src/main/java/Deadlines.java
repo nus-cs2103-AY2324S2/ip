@@ -1,5 +1,3 @@
-import java.time.LocalDateTime;
-
 public class Deadlines extends Task {
     private String by;
 
@@ -9,13 +7,8 @@ public class Deadlines extends Task {
     }
 
     @Override
-    public String getType() {
-        return "D";
+    public String toString() {
+        return String.format("[D]%s (by: %s)", super.toString(), this.by);
     }
-
-    @Override
-    public String getDesc(){
-        return String.format("%s (by: %s)", this.getName(), this.by);
-    };
 
 }

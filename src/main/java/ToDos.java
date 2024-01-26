@@ -4,12 +4,7 @@ public class ToDos extends Task {
     }
 
     @Override
-    public String getType() {
-        return "T";
+    public String toString() {
+        return String.format("[T]%s", super.toString());
     }
-
-    @Override
-    public String getDesc(){
-        return String.format("%s", this.getName());
-    };
 }

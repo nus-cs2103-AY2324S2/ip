@@ -27,7 +27,7 @@ public class TaskList {
         }
 
         tasks.add(task);
-        String o = String.format("Got it. I've added this task:\n  [%s][ ] %s\nNow you have %d tasks in the list.", task.getType(), task.getDesc(), tasks.size());
+        String o = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", task.toString(), tasks.size());
         Utils.encaseLines(o);
     }
 
@@ -45,7 +45,7 @@ public class TaskList {
         StringBuilder output = new StringBuilder();
 
         for (int i = 0; i < tasks.size(); i++) {
-            output.append(i + 1).append(". ").append(tasks.get(i).getName());
+            output.append(i + 1).append(". ").append(tasks.get(i).toString());
 
             if (i < tasks.size() - 1) {
                 output.append("\n");

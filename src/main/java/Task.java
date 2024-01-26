@@ -1,4 +1,4 @@
-public abstract class Task {
+public class Task {
     private final String name;
     private boolean isDone;
 
@@ -18,14 +18,15 @@ public abstract class Task {
 
     }
 
-    public abstract String getType();
+    public String toString() {
+        return String.format("[%s] %s", this.getStatusIcon(), this.name);
+    };
 
-    public abstract String getDesc();
 
     public void mark() {
         this.isDone = true;
 
-        String o = String.format("Nice! I've marked this task as done: \n [%s] %s", getStatusIcon(), this.name);
+        String o = String.format("Nice! I've marked this task as done: \n   %s",  this.toString());
 
         Utils.encaseLines(o);
     }
@@ -33,7 +34,7 @@ public abstract class Task {
     public void unmark() {
         this.isDone = false;
 
-        String o = String.format("OK, I've marked this task as not done yet: \n [%s] %s", getStatusIcon(), this.name);
+        String o = String.format("OK, I've marked this task as not done yet: \n   %s", this.toString());
 
         Utils.encaseLines(o);
     }
