@@ -1,0 +1,2 @@
+T | 0 | lol | NA | NA
+E | 1 | lol | NA | NA

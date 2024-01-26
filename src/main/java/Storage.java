@@ -24,6 +24,10 @@ public class Storage {
         this.taskList.remove(index);
     }
 
+    public void writeToFile(TaskLoader td) {
+        td.writeToTaskList(this.taskList);
+    }
+
     @Override
     public String toString() {
         return "Now you have " + taskList.size() + "tasks in the list.";

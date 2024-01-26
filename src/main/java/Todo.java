@@ -1,6 +1,12 @@
 public class Todo extends Task {
     public Todo(String taskName) {
-        super(taskName);
+        super(taskName, "T");
+    }
+
+    public Todo(String taskName, int isTaskDone) {
+        super(taskName, "T");
+        super.changeStatus(isTaskDone);
+        super.setTime(new String[] {"NA", "NA"});
     }
 
     @Override
