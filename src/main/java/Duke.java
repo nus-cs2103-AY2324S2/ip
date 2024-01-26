@@ -97,7 +97,7 @@ public class Duke {
             if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) {
                 throw new DukeException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
             }
-            String unmarkToPrint =taskList.get(unmarkIndex).unmarkAsDone();
+            String unmarkToPrint = taskList.get(unmarkIndex).unmarkAsDone();
             printWithSolidLineBreak(unmarkToPrint);
         } catch (NumberFormatException e) {
             throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
