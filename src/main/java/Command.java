@@ -90,15 +90,19 @@ public class Command {
         try {
             String[] parts = arguments.split("/by ");
             return new Deadline(parts[0], parts[1]);
-        } catch (Exception e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidDeadlineFormatException();
         }
     }
 
-    private static Event processEvent(String arguments) {
-        String[] parts = arguments.split("/from ");
-        String[] parts2 = parts[1].split("/to ");
-        return new Event(parts[0], parts2[0], parts2[1]);
+    private static Event processEvent(String arguments) throws InvalidEventFormatException {
+        try {
+            String[] parts = arguments.split("/from ");
+            String[] parts2 = parts[1].split("/to ");
+            return new Event(parts[0], parts2[0], parts2[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidEventFormatException();
+        }
     }
 }
 
