@@ -14,19 +14,35 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The TaskList class manages a list of tasks, allowing for adding, deleting, marking, and unmarking tasks.
+ */
 public class TaskList {
     private static final int MAX_ITEMS = 100;
     private List<Task> tasks;
     private final String FILE_PATH = "./data/duke.txt";
 
+    /**
+     * Constructs a new TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return List of tasks.
+     */
     public List<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
         System.out.println("\tGot it. I've added this task: ");
@@ -36,6 +52,12 @@ public class TaskList {
                         (this.tasks.size() == 1 ? "" : "s") + " in the list");
     }
 
+    /**
+     * Deletes a task from the task list based on its index.
+     *
+     * @param index The index of the task to be deleted.
+     * @throws DukeException If the index is out of range.
+     */
     public void deleteTask(int index) throws DukeException {
         if (this.tasks.size() == 0) {
             throw new DukeException("Task index is out of range.");
@@ -51,6 +73,12 @@ public class TaskList {
                         (this.tasks.size() == 1 ? "" : "s") + " in the list");
     }
 
+    /**
+     * Marks a task as done based on its index.
+     *
+     * @param index The index of the task to be marked as done.
+     * @throws DukeException If the index is out of range.
+     */
     public void markTask(int index) throws DukeException {
         if (index <= 0 || index > this.tasks.size()) {
             throw new DukeException("Task index is out of range.");
@@ -61,6 +89,12 @@ public class TaskList {
         currTask.toString();
     }
 
+    /**
+     * Unmarks a task (marks as not done) based on its index.
+     *
+     * @param index The index of the task to be unmarked.
+     * @throws DukeException If the index is out of range.
+     */
     public void unmarkTask(int index) throws DukeException {
         if (index <= 0 || index > this.tasks.size()) {
             throw new DukeException("Task index is out of range.");
@@ -71,6 +105,9 @@ public class TaskList {
         currTask.toString();
     }
 
+    /**
+     * Lists all tasks in the task list.
+     */
     public void listTasks() {
         if (this.tasks.size() == 0) {
             System.out.println("\tThe task list is empty.");
@@ -86,7 +123,7 @@ public class TaskList {
     public List<Task> findTasks(String word) throws DukeException {
         Pattern pattern = Pattern.compile(Pattern.quote(word), Pattern.CASE_INSENSITIVE);
         List<Task> foundTasks = new ArrayList<>();
-        for (Task task: this.tasks) {
+        for (Task task : this.tasks) {
             Matcher matcher = pattern.matcher(task.getName());
             if (matcher.find()) {
                 foundTasks.add(task);
@@ -103,5 +140,4 @@ public class TaskList {
         }
         return foundTasks;
     }
-
 }
