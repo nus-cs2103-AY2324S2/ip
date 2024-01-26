@@ -12,7 +12,7 @@ public class UkeCat {
                 if (Storage.words[0].equals("bye")) {
                     System.out.println(Storage.BYE);
                     Parser.closeScanner();
-                    FileManager.saveTasks();
+                    FileManager.updateTasks();
                     System.exit(0);
                 }
                 Responder.respond(Storage.words);
