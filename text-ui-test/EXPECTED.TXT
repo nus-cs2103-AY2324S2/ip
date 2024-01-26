@@ -23,8 +23,18 @@ DukeException: Missing something?
 ---------------------------------------------------------
 DukeException: Did you make a mistake?
 ---------------------------------------------------------
+Done! I have added this to the list:[D][ ] a  (by:  7)
+ There are now 3 items
+---------------------------------------------------------
+DukeException: Is that a typo I see?
+---------------------------------------------------------
+DukeException: Did you miss something?
+---------------------------------------------------------
+DukeException: Did you miss something?
+---------------------------------------------------------
 Sure! Here is the list:
 
 1.[T][ ] x
 2.[E][ ] y  (from:  1  to:  2)
+3.[D][ ] a  (by:  7)
 ---------------------------------------------------------

@@ -92,18 +92,24 @@ public class Bit {
 
             }
 
-        } else if (input.contains("deadline ")) {
+        } else if (input.startsWith("deadline")) {
             try {
                 String[] parts = input.split(" ", 2);
+                if (!(parts[0].equals("deadline"))) {
+                    throw new DukeException("Is that a typo I see?");
+                }
                 if (parts[0].equals("deadline")) {
                     String[] compo = parts[1].split("/by");
+                    if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty()) {
+                        throw new DukeException("Did you miss something?");
+                    }
                     list[total] = new Deadline(compo[0], compo[1]);
                     System.out.println("Done! I have added this to the list:" + list[total].toString()
                      + "\n There are now " + (total + 1) + " items");
                     total++;
                 }
             } catch (ArrayIndexOutOfBoundsException x) {
-                System.out.println("Please check your syntax");
+                throw new DukeException("Did you miss something?");
             }
 
         } else {
