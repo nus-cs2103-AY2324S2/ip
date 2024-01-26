@@ -9,19 +9,34 @@ public class BotChat {
     private static Pattern markPattern = Pattern.compile("mark \\d+");
     private static Pattern unmarkPattern = Pattern.compile("unmark \\d+");
 
-    public static void addTask(String s) {
+    public static void addTask(String s) throws Exception {
         if (s.startsWith("todo")) {
-            dataStore[lastIdx] = new ToDo(s.split("todo ")[1]);
+            if (s.split("todo ").length < 2) {
+                throw new IncompleteCommandException("Todo command incomplete. It should be in the form of " +
+                        "todo description.");
+            } else {
+                dataStore[lastIdx] = new ToDo(s.split("todo ")[1]);
+            }
         } else if (s.startsWith("deadline")) {
             String slicedString = s.substring(8); // slice away "deadline "
             String[] stringParts = slicedString.split("/by ");
-            dataStore[lastIdx] = new Deadline(stringParts[0], stringParts[1]);
+            if (stringParts.length < 2) {
+                throw new IncompleteCommandException("Deadline command incomplete. It should be in the form of " +
+                        "deadline description /by datetime.");
+            } else {
+                dataStore[lastIdx] = new Deadline(stringParts[0], stringParts[1]);
+            }
         } else if (s.startsWith("event")) {
-            String slicedString = s.substring(6);
+            String slicedString = s.substring(5);
             String[] stringParts = slicedString.split("/from |/to ");
-            dataStore[lastIdx] = new Event(stringParts[0], stringParts[1], stringParts[2]);
+            if (stringParts.length < 3) {
+                throw new IncompleteCommandException("Event command incomplete. It should be in the form of " +
+                        "event description /from datetime /to datetime.");
+            } else {
+                dataStore[lastIdx] = new Event(stringParts[0], stringParts[1], stringParts[2]);
+            }
         } else {
-            throw new IllegalArgumentException("Invalid command");
+            throw new InvalidCommandException(s);
         }
         lastIdx++;
     }
@@ -44,15 +59,19 @@ public class BotChat {
         } else if (markMatcher.matches()) {
             int taskNum = Integer.parseInt(s.split("\\s+")[1]);
             dataStore[taskNum - 1].markAsDone();
-            return String.format("Nice! I've marked this task as done: \n ", dataStore[taskNum - 1].toString());
+            return String.format("Nice! I've marked this task as done: \n %s", dataStore[taskNum - 1].toString());
         } else if (unmarkMatcher.matches()) {
             int taskNum = Integer.parseInt(s.split("\\s+")[1]);
             dataStore[taskNum - 1].markAsUndone();
             return String.format("OK, I've marked this task as not done yet: \n %s", dataStore[taskNum - 1].toString());
         } else {
-            addTask(s);
-            return String.format("Got it. I've added this task:\n %s \n Now you have %d tasks in the list.",
-                    dataStore[lastIdx-1].toString(), lastIdx);
+            try {
+                addTask(s);
+                return String.format("Got it. I've added this task:\n %s \n Now you have %d tasks in the list.",
+                        dataStore[lastIdx - 1].toString(), lastIdx);
+            } catch (Exception e) {
+                return e.toString();
+            }
         }
     }
 

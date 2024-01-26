@@ -1,17 +1,27 @@
 Hello! I'm BotChat.
  What can I do for you?
+Invalid command erm. Please try again with todo, deadline event or list.
+Todo command incomplete. It should be in the form of todo description.
 Got it. I've added this task:
  [T] [ ] borrow book 
  Now you have 1 tasks in the list.
+Deadline command incomplete. It should be in the form of deadline description /by datetime.
 Got it. I've added this task:
  [D] [ ]  return book  (by: Sunday) 
  Now you have 2 tasks in the list.
+Nice! I've marked this task as done: 
+ [T] [X] borrow book
+Nice! I've marked this task as done: 
+ [D] [X]  return book  (by: Sunday)
+OK, I've marked this task as not done yet: 
+ [T] [ ] borrow book
+Event command incomplete. It should be in the form of event description /from datetime /to datetime.
 Got it. I've added this task:
- [E] [ ] project meeting  (from: Mon 2pm  to: 4pm) 
+ [E] [ ]  project meeting  (from: Mon 2pm  to: 4pm) 
  Now you have 3 tasks in the list.
 Here are the tasks in your list: 
 1. [T] [ ] borrow book
- 2. [D] [ ]  return book  (by: Sunday)
- 3. [E] [ ] project meeting  (from: Mon 2pm  to: 4pm)
+ 2. [D] [X]  return book  (by: Sunday)
+ 3. [E] [ ]  project meeting  (from: Mon 2pm  to: 4pm)
  
 Bye. Hope to see you again soon!
