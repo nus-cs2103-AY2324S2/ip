@@ -1,0 +1,3 @@
+T | 0 | jump
+D | 0 | jumping jacks | 3pm Week 3
+E | 0 | jump from plane | 3pm | 3:01pm

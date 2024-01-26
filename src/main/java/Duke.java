@@ -6,8 +6,15 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        StoreTask taskStorage = new StoreTask();
 
         printWelcomeMessage();
+
+        try {
+            store = taskStorage.loadTasks();
+        } catch (DukeException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
 
         while (true) {
             String command = scan.nextLine().trim();
@@ -33,6 +40,7 @@ public class Duke {
                 } else {
                     throw new DukeException("Invalid Command. I'm sorry, but I don't know what that means :-(");
                 }
+                taskStorage.saveTasks(store);
             } catch (DukeException e) {
                 System.out.println("____________________________________________________________");
                 System.out.println(e.getMessage());
