@@ -1,6 +1,13 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Mamta {
+    private static final ArrayList<String> history = new ArrayList<>();
+
+    public Mamta add(String command) {
+        history.add(command);
+        return this;
+    }
 
     public static String greet() {
         return "Hello! I'm Mamta\nWhat can I do for you?";
@@ -11,11 +18,26 @@ public class Mamta {
     }
 
     public static String echo(String command) {
+        String output = String.format("------------------------------------------\nadded: %s\n------------------------------------------", command);
         if (command.equals("bye")) {
             return String.format("------------------------------------------\n%s\n------------------------------------------", Mamta.exit());
+        } else if (command.equals("list")) {
+            StringBuilder returnOutput = new StringBuilder();
+            int count = 0;
+            returnOutput.append("------------------------------------------\n");
+            for (String item: history) {
+                count += 1;
+                returnOutput.append(String.format("%d. %s\n", count, history.get(count-1)));
+            }
+            returnOutput.append("------------------------------------------");
+            return returnOutput.toString();
+        } else {
+            history.add(command);
         }
-        return String.format("------------------------------------------\n%s\n------------------------------------------", command);
+        return output;
+
     }
+
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -32,10 +54,5 @@ public class Mamta {
             userOutput = scanner.nextLine();
             System.out.println(Mamta.echo(userOutput));
         }
-
-
-
-
-
     }
 }
