@@ -1,7 +1,7 @@
-package Task;
+package task;
 
 public class EmptyDateTimeException extends DukeException {
-  public EmptyDateTimeException(String message, String botMessage) {
-    super(message, botMessage);
-  }
+    public EmptyDateTimeException(String message, String botMessage) {
+        super(message, botMessage);
+    }
 }

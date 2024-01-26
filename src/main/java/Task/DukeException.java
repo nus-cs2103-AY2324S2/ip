@@ -1,14 +1,14 @@
-package Task;
+package task;
 
 public class DukeException extends Exception {
-  private String botMessage;
+    private String botMessage;
 
-  public DukeException(String message, String botMessage) {
-    super(message);
-    this.botMessage = botMessage;
-  }
+    public DukeException(String message, String botMessage) {
+        super(message);
+        this.botMessage = botMessage;
+    }
 
-  public String getBotMessage() {
-    return botMessage;
-  }
+    public String getBotMessage() {
+        return botMessage;
+    }
 }

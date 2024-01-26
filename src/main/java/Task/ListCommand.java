@@ -1,12 +1,12 @@
-package Task;
+package task;
 
 public class ListCommand extends Command {
-  public ListCommand() {
-    super("");
-  }
+    public ListCommand() {
+        super("");
+    }
 
-  public boolean execute(TaskList list) {
-    System.out.println(list.toString());
-    return true;
-  }
+    public boolean execute(TaskList list) {
+        System.out.println(list.toString());
+        return true;
+    }
 }
