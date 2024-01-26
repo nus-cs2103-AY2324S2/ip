@@ -1,34 +1,46 @@
+/*
+TODO:
+    1. Write comments to document the code.
+ */
 import java.util.List;
 
 public class CommandParser {
     private final List<Token> tokens;
     private int current;
-    /*
-    TODO:
-        1. Write comments to document the code.
-     */
 
     CommandParser(List<Token> tokens) {
         this.tokens = tokens;
         this.current = 0;
     }
 
+    /**
+     * Parses the token list to generate a Command object which is returned.
+     * @return Command that can be executed.
+     * @throws MikeException If 
+     */
     public Command parse() throws MikeException {
-        Token firstToken = advance();
-        switch (firstToken.getType()) {
-            case EXIT: return parseExit();
-            case LIST: return parseList();
-            case MARK: return parseMark();
-            case UNMARK: return parseUnmark();
-            case TODO: return parseTodo();
-            case DEADLINE: return parseDeadline();
-            case EVENT: return parseEvent();
-            case DELETE: return parseDelete();
+        Token commandToken = advance();
+        switch (commandToken.getType()) {
+            case EXIT:
+                return parseExit();
+            case LIST:
+                return parseList();
+            case MARK:
+                return parseMark();
+            case UNMARK:
+                return parseUnmark();
+            case TODO:
+                return parseTodo();
+            case DEADLINE:
+                return parseDeadline();
+            case EVENT:
+                return parseEvent();
+            case DELETE:
+                return parseDelete();
             case EOC:
                 throw new MikeException("Say something.");
             default:
-                String errorMessage =
-                        "'" + firstToken.getText() + "' is not recognized as a command.\n"
+                String errorMessage = "'" + commandToken.getText() + "' is not recognized as a command.\n"
                         + "That is the weirdest thing you've ever said.";
                 throw new MikeException(errorMessage);
         }
