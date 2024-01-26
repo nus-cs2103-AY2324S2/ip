@@ -58,6 +58,4 @@ public class Task {
         return this.timeFromAndTo;
     }
 
-
-
 }

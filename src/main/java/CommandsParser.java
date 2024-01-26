@@ -1,37 +1,38 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//Handles the main chat listening and parsing of messages
-public class ChatListener {
-    private Scanner sc = new Scanner(System.in);
-    private Storage taskStorage = new Storage();
-    private String filePath = "data/task_lists.txt";
-    private TaskLoader tskLoader = new TaskLoader(filePath);
+public class CommandsParser {
+    //Handles adding/removing to array of tasks
+    private TaskList taskList;
+    private String filePath;
+    //Handles the loading and saving of tasks to text file
+    private Storage taskLoader;
 
-
-    public int parseCommand(String task) throws RyanGoslingException {
+    public CommandsParser(TaskList taskList, String filePath, Storage taskLoader) {
+        this.taskList = taskList;
+        this.filePath = filePath;
+        this.taskLoader = taskLoader;
+    }
+    public int parseCommands(String task) throws RyanGoslingException {
         String[] taskSplit = task.split(" ");
         if (task.equals(String.valueOf(CommandsEnum.bye))) {
             MessagePrinter.bye();
             return 1;
         } else if (task.equals(String.valueOf(CommandsEnum.list))) {
-            taskStorage.printList();
+            taskList.printList();
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.mark))
                 || taskSplit[0].equals(String.valueOf(CommandsEnum.unmark))) {
             //All items to be 0-index referenced other than user input.
-            taskStorage.changeStatusOfItem(taskSplit[0], Integer.parseInt(taskSplit[1])-1);
-            taskStorage.writeToFile(tskLoader);
+            taskList.changeStatusOfItem(taskSplit[0], Integer.parseInt(taskSplit[1])-1);
+            taskList.writeToFile(taskLoader);
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.todo))) {
             //Idea from chatGPT
             Pattern pattern = Pattern.compile("todo (.*?)");
             Matcher matcher = pattern.matcher(task);
             if (matcher.matches()) {
-                taskStorage.add(new Todo(matcher.group(1)));
-                taskStorage.writeToFile(tskLoader);
+                taskList.add(new Todo(matcher.group(1)));
+                taskList.writeToFile(taskLoader);
             } else {
                 throw new RyanGoslingException("Incomplete todo command, todo <event>");
             }
@@ -40,8 +41,8 @@ public class ChatListener {
             Pattern pattern = Pattern.compile("deadline (.*?) /by (.*?)");
             Matcher matcher = pattern.matcher(task);
             if (matcher.matches()) {
-                taskStorage.add(new Deadline(matcher.group(1), matcher.group(2)));
-                taskStorage.writeToFile(tskLoader);
+                taskList.add(new Deadline(matcher.group(1), matcher.group(2)));
+                taskList.writeToFile(taskLoader);
             } else {
                 throw new RyanGoslingException("Incomplete deadline command, " +
                         "deadline <event> /by <time>");
@@ -53,45 +54,20 @@ public class ChatListener {
             if (matcher.matches()) {
                 // Retrieve matched groups
                 System.out.println(matcher.group(3));
-                taskStorage.add(new Events(matcher.group(1), matcher.group(2), matcher.group(3)));
-                taskStorage.writeToFile(tskLoader);
+                taskList.add(new Events(matcher.group(1), matcher.group(2), matcher.group(3)));
+                taskList.writeToFile(taskLoader);
             } else {
                 throw new RyanGoslingException("Incomplete event command, " +
                         "event <event> /from <time> /to <time>");
             }
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.delete))) {
-            taskStorage.removeIndex(Integer.parseInt(taskSplit[1])-1);
-            taskStorage.writeToFile(tskLoader);
+            taskList.removeIndex(Integer.parseInt(taskSplit[1])-1);
+            taskList.writeToFile(taskLoader);
         }
         else {
             throw new RyanGoslingException("I was created in a few hours so " +
                     "I don't know what that means :(");
         }
         return 0;
-    }
-    public void chatListener() {
-        //First attempt to load the file.
-        try {
-            ArrayList<Task> parsedTasks = this.tskLoader.parseAndLoadTasks();
-            this.taskStorage = new Storage(parsedTasks);
-        } catch (RyanGoslingException | FileNotFoundException e) {
-            MessagePrinter.errorPrinter(e);
-            return;
-        }
-
-        //Begin parsing commands.
-        while (true) {
-            String task = sc.nextLine();
-            int status = 0;
-            try {
-                status = this.parseCommand(task);
-            } catch (Exception e){
-                MessagePrinter.errorPrinter(e);
-            } finally {
-                if (status == 1) {
-                    return;
-                }
-            }
-        }
     }
 }
