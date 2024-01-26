@@ -16,12 +16,12 @@ public class Delete implements Command {
      * @param operand the index count from 0;
      */
     public Delete(int operand, TaskList taskList) throws WrongIndexException {
-        this.operand=operand;
-        if (operand>=taskList.getListLength() || operand<0) {
+        this.operand = operand;
+        if (operand >= taskList.getListLength() || operand < 0) {
             throw new WrongIndexException(taskList.getListLength());
         }
-        this.deletedTask=taskList.removeTask(operand);
-        this.tasks=taskList;
+        this.deletedTask = taskList.removeTask(operand);
+        this.tasks = taskList;
     }
 
     /**
@@ -29,6 +29,8 @@ public class Delete implements Command {
      */
     @Override
     public String reply() {
-        return String.format("    Noted. I've removed this task:\n      %s\n    Now you have %s tasks in the list.\n", this.deletedTask, this.tasks.getListLength());
+        return String.format("    Noted. I've removed this task:\n"
+                + "      %s\n    Now you have %s tasks in the list.\n",
+                this.deletedTask, this.tasks.getListLength());
     }
 }

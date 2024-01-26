@@ -1,7 +1,5 @@
 package duke.command;
 
-import duke.command.Command;
-
 /**
  * duke.command.Command to exit the program
  */
