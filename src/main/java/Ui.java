@@ -23,8 +23,8 @@ public class Ui {
     public void greet() {
         printLine();
         System.out.println(
-                "    Hello! I'm Tes\n" +
-                "    What can I do for you?"
+                "    Tes here.\n" +
+                "    huh? What you want from me?"
                 );
         printLine();
     }
@@ -44,7 +44,7 @@ public class Ui {
     public void close() {
         printLine();
         System.out.println(
-                "    Bye. Hope to see you again soon!"
+                "    Annoying brat (-.-)"
                 );
         printLine();
     }
