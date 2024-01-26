@@ -13,31 +13,29 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
-    // First parse
     public Command parseCommand(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         String initialCommand = parsed[0].toUpperCase();
         switch (initialCommand) {
-            case "EVENT":
-                return parseAddEvent(userInput);
-            case "DEADLINE":
-                return parseAddDeadline(userInput);
-            case "TODO":
-                return parseAddTodo(userInput);
-            case "MARK":
-                return parseMark(userInput);
-            case "UNMARK":
-                return parseUnmark(userInput);
-            case "DELETE":
-                return parseDelete(userInput);
-            case "LIST":
-                return new ListCommand();
-            case "BYE":
-                return new ExitCommand();
-            default:
-                // return new HelpCommand();
-                return new InvalidCommand("INVALID");
-
+        case "EVENT":
+            return parseAddEvent(userInput);
+        case "DEADLINE":
+            return parseAddDeadline(userInput);
+        case "TODO":
+            return parseAddTodo(userInput);
+        case "MARK":
+            return parseMark(userInput);
+        case "UNMARK":
+            return parseUnmark(userInput);
+        case "DELETE":
+            return parseDelete(userInput);
+        case "LIST":
+            return new ListCommand();
+        case "BYE":
+            return new ExitCommand();
+        default:
+            // return new HelpCommand();
+            return new InvalidCommand("INVALID");
         }
     }
 
@@ -120,7 +118,6 @@ public class Parser {
     }
 
 
-
     public LocalDateTime parseDate(String dateString) throws DukeException {
         List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
@@ -169,7 +166,6 @@ public class Parser {
         throw new DukeException("Invalid Date and time format");
     }
 
-    // for reading from file
     public static Task parseTaskFromString(String taskString) throws DukeException {
         String[] parts = taskString.split(" \\| ");
         String taskType = parts[0];
@@ -177,35 +173,37 @@ public class Parser {
         String description = parts[2].trim();
         String additionalInfo = parts.length > 3 ? parts[3].trim() : null;
 
-        // need to add tasks to storage
         switch (taskType) {
-            case "T":
-                ToDo todo = new ToDo(description);
-                if (isDone) todo.markAsDone();
-                return todo;
-            case "D":
-                if (additionalInfo == null) {
-                    throw new DukeException("Invalid tasks.Deadline format in file");
-                }
-                LocalDateTime by = LocalDateTime.parse(additionalInfo);
-                Deadline deadline = new Deadline(description, by);
-                if (isDone) deadline.markAsDone();
-                return deadline;
-            case "E":
-                String[] times = additionalInfo.split(" to ");
-                if (times.length < 2) {
-                    throw new DukeException("Invalid tasks.Event time format in file.");
-                }
-                LocalDateTime start = LocalDateTime.parse(times[0].trim());
-                LocalDateTime end = LocalDateTime.parse(times[1].trim());
+        case "T":
+            ToDo todo = new ToDo(description);
+            if (isDone) {
+                todo.markAsDone();
+            }
+            return todo;
+        case "D":
+            if (additionalInfo == null) {
+                throw new DukeException("Invalid tasks.Deadline format in file");
+            }
+            LocalDateTime by = LocalDateTime.parse(additionalInfo);
+            Deadline deadline = new Deadline(description, by);
+            if (isDone) {
+                deadline.markAsDone();
+            }
+            return deadline;
+        case "E":
+            String[] times = additionalInfo.split(" to ");
+            if (times.length < 2) {
+                throw new DukeException("Invalid tasks.Event time format in file.");
+            }
+            LocalDateTime start = LocalDateTime.parse(times[0].trim());
+            LocalDateTime end = LocalDateTime.parse(times[1].trim());
 
-                Event event = new Event(description, start, end);
-                if (isDone) event.markAsDone();
-                return event;
+            Event event = new Event(description, start, end);
+            if (isDone) event.markAsDone();
+            return event;
 
-            default:
-                return null;
+        default:
+            return null;
         }
     }
-
 }
