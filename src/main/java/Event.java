@@ -15,6 +15,12 @@ public class Event extends Task {
     }
 
     public String toText() {
-        return super.toText() + " | " + from + " | " + to;
+        return super.toText() + " / " + from + " / " + to;
+    }
+
+    static public Task fromText(String description, String done, String from, String to) {
+        Task task = new Event(description, from, to);
+        task.isDone = done.equals("1");
+        return task;
     }
 }

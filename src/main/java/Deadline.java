@@ -13,6 +13,12 @@ public class Deadline extends Task {
     }
 
     public String toText() {
-        return super.toText() + " | " + deadline;
+        return super.toText() + " / " + deadline;
+    }
+
+    static public Task fromText(String description, String done, String by) {
+        Task task = new Deadline(description, by);
+        task.isDone = done.equals("1");
+        return task;
     }
 }

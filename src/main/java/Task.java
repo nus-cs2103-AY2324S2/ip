@@ -20,7 +20,7 @@ public class Task {
     public String type() { return type; }
 
     public String toText() {
-        return type + " | " + isDone + " | " + description;
+        return type + " / " + (isDone ? "1" : "0") + " / " + description;
     }
 
     public void mark() {
