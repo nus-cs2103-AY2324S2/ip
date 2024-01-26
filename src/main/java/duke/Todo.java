@@ -8,7 +8,7 @@ public class Todo extends Task {
     @Override
     public String toFileLine() {
         String fileLine = super.toFileLine();
-        return String.format("T | %s", fileLine.substring(5));
+        return String.format("T | %s", fileLine.substring(4));
     }
 
     @Override

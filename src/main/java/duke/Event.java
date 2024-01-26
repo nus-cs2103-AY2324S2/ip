@@ -7,18 +7,22 @@ public class Event extends Task {
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
 
-    public Event(String description, String fromDate, String toDate) {
+    public Event(String description, String fromDate, String toDate) throws DukeException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.fromDate = LocalDateTime.parse(fromDate, formatter);
-        this.toDate = LocalDateTime.parse(toDate, formatter);
+        try {
+            this.fromDate = LocalDateTime.parse(fromDate, formatter);
+            this.toDate = LocalDateTime.parse(toDate, formatter);
+        } catch (Exception e) {
+            throw new DukeException("Please enter a valid date and time in the format yyyy-MM-dd HH:mm");
+        }
     }
 
     @Override
     public String toFileLine() {
         String fileLine = super.toFileLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return String.format("E | %s | %s | %s", fileLine.substring(5),
+        return String.format("E | %s | %s | %s", fileLine.substring(4),
                 this.fromDate.format(formatter), this.toDate.format(formatter));
     }
 

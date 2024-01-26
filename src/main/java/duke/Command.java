@@ -45,14 +45,19 @@ abstract class AddTaskCommand extends Command {
         this.taskList = taskList;
     }
 
-    protected abstract Task createTask();
+    protected abstract Task createTask() throws DukeException;
 
     @Override
     public void execute(UI ui) throws DukeException {
         if (this.description.equals("")) {
             throw new DukeException(EMPTY_DESCRIPTION_MESSAGE);
         }
-        Task task = this.createTask();
+        Task task;
+        try {
+            task = this.createTask();
+        } catch (DukeException e) {
+            throw new DukeException(e.getMessage());
+        }
         this.taskList.addTask(task);
         ArrayList<String> messages = new ArrayList<String>(Arrays.asList(
                 "Got it. I've added this task:", "  " + task.toString(),
@@ -83,7 +88,7 @@ class AddDeadlineCommand extends AddTaskCommand {
     }
 
     @Override
-    protected Task createTask() {
+    protected Task createTask() throws DukeException {
         return new Deadline(this.description, this.byDate);
     }
 }
@@ -100,7 +105,7 @@ class AddEventCommand extends AddTaskCommand {
     }
 
     @Override
-    protected Task createTask() {
+    protected Task createTask() throws DukeException {
         return new Event(this.description, this.fromDate, this.toDate);
     }
 }
