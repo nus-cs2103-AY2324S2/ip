@@ -8,9 +8,27 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(String name) {
-        tasks.add(new Task(name));
-        Utils.encaseLines("added: " + name);
+    public void addTask(String input) {
+        Task task = null;
+        String[] details = input.split(" ", 2);
+        String type = details[0];
+
+        switch (type) {
+            case "todo":
+                task = new ToDos(details[1]);
+                break;
+
+            case "deadline":
+                task = Utils.createDeadline(details[1]);
+                break;
+
+            case "event":
+                task = Utils.createEvent(details[1]);
+        }
+
+        tasks.add(task);
+        String o = String.format("Got it. I've added this task:\n  [%s][ ] %s\nNow you have %d tasks in the list.", task.getType(), task.getDesc(), tasks.size());
+        Utils.encaseLines(o);
     }
 
     public Task getTask(int index) {

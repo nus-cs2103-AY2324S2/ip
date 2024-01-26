@@ -6,7 +6,7 @@ public class Processor {
             tasks.printTasks();
 
         } else if (input.contains("mark")) {
-            int i = Integer.parseInt(input.split("\\s+")[1]) - 1;
+            int i = Utils.getIndex(input);
             Task task = tasks.getTask(i);
 
             if (input.startsWith("mark")) {
@@ -17,9 +17,10 @@ public class Processor {
 
             }
 
-        } else {
+        } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")){
             tasks.addTask(input);
-
+        } else {
+            Utils.encaseLines(input);
         }
     }
 }

@@ -26,4 +26,27 @@ public class Utils {
 
         }
     }
+
+    public static int getIndex(String input) {
+        return Integer.parseInt(input.split("\\s+")[1]) - 1;
+    }
+
+    public static Deadlines createDeadline(String input){
+        String[] parts = input.split("/by", 2);
+        String name = parts[0].trim();
+        String by = parts.length > 1 ? parts[1].trim() : "";
+
+        return new Deadlines(name, by);
+    };
+
+    public static Events createEvent(String input){
+        String[] partsFrom = input.split("/from", 2);
+        String name = partsFrom[0].trim();
+
+        String[] partsTo = partsFrom[1].split("/to", 2);
+        String from = partsTo[0].trim();
+        String to = partsTo[1].trim();
+
+        return new Events(name, from, to);
+    };
 }
