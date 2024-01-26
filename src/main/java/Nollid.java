@@ -1,9 +1,16 @@
-import java.util.Arrays;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner; // For reading user input
 import java.util.ArrayList; // For storing to-do tasks
+import java.util.Arrays;
 
 public class Nollid {
     private static ArrayList<Task> todoList = new ArrayList<>(100);
+    /** Unicode character U+2605 unlikely to be entered by user */
+    private static final String DELIMITER = "\u2605";
+    private static final Path DATABASE_FILE = Paths.get(".","data","nollid.data");
 
     private enum Command {
         BYE("bye"),
@@ -29,6 +36,9 @@ public class Nollid {
     }
 
     public static void main(String[] args) {
+        loadDatabaseFile(todoList);
+
+
         sendWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);
@@ -112,7 +122,7 @@ public class Nollid {
      *
      * @param task Task to store
      */
-    public static void addToList(Task task) {
+    public static void addTaskToList(Task task) {
         todoList.add(task);
 
         String message = "Alright, added:\n" + "\t" + task.toString() + "\n";
@@ -177,7 +187,7 @@ public class Nollid {
     }
 
     public static void markDone(int taskIndex) {
-        todoList.get(taskIndex - 1).markDone();
+        todoList.get(taskIndex - 1).setDone(true);
         String response = "Good job! I've marked this task as done: \n"
                 + "\t " + todoList.get(taskIndex - 1).toString();
         botSays(response);
@@ -203,7 +213,7 @@ public class Nollid {
     }
 
     public static void markNotDone(int taskIndex) {
-        todoList.get(taskIndex - 1).markNotDone();
+        todoList.get(taskIndex - 1).setDone(false);
         String response = "Alright, I've marked this task as not done yet: \n"
                 + "\t " + todoList.get(taskIndex - 1).toString();
         botSays(response);
@@ -225,7 +235,7 @@ public class Nollid {
         }
 
         ToDo task = new ToDo(taskDescription.toString());
-        addToList(task);
+        addTaskToList(task);
     }
 
     public static void addDeadlineCommand(ArrayList<String> inputList) throws DukeException {
@@ -259,7 +269,7 @@ public class Nollid {
         }
 
         Deadline task = new Deadline(taskDescription.toString(), deadline.toString());
-        addToList(task);
+        addTaskToList(task);
     }
 
     public static void addEventCommand(ArrayList<String> inputList) throws DukeException {
@@ -293,7 +303,7 @@ public class Nollid {
         }
 
         Event task = new Event(taskDescription.toString(), from.toString(), to.toString());
-        addToList(task);
+        addTaskToList(task);
     }
 
     private static void extractEventInfo(ArrayList<String> inputList, int fromIndex, int toIndex,
@@ -366,5 +376,82 @@ public class Nollid {
                 + "delete \t\t- Delete a task.";
 
         botSays(message);
+    }
+
+    public static void loadDatabaseFile(ArrayList<Task> todoList) {
+        int taskCounter = 0;
+        try {
+            if (Files.notExists(DATABASE_FILE)) {
+                if (Files.notExists(DATABASE_FILE.getParent())) {
+                    Files.createDirectories(DATABASE_FILE.getParent());
+                }
+                Files.createFile(DATABASE_FILE);
+                System.out.println("database created");
+            }
+
+            for (String line : Files.readAllLines(DATABASE_FILE)) {
+                String[] lineArray = line.split(DELIMITER);
+
+                Task taskToAdd;
+                // If there is a line that doesn't follow the format, skip it and continue.
+                try {
+                    String taskDescription = lineArray[2];
+                    switch (lineArray[0]) {
+                        case "T":
+                            taskToAdd = createTask(taskDescription);
+                            break;
+                        case "D":
+                            String deadline = lineArray[3];
+                            taskToAdd = createTask(taskDescription, deadline);
+                            break;
+                        case "E":
+                            String from = lineArray[3];
+                            String to = lineArray[4];
+                            taskToAdd = createTask(taskDescription, from, to);
+                            break;
+                        default:
+                            // Unknown first character, go to next line
+                            continue;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    continue;
+                }
+
+                String doneFlag = lineArray[1];
+                if (doneFlag.equals("1")) {
+                    taskToAdd.setDone(true);
+                }
+
+                todoList.add(taskToAdd);
+                taskCounter++;
+            }
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+
+        if (taskCounter > 0) {
+            botSays("Loaded " + taskCounter + " tasks from " + DATABASE_FILE.toAbsolutePath());
+        }
+    }
+
+    /**
+     * Returns a ToDo task with the specified description.
+     */
+    public static ToDo createTask(String description) {
+        return new ToDo(description);
+    }
+
+    /**
+     * Returns a Deadline task with the specified description and deadline.
+     */
+    public static Deadline createTask(String description, String deadline) {
+        return new Deadline(description, deadline);
+    }
+
+    /**
+     * Returns an Event task with the specified description, start, and end time.
+     */
+    public static Event createTask(String description, String start, String end) {
+        return new Event(description, start, end);
     }
 }
