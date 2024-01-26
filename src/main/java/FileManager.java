@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.nio.file.Path;
@@ -32,6 +33,20 @@ public class FileManager {
     } catch (IOException e) {
       System.out.println("Problem creating log! " + e.getMessage());
     }
+  }
+
+  public LocalDateTime restoreDateTime(String date_string) {
+    String[] decomposed_date_string = date_string.split("'T'");
+    String hhmm = decomposed_date_string[1];
+    String yymmdd = decomposed_date_string[0];
+    String[] decomposed_yymmdd = yymmdd.split("-");
+    String[] decomposed_hhmm = hhmm.split(":");
+    int year = Integer.parseInt(decomposed_yymmdd[0]);
+    int month = Integer.parseInt(decomposed_yymmdd[1]);
+    int day = Integer.parseInt(decomposed_yymmdd[2]);
+    int hour = Integer.parseInt(decomposed_hhmm[0]);
+    int minute = Integer.parseInt(decomposed_hhmm[1]);
+    return LocalDateTime.of(year, month, day, hour, minute);
   }
 
   public void writeLog(ArrayList<Task> current_list) {
@@ -77,11 +92,12 @@ public class FileManager {
         ret.setCompletion(completeStatus);
         return ret;
       case "D":
-        ret = new Deadlines(desc, entry[3]);
+        ret = new Deadlines(desc, restoreDateTime(entry[3]));
         ret.setCompletion(completeStatus);
         return ret;
       case "E":
-        ret = new Events(desc, entry[3], entry[4]);
+        ret = new Events(desc, restoreDateTime(entry[3]),
+          restoreDateTime(entry[4]));
         ret.setCompletion(completeStatus);
         return ret;
       default:
