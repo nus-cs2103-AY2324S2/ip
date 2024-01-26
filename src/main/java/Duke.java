@@ -23,18 +23,33 @@ public class Duke {
                     }
                     break;
                 case "mark":
+                    String[] toMark = userInput.split(" ");
+                    if (toMark.length <= 1) {
+                        System.out.println("Error. Unknown number.");
+                        break;
+                    }
                     System.out.println("Nice! I've marked this task as done:");
                     int id = Integer.parseInt(userInput.split(" ")[1]);
                     task[id - 1].markAsDone();
                     System.out.println(task[id - 1].toString());
                     break;
                 case "unmark":
+                    String[] toUnmark = userInput.split(" ");
+                    if (toUnmark.length <= 1) {
+                        System.out.println("Error. Unknown number.");
+                        break;
+                    }
                     System.out.println("OK, I've marked this task as not done yet:");
                     int num = Integer.parseInt(userInput.split(" ")[1]);
                     task[num - 1].markAsUndone();
                     System.out.println(task[num - 1].toString());
                     break;
                 case "todo":
+                    String[] todos = userInput.split(" ");
+                    if (todos.length <= 1) {
+                        System.out.println("Error. Todo cannot be empty.");
+                        break;
+                    }
                     System.out.println("Got it. I've added this task:");
                     Todo t = new Todo(userInput.substring(5));
                     System.out.println(t);
@@ -43,6 +58,11 @@ public class Duke {
                     System.out.println(taskCounter(counter));
                     break;
                 case "deadline":
+                    String[] deadlines = userInput.split(" ");
+                    if (deadlines.length <= 1) {
+                        System.out.println("Error. Deadline cannot be empty.");
+                        break;
+                    }
                     System.out.println("Got it. I've added this task:");
                     String description = userInput.substring(9).split("/")[0].trim();
                     String by = userInput.split("/")[1].substring(3).trim();
@@ -53,6 +73,11 @@ public class Duke {
                     System.out.println(taskCounter(counter));
                     break;
                 case "event":
+                    String[] events = userInput.split(" ");
+                    if (events.length <= 1) {
+                        System.out.println("Error. Event cannot be empty.");
+                        break;
+                    }
                     System.out.println("Got it. I've added this task:");
                     String input = userInput.substring(6);
                     String descr = input.split("/")[0].trim();
@@ -65,7 +90,7 @@ public class Duke {
                     System.out.println(taskCounter(counter));
                     break;
                 default:
-                    System.out.println("Invalid Input");
+                    System.out.println("HUH? What do you mean?");
                     break;
             }
             System.out.println(horizontalLine);
