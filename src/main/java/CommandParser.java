@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.List;
 
 public class CommandParser {
@@ -16,7 +15,7 @@ public class CommandParser {
 
     public Command parse() throws MikeException {
         Token firstToken = advance();
-        switch (firstToken.type) {
+        switch (firstToken.getType()) {
             case EXIT: return parseExit();
             case LIST: return parseList();
             case MARK: return parseMark();
@@ -29,7 +28,7 @@ public class CommandParser {
                 throw new MikeException("Say something.");
             default:
                 String errorMessage =
-                        "'" + firstToken.text + "' is not recognized as a command.\n"
+                        "'" + firstToken.getText() + "' is not recognized as a command.\n"
                         + "That is the weirdest thing you've ever said.";
                 throw new MikeException(errorMessage);
         }
@@ -49,14 +48,14 @@ public class CommandParser {
         String usage = "Usage: mark [number]";
 
         consume(TokenType.LITERAL, usage);
-        String argument = previous().text;
+        String argument = previousToken().getText();
 
         consume(TokenType.EOC, usage);
 
         try {
             int taskNumber = Integer.parseInt(argument);
             return new MarkCommand(taskNumber);
-        } catch(InputMismatchException e) {
+        } catch(NumberFormatException e) {
             String errorMessage = "One, two, three, four, get the kid back through the door!\n" +
                     "'" + argument + "' is not an integer Sulley...";
             throw new MikeException(errorMessage);
@@ -67,14 +66,14 @@ public class CommandParser {
         String usage ="Usage: unmark [number]";
 
         consume(TokenType.LITERAL, usage);
-        String argument = previous().text;
+        String argument = previousToken().getText();
 
         consume(TokenType.EOC, usage);
 
         try {
             int taskNumber = Integer.parseInt(argument);
             return new UnmarkCommand(taskNumber);
-        } catch(InputMismatchException e) {
+        } catch(NumberFormatException e) {
             String errorMessage = "One, two, three, four, get the kid back through the door!\n" +
                     "'" + argument + "' is not an integer Sulley...";
             throw new MikeException(errorMessage);
@@ -85,7 +84,7 @@ public class CommandParser {
         String usage = "Usage: todo [description]";
 
         consume(TokenType.LITERAL, "Description missing.\n" + usage);
-        String description = previous().text.strip();
+        String description = previousToken().getText().strip();
 
         consume(TokenType.EOC, usage);
 
@@ -96,18 +95,18 @@ public class CommandParser {
         String usage = "Usage: deadline [description] /by [date]";
 
         consume(TokenType.LITERAL, "Description missing.\n" + usage);
-        String description = previous().text.strip();
+        String description = previousToken().getText().strip();
 
         consume(TokenType.FORWARD_DASH, usage);
         consume(TokenType.PARAM, usage);
-        Token paramToken = previous();
+        Token paramToken = previousToken();
 
-        if (!paramToken.text.equals("by")) {
+        if (!paramToken.getText().equals("by")) {
             throw error(usage);
         }
 
         consume(TokenType.LITERAL, usage);
-        String deadline = previous().text.strip();
+        String deadline = previousToken().getText().strip();
 
         consume(TokenType.EOC, usage);
 
@@ -118,29 +117,29 @@ public class CommandParser {
         String usage = "Usage: event [description] /from [date] /to [date]";
 
         consume(TokenType.LITERAL, "Description missing.\n" + usage);
-        String description = previous().text.strip();
+        String description = previousToken().getText().strip();
 
         consume(TokenType.FORWARD_DASH, usage);
         consume(TokenType.PARAM, usage);
-        Token paramToken = previous();
+        Token paramToken = previousToken();
 
-        if (!paramToken.text.equals("from")) {
+        if (!paramToken.getText().equals("from")) {
             throw error(usage);
         }
 
         consume(TokenType.LITERAL, "Start date missing.\n" + usage);
-        String startDate = previous().text.strip();
+        String startDate = previousToken().getText().strip();
 
         consume(TokenType.FORWARD_DASH, usage);
         consume(TokenType.PARAM, usage);
-        paramToken = previous();
+        paramToken = previousToken();
 
-        if (!paramToken.text.equals("to")) {
+        if (!paramToken.getText().equals("to")) {
             throw error(usage);
         }
 
         consume(TokenType.LITERAL, "End date missing.\n" + usage);
-        String endDate = previous().text.strip();
+        String endDate = previousToken().getText().strip();
 
         consume(TokenType.EOC, usage);
 
@@ -151,14 +150,14 @@ public class CommandParser {
         String usage = "Usage: delete [number]";
 
         consume(TokenType.LITERAL, usage);
-        String argument = previous().text;
+        String argument = previousToken().getText();
 
         consume(TokenType.EOC, usage);
 
         try {
             int taskNumber = Integer.parseInt(argument);
             return new DeleteCommand(taskNumber);
-        } catch(InputMismatchException e) {
+        } catch(NumberFormatException e) {
             String errorMessage = "One, two, three, four, get the kid back through the door!\n" +
                     "'" + argument + "' is not an integer Sulley...";
             throw new MikeException(errorMessage);
@@ -175,25 +174,25 @@ public class CommandParser {
     }
 
     private boolean check(TokenType type) {
-        return peek().type == type;
+        return peekToken().getType() == type;
     }
 
     private Token advance() {
         if (!isAtEnd()) {
             current++;
         }
-        return previous();
+        return previousToken();
     }
 
-    private Token previous() {
+    private Token previousToken() {
         return tokens.get(current - 1);
     }
 
     private boolean isAtEnd() {
-        return peek().type == TokenType.EOC;
+        return peekToken().getType() == TokenType.EOC;
     }
 
-    private Token peek() {
+    private Token peekToken() {
         return tokens.get(current);
     }
 }
