@@ -1,9 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class CommandProcessor {
     ArrayList<Task> list = new ArrayList<>();
     Storage storage;
-    
+    String dateFormat = "dd-MM-yyyy";
+    String timeFormat = "HH:mm";
+
     public CommandProcessor(Storage storage) {
         this.storage = storage;
     }
@@ -61,10 +65,10 @@ public class CommandProcessor {
             int i = Integer.parseInt(input.split(" ")[1]) - 1;
             return i;
 
-        } catch (Exception e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             String message = "Something went wrong when processing your delete command: \n"
             + "Check your input again: " + input;
-            throw new InputException(message);
+            throw new InputException(message, e);
         }
     }
     public Task processDeadline(String input) throws InputException {
@@ -73,14 +77,14 @@ public class CommandProcessor {
             String[] splitInput = restOfInput.split(" /by ");
 
             String taskName = splitInput[0];
-            String by = splitInput[1];
+            LocalDateTime by = TimeProcessor.fromString(splitInput[1]);
 
             return new Deadline(taskName, by);
 
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             String message = "Something went wrong when processing your deadline command: \n"
                                 + "Check your input again: " + input;
-            throw new InputException(message);
+            throw new InputException(message, e);
         }
     }
 
@@ -88,10 +92,10 @@ public class CommandProcessor {
         try {
             String taskName = input.substring(4);
             return new Todo(taskName);
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException e) {
             String message = "Something went wrong when processing your todo command: \n"
                                 + "Check your input again: " + input;
-            throw new InputException(message);
+            throw new InputException(message, e);
         }
     }
 
@@ -102,15 +106,15 @@ public class CommandProcessor {
             String[] fromTo = splitFrom[1].split(" /to ");
     
             String taskName = splitFrom[0];
-            String from = fromTo[0];
-            String to = fromTo[1];
+            LocalDateTime from = TimeProcessor.fromString(fromTo[0]);
+            LocalDateTime to = TimeProcessor.fromString(fromTo[1]);
             
             return new Event(taskName, from, to);
 
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             String message = "Something went wrong when processing your event command: \n"
                                 + "Check your input again: " + input;
-            throw new InputException(message);
+            throw new InputException(message, e);
         }
     }
 
@@ -122,7 +126,7 @@ public class CommandProcessor {
         } catch (Exception e) {
             String message = "Something went wrong when processing your mark command: \n"
                                 + "Check your input again: " + input;
-            throw new InputException(message);
+            throw new InputException(message, e);
         }
     }
     

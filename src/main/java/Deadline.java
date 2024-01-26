@@ -1,12 +1,14 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    String by;
+    LocalDateTime by;
 
 
-    public Deadline(String taskName, String by) {
+    public Deadline(String taskName, LocalDateTime by) {
         this(taskName, by, false);
     }
 
-    public Deadline(String taskName, String by, Boolean done) {
+    public Deadline(String taskName, LocalDateTime by, Boolean done) {
         super(taskName, done);
         super.identifier = "D";
         this.by = by;
@@ -14,7 +16,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s by:%s", super.toString(), by);
+        return String.format("%s by: %s", super.toString(), TimeProcessor.toString(by));
     }
 
 
@@ -27,7 +29,7 @@ public class Deadline extends Task {
             encodedDeadline[i] = encodedTask[i];
         }
 
-        encodedDeadline[3] = by;
+        encodedDeadline[3] = TimeProcessor.toString(by);
 
         return encodedDeadline;
     }
