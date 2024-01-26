@@ -1,8 +1,9 @@
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.io.File;
 /**
  * Main Class for our Chat bot
  */
@@ -12,9 +13,32 @@ public class Duke {
      * Main method
      * @param args command line arguments
      */
-    public static void main(String[] args) throws FileNotFoundException {
-        Storage storage = new Storage("./data/tasklist.txt");
-        Task.task_list = storage.load();
+    public static void main(String[] args) {
+        String path = "./data/tasklist.txt";
+        Storage storage = new Storage(path);
+        try {
+            Task.task_list = storage.load();
+        } catch (FileNotFoundException e) {
+            String[] pathStep = path.split("/");
+            String progressivePath = "";
+            for (int i=0; i<pathStep.length-1;i++) {
+                String dir = pathStep[i];
+                progressivePath = String.format("%s%s/",progressivePath,dir);
+            }
+            File directory = new File(progressivePath);
+            if (!directory.exists()){
+                directory.mkdirs();
+            }
+            File makeupFile = new File(path);
+            try {
+                makeupFile.createNewFile();
+            } catch (IOException ex) {
+                System.out.println("Logically it won't happen, but who knows?");
+                System.exit(-1);
+            }
+            Task.task_list = new ArrayList<>();
+        }
+
         Scanner sc = new Scanner(System.in);
         System.out.println("    Hello! I'm Hanxiao.\n  What can I do for you?");
 
@@ -22,10 +46,17 @@ public class Duke {
             try{
                 Command cmd = commandDistributor(sc.nextLine());
                 cmd.reply();
-                storage.writeToFile(Task.task_list);
-            } catch (DukeException | IOException e) {
+
+            } catch (DukeException e) {
                 System.out.printf("    %s\n",e.getMessage());
             }
+            try{
+                storage.writeToFile(Task.task_list);
+            } catch (IOException e) {
+                System.out.println("Why delete the file when program running?");
+                System.exit(-1);
+            }
+
         }
     }
 
