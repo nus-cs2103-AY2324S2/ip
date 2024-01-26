@@ -26,6 +26,22 @@ public class TaskList extends Storage<Task> {
             System.out.println("Invalid task index!");
         }
     }
+
+    @Override
+    public int deleteItem(int idx) {
+        Task toBeDeleted = super.getItem(idx);
+        if (toBeDeleted == null) {
+            return -1;
+        } else {
+            if (super.deleteItem(idx) == 0) {
+                System.out.printf("Noted. I've removed this task:\n%s\n", toBeDeleted);
+                return 0;
+            } else {
+                System.out.println("Invalid task index!");
+                return -1;
+            }
+        }
+    }
     @Override
     public void storeItem(Task task) {
         super.storeItem(task);
