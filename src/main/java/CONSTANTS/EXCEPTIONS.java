@@ -7,6 +7,5 @@ public class EXCEPTIONS {
             "You need a name for the task and a total of %d date(s) for a %s task!\nUsage: %s";
     public static final String DUPLICATE_TASK_NAME = "There already exists a task with the name %s!";
     public static final String INCORRECT_INDEX = "Please enter a valid integer!\nUsage: %s";
-
-    public static final String PARSE_FAIL = "Not parsing a Task String";
+    public static final String PARSE_FAIL = "Not parsing a Task String: \n%s";
 }

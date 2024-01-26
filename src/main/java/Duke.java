@@ -8,12 +8,7 @@ import CONSTANTS.EXCEPTIONS;
 import CONSTANTS.REGEX;
 import CONSTANTS.CORRECT_USAGE;
 
-import Exceptions.DukeException;
-import Exceptions.DuplicateTaskNameException;
-import Exceptions.IncorrectIndexException;
-import Exceptions.IncorrectInputException;
-import Exceptions.NotEnoughDatesException;
-import Exceptions.NotEnoughInputsException;
+import Exceptions.*;
 
 import Tasks.Todo;
 import Tasks.Event;
@@ -35,6 +30,11 @@ public class Duke {
     }
 
     private static void hello() throws NotEnoughInputsException {
+        try {
+            Tasks.read();
+        } catch (ParseFailException | DuplicateTaskNameException e) {
+            echo(e.toString());
+        }
         System.out.println(MESSAGES.LINE_BREAK);
         echo(CONSTANTS.MESSAGES.HELLO);
         System.out.println(MESSAGES.LINE_BREAK);
@@ -43,6 +43,7 @@ public class Duke {
     private static void bye() throws NotEnoughInputsException {
         String message = MESSAGES.BYE;
         echo(message);
+        Tasks.save();
     }
 
     private static void echo(String message, boolean isFromUser) throws NotEnoughInputsException {
@@ -205,6 +206,7 @@ public class Duke {
                 break;
             case ("save"):
                 Tasks.save();
+                echo(MESSAGES.SAVE);
                 break;
             default:
                 throw new IncorrectInputException(EXCEPTIONS.INCORRECT_INPUT);
@@ -212,7 +214,6 @@ public class Duke {
         } catch (IncorrectInputException e) {
             echo(e.getMessage());
         }
-
         return loop;
     }
 
@@ -227,6 +228,7 @@ public class Duke {
             String input = scanner.nextLine().strip();
             loop = parseInput(loop, input);
             System.out.println(MESSAGES.LINE_BREAK);
+            Tasks.save();
         }
 
     }

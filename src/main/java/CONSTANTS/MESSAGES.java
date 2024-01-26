@@ -15,5 +15,6 @@ public class MESSAGES {
     public static final String MARK_NOT_FOUND = "I can't find the task, dummy human!";
     public static final String DEADLINE_TO_STRING = " (by: %s)";
     public static final String EVENT_TO_STRING = " (from: %s to %s)";
-    public static final String DELETE = "Task %s deleted: \n%s\nCurrent tasks:\n";
+    public static final String DELETE = "Good. One less thing to remember. (%s): \n%s\nCurrent tasks:\n";
+    public static final String SAVE = "No worries human. My mighty brain will remember your tasks for you.";
 }

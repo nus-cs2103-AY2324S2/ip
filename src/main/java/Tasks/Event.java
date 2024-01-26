@@ -2,6 +2,8 @@ package Tasks;
 
 import CONSTANTS.MESSAGES;
 
+import java.util.Objects;
+
 public class Event extends Task {
     private Date from;
     private Date to;
@@ -29,6 +31,15 @@ public class Event extends Task {
 
     @Override
     public String parseStr() {
-        return String.format("%s %s %s %s %s", getType(), completedIcon(), task, from, to);
+        return String.format(
+                "%s%c%s%c%s%c%s%c%s\n",getType(),
+                '\uFFFF',
+                Objects.equals(completedIcon(), "X") ? "X" : "-",
+                '\uFFFF',
+                task,
+                '\uFFFF',
+                from,
+                '\uFFFF',
+                to);
     }
 }

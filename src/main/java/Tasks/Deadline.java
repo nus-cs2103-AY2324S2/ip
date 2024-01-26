@@ -2,6 +2,8 @@ package Tasks;
 
 import CONSTANTS.MESSAGES;
 
+import java.util.Objects;
+
 public class Deadline extends Task {
     private Date deadline;
 
@@ -27,6 +29,14 @@ public class Deadline extends Task {
 
     @Override
     public String parseStr() {
-        return String.format("%s %s %s %s", getType(), completedIcon(), task, deadline);
+        return String.format(
+                "%s%c%s%c%s%c%s\n",
+                getType(),
+                '\uFFFF',
+                Objects.equals(completedIcon(), "X") ? "X" : "-",
+                '\uFFFF',
+                task,
+                '\uFFFF',
+                deadline);
     }
 }
