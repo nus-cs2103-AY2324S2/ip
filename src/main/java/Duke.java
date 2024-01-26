@@ -34,8 +34,8 @@ public class Duke {
                 System.out.println("You have no tasking available.");
             } else {
                 System.out.println("Here are the tasks in your list:");
-                for (int i=0; i<items.size(); i++) {
-                    System.out.printf("%s. %s%n", i+1, items.get(i));
+                for (int i = 0; i < items.size(); i++) {
+                    System.out.printf("%s. %s%n", i + 1, items.get(i));
                 }
             }
         } else if (command.startsWith("mark")) {
