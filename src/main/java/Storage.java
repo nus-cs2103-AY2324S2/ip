@@ -6,7 +6,7 @@ public class Storage {
         this.tasks = new String[100];
     }
 
-    public void addTask(String task) {
+    public void storeTask(String task) {
         this.tasks[size] = task;
         size++;
     }
