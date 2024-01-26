@@ -1,3 +1,5 @@
+package MissMinutes;
+
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 
@@ -19,7 +21,7 @@ public class Task implements Serializable {
 
     public void markAsDone() throws MissMinutesException {
         if (this.isDone) {
-            throw new MissMinutesException("Task already marked as done.");
+            throw new MissMinutesException("MissMinutes.Task already marked as done.");
         } else {
             this.isDone = true;
         }
@@ -29,7 +31,7 @@ public class Task implements Serializable {
         if (this.isDone) {
             this.isDone = false;
         } else {
-            throw new MissMinutesException("Task already marked as undone.");
+            throw new MissMinutesException("MissMinutes.Task already marked as undone.");
         }
     }
 

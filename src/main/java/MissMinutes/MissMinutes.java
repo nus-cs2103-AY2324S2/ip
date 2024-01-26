@@ -1,3 +1,5 @@
+package MissMinutes;
+
 public class MissMinutes {
     private Storage storage;
     private TaskList tasks;

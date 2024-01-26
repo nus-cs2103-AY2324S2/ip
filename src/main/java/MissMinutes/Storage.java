@@ -1,3 +1,5 @@
+package MissMinutes;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -33,7 +35,7 @@ public class Storage {
             out.close();
             fileIn.close();
             return tasks;
-        } catch (Exception err) { // Not just IOException and ClassNotFound, as Task definition might've changed
+        } catch (Exception err) { // Not just IOException and ClassNotFound, as MissMinutes.Task definition might've changed
             throw new MissMinutesException("Failed to load storage from " + filePath);
         }
     }

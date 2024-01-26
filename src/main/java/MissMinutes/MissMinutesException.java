@@ -1,3 +1,5 @@
+package MissMinutes;
+
 public class MissMinutesException extends Exception {
     public MissMinutesException(String errorMsg) {
         super(errorMsg);
