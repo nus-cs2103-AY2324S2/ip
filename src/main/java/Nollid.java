@@ -1,16 +1,16 @@
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.Scanner; // For reading user input
 import java.util.ArrayList; // For storing to-do tasks
 import java.util.Arrays;
 
 public class Nollid {
-    private static ArrayList<Task> todoList = new ArrayList<>(100);
-    /** Unicode character U+2605 unlikely to be entered by user */
+    private static ArrayList<Task> taskList = new ArrayList<>(100);
+    /**
+     * Unicode character U+2605 unlikely to be entered by user
+     */
     private static final String DELIMITER = "\u2605";
-    private static final Path DATABASE_FILE = Paths.get(".","data","nollid.data");
+    private static final Path DATABASE_FILE = Paths.get(".", "data", "nollid.data");
 
     private enum Command {
         BYE("bye"),
@@ -36,9 +36,7 @@ public class Nollid {
     }
 
     public static void main(String[] args) {
-        loadDatabaseFile(todoList);
-
-
+        loadDatabaseFile(taskList);
         sendWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);
@@ -55,8 +53,8 @@ public class Nollid {
 
             // Split user input into individual words
             // e.g. "i am user input" -> ["i", "am", "user", "input"]
-            ArrayList<String> inputList = new ArrayList<>(Arrays.asList(userInput.split(" ")));
-            String userCommand = inputList.get(0);
+            ArrayList<String> userInputAsList = new ArrayList<>(Arrays.asList(userInput.split(" ")));
+            String userCommand = userInputAsList.get(0);
 
             try {
                 if (userCommand.equalsIgnoreCase(Command.BYE.toString())) {
@@ -64,17 +62,17 @@ public class Nollid {
                 } else if (userCommand.equalsIgnoreCase(Command.LIST.toString())) {
                     listCommand();
                 } else if (userCommand.equalsIgnoreCase(Command.MARK.toString())) {
-                    markCommand(inputList);
+                    markCommand(userInputAsList);
                 } else if (userCommand.equalsIgnoreCase(Command.UNMARK.toString())) {
-                    unmarkCommand(inputList);
+                    unmarkCommand(userInputAsList);
                 } else if (userCommand.equalsIgnoreCase(Command.TODO.toString())) {
-                    addTodoCommand(inputList);
+                    addTodoCommand(userInputAsList);
                 } else if (userCommand.equalsIgnoreCase(Command.DEADLINE.toString())) {
-                    addDeadlineCommand(inputList);
+                    addDeadlineCommand(userInputAsList);
                 } else if (userCommand.equalsIgnoreCase(Command.EVENT.toString())) {
-                    addEventCommand(inputList);
+                    addEventCommand(userInputAsList);
                 } else if (userCommand.equalsIgnoreCase(Command.DELETE.toString())) {
-                    deleteTaskCommand(inputList);
+                    deleteTaskCommand(userInputAsList);
                 } else if (userCommand.equalsIgnoreCase(Command.HELP.toString())) {
                     helpCommand();
                 } else {
@@ -123,11 +121,11 @@ public class Nollid {
      * @param task Task to store
      */
     public static void addTaskToList(Task task) {
-        todoList.add(task);
+        taskList.add(task);
 
         String message = "Alright, added:\n" + "\t" + task.toString() + "\n";
 
-        int listSize = todoList.size();
+        int listSize = taskList.size();
 
         // "task" for singular, "tasks" for plural
         if (listSize == 1) {
@@ -136,6 +134,8 @@ public class Nollid {
             message += "You now have " + listSize + " tasks in your list.";
         }
         botSays(message);
+
+        updateDatabaseFile();
     }
 
     /**
@@ -152,30 +152,38 @@ public class Nollid {
         printHorizontalLine(lineLength);
     }
 
+    /**
+     * Method to execute when the 'list' command is used.
+     */
     public static void listCommand() {
         // List items in to-do list
         StringBuilder response = new StringBuilder("Here are the tasks in your list: \n");
-        if (todoList.isEmpty()) {
+        if (taskList.isEmpty()) {
             response = new StringBuilder("Your list is empty!");
         }
 
-        for (int i = 0; i < todoList.size(); i++) {
-            if (i < todoList.size() - 1) {
-                response.append(i + 1).append(".").append(todoList.get(i).toString()).append("\n");
+        for (int i = 0; i < taskList.size(); i++) {
+            if (i < taskList.size() - 1) {
+                response.append(i + 1).append(".").append(taskList.get(i).toString()).append("\n");
             } else {
-                response.append(i + 1).append(".").append(todoList.get(i).toString());
+                response.append(i + 1).append(".").append(taskList.get(i).toString());
             }
         }
         botSays(response.toString());
     }
 
-    public static void markCommand(ArrayList<String> inputList) throws DukeException {
+    /**
+     * Method to execute when the 'mark' command is used.
+     *
+     * @throws DukeException if marking selected task as done is not possible.
+     */
+    public static void markCommand(ArrayList<String> userInputAsList) throws DukeException {
         // This means that the user has not supplied any number with the command
-        if (inputList.size() == 1) {
+        if (userInputAsList.size() == 1) {
             throw new DukeException("Please enter the task you wish to mark as done!\n" + "Usage: mark [task number]");
         } else {
             try {
-                int taskIndex = Integer.parseInt(inputList.get(1));
+                int taskIndex = Integer.parseInt(userInputAsList.get(1));
                 markDone(taskIndex);
             } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a number for the mark command.\n" + "Usage: mark [task number]");
@@ -186,13 +194,23 @@ public class Nollid {
         }
     }
 
+    /**
+     * Marks the task with the given index as done.
+     */
     public static void markDone(int taskIndex) {
-        todoList.get(taskIndex - 1).setDone(true);
+        taskList.get(taskIndex - 1).setDone(true);
         String response = "Good job! I've marked this task as done: \n"
-                + "\t " + todoList.get(taskIndex - 1).toString();
+                + "\t " + taskList.get(taskIndex - 1).toString();
         botSays(response);
+
+        updateDatabaseFile();
     }
 
+    /**
+     * Method to execute when the 'unmark' command is used.
+     *
+     * @throws DukeException if marking selected task as not done is not possible.
+     */
     public static void unmarkCommand(ArrayList<String> inputList) throws DukeException {
         // This means that the user has not supplied any number with the command
         if (inputList.size() == 1) {
@@ -212,25 +230,35 @@ public class Nollid {
         }
     }
 
+    /**
+     * Marks the task with the given index as not done.
+     */
     public static void markNotDone(int taskIndex) {
-        todoList.get(taskIndex - 1).setDone(false);
+        taskList.get(taskIndex - 1).setDone(false);
         String response = "Alright, I've marked this task as not done yet: \n"
-                + "\t " + todoList.get(taskIndex - 1).toString();
+                + "\t " + taskList.get(taskIndex - 1).toString();
         botSays(response);
+
+        updateDatabaseFile();
     }
 
-    public static void addTodoCommand(ArrayList<String> inputList) throws DukeException {
-        if (inputList.size() == 1) {
+    /**
+     * Method to execute when the 'todo' command is used.
+     *
+     * @throws DukeException if adding the task was unsuccessful.
+     */
+    public static void addTodoCommand(ArrayList<String> userInputAsList) throws DukeException {
+        if (userInputAsList.size() == 1) {
             throw new DukeException("Todo description cannot be empty!\n"
                     + "Usage: todo [task description]");
         }
 
         StringBuilder taskDescription = new StringBuilder();
-        for (int i = 1; i < inputList.size(); i++) {
-            if (i != inputList.size() - 1) {
-                taskDescription.append(inputList.get(i)).append(" ");
+        for (int i = 1; i < userInputAsList.size(); i++) {
+            if (i != userInputAsList.size() - 1) {
+                taskDescription.append(userInputAsList.get(i)).append(" ");
             } else {
-                taskDescription.append(inputList.get(i));
+                taskDescription.append(userInputAsList.get(i));
             }
         }
 
@@ -238,6 +266,11 @@ public class Nollid {
         addTaskToList(task);
     }
 
+    /**
+     * Method to execute when the 'deadline' command is used.
+     *
+     * @throws DukeException if adding the task was unsuccessful.
+     */
     public static void addDeadlineCommand(ArrayList<String> inputList) throws DukeException {
         int byIndex = inputList.indexOf("/by");
         if (inputList.size() == 1 || byIndex == 1) {
@@ -272,21 +305,26 @@ public class Nollid {
         addTaskToList(task);
     }
 
-    public static void addEventCommand(ArrayList<String> inputList) throws DukeException {
-        int fromIndex = inputList.indexOf("/from");
-        int toIndex = inputList.indexOf("/to");
+    /**
+     * Method to execute when the 'event' command is used.
+     *
+     * @throws DukeException if adding the task was unsuccessful.
+     */
+    public static void addEventCommand(ArrayList<String> userInputAsList) throws DukeException {
+        int fromIndex = userInputAsList.indexOf("/from");
+        int toIndex = userInputAsList.indexOf("/to");
 
-        if (inputList.size() == 1 || fromIndex == 1 || toIndex == 1) {
+        if (userInputAsList.size() == 1 || fromIndex == 1 || toIndex == 1) {
             throw new DukeException("Event description cannot be empty!\n"
                     + "Usage: event [task description] /from [start] /to [end]");
         }
 
-        if (fromIndex == -1 || fromIndex == inputList.size() - 1 || fromIndex == toIndex - 1) {
+        if (fromIndex == -1 || fromIndex == userInputAsList.size() - 1 || fromIndex == toIndex - 1) {
             throw new DukeException("Please enter the start of your event!\n"
                     + "Usage: event [task description] /from [start] /to [end]");
         }
 
-        if (toIndex == -1 || toIndex == inputList.size() - 1 || toIndex == fromIndex - 1) {
+        if (toIndex == -1 || toIndex == userInputAsList.size() - 1 || toIndex == fromIndex - 1) {
             throw new DukeException("Please enter the end of your event!\n"
                     + "Usage: event [task description] /from [start] /to [end]");
         }
@@ -297,55 +335,64 @@ public class Nollid {
 
         // Deal with the user sending "/from" before "/to" or vice versa
         if (fromIndex < toIndex) {
-            extractEventInfo(inputList, fromIndex, toIndex, taskDescription, from, to);
+            extractEventInfo(userInputAsList, fromIndex, toIndex, taskDescription, from, to);
         } else {
-            extractEventInfo(inputList, toIndex, fromIndex, taskDescription, to, from);
+            extractEventInfo(userInputAsList, toIndex, fromIndex, taskDescription, to, from);
         }
 
         Event task = new Event(taskDescription.toString(), from.toString(), to.toString());
         addTaskToList(task);
     }
 
-    private static void extractEventInfo(ArrayList<String> inputList, int fromIndex, int toIndex,
+    /**
+     * Saves the appropriate data in the supplied StringBuilders, given the index of the '/from' and '/to' arguments
+     * in the user input.
+     */
+    private static void extractEventInfo(ArrayList<String> userInputAsList, int fromIndex, int toIndex,
                                          StringBuilder taskDescription, StringBuilder from, StringBuilder to) {
         for (int i = 1; i < fromIndex; i++) {
             if (i != fromIndex - 1) {
-                taskDescription.append(inputList.get(i)).append(" ");
+                taskDescription.append(userInputAsList.get(i)).append(" ");
             } else {
-                taskDescription.append(inputList.get(i));
+                taskDescription.append(userInputAsList.get(i));
             }
         }
 
         for (int i = fromIndex + 1; i < toIndex; i++) {
             if (i != toIndex - 1) {
-                from.append(inputList.get(i)).append(" ");
+                from.append(userInputAsList.get(i)).append(" ");
             } else {
-                from.append(inputList.get(i));
+                from.append(userInputAsList.get(i));
             }
         }
 
-        for (int i = toIndex + 1; i < inputList.size(); i++) {
-            if (i != inputList.size() - 1) {
-                to.append(inputList.get(i)).append(" ");
+        for (int i = toIndex + 1; i < userInputAsList.size(); i++) {
+            if (i != userInputAsList.size() - 1) {
+                to.append(userInputAsList.get(i)).append(" ");
             } else {
-                to.append(inputList.get(i));
+                to.append(userInputAsList.get(i));
             }
         }
     }
 
-    public static void deleteTaskCommand(ArrayList<String> inputList) throws DukeException {
+    /**
+     * Method to execute when the 'delete' command is used.
+     *
+     * @throws DukeException if deleting the task was unsuccessful.
+     */
+    public static void deleteTaskCommand(ArrayList<String> userInputAsList) throws DukeException {
         // This means that the user has not supplied any number with the command
-        if (inputList.size() == 1) {
+        if (userInputAsList.size() == 1) {
             throw new DukeException("Please enter the task you wish to delete!\n"
                     + "Usage: delete [task number]");
         } else {
             try {
-                int taskIndex = Integer.parseInt(inputList.get(1));
+                int taskIndex = Integer.parseInt(userInputAsList.get(1));
 
                 String message = "Alright, the following task has been removed:\n"
-                        + "\t" + todoList.remove(taskIndex - 1).toString() + "\n";
+                        + "\t" + taskList.remove(taskIndex - 1).toString() + "\n";
 
-                int listSize = todoList.size();
+                int listSize = taskList.size();
 
                 // "task" for singular, "tasks" for plural
                 if (listSize == 1) {
@@ -355,6 +402,8 @@ public class Nollid {
                 }
 
                 botSays(message);
+
+                updateDatabaseFile();
             } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a number for the delete command.\n"
                         + "Usage: delete [task number]");
@@ -365,6 +414,9 @@ public class Nollid {
         }
     }
 
+    /**
+     * Method to execute when the 'help' command is used.
+     */
     public static void helpCommand() {
         String message = "Available commands:\n"
                 + "list \t\t- Lists all your tasks\n"
@@ -378,6 +430,11 @@ public class Nollid {
         botSays(message);
     }
 
+    /**
+     * Initializes the list of tasks from a file saved on disk.
+     *
+     * @param todoList The list of tasks.
+     */
     public static void loadDatabaseFile(ArrayList<Task> todoList) {
         int taskCounter = 0;
         try {
@@ -430,7 +487,11 @@ public class Nollid {
         }
 
         if (taskCounter > 0) {
-            botSays("Loaded " + taskCounter + " tasks from " + DATABASE_FILE.toAbsolutePath());
+            if (taskCounter == 1) {
+                botSays("Loaded " + taskCounter + " task from " + DATABASE_FILE.toAbsolutePath());
+            } else {
+                botSays("Loaded " + taskCounter + " tasks from " + DATABASE_FILE.toAbsolutePath());
+            }
         }
     }
 
@@ -453,5 +514,44 @@ public class Nollid {
      */
     public static Event createTask(String description, String start, String end) {
         return new Event(description, start, end);
+    }
+
+    /**
+     * Updates the database file on disk based on the current state of the task list.
+     */
+    public static void updateDatabaseFile() {
+        boolean isFirstLine = true;
+        if (taskList.isEmpty()) {
+            try {
+                Files.write(DATABASE_FILE, "".getBytes());
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        for (Task t : taskList) {
+            String lineToWrite = "";
+            try {
+                if (t instanceof ToDo) {
+                    lineToWrite = "T" + DELIMITER + t.getStatusNumber() + DELIMITER + t.getDescription() + "\n";
+                } else if (t instanceof Deadline) {
+                    Deadline deadline = (Deadline) t;
+                    lineToWrite = "D" + DELIMITER + deadline.getStatusNumber() + DELIMITER + deadline.getDescription()
+                            + DELIMITER + deadline.getDeadline() + "\n";
+                } else if (t instanceof Event) {
+                    Event event = (Event) t;
+                    lineToWrite = "E" + DELIMITER + event.getStatusNumber() + DELIMITER + event.getDescription()
+                            + DELIMITER + event.getFrom() + DELIMITER + event.getTo() + "\n";
+                }
+
+                if (isFirstLine) {
+                    Files.write(DATABASE_FILE, lineToWrite.getBytes());
+                    isFirstLine = false;
+                } else {
+                    Files.write(DATABASE_FILE, lineToWrite.getBytes(), StandardOpenOption.APPEND);
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
