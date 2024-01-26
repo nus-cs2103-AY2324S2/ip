@@ -60,31 +60,56 @@ public class Chaterpillar {
                 exit();
                 break;
             case "todo":
-                name = input.substring(5);
-                curr_task = new TodoTask(name);
-                add_task(curr_task);
+                try {
+                    name = input.substring(5);
+                    curr_task = new TodoTask(name);
+                    add_task(curr_task);
+                } catch (StringIndexOutOfBoundsException e) {
+                    echo("Sorry, the name of the task todo cannot be empty.\n" +
+                            "The way to use the command is as such: todo taskname");
+                }
                 break;
             case "deadline":
-                temp = input.split("/");
-                name = temp[0].substring(9);
-                String date = temp[1].substring(3);
-                curr_task = new DeadlineTask(name, date);
-                add_task(curr_task);
+                try {
+                    temp = input.split("/");
+                    name = temp[0].substring(9);
+                    String date = temp[1].substring(3);
+                    curr_task = new DeadlineTask(name, date);
+                    add_task(curr_task);
+                } catch (IndexOutOfBoundsException e) {
+                    echo("Sorry, this command is in the wrong format.\n" +
+                            "The way to use the command is: deadline taskname /by date_and_time");
+                }
                 break;
             case "event":
-                temp = input.split("/");
-                name = temp[0].substring(6);
-                String date1 = temp[1].substring(5);
-                String date2 = temp[2].substring(3);
-                curr_task = new EventTask(name, date1, date2);
-                add_task(curr_task);
+                try {
+                    temp = input.split("/");
+                    name = temp[0].substring(6);
+                    String date1 = temp[1].substring(5);
+                    String date2 = temp[2].substring(3);
+                    curr_task = new EventTask(name, date1, date2);
+                    add_task(curr_task);
+                } catch (IndexOutOfBoundsException e) {
+                    echo("Sorry, this command is in the wrong format.\n" +
+                            "The way to use the command is: event taskname /from date_and_time /to date_and_time");
+                }
+                break;
+            case "help":
+                String help_message = "Hi! Here are the list of commands I recognise: \n\n" +
+                        "'list' - lists the tasks registered in the list\n" +
+                        "'todo' - adds an item that has no due date\n" +
+                        "'deadline' - adds an item with a due date\n" +
+                        "'event' - adds an item that has a duration\n" +
+                        "'mark' - marks the task as completed\n" +
+                        "'unmark' - marks the task as not completed\n" +
+                        "'help' - opens the list of commands available\n" +
+                        "'bye' - exits the chatbot";
+                echo(help_message);
                 break;
             default:
-                // if not asked to exit the chatbot
-                // add to array list and
-                // prints what is added
-                Task task = new Task(input);
-                add_task(task);
+                String unrecognised = "Oops, I have no idea what that means. " +
+                        "Use 'help' for a list of commands I recognise.";
+                echo(unrecognised);
                 break;
         }
         print_horizontal_line();
@@ -94,7 +119,6 @@ public class Chaterpillar {
         echo("Got it. I've added this task:");
         echo(task.toString());
         echo("Now you have " + listoftasks.size() + " tasks in the list.");
-
     }
     public static void main(String[] args) {
         greet();
