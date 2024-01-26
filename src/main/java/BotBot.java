@@ -23,8 +23,6 @@ public class BotBot {
                 list.unmark(Integer.parseInt(nextTask.substring(7)));
             } else {
                 list.addTask(nextTask);
-                BotBot.divider();
-                list.printList();
             }
             BotBot.divider();
         }

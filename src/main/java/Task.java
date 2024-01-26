@@ -1,9 +1,12 @@
-public class Task {
-    String task;
+public abstract class Task {
+    String taskName;
     Boolean done = false;
 
     public Task(String task) {
-        this.task = task;
+        this.taskName = task;
+    }
+    public String getName() {
+        return this.taskName;
     }
     public void mark() {
         this.done = true;
@@ -14,6 +17,6 @@ public class Task {
     public String getRep() {
         // Returns representation of the task (including done)
         String doneChar = (this.done) ? "X" : " ";
-        return String.format("[%s] %s", doneChar, this.task);
+        return String.format("[%s] %s", doneChar, this.taskName);
     }
 }
