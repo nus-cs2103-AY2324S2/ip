@@ -115,6 +115,17 @@ public abstract class Ui {
                             }
                         }
                         break;
+                    case "delete":
+                        Integer idx3 = Parser.getInteger(input, 1);
+                        if (idx3 != null) {
+                            Duke.taskList.deleteItem(idx3 - 1);
+                        } else {
+                            Ui.printWarningLine();
+                            final String output = "Failed to get the index!";
+                            System.out.println(output);
+                            Ui.printWarningLine();
+                        }
+                        break;
                     default:
                         System.out.println("Oh no! I'm sorry, I can't understand it :(");
                 }
