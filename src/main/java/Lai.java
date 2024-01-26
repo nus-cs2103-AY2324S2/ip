@@ -73,6 +73,15 @@ public class Lai {
                     System.out.println("Come on now, don't be useless. Marked not done:");
                     System.out.println(t);
                     printDottedLine();
+                } else if (command.equals("delete")) {
+                    int index = Integer.valueOf(desc);
+                    Task t = tasks.get(index - 1);
+                    tasks.remove(t);
+
+                    printDottedLine();
+                    System.out.println("I have deleted:");
+                    System.out.println(t);
+                    printDottedLine();
                 } else if (command.equals("deadline")) {
                     checkDescription(desc);
 
