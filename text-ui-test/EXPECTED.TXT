@@ -1,4 +1,7 @@
 ------------------------------------------------------------
+No `tasks.bin` found, creating empty task list
+------------------------------------------------------------
+------------------------------------------------------------
 Hello! I'm 
  __  __ _           __  __ _             _                  
  |  \/  (_)         |  \/  (_)           | |              
@@ -23,18 +26,13 @@ Here are the tasks in your list:
 1. [T][X] borrow book
 ------------------------------------------------------------
 ------------------------------------------------------------
-Got it. I've added this task: 
-[D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
+Please enter a valid date time format. For example, 2019-12-31 1800
 ------------------------------------------------------------
 ------------------------------------------------------------
-Nice! I've marked this task as done: 
-[D][X] return book (by: Sunday)
+This task doesn't exist!
 ------------------------------------------------------------
 ------------------------------------------------------------
-Got it. I've added this task: 
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
+Please enter a valid date time format. For example, 2019-12-31 1800
 ------------------------------------------------------------
 ------------------------------------------------------------
 OK, I've marked this task as not done yet: 
@@ -43,8 +41,6 @@ OK, I've marked this task as not done yet:
 ------------------------------------------------------------
 Here are the tasks in your list: 
 1. [T][ ] borrow book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ------------------------------------------------------------
 ------------------------------------------------------------
 Bye. Hope to see you again soon!
