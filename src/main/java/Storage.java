@@ -1,9 +1,9 @@
+import java.util.ArrayList;
 public class Storage {
-    private Task[] tasks;
-    private static int size = 0;
+    private  ArrayList<Task> tasks;
 
     public Storage() {
-        this.tasks = new Task[100]; // assume maximum size of task list to be 100
+        this.tasks = new ArrayList<>(); // assume maximum size of task list to be 100
     }
 
     /**
@@ -13,20 +13,17 @@ public class Storage {
      */
     public void storeToDo(String task) {
         ToDo newToDo = new ToDo(task);
-        this.tasks[size] = newToDo;
-        size++;
+        this.tasks.add(newToDo);
     }
 
     public void storeDeadline(String task, String by) {
         Deadline newDeadline = new Deadline(task, by);
-        this.tasks[size] = newDeadline;
-        size++;
+        this.tasks.add(newDeadline);
     }
 
     public void storeEvent(String task, String from, String to) {
         Event newEvent = new Event(task, from, to);
-        this.tasks[size] = newEvent;
-        size++;
+        this.tasks.add(newEvent);
     }
 
     /**
@@ -36,7 +33,7 @@ public class Storage {
      * @return The task description.
      */
     public String getTaskDescription(int index) {
-        return this.tasks[index].toString();
+        return this.tasks.get(index).toString();
     }
 
     /**
@@ -45,7 +42,7 @@ public class Storage {
      * @return The status icon, either X or empty space.
      */
     public String getTaskStatus(int index) {
-        return this.tasks[index].getStatusIcon();
+        return this.tasks.get(index).getStatusIcon();
     }
 
     /**
@@ -53,7 +50,7 @@ public class Storage {
      * @return The size of list.
      */
     public int getSize() {
-        return size;
+        return this.tasks.size();
     }
 
     /**
@@ -62,7 +59,7 @@ public class Storage {
      * @param index Index of task in the list.
      */
     public void mark(int index) {
-        this.tasks[index].mark();
+        this.tasks.get(index).mark();
     }
 
     /**
@@ -70,7 +67,7 @@ public class Storage {
      * @param index Index of task in the list.
      */
     public void unmark(int index) {
-        this.tasks[index].unmark();
+        this.tasks.get(index).unmark();
     }
 
 }
