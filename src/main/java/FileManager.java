@@ -36,7 +36,7 @@ public class FileManager {
   }
 
   public LocalDateTime restoreDateTime(String date_string) {
-    String[] decomposed_date_string = date_string.split("'T'");
+    String[] decomposed_date_string = date_string.split("T");
     String hhmm = decomposed_date_string[1];
     String yymmdd = decomposed_date_string[0];
     String[] decomposed_yymmdd = yymmdd.split("-");
