@@ -13,11 +13,6 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toSavableFormat() {
-        return this.uuid + "|D|" + this.description + "|" + this.done + "|" + deadline;
-    }
-
-    @Override
     public String getType() {
         return "[D]";
     }
