@@ -1,5 +1,13 @@
+import java.io.IOException;
+
 public class UkeCat {
     public static void main(String[] args) {
+        try {
+            FileManager.fetchTasks();
+        } catch (IOException eIO) {
+            System.out.println("I/O error occurred.");
+        }
+
         try {
             // Welcome msg
             System.out.println(Storage.LINE + Storage.WELCOME + Storage.LINE);
@@ -12,7 +20,6 @@ public class UkeCat {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         } finally {
-            // Close resources if needed
             Parser.closeScanner();
         }
     }
