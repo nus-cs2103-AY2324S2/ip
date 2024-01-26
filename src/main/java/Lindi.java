@@ -37,6 +37,47 @@ public class Lindi {
                 System.exit(0); // exit with code 0, terminates program
             }
 
+            void executeModifyTask(String s) {
+                String[] sTokens = s.split(" ", 3); // expect exactly 2 substrings for a valid command input
+                if (sTokens.length == 1) {
+                    System.out.println("Uh oh ! You have to give me the index of the task you want to modify :)");
+                    return;
+                } else if (sTokens.length == 3) {
+                    System.out.println("Umm... is it that hard to give me JUST the index? :(");
+                    return;
+                }
+
+                try {
+                    int listIndex = Integer.parseInt(sTokens[1]);
+                    if (listIndex < 1 || listIndex > taskList.size()) {
+                        System.out.println("Sorry, I can't find that task. Please enter a valid index\n" +
+                                "You can see the tasks list by inputting \"list\"");
+                        return;
+                    }
+                    Task task = taskList.get(listIndex - 1);
+                    switch (sTokens[0]) {
+                        case "mark":
+                            task.markDone();
+                            System.out.println("Nice! I've marked this task as done:\n\t" + task);
+                            break;
+                        case "unmark":
+                            task.unmarkDone();
+                            System.out.println("Nice! I've marked this task as not done yet:\n\t" + task);
+                            break;
+                        case "delete":
+                            taskList.remove(listIndex - 1);
+                            System.out.println("Okay. I've deleted this task:\n\t" + task +
+                                    "\nNow you have " + taskList.size() + " tasks in the list.");
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Shouldn't be in this function unless these 3 commands");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("I'm pretty sure I gave you the indexes in base 10...\n" +
+                            "there shouldn't be any characters!! :(");
+                }
+            }
+
             /**
              * @param listIndex: listIndex as shown by the `list` command, starts from 1
              */
@@ -88,19 +129,16 @@ public class Lindi {
                 lf.executeList();
                 break;
             case "unmark":
-                lf.executeUnmark(Integer.parseInt(userInputTokens[1]));
-                break;
             case "mark":
-                lf.executeMark(Integer.parseInt(userInputTokens[1]));
+            case "delete":
+                lf.executeModifyTask(userInput);
                 break;
             case "todo":
             case "event":
             case "deadline":
                 lf.executeCreateTask(userInput);
                 break;
-            case "delete":
-                lf.executeDeleteTask(Integer.parseInt(userInputTokens[1]));
-                break;
+
             case "bye":
                 lf.goodByeAndExit();
                 break;
