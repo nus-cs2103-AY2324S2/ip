@@ -1,24 +1,21 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskList tasks = new TaskList();
-        Greet.greet();
+        Processor.greet();
 
         while (true) {
             String input = scanner.nextLine();
 
-            if (Objects.equals(input, "bye")) {
+            if (input.equals("bye")) {
                 break;
-
-            } else {
-                Processor.process(input, tasks);
-
             }
+
+            Processor.process(input, tasks);
         }
 
-        Exit.exit();
+        Processor.exit();
     }
 }

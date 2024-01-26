@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Utils {
     private static final String LINE_PATH = "./src/main/Line.txt";
@@ -11,24 +12,31 @@ public class Utils {
 
         System.out.println(line);
     }
+
     public static void encaseLines(String string) {
         Utils.printLine();
         System.out.println(string);
         Utils.printLine();
     }
-    public static String getFile(String Path) {
+
+    public static String getFile(String path) {
         try {
-            return Files.readString(Paths.get(Path));
+            return Files.readString(Paths.get(path));
 
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+//            e.printStackTrace();
+            System.out.println("Current Directory: " + System.getProperty("user.dir"));
+            return "";
 
         }
     }
 
     public static int getIndex(String input) {
         return Integer.parseInt(input.split("\\s+")[1]) - 1;
+    }
+
+    public static String firstWord(String input) {
+        return input.split(" ", 2)[0];
     }
 
     public static Deadlines createDeadline(String input){
@@ -49,8 +57,4 @@ public class Utils {
 
         return new Events(name, from, to);
     };
-
-    public static String firstWord(String input) {
-        return input.split(" ", 2)[0];
-    }
 }

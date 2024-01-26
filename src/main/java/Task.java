@@ -8,11 +8,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getName() {
-        return this.name;
-
-    }
-
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
 
