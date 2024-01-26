@@ -89,8 +89,8 @@ public class Add implements Command{
      * Override the interface method.
      */
     @Override
-    public void reply() {
-        System.out.printf(
+    public String reply() {
+        return String.format(
                 "    Got it. I've added this task:\n      %s\n    Now you have %s tasks in the list.\n"
                 ,this.task,this.tasks.getListLength());
     }

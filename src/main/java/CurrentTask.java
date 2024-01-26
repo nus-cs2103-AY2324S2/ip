@@ -9,13 +9,14 @@ class CurrentTask implements Command{
     }
 
     @Override
-    public void reply() {
-        System.out.println("    Dear sir, here are the tasks by now:");
+    public String reply() {
+        String reply ="    Dear sir, here are the tasks by now:\n";
         int i=0;
         for (Task task: taskList.getTaskList()) {
             if (task.isTimeForStart(currentTime)) {
-                System.out.printf("    %s.%s\n",++i,task);
+                reply+=String.format("    %s.%s\n",++i,task);
             }
         }
+        return reply;
     }
 }

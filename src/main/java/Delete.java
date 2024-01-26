@@ -22,9 +22,7 @@ public class Delete implements Command{
      * Print the deleted task and the number of tasks remaining
      */
     @Override
-    public void reply() {
-        System.out.println("    Noted. I've removed this task:");
-        System.out.printf("      %s\n", this.deletedTask);
-        System.out.printf("    Now you have %s tasks in the list.\n", this.tasks);
+    public String reply() {
+        return String.format("    Noted. I've removed this task:\n      %s\n    Now you have %s tasks in the list.\n", this.deletedTask, this.tasks.getListLength());
     }
 }

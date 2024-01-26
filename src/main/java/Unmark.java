@@ -16,14 +16,14 @@ public class Unmark implements Command{
         }
         this.oprand=operand;
         taskList.getTask(oprand).unDone();
+        this.tasks=taskList;
     }
 
     /**
      * Override the reply method in interface
      */
     @Override
-    public void reply() {
-        System.out.println("    OK, I've marked this task as not done yet:");
-        System.out.printf("    %s\n",tasks.getTask(oprand));
+    public String reply() {
+        return String.format("    OK, I've marked this task as not done yet:\n    %s\n",tasks.getTask(oprand));
     }
 }

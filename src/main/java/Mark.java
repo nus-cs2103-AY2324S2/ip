@@ -23,8 +23,7 @@ public class Mark implements Command{
      * Override the reply method in interface
      */
     @Override
-    public void reply() {
-        System.out.println("    Nice! I've marked this task as done:");
-        System.out.printf("    %s\n",tasks.getTask(oprand));
+    public String reply() {
+        return String.format("    Nice! I've marked this task as done:\n    %s\n",tasks.getTask(oprand));
     }
 }

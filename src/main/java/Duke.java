@@ -12,6 +12,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -41,13 +42,15 @@ public class Duke {
     }
 
     public void run() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("    Hello! I'm Hanxiao.\n  What can I do for you?");
-
+        ui.showWelcome();
         while (true) {
             try{
-                Command cmd = parser.parse(sc.nextLine());
-                cmd.reply();
+                String fullCommand = ui.readCommand();
+                Command cmd = parser.parse(fullCommand);
+                if (cmd instanceof Bye) {
+
+                }
+                ui.printReply(cmd.reply());
             } catch (DukeException e) {
                 System.out.printf("    %s\n",e.getMessage());
             }
