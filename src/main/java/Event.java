@@ -1,13 +1,15 @@
 import java.io.Serializable;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDateTime;
 
 public class Event extends Task implements Serializable {
-    private final String startTime;
-    private final String endTime;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
     private static final Pattern formatter = Pattern.compile("(.+) /from (.+) /to (.+)");
 
-    public Event(String name, String startTime, String endTime) {
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -18,8 +20,16 @@ public class Event extends Task implements Serializable {
 
         if (matcher.find()) {
             String name = matcher.group(1);
-            String startTime = matcher.group(2);
-            String endTime = matcher.group(3);
+            String startTimeStr = matcher.group(2);
+            String endTimeStr = matcher.group(3);
+
+            LocalDateTime startTime, endTime;
+            try {
+                startTime = LocalDateTime.parse(startTimeStr, Task.inputFormat);
+                endTime = LocalDateTime.parse(endTimeStr, Task.inputFormat);
+            } catch (DateTimeParseException err) {
+                throw new MissMinutesException("Please enter a valid date time format. For example, 2019-12-31 1800");
+            }
 
             return new Event(name, startTime, endTime);
         } else {
@@ -29,6 +39,7 @@ public class Event extends Task implements Serializable {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + startTime.format(Task.outputFormat)
+                + " to: " + endTime.format(Task.outputFormat) + ")";
     }
 }

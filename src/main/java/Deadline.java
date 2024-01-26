@@ -1,12 +1,14 @@
 import java.io.Serializable;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDateTime;
 
 public class Deadline extends Task implements Serializable {
-    private final String by;
+    private final LocalDateTime by;
     private final static Pattern formatter = Pattern.compile("(.+) /by (.+)");
 
-    public Deadline(String name, String by) {
+    public Deadline(String name, LocalDateTime by) {
         super(name);
         this.by = by;
     }
@@ -16,9 +18,14 @@ public class Deadline extends Task implements Serializable {
 
         if (matcher.find()) {
             String name = matcher.group(1);
-            String by = matcher.group(2);
+            String byStr = matcher.group(2);
 
-            return new Deadline(name, by);
+            try {
+                LocalDateTime by = LocalDateTime.parse(byStr, Task.inputFormat);
+                return new Deadline(name, by);
+            } catch (DateTimeParseException err) {
+                throw new MissMinutesException("Please enter a valid date time format. For example, 2019-12-31 1800");
+            }
         } else {
             throw new MissMinutesException("Deadlines have to be created with the following format: deadline <desc> /by <end>");
         }
@@ -26,6 +33,6 @@ public class Deadline extends Task implements Serializable {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(Task.outputFormat) + ")";
     }
 }

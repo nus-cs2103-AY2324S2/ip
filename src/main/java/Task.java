@@ -1,8 +1,12 @@
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
+
+    protected static final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy ha");
 
     public Task(String description) {
         this.description = description;
