@@ -86,6 +86,9 @@ public class CommandCreator {
         } else if (command.startsWith("delete")) {
             int index = parseIndex(command);
             return new DeleteTaskCommand(index, this.taskList);
+        } else if (command.startsWith("find")) {
+            String keyword = parseStringArgument(command);
+            return new FindTaskCommand(keyword, this.taskList);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

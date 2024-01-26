@@ -196,3 +196,26 @@ class DeleteTaskCommand extends Command {
         ui.printMessages(messages);
     }
 }
+
+class FindTaskCommand extends Command {
+    private String keyword;
+    private TaskList taskList;
+
+    public FindTaskCommand(String keyword, TaskList taskList) {
+        this.keyword = keyword;
+        this.taskList = taskList;
+    }
+
+    @Override
+    public void execute(UI ui) {
+        ArrayList<String> messages = new ArrayList<String>(
+                Arrays.asList("Here are the matching tasks in your list:"));
+        for (int i = 0; i < this.taskList.getSize(); i++) {
+            Task task = this.taskList.getTask(i);
+            if (task.getDescription().contains(this.keyword)) {
+                messages.add(String.format("%d.%s", i + 1, task.toString()));
+            }
+        }
+        ui.printMessages(messages);
+    }
+}
