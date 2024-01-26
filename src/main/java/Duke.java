@@ -1,5 +1,13 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
+class DukeException extends Exception {
+//    public DukeException (String s)
+//    {
+//        // Call constructor of parent Exception
+//        super(s);
+//    }
+}
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
