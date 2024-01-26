@@ -1,7 +1,11 @@
+package duke.exception;
+
+import duke.exception.DukeException;
+
 /**
  * Exception for lack of description of certain things
  */
-public class EmptyTextException extends DukeException{
+public class EmptyTextException extends DukeException {
     private String field;
     private String task;
 

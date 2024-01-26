@@ -1,10 +1,14 @@
+package duke.task;
+
+import duke.task.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Class for task start with event
  */
-public class Event extends Task{
+public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
 

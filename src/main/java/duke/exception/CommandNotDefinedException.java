@@ -1,7 +1,9 @@
+package duke.exception;
+
 /**
  * Exception for can't recognize command,
  */
-public class CommandNotDefinedException extends DukeException{
+public class CommandNotDefinedException extends DukeException {
 
     /**
      * Constructor

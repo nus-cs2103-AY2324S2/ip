@@ -1,10 +1,14 @@
+package duke.task;
+
+import duke.task.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Class for task start with deadline
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate by;
 
     /**

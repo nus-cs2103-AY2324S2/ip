@@ -1,3 +1,5 @@
+package duke.exception;
+
 /**
  * Exception for all kinds of buggy inputs
  */

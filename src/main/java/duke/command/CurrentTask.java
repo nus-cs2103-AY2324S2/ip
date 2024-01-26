@@ -1,6 +1,12 @@
+package duke.command;
+
+import duke.TaskList;
+import duke.command.Command;
+import duke.task.Task;
+
 import java.time.LocalDate;
 
-class CurrentTask implements Command{
+public class CurrentTask implements Command {
     private LocalDate currentTime;
     private TaskList taskList;
     public CurrentTask(TaskList taskList) {

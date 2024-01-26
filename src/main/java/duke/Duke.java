@@ -1,8 +1,12 @@
-import java.awt.*;
+package duke;
+
+import duke.command.Bye;
+import duke.command.Command;
+import duke.exception.DukeException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.File;
 /**
  * Main Class for our Chat bot

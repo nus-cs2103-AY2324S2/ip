@@ -1,10 +1,12 @@
+package duke.task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  * A class for managing all kinds of Tasks.
  */
-abstract class Task {
+public abstract class Task {
     /** The task list, update upon creation of task */
     protected String description;
     protected boolean isDone;
@@ -71,7 +73,7 @@ abstract class Task {
     }
     /**
      *
-     * @return the String representation of Task
+     * @return the String representation of duke.task.Task
      */
     @Override
     public String toString() {

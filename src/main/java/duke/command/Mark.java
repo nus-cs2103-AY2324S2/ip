@@ -1,7 +1,13 @@
+package duke.command;
+
+import duke.TaskList;
+import duke.command.Command;
+import duke.exception.WrongIndexException;
+
 /**
  * class for mark an task finish.
  */
-public class Mark implements Command{
+public class Mark implements Command {
     private final int oprand;
     private TaskList tasks;
     /**

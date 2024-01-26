@@ -1,3 +1,7 @@
+package duke.exception;
+
+import duke.exception.DukeException;
+
 public class TimeInconsistException extends DukeException {
     public TimeInconsistException() {
         super();

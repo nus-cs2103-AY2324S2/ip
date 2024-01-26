@@ -1,3 +1,8 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.DukeException;
+
 class Parser {
     private TaskList tasks;
     public Parser(TaskList tasks) {

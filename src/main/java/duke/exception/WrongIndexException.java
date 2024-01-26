@@ -1,3 +1,7 @@
+package duke.exception;
+
+import duke.exception.DukeException;
+
 /**
  * Exception for index error
  */
