@@ -1,13 +1,10 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 public class Utils {
-    private static final String LINE_PATH = "./src/main/Line.txt";
-
     public static void printLine() {
-        String character = Utils.getFile(LINE_PATH);
+        String character = Utils.getFile(FilePath.LINE_PATH);
         String line = String.valueOf(character).repeat(60);
 
         System.out.println(line);
