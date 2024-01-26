@@ -38,8 +38,26 @@ public class Tes {
                 continue;
             }
 
+            if (command.contains("deadline")) {
+                String com = command.substring(9);
+                String[] split = com.split(" /by ");
+                this.ui.addDeadline(split[0], split[1]);
+                continue;
+            }
 
-            this.ui.addTask(command);
+            if (command.contains("event")) {
+                String com = command.substring(6);
+                String[] split = com.split(" /from ");
+                String realCommand = split[0];
+                String[] time = split[1].split(" /to ");
+                String from = time[0];
+                String to = time[1];
+                this.ui.addEvent(realCommand, from, to);
+                continue;
+            }
+
+            String com = command.substring(5);
+            this.ui.addToDo(com);
         }
     }
     public static void main(String[] args) {

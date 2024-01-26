@@ -54,13 +54,31 @@ public class Ui {
      *
      * @param command Task description of the new task.
      */
-    public void addTask(String command) {
+    public void addToDo(String command) {
+        this.taskList.storeToDo(command);
         printLine();
-        System.out.println(
-                "    added: " + command
-                );
+        System.out.println("    Got it. I've added this task:\n      "
+                + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
+                + "\n    Now you have " + this.taskList.getSize() + " in the list.");
         printLine();
-        this.taskList.storeTask(command);
+    }
+
+    public void addDeadline(String command, String by) {
+        this.taskList.storeDeadline(command, by);
+        printLine();
+        System.out.println("    Got it. I've added this task:\n      "
+                + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
+                + "\n    Now you have " + this.taskList.getSize() + " in the list.");
+        printLine();
+    }
+
+    public void addEvent(String command, String from, String to) {
+        this.taskList.storeEvent(command, from, to);
+        printLine();
+        System.out.println("    Got it. I've added this task:\n      "
+                + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
+                + "\n    Now you have " + this.taskList.getSize() + " in the list.");
+        printLine();
     }
 
     /**

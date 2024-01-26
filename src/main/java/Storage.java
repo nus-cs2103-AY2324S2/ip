@@ -11,9 +11,21 @@ public class Storage {
      *
      * @param task Description of task to be stored.
      */
-    public void storeTask(String task) {
-        Task newTask = new Task(task);
-        this.tasks[size] = newTask;
+    public void storeToDo(String task) {
+        ToDo newToDo = new ToDo(task);
+        this.tasks[size] = newToDo;
+        size++;
+    }
+
+    public void storeDeadline(String task, String by) {
+        Deadline newDeadline = new Deadline(task, by);
+        this.tasks[size] = newDeadline;
+        size++;
+    }
+
+    public void storeEvent(String task, String from, String to) {
+        Event newEvent = new Event(task, from, to);
+        this.tasks[size] = newEvent;
         size++;
     }
 
@@ -24,7 +36,7 @@ public class Storage {
      * @return The task description.
      */
     public String getTaskDescription(int index) {
-        return "[" + this.tasks[index].getStatusIcon() + "] " + this.tasks[index].getDescription();
+        return this.tasks[index].toString();
     }
 
     /**
