@@ -7,4 +7,14 @@ public class BobException extends Exception {
             super(message);
         }
     }
+    public static class FileAccessError extends BobException {
+        public FileAccessError(String message) {
+            super(message);
+        }
+    }
+    public static class CorruptedSaveData extends BobException {
+        public CorruptedSaveData(String message) {
+            super(message);
+        }
+    }
 }

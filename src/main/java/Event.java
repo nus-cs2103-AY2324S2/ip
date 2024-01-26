@@ -15,6 +15,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String toSavableFormat() {
+        return this.uuid + "|E|" + this.description + "|" + this.done + "|" + start + "|" + end;
+    }
+
+    @Override
     public String getType() {
         return "[E]";
     }
