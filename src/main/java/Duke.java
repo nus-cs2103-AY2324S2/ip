@@ -29,10 +29,10 @@ public class Duke {
                     Task task = myList.get(num);
                     task.markAsDone();
 
-                    System.out.println("____________________________________________________________");
+                    System.out.println("------------------------------------------------------------");
                     System.out.println("Nice! I've marked this task as done: ");
                     System.out.println(task);
-                    System.out.println("____________________________________________________________");
+                    System.out.println("------------------------------------------------------------");
 
                 } else {
                     System.out.println("Invalid task number.");
@@ -46,86 +46,108 @@ public class Duke {
                     Task task = myList.get(num);
                     task.markAsNotDone();
 
-                    System.out.println("____________________________________________________________");
+                    System.out.println("------------------------------------------------------------");
                     System.out.println("Ok, I've marked this task as not done yet: ");
                     System.out.println(task);
-                    System.out.println("____________________________________________________________");
+                    System.out.println("------------------------------------------------------------");
 
                 } else {
                     System.out.println("Invalid task number.");
                 }
 
             } else if (command.equals("list")) {
-                System.out.println("____________________________________________________________");
+                System.out.println("------------------------------------------------------------");
                 System.out.println("Here are the tasks in your list: ");
 
                 for (Task task : myList) {
                     System.out.println((myList.indexOf(task) + 1) + "." + task);
                 }
-                System.out.println("____________________________________________________________");
+                System.out.println("------------------------------------------------------------");
 
             } else if (command.equals("bye")) {
                 break;
 
             } else {
                 
+                try {
+                    // Todo is called
+                    if (command.equals("todo")) {
+                        String item = restOfInputs;
+                        try {
+                            if (item.isEmpty()) {
+                                
+                                throw new DukeException("Todo cannot be empty, please indicate what you plan to do.");
 
-                // Todo is called
-                if (command.equals("todo")) {
-                    String item = restOfInputs;
+                            } else {
 
-                    Todo newTodo = new Todo(item);
-                    myList.add(newTodo);
+                                Todo newTodo = new Todo(item);
+                                myList.add(newTodo);
 
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task: ");
-                    System.out.println(newTodo);
-                    System.out.println("Now you have " + myList.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                }
+                                System.out.println("------------------------------------------------------------");
+                                System.out.println("Got it. I've added this task: ");
+                                System.out.println(newTodo);
+                                System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                                System.out.println("------------------------------------------------------------");
+                            }
+                        } catch (DukeException e) {
+                            System.out.println("------------------------------------------------------------");
+                            System.out.println(e.getMessage());
+                            System.out.println("------------------------------------------------------------");
+                        }
+                    }
 
-                // Deadline is called
-                else if (command.equals("deadline")) {
-                    String[] item_time = restOfInputs.split("/by");
-                    String item = item_time[0];
-                    String time = item_time[1];
+                    // Deadline is called
+                    else if (command.equals("deadline")) {
+                        String[] item_time = restOfInputs.split("/by");
+                        String item = item_time[0];
+                        String time = item_time[1];
 
-                    Deadline newDeadline = new Deadline(item, time);
-                    myList.add(newDeadline);
+                        Deadline newDeadline = new Deadline(item, time);
+                        myList.add(newDeadline);
+                        System.out.println("------------------------------------------------------------");
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(newDeadline);
+                        System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                        System.out.println("------------------------------------------------------------");
+                    }
 
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task: ");
-                    System.out.println(newDeadline);
-                    System.out.println("Now you have " + myList.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                }
+                    // Event is called
+                    else if (command.equals("event")) {
 
-                // Event is called
-                else {
+                        String[] item_time = restOfInputs.split("/from");
+                        String item = item_time[0];
+                        String time = item_time[1];
 
-                    String[] item_time = restOfInputs.split("/from");
-                    String item = item_time[0];
-                    String time = item_time[1];
+                        String[] from_to = time.split("/to");
+                        String from = from_to[0];
+                        String to = from_to[1];
 
-                    String[] from_to = time.split("/to");
-                    String from = from_to[0];
-                    String to = from_to[1];
+                        Event newEvent = new Event(item, from, to);
+                        myList.add(newEvent);
 
-                    Event newEvent = new Event(item, from, to);
-                    myList.add(newEvent);
+                        System.out.println("------------------------------------------------------------");
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(newEvent);
+                        System.out.println("Now you have " + myList.size() + " tasks in the list.");
+                        System.out.println("------------------------------------------------------------");
+                    }
 
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task: ");
-                    System.out.println(newEvent);
-                    System.out.println("Now you have " + myList.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    else {
+                        throw new DukeException("SORRY! but are you sure you enter the correct command? please check!");
+                    }
+
+                } catch (DukeException e) {
+
+                    System.out.println("------------------------------------------------------------");
+                    System.out.println(e.getMessage());
+                    System.out.println("------------------------------------------------------------");
                 }
             }
 
             System.out.print(" ");
         }
 
-        System.out.println("____________________________________________________________");
+        System.out.println("------------------------------------------------------------");
         System.out.println("Bye! Hope to see you again!!");
     }
 }
