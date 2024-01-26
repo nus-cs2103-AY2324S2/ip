@@ -8,13 +8,18 @@ public class Detective {
 
     public static void main(String[] args) {
         String name = "Detective";
+        boolean isContinue = true;
         ArrayList<Task> myList = new ArrayList<>();
-
         System.out.println(line + "\nHello! I'm [" + name + "]" + "\nWhat can I do for you?\n" + line);
-        String input = sc.nextLine();
-        while (!Objects.equals(input, "bye")) {
+
+        while (isContinue) {
+            String input = sc.nextLine();
             String[] inputContent = input.split(" ", 2);
             switch (inputContent[0]) {
+                case "bye":
+                    printMessage("Bye. Hope to see you again soon!");
+                    isContinue = false;
+                    break;
                 case "list":
                     System.out.println(line);
                     System.out.println("Here are the tasks in your list:");
@@ -22,7 +27,6 @@ public class Detective {
                         System.out.println((i + 1) + "." + myList.get(i));
                     }
                     System.out.println(line);
-                    input = sc.nextLine();
                     break;
                 case "mark":
                     int markTaskNum;
@@ -31,18 +35,13 @@ public class Detective {
                         myList.get(markTaskNum).markAsDone();
                     } catch (ArrayIndexOutOfBoundsException e) {
                         handleException("Please tell me mark which one!");
-                        input = sc.nextLine();
                         break;
                     } catch (IndexOutOfBoundsException e) {
                         handleException("I haven't record this task!");
-                        input = sc.nextLine();
                         break;
                     }
-                    System.out.println(line);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(myList.get(markTaskNum));
-                    System.out.println(line);
-                    input = sc.nextLine();
+                    printMessage("Nice! I've marked this task as done:",
+                            myList.get(markTaskNum).toString());
                     break;
                 case "unmark":
                     int unmarkTaskNum;
@@ -51,18 +50,13 @@ public class Detective {
                         myList.get(unmarkTaskNum).markAsNotDone();
                     } catch (ArrayIndexOutOfBoundsException e) {
                         handleException("Please tell me unmark which one!");
-                        input = sc.nextLine();
                         break;
                     } catch (IndexOutOfBoundsException e) {
                         handleException("I haven't record this task!");
-                        input = sc.nextLine();
                         break;
                     }
-                    System.out.println(line);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(myList.get(unmarkTaskNum));
-                    System.out.println(line);
-                    input = sc.nextLine();
+                    printMessage("OK, I've marked this task as not done yet:",
+                            myList.get(unmarkTaskNum).toString());
                     break;
                 case "delete":
                     int deleteTaskNum;
@@ -72,20 +66,15 @@ public class Detective {
                         needDelete = myList.get(deleteTaskNum);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         handleException("Please tell me delete which one!");
-                        input = sc.nextLine();
                         break;
                     } catch (IndexOutOfBoundsException e) {
                         handleException("I haven't record this task!");
-                        input = sc.nextLine();
                         break;
                     }
                     myList.remove(deleteTaskNum);
-                    System.out.println(line);
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(needDelete);
-                    System.out.println("Now you have " + myList.size() + " tasks in the list.");
-                    System.out.println(line);
-                    input = sc.nextLine();
+                    printMessage("Noted. I've removed this task:",
+                            needDelete.toString(),
+                            "Now you have " + myList.size() + " tasks in the list.");
                     break;
                 default: //add tasks to myList
                     switch (inputContent[0]) {
@@ -95,16 +84,12 @@ public class Detective {
                                 toDoTask = new ToDo(inputContent[1]);
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 handleException("What do you want to do?");
-                                input = sc.nextLine();
                                 break;
                             }
                             myList.add(toDoTask);
-                            System.out.println(line);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(toDoTask);
-                            System.out.println("Now you have " + myList.size() + " tasks in the list.");
-                            System.out.println(line);
-                            input = sc.nextLine();
+                            printMessage("Got it. I've added this task:",
+                                    toDoTask.toString(),
+                                    "Now you have " + myList.size() + " tasks in the list.");
                             break;
                         case "deadline":
                             Deadline deadlineTask;
@@ -115,16 +100,12 @@ public class Detective {
                                 deadlineTask = new Deadline(ddlName, ddlBy);
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 handleException("What is the deadline?");
-                                input = sc.nextLine();
                                 break;
                             }
                             myList.add(deadlineTask);
-                            System.out.println(line);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(deadlineTask);
-                            System.out.println("Now you have " + myList.size() + " tasks in the list.");
-                            System.out.println(line);
-                            input = sc.nextLine();
+                            printMessage("Got it. I've added this task:",
+                                    deadlineTask.toString(),
+                                    "Now you have " + myList.size() + " tasks in the list.");
                             break;
                         case "event":
                             Event eventTask;
@@ -136,32 +117,30 @@ public class Detective {
                                 eventTask = new Event(evtName, evtFrom, evtTo);
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 handleException("What is the event?");
-                                input = sc.nextLine();
                                 break;
                             }
                             myList.add(eventTask);
-                            System.out.println(line);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(eventTask);
-                            System.out.println("Now you have " + myList.size() + " tasks in the list.");
-                            System.out.println(line);
-                            input = sc.nextLine();
+                            printMessage("Got it. I've added this task:",
+                                    eventTask.toString(),
+                                    "Now you have " + myList.size() + " tasks in the list.");
                             break;
                         default:
-                            System.out.println(line);
-                            System.out.println("OOPS!!! Sorry, but I don't know what that means. qwq");
-                            System.out.println(line);
-                            input = sc.nextLine();
+                            printMessage("OOPS!!! Sorry, but I don't know what that means. qwq");
                     }
 
             }
         }
-        System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
     }
 
     private static void handleException(String message) {
+        printMessage("OOPS!!! " + message + " qwq");
+    }
+
+    private static void printMessage(String... messages) {
         System.out.println(line);
-        System.out.println("OOPS!!! " + message + " qwq");
+        for (String message: messages) {
+            System.out.println(message);
+        }
         System.out.println(line);
     }
 }
