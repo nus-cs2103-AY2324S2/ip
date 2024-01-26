@@ -15,7 +15,7 @@ public class Liv {
     }
 
     private static int parseNumberInCommand(String command) {
-        // Expect input in this form: "<command> <number>"
+        // Expect input.txt in this form: "<command> <number>"
         int spaceIndex = command.indexOf(' ');
         String numberString = command.substring(spaceIndex + 1);
         return Integer.parseInt(numberString);
