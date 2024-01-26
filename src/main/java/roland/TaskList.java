@@ -1,3 +1,7 @@
+package roland;
+
+import roland.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

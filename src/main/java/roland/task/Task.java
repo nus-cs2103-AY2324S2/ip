@@ -1,3 +1,5 @@
+package roland.task;
+
 import java.io.Serializable;
 
 public class Task implements Serializable {

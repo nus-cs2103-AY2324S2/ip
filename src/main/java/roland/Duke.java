@@ -1,9 +1,6 @@
-import java.io.*;
-import java.util.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.time.format.DateTimeParseException;
+package roland;
+
+import roland.command.Command;
 
 public class Duke {
 
@@ -25,6 +22,7 @@ public class Duke {
 
     public void run() {
         ui.boot();
+//        System.out.println(System.getProperty("user.dir"));
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -41,7 +39,7 @@ public class Duke {
         }
     }
     public static void main(String[] args) {
-        new Duke("/Users/lay/IdeaProjects/ip/src/main/java/roland.txt").run();
+        new Duke("./src/main/java/roland/data/roland.txt").run();
     }
 
 
