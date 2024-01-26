@@ -27,45 +27,40 @@ public class ChatBox {
     }
 
     private void parseInput() {
-        if (this.input.isEmpty()) {
-            return;
-        }
-        if (this.input.equals("list")) {
-            printList();
-            return;
-        }
-        if (this.input.equals("bye")) {
-            this.isExitSignal = true;
-            return;
-        }
         String[] words = input.split(" ");
-        if (words[0].equals("mark")) {
-            mark(words);
-            return;
+        Action action = Parser.parseAction(this.input, words);
+        switch (action) {
+            case NONE:
+                break;
+            case ADD_TODO:
+                addTodo();
+                break;
+            case ADD_DEADLINE:
+                addDeadline();
+                break;
+            case ADD_EVENT:
+                addEvent();
+                break;
+            case MARK:
+                mark(words);
+                break;
+            case UNMARK:
+                unmark(words);
+                break;
+            case DELETE:
+                delete(words);
+                break;
+            case LIST:
+                printList();
+                break;
+            case BYE:
+                this.isExitSignal = true;
+                break;
+            default:
+                printDecorator();
+                WisException.UnknownInputFormatExceptionHandler();
+                printDecorator();
         }
-        if (words[0].equals("unmark")) {
-            unmark(words);
-            return;
-        }
-        if (words[0].equals("delete")) {
-            delete(words);
-            return;
-        }
-        if (words[0].equals("todo")) {
-            addTodo();
-            return;
-        }
-        if (words[0].equals("deadline")) {
-            addDeadline();
-            return;
-        }
-        if (words[0].equals("event")) {
-            addEvent();
-            return;
-        }
-        printDecorator();
-        WisException.UnknownInputFormatExceptionHandler();
-        printDecorator();
     }
 
     private void printDecorator() {
