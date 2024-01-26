@@ -13,4 +13,8 @@ public class Event extends Task {
         String statusIcon = (isDone ? "X" : " ");
         return "[" + type + "][" + statusIcon + "] " + description + " (from: " + from + " to: " + to + ")";
     }
+
+    public String toText() {
+        return super.toText() + " | " + from + " | " + to;
+    }
 }

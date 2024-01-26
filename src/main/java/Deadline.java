@@ -11,4 +11,8 @@ public class Deadline extends Task {
         String statusIcon = (isDone ? "X" : " ");
         return "[" + type + "][" + statusIcon + "] " + description + " (by: " + deadline + ")";
     }
+
+    public String toText() {
+        return super.toText() + " | " + deadline;
+    }
 }

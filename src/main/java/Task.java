@@ -19,6 +19,10 @@ public class Task {
 
     public String type() { return type; }
 
+    public String toText() {
+        return type + " | " + isDone + " | " + description;
+    }
+
     public void mark() {
         isDone = true;
     }
