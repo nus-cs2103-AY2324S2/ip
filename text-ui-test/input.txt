@@ -2,6 +2,7 @@ deadline draw /by Sunday
 cherry
 apples
 banana
-todo eat
+event eat /from monday /to thursday
 todo drive
-car
+mark 1
+unmark 1
