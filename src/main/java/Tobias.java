@@ -1,4 +1,9 @@
+import javax.imageio.IIOException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 public class Tobias {
@@ -11,19 +16,94 @@ public class Tobias {
         System.out.println(divider);
     }
 
-    public static void commandHandler(String divider) {
+    public static void storeToLocal(List<Task> tasks) {
+        String result = "";
+
+        for (Task task : tasks) {
+            result += task.storagePrinter() + System.lineSeparator();
+        }
+
+        try {
+            FileWriter fw = new FileWriter("data/tobias.txt");
+            fw.write(result);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void localToList(String data, List<Task> tasks) {
+        try {
+            if (data.startsWith("T")) {
+                boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
+
+                int desc = data.indexOf("|desc");
+                String description = data.substring(desc+5);
+
+                Task newTask = new ToDo(description, isDone);
+                tasks.add(newTask);
+
+            } else if (data.startsWith("D")) {
+                boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
+
+                int desc = data.indexOf("|desc");
+                int by = data.indexOf("|by");
+                String description = data.substring(desc+5, by);
+                String byDate = data.substring(by+3);
+
+                Task newTask = new Deadline(description, isDone, byDate);
+                tasks.add(newTask);
+
+            } else if (data.startsWith("E")) {
+                boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
+
+                int desc = data.indexOf("|desc");
+                int from = data.indexOf("|from");
+                int to = data.indexOf("|to");
+                String description = data.substring(desc+5, from);
+                String fromDate = data.substring(from+5, to);
+                String toDate = data.substring(to+3);
+
+                Task newTask = new Event(description, isDone, fromDate, toDate);
+                tasks.add(newTask);
+            } else {
+                throw new TobiasException("   Saved file is corrupted!");
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("local to list function " + e.getMessage());
+        }
+    }
+
+    public static List<Task> localToCurrent() {
+        List<Task> tasks = new ArrayList<Task>();
+        try {
+            File f = new File("data/tobias.txt");
+            Scanner s = new Scanner(f);
+
+            while (s.hasNext()) {
+                localToList(s.nextLine(), tasks);
+            }
+            s.close();
+        } catch (IOException e) {
+            System.out.println("local to current function " + e.getMessage());
+        }
+        return tasks;
+    }
+
+    public static void commandHandler(String divider, List<Task> tasks) {
         Scanner scanner = new Scanner(System.in);
         String outro = "Bye. Hope to see you soon!";
 
         Boolean isExit = false;
         String command = "";
 
-        List<Task> tasks = new ArrayList<Task>();
-
         while (!isExit) {
             try {
                 command = scanner.nextLine().trim();
                 if (command.equals("bye")) {
+                    storeToLocal(tasks);
                     System.out.println(divider);
                     System.out.println("    " + outro);
                     System.out.println(divider);
@@ -136,12 +216,19 @@ public class Tobias {
                         if (command.equals("todo")) {
                             throw new TobiasException("    Hey, please enter a description !");
                         }
-                        String description = command.substring(4);
+
+                        String blank = command.substring(4,5);
+
+                        if (!blank.isBlank()) {
+                            throw new TobiasException("    Kindly type your task a space after todo!");
+                        }
+
+                        String description = command.substring(5);
 
                         Task newTask = new ToDo(description);
                         tasks.add(newTask);
-
                         addedTaskPrinter(newTask, tasks.size(), divider);
+
                     } catch(TobiasException e) {
                         e.printMessage();
                     }
@@ -150,6 +237,12 @@ public class Tobias {
                     try {
                         if (command.equals("deadline")) {
                             throw new TobiasException("    Hey, please enter a description !");
+                        }
+
+                        String blank = command.substring(8,9);
+
+                        if (!blank.isBlank()) {
+                            throw new TobiasException("    Kindly type your task a space after deadline!");
                         }
 
                         int byIndex = command.indexOf("/by");
@@ -174,8 +267,8 @@ public class Tobias {
 
                         Task newTask = new Deadline(description, deadline);
                         tasks.add(newTask);
-
                         addedTaskPrinter(newTask, tasks.size(), divider);
+
                     } catch (TobiasException e) {
                         e.printMessage();
                     }
@@ -186,6 +279,12 @@ public class Tobias {
 
                         if (command.equals("event")) {
                             throw new TobiasException("     Hey, please enter a description !");
+                        }
+
+                        String blank = command.substring(5,6);
+
+                        if (!blank.isBlank()) {
+                            throw new TobiasException("    Kindly type your task a space after event!");
                         }
 
                         int fromIndex = command.indexOf("/from");
@@ -227,8 +326,8 @@ public class Tobias {
 
                         Task newTask = new Event(description, from, to);
                         tasks.add(newTask);
-
                         addedTaskPrinter(newTask, tasks.size(), divider);
+
                     } catch (TobiasException e) {
                         e.printMessage();
                     }
@@ -244,6 +343,8 @@ public class Tobias {
             }
         }
 
+        scanner.close();
+
 
     }
 
@@ -254,10 +355,32 @@ public class Tobias {
         System.out.println(divider);
     }
 
+    public static void createLocalStorage() {
+        try {
+            File file = new File("data/tobias.txt");
+
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+
+            if (file.createNewFile()) {
+                System.out.println("   File created successfully: " + file.getAbsolutePath());
+            } else {
+                System.out.println("   File alr exists: " + file.getAbsolutePath());
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         String botName = "TOBIAS";
         String divider = "  ---------------------------------------------------------------------------------------";
+        createLocalStorage();
+        List<Task> tasks = localToCurrent();
+        System.out.println("   Data loaded!");
         introPrinter(botName, divider);
-        commandHandler(divider);
+        commandHandler(divider, tasks);
     }
 }
