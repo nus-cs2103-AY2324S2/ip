@@ -39,7 +39,7 @@ public class Nollid {
             userInput = userInput.strip();
 
             if (userInput.isEmpty()) {
-                botSays("Please enter a command.");
+                botSays("Please enter a command. Type 'help' to view a list of commands.");
                 continue;
             }
 
@@ -67,9 +67,8 @@ public class Nollid {
                     deleteTaskCommand(inputList);
                 } else if (userCommand.equalsIgnoreCase(Command.HELP.toString())) {
                     helpCommand();
-                }
-                else {
-                    botSays("Invalid command. Use 'help' to view a list of commands.");
+                } else {
+                    botSays("Invalid command. Type 'help' to view a list of commands.");
                 }
             } catch (DukeException e) {
                 botSays(e.getMessage());
@@ -163,57 +162,57 @@ public class Nollid {
     public static void markCommand(ArrayList<String> inputList) throws DukeException {
         // This means that the user has not supplied any number with the command
         if (inputList.size() == 1) {
-            throw new DukeException("Please enter the task you wish to mark as done!\n" +
-                    "Usage: mark [task number]");
+            throw new DukeException("Please enter the task you wish to mark as done!\n" + "Usage: mark [task number]");
         } else {
             try {
                 int taskIndex = Integer.parseInt(inputList.get(1));
                 markDone(taskIndex);
             } catch (NumberFormatException e) {
-                throw new DukeException("Please enter a number for the mark command.\n" +
-                        "Usage: mark [task number]");
+                throw new DukeException("Please enter a number for the mark command.\n" + "Usage: mark [task number]");
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)\n" +
-                        "Usage: mark [task number]");
+                throw new DukeException("Are you sure that's a valid task number? (Tip: use 'list' to check the "
+                        + "number of your task!)\n" + "Usage: mark [task number]");
             }
         }
     }
 
     public static void markDone(int taskIndex) {
         todoList.get(taskIndex - 1).markDone();
-        String response = "Good job! I've marked this task as done: \n" + "\t " + todoList.get(taskIndex - 1).toString();
+        String response = "Good job! I've marked this task as done: \n"
+                + "\t " + todoList.get(taskIndex - 1).toString();
         botSays(response);
     }
 
     public static void unmarkCommand(ArrayList<String> inputList) throws DukeException {
         // This means that the user has not supplied any number with the command
         if (inputList.size() == 1) {
-            throw new DukeException("Please enter the task you wish to mark as not done!\n" +
-                    "Usage: unmark [task number]");
+            throw new DukeException("Please enter the task you wish to mark as not done!\n"
+                    + "Usage: unmark [task number]");
         } else {
             try {
                 int taskIndex = Integer.parseInt(inputList.get(1));
                 markNotDone(taskIndex);
             } catch (NumberFormatException e) {
-                throw new DukeException("Please enter a number for the unmark command.\n" +
-                        "Usage: unmark [task number]");
+                throw new DukeException("Please enter a number for the unmark command.\n"
+                        + "Usage: unmark [task number]");
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)\n" +
-                        "Usage: unmark [task number]");
+                throw new DukeException("Are you sure that's a valid task number? (Tip: use 'list' to check the "
+                        + "number of your task!)\n" + "Usage: unmark [task number]");
             }
         }
     }
 
     public static void markNotDone(int taskIndex) {
         todoList.get(taskIndex - 1).markNotDone();
-        String response = "Alright, I've marked this task as not done yet: \n" + "\t " + todoList.get(taskIndex - 1).toString();
+        String response = "Alright, I've marked this task as not done yet: \n"
+                + "\t " + todoList.get(taskIndex - 1).toString();
         botSays(response);
     }
 
     public static void addTodoCommand(ArrayList<String> inputList) throws DukeException {
         if (inputList.size() == 1) {
-            throw new DukeException("Todo description cannot be empty!\n" +
-                    "Usage: todo [task description]");
+            throw new DukeException("Todo description cannot be empty!\n"
+                    + "Usage: todo [task description]");
         }
 
         StringBuilder taskDescription = new StringBuilder();
@@ -232,13 +231,13 @@ public class Nollid {
     public static void addDeadlineCommand(ArrayList<String> inputList) throws DukeException {
         int byIndex = inputList.indexOf("/by");
         if (inputList.size() == 1 || byIndex == 1) {
-            throw new DukeException("Deadline description cannot be empty!\n" +
-                    "Usage: deadline [task description] /by [deadline]");
+            throw new DukeException("Deadline description cannot be empty!\n"
+                    + "Usage: deadline [task description] /by [deadline]");
         }
 
         if (byIndex == inputList.size() - 1 || byIndex == -1) {
-            throw new DukeException("Please input a deadline!\n" +
-                    "Usage: deadline [task description] /by [deadline]");
+            throw new DukeException("Please input a deadline!\n"
+                    + "Usage: deadline [task description] /by [deadline]");
         }
 
         StringBuilder taskDescription = new StringBuilder();
@@ -268,18 +267,18 @@ public class Nollid {
         int toIndex = inputList.indexOf("/to");
 
         if (inputList.size() == 1 || fromIndex == 1 || toIndex == 1) {
-            throw new DukeException("Event description cannot be empty!\n" +
-                    "Usage: event [task description] /from [start] /to [end]");
+            throw new DukeException("Event description cannot be empty!\n"
+                    + "Usage: event [task description] /from [start] /to [end]");
         }
 
         if (fromIndex == -1 || fromIndex == inputList.size() - 1 || fromIndex == toIndex - 1) {
-            throw new DukeException("Please enter the start of your event!\n" +
-                    "Usage: event [task description] /from [start] /to [end]");
+            throw new DukeException("Please enter the start of your event!\n"
+                    + "Usage: event [task description] /from [start] /to [end]");
         }
 
         if (toIndex == -1 || toIndex == inputList.size() - 1 || toIndex == fromIndex - 1) {
-            throw new DukeException("Please enter the end of your event!\n" +
-                    "Usage: event [task description] /from [start] /to [end]");
+            throw new DukeException("Please enter the end of your event!\n"
+                    + "Usage: event [task description] /from [start] /to [end]");
         }
 
         StringBuilder taskDescription = new StringBuilder();
@@ -297,7 +296,8 @@ public class Nollid {
         addToList(task);
     }
 
-    private static void extractEventInfo(ArrayList<String> inputList, int fromIndex, int toIndex, StringBuilder taskDescription, StringBuilder from, StringBuilder to) {
+    private static void extractEventInfo(ArrayList<String> inputList, int fromIndex, int toIndex,
+                                         StringBuilder taskDescription, StringBuilder from, StringBuilder to) {
         for (int i = 1; i < fromIndex; i++) {
             if (i != fromIndex - 1) {
                 taskDescription.append(inputList.get(i)).append(" ");
@@ -326,14 +326,14 @@ public class Nollid {
     public static void deleteTaskCommand(ArrayList<String> inputList) throws DukeException {
         // This means that the user has not supplied any number with the command
         if (inputList.size() == 1) {
-            throw new DukeException("Please enter the task you wish to delete!\n" +
-                    "Usage: delete [task number]");
+            throw new DukeException("Please enter the task you wish to delete!\n"
+                    + "Usage: delete [task number]");
         } else {
             try {
                 int taskIndex = Integer.parseInt(inputList.get(1));
 
-                String message = "Alright, the following task has been removed:\n" +
-                        "\t" + todoList.remove(taskIndex - 1).toString() + "\n";
+                String message = "Alright, the following task has been removed:\n"
+                        + "\t" + todoList.remove(taskIndex - 1).toString() + "\n";
 
                 int listSize = todoList.size();
 
@@ -346,24 +346,24 @@ public class Nollid {
 
                 botSays(message);
             } catch (NumberFormatException e) {
-                throw new DukeException("Please enter a number for the delete command.\n" +
-                        "Usage: delete [task number]");
+                throw new DukeException("Please enter a number for the delete command.\n"
+                        + "Usage: delete [task number]");
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Are you sure that's a valid task number? (Tip: use 'list' to check the number of your task!)\n" +
-                        "Usage: delete [task number]");
+                throw new DukeException("Are you sure that's a valid task number? (Tip: use 'list' to check the "
+                        + "number of your task!)\n" + "Usage: delete [task number]");
             }
         }
     }
 
     public static void helpCommand() {
-        String message = "Available commands:\n" +
-                "list \t\t- Lists all your tasks\n" +
-                "todo \t\t- Create a new todo task.\n" +
-                "deadline \t- Create a new task with a deadline.\n" +
-                "event \t\t- Create a new task with a starting and ending time.\n" +
-                "mark \t\t- Mark a task as completed.\n" +
-                "unmark \t\t- Mark a task as not completed.\n" +
-                "delete \t\t- Delete a task.";
+        String message = "Available commands:\n"
+                + "list \t\t- Lists all your tasks\n"
+                + "todo \t\t- Create a new todo task.\n"
+                + "deadline \t- Create a new task with a deadline.\n"
+                + "event \t\t- Create a new task with a starting and ending time.\n"
+                + "mark \t\t- Mark a task as completed.\n"
+                + "unmark \t\t- Mark a task as not completed.\n"
+                + "delete \t\t- Delete a task.";
 
         botSays(message);
     }
