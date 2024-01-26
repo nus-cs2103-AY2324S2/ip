@@ -1,7 +1,13 @@
+package duke.command;
+
+import duke.TaskList;
+import duke.command.Command;
+import duke.task.Task;
+
 /**
  * Class for listing all the tasks
  */
-public class List implements Command{
+public class List implements Command {
     private TaskList taskList;
     public List(TaskList taskList) {
         this.taskList = taskList;

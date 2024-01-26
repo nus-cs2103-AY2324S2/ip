@@ -1,7 +1,13 @@
+package duke.command;
+
+import duke.TaskList;
+import duke.exception.WrongIndexException;
+import duke.task.Task;
+
 /**
  * Class for the delete command.
  */
-public class Delete implements Command{
+public class Delete implements Command {
     private final int operand;
     private final Task deletedTask;
     private TaskList tasks;
@@ -9,7 +15,7 @@ public class Delete implements Command{
      * Constructor
      * @param operand the index count from 0;
      */
-    public Delete(int operand, TaskList taskList) throws WrongIndexException{
+    public Delete(int operand, TaskList taskList) throws WrongIndexException {
         this.operand=operand;
         if (operand>=taskList.getListLength() || operand<0) {
             throw new WrongIndexException(taskList.getListLength());

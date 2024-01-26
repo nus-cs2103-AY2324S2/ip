@@ -1,5 +1,7 @@
+package duke.command;
+
 /**
- * All Command has a method to call for execute
+ * All duke.command.Command has a method to call for execute
  */
 public interface Command {
 

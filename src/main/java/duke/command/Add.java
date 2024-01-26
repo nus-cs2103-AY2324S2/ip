@@ -1,10 +1,19 @@
+package duke.command;
+
+import duke.TaskList;
+import duke.exception.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 /**
  * Class for adding a task into task list
  */
-public class Add implements Command{
+public class Add implements Command {
     private Task task;
     private TaskList tasks;
     /**
@@ -14,7 +23,7 @@ public class Add implements Command{
      * @param text the description of a task
      * @throws DukeException wrong inputs might happens
      */
-    public Add(String text, TaskList taskList) throws DukeException{
+    public Add(String text, TaskList taskList) throws DukeException {
         if (text.startsWith("todo")) {
             if (text.length()<=5) {
                 throw new EmptyTextException("description","todo");

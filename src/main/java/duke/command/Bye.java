@@ -1,7 +1,11 @@
+package duke.command;
+
+import duke.command.Command;
+
 /**
- * Command to exit the program
+ * duke.command.Command to exit the program
  */
-public class Bye implements Command{
+public class Bye implements Command {
     /**
      * Override the interface method.
      * exit the program

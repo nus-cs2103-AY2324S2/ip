@@ -1,7 +1,11 @@
+package duke.exception;
+
+import duke.exception.DukeException;
+
 /**
  * Exception for wrong usage
  */
-public class WrongUsageException extends DukeException{
+public class WrongUsageException extends DukeException {
     private String usage;
 
     /**
