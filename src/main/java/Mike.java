@@ -1,5 +1,13 @@
 import java.util.List;
 
+/*
+TODO:
+    1. Update text ui test
+    2. Extend text ui test cases
+    3. Write comments to document code
+    4. Write the README.md
+ */
+
 public class Mike {
     private final TaskList taskList;
     private final Ui ui;
