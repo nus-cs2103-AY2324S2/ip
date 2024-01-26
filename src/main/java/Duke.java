@@ -44,14 +44,30 @@ public class Duke {
         printHorizontalLine();;
     }
 
+    // Prints the task list.
+    private void printTaskList() {
+        int numOfTasks = taskList.size();
+        printHorizontalLine();
+        for (int index = 1; index <= numOfTasks; index++) {
+            printWithIndent(" " + index + ". " + taskList.get(index - 1));
+        }
+        printHorizontalLine();
+    }
+
     // Adds tasks to task list until bye has been input.
     private void addTaskUntilBye() {
         // Waits for command from user
         String command = sc.nextLine();
 
-        // While user hasn't input bye, add command to command list
+        // While user hasn't input bye, add task to task list
         while (!Objects.equals(command, "bye")) {
-            addTask(command);
+            // If list is input, print list, else add task to list
+            if (Objects.equals(command, "list")) {
+                printTaskList();
+            } else {
+                addTask(command);
+            }
+
             command = sc.nextLine();
         }
     }
