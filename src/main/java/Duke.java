@@ -3,6 +3,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class Duke {
     // class variables
@@ -10,29 +14,38 @@ public class Duke {
     private static final String CHATBOT_NAME = "ByteBuddy";
     private static final String START_MESSAGE = "Hello! I'm " + CHATBOT_NAME + "\n" + "\t What can I do for you?";
     private static final String BYE_MESSAGE = "Sad to see you leave :(";
-    public static final String EVENT_FORMAT = "event [task] /from [date] /to [date]";
-    public static final String DEADLINE_FORMAT = "deadline [task] /by [date]";
-    public static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description cannot be empty??";
-    public static final String NUMBER_FORMAT_ERROR_MESSAGE = "Invalid task number format! Please enter a valid number.";
-    public static final String NO_SUCH_TASK_NUMBER_ERROR_MESSAGE = "We do not have this task number!!";
+    private static final String EVENT_FORMAT = "event [task] /from [date] /to [date]";
+    private static final String DEADLINE_FORMAT = "deadline [task] /by [date]";
+    private static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description cannot be empty??";
+    private static final String NUMBER_FORMAT_ERROR_MESSAGE = "Invalid task number format! Please enter a valid number.";
+    private static final String NO_SUCH_TASK_NUMBER_ERROR_MESSAGE = "We do not have this task number!!";
+    // private static final String FAILED_DIR_CREATION_ERROR_MESSAGE = "Failed to create directory";
+    private static final String RELATIVE_DATA_DIRECTORY_PATH = "./data";
+    private static final String RELATIVE_OUTPUT_TXT_FILE_PATH = "./data/output.txt";
+
 
     private static ArrayList<Task> taskList;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws DukeException {
         taskList = new ArrayList<>();
 
         // start
         printStartMessage();
 
         // Run main functionality of ByteBuddy
-        runByteBuddy(sc, taskList);
+        runByteBuddy(taskList);
 
         // bye
         printByeMessage();
     }
 
-    public static void runByteBuddy(Scanner sc, ArrayList<Task> taskList) {
+    public static void runByteBuddy(ArrayList<Task> taskList) throws DukeException {
+        Scanner sc = new Scanner(System.in);
+        File dataDir = new File(RELATIVE_DATA_DIRECTORY_PATH);
+        File outputTxt = new File(RELATIVE_OUTPUT_TXT_FILE_PATH);
+        createOutputDirectoryAndFile(dataDir, outputTxt);
+
+
         // repeating user commands
         label:
         while (true) {
@@ -71,6 +84,27 @@ public class Duke {
                 printWithSolidLineBreak(e.getMessage());
             }
         }
+    }
+
+    private static void createOutputDirectoryAndFile(File dataDir, File outputTxt) throws DukeException {
+        try {
+            if (!dataDir.isDirectory()) {
+                dataDir.mkdirs();
+            }
+            if (!outputTxt.exists()) {
+                outputTxt.createNewFile();
+            }
+        } catch (SecurityException e) {
+            throw new DukeException(e.toString());
+        } catch (IOException e) {
+            throw new DukeException(e.toString());
+        }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
     }
 
     public static List<String> splitStringWithTrim(String info, String separator) {
