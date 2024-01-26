@@ -4,31 +4,35 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+    //enum to represent different commands
+    public enum Command {
+        MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, LIST, BYE, HELPG, ADD, UNKNOWN
+    }
+
+    private static Command getCommand(String commandString) {
+        try {
+            return Command.valueOf(commandString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return Command.UNKNOWN;
+        }
+    }
+
     public static void main(String[] args) {
         //introduction text
-        System.out.println("Hello! I'm MichelleBot! What can I do for you?\n" +
-        "Type in text to add in a task to your list\n"+
-        "Other commands:\n" +
-        "mark [input number] - mark a task as done\n" +
-        "unmark [input number] - unmark a task as undone\n" +
-        "todo [task] - add a TODO task to your list\n" +
-        "deadline [task] /by [deadline] - add a DEADLINE to your list\n" + 
-        "Event [task] /from [date] /to [date] - add an EVENT to your list\n" + 
-        "list - list out the current tasks you have\n" +
-        "bye - exit the program ");
+        System.out.println("Hello! I'm MichelleBot! What can I do for you? (helpg for guide)" );
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        boolean keepRunning = true;
+        boolean isRunning = true;
         ArrayList<Task> theList = new ArrayList<>();
         do { //continue the program until 'bye' command is inputted. 
             String input = scanner.nextLine().trim();
             String[] inputList = input.split(" ",2);
 
             if (inputList.length != 1) { //indicates one of the other commands
-                switch(inputList[0].toLowerCase()) {
+                switch(getCommand(inputList[0])) {
                     //both mark and unmark handle the same exceptions. 
-                    case "mark": //mark the task
+                    case MARK: //mark the task
                     try {        
                         int number = Integer.parseInt(inputList[1])-1;
                         theList.get(number).markItem();
@@ -42,7 +46,7 @@ public class Duke {
                     }
                     break;
 
-                    case "unmark": //unmark the task
+                    case UNMARK: //unmark the task
                         try {
                             int number = Integer.parseInt(inputList[1])-1;
                             theList.get(number).unmarkItem();
@@ -57,13 +61,13 @@ public class Duke {
                         break;
                     
                     // add in three types of tasks
-                    case "todo" :
+                    case TODO :
                         ToDo newToDo = new ToDo(inputList[1]);
                         theList.add(newToDo);
                         System.out.println("Roger that! I've added in this task:\n " + newToDo  +"\nNow you have "+ theList.size() + " tasks in the list.");
                         break;
 
-                    case "deadline": 
+                    case DEADLINE: 
                         try{
                             String[] theParts = inputList[1].split("/",2);
                             if (theParts[1].trim().startsWith("by")) {
@@ -90,7 +94,7 @@ public class Duke {
 
                         break;
 
-                    case "event":
+                    case EVENT:
                         try{
                             String[] theParts = inputList[1].split("/",3);
                             if (theParts[1].trim().startsWith("from")) {
@@ -121,7 +125,7 @@ public class Duke {
                         break;                  
                         
                     //delete task from task list
-                    case "delete":
+                    case DELETE:
                         try {
                             int number = Integer.parseInt(inputList[1])-1;
                             Task removedTask = theList.remove(number);
@@ -134,21 +138,34 @@ public class Duke {
                             System.out.println("An unexpected error has occurred. \n" + e.getMessage() + "\nPlease contact the admininstrator"); 
                         }
                         break;
-
+                    
                     // default - add in the task as according to the text input
-                    default:
-                        System.out.println("I've added in this task: " + input);
-                        theList.add(new Task(input));
+                    case ADD:
+                        System.out.println("I've added in this task: " + inputList[1]);
+                        theList.add(new Task(inputList[1]));
                         System.out.println("\nNow you have "+ theList.size() + " tasks in the list.");
-                } 
-            } else { //one word command - either list or bye 
-                switch(input.toLowerCase()) {
-                    case "bye":
-                        System.out.println("Bye. Hope to see you again soon! \\(^-^)/ ");
-                        keepRunning = false; 
                         break;
 
-                    case "list":
+                    case UNKNOWN:
+                        System.out.println("Unknown command: " + inputList[0].toLowerCase());
+                        break;
+
+                    case HELPG:
+                    case BYE:
+                    case LIST:
+                        System.out.println("Unexpected addition text after command");
+                        System.out.println("Did you mean just " + getCommand(inputList[0]) + "?");
+                        break;
+
+                } 
+            } else { //one word command - either list or bye 
+                switch(getCommand(input)) {
+                    case BYE:
+                        System.out.println("Bye. Hope to see you again soon! \\(^-^)/ ");
+                        isRunning = false; 
+                        break;
+
+                    case LIST:
                         for (int i = 0; i < theList.size(); i++) {
                             int itemNumber = i + 1;
                             Task listItem = theList.get(i);
@@ -157,28 +174,42 @@ public class Duke {
                         break;
                     
                     // incorrect inputs by user - other commands
-                    case "todo":
-                    case "event":
-                    case "deadline":
-                        System.out.println("You have to enter more information :( refer to the introduction text for more details. ");
+                    case TODO:
+                    case EVENT:
+                    case DEADLINE:
+                    case ADD:
+                        System.out.println("You have to enter more information :( refer to helpg for more details. ");
                         break;
                     
-                    case "mark":
-                    case "unmark":
-                    case "delete":
+                    case MARK:
+                    case UNMARK:
+                    case DELETE:
                         System.out.println("Let me know the index number!");
                         break;
 
-                    // default - add in the task as according to the text input
-                    default:
-                        System.out.println("I've added in this task: " + input);
-                        theList.add(new Task(input));
-                        System.out.println("\nNow you have "+ theList.size() + " tasks in the list.");
+                    case HELPG:
+                        System.out.println("Type in text to add in a task to your list\n"+
+                        "Other commands:\n" +
+                        "add [task] - adds a task to the task list\n" +
+                        "mark [input number] - mark a task as done\n" +
+                        "unmark [input number] - unmark a task as undone\n" +
+                        "todo [task] - add a TODO task to your list\n" +
+                        "deadline [task] /by [deadline] - add a DEADLINE to your list\n" + 
+                        "event [task] /from [date] /to [date] - add an EVENT to your list\n" + 
+                        "delete [input number] - delete a task from task list\n" +
+                        "list - list out the current tasks you have\n" +
+                        "bye - exit the program ");
+                        break;
+
+                    case UNKNOWN:
+                        System.out.println("Unknown command: " + inputList[0].toLowerCase() + "\nPlease try again.");
+                        break;
+
                 }
             }
             System.out.println("____________________________________________________________");
 
-        } while (keepRunning);
+        } while (isRunning);
 
         scanner.close();
     }

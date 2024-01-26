@@ -1,13 +1,4 @@
-Hello! I'm MichelleBot! What can I do for you?
-Type in text to add in a task to your list
-Other commands:
-mark [input number] - mark a task as done
-unmark [input number] - unmark a task as undone
-todo [task] - add a TODO task to your list
-deadline [task] /by [deadline] - add a DEADLINE to your list
-Event [task] /from [date] /to [date] - add an EVENT to your list
-list - list out the current tasks you have
-bye - exit the program 
+Hello! I'm MichelleBot! What can I do for you? (helpg for guide)
 ____________________________________________________________
 I've added in this task: read book
 
@@ -56,6 +47,18 @@ ____________________________________________________________
 1. [T][X] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+Type in text to add in a task to your list
+Other commands:
+add [task] - adds a task to the task list
+mark [input number] - mark a task as done
+unmark [input number] - unmark a task as undone
+todo [task] - add a TODO task to your list
+deadline [task] /by [deadline] - add a DEADLINE to your list
+event [task] /from [date] /to [date] - add an EVENT to your list
+delete [input number] - delete a task from task list
+list - list out the current tasks you have
+bye - exit the program 
 ____________________________________________________________
 Bye. Hope to see you again soon! \(^-^)/ 
 ____________________________________________________________
