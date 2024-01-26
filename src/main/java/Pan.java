@@ -3,6 +3,7 @@ import java.util.List;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import exceptions.InternalTestCases;
 import exceptions.TaskIndexException;
@@ -51,7 +52,7 @@ public class Pan {
                     String postfix = instruction.substring(8).trim();
                     String desc = postfix.split("/by")[0].trim();
                     String byDate = postfix.split("/by")[1].trim();
-                    Deadlines deadlines = new Deadlines(desc, TaskStatus.INCOMPLETE, byDate);
+                    Deadlines deadlines = new Deadlines(desc, TaskStatus.INCOMPLETE, convertDate(byDate));
                     tasks.add(deadlines);
                     add(deadlines);
                     continue;
@@ -60,7 +61,7 @@ public class Pan {
                     String desc = postfix.split("/from")[0].trim();
                     String from = postfix.split("/from")[1].split("/to")[0].trim();
                     String to = postfix.split("/from")[1].split("/to")[1].trim();
-                    Events events = new Events(desc, TaskStatus.INCOMPLETE, from, to);
+                    Events events = new Events(desc, TaskStatus.INCOMPLETE, convertDate(from), convertDate(to));
                     tasks.add(events);
                     add(events);
                     continue;
@@ -143,4 +144,11 @@ public class Pan {
             exception.printStackTrace();
         } 
     }
+
+    public static LocalDate convertDate(String dateStr) {
+        // assuming that byDate is in yyyy-mm-dd
+        String[] dateArr = dateStr.split("-");
+        return LocalDate.of(Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[2]));
+    }
+
 }

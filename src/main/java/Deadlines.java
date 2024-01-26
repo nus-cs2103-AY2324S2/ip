@@ -20,6 +20,6 @@ class Deadlines extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.byDate + ")";
+        return "[D]" + super.toString() + " (by: " + this.byDate.getMonth().name() + " " + this.byDate.getDayOfMonth() + " " + this.byDate.getYear() + ")";
     }
 }

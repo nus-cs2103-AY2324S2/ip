@@ -31,6 +31,6 @@ class Events extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.getMonth().name() + " " + this.from.getDayOfMonth() + " " + this.from.getYear() + " to: " + this.to.getMonth().name() + " " + this.to.getDayOfMonth() + " " + this.to.getYear() + ")";
     }
 }
