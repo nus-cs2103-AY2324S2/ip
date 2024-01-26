@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
 public class Shon {
+
+    private enum Action {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TodoList list = new TodoList();
@@ -8,38 +13,36 @@ public class Shon {
         print("Hello! I'm Shon", "What can I do for you?");
         String input = scanner.nextLine();
         input = input.strip();
-        while (!input.equals("bye")) {
-            String action = input.split(" ")[0];
+        while (!input.equalsIgnoreCase("bye")) {
             try {
+                Action action = getAction(input);
                 switch (action) {
-                    case "":
-                        print("Please enter a command.");
-                        break;
-                    case "list":
+//                    case "":
+//                        print("Please enter a command.");
+//                        break;
+                    case LIST:
                         print(list.getList());
                         break;
-                    case "mark":
+                    case MARK:
                         print(markTask(input, list));
                         break;
-                    case "unmark":
+                    case UNMARK:
                         print(unmarkTask(input, list));
                         break;
-                    case "todo":
+                    case TODO:
                         print(addTodo(input, list));
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         print(addDeadline(input, list));
                         break;
-                    case "event":
+                    case EVENT:
                         print(addEvent(input, list));
                         break;
-                    case "delete":
+                    case DELETE:
                         print(deleteEvent(input, list));
                         break;
-                    default:
-                        print("OOPS!!! I'm sorry, but I don't know what that means :-)");
                 }
-            } catch (ParameterException e) {
+            } catch (ParameterException | CommandException e) {
                 print(e.getMessage());
             }
 
@@ -48,6 +51,17 @@ public class Shon {
         }
         scanner.close();
         print("Bye. Hope to see you again soon!");
+    }
+
+    private static Action getAction(String input) throws CommandException {
+        if (input.equals("")) {
+            throw new CommandException("Please enter a command.");
+        }
+        try {
+            return Action.valueOf(input.split(" ")[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new CommandException("OOPS!!! I'm sorry, but I don't know what that means :-)");
+        }
     }
 
     private static void print(String... messages) {
