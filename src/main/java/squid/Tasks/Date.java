@@ -15,7 +15,6 @@ import java.time.format.DateTimeParseException;
 public class Date {
     private String date;
     private LocalDate formattedDate;
-    private LocalDateTime formattedDateTime;
     private LocalTime formattedTime;
 
     private void formatTime(String time) throws SquidDateException {
