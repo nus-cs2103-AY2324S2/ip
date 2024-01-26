@@ -19,14 +19,15 @@ public class Duke {
                     Task t = list.get(i -1);
                     System.out.println("\t\t" + i +"." + t.toString());
                 }
+                System.out.println("");
             } else if (arr[0].equals("unmark")) {
                 Task t = list.get(getIndex(arr));
                 t.unmarkDone();
-                System.out.println("\t\tReminder, you have not completed this task yet:\n\t\t  " + t.toString());
+                System.out.println("\t\tReminder, you have not completed this task yet:\n\t\t  " + t.toString() + "\n");
             } else if (arr[0].equals("mark")) {
                 Task t = list.get(getIndex(arr));
                 t.markDone();
-                System.out.println("\t\tGreat job, you have accomplished this task:\n\t\t  " + t.toString());
+                System.out.println("\t\tGreat job, you have accomplished this task:\n\t\t  " + t.toString() + "\n");
             } else {
                 String s = getDescripition(arr);
                 String[] newArr = s.split(" /");
@@ -45,10 +46,10 @@ public class Duke {
                     System.out.println("\t\t  " + e.toString());
                 }
                 System.out.println("\t\tYou have " + list.size() + " too many tasks to do!!!" +
-                        "\n\t\tQuickly start working on them!!!");
+                        "\n\t\tQuickly start working on them!!!\n");
             }
         }
-        System.out.println("\t\tBye bye, see you next time !!!");
+        System.out.println("\t\tBye bye, see you next time!!!");
     }
     private static int getIndex(String[] arr) {
         int index = Integer.parseInt(arr[1]);
