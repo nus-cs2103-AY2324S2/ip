@@ -6,7 +6,7 @@ public class Shon {
             "_____________________________________________";
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Todo todo = new Todo();
+        TodoList list = new TodoList();
 
         print("Hello! I'm Shon", "What can I do for you?");
         String input = scanner.nextLine();
@@ -16,16 +16,28 @@ public class Shon {
             String action = s[0];
             switch (action) {
                 case "list":
-                    print(todo.getList());
+                    print(list.getList());
                     break;
                 case "mark":
-                    print(todo.mark(Integer.parseInt(s[1])));
+                    print(list.mark(Integer.parseInt(s[1])));
                     break;
                 case "unmark":
-                    print(todo.unmark(Integer.parseInt(s[1])));
+                    print(list.unmark(Integer.parseInt(s[1])));
+                    break;
+                case "todo":
+                    print(list.addTodo(s[1]));
+                    break;
+                case "deadline":
+                    String[] d = s[1].split(" /by ", 2);
+                    print(list.addDeadline(d[0], d[1]));
+                    break;
+                case "event":
+                    String[] e = s[1].split(" /from ", 2);
+                    String[] duration = e[1].split(" /to ", 2);
+                    print(list.addEvent(e[0], duration[0], duration[1]));
                     break;
                 default:
-                    print(todo.add(input));
+
             }
 
             input = scanner.nextLine();

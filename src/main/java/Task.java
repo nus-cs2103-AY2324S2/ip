@@ -1,4 +1,4 @@
-public class Task {
+abstract public class Task {
     private String description;
     private boolean isDone;
 
@@ -23,6 +23,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 }
