@@ -24,7 +24,14 @@ public class Duke {
       System.out.println(name_display);
       String current_input = "";
 
+      FileManager manager = new FileManager("data");
+      manager.createLog();
       ArrayList<Task> history = new ArrayList<>();
+      try {
+        manager.loadHistory(history);
+      } catch (CorruptedLogException e) {
+        System.out.println("Cannot load history!");
+      }
 
       mainloop: while (true) {
         current_input = sc.nextLine();
@@ -66,6 +73,7 @@ public class Duke {
               "_________________________\n" +
               "Now you have " + history.size() + " items in your list!\n";
             System.out.println(print_out);
+            manager.writeLog(history);
             break;
           case MARK:
             focus_index = -1;
@@ -82,6 +90,7 @@ public class Duke {
               focus_task.getFullStatus() + "\n" +
               "_________________________\n";
             System.out.println(print_out);
+            manager.writeLog(history);
             break;
           case UNMARK:
             focus_index = -1;
@@ -98,6 +107,7 @@ public class Duke {
               focus_task.getFullStatus() + "\n" +
               "_________________________\n";
             System.out.println(print_out);
+            manager.writeLog(history);
             break;
           case EVENT:
             Task event = null;
@@ -116,6 +126,7 @@ public class Duke {
               "_________________________\n" +
               "Now you have " + history.size() + " items in your list!\n";
             System.out.println(to_print);
+            manager.writeLog(history);
             break;
           case TODO:
             event = null;
@@ -133,6 +144,7 @@ public class Duke {
               "_________________________\n" +
               "Now you have " + history.size() + " items in your list!\n";
             System.out.println(to_print);
+            manager.writeLog(history);
             break;
           case DEADLINE:
             try {
@@ -150,6 +162,7 @@ public class Duke {
               "_________________________\n" +
               "Now you have " + history.size() + " items in your list!\n";
             System.out.println(to_print);
+            manager.writeLog(history);
             break;
         }
       }

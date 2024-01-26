@@ -19,6 +19,8 @@ public abstract class Task {
     this.isDone = false;
   }
 
+  public void setCompletion(boolean state) {this.isDone = state;}
+
   public String getDescription() {
     return this.description;
   }
@@ -28,6 +30,8 @@ public abstract class Task {
   }
 
   public abstract String getTimeData();
+
+  public abstract String getLogRepresentation();
 
   public String getFullStatus() {
     return this.getStatusIcon() + " " + this.getDescription() + " " + this.getTimeData();
