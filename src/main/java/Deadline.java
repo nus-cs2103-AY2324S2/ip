@@ -17,7 +17,7 @@ public class Deadline extends Task{
      * This is a Factory Method that generates an instance
      * @param s an ArrayList after tokenizing the query.
      */
-    public static Deadline extractDetails(ArrayList<String> s) {
+    public static Deadline extractDetails(ArrayList<String> s) throws BadAppleException{
         StringBuilder taskName = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
         int separatorIndex = s.indexOf("/by");
@@ -28,8 +28,11 @@ public class Deadline extends Task{
             for (int i = separatorIndex + 1; i < s.size();i++) {
                 deadline.append(s.get(i)).append(" ");
             }
+            return new Deadline(taskName.toString(), deadline.toString());
+        } else {
+            throw new BadAppleException("Usage: deadline TaskName /by DueTime");
         }
-        return new Deadline(taskName.toString(), deadline.toString());
+
     }
 
     // in case anyone tries to throw an un-formatted string, the program still runs

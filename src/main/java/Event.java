@@ -28,7 +28,7 @@ public class Event extends Task {
         StringBuilder to = new StringBuilder();
         int fromIndex = s.indexOf("/from");
         int toIndex = s.indexOf("/to");
-        if (fromIndex > 0 && toIndex > -1) {
+        if (fromIndex > -1 && toIndex > -1) {
             for (int i = 1; i < fromIndex; i++) {
                 taskName.append(s.get(i)).append(" ");
             }
@@ -38,9 +38,10 @@ public class Event extends Task {
             for (int i = toIndex + 1; i < s.size(); i++) {
                 to.append(s.get(i)).append(" ");
             }
+            return new Event(taskName.toString(), from.toString(), to.toString());
+        } else {
+            throw new BadAppleException("Usage: event TaskName /from time1 /to time2");
         }
-        // this version doesn't stop invalid formats, it simply presents an empty entry
-        return new Event(taskName.toString(), from.toString(), to.toString());
     }
 
     public static Event extractDetails(String s) {
