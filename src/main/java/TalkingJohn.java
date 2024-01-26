@@ -11,7 +11,13 @@ public class TalkingJohn {
                 + "What can I do for you?\n");
 
         while (true) {
-            String input = scanner.nextLine();
+            String input = null;
+            if (scanner.hasNextLine()) {
+                input = scanner.nextLine();
+            } else {
+                break;
+            }
+
             if (Objects.equals(input, "todo") || Objects.equals(input, "deadline") || Objects.equals(input, "event")) {
                 System.out.println("OOPS!!! The description of " + input + " cannot be empty.");
                 continue;
