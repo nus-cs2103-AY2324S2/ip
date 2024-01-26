@@ -29,36 +29,41 @@ public class Bit {
                     } else if (parts[0].equals("unmark")) {
                         unmark(i, list);
                     } else {
-                        addTo(list, input);
+                        try{addTo(list, input);} catch(DukeException e) {System.out.println(e);}
 
 
                     }
 
                 } catch (NumberFormatException e) {
-                    addTo(list, input);
+                    try{addTo(list, input);} catch(DukeException x) {System.out.println(x);}
 
 
                 }
             } else {
-                addTo(list, input);
+                try{addTo(list, input);} catch(DukeException e) {System.out.println(e);}
 
             }
 
 
 
         }
-        System.out.println("Alright. See you soon!");
+        System.out.println("Alright. See you soon!!");
     }
 
-    public static void addTo(Task[] list, String input) {
-        if(input.contains("todo ")) {
-            String[] parts = input.split(" ", 2);
-            if (parts[0].equals("todo")) {
+    public static void addTo(Task[] list, String input) throws DukeException{
+        if(input.startsWith("todo")) {
+            try {
+                String[] parts = input.split(" ", 2);
+                if (!parts[0].equals("todo")) {
+                    throw new DukeException("I have no idea what that means!");
+                }
+                if (parts[1].trim().isEmpty()) {
+                    throw new DukeException("Hmmm, that todo is empty!");
+                }
                 list[total] = new Todo(parts[1]);
-                System.out.println("Done! I have added this to the list: " + list[total].toString()
-                        + "\n There are now " + (total + 1) + " items");
-                total++;
 
+            } catch(ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("Hmmm, that todo is empty!");
             }
 
 
@@ -131,7 +136,7 @@ public class Bit {
         }
 
         list[i].incomplete();
-        System.out.println("Done! Task is now incomplete:\n" + list[i].toString());
+        System.out.println("Done!! Task is now incomplete:\n" + list[i].toString());
     }
 
 

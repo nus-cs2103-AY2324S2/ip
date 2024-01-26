@@ -1,10 +1,35 @@
 Hi! This is Bit!
 What shall we do today?
 
+---------------------------------------------------------
 Sorry, I don't understand what you mean
 
-Done! I have added this to the list: [T][ ] iP
+---------------------------------------------------------
+DukeException: Hmmm, that todo is empty!
+---------------------------------------------------------
+---------------------------------------------------------
+---------------------------------------------------------
+Done! I have added this to the list:[D][ ] b  (by:  2000)
  There are now 1 items
-Done! I have added this to the list:[D][ ] gP  (by:  2000)
+---------------------------------------------------------
+Done! I have added this to the list:[E][ ] c  (from:  8am  to:  9pm)
  There are now 2 items
-Alright. See you soon!
+---------------------------------------------------------
+1.[D][ ] b  (by:  2000)
+2.[E][ ] c  (from:  8am  to:  9pm)
+---------------------------------------------------------
+Sorry, I don't understand what you mean
+
+---------------------------------------------------------
+Alright! Task has been done and dusted:
+[D][X] b  (by:  2000)
+---------------------------------------------------------
+Sorry, I don't understand what you mean
+
+---------------------------------------------------------
+Sorry, but I couldn't find that task!
+---------------------------------------------------------
+1.[D][X] b  (by:  2000)
+2.[E][ ] c  (from:  8am  to:  9pm)
+---------------------------------------------------------
+Alright. See you soon!!
