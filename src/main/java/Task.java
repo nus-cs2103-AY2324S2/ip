@@ -5,7 +5,7 @@ import java.util.ArrayList;
  */
 abstract class Task {
     /** The task list, update upon creation of task */
-    protected static ArrayList<Task> task_list= new ArrayList<>();
+    protected static ArrayList<Task> task_list;
     protected String description;
     protected boolean isDone;
 
@@ -25,6 +25,17 @@ abstract class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark task with X
     }
+
+    /**
+     * @return if task is Done, return true.
+     */
+    public Boolean getStatus() {return isDone;}
+
+    /**
+     * Return the description of task.
+     * @return return the description of task.
+     */
+    public String getDescription() {return this.description;}
 
     /**
      * abstract method

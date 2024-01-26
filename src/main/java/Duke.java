@@ -1,3 +1,6 @@
+import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -9,7 +12,9 @@ public class Duke {
      * Main method
      * @param args command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        Storage storage = new Storage("./data/tasklist.txt");
+        Task.task_list = storage.load();
         Scanner sc = new Scanner(System.in);
         System.out.println("    Hello! I'm Hanxiao.\n  What can I do for you?");
 
@@ -17,7 +22,8 @@ public class Duke {
             try{
                 Command cmd = commandDistributor(sc.nextLine());
                 cmd.reply();
-            } catch (DukeException e) {
+                storage.writeToFile(Task.task_list);
+            } catch (DukeException | IOException e) {
                 System.out.printf("    %s\n",e.getMessage());
             }
         }

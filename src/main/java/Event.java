@@ -42,4 +42,20 @@ public class Event extends Task{
     public String toString() {
         return String.format("%s(from: %sto: %s)",super.toString(), this.from, this.to);
     }
+
+    /**
+     * return from
+     * @return from
+     */
+    public String getFrom() {
+        return this.from;
+    }
+
+    /**
+     * return to
+     * @return to
+     */
+    public String getTo() {
+        return this.to;
+    }
 }
