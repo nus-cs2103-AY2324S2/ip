@@ -25,7 +25,7 @@ public class Duke {
       System.out.println(name_display);
       String current_input = "";
 
-      FileManager manager = new FileManager("data");
+      Storage manager = new Storage("data");
       manager.createLog();
       ArrayList<Task> history = new ArrayList<>();
       try {
