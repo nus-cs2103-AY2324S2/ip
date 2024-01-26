@@ -1,5 +1,9 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 import java.util.Scanner;
 
 public class Detective {
@@ -10,13 +14,36 @@ public class Detective {
         String name = "Detective";
         boolean isContinue = true;
         ArrayList<Task> myList = new ArrayList<>();
-        System.out.println(line + "\nHello! I'm [" + name + "]" + "\nWhat can I do for you?\n" + line);
+        String currentDir = System.getProperty("user.dir");
+        Path currentPath = Paths.get(currentDir);
+        Path dataPath = currentPath.resolve("data");
+        Path dataFile = dataPath.resolve("data.txt");
+
+        try {
+            Files.createDirectories(dataPath);
+            Files.createFile(dataFile);
+            printMessage("The data folder and data.txt has been created. >v<");
+        } catch (IOException e1) {
+            try {
+                myList = deserializeTask(Files.readAllLines(dataFile));
+            } catch (IOException e2) {
+                handleException("Read failed!");
+            }
+            printMessage("The data has been read. >v<");
+        }
+
+        printMessage("Hello! I'm [" + name + "]", "What can I do for you?");
 
         while (isContinue) {
             String input = sc.nextLine();
             String[] inputContent = input.split(" ", 2);
             switch (inputContent[0]) {
                 case "bye":
+                    try {
+                        Files.write(dataFile, serializeTask(myList));
+                    } catch (IOException e) {
+                        handleException("Write failed!");
+                    }
                     printMessage("Bye. Hope to see you again soon!");
                     isContinue = false;
                     break;
@@ -143,4 +170,21 @@ public class Detective {
         }
         System.out.println(line);
     }
+
+    private static List<String> serializeTask(List<Task> tasks) {
+        List<String> serializedTask = new ArrayList<>();
+        for (Task task : tasks) {
+            serializedTask.add(task.toString()); // 这里假设 Task 类已经正确实现了 toString 方法
+        }
+        return serializedTask;
+    }
+
+    private static ArrayList<Task> deserializeTask(List<String> lines) {
+        ArrayList<Task> task = new ArrayList<>();
+        for (String line : lines) {
+            task.add(Task.stringToTask(line));
+        }
+        return task;
+    }
+
 }
