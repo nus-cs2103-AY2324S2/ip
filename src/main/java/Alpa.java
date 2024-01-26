@@ -1,10 +1,10 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Alpa {
-  private static final int MAX_TASKS = 100;
-  private static Task[] tasks = new Task[MAX_TASKS];
-  private static int taskCount = 0;
+  private static final List<Task> tasks = new ArrayList<>();
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
@@ -69,7 +69,7 @@ public class Alpa {
             break;
         
           case "list":
-            handleList(tasks, taskCount);
+            handleList();
             break;
         
           case "mark":
@@ -89,6 +89,10 @@ public class Alpa {
             addTask(handleEvent(parts));
             break;
 
+          case "delete":
+            deleteTask(parts);
+            break;
+
           default:
             throw new AlpaException("\nOh no, human! I'm sorry but that is not a valid task.");
         }
@@ -100,7 +104,7 @@ public class Alpa {
   }
 
   private static void addTask(Task task) {
-    tasks[taskCount++] = task;
+    tasks.add(task);
     printDecoratedMessage("\nYou added a task human!\n" + task);
   }
 
@@ -109,14 +113,14 @@ public class Alpa {
     System.out.println("𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣𖥧𖡼.𖤣\n");
   }
 
-  private static void handleList(Task[] tasks, int taskCount) {
-    if (taskCount == 0) {
+  private static void handleList() {
+    if (tasks.isEmpty()) {
       printDecoratedMessage("\nYour list is empty, human!");
       return;
     }
     StringBuilder listOutput = new StringBuilder("\nYour list, human!\n");
-    for (int i = 0; i < taskCount; i++) {
-      listOutput.append("  ").append(i + 1).append(". ").append(tasks[i]).append("\n");
+    for (int i = 0; i < tasks.size(); i++) {
+      listOutput.append("  ").append(i + 1).append(". ").append(tasks.get(i)).append("\n");
     }
     printDecoratedMessage(listOutput.toString());
   }
@@ -124,14 +128,15 @@ public class Alpa {
   private static void handleMarkUnmark(String[] parts, String command) throws AlpaException {
     try {
       int index = Integer.parseInt(parts[1]) - 1;
-      if (index >= 0 && index < taskCount) {
+      if (index >= 0 && index < tasks.size()) {
+        Task task = tasks.get(index);
         String response;
         if (command.equals("mark")) {
-          tasks[index].markAsDone();
-          response = "\nMarked as done, human!\n" + tasks[index];
+          task.markAsDone();
+          response = "\nMarked as done, human!\n" + task;
         } else {
-          tasks[index].markAsNotDone();
-          response = "\nNot done with this yet, human?\n" + tasks[index];
+          task.markAsNotDone();
+          response = "\nNot done with this yet, human?\n" + task;
         }
         printDecoratedMessage(response);
       } else {
@@ -169,6 +174,20 @@ public class Alpa {
     String from = String.join(" ", Arrays.copyOfRange(parts, fromIndex + 1, toIndex));
     String to = String.join(" ", Arrays.copyOfRange(parts, toIndex + 1, parts.length));
     return new Event(eventDescription, from, to);
+  }
+
+  private static void deleteTask(String[] parts) throws AlpaException {
+    try {
+      int index = Integer.parseInt(parts[1]) - 1;
+      if (index >= 0 && index < tasks.size()) {
+        Task removedTask = tasks.remove(index);
+        printDecoratedMessage("\nRemoved this task for you, human.\n" + removedTask + "\nNow you have " + tasks.size() + " tasks left human!");
+      } else {
+        throw new AlpaException("Invalid task number, human!!"); 
+      }
+    } catch (NumberFormatException e) {
+      throw new AlpaException("Invalid input for delete, human!!");
+    }
   }
 
   private static void printDecoratedMessage(String message) {
