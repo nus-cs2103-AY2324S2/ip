@@ -19,6 +19,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toFileLine() {
+        return String.format("T | %d | %s", this.isDone ? 1 : 0,
+                this.description);
+    }
+
     @Override
     public String toString() {
         String status = this.isDone ? "X" : " ";

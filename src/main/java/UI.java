@@ -34,13 +34,14 @@ public class UI {
         printMessages(WELCOME_MESSAGES);
     }
 
-    public void processCommands(CommandCreator commandCreator) {
+    public void processCommands(CommandCreator commandCreator, Storage storage) {
         Scanner scanner = new Scanner(System.in);
         while (this.isActive) {
             String input = scanner.nextLine();
             try {
                 Command command = commandCreator.createCommand(input);
                 command.execute(this);
+                storage.save();
             } catch (DukeException e) {
                 printMessage(e.getMessage());
             }
