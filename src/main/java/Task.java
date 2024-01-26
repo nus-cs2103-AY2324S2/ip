@@ -1,22 +1,37 @@
+import java.util.UUID;
+
 /**
  * Class representing a user Task.
  */
 public class Task {
 
-    private String description;
-    private boolean done = false;
+    protected String description;
+    protected boolean done = false;
+
+    protected String uuid;
 
     public Task(String description) {
         this.description = description;
+        this.uuid = UUID.randomUUID().toString();
     }
 
-    public void updateStatus(boolean state) {
+    public Task setUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
+    public Task updateStatus(boolean state) {
         this.done = state;
+        return this;
     }
 
     @Override
     public String toString() {
         return this.description;
+    }
+
+    public String toSavableFormat() {
+        return this.uuid + "|T|" + this.description + "|" + this.done;
     }
 
     public String getStatus() {

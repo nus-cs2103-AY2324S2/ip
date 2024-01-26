@@ -1,17 +1,18 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bob {
 
-    private ArrayList<Task> list;
-    private Scanner scanner;
     private static final String TERMINATE_COMMAND = "bye";
 
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
-
 
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
@@ -21,6 +22,9 @@ public class Bob {
     private static final String HOME_BASE_PATH = System.getProperty("user.home");
     private static final String NEW_LINE = System.lineSeparator();
     private static final File saveData = new File(Bob.HOME_BASE_PATH + "/save.txt");
+
+    private ArrayList<Task> list;
+    private Scanner scanner;
 
     public Bob() {
         this.scanner = new Scanner(System.in);
@@ -46,7 +50,7 @@ public class Bob {
      */
     private void greet() {
         this.printLine();
-        System.out.println("    Hello! I'm Bob, a personal assistant." );
+        System.out.println("    Hello! I'm Bob, a personal assistant.");
         System.out.println("    How can I help you?");
         this.printLine();
     }
@@ -113,7 +117,7 @@ public class Bob {
         }
     }
 
-    private void updateTaskList()  {
+    private void updateTaskList() {
         try {
             if (!saveData.exists()) {
                 this.instantiateDirectory();
@@ -168,7 +172,8 @@ public class Bob {
 
                     if (invalidFile) {
                         throw new BobException
-                                .CorruptedSaveData("Save file is corrupt. The application will create a new save file.");
+                                .CorruptedSaveData("Save file is corrupt. "
+                                + "The application will create a new save file.");
                     }
 
                     if (taskType.equals("T") && properties.length < 4
@@ -181,20 +186,20 @@ public class Bob {
                     try {
 
                         switch (taskType) {
-                        case "T":
-                            this.addItem(new Task(properties[2])
-                                            .setUUID(properties[0])
-                                            .updateStatus(properties[3].equals("true")));
-                            break;
                         case "E":
                             this.addItem(new Event(properties[2], properties[4], properties[5])
-                                            .setUUID(properties[0])
+                                            .setUuid(properties[0])
                                             .updateStatus(properties[3].equals("true")));
                             break;
                         case "D":
                             this.addItem(new Deadline(properties[2], properties[4])
-                                            .setUUID(properties[0])
+                                            .setUuid(properties[0])
                                             .updateStatus(properties[3].equals("true")));
+                            break;
+                        default:
+                            this.addItem(new Task(properties[2])
+                                    .setUuid(properties[0])
+                                    .updateStatus(properties[3].equals("true")));
                             break;
                         }
 
@@ -240,7 +245,7 @@ public class Bob {
         while (this.scanner.hasNextLine()) {
 
             String input = this.getUserInput().trim();
-            final String command = input.split(" ")[0];
+            final String command = input.split("\\s+")[0];
 
             try {
                 switch (command) {
@@ -274,7 +279,7 @@ public class Bob {
 
     private void handleTaskMarking(String input) throws BobException {
 
-        String[] args = input.split(" ");
+        String[] args = input.split("\\s+");
         if (args.length < 2) {
             throw new BobException("The command " + args[0] + " requires a task ID.");
         }
@@ -331,14 +336,14 @@ public class Bob {
 
                 input = input.substring(Bob.DEADLINE_COMMAND.length() + 1);
 
-                String[] split = input.split("/");
+                String[] split = input.split("/by");
                 if (split.length < 2) {
                     throw new BobException("The command " + Bob.DEADLINE_COMMAND
                             + " requires both a task description and a deadline.");
                 }
 
                 t = this.addItem(new Deadline(split[0].substring(0, split[0].length() - 1),
-                        split[1].substring(3)));
+                        split[1].substring(1)));
             }
 
             if (input.contains(Bob.EVENT_COMMAND)) {
@@ -375,7 +380,7 @@ public class Bob {
     }
 
     private void handleTaskDeletion(String input) throws BobException {
-        String[] args = input.split(" ");
+        String[] args = input.split("\\s+");
         if (args.length < 2) {
             throw new BobException("The command " + args[0] + " requires a task ID.");
         }
