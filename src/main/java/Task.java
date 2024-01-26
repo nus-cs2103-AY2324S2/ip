@@ -1,4 +1,6 @@
 import java.lang.String;
+import java.time.LocalDateTime;
+
 public abstract class Task {
 
   protected String description;
@@ -17,6 +19,15 @@ public abstract class Task {
   }
   public void unmark() {
     this.isDone = false;
+  }
+
+  public String decomposeDateTime(LocalDateTime dt) {
+    String minute = ((Integer) dt.getMinute()).toString();
+    if (minute.length() < 2) {
+      minute = "0" + minute;
+    }
+    return dt.getDayOfMonth() + " " + dt.getMonth() + " " + dt.getYear() + " " +
+      dt.getHour() + ":" + minute + "H";
   }
 
   public void setCompletion(boolean state) {this.isDone = state;}
