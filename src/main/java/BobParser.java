@@ -13,6 +13,7 @@ public class BobParser {
 
     private Bob self;
     private BobUI ui;
+    private BobTaskList taskList;
 
     public BobParser setSelf(Bob self) {
         this.self = self;
@@ -21,6 +22,11 @@ public class BobParser {
 
     public BobParser setUi(BobUI ui) {
         this.ui = ui;
+        return this;
+    }
+
+    public BobParser setTaskList(BobTaskList taskList) {
+        this.taskList = taskList;
         return this;
     }
 
@@ -35,19 +41,19 @@ public class BobParser {
                 System.exit(0);
                 break;
             case BobParser.LIST_COMMAND:
-                this.ui.printList(false, this.self.getList());
+                this.ui.printList(false, this.taskList.getList());
                 break;
             case BobParser.MARK_COMMAND:
             case BobParser.UNMARK_COMMAND:
-                this.self.handleTaskMarking(input);
+                this.taskList.handleTaskMarking(input);
                 break;
             case BobParser.TODO_COMMAND:
             case BobParser.DEADLINE_COMMAND:
             case BobParser.EVENT_COMMAND:
-                this.self.handleTaskCreation(input);
+                this.taskList.handleTaskCreation(input);
                 break;
             case BobParser.DELETE_COMMAND:
-                this.self.handleTaskDeletion(input);
+                this.taskList.handleTaskDeletion(input);
                 break;
             default:
                 throw new BobException.InvalidCommand("Sorry, I'm not sure what command that is.");
