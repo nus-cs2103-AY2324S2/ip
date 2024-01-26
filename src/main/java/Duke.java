@@ -10,9 +10,21 @@ public class Duke {
             "\nBye. Hope to see you again soon!\n"
             + horzLine;
 
+    static String[] textStorage = new String[100];
+    static int numInStorage = 0;
+
     public static void echo(String message) {
+        textStorage[numInStorage] = message;
+        numInStorage++;
         System.out.println(horzLine);
-        System.out.println(message);
+        System.out.println("added: " + message);
+        System.out.println(horzLine);
+    }
+    public static void list() {
+        System.out.println(horzLine);
+        for (int i = 0; i < numInStorage; i++) {
+            System.out.println(i + ". " + textStorage[i]);
+        }
         System.out.println(horzLine);
     }
 
@@ -22,10 +34,11 @@ public class Duke {
         ChatbotUser user = new ChatbotUser();
 
         while(!user.getUserInput().equalsIgnoreCase("bye")) {
-                user.inputMessage();
-
-                if (!user.getUserInput().equalsIgnoreCase("bye")) {
-                    echo(user.getUserInput());
+            user.inputMessage();
+            if (user.getUserInput().equalsIgnoreCase("list")) {
+                list();
+            } else if (!user.getUserInput().equalsIgnoreCase("bye")) {
+                echo(user.getUserInput());
             }
         }
         System.out.println(goodbyeMessage);
