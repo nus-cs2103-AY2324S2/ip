@@ -8,8 +8,12 @@ public abstract class Task {
         this.completed = completed;
     }
 
+    public boolean isCompleted() {
+        return this.completed;
+    }
+
     public String completedIcon() {
-        return this.completed ? "X" : " ";
+        return isCompleted() ? "X" : " ";
     }
 
     public Task(String task) {

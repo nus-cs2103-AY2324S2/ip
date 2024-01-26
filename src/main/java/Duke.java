@@ -32,7 +32,7 @@ public class Duke {
     private static void hello() throws NotEnoughInputsException {
         try {
             Tasks.read();
-        } catch (ParseFailException | DuplicateTaskNameException e) {
+        } catch (ParseFailException | DuplicateTaskNameException | SquidDateException e) {
             echo(e.toString());
         }
         System.out.println(MESSAGES.LINE_BREAK);
@@ -79,7 +79,7 @@ public class Duke {
         echo(String.format(MESSAGES.TODO, t));
     }
 
-    private static void deadline(String message) throws NotEnoughInputsException, DuplicateTaskNameException {
+    private static void deadline(String message) throws NotEnoughInputsException, DuplicateTaskNameException, SquidDateException {
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
             throw new NotEnoughInputsException(
@@ -105,7 +105,10 @@ public class Duke {
         echo(String.format(MESSAGES.DEADLINE, t));
     }
 
-    private static void event(String message) throws NotEnoughInputsException, DuplicateTaskNameException {
+    private static void event(String message) throws
+            NotEnoughInputsException,
+            DuplicateTaskNameException,
+            SquidDateException {
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
             throw new NotEnoughInputsException(
@@ -132,7 +135,16 @@ public class Duke {
     }
 
 
-    private static void mark(String task, boolean completed) throws NotEnoughInputsException {
+    private static void mark(String input, boolean isCompleted) throws NotEnoughInputsException {
+        String[] params = input.split(" ", 2);
+        if (params.length <= 1) {
+            throw new NotEnoughInputsException(
+                    String.format(
+                            EXCEPTIONS.NOT_ENOUGH_INPUTS,
+                            isCompleted ? "mark" : "unmark",
+                            CORRECT_USAGE.MARK(isCompleted)));
+        }
+        String task = params[1];
         // Find the task entry.
         Task found = null;
         for (int i = 0; i < Tasks.size(); i++) {
@@ -141,10 +153,14 @@ public class Duke {
             }
         }
         if (found != null) {
-            found.setCompleted(completed);
-            echo(String.format(completed
-                    ? MESSAGES.MARK_COMPLETE
-                    : MESSAGES.MARK_INCOMPLETE, found));
+            if (found.isCompleted() == isCompleted) {
+                echo(String.format(MESSAGES.MARK_REPEAT,isCompleted ? "" : "un"));
+            } else {
+                found.setCompleted(isCompleted);
+                echo(String.format(isCompleted
+                        ? MESSAGES.MARK_COMPLETE
+                        : MESSAGES.MARK_INCOMPLETE, found));
+            }
 
 
         } else {
@@ -211,7 +227,7 @@ public class Duke {
             default:
                 throw new IncorrectInputException(EXCEPTIONS.INCORRECT_INPUT);
             }
-        } catch (IncorrectInputException e) {
+        } catch (DukeException e) {
             echo(e.getMessage());
         }
         return loop;

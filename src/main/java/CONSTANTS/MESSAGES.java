@@ -17,4 +17,5 @@ public class MESSAGES {
     public static final String EVENT_TO_STRING = " (from: %s to %s)";
     public static final String DELETE = "Good. One less thing to remember. (%s): \n%s\nCurrent tasks:\n";
     public static final String SAVE = "No worries human. My mighty brain will remember your tasks for you.";
+    public static final String MARK_REPEAT = "It's already %smarked, so nothing's changed.";
 }

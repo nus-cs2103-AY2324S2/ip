@@ -6,6 +6,7 @@ import DukeIO.SquidFile;
 import Exceptions.DuplicateTaskNameException;
 import Exceptions.IncorrectIndexException;
 import Exceptions.ParseFailException;
+import Exceptions.SquidDateException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class Tasks {
         arr = new ArrayList<>();
     }
 
-    public static Task parseTask(String s) throws ParseFailException {
+    public static Task parseTask(String s) throws ParseFailException, SquidDateException {
         String[] params = s.split("\uFFFF");
         Task task;
 //        System.out.println("string " + s + " length " + params.length);
@@ -90,7 +91,7 @@ public class Tasks {
         }
     }
 
-    public static void read() throws ParseFailException, DuplicateTaskNameException {
+    public static void read() throws ParseFailException, DuplicateTaskNameException, SquidDateException {
 
         try {
             String tasks = SquidFile.readFromFile();
