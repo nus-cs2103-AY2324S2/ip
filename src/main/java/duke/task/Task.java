@@ -44,6 +44,13 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Checks if the given query string is in the task description.
+     */
+    public final boolean inDescription(String query) {
+        return description.contains(query);
+    }
+
+    /**
      * A more verbose english explanation of the task.
      *
      * @return description of the task

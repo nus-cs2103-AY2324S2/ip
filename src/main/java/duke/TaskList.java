@@ -4,6 +4,7 @@ import duke.task.Task;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList implements Serializable {
     private final ArrayList<Task> tasks;
@@ -30,6 +31,19 @@ public class TaskList implements Serializable {
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNotFound(index, e);
         }
+    }
+
+    /**
+     * Finds all tasks containing the given query string.
+     */
+    public TaskList find(String query) {
+        TaskList tasks = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.inDescription(query)) {
+                tasks.addTask(task);
+            }
+        }
+        return tasks;
     }
 
     @Override
