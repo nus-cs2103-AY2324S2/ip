@@ -17,11 +17,11 @@ public class Ragdoll{
                 + "| $$  \\ $$ /$$__  $$| $$  | $$| $$  | $$| $$  | $$| $$| $$\n"
                 + "| $$  | $$|  $$$$$$$|  $$$$$$$|  $$$$$$$|  $$$$$$/| $$| $$\n"
                 + "|__/  |__/ \\_______/ \\____  $$ \\_______/ \\______/ |__/|__/\n"
-                + "                     /$$  \\ $$                            \n"
-                + "                    |  $$$$$$/                            \n"
-                + "                     \\______/                             \n";
+                + "                     /$$  \\ $$\n"
+                + "                    |  $$$$$$/\n"
+                + "                     \\______/\n";
 
-        System.out.println("Hello! I am your virtual assistant \n" + "\n" + logo);
+        System.out.println("Hello! I am your virtual assistant\n" + "\n" + logo);
 
         System.out.println("How can I assist you today, " + USER + "?");
 
@@ -92,7 +92,7 @@ public class Ragdoll{
         if (taskCount == 0) {
             System.out.println("There is no task yet, " + USER + "!");
         } else {
-            System.out.println(USER + ", your task list has the following tasks: ");
+            System.out.println(USER + ", your task list has the following tasks:");
             for (int i = 0; i < taskCount; i++) {
                 System.out.println((i + 1) + "." + tasks[i]);
             }
@@ -105,7 +105,7 @@ public class Ragdoll{
             System.out.println("No task numbered " + (idx + 1) + ", " + USER + "!");
         } else {
             tasks[idx].mark();
-            System.out.println(USER + "! I've marked this task as done: \n" + tasks[idx]);
+            System.out.println(USER + "! I've marked this task as done:\n" + tasks[idx]);
         }
     }
 
@@ -115,7 +115,7 @@ public class Ragdoll{
             System.out.println("No task numbered " + (idx + 1) + ", " + USER + "!");
         } else {
             tasks[idx].unmark();
-            System.out.println("Ok, " + USER + "! I've undone this task: \n" + tasks[idx]);
+            System.out.println("Ok, " + USER + "! I've undone this task:\n" + tasks[idx]);
         }
     }
 
