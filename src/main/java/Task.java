@@ -22,11 +22,12 @@ public class Task {
     public String printTask() {
         String taskMessage = "";
         if (completed) {
-            taskMessage += "[X] ";
+            taskMessage += "[X]";
         } else {
-            taskMessage += "[ ] ";
+            taskMessage += "[ ]";
         }
         taskMessage += this.name;
         return taskMessage;
     }
 }
+
