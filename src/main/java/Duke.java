@@ -316,10 +316,10 @@ public class Duke {
 
             index = curr.indexOf("(", curr.lastIndexOf("]"));
             if (index == -1) {
-                index = curr.length();
+                index = curr.length() + 1;
             }
 
-            taskName = curr.substring(7, index);
+            taskName = curr.substring(7, index - 1);
 
             if (taskType.equals("T")) { // To Do
                 t = new ToDo(taskName);
