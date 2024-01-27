@@ -1,8 +1,12 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.type = "E";
         this.from = from;
@@ -11,14 +15,14 @@ public class Event extends Task {
 
     public String getStatus() {
         String statusIcon = (isDone ? "X" : " ");
-        return "[" + type + "][" + statusIcon + "] " + description + " (from: " + from + " to: " + to + ")";
+        return "[" + type + "][" + statusIcon + "] " + description + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:ma")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:ma")) + ")";
     }
 
     public String toText() {
-        return super.toText() + " / " + from + " / " + to;
+        return super.toText() + " / " + from.format(DateTimeFormatter.ofPattern("yyyy MM dd H m")) + " / " + to.format(DateTimeFormatter.ofPattern("yyyy MM dd H m"));
     }
 
-    static public Task fromText(String description, String done, String from, String to) {
+    static public Task fromText(String description, String done, LocalDateTime from, LocalDateTime to) {
         Task task = new Event(description, from, to);
         task.isDone = done.equals("1");
         return task;
