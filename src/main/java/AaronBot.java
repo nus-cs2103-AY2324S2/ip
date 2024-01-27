@@ -7,7 +7,12 @@ public class AaronBot {
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("Hello, I am AaronBot, please talk to me I love my students very much :)");
         System.out.println("To add a task to the list, type 'add ' followed by your task.");
+        System.out.println("To add a Todo: add todo [task name]");
+        System.out.println("To add a Deadline: add deadline [task name] /by [deadline]");
+        System.out.println("To add an Event: add event [task name] /from [start] /to [end]");
         System.out.println("To show the list, type 'show list'.");
+        System.out.println("To mark a task done: mark [index of task]");
+        System.out.println("To unmark a task done: unmark [index of task]");
         while (notBye) {
             notBye = chat(inputScanner.nextLine());
         }
@@ -15,12 +20,12 @@ public class AaronBot {
     }
 
     private static boolean chat(String userInput) {
-        String[] tokenizedUserInput = userInput.split(" ", 2);
+        String[] tokenizedUserInput = userInput.split(" ", 2);    
         String userCommand = tokenizedUserInput[0];
-        String taskIndex;
         switch(userCommand) {
         case "add":
-            boolean isAdded = addToList(tokenizedUserInput[1]);
+            String[] tokenizedTaskDetails = tokenizedUserInput[1].split(" ", 2);
+            boolean isAdded = addToList(tokenizedTaskDetails[0], tokenizedTaskDetails[1]);
             if (isAdded) {
                 System.out.println("This task is already in the list!");
                 return true;
@@ -29,7 +34,7 @@ public class AaronBot {
                 return true;
             }
         case "mark":
-            taskIndex = tokenizedUserInput[1];
+            String taskIndex = tokenizedUserInput[1];
             if (isInteger(taskIndex)) {
                 return markDone(Integer.parseInt(taskIndex));
             } else {
@@ -72,9 +77,25 @@ public class AaronBot {
         }
     }
 
-    private static boolean addToList(String newTask) {
-        Task task = new Task(newTask);
-        System.out.println(task.toString());
+    private static boolean addToList(String taskType, String newTask) {
+        Task task;
+        switch(taskType) {
+        case ("todo"):
+            task = new Todo(newTask);
+            break;
+        case ("deadline"):
+            String[] tokenizedTask = newTask.split("/by", 2);
+            task = new Deadline(tokenizedTask[0], tokenizedTask[1]);
+            break;
+        case ("event"):
+            String[] taskTimingSplit = newTask.split("/from", 2);
+            String[] startEndSplit = taskTimingSplit[1].split("/to", 2);
+            task = new Event(taskTimingSplit[0], startEndSplit[0], startEndSplit[1]);
+            break;
+        default:
+            System.out.println("hey, task type not specified");
+            return true;
+        }
         if (taskList.contains(task)) {
             return true;
         } else {

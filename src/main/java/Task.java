@@ -11,7 +11,7 @@ public class Task {
         if (isDone) {
             System.out.println("Task is already done!");
         } else {
-            System.out.println("OK, task has been marked :)");
+            System.out.println("OK, this task has been marked :)");
             isDone = true;
         }
     }
@@ -29,5 +29,19 @@ public class Task {
     public String toString() {
         char completeTick = isDone ? 'X' : ' ';
         return "[" + completeTick + "] " + taskString;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Task)) {
+            return false;
+        }
+
+        Task task = (Task) obj;
+        return (this.taskString.equals(task.taskString));
     }
 }
