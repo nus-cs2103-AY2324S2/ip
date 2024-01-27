@@ -76,6 +76,19 @@ public class TaskList {
         storage.writeToTaskList(this.taskArrayList);
     }
 
+
+    public void findTasks(String taskPattern) {
+        ArrayList<Task> tasksWithPattern = new ArrayList<>();
+        for (int i = 0; i < this.taskArrayList.size(); i += 1) {
+            String currTaskName = taskArrayList.get(i).getTaskName();
+            if (currTaskName.contains(taskPattern)) {
+                tasksWithPattern.add(taskArrayList.get(i));
+            }
+        }
+        MessagePrinter.printFoundTasks(tasksWithPattern);
+    }
+
+
     /**
      * Overrides the toString method to provide information about the number of tasks in the list.
      *
