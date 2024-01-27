@@ -2,6 +2,7 @@ package MissMinutes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList implements Serializable {
     private ArrayList<Task> tasks;
@@ -84,5 +85,31 @@ public class TaskList implements Serializable {
         } catch (IndexOutOfBoundsException err) {
             throw new MissMinutesException("This task doesn't exist!", err);
         }
+    }
+
+    public void findTask(String input) throws MissMinutesException {
+        String[] split = input.split(" ", 2);
+        if (split.length <= 1) {
+            throw new MissMinutesException("Invalid find command format. Please enter a keyword, like `find book`");
+        }
+        String keyword = split[1];
+
+        ArrayList<Task> results = this.tasks
+                .stream()
+                .filter(task -> task.description.toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (results.isEmpty()) {
+            throw new MissMinutesException("No tasks found =(");
+        }
+
+        StringBuilder reply = new StringBuilder("Here are the matching tasks in your list: ");
+        for (int i = 0; i < results.size(); i++) {
+            reply.append("\n")
+                    .append((i + 1))
+                    .append(". ")
+                    .append(results.get(i));
+        }
+        Ui.sendMsg(reply.toString());
     }
 }
