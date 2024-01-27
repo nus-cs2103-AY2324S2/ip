@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.io.File;
 
 class FishStock {
-    public static boolean startsWith(String keyword, String input) {
+    protected static boolean startsWith(String keyword, String input) {
         return input.length() >= keyword.length() &&
                 keyword.equals(input.substring(0, keyword.length()));
     }
@@ -26,13 +26,29 @@ class FishStock {
         return null;
     }
 
-    private static void addTask(ArrayList<Task> list, Task task) {
+    private static void addTaskHelper(ArrayList<Task> list, Task task) {
         if (task != null) {
             list.add(task);
             System.out.println("This task has been added:\n  " + task +
                                "\n" + "Now you have " + list.size() +
                                " task(s) in total.");
         }
+    }
+
+    private static boolean addTask(ArrayList<Task> list, String input) {
+        if (startsWith(Todo.keyword, input)) {
+            addTaskHelper(list, Todo.of(input));
+
+        } else if (startsWith(Deadline.keyword, input)) {
+            addTaskHelper(list, Deadline.of(input));
+
+        } else if (startsWith(Event.keyword, input)) {
+            addTaskHelper(list, Event.of(input));
+
+        } else {
+            return false;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
@@ -86,16 +102,7 @@ class FishStock {
                                        " task(s) in total.");
                 }
 
-            } else if (startsWith(Todo.keyword, input)) {
-                addTask(list, Todo.of(input));
-
-            } else if (startsWith(Deadline.keyword, input)) {
-                addTask(list, Deadline.of(input));
-
-            } else if (startsWith(Event.keyword, input)) {
-                addTask(list, Event.of(input));
-
-            } else {
+            } else if (!addTask(list, input)) {
                 System.out.println("OH NOSE! Wakaranai... :(");
             }
         }

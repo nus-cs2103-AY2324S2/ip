@@ -12,7 +12,7 @@ class Deadline extends Task {
 
     protected static Deadline of(String input) {
         try {
-            if (!startsWith(keyword, input)) {
+            if (!FishStock.startsWith(keyword, input)) {
                 throw new FishStockException("OH NOSE! This input is not deadline..");
             }
             int byIdx = input.indexOf(byKeyword);

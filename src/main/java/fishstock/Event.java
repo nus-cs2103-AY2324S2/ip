@@ -15,7 +15,7 @@ class Event extends Task {
 
     protected static Event of(String input) {
         try {
-            if (!startsWith(keyword, input)) {
+            if (!FishStock.startsWith(keyword, input)) {
                 throw new FishStockException("OH NOSE! This input is not event..");
             }
             int fromIdx = input.indexOf(fromKeyword);

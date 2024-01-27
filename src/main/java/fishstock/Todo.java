@@ -8,7 +8,7 @@ class Todo extends Task {
 
     protected static Todo of(String input) {
         try {
-            if (!startsWith(keyword, input)) {
+            if (!FishStock.startsWith(keyword, input)) {
                 throw new FishStockException("OH NOSE! This input is not todo..");
             }
             if (keyword.length() + 1 >= input.length()) {
