@@ -31,6 +31,11 @@ public class ManageCommand extends Command {
         }
     }
 
+    @Override
+    public String getTestData() {
+        return "";
+    }
+
     public void mark(TaskList tasks, Storage storage) {
         if (index >= tasks.getSize() || index < 0) {
             UI.print("Oops! You did not give a valid index.");

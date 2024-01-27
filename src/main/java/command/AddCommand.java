@@ -22,4 +22,9 @@ public class AddCommand extends Command {
         UI.print("\t" + this.task);
         UI.print(String.format("Now you have %d tasks in the list.", tasks.getSize()));
     }
+
+    @Override
+    public String getTestData() {
+        return saveData;
+    }
 }

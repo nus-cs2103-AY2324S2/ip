@@ -136,7 +136,7 @@ public class Parser {
 
     public Command event(String input) throws LuluException {
         if (input.split(" ").length <= 1) {
-            throw new InvalidSlashParameterException();
+            throw new InvalidCommandException();
         }
         int indexFrom = input.indexOf('/');
         int indexTo = input.indexOf('/', indexFrom + 1);

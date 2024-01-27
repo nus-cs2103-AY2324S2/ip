@@ -30,6 +30,11 @@ public class QueryCommand extends Command{
         }
     }
 
+    @Override
+    public String getTestData() {
+        return this.queryType;
+    }
+
     public void find(TaskList tasks, Storage storage) {
         String formattedDate = this.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
 
