@@ -249,46 +249,82 @@ public class Duke {
             StringBuilder to = new StringBuilder();
             StringBuilder name = new StringBuilder();
 
-            for (String arg : args) {
-                switch (state) {
-                    case 0: // read command name
-                        state = 1;
-                        break;
-                        
-                    case 1: // reading task name
-                        if (arg.equals("/from")) {
-                            state = 2;
-                        } else {
-                            if (!name.isEmpty()) {
-                                name.append(" ");
-                            }
-                            name.append(arg);
-                        }
-                        break;
-                        
-                    case 2: // reading from
-                        if (arg.equals("/to")) {
-                            state = 3;
-                        } else {
-                            if (!from.isEmpty()) {
-                                from.append(" ");
-                            }
-                            from.append(arg);
-                        }
-                        break;
-                        
-                    case 3: // reading to
-                        if (!to.isEmpty()) {
-                            to.append(" ");
-                        }
-                        to.append(arg);
-                        break;
-                }
-            }
 
-            var t = new Event(name.toString(), from.toString(), to.toString());
-            Duke.print(String.format("Ok, I've added a new Event...\n  %s", t.describe()));
-            Duke.taskList.add(t);
+            final String NO_NAME = "you didn't specify specify a name for your event";
+            final String NO_FROM = "you failed to specify an start date using '/from'";
+            final String NO_TO = "you failed to specify an end date using '/to'";
+
+            try {
+                int ctr = 1;
+                for (; ; ctr++) {
+                    if (ctr >= args.length) {
+                        throw new DukeOptionParsingException(ctr == 1 ? NO_NAME : NO_FROM);
+                    }
+                    if (args[ctr].startsWith("/")) {
+                        break;
+                    }
+                    if (!name.isEmpty()) {
+                        name.append(" ");
+                    }
+                    name.append(args[ctr]);
+                }
+
+                if (name.isEmpty()) {
+                    throw new DukeOptionParsingException
+                            (NO_NAME);
+                }
+
+                if (!args[ctr].equals("/from")) {
+                    throw new DukeOptionParsingException
+                            (String.format("I encountered an unexpected option '%s'", args[ctr]));
+                }
+                ctr++;
+
+                for (; ; ctr++) {
+                    if (ctr >= args.length) {
+                        throw new DukeOptionParsingException(NO_TO);
+                    }
+                    
+                    if (args[ctr].startsWith("/")) {
+                        break;
+                    }
+                    if (!from.isEmpty()) {
+                        from.append(" ");
+                    }
+                    from.append(args[ctr]);
+                }
+
+                if (from.isEmpty()) {
+                    throw new DukeOptionParsingException(NO_FROM);
+                }
+                
+                if (!args[ctr].equals("/to")) {
+                    throw new DukeOptionParsingException
+                            (String.format("I encountered an unexpected option '%s'", args[ctr]));
+                }
+                ctr++;
+
+                for (; ctr < args.length; ctr++) {
+                    if (args[ctr].startsWith("/")) {
+                        throw new DukeOptionParsingException
+                                (String.format("I encountered an unexpected option '%s'", args[ctr]));
+                    }
+                    if (!to.isEmpty()) {
+                        to.append(" ");
+                    }
+                    to.append(args[ctr]);
+                }
+
+                if (to.isEmpty()) {
+                    throw new DukeOptionParsingException(NO_TO);
+                }
+                
+                var t = new Event(name.toString(), from.toString(), to.toString());
+                Duke.print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
+                Duke.taskList.add(t);
+            } catch (DukeException e) {
+                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+            }
         });
         
         Duke.print("Hello, my name is... Louie!!!!\n" + 

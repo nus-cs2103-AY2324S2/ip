@@ -24,6 +24,14 @@ deadline /by no name
 deadline no by /by
 deadline do sumting /nonsenseoption asjkldf
 deadline do sumting /by time
+event
+event no from to
+event no fromop /to to
+event no from /from /to to
+event no toop /from no toop
+event no to /from no to /to
+event /from noname /to noname
+event eventname /from event from /to event to
 list
 bye this should throw
 bye
