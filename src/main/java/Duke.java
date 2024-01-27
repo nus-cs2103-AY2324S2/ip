@@ -1,7 +1,7 @@
 import java.util.*;
 public class Duke {
 
-    public static String horizontalLine = "____________________________________________________________\n";
+    public static String horizontalLine = "_________________________________________________________________________\n";
 
     public static String greet() {
         return horizontalLine
@@ -24,7 +24,6 @@ public class Duke {
         else if (input.startsWith("unmark")) {
             markUpdate(input, false);
         }
-
         else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             String[] help = input.split("\\s+", 2);
             if (help.length < 2 || help[1].isBlank()) {
@@ -40,6 +39,11 @@ public class Duke {
                 event(help[1]);
             }
         }
+        else if (input.startsWith("delete")) {
+            delete(input);
+        }
+
+
         else {
             throw new DukeException("I'm afraid I don't understand what you mean, my dear.\n"
                     + "The requests I can process are:\n"
@@ -117,6 +121,20 @@ public class Duke {
                 + "And with this latest addition, our list of tasks swells to a delightful "
                 + list.size() + ".\n"
                 + horizontalLine);
+    }
+
+    public static void delete(String input) throws DukeException {
+        try {
+            int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
+            Task temp = list.get(index);
+            list.remove(index);
+            System.out.println(horizontalLine
+                    + "Very well, my dear! I've removed this task from our list.\n"
+                    + "  " + temp.toString() + "\n"
+                    + horizontalLine);
+        } catch (Exception e) {
+            throw new DukeException("Please enter a valid index.\n");
+        }
     }
 
     public static void main(String[] args) {
