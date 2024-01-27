@@ -1,7 +1,11 @@
+package fishstock;
+
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
-public class Bob {
+class FishStock {
     public static boolean startsWith(String keyword, String input) {
         return input.length() >= keyword.length() &&
                 keyword.equals(input.substring(0, keyword.length()));
@@ -32,12 +36,12 @@ public class Bob {
     }
 
     public static void main(String[] args) {
+        ArrayList<Task> list = new ArrayList<>();
         String line = "____________________________________________________________\n";
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
         String input;
 
-        System.out.println(line + "Hello, I'm Bob.\nI might help if I feel like it.");
+        System.out.println(line + "Hello, I'm FishStock.\nI might help if I feel like it.");
 
         while (true) {
             System.out.println(line);

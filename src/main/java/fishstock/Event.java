@@ -1,40 +1,42 @@
-public class Event extends Task {
-    protected static String keyword = "event";
-    protected static String fromKeyword = " /from ";
-    protected static String toKeyword = " /to ";
-    protected String from;
-    protected String to;
+package fishstock;
 
-    private Event(String description, String from, String to) {
+class Event extends Task {
+    protected final static String keyword = "event";
+    private final static String fromKeyword = " /from ";
+    private final static String toKeyword = " /to ";
+    private String from;
+    private String to;
+
+    protected Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public static Event of(String input) {
+    protected static Event of(String input) {
         try {
             if (!startsWith(keyword, input)) {
-                throw new BobException("OH NOSE! This input is not event..");
+                throw new FishStockException("OH NOSE! This input is not event..");
             }
             int fromIdx = input.indexOf(fromKeyword);
             if (fromIdx == -1) {
-                throw new BobException("OH NOSE! \"" + fromKeyword + "\" not found..");
+                throw new FishStockException("OH NOSE! \"" + fromKeyword + "\" not found..");
             }
             if (keyword.length() + 1 > fromIdx) {
-                throw new BobException("OH NOSE! The description of event cannot be empty..");
+                throw new FishStockException("OH NOSE! The description of event cannot be empty..");
             }
             int toIdx = input.indexOf(toKeyword);
             if (toIdx == -1) {
-                throw new BobException("OH NOSE! \"" + toKeyword + "\" not found..");
+                throw new FishStockException("OH NOSE! \"" + toKeyword + "\" not found..");
             }
             if (fromIdx > toIdx) {
-                throw new BobException("OH NOSE! The from-date must be before the to-date..");
+                throw new FishStockException("OH NOSE! The from-date must be before the to-date..");
             }
             if (fromIdx + fromKeyword.length() > toIdx) {
-                throw new BobException("OH NOSE! The from-date cannot be empty..");
+                throw new FishStockException("OH NOSE! The from-date cannot be empty..");
             }
             if (toIdx + toKeyword.length() == input.length()) {
-                throw new BobException("OH NOSE! The to-date cannot be empty..");
+                throw new FishStockException("OH NOSE! The to-date cannot be empty..");
             }
 
             String description = input.substring(keyword.length() + 1, fromIdx);
@@ -42,7 +44,7 @@ public class Event extends Task {
             String to = input.substring(toIdx + toKeyword.length());
             return new Event(description, from, to);
 
-        } catch (BobException e) {
+        } catch (FishStockException e) {
             System.out.println(e.getMessage());
         }
         return null;

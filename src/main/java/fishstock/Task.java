@@ -1,8 +1,10 @@
-public abstract class Task {
+package fishstock;
+
+abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    protected Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -12,11 +14,11 @@ public abstract class Task {
                keyword.equals(input.substring(0, keyword.length()));
     }
 
-    public void markAsDone() {
+    protected void markAsDone() {
         this.isDone = true;
     }
 
-    public void markAsUndone() {
+    protected void markAsUndone() {
         this.isDone = false;
     }
 
