@@ -24,6 +24,8 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         storage = new Storage();
+
+
         try {
             taskList = new TaskList(storage.load());
         } catch (StorageOperationException e) {
@@ -38,7 +40,9 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
-        while(!isExit) {
+
+
+        while (!isExit) {
             try {
                 String command = ui.readCommand();
                 Command c = Parser.parse(command);

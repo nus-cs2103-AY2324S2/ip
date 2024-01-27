@@ -1,11 +1,9 @@
 package duke.command;
 
 import duke.common.TaskList;
-import duke.task.Task;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.util.List;
 
 /**
  * Represents a list command initiated by the user. <code>ListCommand</code> would list all tasks that the users have.

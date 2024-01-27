@@ -124,15 +124,16 @@ public class Ui {
         } else {
             System.out.printf("The following tasks are due on %s\n",
                     localDate.format(DateTimeFormatter.ofPattern("MM dd yy")));
-            for(int i = 0; i< tasks.size(); i++) {
+
+            for (int i = 0; i < tasks.size(); i++) {
                 System.out.println(i + 1 + "." + " " + tasks.get(i));
             }
+            System.out.println(DIVIDER);
         }
-        System.out.println(DIVIDER);
     }
 
     /**
-     * Shows good bye message
+     * Shows goodbye message
      */
     public void showGoodBye() {
         System.out.println(DIVIDER);

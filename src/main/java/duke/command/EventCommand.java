@@ -46,6 +46,8 @@ public class EventCommand extends Command {
             throw new InvalidInputException(String.format(Messages.MESSAGE_INVALID_INPUT_VALUE,
                     "Event start date cannot be after the end date"));
         }
+
+
         Event event = new Event(description, false, startDate, endDate);
         taskList.addTask(event);
         ui.showNewTask(event, taskList);

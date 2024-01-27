@@ -1,10 +1,8 @@
 package duke.task;
 
 
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents an event task created by the user. A <code>Event</code> represents a task containing

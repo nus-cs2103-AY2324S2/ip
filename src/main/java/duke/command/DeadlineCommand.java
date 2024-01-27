@@ -1,13 +1,11 @@
 package duke.command;
 
 import duke.common.TaskList;
-import duke.task.Deadline;
-import duke.task.Task;
 import duke.storage.Storage;
+import duke.task.Deadline;
 import duke.ui.Ui;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Represents a deadline command initiated by the user. <code>DeadLineCommand</code> would creates a deadline task

@@ -16,7 +16,7 @@ import duke.ui.Ui;
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     public static final String COMMAND_USAGE = "delete: delete a task on the list.\n" +
-                                                "Example: delete 1";
+            "Example: delete 1";
     private int taskNumber;
 
     /**
@@ -40,6 +40,8 @@ public class DeleteCommand extends Command {
             throw new InvalidInputException(
                     String.format(Messages.MESSAGE_INVALID_INPUT_VALUE, "you can only mark task that are listed"));
         }
+
+
         Task task = taskList.getTask(taskNumber - 1);
         taskList.deleteTask(taskNumber - 1);
         ui.showDeleteTask(task, taskList);

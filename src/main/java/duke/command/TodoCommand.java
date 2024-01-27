@@ -2,8 +2,8 @@ package duke.command;
 
 import duke.common.TaskList;
 import duke.storage.Storage;
-import duke.ui.Ui;
 import duke.task.Todo;
+import duke.ui.Ui;
 
 /**
  * Represents a Todo command initiated by the user. <code>TodoCommand</code> would add an new todo task to the TaskList.
@@ -31,6 +31,8 @@ public class TodoCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         Todo todo = new Todo(this.description, false);
         taskList.addTask(todo);
+
+
         ui.showNewTask(todo, taskList);
     }
 }

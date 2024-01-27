@@ -38,34 +38,34 @@ public class Parser {
         String commandWord = matcher.group("commandWord");
         String arguments = matcher.group("arguments");
         switch (commandWord) {
-            case ListCommand.COMMAND_WORD:
-                if (!arguments.isEmpty()) {
-                    throw new InvalidCommandFormatException(
-                            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.COMMAND_USAGE));
-                }
-                return new ListCommand();
-            case TodoCommand.COMMAND_WORD:
-                return prepareTodo(arguments);
-            case DeadlineCommand.COMMAND_WORD:
-                return prepareDeadline(arguments);
-            case EventCommand.COMMAND_WORD:
-                return prepareEvent(arguments);
-            case MarkCommand.COMMAND_WORD:
-                return prepareMarkOrUnmark(arguments, MarkCommand.COMMAND_WORD);
-            case UnmarkCommand.COMMAND_WORD:
-                return prepareMarkOrUnmark(arguments, UnmarkCommand.COMMAND_WORD);
-            case ByeCommand.COMMAND_WORD:
-                if (!arguments.isEmpty()) {
-                    throw new InvalidCommandFormatException(
-                            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ByeCommand.COMMAND_USAGE));
-                }
-                return new ByeCommand();
-            case DeleteCommand.COMMAND_WORD:
-                return prepareDelete(arguments);
-            case CheckCommand.COMMAND_WORD:
-                return prepareCheck(arguments);
-            default:
-                throw new UnknownCommandException();
+        case ListCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new InvalidCommandFormatException(
+                        String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.COMMAND_USAGE));
+            }
+            return new ListCommand();
+        case TodoCommand.COMMAND_WORD:
+            return prepareTodo(arguments);
+        case DeadlineCommand.COMMAND_WORD:
+            return prepareDeadline(arguments);
+        case EventCommand.COMMAND_WORD:
+            return prepareEvent(arguments);
+        case MarkCommand.COMMAND_WORD:
+            return prepareMarkOrUnmark(arguments, MarkCommand.COMMAND_WORD);
+        case UnmarkCommand.COMMAND_WORD:
+            return prepareMarkOrUnmark(arguments, UnmarkCommand.COMMAND_WORD);
+        case ByeCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new InvalidCommandFormatException(
+                        String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ByeCommand.COMMAND_USAGE));
+            }
+            return new ByeCommand();
+        case DeleteCommand.COMMAND_WORD:
+            return prepareDelete(arguments);
+        case CheckCommand.COMMAND_WORD:
+            return prepareCheck(arguments);
+        default:
+            throw new UnknownCommandException();
         }
     }
 
@@ -75,6 +75,8 @@ public class Parser {
             throw new InvalidCommandFormatException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TodoCommand.COMMAND_USAGE));
         }
+
+
         String description = matcher.group("arg");
         return new TodoCommand(description);
     }
@@ -85,6 +87,8 @@ public class Parser {
             throw new InvalidCommandFormatException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_USAGE));
         }
+
+
         String arg = matcher.group("arg");
         try {
             int taskNumber = Integer.parseInt(arg);
@@ -98,10 +102,14 @@ public class Parser {
     private static Command prepareDeadline(String arguments) throws InvalidCommandFormatException {
         System.out.println(arguments);
         Matcher matcher = DEADLINE_COMMAND_FORMAT.matcher(arguments.trim());
+
+
         if (!matcher.matches()) {
             throw new InvalidCommandFormatException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeadlineCommand.COMMAND_USAGE));
         }
+
+
         try {
             String description = matcher.group("description");
             String deadline = matcher.group("deadline");
@@ -118,10 +126,14 @@ public class Parser {
             InvalidCommandFormatException {
         Matcher matcher = ONE_ARG_COMMAND_FORMAT.matcher(arguments.trim());
         String commandUsage = commandWord.equals("mark") ? MarkCommand.COMMAND_USAGE : UnmarkCommand.COMMAND_USAGE;
+
+
         if (!matcher.matches()) {
             throw new InvalidCommandFormatException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, commandUsage));
         }
+
+
         String arg = matcher.group("arg");
         try {
             int taskNumber = Integer.parseInt(arg);
@@ -139,9 +151,13 @@ public class Parser {
             throw new InvalidCommandFormatException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EventCommand.COMMAND_USAGE));
         }
+
+
         String description = matcher.group("description");
         String startDate = matcher.group("startDate");
         String endDate = matcher.group("endDate");
+
+
         try {
             return new EventCommand(description, LocalDateTime.parse(startDate, dateTimeFormatter),
                     LocalDateTime.parse(endDate, dateTimeFormatter));
@@ -157,7 +173,11 @@ public class Parser {
             throw new InvalidCommandFormatException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.COMMAND_USAGE));
         }
+
+
         String arg = matcher.group("arg");
+
+
         try {
             LocalDate checkDate = LocalDate.parse(arg, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             return new CheckCommand(checkDate);

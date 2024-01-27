@@ -16,7 +16,8 @@ public class UnknownCommandException extends DukeException {
                 + "5. todo\n"
                 + "6. event\n"
                 + "7. deadline\n"
-                + "8. check");
+                + "8. check\n"
+                + "9. find");
 
     }
 }
