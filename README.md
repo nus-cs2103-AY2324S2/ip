@@ -1,7 +1,5 @@
 # ByteBuddy project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
-
 ## Setting up in Intellij
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
@@ -16,9 +14,11 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 3. After that, locate the `src/main/java/ByteBuddy.java` file, right-click it, and choose `Run ByteBuddy.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   ____   __   __  _____  U _____ u   ____     _   _   ____     ____   __   __ 
+U | __")u \ \ / / |_ " _| \| ___"|/U | __")uU |"|u| | |  _"\   |  _"\  \ \ / / 
+ \|  _ \/  \ V /    | |    |  _|"   \|  _ \/ \| |\| |/| | | | /| | | |  \ V /  
+  | |_) | U_|"|_u  /| |\   | |___    | |_) |  | |_| |U| |_| |\U| |_| |\U_|"|_u 
+  |____/    |_|   u |_|U   |_____|   |____/  <<\___/  |____/ u |____/ u  |_|   
+ _|| \\_.-,//|(_  _// \\_  <<   >>  _|| \\_ (__) )(    |||_     |||_ .-,//|(_  
+(__) (__)\_) (__)(__) (__)(__) (__)(__) (__)    (__)  (__)_)   (__)_) \_) (__) 
    ```
