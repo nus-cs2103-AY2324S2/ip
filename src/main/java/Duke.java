@@ -2,7 +2,7 @@ import Task.Task;
 import Task.Todo;
 import Task.Deadline;
 import Task.Event;
-
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -76,10 +76,12 @@ public class Duke {
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("OOPS!!! Please follow the given deadline format 'deadline <task description> /by <deadline>'.");
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid date time provided!");
                     }
                 } else if (userInput.startsWith("event")) { // Event
                     try {
-                        String description = userInput.split("/from")[0].split(" ", 2)[1];
+                        String description = userInput.split(" /from ")[0].split(" ", 2)[1];
                         if (description.isEmpty()) {
                             System.out.println("OOPS!!! The description of an event cannot be empty.");
                         } else {
@@ -94,6 +96,8 @@ public class Duke {
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("OOPS!!! Please follow the given event format 'event *task description* /from <start> /to <end>'.");
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid date time provided!");
                     }
                 } else {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-( Please start with todo, deadline or event.");
