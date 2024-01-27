@@ -66,7 +66,7 @@ public class KaiYap {
         }
     }
 
-    private void deleteTask(String input) throws KaiYapException {
+    void deleteTask(String input) throws KaiYapException {
         if (input.length() <= 7) {
             throw new MissingInputException("\tSorry, it seems like there is some missing input. Please try again! UwU :3");
         }

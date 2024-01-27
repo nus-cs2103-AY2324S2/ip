@@ -41,8 +41,8 @@ public class Ui {
                 "\t____________________________________________________________\n" +
                         "\tNoted. I've removed this task:\n" +
                         "\t\t" + t.toString() +
-                        "\nYou now have " + size + " tasks in the list.\n" +
-                        "\n\t____________________________________________________________"
+                        "\n\tYou now have " + size + (size == 1 ? " task" : " tasks") + " in the list.\n" +
+                        "\t____________________________________________________________"
         );
     }
 }
