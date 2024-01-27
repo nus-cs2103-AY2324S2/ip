@@ -77,45 +77,50 @@ public class TaskManager {
     }
 
     private void addTask(String[] tokens) {
-        if (tokens.length == 2) {
-            String[] taskTokens = tokens;
-            if (taskTokens.length == 2) {
-                switch (taskTokens[0].toLowerCase()) {
-                    case "todo":
-                        tasks.add(new Todo(taskTokens[1]));
-                        break;
-                    case "deadline":
-                        String[] deadlineTokens = taskTokens[1].split(" /by ", 2);
-                        if (deadlineTokens.length == 2) {
-                            tasks.add(new Deadline(deadlineTokens[0], deadlineTokens[1]));
-                        } else {
-                            System.out.println("Invalid command. Usage: deadline <description> /by <date/time>");
-                        }
-                        break;
-                    case "event":
-                        String[] eventTokens = taskTokens[1].split(" /from ", 2);
-                        if (eventTokens.length == 2) {
-                            String[] toTokens = eventTokens[1].split(" /to ", 2);
-                            if (toTokens.length == 2) {
-                                tasks.add(new Event(eventTokens[0], toTokens[0], toTokens[1]));
-                            } else {
-                                System.out.println("Invalid command. Usage: event <description> /from <start> /to <end>");
-                            }
-                        } else {
-                            System.out.println("Invalid command. Usage: event <description> /from <start> /to <end>");
-                        }
-                        break;
-                    default:
-                        System.out.println("Invalid task type. Supported types: todo, deadline, event");
-                        break;
-                }
-
-                printTaskAddedMessage(tasks.size());
-            } else {
-                System.out.println("Invalid command. Usage: <type> <description>");
+        try {
+            if (tokens.length != 2) {
+                throw new IllegalArgumentException("NO! I don't know what is this! Invalid command. Supported taskss: todo, deadline, event");
             }
-        } else {
-            System.out.println("OOP Invalid command. Usage: <type> <description>");
+            String[] taskTokens = tokens;
+
+            String taskType = taskTokens[0].toLowerCase();
+            if (taskTokens[1].isEmpty()) {
+                throw new IllegalArgumentException("NO! The description of a task cannot be empty.");
+            }
+            String taskDescription = taskTokens[1].trim();
+
+            switch (taskType) {
+                case "todo":
+                    if (taskDescription.isEmpty()) {
+                        throw new IllegalArgumentException("NO! The description of a todo cannot be empty.");
+                    }
+                    tasks.add(new Todo(taskDescription));
+                    break;
+                case "deadline":
+                    String[] deadlineTokens = taskDescription.split(" /by ", 2);
+                    if (deadlineTokens.length != 2) {
+                        throw new IllegalArgumentException("NO! Invalid command. Enter: deadline <description> /by <date/time>");
+                    }
+                    tasks.add(new Deadline(deadlineTokens[0], deadlineTokens[1]));
+                    break;
+                case "event":
+                    String[] eventTokens = taskDescription.split(" /from ", 2);
+                    if (eventTokens.length != 2) {
+                        throw new IllegalArgumentException("NO! Invalid command. Enter: event <description> /from <start> /to <end>");
+                    }
+                    String[] toTokens = eventTokens[1].split(" /to ", 2);
+                    if (toTokens.length != 2) {
+                        throw new IllegalArgumentException("NO! Invalid command. Enter: event <description> /from <start> /to <end>");
+                    }
+                    tasks.add(new Event(eventTokens[0], toTokens[0], toTokens[1]));
+                    break;
+                default:
+                    throw new IllegalArgumentException("No! I don't what what is this! Invalid task type. Supported types: todo, deadline, event");
+            }
+
+            printTaskAddedMessage(tasks.size());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
