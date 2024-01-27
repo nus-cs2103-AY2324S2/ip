@@ -1,16 +1,15 @@
-package task;
+package duke.task;
 
 import java.time.LocalDateTime;
 
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
-    public Event(String msg) {
+    public Event(String msg, LocalDateTime from, LocalDateTime to) {
         super();
-        String[] res = msg.split(" ((/from)|(/to)) ");
-        this.msg = res[0];
-        this.from = this.dateParse(res[1]);
-        this.to = this.dateParse(res[2]);
+        this.msg = msg;
+        this.from = from;
+        this.to = to;
     }
 
     @Override

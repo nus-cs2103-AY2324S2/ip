@@ -1,9 +1,12 @@
-import task.Task;
+package duke;
+
+import duke.exceptions.ChatException;
+import duke.task.Task;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class Save {
+public class Storage {
     private static final String fileName = "duke.ser";
     public static void save(Object[] tasks) {
         try (FileOutputStream file = new FileOutputStream(fileName);

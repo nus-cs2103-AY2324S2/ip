@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,9 +19,6 @@ public abstract class Task implements Serializable {
     }
     public abstract String toString();
 
-    protected LocalDateTime dateParse(String date) {
-        return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"));
-    }
     protected String dateFormat(LocalDateTime date) {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }

@@ -1,15 +1,14 @@
-package task;
+package duke.task;
 
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
 
     private final LocalDateTime dueBy;
-    public Deadline(String msg) {
+    public Deadline(String event, LocalDateTime dueBy) {
         super();
-        String[] res = msg.split(" /by ");
-        this.msg = res[0];
-        this.dueBy = this.dateParse(res[1]);
+        this.msg = event;
+        this.dueBy = dueBy;
     }
 
     @Override
