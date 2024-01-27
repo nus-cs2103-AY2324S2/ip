@@ -15,8 +15,10 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 /text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/logs/
 
 # .class files
 *.class
 
-logs/
+src/logs/
+
