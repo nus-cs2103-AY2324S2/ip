@@ -1,10 +1,12 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
-//    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
-    public static final String DBPATH = "data/duke.txt";
+    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
+//    public static final String DBPATH = "data/duke.txt";
+
     public static void main(String[] args) {
         String greeting = "____________________________________________________________\n" +
                 " Hello! I'm steve\n" +
@@ -90,7 +92,13 @@ public class Duke {
                         desc = params.split("/by")[0].trim();
                         String by = params.split("/by")[1].trim();
 
-                        newTask = new Deadline(desc, by);
+                        // Check if by is in valid date format
+                        if (Dates.isValidInputDate(by)) {
+                            LocalDateTime dateObj = Dates.inputStr2DateTime(by);
+                            newTask = new Deadline(desc, dateObj); // Create date object
+                        } else {
+                            newTask = new Deadline(desc, by);
+                        }
                         myTasks.addTask(newTask);
 
                         System.out.println("Got it. I've added this task:");
@@ -106,7 +114,13 @@ public class Duke {
                         String from = params.split("/from")[1].split("/to")[0].trim();
                         String to = params.split("/to")[1].trim();
 
-                        newTask = new Event(desc, from, to);
+                        if (Dates.isValidInputDate(from) && Dates.isValidInputDate(to)) {
+                            LocalDateTime dateObjFrom = Dates.inputStr2DateTime(from);
+                            LocalDateTime dateObjTo = Dates.inputStr2DateTime(to);
+                            newTask = new Event(desc, dateObjFrom, dateObjTo); // Create date object
+                        } else {
+                            newTask = new Event(desc, from, to);
+                        }
                         myTasks.addTask(newTask);
 
                         System.out.println("Got it. I've added this task:");
