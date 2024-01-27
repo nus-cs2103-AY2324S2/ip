@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
 
     protected String from;
@@ -19,6 +21,13 @@ public class Event extends Task {
         super(description, isDone);
         this.from = from;
         this.to = to;
+    }
+
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
+        super(description);
+        // convert From and To datetime objects to their database string representations
+        this.from = Dates.dateTime2DbStr(from);
+        this.to = Dates.dateTime2DbStr(to);
     }
 
     @Override
@@ -61,5 +70,17 @@ public class Event extends Task {
         eventTask.markAsDone();
         System.out.println(eventTask);
         System.out.println(Event.event2Db(eventTask));
+
+        // Test creating an event with valid date
+        String desc = "Buy Bread";
+        String validFromDate1 = "15/01/2023 1430";
+        String validToDate1 = "17/01/2023 2359";
+        if (Dates.isValidInputDate(validFromDate1) && Dates.isValidInputDate(validToDate1)) {
+            LocalDateTime validFromDateObj1 = Dates.inputStr2DateTime(validFromDate1);
+            LocalDateTime validToDateObj1 = Dates.inputStr2DateTime(validToDate1);
+            Event e = new Event(desc, validFromDateObj1, validToDateObj1); // Create date object
+            e.markAsDone();
+            System.out.println(Event.event2Db(e));
+        }
     }
 }

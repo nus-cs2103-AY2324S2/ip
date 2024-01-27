@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
 
     protected String by;
@@ -15,6 +17,11 @@ public class Deadline extends Task {
     public Deadline(String description, Boolean isDone, String by) {
         super(description, isDone);
         this.by = by;
+    }
+
+    public Deadline(String description, LocalDateTime by) {
+        super(description);
+        this.by = Dates.dateTime2DbStr(by);
     }
 
     @Override
@@ -55,5 +62,15 @@ public class Deadline extends Task {
         deadlineTask.markAsDone();
         System.out.println(deadlineTask);
         System.out.println(Deadline.deadline2Db(deadlineTask));
+
+        // Test creating a deadline with valid date
+        String desc = "Buy Bread";
+        String validInputDate1 = "15/01/2023 1430";
+        if (Dates.isValidInputDate(validInputDate1)) {
+            LocalDateTime validDate1 = Dates.inputStr2DateTime(validInputDate1);
+            Deadline d = new Deadline(desc, validDate1); // Create date object
+            d.markAsDone();
+            System.out.println(Deadline.deadline2Db(d));
+        }
     }
 }
