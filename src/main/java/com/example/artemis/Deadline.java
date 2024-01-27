@@ -28,4 +28,3 @@ public class Deadline extends Task {
                 + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"));
     }
 }
-
