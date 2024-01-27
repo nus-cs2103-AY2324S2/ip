@@ -7,7 +7,7 @@ import utils.TaskList;
 
 public class UI {
     private final Scanner scanner;
-    public final String LEFT_PADDING = "    ";
+    private final String LEFT_PADDING = "    ";
 
     public UI() {
         scanner = new Scanner(System.in);

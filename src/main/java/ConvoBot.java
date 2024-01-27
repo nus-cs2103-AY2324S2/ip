@@ -3,12 +3,12 @@ import exceptions.ConvoBotException;
 import utils.*;
 
 public class ConvoBot {
-    private TaskList tasks;
-    private UI ui;
+    private final TaskList tasks;
+    private final UI ui;
 
     public ConvoBot(String filePath) {
-        ui = new UI();
         tasks = new TaskList(new Storage(filePath));
+        ui = new UI();
     }
 
     public void run() {
