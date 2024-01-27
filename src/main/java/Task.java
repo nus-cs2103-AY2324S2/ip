@@ -9,6 +9,9 @@ public class Task {
         numOfTasks++;
 
     }
+    public String toFileString() {
+        return "";
+    }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
