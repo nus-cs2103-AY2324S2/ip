@@ -12,6 +12,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.escapedDescription = escapeDescription(description);
+        this.isDone = isDone;
+    }
+
     protected static String escapeDescription(String description) {
         return description.replace("|", "\\|");
     }
