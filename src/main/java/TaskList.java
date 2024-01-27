@@ -32,12 +32,21 @@ public class TaskList {
         System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));   
     }
 
+    public static void addTaskSlient(Task task) {
+        taskList.add(task);
+    }
+
 
     public static void markTask(int idx) {
         Task task = taskList.get(idx-1);
         task.done();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
+    }
+
+    public static void markTaskSilent(int idx) {
+        Task task = taskList.get(idx-1);
+        task.done();
     }
 
     public static void unmarkTask(int idx) {
@@ -51,7 +60,7 @@ public class TaskList {
         Task task = taskList.get(idx-1);
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
-        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
+        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()-1));
         taskList.remove(idx-1);
     }
 

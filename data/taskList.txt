@@ -1,0 +1,8 @@
+[E][X] hiking  (from: 2pm to: 5pm)
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
+[D][ ]  (by: Saturday)
+[T][ ] reading
+[E][ ] picnic  (from: 1pm to: 4pm)

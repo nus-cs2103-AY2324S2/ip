@@ -4,33 +4,69 @@
  VV-VV
 What can I do for you?
 You have no tasks! Hooray!!!!!!!!!!
+Exception: blah is not a valid command!
 Got it. I've added this task:
-[D][ ]  (by: Friday)
+[D][ ] worksheet  (by: Friday)
 Now you have 1 tasks in the list.
+[D][ ] worksheet  (by: Friday)
 Got it. I've added this task:
 [E][ ] hiking  (from: 2pm to: 5pm)
 Now you have 2 tasks in the list.
+[D][ ] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
 Exception: /by argument needed for deadline
 Got it. I've added this task:
 [T][ ] study
 Now you have 3 tasks in the list.
+[D][ ] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
+[T][ ] study
 Got it. I've added this task:
 [E][ ] party  (from: 7pm to: 9pm)
 Now you have 4 tasks in the list.
+[D][ ] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
 Got it. I've added this task:
 [E][ ] conference  (from: 9am to: 11am)
 Now you have 5 tasks in the list.
+[D][ ] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
 Got it. I've added this task:
 [T][ ] board games
 Now you have 6 tasks in the list.
+[D][ ] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
 Got it. I've added this task:
 [E][ ] meeting  (from: 3pm to: 5pm)
 Now you have 7 tasks in the list.
+[D][ ] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
 Exception: Arguments are required for TODO
 Nice! I've marked this task as done:
-[D][X]  (by: Friday)
+[D][X] worksheet  (by: Friday)
+[D][X] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
 Here are the tasks in your list:
-1. [D][X]  (by: Friday)
+1. [D][X] worksheet  (by: Friday)
 2. [E][ ] hiking  (from: 2pm to: 5pm)
 3. [T][ ] study
 4. [E][ ] party  (from: 7pm to: 9pm)
@@ -41,14 +77,41 @@ Exception: /by argument needed for deadline
 Got it. I've added this task:
 [D][ ]  (by: Saturday)
 Now you have 8 tasks in the list.
+[D][X] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
+[D][ ]  (by: Saturday)
 Got it. I've added this task:
 [T][ ] reading
 Now you have 9 tasks in the list.
+[D][X] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
+[D][ ]  (by: Saturday)
+[T][ ] reading
 Got it. I've added this task:
 [E][ ] picnic  (from: 1pm to: 4pm)
 Now you have 10 tasks in the list.
+[D][X] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
+[D][ ]  (by: Saturday)
+[T][ ] reading
+[E][ ] picnic  (from: 1pm to: 4pm)
 Here are the tasks in your list:
-1. [D][X]  (by: Friday)
+1. [D][X] worksheet  (by: Friday)
 2. [E][ ] hiking  (from: 2pm to: 5pm)
 3. [T][ ] study
 4. [E][ ] party  (from: 7pm to: 9pm)
@@ -60,9 +123,19 @@ Here are the tasks in your list:
 10. [E][ ] picnic  (from: 1pm to: 4pm)
 Exception: /from and /to arguments needed for event
 Nice! I've marked this task as done:
-[D][X]  (by: Friday)
+[D][X] worksheet  (by: Friday)
+[D][X] worksheet  (by: Friday)
+[E][ ] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
+[D][ ]  (by: Saturday)
+[T][ ] reading
+[E][ ] picnic  (from: 1pm to: 4pm)
 Here are the tasks in your list:
-1. [D][X]  (by: Friday)
+1. [D][X] worksheet  (by: Friday)
 2. [E][ ] hiking  (from: 2pm to: 5pm)
 3. [T][ ] study
 4. [E][ ] party  (from: 7pm to: 9pm)
@@ -74,8 +147,18 @@ Here are the tasks in your list:
 10. [E][ ] picnic  (from: 1pm to: 4pm)
 Nice! I've marked this task as done:
 [E][X] hiking  (from: 2pm to: 5pm)
+[D][X] worksheet  (by: Friday)
+[E][X] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
+[D][ ]  (by: Saturday)
+[T][ ] reading
+[E][ ] picnic  (from: 1pm to: 4pm)
 Here are the tasks in your list:
-1. [D][X]  (by: Friday)
+1. [D][X] worksheet  (by: Friday)
 2. [E][X] hiking  (from: 2pm to: 5pm)
 3. [T][ ] study
 4. [E][ ] party  (from: 7pm to: 9pm)
@@ -86,9 +169,19 @@ Here are the tasks in your list:
 9. [T][ ] reading
 10. [E][ ] picnic  (from: 1pm to: 4pm)
 OK, I've marked this task as not done yet:
-[D][ ]  (by: Friday)
+[D][ ] worksheet  (by: Friday)
+[D][ ] worksheet  (by: Friday)
+[E][X] hiking  (from: 2pm to: 5pm)
+[T][ ] study
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
+[D][ ]  (by: Saturday)
+[T][ ] reading
+[E][ ] picnic  (from: 1pm to: 4pm)
 Here are the tasks in your list:
-1. [D][ ]  (by: Friday)
+1. [D][ ] worksheet  (by: Friday)
 2. [E][X] hiking  (from: 2pm to: 5pm)
 3. [T][ ] study
 4. [E][ ] party  (from: 7pm to: 9pm)
@@ -100,9 +193,18 @@ Here are the tasks in your list:
 10. [E][ ] picnic  (from: 1pm to: 4pm)
 Noted. I've removed this task:
 [T][ ] study
-Now you have 10 tasks in the list.
+Now you have 9 tasks in the list.
+[D][ ] worksheet  (by: Friday)
+[E][X] hiking  (from: 2pm to: 5pm)
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
+[D][ ]  (by: Saturday)
+[T][ ] reading
+[E][ ] picnic  (from: 1pm to: 4pm)
 Here are the tasks in your list:
-1. [D][ ]  (by: Friday)
+1. [D][ ] worksheet  (by: Friday)
 2. [E][X] hiking  (from: 2pm to: 5pm)
 3. [E][ ] party  (from: 7pm to: 9pm)
 4. [E][ ] conference  (from: 9am to: 11am)
@@ -112,6 +214,14 @@ Here are the tasks in your list:
 8. [T][ ] reading
 9. [E][ ] picnic  (from: 1pm to: 4pm)
 Noted. I've removed this task:
-[D][ ]  (by: Friday)
-Now you have 9 tasks in the list.
+[D][ ] worksheet  (by: Friday)
+Now you have 8 tasks in the list.
+[E][X] hiking  (from: 2pm to: 5pm)
+[E][ ] party  (from: 7pm to: 9pm)
+[E][ ] conference  (from: 9am to: 11am)
+[T][ ] board games
+[E][ ] meeting  (from: 3pm to: 5pm)
+[D][ ]  (by: Saturday)
+[T][ ] reading
+[E][ ] picnic  (from: 1pm to: 4pm)
 Bye. Hope to see you again soon!

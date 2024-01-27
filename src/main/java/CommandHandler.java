@@ -42,11 +42,12 @@ public class CommandHandler {
 
     private static boolean executeCommand(String userInput) throws DukeException {
         String[] words = userInput.split("\\s+");
-
-        Command command = Command.valueOf(words[0].toUpperCase());   
-       
-        if (!commandSet.contains(command)) { 
-            throw new CommandNotFoundException(command.name());
+        Command command = null;
+        try {
+            command = Command.valueOf(words[0].toUpperCase());   
+        } catch (IllegalArgumentException e) {
+            String commandStr = words[0];
+            throw new CommandNotFoundException(commandStr);
         }
 
         switch (command) {
