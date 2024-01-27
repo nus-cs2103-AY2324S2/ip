@@ -23,6 +23,7 @@ public class BadGPT {
             // Else, store the string entered as a new Task object.
             switch (cmd) {
                 case "bye": {
+                    sc.close();
                     bye();
                     break;
                 }
@@ -40,9 +41,18 @@ public class BadGPT {
                     unmark(taskNum);
                     break;
                 }
-                default: {
-                    Task task = new Task(cmd + sc.nextLine());
-                    store(task);
+                case "todo": {
+                    store(new ToDo(sc.nextLine().stripLeading()));
+                    break;
+                }
+                case "deadline": {
+                    String[] taskInfo = parser(sc.nextLine());
+                    store(new Deadline(taskInfo[0], taskInfo[1]));
+                    break;
+                }
+                case "event": {
+                    String[] taskInfo = parser(sc.nextLine());
+                    store(new Event(taskInfo[0], taskInfo[1]));
                     break;
                 }
             }
@@ -56,7 +66,8 @@ public class BadGPT {
     public static void store(Task task) {
         tasks.add(task);
         line();
-        System.out.println("Added: " + task);
+        System.out.println("Added task: " + task);
+        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
         line();
     }
 
@@ -81,6 +92,26 @@ public class BadGPT {
         line();
         System.out.println("wyd bro\n" + tasks.get(taskNum));
         line();
+    }
+
+    public static String[] parser(String in) {
+        String taskInfo = "", description = "";
+        String[] out = new String[2];
+        for (String next : in.split(" ")) {
+            if (next.contains("/")) {
+                if (description.isEmpty()){
+                    description = taskInfo.trim();
+                    taskInfo = "";
+                }
+                next = next.substring(1);
+                next += ":";
+            }
+            taskInfo += next + " ";
+        }
+        taskInfo = taskInfo.trim();
+        out[0] = description;
+        out[1] = taskInfo;
+        return out;
     }
 
     public static void bye() {
