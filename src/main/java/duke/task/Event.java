@@ -3,15 +3,29 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+/**
+ * A task that has a start and an end.
+ */
 public class Event extends Task {
     private LocalDateTime from, to;
 
+    /**
+     * Constructs a task with a start and an end.
+     * @param description the description of the task
+     * @param from the date and time the task starts
+     * @param to the date and time the task ends
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Construct a task with a start and an end from parsed components.
+     * The expected components are DESCRIPTION, /from and /to.
+     * @throws InvalidComponents when the parsed components don't match the expected components
+     */
     public Event(Map<String, String> components) throws InvalidComponents {
         super(components.get("DESCRIPTION"));
         validateComponentKeys(keys("/from", "/to"), components.keySet());
