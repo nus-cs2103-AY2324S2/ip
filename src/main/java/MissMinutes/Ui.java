@@ -36,20 +36,4 @@ public class Ui {
         System.out.println(body);
         System.out.println(SEPARATOR);
     }
-
-    public static void printTasks(TaskList taskList) {
-        ArrayList<Task> tasks = taskList.getTasks();
-        if (tasks.isEmpty()) {
-            sendMsg("There are no tasks in your list.");
-            return;
-        }
-        StringBuilder reply = new StringBuilder("Here are the tasks in your list: ");
-        for (int i = 0; i < tasks.size(); i++) {
-            reply.append("\n")
-                    .append((i + 1))
-                    .append(". ")
-                    .append(tasks.get(i));
-        }
-        sendMsg(reply.toString());
-    }
 }

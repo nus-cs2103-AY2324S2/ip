@@ -28,7 +28,7 @@ public class MissMinutes {
                         Ui.sayBye();
                         return;
                     case LIST:
-                        Ui.printTasks(tasks);
+                        Ui.sendMsg(tasks.toString());
                         break;
                     case MARK:
                     case UNMARK:

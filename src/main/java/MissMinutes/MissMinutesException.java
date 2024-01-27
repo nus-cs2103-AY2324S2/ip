@@ -1,11 +1,26 @@
 package MissMinutes;
 
+/**
+ * Wrapper class for exceptions specific to MissMinutes chatbot
+ */
 public class MissMinutesException extends Exception {
-    public MissMinutesException(String errorMsg) {
-        super(errorMsg);
+
+    /**
+     * Constructs MissMinutesException with the given errorMsg
+     *
+     * @param msg The message of the exception
+     */
+    public MissMinutesException(String msg) {
+        super(msg);
     }
 
-    public MissMinutesException(String errorMsg, Throwable err) {
-        super(errorMsg, err);
+    /**
+     * Constructs the MissMinutesException with given errorMsg and cause. Wraps another exception.
+     *
+     * @param msg The message of the exception
+     * @param cause The cause of the exception
+     */
+    public MissMinutesException(String msg, Throwable cause) {
+        super(msg, cause);
     }
 }
