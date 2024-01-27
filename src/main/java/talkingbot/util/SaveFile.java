@@ -8,10 +8,18 @@ import java.util.Scanner;
 import talkingbot.exception.TalkingBotException;
 import talkingbot.task.Task;
 
+/**
+ * Class representing the save file.
+ */
 public class SaveFile {
     private final File saveFile;
     private final String path;
 
+    /**
+     * Constructor for the SaveFile class.
+     *
+     * @param path Relative path to the save file.
+     */
     public SaveFile(String path)  {
         this.saveFile = new File(path);
         this.path = path;
@@ -24,6 +32,12 @@ public class SaveFile {
         }
     }
 
+    /**
+     * Retrieves the tasks saved in the file as a list of tasks.
+     *
+     * @return A TaskList indicating the list of tasks currently saved.
+     * @throws TalkingBotException If there is any exception.
+     */
     public TaskList getTasksFromFile() throws TalkingBotException {
         try {
             Scanner fileScanner = new Scanner(this.saveFile);
