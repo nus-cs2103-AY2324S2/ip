@@ -331,11 +331,14 @@ public class Duke {
                 finish = LocalDate.parse(curr.substring(curr.indexOf("to: ") + 4, curr.lastIndexOf(")")));
                 t = new Event(taskName, start, finish);
             }
+            
             if (isMarked.equals("X")) {
                 t.mark();
             }
+
             taskList.add(t);
         }
+
         return taskList;
     }
 }
