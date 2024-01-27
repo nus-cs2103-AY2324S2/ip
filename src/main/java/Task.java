@@ -1,10 +1,14 @@
 public class Task {
     protected String listItem;
+    protected String inputItem;
+
+    protected String completed;
     protected boolean taskDone;
 
-    public Task(String listItem) {
+    public Task(String listItem, String inputItem) {
         this.listItem = listItem;
-        this.taskDone = false;
+        this.inputItem = inputItem;
+        this.setTaskDone(false);
     }
 
     public boolean isTaskDone() {
@@ -13,6 +17,7 @@ public class Task {
 
     public void setTaskDone(boolean taskDone) {
         this.taskDone = taskDone;
+        this.completed = !this.taskDone ? " incomplete" : " complete";
     }
 
     public String getListItem() {

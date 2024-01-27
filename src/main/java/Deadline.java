@@ -1,7 +1,7 @@
 public class Deadline extends Task {
     private String deadline;
-    public Deadline(String listItem, String deadline) {
-        super(listItem);
+    public Deadline(String listItem, String inputItem, String deadline) {
+        super(listItem, inputItem);
         this.deadline = deadline;
     }
 
