@@ -4,10 +4,6 @@ import duke.task.Task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
@@ -25,18 +21,6 @@ public class Duke {
             taskList = storage.readTaskList();
         } catch (IOException | ClassNotFoundException e) {
             taskList = new TaskList();
-        }
-    }
-
-    private void writeState(OutputStream file) throws IOException {
-        try (ObjectOutputStream stream = new ObjectOutputStream(file)) {
-            stream.writeObject(taskList);
-        }
-    }
-
-    private void readState(InputStream file) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream stream = new ObjectInputStream(file)) {
-            taskList = (TaskList) stream.readObject();
         }
     }
 
