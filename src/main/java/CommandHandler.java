@@ -54,7 +54,7 @@ public class CommandHandler {
                 Bird.goodbye();
                 return true;
             case LIST:
-                Bird.list();
+                TaskList.list();
                 break;
             default:
                 // The logic below is for commands with arguments
@@ -66,22 +66,22 @@ public class CommandHandler {
                 }
                 switch (command) {
                     case MARK:
-                        Bird.markTask(processTaskIdx(arguments));
+                        TaskList.markTask(processTaskIdx(arguments));
                         break;
                     case UNMARK:
-                        Bird.unmarkTask(processTaskIdx(arguments));
+                        TaskList.unmarkTask(processTaskIdx(arguments));
                         break;
                     case DELETE:
-                        Bird.deleteTask(processTaskIdx(arguments));
+                        TaskList.deleteTask(processTaskIdx(arguments));
                         break;
                     case TODO:
-                        Bird.addTask(processToDo(arguments));
+                        TaskList.addTask(processToDo(arguments));
                         break;
                     case DEADLINE:
-                        Bird.addTask(processDeadline(arguments));
+                        TaskList.addTask(processDeadline(arguments));
                         break;
                     case EVENT:
-                        Bird.addTask(processEvent(arguments));
+                        TaskList.addTask(processEvent(arguments));
                         break;
                     default:
                         System.out.println("Error: CommandSet Hashtable contains a command that is not implemented in the switch statement!");
@@ -93,7 +93,7 @@ public class CommandHandler {
     
     private static int processTaskIdx(String arguments) throws IndexOutOfRange{
         int idx = Integer.parseInt(arguments);
-        int size = Bird.listSize();
+        int size = TaskList.listSize();
         if (idx <= 0 || idx > size) {
             throw new IndexOutOfRange(idx, size);
         }

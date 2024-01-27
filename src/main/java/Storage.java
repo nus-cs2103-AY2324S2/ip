@@ -3,12 +3,11 @@ import java.io.IOException;
 
 public class Storage {
     private final static String dirPath = "./data/";
+    private static File file;
 
 
     public static void init() {
         create();
-
-
     }
 
     private static void create() {
@@ -21,15 +20,14 @@ public class Storage {
             } 
         }
 
-        File f = new File(directory, "taskList.txt");
-        if (!f.exists()) {
+        file = new File(directory, "taskList.txt");
+        if (!file.exists()) {
             try {
-                f.createNewFile();
+                file.createNewFile();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }  
     }
 
-    
 }
