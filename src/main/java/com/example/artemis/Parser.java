@@ -14,6 +14,9 @@ public class Parser {
             case "list":
                 ui.showTaskList(tasks.getTasks());
                 break;
+            case "find":
+                ui.handleFindTask(tasks.getTasks(), tokens[1]);
+                break;
             case "mark":
                 handleMarkAsDone(tokens, tasks, ui);
                 break;

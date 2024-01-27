@@ -36,6 +36,20 @@ public class Ui {
         showLine();
     }
 
+    public void handleFindTask(ArrayList<Task> tasks, String command) {
+        int count = 1;
+
+        showLine();
+        System.out.println("     Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); ++i) {
+            if (tasks.get(i).description.contains(command)) {
+                System.out.println("     " + count + "." + tasks.get(i));
+                count++;
+            }
+        }
+        showLine();
+    }
+
     public void showTaskMarkedAsDone(Task task) {
         showLine();
         System.out.println("     Nice! I've marked this task as done:");
