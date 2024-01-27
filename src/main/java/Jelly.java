@@ -24,23 +24,32 @@ public class Jelly {
     public static String Read(Scanner scanner){
 
         String message = scanner.nextLine();
-
+        String[] lines = message.split("\\s+");
+        String command = lines[0];
         System.out.println(line);
 
-        switch(message){
+        switch(command){
 
             case "bye":
-                return message;
+                return command;
 
             case "list":
                 System.out.println(list);
                 break;
 
+            case "mark":
+                list.markTask(Integer.parseInt(lines[1]));
+                break;
+
+            case "unmark":
+                list.unmarkTask(Integer.parseInt(lines[1]));
+                break;
+
             default:
-                list.addTask(message);
+                list.addTask(command);
         }
 
         System.out.println(line);
-        return message;
+        return command;
     }
 }

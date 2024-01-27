@@ -8,9 +8,19 @@ public class Task {
         this.isDone = false;
     }
 
+    public void mark(){
+        isDone = true;
+    }
+
+    public void unmark(){
+        isDone = false;
+    }
+
     @Override
     public String toString(){
 
-        return name;
+        String checkbox = this.isDone? "[x]" : "[ ]";
+
+        return checkbox + " " + name;
     }
 }
