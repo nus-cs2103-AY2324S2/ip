@@ -8,7 +8,6 @@ import static constants.FilePaths.RELATIVE_OUTPUT_TXT_FILE_PATH;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -36,15 +35,9 @@ public class Storage {
     }
     public static void createOutputDirectoryAndFile(File dataDir, File outputTxt) throws DukeException {
         try {
-            if (!dataDir.isDirectory()) {
-                dataDir.mkdirs();
-            }
-            if (!outputTxt.exists()) {
-                outputTxt.createNewFile();
-            }
-        } catch (SecurityException e) {
-            throw new DukeException(e.toString());
-        } catch (IOException e) {
+            dataDir.mkdirs();
+            outputTxt.createNewFile();
+        } catch (SecurityException | IOException e) {
             throw new DukeException(e.toString());
         }
     }
@@ -70,20 +63,9 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new DukeException("Error reading from file: " + e.toString());
+            throw new DukeException("Error reading from file: " + e);
         }
 
         return list;
     }
-
-    public void writeToFile(String filePath, ArrayList<Task> taskList) throws DukeException {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            for (Task task : taskList) {
-                writer.write(task.textFormattedOutput() + System.lineSeparator());
-            }
-        } catch (IOException e) {
-            throw new DukeException("Error writing to file: " + e.toString());
-        }
-    }
-
 }

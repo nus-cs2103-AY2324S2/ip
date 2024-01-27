@@ -106,6 +106,7 @@ public class TaskList {
             Task todo = new Todo(info);
             taskList.add(todo);
             printTaskAddedWithSolidLineBreak(todo);
+
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (IOException e) {
             throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
@@ -121,6 +122,7 @@ public class TaskList {
             Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1));
             taskList.add(deadline);
             printTaskAddedWithSolidLineBreak(deadline);
+
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The correct usage is: " + DEADLINE_FORMAT);
@@ -134,10 +136,12 @@ public class TaskList {
             if (info.isEmpty()) {
                 throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
             }
+
             List<String> eventInfo = splitStringWithTrim(info, "/from|/to", 3);
             Task event = new Event(eventInfo.get(0), eventInfo.get(1), eventInfo.get(2));
             taskList.add(event);
             printTaskAddedWithSolidLineBreak(event);
+
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The correct usage is: " + EVENT_FORMAT);

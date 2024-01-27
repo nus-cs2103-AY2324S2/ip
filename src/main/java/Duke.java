@@ -30,7 +30,7 @@ public class Duke {
         run();
 
         // bye
-        ui.printByeMessage();
+        Ui.printByeMessage();
     }
 
     public static void run() {
