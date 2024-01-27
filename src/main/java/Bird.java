@@ -5,6 +5,7 @@ public class Bird {
 
     public static void main(String[] args) { 
         greet();
+        Storage.init();
         CommandHandler.scan();
     }
 
