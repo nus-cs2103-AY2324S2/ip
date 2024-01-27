@@ -40,6 +40,16 @@ public class Bit {
 
 
                 }
+            } else if (input.startsWith("delete")) {
+                try {
+                    String[] strings = input.split(" ", 2);
+                    int i = Integer.parseInt(strings[1]);
+                    delete(i, list);
+                } catch (NumberFormatException x) {
+                    System.out.println("Woah! That is not a number!");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Did you forget something?");
+                }
             } else {
                 try{addTo(list, input);} catch(DukeException e) {System.out.println(e);}
 
@@ -153,6 +163,17 @@ public class Bit {
             System.out.println("Alright, let me uncheck that for you: " + list.get(i).toString());
         } catch (IndexOutOfBoundsException x) {
             System.out.println("Hey, I don't think you have added that yet!");
+        }
+    }
+
+    public static void delete(int i, ArrayList<Task> list) {
+        try {
+            i -= 1;
+            String s = list.get(i).toString();
+            list.remove(i);
+            System.out.println("Got it! I have deleted this item: " + s);
+        } catch (IndexOutOfBoundsException x) {
+            System.out.println("I couldn't find that task! Are you sure it exists?");
         }
     }
 

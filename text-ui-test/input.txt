@@ -16,4 +16,8 @@ mark 4
 unmark 1
 mark
 mark 2
+todo m
+delete 4
+delete 7
+delete a
 list
