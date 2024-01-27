@@ -43,6 +43,14 @@ Sorry, I don't understand what you mean
 ---------------------------------------------------------
 Done and dusted: [E][X] y  (from:  1  to:  2)
 ---------------------------------------------------------
+I have added this todo: 4 [T][ ] m
+---------------------------------------------------------
+Got it! I have deleted this item: [T][ ] m
+---------------------------------------------------------
+I couldn't find that task! Are you sure it exists?
+---------------------------------------------------------
+Woah! That is not a number!
+---------------------------------------------------------
 Sure! Here is the list:
 
 1.[T][ ] x
