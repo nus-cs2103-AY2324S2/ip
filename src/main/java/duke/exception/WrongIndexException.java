@@ -1,7 +1,5 @@
 package duke.exception;
 
-import duke.exception.DukeException;
-
 /**
  * Exception for index error
  */
@@ -21,7 +19,7 @@ public class WrongIndexException extends DukeException {
      */
     @Override
     public String getMessage() {
-        if (listSize==0) {
+        if (listSize == 0) {
             return "you should add a task first";
         }
         return String.format("%s the index should in range [1:%s]", super.getMessage(), listSize);

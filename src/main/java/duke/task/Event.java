@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -79,6 +77,6 @@ public class Event extends Task {
         if (isDone) {
             return false;
         }
-        return current.compareTo(to)<=0 && current.compareTo(from)>=0;
+        return current.compareTo(to) <= 0 && current.compareTo(from) >= 0;
     }
 }

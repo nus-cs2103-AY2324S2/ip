@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -45,7 +43,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("%s(by: %s)",super.toString(), this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return String.format("%s(by: %s)", super.toString(),
+                this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     /**
@@ -62,8 +61,9 @@ public class Deadline extends Task {
      * @return yes/no
      */
     public boolean isTimeForStart(LocalDate current) {
-        if (isDone)
+        if (isDone) {
             return false;
-        return current.compareTo(by)<=0;
+        }
+        return current.compareTo(by) <= 0;
     }
 }

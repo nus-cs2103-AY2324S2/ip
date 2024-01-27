@@ -1,13 +1,14 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import duke.command.Bye;
 import duke.command.Command;
 import duke.exception.DukeException;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.io.File;
 /**
  * Main Class for our Chat bot
  */
@@ -25,12 +26,12 @@ public class Duke {
         } catch (FileNotFoundException e) {
             String[] pathStep = filePath.split("/");
             String progressivePath = "";
-            for (int i=0; i<pathStep.length-1;i++) {
+            for (int i = 0; i < pathStep.length - 1; i++) {
                 String dir = pathStep[i];
-                progressivePath = String.format("%s%s/",progressivePath,dir);
+                progressivePath = String.format("%s%s/", progressivePath, dir);
             }
             File directory = new File(progressivePath);
-            if (!directory.exists()){
+            if (!directory.exists()) {
                 directory.mkdirs();
             }
             File makeupFile = new File(filePath);
@@ -48,7 +49,7 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         while (true) {
-            try{
+            try {
                 String fullCommand = ui.readCommand();
                 Command cmd = parser.parse(fullCommand);
                 if (cmd instanceof Bye) {
@@ -56,9 +57,9 @@ public class Duke {
                 }
                 ui.printReply(cmd.reply());
             } catch (DukeException e) {
-                System.out.printf("    %s\n",e.getMessage());
+                System.out.printf("    %s\n", e.getMessage());
             }
-            try{
+            try {
                 storage.writeToFile(tasks.getTaskList());
             } catch (IOException e) {
                 System.out.println("Why delete the file when program running?");

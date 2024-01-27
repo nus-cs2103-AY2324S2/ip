@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 import java.time.LocalDate;
 
 /**
@@ -41,7 +39,7 @@ public class Todo extends Task {
      * @return yes/no
      */
     @Override
-    public boolean isTimeForStart(LocalDate current){
+    public boolean isTimeForStart(LocalDate current) {
         return !isDone;
     }
 }

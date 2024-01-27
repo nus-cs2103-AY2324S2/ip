@@ -1,7 +1,5 @@
 package duke.exception;
 
-import duke.exception.DukeException;
-
 public class TimeFormatException extends DukeException {
     public TimeFormatException() {
         super();
