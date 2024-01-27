@@ -1,5 +1,7 @@
 package task;
 
+import util.CSVUtil;
+
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -8,6 +10,17 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    public Event(boolean isMarked, String description, String from, String to) {
+        super(isMarked, description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public CSVUtil format() {
+        return new CSVUtil("E", String.valueOf(super.isMarked), super.description, from, to);
     }
 
     @Override

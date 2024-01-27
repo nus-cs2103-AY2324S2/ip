@@ -1,6 +1,7 @@
 package exception;
 
 public abstract class NarutoException extends Exception {
+
     public enum ErrorType {
         EMPTY_TODO,
         EMPTY_DEADLINE,
@@ -8,7 +9,9 @@ public abstract class NarutoException extends Exception {
         INVALID_DEADLINE,
         INVALID_EVENT,
         INVALID_COMMAND,
-        INVALID_INDEX 
+        INVALID_INDEX,
+        FILE_CORRUPTED,
+        INVALID_ACTION
     }
     
     public abstract ErrorType getErrorType();
@@ -51,5 +54,14 @@ public abstract class NarutoException extends Exception {
     public static NarutoException createInvalidIndexException() {
         return new InvalidIndexException("Sorry, I couldn't find the task you indicated... ｡･ﾟ" +
                 "ﾟ･(>д<)･ﾟﾟ･｡");
+    }
+
+    public static NarutoException createFileCorruptedException() {
+        return new FileCorruptedException("Oh no! Something seems to have happened to the " +
+            "tasklist... I'll reset the tasks! °՞(ᗒᗣᗕ)՞°");
+    }
+
+    public static NarutoException createInvalidActionException() {
+        return new InvalidActionException("I couldn't seem to understand that... Try again!");
     }
 }

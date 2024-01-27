@@ -4,6 +4,8 @@ import task.Task;
 import util.Store;
 import util.PrintUtil;
 
+import java.io.*;
+
 public class Delete implements Action {
     private Store store;
     private int idx;
@@ -14,7 +16,7 @@ public class Delete implements Action {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         Task task = this.store.delete(this.idx);
         int size = this.store.getSize();
         String plural = size == 1 ? "task" : "tasks";

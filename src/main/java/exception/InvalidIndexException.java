@@ -7,6 +7,6 @@ public class InvalidIndexException extends NarutoException {
 
     @Override
     public NarutoException.ErrorType getErrorType() {
-        return NarutoException.ErrorType.INVALID_INDEX;
+        return ErrorType.INVALID_INDEX;
     }
 }

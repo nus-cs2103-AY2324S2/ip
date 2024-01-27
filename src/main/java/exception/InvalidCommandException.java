@@ -8,7 +8,7 @@ public class InvalidCommandException extends NarutoException {
 
     @Override
     public NarutoException.ErrorType getErrorType() {
-        return NarutoException.ErrorType.INVALID_COMMAND;
+        return ErrorType.INVALID_COMMAND;
     }
     
 }

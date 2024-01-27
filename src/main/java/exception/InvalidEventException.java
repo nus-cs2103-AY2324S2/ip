@@ -7,7 +7,7 @@ public class InvalidEventException extends NarutoException {
 
     @Override
     public NarutoException.ErrorType getErrorType() {
-        return NarutoException.ErrorType.INVALID_EVENT;
+        return ErrorType.INVALID_EVENT;
     }
     
 }

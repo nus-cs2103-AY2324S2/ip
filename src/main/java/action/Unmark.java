@@ -3,6 +3,8 @@ package action;
 import util.PrintUtil;
 import util.Store;
 
+import java.io.*;
+
 public class Unmark implements Action {
     private Store store;
     private int i;
@@ -13,7 +15,7 @@ public class Unmark implements Action {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         PrintUtil.print("You know, sometimes things don't go as planned, but that's okay! " +
                 "\nThe important part is to keep moving forward. " +
                 "\nUnmarking a task is just a step in the journey. Believe it! " +

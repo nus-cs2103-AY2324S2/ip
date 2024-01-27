@@ -1,5 +1,7 @@
 package action;
 
+import java.io.*;
+
 public interface Action {
-    public void execute();
+    public void execute() throws IOException;
 }
