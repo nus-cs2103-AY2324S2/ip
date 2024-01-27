@@ -1,15 +1,17 @@
-public class Task {
+import java.time.format.DateTimeFormatter;
+
+public abstract class Task {
     private final String description;
     private boolean isDone;
-    private final String startTime;
-    private final String endTime;
     private final TaskType taskType;
+    protected static final DateTimeFormatter dateTimeEntryForm = DateTimeFormatter
+            .ofPattern("yyyy-MM-dd kkmm");
+    protected static final DateTimeFormatter dateTimeOutForm = DateTimeFormatter
+            .ofPattern("MMM dd yyyy kkmm");
 
-    public Task(String description, boolean isDone, String startTime, String endTime, TaskType taskType) {
+    public Task(String description, boolean isDone, TaskType taskType) {
         this.description = description;
         this.isDone = isDone;
-        this.startTime = startTime;
-        this.endTime = endTime;
         this.taskType = taskType;
     }
 
@@ -46,7 +48,7 @@ public class Task {
 
     public static Task generateTaskFromFile(String line) {
         String[] lineArr = line.split(" \\| ");
-        boolean mark = Boolean.parseBoolean(lineArr[1]);
+        boolean mark = lineArr[1].equals("1") ? true : false;
         if (lineArr[0].equals("T")) {
             return new Todo(lineArr[2], mark);
         } else if (lineArr[0].equals("D")) {
@@ -60,14 +62,6 @@ public class Task {
         return this.description;
     }
 
-    public String getStartTime() {
-        return this.startTime;
-    }
-
-    public String getEndTime() {
-        return this.endTime;
-    }
-
     public boolean getTypeEquals(TaskType taskType) {
         return this.taskType.equals(taskType);
     }
@@ -76,9 +70,15 @@ public class Task {
         return this.isDone;
     }
 
+    public int getDoneAsInt() {
+        return this.isDone ? 1 : 0;
+    }
+
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
+
+    public abstract String getSaveFileString();
 
     @Override
     public String toString() {

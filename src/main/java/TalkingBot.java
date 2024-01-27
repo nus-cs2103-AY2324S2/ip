@@ -13,7 +13,15 @@ public class TalkingBot {
         try {
             SaveFile saveFile = new SaveFile(fileName);
             Scanner scanner = new Scanner(System.in);
-            TaskList taskList = saveFile.getTasksFromFile();
+            TaskList taskList = new TaskList();
+            try {
+                taskList = saveFile.getTasksFromFile();
+            } catch (TalkingBotException e) {
+                System.out.println("\t" + e);
+                System.out.println("\tUsing new file instead...");
+                System.out.println(hLine);
+            }
+
 
             while (true) {
                 String entry = scanner.nextLine();
@@ -74,9 +82,9 @@ public class TalkingBot {
                     break;
                 case "save":
                     try {
-                        System.out.println("Saving tasks to file: " + fileName);
+                        System.out.println("\tSaving tasks to file: " + fileName);
                         saveFile.saveTasksToFile(taskList);
-                        System.out.println("Save done!");
+                        System.out.println("\tSave done!");
                     } catch (TalkingBotException e) {
                         System.out.println(e);
                     }

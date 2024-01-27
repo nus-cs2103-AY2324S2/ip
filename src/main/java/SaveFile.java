@@ -31,6 +31,8 @@ public class SaveFile {
             return taskList;
         } catch (FileNotFoundException e) {
             throw new TalkingBotException("ERROR! File not found!");
+        } catch (Exception e) {
+            throw new TalkingBotException("ERROR! Cannot read from file!");
         }
     }
 
@@ -40,18 +42,9 @@ public class SaveFile {
             StringBuilder strBuild = new StringBuilder();
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task curTask = taskList.getTask(i);
-                boolean isDone = curTask.getDone();
-                int mark = isDone ? 1 : 0;
-                if (curTask.getTypeEquals(TaskType.TODO)) {
-                    strBuild.append(String.format("T | %d | %s", mark,
-                            curTask.getDescription()));
-                } else if (curTask.getTypeEquals(TaskType.DEADLINE)) {
-                    strBuild.append(String.format("D | %d | %s | %s", mark,
-                            curTask.getDescription(), curTask.getEndTime()));
-                } else {
-                    strBuild.append(String.format("E | %d | %s | %s | %s", mark,
-                            curTask.getDescription(), curTask.getStartTime(),
-                            curTask.getEndTime()));
+                strBuild.append(curTask.getSaveFileString());
+                if (i < taskList.getSize() - 1) {
+                    strBuild.append("\n");
                 }
             }
             fileWriter.write(strBuild.toString());
