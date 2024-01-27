@@ -26,10 +26,14 @@ public class Duke {
         printGreetings();
         try {
             Storage storage = new Storage(STORAGE_PATH);
-            TASKS = new TaskList(storage);
+            TASKS = TaskList.load(storage);
             inputLoop();
             storage.close();
         } catch (IOException e) {
+            print("Error: " + e.getMessage());
+            Duke.SCANNER.close();
+            System.exit(1);
+        } catch(DukeException e) {
             print("Error: " + e.getMessage());
             Duke.SCANNER.close();
             System.exit(1);

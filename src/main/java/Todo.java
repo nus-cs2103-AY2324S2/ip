@@ -1,8 +1,12 @@
 public class Todo extends Task {
-    private static final String TYPE_SYMBOL = "T";
+    public static final String TYPE_SYMBOL = "T";
 
     public Todo(String description) {
         super(description);
+    }
+
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     @Override

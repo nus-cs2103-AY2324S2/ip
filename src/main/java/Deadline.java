@@ -1,9 +1,14 @@
 public class Deadline extends Task {
-    private static final String TYPE_SYMBOL = "D";
+    public static final String TYPE_SYMBOL = "D";
     private final String due;
 
     public Deadline(String description, String due) {
         super(description);
+        this.due = due;
+    }
+
+    public Deadline(String description, boolean isDone, String due) {
+        super(description, isDone);
         this.due = due;
     }
 

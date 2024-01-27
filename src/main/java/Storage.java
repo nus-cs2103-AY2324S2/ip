@@ -10,32 +10,22 @@ import java.lang.AutoCloseable;
 public class Storage implements AutoCloseable {
     private final String path;
     private final File file;
-    private BufferedReader reader;
     private BufferedWriter writer;
 
     public Storage(String path) throws IOException {
         this.path = path;
         this.file = new File(path);
-        file.getParentFile().mkdirs(); // create parent directories if not exists
-        file.createNewFile(); // create file if not exists
-        this.reader = new BufferedReader(new FileReader(path));
-        this.writer = new BufferedWriter(new FileWriter(path));
-    }
-
-    public BufferedReader getReader() {
-        return reader;
-    }
-
-    public BufferedWriter getWriter() {
-        return writer;
+        this.file.getParentFile().mkdirs(); // create parent directories if not exists
+        this.file.createNewFile(); // create file if not exists
+        this.writer = new BufferedWriter(new FileWriter(this.file, true));
     }
 
     public void empty() throws IOException {
-        this.writer.close();
-        try (FileWriter fileWriter = new FileWriter(file, false)) {
+        close();
+        try (FileWriter fileWriter = new FileWriter(this.file, false)) {
             fileWriter.write("");
         }
-        this.writer = new BufferedWriter(new FileWriter(this.path));
+        this.writer = new BufferedWriter(new FileWriter(this.file));
     }
 
     public void writeLine(String line) throws IOException {
@@ -43,9 +33,21 @@ public class Storage implements AutoCloseable {
         writer.newLine();
     }
 
+    public String readAll() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(this.file));
+        StringBuilder builder = new StringBuilder();
+        String line = reader.readLine();
+        while (line != null) {
+            builder.append(line);
+            builder.append("\n");
+            line = reader.readLine();
+        }
+        reader.close();
+        return builder.toString();
+    }
+
     @Override
     public void close() throws IOException {
-        reader.close();
         writer.close();
     }
 }

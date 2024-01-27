@@ -6,6 +6,11 @@ public abstract class Task implements CsvFormat {
         this.description = description;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.done = isDone;
+    }
+
     public String getDescription() {
         return this.description;
     }

@@ -1,10 +1,16 @@
 public class Event extends Task {
-    private static final String TYPE_SYMBOL = "E";
+    public static final String TYPE_SYMBOL = "E";
     private final String begin;
     private final String end;
 
     public Event(String description, String begin, String end) {
         super(description);
+        this.begin = begin;
+        this.end = end;
+    }
+
+    public Event(String description, boolean isDone, String begin, String end) {
+        super(description, isDone);
         this.begin = begin;
         this.end = end;
     }
