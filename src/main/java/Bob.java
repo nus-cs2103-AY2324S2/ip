@@ -1,11 +1,18 @@
 public class Bob {
+    private static void printFormatted(String[] lines) {
+        String horizontalLine = "\t____________________________________________________________\n";
+        StringBuilder formatted = new StringBuilder(horizontalLine);
+        for (String line : lines) {
+            formatted.append("\t ");
+            formatted.append(line);
+            formatted.append('\n');
+        }
+        formatted.append(horizontalLine);
+        System.out.println(formatted.toString());
+    }
+
     public static void main(String[] args) {
-        String horizontalLine = "____________________________________________________________\n";
-        System.out.println(horizontalLine
-                + " Hello! I'm Bob\n"
-                + " What can I do for you?\n"
-                + horizontalLine
-                + " Bye. Hope to see you again soon!\n"
-                + horizontalLine);
+        printFormatted(new String[]{ "Hello! I'm Bob", "What can I do for you?" });
+        printFormatted(new String[]{ "Bye. Hope to see you again soon!" });
     }
 }
