@@ -1,11 +1,14 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Event class stores tasks that have a duration.
  */
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
-    public Event(String task, String from, String to) {
+    public Event(String task, LocalDateTime from, LocalDateTime to) {
         super(task);
         this.from = from;
         this.to = to;
@@ -15,9 +18,9 @@ public class Event extends Task {
         return "[E]"
                 + super.toString()
                 + " (from "
-                + this.from
+                + this.from.format(DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"))
                 + " to: "
-                + this.to
+                + this.to.format(DateTimeFormatter.ofPattern("MMM-d-yyyy HH:mm"))
                 + ")";
     }
 
