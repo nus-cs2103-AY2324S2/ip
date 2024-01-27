@@ -1,12 +1,19 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.List;
+
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Duke {
     public static void main(String[] args) {
         String botName = "KokBot";
-        ArrayList<Task> tasks = new ArrayList<Task>();
 
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -15,9 +22,40 @@ public class Duke {
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
         welcome(botName);
-        Scanner scanner = new Scanner(System.in);
         lineBreak();
-        String input = scanner.nextLine();
+        Path path = Paths.get("data", "duke.txt");
+
+        File file;
+
+        try {
+            file = getFile(path);
+        } catch (DukeException e) {
+            lineBreak();
+            System.out.println(e.getMessage());
+            lineBreak();
+            return;
+        }
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+                switch (parts[0]) {
+                    case "T" -> tasks.add(new Todo(parts[2]));
+                    case "D" -> tasks.add(new Deadline(parts[2], parts[3]));
+                    case "E" -> tasks.add(new Event(parts[2], parts[3], parts[4]));
+                }
+                if (parts[1].equals("X")) {
+                    tasks.get(tasks.size() - 1).markAsDone();
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        }
+
+        Scanner streamScan = new Scanner(System.in);
+        String input = streamScan.nextLine();
+
         while (true) {
             try {
                 if (input.equals("bye")) {
@@ -55,14 +93,44 @@ public class Duke {
                     default:
                         throw new DukeException("Unknown command");
                 }
+                updateFile(path, tasks);
             } catch (DukeException e) {
                 lineBreak();
-                System.out.println(e);
+                System.out.println(e.getMessage());
             }
             lineBreak();
-            input = scanner.nextLine();
+            input = streamScan.nextLine();
         }
         farewell();
+    }
+
+    public static File getFile(Path path) throws DukeException {
+        File file = new File(path.toString());
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+                System.out.println(" New duke.txt file created!");
+            } catch (IOException e) {
+                throw new DukeException("Error creating file");
+            }
+        } else {
+            System.out.println(" Existing duke.txt file successfully retrieved!");
+        }
+        lineBreak();
+        return file;
+    }
+
+    public static void updateFile(Path path, ArrayList<Task> tasks) throws DukeException {
+        List<String> lines = new ArrayList<>();
+        for (Task task : tasks) {
+            lines.add(task.toFileString());
+        }
+        try {
+            Files.write(path, lines);
+        } catch (IOException e) {
+            throw new DukeException("Error writing to file");
+        }
     }
 
     public static void lineBreak() {
@@ -70,14 +138,14 @@ public class Duke {
     }
 
     public static void numList(int len) {
-        System.out.println(String.format(" Now you have %d tasks in the list.", len));
+        System.out.printf(" Now you have %d tasks in the list.%n", len);
     }
 
     public static void printList(ArrayList<Task> tasks) {
         System.out.println("____________________________________________________________");
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(String.format(" %d. %s", i + 1, tasks.get(i)));
+            System.out.printf(" %d. %s%n", i + 1, tasks.get(i));
         }
     }
 
@@ -85,41 +153,33 @@ public class Duke {
         task.markAsDone();
         System.out.println("____________________________________________________________");
         System.out.println(" Nice! I've marked this task as done:");
-        System.out.println(String.format(" %s", task));
+        System.out.printf(" %s%n", task);
     }
 
     public static void unmarkTask(Task task) {
         task.markAsUndone();
         System.out.println("____________________________________________________________");
         System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println(String.format(" %s", task));
+        System.out.printf(" %s%n", task);
     }
 
     public static void welcome(String botName) {
-        System.out.println(String.format("""
+        System.out.printf("""
                 ____________________________________________________________
                  Hello! I'm %s
                  What can I do for you?
-                 """, botName));
+                %n""", botName);
     }
-
-//    public static Task createTask(String text) {
-//
-//        System.out.println(String.format("""
-//                ____________________________________________________________
-//                 added: %s""", text));
-//        return new Task(text);
-//    }
 
     public static Todo createTodo(String input) throws DukeException {
         if (input.length() <= 5) {
             throw new DukeException("Unknown usage - description should of \"todo\" should not be empty.");
         }
         Todo newTodo = new Todo(input.substring(5));
-        System.out.println(String.format("""
+        System.out.printf("""
                 ____________________________________________________________
                  Got it. I've added this task:
-                   %s""", newTodo));
+                   %s%n""", newTodo);
         return newTodo;
     }
 
@@ -146,10 +206,10 @@ public class Duke {
         }
 
         Deadline newDeadline = new Deadline(description, dueDate);
-        System.out.println(String.format("""
+        System.out.printf("""
                 ____________________________________________________________
                  Got it. I've added this task:
-                   %s""", newDeadline));
+                   %s%n""", newDeadline);
         return newDeadline;
     }
 

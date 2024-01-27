@@ -1,4 +1,4 @@
-public class Task {
+abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -15,6 +15,9 @@ public class Task {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
+    public String toFileString() {
+        return String.format("%s,%s", this.getStatusIcon(), this.description);
+    }
     public void markAsDone() {
         this.isDone = true;
     }
