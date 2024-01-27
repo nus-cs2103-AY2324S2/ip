@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class BotBot {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BotBotException {
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
         TaskList list = new TaskList();

@@ -3,10 +3,13 @@ import java.util.HashMap;
 public class TaskList {
     ArrayList<Task> list = new ArrayList<>();
 
-    public void addTask(String taskString) {
+    public void addTask(String taskString) throws BotBotException {
         String[] temp = taskString.split(" ", 2);
         String taskType = temp[0];
         String taskInfo = temp.length > 1 ? temp[1] : "";
+        if (taskInfo.isEmpty()) {
+            throw new DescriptionException();
+        }
         switch (taskType) {
             case "todo":
                 addTask(new ToDo(taskInfo));
@@ -19,13 +22,14 @@ public class TaskList {
                 String[] temp3 = taskInfo.split(" /", 3);
                 addTask(new Event(temp3[0], temp3[1].substring(5), temp3[2].substring(3)));
                 break;
-            // can account for errors here
+            default:
+                throw new CommandException();
         }
     }
     private Task getTask(int i) {
         return this.list.get(i);
     }
-    private void addTask(Task task) {
+    private void addTask(Task task) throws BotBotException {
         System.out.printf("I have added the following task:\n%s\n", task.getRep());
         this.list.add(task);
         System.out.printf("You now have %d task(s) in your list!%n", list.size());
