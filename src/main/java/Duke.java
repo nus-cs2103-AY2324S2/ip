@@ -144,13 +144,6 @@ public class Duke {
         System.out.println(text);
     }
 
-    public static void echo(String text) {
-        String output = "\t____________________________________________________________\n"
-                + "\tadded: " + text + "\n"
-                + "\t____________________________________________________________\n";
-
-        System.out.println(output);
-    }
 
     public static void list(List<Task> list) {
         String text;
