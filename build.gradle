@@ -35,6 +35,7 @@ application {
 shadowJar {
     archiveBaseName = "talkingbot"
     archiveClassifier = null
+    archiveVersion = "v0.1"
     dependsOn("distZip", "distTar")
 }
 
