@@ -1,0 +1,4 @@
+T | X | read book
+D | X | return book | aug 6th
+E | O | project meeting | aug 7th 2-4pm
+T | X | study

@@ -9,6 +9,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -18,7 +23,7 @@ public class Task {
     }
 
     public String getIsDoneStatus() {
-        return (isDone ? "X" : " ");
+        return (isDone ? "O" : "X");
     }
 
     public boolean getIsDone() {
@@ -27,6 +32,10 @@ public class Task {
 
     public void setIsDone(boolean done) {
         this.isDone = done;
+    }
+
+    public String outputString() {
+        return getIsDoneStatus() + " | " + description;
     }
 
     @Override
