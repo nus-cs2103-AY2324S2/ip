@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exceptions.CorruptedLogException;
+import duke.tasks.Deadlines;
+import duke.tasks.Events;
+import duke.tasks.Task;
+import duke.tasks.ToDos;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

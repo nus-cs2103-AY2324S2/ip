@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 public class InvalidTaskException extends InvalidInputException {
   public InvalidTaskException() {
     super("That's an invalid task type! " +

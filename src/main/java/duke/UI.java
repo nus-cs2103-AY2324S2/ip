@@ -1,3 +1,13 @@
+package duke;
+
+import duke.exceptions.HistoryIndexException;
+import duke.exceptions.InvalidInputException;
+import duke.exceptions.InvalidTaskException;
+import duke.tasks.Deadlines;
+import duke.tasks.Events;
+import duke.tasks.Task;
+import duke.tasks.ToDos;
+
 import java.util.Scanner;
 
 public class UI {

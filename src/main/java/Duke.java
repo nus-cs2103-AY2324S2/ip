@@ -1,3 +1,8 @@
+import duke.Parser;
+import duke.Storage;
+import duke.TaskList;
+import duke.UI;
+
 public class Duke {
 
     public static void main(String[] args) {
