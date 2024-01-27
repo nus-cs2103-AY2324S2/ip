@@ -10,7 +10,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//Handles the main chat listening and parsing of messages
+/**
+ * The Ui class handles the main chat listening and parsing of messages.
+ */
 public class Ui {
     private Scanner sc = new Scanner(System.in);
     //Handles adding/removing to array of tasks
@@ -19,6 +21,9 @@ public class Ui {
     //Handles the loading and saving of tasks to text file
     private Storage taskLoader = new Storage(filePath);
 
+    /**
+     * Listens to user input, parses commands, and executes corresponding actions.
+     */
     public void chatListener() {
         //First attempt to load the file.
         try {
