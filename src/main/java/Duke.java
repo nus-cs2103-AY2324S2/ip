@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.lang.StringBuilder;
 
 public class Duke {
@@ -11,6 +12,11 @@ public class Duke {
     public static void main(String[] args) {
         Duke chatBot = new Duke();
         chatBot.greet();
+        try {
+            chatBot.parseFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("\tYou have no saved tasks");
+        }
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
@@ -98,7 +104,7 @@ public class Duke {
         try {
             this.writeToFile();
         } catch (IOException e) {
-            System.out.println("\t" + e.getMessage());
+            System.out.println("\tSomething went wrong: " + e.getMessage());
         }
     }
 
@@ -126,7 +132,7 @@ public class Duke {
         try {
             this.writeToFile();
         } catch (IOException e) {
-            System.out.println("\t" + e.getMessage());
+            System.out.println("\tSomething went wrong: " + e.getMessage());
         }
     }
 
@@ -155,7 +161,7 @@ public class Duke {
         try {
             this.writeToFile();
         } catch (IOException e) {
-            System.out.println("\t" + e.getMessage());
+            System.out.println("\tSomething went wrong: " + e.getMessage());
         }
     }
 
@@ -166,7 +172,7 @@ public class Duke {
         try {
             this.writeToFile();
         } catch (IOException e) {
-            System.out.println("\t" + e.getMessage());
+            System.out.println("\tSomething went wrong: " + e.getMessage());
         }
     }
 
@@ -219,5 +225,33 @@ public class Duke {
         }
         fw.write(builder.toString());
         fw.close();
+    }
+
+    public void parseFile() throws FileNotFoundException {
+        File f = new File("data" + File.separator + "ezra.txt");
+        Scanner s = new Scanner(f);
+        while (s.hasNextLine()) {
+            String task = s.nextLine();
+            String[] arr = task.split(" \\| ");
+            String command = arr[0];
+            boolean isDone = arr[1].equals("1");
+            String description = arr[2];
+            if (command.equals("T")) {
+                ToDo todo = new ToDo(description);
+                todo.isDone = isDone;
+                this.tasks.add(todo);
+            } else if (command.equals("D")) {
+                String by = arr[3];
+                Deadline deadline = new Deadline(description, by);
+                deadline.isDone = isDone;
+                this.tasks.add(deadline);
+            } else {
+                String from = arr[3];
+                String to = arr[4];
+                Event event = new Event(description, from, to);
+                event.isDone = isDone;
+                this.tasks.add(event);
+            }
+        }
     }
 }

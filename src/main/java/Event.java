@@ -20,6 +20,6 @@ public class Event extends Task {
     }
 
     public String toString2() {
-        return String.format("E | %d | %s | %s %s", this.isDone ? 1 : 0, this.description, this.start, this.end);
+        return String.format("E | %d | %s | %s | %s", this.isDone ? 1 : 0, this.description, this.start, this.end);
     }
 }
