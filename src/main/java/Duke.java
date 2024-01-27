@@ -1,12 +1,17 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private static final String spacer = "    ____________________________________________________________\n";
     private static ArrayList<Task> toDoList = new ArrayList<>();
-
+    public static final DateTimeFormatter inputdtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm");
+    public static final DateTimeFormatter outputdtFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mma", Locale.ENGLISH);
     private static void startupMessage() {
         String name = "CBBW";
         botPrint("Hello! I'm " + name 
@@ -62,30 +67,39 @@ public class Duke {
 
 
         String description = input.substring(5, input.indexOf("/from")).trim();
-        String from = input.substring(input.indexOf("/from") + 5, input.indexOf("/to")).trim();
-        String to = input.substring(input.indexOf("/to") + 3).trim();
 
+        String startString = input.substring(input.indexOf("/from") + 5, input.indexOf("/to")).trim();
+        String endString = input.substring(input.indexOf("/to") + 3).trim();
+        
         // Check if inputs are blank
         String missingInfo = "";
 
         if (description.equals("")) {
             missingInfo = missingInfo + "\"description\" ";
         }
-        if (from.equals("")) {
-            missingInfo = missingInfo + "\"from\"  ";
-        }
-        if (to.equals("")) {
-            missingInfo = missingInfo + "\"to\" ";
-        }
+        // if (from.equals("")) {
+        //     missingInfo = missingInfo + "\"from\"  ";
+        // }
+        // if (to.equals("")) {
+        //     missingInfo = missingInfo + "\"to\" ";
+        // }
         
         if (!missingInfo.equals("")) {
             throw new MissingTaskInformationException(missingInfo);
         }
 
+        try {
+            LocalDateTime startDateTime = LocalDateTime.parse(startString, inputdtFormatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(endString, inputdtFormatter);
+            
+            Event e = new Event(false, description, startDateTime, endDateTime);
+            toDoList.add(e);
+            botPrint("Event Task added!\n" + e.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
 
-        Event e = new Event(false, description, from, to);
-        toDoList.add(e);
-        botPrint("Event Task added!\n" + e.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing datetime: " + e.getMessage());
+            System.out.println("Use the format \"DD/MM/YYYY, HH:MM\" to enter date and time." );
+        }
     }
 
     private static void createDeadline(String input) throws MissingTaskInformationException, MissingTaskParameterException {
@@ -95,24 +109,31 @@ public class Duke {
         }
 
         String description = input.substring(8, input.indexOf("/by")).trim();
-        String by = input.substring(input.indexOf("/by") + 3).trim();
-
+        String deadlineString = input.substring(input.indexOf("/by") + 3).trim();
         // Check if inputs are blank
         String missingInfo = "";
 
         if (description.equals("")) {
             missingInfo = missingInfo + "\"description\" ";
         }
-        if (by.equals("")) {
-            missingInfo = missingInfo + "\"by\" ";
-        }
+        // if (by.equals("")) {
+        //     missingInfo = missingInfo + "\"by\" ";
+        // }
         if (!missingInfo.equals("")) {
             throw new MissingTaskInformationException(missingInfo);
         }
 
-        Deadline d = new Deadline(false, description, by);
-        toDoList.add(d);
-        botPrint("Deadline Task added!\n" + d.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
+        try {
+            LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineString, inputdtFormatter);
+                
+            Deadline d = new Deadline(false, description, deadlineDateTime);
+            toDoList.add(d);
+            botPrint("Deadline Task added!\n" + d.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
+            
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing datetime: " + e.getMessage());
+            System.out.println("Use the format \"DD/MM/YYYY, HH:MM\" to enter date and time." );
+        }
     }
 
     private static void markTask(String input) throws IndexOutOfBoundsException {
