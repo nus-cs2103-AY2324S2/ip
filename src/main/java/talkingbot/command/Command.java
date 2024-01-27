@@ -4,6 +4,9 @@ import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
+/**
+ * An abstract class that represents any command, both valid and invalid.
+ */
 public abstract class Command {
     private final String[] commandArr;
 

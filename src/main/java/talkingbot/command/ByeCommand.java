@@ -5,6 +5,9 @@ import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
+/**
+ * A class that represents the "bye" command entered by the user.
+ */
 public class ByeCommand extends Command {
 
     /**

@@ -4,6 +4,9 @@ import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
+/**
+ * A class that represents the "list" command entered by the user.
+ */
 public class ListCommand extends Command {
 
     /**

@@ -5,6 +5,9 @@ import talkingbot.task.Task;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
+/**
+ * A class that represents the "delete" command entered by the user.
+ */
 public class DeleteCommand extends Command {
 
     /**

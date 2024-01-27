@@ -6,6 +6,11 @@ import talkingbot.task.Task;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
+/**
+ * A class that represents any command that creates tasks, i.e.,
+ * the "todo", "deadline", and "event" commands entered in by
+ * the user.
+ */
 public class TaskCommand extends Command {
 
     /**

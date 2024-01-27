@@ -4,6 +4,9 @@ import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
+/**
+ * A class that represents any invalid commands entered by the user.
+ */
 public class InvalidCommand extends Command {
 
     /**

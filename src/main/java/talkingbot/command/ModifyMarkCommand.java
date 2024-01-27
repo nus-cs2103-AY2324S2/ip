@@ -5,6 +5,10 @@ import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
+/**
+ * A class that represents both the "mark" and "unmark" commands
+ * entered by the user.
+ */
 public class ModifyMarkCommand extends Command {
 
     /**
