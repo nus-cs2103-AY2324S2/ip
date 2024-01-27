@@ -1,7 +1,10 @@
-public class Deadline extends Task {
-    protected String deadline;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String deadline) {
+public class Deadline extends Task {
+    protected LocalDateTime deadline;
+
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
         this.type = "D";
@@ -9,14 +12,14 @@ public class Deadline extends Task {
 
     public String getStatus() {
         String statusIcon = (isDone ? "X" : " ");
-        return "[" + type + "][" + statusIcon + "] " + description + " (by: " + deadline + ")";
+        return "[" + type + "][" + statusIcon + "] " + description + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:ma")) + ")";
     }
 
     public String toText() {
-        return super.toText() + " / " + deadline;
+        return super.toText() + " / " + deadline.format(DateTimeFormatter.ofPattern("yyyy MM dd H m"));
     }
 
-    static public Task fromText(String description, String done, String by) {
+    static public Task fromText(String description, String done, LocalDateTime by) {
         Task task = new Deadline(description, by);
         task.isDone = done.equals("1");
         return task;
