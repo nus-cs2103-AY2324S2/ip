@@ -25,6 +25,8 @@ public class BotBot {
             } else if (nextTask.startsWith("list")) {
                 System.out.println("These are the tasks in your list:");
                 list.printList();
+            } else if (nextTask.startsWith("delete")) {
+                list.deleteTask(Integer.parseInt(nextTask.split(" ", 2)[1]));
             } else {
                 list.addTask(nextTask);
             }
