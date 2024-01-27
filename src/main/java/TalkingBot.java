@@ -1,21 +1,24 @@
 import java.util.Scanner;
-public class Duke {
+public class TalkingBot {
     public static void main(String[] args) {
         String hLine = "\t____________________________________________________________";
         String welcome = "\tHello! I'm TalkingBot\n\tWhat can I do for you?";
+
+        String fileName = "./data/talkingbot.txt";
 
         System.out.println(hLine);
         System.out.println(welcome);
         System.out.println(hLine);
 
         try {
-            SaveFile saveFile = new SaveFile("./data/talkingbot.txt");
+            SaveFile saveFile = new SaveFile(fileName);
             Scanner scanner = new Scanner(System.in);
             TaskList taskList = saveFile.getTasksFromFile();
 
             while (true) {
                 String entry = scanner.nextLine();
                 if (entry.equals("bye")) {
+                    saveFile.saveTasksToFile(taskList);
                     break;
                 }
                 String[] curCommand = entry.split(" ");
@@ -58,7 +61,7 @@ public class Duke {
                         System.out.println("\tAlright, I've added this task to your list:");
                         System.out.println("\t\t" + curTask);
                         System.out.println(String.format("\tYou now have %d tasks in the list.", taskList.getSize()));
-                    } catch (DukeException e) {
+                    } catch (TalkingBotException e) {
                         System.out.println("\t" + e);
                     }
                     break;
@@ -71,8 +74,10 @@ public class Duke {
                     break;
                 case "save":
                     try {
+                        System.out.println("Saving tasks to file: " + fileName);
                         saveFile.saveTasksToFile(taskList);
-                    } catch (DukeException e) {
+                        System.out.println("Save done!");
+                    } catch (TalkingBotException e) {
                         System.out.println(e);
                     }
                     break;
@@ -88,7 +93,7 @@ public class Duke {
             System.out.println(bye);
             System.out.println(hLine);
             scanner.close();
-        } catch (DukeException e) {
+        } catch (TalkingBotException e) {
             System.out.println(e);
         }
     }

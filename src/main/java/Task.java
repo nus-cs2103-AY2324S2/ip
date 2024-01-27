@@ -14,10 +14,10 @@ public class Task {
     }
 
     public static Task generateTask(String fullDescription, String type)
-            throws DukeException {
+            throws TalkingBotException {
         if (type.equals("todo")) {
             if (fullDescription.isEmpty()) {
-                throw new DukeException("ERROR! todo descriptions cannot be empty" +
+                throw new TalkingBotException("ERROR! todo descriptions cannot be empty" +
                         " nor only containing whitespaces.");
             }
             return new Todo(fullDescription, false);
@@ -26,7 +26,7 @@ public class Task {
             try {
                 return new Deadline(splitArr[0], false, splitArr[1]);
             } catch (IndexOutOfBoundsException err) {
-                throw new DukeException(
+                throw new TalkingBotException(
                     "ERROR! deadline descriptions cannot be empty and must have a /by" +
                     " property."
                 );
@@ -36,7 +36,7 @@ public class Task {
             try {
                 return new Event(splitArr[0], false, splitArr[1], splitArr[2]);
             } catch (IndexOutOfBoundsException err) {
-                throw new DukeException(
+                throw new TalkingBotException(
                     "ERROR! event descriptions cannot be empty, and must have" +
                     " /from and /to properties."
                 );
@@ -45,7 +45,7 @@ public class Task {
     }
 
     public static Task generateTaskFromFile(String line) {
-        String[] lineArr = line.split("\\|");
+        String[] lineArr = line.split(" \\| ");
         boolean mark = Boolean.parseBoolean(lineArr[1]);
         if (lineArr[0].equals("T")) {
             return new Todo(lineArr[2], mark);

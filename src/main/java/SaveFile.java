@@ -8,19 +8,19 @@ public class SaveFile {
     private final File saveFile;
     private final String path;
 
-    public SaveFile(String path) throws DukeException {
+    public SaveFile(String path) throws TalkingBotException {
         this.saveFile = new File(path);
         this.path = path;
         if (!this.saveFile.exists()) {
             try {
                 this.saveFile.createNewFile();
             } catch (IOException e) {
-                throw new DukeException("ERROR! IOException occurred!");
+                throw new TalkingBotException("ERROR! IOException occurred!");
             }
         }
     }
 
-    public TaskList getTasksFromFile() throws DukeException {
+    public TaskList getTasksFromFile() throws TalkingBotException {
         try {
             Scanner fileScanner = new Scanner(this.saveFile);
             TaskList taskList = new TaskList();
@@ -30,11 +30,11 @@ public class SaveFile {
             }
             return taskList;
         } catch (FileNotFoundException e) {
-            throw new DukeException("ERROR! File not found!");
+            throw new TalkingBotException("ERROR! File not found!");
         }
     }
 
-    public void saveTasksToFile(TaskList taskList) throws DukeException {
+    public void saveTasksToFile(TaskList taskList) throws TalkingBotException {
         try {
             FileWriter fileWriter = new FileWriter(this.saveFile);
             StringBuilder strBuild = new StringBuilder();
@@ -57,7 +57,7 @@ public class SaveFile {
             fileWriter.write(strBuild.toString());
             fileWriter.close();
         } catch (IOException e) {
-            throw new DukeException("ERROR! IOException occurred!");
+            throw new TalkingBotException("ERROR! IOException occurred!");
         }
     }
 }
