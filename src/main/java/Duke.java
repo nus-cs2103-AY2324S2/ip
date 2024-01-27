@@ -12,8 +12,21 @@ public class Duke {
             this.isDone = false;
         }
 
-        public String getStatusIcon() {
+        private String getStatusIcon() {
             return (isDone ? "X" : " "); // mark done task with X
+        }
+
+        public void markAsDone() {
+            this.isDone = true;
+        }
+
+        public void unmarkAsNotDone() {
+            this.isDone = false;
+        }
+
+        @Override
+        public String toString() {
+            return "[" + this.getStatusIcon() + "] " + this.description;
         }
     }
 
@@ -21,7 +34,7 @@ public class Duke {
     Scanner sc = new Scanner(System.in);
 
     // The task list.
-    ArrayList<String> taskList = new ArrayList<>();
+    ArrayList<Task> taskList = new ArrayList<>();
 
     // A horizontal line.
     private final String horizontalLine = "____________________________________________________________";
