@@ -19,7 +19,7 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
 
         while (true) {
             if (input.equals("bye")) {
@@ -29,14 +29,49 @@ public class Duke {
                 break;
             } else if (input.equals("list")){
                 printLine();
+                System.out.println("Here are the tasks in your list:");
                 int counter = 1;
-                for (String task : list) {
-                    System.out.println(counter + ". " + task);
+                for (Task task : list) {
+                    System.out.println(counter + ". " + "[" + task.getStatusIcon() + "] " + task.description);
+                    counter++;
                 }
                 printLine();
                 input = sc.nextLine();
+            } else if (input.startsWith("mark")) {
+                printLine();
+                String taskStr = input.substring(input.indexOf(" ") + 1);
+                int taskNum = Integer.parseInt(taskStr);
+                if (taskNum > 0 && taskNum < list.size() + 1) {
+                    Task currentTask = list.get(taskNum - 1);
+                    currentTask.markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  " + "[" + currentTask.getStatusIcon() + "] " + currentTask.description);
+                    printLine();
+                    input = sc.nextLine();
+                } else {
+                    System.out.println("Error: Task does not exist!");
+                    printLine();
+                    input = sc.nextLine();
+                }
+            } else if (input.startsWith("unmark")) {
+                printLine();
+                String taskStr = input.substring(input.indexOf(" ") + 1);
+                int taskNum = Integer.parseInt(taskStr);
+                if (taskNum > 0 && taskNum < list.size() + 1) {
+                    Task currentTask = list.get(taskNum - 1);
+                    currentTask.markAsNotDone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("  " + "[" + currentTask.getStatusIcon() + "] " + currentTask.description);
+                    printLine();
+                    input = sc.nextLine();
+                } else {
+                    System.out.println("Error: Task does not exist!");
+                    printLine();
+                    input = sc.nextLine();
+                }
             } else {
-                list.add(input);
+                Task t = new Task(input);
+                list.add(t);
                 printLine();
                 System.out.println("added: " + input);
                 printLine();
