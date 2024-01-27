@@ -20,5 +20,8 @@ bin/
 # .class files
 *.class
 
-src/logs/
+# Log files for tasks
+/src/logs/
+/src/main/java/src.logs/
+
 

@@ -1,27 +1,3 @@
 todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-list
-mark 1
-mark 2
-mark 3
-mark 4
-delete 2
-delete 4
-list
-unmark 1
-unmark 2
-unmark 3
-unmark 4
-delete 2
-delete 4
-list
-todo
-todoo
-deadline return book by Sunday
-deaadline
-event project meeting /from Mon 2pm to 4pm
-eevent
-event project meeting from Mon 2pm /to 4pm
-event project meeting from Mon 2pm to 4pm
-bye
+deadline return book /by 2/12/2019 1800
+event CS2103 Tutorial /from 2/02/2024 0800 /to 2/02/2024 0900
