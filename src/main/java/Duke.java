@@ -3,6 +3,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -74,8 +77,8 @@ public class Duke {
                         }
                         String details = input.split(" ", 2)[1];
                         String description = details.split("/by ")[0].trim();
-                        String by = details.split("/by ")[1];
-                        Task task = new Deadline(description, by);
+                        String by = details.split("/by ")[1].trim();
+                        Task task = new Deadline(description, getInputDateFormat(by));
                         tasksList.add(task);
                         System.out.println("DevGPT:\n\t" + " Got it. I've added this task: \n\t\t" + task.toString());
                         System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
@@ -89,10 +92,10 @@ public class Duke {
                         }
                         String details = input.split(" ", 2)[1];
                         String description = details.split("/from")[0].trim();
-                        String from = details.split("/from")[1].split("/to")[0];
-                        String to = details.split("/to")[1];
+                        String from = details.split("/from")[1].split("/to")[0].trim();
+                        String to = details.split("/to")[1].trim();
 
-                        Task task = new Event(description, from, to);
+                        Task task = new Event(description, getInputDateFormat(from), getInputDateFormat(to));
                         tasksList.add(task);
                         System.out.println("DevGPT:\n\t" + " Got it. I've added this task: \n\t\t" + task.toString());
                         System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
@@ -144,7 +147,7 @@ public class Duke {
                     } else {
                         throw new DukeException(
                             "Your message is not understood. Please use the following:\n\t1. todo <description>" +
-                                "\n\t2. deadline <description> /by <date>\n\t3. event <description> /from <date> /to <date>" +
+                                "\n\t2. deadline <description> /by <dd-mm-yyyy>\n\t3. event <description> /from <dd-mm-yyyy> /to <dd-mm-yyyy>" +
                                 "\n\t4. list\n\t5. mark <index>\n\t6. unmark <index>\n\t7. delete <index>\n\t8. bye");
                     }
 
@@ -158,10 +161,20 @@ public class Duke {
                 System.out.println("DevGPT:\n\t" + "Input error: Please enter a valid number to modify task");
             } catch (DukeException e) {
                 System.out.println("DevGPT:\n\t" + e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("DevGPT:\n\t" + "Input error: Please enter a valid date in the format dd-mm-yyyy");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    private static LocalDate getInputDateFormat(String s) throws DateTimeParseException {
+        return LocalDate.parse(s, DateTimeFormatter.ofPattern("d-M-yyyy"));
+    }
+
+    private static String getLocalDateOutputFormat(LocalDate date) throws DateTimeParseException {
+        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
     private static Task getTask(String line) throws DukeException {
@@ -178,11 +191,11 @@ public class Duke {
             task = new Todo(description);
         } else if (taskType.equals("D")) {
             String by = split[3];
-            task = new Deadline(description, by);
+            task = new Deadline(description, getInputDateFormat(by));
         } else if (taskType.equals("E")) {
             String from = split[3];
             String to = split[4];
-            task = new Event(description, from, to);
+            task = new Event(description, getInputDateFormat(from), getInputDateFormat(to));
         }
 
         if (task == null) {
@@ -198,12 +211,22 @@ public class Duke {
         FileWriter fileWriter = new FileWriter("data/duke.txt");
         for (Task task : tasksList) {
             if (task instanceof Todo) {
-                fileWriter.write(task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + "\n");
+                fileWriter.write(
+                    task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + "\n");
             } else if (task instanceof Deadline) {
-                fileWriter.write(task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + " | " + ((Deadline) task).getBy() + "\n");
-            } else if (task instanceof Event)
-                fileWriter.write(task.getTaskType() + " | "  + (task.isDone ? "1" : "0") + " | " + task.getDescription() + " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo() + "\n");
+                Deadline deadline = (Deadline) task;
+                fileWriter.write(
+                    deadline.getTaskType() + " | " + (deadline.isDone ? "1" : "0") + " | " + deadline.getDescription() +
+                        " | " + getLocalDateOutputFormat(deadline.getBy()) + "\n");
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                fileWriter.write(
+                    task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + " | " +
+                        getLocalDateOutputFormat(event.getFrom()) + " | " + getLocalDateOutputFormat(event.getTo()) + "\n");
+            }
         }
         fileWriter.close();
     }
+
+
 }

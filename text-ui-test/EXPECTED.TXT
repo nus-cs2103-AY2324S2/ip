@@ -14,33 +14,33 @@ DevGPT:
 User:
 DevGPT:
 	 Got it. I've added this task:
-		[D][ ] return book (by:Sunday)
+		[D][ ] return book (by: 03 Apr 2024)
 DevGPT:
 	 Now you have 2 tasks in the list.
 User:
 DevGPT:
 	 Got it. I've added this task:
-		[E][ ] project meeting (from: Mon 2pm to: 4pm)
+		[E][ ] project meeting (from: 27 Jan 2024 to: 29 Feb 2024)
 DevGPT:
 	 Now you have 3 tasks in the list.
 User:
 DevGPT:
 	 Poof! I've removed this task:
-	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+		[E][ ] project meeting (from: 27 Jan 2024 to: 29 Feb 2024)
 DevGPT:
 	 Now you have 2 tasks in the list.
 User:
 DevGPT:
 	 Got it. I've added this task:
-		[E][ ] project meeting (from: Mon 2pm to: 4pm)
+		[E][ ] project meeting (from: 27 Jan 2024 to: 29 Feb 2024)
 DevGPT:
 	 Now you have 3 tasks in the list.
 User:
 DevGPT:
 	 Here are the tasks in your list:
 		1. [T][ ] borrow book
-		2. [D][ ] return book (by:Sunday)
-		3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+		2. [D][ ] return book (by: 03 Apr 2024)
+		3. [E][ ] project meeting (from: 27 Jan 2024 to: 29 Feb 2024)
 User:
 DevGPT:
 	DevGPT error: The description of a todo cannot be empty.
@@ -77,8 +77,8 @@ User:
 DevGPT:
 	DevGPT error: Your message is not understood. Please use the following:
 	1. todo <description>
-	2. deadline <description> /by <date>
-	3. event <description> /from <date> /to <date>
+	2. deadline <description> /by <dd-mm-yyyy>
+	3. event <description> /from <dd-mm-yyyy> /to <dd-mm-yyyy>
 	4. list
 	5. mark <index>
 	6. unmark <index>
