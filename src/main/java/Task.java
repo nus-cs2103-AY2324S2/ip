@@ -11,6 +11,10 @@ public class Task {
         return (isDone ? "[X] " : "[ ] ") + description;
     }
 
+    public String getInitialDesc() { return description; }
+
+    public boolean getStatus() { return isDone; }
+
     public void mark(boolean status) {
         isDone = status;
     }
