@@ -4,6 +4,15 @@ public class Task {
     private String description;
     private boolean hasDone;
 
+    public Task() {
+
+    }
+
+    public Task(String description) {
+        this.description = description;
+        this.hasDone = false;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -14,15 +23,6 @@ public class Task {
 
     public boolean getHasDone() {
         return hasDone;
-    }
-
-    public Task() {
-
-    }
-
-    public Task(String description) {
-        this.description = description;
-        this.hasDone = false;
     }
 
     public void setHasDone(boolean isDone) {

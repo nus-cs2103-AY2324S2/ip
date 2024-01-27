@@ -25,6 +25,8 @@ public class CheckCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         List<Task> dueTaskList = new ArrayList<>();
+
+
         for (int i = 0; i < taskList.getListSize(); i++) {
             Task task = taskList.getTask(i);
             if (!task.getHasDone()) {
@@ -36,6 +38,8 @@ public class CheckCommand extends Command {
                 }
             }
         }
+
+
         ui.showDueTaskList(dueTaskList, checkDate);
     }
 }

@@ -1,10 +1,8 @@
 package duke.task;
 
 
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private LocalDateTime startDate;
@@ -25,12 +23,12 @@ public class Event extends Task {
         return startDate;
     }
 
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
     public void setEndDate(LocalDateTime endDate) {
@@ -45,9 +43,6 @@ public class Event extends Task {
     public String getEndDateString() {
         return endDateString;
     }
-
-
-
 
 
     @Override

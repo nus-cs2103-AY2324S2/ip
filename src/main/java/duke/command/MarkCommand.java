@@ -3,11 +3,9 @@ package duke.command;
 import duke.common.Messages;
 import duke.common.TaskList;
 import duke.exception.InvalidInputException;
-import duke.task.Task;
 import duke.storage.Storage;
+import duke.task.Task;
 import duke.ui.Ui;
-
-import java.util.List;
 
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
@@ -25,6 +23,8 @@ public class MarkCommand extends Command {
             throw new InvalidInputException(
                     String.format(Messages.MESSAGE_INVALID_INPUT_VALUE, "you can only mark task that are listed"));
         }
+
+
         Task task = taskList.getTask(taskNumber - 1);
         task.setHasDone(true);
         ui.showMaskAsDone(task);

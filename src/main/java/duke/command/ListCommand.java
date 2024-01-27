@@ -1,13 +1,10 @@
 package duke.command;
 
 import duke.common.TaskList;
-import duke.task.Task;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.util.List;
-
-public class ListCommand  extends Command{
+public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     public static final String COMMAND_USAGE = COMMAND_WORD + ":" + "list all tasks.\n" + "Example: " + COMMAND_WORD;
 

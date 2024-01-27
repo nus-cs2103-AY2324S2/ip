@@ -5,7 +5,10 @@ import duke.common.TaskList;
 import duke.exception.StorageOperationException;
 import duke.task.Task;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +35,7 @@ public class Storage {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_PATH));
             String line;
             List<Task> taskList = new ArrayList<>();
-            while((line = bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 taskList.add(TaskDecoder.decodeTask(line));
             }
             return taskList;

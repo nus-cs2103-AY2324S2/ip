@@ -1,6 +1,5 @@
 package duke;
 
-import com.sun.source.tree.AssertTree;
 import duke.command.*;
 import duke.exception.InvalidCommandFormatException;
 import duke.exception.UnknownCommandException;
@@ -61,7 +60,6 @@ public class ParserTest {
 
         assertThrows(InvalidCommandFormatException.class,
                 () -> Parser.parse("event /from 2022-10-10 18:00 /to 2022-10-11 18:00"));
-
 
 
         assertThrows(InvalidCommandFormatException.class,

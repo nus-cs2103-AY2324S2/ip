@@ -25,6 +25,7 @@ public class UnmarkTest {
         verify(mockTask).setHasDone(false);
         verify(mockUi).showMarkAsNotDone(mockTask);
 
-        assertThrows(InvalidInputException.class, () -> new UnmarkCommand(0).execute(mockTaskList, mockUi, mockStorage));
+        assertThrows(InvalidInputException.class,
+                () -> new UnmarkCommand(0).execute(mockTaskList, mockUi, mockStorage));
     }
 }

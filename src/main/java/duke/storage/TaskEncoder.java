@@ -10,12 +10,10 @@ public class TaskEncoder {
         int hasDoneInt = task.getHasDone() ? 1 : 0;
         if (task instanceof Todo) {
             return String.format("T | %d | %s ", hasDoneInt, task.getDescription());
-        }
-        else if (task instanceof Deadline) {
+        } else if (task instanceof Deadline) {
             return String.format("D | %d | %s | %s", hasDoneInt, task.getDescription(),
                     ((Deadline) task).getDeadlineString());
-        }
-        else {
+        } else {
             Event event = (Event) task;
             return String.format("T | %d | %s | %s-%s", hasDoneInt, event.getDescription(),
                     event.getStartDateString(), event.getEndDateString());

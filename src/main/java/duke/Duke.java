@@ -18,25 +18,13 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         storage = new Storage();
+
+
         try {
             taskList = new TaskList(storage.load());
         } catch (StorageOperationException e) {
             ui.showLoadingException();
             taskList = new TaskList(new ArrayList<>());
-        }
-    }
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while(!isExit) {
-            try {
-                String command = ui.readCommand();
-                Command c = Parser.parse(command);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            }
         }
     }
 
@@ -50,6 +38,23 @@ public class Duke {
 
         new Duke().run();
 
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+
+
+        while (!isExit) {
+            try {
+                String command = ui.readCommand();
+                Command c = Parser.parse(command);
+                c.execute(taskList, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            }
+        }
     }
 }
 
