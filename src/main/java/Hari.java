@@ -4,14 +4,46 @@ import java.util.Scanner;
 class handlerbot
 {
     //Class Attributes
-    private String[] arrtaskings; //To store tasks created by user for easy retrieval and listing
+    private taskings[] arrtaskings; //To store tasks created by user for easy retrieval and listing
     private int countertaskings; //Counter for assumption that there are no more than 100 tasks
 
     //Class object
     public handlerbot()
     {
-        arrtaskings = new String[100]; //Assumption that there are no more than 100 tasks
+        arrtaskings = new taskings[100]; //Assumption that there are no more than 100 tasks
         countertaskings = 0; //Counter for number of tasks
+    }
+
+    // Class for tasks (called taskings)
+    public class taskings {
+        private String summary; //Description of tasks
+        private boolean completion; //To check if a task is or is not completed
+
+        // Constructor
+        public taskings(String summary) {
+            this.summary = summary; //Description of tasks
+            this.completion = false; //To check if a task is or is not completed
+        }
+
+        // To mark as completed
+        public void completionmark() {
+            this.completion = true;
+        }
+
+        // To unmark completed tasks
+        public void incompletionmark() {
+            this.completion = false;
+        }
+
+        // For displaying the X or [ ] depending on completion
+        public String completionstatus() {
+            return (completion ? "[X] " : "[ ] "); // To display the X or [ ]
+        }
+
+        // For displaying the task description
+        public String summarystatus() {
+            return summary;
+        }
     }
 
     // Function that handles the greeting message
@@ -57,7 +89,7 @@ class handlerbot
         System.out.println("____________________________________________________________");
         System.out.println(" What's new to do? : " + taskings); //Display message that tasks has been added
         System.out.println("____________________________________________________________");
-        arrtaskings[countertaskings] ="[ ] " + taskings; //Add this task to the array storing all tasks
+        arrtaskings[countertaskings] = new taskings(taskings); //Add this task to the array storing all tasks
         countertaskings++; // Increase count of tasks stored
     }
 
@@ -72,7 +104,7 @@ class handlerbot
             System.out.println("____________________________________________________________");
             System.out.println(" Here are your tasks:"); //Display all tasks
             for (int i = 0; i < countertaskings; i++) {
-                System.out.println(" " + (i + 1) + ". " + arrtaskings[i]);
+                System.out.println(" " + (i + 1) + ". " + arrtaskings[i].completionstatus() + arrtaskings[i].summarystatus()); //Display the task
             }
             System.out.println("____________________________________________________________");
         }
@@ -84,8 +116,8 @@ class handlerbot
         {
             System.out.println("____________________________________________________________");
             System.out.println("Another one in the bag! Well done!");
-            arrtaskings[taskrecorder - 1] = arrtaskings[taskrecorder - 1].replace("[ ] ", "[X] "); //To replace the empty [ ] with a [X]
-            System.out.println(" " + (taskrecorder) + "." + arrtaskings[taskrecorder - 1]);
+            arrtaskings[taskrecorder - 1].completionmark(); //Mark as complete
+            System.out.println(" " + (taskrecorder) + ". " + arrtaskings[taskrecorder - 1].completionstatus() + arrtaskings[taskrecorder - 1].summarystatus()); //Display the task
             System.out.println("____________________________________________________________");
         } else // Error handling: There are no tasks
         {
@@ -102,8 +134,8 @@ class handlerbot
         {
             System.out.println("____________________________________________________________");
             System.out.println("Oh dear, better get on it!");
-            arrtaskings[taskrecorder - 1] = arrtaskings[taskrecorder - 1].replace("[X] ", "[ ] "); //To replace the [X] with an empty [ ]
-            System.out.println(" " + (taskrecorder) + "." + arrtaskings[taskrecorder- 1]);
+            arrtaskings[taskrecorder - 1].incompletionmark(); // Mark as incomplete
+            System.out.println(" " + (taskrecorder) + ". " + arrtaskings[taskrecorder - 1].completionstatus() + arrtaskings[taskrecorder - 1].summarystatus()); //Display the task
             System.out.println("____________________________________________________________");
         } else // Error handling: There are no tasks
         {
