@@ -16,27 +16,27 @@ public class Zack {
             TaskType taskType = TaskType.valueOf(sections[0].toUpperCase());
             // Grab first word, which is always the keyword
             switch (taskType) {
-                case BYE:
-                    handleBye(sections);
-                    break;
-                case MARK:
-                    handleMark(sections, true);
-                    break;
-                case UNMARK:
-                    handleMark(sections, false);
-                    break;
-                case LIST:
-                    handleList(sections);
-                    break;
-                // let all tasks 'fallthrough'
-                case TODO:
-                case DEADLINE:
-                case EVENT:
-                    handleTask(sections);
-                    break;
-                case DELETE:
-                    handleDelete(sections);
-                    break;
+            case BYE:
+                handleBye(sections);
+                break;
+            case MARK:
+                handleMark(sections, true);
+                break;
+            case UNMARK:
+                handleMark(sections, false);
+                break;
+            case LIST:
+                handleList(sections);
+                break;
+            // let all tasks 'fallthrough'
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                handleTask(sections);
+                break;
+            case DELETE:
+                handleDelete(sections);
+                break;
             }
         } catch (IllegalArgumentException e) {
             throw new ZackException("I'm sorry, but I don't know what that means :-(");
