@@ -36,6 +36,10 @@ public class Mamta {
             case "unmark":
                 history.set(taskNum - 1, history.get(taskNum - 1).unmarkTask());
                 return String.format("------------------------------------------\nOK, I've marked this task as not done yet:\n%s\n------------------------------------------", history.get(taskNum - 1));
+            case "delete":
+                Task objToRemove = history.get(taskNum - 1);
+                history.remove(objToRemove);
+                return String.format("------------------------------------------\nNoted. I've removed this task:\n%s\nNow you have %d tasks in the list\n------------------------------------------", objToRemove, history.size());
             default:
                 //handle case where there is no command
 
@@ -97,6 +101,7 @@ public class Mamta {
                 switch (splitOutput[0]) {
                     case "mark":
                     case "unmark":
+                    case "delete":
                         word = splitOutput[0];
                         taskNum = Integer.parseInt(splitOutput[1]);
                         System.out.println(Mamta.echo("default", word, taskNum, "", ""));
