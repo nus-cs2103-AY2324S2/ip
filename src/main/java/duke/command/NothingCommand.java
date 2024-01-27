@@ -10,4 +10,9 @@ public class NothingCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return "";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof NothingCommand;
+    }
 }

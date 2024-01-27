@@ -16,4 +16,8 @@ public class ListCommand extends Command {
         }
         return "Here are the tasks in your list:\n" + res + "\n";
     }
+
+    public boolean equals(Object other) {
+        return other instanceof ListCommand;
+    }
 }

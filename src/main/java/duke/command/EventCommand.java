@@ -25,4 +25,14 @@ public class EventCommand extends Command{
         tasks.add(task);
         return tasks.standardize(task);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof EventCommand otherCommand)) {
+            return false;
+        }
+        return this.event.equals(otherCommand.event)
+                && this.fromDate.equals(otherCommand.fromDate)
+                && this.toDate.equals(otherCommand.toDate);
+    }
 }

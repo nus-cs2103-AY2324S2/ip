@@ -19,4 +19,12 @@ public class MarkCommand extends Command{
         task.mark();
         return "Nice! I've marked this task as done:\n" + task + "\n";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof MarkCommand otherCommand)) {
+            return false;
+        }
+        return this.idx == otherCommand.idx;
+    }
 }

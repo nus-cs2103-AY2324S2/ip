@@ -46,15 +46,14 @@ public class Parser {
         case "delete":
             int idx = Parser.parseInt(line.split(" ")[1]);
             return new DeleteCommand(idx - 1);
-        case "todo": {
+        case "todo":
             return new TodoCommand(Parser.getContents(line, 4));
-        }
         case "deadline": {
             String[] res = Parser.getContents(line, 8).split(" /by ");
             return new DeadlineCommand(res[0], Parser.dateParse(res[1]));
         }
         case "event": {
-            String[] res = Parser.getContents(line, 8).split(" ((/from)|(/to)) ");
+            String[] res = Parser.getContents(line, 5).split(" ((/from)|(/to)) ");
             return new EventCommand(res[0], Parser.dateParse(res[1]), Parser.dateParse(res[2]));
         }
         case "":

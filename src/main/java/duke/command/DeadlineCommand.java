@@ -3,6 +3,7 @@ package duke.command;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.task.Deadline;
 import duke.task.Task;
 
 import java.time.LocalDateTime;
@@ -22,5 +23,14 @@ public class DeadlineCommand extends Command{
         Task task = new duke.task.Deadline(this.event, this.dueBy);
         tasks.add(task);
         return tasks.standardize(task);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof DeadlineCommand otherCommand)) {
+            return false;
+        }
+        return this.event.equals(otherCommand.event)
+                && this.dueBy.equals(otherCommand.dueBy);
     }
 }

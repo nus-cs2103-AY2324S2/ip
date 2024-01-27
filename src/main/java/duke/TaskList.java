@@ -58,5 +58,12 @@ public class TaskList implements Iterable<Task> {
         Storage.save(this.tasks.toArray());
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof TaskList)) {
+            return false;
+        }
+        return this.tasks.equals(((TaskList)other).tasks);
+    }
 
 }

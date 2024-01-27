@@ -19,4 +19,12 @@ public class UnMarkCommand extends Command{
         task.unmark();
         return "OK, I've marked this task as not done yet:\n" + task + "\n";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof UnMarkCommand otherCommand)) {
+            return false;
+        }
+        return this.idx == otherCommand.idx;
+    }
 }

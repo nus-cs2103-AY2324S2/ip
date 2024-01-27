@@ -19,4 +19,12 @@ public class DeleteCommand extends Command{
         tasks.remove(idx);
         return "Noted. I've removed this task:\n" + task + "\n" + tasks.trailer() + "\n";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof DeleteCommand otherCommand)) {
+            return false;
+        }
+        return this.idx == otherCommand.idx;
+    }
 }

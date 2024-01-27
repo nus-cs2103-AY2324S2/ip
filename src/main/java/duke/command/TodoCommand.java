@@ -20,4 +20,12 @@ public class TodoCommand extends Command{
         tasks.add(task);
         return tasks.standardize(task);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof TodoCommand otherCommand)) {
+            return false;
+        }
+        return this.todo.equals(otherCommand.todo);
+    }
 }
