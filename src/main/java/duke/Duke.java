@@ -2,10 +2,7 @@ package duke;
 
 import duke.task.Task;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -15,17 +12,27 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
-    private static TaskList taskList = new TaskList();
-
     private static final String FILE_NAME = "duke.state";
 
-    private static void writeState(OutputStream file) throws IOException {
+    private TaskList taskList;
+    private Storage storage;
+
+    public Duke(String fileName) {
+        storage = new Storage(fileName);
+        try {
+            taskList = storage.readTaskList();
+        } catch (IOException | ClassNotFoundException e) {
+            taskList = new TaskList();
+        }
+    }
+
+    private void writeState(OutputStream file) throws IOException {
         try (ObjectOutputStream stream = new ObjectOutputStream(file)) {
             stream.writeObject(taskList);
         }
     }
 
-    private static void readState(InputStream file) throws IOException, ClassNotFoundException {
+    private void readState(InputStream file) throws IOException, ClassNotFoundException {
         try (ObjectInputStream stream = new ObjectInputStream(file)) {
             taskList = (TaskList) stream.readObject();
         }
@@ -56,7 +63,7 @@ public class Duke {
         line();
     }
 
-    public static void repl() {
+    public void repl() {
         Scanner sc = new Scanner(System.in);
 
         label:
@@ -116,12 +123,10 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        File file;
-        file = new File(FILE_NAME);
+        Duke duke = new Duke(FILE_NAME);
         boolean successful = false;
         try {
-            FileInputStream in = new FileInputStream(file);
-            readState(in);
+            duke.taskList = duke.storage.readTaskList();
             successful = true;
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find state file \"" + FILE_NAME + "\"");
@@ -136,12 +141,11 @@ public class Duke {
         }
 
         hello();
-        repl();
+        duke.repl();
         bye();
 
         try {
-            FileOutputStream out = new FileOutputStream(file);
-            writeState(out);
+            duke.storage.writeTaskList(duke.taskList);
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find state file \"" + FILE_NAME + "\"");
         } catch (IOException e) {
