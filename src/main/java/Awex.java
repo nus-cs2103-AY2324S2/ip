@@ -11,7 +11,7 @@ public class Awex {
         ArrayList<Task> list = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         String next = sc.nextLine();
-        String[] arr = next.split(" ");
+        String[] arr = next.split(" ", 2);
         while (!next.equals("bye")) {
             if (next.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
@@ -30,11 +30,27 @@ public class Awex {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + t.showAll());
             } else {
-                list.add(new Task(next));
-                System.out.println("added: " + next);
+                Task t = null;
+                if (arr[0].equals("todo")) {
+                    t = new TodoTask(arr[1]);
+                } else if (arr[0].equals("deadline")) {
+                    String[] hasWhat = arr[1].split("/", 2);
+                    String[] hasTime = hasWhat[1].split(" ", 2);
+                    t = new DeadlineTask(hasWhat[0], hasTime[1]);
+                } else {
+                    String[] hasWhat = arr[1].split("/", 2);
+                    String[] hasTimes = hasWhat[1].split("/", 2);
+                    String[] hasStart = hasTimes[0].split(" ", 2);
+                    String[] hasEnd = hasTimes[1].split(" ", 2);
+                    t = new EventTask(hasWhat[0], hasStart[1], hasEnd[1]);
+                }
+                list.add(t);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + t.showAll());
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
             }
             next = sc.nextLine();
-            arr = next.split(" ");
+            arr = next.split(" ", 2);
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
