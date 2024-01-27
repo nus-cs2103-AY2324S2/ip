@@ -102,6 +102,15 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Invalid task ID to delete");
             }
+        } else if (command.startsWith("find")) {
+            if (command.length() <= 5) {
+                throw new DukeException("OOPS!!! Keyword cannot be empty.");
+            }
+
+            String keyword = command.split(" ")[1];
+
+            TaskList filteredItems = items.find(keyword);
+            ui.tasks(filteredItems);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
