@@ -12,8 +12,11 @@ class Parser {
             case "list":
                 ui.showTaskList(tasks.getTasks());
                 break;
-            case "done":
+            case "mark":
                 handleMarkAsDone(tokens, tasks, ui);
+                break;
+            case "unmark":
+                handleMarkAsNotDone(tokens, tasks, ui);
                 break;
             case "todo":
                 handleTodoTask(tokens, tasks, ui);
@@ -38,6 +41,17 @@ class Parser {
             Task task = tasks.getTasks().get(taskIndex);
             task.markAsDone();
             ui.showTaskMarkedAsDone(task);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            ui.showError("OOPS!!! Please provide a valid task number.");
+        }
+    }
+
+    private static void handleMarkAsNotDone(String[] tokens, TaskList tasks, Ui ui) {
+        try {
+            int taskIndex = Integer.parseInt(tokens[1]) - 1;
+            Task task = tasks.getTasks().get(taskIndex);
+            task.markAsNotDone();
+            ui.showTaskMarkedAsNotDone(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             ui.showError("OOPS!!! Please provide a valid task number.");
         }

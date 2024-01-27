@@ -42,6 +42,13 @@ public class Ui {
         showLine();
     }
 
+    public void showTaskMarkedAsNotDone(Task task) {
+        showLine();
+        System.out.println("     OK, I've marked this task as not done yet:");
+        System.out.println("       " + task);
+        showLine();
+    }
+
     public void showTaskAdded(int size, Task task) {
         showLine();
         System.out.println("     Got it. I've added this task:");
