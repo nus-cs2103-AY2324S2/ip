@@ -22,6 +22,9 @@ public class TaskManager {
             case "unmark":
                 unmarkTask(tokens);
                 break;
+            case "delete":
+                deleteTask(tokens);
+                break;
             case "bye":
                 break;
             default:
@@ -134,5 +137,27 @@ public class TaskManager {
         System.out.println("  " + tasks.get(size - 1));
         System.out.println("Now you have " + size + " tasks in the list.");
         System.out.println("____________________________________________________________");
+    }
+
+    public void deleteTask(String[] tokens) {
+        try {
+            if (tokens.length != 2) {
+                throw new IllegalArgumentException("NO! Invalid command. Enter: delete <task number>");
+            }
+
+            int taskNumber = Integer.parseInt(tokens[1]) - 1;  // Adjusting for 0-based index
+            if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                throw new IllegalArgumentException("NO! Task number does not exist. Enter a valid task number to delete.");
+            }
+
+            Task removedTask = tasks.remove(taskNumber);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            System.out.println("NO! Invalid task number. Enter a valid task number to delete.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
