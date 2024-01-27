@@ -1,17 +1,21 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import task.Command;
 import task.DukeException;
+import task.InvalidDataFormatException;
 import task.TaskList;
+import task.TaskListParser;
 import task.UnknownCommandException;
 
 public class Duke {
     private static final String chatbotName = "Sylvia";
 
+    private static final String dataFilePath = "data/duke.txt";
+
     public Duke() {
-        this.list = new TaskList();
     }
 
     private TaskList list;
@@ -43,7 +47,30 @@ public class Duke {
         return true; // bot should continue running after invalid user input
     }
 
+    private TaskList readData() {
+        try {
+            File file = new File(dataFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            return TaskListParser.parse(file);
+        } catch (IOException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println("An error occurred while reading data from file " + System.getProperty("user.dir")
+                    + dataFilePath + ": " + e.getMessage());
+            System.out.println("____________________________________________________________");
+            return new TaskList();
+        } catch (InvalidDataFormatException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println("e.getBotMessage()");
+            System.out.println("____________________________________________________________");
+            return new TaskList();
+        }
+    }
+
     public void run() {
+        this.list = readData();
         String input = "";
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean loopSignal = true;
@@ -58,6 +85,18 @@ public class Duke {
                 break;
             }
             loopSignal = runCommand(input);
+        }
+        writeData();
+    }
+
+    private void writeData() {
+        try {
+            TaskListParser.writeToFile(list, new File(dataFilePath));
+        } catch (IOException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println("An error occurred while writing data to file " + System.getProperty("user.dir")
+                    + dataFilePath + ": " + e.getMessage());
+            System.out.println("____________________________________________________________");
         }
     }
 
