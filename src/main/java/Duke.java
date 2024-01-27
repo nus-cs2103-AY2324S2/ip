@@ -9,7 +9,7 @@ public class Duke {
         System.out.println("     Hello! I'm Artemis");
         System.out.println("     What can I do for you?");
         System.out.println("    ____________________________________________________________");
-
+        
         while (true) {
             System.out.println();
             String input = sc.nextLine();
