@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,7 +8,9 @@ public class Tsundere {
 
     public static final Scanner sc = new Scanner(System.in);
 
-    public static final ArrayList<Task> taskList = new ArrayList<>();
+    public static ArrayList<Task> taskList = new ArrayList<>();
+
+    public static final String filepath = "./data/data.txt";
 
     public static void greet() {
         System.out.println("_________________________________________________________________________________\n" +
@@ -34,7 +37,7 @@ public class Tsundere {
         exit();
     }
 
-    public static void addTasks() {
+    public static void chat() {
         String str = sc.nextLine();
         while (!str.equals("bye")) {
             System.out.println("_________________________________________________________________________________");
@@ -52,8 +55,18 @@ public class Tsundere {
     }
     public static void main(String[] args) {
 
+        try {
+            taskList = TaskManager.loadTasksFromFile(filepath);
+        } catch (IOException e) {
+            System.out.println("Something went wrong with loading your previous session data!");
+        }
         greet();
-        addTasks();
+        chat();
+        try {
+            TaskManager.saveTasksToFile(taskList, filepath);
+        } catch (IOException e) {
+            System.out.println("Something went wrong with saving your current session data!");
+        }
 
     }
 }

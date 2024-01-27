@@ -20,6 +20,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toSaveString() {
+        int x = this.isDone ? 1 : 0;
+        return x + "," + this.description;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
