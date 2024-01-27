@@ -1,5 +1,5 @@
 import java.util.*;
-
+//enum is not required
 public class Jelly {
 
     private static TaskList list = new TaskList();
