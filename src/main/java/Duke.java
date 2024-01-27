@@ -50,7 +50,7 @@ public class Duke {
         // repeating user commands
         label:
         while (true) {
-            String command = sc.next();
+            String command = sc.next().toLowerCase();
             String info = sc.nextLine().trim();
 
             try {
