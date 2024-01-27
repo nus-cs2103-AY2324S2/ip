@@ -15,7 +15,9 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-//Class is to load/save tasks from hard drive for us
+/**
+ * The Storage class is responsible for loading and saving tasks to/from the hard drive.
+ */
 public class Storage {
     private String filePath;
 
@@ -23,6 +25,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Parses and loads tasks from the hard drive.
+     *
+     * @return An ArrayList of Task objects representing the loaded tasks.
+     * @throws FileNotFoundException If the file specified by filePath is not found.
+     * @throws RyanGoslingException  If the task data on the hard drive is not in the expected format.
+     */
     public ArrayList<Task> parseAndLoadTasks() throws FileNotFoundException, RyanGoslingException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -56,6 +65,11 @@ public class Storage {
         return listOfTasks;
     }
 
+    /**
+     * Writes the provided task list to the hard drive.
+     *
+     * @param taskList The ArrayList of Task objects to be written to the hard drive.
+     */
     public void writeToTaskList(ArrayList<Task> taskList) {
         StringBuilder toAdd = new StringBuilder();
         for (int i = 0; i < taskList.size(); i += 1) {
@@ -75,7 +89,6 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Error writing! Weird as f");
         }
-
     }
 
 }

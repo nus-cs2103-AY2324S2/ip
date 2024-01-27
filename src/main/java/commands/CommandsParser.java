@@ -23,6 +23,14 @@ public class CommandsParser {
         this.filePath = filePath;
         this.taskLoader = taskLoader;
     }
+
+    /**
+     * Parses user commands and performs corresponding actions based on the command type.
+     *
+     * @param task The user input command to be parsed.
+     * @return Returns 0 if the command was parsed successfully, 1 if the command is 'bye'.
+     * @throws RyanGoslingException If there is an error in parsing or executing the command.
+     */
     public int parseCommands(String task) throws RyanGoslingException {
         String[] taskSplit = task.split(" ");
         if (task.equals(String.valueOf(CommandsEnum.bye))) {
