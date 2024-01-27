@@ -43,7 +43,14 @@ public class BadGPT {
                     break;
                 }
                 case "todo": {
-                    store(new ToDo(sc.nextLine().stripLeading()));
+                    String description = sc.nextLine().stripLeading();
+                    if (description.isEmpty()) {
+                        line();
+                        System.out.println("are you satisfied with that, todo aoi");
+                        line();
+                    } else {
+                        store(new ToDo(description));
+                    }
                     break;
                 }
                 case "deadline": {
@@ -56,9 +63,17 @@ public class BadGPT {
                     store(new Event(taskInfo[0], taskInfo[1]));
                     break;
                 }
+                default: {
+                    line();
+                    System.out.println("我不明白");
+                    line();
+                }
             }
         }
     }
+
+    // TODO: add following exceptions: task is already marked/unmarked, command not found, missing description/date for tasks,
+    // invalid format for task type, task index cannot be found,
 
     public static void line() {
         System.out.println("____________________________________________________________");
@@ -74,6 +89,7 @@ public class BadGPT {
 
     public static void list() {
         line();
+        // TODO: add case where nothing is in list
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
