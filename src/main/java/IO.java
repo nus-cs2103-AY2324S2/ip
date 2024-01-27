@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 class IO {
     private ArrayList<Task> tasks = new ArrayList<>();
+    private TaskList taskList;
     private List<String> cmdList = Arrays.asList("todo", "deadline", "event", "list", "mark", "unmark", "delete", "bye");
     private Scanner sc;
     private String hLine = "________________________________________________";
@@ -25,6 +26,8 @@ class IO {
         System.out.println(hLine);
         System.out.println(greetMsg);
         System.out.println(hLine);
+        this.taskList = new TaskList();
+        this.tasks = this.taskList.load();
     }
 
     public void command() {
@@ -36,6 +39,7 @@ class IO {
             }
             if (cmd.equals("bye")) {
                 echo(exitMsg);
+                this.taskList.save(this.tasks);
                 System.exit(0);
             } else if (cmd.equals("list")) {
                 list();
@@ -69,6 +73,7 @@ class IO {
         }
 
         tasks.add(t);
+        this.taskList.save(this.tasks);
         echo("Got it. I've added this task:\n  "
                 + t + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
@@ -81,6 +86,7 @@ class IO {
                 + t + "\n"
                 + "Now you have " + (tasks.size() - 1) + " tasks in the list.");
         tasks.remove(t);
+        this.taskList.save(this.tasks);
     }
 
     private void list() {

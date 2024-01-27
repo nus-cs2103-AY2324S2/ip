@@ -3,6 +3,10 @@ public class Todo extends Task {
         super(n);
     }
 
+    public Todo(String n, boolean d) {
+        super(n, d);
+    }
+
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
