@@ -4,6 +4,7 @@ public class TalkingBot {
     private SaveFile saveFile;
     private TaskList taskList;
     private Ui ui;
+    private static final String FILE_PATH = "./data/taskList.txt";
 
     public TalkingBot(String fileName) {
         this.ui = new Ui();
@@ -20,44 +21,13 @@ public class TalkingBot {
         Parser parser =  new Parser();
         while (true) {
             Command curCommand = parser.parseCommand();
-
+            ui.printLine();
+            curCommand.runCommand(taskList, saveFile, ui);
+            ui.printLine();
         }
     }
 
     public static void main(String[] args) {
-        String fileName = "./data/talkingbot.txt";
-        Ui ui = new Ui();
-
-        try {
-            SaveFile saveFile = new SaveFile(fileName);
-            Scanner scanner = new Scanner(System.in);
-            TaskList taskList = new TaskList();
-            try {
-                taskList = saveFile.getTasksFromFile();
-            } catch (TalkingBotException e) {
-                System.out.println("\t" + e);
-                System.out.println("\tUsing new file instead...");
-                System.out.println(hLine);
-            }
-
-
-            while (true) {
-                String entry = scanner.nextLine();
-                if (entry.equals("bye")) {
-                    saveFile.saveTasksToFile(taskList);
-                    break;
-                }
-                String[] curCommand = entry.split(" ");
-                System.out.println(hLine);
-                System.out.println(hLine);
-            }
-
-            System.out.println(hLine);
-            System.out.println(bye);
-            System.out.println(hLine);
-            scanner.close();
-        } catch (TalkingBotException e) {
-            System.out.println(e);
-        }
+        new TalkingBot(FILE_PATH).runTalkingBot();
     }
 }

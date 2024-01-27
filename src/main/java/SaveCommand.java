@@ -6,11 +6,11 @@ public class SaveCommand extends Command {
     @Override
     public void runCommand(TaskList taskList, SaveFile saveFile, Ui ui) {
         try {
-            System.out.println("\tSaving tasks to file: " + saveFile.getFileName());
+            ui.printSaveOngoingMsg(saveFile.getFileName());
             saveFile.saveTasksToFile(taskList);
-            System.out.println("\tSave done!");
+            ui.printSaveDoneMsg();
         } catch (TalkingBotException e) {
-            System.out.println(e);
+            ui.printGenericError(e);
         }
     }
 }

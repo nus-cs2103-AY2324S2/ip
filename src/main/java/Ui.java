@@ -7,13 +7,13 @@ public class Ui {
     private static final String LOADING_ERR_MSG = "\tUsing new file instead...";
     private static final String TASK_SET_DONE_MSG = "\tNice! I've marked this task as done:";
     private static final String TASK_SET_UNDONE_MSG = "\tAlright, I've marked this task as undone.";
-    private static final String INVALID_CMD_MSG = "\tERROR! Unknown command detected."
+    private static final String INVALID_CMD_MSG = "\tERROR! Unknown command detected.";
+    private static final String SAVE_ONGOING_MSG = "\tSaving tasks to file: ";
+    private static final String SAVE_DONE_MSG = "\tSave done!";
 
 
 
-    public Ui() {
-
-    }
+    public Ui() {}
 
     public void printLoadingError(TalkingBotException e) {
         System.out.println("\t" + e);
@@ -43,5 +43,17 @@ public class Ui {
 
     public void printGenericError(TalkingBotException e) {
         System.out.println(e);
+    }
+
+    public void printLine() {
+        System.out.println(H_LINE);
+    }
+
+    public void printSaveOngoingMsg(String filePath) {
+        System.out.println(SAVE_ONGOING_MSG + filePath);
+    }
+
+    public void printSaveDoneMsg() {
+        System.out.println(SAVE_DONE_MSG);
     }
 }
