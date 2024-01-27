@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class StoreTask {
     private static final String PROJECT_ROOT = "./duke.txt";
@@ -66,14 +68,17 @@ public class StoreTask {
                 if (parts.length < 4) {
                     throw new DukeException("Invalid deadline format in file");
                 }
-                Deadline deadline = new Deadline(description, parts[3]);
+                LocalDate byDate = LocalDate.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE);
+                Deadline deadline = new Deadline(description, byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                 if (isDone) deadline.markAsDone();
                 return deadline;
             case "E":
                 if (parts.length < 5) {
                     throw new DukeException("Invalid event format in file");
                 }
-                Event event = new Event(description, parts[3], parts[4]);
+                LocalDate fromDate = LocalDate.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE);
+                LocalDate toDate = LocalDate.parse(parts[4], DateTimeFormatter.ISO_LOCAL_DATE);
+                Event event = new Event(description, fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                 if (isDone) event.markAsDone();
                 return event;
             default:
