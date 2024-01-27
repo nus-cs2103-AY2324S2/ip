@@ -1,3 +1,5 @@
+package kaiyap;
+
 import exceptions.AlreadyExistsException;
 import exceptions.InvalidInputException;
 import exceptions.KaiYapException;
@@ -107,11 +109,11 @@ public class KaiYap {
 
     public void unmarkDone(String index) throws KaiYapException {
         if (index.length() <= 7) {
-            throw new MissingInputException("Sorry, it seems like there is some missing input. Please try again! UwU :3");
+            throw new MissingInputException("\tSorry, it seems like there is some missing input. Please try again! UwU :3");
         }
         int numericIndex = Integer.parseInt(index.substring(7).strip()) - 1;
         if (numericIndex >= taskList.size()) {
-            throw new InvalidInputException("Sorry, this task does not exist. Please try again! UwU :3");
+            throw new InvalidInputException("\tSorry, this task does not exist. Please try again! UwU :3");
         } else if (!taskList.get(numericIndex).isTaskDone()) {
             throw new AlreadyExistsException("\tThis task has already been marked as undone. Good luck!");
         } else {

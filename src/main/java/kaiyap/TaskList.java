@@ -1,3 +1,5 @@
+package kaiyap;
+
 import exceptions.InvalidInputException;
 import exceptions.KaiYapException;
 import exceptions.MissingInputException;
@@ -75,7 +77,7 @@ public class TaskList {
 
     public Todo createTodo(String input) throws KaiYapException {
         if (input.equals("todo")) {
-            throw new MissingInputException("Your todo needs a description. Please try again! UwU :3");
+            throw new MissingInputException("\tYour todo needs a description. Please try again! UwU :3");
         } else {
             return new Todo(input.substring(input.indexOf(' ') + 1), input);
         }

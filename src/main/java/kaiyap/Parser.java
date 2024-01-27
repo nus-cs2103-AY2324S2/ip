@@ -1,3 +1,5 @@
+package kaiyap;
+
 import exceptions.KaiYapException;
 import java.util.Scanner;
 
