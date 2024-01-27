@@ -8,9 +8,6 @@ public class DeleteCommand extends Command {
         String[] curCommand = super.getCommandArr();
         int deleteIdxInt = Integer.valueOf(curCommand[1]);
         Task removedTask = taskList.removeTask(deleteIdxInt - 1);
-        System.out.println("\tRemoving task:");
-        System.out.println(String.format("\t\t%s", removedTask));
-        System.out.println(String.format("\tYou now have %d tasks in the list.",
-                taskList.getSize()));
+        ui.printDeleteTask(removedTask, taskList.getSize());
     }
 }

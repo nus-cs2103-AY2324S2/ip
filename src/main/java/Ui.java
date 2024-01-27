@@ -10,6 +10,9 @@ public class Ui {
     private static final String INVALID_CMD_MSG = "\tERROR! Unknown command detected.";
     private static final String SAVE_ONGOING_MSG = "\tSaving tasks to file: ";
     private static final String SAVE_DONE_MSG = "\tSave done!";
+    private static final String ADD_TASK_MSG = "\tAlright, I've added this task to your list:";
+    private static final String TASK_NUM_MSG = "\tYou now have %d tasks in the list.";
+    private static final String REMOVE_TASK_MSG = "\tRemoving task:";
 
 
 
@@ -42,7 +45,7 @@ public class Ui {
     }
 
     public void printGenericError(TalkingBotException e) {
-        System.out.println(e);
+        System.out.println("\t" + e);
     }
 
     public void printLine() {
@@ -55,5 +58,17 @@ public class Ui {
 
     public void printSaveDoneMsg() {
         System.out.println(SAVE_DONE_MSG);
+    }
+
+    public void printAddTask(Task curTask, int taskListSize) {
+        System.out.println(ADD_TASK_MSG);
+        System.out.println("\t\t" + curTask);
+        System.out.println(String.format(TASK_NUM_MSG, taskListSize));
+    }
+
+    public void printDeleteTask(Task removedTask, int taskListSize) {
+        System.out.println(REMOVE_TASK_MSG);
+        System.out.println("\t\t" + removedTask);
+        System.out.println(String.format(TASK_NUM_MSG, taskListSize));
     }
 }
