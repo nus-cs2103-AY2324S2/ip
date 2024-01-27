@@ -1,3 +1,10 @@
+package talkingbot.command;
+
+import talkingbot.util.SaveFile;
+import talkingbot.task.Task;
+import talkingbot.util.TaskList;
+import talkingbot.util.Ui;
+
 public class DeleteCommand extends Command {
     public DeleteCommand(String[] commandArr) {
         super(commandArr);

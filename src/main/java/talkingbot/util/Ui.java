@@ -1,3 +1,8 @@
+package talkingbot.util;
+
+import talkingbot.exception.TalkingBotException;
+import talkingbot.task.Task;
+
 public class Ui {
     private static final String H_LINE = "\t__________________________" +
             "__________________________________";
@@ -5,14 +10,14 @@ public class Ui {
             "TalkingBot\n\tWhat can I do for you?";
     private static final String GOODBYE = "\tBye. Hope to see you again soon!";
     private static final String LOADING_ERR_MSG = "\tUsing new file instead...";
-    private static final String TASK_SET_DONE_MSG = "\tNice! I've marked this task as done:";
-    private static final String TASK_SET_UNDONE_MSG = "\tAlright, I've marked this task as undone.";
-    private static final String INVALID_CMD_MSG = "\tERROR! Unknown command detected.";
+    private static final String TASK_SET_DONE_MSG = "\tNice! I've marked this talkingbot.task as done:";
+    private static final String TASK_SET_UNDONE_MSG = "\tAlright, I've marked this talkingbot.task as undone.";
+    private static final String INVALID_CMD_MSG = "\tERROR! Unknown talkingbot.command detected.";
     private static final String SAVE_ONGOING_MSG = "\tSaving tasks to file: ";
     private static final String SAVE_DONE_MSG = "\tSave done!";
-    private static final String ADD_TASK_MSG = "\tAlright, I've added this task to your list:";
+    private static final String ADD_TASK_MSG = "\tAlright, I've added this talkingbot.task to your list:";
     private static final String TASK_NUM_MSG = "\tYou now have %d tasks in the list.";
-    private static final String REMOVE_TASK_MSG = "\tRemoving task:";
+    private static final String REMOVE_TASK_MSG = "\tRemoving talkingbot.task:";
 
     private boolean continueIter = true;
 

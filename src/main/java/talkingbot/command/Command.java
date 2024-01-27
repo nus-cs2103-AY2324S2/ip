@@ -1,3 +1,9 @@
+package talkingbot.command;
+
+import talkingbot.util.SaveFile;
+import talkingbot.util.TaskList;
+import talkingbot.util.Ui;
+
 public abstract class Command {
     private final String[] commandArr;
 

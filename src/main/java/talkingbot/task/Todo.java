@@ -1,3 +1,7 @@
+package talkingbot.task;
+
+import talkingbot.type.TaskType;
+
 public class Todo extends Task {
     public Todo(String description, boolean isDone) {
         super(description, isDone, TaskType.TODO);

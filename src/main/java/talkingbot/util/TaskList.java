@@ -1,4 +1,7 @@
+package talkingbot.util;
+
 import java.util.ArrayList;
+import talkingbot.task.Task;
 
 public class TaskList {
     private final ArrayList<Task> tasks;

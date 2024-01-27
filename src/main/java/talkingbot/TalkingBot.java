@@ -1,4 +1,12 @@
-import java.util.Scanner;
+package talkingbot;
+
+import talkingbot.command.Command;
+import talkingbot.exception.TalkingBotException;
+import talkingbot.util.Parser;
+import talkingbot.util.SaveFile;
+import talkingbot.util.TaskList;
+import talkingbot.util.Ui;
+
 public class TalkingBot {
 
     private SaveFile saveFile;
@@ -23,7 +31,7 @@ public class TalkingBot {
         while (this.ui.getContinueIter()) {
             Command curCommand = parser.parseCommand();
             this.ui.printLine();
-            curCommand.runCommand(taskList, saveFile, ui);
+            curCommand.runCommand(this.taskList, this.saveFile, this.ui);
             this.ui.printLine();
         }
     }

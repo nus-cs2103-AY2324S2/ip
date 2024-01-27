@@ -1,3 +1,10 @@
+package talkingbot.command;
+
+import talkingbot.task.Task;
+import talkingbot.util.SaveFile;
+import talkingbot.util.TaskList;
+import talkingbot.util.Ui;
+
 public class ModifyMarkCommand extends Command {
     public ModifyMarkCommand(String[] commandArr) {
         super(commandArr);

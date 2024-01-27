@@ -3,7 +3,7 @@
 	What can I do for you?
 	____________________________________________________________
 	____________________________________________________________
-	Alright, I've added this task to your list:
+	Alright, I've added this talkingbot.task to your list:
 		[T] [ ] make sushi
 	You now have 1 tasks in the list.
 	____________________________________________________________
@@ -12,7 +12,7 @@
 	1. [T] [ ] make sushi
 	____________________________________________________________
 	____________________________________________________________
-	Alright, I've added this task to your list:
+	Alright, I've added this talkingbot.task to your list:
 		[D] [ ] create social media post (by: Sunday)
 	You now have 2 tasks in the list.
 	____________________________________________________________
@@ -22,7 +22,7 @@
 	2. [D] [ ] create social media post (by: Sunday)
 	____________________________________________________________
 	____________________________________________________________
-	Alright, I've added this task to your list:
+	Alright, I've added this talkingbot.task to your list:
 		[E] [ ] make salad (from: 1pm to: 2pm today)
 	You now have 3 tasks in the list.
 	____________________________________________________________
@@ -33,7 +33,7 @@
 	3. [E] [ ] make salad (from: 1pm to: 2pm today)
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
+	Nice! I've marked this talkingbot.task as done:
 	[E] [X] make salad (from: 1pm to: 2pm today)
 	____________________________________________________________
 	____________________________________________________________
@@ -43,7 +43,7 @@
 	3. [E] [X] make salad (from: 1pm to: 2pm today)
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
+	Nice! I've marked this talkingbot.task as done:
 	[D] [X] create social media post (by: Sunday)
 	____________________________________________________________
 	____________________________________________________________
@@ -53,7 +53,7 @@
 	3. [E] [X] make salad (from: 1pm to: 2pm today)
 	____________________________________________________________
 	____________________________________________________________
-	Alright, I've marked this task as undone.
+	Alright, I've marked this talkingbot.task as undone.
 	[D] [ ] create social media post (by: Sunday)
 	____________________________________________________________
 	____________________________________________________________
