@@ -42,8 +42,8 @@ public class CommandsParserStub {
                 //taskList.writeToFile(taskLoader);
                 System.out.println("task");
             } else {
-                throw new RyanGoslingException("Incomplete deadline command, " +
-                        "deadline <event> /by <time>");
+                throw new RyanGoslingException("Incomplete deadline command, "
+                        + "deadline <event> /by <time>");
             }
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.event))) {
             //System.out.println(task);
@@ -56,16 +56,16 @@ public class CommandsParserStub {
                 //taskList.writeToFile(taskLoader);
                 System.out.println("task");
             } else {
-                throw new RyanGoslingException("Incomplete event command, " +
-                        "event <event> /from <time> /to <time>");
+                throw new RyanGoslingException("Incomplete event command, "
+                        + "event <event> /from <time> /to <time>");
             }
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.delete))) {
             //taskList.removeIndex(Integer.parseInt(taskSplit[1])-1);
             //taskList.writeToFile(taskLoader);
         }
         else {
-            throw new RyanGoslingException("I was created in a few hours so " +
-                    "I don't know what that means :(");
+            throw new RyanGoslingException("I was created in a few hours so "
+                    + "I don't know what that means :(");
         }
         return 0;
     }
@@ -102,8 +102,8 @@ public class CommandsParserStub {
                 //taskList.writeToFile(taskLoader);
                 return(task);
             } else {
-                throw new RyanGoslingException("Incomplete deadline command, " +
-                        "deadline <event> /by <time>");
+                throw new RyanGoslingException("Incomplete deadline command, "
+                        + "deadline <event> /by <time>");
             }
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.event))) {
             //System.out.println(task);
@@ -116,16 +116,16 @@ public class CommandsParserStub {
                 //taskList.writeToFile(taskLoader);
                 return(task);
             } else {
-                throw new RyanGoslingException("Incomplete event command, " +
-                        "event <event> /from <time> /to <time>");
+                throw new RyanGoslingException("Incomplete event command, "
+                        + "event <event> /from <time> /to <time>");
             }
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.delete))) {
             //taskList.removeIndex(Integer.parseInt(taskSplit[1])-1);
             //taskList.writeToFile(taskLoader);
         }
         else {
-            throw new RyanGoslingException("I was created in a few hours so " +
-                    "I don't know what that means :(");
+            throw new RyanGoslingException("I was created in a few hours so "
+                    + "I don't know what that means :(");
         }
         return "0";
     }
