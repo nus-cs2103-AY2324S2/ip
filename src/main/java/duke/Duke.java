@@ -32,8 +32,10 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(taskList, ui, storage);
                 isExit = c.isExit();
-            } catch (Parser.InvalidCommand e) {
+            } catch (Parser.InvalidCommandType e) {
                 ui.showCommandNotFound(e.getCommand());
+            } catch (Parser.InvalidCommandData e) {
+                ui.showError(e);
             } finally {
                 ui.showLine();
             }

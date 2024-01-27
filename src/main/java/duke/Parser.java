@@ -8,18 +8,24 @@ import duke.command.ExitCommand;
 import duke.command.ListCommand;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Parser {
-    public static Command parse(String commandText) throws InvalidCommand {
+    public static Command parse(String commandText) throws InvalidCommandType, InvalidCommandData {
         Scanner scanner = new Scanner(commandText);
         String type = scanner.next();
 
+        if (Objects.equals(type, "bye")) {
+            return new ExitCommand();
+        }
+
+        if (!scanner.hasNextLine()) {
+            throw new InvalidCommandData();
+        }
+
         Command command;
         switch (type) {
-        case "bye":
-            command = new ExitCommand();
-            break;
         case "todo":
             command = new AddCommand(AddCommand.Type.Todo, parseComponents(scanner.nextLine()));
             break;
@@ -42,7 +48,7 @@ public class Parser {
             command = new ListCommand();
             break;
         default:
-            throw new InvalidCommand(type);
+            throw new InvalidCommandType(type);
         }
         return command;
     }
@@ -51,13 +57,18 @@ public class Parser {
         return Integer.parseInt(input.trim()) - 1;
     }
 
-    private static HashMap<String, String> parseComponents(String data) {
+    private static HashMap<String, String> parseComponents(String data) throws InvalidCommandData {
         HashMap<String, StringBuilder> builders = new HashMap<>();
 
         String key = "DESCRIPTION";
         String[] words = data.split(" +");
         for (String word : words) {
             if (word.startsWith("/")) {
+                // Check if the previous key had any data given to it
+                if (builders.get(key).length() == 0) {
+                    throw new InvalidCommandData(key);
+                }
+
                 key = word;
             } else {
                 builders.compute(key, (k, v) -> (v == null) ? new StringBuilder(word) : v.append(" ").append(word));
@@ -69,16 +80,26 @@ public class Parser {
         return components;
     }
 
-    public static class InvalidCommand extends Exception {
+    public static class InvalidCommandType extends Exception {
         private final String command;
 
-        public InvalidCommand(String command) {
+        public InvalidCommandType(String command) {
             super("Command \"" + command + "\" is invalid or not yet implemented.");
             this.command = command;
         }
 
         public String getCommand() {
             return command;
+        }
+    }
+    
+    public static class InvalidCommandData extends Exception {
+        public InvalidCommandData() {
+            super("Parameters to command not given.");
+        }
+
+        public InvalidCommandData(String key) {
+            super("No value given to " + key);
         }
     }
 }
