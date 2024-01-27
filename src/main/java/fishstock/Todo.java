@@ -23,6 +23,11 @@ class Todo extends Task {
     }
 
     @Override
+    protected String toSaveString() {
+        return keyword + " " + description + "/" + boolToInt(isDone) + System.lineSeparator();
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

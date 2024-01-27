@@ -36,6 +36,10 @@ class Deadline extends Task {
     }
 
     @Override
+    protected String toSaveString() {
+        return keyword + " " + description + byKeyword + by + "/" + boolToInt(isDone) + System.lineSeparator();
+    }
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }

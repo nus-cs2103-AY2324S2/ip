@@ -17,6 +17,11 @@ abstract class Task {
         this.isDone = false;
     }
 
+    protected abstract String toSaveString();
+
+    protected int boolToInt(boolean bool) {
+        return bool ? 1 : 0;
+    }
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.description;

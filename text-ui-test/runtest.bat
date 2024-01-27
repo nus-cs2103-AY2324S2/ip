@@ -6,6 +6,9 @@ if not exist ..\bin mkdir ..\bin
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
+REM delete db from previous run
+if exist data\tasks.txt del data\tasks.txt
+
 REM compile the code into the bin folder
 javac  -cp ..\src\main\fishstock\java -Xlint:none -d ..\bin ..\src\main\java\fishstock\*.java
 IF ERRORLEVEL 1 (

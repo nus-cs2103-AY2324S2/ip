@@ -51,6 +51,11 @@ class Event extends Task {
     }
 
     @Override
+    protected String toSaveString() {
+        return keyword + " " + description + fromKeyword + from +
+                toKeyword + to + "/" + boolToInt(isDone) + System.lineSeparator();
+    }
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
