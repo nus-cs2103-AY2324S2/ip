@@ -1,3 +1,11 @@
+package utilities;
+
+import exceptions.RyanGoslingException;
+import tasks.Deadline;
+import tasks.Events;
+import tasks.Task;
+import tasks.Todo;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
@@ -25,7 +33,7 @@ public class Storage {
             Pattern regex = Pattern.compile(pattern);
             Matcher matcher = regex.matcher(currentLine);
             if (!matcher.matches()) {
-                throw new RyanGoslingException("Task lists stored in hard drive is not in expected format!");
+                throw new RyanGoslingException("tasks.Task lists stored in hard drive is not in expected format!");
             } else {
                 String typeOfTask = matcher.group(1);
                 int isTaskDone = Integer.parseInt(matcher.group(2));
