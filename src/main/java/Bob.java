@@ -11,6 +11,10 @@ public class Bob {
         System.out.println(formatted.toString());
     }
 
+    private static void printFormatted(String line) {
+        printFormatted(new String[]{ line });
+    }
+
     public static void main(String[] args) {
         printFormatted(new String[]{ "Hello! I'm Bob", "What can I do for you?" });
         printFormatted(new String[]{ "Bye. Hope to see you again soon!" });
