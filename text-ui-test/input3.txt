@@ -1,0 +1,18 @@
+todo borrow book
+list
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+delete 3
+event project meeting /from Mon 2pm /to 4pm
+list
+todo
+deadline
+event
+deadline return book Sunday
+event LSRFM comeback /from 19 Feb 2023
+mark dfuhyasf
+mark 8
+delete dhuiasdhuasd
+delete 8
+LSRFM
+bye
