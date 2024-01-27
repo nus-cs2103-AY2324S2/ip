@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Duke {
     private static final String FILE_NAME = "duke.state";
 
-    private TaskList taskList;
+    private TaskList tasks;
     private final Storage storage;
     private final Ui ui;
 
@@ -23,9 +23,9 @@ public class Duke {
         storage = new Storage(fileName);
         ui = new Ui();
         try {
-            taskList = storage.readTaskList();
+            tasks = storage.readTaskList();
         } catch (IOException | ClassNotFoundException e) {
-            taskList = new TaskList();
+            tasks = new TaskList();
         }
     }
 
@@ -40,7 +40,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (Parser.InvalidCommandType e) {
                 ui.showCommandNotFound(e.getCommand());
@@ -60,7 +60,7 @@ public class Duke {
         Duke duke = new Duke(FILE_NAME);
         boolean successful = false;
         try {
-            duke.taskList = duke.storage.readTaskList();
+            duke.tasks = duke.storage.readTaskList();
             successful = true;
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find state file \"" + FILE_NAME + "\"");
@@ -77,7 +77,7 @@ public class Duke {
         duke.repl();
 
         try {
-            duke.storage.writeTaskList(duke.taskList);
+            duke.storage.writeTaskList(duke.tasks);
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find state file \"" + FILE_NAME + "\"");
         } catch (IOException e) {

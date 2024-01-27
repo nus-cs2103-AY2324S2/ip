@@ -12,7 +12,11 @@ import java.util.Set;
  * Represents one task. The task can either be completed or pending.
  */
 public abstract class Task implements Serializable {
-    protected static DateTimeFormatter describeTimeFormat = DateTimeFormatter.ofPattern("EE',' dd MMMM yy 'at' hh:mma");
+    protected static DateTimeFormatter describeTimeFormat =
+            DateTimeFormatter.ofPattern("EE',' dd MMMM yy 'at' hh:mma");
+
+    private final String description;
+    private Status status;
 
     /**
      * The completion status of the task.
@@ -28,9 +32,6 @@ public abstract class Task implements Serializable {
             this.description = description;
         }
     }
-
-    private final String description;
-    private Status status;
 
     /**
      * The constructor of a task.
@@ -95,7 +96,8 @@ public abstract class Task implements Serializable {
      * @param actual the set of actual components
      * @throws InvalidComponents if expected != actual
      */
-    protected static void validateComponentKeys(Set<String> expected, Set<String> actual) throws InvalidComponents {
+    protected static void validateComponentKeys(
+            Set<String> expected, Set<String> actual) throws InvalidComponents {
         // DESCRIPTION is assumed to be implicit
         if (!actual.remove("DESCRIPTION")) {
             throw new InvalidComponents();
