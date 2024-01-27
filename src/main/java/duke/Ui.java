@@ -1,3 +1,5 @@
+package duke;
+
 public class Ui {
     public void welcome() {
         System.out.println("Hello! I'm GuanGuanBot!");
