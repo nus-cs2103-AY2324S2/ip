@@ -1,7 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class HughJazz {
     private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
     public static void main(String[] args) {
         greeting();
@@ -19,9 +20,6 @@ public class HughJazz {
             } catch (ChatbotException e) {
                 System.out.println(e.getMessage());
             }
-
-
-
         }
         ending();
         scn.close();
@@ -36,6 +34,13 @@ public class HughJazz {
             addTask(userInput, "event");
         } else if ("list".equalsIgnoreCase(userInput)) {
             printTasks();
+        } else if (userInput.toLowerCase().startsWith("mark")) {
+            markTask(userInput, true);
+        } else if (userInput.toLowerCase().startsWith("unmark")) {
+            markTask(userInput, false);
+        } else if (userInput.toLowerCase().startsWith("delete")) {
+            int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+            deleteTask(taskNumber);
         } else {
             throw new ChatbotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -69,7 +74,7 @@ public class HughJazz {
                 System.out.println("Invalid task type");
                 return;
             }
-            tasks[taskCount] = newTask;
+            tasks.add(newTask);
             taskCount++;
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + newTask);
@@ -77,19 +82,30 @@ public class HughJazz {
         }
     }
 
+    private static void deleteTask(int taskNumber) throws ChatbotException {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            throw new ChatbotException("Invalid task number");
+        }
+        Task removedTask = tasks.remove(taskNumber - 1);
+        taskCount--;
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println("  " + removedTask.toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
     private static void markTask(String userInput, boolean isDone) {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
             if (taskNumber >= 0 && taskNumber < taskCount) {
                 if (isDone) {
-                    tasks[taskNumber].markAsDone();
+                    tasks.get(taskNumber).markAsDone();
                     System.out.println("Nice! I've marked this task as done: ");
                 }
                 else {
-                    tasks[taskNumber].unmarkAsDone();
+                    tasks.get(taskNumber).unmarkAsDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                 }
-                System.out.println("  " + tasks[taskNumber].toString());
+                System.out.println("  " + tasks.get(taskNumber).toString());
             }
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number");
@@ -97,7 +113,7 @@ public class HughJazz {
     }
     private static void printTasks() {
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].toString());
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
     }
 }
