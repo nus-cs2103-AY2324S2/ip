@@ -1,3 +1,6 @@
 T | 0 | return book
-E | 0 | meeting | Jan 01 2002 10:00AM - Jan 01 2002 11:00AM
+E | 1 | meeting | Jan 01 2002 10:00AM - Jan 01 2002 11:00AM
 D | 0 | assignment | Jan 01 2002 5:00PM
+T | 1 | read book
+T | 0 | borrow book
+D | 0 | return book | Jan 01 2024 2:00PM
