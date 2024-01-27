@@ -1,4 +1,12 @@
-todo,borrow book,false
-deadline,return book,Sunday,false
-event,project meeting,Mon 2pm,4pm,false
-todo,helloooo,false
+todo,hello,true
+todo,byeee,false
+todo,hello,true
+todo,byeee,true
+todo,good,false
+todo,bad,false
+todo,hello,true
+todo,byeee,false
+todo,hello,true
+todo,byeeetrue
+todo,good,false
+todo,bad,false

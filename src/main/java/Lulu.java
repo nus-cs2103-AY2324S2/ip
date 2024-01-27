@@ -25,8 +25,9 @@ public class Lulu {
         EVENT;
     }
     private List<Task> items;
-    private File file;
-    private Path path;
+    private String fileName = "src/main/java/data/lulu.txt";
+    private File file = new File(this.fileName);
+    private Path path = Path.of(this.fileName);
 
     public Lulu() {
         this.items = new ArrayList<>();
@@ -34,10 +35,7 @@ public class Lulu {
 
     public void start() {
         try {
-            String fileName = "src/main/java/data/lulu.txt";
-            this.file = new File(fileName);
-            this.path = Path.of(fileName);
-            Scanner scanner = new Scanner(file);
+            Scanner scanner = new Scanner(this.file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] words = line.split(",");
@@ -162,6 +160,11 @@ public class Lulu {
             task.updateStatus(true);
             print("Nice! I've marked this task as done:");
             print(task);
+
+            // save
+            String line = readLine(index);
+            String newLine = line.substring(0, line.length() - 5) + "true";
+            updateLine(index, newLine);
         } catch (InvalidStatusUpdateException e) {
             print("This task was already marked!");
             print(task);
@@ -183,6 +186,11 @@ public class Lulu {
             task.updateStatus(false);
             print("OK, I've marked this task as not done yet:");
             print(task);
+
+            // save
+            String line = readLine(index);
+            String newLine = line.substring(0, line.length() - 4) + "false";
+            updateLine(index, newLine);
         } catch (InvalidStatusUpdateException e) {
             print("This task was already unmarked!");
             print(task);
@@ -200,6 +208,10 @@ public class Lulu {
             return;
         }
         Task task = this.items.remove(index);
+
+        // save
+        deleteLine(index);
+
         print("Noted. I've removed this task:");
         print("\t" + task);
         print(String.format("Now you have %d tasks in the list.", this.items.size()));
@@ -219,7 +231,7 @@ public class Lulu {
 
         // save to file
         String data = String.format("todo,%s,%b", name, todo.status);
-        writeLine(this.file, data);
+        writeLine(data);
     }
 
     public void deadline(String input) {
@@ -242,7 +254,7 @@ public class Lulu {
 
             // save to file
             String data = String.format("deadline,%s,%s,%b", name, by, deadline.status);
-            writeLine(this.file, data);
+            writeLine(data);
         } catch (InvalidSlashParameterException e) {
             print("Sorry, when would you like the deadline to be until?");
         }
@@ -273,15 +285,15 @@ public class Lulu {
 
             // save to file
             String data = String.format("event,%s,%s,%s,%b", name, from, to, event.status);
-            writeLine(this.file, data);
+            writeLine(data);
         } catch (InvalidSlashParameterException e) {
             print("Sorry, when would you like the event to begin and end?");
         }
     }
 
-    public void writeLine(File file, String data) {
+    public void writeLine(String data) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.file, true));
             writer.write(data);
             writer.newLine();
             writer.close();
@@ -290,23 +302,53 @@ public class Lulu {
         }
     }
 
-    private void updateLine(Path path, int index, String data) {
+    public String readLine(int index) {
         try {
-            List<String> lines = Files.readAllLines(path);
-            lines.set(index, data);
+            Scanner scanner = new Scanner(this.file);
+            int i = 0;
+            String line = "";
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                if (i == index) {
+                    return line;
+                }
+                i++;
+            }
+        } catch (FileNotFoundException e) {
+            print(e.getMessage());
+        }
+        return null;
+    }
 
-            Files.write(path, lines, StandardOpenOption.WRITE);
+    public void updateLine(int index, String data) {
+        try {
+            List<String> lines = Files.readAllLines(this.path);
+            lines.set(index, data);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.file, false));
+            writer.write("");
+            writer = new BufferedWriter(new FileWriter(this.file, true));
+            for (String str : lines) {
+                writer.write(str);
+                writer.newLine();
+            }
+            writer.close();
         } catch (IOException e) {
             print(e.getMessage());
         }
     }
 
-    private void deleteLine(Path path, int index) {
+    public void deleteLine(int index) {
         try {
-            List<String> lines = Files.readAllLines(path);
+            List<String> lines = Files.readAllLines(this.path);
             lines.remove(index);
-
-            Files.write(path, lines, StandardOpenOption.WRITE);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.file, false));
+            writer.write("");
+            writer = new BufferedWriter(new FileWriter(this.file, true));
+            for (String str : lines) {
+                writer.write(str);
+                writer.newLine();
+            }
+            writer.close();
         } catch (IOException e) {
             print(e.getMessage());
         }
@@ -323,7 +365,7 @@ public class Lulu {
         try {
             chatbot.respond();
         } catch (Exception e) {
-            System.out.println("Error detected");
+            System.out.println(e.getMessage());
         }
         chatbot.exit();
     }
