@@ -27,12 +27,6 @@ public class Storage {
         while(br.ready()) {
             String[] text = br.readLine().split(Pattern.quote(" | "));
 
-            /* print list
-            for (String x : text)
-                System.out.println(x);
-            System.out.println();
-            */
-
             if (text[0].isEmpty()) break;
 
             if (text[0].equals("T")) {
