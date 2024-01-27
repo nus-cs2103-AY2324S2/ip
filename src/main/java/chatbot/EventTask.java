@@ -1,6 +1,9 @@
 package chatbot;
 
-public class EventTask extends Task {
+import java.io.Serializable;
+
+public class EventTask extends Task implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String startTime;
     private String endTime;
 

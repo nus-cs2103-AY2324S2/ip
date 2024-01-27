@@ -1,6 +1,9 @@
 package chatbot;
 
-public class TodoTask extends Task{
+import java.io.Serializable;
+
+public class TodoTask extends Task implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     public TodoTask(String desc) {
         super(desc);

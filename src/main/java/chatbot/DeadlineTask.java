@@ -1,6 +1,9 @@
 package chatbot;
 
-class DeadlineTask extends Task {
+import java.io.Serializable;
+
+class DeadlineTask extends Task implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String deadlineTime;
 
     public DeadlineTask(String desc, String deadlineTime) {

@@ -3,6 +3,7 @@ package chatbot;
 import chatbot.exceptions.DukeException;
 import chatbot.exceptions.InvalidArgumentException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -21,14 +22,16 @@ public class Plana {
             "/_/   /_/\\__,_/_/ /_/\\__,_/  \n";
 
     private static final String NAME = "Plana";
+    private final FileIO io;
 
     private final ArrayList<Task> tasks;
 
     private boolean shouldExit;
 
-    public Plana() {
-        this.tasks = new ArrayList<>();
+    public Plana() throws IOException, ClassNotFoundException {
         this.shouldExit = false;
+        this.io = new FileIO();
+        this.tasks = this.io.readFromStore();
     }
 
     public void greet() {
@@ -99,13 +102,15 @@ public class Plana {
 
     private void addTask(Command cmd, String desc) throws DukeException {
         Task t = new Task("");
+        Pattern pattern;
+        Matcher matcher;
         switch (cmd) {
             case TODO:
                 t = new TodoTask(desc);
                 break;
             case DEADLINE:
-                Pattern pattern = Pattern.compile("(.+?)\\s+/by\\s+(.+)");
-                Matcher matcher = pattern.matcher(desc);
+                pattern = Pattern.compile("(.+?)\\s+/by\\s+(.+)");
+                matcher = pattern.matcher(desc);
 
                 if (!matcher.find()) {
                     throw new InvalidArgumentException();
@@ -151,7 +156,8 @@ public class Plana {
 
     }
 
-    public void bye() {
+    public void bye() throws IOException {
+        this.io.saveToStore(this.tasks);
         System.out.println(ANSI_RESET + "==================");
         System.out.println("See you next time!");
     }

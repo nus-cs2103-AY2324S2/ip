@@ -4,11 +4,15 @@ import java.io.IOException;
 
 public class Duke {
     public static void main(String[] args) throws IOException {
-        Plana p = new Plana();
-        p.greet();
+        try {
+            Plana p = new Plana();
+            p.greet();
 
-        p.chat();
+            p.chat();
 
-        p.bye();
+            p.bye();
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
