@@ -63,6 +63,11 @@ public class BadGPT {
                     store(new Event(taskInfo[0], taskInfo[1]));
                     break;
                 }
+                case "delete": {
+                    int taskNum = sc.nextInt() - 1;
+                    delete(taskNum);
+                    break;
+                }
                 default: {
                     line();
                     System.out.println("我不明白");
@@ -74,6 +79,7 @@ public class BadGPT {
 
     // TODO: add following exceptions: task is already marked/unmarked, command not found, missing description/date for tasks,
     // invalid format for task type, task index cannot be found,
+    // TODO: fix issue where same line of input results in 2 我不明白
 
     public static void line() {
         System.out.println("____________________________________________________________");
@@ -129,6 +135,15 @@ public class BadGPT {
         out[0] = description;
         out[1] = taskInfo;
         return out;
+    }
+
+    public static void delete(int taskNum) {
+        Task task = tasks.remove(taskNum);
+        line();
+        System.out.println("This task has been removed: " + task);
+        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+        System.out.println("No, what are you waiting for? Do it! Just do it!");
+        line();
     }
 
     public static void bye() {
