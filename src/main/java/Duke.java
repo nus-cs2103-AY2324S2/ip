@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 
 public class Duke {
     private static final String spacer = "    ____________________________________________________________\n";
@@ -15,7 +17,7 @@ public class Duke {
         botPrint("See you again soon!");
     }
 
-    private static void botPrint(String s) {
+    public static void botPrint(String s) {
         s = s.replace("\n", "\n    ");
         System.out.println(spacer + "    " + s + "\n" + spacer);
     }
@@ -33,7 +35,7 @@ public class Duke {
         if (description.equals("")) {
             throw new MissingTaskInformationException("\"description\" ");
         }
-        Todo t = new Todo(description);
+        Todo t = new Todo(false, description);
         toDoList.add(t);
         botPrint("Todo Task added!\n" + t.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
     }
@@ -81,7 +83,7 @@ public class Duke {
         }
 
 
-        Event e = new Event(description, from, to);
+        Event e = new Event(false, description, from, to);
         toDoList.add(e);
         botPrint("Event Task added!\n" + e.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
     }
@@ -108,7 +110,7 @@ public class Duke {
             throw new MissingTaskInformationException(missingInfo);
         }
 
-        Deadline d = new Deadline(description, by);
+        Deadline d = new Deadline(false, description, by);
         toDoList.add(d);
         botPrint("Deadline Task added!\n" + d.toString() + "\n" + "You now have " + toDoList.size() + " tasks in the list.");
     }
@@ -146,42 +148,83 @@ public class Duke {
         }
     }
 
+    private static void checkAndCreateFile(File f) {
+        // Reading and creating data save file
+        try {
+            // making data folder
+            if (!f.getParentFile().exists()) {
+                if (!f.getParentFile().mkdir()) {
+                    throw new IOException("Unable to make directory");
+                };
+            }
+
+            // making data file
+            if (f.exists()) {
+                toDoList = Storage.readTodoData(f);
+            } else {
+                f.createNewFile();
+
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         startupMessage();
+
+        File f = new File("data/data.txt");
+
+        checkAndCreateFile(f);
+
+        // reading user inputs
         Scanner s = new Scanner(System.in);
         while (true) {
+
             String input = s.nextLine();
             if (input.equals("bye")) {
                 s.close();
                 goodbyeMessage();
+                try {
+                    Storage.saveTodoData(toDoList, f);
+                } catch (IOException e) {
+                    System.out.println("Error reading file: " + e.getMessage() + "\nAttemping to create new save file");
+                    checkAndCreateFile(f);
+                    try {
+                        Storage.saveTodoData(toDoList, f);
+                    } catch (IOException e2) {
+                        System.out.println("Data not saved: " + e.getMessage());
+                    }
+                }
                 break;
             }
             String action = input.split(" ")[0].toLowerCase();
 
             try {
                 switch (action) {
-                    case "list":
-                        printList();
-                        break;
-                    case "todo":
-                        createTodo(input);
-                        break;
-                    case "event":
-                        createEvent(input);
-                        break;
-                    case "deadline":
-                        createDeadline(input);
-                        break;
-                    case "mark":
-                        markTask(input);
-                        break;
-                    case "unmark":
-                        unmarkTask(input);
-                        break;
-                    case "delete":
-                        deleteTask(input);
-                    default:
-                        throw new NoSuchCommandException(input);
+                case "list":
+                    printList();
+                    break;
+                case "todo":
+                    createTodo(input);
+                    break;
+                case "event":
+                    createEvent(input);
+                    break;
+                case "deadline":
+                    createDeadline(input);
+                    break;
+                case "mark":
+                    markTask(input);
+                    break;
+                case "unmark":
+                    unmarkTask(input);
+                    break;
+                case "delete":
+                    deleteTask(input);
+                default:
+                    throw new NoSuchCommandException(input);
                 }
             } catch (BadTaskOrderException e) {
                 botPrint(e.getMessage());
