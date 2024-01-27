@@ -46,6 +46,16 @@ public class Duke {
         printWithIndent(horizontalLine);
     }
 
+    // Gets the first word of a string.
+    private String getFirstWord(String str) {
+        return str.split(" ", 2)[0];
+    }
+
+    // Gets the words of a string other than the first one.
+    private String getOtherThanFirstWord(String str) {
+        return str.split(" ", 2)[1];
+    }
+
     // Greets the user.
     private void greet() {
         printHorizontalLine();
@@ -68,6 +78,24 @@ public class Duke {
     // Checks if the last input is list.
     private boolean isCommandList(String command) {
         return Objects.equals(command, "list");
+    }
+
+    // Checks if the last input is mark.
+    private boolean isCommandMark(String command) {
+        String firstWord = getFirstWord(command);
+        return Objects.equals(firstWord, "mark");
+    }
+
+    // Checks if the last input is unmark.
+    private boolean isCommandUnmark(String command) {
+        String firstWord = getFirstWord(command);
+        return Objects.equals(firstWord, "unmark");
+    }
+
+    // Gets the index input by the user.
+    private int getIndex(String command) {
+        String otherThanFirstWord = getOtherThanFirstWord(command);
+        return Integer.parseInt(otherThanFirstWord);
     }
 
     // The task list.
