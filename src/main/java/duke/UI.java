@@ -63,6 +63,7 @@ public class UI {
       } catch (InvalidTaskException e) {
         System.out.println("That's not a valid input :(");
         System.out.println(e.getMessage());
+        continue;
       }
       switch (curr_command) {
         case LIST:
