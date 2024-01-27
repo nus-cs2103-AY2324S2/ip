@@ -16,5 +16,8 @@ bin/
 # vscode files
 .vscode/
 
+# app data
+data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
