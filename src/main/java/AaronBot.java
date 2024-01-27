@@ -14,51 +14,89 @@ public class AaronBot {
         System.out.println("To mark a task done: mark [index of task]");
         System.out.println("To unmark a task done: unmark [index of task]");
         while (notBye) {
-            notBye = chat(inputScanner.nextLine());
+            try {
+                notBye = chat(inputScanner.nextLine());
+            } catch (NonsenseCommandException e) {
+                System.out.println("What are you saying dear student?\n" + e.toString());
+            }
         }
         inputScanner.close();
     }
 
-    private static boolean chat(String userInput) {
+    private static boolean chat(String userInput) throws NonsenseCommandException{
         String[] tokenizedUserInput = userInput.split(" ", 2);    
         String userCommand = tokenizedUserInput[0];
+
+        try {
+            commandLengthCheck(userInput);
+        } catch (InvalidCommandFormatException e) {
+            System.out.println("Dear student, you need to type a command followed by another word.");
+            return true;
+        }
+
         switch(userCommand) {
         case "add":
+            try {
+                taskPresenceCheck(tokenizedUserInput[1]);
+            } catch (TaskNoNameException e) {
+                System.out.println("Sorry, the description of a task cannot be empty");
+                return true;
+            }
+            boolean isAdded;
             String[] tokenizedTaskDetails = tokenizedUserInput[1].split(" ", 2);
-            boolean isAdded = addToList(tokenizedTaskDetails[0], tokenizedTaskDetails[1]);
+            try {
+                isAdded = addToList(tokenizedTaskDetails[0], tokenizedTaskDetails[1]);
+            } catch (InvalidTaskTypeException e) {
+                System.out.println("Hey!! I don't know that task type: " + e.toString());
+                return true;
+            }
             if (isAdded) {
                 System.out.println("This task is already in the list!");
                 return true;
             } else {
                 System.out.println("Task added :)");
+                System.out.println("You now have " + taskList.size() + " tasks.");
                 return true;
             }
         case "mark":
-            String taskIndex = tokenizedUserInput[1];
-            if (isInteger(taskIndex)) {
-                return markDone(Integer.parseInt(taskIndex));
-            } else {
-                System.out.println("error, mark should be followed by the index of the task to be marked.");
+            String taskIndexMark = tokenizedUserInput[1];
+            try {
+                markCheck(taskIndexMark);
+            } catch (MarkingException e) {
+                System.out.println("Student, your mark index should be a number between 1 and "
+                        + taskList.size());
+                System.out.println(e);
                 return true;
             }
+            return markDone(Integer.parseInt(taskIndexMark));
         case "unmark":
-            taskIndex = tokenizedUserInput[1];
-            if (isInteger(taskIndex)) {
-                return unmarkDone(Integer.parseInt(taskIndex));
-            } else {
-                System.out.println("error, mark should be followed by the index of the task to be marked.");
+            String taskIndexUnmark = tokenizedUserInput[1];
+            try {
+             markCheck(taskIndexUnmark);
+            } catch (MarkingException e) {
+                System.out.println("Student, your mark index should be a number between 1 and "
+                        + taskList.size());
+                System.out.println(e);
                 return true;
             }
-        case "show list":
-            for (int i = 0; i < taskList.size(); i++) {
-                System.out.println((i + 1) + ". " + taskList.get(i).toString());
+            return unmarkDone(Integer.parseInt(taskIndexUnmark));
+        case "show":
+            if (tokenizedUserInput.length > 1 && tokenizedUserInput[1].equals("list")) {
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println((i + 1) + ". " + taskList.get(i).toString());
+                }
+                return true;
+            } else {
+                throw new NonsenseCommandException(userInput);
             }
-            return true;
+        case "bye":
+            System.out.println("Ok Student, HAND.");
+            return false;
         default:
-            return echo(userInput);
+            throw new NonsenseCommandException(userInput);
         }
     }
-
+    /*
     private static boolean echo(String echoString) {
         if (echoString.equalsIgnoreCase("what is your favorite module")) {
             System.out.println("CS1231S :)");
@@ -76,8 +114,9 @@ public class AaronBot {
             return true;
         }
     }
+    */
 
-    private static boolean addToList(String taskType, String newTask) {
+    private static boolean addToList(String taskType, String newTask) throws InvalidTaskTypeException {
         Task task;
         switch(taskType) {
         case ("todo"):
@@ -93,8 +132,7 @@ public class AaronBot {
             task = new Event(taskTimingSplit[0], startEndSplit[0], startEndSplit[1]);
             break;
         default:
-            System.out.println("hey, task type not specified");
-            return true;
+            throw new InvalidTaskTypeException(taskType);
         }
         if (taskList.contains(task)) {
             return true;
@@ -115,12 +153,28 @@ public class AaronBot {
         return true;
     }
 
-    private static boolean isInteger(String str) {
+    private static void taskPresenceCheck(String userInputString) throws TaskNoNameException {
+        if (userInputString.split("\\s+").length <= 1) {
+            throw new TaskNoNameException(userInputString);
+        }
+    }
+
+    private static void commandLengthCheck(String userInputString) throws InvalidCommandFormatException {
+        if (!(userInputString.equals("bye")) && userInputString.split("\\s+").length <= 1) {
+            throw new InvalidCommandFormatException(userInputString);
+        }
+    }
+
+    private static void markCheck(String userString) throws MarkingException{
+        Integer index;
         try {
-            Integer.parseInt(str);
-            return true;
+            index = Integer.parseInt(userString);
         } catch (NumberFormatException e) {
-            return false;
+            throw new MarkNonNumberException(userString);
+        }
+
+        if (index > taskList.size()) {
+            throw new TaskListOutOfBoundsException(index.toString());
         }
     }
 }
