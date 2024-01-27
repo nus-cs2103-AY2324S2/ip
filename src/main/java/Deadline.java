@@ -31,6 +31,14 @@ public class Deadline implements Task {
     public void setCheck(boolean x) {
         this.checked = x;
     }
+    public String getType() {
+        return this.type;
+    }
+
+    public String toSave() {
+        String temp = checked ? "1" : "0";
+        return type + " | " + temp + " | " + getDesc() + " | " + getDate() + "\n";
+    }
 
     @Override
     public String toString() {

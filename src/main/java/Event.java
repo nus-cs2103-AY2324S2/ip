@@ -26,7 +26,7 @@ public class Event implements Task {
     }
 
     public String getEnd() {
-        return "to:" + end;
+        return " to:" + end;
     }
 
     public String getCheck() {
@@ -36,9 +36,17 @@ public class Event implements Task {
     public void setCheck(boolean x) {
         this.checked = x;
     }
+    public String getType() {
+        return this.type;
+    }
+
+    public String toSave() {
+        String temp = checked ? "1" : "0";
+        return type + " | " + temp + " | " + getDesc() + " | " + getStart() + "-" + getEnd() + "\n";
+    }
 
     @Override
     public String toString() {
-        return ("[" + type + "][" + getCheck() + "] " + desc + "("+ getStart() + getEnd() +")");
+        return ("[" + type + "][" + getCheck() + "] " + desc + " ("+ getStart() + getEnd() +")");
     }
 }

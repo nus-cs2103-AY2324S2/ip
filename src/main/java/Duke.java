@@ -8,8 +8,12 @@ public class Duke {
     public static ArrayList<Task> ls;
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         ls = new ArrayList<>();
+
+        //load from file
+        ls = new ArrayList<>(Storage.loadTasks());
 
         System.out.println(line);
         System.out.println("Greetings friend! I am Datuk");
@@ -43,6 +47,9 @@ public class Duke {
             }
         }
 
+        //save here
+        Storage.saveTasks(ls);
+
         System.out.println(line);
         System.out.println("Farewell!");
         System.out.println(line);
@@ -54,7 +61,7 @@ public class Duke {
         if (ls.isEmpty()) System.out.println("\tOh noes! The list is empty! :(");
 
         for (int i = 0; i < ls.size(); i++) {
-            System.out.println("\t" + i + 1 + ". " + ls.get(i));
+            System.out.println("\t" + (i + 1) + ". " + ls.get(i));
         }
         System.out.println(line);
     }
@@ -120,13 +127,15 @@ public class Duke {
     }
 
     private static void deleteItem(String s) throws DukeException {
-        if (s.split(" ").length < 2) {
+        String[] str = s.split(" ");
+
+        if (str.length < 2) {
             throw new DukeException("Missing params for delete!");
-        } else if (s.split(" ").length > 2) {
+        } else if (str.length > 2) {
             throw new DukeException("Too many params for delete!");
         }
 
-        int index = Integer.parseInt(s) - 1;
+        int index = Integer.parseInt(str[1]) - 1;
 
         try {
             ls.get(index);

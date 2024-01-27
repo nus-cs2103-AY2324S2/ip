@@ -10,4 +10,8 @@ public interface Task {
     String getCheck();
 
     void setCheck(boolean x);
+
+    String toSave();
+
+    String getType();
 }

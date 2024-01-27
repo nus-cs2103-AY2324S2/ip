@@ -25,6 +25,15 @@ public class Todo implements Task {
         this.checked = x;
     }
 
+    public String getType() {
+        return this.type;
+    }
+
+    public String toSave() {
+        String temp = checked ? "1" : "0";
+        return type + " | " + temp + " | " + getDesc() + "\n";
+    }
+
     @Override
     public String toString() {
         return ("[" + type + "][" + getCheck() + "] " + desc);
