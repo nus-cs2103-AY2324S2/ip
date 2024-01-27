@@ -57,7 +57,7 @@ public class SaveFile {
                 String data = s.nextLine();
                 boolean isDone;
 
-                if (data.split("[|]")[1] == "0") {
+                if (data.split("[|]")[1].equals("0")) {
                     isDone = false;
                 } else {
                     isDone = true;
