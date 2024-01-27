@@ -27,7 +27,7 @@ public class TaskListTest {
         Task task = new ToDo("hello!");
         list.add(task);
         list.remove(0);
-        assertEquals(list.get(0), new TaskList());
+        assertEquals(list, new TaskList());
     }
 
     @Test
