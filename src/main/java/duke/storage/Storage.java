@@ -9,9 +9,18 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class implements methods to save the TaskList created by the users to the given file and
+ * load the tasks from the file
+ */
 public class Storage {
     public static final String FILE_PATH = "duke.txt";
 
+    /**
+     * Saves the tasks created by the users to a given file by encoding them with pre-defined format
+     * @param taskList the tasks to be saved
+     * @throws StorageOperationException if there is exception occurs when writing to file
+     */
     public void save(TaskList taskList) throws StorageOperationException {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
@@ -27,6 +36,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns tasks that loaded from the given file
+     * @return The tasks loaded
+     * @throws StorageOperationException if there is exception writing into file or parsing the formats into task
+     */
     public List<Task> load() throws StorageOperationException {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_PATH));

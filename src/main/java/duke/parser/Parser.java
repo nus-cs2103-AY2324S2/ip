@@ -12,6 +12,9 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Parser class implements a method that would parse the user input into Command
+ */
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     public static final Pattern DEADLINE_COMMAND_FORMAT = Pattern.compile("(?<description>\\S+) /by (?<deadline>.*)");
@@ -20,6 +23,13 @@ public class Parser {
             "(?<description>\\S+) /from (?<startDate>.*) /to (?<endDate>.*)");
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Returns a Command object by parsing the user input using pre-defined pattern
+     * @param input The user input
+     * @return The Command object that is parsed using the input
+     * @throws UnknownCommandException If user key in command word that is not defined
+     * @throws InvalidCommandFormatException If user entered command with incorrect format
+     */
     public static Command parse(String input) throws UnknownCommandException, InvalidCommandFormatException {
         Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {
