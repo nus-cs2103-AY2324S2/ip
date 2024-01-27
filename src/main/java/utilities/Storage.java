@@ -63,9 +63,10 @@ public class Storage {
             toAdd.append(taskToAdd.getTaskType());
             int taskDone = taskToAdd.isTaskDone() ? 1 : 0;
             String[] possibleTimes = taskToAdd.getTimes();
-            toAdd.append(" | ").append(taskDone).append(" | ").append(taskToAdd.getTaskName()).append(" | ").append(possibleTimes[0]).append(" | ").append(possibleTimes[1]);
-            if (i != taskList.size()-1) {
-                 toAdd.append(System.lineSeparator());
+            toAdd.append(" | ").append(taskDone).append(" | ").append(taskToAdd.getTaskName())
+                    .append(" | ").append(possibleTimes[0]).append(" | ").append(possibleTimes[1]);
+            if (i != taskList.size() - 1) {
+                toAdd.append(System.lineSeparator());
             }
         }
         try {
