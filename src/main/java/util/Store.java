@@ -2,6 +2,7 @@ package util;
 
 import java.io.*;
 import java.lang.StringBuilder;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,24 +18,31 @@ public class Store {
     }
 
     public static void resetStore() throws IOException {
-        File f = new File(FILE_PATH);
-        if (f.exists()) {
-            f.delete();
-        }
-        f = new File(FILE_PATH);
-        f.createNewFile();
+        Path filePath = Paths.get(FILE_PATH);
+
+        // Delete the file if it exists
+        Files.deleteIfExists(filePath);
+
+        // Create the parent directories if they do not exist
+        Files.createDirectories(filePath.getParent());
+
+        // Create the file
+        Files.createFile(filePath);
     }
 
     // Reads from the file and adds the tasks to ArrayList.
     private static void initStore() throws IOException {
-        File file = new File(FILE_PATH);
+        Path filePath = Paths.get(FILE_PATH);
+
+        // Create the parent directories if they do not exist
+        Files.createDirectories(filePath.getParent());
 
         // Create the file if it doesn't exist
-        if (!file.exists()) {
-            file.createNewFile();
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
         }
 
-        try (Scanner sc = new Scanner(file)) {
+        try (Scanner sc = new Scanner(filePath)) {
             while (sc.hasNext()) {
                 try {
                     tasks.add(new CSVUtil(sc.nextLine()).toTask());
