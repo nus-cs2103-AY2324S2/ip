@@ -23,7 +23,7 @@ public class Duke {
         new Tasks();
     }
 
-    private static void list() throws NotEnoughInputsException {
+    private static void list() throws NotEnoughInputsException, IncorrectIndexException {
         echo(MESSAGES.LIST);
         Tasks.list();
     }
@@ -134,7 +134,9 @@ public class Duke {
     }
 
 
-    private static void mark(String input, boolean isCompleted) throws NotEnoughInputsException {
+    private static void mark(String input, boolean isCompleted) throws
+            NotEnoughInputsException,
+            IncorrectIndexException {
         String[] params = input.split(" ", 2);
         if (params.length <= 1) {
             throw new NotEnoughInputsException(

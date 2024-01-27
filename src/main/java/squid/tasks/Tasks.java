@@ -21,8 +21,12 @@ public class Tasks {
         return arr.size();
     }
 
-    public static Task get(int i) {
-        return arr.get(i);
+    public static Task get(int i) throws IncorrectIndexException {
+        try {
+            return arr.get(i);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IncorrectIndexException(EXCEPTIONS.INCORRECT_INDEX);
+        }
     }
     public static void add(Task task) throws DuplicateTaskNameException {
         long dupes = arr.stream().filter(task1 -> task1.task.equals(task.task)).count();
@@ -47,7 +51,7 @@ public class Tasks {
         return deleted;
     }
 
-    public static void list() {
+    public static void list() throws IncorrectIndexException {
         for (int i = 0; i < Tasks.size(); i++) {
             Task currTask = Tasks.get(i);
             System.out.printf("%d: %s%n", i + 1, currTask);
