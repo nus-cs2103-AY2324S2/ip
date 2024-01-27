@@ -75,17 +75,17 @@ public class Storage {
             String line = scanner.nextLine();
             String type = line.substring(0, 1);
             switch (type) {
-                case "T":
-                    list.add(Task.fromFileString(line));
-                    break;
-                case "D":
-                    list.add(Deadline.fromFileString(line));
-                    break;
-                case "E":
-                    list.add(Event.fromFileString(line));
-                    break;
-                default:
-                    throw new DukeException("Error loading file");
+            case "T":
+                list.add(Task.fromFileString(line));
+                break;
+            case "D":
+                list.add(Deadline.fromFileString(line));
+                break;
+            case "E":
+                list.add(Event.fromFileString(line));
+                break;
+            default:
+                throw new DukeException("Error loading file");
             }
         }
         return list;
