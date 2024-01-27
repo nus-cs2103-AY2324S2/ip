@@ -1,84 +1,78 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
 
 public class TaskList {
-    protected static final String TASKPATH = "./data/duke.txt";
-    private FileWriter data;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
-        try {
-            File f = new File(TASKPATH);
-            if (!f.exists()) {
-                f.getParentFile().mkdirs();
-                f.createNewFile();
+        this.tasks = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    protected void addTask(Ui ui, Storage st, String cmd, String[] args) throws InvalidTaskException {
+        Task t = null;
+        if (cmd.equals("todo")) {
+            t = new Todo(args[0]);
+        } else if (cmd.equals("deadline")) {
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+            try {
+                LocalDate d = LocalDate.parse(args[1], formatter);
+                t = new Deadline(args[0], d);
+            } catch (DateTimeParseException de) {
+                System.out.println("Date not in format: yyyy-MM-dd, please try again.");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else if (cmd.equals("event")) {
+            t = new Event(args[0], args[1], args[2]);
+        } else {
+            throw new InvalidTaskException("Invalid task syntax for " + cmd + ".");
+        }
+
+        if (t != null) {
+            tasks.add(t);
+            st.save(this.tasks);
+            ui.echo("Got it. I've added this task:\n  "
+                    + t + "\n"
+                    + "Now you have " + tasks.size() + " tasks in the list.");
         }
     }
 
-    public ArrayList<Task> load() {
-        ArrayList<Task> arr = new ArrayList<>();
-        try {
-            File f = new File(TASKPATH);
-            Scanner sc = new Scanner(f);
-            while (sc.hasNext()) {
-                String[] token = sc.nextLine().split("\\|");
-                if (token[0].equals("T")) {
-                    arr.add(new Todo(token[1], Boolean.parseBoolean(token[2])));
-                } else if (token[0].equals("D")) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-                    arr.add(new Deadline(token[1], Boolean.parseBoolean(token[2]), LocalDate.parse(token[3], formatter)));
-                } else if (token[0].equals("E")) {
-                    arr.add(new Event(token[1], Boolean.parseBoolean(token[2]), token[3], token[4]));
-                }
-            }
-            sc.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return arr;
+    protected void deleteTask(Ui ui, Storage st, String[] args) {
+        Task t = tasks.get(Integer.parseInt(args[0]) - 1);
+        tasks.remove(t);
+        st.save(this.tasks);
+        ui.echo("Noted. I've removed this task:\n  "
+                + t + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public void save(ArrayList<Task> tl) {
-        try {
-            this.data = new FileWriter(TASKPATH);
-            tl.forEach(t -> {
-                try {
-                    if (t instanceof Todo) {
-                        this.data.write(String.format("T|%s|%s\n", t.taskName, t.isDone));
-                    } else if (t instanceof Deadline) {
-                        this.data.write(String.format("D|%s|%s|%s\n",
-                                                        t.taskName, t.isDone,
-                                                        ((Deadline) t).by.format(DateTimeFormatter.ISO_LOCAL_DATE))
-                                        );
-                    } else if (t instanceof Event) {
-                        this.data.write(String.format("E|%s|%s|%s|%s\n", t.taskName, t.isDone, ((Event) t).from, ((Event) t).to));
-                    }
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            close();
+    protected void list(Ui ui) {
+        int count = 0;
+        System.out.println("Here are the tasks in your list:");
+        for (Task t : tasks) {
+            count++;
+            System.out.println(count + ". " + t);
         }
+        ui.showLine();
     }
 
-    public void close() {
-        try {
-            this.data.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    protected void mark(Ui ui, Storage st, String[] args) {
+        Task t = tasks.get(Integer.parseInt(args[0]) - 1);
+        t.markAsDone();
+        st.save(this.tasks);
+        ui.echo("Nice! I've marked this task as done:\n"
+                + t);
+    }
+
+    protected void unmark(Ui ui, Storage st, String[] args) {
+        Task t = tasks.get(Integer.parseInt(args[0]) - 1);
+        t.markUndone();
+        st.save(this.tasks);
+        ui.echo("OK, I've marked this task as not done yet:\n"
+                + t);
     }
 }
