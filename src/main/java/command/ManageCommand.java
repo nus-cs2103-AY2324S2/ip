@@ -1,10 +1,11 @@
 package command;
 
-import exceptions.InvalidStatusUpdateException;
 import task.Task;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.UI;
+
+import exceptions.InvalidStatusUpdateException;
 
 public class ManageCommand extends Command {
     private Command.Types type;

@@ -1,7 +1,8 @@
 package ui;
 
-import java.util.Scanner;
 import tasklist.TaskList;
+
+import java.util.Scanner;
 
 public class UI {
     public static void print(Object text) {

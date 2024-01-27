@@ -3,14 +3,13 @@ package command;
 import task.Deadline;
 import task.Event;
 import task.Task;
+import storage.Storage;
+import tasklist.TaskList;
+import ui.UI;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-
-import storage.Storage;
-import tasklist.TaskList;
-import ui.UI;
 
 public class QueryCommand extends Command{
     private Command.Types commandType;

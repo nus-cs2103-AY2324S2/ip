@@ -1,16 +1,17 @@
 package parser;
 
+import task.Deadline;
+import task.Event;
+import task.Todo;
 import command.AddCommand;
 import command.Command;
 import command.ManageCommand;
 import command.QueryCommand;
+
 import exceptions.LuluException;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidDateException;
 import exceptions.InvalidSlashParameterException;
-import task.Deadline;
-import task.Event;
-import task.Todo;
 
 import java.time.LocalDate;
 

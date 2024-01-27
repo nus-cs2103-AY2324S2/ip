@@ -1,9 +1,13 @@
 import command.Command;
-import exceptions.*;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.UI;
+
+import exceptions.LuluException;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidDateException;
+import exceptions.InvalidSlashParameterException;
 
 public class Lulu {
     private Storage storage;

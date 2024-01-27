@@ -1,11 +1,12 @@
 package tasklist;
 
-import exceptions.InvalidStatusUpdateException;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
 import ui.UI;
+
+import exceptions.InvalidStatusUpdateException;
 
 import java.time.LocalDate;
 import java.util.List;
