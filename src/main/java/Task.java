@@ -1,10 +1,15 @@
 class Task {
-    private String taskName;
-    private boolean isDone;
+    protected String taskName;
+    protected boolean isDone;
 
     public Task(String n) {
         this.taskName = n;
         this.isDone = false;
+    }
+
+    public Task(String n, boolean d) {
+        this.taskName = n;
+        this.isDone = d;
     }
 
     @Override
