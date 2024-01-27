@@ -1,6 +1,7 @@
 package talkingbot.util;
 
 import java.util.ArrayList;
+
 import talkingbot.task.Task;
 
 /**

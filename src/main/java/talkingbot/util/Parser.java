@@ -1,5 +1,7 @@
 package talkingbot.util;
 
+import java.util.Scanner;
+
 import talkingbot.command.ByeCommand;
 import talkingbot.command.Command;
 import talkingbot.command.DeleteCommand;
@@ -9,7 +11,6 @@ import talkingbot.command.ModifyMarkCommand;
 import talkingbot.command.SaveCommand;
 import talkingbot.command.TaskCommand;
 
-import java.util.Scanner;
 
 /**
  * Class representing the parser to process user commands.
