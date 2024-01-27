@@ -1,3 +1,10 @@
+package talkingbot.command;
+
+import talkingbot.util.TaskList;
+import talkingbot.util.SaveFile;
+import talkingbot.util.Ui;
+import talkingbot.exception.TalkingBotException;
+
 public class ByeCommand extends Command {
     public ByeCommand(String[] commandArr) {
         super(commandArr);

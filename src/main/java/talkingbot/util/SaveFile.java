@@ -1,3 +1,8 @@
+package talkingbot.util;
+
+import talkingbot.exception.TalkingBotException;
+import talkingbot.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
