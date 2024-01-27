@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -30,7 +31,12 @@ public class Tyrone {
     private static final HashMap<String, Command> cmdMap = new HashMap<>();
 
     public static void main(String[] args) {
-        handleInitialize();
+        try {
+            handleInitialize();
+        } catch (IOException e) {
+            System.exit(1);
+        }
+
         boolean isActive = true;
         while (isActive) {
             try {
@@ -72,13 +78,14 @@ public class Tyrone {
                     default:
                         throw new TyroneCmdException("Command entered doesn't exist.");
                 }
+
             } catch (TyroneCmdException e) {
                 writer.println(Tyrone.formatStringOutput(e.getMessage()));
             }
         }
     }
 
-    public static void handleInitialize() {
+    public static void handleInitialize() throws IOException {
         cmdMap.put("bye", Command.BYE);
         cmdMap.put("list", Command.LIST);
         cmdMap.put("todo", Command.TODO);
@@ -89,6 +96,7 @@ public class Tyrone {
         cmdMap.put("delete", Command.DELETE);
 
         writer.println(logo + greetMsg);
+        taskList.loadTaskListFromFile();
     }
 
     private static void handleByeCommand() {
