@@ -1,3 +1,0 @@
-T | X | borrow book
-T |   | read book
-D | X | gym | Monday
