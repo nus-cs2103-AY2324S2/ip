@@ -3,18 +3,22 @@
  *
  * @author Billy Ho Cheng En
  */
-class Task{
+abstract class Task{
     private String description;
     private boolean is_done;
+    private String done_symbol;
+    String task_symbol;
 
     /**
      * Constructor for a task list.
      *
      * @param description textual description of the task
      */
-    public Task(String description){
+    public Task(String description, String task_symbol){
         this.description = description;
         this.is_done = false;
+        this.done_symbol = "[ ]";
+        this.task_symbol = task_symbol;
     }
 
     /**
@@ -27,6 +31,7 @@ class Task{
             return false;
         } else {
             this.is_done = true;
+            this.done_symbol = "[X]";
             return true;
         }
     }
@@ -39,6 +44,7 @@ class Task{
     public boolean unmark_done(){
         if(this.is_done){
             this.is_done = false;
+            this.done_symbol = "[ ]";
             return true;
         } else {
             return false;
@@ -47,6 +53,6 @@ class Task{
 
     @Override
     public String toString(){
-        return is_done ? "[X] " + description : "[ ] " + description;
+        return this.task_symbol + this.done_symbol + " " + this.description;
     }
 }

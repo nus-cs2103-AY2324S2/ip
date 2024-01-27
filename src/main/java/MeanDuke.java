@@ -32,8 +32,41 @@ public class MeanDuke{
             //add command: Add task to list and print out added task
             if (userInput.startsWith("add ")) {
                 String taskString = userInput.substring(4);
-                tasklist.add(new Task(taskString));
-                System.out.println("added to list: " + taskString);
+                //Determine type of Task
+                if(taskString.startsWith("todo ")){ // To do task
+                    taskString = taskString.substring(5); // Remove command word "to do"
+                    tasklist.add(new ToDo(taskString));
+                    System.out.println("Added ToDo to list: " + taskString);
+
+                } else if(taskString.startsWith("deadline ")) { // Deadline task
+                    taskString = taskString.substring(9); // Remove command word "deadline"
+                    int by_start_index = taskString.indexOf("/by "); // Obtain index of "/by"
+                    if(by_start_index == -1){
+                        System.out.println("Indicate the deadline using \"/by\"");
+                    } else {
+                        String description = taskString.substring(0, by_start_index).strip();
+                        String by = taskString.substring(by_start_index + 4).strip();
+                        tasklist.add(new Deadline(description, by));
+                        System.out.println("Added deadline to list: " + description);
+                    }
+
+                } else if(taskString.startsWith("event ")) { // Event task
+                    taskString = taskString.substring(6); // Remove command word "event"
+                    int from_start_index = taskString.indexOf("/from "); // Obtain index of "/from"
+                    int to_start_index = taskString.indexOf("/to ");
+                    if(from_start_index == -1 || to_start_index == -1){
+                        System.out.println("Indicate the period using \"/from\" and \"/to\"");
+                    } else {
+                        String description = taskString.substring(0, from_start_index).strip();
+                        String from = taskString.substring(from_start_index + 6, to_start_index).strip();
+                        String to = taskString.substring(to_start_index + 4).strip();
+                        tasklist.add(new Event(description, from, to));
+                        System.out.println("Added event to list: " + description);
+                    }
+
+                } else {
+                    System.out.println("Usage: add <type> <description>, where <type> is \"todo\", \"deadline\" or \"event\"");
+                }
 
             //list command: Print out current task list
             } else if (userInput.equals("list")) {
