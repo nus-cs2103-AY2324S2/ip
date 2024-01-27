@@ -16,9 +16,11 @@ public class Duke {
 
     private TaskList taskList;
     private Storage storage;
+    private final Ui ui;
 
     public Duke(String fileName) {
         storage = new Storage(fileName);
+        ui = new Ui();
         try {
             taskList = storage.readTaskList();
         } catch (IOException | ClassNotFoundException e) {
@@ -38,37 +40,12 @@ public class Duke {
         }
     }
 
-    private static void cat() {
-        System.out.println(" |\\ /| ");
-        System.out.println("=(O O)=");
-        System.out.println(" /   \\ ");
-    }
-
-    private static void line() {
-        for (int i = 0; i < 72; i++) {
-            System.out.print('─');
-        }
-        System.out.print('\n');
-    }
-
-    private static void hello() {
-        cat();
-        System.out.println("Hello! I'm the cat that lives in your walls.");
-        System.out.println("What do you need?");
-        line();
-    }
-
-    private static void bye() {
-        System.out.println("*The cat recedes into the wall with a bored look on its face*");
-        line();
-    }
-
     public void repl() {
         Scanner sc = new Scanner(System.in);
 
         label:
         while (sc.hasNextLine()) {
-            line();
+            ui.showLine();
             String command = sc.next();
             String data = sc.nextLine().trim();
             switch (command) {
@@ -115,10 +92,9 @@ public class Duke {
                 }
                 break;
             default:
-                System.out.println("I have no idea what you want.\n" +
-                        "I can respond to \"list\", \"deadline\", \"event\", \"todo\", \"mark\" and \"unmark\"");
+                System.out.println("I have no idea what you want.\n" + "I can respond to \"list\", \"deadline\", \"event\", \"todo\", \"mark\" and \"unmark\"");
             }
-            line();
+            ui.showLine();
         }
     }
 
@@ -140,9 +116,9 @@ public class Duke {
             }
         }
 
-        hello();
+        duke.ui.showWelcome();
         duke.repl();
-        bye();
+        duke.ui.showBye();
 
         try {
             duke.storage.writeTaskList(duke.taskList);
