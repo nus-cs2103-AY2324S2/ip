@@ -1,337 +1,66 @@
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * A chatbot class named as MissA.
  * Records 3 types of tasks for users.
  */
 public class MissA {
+    private TaskList tasks;
+    private Ui ui = new Ui();
+    private Storage storage;
+    private Parser parser = new Parser();
+    private boolean isBye = false;
 
-    /** An empty line */
-    private String emptyLine = "____________________________________________________________\n";
-
-    /** Greeting sentences */
-    private String greeting = "What can I do for you?\n"
-            + emptyLine
-            + "I can record 3 types of tasks now.\n"
-            + "ToDos: e.g. todo clean my room\n"
-            + "Deadlines: e.g. deadline submit homework /by 2021-4-1 21\n"
-            + "Events: e.g. event lecture /from 2021-4-2 14 /to 2021-4-2 16\n"
-            + emptyLine
-            + "Here are the commands that I can understand:)\n"
-            + "\"list\": I will display the latest task list.\n"
-            + "\"mark/unmark + number\": I will mark/unmark task in the list!\n"
-            + "\"delete + number\": I will remove task from the list.\n"
-            + "\"bye\": this program will be closed.\n"
-            + emptyLine;
-
-    /** Goodbye sentences */
-    private String goodBye = "Bye. Have a nice day!\n"
-            + emptyLine;
-
-    /** List of tasks added */
-    private ArrayList<Task> taskList = new ArrayList<>(100);
-
-    /*
-     * Displays items in task list.
-     *
-     * @return A string containing all tasks added by user.
-     */
-    public String getTasks() {
-        String str = emptyLine + "Here are your tasks:\n";
-        for (int i = 0; i < taskList.size(); i++) {
-            int index = i + 1;
-            str += index + ". " + taskList.get(i) + "\n";
-        }
-        str += emptyLine;
-        return str;
-    }
-
-    /*
-     * Marks task as done.
-     *
-     * @param idx Index of task to be marked as done.
-     */
-    public void markTask(int idx) {
-        Task t = taskList.get(idx);
-        t.mark();
-    }
-
-    /*
-     * Marks task as not done.
-     *
-     * @param idx Index of task to be marked as not done.
-     */
-    public void unmarkTask(int idx) {
-        Task t = taskList.get(idx);
-        t.unmark();
-    }
-
-    /*
-     * Removes task.
-     *
-     * @param idx Index of task to be removed from the list.
-     */
-    public void deleteTask(int idx) {
-        taskList.remove(idx);
-    }
-
-    /**
-     * Fetches tasks stored in hard disk.
-     *
-     * @param task String representation of tasks stored.
-     * @throws WrongTaskDataException Alerts users when wrong data detected.
-     */
-    public void getTasksFromData(String task) throws WrongTaskDataException {
-        String[] temp = task.split(" \\| ", 5);
-        switch (temp[0]) {
-        case "T":
-            if (temp.length != 3) {
-                throw new WrongTaskDataException();
-            }
-            Task t1 = new ToDo(temp[2]);
-            if (temp[1].equals("1")) {
-                t1.mark();
-            }
-            taskList.add(t1);
-            break;
-        case "D":
-            if (temp.length != 4) {
-                throw new WrongTaskDataException();
-            }
-            Task t2 = new Deadline(
-                    temp[2],
-                    LocalDateTime.parse(temp[3]));
-            if (temp[1].equals("1")) {
-                t2.mark();
-            }
-            taskList.add(t2);
-            break;
-        case "E":
-            if (temp.length != 5) {
-                throw new WrongTaskDataException();
-            }
-            Task t3 = new Event(
-                    temp[2],
-                    LocalDateTime.parse(temp[3]),
-                    LocalDateTime.parse(temp[4]));
-            if (temp[1].equals("1")) {
-                t3.mark();
-            }
-            taskList.add(t3);
-            break;
-        default:
-            throw new WrongTaskDataException();
-        }
-    }
-
-    /**
-     * Gets string representations of all task data.
-     *
-     * @return String representations of data.
-     */
-    public String getUpdatedData() {
-        String str = "";
-        for (int i = 0; i < taskList.size(); i++) {
-            Task t = taskList.get(i);
-            if (i == taskList.size() - 1) {
-                str += t.getData();
-            } else {
-                str += t.getData() + "\n";
-            }
-        }
-        return str;
-    }
-
-    /**
-     * Starts communication with chatbot MissA.
-     *
-     * @throws NoSuchTaskException Alerts users when wrong task number is given.
-     * @throws FileNotFoundException Alerts users there is no data stored found.
-     * @throws IOException Alerts users when unable to update data file.
-     */
-    public static void main(String[] args) throws
-            NoSuchTaskException, FileNotFoundException, IOException {
-
-        /** Chatbot used for communication */
-        MissA missA = new MissA();
-
-        // Greets users when first enter the program.
-        System.out.println("Hello from Miss A\n" + missA.greeting);
-
-        // Scans stored data.
+    public MissA(String filePath) {
+        this.storage = new Storage(filePath);
         try {
-            File data = new File("src/main/java/data/tasks.txt");
-            Scanner s = new Scanner(data);
-            while (s.hasNext()) {
-                missA.getTasksFromData(s.nextLine());
-            }
-            s.close();
-        } catch (WrongTaskDataException e) {
-            System.out.println(e.getMessage());
-        } catch (FileNotFoundException e) {
-            System.out.println("OOPS! " + e.getMessage());
-            System.out.println("Data file does not exist/Data file is not in the correct folder!");
+            tasks = new TaskList(storage.loadData());
+        } catch (WrongTaskDataException | FileNotFoundException e) {
+            System.out.println(ui.showError(e));
+            tasks = new TaskList();
         }
+    }
 
-        /** File writer used to update date file */
-        FileWriter fileWriter = new FileWriter("src/main/java/data/tasks.txt");
+    /**
+     * Starts the MissA chatbot.
+     */
+    public void run() {
+        // Greets users.
+        System.out.println(ui.sayHi());
 
-        // Collects user input.
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-
-        while (!userInput.equals("bye")) {
+        while (!isBye) {
             try {
-                if (userInput.equals("list")) { // Shows task list.
-                    System.out.println(missA.getTasks());
-
-                } else if (userInput.startsWith("mark")) { // Marks task as done.
-                    String[] input = userInput.split(" ");
-                    if (input.length < 2) {
-                        throw new NoSuchTaskException();
-                    }
-                    int idx = Integer.valueOf(input[1]);
-                    if (idx > missA.taskList.size()) {
-                        throw new NoSuchTaskException();
-                    }
-                    missA.markTask(idx - 1);
-                    System.out.println(missA.emptyLine
-                            + "Great! You have completed this task!\n"
-                            + missA.emptyLine);
-
-
-                } else if (userInput.startsWith("unmark")) { // Unmarks task.
-                    String[] input = userInput.split(" ");
-                    if (input.length < 2) {
-                        throw new NoSuchTaskException();
-                    }
-                    int idx = Integer.valueOf(input[1]);
-                    if (idx > missA.taskList.size()) {
-                        throw new NoSuchTaskException();
-                    }
-                    missA.unmarkTask(idx - 1);
-                    System.out.println(missA.emptyLine
-                            + "Ok, this task is still in progress :-(\n"
-                            + missA.emptyLine);
-
-                } else if (userInput.startsWith("delete")) { // Deletes tasks.
-                    String[] input = userInput.split(" ");
-                    if (input.length < 2) {
-                        throw new NoSuchTaskException();
-                    }
-                    int idx = Integer.valueOf(input[1]);
-                    if (idx > missA.taskList.size()) {
-                        throw new NoSuchTaskException();
-                    }
-                    System.out.println(missA.emptyLine
-                            + "Noted. I will remove this task:\n"
-                            + "  " + missA.taskList.get(idx - 1)
-                            + "\n"
-                            + "Now you have " + (missA.taskList.size() - 1) + " tasks!\n"
-                            + missA.emptyLine);
-                    missA.deleteTask(idx - 1);
-
-                } else { // Adds task to task list.
-                    String[] task = userInput.split(" ", 2);
-                    String taskType = task[0];
-                    Task nextTask = null;
-
-                    if (taskType.equals("todo")) { // Checks if the task type is todo.
-                        if (task.length < 2) {
-                            throw new NoContentException();
-                        }
-                        String content = task[1];
-                        nextTask = new ToDo(content);
-                        missA.taskList.add(nextTask);
-
-                    } else if (taskType.equals("deadline")) { // Checks if the task type is deadline.
-                        if (task.length < 2) {
-                            throw new NoContentException();
-                        }
-                        if (!task[1].contains("/by")) {
-                            throw new NoTimingException();
-                        }
-                        String[] content = task[1].split(" /by ");
-                        String[] time = content[1].split(" ");
-                        int[] timing = Arrays.stream(time[0].split("-"))
-                                .mapToInt(Integer::valueOf).toArray();
-                        nextTask = new Deadline(
-                                content[0],
-                                LocalDateTime.of(
-                                        LocalDate.of(timing[0], timing[1], timing[2]),
-                                        LocalTime.of(Integer.valueOf(time[1]), 0)));
-                        missA.taskList.add(nextTask);
-
-                    } else if (taskType.equals("event")) { // Checks if the task type is event.
-                        if (task.length < 2) {
-                            throw new NoContentException();
-                        }
-                        if (!task[1].contains("/from") || !task[1].contains("/to")) {
-                            throw new NoTimingException();
-                        }
-                        String[] content = task[1].split(" /from ");
-                        String text = content[0];
-                        String[] interval = content[1].split(" /to ");
-
-                        // Gets start date and time.
-                        String[] from = interval[0].split(" ");
-                        int[] fromDate = Arrays.stream(from[0].split("-"))
-                                .mapToInt(Integer::valueOf).toArray();
-
-                        //Gets end date and time.
-                        String[] to = interval[1].split(" ");
-                        int[] toDate = Arrays.stream(to[0].split("-"))
-                                .mapToInt(Integer::valueOf).toArray();
-
-                        nextTask = new Event(
-                                text,
-                                LocalDateTime.of(
-                                        LocalDate.of(fromDate[0], fromDate[1], fromDate[2]),
-                                        LocalTime.of(Integer.valueOf(from[1]), 0)),
-                                LocalDateTime.of(
-                                        LocalDate.of(toDate[0], toDate[1], toDate[2]),
-                                        LocalTime.of(Integer.valueOf(to[1]), 0)));
-                        missA.taskList.add(nextTask);
-
-                    } else {
-                        throw new IncorrectTaskTypeException();
-                    }
-                    System.out.println(missA.emptyLine
-                            + "Ok, I will add in this task:\n"
-                            + "  " + nextTask
-                            + "\n"
-                            + "Now there are " + missA.taskList.size() + " tasks in the list.\n"
-                            + missA.emptyLine);
-                }
+                // Collects user input.
+                String userInput = ui.readInput();
+                Command command = parser.parse(userInput, tasks);
+                tasks = command.execute(ui);
+                isBye = command.isBye();
             } catch (IncorrectTaskTypeException
                      | NoSuchTaskException
                      | NoTimingException
                      | NoContentException e) {
-                System.out.println(missA.emptyLine + e.getMessage() + "\n" + missA.emptyLine);
-            } finally {
-                userInput = scanner.nextLine();
+                System.out.println(ui.showError(e));
             }
         }
 
         // Writes back to data file.
         try {
-            String newData = missA.getUpdatedData();
-            fileWriter.append(newData);
+            String newData = tasks.getUpdatedData();
+            storage.writeBackData(newData);
         } catch (IOException e) {
             System.out.println("Sorry, I am unable to update data file.");
         }
 
         // Exits program.
-        fileWriter.close();
-        System.out.println(missA.emptyLine + missA.goodBye);
+        System.out.println(ui.goodBye());
+    }
+
+    /**
+     * Starts communication with chatbot MissA.
+     */
+    public static void main(String[] args) {
+        MissA missA = new MissA("src/main/java/data/tasks.txt");
+        missA.run();
     }
 }

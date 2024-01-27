@@ -1,10 +1,10 @@
-T | 1 | read book
+T | 0 | read book
 D | 0 | return book | 2024-01-24T12:00
-E | 0 | project meeting | 2024-06-21T05:00 | 2024-06-22T07:00
-T | 0 | join sports club
-D | 0 | hw2 | 2024-01-31T09:00
+E | 1 | project meeting | 2024-06-21T05:00 | 2024-06-22T07:00
+T | 1 | join sports club
+D | 1 | hw2 | 2024-01-31T09:00
 E | 0 | lecture | 2024-01-03T10:00 | 2024-01-03T11:00
-T | 1 | clean room
 D | 0 | return pen | 2024-01-04T05:00
 D | 0 | assign4 | 2024-03-01T09:00
 E | 0 | movie | 2024-03-01T09:00 | 2024-03-01T11:00
+D | 0 | wash cloth | 2024-03-03T09:00
