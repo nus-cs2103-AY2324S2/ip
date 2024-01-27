@@ -1,26 +1,28 @@
-public class Event extends Task {
-    private String startTime;
-    private String endTime;
+import java.time.LocalDateTime;
 
-    public Event(String listItem, String inputItem, String startTime, String endTime) {
+public class Event extends Task {
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+
+    public Event(String listItem, String inputItem, LocalDateTime startTime, LocalDateTime endTime) {
         super(listItem, inputItem);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 

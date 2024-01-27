@@ -1,15 +1,17 @@
+
+import java.time.LocalDateTime;
 public class Deadline extends Task {
-    private String deadline;
-    public Deadline(String listItem, String inputItem, String deadline) {
+    private LocalDateTime deadline;
+    public Deadline(String listItem, String inputItem, LocalDateTime deadline) {
         super(listItem, inputItem);
         this.deadline = deadline;
     }
 
-    public String getDeadline() {
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
+    public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
