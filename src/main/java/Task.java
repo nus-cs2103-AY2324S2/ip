@@ -48,7 +48,7 @@ public abstract class Task {
 
     public static Task generateTaskFromFile(String line) {
         String[] lineArr = line.split(" \\| ");
-        boolean mark = Boolean.parseBoolean(lineArr[1]);
+        boolean mark = lineArr[1].equals("1") ? true : false;
         if (lineArr[0].equals("T")) {
             return new Todo(lineArr[2], mark);
         } else if (lineArr[0].equals("D")) {
