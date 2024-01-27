@@ -44,6 +44,17 @@ public class Task {
         }
     }
 
+    public static Task generateTaskFromFile(String line) {
+        String[] lineArr = line.split("\\|");
+        if (lineArr[0].equals("T")) {
+            return new Todo(lineArr[1]);
+        } else if (lineArr[0].equals("D")) {
+            return new Deadline(lineArr[1], lineArr[2]);
+        } else {
+            return new Event(lineArr[1], lineArr[2], lineArr[3]);
+        }
+    }
+
     public String getDescription() {
         return this.description;
     }

@@ -1,8 +1,13 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String hLine = "\t____________________________________________________________";
         String welcome = "\tHello! I'm TalkingBot\n\tWhat can I do for you?";
+
+
         System.out.println(hLine);
         System.out.println(welcome);
         System.out.println(hLine);
