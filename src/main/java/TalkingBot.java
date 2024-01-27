@@ -18,12 +18,13 @@ public class TalkingBot {
     }
 
     public void runTalkingBot() {
+        this.ui.printWelcomeMsg();
         Parser parser =  new Parser();
-        while (true) {
+        while (this.ui.getContinueIter()) {
             Command curCommand = parser.parseCommand();
-            ui.printLine();
+            this.ui.printLine();
             curCommand.runCommand(taskList, saveFile, ui);
-            ui.printLine();
+            this.ui.printLine();
         }
     }
 

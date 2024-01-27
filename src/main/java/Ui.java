@@ -14,6 +14,8 @@ public class Ui {
     private static final String TASK_NUM_MSG = "\tYou now have %d tasks in the list.";
     private static final String REMOVE_TASK_MSG = "\tRemoving task:";
 
+    private boolean continueIter = true;
+
 
 
     public Ui() {}
@@ -38,7 +40,7 @@ public class Ui {
         System.out.println(INVALID_CMD_MSG);
     }
 
-    public void startUi() {
+    public void printWelcomeMsg() {
         System.out.println(H_LINE);
         System.out.println(WELCOME);
         System.out.println(H_LINE);
@@ -70,5 +72,17 @@ public class Ui {
         System.out.println(REMOVE_TASK_MSG);
         System.out.println("\t\t" + removedTask);
         System.out.println(String.format(TASK_NUM_MSG, taskListSize));
+    }
+
+    public void printGoodbyeMsg() {
+        System.out.println(GOODBYE);
+    }
+
+    public void setContinueIter(boolean continueIter) {
+        this.continueIter = continueIter;
+    }
+
+    public boolean getContinueIter() {
+        return this.continueIter;
     }
 }
