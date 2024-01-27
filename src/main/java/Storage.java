@@ -57,11 +57,11 @@ public class Storage {
         return items;
     }
 
-    public void saveData(ArrayList<Task> items) throws DukeException {
+    public void saveData(TaskList items) throws DukeException {
         try {
             StringBuilder builder = new StringBuilder();
 
-            for (Task item : items) {
+            for (Task item : items.getAllTasks()) {
                 builder.append(item.saveToText()).append("\n");
             }
 
