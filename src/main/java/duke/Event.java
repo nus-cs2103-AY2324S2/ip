@@ -3,7 +3,6 @@ package duke;
 import java.time.LocalDate;
 
 public class Event extends Task {
-
     protected LocalDate from;
     protected LocalDate to;
 
