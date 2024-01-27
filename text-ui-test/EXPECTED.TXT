@@ -4,6 +4,10 @@
 
     _____________________
     _____________________
+    Cleared your cache!
+
+    _____________________
+    _____________________
     I have added this task:
     [T][ ] borrow book
     Now you have 1 tasks in your list.
