@@ -26,9 +26,9 @@ public class Duke {
                 c.execute(this.tasks, this.ui, this.storage);
                 isExit = c.isExit();
             } catch (InvalidCmdException ce) {
-                ui.echo(ce.getMessage());
+                this.ui.echo(ce.getMessage());
             } catch (InvalidTaskException te) {
-                ui.echo(te.getMessage());
+                this.ui.echo(te.getMessage());
             }
         }
     }
