@@ -1,19 +1,11 @@
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-public class Task {
+public abstract class Task {
     private final String description;
     private boolean isDone;
-    private final LocalDateTime startTime;
-    private final LocalDateTime endTime;
     private final TaskType taskType;
 
-    public Task(String description, boolean isDone,
-                String startTime, String endTime, TaskType taskType) {
+    public Task(String description, boolean isDone, TaskType taskType) {
         this.description = description;
         this.isDone = isDone;
-        this.startTime = LocalDateTime.parse(startTime);
-        this.endTime = LocalDateTime.parse(endTime);
         this.taskType = taskType;
     }
 
@@ -64,14 +56,6 @@ public class Task {
         return this.description;
     }
 
-    public String getStartTime() {
-        return this.startTime;
-    }
-
-    public String getEndTime() {
-        return this.endTime;
-    }
-
     public boolean getTypeEquals(TaskType taskType) {
         return this.taskType.equals(taskType);
     }
@@ -80,9 +64,15 @@ public class Task {
         return this.isDone;
     }
 
+    public int getDoneAsInt() {
+        return this.isDone ? 1 : 0;
+    }
+
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
+
+    public abstract String getSaveFileString();
 
     @Override
     public String toString() {
