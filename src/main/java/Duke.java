@@ -1,9 +1,13 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -13,7 +17,22 @@ public class Duke {
 
         String input;
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
-        List<Task> taskList = new ArrayList<Task>();
+        List<Task> taskList;
+        File f = new File("./tasks.txt");
+
+        // Checking save file
+        try {
+            if (f.createNewFile()) { // if file doesn't exist
+                System.out.println("New save created: " + f.getName()); // first time user
+            } else {
+                System.out.println("Loading from save file.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        taskList = load(f);
 
         greet();
 
@@ -37,69 +56,73 @@ public class Duke {
                 Options choice = optionType(firstWord);
 
                 switch (choice) {
-                    case bye:
-                        exit();
-                        return;
+                case bye:
+                    exit();
+                    return;
 
-                    case list:
-                        list(taskList);
-                        break;
+                case list:
+                    list(taskList);
+                    break;
 
-                    case delete:
-                        int no = Integer.parseInt(trail);
-                        delete(taskList, no);
-                        break;
+                case delete:
+                    int no = Integer.parseInt(trail);
+                    delete(taskList, no);
+                    break;
 
-                    case mark:
-                        int markNo = Integer.parseInt(trail);
-                        mark(taskList, markNo);
-                        break;
+                case mark:
+                    int markNo = Integer.parseInt(trail);
+                    mark(taskList, markNo);
+                    break;
 
-                    case unmark:
-                        int unmarkNo = Integer.parseInt(trail);
-                        unmark(taskList, unmarkNo);
-                        break;
+                case unmark:
+                    int unmarkNo = Integer.parseInt(trail);
+                    unmark(taskList, unmarkNo);
+                    break;
 
-                    case todo:
-                        if (trail.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
-                        add = new ToDo(trail);
-                        add(taskList, add);
-                        break;
+                case todo:
+                    if (trail.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
+                    add = new ToDo(trail);
+                    add(taskList, add);
+                    break;
 
-                    case deadline:
-                        if (!trail.contains(" /by ")) {
-                            throw new DukeException("Description of a " + firstWord + " must contain \" /by \"!");
-                        }
-                        taskName = trail.substring(0, trail.indexOf(" /by "));
-                        if (taskName.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
-                        String by = trail.substring(trail.indexOf(" /by ") + 5);
-                        // depending on whether by can be empty or not
-                        // if (by.isEmpty()) {throw new DukeException("Deadline cannot be empty!");}
-                        add = new Deadline(taskName, by);
-                        add(taskList, add);
-                        break;
+                case deadline:
+                    if (!trail.contains(" /by ")) {
+                        throw new DukeException("Description of a " + firstWord + " must contain \" /by \"!");
+                    }
+                    taskName = trail.substring(0, trail.indexOf(" /by "));
+                    if (taskName.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
+                    String by = trail.substring(trail.indexOf(" /by ") + 5);
+                    // depending on whether by can be empty or not
+                    // if (by.isEmpty()) {throw new DukeException("Deadline cannot be empty!");}
+                    add = new Deadline(taskName, by);
+                    add(taskList, add);
+                    break;
 
-                    case event:
-                        if (!trail.contains(" /from ") || !trail.contains(" /to ")) {
-                            throw new DukeException("Description of a " + firstWord + " must contain \" /from \" and \" /to \"!");
-                        }
-                        taskName = trail.substring(0, trail.indexOf(" /from "));
-                        if (taskName.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
-                        int a = trail.indexOf(" /from ") + 7;
-                        int b = trail.indexOf(" /to ");
-                        if (a > b) {throw new DukeException("From cannot be empty!");}
-                        String from = trail.substring(a, b);
-                        // depending on whether from can be empty or not
-                        // if (from.isEmpty()) {throw new DukeException("From cannot be empty!");}
-                        String to = trail.substring(trail.indexOf(" /to ") + 5);
-                        // depending on whether to can be empty or not
-                        // if (to.isEmpty()) {throw new DukeException("To cannot be empty!");}
-                        add = new Event(taskName, from, to);
-                        add(taskList, add);
-                        break;
+                case event:
+                    if (!trail.contains(" /from ") || !trail.contains(" /to ")) {
+                        throw new DukeException("Description of a " + firstWord + " must contain \" /from \" and \" /to \"!");
+                    }
+                    taskName = trail.substring(0, trail.indexOf(" /from "));
+                    if (taskName.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
+                    int a = trail.indexOf(" /from ") + 7;
+                    int b = trail.indexOf(" /to ");
+                    if (a > b) {throw new DukeException("From cannot be empty!");}
+                    String from = trail.substring(a, b);
+                    // depending on whether from can be empty or not
+                    // if (from.isEmpty()) {throw new DukeException("From cannot be empty!");}
+                    String to = trail.substring(trail.indexOf(" /to ") + 5);
+                    // depending on whether to can be empty or not
+                    // if (to.isEmpty()) {throw new DukeException("To cannot be empty!");}
+                    add = new Event(taskName, from, to);
+                    add(taskList, add);
+                    break;
 
-                    case error:
-                        throw new DukeException("Command not found! Please try again.");
+                case save:
+                    save(f, taskList);
+                    break;
+
+                case error:
+                    throw new DukeException("Command not found! Please try again.");
                 }
             } catch (DukeException de) {
                 String text = "\t____________________________________________________________\n"
@@ -123,6 +146,8 @@ public class Duke {
                             + "\t____________________________________________________________\n";
                 }
                 System.out.println(text);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -223,12 +248,74 @@ public class Duke {
                 return Options.deadline;
             case "event":
                 return Options.event;
+            case "save":
+                return Options.save;
             default:
                 return Options.error;
         }
     }
+
+    public static void save(File f, List<Task> taskList) throws IOException {
+        FileWriter fw = new FileWriter(f, false); // create a new file
+        String text = "";
+
+        for (Task t : taskList) {
+            text += t.toString() + "\n";
+        }
+
+        fw.write(text);
+        fw.close();
+
+        String output = "\t____________________________________________________________\n"
+                + "\tSuccessfully saved!\n"
+                + "\t____________________________________________________________\n";
+
+        System.out.println(output);
+    }
+
+    public static List<Task> load(File f) throws FileNotFoundException {
+        List<Task> taskList = new ArrayList<Task>();
+        Scanner s = new Scanner(f);
+        String curr, taskName, taskType, isMarked, start, finish;
+        int index;
+        Task t;
+
+        while (s.hasNext()) {
+            curr = s.nextLine();
+            taskType = curr.substring(1, 2);
+            isMarked = curr.substring(4, 5);
+
+            index = curr.indexOf("(", curr.lastIndexOf("]"));
+            if (index == -1) {
+                index = curr.length();
+            }
+
+            taskName = curr.substring(7, index);
+
+            if (taskType.equals("T")) { // To Do
+                t = new ToDo(taskName);
+            } else if (taskType.equals("D")) { // Deadline
+                finish = curr.substring(curr.indexOf("by: ") + 4, curr.lastIndexOf(")"));
+                t = new Deadline(taskName, finish);
+            } else { // Event, assuming input file is always correct format
+                start = curr.substring(curr.indexOf("from: ") + 6, curr.lastIndexOf("to:") - 1);
+                finish = curr.substring(curr.indexOf("to: ") + 4, curr.lastIndexOf(")"));
+                t = new Event(taskName, start, finish);
+            }
+            
+            if (isMarked.equals("X")) {
+                t.mark();
+            }
+
+            taskList.add(t);
+        }
+
+        return taskList;
+    }
 }
 
+
+
 enum Options {
-    bye, list, delete, mark, unmark, todo, deadline, event, error
+    bye, list, delete, mark, unmark, todo, deadline, event, error, save
 }
