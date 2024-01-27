@@ -3,22 +3,26 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.ToDo;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Iris {
     private BufferedReader reader;
     private final String INDENT = "    ";
     private final String CHATDELIMITER = INDENT + "_____________________";
     private List<Task> cachedTasks;
+    private final String filePath = "../cache.txt";
     public Iris() {
         this.reader = new BufferedReader(
                 new InputStreamReader(System.in));
         this.cachedTasks = new ArrayList<>();
+        try {
+            this.load();
+        } catch (IOException e) {
+            this.print("Could not load cached tasks");
+        }
     }
 
     public void start(){
@@ -35,57 +39,79 @@ public class Iris {
         }
     }
 
-    public void add() throws IOException {
-        while (true) {
+    public void taskRecorder() throws IOException {
+        boolean b = true;
+        while (b) {
             String line = this.reader.readLine();
-            String[] str = line.split(" ");
+            b = this.add(line, true);
+        }
+        return;
+    }
+
+    public boolean add(String input, boolean shouldPrint) throws IOException {
+        String[] str = input.split(" ");
+        String outputString = null;
             try {
             switch (str[0]) {
-                case "bye": return;
+                case "bye": return false;
                 case "list":
-                    this.print(this.listTasks());
+                    outputString = this.listTasks();
                     break;
                 case "mark":
                         this.cachedTasks.get(Integer.parseInt(str[1])-1).markCompleted();
-                        this.print("I've marked this task as completed:\n"
-                                + this.cachedTasks.get(Integer.parseInt(str[1])-1).toString());
+                        outputString = "I've marked this task as completed:\n"
+                                + this.cachedTasks.get(Integer.parseInt(str[1])-1).toString();
+                        this.save();
                     break;
                 case "unmark":
                         this.cachedTasks.get(Integer.parseInt(str[1])-1).markUncompleted();
-                        this.print("I've marked this task as uncompleted:\n"
-                                + this.cachedTasks.get(Integer.parseInt(str[1])-1).toString());
+                        outputString = "I've marked this task as uncompleted:\n"
+                                + this.cachedTasks.get(Integer.parseInt(str[1])-1).toString();
+                    this.save();
                     break;
                 case "todo":
-                    Task todo = ToDo.ToDoFactory(line);
+                    Task todo = ToDo.ToDoFactory(input);
                     this.cachedTasks.add(todo);
-                    this.print("I have added this task:\n" + todo + "\n" +
-                            "Now you have " + this.cachedTasks.size() + " tasks in your list.");
+                    outputString = "I have added this task:\n" + todo + "\n" +
+                            "Now you have " + this.cachedTasks.size() + " tasks in your list.";
+                    this.save();
                     break;
                 case "event":
-                    Task event = Event.EventFactory(line);
+                    Task event = Event.EventFactory(input);
                     this.cachedTasks.add(event);
-                    this.print("I have added this task:\n" + event + "\n" +
-                            "Now you have " + this.cachedTasks.size() + " tasks in your list.");
+                    outputString = "I have added this task:\n" + event + "\n" +
+                            "Now you have " + this.cachedTasks.size() + " tasks in your list.";
+                    this.save();
                     break;
                 case "deadline":
-                    Task deadline = Deadline.deadlineFactory(line);
+                    Task deadline = Deadline.deadlineFactory(input);
                     this.cachedTasks.add(deadline);
-                    this.print("I have added this task:\n" + deadline + "\n" +
-                            "Now you have " + this.cachedTasks.size() + " tasks in your list.");
+                    outputString = "I have added this task:\n" + deadline + "\n" +
+                            "Now you have " + this.cachedTasks.size() + " tasks in your list.";
+                    this.save();
                     break;
                 case "delete":
                     Task toBeDeleted = this.cachedTasks.get(Integer.parseInt(str[1]) - 1);
                     this.cachedTasks.remove(Integer.parseInt(str[1])-1);
-                    this.print("I have removed the following task:\n" + toBeDeleted.toString()+"\nNow you have "+ this.cachedTasks.size() + " tasks in your list.");
+                    outputString = "I have removed the following task:\n" + toBeDeleted.toString()+"\nNow you have "+ this.cachedTasks.size() + " tasks in your list.";
+                    this.save();
+                    break;
+                case "clear":
+                    this.clear();
+                    this.save();
+                    outputString = "Cleared your cache!";
                     break;
                 default:
-                    this.print("Invalid input. I don't know what you mean.");
+                    outputString = "Invalid input. I don't know what you mean.";
             }} catch (InvalidInputException e) {
-                this.print(e.toString());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                this.print("Invalid index. Index does not exist in current task list.");
+                outputString = e.toString();
+            } catch (IndexOutOfBoundsException e) {
+                outputString = "Invalid index. Index does not exist in current task list.";
             }
-        }
+            if (shouldPrint) {
+                this.print(outputString);
+            }
+            return true;
     }
 
     private String listTasks() {
@@ -95,6 +121,40 @@ public class Iris {
             str.append((i+1) + ". " + this.cachedTasks.get(i).toString() + "\n");
         }
         return str.toString();
+    }
+
+    private void save() throws IOException {
+        FileWriter fw = new FileWriter(this.filePath);
+        for (Task task: this.cachedTasks) {
+            fw.write(task.save()+ "\n");
+        }
+        fw.write("completed");
+        for (int i = 0; i < this.cachedTasks.size(); i++) {
+            if (this.cachedTasks.get(i).isCompleted()) {
+                fw.write(" " + i);
+            }
+        }
+        fw.close();
+    }
+
+    private void load() throws IOException {
+        File f = new File(this.filePath); // create a File for the given file path
+        if (f.exists() && !f.isDirectory()) {
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                String[] str = line.split(" ");
+                switch (str[0]) {
+                    case "completed":
+                        for (int i = 1; i < str.length; i++) {
+                            this.cachedTasks.get(Integer.parseInt(str[i])).markCompleted();
+                        }
+                        break;
+                    default:
+                        this.add(line, false);
+                }
+            }
+        }
     }
 
     public void exit() {
@@ -115,5 +175,8 @@ public class Iris {
             indentedString.append(indentedLine).append("\n");
         }
         return indentedString.toString();
+    }
+    private void clear() {
+        this.cachedTasks.clear();
     }
 }

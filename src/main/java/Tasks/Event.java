@@ -2,13 +2,17 @@ package Tasks;
 
 import Exceptions.InvalidInputException;
 
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static Utils.StringUtils.formatDateTime;
+import static Utils.StringUtils.parseDateTime;
+
 public class Event extends Task{
-    String from;
-    String to;
-    public Event(String description, String from, String to) {
+    LocalDateTime from;
+    LocalDateTime to;
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -21,9 +25,7 @@ public class Event extends Task{
             Matcher matcher = pattern.matcher(description);
             if (matcher.find()) {
                 String eventName = matcher.group(1);
-                String startTime = matcher.group(2);
-                String endTime = matcher.group(3);
-                return new Event(eventName, startTime, endTime);
+                return new Event(eventName, parseDateTime(matcher.group(2)), parseDateTime(matcher.group(3)));
             } else {
                 throw new InvalidInputException("Invalid input for event. Input your event as such:\nevent <name_of_event> /from <start_time> /to <end_time>");
             }
@@ -33,6 +35,10 @@ public class Event extends Task{
     }
 
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + formatDateTime(this.from) + " to: " + formatDateTime(this.to) + ")";
+    }
+
+    public String save() {
+        return "event " + super.description + " /from " + formatDateTime(this.from) + " /to " + formatDateTime(this.to);
     }
 }
