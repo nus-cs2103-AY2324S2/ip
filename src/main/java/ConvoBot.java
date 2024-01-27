@@ -100,7 +100,7 @@ public class ConvoBot {
                         }
                         String description = String.join(" ", inputList.subList(1, j));
                         String by = String.join(" ", inputList.subList(j+1, inputList.size()));
-                        task = new Deadline(description, by);
+                        task = new Deadline(description, DateTime.stringToDate(by));
                     } else if (command.equals("event")) {
                         int j = inputList.indexOf("/from");
                         int k = inputList.indexOf("/to");
@@ -116,7 +116,7 @@ public class ConvoBot {
                         String description = String.join(" ", inputList.subList(1, j));
                         String from = String.join(" ", inputList.subList(j+1, k));
                         String to = String.join(" ", inputList.subList(k+1, inputList.size()));
-                        task = new Event(description, from, to);
+                        task = new Event(description, DateTime.stringToDate(from), DateTime.stringToDate(to));
                     } else {
                         throw new ConvoBotException("Invalid input. Input must start with list, mark, unmark, todo, deadline, event or delete.");
                     }
