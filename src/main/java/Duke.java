@@ -44,7 +44,7 @@ public class Duke {
                             todo.add(task);
                             System.out.println("\tGot it. I've added this task:");
                             System.out.printf("\t\t%s\n", task);
-                            System.out.printf("\tNow you have %d tasks in the list.", todo.size());
+                            System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
                             break;
                         } catch (DukeException err) {
                             System.out.println(err.getMessage());
@@ -62,7 +62,7 @@ public class Duke {
                             todo.add(task);
                             System.out.println("\tGot it. I've added this task:");
                             System.out.printf("\t\t%s\n", task);
-                            System.out.printf("\tNow you have %d tasks in the list.", todo.size());
+                            System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
                             break;
                         } catch (DukeException err) {
                             System.out.println(err.getMessage());
@@ -80,12 +80,21 @@ public class Duke {
                             todo.add(task);
                             System.out.println("\tGot it. I've added this task:");
                             System.out.printf("\t\t%s\n", task);
-                            System.out.printf("\tNow you have %d tasks in the list.", todo.size());
+                            System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
                             break;
                         } catch (DukeException err) {
                             System.out.println(err.getMessage());
                             break;
                         }
+
+                    case("delete"):
+                        idx = Integer.parseInt(input.split(" ")[1]);
+                        System.out.println("\tNoted. I've removed this task:");
+                        System.out.printf("\t\t%s\n", todo.remove(idx - 1));
+                        System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
+
+                        break;
+
                     default:
                         throw new DukeException("\tSorry, I did not understand the command!");
 
