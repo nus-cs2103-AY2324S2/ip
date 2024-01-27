@@ -7,12 +7,15 @@ event party /from 7pm /to 9pm
 event conference /from 9am /to 11am
 todo board games
 event meeting /from 3pm /to 5pm
+todo
 mark 1
 list
+deadline /BYE
 deadline /by Saturday
 todo reading
 event picnic /from 1pm /to 4pm
 list
+event something /from 5pm /TOO 4pm
 mark 1
 list
 mark 2

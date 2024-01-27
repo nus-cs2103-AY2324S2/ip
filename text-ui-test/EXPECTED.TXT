@@ -26,6 +26,7 @@ Now you have 6 tasks in the list.
 Got it. I've added this task:
 [E][ ] meeting  (from: 3pm to: 5pm)
 Now you have 7 tasks in the list.
+Exception: Arguments are required for TODO
 Nice! I've marked this task as done:
 [D][X]  (by: Friday)
 Here are the tasks in your list:
@@ -36,6 +37,7 @@ Here are the tasks in your list:
 5. [E][ ] conference  (from: 9am to: 11am)
 6. [T][ ] board games
 7. [E][ ] meeting  (from: 3pm to: 5pm)
+Exception: /by argument needed for deadline
 Got it. I've added this task:
 [D][ ]  (by: Saturday)
 Now you have 8 tasks in the list.
@@ -56,6 +58,7 @@ Here are the tasks in your list:
 8. [D][ ]  (by: Saturday)
 9. [T][ ] reading
 10. [E][ ] picnic  (from: 1pm to: 4pm)
+Exception: /from and /to arguments needed for event
 Nice! I've marked this task as done:
 [D][X]  (by: Friday)
 Here are the tasks in your list:
