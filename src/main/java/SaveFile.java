@@ -53,4 +53,8 @@ public class SaveFile {
             throw new TalkingBotException("ERROR! IOException occurred!");
         }
     }
+
+    public String getFileName() {
+        return this.path;
+    }
 }

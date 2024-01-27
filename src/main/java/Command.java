@@ -5,5 +5,9 @@ public abstract class Command {
         this.commandArr = commandArr;
     }
 
-    public abstract runCommand(TaskList taskList, SaveFile saveFile, Ui ui);
+    public String[] getCommandArr() {
+        return this.commandArr;
+    }
+
+    public abstract void runCommand(TaskList taskList, SaveFile saveFile, Ui ui);
 }

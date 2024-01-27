@@ -7,8 +7,9 @@ public class Parser {
         this.scanner = new Scanner(System.in);
     }
 
-    public Command parseCommand(String line) {
-        String curCommand = line.split(" ");
+    public Command parseCommand() {
+        String line = this.scanner.nextLine();
+        String[] curCommand = line.split(" ");
         switch (curCommand[0]) {
         case "list":
             return new ListCommand(curCommand);
