@@ -125,11 +125,30 @@ public class Ui {
             System.out.printf("The following tasks are due on %s\n",
                     localDate.format(DateTimeFormatter.ofPattern("MM dd yy")));
 
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(i + 1 + "." + " " + tasks.get(i));
-            }
-            System.out.println(DIVIDER);
+            showListView(tasks);
         }
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Shows the tasks in list format
+     * @param tasks
+     */
+    private void showListView(List<Task> tasks) {
+        for(int i = 0; i< tasks.size(); i++) {
+            System.out.println(i + 1 + "." + " " + tasks.get(i));
+        }
+    }
+
+    /**
+     * Shows tasks that match the keyword
+     * @param tasks Tasks that match the keyword
+     */
+    public void showFindResult(List<Task> tasks) {
+        System.out.println(DIVIDER);
+        System.out.println("Here are the matching tasks in your list:");
+        showListView(tasks);
+        System.out.println(DIVIDER);
     }
 
     /**

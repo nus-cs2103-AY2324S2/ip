@@ -1,6 +1,16 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.ByeCommand;
+import duke.command.CheckCommand;
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.TodoCommand;
+import duke.command.UnmarkCommand;
 import duke.common.Messages;
 import duke.exception.InvalidCommandFormatException;
 import duke.exception.UnknownCommandException;
@@ -64,6 +74,8 @@ public class Parser {
             return prepareDelete(arguments);
         case CheckCommand.COMMAND_WORD:
             return prepareCheck(arguments);
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(arguments);
         default:
             throw new UnknownCommandException();
         }
@@ -79,6 +91,17 @@ public class Parser {
 
         String description = matcher.group("arg");
         return new TodoCommand(description);
+    }
+
+    private static Command prepareFind(String arguments) throws InvalidCommandFormatException {
+        Matcher matcher = ONE_ARG_COMMAND_FORMAT.matcher(arguments.trim());
+        if (!matcher.matches()) {
+            throw new InvalidCommandFormatException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.COMMAND_USAGE));
+        }
+
+        String arg = matcher.group("arg");
+        return new FindCommand(arg);
     }
 
     private static Command prepareDelete(String arguments) throws InvalidCommandFormatException {
