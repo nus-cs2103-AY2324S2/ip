@@ -1,6 +1,6 @@
 # Tyrone project
 
-This is a simple chat bot named Tyone. Given below are instructions on how to use it.
+This is a simple chat bot named Tyrone. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
