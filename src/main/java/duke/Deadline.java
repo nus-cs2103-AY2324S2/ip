@@ -2,10 +2,19 @@ package duke;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a Deadline class inherited from Task.
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;
 
+    /**
+     * Constructor for a Deadline.
+     *
+     * @param description description of the deadline
+     * @param by          due date of the deadline
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;

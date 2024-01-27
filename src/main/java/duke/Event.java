@@ -2,11 +2,21 @@ package duke;
 
 import java.time.LocalDate;
 
+/**
+ * Represents an Event class inherited from Task.
+ */
 public class Event extends Task {
 
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * Constructor for an Event.
+     *
+     * @param description description of the event
+     * @param from        starting date of the event
+     * @param to          ending date of the event
+     */
     public Event(String description, LocalDate  from, LocalDate  to) {
         super(description);
         this.from = from;
