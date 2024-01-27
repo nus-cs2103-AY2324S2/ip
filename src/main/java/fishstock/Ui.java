@@ -15,12 +15,12 @@ class Ui {
         String line = "____________________________________________________________";
         Scanner sc = new Scanner(System.in);
         String input;
-        boolean exit = false;
+        boolean hasStopped = false;
         Task task;
 
         Ui.printMsg(line + "\nHello, I'm FishStock.\nI might help if I feel like it.");
 
-        while (!exit) {
+        while (!hasStopped) {
             Ui.printMsg(line + "\n");
             input = sc.nextLine();
             Ui.printMsg(line);
@@ -30,7 +30,7 @@ class Ui {
             try {
                 switch (keyword) {
                 case BYE:
-                    exit = true;
+                    hasStopped = true;
                     break;
                 case LIST:
                     Ui.printMsg("Here are the tasks in your list:");
