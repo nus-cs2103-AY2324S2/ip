@@ -16,7 +16,7 @@ public class Task {
     }
 
     public String toString() {
-        return  "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
     public void markAsDone() {
@@ -25,5 +25,9 @@ public class Task {
 
     public void unmarkAsDone() {
         this.isDone = false;
+    }
+
+    public boolean getIsDoneState() {
+        return this.isDone;
     }
 }
