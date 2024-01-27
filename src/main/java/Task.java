@@ -23,4 +23,8 @@ public abstract class Task {
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "]" + " " + this.description;
     }
+
+    public String serializeTask() {
+        return (this.isDone ? "1" : "0") + " | " + this.description;
+    }
 }

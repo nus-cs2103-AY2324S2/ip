@@ -33,13 +33,8 @@ public class Tyrone {
     public static void main(String[] args) {
         try {
             handleInitialize();
-        } catch (IOException e) {
-            System.exit(1);
-        }
-
-        boolean isActive = true;
-        while (isActive) {
-            try {
+            boolean isActive = true;
+            while (isActive) {
                 // extract the command
                 String input = reader.nextLine();
                 String cmdStr = !input.contains(" ") ? input : input.substring(0, input.indexOf(" "));
@@ -50,42 +45,43 @@ public class Tyrone {
 
                 // execute cmd logic respectively
                 switch (cmd) {
-                    case BYE:
-                        handleByeCommand();
-                        isActive = false;
-                        break;
-                    case LIST:
-                        handleListCommand();
-                        break;
-                    case TODO:
-                        handleTodoCommand(input);
-                        break;
-                    case DEADLINE:
-                        handleDeadlineCommand(input);
-                        break;
-                    case EVENT:
-                        handleEventCommand(input);
-                        break;
-                    case MARK:
-                        handleMarkCommand(input);
-                        break;
-                    case UNMARK:
-                        handleUnmarkCommand(input);
-                        break;
-                    case DELETE:
-                        handleDeleteCommand(input);
-                        break;
-                    default:
-                        throw new TyroneCmdException("Command entered doesn't exist.");
+                case BYE:
+                    handleByeCommand();
+                    isActive = false;
+                    break;
+                case LIST:
+                    handleListCommand();
+                    break;
+                case TODO:
+                    handleTodoCommand(input);
+                    break;
+                case DEADLINE:
+                    handleDeadlineCommand(input);
+                    break;
+                case EVENT:
+                    handleEventCommand(input);
+                    break;
+                case MARK:
+                    handleMarkCommand(input);
+                    break;
+                case UNMARK:
+                    handleUnmarkCommand(input);
+                    break;
+                case DELETE:
+                    handleDeleteCommand(input);
+                    break;
+                default:
+                    throw new TyroneCmdException("Command entered doesn't exist.");
                 }
 
-            } catch (TyroneCmdException e) {
-                writer.println(Tyrone.formatStringOutput(e.getMessage()));
+                taskList.saveTaskListToFile();
             }
+        } catch (TyroneCmdException e) {
+            writer.println(Tyrone.formatStringOutput(e.getMessage()));
         }
     }
 
-    public static void handleInitialize() throws IOException {
+    public static void handleInitialize() throws TyroneCmdException {
         cmdMap.put("bye", Command.BYE);
         cmdMap.put("list", Command.LIST);
         cmdMap.put("todo", Command.TODO);

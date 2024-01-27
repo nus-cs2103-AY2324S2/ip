@@ -1,15 +1,17 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
-    private final ArrayList<Task> items;
-    private final TaskListFileIo taskFileIo;
-    private class TaskListFileIo {
+    private ArrayList<Task> items;
+    private final StorageHelper storageHelper;
+    private class StorageHelper {
         private static final String directoryPath = "data";
         private static final String fileName = "task_list.txt";
-        public void loadFile() throws IOException {
+
+        public File loadFile() throws IOException {
             // check if the directory exists if not create it
             File directory = new File(directoryPath);
             directory.mkdir();
@@ -18,11 +20,49 @@ public class TaskList {
             File file = new File(directoryPath + "/" + fileName);
             file.createNewFile();
 
+            return file;
+        }
+
+        public void saveFile(String content) throws IOException {
+            // check if the directory exists if not create it
+            File directory = new File(directoryPath);
+            directory.mkdir();
+
+            // check if the file exists if not create it
+            File file = new File(directoryPath + "/" + fileName);
+            file.createNewFile();
+
+            // write into the file
+            FileWriter fw = new FileWriter(file);
+            fw.write(content);
+            fw.close();
+        }
+
+    }
+
+    public TaskList() {
+        this.items = new ArrayList<>();
+        this.storageHelper = new StorageHelper();
+    }
+
+    public int getListSize() {
+        return this.items.size();
+    }
+
+    public Task getItem(int index) {
+        return this.items.get(index);
+    }
+
+    public void loadTaskListFromFile() throws TyroneCmdException {
+        try {
+            File file = this.storageHelper.loadFile();
+
             // read the file and parse into the array
             Scanner sc = new Scanner(file);
+            StringBuilder output = new StringBuilder();
             while (sc.hasNext()) {
                 String[] strArr = sc.nextLine().split(" \\| ");
-                Task t = null;
+                Task t;
                 switch (strArr[0]) {
                 case "T":
                     t = new ToDo(strArr[2]);
@@ -35,33 +75,32 @@ public class TaskList {
                     t = new Event(strArr[2], periodArr[0], periodArr[1]);
                     break;
                 default:
-                    // Fatal Error occured
+                    throw new TyroneCmdException("Invalid text file format.");
                 }
 
                 if (strArr[1].equals("1")) {
                     t.markItem();
                 }
-                items.add(t);
+
+                this.items.add(t);
             }
+        } catch (IOException e) {
+            this.items = new ArrayList<>();
+            throw new TyroneCmdException("Error loading the local task list.");
+        }
+    }
+
+    public void saveTaskListToFile() throws TyroneCmdException {
+        StringBuilder content = new StringBuilder();
+        for (Task item : this.items) {
+            content.append(item.serializeTask()).append("\n");
         }
 
-    }
-
-    public TaskList() {
-        this.items = new ArrayList<>();
-        this.taskFileIo = new TaskListFileIo();
-    }
-
-    public int getListSize() {
-        return this.items.size();
-    }
-
-    public Task getItem(int index) {
-        return this.items.get(index);
-    }
-
-    public void loadTaskListFromFile() throws IOException {
-        this.taskFileIo.loadFile();
+        try {
+            this.storageHelper.saveFile(content.toString());
+        } catch (IOException | SecurityException e) {
+            throw new TyroneCmdException("Failed to save the list changes locally. My bad...");
+        }
     }
 
     public void addItem(Task item) {
