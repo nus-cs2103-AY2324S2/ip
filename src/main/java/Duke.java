@@ -63,35 +63,16 @@ public class Duke {
                 Scanner fileScanner = new Scanner(file);
                 while (fileScanner.hasNext()) {
                     String line = fileScanner.nextLine();
-                    String[] parts = line.split(" \\| ");
-                    String type = parts[0];
-                    boolean isDone = Integer.parseInt(parts[1]) == 1;
-                    String description = parts[2];
 
-                    Task task;
-                    switch (type) {
-                        case "T":
-                            task = new Todo(description);
-                            break;
-                        case "D":
-                            String by = parts[3];
-                            task = new Deadline(description, by);
-                            break;
-                        case "E":
-                            String[] eventParts = parts[3].split(" from ");
-                            String start = eventParts[0];
-                            String end = eventParts[1];
-                            task = new Event(description, start, end);
-                            break;
-                        default:
-                            throw new IOException("Invalid task type in file.");
+                    // Try to process the line, and handle any potential exceptions
+                    try {
+                        Task task = parseTaskFromLine(line);
+                        store.add(task);
+                    } catch (Exception e) {
+                        System.out.println("Error loading task from file. Corrupted data detected. Skipping line.");
+                        // Optionally, log the exception for further investigation
+                        e.printStackTrace();
                     }
-
-                    if (isDone) {
-                        task.setStatus();
-                    }
-
-                    store.add(task);
                 }
                 fileScanner.close();
             }
@@ -99,6 +80,52 @@ public class Duke {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
     }
+
+    private static Task parseTaskFromLine(String line) throws IOException {
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            throw new IOException("Invalid task format. Skipping line.");
+        }
+
+        String type = parts[0];
+        boolean isDone = Integer.parseInt(parts[1]) == 1;
+        String description = parts[2];
+
+        Task task;
+        switch (type) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                if (parts.length < 4) {
+                    throw new IOException("Invalid deadline format. Skipping line.");
+                }
+                String by = parts[3];
+                task = new Deadline(description, by);
+                break;
+            case "E":
+                if (parts.length < 4) {
+                    throw new IOException("Invalid event format. Skipping line.");
+                }
+                String[] eventParts = parts[3].split(" from ");
+                if (eventParts.length < 2) {
+                    throw new IOException("Invalid event format. Skipping line.");
+                }
+                String start = eventParts[0];
+                String end = eventParts[1];
+                task = new Event(description, start, end);
+                break;
+            default:
+                throw new IOException("Invalid task type in file. Skipping line.");
+        }
+
+        if (isDone) {
+            task.setStatus();
+        }
+
+        return task;
+    }
+
     private static void saveTasks(ArrayList<Task> store) {
         try {
             File file = new File(FILE_PATH);
