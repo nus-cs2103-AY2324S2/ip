@@ -1,6 +1,7 @@
+package chatbot;
 import java.io.*;
 import java.util.*;
-
+import java.io.File;
  class Task {
     protected String description;
     protected boolean isDone;
@@ -78,6 +79,8 @@ public class Duke {
         PrintWriter pw = new PrintWriter(System.out, true);
 
         ArrayList<Task> myList = new ArrayList<Task>();
+        Storage st = new Storage("./data/duke.txt");
+        st.createFileIfNeeded();
         int pointer = 0;
 
         String prompt = "Hello! I'm TFamilyBot\n"
@@ -127,6 +130,7 @@ public class Duke {
             else if (words[0].equals("mark")) {
                 int c = Integer.parseInt(words[1]);
                 myList.get(c-1).markAsDone();
+                st.rewriteFile(myList);
                 pw.println("Nice! I've marked this task as done:");
                 pw.println(myList.get(c-1));
                 pw.println("____________________________________________________________\n");
@@ -135,6 +139,7 @@ public class Duke {
             else if (words[0].equals("unmark")) {
                 int c = Integer.parseInt(words[1]);
                 myList.get(c-1).markAsUndone();
+                st.rewriteFile(myList);
                 pw.println("OK, I've marked this task as not done yet:");
                 pw.println(myList.get(c-1));
                 pw.println("____________________________________________________________\n");
@@ -144,6 +149,7 @@ public class Duke {
                 Todo t = new Todo(detail);
                 pw.println(t);
                 myList.add(t);
+                st.rewriteFile(myList);
                 pointer++;
                 pw.println("Now you have " + pointer + " tasks in the list.");
                 pw.println("____________________________________________________________\n");
@@ -155,6 +161,7 @@ public class Duke {
                 Deadline t = new Deadline(parts[0], parts[1]);
                 pw.println(t);
                 myList.add(t);
+                st.rewriteFile(myList);
                 pointer++;
                 pw.println("Now you have " + pointer + " tasks in the list.");
                 pw.println("____________________________________________________________\n");
@@ -167,6 +174,7 @@ public class Duke {
                 Event t = new Event(firstSplit[0], secondSplit[0], secondSplit[1]);
                 pw.println(t);
                 myList.add(t);
+                st.rewriteFile(myList);
                 pointer++;
                 pw.println("Now you have " + pointer + " tasks in the list.");
                 pw.println("____________________________________________________________\n");
@@ -177,6 +185,7 @@ public class Duke {
                 pw.println("Noted. I've removed this task:");
                 pw.println(myList.get(c-1));
                 myList.remove(c-1);
+                st.rewriteFile(myList);
                 pointer--;
                 pw.println("Now you have " + pointer + " tasks in the list.");
                 pw.println("____________________________________________________________\n");
