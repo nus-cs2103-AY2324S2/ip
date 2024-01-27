@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class RahhBot {
     public static void main(String[] args) {
         String logo = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣠⣤⣤⣄⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
@@ -30,6 +31,7 @@ public class RahhBot {
         System.out.println("_________________________________________\n");
 
         Scanner scanner = new Scanner(System.in);
+        TaskList tasksList = new TaskList();
 
         while (true) {
             String command = scanner.nextLine();
@@ -41,9 +43,12 @@ public class RahhBot {
                 break;
             }
 
-            System.out.println("_________________________________________\n");
-            System.out.println(command);
-            System.out.println("_________________________________________\n");
+            if (command.equalsIgnoreCase(("list"))) {
+                tasksList.displayTasks();
+                continue;
+            }
+
+            tasksList.addTask(command);
         }
     }
 }
