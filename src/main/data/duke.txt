@@ -1,3 +1,1 @@
-[T][ ] hhhh
-[D][ ] return book (by: Sunday)
-[E][ ] project meeting (from: Mon 2pm) to: 4pm)
+[D][ ] rb (by: Oct 15 2019)

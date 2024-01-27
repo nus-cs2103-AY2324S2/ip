@@ -2,6 +2,10 @@ package chatbot;
 import java.io.*;
 import java.util.*;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
  class Task {
     protected String description;
     protected boolean isDone;
@@ -44,9 +48,12 @@ class Todo extends Task {
 
     protected String by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dateString) {
         super(description);
-        this.by = by;
+        LocalDate date = LocalDate.parse(dateString);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        this.by = date.format(formatter);
+
     }
 
     @Override
