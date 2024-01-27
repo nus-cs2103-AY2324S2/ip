@@ -1,3 +1,5 @@
+package duke;
+
 public class Parser {
 
     public static void parseAndExecute(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
