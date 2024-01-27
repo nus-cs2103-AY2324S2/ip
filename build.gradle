@@ -27,8 +27,13 @@ test {
     }
 }
 
+//application {
+//    mainClass.set("seedu.duke.Duke")
+//}
+
+// to fix Error: Could not find or load main class seedu.duke.Duke
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClassName = 'ByteBuddy'
 }
 
 shadowJar {
