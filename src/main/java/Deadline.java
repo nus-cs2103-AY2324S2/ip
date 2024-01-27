@@ -11,4 +11,9 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.getStatus() + " " + super.toString() + " (by: " + this.by + ")";
     }
+
+    @Override
+    public String toSaveFormat() {
+        return "D | " + (super.isDone ? "1" : "0") + " | " + super.description + " | " + this.by;
+    }
 }

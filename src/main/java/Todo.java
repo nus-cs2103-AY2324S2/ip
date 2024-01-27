@@ -8,4 +8,9 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.getStatus() + " " + super.toString();
     }
+
+    @Override
+    public String toSaveFormat() {
+        return "T | " + (super.isDone ? "1" : "0") + " | " + super.description;
+    }
 }
