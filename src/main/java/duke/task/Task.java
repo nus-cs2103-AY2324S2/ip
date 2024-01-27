@@ -120,9 +120,13 @@ public abstract class Task implements Serializable {
      * @return the parsed LocalDateTime
      * @throws DateTimeParseException if the string doesn't match the pattern.
      */
-    protected static LocalDateTime parseDateTime(String input) throws DateTimeParseException {
+    protected static LocalDateTime parseDateTime(String input) throws InvalidComponents {
         DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return LocalDateTime.from(f.parse(input));
+        try {
+            return LocalDateTime.from(f.parse(input));
+        } catch(DateTimeParseException e) {
+            throw new InvalidComponents(input);
+        }
     }
 
     /**
@@ -136,6 +140,10 @@ public abstract class Task implements Serializable {
 
         public InvalidComponents() {
             super("No description given");
+        }
+
+        public InvalidComponents(String date) {
+            super("Value cannot be parsed to date and time: " + date);
         }
     }
 
