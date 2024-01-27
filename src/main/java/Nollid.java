@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Nollid {
     private static ArrayList<Task> taskList = new ArrayList<>(100);
     /**
-     * Unicode character U+2605 unlikely to be entered by user
+     * Unicode character U+2605 unlikely to be entered by user.
      */
     private static final String DELIMITER = "\u2605";
     private static final Path DATABASE_FILE = Paths.get(".", "data", "nollid.data");
@@ -454,21 +454,21 @@ public class Nollid {
                 try {
                     String taskDescription = lineArray[2];
                     switch (lineArray[0]) {
-                        case "T":
-                            taskToAdd = createTask(taskDescription);
-                            break;
-                        case "D":
-                            String deadline = lineArray[3];
-                            taskToAdd = createTask(taskDescription, deadline);
-                            break;
-                        case "E":
-                            String from = lineArray[3];
-                            String to = lineArray[4];
-                            taskToAdd = createTask(taskDescription, from, to);
-                            break;
-                        default:
-                            // Unknown first character, go to next line
-                            continue;
+                    case "T":
+                        taskToAdd = createTask(taskDescription);
+                        break;
+                    case "D":
+                        String deadline = lineArray[3];
+                        taskToAdd = createTask(taskDescription, deadline);
+                        break;
+                    case "E":
+                        String from = lineArray[3];
+                        String to = lineArray[4];
+                        taskToAdd = createTask(taskDescription, from, to);
+                        break;
+                    default:
+                        // Unknown first character, go to next line
+                        continue;
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     continue;
@@ -483,7 +483,7 @@ public class Nollid {
                 taskCounter++;
             }
         } catch (IOException e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
 
         if (taskCounter > 0) {
