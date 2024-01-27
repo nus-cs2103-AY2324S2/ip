@@ -56,7 +56,9 @@ public class Deadline extends Task {
         LocalDate by = LocalDate.parse(parts[3].trim());
         boolean isDone = parts[1].trim().equals("1");
         Deadline deadline = new Deadline(description, by);
-        if (isDone) deadline.markAsDone();
+        if (isDone) {
+            deadline.markAsDone();
+        }
         return deadline;
     }
 

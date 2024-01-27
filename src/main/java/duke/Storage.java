@@ -23,7 +23,7 @@ public class Storage {
      * @param filePath The file path of the storage file.
      * @throws DukeException If the file is not found.
      */
-    public Storage (String filePath) throws DukeException {
+    public Storage(String filePath) throws DukeException {
         try {
             Storage.filePath = filePath;
             this.file = new File(filePath);
@@ -54,7 +54,7 @@ public class Storage {
      * @param list The task list to be saved.
      * @throws IOException If an I/O error occurs during writing.
      */
-    public static void saveCurrentList(TaskList list) throws IOException{
+    public static void saveCurrentList(TaskList list) throws IOException {
         StringBuilder sb = new StringBuilder();
         for (Task task : list.getList()) {
             sb.append(task.toFileString());
@@ -84,6 +84,8 @@ public class Storage {
                 case "E":
                     list.add(Event.fromFileString(line));
                     break;
+                default:
+                    throw new DukeException("Error loading file");
             }
         }
         return list;

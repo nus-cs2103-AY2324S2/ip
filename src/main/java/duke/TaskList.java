@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 /**
  * The TaskList class represents a list of tasks.
- * It encapsulates an ArrayList of Task objects and provides methods to manipulate the list.
+ * It encapsulates an ArrayList of Task objects and
+ * provides methods to manipulate the list.
  */
 public class TaskList {
-    protected ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     /**
      * Constructs a TaskList with the specified list of tasks.

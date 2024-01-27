@@ -12,11 +12,12 @@ import java.util.ArrayList;
 public class Parser {
 
     /**
-     * Parses the user input and returns the corresponding command.
+     * Parses the user input for a "todo" command and adds a new Todo task to the task list.
+     * It throws an exception if the input does not contain a description for the todo.
      *
-     * @param message The user input.
-     * @return The corresponding command.
-     * @throws DukeException If the user input is invalid.
+     * @param list The TaskList to which the new todo task is added.
+     * @param message The user input string.
+     * @throws DukeException If the todo description is empty.
      */
     public static void handleTodo(TaskList list, String message) throws DukeException {
         if (message.trim().equals("todo")) {
@@ -25,7 +26,8 @@ public class Parser {
         String description = message.substring(5).trim();
         Task task = new Task(description);
         list.add(task);
-        Ui.printWithLines("Got it. I've added this task:", task.toString(), "Now you have " + list.size() + " tasks in the list.");
+        Ui.printWithLines("Got it. I've added this task:", task.toString(),
+                "Now you have " + list.size() + " tasks in the list.");
     }
 
     /**
@@ -49,7 +51,8 @@ public class Parser {
             LocalDate date = LocalDate.parse(by, formatter);
             Deadline task = new Deadline(description, date);
             list.add(task);
-            Ui.printWithLines("Got it. I've added this task:", task.toString(), "Now you have " + list.size() + " tasks in the list.");
+            Ui.printWithLines("Got it. I've added this task:", task.toString(),
+                    "Now you have " + list.size() + " tasks in the list.");
         } catch (DateTimeParseException e) {
             throw new DukeException("OOPS!!! The deadline date format is incorrect. Please use yyyy-MM-dd format.");
         }
@@ -78,9 +81,11 @@ public class Parser {
             LocalDateTime dateTimeTo = LocalDateTime.parse(toTime, formatter);
             Event task = new Event(description, dateTimeFrom, dateTimeTo);
             list.add(task);
-            Ui.printWithLines("Got it. I've added this task:", task.toString(), "Now you have " + list.size() + " tasks in the list.");
+            Ui.printWithLines("Got it. I've added this task:", task.toString(),
+                    "Now you have " + list.size() + " tasks in the list.");
         } catch (DateTimeParseException e) {
-            throw new DukeException("OOPS!!! The deadline date format is incorrect. Please use yyyy-MM-dd HH:mm format.");
+            throw new DukeException("OOPS!!! The deadline date format is incorrect. "
+                    + "Please use yyyy-MM-dd HH:mm format.");
         }
     }
 

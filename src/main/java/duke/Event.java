@@ -2,11 +2,12 @@ package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an event task with a description, start time, and end time.
  * It extends the Task class by adding time-specific information.
  */
-public class Event extends Task{
+public class Event extends Task {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
@@ -67,7 +68,9 @@ public class Event extends Task{
         LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
         boolean isDone = parts[1].trim().equals("1");
         Event event = new Event(description, dateTimeFrom, dateTimeTo);
-        if (isDone) event.markAsDone();
+        if (isDone) {
+            event.markAsDone();
+        }
         return event;
     }
 

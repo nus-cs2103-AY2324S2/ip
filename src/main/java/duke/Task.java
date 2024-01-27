@@ -85,7 +85,9 @@ public class Task {
         String description = parts[2].trim();
         boolean isDone = parts[1].trim().equals("1");
         Task task = new Task(description);
-        if (isDone) task.markAsDone();
+        if (isDone) {
+            task.markAsDone();
+        }
         return task;
     }
 

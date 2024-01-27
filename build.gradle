@@ -15,7 +15,7 @@ dependencies {
 }
 
 checkstyle {
-    toolVersion = "8.42"
+    toolVersion = "8.23"
     configFile = rootProject.file("config/checkstyle/checkstyle.xml")
     ignoreFailures = false
     showViolations = true
