@@ -3,6 +3,20 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
+    public class Task {
+        private String description;
+        private boolean isDone;
+
+        public Task(String description) {
+            this.description = description;
+            this.isDone = false;
+        }
+
+        public String getStatusIcon() {
+            return (isDone ? "X" : " "); // mark done task with X
+        }
+    }
+
     // The scanner the chatbot uses to scan users' inputs.
     Scanner sc = new Scanner(System.in);
 
