@@ -1,7 +1,5 @@
 package duke.exception;
 
-import duke.exception.DukeException;
-
 /**
  * Exception for wrong usage
  */
@@ -13,7 +11,7 @@ public class WrongUsageException extends DukeException {
      * @param usage correct usage
      */
     public WrongUsageException(String usage) {
-        this.usage=usage;
+        this.usage = usage;
     }
 
     /**

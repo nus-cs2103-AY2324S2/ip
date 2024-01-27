@@ -1,7 +1,5 @@
 package duke.exception;
 
-import duke.exception.DukeException;
-
 /**
  * Exception for lack of description of certain things
  */
@@ -15,8 +13,8 @@ public class EmptyTextException extends DukeException {
      * @param task
      */
     public EmptyTextException(String field, String task) {
-        this.field=field;
-        this.task=task;
+        this.field = field;
+        this.task = task;
     }
 
     /**

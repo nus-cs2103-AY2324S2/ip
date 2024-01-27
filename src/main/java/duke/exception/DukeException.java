@@ -3,7 +3,7 @@ package duke.exception;
 /**
  * Exception for all kinds of buggy inputs
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
 
     /**
      * Constructor

@@ -1,7 +1,5 @@
 package duke.exception;
 
-import duke.exception.DukeException;
-
 /**
  * Exception for from time later than to time.
  */

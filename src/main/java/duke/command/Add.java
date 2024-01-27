@@ -53,7 +53,7 @@ public class Add implements Command {
                 throw new EmptyTextException("due", "deadline");
             }
             String byText = by.substring(3).trim();
-            if (!timeFormCheck(byText)) {
+            if (!checkTimeForm(byText)) {
                 throw new TimeFormatException();
             }
             this.task = new Deadline(descrip, LocalDate.parse(byText));
@@ -83,7 +83,7 @@ public class Add implements Command {
             }
             String fromText = from.substring(5).trim();
             String toText = to.substring(3).trim();
-            if (!timeFormCheck(fromText) || !timeFormCheck(toText)) {
+            if (!checkTimeForm(fromText) || !checkTimeForm(toText)) {
                 throw new TimeFormatException();
             }
             LocalDate fromDay = LocalDate.parse(fromText);
@@ -109,7 +109,7 @@ public class Add implements Command {
                 this.task, this.tasks.getListLength());
     }
 
-    private boolean timeFormCheck(String time) {
+    private boolean checkTimeForm(String time) {
         try {
             LocalDate.parse(time);
             return true;

@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.TaskList;
-import duke.command.Command;
 import duke.exception.WrongIndexException;
 
 /**
@@ -16,12 +15,12 @@ public class Mark implements Command {
      * @param operand which task to mark from 0
      * @throws WrongIndexException invalid index
      */
-    public Mark(int operand, TaskList taskList) throws WrongIndexException{
-        if (operand>=taskList.getListLength() || operand<0) {
+    public Mark(int operand, TaskList taskList) throws WrongIndexException {
+        if (operand >= taskList.getListLength() || operand < 0) {
             throw new WrongIndexException(taskList.getListLength());
         }
-        this.oprand=operand;
-        taskList.getTask(oprand).Done();
+        this.oprand = operand;
+        taskList.getTask(oprand).setDone();
         this.tasks = taskList;
     }
 
@@ -30,6 +29,6 @@ public class Mark implements Command {
      */
     @Override
     public String reply() {
-        return String.format("    Nice! I've marked this task as done:\n    %s\n",tasks.getTask(oprand));
+        return String.format("    Nice! I've marked this task as done:\n    %s\n", tasks.getTask(oprand));
     }
 }
