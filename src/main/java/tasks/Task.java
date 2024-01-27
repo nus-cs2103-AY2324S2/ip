@@ -1,3 +1,7 @@
+package tasks;
+
+import utilities.MessagePrinter;
+
 public class Task {
     private String taskName;
     private boolean taskDone = false;
