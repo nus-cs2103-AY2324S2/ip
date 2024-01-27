@@ -1,6 +1,9 @@
 package duke.task;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -8,6 +11,8 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class Task implements Serializable {
+    protected static DateTimeFormatter describeTimeFormat = DateTimeFormatter.ofPattern("EE',' dd MMMM yy 'at' hh:mma");
+
     private enum Status {
         Complete("completed", 'X'), Incomplete("pending", ' ');
 
@@ -79,7 +84,12 @@ public abstract class Task implements Serializable {
         return components;
     }
 
-    public static Task of(String type, String data) throws InvalidType, InvalidComponents {
+    private static LocalDateTime parseDateTime(String input) throws DateTimeParseException {
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return LocalDateTime.from(f.parse(input));
+    }
+
+    public static Task of(String type, String data) throws InvalidType, InvalidComponents, DateTimeParseException {
         Map<String, String> components = parseComponents(data);
         Task task;
         switch (type) {
@@ -89,11 +99,11 @@ public abstract class Task implements Serializable {
             break;
         case "deadline":
             validateComponentKeys(new HashSet<String>(List.of("DESCRIPTION", "/by")), components.keySet());
-            task = new Deadline(components.get("DESCRIPTION"), components.get("/by"));
+            task = new Deadline(components.get("DESCRIPTION"), parseDateTime(components.get("/by")));
             break;
         case "event":
             validateComponentKeys(new HashSet<String>(List.of("DESCRIPTION", "/from", "/to")), components.keySet());
-            task = new Event(components.get("DESCRIPTION"), components.get("/from"), components.get("/to"));
+            task = new Event(components.get("DESCRIPTION"), parseDateTime(components.get("/from")), parseDateTime(components.get("/to")));
             break;
         default:
             throw new InvalidType(type);

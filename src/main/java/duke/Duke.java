@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -102,6 +103,8 @@ public class Duke {
                     System.out.println("Added task " + task.describe());
                 } catch (Task.InvalidComponents | Task.InvalidType e) {
                     System.out.println(e.getMessage());
+                } catch (DateTimeParseException e) {
+                    System.out.println("Could not parse date: " + e.toString());
                 }
                 break;
             default:
