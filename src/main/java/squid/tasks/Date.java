@@ -21,7 +21,7 @@ public class Date {
         switch (time) {
         case (""):
             break;
-        case ("now"):
+        case ("NOW"):
             this.formattedTime = LocalTime.now();
             break;
         default:
