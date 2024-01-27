@@ -10,9 +10,14 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(String input) {
-        Task task = null;
+    public void addTask(String input) throws InvalidDeadlineException, InvalidEventException, InvalidCommandException {
         String[] details = input.split(" ", 2);
+
+        if (details.length < 2) {
+            throw new InvalidCommandException();
+        }
+
+        Task task = null;
         String type = details[0];
 
         switch (type) {
@@ -33,29 +38,46 @@ public class TaskList {
         Utils.encaseLines(o);
     }
 
-    public Task getTask(int i) {
-        return i >= 0 && i < tasks.size() ? tasks.get(i) : null;
+    public Task getTask(int i) throws InvalidIndexException {
+        if (i < 0 || i >= tasks.size()) {
+            throw new InvalidIndexException();
+        }
+
+        return tasks.get(i);
     }
 
     public void listTasks() {
         StringBuilder output = new StringBuilder();
 
-        for (int i = 0; i < tasks.size(); i++) {
-            output.append(String.format("%d. %s", i + 1, tasks.get(i)));
+        if (tasks.size() == 0) {
+            Utils.encaseLines("List is empty!");
+        } else {
 
-            if (i < tasks.size() - 1) {
-                output.append("\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                output.append(String.format("%d. %s", i + 1, tasks.get(i)));
+
+                if (i < tasks.size() - 1) {
+                    output.append("\n");
+                }
             }
+
+            Utils.encaseLines(output.toString());
         }
-
-        Utils.encaseLines(output.toString());
     }
 
-    public void mark(int i) {
-        this.getTask(i).mark();
+    public void markTask(int i) throws InvalidIndexException {
+        Task task = this.getTask(i);
+
+        if (task != null) {
+            task.mark();
+        }
     }
 
-    public void unmark(int i){
-        this.getTask(i).unmark();
+    public void unmarkTask(int i) throws InvalidIndexException {
+        Task task = this.getTask(i);
+
+        if (task != null) {
+            task.unmark();
+        }
     }
 }

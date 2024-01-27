@@ -37,11 +37,15 @@ public class Utils {
         return Integer.parseInt(input.split("\\s+")[1]) - 1;
     }
 
-    public static String firstWord(String input) {
+    public static String getCommandType(String input) {
         return input.split(" ", 2)[0];
     }
 
-    public static Deadlines createDeadline(String input){
+    public static Deadlines createDeadline(String input) throws InvalidDeadlineException {
+        if (!input.contains("/by")) {
+            throw new InvalidDeadlineException();
+        }
+
         String[] parts = input.split("/by", 2);
         String name = parts[0].trim();
         String by = parts.length > 1 ? parts[1].trim() : "";
@@ -49,7 +53,11 @@ public class Utils {
         return new Deadlines(name, by);
     };
 
-    public static Events createEvent(String input){
+    public static Events createEvent(String input) throws InvalidEventException{
+        if (!input.contains("/from") || !input.contains("/to")) {
+            throw new InvalidEventException();
+        }
+
         String[] partsFrom = input.split("/from", 2);
         String name = partsFrom[0].trim();
 
@@ -59,4 +67,8 @@ public class Utils {
 
         return new Events(name, from, to);
     };
+
+    public static String checkEmpty(String input) {
+        return input.isEmpty() ? "" : input;
+    }
 }
