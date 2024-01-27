@@ -11,11 +11,22 @@ public class Task {
         this.completed = true;
     }
 
+    public void unmark() {
+        this.completed = false;
+    }
+
     public boolean isComplete() {
         return this.completed;
     }
 
-    public String printName() {
-        return this.name;
+    public String printTask() {
+        String taskMessage = "";
+        if (completed) {
+            taskMessage += "[X] ";
+        } else {
+            taskMessage += "[ ] ";
+        }
+        taskMessage += this.name;
+        return taskMessage;
     }
 }
