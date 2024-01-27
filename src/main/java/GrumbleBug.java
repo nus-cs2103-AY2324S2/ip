@@ -40,7 +40,7 @@ public class GrumbleBug {
             } else if (input1.equals("unmark")) {
                 try {
                     int u = Integer.parseInt(sc.nextLine());
-                    myList.get(u-1).setDone(true);
+                    myList.get(u-1).setDone(false);
                     System.out.println("Ugh, unmarked it.");
                 } catch (Exception e) {
                     System.err.println("That wasn't a good number");
