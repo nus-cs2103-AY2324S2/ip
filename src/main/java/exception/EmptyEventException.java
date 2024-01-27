@@ -8,6 +8,6 @@ public class EmptyEventException extends NarutoException {
 
     @Override
     public NarutoException.ErrorType getErrorType() {
-        return NarutoException.ErrorType.EMPTY_EVENT;
+        return ErrorType.EMPTY_EVENT;
     }
 }

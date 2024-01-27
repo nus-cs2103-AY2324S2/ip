@@ -3,6 +3,8 @@ package action;
 import util.PrintUtil;
 import util.Store;
 
+import java.io.*;
+
 public class Mark implements Action {
     private Store store;
     private int i;
@@ -13,7 +15,7 @@ public class Mark implements Action {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         PrintUtil.print("Great job! You marked that task off your list! That's the way to go! " +
                 "\nKeep pushing yourself, and remember, every completed task brings you " +
                 "\none step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ");

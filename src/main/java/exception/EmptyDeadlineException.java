@@ -8,7 +8,7 @@ public class EmptyDeadlineException extends NarutoException {
 
     @Override
     public NarutoException.ErrorType getErrorType() {
-        return NarutoException.ErrorType.EMPTY_DEADLINE;
+        return ErrorType.EMPTY_DEADLINE;
     }
     
 }

@@ -8,7 +8,7 @@ public class InvalidDeadlineException extends NarutoException {
 
     @Override
     public NarutoException.ErrorType getErrorType() {
-        return NarutoException.ErrorType.INVALID_DEADLINE;
+        return ErrorType.INVALID_DEADLINE;
     }
 
 }

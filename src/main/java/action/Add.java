@@ -4,6 +4,8 @@ import task.Task;
 import util.PrintUtil;
 import util.Store;
 
+import java.io.*;
+
 public class Add implements Action {
     private Task task;
     private Store store;
@@ -14,7 +16,7 @@ public class Add implements Action {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         this.store.add(this.task);
         int size = this.store.getSize();
         String plural = size == 1 ? "task" : "tasks";

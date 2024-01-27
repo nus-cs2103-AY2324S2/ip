@@ -8,7 +8,7 @@ public class EmptyTodoException extends NarutoException {
 
     @Override
     public NarutoException.ErrorType getErrorType() {
-        return NarutoException.ErrorType.EMPTY_TODO;
+        return ErrorType.EMPTY_TODO;
     }
     
 

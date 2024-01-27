@@ -5,7 +5,7 @@ import task.Task;
 public class PrintUtil {
 
     // Private constructor to prevent instantiation
-    private PrintUtil() {
+    public PrintUtil() {
 
     }
 
@@ -14,8 +14,7 @@ public class PrintUtil {
         System.out.println();
         indent();
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" +
-                " -" +
-                " - - -\n");
+                " - - - -\n");
     }
 
     private static void indent() {

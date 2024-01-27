@@ -13,7 +13,7 @@
 
     Got it! Task added:
       [T][ ] borrow book
-    Now you have 4 outstanding tasks.
+    Now you have 1 outstanding task.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -23,7 +23,7 @@
 
     Got it! Task added:
       [D][ ] return book (by: Sunday)
-    Now you have 5 outstanding tasks.
+    Now you have 2 outstanding tasks.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -33,7 +33,7 @@
 
     Got it! Task added:
       [E][ ] project meeting (from: Mon 2pm to: 4pm)
-    Now you have 6 outstanding tasks.
+    Now you have 3 outstanding tasks.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -43,11 +43,8 @@
 
     Here are the tasks in your list:
     1.[T][ ] borrow book
-    2.[T][ ] borrow book
+    2.[D][ ] return book (by: Sunday)
     3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-    4.[T][ ] borrow book
-    5.[D][ ] return book (by: Sunday)
-    6.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -75,7 +72,7 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-      [T][X] borrow book
+      [D][X] return book (by: Sunday)
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -97,13 +94,7 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    Great job! You marked that task off your list! That's the way to go! 
-    Keep pushing yourself, and remember, every completed task brings you 
-    one step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [T][X] borrow book
+    Sorry, I couldn't find the task you indicated... ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -112,8 +103,8 @@
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     Got it! Task deleted:
-      [T][X] borrow book
-    Now you have 5 tasks remaining.
+      [D][X] return book (by: Sunday)
+    Now you have 2 tasks remaining.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -121,9 +112,7 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    Got it! Task deleted:
-      [D][ ] return book (by: Sunday)
-    Now you have 4 tasks remaining.
+    Sorry, I couldn't find the task you indicated... ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -134,8 +123,6 @@
     Here are the tasks in your list:
     1.[T][X] borrow book
     2.[E][X] project meeting (from: Mon 2pm to: 4pm)
-    3.[T][X] borrow book
-    4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -173,14 +160,7 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    You know, sometimes things don't go as planned, but that's okay! 
-    The important part is to keep moving forward. 
-    Unmarking a task is just a step in the journey. Believe it! 
-    We'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [T][ ] borrow book
+    Sorry, I couldn't find the task you indicated... ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -188,14 +168,7 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    You know, sometimes things don't go as planned, but that's okay! 
-    The important part is to keep moving forward. 
-    Unmarking a task is just a step in the journey. Believe it! 
-    We'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Sorry, I couldn't find the task you indicated... ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -205,7 +178,7 @@
 
     Got it! Task deleted:
       [E][ ] project meeting (from: Mon 2pm to: 4pm)
-    Now you have 3 tasks remaining.
+    Now you have 1 task remaining.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -223,8 +196,6 @@
 
     Here are the tasks in your list:
     1.[T][ ] borrow book
-    2.[T][ ] borrow book
-    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
