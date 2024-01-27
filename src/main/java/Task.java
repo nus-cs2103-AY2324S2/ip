@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import exceptions.InvalidStatusUpdateException;
 
 public class Task {
@@ -16,12 +17,8 @@ public class Task {
         this.status = status;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public boolean getStatus() {
-        return this.status;
+    public boolean queryByDate(LocalDate date) {
+        return false;
     }
 
     @Override

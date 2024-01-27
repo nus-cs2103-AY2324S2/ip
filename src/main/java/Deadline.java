@@ -11,6 +11,14 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean queryByDate(LocalDate date) {
+        if (date.isEqual(this.endDate)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         String by = this.endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
         return String.format("[D]%s %s (by: %s)", (super.status ? "[X]" : "[ ]"), super.name, by);

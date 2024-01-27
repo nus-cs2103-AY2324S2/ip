@@ -12,6 +12,13 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
+    public boolean queryByDate(LocalDate date) {
+        if ((date.isAfter(this.startDate) && date.isBefore(this.endDate)) || date.isEqual(this.startDate) || date.isEqual(this.endDate)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         String from = this.startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));

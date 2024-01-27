@@ -1,4 +1,5 @@
 import exceptions.InvalidCommandException;
+import exceptions.InvalidDateException;
 import exceptions.InvalidSlashParameterException;
 import exceptions.InvalidStatusUpdateException;
 
@@ -10,6 +11,8 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -22,7 +25,8 @@ public class Lulu {
         DELETE,
         TODO,
         DEADLINE,
-        EVENT;
+        EVENT,
+        FIND;
     }
     private List<Task> items;
     private String fileName = "src/main/java/data/lulu.txt";
@@ -93,6 +97,8 @@ public class Lulu {
                     addTasks(Commands.DEADLINE, input);
                 } else if (firstWord.equals("event")) {
                     addTasks(Commands.EVENT, input);
+                } else if (firstWord.equals("find")) {
+                    manageTasks(Commands.FIND, input);
                 } else {
                     throw new InvalidCommandException();
                 }
@@ -115,6 +121,9 @@ public class Lulu {
                 break;
             case DELETE:
                 delete(input);
+                break;
+            case FIND:
+                find(input);
                 break;
             default:
                 throw new InvalidCommandException();
@@ -146,11 +155,12 @@ public class Lulu {
     }
 
     public void mark(String input) {
-        if (input.length() <= 4) {
+        String[] words = input.split(" ");
+        if (words.length <= 1) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
-        int index = Integer.valueOf(input.substring(5).strip()) - 1;
+        int index = Integer.valueOf(words[1]) - 1;
         if (index >= this.items.size() || index < 0) {
             print("Oops! You did not give a valid index.");
             return;
@@ -172,11 +182,12 @@ public class Lulu {
     }
 
     public void unmark(String input) {
-        if (input.length() <= 6) {
+        String[] words = input.split(" ");
+        if (words.length <= 1) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
-        int index = Integer.valueOf(input.substring(7).strip()) - 1;
+        int index = Integer.valueOf(words[1]) - 1;
         if (index >= this.items.size() || index < 0) {
             print("Oops! You did not give a valid index.");
             return;
@@ -198,11 +209,12 @@ public class Lulu {
     }
 
     public void delete(String input) {
-        if (input.length() <= 6) {
+        String[] words = input.split(" ");
+        if (words.length <= 1) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
-        int index = Integer.valueOf(input.substring(6).strip()) - 1;
+        int index = Integer.valueOf(words[1]) - 1;
         if (index >= this.items.size() || index < 0) {
             print("Oops! You did not give a valid index.");
             return;
@@ -217,8 +229,38 @@ public class Lulu {
         print(String.format("Now you have %d tasks in the list.", this.items.size()));
     }
 
+    public void find(String input) {
+        String[] words = input.split(" ");
+        if (words.length <= 2) {
+            print("I didn't quite understand, could you complete your command with appropriate arguments?");
+            return;
+        }
+
+        String taskType = words[1].toLowerCase();
+        LocalDate date = LocalDate.parse(words[2]);
+        String formattedDate = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+
+        if (taskType.equals("deadline")) {
+            print("Below are deadlines that are due on " + formattedDate);
+            for (Task task : this.items) {
+                if (task instanceof Deadline && task.queryByDate(date)) {
+                    print(task);
+                }
+            }
+        } else if (taskType.equals("event")) {
+            print("Below are events that are operating on " + formattedDate);
+            for (Task task : this.items) {
+                if (task instanceof Event && task.queryByDate(date)) {
+                    print(task);
+                }
+            }
+        } else {
+            print("Could not query give task type");
+        }
+    }
+
     public void todo(String input) {
-        if (input.length() <= 4) {
+        if (input.split(" ").length <= 1) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
@@ -235,7 +277,7 @@ public class Lulu {
     }
 
     public void deadline(String input) {
-        if (input.length() <= 8) {
+        if (input.split(" ").length <= 1) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
@@ -261,7 +303,7 @@ public class Lulu {
     }
 
     public void event(String input) {
-        if (input.length() <= 5) {
+        if (input.split(" ").length <= 1) {
             print("I didn't quite understand, could you complete your command with appropriate arguments?");
             return;
         }
@@ -277,6 +319,9 @@ public class Lulu {
             String name = input.substring(6, indexFrom).strip();
             String from = input.substring(indexFrom + 5, indexTo).strip();
             String to = input.substring(indexTo + 3).strip();
+            if (LocalDate.parse(to).isBefore(LocalDate.parse(from))) {
+                throw new InvalidDateException();
+            }
             Event event = new Event(name, LocalDate.parse(from), LocalDate.parse(to));
             this.items.add(event);
             print("Got it. I've added this task:");
@@ -288,6 +333,8 @@ public class Lulu {
             writeLine(data);
         } catch (InvalidSlashParameterException e) {
             print("Sorry, when would you like the event to begin and end?");
+        } catch (InvalidDateException e) {
+            print("Please ensure that you are inputting valid start and end dates.");
         }
     }
 
