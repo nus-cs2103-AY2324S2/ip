@@ -115,6 +115,12 @@ public class TaskList implements Serializable {
         }
     }
 
+    /**
+     * Given a keyword, finds the tasks that have this keyword and sends to Ui
+     *
+     * @param input The keyword to search for
+     * @throws MissMinutesException If keyword is empty or no tasks are found with keyword
+     */
     public void findTask(String input) throws MissMinutesException {
         String[] split = input.split(" ", 2);
         if (split.length <= 1) {
