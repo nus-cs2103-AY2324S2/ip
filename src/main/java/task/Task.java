@@ -1,3 +1,5 @@
+package task;
+
 import java.time.LocalDate;
 import exceptions.InvalidStatusUpdateException;
 
@@ -15,6 +17,10 @@ public class Task {
             throw new InvalidStatusUpdateException();
         }
         this.status = status;
+    }
+
+    public boolean getStatus() {
+        return this.status;
     }
 
     public boolean queryByDate(LocalDate date) {
