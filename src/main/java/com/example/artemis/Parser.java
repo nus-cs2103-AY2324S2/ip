@@ -1,6 +1,19 @@
 package com.example.artemis;
 
+/**
+ * Parses user input and performs corresponding actions in the Artemis application.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and performs the corresponding action.
+     *
+     * @param input   The user input.
+     * @param tasks   The TaskList containing the tasks.
+     * @param ui      The Ui for user interface interactions.
+     * @param storage The Storage for saving and loading tasks.
+     * @throws ArtemisException If there is an issue with parsing the input or executing the command.
+     */
     public static void parseInput(String input, TaskList tasks, Ui ui, Storage storage) throws ArtemisException {
         String[] tokens = input.split(" ", 2);
         String command = tokens[0].toLowerCase();
@@ -37,6 +50,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "mark" command to mark a task as done.
+     *
+     * @param tokens The array of tokens from the user input.
+     * @param tasks  The TaskList containing the tasks.
+     * @param ui     The Ui for user interface interactions.
+     */
     private static void handleMarkAsDone(String[] tokens, TaskList tasks, Ui ui) {
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
@@ -48,6 +68,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "unmark" command to mark a task as not done.
+     *
+     * @param tokens The array of tokens from the user input.
+     * @param tasks  The TaskList containing the tasks.
+     * @param ui     The Ui for user interface interactions.
+     */
     private static void handleMarkAsNotDone(String[] tokens, TaskList tasks, Ui ui) {
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
@@ -59,6 +86,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "todo" command to add a todo task.
+     *
+     * @param tokens The array of tokens from the user input.
+     * @param tasks  The TaskList containing the tasks.
+     * @param ui     The Ui for user interface interactions.
+     */
     private static void handleTodoTask(String[] tokens, TaskList tasks, Ui ui) {
         try {
             String description = tokens[1].trim();
@@ -72,6 +106,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "deadline" command to add a deadline task.
+     *
+     * @param input The user input containing the deadline details.
+     * @param tasks The TaskList containing the tasks.
+     * @param ui    The Ui for user interface interactions.
+     */
     private static void handleDeadlineTask(String input, TaskList tasks, Ui ui) {
         try {
             String[] tokens = input.split("/by");
@@ -89,6 +130,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "event" command to add an event task.
+     *
+     * @param input The user input containing the event details.
+     * @param tasks The TaskList containing the tasks.
+     * @param ui    The Ui for user interface interactions.
+     */
     private static void handleEventTask(String input, TaskList tasks, Ui ui) {
         try {
             String[] tokens = input.split("/from");
@@ -113,6 +161,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "delete" command to delete a task.
+     *
+     * @param tokens The array of tokens from the user input.
+     * @param tasks  The TaskList containing the tasks.
+     * @param ui     The Ui for user interface interactions.
+     */
     private static void handleDeleteTask(String[] tokens, TaskList tasks, Ui ui) {
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;

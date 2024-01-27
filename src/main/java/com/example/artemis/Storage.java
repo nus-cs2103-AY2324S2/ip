@@ -9,13 +9,28 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
 
+/**
+ * Handles the loading and saving of tasks to a file for the Artemis application.
+ */
 public class Storage {
+    // Filepath for storing tasks data
     private static String filepath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filepath The file path for storing tasks data.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws ArtemisException If there is an issue loading tasks from the file.
+     */
     public ArrayList<Task> load() throws ArtemisException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -38,6 +53,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks The ArrayList of Task objects to be saved to the file.
+     * @throws ArtemisException If there is an issue saving tasks to the file.
+     */
     public void save(ArrayList<Task> tasks) throws ArtemisException {
         try {
             createDirectoryIfNotExists("./data/");
@@ -52,6 +73,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a directory if it does not exist.
+     *
+     * @param directoryPath The path of the directory to be created.
+     */
     private static void createDirectoryIfNotExists(String directoryPath) {
         File directory = new File(directoryPath);
         if (!directory.exists()) {
@@ -62,3 +88,4 @@ public class Storage {
         }
     }
 }
+
