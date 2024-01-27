@@ -33,7 +33,7 @@ public abstract class Task implements Serializable {
     private Status status;
 
     /**
-     * The constructor a task
+     * The constructor of a task.
      * @param description the description of the task
      */
     protected Task(String description) {

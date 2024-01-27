@@ -19,7 +19,6 @@ public class Todo extends Task {
 
     /**
      * Construct a task with a start and an end from parsed components. The expected components are only DESCRIPTION.
-     * @param components components parsed from the user command.
      * @throws InvalidComponents when the parsed components don't match the expected components
      */
     public Todo(Map<String, String> components) throws InvalidComponents {

@@ -16,9 +16,8 @@ import java.util.Scanner;
  */
 public class Parser {
     /**
-     * Parse one user command. The user command is parsed into a subclass of {@link Command} which can be then executed.
-     * @param commandText the user command to be parsed
-     * @return a parsed command
+     * Parse one user command.
+     * The user command is parsed from a string into a subclass of {@link Command} which can be then executed.
      * @throws InvalidCommandType when the given command (first word) is unknown
      * @throws InvalidCommandData when the inputs of the command aren't as expected
      */

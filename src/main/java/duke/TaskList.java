@@ -20,7 +20,6 @@ public class TaskList implements Serializable {
 
     /**
      * Adds a task to the list.
-     * @param task the task to add
      */
     public void addTask(Task task) {
         tasks.add(task);
@@ -28,7 +27,6 @@ public class TaskList implements Serializable {
 
     /**
      * Gets the tasks at the given index.
-     * @param index index of the task
      * @return the requested task
      * @throws TaskNotFound if the task with the given index doesn't exist
      */
@@ -42,7 +40,6 @@ public class TaskList implements Serializable {
 
     /**
      * Deletes the task at the given index.
-     * @param index index of the task
      * @throws TaskNotFound if the task with the given index doesn't exist
      */
     public void deleteTask(int index) throws TaskNotFound {

@@ -24,7 +24,6 @@ public class Event extends Task {
     /**
      * Construct a task with a start and an end from parsed components.
      * The expected components are DESCRIPTION, /from and /to.
-     * @param components components parsed from the user command.
      * @throws InvalidComponents when the parsed components don't match the expected components
      */
     public Event(Map<String, String> components) throws InvalidComponents {
