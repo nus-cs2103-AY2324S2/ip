@@ -154,7 +154,33 @@ public class ParserTest {
     }
 
     @Test
-    public void invalidCommandTest_throwException() {
+    public void findCommandTest_validKeyword_success() throws DukeException {
+        TaskList taskList = new TaskList(new ArrayList<>(List.of(new Todo("todo"),
+                new Deadline("deadline", LocalDate.parse("2024-01-01")))));
+        Parser.parse("find todo", taskList, new Ui());
+        assertEquals(2, taskList.size());
+    }
+
+    @Test
+    public void findCommandTest_invalidKeyword_success() throws DukeException {
+        TaskList taskList = new TaskList(new ArrayList<>(List.of(new Todo("todo"),
+                new Deadline("deadline", LocalDate.parse("2024-01-01")))));
+        Parser.parse("find 1111", taskList, new Ui());
+        assertEquals(2, taskList.size());
+    }
+
+    @Test
+    public void findCommandTest_emptyDescription_throwException() {
+        try {
+            Parser.parse("find", new TaskList(), new Ui());
+            fail();
+        } catch (DukeException e) {
+            assertEquals("OOPS!!! Keyword cannot be empty.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void findCommandTest_throwException() {
         try {
             Parser.parse("random testttt", new TaskList(), new Ui());
             fail();
