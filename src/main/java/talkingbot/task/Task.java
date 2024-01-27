@@ -1,8 +1,8 @@
 package talkingbot.task;
 
-import talkingbot.type.TaskType;
-import talkingbot.exception.TalkingBotException;
 import java.time.format.DateTimeFormatter;
+import talkingbot.exception.TalkingBotException;
+import talkingbot.type.TaskType;
 
 public abstract class Task {
     private final String description;

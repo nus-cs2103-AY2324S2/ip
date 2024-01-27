@@ -1,13 +1,13 @@
 package talkingbot.util;
 
+import talkingbot.command.ByeCommand;
 import talkingbot.command.Command;
+import talkingbot.command.DeleteCommand;
+import talkingbot.command.InvalidCommand;
 import talkingbot.command.ListCommand;
 import talkingbot.command.ModifyMarkCommand;
-import talkingbot.command.TaskCommand;
-import talkingbot.command.DeleteCommand;
 import talkingbot.command.SaveCommand;
-import talkingbot.command.ByeCommand;
-import talkingbot.command.InvalidCommand;
+import talkingbot.command.TaskCommand;
 
 import java.util.Scanner;
 
