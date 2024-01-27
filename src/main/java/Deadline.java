@@ -6,15 +6,15 @@ import java.util.Optional;
 
 public class Deadline extends Task {
 
-    protected Optional<LocalDateTime> byDateTime;
-    protected Optional<LocalDate> byDate;
     protected String by;
+    protected Optional<LocalDate> byDate;
+    protected Optional<LocalDateTime> byDateTime;
 
     public Deadline(String description, String by) {
         super(description);
 
-        this.byDateTime = parseDateTime(by);
         this.byDate = parseDate(by);
+        this.byDateTime = parseDateTime(by);
         // init by string depending on type, else use given by string
         if (byDateTime.isPresent() || byDate.isPresent()) {
             this.by = formatByString(by);
