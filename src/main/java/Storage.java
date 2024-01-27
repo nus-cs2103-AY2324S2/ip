@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,43 +6,66 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 
 public class Storage {
-    public static ArrayList<Task> readTodoData(File f) {
-        ArrayList<Task> todoList = new ArrayList<>();
+    private File f;
+    
+    public Storage(String filePath) throws IOException {
+        this.f = new File(filePath);
+        checkAndCreateFile();
+    }
 
-        try {
-            Scanner s = new Scanner(f);
-            int count = 0;
-            while (s.hasNext()) {
-                try {
-                    todoList.add(taskFromSave(s.nextLine()));
-                    count++;
-                } catch (TaskCreationException e) {
-                    System.out.println("Error in reading task: " + e.getMessage());
-                }
-            }
-            Duke.botPrint(count + " tasks loaded from save");
-            s.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+    private void checkAndCreateFile() throws IOException {
+        // Reading and creating data save file
+        // making data folder
+        if (!f.getParentFile().exists()) {
+            if (!f.getParentFile().mkdir()) {
+                throw new IOException("Unable to make directory");
+            };
         }
+
+        // making data file
+        if (!f.exists()) {
+            f.createNewFile();
+         }
+    }
+
+    public TaskList readSaveData(Ui ui) throws FileNotFoundException{
+        TaskList todoList = new TaskList();
+
+        Scanner s = new Scanner(f);
+        int count = 0;
+        while (s.hasNext()) {
+            try {
+                todoList.add(parseTaskFromSave(s.nextLine()));
+                count++;
+            } catch (TaskCreationException e) {
+                System.out.println("Error in reading task: " + e.getMessage());
+            }
+        }
+        ui.botPrint(count + " tasks loaded from save");
+        s.close();
 
         return todoList;
 
     }
 
-    public static void saveTodoData(ArrayList<Task> data, File f) throws IOException {
+    public void saveTodoData(TaskList data, Ui ui) throws IOException {
+        this.checkAndCreateFile();
+
         FileWriter fw = new FileWriter(f);
+        
         String dataString = "";
+        
         for (int i = 1; i <= data.size(); i++) {
-            dataString = dataString + data.get(i - 1).toSave() + "\n";
+            dataString = dataString + data.get(i).toSave() + "\n";
         }
         
-        Duke.botPrint(data.size() + " tasks saved");
         fw.write(dataString);
         fw.close();
+
+        ui.botPrint(data.size() + " tasks saved");
     }
 
-    public static Task taskFromSave(String task) throws TaskCreationException {
+    private Task parseTaskFromSave(String task) throws TaskCreationException {
         String[] taskSplit = task.split("\\|");
         boolean isDone;
         if (taskSplit[1].equals("[X]")) {
@@ -57,9 +79,9 @@ public class Storage {
         case "[T]":
             return new Todo(isDone, taskSplit[2]);
         case "[D]":
-            return new Deadline(isDone, taskSplit[2], LocalDateTime.parse(taskSplit[3], Duke.inputdtFormatter));
+            return new Deadline(isDone, taskSplit[2], LocalDateTime.parse(taskSplit[3], Parser.inputdtFormatter));
         case "[E]":        
-            return new Event(isDone, taskSplit[2],  LocalDateTime.parse(taskSplit[3], Duke.inputdtFormatter),  LocalDateTime.parse(taskSplit[4], Duke.inputdtFormatter));
+            return new Event(isDone, taskSplit[2],  LocalDateTime.parse(taskSplit[3], Parser.inputdtFormatter),  LocalDateTime.parse(taskSplit[4], Parser.inputdtFormatter));
         default:
             throw new TaskCreationException("No such task: " + taskSplit[0] + " for " + task);
         }

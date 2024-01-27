@@ -1,4 +1,8 @@
     ____________________________________________________________
+    0 tasks loaded from save
+    ____________________________________________________________
+
+    ____________________________________________________________
     Hello! I'm CBBW
     What can I do for you?
     ____________________________________________________________
@@ -10,30 +14,23 @@
     ____________________________________________________________
 
     ____________________________________________________________
-    Deadline Task added!
-    [D][ ] assignment 2 (by: jan 2)
-    You now have 2 tasks in the list.
+    Error parsing datetime: Text 'jan 2' could not be parsed at index 0
+    Use the format "DD/MM/YYYY, HH:MM" to enter date and time.
     ____________________________________________________________
 
     ____________________________________________________________
-    Event Task added!
-    [E][ ] prom night (from: Jan 2 4pm to: Jan 2 6pm)
-    You now have 3 tasks in the list.
+    Error parsing datetime: Text 'Jan 2 4pm' could not be parsed at index 0
+    Use the format "DD/MM/YYYY, HH:MM" to enter date and time.
     ____________________________________________________________
 
     ____________________________________________________________
-
     1.[T][ ] feed dog
-
-    2.[D][ ] assignment 2 (by: jan 2)
-
-    3.[E][ ] prom night (from: Jan 2 4pm to: Jan 2 6pm)
-
+    
     ____________________________________________________________
 
     ____________________________________________________________
     Invalid Index 4 for current list
-    List is of current length: 3
+    List is of current length: 1
     ____________________________________________________________
 
     ____________________________________________________________
@@ -42,70 +39,46 @@
     ____________________________________________________________
 
     ____________________________________________________________
-
     1.[T][X] feed dog
-
-    2.[D][ ] assignment 2 (by: jan 2)
-
-    3.[E][ ] prom night (from: Jan 2 4pm to: Jan 2 6pm)
-
+    
     ____________________________________________________________
 
     ____________________________________________________________
-    Good job on finishing your task!:
-      [D][X] assignment 2 (by: jan 2)
+    Invalid Index 2 for current list
+    List is of current length: 1
     ____________________________________________________________
 
     ____________________________________________________________
-
     1.[T][X] feed dog
-
-    2.[D][X] assignment 2 (by: jan 2)
-
-    3.[E][ ] prom night (from: Jan 2 4pm to: Jan 2 6pm)
-
+    
     ____________________________________________________________
 
     ____________________________________________________________
-    I've marked this task as undone:
-      [D][ ] assignment 2 (by: jan 2)
+    Invalid Index 2 for current list
+    List is of current length: 1
     ____________________________________________________________
 
     ____________________________________________________________
-
     1.[T][X] feed dog
-
-    2.[D][ ] assignment 2 (by: jan 2)
-
-    3.[E][ ] prom night (from: Jan 2 4pm to: Jan 2 6pm)
-
+    
     ____________________________________________________________
 
     ____________________________________________________________
-    Invalid selection for marking or deletion
+    Invalid selection for marking or deletion: java.lang.NumberFormatException: For input string: "skfjh"
     ____________________________________________________________
 
     ____________________________________________________________
-    You are missing the following infomation:
-    "by" 
+    Error Creating Task: Missing information: "by" 
     ____________________________________________________________
 
     ____________________________________________________________
-    Deadline Task added!
-    [D][ ] assignment (by: 2024)
-    You now have 4 tasks in the list.
+    Error parsing datetime: Text '2024' could not be parsed at index 2
+    Use the format "DD/MM/YYYY, HH:MM" to enter date and time.
     ____________________________________________________________
 
     ____________________________________________________________
-
     1.[T][X] feed dog
-
-    2.[D][ ] assignment 2 (by: jan 2)
-
-    3.[E][ ] prom night (from: Jan 2 4pm to: Jan 2 6pm)
-
-    4.[D][ ] assignment (by: 2024)
-
+    
     ____________________________________________________________
 
     ____________________________________________________________
@@ -113,6 +86,10 @@
     ____________________________________________________________
 
     ____________________________________________________________
-    4 tasks saved
+    1 tasks saved
+    ____________________________________________________________
+
+    ____________________________________________________________
+    See you again soon!
     ____________________________________________________________
 
