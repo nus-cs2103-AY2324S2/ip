@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -36,6 +38,19 @@ public class Ui {
 
     public void showError(Exception e) {
         System.out.println("The cat tilts its head and hands you an error report:\n" + e.getMessage());
+    }
+
+    public void showNote(String str) {
+        System.out.print("The cat hands a note to you, it reads:\n" + str);
+    }
+
+    public void showCommandNotFound(String command) {
+        System.out.println("The cat tilts its head. It doesn't know what command \"" + command + "\" is.");
+    }
+
+    public void showAdd(Task task) {
+        System.out.println("The cat scratches a mark on the wall and then hands you a receipt:\nAdded task "
+                + task.describe());
     }
 
     public String readCommand() {
