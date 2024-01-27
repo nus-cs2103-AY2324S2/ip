@@ -37,50 +37,120 @@ public class ChatBro {
 
                 case "todo":
                     String[] todoSplit = input.split("todo ");
-                    for (int i = 1; i <= 100; i++) {
-                        if (taskList[i] == null) {
-                            taskList[i] = new ToDo(todoSplit[1]);
-                            taskCount++;
+                    try {
+                        String todoName = todoSplit[1];
+                        if (todoName.trim().isEmpty()) { // Empty task description
                             System.out.println("_________________________\n" +
-                                    "Ok bro, I've added: \n" + taskList[i].toString() + "\n into your list.\n" +
-                                    "You've got " + taskCount + " task(s) now.\n" +
+                                    "Hey bro, task description cannot be empty.\n" +
                                     "_________________________\n");
                             break;
                         }
+                        for (int i = 1; i <= 100; i++) {
+                            if (taskList[i] == null) {
+                                taskList[i] = new ToDo(todoName);
+                                taskCount++;
+                                System.out.println("_________________________\n" +
+                                        "Ok bro, I've added: \n" + taskList[i].toString() + "\n into your list.\n" +
+                                        "You've got " + taskCount + " task(s) now.\n" +
+                                        "_________________________\n");
+                                break;
+                            }
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("_________________________\n" +
+                                "Hey bro, make sure to follow the format:\n" +
+                                "todo <task description> (task description cannot be empty)\n" +
+                                "_________________________\n");
+                        break;
                     }
                     break;
 
                 case "deadline":
                     String[] deadlineSplit = input.split(" /by ");
-                    String deadlineName = deadlineSplit[0].substring(9); // 9 is the length of "deadline "
-                    for (int i = 1; i <= 100; i++) {
-                        if (taskList[i] == null) {
-                            taskList[i] = new Deadline(deadlineName, deadlineSplit[1]);
-                            taskCount++;
+                    try {
+                        String test = deadlineSplit[1];
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("_________________________\n" +
+                                "Hey bro, make sure to follow the format:\n" +
+                                "deadline <task description> /by <deadline date>\n" +
+                                "(task description and deadline date cannot be empty)\n" +
+                                "_________________________\n");
+                        break;
+                    }
+                    try {
+                        String deadlineName = deadlineSplit[0].substring(9); // 9 is the length of "deadline "
+                        if (deadlineName.trim().isEmpty()) { // Empty task description (whitespace)
                             System.out.println("_________________________\n" +
-                                    "Ok bro, I've added: \n" + taskList[i].toString() + "\n into your list.\n" +
-                                    "You've got " + taskCount + " task(s) now.\n" +
+                                    "Hey bro, the given task description cannot be empty.\n" +
                                     "_________________________\n");
                             break;
                         }
+                        if (deadlineSplit[1].trim().isEmpty()) { // Empty deadline (whitespace)
+                            System.out.println("_________________________\n" +
+                                    "Hey bro, the given deadline cannot be empty.\n" +
+                                    "_________________________\n");
+                            break;
+                        }
+                        for (int i = 1; i <= 100; i++) {
+                            if (taskList[i] == null) {
+                                taskList[i] = new Deadline(deadlineName, deadlineSplit[1]);
+                                taskCount++;
+                                System.out.println("_________________________\n" +
+                                        "Ok bro, I've added: \n" + taskList[i].toString() + "\n into your list.\n" +
+                                        "You've got " + taskCount + " task(s) now.\n" +
+                                        "_________________________\n");
+                                break;
+                            }
+                        }
+                    } catch (StringIndexOutOfBoundsException e) { // Empty task description
+                        System.out.println("_________________________\n" +
+                                "Hey bro, the given task description cannot be empty.\n" +
+                                "_________________________\n");
+                        break;
                     }
                     break;
 
                 case "event":
                     String[] eventFromSplit = input.split(" /from ");
-                    String eventName = eventFromSplit[0].substring(6); // 6 is the length of "event "
-                    String[] eventToSplit = eventFromSplit[1].split(" /to "); // ETS[0] is from, ETS[1] is to
-
-                    for (int i = 1; i <= 100; i++) {
-                        if (taskList[i] == null) {
-                            taskList[i] = new Event(eventName, eventToSplit[0], eventToSplit[1]);
-                            taskCount++;
+                    try {
+                        String eventName = eventFromSplit[0].substring(6); // 6 is the length of "event "
+                        String[] eventToSplit = eventFromSplit[1].split(" /to "); // ETS[0] is from, ETS[1] is to
+                        if (eventName.trim().isEmpty()) { // Empty task description (whitespace)
                             System.out.println("_________________________\n" +
-                                    "Ok bro, I've added: \n" + taskList[i].toString() + "\n into your list.\n" +
-                                    "You've got " + taskCount + " task(s) now.\n" +
+                                    "Hey bro, the task description cannot be empty.\n" +
                                     "_________________________\n");
                             break;
                         }
+                        if (eventToSplit[0].trim().isEmpty()) { // Empty start time (whitespace)
+                            System.out.println("_________________________\n" +
+                                    "Hey bro, the start time cannot be empty.\n" +
+                                    "_________________________\n");
+                            break;
+                        }
+                        if (eventToSplit[1].trim().isEmpty()) { // Empty end time (whitespace)
+                            System.out.println("_________________________\n" +
+                                    "Hey bro, the end time cannot be empty.\n" +
+                                    "_________________________\n");
+                            break;
+                        }
+                        for (int i = 1; i <= 100; i++) {
+                            if (taskList[i] == null) {
+                                taskList[i] = new Event(eventName, eventToSplit[0], eventToSplit[1]);
+                                taskCount++;
+                                System.out.println("_________________________\n" +
+                                        "Ok bro, I've added: \n" + taskList[i].toString() + "\n into your list.\n" +
+                                        "You've got " + taskCount + " task(s) now.\n" +
+                                        "_________________________\n");
+                                break;
+                            }
+                        }
+                    } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                        System.out.println("_________________________\n" +
+                                "Hey bro, make sure to follow the format:\n" +
+                                "event <task description> /from <start time> /to <end time>\n" +
+                                "(task description, start time and end time cannot be empty)\n" +
+                                "_________________________\n");
+                        break;
                     }
                     break;
 
