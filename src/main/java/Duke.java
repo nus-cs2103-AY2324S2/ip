@@ -8,8 +8,51 @@ public class Duke {
 
     static ArrayList<Task> tasks = new ArrayList<>();
 
+    static String file = "./data/duke.txt";
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    private static void loadFile(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        if (!f.isFile()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+            }
+        }
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String[] inputs = s.nextLine().split("/");
+            Task task;
+            if ("[T]".equals(inputs[0])) {
+                task = new Todo(inputs[2]);
+            } else if ("[D]".equals(inputs[0])) {
+                task = new Deadline(inputs[2], inputs[3]);
+            } else if ("[E]".equals(inputs[0])) {
+                task = new Event(inputs[2], inputs[3], inputs[4]);
+            } else {
+                task = new Task(inputs[0], inputs[2]);
+            }
+
+            if (inputs[1].equals("1")) {
+                task.mark();
+            }
+            tasks.add(task);
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            loadFile("data/duke.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
 
         greet();
         boolean isExiting = false;
@@ -75,7 +118,6 @@ public class Duke {
         tasks.add(task);
         System.out.println("\t Got it. Uncle added this task:\n\t\t " + task
                 + "\n\t Now you have " + tasks.size() + " task(s) in the list.");
-
     }
 
     // list out all tasks
@@ -119,6 +161,12 @@ public class Duke {
         } else {
             Task todo = new Todo(message);
             updateTasks(todo);
+            try {
+                appendToFile(file, todo.getSymbol() + "/" + todo.getStatus() + "/"
+                        + todo.getDescription() + "\n");
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
         }
     }
 
@@ -136,6 +184,12 @@ public class Duke {
             String by = args[1].trim();
             Task deadline = new Deadline(desc, by);
             updateTasks(deadline);
+            try {
+                appendToFile(file, deadline.getSymbol() + "/" + deadline.getStatus() +
+                        "/" + desc + "/" + by + "\n");
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
         }
     }
 
@@ -162,6 +216,12 @@ public class Duke {
                 String end = duration[1].trim();
                 Task event = new Event(desc, start, end);
                 updateTasks(event);
+                try {
+                    appendToFile(file, event.getSymbol() + "/" + event.getStatus() +
+                            "/" + desc + "/" + start + "/" + end + "\n");
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
             }
         }
     }

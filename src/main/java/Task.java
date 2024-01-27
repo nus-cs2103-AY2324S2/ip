@@ -1,8 +1,10 @@
 public class Task {
+        protected String symbol;
         protected String description;
         protected boolean isDone;
 
-        public Task(String description) {
+        public Task(String symbol, String description) {
+            this.symbol = symbol;
             this.description = description;
             this.isDone = false;
         }
@@ -17,6 +19,18 @@ public class Task {
 
         public void unmark() {
             this.isDone = false;
+        }
+
+        public String getSymbol() {
+            return this.symbol;
+        }
+
+        public String getStatus() {
+            return isDone ? "1" : "0";
+        }
+
+        public String getDescription() {
+            return this.description;
         }
 
         @Override
