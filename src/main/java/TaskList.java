@@ -4,7 +4,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     public TaskList(ArrayList<Task> tasks) {
@@ -15,15 +15,11 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void deleteTask(int index) throws ArtemisException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new ArtemisException("Invalid task index. Please provide a valid index.");
-        }
-
+    public void deleteTask(int index) {
         tasks.remove(index);
     }
 
     public ArrayList<Task> getTasks() {
-        return new ArrayList<>(tasks); // Return a copy to avoid direct modification
+        return tasks;
     }
 }

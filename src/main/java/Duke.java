@@ -7,17 +7,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Duke {
-    private Ui ui;
+    private static final String FILE_PATH = "./data/artemis.txt";
+    private static final String DIRECTORY_PATH = "./data/";
     private Storage storage;
     private TaskList tasks;
+    private Ui ui;
 
-    public Duke(String filePath) {
+    public Duke(String filepath) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(filepath);
         try {
             tasks = new TaskList(storage.load());
         } catch (ArtemisException e) {
@@ -27,19 +27,14 @@ public class Duke {
     }
 
     public void run() {
-        ui.showWelcome();
-
         Scanner sc = new Scanner(System.in);
+
+        ui.showWelcomeMessage();
+
         while (true) {
             String input = sc.nextLine();
-            if (input.equals("bye")) {
-                break;
-            }
-
-            Command command = Parser.parseCommand(input);
-            command.execute(tasks, ui, storage);
+            Parser.parseInput(input, tasks, ui, storage);
         }
-        sc.close();
     }
 
     public static void main(String[] args) {

@@ -2,3 +2,4 @@ T | 0 | buy book
 T | 0 | return book
 D | 0 | buy | Dec 02 2024 7:00pm
 E | 0 | meeting | Jan 02 2024 6:00pm - Jan 02 2024 7:00pm
+T | 0 | cry
