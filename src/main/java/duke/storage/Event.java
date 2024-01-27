@@ -24,9 +24,27 @@ public class Event extends Task {
      * @param endDate     End date of the event
      */
     public Event(String description, String startDate, String endDate) {
-        super(description);
+        super(description, TaskType.EVENT);
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    /**
+     * Get the start date of the event
+     *
+     * @return Start date of the event
+     */
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * Get the end date of the event
+     *
+     * @return End date of the event
+     */
+    public String getEndDate() {
+        return this.endDate;
     }
 
     /**

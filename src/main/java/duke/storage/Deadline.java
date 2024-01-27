@@ -18,8 +18,17 @@ public class Deadline extends Task {
      * @param dueDate     Due date of the deadline
      */
     public Deadline(String description, String dueDate) {
-        super(description);
+        super(description, TaskType.DEADLINE);
         this.dueDate = dueDate;
+    }
+
+    /**
+     * Get the due date of the deadline
+     *
+     * @return Due date of the deadline
+     */
+    public String getDueDate() {
+        return this.dueDate;
     }
 
     /**

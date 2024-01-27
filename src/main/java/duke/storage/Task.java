@@ -7,6 +7,20 @@ package duke.storage;
  */
 public class Task {
     /**
+     * Type of task supported by the application
+     */
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
+    /**
+     * Type of task
+     */
+    private final TaskType type;
+
+    /**
      * Description of the task
      */
     private String description;
@@ -20,10 +34,39 @@ public class Task {
      * Constructor for creating a task
      *
      * @param description Description of the task
+     * @param type        Type of task
      */
-    public Task(String description) {
+    protected Task(String description, TaskType type) {
         this.description = description;
+        this.type = type;
         this.isDone = false;
+    }
+
+    /**
+     * Get the type of the task
+     *
+     * @return Type of the task
+     */
+    public TaskType getType() {
+        return this.type;
+    }
+
+    /**
+     * Get the description of the task
+     *
+     * @return Description of the task
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Get the status of the task
+     *
+     * @return Status of the task
+     */
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     /**
