@@ -18,14 +18,14 @@ import java.time.format.FormatStyle;
 public class QueryCommand extends Command {
 
     /**
-     * The type of query command (FIND).
+     * The type of query command.
      */
     private Command.Types commandType;
 
     /**
      * The type of task to be queried (deadline, event).
      */
-    private String queryType;
+    private String query;
 
     /**
      * The date used for querying tasks.
@@ -35,13 +35,13 @@ public class QueryCommand extends Command {
     /**
      * Constructs a QueryCommand with the specified command type, query type, and date.
      *
-     * @param commandType The type of query command (FIND).
-     * @param queryType   The type of task to be queried (deadline, event).
+     * @param commandType The type of query command.
+     * @param query   The type of task to be queried (deadline, event).
      * @param date        The date used for querying tasks.
      */
-    public QueryCommand(Command.Types commandType, String queryType, LocalDate date) {
+    public QueryCommand(Command.Types commandType, String query, LocalDate date) {
         this.commandType = commandType;
-        this.queryType = queryType;
+        this.query = query;
         this.date = date;
     }
 
@@ -54,9 +54,11 @@ public class QueryCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) {
         switch (this.commandType) {
-            case FIND:
-                find(tasks, storage);
+            case QUERY:
+                query(tasks);
                 break;
+            case FIND:
+                find(tasks);
         }
     }
 
@@ -67,26 +69,25 @@ public class QueryCommand extends Command {
      */
     @Override
     public String getTestData() {
-        return this.queryType;
+        return this.query;
     }
 
     /**
      * Finds tasks based on the specified query type and date, printing the results to the UI.
      *
      * @param tasks   The TaskList from which tasks are queried.
-     * @param storage The Storage where changes are saved.
      */
-    public void find(TaskList tasks, Storage storage) {
+    public void query(TaskList tasks) {
         String formattedDate = this.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
 
-        if (this.queryType.equals("deadline")) {
+        if (this.query.equals("deadline")) {
             UI.print("Below are deadlines that are due on " + formattedDate);
             for (Task task : tasks.fetchAll()) {
                 if (task instanceof Deadline && task.queryByDate(this.date)) {
                     UI.print(task);
                 }
             }
-        } else if (this.queryType.equals("event")) {
+        } else if (this.query.equals("event")) {
             UI.print("Below are events that are operating on " + formattedDate);
             for (Task task : tasks.fetchAll()) {
                 if (task instanceof Event && task.queryByDate(date)) {
@@ -95,6 +96,21 @@ public class QueryCommand extends Command {
             }
         } else {
             UI.print("Could not query given task type");
+        }
+    }
+
+    /**
+     * Finds and prints tasks in the task list that match the specified query.
+     *
+     * @param tasks   The TaskList from which tasks are queried.
+     */
+    public void find(TaskList tasks) {
+        UI.print("Here are the matching tasks in your list:");
+        int index = 1;
+        for (Task task : tasks.fetchAll()) {
+            if (task.getName().contains(this.query)) {
+                UI.print(index + "." + task);
+            }
         }
     }
 }
