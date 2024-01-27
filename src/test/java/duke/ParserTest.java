@@ -1,5 +1,12 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import duke.command.CurrentTask;
 import duke.command.List;
 import duke.command.Mark;
@@ -7,12 +14,7 @@ import duke.command.Unmark;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Todo;
-import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
 
@@ -33,10 +35,10 @@ public class ParserTest {
         CurrentTask curr = new CurrentTask(tasks);
         assertEquals(curr.reply(), parser.parse(textTwo).reply());
 
-        Mark mark = new Mark(0,tasks);
+        Mark mark = new Mark(0, tasks);
         assertEquals(mark.reply(), parser.parse(textThree).reply());
 
-        Unmark unmark = new Unmark(0,tasks);
-        assertEquals(unmark.reply(),parser.parse(textFour).reply());
+        Unmark unmark = new Unmark(0, tasks);
+        assertEquals(unmark.reply(), parser.parse(textFour).reply());
     }
 }
