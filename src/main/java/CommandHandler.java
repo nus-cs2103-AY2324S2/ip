@@ -87,6 +87,8 @@ public class CommandHandler {
                         System.out.println("Error: CommandSet Hashtable contains a command that is not implemented in the switch statement!");
                         break;
                 }
+                // To store the updated Task List
+                Storage.store();
         }
         return false;
     }

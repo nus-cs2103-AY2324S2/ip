@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -28,7 +29,7 @@ public class TaskList {
         taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
-        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
+        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));   
     }
 
 
@@ -52,5 +53,9 @@ public class TaskList {
         System.out.println(task.toString());
         System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
         taskList.remove(idx-1);
+    }
+
+    public static Task getTask(int idx) {
+        return taskList.get(idx-1);
     }
 }

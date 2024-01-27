@@ -1,4 +1,4 @@
-
+import java.io.IOException;
 
 public class Bird {
    
@@ -6,7 +6,10 @@ public class Bird {
     public static void main(String[] args) { 
         greet();
         TaskList.create();
+        
         Storage.init();
+       
+        
         CommandHandler.scan();
     }
 
