@@ -9,22 +9,36 @@ public class HughJazz {
         String userInput;
 
         while (true) {
-            userInput = scn.nextLine().trim();
-
-            if("bye".equalsIgnoreCase(userInput)) {
-                break;
-            } else if("list".equalsIgnoreCase(userInput)) {
-                printTasks();
-            } else if (userInput.startsWith("mark ")) {
-                markTask(userInput, true);
-            } else if (userInput.startsWith("unmark ")) {
-                markTask(userInput, false);
-            } else{
-                addTask(userInput);
+            try {
+                userInput = scn.nextLine().trim();
+                if("bye".equalsIgnoreCase(userInput)) {
+                    break;
+                } else{
+                    handleInput(userInput);
+                }
+            } catch (ChatbotException e) {
+                System.out.println(e.getMessage());
             }
+
+
+
         }
         ending();
         scn.close();
+    }
+
+    private static void handleInput(String userInput) throws ChatbotException {
+        if (userInput.toLowerCase().startsWith("todo")) {
+            addTask(userInput, "todo");
+        } else if (userInput.toLowerCase().startsWith("deadline")) {
+            addTask(userInput, "deadline");
+        } else if (userInput.toLowerCase().startsWith("event")) {
+            addTask(userInput, "event");
+        } else if ("list".equalsIgnoreCase(userInput)) {
+            printTasks();
+        } else {
+            throw new ChatbotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
     }
 
     public static void greeting() {
@@ -34,11 +48,11 @@ public class HughJazz {
     public static void ending() {
         System.out.println("Bye. Hope to see you again soon!");
     }
-    private static void addTask(String userInput) {
-        String[] parts = userInput.split(" ", 2);
-        String taskType = parts[0].toLowerCase();
-        String taskDetails = parts[1];
-
+    private static void addTask(String userInput, String taskType) throws ChatbotException {
+        String taskDetails = userInput.substring(taskType.length()).trim();
+        if (taskDetails.isEmpty()) {
+            throw new ChatbotException("OOPS!!! The description of a " + taskType + " cannot be empty.");
+        }
         if (taskCount < MAX_TASKS) {
             Task newTask;
             if (taskType.equals("todo")) {
