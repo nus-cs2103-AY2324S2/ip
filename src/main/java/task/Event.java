@@ -1,17 +1,25 @@
 package task;
 
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected String at;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, String at) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.at = at;
+    }
+
+    public Event(String description, String at, boolean isDone) {
+        super(description, isDone);
+        this.at = at;
+    }
+
+    @Override
+    public String outputString() {
+        return "E | " + super.outputString() + " | " + at;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (at: " + at +  ")";
     }
 }
