@@ -1,3 +1,5 @@
+package duke;
+
 public class Parser {
     public static boolean parse(String command, TaskList items, Ui ui) throws DukeException {
         if (command.equals("bye")) {
@@ -87,7 +89,7 @@ public class Parser {
 
         } else if (command.startsWith("delete")) {
             if (command.length() <= 7) {
-                throw new DukeException("OOPS!!! Task ID cannot be empty.");
+                throw new DukeException("OOPS!!! duke.Task ID cannot be empty.");
             }
 
             try {
