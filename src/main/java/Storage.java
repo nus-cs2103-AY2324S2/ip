@@ -1,10 +1,10 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class Storage {
     public static ArrayList<Task> readTodoData(File f) {
@@ -57,9 +57,9 @@ public class Storage {
         case "[T]":
             return new Todo(isDone, taskSplit[2]);
         case "[D]":
-            return new Deadline(isDone, taskSplit[2], taskSplit[3]);
+            return new Deadline(isDone, taskSplit[2], LocalDateTime.parse(taskSplit[3], Duke.inputdtFormatter));
         case "[E]":        
-            return new Event(isDone, taskSplit[2], taskSplit[3], taskSplit[4]);
+            return new Event(isDone, taskSplit[2],  LocalDateTime.parse(taskSplit[3], Duke.inputdtFormatter),  LocalDateTime.parse(taskSplit[4], Duke.inputdtFormatter));
         default:
             throw new TaskCreationException("No such task: " + taskSplit[0] + " for " + task);
         }

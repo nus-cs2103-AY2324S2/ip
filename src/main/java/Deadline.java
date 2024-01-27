@@ -1,18 +1,20 @@
-public class Deadline extends Task {
-    private String deadline;
+import java.time.LocalDateTime;
 
-    public Deadline(boolean isDone, String description, String deadline) {
+public class Deadline extends Task {
+    private LocalDateTime deadline;
+
+    public Deadline(boolean isDone, String description, LocalDateTime deadline) {
         super(isDone, description);
         this.deadline = deadline;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + deadline.format(Duke.outputdtFormatter) + ")";
     }
 
     @Override
     public String toSave() {
-        return "[D]|" + super.toSave() + "|" + deadline;
+        return "[D]|" + super.toSave() + "|" + deadline.format(Duke.inputdtFormatter);
     }
 }
