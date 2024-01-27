@@ -27,6 +27,8 @@ test {
     }
 }
 
+mainClassName = 'duke.Duke'
+
 application {
     mainClass.set("duke.Duke")
 }
