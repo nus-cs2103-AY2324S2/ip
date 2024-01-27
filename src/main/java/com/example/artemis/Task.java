@@ -2,31 +2,63 @@ package com.example.artemis;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Represents a task in the Artemis application.
+ * This is an abstract class extended by specific task types (Todo, Deadline, Event).
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a Task with the specified description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return A string representation of the task.
+     */
     @Override
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + description;
     }
 
+    /**
+     * Converts the task to a string for storage in a file.
+     *
+     * @return A string representation of the task for storage in a file.
+     */
     public abstract String toFileString();
 
-    // Convert a string from the file to a task
+    /**
+     * Converts a string from the file to a Task object.
+     *
+     * @param fileString The string representation of the task in the file.
+     * @return A Task object created from the file string.
+     * @throws IllegalArgumentException If the file string has an invalid format.
+     */
     public static Task fromFileString(String fileString) {
         String[] parts = fileString.split("\\|");
 
