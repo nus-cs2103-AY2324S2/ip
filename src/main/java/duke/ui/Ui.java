@@ -76,18 +76,34 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-    public void showDueTaskList(List<Task> taskList, LocalDate localDate) {
+    public void showDueTaskList(List<Task> tasks, LocalDate localDate) {
         System.out.println(DIVIDER);
-        if (taskList.isEmpty()) {
+        if (tasks.isEmpty()) {
             System.out.printf("You have no task due on %s\n",
                     localDate.format(DateTimeFormatter.ofPattern("MM dd yy")));
         } else {
             System.out.printf("The following tasks are due on %s\n",
                     localDate.format(DateTimeFormatter.ofPattern("MM dd yy")));
-            for(int i = 0; i< taskList.size(); i++) {
-                System.out.println(i + 1 + "." + " " + taskList.get(i));
-            }
+
+            showListView(tasks);
         }
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Shows the tasks in list format
+     * @param tasks
+     */
+    private void showListView(List<Task> tasks) {
+        for(int i = 0; i< tasks.size(); i++) {
+            System.out.println(i + 1 + "." + " " + tasks.get(i));
+        }
+    }
+
+    public void showFindResult(List<Task> tasks) {
+        System.out.println(DIVIDER);
+        System.out.println("Here are the matching tasks in your list:");
+        showListView(tasks);
         System.out.println(DIVIDER);
     }
 
