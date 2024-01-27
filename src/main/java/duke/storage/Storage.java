@@ -1,15 +1,20 @@
 package duke.storage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import duke.exceptions.MissingArgumentException;
 import duke.exceptions.TaskNotSupportedException;
+import duke.storage.Task.TaskType;
 
 /**
  * The UI CLI class handles storing of elements required for
@@ -215,5 +220,62 @@ public class Storage {
         FileWriter writer = new FileWriter(file);
         jsonStorage.write(writer, 2, 0);
         writer.close();
+    }
+
+    /**
+     * Populate storage array from file in JSON format
+     *
+     * @param file File to load values from
+     */
+    private static void loadStorageFromFile(File file) throws TaskNotSupportedException, FileNotFoundException {
+        // Read stored tasks from file
+        FileInputStream input = new FileInputStream(file);
+        JSONArray jsonStorage = new JSONArray(new JSONTokener(input));
+
+        // Populate storage array
+        for (int i = 0; i < jsonStorage.length(); i++) {
+            // Get json entry
+            JSONObject entry = jsonStorage.getJSONObject(i);
+
+            // Parse JSON entry to task
+            Task task;
+            switch (TaskType.valueOf(entry.getString("type"))) {
+            case TODO:
+                task = new Todo(entry.getString("description"), entry.getBoolean("isDone"));
+                break;
+
+            case DEADLINE:
+                task = new Deadline(entry.getString("description"),
+                        entry.getString("dueDate"),
+                        entry.getBoolean("isDone"));
+                break;
+
+            case EVENT:
+                task = new Event(entry.getString("description"),
+                        entry.getString("startDate"),
+                        entry.getString("endDate"),
+                        entry.getBoolean("isDone"));
+                break;
+            default:
+                throw new TaskNotSupportedException(
+                        String.format("Task '%s' not currently supported", entry.getString("type")));
+            }
+
+            // Add task to storage array
+            storageArray.add(task);
+        }
+    }
+
+    /**
+     * Initialise storage for application
+     */
+    public static void initialiseStorage() {
+        try {
+            loadStorageFromFile(saveFile);
+        } catch (TaskNotSupportedException e) {
+            System.out.println(String.format("WARNING: %s, some stored tasks will not be loaded", e.getMessage()));
+        } catch (FileNotFoundException e) {
+            System.out.println("WARNING: File not found, stored tasks will not be loaded");
+        }
     }
 }
