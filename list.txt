@@ -1,0 +1,4 @@
+[D][ ] borrow (m)
+[E][ ] borro (from 2pm to 3pm)
+[T][ ] run
+[E][ ] borro (from 2pm to 3pm)
