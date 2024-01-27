@@ -55,6 +55,12 @@ public class SaveFile {
         }
     }
 
+    /**
+     * Saves the task list into a file.
+     *
+     * @param taskList Task list to be saved.
+     * @throws TalkingBotException If IOException occurs.
+     */
     public void saveTasksToFile(TaskList taskList) throws TalkingBotException {
         try {
             FileWriter fileWriter = new FileWriter(this.saveFile);
@@ -73,6 +79,11 @@ public class SaveFile {
         }
     }
 
+    /**
+     * Returns the path.
+     *
+     * @return Path.
+     */
     public String getFileName() {
         return this.path;
     }

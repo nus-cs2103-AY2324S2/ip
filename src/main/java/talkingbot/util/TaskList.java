@@ -75,9 +75,11 @@ public class TaskList {
     }
 
     /**
-     * Returns how the TaskList object will be printed as a String.
+     * Returns a filtered list of tasks that contains filterString
+     * in their descriptions.
      *
-     * @return A formatted String.
+     * @param filterString String to filter task descriptions with.
+     * @return String of filtered tasks.
      */
     public String filterList(String filterString) {
         StringBuilder returnedString = new StringBuilder();
@@ -97,6 +99,11 @@ public class TaskList {
         return returnedString.toString();
     }
 
+    /**
+     * Returns how the TaskList object will be printed as a String.
+     *
+     * @return String of tasks.
+     */
     @Override
     public String toString() {
         StringBuilder returnedString = new StringBuilder();
