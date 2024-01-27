@@ -29,72 +29,73 @@ public class Storage {
         // Create task to be inserted
         Task task;
         String description;
+
         switch (item.toLowerCase()) {
-            case "todo":
-                if (arguments.length <= 0) {
-                    throw new MissingArgumentException("Argument missing - Description of a todo cannot be empty");
+        case "todo":
+            if (arguments.length <= 0) {
+                throw new MissingArgumentException("Argument missing - Description of a todo cannot be empty");
+            }
+
+            description = String.join(" ", arguments);
+            task = new Todo(description);
+            break;
+
+        case "deadline":
+            // Get index of '/by' argument
+            int byIndex = -1;
+            for (int i = 0; i < arguments.length; i++) {
+                if (arguments[i].equals("/by")) {
+                    byIndex = i;
+                    break;
+                }
+            }
+
+            if (byIndex == -1) {
+                throw new MissingArgumentException("Argument '/by' missing");
+            }
+
+            // Extract task description & due date
+            description = String.join(" ", Arrays.copyOfRange(arguments, 0, byIndex));
+            String dueDate = String.join(" ", Arrays.copyOfRange(arguments, byIndex + 1, arguments.length));
+
+            task = new Deadline(description, dueDate);
+            break;
+
+        case "event":
+            // Get index of '/from' and '/to' argument
+            int fromIndex = -1;
+            int toIndex = -1;
+            for (int i = 0; i < arguments.length; i++) {
+                if (fromIndex != -1 && toIndex != -1) {
+                    break;
                 }
 
-                description = String.join(" ", arguments);
-                task = new Todo(description);
-                break;
-
-            case "deadline":
-                // Get index of '/by' argument
-                int byIndex = -1;
-                for (int i = 0; i < arguments.length; i++) {
-                    if (arguments[i].equals("/by")) {
-                        byIndex = i;
-                        break;
-                    }
+                if (fromIndex == -1 && arguments[i].equals("/from")) {
+                    fromIndex = i;
                 }
 
-                if (byIndex == -1) {
-                    throw new MissingArgumentException("Argument '/by' missing");
+                if (toIndex == -1 && arguments[i].equals("/to")) {
+                    toIndex = i;
                 }
+            }
 
-                // Extract task description & due date
-                description = String.join(" ", Arrays.copyOfRange(arguments, 0, byIndex));
-                String dueDate = String.join(" ", Arrays.copyOfRange(arguments, byIndex + 1, arguments.length));
+            if (fromIndex == -1) {
+                throw new MissingArgumentException("Argument '/from' missing");
+            } else if (toIndex == -1) {
+                throw new MissingArgumentException("Argument '/to' missing");
+            }
 
-                task = new Deadline(description, dueDate);
-                break;
+            // Extract task description, start and end date
+            description = String.join(" ", Arrays.copyOfRange(arguments, 0, fromIndex));
+            String startDate = String.join(" ", Arrays.copyOfRange(arguments, fromIndex + 1, toIndex));
+            String endDate = String.join(" ", Arrays.copyOfRange(arguments, toIndex + 1, arguments.length));
 
-            case "event":
-                // Get index of '/from' and '/to' argument
-                int fromIndex = -1;
-                int toIndex = -1;
-                for (int i = 0; i < arguments.length; i++) {
-                    if (fromIndex != -1 && toIndex != -1) {
-                        break;
-                    }
+            task = new Event(description, startDate, endDate);
+            break;
 
-                    if (fromIndex == -1 && arguments[i].equals("/from")) {
-                        fromIndex = i;
-                    }
-
-                    if (toIndex == -1 && arguments[i].equals("/to")) {
-                        toIndex = i;
-                    }
-                }
-
-                if (fromIndex == -1) {
-                    throw new MissingArgumentException("Argument '/from' missing");
-                } else if (toIndex == -1) {
-                    throw new MissingArgumentException("Argument '/to' missing");
-                }
-
-                // Extract task description, start and end date
-                description = String.join(" ", Arrays.copyOfRange(arguments, 0, fromIndex));
-                String startDate = String.join(" ", Arrays.copyOfRange(arguments, fromIndex + 1, toIndex));
-                String endDate = String.join(" ", Arrays.copyOfRange(arguments, toIndex + 1, arguments.length));
-
-                task = new Event(description, startDate, endDate);
-                break;
-
-            default:
-                throw new TaskNotSupportedException(
-                        String.format("Task '%s' is not yet supported. Please try again with another task.", item));
+        default:
+            throw new TaskNotSupportedException(
+                    String.format("Task '%s' is not yet supported. Please try again with another task.", item));
         }
 
         // Add item to storage
