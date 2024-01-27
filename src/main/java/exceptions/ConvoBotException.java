@@ -1,3 +1,5 @@
+package exceptions;
+
 public class ConvoBotException extends Exception {
     public ConvoBotException() {
         super();

@@ -1,4 +1,8 @@
+package tasks;
+
 import java.time.LocalDate;
+
+import utils.DateTime;
 
 public class Deadline extends Task {
     private LocalDate by;
@@ -14,7 +18,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFile() {
-        return "D | " + super.toFile() + " | " + DateTime.dateToString(this.by);
+        return "D | " + super.toFile() + " | " + DateTime.dateToFile(this.by);
     }
 
     @Override

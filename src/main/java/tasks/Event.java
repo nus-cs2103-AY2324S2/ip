@@ -1,4 +1,8 @@
+package tasks;
+
 import java.time.LocalDate;
+
+import utils.DateTime;
 
 public class Event extends Task {
     private LocalDate from;
@@ -16,7 +20,7 @@ public class Event extends Task {
 
     @Override
     public String toFile() {
-        return "E | " + super.toFile() + " | " + DateTime.dateToString(this.from) + " | " + DateTime.dateToString(this.to);
+        return "E | " + super.toFile() + " | " + DateTime.dateToFile(this.from) + " | " + DateTime.dateToFile(this.to);
     }
 
     @Override
