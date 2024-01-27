@@ -35,8 +35,9 @@ public class TaskList implements Serializable {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
+        s.append("1").append(". ").append(tasks.get(0));
         for (int i = 0; i < tasks.size(); i++) {
-            s.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+            s.append("\n").append(i + 1).append(". ").append(tasks.get(i));
         }
         return s.toString();
     }

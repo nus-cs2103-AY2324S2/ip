@@ -41,7 +41,7 @@ public class Ui {
     }
 
     public void showNote(String str) {
-        System.out.print("The cat hands a note to you, it reads:\n" + str);
+        System.out.println("The cat hands a note to you, it reads:\n" + str);
     }
 
     public void showCommandNotFound(String command) {
