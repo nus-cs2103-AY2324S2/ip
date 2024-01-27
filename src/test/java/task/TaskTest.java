@@ -1,6 +1,8 @@
 package task;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import duke.Parser;
 import org.junit.jupiter.api.Test;
 
 public class TaskTest {
@@ -38,19 +40,19 @@ public class TaskTest {
 
   @Test
   public void testDeadlineToString() {
-    Deadline deadline = new Deadline(1,"test deadline", "Aug 23 2020");
-    assertEquals("[D][ ] test deadline (by: Aug 23 2020)", deadline.toString());
+    Deadline deadline = new Deadline(1,"test deadline", Parser.parseDate("2020-08-23"));
+    assertEquals("[D][ ] test deadline (by: 2020-08-23)", deadline.toString());
 
-    Deadline deadline2 = new Deadline(1,"test deadline", "Aug 23 2020", true);
-    assertEquals("[D][X] test deadline (by: Aug 23 2020)", deadline2.toString());
+    Deadline deadline2 = new Deadline(1,"test deadline", Parser.parseDate("2020-08-23"), true);
+    assertEquals("[D][X] test deadline (by: 2020-08-23)", deadline2.toString());
   }
 
   @Test
   public void testEventToString() {
-    Event event = new Event(1,"test event", "Aug 23 2020", "Aug 24 2020");
-    assertEquals("[E][ ] test event (from: Aug 23 2020 to: Aug 24 2020)", event.toString());
+    Event event = new Event(1,"test event", Parser.parseDate("2020-08-23"), Parser.parseDate("2020-08-25"));
+      assertEquals("[E][ ] test event (from: 2020-08-23 to: 2020-08-25)", event.toString());
 
-    Event event2 = new Event(1,"test event", "Aug 23 2020", "Aug 24 2020", true);
-    assertEquals("[E][X] test event (from: Aug 23 2020 to: Aug 24 2020)", event2.toString());
+    Event event2 = new Event(1,"test event", Parser.parseDate("2020-08-23"), Parser.parseDate("2020-08-25"), true);
+    assertEquals("[E][X] test event (from: 2020-08-23 to: 2020-08-25)", event2.toString());
   }
 }

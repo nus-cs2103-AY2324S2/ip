@@ -1,12 +1,14 @@
 package database;
 
+import config.Config;
+
 import java.io.File;
 import java.sql.*;
 
 public class DB {
   private static Connection conn;
   public static void connect() throws SQLException {
-    String connectionUrl = config.config.dbConnectionUrl;
+    String connectionUrl = Config.dbConnectionUrl;
 
     String[] connectionUrlParts = connectionUrl.split("/");
     String databaseFolderName = connectionUrlParts[1];

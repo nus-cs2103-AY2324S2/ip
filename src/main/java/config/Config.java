@@ -4,7 +4,7 @@ package config;
 import io.github.cdimascio.dotenv.Dotenv;
 
 
-public class config {
+public class Config {
   public static String dbConnectionUrl;
 
   public static void loadEnv() throws RuntimeException {

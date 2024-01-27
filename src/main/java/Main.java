@@ -1,8 +1,10 @@
-import config.config;
 import java.sql.*;
+import config.Config;
+import duke.Duke;
+
 public class Main {
   public static void main(String[] args) {
-    config.loadEnv();
+    Config.loadEnv();
 
     try {
       database.DB.connect();
@@ -13,7 +15,13 @@ public class Main {
     }
 
     Duke app = new Duke("Aiken Dueet");
-    app.run();
+
+    try {
+      app.run();
+    } catch (Exception e) {
+      System.out.println("Something went wrong while running the app:");
+      System.out.println(e.getMessage());
+    }
 
     database.DB.disconnect();
   }

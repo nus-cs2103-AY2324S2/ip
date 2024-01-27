@@ -5,16 +5,16 @@ import task.Task;
 public class Event extends Task {
   public static final String type = "E";
 
-  private final String startDate;
-  private final String endDate;
+  private final java.time.LocalDate startDate;
+  private final java.time.LocalDate endDate;
 
-  public Event(int taskID, String description, String startDate, String endDate) {
+  public Event(int taskID, String description, java.time.LocalDate startDate, java.time.LocalDate endDate) {
     super(taskID, description);
     this.startDate = startDate;
     this.endDate = endDate;
   }
 
-  public Event(int taskID,String description, String startDate, String endDate, boolean isDone) {
+  public Event(int taskID,String description, java.time.LocalDate startDate, java.time.LocalDate endDate, boolean isDone) {
     super(taskID, description, isDone);
     this.startDate = startDate;
     this.endDate = endDate;
