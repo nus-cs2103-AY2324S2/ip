@@ -6,4 +6,6 @@ public class FilePath {
     public static final String LOGO_PATH = GRAPHICS_FOLDER + "snorlax.txt";
     public static final String GREETING_PATH = GRAPHICS_FOLDER + "greeting.txt";
     public static final String EXIT_PATH = GRAPHICS_FOLDER + "exit.txt";
+    public static final String HELP = GRAPHICS_FOLDER + "help.txt";
+
 }

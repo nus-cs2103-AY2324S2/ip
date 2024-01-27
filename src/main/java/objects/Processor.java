@@ -3,8 +3,7 @@ package objects;
 public class Processor {
     public static void greet() {
         System.out.println(Utils.getFile(FilePath.LOGO_PATH));
-        Utils.printLine();
-        System.out.println(Utils.getFile(FilePath.GREETING_PATH));
+        Utils.encaseLines(Utils.getFile(FilePath.GREETING_PATH));
     }
 
     public static void process (String input, TaskList tasks) {
@@ -27,6 +26,10 @@ public class Processor {
                 case Commands.DEADLINE:
                 case Commands.EVENT:
                     Commands.createTask(tasks, input);
+                    break;
+
+                case Commands.HELP:
+                    Commands.printHelp();
                     break;
 
                 default:

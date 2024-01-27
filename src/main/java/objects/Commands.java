@@ -8,6 +8,8 @@ public class Commands {
     public static final String TODO = "todo";
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
+    public static final String HELP = "help";
+
 
     public static void processTask(TaskList tasks, String input) throws InvalidIndexException, InvalidCommandException {
         String command = Utils.getCommandType(input);
@@ -110,5 +112,9 @@ public class Commands {
         tasks.remove(i);
         String o = String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.", task.toString(), tasks.size());
         Utils.encaseLines(o);
+    }
+
+    public static void printHelp() {
+        Utils.encaseLines(Utils.getFile(FilePath.HELP));
     }
 }

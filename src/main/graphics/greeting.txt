@@ -1,2 +1,2 @@
  Hello! I'm Snorlax
- What can I do for you?
+ Type 'help' for list of commands

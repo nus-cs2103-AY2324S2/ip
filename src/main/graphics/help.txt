@@ -1,0 +1,9 @@
+Command     Description
+list        Lists all tasks
+todo        Creates task of type todo
+event       Creates task of type event
+deadline    Creates task of type deadline
+mark        Marks task as done
+unmark      Marks task as not done
+delete      Deletes task
+bye         Ends program
