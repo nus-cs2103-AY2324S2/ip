@@ -12,9 +12,20 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * The TaskList class manages a list of tasks and provides methods
+ * to add, retrieve, delete, and fetch tasks from the list.
+ */
 public class TaskList {
+
+    /** The list of tasks managed by the TaskList. */
     private List<Task> tasks;
 
+    /**
+     * Constructs a TaskList based on the data provided.
+     * Parses the input data and initializes the list of tasks accordingly.
+     * @param data The list of strings representing task data.
+     */
     public TaskList(List<String> data) {
         this.tasks = new ArrayList<>();
         for (String line : data) {
@@ -45,24 +56,46 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the TaskList.
+     * @param task The task to be added.
+     * @return true if the task is successfully added.
+     */
     public boolean addTask(Task task) {
         return this.tasks.add(task);
     }
 
+    /**
+     * Retrieves a task from the TaskList based on the specified index.
+     * @param index The index of the task to be retrieved.
+     * @return The task at the specified index.
+     */
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
 
+    /**
+     * Deletes a task from the TaskList based on the specified index.
+     * @param index The index of the task to be deleted.
+     * @return The task that was removed from the TaskList.
+     */
     public Task deleteTask(int index) {
         return this.tasks.remove(index);
     }
 
+    /**
+     * Gets the number of tasks in the TaskList.
+     * @return The size of the TaskList.
+     */
     public int getSize() {
         return this.tasks.size();
     }
 
+    /**
+     * Fetches all tasks from the TaskList.
+     * @return A List containing all tasks in the TaskList.
+     */
     public List<Task> fetchAll() {
         return this.tasks;
     }
-
 }

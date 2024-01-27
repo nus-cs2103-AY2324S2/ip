@@ -15,7 +15,19 @@ import exceptions.InvalidSlashParameterException;
 
 import java.time.LocalDate;
 
+/**
+ * The Parser class is responsible for parsing user input and creating corresponding Command objects.
+ * It includes methods for parsing various commands such as adding, managing, and querying tasks.
+ */
 public class Parser {
+
+    /**
+     * Parses the input string and creates the corresponding Command object.
+     *
+     * @param input The user input string.
+     * @return The Command object based on the parsed input.
+     * @throws LuluException If an error occurs during parsing.
+     */
     public Command parse(String input) throws LuluException {
         String firstWord = input.split(" ")[0];
         if (input.toLowerCase().equals("list")) {
@@ -39,6 +51,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a ManageCommand object based on the specified command type and input.
+     *
+     * @param command The type of ManageCommand (MARK, UNMARK, DELETE, FIND).
+     * @param input   The user input string.
+     * @return The ManageCommand object.
+     * @throws LuluException If an error occurs during parsing.
+     */
     public Command manageTasks(Command.Types command, String input) throws LuluException {
         switch (command) {
             case MARK:
@@ -54,6 +74,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates an AddCommand object based on the specified command type and input.
+     *
+     * @param command The type of AddCommand (TODO, DEADLINE, EVENT).
+     * @param input   The user input string.
+     * @return The AddCommand object.
+     * @throws LuluException If an error occurs during parsing.
+     */
     public Command addTasks(Command.Types command, String input) throws LuluException {
         switch (command) {
             case TODO:
@@ -67,7 +95,13 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Parses the input string for a MARK command and creates the corresponding ManageCommand object.
+     *
+     * @param input The user input string.
+     * @return The ManageCommand object for marking a task.
+     * @throws LuluException If an error occurs during parsing.
+     */
     public Command mark(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 1) {
@@ -77,6 +111,13 @@ public class Parser {
         return new ManageCommand(Command.Types.MARK, index);
     }
 
+    /**
+     * Parses the input string for an UNMARK command and creates the corresponding ManageCommand object.
+     *
+     * @param input The user input string.
+     * @return The ManageCommand object for unmarking a task.
+     * @throws LuluException If an error occurs during parsing.
+     */
     public Command unmark(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 1) {
@@ -86,6 +127,13 @@ public class Parser {
         return new ManageCommand(Command.Types.UNMARK, index);
     }
 
+    /**
+     * Parses the input string for a DELETE command and creates the corresponding ManageCommand object.
+     *
+     * @param input The user input string.
+     * @return The ManageCommand object for deleting a task.
+     * @throws LuluException If an error occurs during parsing.
+     */
     public Command delete(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 1) {
@@ -95,6 +143,13 @@ public class Parser {
         return new ManageCommand(Command.Types.DELETE, index);
     }
 
+    /**
+     * Parses the input string for a FIND command and creates the corresponding QueryCommand object.
+     *
+     * @param input The user input string.
+     * @return The QueryCommand object for finding tasks.
+     * @throws LuluException If an error occurs during parsing.
+     */
     public Command find(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 2) {
@@ -106,7 +161,13 @@ public class Parser {
         return new QueryCommand(Command.Types.FIND, taskType, date);
     }
 
-
+    /**
+     * Parses the input string for a TODO command and creates the corresponding AddCommand object.
+     *
+     * @param input The user input string.
+     * @return The AddCommand object for adding a Todo task.
+     * @throws LuluException If an error occurs during parsing.
+     */
     public Command todo(String input) throws LuluException {
         if (input.split(" ").length <= 1) {
             throw new InvalidCommandException();
@@ -118,6 +179,13 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Parses the input string for a DEADLINE command and creates the corresponding AddCommand object.
+     *
+     * @param input The user input string.
+     * @return The AddCommand object for adding a Deadline task.
+     * @throws LuluException If an error occurs during parsing.
+     */
     public Command deadline(String input) throws LuluException {
         if (input.split(" ").length <= 1) {
             throw new InvalidCommandException();
@@ -134,6 +202,13 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Parses the input string for an EVENT command and creates the corresponding AddCommand object.
+     *
+     * @param input The user input string.
+     * @return The AddCommand object for adding an Event task.
+     * @throws LuluException If an error occurs during parsing.
+     */
     public Command event(String input) throws LuluException {
         if (input.split(" ").length <= 1) {
             throw new InvalidCommandException();
