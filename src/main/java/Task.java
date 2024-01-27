@@ -26,6 +26,10 @@ public abstract class Task {
     public static Task fromFileString(String fileString) {
         String[] parts = fileString.split("\\|");
 
+        if (parts.length < 3) {
+            throw new IllegalArgumentException("Invalid file format: " + fileString);
+        }
+
         String taskType = parts[0].trim();
         boolean isDone = Integer.parseInt(parts[1].trim()) == 1;
         String description = parts[2].trim();
@@ -34,9 +38,15 @@ public abstract class Task {
         if (taskType.equals("T")) {
             task = new Todo(description);
         } else if (taskType.equals("D")) {
+            if (parts.length < 4) {
+                throw new IllegalArgumentException("Invalid file format: " + fileString);
+            }
             String by = parts[3].trim();
             task = new Deadline(description, by);
         } else if (taskType.equals("E")) {
+            if (parts.length < 4) {
+                throw new IllegalArgumentException("Invalid file format: " + fileString);
+            }
             String from = parts[3].split(" - ")[0].trim();
             String to = parts[3].split(" - ")[1].trim();
             task = new Event(description, from, to);

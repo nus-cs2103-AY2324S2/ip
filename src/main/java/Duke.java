@@ -139,7 +139,15 @@ public class Duke {
             try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    tasks.add(Task.fromFileString(line));
+                    try {
+                        Task task = Task.fromFileString(line);
+                        tasks.add(task);
+                    } catch (IllegalArgumentException e) {
+                        // Log the error or handle it based on your application's needs
+                        System.err.println("Error loading task from file: " + e.getMessage());
+                        // Optionally, you can choose to skip the corrupted line and continue with the next line
+                        continue;
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
