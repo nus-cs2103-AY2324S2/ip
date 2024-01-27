@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -72,7 +74,13 @@ public class Duke {
                 if (deadlineArr.length == 1) {
                     throw new IncompleteCommandException(String.format("%s\n Sorry, the date of a deadline cannot be empty :(\n%s", lineBreak, lineBreak));
                 }
-                Task newDeadline = new Deadline(deadlineArr[0], deadlineArr[1]);
+                LocalDate by;
+                try {
+                    by = LocalDate.parse(deadlineArr[1]);
+                } catch (DateTimeParseException dateTimeParseE) {
+                    throw new InvalidCommandException(String.format("%s\n Sorry, please input the date of a deadline in the format YYYY-MM-DD\n%s", lineBreak, lineBreak));
+                }
+                Task newDeadline = new Deadline(deadlineArr[0], by);
                 addLst(newDeadline);
                 break;
             case "event":
@@ -87,7 +95,18 @@ public class Duke {
                 if (eventToArr.length == 1) {
                     throw new IncompleteCommandException(String.format("%s\n Sorry, the end date of an event cannot be empty :(\n%s", lineBreak, lineBreak));
                 }
-                Task newEvent = new Event(eventFromArr[0], eventToArr[0], eventToArr[1]);
+                LocalDate from;
+                LocalDate to;
+                try {
+                    from = LocalDate.parse(eventToArr[0]);
+                    to = LocalDate.parse(eventToArr[1]);
+                } catch (DateTimeParseException dateTimeParseE) {
+                    throw new InvalidCommandException(String.format("%s\n Sorry, please input the dates of an event in the format YYYY-MM-DD\n%s", lineBreak, lineBreak));
+                }
+                if (from.isAfter(to)) {
+                    throw new InvalidCommandException(String.format("%s\n Sorry, please input the start date of an event before/on the end date\n%s", lineBreak, lineBreak));
+                }
+                Task newEvent = new Event(eventFromArr[0], from, to);
                 addLst(newEvent);
                 break;
             case "delete":
@@ -146,14 +165,14 @@ public class Duke {
                     lst.add(newTodo);
                     break;
                 case "D":
-                    Task newDeadline = new Deadline(taskArr[2], taskArr[3]);
+                    Task newDeadline = new Deadline(taskArr[2], LocalDate.parse(taskArr[3]));
                     if (taskArr[1].equals("1")) {
                         newDeadline.markAsDone();
                     }
                     lst.add(newDeadline);
                     break;
                 case "E":
-                    Task newEvent = new Event(taskArr[2], taskArr[3], taskArr[4]);
+                    Task newEvent = new Event(taskArr[2], LocalDate.parse(taskArr[3]), LocalDate.parse(taskArr[4]));
                     if (taskArr[1].equals("1")) {
                         newEvent.markAsDone();
                     }
