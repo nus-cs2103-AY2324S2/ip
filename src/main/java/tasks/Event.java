@@ -1,3 +1,5 @@
+package tasks;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +23,8 @@ public class Event extends Task {
         // init from string depending on type, else use given by string
         if (fromDate.isPresent() || fromDateTime.isPresent()) {
             this.from = formatFromString(from);
+        } else {
+            this.from = from;
         }
 
         this.toDate = parseDate(to);
@@ -28,6 +32,8 @@ public class Event extends Task {
         // init from string depending on type, else use given by string
         if (toDate.isPresent() || toDateTime.isPresent()) {
             this.to = formatToString(from);
+        } else {
+            this.to = to;
         }
 
     }
