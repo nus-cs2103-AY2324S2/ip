@@ -73,9 +73,17 @@ public class Duke {
                         System.out.println("Error. Deadline cannot be empty.");
                         break;
                     }
+                    String description = userInput.substring(8).split("/")[0].trim();
+                    if (description.isEmpty()) {
+                        System.out.println("Unknown deadline description.");
+                        break;
+                    }
+                    String by = userInput.split("/")[1].substring(2).trim();
+                    if (by.isEmpty()) {
+                        System.out.println("Unknown deadline.");
+                        break;
+                    }
                     System.out.println("Got it. I've added this task:");
-                    String description = userInput.substring(9).split("/")[0].trim();
-                    String by = userInput.split("/")[1].substring(3).trim();
                     Deadline d = new Deadline(description, by);
                     System.out.println(d);
                     task.add(d);
@@ -88,12 +96,24 @@ public class Duke {
                         System.out.println("Error. Event cannot be empty.");
                         break;
                     }
-                    System.out.println("Got it. I've added this task:");
-                    String input = userInput.substring(6);
+                    String input = userInput.substring(5).trim();
                     String descr = input.split("/")[0].trim();
-                    String from = input.split("/")[1].substring(5).trim();
-                    String to = input.split("/")[2].substring(3).trim();
+                    if (descr.isEmpty()) {
+                        System.out.println("Unknown event description.");
+                        break;
+                    }
+                    String from = input.split("/")[1].substring(4).trim();
+                    if (from.isEmpty()) {
+                        System.out.println("Unknown event start time.");
+                        break;
+                    }
+                    String to = input.split("/")[2].substring(2).trim();
+                    if (to.isEmpty()) {
+                        System.out.println("Unknown event end time.");
+                        break;
+                    }
                     Event e = new Event(descr, from, to);
+                    System.out.println("Got it. I've added this task:");
                     System.out.println(e);
                     task.add(e);
                     counter++;
