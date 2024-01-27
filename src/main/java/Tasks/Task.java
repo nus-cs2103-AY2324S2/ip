@@ -1,14 +1,20 @@
+package Tasks;
 public class Task {
     private String name;
     private Boolean done;
+    protected String type;
 
-    Task(String name) {
+    protected Task(String name) {
         this.name = name;
         this.done = false;
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public Boolean isDone() {
