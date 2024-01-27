@@ -50,7 +50,13 @@ public class Naruto {
             actions.addLast(new List(store));
             break;
         case "mark":
-            idx = sc.nextInt();
+            input = sc.next();
+            try {
+                idx = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                handleException(NarutoException.createInvalidIndexException());
+                return;
+            }
             if (idx > store.getSize() || idx <= 0) {
                 handleException(NarutoException.createInvalidIndexException());
                 return;
@@ -58,7 +64,13 @@ public class Naruto {
             actions.addLast(new Mark(store, idx));
             break;
         case "unmark":
-            idx = sc.nextInt();
+            input = sc.next();
+            try {
+                idx = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                handleException(NarutoException.createInvalidIndexException());
+                return;
+            }
             if (idx > store.getSize() || idx <= 0) {
                 handleException(NarutoException.createInvalidIndexException());
                 return;
@@ -86,7 +98,11 @@ public class Naruto {
             tokens = input.split("/by");
             description = tokens[0].trim();
             String by = tokens[1].trim();
-            actions.addLast(new Add(new Deadline(description, by), store));
+            if (!DateTimeUtil.isValid(by)) {
+                handleException(NarutoException.createInvalidDeadlineException());
+                return;
+            }
+            actions.addLast(new Add(new Deadline(description, DateTimeUtil.format(by)), store));
             break;
         case "event":
             input = sc.nextLine();
@@ -103,10 +119,22 @@ public class Naruto {
             tokens = tokens[1].split("/to");
             String from = tokens[0].trim();
             String to = tokens[1].trim();
-            actions.addLast(new Add(new Event(description, from, to), store));
+            if (!DateTimeUtil.isValid(from) || !DateTimeUtil.isValid(to)) {
+                handleException(NarutoException.createInvalidDeadlineException());
+                return;
+            }
+            actions.addLast(new Add(new Event(description, DateTimeUtil.format(from),
+                DateTimeUtil.format(to)),
+                store));
             break;
         case "delete":
-            idx = sc.nextInt();
+            input = sc.next();
+            try {
+                idx = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                handleException(NarutoException.createInvalidIndexException());
+                return;
+            }
             if (idx > store.getSize() || idx <= 0) {
                 handleException(NarutoException.createInvalidIndexException());
                 return;
@@ -118,7 +146,6 @@ public class Naruto {
         }
 
     }
-
     public static void act() {
         try {
             actions.pollFirst().execute();

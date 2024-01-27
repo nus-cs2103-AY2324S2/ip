@@ -5,13 +5,15 @@ import task.Event;
 import task.Deadline;
 import task.ToDo;
 
+import java.time.*;
+
 public class CSVUtil {
-    private String event;
-    private String marked;
-    private String description;
-    private String by;
-    private String from;
-    private String to;
+    private final String event;
+    private final String marked;
+    private final String description;
+    private final String by;
+    private final String from;
+    private final String to;
 
     // Constructor for Todo type.
     public CSVUtil(String event, String marked, String description) {
@@ -49,9 +51,9 @@ public class CSVUtil {
         this.event = vals[0];
         this.marked = vals[1];
         this.description = vals[2];
-        this.by = vals[3];
-        this.from = vals[4];
-        this.to = vals[5];
+        this.by = vals[3].equals("null") || vals[3].isEmpty() ? null : vals[3];
+        this.from = vals[4].equals("null") || vals[4].isEmpty() ? null : vals[4];
+        this.to = vals[5].equals("null") || vals[5].isEmpty() ? null : vals[5];
     }
 
     public Task toTask() {
@@ -66,14 +68,18 @@ public class CSVUtil {
         default:
             throw new IllegalArgumentException("Invalid 'marked' value: " + marked);
         }
-        // TODO: check for valid datetime format.
+        if (!DateTimeUtil.isValid(by) || !DateTimeUtil.isValid(from) || !DateTimeUtil.isValid(to)) {
+            throw new IllegalArgumentException("Invalid date format.");
+        }
+
         switch(event) {
         case "T":
             return new ToDo(isMarked, description);
         case "D":
-            return new Deadline(isMarked, description, by);
+            return new Deadline(isMarked, description, DateTimeUtil.parse(by));
         case "E":
-            return new Event(isMarked, description, from, to);
+            return new Event(isMarked, description, DateTimeUtil.parse(from),
+                DateTimeUtil.format(to));
         default:
             throw new IllegalArgumentException("Invalid 'event' value: " + event);
         }
@@ -81,7 +87,8 @@ public class CSVUtil {
     }
 
     public String toCSV() {
-        return String.format("%s,%s,%s,%s,%s,%s\n", event, marked, description, by, from, to);
+        return String.format("%s,%s,%s,%s,%s,%s\n", event, marked, description,
+            by, from, to);
     }
 
 }

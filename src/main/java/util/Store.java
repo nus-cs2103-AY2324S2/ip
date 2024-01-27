@@ -11,7 +11,6 @@ import task.Task;
 public class Store {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static final String FILE_PATH = "src/logs/tasks.txt";
-    private static final String DIR_PATH = "src/logs";
 
     public Store() throws IOException {
         initStore();
@@ -28,14 +27,6 @@ public class Store {
 
     // Reads from the file and adds the tasks to ArrayList.
     private static void initStore() throws IOException {
-        File dir = new File(DIR_PATH);
-
-        // Create the directory if it doesn't exist
-        if (!dir.exists()) {
-            dir.mkdirs();
-            System.out.println(dir.getAbsolutePath());
-        }
-
         File file = new File(FILE_PATH);
 
         // Create the file if it doesn't exist

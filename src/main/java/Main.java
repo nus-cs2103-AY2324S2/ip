@@ -1,7 +1,5 @@
-import exception.NarutoException;
 import naruto.Naruto;
-import java.io.IOException;
-import java.io.File;
+import util.*;
 
 public class Main {
     public static void main(String[] args)  {
