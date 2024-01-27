@@ -1,15 +1,19 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Task {
     private final String description;
     private boolean isDone;
-    private final String startTime;
-    private final String endTime;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
     private final TaskType taskType;
 
-    public Task(String description, boolean isDone, String startTime, String endTime, TaskType taskType) {
+    public Task(String description, boolean isDone,
+                String startTime, String endTime, TaskType taskType) {
         this.description = description;
         this.isDone = isDone;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = LocalDateTime.parse(startTime);
+        this.endTime = LocalDateTime.parse(endTime);
         this.taskType = taskType;
     }
 
