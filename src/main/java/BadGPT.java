@@ -11,8 +11,9 @@ public class BadGPT {
         System.out.println("Hello! I'm " + name + ".\n" + "What can I do for you?");
         line();
 
+        Scanner sc = new Scanner(System.in);
+
         while (true) {
-            Scanner sc = new Scanner(System.in);
             String cmd = sc.next();
 
             // Cases
