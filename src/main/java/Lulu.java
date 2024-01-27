@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -45,13 +46,13 @@ public class Lulu {
                     }
                     this.items.add(todo);
                 } else if (words[0].equals("deadline")) {
-                    Deadline deadline = new Deadline(words[1], words[2]);
+                    Deadline deadline = new Deadline(words[1], LocalDate.parse(words[2]));
                     if (words[3].equals("true")) {
                         deadline.updateStatus(true);
                     }
                     this.items.add(deadline);
                 } else if (words[0].equals("event")) {
-                    Event event = new Event(words[1], words[2], words[3]);
+                    Event event = new Event(words[1], LocalDate.parse(words[2]), LocalDate.parse(words[3]));
                     if (words[4].equals("true")) {
                         event.updateStatus(true);
                     }
@@ -245,7 +246,7 @@ public class Lulu {
             }
             String name = input.substring(9, indexBy).strip();
             String by = input.substring(indexBy + 3).strip();
-            Deadline deadline = new Deadline(name, by);
+            Deadline deadline = new Deadline(name, LocalDate.parse(by));
             this.items.add(deadline);
             print("Got it. I've added this task:");
             print("\t" + deadline);
@@ -276,7 +277,7 @@ public class Lulu {
             String name = input.substring(6, indexFrom).strip();
             String from = input.substring(indexFrom + 5, indexTo).strip();
             String to = input.substring(indexTo + 3).strip();
-            Event event = new Event(name, from, to);
+            Event event = new Event(name, LocalDate.parse(from), LocalDate.parse(to));
             this.items.add(event);
             print("Got it. I've added this task:");
             print("\t" + event);
