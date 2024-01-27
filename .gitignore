@@ -19,5 +19,4 @@ bin/
 # .class files
 *.class
 
-# Files in logs
-/logs/*
+logs/
