@@ -9,15 +9,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.nio.file.Path;
 
-public class FileManager {
+public class Storage {
 
   String path;
 
-  public FileManager(String path) {
+  public Storage(String path) {
     String wd = System.getProperty("user.dir");
     try {
       // Create directory
-      Path dir_= Paths.get(wd + "/" + path);
+      Path dir_ = Paths.get(wd + "/" + path);
       //System.out.println("Attempting to create: " + dir_);
       Files.createDirectories(dir_);
       this.path = wd + "/" + path + "/log.txt";
@@ -26,6 +26,7 @@ public class FileManager {
       System.out.println("Problem setting up file manager: " + e.getMessage());
     }
   }
+
   public void createLog() {
     File log_file = new File(this.path);
     try {
@@ -83,7 +84,7 @@ public class FileManager {
 
   public Task parseEntry(String log_entry) {
     String[] entry = log_entry.split(",");
-    boolean completeStatus = entry[1] .equals("T");
+    boolean completeStatus = entry[1].equals("T");
     //System.out.println("Entry " + entry[1] + ": " + completeStatus);
     String desc = entry[2];
     switch (entry[0]) {
