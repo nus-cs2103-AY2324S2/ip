@@ -11,4 +11,9 @@ public class Event extends Task {
     public String toString() {
         return "[E] " + super.toString() + " (from: " + this.startDateTime + " to: " + this.endDateTime +")";
     }
+
+    @Override
+    public String serializeTask() {
+        return "E | " + super.serializeTask() + " | " + this.startDateTime + "-" + this.endDateTime;
+    }
 }

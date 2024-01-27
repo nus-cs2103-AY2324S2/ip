@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -30,10 +31,10 @@ public class Tyrone {
     private static final HashMap<String, Command> cmdMap = new HashMap<>();
 
     public static void main(String[] args) {
-        handleInitialize();
-        boolean isActive = true;
-        while (isActive) {
-            try {
+        try {
+            handleInitialize();
+            boolean isActive = true;
+            while (isActive) {
                 // extract the command
                 String input = reader.nextLine();
                 String cmdStr = !input.contains(" ") ? input : input.substring(0, input.indexOf(" "));
@@ -44,41 +45,43 @@ public class Tyrone {
 
                 // execute cmd logic respectively
                 switch (cmd) {
-                    case BYE:
-                        handleByeCommand();
-                        isActive = false;
-                        break;
-                    case LIST:
-                        handleListCommand();
-                        break;
-                    case TODO:
-                        handleTodoCommand(input);
-                        break;
-                    case DEADLINE:
-                        handleDeadlineCommand(input);
-                        break;
-                    case EVENT:
-                        handleEventCommand(input);
-                        break;
-                    case MARK:
-                        handleMarkCommand(input);
-                        break;
-                    case UNMARK:
-                        handleUnmarkCommand(input);
-                        break;
-                    case DELETE:
-                        handleDeleteCommand(input);
-                        break;
-                    default:
-                        throw new TyroneCmdException("Command entered doesn't exist.");
+                case BYE:
+                    handleByeCommand();
+                    isActive = false;
+                    break;
+                case LIST:
+                    handleListCommand();
+                    break;
+                case TODO:
+                    handleTodoCommand(input);
+                    break;
+                case DEADLINE:
+                    handleDeadlineCommand(input);
+                    break;
+                case EVENT:
+                    handleEventCommand(input);
+                    break;
+                case MARK:
+                    handleMarkCommand(input);
+                    break;
+                case UNMARK:
+                    handleUnmarkCommand(input);
+                    break;
+                case DELETE:
+                    handleDeleteCommand(input);
+                    break;
+                default:
+                    throw new TyroneCmdException("Command entered doesn't exist.");
                 }
-            } catch (TyroneCmdException e) {
-                writer.println(Tyrone.formatStringOutput(e.getMessage()));
+
+                taskList.saveTaskListToFile();
             }
+        } catch (TyroneCmdException e) {
+            writer.println(Tyrone.formatStringOutput(e.getMessage()));
         }
     }
 
-    public static void handleInitialize() {
+    public static void handleInitialize() throws TyroneCmdException {
         cmdMap.put("bye", Command.BYE);
         cmdMap.put("list", Command.LIST);
         cmdMap.put("todo", Command.TODO);
@@ -89,18 +92,19 @@ public class Tyrone {
         cmdMap.put("delete", Command.DELETE);
 
         writer.println(logo + greetMsg);
+        taskList.loadTaskListFromFile();
     }
 
-    public static void handleByeCommand() {
+    private static void handleByeCommand() {
         writer.println(Tyrone.formatStringOutput("Peace out! Crossin' my fingers for a speedy reunion, ya feel?"));
     }
 
-    public static void handleListCommand() {
+    private static void handleListCommand() {
         writer.println(Tyrone.formatStringOutput(
                 "Peep the lineup, here's the rundown of tasks on your list:\n" + "\t" + taskList));
     }
 
-    public static void handleTodoCommand(String input) throws TyroneCmdException {
+    private static void handleTodoCommand(String input) throws TyroneCmdException {
         // validate general input
         if (isEmptyParam(input))
             throw new TyroneCmdException("Can't leave that to-do description hanging dry.\n" +
@@ -113,7 +117,7 @@ public class Tyrone {
                 "\n\tNow you have " + taskList.getListSize() + " in the list."));
     }
 
-    public static void handleDeadlineCommand(String input) throws TyroneCmdException {
+    private static void handleDeadlineCommand(String input) throws TyroneCmdException {
         // validate general input
         String errorMsg = "Seems like the deadline command is incorrect.\n" +
                 "\t\tIt must be: \"deadline <task description> /by <date time>\".";
@@ -142,7 +146,7 @@ public class Tyrone {
         return new Deadline(description, deadlineDateTime);
     }
 
-    public static void handleEventCommand(String input) throws TyroneCmdException {
+    private static void handleEventCommand(String input) throws TyroneCmdException {
         String errorMsg = "Your event command is in incorrect format.\n" +
                 "\t\tGotta follow the groove: \"event <task description> /from <date time> /to <date time>\".";
 
@@ -170,7 +174,7 @@ public class Tyrone {
         return new Event(description, startDateTime, endDateTime);
     }
 
-    public static void handleMarkCommand(String input) throws TyroneCmdException {
+    private static void handleMarkCommand(String input) throws TyroneCmdException {
         // validate general input
         if (isEmptyParam(input)) {
             throw new TyroneCmdException("Can't leave that markup id empty. Gotta drop some number in there!");
@@ -192,7 +196,7 @@ public class Tyrone {
         }
     }
 
-    public static void handleUnmarkCommand(String input) throws TyroneCmdException {
+    private static void handleUnmarkCommand(String input) throws TyroneCmdException {
         // validate general input
         if (isEmptyParam(input)) {
             throw new TyroneCmdException("Can't leave that unmarkup id empty. Gotta drop some number in there!");
@@ -214,7 +218,7 @@ public class Tyrone {
         }
     }
 
-    public static void handleDeleteCommand(String input) throws TyroneCmdException {
+    private static void handleDeleteCommand(String input) throws TyroneCmdException {
         // validate general input
         if (isEmptyParam(input)) {
             throw new TyroneCmdException("Can't leave that delete id empty. Gotta drop some number in there!");
@@ -237,11 +241,11 @@ public class Tyrone {
         }
     }
 
-    public static boolean isEmptyParam(String input) {
+    private static boolean isEmptyParam(String input) {
         return !input.trim().contains(" ");
     }
 
-    public static String formatStringOutput(String content) {
+    private static String formatStringOutput(String content) {
         return ("\n\t____________________________________________________________\n" +
                 "\t" + content + "\n" +
                 "\n\t____________________________________________________________\n");

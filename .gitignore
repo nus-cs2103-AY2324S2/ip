@@ -18,3 +18,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Java build files
 /*.class
+data
