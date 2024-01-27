@@ -17,14 +17,28 @@ public class Event extends Task {
     private String endDate;
 
     /**
-     * Constructor for an Event object
+     * Create an Event task
      *
      * @param description Description of the event
      * @param startDate   Start date of the event
      * @param endDate     End date of the event
      */
     public Event(String description, String startDate, String endDate) {
-        super(description, TaskType.EVENT);
+        super(description, TaskType.EVENT, false);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    /**
+     * Create an Event task
+     *
+     * @param description Description of the event
+     * @param startDate   Start date of the event
+     * @param endDate     End date of the event
+     * @param isDone      Status of the event
+     */
+    public Event(String description, String startDate, String endDate, boolean isDone) {
+        super(description, TaskType.EVENT, isDone);
         this.startDate = startDate;
         this.endDate = endDate;
     }

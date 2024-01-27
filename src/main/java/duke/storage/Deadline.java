@@ -12,13 +12,25 @@ public class Deadline extends Task {
     private String dueDate;
 
     /**
-     * Constructor for a Deadline object
+     * Create a Deadline task
      *
      * @param description Description of the deadline
      * @param dueDate     Due date of the deadline
      */
     public Deadline(String description, String dueDate) {
-        super(description, TaskType.DEADLINE);
+        super(description, TaskType.DEADLINE, false);
+        this.dueDate = dueDate;
+    }
+
+    /**
+     * Create a Deadline task
+     *
+     * @param description Description of the deadline
+     * @param dueDate     Due date of the deadline
+     * @param isDone      Status of the deadline
+     */
+    public Deadline(String description, String dueDate, boolean isDone) {
+        super(description, TaskType.DEADLINE, isDone);
         this.dueDate = dueDate;
     }
 

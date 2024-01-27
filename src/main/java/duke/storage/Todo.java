@@ -7,12 +7,22 @@ package duke.storage;
  */
 public class Todo extends Task {
     /**
-     * Constructor for a Todo object
+     * Create a Todo task
      *
      * @param description Description of the todo task
      */
     public Todo(String description) {
-        super(description, TaskType.TODO);
+        super(description, TaskType.TODO, false);
+    }
+
+    /**
+     * Create a Todo task
+     *
+     * @param description Description of the todo task
+     * @param isDone      Status of the task
+     */
+    public Todo(String description, boolean isDone) {
+        super(description, TaskType.TODO, isDone);
     }
 
     /**

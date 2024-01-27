@@ -35,11 +35,12 @@ public class Task {
      *
      * @param description Description of the task
      * @param type        Type of task
+     * @param isDone      Status of the task
      */
-    protected Task(String description, TaskType type) {
+    protected Task(String description, TaskType type, boolean isDone) {
         this.description = description;
         this.type = type;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     /**
