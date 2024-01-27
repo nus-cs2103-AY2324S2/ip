@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 
 public class Date {
@@ -31,7 +32,7 @@ public class Date {
     private LocalTime parseTime(String time) throws SquidDateException {
         for (int i = 0; i < FORMAT.TIMES.length; i++) {
             try {
-                return LocalTime.parse(time, DateTimeFormatter.ofPattern(FORMAT.TIMES[i]));
+                return LocalTime.parse(time, DateTimeFormatter.ofPattern(FORMAT.TIMES[i], Locale.ENGLISH));
             } catch (DateTimeParseException e) {
                 try{
                     return LocalTime.parse(time);

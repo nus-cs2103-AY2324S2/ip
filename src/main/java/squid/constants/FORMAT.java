@@ -39,5 +39,6 @@ public class FORMAT {
 
     public static final String[] TIMES = {
             "H:mm","H:mm:[ss] a", "Ha", "H a", "HHmm", "H:mm a", "H:mma",
+            "h:mm","h:mm:[ss] a", "ha", "h a", "hmm", "h:mm a", "h:mma",
     };
 }
