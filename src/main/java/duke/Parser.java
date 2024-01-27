@@ -18,7 +18,10 @@ public class Parser {
 
         if (Objects.equals(type, "bye")) {
             return new ExitCommand();
+        } else if (Objects.equals(type, "list")) {
+            return new ListCommand();
         }
+
 
         if (!scanner.hasNextLine()) {
             throw new InvalidCommandData();
@@ -44,8 +47,6 @@ public class Parser {
         case "delete":
             command = new DeleteCommand(parseIndex(scanner.nextLine()));
             break;
-        case "list":
-            command = new ListCommand();
             break;
         default:
             throw new InvalidCommandType(type);
