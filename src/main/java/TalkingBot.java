@@ -1,14 +1,28 @@
 import java.util.Scanner;
 public class TalkingBot {
+
+    private SaveFile saveFile;
+    private TaskList taskList;
+    private Ui ui;
+
+    public TalkingBot(String fileName) {
+        this.ui = new Ui();
+        this.saveFile = new SaveFile(fileName);
+        try {
+            this.taskList = this.saveFile.getTasksFromFile();
+        } catch (TalkingBotException e) {
+            this.ui.printLoadingError(e);
+            this.taskList = new TaskList();
+        }
+    }
+
+    public void runTalkingBot() {
+
+    }
+
     public static void main(String[] args) {
-        String hLine = "\t____________________________________________________________";
-        String welcome = "\tHello! I'm TalkingBot\n\tWhat can I do for you?";
-
         String fileName = "./data/talkingbot.txt";
-
-        System.out.println(hLine);
-        System.out.println(welcome);
-        System.out.println(hLine);
+        Ui ui = new Ui();
 
         try {
             SaveFile saveFile = new SaveFile(fileName);
@@ -96,7 +110,6 @@ public class TalkingBot {
                 System.out.println(hLine);
             }
 
-            String bye = "\tBye. Hope to see you again soon!";
             System.out.println(hLine);
             System.out.println(bye);
             System.out.println(hLine);

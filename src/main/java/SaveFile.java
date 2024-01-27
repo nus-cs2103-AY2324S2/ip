@@ -8,14 +8,14 @@ public class SaveFile {
     private final File saveFile;
     private final String path;
 
-    public SaveFile(String path) throws TalkingBotException {
+    public SaveFile(String path)  {
         this.saveFile = new File(path);
         this.path = path;
         if (!this.saveFile.exists()) {
             try {
                 this.saveFile.createNewFile();
             } catch (IOException e) {
-                throw new TalkingBotException("ERROR! IOException occurred!");
+                System.out.println(e);
             }
         }
     }
