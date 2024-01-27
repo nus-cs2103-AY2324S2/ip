@@ -33,8 +33,13 @@ public class CommandsParser {
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.mark))
                 || taskSplit[0].equals(String.valueOf(CommandsEnum.unmark))) {
             //All items to be 0-index referenced other than user input.
-            taskList.changeStatusOfItem(taskSplit[0], Integer.parseInt(taskSplit[1])-1);
-            taskList.writeToFile(taskLoader);
+            try {
+                taskList.changeStatusOfItem(taskSplit[0], Integer.parseInt(taskSplit[1])-1);
+                taskList.writeToFile(taskLoader);
+            } catch (Exception e) {
+                throw new RyanGoslingException("Wrong format! (un)mark <number>");
+            }
+
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.todo))) {
             //Idea from chatGPT
             Pattern pattern = Pattern.compile("todo (.*?)");
@@ -72,8 +77,16 @@ public class CommandsParser {
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.delete))) {
             taskList.removeIndex(Integer.parseInt(taskSplit[1])-1);
             taskList.writeToFile(taskLoader);
-        }
-        else {
+        } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.find))) {
+            Pattern pattern = Pattern.compile("find (.*?)");
+            Matcher matcher = pattern.matcher(task);
+
+            if (matcher.matches()) {
+                taskList.findTasks(matcher.group(1));
+            } else {
+                throw new RyanGoslingException("Incomplete find command! find <task_word>");
+            }
+        } else {
             throw new RyanGoslingException("I was created in a few hours so " +
                     "I don't know what that means :(");
         }

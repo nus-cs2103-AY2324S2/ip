@@ -37,6 +37,17 @@ public class TaskList {
         td.writeToTaskList(this.taskArrayList);
     }
 
+    public void findTasks(String taskPattern) {
+        ArrayList<Task> tasksWithPattern = new ArrayList<>();
+        for (int i = 0; i < this.taskArrayList.size(); i += 1) {
+            String currTaskName = taskArrayList.get(i).getTaskName();
+            if (currTaskName.contains(taskPattern)) {
+                tasksWithPattern.add(taskArrayList.get(i));
+            }
+        }
+        MessagePrinter.printFoundTasks(tasksWithPattern);
+    }
+
     @Override
     public String toString() {
         return "Now you have " + taskArrayList.size() + "tasks in the list.";

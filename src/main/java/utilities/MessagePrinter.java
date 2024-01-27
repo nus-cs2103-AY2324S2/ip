@@ -31,7 +31,7 @@ public class MessagePrinter {
         MessagePrinter.printLine();
     }
     public static void printLine() {
-        System.out.println("____________________________________________________________\n");
+        System.out.println("____________________________________________________________");
     }
 
     public static void greeting(String chatBotName) {
@@ -91,6 +91,19 @@ public class MessagePrinter {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
         System.out.println("Now you have " + size + " tasks in the list.");
+        MessagePrinter.printLine();
+    }
+
+    public static void printFoundTasks(ArrayList<Task> listOfFoundTasks) {
+        MessagePrinter.printLine();
+        if (listOfFoundTasks.isEmpty()) {
+            System.out.println("No such tasks in the list :(, try again!");
+        } else {
+            System.out.println("Found! Here they are!");
+            for (int i = 0; i < listOfFoundTasks.size(); i += 1) {
+                System.out.println(i+1 + "." + listOfFoundTasks.get(i));
+            }
+        }
         MessagePrinter.printLine();
     }
 
