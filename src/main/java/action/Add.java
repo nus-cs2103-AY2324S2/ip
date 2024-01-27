@@ -2,23 +2,23 @@ package action;
 
 import task.Task;
 import util.PrintUtil;
-import util.Store;
+import util.TaskList;
 
 import java.io.*;
 
 public class Add implements Action {
     private Task task;
-    private Store store;
+    private TaskList taskList;
 
-    public Add(Task task, Store store) {
+    public Add(Task task, TaskList taskList) {
         this.task = task;
-        this.store = store;
+        this.taskList = taskList;
     }
 
     @Override
     public void execute() throws IOException {
-        this.store.add(this.task);
-        int size = this.store.getSize();
+        this.taskList.add(this.task);
+        int size = this.taskList.getSize();
         String plural = size == 1 ? "task" : "tasks";
         PrintUtil.print("Got it! Task added:\n  " + this.task + "\nNow you have " +
                 size + " outstanding " + plural + ".");

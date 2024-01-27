@@ -1,16 +1,16 @@
 package action;
 
 import util.PrintUtil;
-import util.Store;
+import util.TaskList;
 
 import java.io.*;
 
 public class Unmark implements Action {
-    private Store store;
+    private TaskList taskList;
     private int i;
 
-    public Unmark(Store store, int i) {
-        this.store = store;
+    public Unmark(TaskList taskList, int i) {
+        this.taskList = taskList;
         this.i = i;
     }
 
@@ -20,6 +20,6 @@ public class Unmark implements Action {
                 "\nThe important part is to keep moving forward. " +
                 "\nUnmarking a task is just a step in the journey. Believe it! " +
                 "\nWe'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ");
-        PrintUtil.print(this.store.unmark(i));
+        PrintUtil.print(this.taskList.unmark(i));
     }
 }
