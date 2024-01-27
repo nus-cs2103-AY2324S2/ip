@@ -1,5 +1,4 @@
-T | 1 | read book
+T | 0 | buy book
 T | 0 | return book
-D | 0 | buying book | Saturday
-E | 0 | online meeting | 4pm - 6pm
-E | 0 | presentation | February 1th 12pm - 1pm
+D | 0 | buy | Dec 02 2024 7:00pm
+E | 0 | meeting | Jan 02 2024 6:00pm - Jan 02 2024 7:00pm
