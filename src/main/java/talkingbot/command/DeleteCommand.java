@@ -1,9 +1,9 @@
 package talkingbot.command;
 
-import talkingbot.util.TaskList;
 import talkingbot.util.SaveFile;
-import talkingbot.util.Ui;
 import talkingbot.task.Task;
+import talkingbot.util.TaskList;
+import talkingbot.util.Ui;
 
 public class DeleteCommand extends Command {
     public DeleteCommand(String[] commandArr) {

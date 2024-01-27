@@ -1,10 +1,10 @@
 package talkingbot.command;
 
-import talkingbot.util.TaskList;
-import talkingbot.util.SaveFile;
-import talkingbot.util.Ui;
-import talkingbot.task.Task;
 import talkingbot.exception.TalkingBotException;
+import talkingbot.util.SaveFile;
+import talkingbot.task.Task;
+import talkingbot.util.TaskList;
+import talkingbot.util.Ui;
 
 public class TaskCommand extends Command {
     public TaskCommand(String[] commandArr) {

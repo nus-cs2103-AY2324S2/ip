@@ -1,7 +1,7 @@
 package talkingbot.task;
 
-import java.time.LocalDateTime;
 import talkingbot.type.TaskType;
+import java.time.LocalDateTime;
 
 public class Deadline extends Task {
     private final LocalDateTime endTime;
