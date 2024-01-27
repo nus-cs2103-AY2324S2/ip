@@ -6,18 +6,18 @@ Added: [T][ ] homework
 There are now 1 tasks in the list.
 ================================================================================
 ================================================================================
-Added: [D][ ] ip (by: 25 Jan, Thurs)
+Added: [D][ ] ip (by: Thursday, January 25, 2024, 11:59 PM)
 There are now 2 tasks in the list.
 ================================================================================
 ================================================================================
-Added: [E][ ] tutorial (from: 2 Feb, Fri, 3pm to: 4pm)
+Added: [E][ ] tutorial (from: Friday, February 2, 2024, 3:00 PM to: Friday, February 2, 2024, 4:00 PM)
 There are now 3 tasks in the list.
 ================================================================================
 ================================================================================
 Here are your list of tasks:
     1.[T][ ] homework
-    2.[D][ ] ip (by: 25 Jan, Thurs)
-    3.[E][ ] tutorial (from: 2 Feb, Fri, 3pm to: 4pm)
+    2.[D][ ] ip (by: Thursday, January 25, 2024, 11:59 PM)
+    3.[E][ ] tutorial (from: Friday, February 2, 2024, 3:00 PM to: Friday, February 2, 2024, 4:00 PM)
 ================================================================================
 ================================================================================
 Great job for finishing the task:
@@ -25,34 +25,34 @@ Great job for finishing the task:
 ================================================================================
 ================================================================================
 Great job for finishing the task:
-[D][X] ip (by: 25 Jan, Thurs)
+[D][X] ip (by: Thursday, January 25, 2024, 11:59 PM)
 ================================================================================
 ================================================================================
 Here are your list of tasks:
     1.[T][X] homework
-    2.[D][X] ip (by: 25 Jan, Thurs)
-    3.[E][ ] tutorial (from: 2 Feb, Fri, 3pm to: 4pm)
+    2.[D][X] ip (by: Thursday, January 25, 2024, 11:59 PM)
+    3.[E][ ] tutorial (from: Friday, February 2, 2024, 3:00 PM to: Friday, February 2, 2024, 4:00 PM)
 ================================================================================
 ================================================================================
 Take your time mate. Quality over quantity:
-[D][ ] ip (by: 25 Jan, Thurs)
+[D][ ] ip (by: Thursday, January 25, 2024, 11:59 PM)
 ================================================================================
 ================================================================================
 Great job for finishing the task:
-[E][X] tutorial (from: 2 Feb, Fri, 3pm to: 4pm)
+[E][X] tutorial (from: Friday, February 2, 2024, 3:00 PM to: Friday, February 2, 2024, 4:00 PM)
 ================================================================================
 ================================================================================
 Here are your list of tasks:
     1.[T][X] homework
-    2.[D][ ] ip (by: 25 Jan, Thurs)
-    3.[E][X] tutorial (from: 2 Feb, Fri, 3pm to: 4pm)
+    2.[D][ ] ip (by: Thursday, January 25, 2024, 11:59 PM)
+    3.[E][X] tutorial (from: Friday, February 2, 2024, 3:00 PM to: Friday, February 2, 2024, 4:00 PM)
 ================================================================================
 ================================================================================
 Error. Unable to recognize such command.
 Supported List of Commands:
 - todo <task-name>: Adds new ToDo task.
-- deadline <task-name> /by <deadline>: Adds new Deadline task.
-- event <task-name> /from <from> /to <to>: Adds new Event task.
+- deadline <task-name> /by <dd-MM-yyyy HH:mm>: Adds new Deadline task.
+- event <task-name> /from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>: Adds new Event task.
 - mark <task-number>: Marks task at index <task-number> as done.
 - unmark <task-number>: Marks task at index <task-number> as not done.
 - delete <task-number>: Deletes task at index <task-number>.
@@ -64,15 +64,15 @@ Format: todo <task-name>
 ================================================================================
 ================================================================================
 Error. Unable to create task.
-Format: deadline <task-name> /by <deadline>
+Format: deadline <task-name> /by <dd-MM-yyyy HH:mm>
 ================================================================================
 ================================================================================
 Error. Unable to create task.
-Format: event <task-name> /from <from> /to <to>
+Format: event <task-name> /from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>
 ================================================================================
 ================================================================================
 Error. Unable to create task.
-Format: event <task-name> /from <from> /to <to>
+Format: event <task-name> /from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>
 ================================================================================
 ================================================================================
 Error. Task of index 4 cannot be found.
@@ -95,8 +95,8 @@ There are now 2 tasks in the list.
 ================================================================================
 ================================================================================
 Here are your list of tasks:
-    1.[D][ ] ip (by: 25 Jan, Thurs)
-    2.[E][X] tutorial (from: 2 Feb, Fri, 3pm to: 4pm)
+    1.[D][ ] ip (by: Thursday, January 25, 2024, 11:59 PM)
+    2.[E][X] tutorial (from: Friday, February 2, 2024, 3:00 PM to: Friday, February 2, 2024, 4:00 PM)
 ================================================================================
 ================================================================================
 Bye. See you again.

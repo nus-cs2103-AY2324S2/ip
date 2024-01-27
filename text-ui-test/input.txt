@@ -1,6 +1,6 @@
 todo homework
-deadline ip /by 25 Jan, Thurs
-event tutorial /from 2 Feb, Fri, 3pm /to 4pm
+deadline ip /by 25-01-2024 23:59
+event tutorial /from 02-02-2024 15:00 /to 02-02-2024 16:00
 list
 mark 1
 mark 2

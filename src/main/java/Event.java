@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 /**
  * Task with a from and to date and time.
  *
@@ -5,13 +8,13 @@
  */
 public class Event extends Task {
     // Format to create event task in program.
-    public static String CREATE_EVENT_FORMAT = "event <task-name> /from <from> /to <to>";
+    public static String CREATE_EVENT_FORMAT = "event <task-name> /from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>";
 
     // Start datetime.
-    private String from;
+    private LocalDateTime from;
 
     // End datetime.
-    private String to;
+    private LocalDateTime to;
 
     /**
      * Creates a task with given description and specified duration.
@@ -21,7 +24,7 @@ public class Event extends Task {
      * @param from Start datetime of event.
      * @param to End datetime of event.
      */
-    private Event(String description, String from, String to) {
+    private Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -39,13 +42,14 @@ public class Event extends Task {
         try {
             String[] tokens = input.split(" /from ");
             String description = tokens[0];
-            tokens = tokens[1].split(" /to ");
-            String from = tokens[0], to = tokens[1];
-            if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            if (description.isEmpty()) {
                 throw new TaskException("Error. Unable to create task.\nFormat: " + Event.CREATE_EVENT_FORMAT);
             }
+            tokens = tokens[1].split(" /to ");
+            LocalDateTime from = LocalDateTime.parse(tokens[0], Task.INPUT_DATETIME_FORMAT);
+            LocalDateTime to = LocalDateTime.parse(tokens[1], Task.INPUT_DATETIME_FORMAT);
             return new Event(description, from, to);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             throw new TaskException("Error. Unable to create task.\nFormat: " + Event.CREATE_EVENT_FORMAT);
         }
     }
@@ -59,7 +63,8 @@ public class Event extends Task {
      */
     @Override
     public String getTaskInformation() {
-        return "[E]" + super.getTaskInformation() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.getTaskInformation() + " (from: " + this.from.format(Task.OUTPUT_DATETIME_FORMAT)
+                + " to: " + this.to.format(Task.OUTPUT_DATETIME_FORMAT) + ")";
     }
 
     /**
@@ -70,6 +75,7 @@ public class Event extends Task {
     @Override
     public String saveTaskAsString() {
         return "E | " + (this.getIsDone() ? 1 : 0) + " | " + this.getDescription()
-                + " /from " + this.from + " /to " + this.to;
+                + " /from " + this.from.format(Task.INPUT_DATETIME_FORMAT)
+                + " /to " + this.to.format(Task.INPUT_DATETIME_FORMAT);
     }
 }
