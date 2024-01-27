@@ -6,7 +6,6 @@ import java.time.LocalDate;
  * Represents a Deadline class inherited from Task.
  */
 public class Deadline extends Task {
-
     protected LocalDate by;
 
     /**

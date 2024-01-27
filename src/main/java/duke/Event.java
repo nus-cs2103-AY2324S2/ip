@@ -6,7 +6,6 @@ import java.time.LocalDate;
  * Represents an Event class inherited from Task.
  */
 public class Event extends Task {
-
     protected LocalDate from;
     protected LocalDate to;
 
