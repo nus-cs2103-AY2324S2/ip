@@ -2,6 +2,8 @@ abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    protected String dateTimeFormat = "MMM d yyyy h:mma";
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;

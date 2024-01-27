@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -10,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import java.time.LocalDateTime;
 
 public class Duke {
     public static void main(String[] args) {
@@ -133,6 +136,56 @@ public class Duke {
         }
     }
 
+    public static LocalDateTime createDateTime(String input) throws DukeException {
+        //turn possiblePatterns into two arrays
+        //one for date, one for time
+        //then combine them in a nested loop
+
+        String[] possibleDates = {
+                "d/M/yyyy",
+                "d-M-yyyy",
+                "d/M/yy",
+                "d-M-yy",
+                "dMMyyyy",
+                "dMMyy",
+
+                "dd/MM/yyyy",
+                "dd-MM-yyyy",
+                "dd/MM/yy",
+                "dd-MM-yy",
+                "ddMMyyyy",
+                "ddMMyy",
+        };
+
+        String[] possibleTimes = {
+                "HHmm",
+                "HH:mm",
+                "HH",
+                "h:mma",
+        };
+
+        for (String datePattern : possibleDates) {
+            for (String timePattern : possibleTimes) {
+                //check that time pattern comes before date pattern
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timePattern + " " + datePattern);
+                    return LocalDateTime.parse(input, formatter);
+                } catch (Exception e) {
+                    //do nothing
+                }
+                //check that time pattern comes after date pattern
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern + " " + timePattern);
+                    return LocalDateTime.parse(input, formatter);
+                } catch (Exception e) {
+                    //do nothing
+                }
+            }
+        }
+        return null;
+
+    }
+
     public static void lineBreak() {
         System.out.println("____________________________________________________________\n");
     }
@@ -196,16 +249,21 @@ public class Duke {
         }
 
         String description = String.join(" ", Arrays.copyOfRange(parts, 1, i));
-        String dueDate = String.join(" ", Arrays.copyOfRange(parts, i + 1, parts.length));
+        String dueDateStr = String.join(" ", Arrays.copyOfRange(parts, i + 1, parts.length));
 
         if (description.equals("")) {
             throw new DukeException("Unknown usage - description of \"deadline\" should not be empty.");
         }
-        if (dueDate.equals("")) {
+        if (dueDateStr.equals("")) {
             throw new DukeException("Unknown usage - due date of \"deadline\" should not be empty.");
         }
 
-        Deadline newDeadline = new Deadline(description, dueDate);
+        LocalDateTime dueDateTime = createDateTime(dueDateStr);
+        if (dueDateTime == null) {
+            throw new DukeException("Unknown usage - due date of \"deadline\" is not in a valid date-time format.");
+        }
+
+        Deadline newDeadline = new Deadline(description, dueDateTime);
         System.out.printf("""
                 ____________________________________________________________
                  Got it. I've added this task:
@@ -215,9 +273,8 @@ public class Duke {
 
     public static Event createEvent(String[] parts) throws DukeException{
         int fromIndex = -1;
-        int toIndex = 0;
+        int toIndex = -1;
 
-        //assume string always includes /from and /to
         for (int i = 0; i < parts.length; i++) {
             if (parts[i].equals("/from")) {
                 fromIndex = i;
@@ -234,20 +291,34 @@ public class Duke {
         }
 
         String description = String.join(" ", Arrays.copyOfRange(parts, 1, fromIndex));
-        String startDate = String.join(" ", Arrays.copyOfRange(parts, fromIndex + 1, toIndex));
-        String endDate = String.join(" ", Arrays.copyOfRange(parts, toIndex + 1, parts.length));
+        String startDateStr = String.join(" ", Arrays.copyOfRange(parts, fromIndex + 1, toIndex));
+        String endDateStr = String.join(" ", Arrays.copyOfRange(parts, toIndex + 1, parts.length));
 
         if (description.equals("")) {
             throw new DukeException("Unknown usage - description of \"event\" should not be empty.");
         }
-        if (startDate.equals("")) {
+        if (startDateStr.equals("")) {
             throw new DukeException("Unknown usage - start date of \"event\" should not be empty.");
         }
-        if (endDate.equals("")) {
+        if (endDateStr.equals("")) {
             throw new DukeException("Unknown usage - end date of \"event\" should not be empty.");
         }
 
-        Event newEvent = new Event(description, startDate, endDate);
+        LocalDateTime startDateTime = createDateTime(startDateStr);
+        if (startDateTime == null) {
+            throw new DukeException("Unknown usage - start date of \"event\" is not in a valid date-time format.");
+        }
+
+        LocalDateTime endDateTime = createDateTime(endDateStr);
+        if (endDateTime == null) {
+            throw new DukeException("Unknown usage - end date of \"event\" is not in a valid date-time format.");
+        }
+
+        if (startDateTime.isAfter(endDateTime)) {
+            throw new DukeException("Unknown usage - start date of \"event\" is after end date.");
+        }
+
+        Event newEvent = new Event(description, startDateTime, endDateTime);
         System.out.println(String.format("""
                 ____________________________________________________________
                  Got it. I've added this task:
@@ -265,6 +336,10 @@ public class Duke {
             }
         }
         int i = Integer.parseInt(parts[1]) - 1;
+        if (i < 0 || i >= tasks.size()) {
+            throw new DukeException("Unknown usage - task number given is not a valid number");
+        }
+
         Task removedTask = tasks.remove(i);
         System.out.println(String.format("""
                 ____________________________________________________________
