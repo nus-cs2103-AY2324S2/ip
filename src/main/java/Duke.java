@@ -1,28 +1,26 @@
 import java.util.Scanner;
-import java.io.File;
-import java.io.IOException;
-import java.io.FileWriter;
 public class Duke {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         String hLine = "\t____________________________________________________________";
         String welcome = "\tHello! I'm TalkingBot\n\tWhat can I do for you?";
-
 
         System.out.println(hLine);
         System.out.println(welcome);
         System.out.println(hLine);
 
-        Scanner scanner = new Scanner(System.in);
+        try {
+            SaveFile saveFile = new SaveFile("./data/talkingbot.txt");
+            Scanner scanner = new Scanner(System.in);
+            TaskList taskList = saveFile.getTasksFromFile();
 
-        TaskList taskList = new TaskList();
-        while (true) {
-            String entry = scanner.nextLine();
-            if (entry.equals("bye")) {
-                break;
-            }
-            String[] curCommand = entry.split(" ");
-            System.out.println(hLine);
-            switch (curCommand[0]) {
+            while (true) {
+                String entry = scanner.nextLine();
+                if (entry.equals("bye")) {
+                    break;
+                }
+                String[] curCommand = entry.split(" ");
+                System.out.println(hLine);
+                switch (curCommand[0]) {
                 case "list":
                     System.out.println(taskList);
                     break;
@@ -42,7 +40,9 @@ public class Duke {
                     taskList.setTask(markIdxInt - 1, modifiedTask);
                     break;
                 case "todo":
+                    // Fallthrough
                 case "deadline":
+                    // Fallthrough
                 case "event":
                     StringBuilder sbDescription = new StringBuilder();
                     for (int idx = 1; idx < curCommand.length; idx++) {
@@ -69,17 +69,27 @@ public class Duke {
                     System.out.println(String.format("\t\t%s", removedTask));
                     System.out.println(String.format("\tYou now have %d tasks in the list.", taskList.getSize()));
                     break;
+                case "save":
+                    try {
+                        saveFile.saveTasksToFile(taskList);
+                    } catch (DukeException e) {
+                        System.out.println(e);
+                    }
+                    break;
                 default:
                     System.out.println("\tERROR! Unknown command detected.");
                     break;
+                }
+                System.out.println(hLine);
             }
-            System.out.println(hLine);
-        }
 
-        String bye = "\tBye. Hope to see you again soon!";
-        System.out.println(hLine);
-        System.out.println(bye);
-        System.out.println(hLine);
-        scanner.close();
+            String bye = "\tBye. Hope to see you again soon!";
+            System.out.println(hLine);
+            System.out.println(bye);
+            System.out.println(hLine);
+            scanner.close();
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
     }
 }

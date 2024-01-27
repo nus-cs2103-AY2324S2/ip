@@ -34,7 +34,7 @@ public class SaveFile {
         }
     }
 
-    public void saveTasksToTile(TaskList taskList) throws DukeException {
+    public void saveTasksToFile(TaskList taskList) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(this.saveFile);
             StringBuilder strBuild = new StringBuilder();
