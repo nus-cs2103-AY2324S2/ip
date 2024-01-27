@@ -1,6 +1,3 @@
-T | 1 | buy book
 T | 0 | return book
-D | 1 | buy | Dec 02 2024 7:00pm
-E | 0 | meeting | Jan 02 2024 6:00pm - Jan 02 2024 7:00pm
-D | 0 | assignment | May 05 2024 6:00pm
-T | 1 | read book
+E | 0 | meeting | Jan 01 2002 10:00AM - Jan 01 2002 11:00AM
+D | 0 | assignment | Jan 01 2002 5:00PM
