@@ -5,8 +5,8 @@ public class Jelly {
     private static TaskList list = new TaskList();
     private static String line = "\n-------------------------------------------";
 
-    private static String welcome = "Hello! I'm Jelly\nWhat can I do for you?";
-    private static String farewell = "Bye. Hope to see you again soon!";
+    private static String welcome = "(ᵔ_ᵔ) Hello! I'm Jelly\nWhat can I do for you?";
+    private static String farewell = "(•́︿•̀) Bye. Hope to see you again soon!";
     public static void main(String[] args) {
 
         System.out.println(line);
@@ -56,7 +56,7 @@ public class Jelly {
 
                 if(argument.length() == 0){
 
-                    System.out.println("formatting error! nothing todo");
+                    System.out.println("(X_x) Formatting error! Task name missing");
                 }
                 list.addTodo(argument);
                 break;
@@ -67,7 +67,7 @@ public class Jelly {
 
                 if(deadlineIndex.equals(-1)){ //formatting error
 
-                    System.out.println("formatting error! /by is missing");
+                    System.out.println("(X_x) Formatting error! /by is missing");
                     break;
                 }
 
@@ -75,7 +75,13 @@ public class Jelly {
 
                 if(deadline.length()==1){
 
-                    System.out.println("formatting error! nothing after /by");
+                    System.out.println("(X_x) Formatting error! nothing after /by");
+                    break;
+                }
+
+                if(!deadline.endsWith(" ")){
+
+                    System.out.println("(X_x) Formatting error! you need a space before any '/'");
                     break;
                 }
 
@@ -93,7 +99,7 @@ public class Jelly {
 
                 if(startIndex.equals(-1)){
 
-                    System.out.println("formatting error! /from is missing");
+                    System.out.println("(X_x) Formatting error! /from is missing");
                     break;
                 }
 
@@ -105,7 +111,7 @@ public class Jelly {
 
                 if(endIndex.equals(-1)){
 
-                    System.out.println("formatting error! /to is missing");
+                    System.out.println("(X_x) Formatting error! /to is missing");
                     break;
                 }
 
@@ -114,15 +120,23 @@ public class Jelly {
 
                 if(start.length() == 1){
 
-                    System.out.println("formatting error! nothing after /from ");
+                    System.out.println("(X_x) Formatting error! nothing after /from ");
                     break;
                 }
 
                 start = start.substring(1);
 
+                if(!start.endsWith(" ")){
+
+                    System.out.println("(X_x) Formatting error! you need a space before any '/'");
+                    break;
+                }
+
+                start = start.substring(0, start.length());
+
                 if(end.length() == 1){
 
-                    System.out.println("formatting error! nothing after /to");
+                    System.out.println("(X_x) Formatting error! nothing after /to");
                     break;
                 }
 
@@ -130,7 +144,19 @@ public class Jelly {
 
                 argument = argument.substring(0, argument.indexOf("/"));
 
+                if(!argument.endsWith(" ")){
+
+                    System.out.println("(X_x) Formatting error! you need a space before any '/'");
+                    break;
+                }
+
                 list.addEvent(argument, start, end);
+
+                break;
+
+            default:
+
+                System.out.println("(O_o) Huh? What does that even mean?");
         }
 
         System.out.println(line);

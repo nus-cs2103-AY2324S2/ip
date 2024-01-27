@@ -2,7 +2,7 @@ import java.util.*;
 
 public class TaskList {
 
-    private static String taskAdded = "Got it. I've added this task:";
+    private static String taskAdded = "(˃.˂) Got it. I've added this task:";
     private ArrayList<Task> tasks;
 
     public TaskList(){
@@ -37,7 +37,7 @@ public class TaskList {
 
         Task task = tasks.get(index-1);
         task.mark();
-        System.out.println("Nice, I've marked this task as done:");
+        System.out.println("(•̀ᗜ•́) Nice, I've marked this task as done:");
         System.out.println(task);
     }
 
@@ -45,7 +45,7 @@ public class TaskList {
 
         Task task = tasks.get(index-1);
         task.unmark();
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("(ᗒᗣᗕ) OK, I've marked this task as not done yet:");
         System.out.println(task);
     }
 
