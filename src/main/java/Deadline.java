@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * Implementation of Task. Each Deadline comes with a description and a deadline.
  */
@@ -5,11 +7,11 @@
 public class Deadline implements Task {
 
     protected String desc;
-    protected String date;
+    protected LocalDate date;
     protected boolean checked;
     protected String type;
 
-    public Deadline(String desc, String date){
+    public Deadline(String desc, LocalDate date){
         this.desc = desc;
         this.date = date;
         this.checked = false;
@@ -21,7 +23,7 @@ public class Deadline implements Task {
     }
 
     public String getDate() {
-        return "by:" + date;
+        return "by: " + date;
     }
 
     public String getCheck() {
@@ -37,11 +39,11 @@ public class Deadline implements Task {
 
     public String toSave() {
         String temp = checked ? "1" : "0";
-        return type + " | " + temp + " | " + getDesc() + " | " + getDate() + "\n";
+        return type + " | " + temp + " | " + getDesc() + " | " + date.toString() + "\n";
     }
 
     @Override
     public String toString() {
-        return ("[" + type + "][" + getCheck() + "] " + desc + "(" + getDate() + ")");
+        return ("[" + type + "][" + getCheck() + "] " + desc + " (" + getDate() + ")");
     }
 }

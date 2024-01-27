@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -17,6 +18,7 @@ public class Storage {
             path.mkdir();
             Files.createFile(Paths.get(path.toString() + "/data.txt"));
         }
+
         return parseText();
     }
 
@@ -34,7 +36,7 @@ public class Storage {
                 temp.setCheck(text[1].equals("1"));
                 tasks.add(temp);
             } else if (text[0].equals("D")) {
-                Deadline temp = new Deadline(text[2], text[3]);
+                Deadline temp = new Deadline(text[2], LocalDate.parse(text[3]));
                 temp.setCheck(text[1].equals("1"));
                 tasks.add(temp);
             } else {

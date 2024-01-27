@@ -22,11 +22,11 @@ public class Event implements Task {
     }
 
     public String getStart() {
-        return "from:" + start;
+        return "from: " + start;
     }
 
     public String getEnd() {
-        return " to:" + end;
+        return " to: " + end;
     }
 
     public String getCheck() {
@@ -42,7 +42,7 @@ public class Event implements Task {
 
     public String toSave() {
         String temp = checked ? "1" : "0";
-        return type + " | " + temp + " | " + getDesc() + " | " + getStart() + "-" + getEnd() + "\n";
+        return type + " | " + temp + " | " + getDesc() + " | " + this.start + "-" + this.end + "\n";
     }
 
     @Override

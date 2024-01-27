@@ -1,6 +1,10 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Duke {
@@ -67,7 +71,8 @@ public class Duke {
 
     private static void addList(String cmd) throws DukeException {
         String[] split;
-        String desc, from, to, by;
+        String desc, from, to;
+        LocalDate by;
         split = cmd.split(" ", 2);
 
         Task t;
@@ -76,7 +81,7 @@ public class Duke {
             if (split.length != 2) {
                 throw new DukeException("Missing params for todo!");
             }
-            t = new Todo(split[1]);
+            t = new Todo(split[1].replaceAll("\\s", ""));
             ls.add(t);
         } else if (split[0].equals("deadline")) {
             if (split.length != 2) {
@@ -89,8 +94,8 @@ public class Duke {
                 throw new DukeException("Missing deadline for deadline!");
             }
 
-            desc = temp[0];
-            by = temp[1];
+            desc = temp[0].replaceAll("\\s", "");
+            by = validDate(temp[1].replaceAll("\\s", ""));
             t = new Deadline(desc, by);
             ls.add(t);
         } else {
@@ -104,15 +109,15 @@ public class Duke {
                 throw new DukeException("Missing [from] and [to] for event!");
             }
 
-            desc = split[1].split("/from")[0];
+            desc = split[1].split("/from")[0].replaceAll("\\s", "");
 
             String[] temp2 = split[1].split("/from")[1].split("/to");
 
             if (temp2.length != 2) {
                 throw new DukeException("Missing [to] for event!");
             }
-            from = temp2[0];
-            to = temp2[1];
+            from = temp2[0].replaceAll("\\s", "");
+            to = temp2[1].replaceAll("\\s", "");
             t = new Event(desc, from, to);
             ls.add(t);
         }
@@ -162,14 +167,29 @@ public class Duke {
         System.out.println(line);
 
         if (cmd.equals("mark")) {
-            System.out.println("I have set this task < " + ls.get(index).getDesc() + "> as completed." );
+            System.out.println("I have set this task < " + ls.get(index).getDesc() + " > as completed." );
             ls.get(index).setCheck(true);
         } else {
-            System.out.println("I have set this task < " + ls.get(index).getDesc() + "> as incomplete." );
+            System.out.println("I have set this task < " + ls.get(index).getDesc() + " > as incomplete." );
             ls.get(index).setCheck(false);
         }
 
         System.out.println(line);
+    }
+
+
+    //todo add more ways to parse date
+    private static LocalDate validDate(String str) throws DukeException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+        LocalDate ld;
+        System.out.println(str);
+        try {
+            ld = LocalDate.parse(str, formatter);
+        } catch (DateTimeParseException dt) {
+            throw new DukeException("Invalid date format");
+        }
+
+        return ld;
     }
 
 }
