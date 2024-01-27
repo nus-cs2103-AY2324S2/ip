@@ -90,7 +90,7 @@ public class Yapper {
                 System.exit(0);
             }
         } else {
-            throw new YapperException("Sorry but I don't know what that means :(");
+            throw new YapperException("Sorry but I don't know what you're yapping about :(");
         }
     }
      private static void printTaskList(List<Task> tasks) {
@@ -99,4 +99,5 @@ public class Yapper {
          }
      }
 }
+
 
