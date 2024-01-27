@@ -61,8 +61,8 @@ public class AaronBot {
         case "mark":
             String taskIndexMark = tokenizedUserInput[1];
             try {
-                markCheck(taskIndexMark);
-            } catch (MarkingException e) {
+                indexCheck(taskIndexMark);
+            } catch (IndexErrorException e) {
                 System.out.println("Student, your mark index should be a number between 1 and "
                         + taskList.size());
                 System.out.println(e);
@@ -72,9 +72,9 @@ public class AaronBot {
         case "unmark":
             String taskIndexUnmark = tokenizedUserInput[1];
             try {
-             markCheck(taskIndexUnmark);
-            } catch (MarkingException e) {
-                System.out.println("Student, your mark index should be a number between 1 and "
+                indexCheck(taskIndexUnmark);
+            } catch (IndexErrorException e) {
+                System.out.println("Student, your unmark index should be a number between 1 and "
                         + taskList.size());
                 System.out.println(e);
                 return true;
@@ -89,6 +89,18 @@ public class AaronBot {
             } else {
                 throw new NonsenseCommandException(userInput);
             }
+        case "delete":
+            String taskIndexDelete = tokenizedUserInput[1];
+            try {
+                indexCheck(taskIndexDelete);
+            } catch (IndexErrorException e) {
+                System.out.println("Student, your delete index should be a number between 1 and "
+                        + taskList.size());
+                System.out.println(e);
+                return true;
+        }
+        return deleteTask(Integer.parseInt(taskIndexDelete));
+
         case "bye":
             System.out.println("Ok Student, HAND.");
             return false;
@@ -153,6 +165,13 @@ public class AaronBot {
         return true;
     }
 
+    private static boolean deleteTask(int listIndex) {
+        Task deletedTask = taskList.get(listIndex - 1); 
+        taskList.remove(listIndex - 1);
+        System.out.println("Task deleted :\n" + deletedTask);
+        return true;
+    }
+
     private static void taskPresenceCheck(String userInputString) throws TaskNoNameException {
         if (userInputString.split("\\s+").length <= 1) {
             throw new TaskNoNameException(userInputString);
@@ -165,7 +184,7 @@ public class AaronBot {
         }
     }
 
-    private static void markCheck(String userString) throws MarkingException{
+    private static void indexCheck(String userString) throws IndexErrorException{
         Integer index;
         try {
             index = Integer.parseInt(userString);
