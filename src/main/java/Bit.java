@@ -30,13 +30,13 @@ public class Bit {
                     } else if (parts[0].equals("unmark")) {
                         unmark(i, list);
                     } else {
-                        try{addTo(list, input);} catch(DukeException e) {System.out.println(e);}
+                        try{addTo(list, input);} catch(DukeException e) {System.out.println(e.getMessage());}
 
 
                     }
 
                 } catch (NumberFormatException e) {
-                    try{addTo(list, input);} catch(DukeException x) {System.out.println(x);}
+                    try{addTo(list, input);} catch(DukeException x) {System.out.println(x.getMessage());}
 
 
                 }
@@ -51,7 +51,7 @@ public class Bit {
                     System.out.println("Did you forget something?");
                 }
             } else {
-                try{addTo(list, input);} catch(DukeException e) {System.out.println(e);}
+                try{addTo(list, input);} catch(DukeException e) {System.out.println(e.getMessage());}
 
             }
 

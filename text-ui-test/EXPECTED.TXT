@@ -7,9 +7,9 @@ Sorry, I don't understand what you mean
 ---------------------------------------------------------
 I have added this todo: 1 [T][ ] x
 ---------------------------------------------------------
-DukeException: Hmmm, that todo is empty!
+Hmmm, that todo is empty!
 ---------------------------------------------------------
-DukeException: I have no idea what that means!
+I have no idea what that means!
 ---------------------------------------------------------
 Sure! Here is the list:
 
@@ -17,20 +17,20 @@ Sure! Here is the list:
 ---------------------------------------------------------
 I have added this event: 2 [E][ ] y  (from:  1  to:  2)
 ---------------------------------------------------------
-DukeException: Missing something?
+Missing something?
 ---------------------------------------------------------
-DukeException: Missing something?
+Missing something?
 ---------------------------------------------------------
-DukeException: Did you make a mistake?
+Did you make a mistake?
 ---------------------------------------------------------
 Done! I have added this to the list:[D][ ] a  (by:  7)
  There are now 3 items
 ---------------------------------------------------------
-DukeException: Is that a typo I see?
+Is that a typo I see?
 ---------------------------------------------------------
-DukeException: Did you miss something?
+Did you miss something?
 ---------------------------------------------------------
-DukeException: Did you miss something?
+Did you miss something?
 ---------------------------------------------------------
 Done and dusted: [T][X] x
 ---------------------------------------------------------
