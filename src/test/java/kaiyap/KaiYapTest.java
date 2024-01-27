@@ -13,7 +13,13 @@ public class KaiYapTest {
 
     @BeforeEach
     public void setUp() {
-w
+        yap = new KaiYap();
+        Task task1 = yap.taskList.taskCreator("todo finish iP");
+        yap.taskList.add(task1);
+        yap.storage.saveData();
+        Task task2 = yap.taskList.taskCreator("deadline finish tP /by 28/03/2024 2359");
+        yap.taskList.add(task2);
+        yap.storage.saveData();
     }
 
     @AfterEach

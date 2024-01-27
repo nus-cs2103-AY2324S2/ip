@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
 
+    //KaiYap object for testing
     private KaiYap yap;
 
     @BeforeEach
