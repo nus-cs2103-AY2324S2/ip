@@ -14,10 +14,15 @@ public class Event extends Task {
     public String toString() {
         return "[E]"
                 + super.toString()
-                + "(from"
+                + " (from "
                 + this.from
-                + "to:"
+                + " to: "
                 + this.to
                 + ")";
+    }
+
+    @Override
+    public String getData() {
+        return "E" + super.getData() + " | " + this.from + " | " + this.to;
     }
 }
