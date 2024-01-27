@@ -1,16 +1,12 @@
-import java.io.IOException;
-import java.util.ArrayList;
+package yapper;
+import yapper.tasks.*;
 import java.util.List;
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Yapper {
-    private static final String FILE_PATH = "./src/main/java/data/Yapper.txt";
+    private static final String FILE_PATH = "./src/main/java/data/yapper.Yapper.txt";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     private static List<Task> tasks;
@@ -56,7 +52,6 @@ public class Yapper {
     private static void processUserInput(String userInput) throws YapperException {
 
         if (userInput.equalsIgnoreCase("list")) {
-            System.out.println(" Here are the tasks in your yapping list:");
             ui.showTaskList(tasks);
         } else if (userInput.startsWith("mark")) {
             try {

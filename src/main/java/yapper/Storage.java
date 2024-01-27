@@ -1,7 +1,10 @@
+package yapper;
+import yapper.command.Parser;
+import yapper.tasks.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -34,7 +37,7 @@ public class Storage {
     /**
      * Saves the tasks from user input in the file.
      *
-     * @param tasks Task input extracted from user input.
+     * @param tasks yapper.tasks.Task input extracted from user input.
      */
     public void saveTasks(List<Task> tasks) throws YapperException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
