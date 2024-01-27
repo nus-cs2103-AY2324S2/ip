@@ -1,6 +1,18 @@
-import exceptions.*;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidSlashParameterException;
+import exceptions.InvalidStatusUpdateException;
 
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Lulu {
     private enum Commands {
@@ -13,12 +25,47 @@ public class Lulu {
         EVENT;
     }
     private List<Task> items;
+    private File file;
+    private Path path;
 
     public Lulu() {
         this.items = new ArrayList<>();
     }
 
     public void start() {
+        try {
+            String fileName = "src/main/java/data/lulu.txt";
+            this.file = new File(fileName);
+            this.path = Path.of(fileName);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] words = line.split(",");
+                if (words[0].equals("todo")) {
+                    Todo todo = new Todo(words[1]);
+                    if (words[2].equals("true")) {
+                        todo.updateStatus(true);
+                    }
+                    this.items.add(todo);
+                } else if (words[0].equals("deadline")) {
+                    Deadline deadline = new Deadline(words[1], words[2]);
+                    if (words[3].equals("true")) {
+                        deadline.updateStatus(true);
+                    }
+                    this.items.add(deadline);
+                } else if (words[0].equals("event")) {
+                    Event event = new Event(words[1], words[2], words[3]);
+                    if (words[4].equals("true")) {
+                        event.updateStatus(true);
+                    }
+                    this.items.add(event);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            print("Invalid file path provided, session will not be saved.");
+        } catch (InvalidStatusUpdateException e) {
+            print (e.getMessage());
+        }
         print("Hello! I'm Lulu \n\tWhat can I do for you?");
     }
 
@@ -169,6 +216,10 @@ public class Lulu {
         print("Got it. I've added this task:");
         print("\t" + todo);
         print(String.format("Now you have %d tasks in the list.", this.items.size()));
+
+        // save to file
+        String data = String.format("todo,%s,%b", name, todo.status);
+        writeLine(this.file, data);
     }
 
     public void deadline(String input) {
@@ -188,6 +239,10 @@ public class Lulu {
             print("Got it. I've added this task:");
             print("\t" + deadline);
             print(String.format("Now you have %d tasks in the list.", this.items.size()));
+
+            // save to file
+            String data = String.format("deadline,%s,%s,%b", name, by, deadline.status);
+            writeLine(this.file, data);
         } catch (InvalidSlashParameterException e) {
             print("Sorry, when would you like the deadline to be until?");
         }
@@ -215,10 +270,48 @@ public class Lulu {
             print("Got it. I've added this task:");
             print("\t" + event);
             print(String.format("Now you have %d tasks in the list.", this.items.size()));
+
+            // save to file
+            String data = String.format("event,%s,%s,%s,%b", name, from, to, event.status);
+            writeLine(this.file, data);
         } catch (InvalidSlashParameterException e) {
             print("Sorry, when would you like the event to begin and end?");
         }
     }
+
+    public void writeLine(File file, String data) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            writer.write(data);
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            print(e.getMessage());
+        }
+    }
+
+    private void updateLine(Path path, int index, String data) {
+        try {
+            List<String> lines = Files.readAllLines(path);
+            lines.set(index, data);
+
+            Files.write(path, lines, StandardOpenOption.WRITE);
+        } catch (IOException e) {
+            print(e.getMessage());
+        }
+    }
+
+    private void deleteLine(Path path, int index) {
+        try {
+            List<String> lines = Files.readAllLines(path);
+            lines.remove(index);
+
+            Files.write(path, lines, StandardOpenOption.WRITE);
+        } catch (IOException e) {
+            print(e.getMessage());
+        }
+    }
+
 
     public void print(Object text) {
         System.out.println("\t" + text.toString());
