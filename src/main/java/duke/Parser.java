@@ -22,6 +22,8 @@ class Parser {
             return new List(tasks);
         } else if (input.equals("current") || input.equals("curr")) {
             return new CurrentTask(tasks);
+        } else if (inputs[0].equals("find") && inputs.length == 2) {
+            return new Find(inputs[1], tasks);
         } else if (inputs[0].equals("mark") && inputs.length==2) {
             return new Mark(Integer.parseInt(inputs[1])-1,tasks);
         } else if (inputs[0].equals("unmark") && inputs.length==2) {
