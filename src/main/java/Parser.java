@@ -1,7 +1,5 @@
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Parser {
     private static final HashMap<String, Integer> CMD_LIST = new HashMap<>() {{

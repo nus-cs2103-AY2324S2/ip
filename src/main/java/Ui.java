@@ -27,7 +27,7 @@ public class Ui {
 
     protected void showLoadingError() {
         System.out.println(hLine);
-        System.out.println("Error in loading file from specified folder!");
+        System.out.println("Error in loading file from specified folder! Creating one.");
         System.out.println(hLine);
     }
 
