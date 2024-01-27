@@ -8,17 +8,17 @@ public class Deadline extends Task {
     public static String CREATE_DEADLINE_FORMAT = "deadline <task-name> /by <deadline>";
 
     // Deadline of task.
-    private String deadline;
+    private String by;
 
     /**
      * Creates a Task with given description and specified deadline.
      *
      * @param description Description of task.
-     * @param deadline Deadline for the task.
+     * @param by Deadline for the task.
      */
-    private Deadline(String description, String deadline) {
+    private Deadline(String description, String by) {
         super(description);
-        this.deadline = deadline;
+        this.by = by;
     }
 
     /**
@@ -51,7 +51,16 @@ public class Deadline extends Task {
      */
     @Override
     public String getTaskInformation() {
-        return "[D]" + super.getTaskInformation() + " (by: " + this.deadline + ")";
+        return "[D]" + super.getTaskInformation() + " (by: " + this.by + ")";
     }
 
+    /**
+     * Returns String to be saved in data file and loaded for future use.
+     *
+     * @return String data of task.
+     */
+    @Override
+    public String saveTaskAsString() {
+        return "D | " + (this.getIsDone() ? 1 : 0) + " | " + this.getDescription() + " /by " + this.by;
+    }
 }

@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -24,15 +25,22 @@ public class Duke {
         // Task list to track tasks from users.
         TaskList taskList = new TaskList();
 
+        try {
+            taskList.loadTaskList();
+        } catch (IOException e) {
+            Duke.echo("Duke cannot start due to the following error: " + e.getMessage());
+            return;
+        }
+
         Duke.echo(GREETING);
 
         while (true) {
             String input = sc.nextLine().trim();
             Command inputCommand = Duke.getCommand(input);
-            // For commands that expects an index as argument.
-            int index = 0;
 
             try {
+                // For commands that expects an index as argument.
+                int index = 0;
                 switch (inputCommand) {
                 case BYE:
                     Duke.echo(GOODBYE);
@@ -69,10 +77,13 @@ public class Duke {
                 default:
                     throw new UnknownCommandException();
                 }
+                taskList.saveTaskList();
             } catch (NumberFormatException e) {
                 Duke.echo("Error. Command expects a number. Please try again.");
             } catch (TaskException | UnknownCommandException e) {
                 Duke.echo(e.getMessage());
+            } catch (IOException e) {
+                Duke.echo("Tasks cannot be saved to file. Please restart.");
             }
         }
     }
