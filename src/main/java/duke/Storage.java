@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 /**
  * A class used to save and load the state of the program to and from the disk.
  */
+// Serializing the state was inspired by https://www.baeldung.com/java-serialization
 public class Storage {
     private File file;
 

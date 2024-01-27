@@ -17,6 +17,7 @@ public class Duke {
 
     /**
      * The constructor for the Duke class.
+     *
      * @param fileName file to store state to
      */
     public Duke(String fileName) {
@@ -32,6 +33,7 @@ public class Duke {
     /**
      * The read-eval-print loop of the program.
      */
+    // Solution below adapted from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
     public void repl() {
         ui.showWelcome();
         boolean isExit = false;
@@ -54,6 +56,7 @@ public class Duke {
 
     /**
      * The main loop.
+     *
      * @param args program parameters
      */
     public static void main(String[] args) {
