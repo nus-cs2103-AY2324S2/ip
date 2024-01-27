@@ -2,7 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -19,8 +23,8 @@ public class MissA {
             + emptyLine
             + "I can record 3 types of tasks now.\n"
             + "ToDos: e.g. todo clean my room\n"
-            + "Deadlines: e.g. deadline submit homework /by 7pm\n"
-            + "Events: e.g. event lecture /from 1pm /to 3pm\n"
+            + "Deadlines: e.g. deadline submit homework /by 2021-4-1 21\n"
+            + "Events: e.g. event lecture /from 2021-4-2 14 /to 2021-4-2 16\n"
             + emptyLine
             + "Here are the commands that I can understand:)\n"
             + "\"list\": I will display the latest task list.\n"
@@ -103,7 +107,9 @@ public class MissA {
             if (temp.length != 4) {
                 throw new WrongTaskDataException();
             }
-            Task t2 = new Deadline(temp[2], temp[3]);
+            Task t2 = new Deadline(
+                    temp[2],
+                    LocalDateTime.parse(temp[3]));
             if (temp[1].equals("1")) {
                 t2.mark();
             }
@@ -113,7 +119,10 @@ public class MissA {
             if (temp.length != 5) {
                 throw new WrongTaskDataException();
             }
-            Task t3 = new Event(temp[2], temp[3], temp[4]);
+            Task t3 = new Event(
+                    temp[2],
+                    LocalDateTime.parse(temp[3]),
+                    LocalDateTime.parse(temp[4]));
             if (temp[1].equals("1")) {
                 t3.mark();
             }
@@ -252,7 +261,14 @@ public class MissA {
                             throw new NoTimingException();
                         }
                         String[] content = task[1].split(" /by ");
-                        nextTask = new Deadline(content[0], content[1]);
+                        String[] time = content[1].split(" ");
+                        int[] timing = Arrays.stream(time[0].split("-"))
+                                .mapToInt(Integer::valueOf).toArray();
+                        nextTask = new Deadline(
+                                content[0],
+                                LocalDateTime.of(
+                                        LocalDate.of(timing[0], timing[1], timing[2]),
+                                        LocalTime.of(Integer.valueOf(time[1]), 0)));
                         missA.taskList.add(nextTask);
 
                     } else if (taskType.equals("event")) { // Checks if the task type is event.
@@ -265,7 +281,25 @@ public class MissA {
                         String[] content = task[1].split(" /from ");
                         String text = content[0];
                         String[] interval = content[1].split(" /to ");
-                        nextTask = new Event(text, interval[0], interval[1]);
+
+                        // Gets start date and time.
+                        String[] from = interval[0].split(" ");
+                        int[] fromDate = Arrays.stream(from[0].split("-"))
+                                .mapToInt(Integer::valueOf).toArray();
+
+                        //Gets end date and time.
+                        String[] to = interval[1].split(" ");
+                        int[] toDate = Arrays.stream(to[0].split("-"))
+                                .mapToInt(Integer::valueOf).toArray();
+
+                        nextTask = new Event(
+                                text,
+                                LocalDateTime.of(
+                                        LocalDate.of(fromDate[0], fromDate[1], fromDate[2]),
+                                        LocalTime.of(Integer.valueOf(from[1]), 0)),
+                                LocalDateTime.of(
+                                        LocalDate.of(toDate[0], toDate[1], toDate[2]),
+                                        LocalTime.of(Integer.valueOf(to[1]), 0)));
                         missA.taskList.add(nextTask);
 
                     } else {
