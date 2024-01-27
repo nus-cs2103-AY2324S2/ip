@@ -11,9 +11,36 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Duke {
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
 
-    private static final String FILE_PATH = "./data/artemis.txt";
-    private static final String DIRECTORY_PATH = "./data/";
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (ArtemisException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
+
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            String input = sc.nextLine();
+            if (input.equals("bye")) {
+                break;
+            }
+
+            Command command = Parser.parseCommand(input);
+            command.execute(tasks, ui, storage);
+        }
+        sc.close();
+    }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
