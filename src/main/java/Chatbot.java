@@ -48,6 +48,7 @@ public class Chatbot {
         System.out.println(LINE);
         System.out.println("Bye lol see you again!");
         System.out.println(LINE);
+        tasklist.saveTasks();
     }
 
     public void echo(String input) {
