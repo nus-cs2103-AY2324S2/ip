@@ -35,6 +35,15 @@ public class Duke {
         Duke.printLine();
     }
 
+    public static void printDeletedTask(String taskMessage, int remainingNumOfTasks) {
+        String deletedTaskMessage = "got it!! i've deleted this task:\n" +
+                                    "   " + taskMessage + "\n" +
+                                    "you now have " + remainingNumOfTasks + " tasks left in the task list!";
+        Duke.printLine();
+        System.out.println(deletedTaskMessage);
+        Duke.printLine();
+    }
+
     public static void main(String[] args) {
         try {
             Scanner sc = new Scanner(System.in);
@@ -94,7 +103,7 @@ public class Duke {
                     }
                     taskList.get(taskNum - 1).complete();
                     String markedMessage = "good job!!! i've marked this task as done:\n" +
-                            "   " + taskList.get(taskNum - 1).printTask();
+                                           "   " + taskList.get(taskNum - 1).printTask();
                     Duke.printMessage(markedMessage);
                     //command: unmark
                 } else if (command.equalsIgnoreCase("unmark")) {
@@ -114,8 +123,29 @@ public class Duke {
                     }
                     taskList.get(taskNum - 1).unmark();
                     String unmarkedMessage = "okay! i've unmarked this task:\n" +
-                            "   " + taskList.get(taskNum - 1).printTask();
+                                             "   " + taskList.get(taskNum - 1).printTask();
                     Duke.printMessage(unmarkedMessage);
+                    //command: delete
+                } else if (command.equalsIgnoreCase("delete")) {
+                    int taskNum = Integer.parseInt(inputTokens[1]);
+                    if (taskNum == 0) {
+                        String exceptionMessage = Duke.createLine() + "\n" +
+                                                  "beepbeep!!! there's no task 0!!!\n" +
+                                                  "hmf >:P\n" +
+                                                  Duke.createLine();
+                        throw new DukeException(exceptionMessage);
+                    } else if (taskNum > taskList.size()) {
+                        String exceptionMessage = Duke.createLine() + "\n" +
+                                                  "hold up!! you only have " + taskList.size() + " tasks in your task list!!\n" +
+                                                  "there's no task " + taskNum + " ~ try again :3\n" +
+                                                  Duke.createLine();
+                        throw new DukeException(exceptionMessage);
+                    }
+                    Task deletedTask = taskList.get(taskNum - 1);
+                    String deletedTaskMessage = deletedTask.printTask();
+                    taskList.remove(taskNum - 1);
+                    int remainingNumOfTasks = taskList.size();
+                    Duke.printDeletedTask(deletedTaskMessage, remainingNumOfTasks);
                     //command: todo
                 } else if (command.equalsIgnoreCase("todo")) {
                     int len = inputTokens.length;
@@ -211,6 +241,7 @@ public class Duke {
                                               "list\n" +
                                               "mark\n" +
                                               "unmark\n" +
+                                              "delete\n" +
                                               "todo\n" +
                                               "deadline\n" +
                                               "event\n" +
