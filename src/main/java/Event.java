@@ -18,4 +18,8 @@ public class Event extends Task {
                 this.end
         );
     }
+
+    public String toString2() {
+        return String.format("E | %d | %s | %s %s", this.isDone ? 1 : 0, this.description, this.start, this.end);
+    }
 }

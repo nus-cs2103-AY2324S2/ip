@@ -1,6 +1,11 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.StringBuilder;
+
 public class Duke {
     private ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
@@ -90,6 +95,11 @@ public class Duke {
                 "\t  %s\n",
                 this.tasks.get(taskIndex)
         );
+        try {
+            this.writeToFile();
+        } catch (IOException e) {
+            System.out.println("\t" + e.getMessage());
+        }
     }
 
     public int parseUnmark(String input) throws WrongFormatException {
@@ -113,6 +123,11 @@ public class Duke {
                 "\t  %s\n",
                 this.tasks.get(taskIndex)
         );
+        try {
+            this.writeToFile();
+        } catch (IOException e) {
+            System.out.println("\t" + e.getMessage());
+        }
     }
 
     public int parseDelete(String input) throws WrongFormatException {
@@ -137,12 +152,22 @@ public class Duke {
         );
         this.tasks.remove(taskIndex);
         System.out.printf("\tNow you have %d tasks in the list.\n", this.tasks.size());
+        try {
+            this.writeToFile();
+        } catch (IOException e) {
+            System.out.println("\t" + e.getMessage());
+        }
     }
 
     public void updateTasks(Task task) {
         this.tasks.add(task);
         System.out.printf("\tGot it. I've added this task:\n\t  %s\n", task);
         System.out.printf("\tNow you have %d tasks in the list.\n", this.tasks.size());
+        try {
+            this.writeToFile();
+        } catch (IOException e) {
+            System.out.println("\t" + e.getMessage());
+        }
     }
 
     public ToDo parseToDo(String input) throws WrongFormatException {
@@ -182,5 +207,17 @@ public class Duke {
                     "Invalid 'event' command format. Usage: event <description> /from <date> /to <date>"
             );
         }
+    }
+
+    public void writeToFile() throws IOException {
+        File f = new File("data" + File.separator + "ezra.txt");
+        f.createNewFile();
+        FileWriter fw = new FileWriter(f);
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            builder.append(this.tasks.get(i).toString2() + "\n");
+        }
+        fw.write(builder.toString());
+        fw.close();
     }
 }
