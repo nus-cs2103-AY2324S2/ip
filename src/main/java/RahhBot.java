@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class RahhBot {
     public static void main(String[] args) {
         String logo = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣠⣤⣤⣄⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
@@ -22,13 +23,27 @@ public class RahhBot {
                     + "⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠁⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀\n"
                     + "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣤⣤⣀⣀⣀⣀⣀⣀⣀⣤⣤⣤⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀\n";
 
-        System.out.println("_________________________________________\n");
         System.out.println(logo);
         System.out.println("_________________________________________\n");
         System.out.println("Hello! I'm RahhBot. RAHHHH!!\n");
         System.out.println("What can I do for you?\n");
         System.out.println("_________________________________________\n");
-        System.out.println("Bye. Hope to see you again soon!\n");
-        System.out.println("_________________________________________\n");
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String command = scanner.nextLine();
+
+            if (command.equalsIgnoreCase("bye")) {
+                System.out.println("_________________________________________\n");
+                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("_________________________________________\n");
+                break;
+            }
+
+            System.out.println("_________________________________________\n");
+            System.out.println(command);
+            System.out.println("_________________________________________\n");
+        }
     }
 }
