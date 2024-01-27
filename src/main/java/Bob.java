@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Bob {
     private static void printFormatted(String[] lines) {
-        String horizontalLine = "    ____________________________________________________________\n";
+        String horizontalLine = "    .-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.\n";
         StringBuilder formatted = new StringBuilder(horizontalLine);
         for (String line : lines) {
             formatted.append("     ");
@@ -18,7 +18,7 @@ public class Bob {
     }
 
     public static void main(String[] args) {
-        printFormatted(new String[]{ "Hello! I'm Bob", "What can I do for you?" });
+        printFormatted(new String[]{ "yo im bob", "what do you want" });
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -29,6 +29,6 @@ public class Bob {
             printFormatted(command);
         }
 
-        printFormatted("Bye. Hope to see you again soon!");
+        printFormatted("ok");
     }
 }
