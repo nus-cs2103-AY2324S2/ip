@@ -33,15 +33,15 @@ public abstract class Task implements Serializable {
         status = Status.Incomplete;
     }
 
-    public void setComplete() {
+    public final void setComplete() {
         status = Status.Complete;
     }
 
-    public void setIncomplete() {
+    public final void setIncomplete() {
         status = Status.Incomplete;
     }
 
-    public String status() {
+    public final String status() {
         return status.description;
     }
 
