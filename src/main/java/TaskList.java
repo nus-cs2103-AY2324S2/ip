@@ -9,12 +9,18 @@ public class TaskList {
         tasks = new ArrayList<Task>();
     }
 
+    public void printListSize(){
+
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
     public void addDeadline(String name, String deadline){
 
         Task task = new Deadline(name, deadline);
         tasks.add(task);
         System.out.println(taskAdded);
         System.out.println(task);
+        printListSize();
     }
 
     public void addTodo(String name){
@@ -23,6 +29,7 @@ public class TaskList {
         tasks.add(task);
         System.out.println(taskAdded);
         System.out.println(task);
+        printListSize();
     }
 
     public void addEvent(String name, String start, String end){
@@ -31,6 +38,16 @@ public class TaskList {
         tasks.add(task);
         System.out.println(taskAdded);
         System.out.println(task);
+        printListSize();
+    }
+
+    public void deleteTask(Integer index){
+
+        Task task = tasks.get(index-1);
+        tasks.remove(index-1);
+        System.out.println("(•̀-•́) Noted, I've removed this task:");
+        System.out.println(task);
+        printListSize();
     }
 
     public void markTask(Integer index){

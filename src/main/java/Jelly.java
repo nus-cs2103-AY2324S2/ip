@@ -79,15 +79,15 @@ public class Jelly {
                     break;
                 }
 
-                if(!deadline.endsWith(" ")){
+                deadline = deadline.substring(1);
+
+                argument = argument.substring(0, argument.indexOf("/"));
+
+                if(!argument.endsWith(" ")){
 
                     System.out.println("(X_x) Formatting error! you need a space before any '/'");
                     break;
                 }
-
-                deadline = deadline.substring(1);
-
-                argument = argument.substring(0, argument.indexOf("/"));
 
                 list.addDeadline(argument, deadline);
 
@@ -132,7 +132,7 @@ public class Jelly {
                     break;
                 }
 
-                start = start.substring(0, start.length());
+                start = start.substring(0, start.length()-1);
 
                 if(end.length() == 1){
 
@@ -151,6 +151,18 @@ public class Jelly {
                 }
 
                 list.addEvent(argument, start, end);
+
+                break;
+
+            case "delete":
+
+                if(argument.length() == 0){
+
+                    System.out.println("(X_x) Formatting error! no index received");
+                    break;
+                }
+
+                list.deleteTask(Integer.parseInt(lines[1]));
 
                 break;
 
