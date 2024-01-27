@@ -14,7 +14,7 @@
               [D][ ] return book (by: June 6th)
 
 
-    (>^.^<) Ok, I've added a new Event...
+    (>^.^<) Ok, I've added a new event...
               [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 
 
@@ -118,7 +118,7 @@
     (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you didn't specify specify a name for your event
 
 
-    (>^.^<) Ok, I've added a new Event...
+    (>^.^<) Ok, I've added a new event...
               [E][ ] eventname (from: event from to: event to)
 
 
@@ -132,6 +132,23 @@
             7.[T][ ]   do  sumting  with trailingspace
             8.[D][ ] do sumting (by: time)
             9.[E][ ] eventname (from: event from to: event to)
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 0
+
+
+    (>^.^<) I'm deleting this task. bye...
+            [T][ ] do sumting
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: should
+
+
+    (>^.^<) I'm deleting this task. bye...
+            [T][ ] do  samadating
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 9
 
 
     (>^.^<) OH NYO ERROR!!!!!!!!!!!!! options were not expected but were given

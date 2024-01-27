@@ -33,5 +33,10 @@ event no to /from no to /to
 event /from noname /to noname
 event eventname /from event from /to event to
 list
+delete 0
+delete 4
+delete 5 should throw
+delete 5
+delete 9
 bye this should throw
 bye

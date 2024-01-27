@@ -327,6 +327,39 @@ public class Duke {
             }
         });
         
+        Duke.addCommand("delete", (args) -> {
+            try {
+                int i;
+                Task t;
+
+                try {
+                    i = Integer.parseInt(args[1]) - 1;
+                } catch (NumberFormatException e) {
+                    throw new DukeOptionParsingException(
+                            String.format("I expected a number but %s was given instead", args[1])
+                    );
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeOptionParsingException("command ended when an argument was expected");
+                }
+
+                if (args.length > 2) {
+                    throw new DukeException("option was not expected but was given: " + args[2]);
+                }
+                
+                if (i < 0 || i >= taskList.size()) {
+                    throw new DukeException
+                            (String.format("You tried to access an invalid task index: %s", args[1]));
+                }
+                t = taskList.remove(i);
+                
+                Duke.print
+                        ("I'm deleting this task. bye...\n" +
+                        t.describe());
+            } catch (DukeException e) {
+                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+            }
+        });
+        
         Duke.print("Hello, my name is... Louie!!!!\n" + 
                    "What can I do for you today?");
         while (!done) {
