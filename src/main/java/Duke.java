@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -5,11 +10,14 @@ public class Duke {
         BYE, LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
     }
 
+    private static final String FILE_PATH = "./data/duke.txt";
+
     public static void main(String[] args) {
         String logo = "Chucklbot";
         System.out.println("Hello I'm " + logo + "\nWhat can I do for you? \n ");
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> store = new ArrayList<>();
+        loadTasks(store);
 
         String byeMessage = "Bye! Hope to see you again soon.";
         while (true) {
@@ -42,10 +50,73 @@ public class Duke {
                 default:
                     addList(store, command, sc);
             }
+            saveTasks(store);
         }
 
 
     }
+
+    private static void loadTasks(ArrayList<Task> store) {
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                Scanner fileScanner = new Scanner(file);
+                while (fileScanner.hasNext()) {
+                    String line = fileScanner.nextLine();
+                    String[] parts = line.split(" \\| ");
+                    String type = parts[0];
+                    boolean isDone = Integer.parseInt(parts[1]) == 1;
+                    String description = parts[2];
+
+                    Task task;
+                    switch (type) {
+                        case "T":
+                            task = new Todo(description);
+                            break;
+                        case "D":
+                            String by = parts[3];
+                            task = new Deadline(description, by);
+                            break;
+                        case "E":
+                            String[] eventParts = parts[3].split(" from ");
+                            String start = eventParts[0];
+                            String end = eventParts[1];
+                            task = new Event(description, start, end);
+                            break;
+                        default:
+                            throw new IOException("Invalid task type in file.");
+                    }
+
+                    if (isDone) {
+                        task.setStatus();
+                    }
+
+                    store.add(task);
+                }
+                fileScanner.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+    private static void saveTasks(ArrayList<Task> store) {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Create parent directories if they don't exist
+                file.createNewFile(); // Create the file if it doesn't exist
+            }
+
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            for (Task task : store) {
+                fileWriter.write(task.toFileString() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
     private static Command getCommand(String input) {
         try {
             return Command.valueOf(input.toUpperCase());
