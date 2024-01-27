@@ -13,13 +13,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 
+/**
+ * Class for file management
+ */
 class Storage {
     File taskFile;
 
+    /**
+     * Constructor for storage.
+     * @param filePath Path of a file.
+     */
     public Storage(String filePath) {
         this.taskFile = new File(filePath);
     }
 
+    /**
+     * Load the file into a list.
+     * @return An ArrayList of Tasks
+     * @throws FileNotFoundException if file not exist
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner sc = new Scanner(this.taskFile);
@@ -46,6 +58,11 @@ class Storage {
         return tasks;
     }
 
+    /**
+     * Write tasks to file.
+     * @param tasks The task List we want to write into file.
+     * @throws IOException If file not exist.
+     */
     public void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(this.taskFile);
         for (Task t : tasks) {
