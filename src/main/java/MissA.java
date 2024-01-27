@@ -1,4 +1,7 @@
-import java.lang.reflect.Array;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -78,17 +81,100 @@ public class MissA {
     }
 
     /**
+     * Fetches tasks stored in hard disk.
+     *
+     * @param task String representation of tasks stored.
+     * @throws WrongTaskDataException Alerts users when wrong data detected.
+     */
+    public void getTasksFromData(String task) throws WrongTaskDataException {
+        String[] temp = task.split(" \\| ", 5);
+        switch (temp[0]) {
+        case "T":
+            if (temp.length != 3) {
+                throw new WrongTaskDataException();
+            }
+            Task t1 = new ToDo(temp[2]);
+            if (temp[1].equals("1")) {
+                t1.mark();
+            }
+            taskList.add(t1);
+            break;
+        case "D":
+            if (temp.length != 4) {
+                throw new WrongTaskDataException();
+            }
+            Task t2 = new Deadline(temp[2], temp[3]);
+            if (temp[1].equals("1")) {
+                t2.mark();
+            }
+            taskList.add(t2);
+            break;
+        case "E":
+            if (temp.length != 5) {
+                throw new WrongTaskDataException();
+            }
+            Task t3 = new Event(temp[2], temp[3], temp[4]);
+            if (temp[1].equals("1")) {
+                t3.mark();
+            }
+            taskList.add(t3);
+            break;
+        default:
+            throw new WrongTaskDataException();
+        }
+    }
+
+    /**
+     * Gets string representations of all task data.
+     *
+     * @return String representations of data.
+     */
+    public String getUpdatedData() {
+        String str = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            if (i == taskList.size() - 1) {
+                str += t.getData();
+            } else {
+                str += t.getData() + "\n";
+            }
+        }
+        return str;
+    }
+
+    /**
      * Starts communication with chatbot MissA.
      *
      * @throws NoSuchTaskException Alerts users when wrong task number is given.
+     * @throws FileNotFoundException Alerts users there is no data stored found.
+     * @throws IOException Alerts users when unable to update data file.
      */
-    public static void main(String[] args) throws NoSuchTaskException {
+    public static void main(String[] args) throws
+            NoSuchTaskException, FileNotFoundException, IOException {
 
         /** Chatbot used for communication */
         MissA missA = new MissA();
 
         // Greets users when first enter the program.
         System.out.println("Hello from Miss A\n" + missA.greeting);
+
+        // Scans stored data.
+        try {
+            File data = new File("src/main/java/data/tasks.txt");
+            Scanner s = new Scanner(data);
+            while (s.hasNext()) {
+                missA.getTasksFromData(s.nextLine());
+            }
+            s.close();
+        } catch (WrongTaskDataException e) {
+            System.out.println(e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println("OOPS! " + e.getMessage());
+            System.out.println("Data file does not exist/Data file is not in the correct folder!");
+        }
+
+        /** File writer used to update date file */
+        FileWriter fileWriter = new FileWriter("src/main/java/data/tasks.txt");
 
         // Collects user input.
         Scanner scanner = new Scanner(System.in);
@@ -112,6 +198,7 @@ public class MissA {
                     System.out.println(missA.emptyLine
                             + "Great! You have completed this task!\n"
                             + missA.emptyLine);
+
 
                 } else if (userInput.startsWith("unmark")) { // Unmarks task.
                     String[] input = userInput.split(" ");
@@ -164,7 +251,7 @@ public class MissA {
                         if (!task[1].contains("/by")) {
                             throw new NoTimingException();
                         }
-                        String[] content = task[1].split("/by");
+                        String[] content = task[1].split(" /by ");
                         nextTask = new Deadline(content[0], content[1]);
                         missA.taskList.add(nextTask);
 
@@ -175,9 +262,9 @@ public class MissA {
                         if (!task[1].contains("/from") || !task[1].contains("/to")) {
                             throw new NoTimingException();
                         }
-                        String[] content = task[1].split("/from");
+                        String[] content = task[1].split(" /from ");
                         String text = content[0];
-                        String[] interval = content[1].split("/to");
+                        String[] interval = content[1].split(" /to ");
                         nextTask = new Event(text, interval[0], interval[1]);
                         missA.taskList.add(nextTask);
 
@@ -201,7 +288,16 @@ public class MissA {
             }
         }
 
+        // Writes back to data file.
+        try {
+            String newData = missA.getUpdatedData();
+            fileWriter.append(newData);
+        } catch (IOException e) {
+            System.out.println("Sorry, I am unable to update data file.");
+        }
+
         // Exits program.
+        fileWriter.close();
         System.out.println(missA.emptyLine + missA.goodBye);
     }
 }

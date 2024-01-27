@@ -24,6 +24,19 @@ public class Task {
     }
 
     /**
+     * Returns string representation of task data.
+     *
+     * @return String representation of task data.
+     */
+    public String getData() {
+        int done = 0;
+        if (isDone) {
+            done = 1;
+        }
+        return " | " + done + " | " + task;
+    }
+
+    /**
      * Returns string representation of task.
      * Indicates if the task is completed.
      *
