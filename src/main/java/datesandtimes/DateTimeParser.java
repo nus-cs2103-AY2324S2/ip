@@ -14,4 +14,8 @@ public class DateTimeParser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
         return time.format(formatter);
     }
+
+    public static void main(String[] args) {
+        System.out.println(parseDate(LocalDate.parse("2045-02-31")));
+    }
 }
