@@ -1,0 +1,10 @@
+todo borrow book
+list
+deadline return book /by Sunday 5pm
+event project meeting /from Mon 6th Nov 2pm /to Sun 28th Feb 4pm
+mark 3
+list
+unmark 3
+deadline borrow materials /by not too sure :-(
+list
+bye
