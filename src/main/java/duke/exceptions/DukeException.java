@@ -7,12 +7,12 @@ package duke.exceptions;
  * @author Ryan NgWH
  */
 public class DukeException extends Exception {
-  /**
-   * Constructor for a MissingArgumentException
-   *
-   * @param errorMessage Error message
-   */
-  public DukeException(String errorMessage) {
-    super(errorMessage);
-  }
+	/**
+	 * Constructor for a MissingArgumentException
+	 *
+	 * @param errorMessage Error message
+	 */
+	public DukeException(String errorMessage) {
+		super(errorMessage);
+	}
 }
