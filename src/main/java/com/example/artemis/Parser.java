@@ -6,34 +6,34 @@ public class Parser {
         String command = tokens[0].toLowerCase();
 
         switch (command) {
-            case "bye":
-                ui.showGoodbyeMessage();
-                storage.save(tasks.getTasks());
-                System.exit(0);
-                break;
-            case "list":
-                ui.showTaskList(tasks.getTasks());
-                break;
-            case "mark":
-                handleMarkAsDone(tokens, tasks, ui);
-                break;
-            case "unmark":
-                handleMarkAsNotDone(tokens, tasks, ui);
-                break;
-            case "todo":
-                handleTodoTask(tokens, tasks, ui);
-                break;
-            case "deadline":
-                handleDeadlineTask(input, tasks, ui);
-                break;
-            case "event":
-                handleEventTask(input, tasks, ui);
-                break;
-            case "delete":
-                handleDeleteTask(tokens, tasks, ui);
-                break;
-            default:
-                ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        case "bye":
+            ui.showGoodbyeMessage();
+            storage.save(tasks.getTasks());
+            System.exit(0);
+            break;
+        case "list":
+            ui.showTaskList(tasks.getTasks());
+            break;
+        case "mark":
+            handleMarkAsDone(tokens, tasks, ui);
+            break;
+        case "unmark":
+            handleMarkAsNotDone(tokens, tasks, ui);
+            break;
+        case "todo":
+            handleTodoTask(tokens, tasks, ui);
+            break;
+        case "deadline":
+            handleDeadlineTask(input, tasks, ui);
+            break;
+        case "event":
+            handleEventTask(input, tasks, ui);
+            break;
+        case "delete":
+            handleDeleteTask(tokens, tasks, ui);
+            break;
+        default:
+            ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -76,7 +76,8 @@ public class Parser {
         try {
             String[] tokens = input.split("/by");
             if (tokens.length < 2) {
-                throw new ArtemisException("OOPS!!! Invalid deadline format. Please use: deadline [description] /by [dd-mm-yyyy hhmm]");
+                throw new ArtemisException("OOPS!!! Invalid deadline format. " +
+                        "Please use: deadline [description] /by [dd-mm-yyyy hhmm]");
             }
 
             String description = tokens[0].replace("deadline ", "").trim();
@@ -92,13 +93,15 @@ public class Parser {
         try {
             String[] tokens = input.split("/from");
             if (tokens.length < 2) {
-                throw new ArtemisException("OOPS!!! Invalid event format. Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
+                throw new ArtemisException("OOPS!!! Invalid event format. " +
+                        "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
             }
 
             String description = tokens[0].replace("event ", "").trim();
             String[] fromTo = tokens[1].split("/to");
             if (fromTo.length < 2) {
-                throw new ArtemisException("OOPS!!! Invalid event format. Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
+                throw new ArtemisException("OOPS!!! Invalid event format. " +
+                        "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
             }
 
             String from = fromTo[0].trim();
