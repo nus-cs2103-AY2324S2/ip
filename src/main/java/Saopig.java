@@ -1,55 +1,45 @@
 import java.util.Scanner;
 
 public class Saopig {
-    enum Command {
-        COMMAND_BYE,
-        COMMAND_MARK_DONE,
-        COMMAND_UNMARK_DONE,
-        COMMAND_DEADLINE,
-        COMMAND_EVENT,
-        COMMAND_LIST,
-        COMMAND_TODO,
-        COMMAND_DELETE,
-        COMMAND_UNKNOWN,
-        // Add more commands here in the future
-    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         greet();
         TaskList taskList = new TaskList();
+        TaskList.loadTaskList(taskList);
+        speakWithHorizontalLines("Trying to load your previous task list...\n");
         mainLoop:
         while (true) {
             String input = scanner.nextLine();
             Command command = getCommandFromString(input);
             switch (command) {
-                case COMMAND_DELETE:
-                    taskList.deleteTask(input);
-                    break;
-                case COMMAND_MARK_DONE:
-                    taskList.markTaskAsDone(input);
-                    break;
-                case COMMAND_UNMARK_DONE:
-                    taskList.unmarkTaskAsDone(input);
-                    break;
-                case COMMAND_LIST:
-                    taskList.listTasks();
-                    break;
-                case COMMAND_BYE:
-                    bye();
-                    break mainLoop;
-                case COMMAND_TODO:
-                    taskList.addTodoTask(input);
-                    break;
-                case COMMAND_EVENT:
-                    taskList.addEventTask(input);
-                    break;
-                case COMMAND_DEADLINE:
-                    taskList.addDeadlineTask(input);
-                    break;
-                case COMMAND_UNKNOWN:
-                    speakWithHorizontalLines("Oh no! I'm sorry, but I don't know what that means.\n " +
-                            "Please try again, or type 'bye' to exit.");
-                    break;
+            case COMMAND_DELETE:
+                taskList.deleteTask(input);
+                break;
+            case COMMAND_MARK_DONE:
+                taskList.markTaskAsDone(input);
+                break;
+            case COMMAND_UNMARK_DONE:
+                taskList.unmarkTaskAsDone(input);
+                break;
+            case COMMAND_LIST:
+                taskList.listTasks();
+                break;
+            case COMMAND_BYE:
+                bye();
+                break mainLoop;
+            case COMMAND_TODO:
+                taskList.addTodoTask(input);
+                break;
+            case COMMAND_EVENT:
+                taskList.addEventTask(input);
+                break;
+            case COMMAND_DEADLINE:
+                taskList.addDeadlineTask(input);
+                break;
+            case COMMAND_UNKNOWN:
+                speakWithHorizontalLines("Oh no! I'm sorry, but I don't know what that means.\n " +
+                        "Please try again, or type 'bye' to exit.");
+                break;
             }
         }
     }
@@ -58,24 +48,24 @@ public class Saopig {
         String processedInput = input.trim().toUpperCase();
         String[] splitInput = processedInput.split(" ");
         switch (splitInput[0]) {
-            case "DELETE":
-                return Command.COMMAND_DELETE;
-            case "UNMARK":
-                return Command.COMMAND_UNMARK_DONE;
-            case "MARK":
-                return Command.COMMAND_MARK_DONE;
-            case "EVENT":
-                return Command.COMMAND_EVENT;
-            case "DEADLINE":
-                return Command.COMMAND_DEADLINE;
-            case "TODO":
-                return Command.COMMAND_TODO;
-            case "LIST":
-                return Command.COMMAND_LIST;
-            case "BYE":
-                return Command.COMMAND_BYE;
-            default:
-                return Command.COMMAND_UNKNOWN;
+        case "DELETE":
+            return Command.COMMAND_DELETE;
+        case "UNMARK":
+            return Command.COMMAND_UNMARK_DONE;
+        case "MARK":
+            return Command.COMMAND_MARK_DONE;
+        case "EVENT":
+            return Command.COMMAND_EVENT;
+        case "DEADLINE":
+            return Command.COMMAND_DEADLINE;
+        case "TODO":
+            return Command.COMMAND_TODO;
+        case "LIST":
+            return Command.COMMAND_LIST;
+        case "BYE":
+            return Command.COMMAND_BYE;
+        default:
+            return Command.COMMAND_UNKNOWN;
         }
     }
 
@@ -110,5 +100,18 @@ public class Saopig {
                 "I just want to say it's been an absolute delight!\n " +
                 "Remember, every day is a new adventure waiting to happen.\n " +
                 "Bye for now, and take care! ");
+    }
+
+    enum Command {
+        COMMAND_BYE,
+        COMMAND_MARK_DONE,
+        COMMAND_UNMARK_DONE,
+        COMMAND_DEADLINE,
+        COMMAND_EVENT,
+        COMMAND_LIST,
+        COMMAND_TODO,
+        COMMAND_DELETE,
+        COMMAND_UNKNOWN,
+        // Add more commands here in the future
     }
 }
