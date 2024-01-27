@@ -1,7 +1,7 @@
 package Tasks;
 
 public abstract class Task {
-    private String description;
+    protected String description;
     private boolean completed;
     public Task(String task) {
         this.description = task;
@@ -15,6 +15,8 @@ public abstract class Task {
     public void markUncompleted() {
         this.completed = false;
     }
+    public boolean isCompleted() { return this.completed; }
+    abstract public String save();
 
     public String toString() {
         StringBuilder sb = new StringBuilder();

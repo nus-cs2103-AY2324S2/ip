@@ -2,12 +2,16 @@ package Tasks;
 
 import Exceptions.InvalidInputException;
 
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static Utils.StringUtils.formatDateTime;
+import static Utils.StringUtils.parseDateTime;
+
 public class Deadline extends Task{
-    String by;
-    public Deadline(String description, String by) {
+    LocalDateTime by;
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -19,7 +23,7 @@ public class Deadline extends Task{
             Matcher matcher = pattern.matcher(description);
             if (matcher.find()) {
                 String taskName = matcher.group(1);
-                String deadline = matcher.group(2);
+                LocalDateTime deadline= parseDateTime(matcher.group(2));
                 return new Deadline(taskName, deadline);
             } else {
                 throw new InvalidInputException("Invalid input for deadline. Input your deadline as such:\ndeadline <name_of_deadline> /by <due_date>");
@@ -30,6 +34,10 @@ public class Deadline extends Task{
     }
 
     public String toString() {
-        return "[D]" + super.toString() + " (by: "+ this.by+")";
+        return "[D]" + super.toString() + " (by: "+ formatDateTime(this.by)+")";
+    }
+
+    public String save() {
+        return "deadline " + super.description + " /by " + formatDateTime(this.by);
     }
 }
