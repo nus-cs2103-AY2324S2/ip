@@ -44,17 +44,17 @@ class ListAdder {
                 break;
             }
 
-            if (input.equals("list")) {
+            if (input.equals("list")) { // show list
                 this.taskIndex = 1;
                 printList();
-            } else if (input.startsWith("mark done")) { // task is already done
+            } else if (input.startsWith("mark done")) { // mark as done
                 try {
                     int index = Integer.parseInt(input.substring(9).trim()) - 1;
                     markDone(index);
                 } catch (NumberFormatException e) {
                     System.out.println("\t" + "Invalid input. Please enter a valid task index.");
                 }
-            } else if (input.startsWith("mark undone")) { // task is already undone
+            } else if (input.startsWith("mark undone")) { // mark as undone
                 try {
                     int index = Integer.parseInt(input.substring(11).trim()) - 1;
                     markUndone(index);
@@ -76,20 +76,37 @@ class ListAdder {
      */
     private void greeting() {
         printLine();
-        System.out.println("\n" + "Hello! My name is Computer Helper Boy." + "\n");
-        System.out.println("Help: ");
-        System.out.println("1. To add a task, type the task name.");
-        System.out.println("2. To mark a task as done, type 'mark done' followed by the task number.");
-        System.out.println("3. To mark a task as undone, type 'mark undone' followed by the task number.");
-        System.out.println("4. To view your to-do list, type 'list'.");
-        System.out.println("5. To exit, type 'bye'.");
+        helpline();
         printLine();
     }
 
+    /* 
+     * Prints line
+     * @return void
+     */
     private void printLine() {
         System.out.println(line);
     }
 
+    /*
+     * Prints instructions
+     * @return void
+     */
+    private void helpline() {
+        System.out.println("\t" + "Help: ");
+        System.out.println("\t" + "1. Add a todo task: todo <task>");
+        System.out.println("\t" + "2. Add a deadline: deadline <task> /by <deadline>");
+        System.out.println("\t" + "3. Add an event: event <task> /from <start time> /to <end time>");
+        System.out.println("\t" + "4. Mark task as done: mark done <task index>");
+        System.out.println("\t" + "5. Mark task as undone: mark undone <task index>");
+        System.out.println("\t" + "6. Show list: list");
+        System.out.println("\t" + "7. Exit: bye");
+    }
+
+    /*
+     * Prints goodbye message
+     * @return void
+     */
     private void goodbye() {
         System.out.println("\t" + "Bye. Hope to see you again soon!");
     }
@@ -100,11 +117,75 @@ class ListAdder {
      * @return void
      */
     private void addTask(String task) {
-        Task newTask = new Task(task);
-        this.taskList.add(newTask);
-        
-        System.out.println("\t" + "Added task: " + task);
+        if (task.startsWith("todo")) {
+            String todoDescription = task.substring(4).trim();
+            if (todoDescription.isEmpty()) {
+                System.out.println("\t" + "Invalid input. Please enter a valid todo task.");
+            } else {
+                addTodoTask(todoDescription);
+            }
+        } else if (task.startsWith("deadline")) {
+            String[] deadlineDescription = task.substring(8).trim().split("/by", 2);
+            if (deadlineDescription.length != 2 || deadlineDescription[0].trim().isEmpty() 
+                || deadlineDescription[1].trim().isEmpty()) {
+                System.out.println("\t" + "Invalid input. Enter 'deadline <task> /by <deadline>'");
+            } else {
+                addDeadline(deadlineDescription[0].trim(), deadlineDescription[1].trim());
+            }
+        } else if (task.startsWith("event")) {
+            String[] eventParts = task.substring(6).trim().split("/from");
+            if (eventParts.length == 2) {
+                String[] durationParts = eventParts[1].trim().split("/to");
+                if (durationParts.length == 2) {
+                    addEvent(eventParts[0].trim(), durationParts[0].trim(), durationParts[1].trim());
+                } else {
+                    System.out.println("\t" + "Invalid input for event. Please use the format: event <task> /from <start time> /to <end time>");
+                }
+            } else {
+                System.out.println("\t" + "Invalid input for event. Please use the format: event <task> /from <start time> /to <end time>");
+            }
+        } else {
+            System.out.println("\t" + "Invalid input. Please enter a valid task.");
+        }
         printLine();
+    }
+
+    /*
+     * Adds todo task to taskList
+     * @param task task to be added
+     * @return void
+     */
+    private void addTodoTask(String task) {
+        Todo newTodo = new Todo (task);
+        this.taskList.add(newTodo);
+        
+        System.out.println("\t" + "Added todo: " + task);
+    }
+
+    /* 
+     * Adds deadline to taskList
+     * @param task task to be added
+     * @param by deadline of task
+     * @return void
+     */
+    private void addDeadline(String task, String by) {
+        Deadline newDeadline = new Deadline(task, by);
+        this.taskList.add(newDeadline);
+        
+        System.out.println("\t" + "Added deadline: " + task + " (by: " + by + ")");
+    }
+
+    /* 
+     * Adds eventTask to taskList
+     * @param task task to be added
+     * @param at time of event
+     * @return void
+     */
+    private void addEvent(String task, String at, String to) {
+        Events newEvent = new Events(task, at);
+        this.taskList.add(newEvent);
+        
+        System.out.println("\t" + "Added event: " + task + " (from: " + at + ", to: " + to + ")");
     }
 
     /* 
@@ -117,10 +198,11 @@ class ListAdder {
         for (Task task : this.taskList) {
             System.out.println(
                 task.isDone() 
-                ? "\t" + this.taskIndex + ". [X] " + task 
-                : "\t" + this.taskIndex + ". [ ] " + task);
+                ? "\t" + this.taskIndex + ". " + task 
+                : "\t" + this.taskIndex + ". " + task);
             this.taskIndex++;
         }
+        printLine();
     }
 
     /* 
@@ -143,7 +225,6 @@ class ListAdder {
                 this.taskList.get(index).markDone();
                 System.out.println("\t" + "Good job completing the task!");
                 printList();
-                printLine();
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\t" + "Oops! Your list isn't that long :P");
@@ -207,7 +288,11 @@ class Task {
 
     @Override
     public String toString() {
-        return this.task;
+        if (this.isDone) {
+            return "[X] " + this.task;
+        } else {
+            return "[ ] " + this.task;
+        }
     }
 }
 
