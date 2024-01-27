@@ -1,4 +1,6 @@
-class Parser {
+package com.example.artemis;
+
+public class Parser {
     public static void parseInput(String input, TaskList tasks, Ui ui, Storage storage) throws ArtemisException {
         String[] tokens = input.split(" ", 2);
         String command = tokens[0].toLowerCase();

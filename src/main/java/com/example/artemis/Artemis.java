@@ -1,3 +1,5 @@
+package com.example.artemis;
+
 import java.util.Scanner;
 
 public class Artemis {

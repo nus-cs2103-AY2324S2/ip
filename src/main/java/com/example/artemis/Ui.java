@@ -1,5 +1,6 @@
-import java.util.ArrayList;
+package com.example.artemis;
 
+import java.util.ArrayList;
 public class Ui {
     public void showWelcomeMessage() {
         showLine();
