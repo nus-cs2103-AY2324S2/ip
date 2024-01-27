@@ -5,10 +5,18 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
+/**
+ * A command to change the completion status of a task.
+ */
 public class CompleteCommand extends Command {
     private final int index;
     private final boolean isComplete;
 
+    /**
+     * Constructs a command that changes the completion status of a task.
+     * @param index the index of the task to change
+     * @param isComplete whether to change the task to completed leave it as pending
+     */
     public CompleteCommand(int index, boolean isComplete) {
         this.index = index;
         this.isComplete = isComplete;
@@ -21,7 +29,7 @@ public class CompleteCommand extends Command {
             if (isComplete) {
                 task.setComplete();
             } else {
-                task.setIncomplete();
+                task.setPending();
             }
             ui.showNote("Set task to " + task.status() + ":\n  " + task + "\n");
         } catch (TaskList.TaskNotFound e) {

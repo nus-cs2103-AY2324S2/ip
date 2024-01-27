@@ -5,6 +5,9 @@ import duke.command.Command;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * The main class of the Duke program.
+ */
 public class Duke {
     private static final String FILE_NAME = "duke.state";
 
@@ -12,6 +15,10 @@ public class Duke {
     private final Storage storage;
     private final Ui ui;
 
+    /**
+     * The constructor for the Duke class.
+     * @param fileName file to store state to
+     */
     public Duke(String fileName) {
         storage = new Storage(fileName);
         ui = new Ui();
@@ -22,6 +29,9 @@ public class Duke {
         }
     }
 
+    /**
+     * The read-eval-print loop of the program.
+     */
     public void repl() {
         ui.showWelcome();
         boolean isExit = false;
@@ -42,6 +52,10 @@ public class Duke {
         }
     }
 
+    /**
+     * The main loop.
+     * @param args program parameters
+     */
     public static void main(String[] args) {
         Duke duke = new Duke(FILE_NAME);
         boolean successful = false;

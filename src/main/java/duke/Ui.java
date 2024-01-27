@@ -4,6 +4,9 @@ import duke.task.Task;
 
 import java.util.Scanner;
 
+/**
+ * The user interface management class. This class is the centralized interface for input and output to the program.
+ */
 public class Ui {
     private final Scanner scanner;
 
@@ -48,11 +51,19 @@ public class Ui {
         System.out.println("The cat tilts its head. It doesn't know what command \"" + command + "\" is.");
     }
 
-    public void showAdd(Task task) {
+    /**
+     * Shows an added task.
+     * @param task task that was added
+     */
+    public void showAddedTask(Task task) {
         System.out.println("The cat scratches a mark on the wall and then hands you a receipt:\nAdded task "
                 + task.describe());
     }
 
+    /**
+     * Reads a command from the user.
+     * @return a string with a line of the user's input, or "bye" if input is empty
+     */
     public String readCommand() {
         if (!scanner.hasNextLine()) {
             return "bye";

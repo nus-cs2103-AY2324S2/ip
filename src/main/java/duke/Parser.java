@@ -11,7 +11,17 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Used to parse user commands.
+ */
 public class Parser {
+    /**
+     * Parse one user command. The user command is parsed into a subclass of {@link Command} which can be then executed.
+     * @param commandText the user command to be parsed
+     * @return a parsed command
+     * @throws InvalidCommandType when the given command (first word) is unknown
+     * @throws InvalidCommandData when the inputs of the command aren't as expected
+     */
     public static Command parse(String commandText) throws InvalidCommandType, InvalidCommandData {
         Scanner scanner = new Scanner(commandText);
         String type = scanner.next();
@@ -80,6 +90,9 @@ public class Parser {
         return components;
     }
 
+    /**
+     *
+     */
     public static class InvalidCommandType extends Exception {
         private final String command;
 
