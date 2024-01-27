@@ -3,9 +3,8 @@ package kaiyap;
 public class Task {
     protected String listItem;
     protected String inputItem;
-
     protected String completed;
-    protected boolean taskDone;
+    protected boolean completedTask;
 
     public Task(String listItem, String inputItem) {
         this.listItem = listItem;
@@ -14,12 +13,12 @@ public class Task {
     }
 
     public boolean isTaskDone() {
-        return taskDone;
+        return completedTask;
     }
 
     public void setTaskDone(boolean taskDone) {
-        this.taskDone = taskDone;
-        this.completed = !this.taskDone ? " incomplete" : " complete";
+        this.completedTask = taskDone;
+        this.completed = !this.completedTask ? " incomplete" : " complete";
     }
 
     public String getListItem() {
@@ -28,5 +27,13 @@ public class Task {
 
     public void setListItem(String listItem) {
         this.listItem = listItem;
+    }
+
+    public String getInputItem() {
+        return inputItem;
+    }
+
+    public void setInputItem(String inputItem) {
+        this.inputItem = inputItem;
     }
 }

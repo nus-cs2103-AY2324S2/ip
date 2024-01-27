@@ -8,7 +8,7 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" +
-                (this.taskDone ? "[X] " : "[ ] ") +
+                (this.completedTask ? "[X] " : "[ ] ") +
                 this.listItem
         ;
     }

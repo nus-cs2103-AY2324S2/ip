@@ -1,6 +1,7 @@
 package kaiyap;
 
 import java.time.LocalDateTime;
+
 public class Deadline extends Task {
     private LocalDateTime deadline;
     public Deadline(String listItem, String inputItem, LocalDateTime deadline) {
