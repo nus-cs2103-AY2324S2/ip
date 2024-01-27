@@ -3,24 +3,24 @@ import java.util.Arrays;
 
 public class Parser {
 
-  public static Duke.Command getCommand(String[] arr) throws InvalidTaskException {
+  public static UI.Command getCommand(String[] arr) throws InvalidTaskException {
     switch (arr[0]) {
       case "bye":
-        return Duke.Command.BYE;
+        return UI.Command.BYE;
       case "todo":
-        return Duke.Command.TODO;
+        return UI.Command.TODO;
       case "event":
-        return Duke.Command.EVENT;
+        return UI.Command.EVENT;
       case "deadline":
-        return Duke.Command.DEADLINE;
+        return UI.Command.DEADLINE;
       case "list":
-        return Duke.Command.LIST;
+        return UI.Command.LIST;
       case "unmark":
-        return Duke.Command.UNMARK;
+        return UI.Command.UNMARK;
       case "mark":
-        return Duke.Command.MARK;
+        return UI.Command.MARK;
       case "delete":
-        return Duke.Command.DELETE;
+        return UI.Command.DELETE;
       default:
         throw new InvalidTaskException();
     }
