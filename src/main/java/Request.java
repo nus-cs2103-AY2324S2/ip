@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -33,11 +30,11 @@ public class Request {
             this.name = name;
         } else {
             if (todoMatcher.matches()) {
-                this.newTask = Task.taskFactory(todoMatcher.group(1), 0);
+                this.newTask = Task.taskFactory(todoMatcher.group(1), 'T');
             } else if (deadlineMatcher.matches()) {
                 this.newTask = Task.taskFactory(
                         deadlineMatcher.group(1) + " (by: " + deadlineMatcher.group(2) + ")",
-                        1);
+                        'D');
             } else if (eventMatcher.matches()){
                 this.newTask = Task.taskFactory(eventMatcher.group(1)
                                 + " (from: "
@@ -45,7 +42,7 @@ public class Request {
                                 + " to: "
                                 + eventMatcher.group(3)
                                 + ")",
-                        2);
+                        'E');
             } else {
                 throw new NicoleException("What does this mean? I only know todo, deadline, event, list and bye!");
             }
@@ -57,13 +54,13 @@ public class Request {
         if (this.name.contains("unmark")) {
             int taskNumber = Integer.parseInt(this.name.substring(7));
             this.crudChecker(taskNumber);
-            Nicole.taskList.get(taskNumber - 1).markUndone();
+            System.out.println(Nicole.taskList.get(taskNumber - 1).markUndone());
             FileWriter taskFileWriter = new FileWriter("./data/tasks.txt");
             this.saveTasksToFile(taskFileWriter);
         } else if (this.name.contains("mark")) {
             int taskNumber = Integer.parseInt(this.name.substring(5));
             this.crudChecker(taskNumber);
-            Nicole.taskList.get(taskNumber - 1).markDone();
+            System.out.println(Nicole.taskList.get(taskNumber - 1).markDone());
             FileWriter taskFileWriter = new FileWriter("./data/tasks.txt");
             this.saveTasksToFile(taskFileWriter);
         } else if (this.name.contains("delete")) {
@@ -89,8 +86,7 @@ public class Request {
                 throw new NicoleException("I couldn't save the task >< try again plss");
             }
             System.out.println(Nicole.botName +
-                    ": Oki I added " +
-                    "\"" + newTask.toString().substring(6) + "\". " +
+                    ": Oki I added " + "\"" + newTask.toString().substring(7) + "\". " +
                     "There are now " + Nicole.taskList.size() + " item(s) total.");
         } else {
             this.loadTasksFromFile();
@@ -108,7 +104,7 @@ public class Request {
         }
     }
 
-    private void loadTasksFromFile() {
+    private void loadTasksFromFile() throws NicoleException, IOException {
         File tasksFile = new File("./data/tasks.txt");
         try {
             Scanner userTaskFileReader = new Scanner(tasksFile);
@@ -116,9 +112,32 @@ public class Request {
                 System.out.println(Nicole.botName + ": No tasks saved yet. Let's make some moves BD");
             } else {
                 System.out.println(Nicole.botName + ": Here's the tasks I saved so far,");
+                int numTasksInFile = 0;
+                BufferedReader reader = new BufferedReader(new FileReader(tasksFile));
+                while (reader.readLine() != null) {
+                    numTasksInFile++;
+                }
                 int i = 1;
                 while (userTaskFileReader.hasNextLine()) {
-                    System.out.println(i + ". " + userTaskFileReader.nextLine());
+                    String task = userTaskFileReader.nextLine();
+                    if (Nicole.taskList.size() < numTasksInFile) {
+                        char taskType = task.charAt(1);
+                        char taskCompleted = task.charAt(4);
+                        String taskDescription = task.substring(7);
+                        Task recreatedTask = Task.taskFactory(taskDescription, taskType);
+                        if (taskCompleted == 'C') {
+                            recreatedTask.markDone();
+                        }
+                        Nicole.taskList.add(recreatedTask);
+//                        if (taskType == 'T') {
+//                            Nicole.taskList.add(Task.taskFactory(taskDescription, 0));
+//                        } else if (taskType == 'D') {
+//                            Nicole.taskList.add(Task.taskFactory(taskDescription, 1));
+//                        } else {
+//                            Nicole.taskList.add(Task.taskFactory(taskDescription, 2));
+//                        }
+                    }
+                    System.out.println(i + ". " + task);
                     i++;
                 }
             }

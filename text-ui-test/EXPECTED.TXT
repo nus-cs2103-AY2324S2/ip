@@ -20,9 +20,9 @@ Nicole: Oki I added "borrow book". There are now 1 item(s) total.
 Nicole: Oki I added "read book (from: Monday 4pm to: Monday 2pm)". There are now 2 item(s) total.
 Nicole: Oki I added "return book (by: Wednesday)". There are now 3 item(s) total.
 Nicole: Here's the tasks I saved so far,
-1. [T][] borrow book
-2. [E][] read book (from: Monday 4pm to: Monday 2pm)
-3. [D][] return book (by: Wednesday)
+1. [T][I] borrow book
+2. [E][I] read book (from: Monday 4pm to: Monday 2pm)
+3. [D][I] return book (by: Wednesday)
 Nicole: ERROR. Huh? That's not a valid item number :')
 Nicole: ERROR. Huh? That's not a valid item number :')
 Nicole: ERROR. Huh? That's not a valid item number :')
@@ -33,14 +33,14 @@ Nicole: ERROR. Huh? That's not a valid item number :')
 Nicole: ERROR. Huh? That's not a valid item number :')
 Nicole: Marked as completed! Good job :3
 Nicole: Here's the tasks I saved so far,
-1. [T][x] borrow book
-2. [E][x] read book (from: Monday 4pm to: Monday 2pm)
-3. [D][] return book (by: Wednesday)
+1. [T][C] borrow book
+2. [E][C] read book (from: Monday 4pm to: Monday 2pm)
+3. [D][I] return book (by: Wednesday)
 Nicole: ERROR. That is already marked complete -_-
 Nicole: Marked as incomplete. We'll get em next time
 Nicole: ERROR. That is already marked incomplete -_-
 Nicole: Phew...deleted  :>
 Nicole: Here's the tasks I saved so far,
-1. [E][x] read book (from: Monday 4pm to: Monday 2pm)
-2. [D][] return book (by: Wednesday)
+1. [E][C] read book (from: Monday 4pm to: Monday 2pm)
+2. [D][I] return book (by: Wednesday)
 Bye, for now ;) Let's catch up again soon.
