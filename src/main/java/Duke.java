@@ -32,7 +32,7 @@ public class Duke {
                 System.out.println("Here are the tasks in your list:");
                 int counter = 1;
                 for (Task task : list) {
-                    System.out.println(counter + ". " + "[" + task.getStatusIcon() + "] " + task.description);
+                    System.out.println(counter + ". " + task.toString());
                     counter++;
                 }
                 printLine();
@@ -45,7 +45,7 @@ public class Duke {
                     Task currentTask = list.get(taskNum - 1);
                     currentTask.markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + "[" + currentTask.getStatusIcon() + "] " + currentTask.description);
+                    System.out.println("  " + currentTask);
                     printLine();
                     input = sc.nextLine();
                 } else {
@@ -61,7 +61,7 @@ public class Duke {
                     Task currentTask = list.get(taskNum - 1);
                     currentTask.markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + "[" + currentTask.getStatusIcon() + "] " + currentTask.description);
+                    System.out.println("  " + currentTask);
                     printLine();
                     input = sc.nextLine();
                 } else {
@@ -70,10 +70,33 @@ public class Duke {
                     input = sc.nextLine();
                 }
             } else {
-                Task t = new Task(input);
-                list.add(t);
                 printLine();
-                System.out.println("added: " + input);
+                if (input.startsWith("todo")) {
+                    Todo td = new Todo(input.substring(input.indexOf(" ") + 1));
+                    list.add(td);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + td);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                } else if (input.startsWith("deadline")) {
+                    int indexOfSlash = input.indexOf("/by");
+                    Deadline d = new Deadline(input.substring(input.indexOf(" ")+ 1, indexOfSlash - 1),
+                                                input.substring(indexOfSlash + 4));
+                    list.add(d);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + d);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                } else if (input.startsWith("event")) {
+                    int indexOfFrom = input.indexOf("/from");
+                    int indexOfTo = input.indexOf("/to");
+                    Event e = new Event(input.substring(input.indexOf(" ")+ 1, indexOfFrom - 1),
+                                          "from: " + input.substring(indexOfFrom + 6, indexOfTo - 1) + " ",
+                                            "to: " + input.substring(indexOfTo + 4));
+                    list.add(e);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + e);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+                }
                 printLine();
                 input = sc.nextLine();
             }
