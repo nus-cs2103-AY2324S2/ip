@@ -44,6 +44,8 @@ public class Parser {
             return addTasks(Command.Types.DEADLINE, input);
         } else if (firstWord.equals("event")) {
             return addTasks(Command.Types.EVENT, input);
+        } else if (firstWord.equals("query")) {
+            return manageTasks(Command.Types.QUERY, input);
         } else if (firstWord.equals("find")) {
             return manageTasks(Command.Types.FIND, input);
         } else {
@@ -67,6 +69,8 @@ public class Parser {
                 return unmark(input);
             case DELETE:
                 return delete(input);
+            case QUERY:
+                return query(input);
             case FIND:
                 return find(input);
             default:
@@ -150,7 +154,7 @@ public class Parser {
      * @return The QueryCommand object for finding tasks.
      * @throws LuluException If an error occurs during parsing.
      */
-    public Command find(String input) throws LuluException {
+    public Command query(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 2) {
             throw new InvalidCommandException();
@@ -158,7 +162,17 @@ public class Parser {
 
         String taskType = words[1].toLowerCase();
         LocalDate date = LocalDate.parse(words[2]);
-        return new QueryCommand(Command.Types.FIND, taskType, date);
+        return new QueryCommand(Command.Types.QUERY, taskType, date);
+    }
+
+    public Command find(String input) throws LuluException {
+        String[] words = input.split(" ");
+        if (words.length <= 1) {
+            throw new InvalidCommandException();
+        }
+
+        String queryString = words[1].toLowerCase();
+        return new QueryCommand(Command.Types.FIND, queryString, null);
     }
 
     /**

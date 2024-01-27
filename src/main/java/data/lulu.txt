@@ -1,4 +1,6 @@
 todo,todo1,false
 event,event1,2022-03-04,2024-05-06,false
 todo,bye,true
-todo,great,false
+todo,great day,false
+todo,great week,false
+todo,thats great,false
