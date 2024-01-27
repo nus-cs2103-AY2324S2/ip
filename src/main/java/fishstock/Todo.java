@@ -8,7 +8,7 @@ class Todo extends Task {
 
     protected static Todo of(String input) {
         try {
-            if (!FishStock.startsWith(keyword, input)) {
+            if (!Parser.startsWith(keyword, input)) {
                 throw new FishStockException("OH NOSE! This input is not todo..");
             }
             if (keyword.length() + 1 >= input.length()) {
@@ -17,14 +17,14 @@ class Todo extends Task {
             return new Todo(input.substring(keyword.length() + 1));
 
         } catch (FishStockException e) {
-                System.out.println(e.getMessage());
+            Ui.printError(e.getMessage());
         }
         return null;
     }
 
     @Override
     protected String toSaveString() {
-        return keyword + " " + description + "/" + boolToInt(isDone) + System.lineSeparator();
+        return "T|" + description + "|" + boolToInt(isDone) + System.lineSeparator();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package fishstock;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 class Event extends Task {
     protected final static String keyword = "event";
@@ -18,7 +17,7 @@ class Event extends Task {
 
     protected static Event of(String input) {
         try {
-            if (!FishStock.startsWith(keyword, input)) {
+            if (!Parser.startsWith(keyword, input)) {
                 throw new FishStockException("OH NOSE! This input is not event..");
             }
             int fromIdx = input.indexOf(fromKeyword);
@@ -45,29 +44,30 @@ class Event extends Task {
             String description = input.substring(keyword.length() + 1, fromIdx);
             String fromStr = input.substring(fromIdx + fromKeyword.length(), toIdx);
             String toStr = input.substring(toIdx + toKeyword.length());
-            LocalDateTime from = LocalDateTime.parse(fromStr, inDateFormat);
-            LocalDateTime to = LocalDateTime.parse(toStr, inDateFormat);
+            LocalDateTime from = Parser.parseDate(fromStr);
+            LocalDateTime to = Parser.parseDate(toStr);
+            if (from == null || to == null) {
+                return null;
+            }
             if (from.isAfter(to) && !from.equals(to)) {
                 throw new FishStockException("OH NOSE! The from-date must be before the to-date..");
             }
             return new Event(description, from, to);
 
         } catch (FishStockException e) {
-            System.out.println(e.getMessage());
-        } catch (DateTimeParseException e) {
-            System.out.println("OH NOSE! Dates should be of the format <dd/mm/yyyy hh:mm>");
+            Ui.printError(e.getMessage());
         }
         return null;
     }
 
     @Override
     protected String toSaveString() {
-        return keyword + " " + description + fromKeyword + from.format(inDateFormat) +
-                toKeyword + to.format(inDateFormat) + "/" + boolToInt(isDone) + System.lineSeparator();
+        return "E|" + description + "|" + Parser.inDate(from) + "|" +
+                Parser.inDate(to) + "|" + boolToInt(isDone) + System.lineSeparator();
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(outDateFormat) +
-                " to: " + to.format(outDateFormat) + ")";
+        return "[E]" + super.toString() + " (from: " + Parser.outDate(from) +
+                " to: " + Parser.outDate(to) + ")";
     }
 }
