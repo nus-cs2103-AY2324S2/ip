@@ -1,7 +1,10 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+
 public class Yapper {
     private static final String FILE_PATH = "./src/main/java/data/Yapper.txt";
     public static void main(String[] args) {
@@ -9,8 +12,8 @@ public class Yapper {
         List<Task> tasks = loadTasksFromFile();
 
         Scanner userScanner = new Scanner(System.in);
-        System.out.println(" Hello! I'm " + chatbotName + ". I talk a lot, hence my name.");
-        System.out.println(" What can I do for you?");
+        System.out.println(" Hello! I'm " + chatbotName + ".");
+        System.out.println(" What would you like to yap about today? :-)");
 
         while (true) {
             System.out.println("User: ");
@@ -33,14 +36,14 @@ public class Yapper {
      */
     private static void processUserInput(String userInput, List<Task> tasks) throws YapperException {
         if (userInput.equalsIgnoreCase("list")) {
-            System.out.println(" Here are the tasks in your list:");
+            System.out.println(" Here are the tasks in your yapping list:");
             printTaskList(tasks);
         }
          else if (userInput.startsWith("mark")) {
             try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 tasks.get(taskNumber).markAsDone();
-                System.out.println(" Nice! I've marked this task as done:");
+                System.out.println(" Nice yap! I've marked this task as done:");
                 System.out.println(" " + tasks.get(taskNumber));
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new YapperException("Please provide a valid task number to mark as done.");
@@ -49,7 +52,7 @@ public class Yapper {
             try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 tasks.get(taskNumber).markAsNotDone();
-                System.out.println(" OK, I've marked this task as not done yet:");
+                System.out.println(" Ok bro, I've marked this task as not done yet:");
                 System.out.println(" " + tasks.get(taskNumber));
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new YapperException("Please provide a valid task number to mark as not done.");
@@ -66,7 +69,7 @@ public class Yapper {
         } else if (userInput.startsWith("deadline")) {
             try {
                 String[] parts = userInput.substring(9).split("/by");
-                Deadline newTask = new Deadline(parts[0].trim(), false, parts[1].trim());
+                Deadline newTask = new Deadline(parts[0].trim(), false, LocalDate.parse(parts[1].trim()));
                 tasks.add(newTask);
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + newTask);
@@ -77,7 +80,8 @@ public class Yapper {
         } else if (userInput.startsWith("event")) {
             try {
                 String[] parts = userInput.substring(6).split("/from|/to");
-                Event newTask = new Event(parts[0].trim(), false, parts[1].trim(), parts[2].trim());
+                Event newTask = new Event(parts[0].trim(), false, LocalDate.parse(parts[1].trim()),
+                        LocalDate.parse(parts[2].trim()));
                 tasks.add(newTask);
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + newTask);
@@ -97,7 +101,7 @@ public class Yapper {
             }
         } else if (userInput.equalsIgnoreCase("bye")){
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("Bye. Hope to yap with you again soon!");
                 System.exit(0);
             }
         } else {
@@ -153,6 +157,5 @@ public class Yapper {
         }
      }
 }
-
 
 
