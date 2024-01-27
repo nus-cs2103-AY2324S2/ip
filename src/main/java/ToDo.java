@@ -42,4 +42,14 @@ public class ToDo extends Task {
     public String getTaskInformation() {
         return "[T]" + super.getTaskInformation();
     }
+
+    /**
+     * Returns String to be saved in data file and loaded for future use.
+     *
+     * @return String data of task.
+     */
+    @Override
+    public String saveTaskAsString() {
+        return "T | " + (this.getIsDone() ? 1 : 0) + " | " + this.getDescription();
+    }
 }

@@ -61,4 +61,15 @@ public class Event extends Task {
     public String getTaskInformation() {
         return "[E]" + super.getTaskInformation() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    /**
+     * Returns String to be saved in data file and loaded for future use.
+     *
+     * @return String data of task.
+     */
+    @Override
+    public String saveTaskAsString() {
+        return "E | " + (this.getIsDone() ? 1 : 0) + " | " + this.getDescription()
+                + " /from " + this.from + " /to " + this.to;
+    }
 }

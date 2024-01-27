@@ -1,3 +1,7 @@
+import java.io.*;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.Files;
 import java.lang.StringBuilder;
 import java.util.ArrayList;
 
@@ -7,6 +11,11 @@ import java.util.ArrayList;
  * @author KohGuanZeh
  */
 public class TaskList {
+    // File directory of stored data.
+    private static final String FILE_DIRECTORY = "data";
+    // File name of stored data.
+    private static final String FILE_NAME = "duke.txt";
+
     // Store list of tasks.
     private ArrayList<Task> taskList;
 
@@ -94,5 +103,42 @@ public class TaskList {
             sb.append(i + 1).append(".").append(taskList.get(i).getTaskInformation());
         }
         return sb.toString();
+    }
+
+    /**
+     * Loads task list from file.
+     */
+    public void loadTaskList() throws IOException {
+        Path path = Paths.get(TaskList.FILE_DIRECTORY, TaskList.FILE_NAME);
+        if (Files.notExists(path)) {
+            // Create file directory if it does not exist.
+            Files.createDirectories(Paths.get(TaskList.FILE_DIRECTORY));
+            Files.createFile(path);
+        }
+        File file = path.toFile();
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String line = reader.readLine();
+        while (line != null) {
+            try {
+                taskList.add(Task.getTaskFromString(line));
+            } catch (TaskException e) {
+                System.out.println(e.getMessage());
+            }
+            line = reader.readLine();
+        }
+        reader.close();
+    }
+
+    /**
+     * Saves task list to file.
+     */
+    public void saveTaskList() throws TaskException, IOException {
+        File file = Paths.get(TaskList.FILE_DIRECTORY, TaskList.FILE_NAME).toFile();
+        FileWriter writer = new FileWriter(file);
+        for (Task task : this.taskList) {
+            writer.write(task.saveTaskAsString());
+            writer.write("\n");
+        }
+        writer.close();
     }
 }
