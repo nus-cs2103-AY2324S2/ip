@@ -8,6 +8,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public void setDone(boolean done) {
         this.isDone = done;
     }
@@ -15,5 +20,9 @@ public class Task {
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
+    }
+
+    public String toFileString() {
+        return "|" + (this.isDone ? "1" : "0") + "|" + this.description;
     }
 }
