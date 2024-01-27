@@ -1,5 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -52,7 +55,7 @@ public class Duke {
                 }
                 Task add;
                 String taskName;
-
+                LocalDate now = LocalDate.now(); // Current date
                 Options choice = optionType(firstWord);
 
                 switch (choice) {
@@ -94,28 +97,47 @@ public class Duke {
                     String by = trail.substring(trail.indexOf(" /by ") + 5);
                     // depending on whether by can be empty or not
                     // if (by.isEmpty()) {throw new DukeException("Deadline cannot be empty!");}
-                    add = new Deadline(taskName, by);
+
+                    LocalDate d1 = LocalDate.parse(by);
+
+                    if (d1.isBefore(now)) {
+                        throw new DukeException("Deadline must be after today!");
+                    }
+
+                    add = new Deadline(taskName, d1);
                     add(taskList, add);
                     break;
 
-                case event:
-                    if (!trail.contains(" /from ") || !trail.contains(" /to ")) {
-                        throw new DukeException("Description of a " + firstWord + " must contain \" /from \" and \" /to \"!");
-                    }
-                    taskName = trail.substring(0, trail.indexOf(" /from "));
-                    if (taskName.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
-                    int a = trail.indexOf(" /from ") + 7;
-                    int b = trail.indexOf(" /to ");
-                    if (a > b) {throw new DukeException("From cannot be empty!");}
-                    String from = trail.substring(a, b);
-                    // depending on whether from can be empty or not
-                    // if (from.isEmpty()) {throw new DukeException("From cannot be empty!");}
-                    String to = trail.substring(trail.indexOf(" /to ") + 5);
-                    // depending on whether to can be empty or not
-                    // if (to.isEmpty()) {throw new DukeException("To cannot be empty!");}
-                    add = new Event(taskName, from, to);
-                    add(taskList, add);
-                    break;
+                    case event:
+                        if (!trail.contains(" /from ") || !trail.contains(" /to ")) {
+                            throw new DukeException("Description of a " + firstWord + " must contain \" /from \" and \" /to \"!");
+                        }
+                        taskName = trail.substring(0, trail.indexOf(" /from "));
+                        if (taskName.isEmpty()) {throw new DukeException("Description of a " + firstWord + " cannot be empty!");}
+                        int a = trail.indexOf(" /from ") + 7;
+                        int b = trail.indexOf(" /to ");
+                        if (a > b) {throw new DukeException("From cannot be empty!");}
+                        String from = trail.substring(a, b);
+                        // depending on whether from can be empty or not
+                        // if (from.isEmpty()) {throw new DukeException("From cannot be empty!");}
+                        String to = trail.substring(trail.indexOf(" /to ") + 5);
+                        // depending on whether to can be empty or not
+                        // if (to.isEmpty()) {throw new DukeException("To cannot be empty!");}
+
+                        LocalDate d2 = LocalDate.parse(from);
+                        LocalDate d3 = LocalDate.parse(to);
+
+                        if (d3.isBefore(d2)) {
+                            throw new DukeException("To must be after From!");
+                        }
+
+                        if (d2.isBefore(now)) {
+                            throw new DukeException("From must be after today!");
+                        }
+
+                        add = new Event(taskName, d2, d3);
+                        add(taskList, add);
+                        break;
 
                 case save:
                     save(f, taskList);
@@ -148,6 +170,12 @@ public class Duke {
                 System.out.println(text);
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            } catch (DateTimeParseException dtpe) {
+                String text;
+                text = "\t____________________________________________________________\n"
+                        + "\tPlease enter a datetime format of yyyy-mm-dd.\n"
+                        + "\t____________________________________________________________\n";
+                System.out.println(text);
             }
         }
     }
@@ -276,7 +304,8 @@ public class Duke {
     public static List<Task> load(File f) throws FileNotFoundException {
         List<Task> taskList = new ArrayList<Task>();
         Scanner s = new Scanner(f);
-        String curr, taskName, taskType, isMarked, start, finish;
+        String curr, taskName, taskType, isMarked;
+        LocalDate start, finish;
         int index;
         Task t;
 
@@ -295,11 +324,11 @@ public class Duke {
             if (taskType.equals("T")) { // To Do
                 t = new ToDo(taskName);
             } else if (taskType.equals("D")) { // Deadline
-                finish = curr.substring(curr.indexOf("by: ") + 4, curr.lastIndexOf(")"));
+                finish = LocalDate.parse(curr.substring(curr.indexOf("by: ") + 4, curr.lastIndexOf(")")));
                 t = new Deadline(taskName, finish);
             } else { // Event, assuming input file is always correct format
-                start = curr.substring(curr.indexOf("from: ") + 6, curr.lastIndexOf("to:") - 1);
-                finish = curr.substring(curr.indexOf("to: ") + 4, curr.lastIndexOf(")"));
+                start = LocalDate.parse(curr.substring(curr.indexOf("from: ") + 6, curr.lastIndexOf("to:") - 1));
+                finish = LocalDate.parse(curr.substring(curr.indexOf("to: ") + 4, curr.lastIndexOf(")")));
                 t = new Event(taskName, start, finish);
             }
             
