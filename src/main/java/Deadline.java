@@ -2,8 +2,8 @@ public class Deadline extends Task {
 
     protected String by;
 
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
         this.by = by;
     }
 
@@ -15,5 +15,10 @@ public class Deadline extends Task {
     @Override
     protected String getType() {
         return "D";
+    }
+
+    @Override
+    public String toFileString() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
     }
 }
