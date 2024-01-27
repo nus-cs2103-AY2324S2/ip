@@ -68,16 +68,6 @@ public class ChatBro {
                 case "deadline":
                     String[] deadlineSplit = input.split(" /by ");
                     try {
-                        String test = deadlineSplit[1];
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("_________________________\n" +
-                                "Hey bro, make sure to follow the format:\n" +
-                                "deadline <task description> /by <deadline date>\n" +
-                                "(task description and deadline date cannot be empty)\n" +
-                                "_________________________\n");
-                        break;
-                    }
-                    try {
                         String deadlineName = deadlineSplit[0].substring(9); // 9 is the length of "deadline "
                         if (deadlineName.trim().isEmpty()) { // Empty task description (whitespace)
                             System.out.println("_________________________\n" +
@@ -102,9 +92,11 @@ public class ChatBro {
                                 break;
                             }
                         }
-                    } catch (StringIndexOutOfBoundsException e) { // Empty task description
+                    } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                         System.out.println("_________________________\n" +
-                                "Hey bro, the given task description cannot be empty.\n" +
+                                "Hey bro, make sure to follow the format:\n" +
+                                "deadline <task description> /by <deadline date>\n" +
+                                "(task description and deadline date cannot be empty)\n" +
                                 "_________________________\n");
                         break;
                     }
