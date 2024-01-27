@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public abstract class Task implements Serializable {
@@ -33,15 +31,15 @@ public abstract class Task implements Serializable {
         status = Status.Incomplete;
     }
 
-    public void setComplete() {
+    public final void setComplete() {
         status = Status.Complete;
     }
 
-    public void setIncomplete() {
+    public final void setIncomplete() {
         status = Status.Incomplete;
     }
 
-    public String status() {
+    public final String status() {
         return status.description;
     }
 
@@ -54,7 +52,14 @@ public abstract class Task implements Serializable {
         return description;
     }
 
-    private static void validateComponentKeys(Set<String> expected, Set<String> actual) throws InvalidComponents {
+    protected static Set<String> keys(String... keys) {
+        return new HashSet<>(List.of(keys));
+    }
+
+    protected static void validateComponentKeys(Set<String> expected, Set<String> actual) throws InvalidComponents {
+        // DESCRIPTION is assumed to be implicit
+        actual.remove("DESCRIPTION");
+
         if (expected.size() != actual.size()) {
             throw new InvalidComponents(actual, expected);
         }
@@ -66,55 +71,9 @@ public abstract class Task implements Serializable {
         }
     }
 
-    private static Map<String, String> parseComponents(String data) {
-        HashMap<String, StringBuilder> builders = new HashMap<>();
-
-        String key = "DESCRIPTION";
-        String[] words = data.split(" +");
-        for (String word : words) {
-            if (word.startsWith("/")) {
-                key = word;
-            } else {
-                builders.compute(key, (k, v) -> (v == null) ? new StringBuilder(word) : v.append(" ").append(word));
-            }
-        }
-
-        HashMap<String, String> components = new HashMap<>();
-        builders.forEach((k, v) -> components.put(k, v.toString()));
-        return components;
-    }
-
-    private static LocalDateTime parseDateTime(String input) throws DateTimeParseException {
+    protected static LocalDateTime parseDateTime(String input) throws DateTimeParseException {
         DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return LocalDateTime.from(f.parse(input));
-    }
-
-    public static Task of(String type, String data) throws InvalidType, InvalidComponents, DateTimeParseException {
-        Map<String, String> components = parseComponents(data);
-        Task task;
-        switch (type) {
-        case "todo":
-            validateComponentKeys(new HashSet<String>(List.of("DESCRIPTION")), components.keySet());
-            task = new Todo(components.get("DESCRIPTION"));
-            break;
-        case "deadline":
-            validateComponentKeys(new HashSet<String>(List.of("DESCRIPTION", "/by")), components.keySet());
-            task = new Deadline(components.get("DESCRIPTION"), parseDateTime(components.get("/by")));
-            break;
-        case "event":
-            validateComponentKeys(new HashSet<String>(List.of("DESCRIPTION", "/from", "/to")), components.keySet());
-            task = new Event(components.get("DESCRIPTION"), parseDateTime(components.get("/from")), parseDateTime(components.get("/to")));
-            break;
-        default:
-            throw new InvalidType(type);
-        }
-        return task;
-    }
-
-    public static class InvalidType extends Exception {
-        public InvalidType(String type) {
-            super("Invalid task type: " + type);
-        }
     }
 
     public static class InvalidComponents extends Exception {

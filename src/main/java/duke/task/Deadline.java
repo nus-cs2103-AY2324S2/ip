@@ -1,7 +1,7 @@
 package duke.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 public class Deadline extends Task {
     private LocalDateTime by;
@@ -9,6 +9,12 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
+    }
+
+    public Deadline(Map<String, String> components) throws InvalidComponents {
+        super(components.get("DESCRIPTION"));
+        validateComponentKeys(keys("/by"), components.keySet());
+        by = parseDateTime(components.get("/by"));
     }
 
     @Override
