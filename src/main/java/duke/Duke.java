@@ -10,7 +10,7 @@ public class Duke {
     private static final String FILE_NAME = "duke.state";
 
     private TaskList taskList;
-    private Storage storage;
+    private final Storage storage;
     private final Ui ui;
 
     public Duke(String fileName) {
