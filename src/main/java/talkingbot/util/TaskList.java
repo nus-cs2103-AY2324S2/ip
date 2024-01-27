@@ -91,11 +91,10 @@ public class TaskList {
             if (curTask.getDescription().contains(filterString)) {
                 returnedString.append(String.format("\t%d. %s", idx + 1, this.getTask(idx).toString()));
 
-                if (idx != this.getSize() - 1) {
-                    returnedString.append("\n");
-                }
+                returnedString.append("\n");
             }
         }
+        returnedString.deleteCharAt(returnedString.length() - 1);
         return returnedString.toString();
     }
 
