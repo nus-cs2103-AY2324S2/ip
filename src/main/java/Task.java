@@ -1,7 +1,13 @@
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     private final String description;
     private boolean isDone;
     private final TaskType taskType;
+    protected static final DateTimeFormatter dateTimeEntryForm = DateTimeFormatter
+            .ofPattern("yyyy-MM-dd kkmm");
+    protected static final DateTimeFormatter dateTimeOutForm = DateTimeFormatter
+            .ofPattern("MMM dd yyyy kkmm");
 
     public Task(String description, boolean isDone, TaskType taskType) {
         this.description = description;

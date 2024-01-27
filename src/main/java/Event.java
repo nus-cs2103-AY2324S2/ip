@@ -6,8 +6,8 @@ public class Event extends Task {
 
     public Event(String description, boolean isDone, String startTime, String endTime) {
         super(description, isDone, TaskType.EVENT);
-        this.startTime = LocalDateTime.parse(startTime);
-        this.endTime = LocalDateTime.parse(endTime);
+        this.startTime = LocalDateTime.parse(startTime, super.dateTimeEntryForm);
+        this.endTime = LocalDateTime.parse(endTime, super.dateTimeEntryForm);
     }
 
     public LocalDateTime getStartTime() {
@@ -27,6 +27,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E] %s (from: %s to: %s)", super.toString(),
-                this.getStartTime(), this.getEndTime());
+                this.getStartTime().format(dateTimeOutForm),
+                this.getEndTime().format(dateTimeOutForm));
     }
 }
