@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Artemis {
     private static final String FILE_PATH = "./data/artemis.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Duke(String filepath) {
+    public Artemis(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
         try {
@@ -37,6 +37,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
+        new Artemis(FILE_PATH).run();
     }
 }
