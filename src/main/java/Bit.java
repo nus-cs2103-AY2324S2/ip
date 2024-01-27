@@ -1,16 +1,17 @@
+import java.util.ArrayList;
 import  java.util.Scanner;
-import java.util.regex.PatternSyntaxException;
+
 
 public class Bit {
 
-    public static int total = 0;
+
 
     public static String seperator = "---------------------------------------------------------";
     public static void main(String[] args) {
 
         System.out.println("Hi! This is Bit!\nWhat shall we do today?\n");
         Scanner scanner = new Scanner(System.in);
-        Task[] list = new Task[100];
+        ArrayList<Task> list = new ArrayList<Task>();
 
 
         while(true) {
@@ -19,7 +20,7 @@ public class Bit {
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
-                toList(list, total);
+                toList(list);
             } else if (input.contains("mark ")) {
                 String[] parts = input.split(" ");
                 try {
@@ -50,7 +51,7 @@ public class Bit {
         System.out.println("Alright. See you soon!!");
     }
 
-    public static void addTo(Task[] list, String input) throws DukeException{
+    public static void addTo(ArrayList<Task> list, String input) throws DukeException{
         if(input.startsWith("todo")) {
             try {
                 String[] parts = input.split(" ", 2);
@@ -60,8 +61,9 @@ public class Bit {
                 if (parts[1].trim().isEmpty()) {
                     throw new DukeException("Hmmm, that todo is empty!");
                 }
-                list[total] = new Todo(parts[1]);
-                System.out.println("I have added this todo: " + (total + 1) + " " + list[total].toString());
+                list.add(new Todo(parts[1]));
+                int i = list.size();
+                System.out.println("I have added this todo: " + (i) + " " + list.get(i - 1).toString());
 
 
             } catch(ArrayIndexOutOfBoundsException e) {
@@ -82,8 +84,9 @@ public class Bit {
                 if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty() || end.trim().isEmpty()) {
                     throw new DukeException("Missing something?");
                 }
-                list[total] = new Event(compo[0], start, end);
-                System.out.println("I have added this event: " + (total + 1) + " " + list[total].toString());
+                list.add(new Event(compo[0], start, end));
+                int i = list.size();
+                System.out.println("I have added this event: " + (i) + " " + list.get(i - 1).toString());
 
 
 
@@ -103,10 +106,10 @@ public class Bit {
                     if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty()) {
                         throw new DukeException("Did you miss something?");
                     }
-                    list[total] = new Deadline(compo[0], compo[1]);
-                    System.out.println("Done! I have added this to the list:" + list[total].toString()
-                     + "\n There are now " + (total + 1) + " items");
-                    total++;
+                    list.add(new Deadline(compo[0], compo[1]));
+                    int i = list.size();
+                    System.out.println("Done! I have added this to the list:" + list.get(i - 1).toString()
+                     + "\n There are now " + (i) + " items");
                 }
             } catch (ArrayIndexOutOfBoundsException x) {
                 throw new DukeException("Did you miss something?");
@@ -117,42 +120,42 @@ public class Bit {
             return;
         }
 
-        total++;
+
 
 
     }
 
 
-    public static void toList(Task[] list, int total) {
+    public static void toList(ArrayList<Task> list) {
         System.out.println("Sure! Here is the list:\n");
-        for (int i = 0; i < total; i++) {
-            if (list[i] == null) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == null) {
                 break;
             }
-            System.out.println((i + 1) + "." + list[i].toString());
+            System.out.println((i + 1) + "." + list.get(i).toString());
         }
     }
 
-    public static void mark(int i, Task[] list) {
+    public static void mark(int i, ArrayList<Task> list) {
         i -= 1;
-        if(list[i] == null) {
+        if(list.get(i) == null) {
            System.out.println("Sorry, but I couldn't find that task!");
            return;
         }
 
-        list[i].complete();
-        System.out.println("Alright! Task has been done and dusted:\n" +list[i].toString());
+        list.get(i).complete();
+        System.out.println("Alright! Task has been done and dusted:\n" +list.get(i).toString());
     }
 
-    public static void unmark(int i, Task[] list) {
+    public static void unmark(int i, ArrayList<Task> list) {
         i -= 1;
-        if(list[i] == null) {
+        if(list.get(i) == null) {
             System.out.println("Sorry, but I couldn't find that task!");
             return;
         }
 
-        list[i].incomplete();
-        System.out.println("Done!! Task is now incomplete:\n" + list[i].toString());
+        list.get(i).incomplete();
+        System.out.println("Done!! Task is now incomplete:\n" + list.get(i).toString());
     }
 
 
