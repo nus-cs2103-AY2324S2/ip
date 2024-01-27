@@ -57,6 +57,9 @@ public class MissMinutes {
                         Task task = tasks.createTask(request);
                         tasks.addTask(task);
                         break;
+                    case FIND:
+                        tasks.findTask(request);
+                        break;
                     case UNKNOWN:
                         throw new MissMinutesException("Oh, I'm sowwy, I didn't undewstand dat. (>_<) Can I hewp wif sumthin' else, pwease? UwU");
                 }

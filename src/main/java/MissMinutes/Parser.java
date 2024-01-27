@@ -5,7 +5,7 @@ package MissMinutes;
  */
 public class Parser {
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, UNKNOWN
     }
 
     /**
@@ -37,6 +37,8 @@ public class Parser {
                 return CommandType.DEADLINE;
             case "event":
                 return CommandType.EVENT;
+            case "find":
+                return CommandType.FIND;
             default:
                 return CommandType.UNKNOWN;
         }
