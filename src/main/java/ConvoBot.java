@@ -26,7 +26,7 @@ public class ConvoBot {
     public static void main(String[] args) {
         printWelcomeMsg();
 
-        ArrayList<Task> taskList = new ArrayList<>();
+        Database database = new Database();
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
 
@@ -37,10 +37,10 @@ public class ConvoBot {
                 String command = inputList.get(0);
                 if (command.equals("list")) {
                     System.out.println(LEFT_PADDING + " " + "Here are the tasks in your list:"); 
-                    for (int i = 0; i < taskList.size(); i++) {
+                    for (int i = 0; i < database.size(); i++) {
                         int index = i+1;
                         System.out.println(LEFT_PADDING + " " + Integer.toString(index)
-                            + "." + taskList.get(i).toString());
+                            + "." + database.getTaskString(i));
                     }
                 } else if (command.equals("mark")) {
                     int i = -1;
@@ -49,12 +49,12 @@ public class ConvoBot {
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     }
 
-                    if (inputList.size() != 2 || i < 0 || i >= taskList.size()) {
-                        throw new ConvoBotException("Invalid input. You must specify a valid index to mark as done.");
+                    if (inputList.size() != 2) {
+                        throw new ConvoBotException("Invalid input. Wrong number of arguments.");
                     }
-                    taskList.get(i).markAsDone();
+                    database.mark(i, true);
                     System.out.println(LEFT_PADDING + " " + "Nice! I've marked this task as done:");
-                    System.out.println(LEFT_PADDING + " " + taskList.get(i).toString());
+                    System.out.println(LEFT_PADDING + " " + database.getTaskString(i));
                 } else if (command.equals("unmark")) {
                     int i = -1;
                     try {
@@ -62,12 +62,12 @@ public class ConvoBot {
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     }
                     
-                    if (inputList.size() != 2 || i < 0 || i >= taskList.size()) {
-                        throw new ConvoBotException("Invalid input. You must specify a valid index to mark as done.");
+                    if (inputList.size() != 2) {
+                        throw new ConvoBotException("Invalid input. Wrong number of arguments.");
                     }
-                    taskList.get(i).markAsNotDone();
+                    database.mark(i, false);
                     System.out.println(LEFT_PADDING + " " + "OK, I've marked this task as not done yet:");
-                    System.out.println(LEFT_PADDING + " " + taskList.get(i).toString());
+                    System.out.println(LEFT_PADDING + " " + database.getTaskString(i));
                 } else if (command.equals("delete")) {
                     int i = -1;
                     try {
@@ -75,14 +75,14 @@ public class ConvoBot {
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     }
 
-                    if (inputList.size() != 2 || i < 0 || i >= taskList.size()) {
-                        throw new ConvoBotException("Invalid input. You must specify a valid index to delete.");
+                    if (inputList.size() != 2) {
+                        throw new ConvoBotException("Invalid input. Wrong number of arguments.");
                     }
-                    String deletedTaskString = taskList.get(i).toString();
-                    taskList.remove(i);
+                    String deletedTaskString = database.getTaskString(i);
+                    database.remove(i);
                     System.out.println(LEFT_PADDING + " " + "Noted. I've removed this task:");
                     System.out.println(LEFT_PADDING + "   " + deletedTaskString);
-                    System.out.println(LEFT_PADDING + " Now you have " + Integer.toString(taskList.size()) + " tasks in the list.");
+                    System.out.println(LEFT_PADDING + " Now you have " + Integer.toString(database.size()) + " tasks in the list.");
                 } else {
                     Task task = null;
                     if (command.equals("todo")) {
@@ -120,10 +120,10 @@ public class ConvoBot {
                     } else {
                         throw new ConvoBotException("Invalid input. Input must start with list, mark, unmark, todo, deadline, event or delete.");
                     }
-                    taskList.add(task);
+                    database.add(task);
                     System.out.println(LEFT_PADDING + " " + "Got it. I've added this task:");
                     System.out.println(LEFT_PADDING + "   " + task.toString());
-                    System.out.println(LEFT_PADDING + " Now you have " + Integer.toString(taskList.size()) + " tasks in the list.");
+                    System.out.println(LEFT_PADDING + " Now you have " + Integer.toString(database.size()) + " tasks in the list.");
                 }
             } catch (ConvoBotException e) {
                 System.out.println(LEFT_PADDING + " " + e.toString());
