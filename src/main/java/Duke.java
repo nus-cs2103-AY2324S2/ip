@@ -7,8 +7,6 @@ import java.util.Scanner;
  * @author KohGuanZeh
  */
 public class Duke {
-    // Separator decorators for chatbot.
-    private static final String BLOCK_SEPARATOR = "=".repeat(80);
 
     // All possible command types.
     private enum Command {
@@ -16,10 +14,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        // Greeting message to be displayed on start.
-        final String GREETING = "Hello, I'm Ted. What can I do for you today?";
-        // Goodbye message to be displayed on exit.
-        final String GOODBYE = "Bye. See you again.";
+        Ui ui = new Ui();
         // Scanner to read user inputs.
         Scanner sc = new Scanner(System.in);
         // Task list to track tasks from users.
@@ -28,49 +23,50 @@ public class Duke {
         try {
             taskList.loadTaskList();
         } catch (IOException e) {
-            Duke.echo("Duke cannot start due to the following error: " + e.getMessage());
+            ui.showError("Duke cannot start due to the following error: " + e.getMessage());
             return;
         }
 
-        Duke.echo(GREETING);
+        ui.showGreeting();
 
         while (true) {
             String input = sc.nextLine().trim();
             Command inputCommand = Duke.getCommand(input);
+            ui.showLine();
 
             try {
                 // For commands that expects an index as argument.
                 int index = 0;
                 switch (inputCommand) {
                 case BYE:
-                    Duke.echo(GOODBYE);
+                    ui.showFarewell();
                     return;
                 case LIST:
-                    Duke.echo(taskList.listTasks());
+                    ui.showMessage(taskList.listTasks());
                     break;
                 case TODO:
                     ToDo todo = ToDo.createToDo(input.substring(4));
-                    Duke.echo(taskList.addTask(todo));
+                    ui.showMessage(taskList.addTask(todo));
                     break;
                 case DEADLINE:
                     Deadline deadline = Deadline.createDeadline(input.substring(8));
-                    Duke.echo(taskList.addTask(deadline));
+                    ui.showMessage(taskList.addTask(deadline));
                     break;
                 case EVENT:
                     Event event = Event.createEvent(input.substring(5));
-                    Duke.echo(taskList.addTask(event));
+                    ui.showMessage(taskList.addTask(event));
                     break;
                 case MARK:
                     index = Integer.parseInt(input.substring(5));
-                    Duke.echo(taskList.markTask(index));
+                    ui.showMessage(taskList.markTask(index));
                     break;
                 case UNMARK:
                     index = Integer.parseInt(input.substring(7));
-                    Duke.echo(taskList.unmarkTask(index));
+                    ui.showMessage(taskList.unmarkTask(index));
                     break;
                 case DELETE:
                     index = Integer.parseInt(input.substring(7));
-                    Duke.echo(taskList.deleteTask(index));
+                    ui.showMessage(taskList.deleteTask(index));
                     break;
                 case UNKNOWN:
                     // Fallthrough
@@ -79,11 +75,13 @@ public class Duke {
                 }
                 taskList.saveTaskList();
             } catch (NumberFormatException e) {
-                Duke.echo("Error. Command expects a number. Please try again.");
+                ui.showError("Error. Command expects a number. Please try again.");
             } catch (TaskException | UnknownCommandException e) {
-                Duke.echo(e.getMessage());
+                ui.showError(e.getMessage());
             } catch (IOException e) {
-                Duke.echo("Tasks cannot be saved to file. Please restart.");
+                ui.showError("Tasks cannot be saved to file. Please restart.");
+            } finally {
+                ui.showLine();
             }
         }
     }
@@ -108,16 +106,5 @@ public class Duke {
         }
 
         return Command.UNKNOWN;
-    }
-
-    /**
-     * Prints the specified message to the output.
-     *
-     * @param message Message to be printed on output.
-     */
-    private static void echo(String message) {
-        System.out.println(BLOCK_SEPARATOR);
-        System.out.println(message);
-        System.out.println(BLOCK_SEPARATOR);
     }
 }
