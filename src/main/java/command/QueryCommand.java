@@ -59,6 +59,7 @@ public class QueryCommand extends Command {
                 break;
             case FIND:
                 find(tasks);
+                break;
         }
     }
 
