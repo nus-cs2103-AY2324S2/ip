@@ -1,17 +1,17 @@
 todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 27/1/2024 17:15
+event project meeting /from 1/1/2001 00:00 /to 1/1/1998 24:00
+event project meeting /from 1/1/1998 24:00 /to 1/1/1998 24:00
 todo a
-event 1 /from 2 /to 3
+event 1 /from 19/11/2011 16:50 /to 1/12/2100 18:33
 todo
-todo 
-deadline return book by Sunday
-deadline return book/by Sunday
-deadline return book /bySunday
-event project meeting /fromMon 2pm /to 4pm
-event project meeting /from Mon 2pm/to 4pm
-event project meeting/fromMon 2pm/to4pm
-event project meeting /to 4pm /from Mon 2pm
+deadline return book by 1/1/2001 00:00
+deadline return book/by 1/1/2001 00:00
+deadline return book /by1/1/2001 00:00
+event project meeting /from1/1/2001 00:00 /to 1/1/2001 00:00
+event project meeting /from 1/1/2001 00:00/to 1/1/2001 00:00
+event project meeting/from1/1/2001 00:00/to1/1/2001 00:00
+event project meeting /to 1/1/2001 00:00 /from 1/1/2001 00:00
 listing
 list
 mark
@@ -35,5 +35,8 @@ delete 5
 delete 5
 delete 1
 delete 2
+event project meeting /from 1/1/2001 /to 1/1/2001 24:00
+event project meeting /from 1/1/2001 00:00 /to 1/1
+deadline return book /by 31/13/2024 17:80
 list
 bye

@@ -1,11 +1,14 @@
 package fishstock;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 class Deadline extends Task {
     protected final static String keyword = "deadline";
     private final static String byKeyword = " /by ";
-    private String by;
+    private LocalDateTime by;
 
-    protected Deadline(String description, String by) {
+    protected Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -26,21 +29,25 @@ class Deadline extends Task {
                 throw new FishStockException("OH NOSE! The by-date cannot be empty..");
             }
             String description = input.substring(keyword.length() + 1, byIdx);
-            String by = input.substring(byIdx + byKeyword.length());
+            String byStr = input.substring(byIdx + byKeyword.length());
+            LocalDateTime by = LocalDateTime.parse(byStr, inDateFormat);
             return new Deadline(description, by);
 
         } catch (FishStockException e) {
             System.out.println(e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println("OH NOSE! Dates should be of the format <dd/mm/yyyy hh:mm>");
         }
         return null;
     }
 
     @Override
     protected String toSaveString() {
-        return keyword + " " + description + byKeyword + by + "/" + boolToInt(isDone) + System.lineSeparator();
+        return keyword + " " + description + byKeyword + by.format(inDateFormat) +
+                "/" + boolToInt(isDone) + System.lineSeparator();
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(outDateFormat) + ")";
     }
 }

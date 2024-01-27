@@ -1,6 +1,5 @@
 package fishstock;
 
-import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -63,7 +62,7 @@ class FishStock {
         return addTask(list, input, false, true);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         ArrayList<Task> list = new ArrayList<>();
         String pathToDb = "./data/";
         String dbName = "tasks.txt";
