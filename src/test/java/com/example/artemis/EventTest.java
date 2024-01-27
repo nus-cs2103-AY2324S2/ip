@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
     @Test
-    public void testToString() throws ArtemisException {
+    public void testToString() {
         Event event = new Event("Group Meeting", "01-03-2024 1800", "01-03-2024 1900");
         String expected = "[E][ ] Group Meeting (from: Mar 01 2024 6:00PM to: Mar 01 2024 7:00PM)";
         String actual = event.toString();

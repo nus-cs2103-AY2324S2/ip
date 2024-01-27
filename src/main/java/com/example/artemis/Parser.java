@@ -67,8 +67,8 @@ public class Parser {
             }
             tasks.addTask(new Todo(description));
             ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
-        } catch (ArtemisException e) {
-            ui.showError(e.getMessage());
+        } catch (ArtemisException | IndexOutOfBoundsException e) {
+            ui.showError("OOPS!!! The description of a todo cannot be empty.");
         }
     }
 
