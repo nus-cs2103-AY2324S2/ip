@@ -1,11 +1,10 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 public class TaskParser {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public static Task parseTask(String taskString) throws YapperException {
-        System.out.println("Debug: Input string - " + taskString);  // Add this line for debugging
 
         String[] parts = taskString.split("\\|");
         String taskType = parts[0];
@@ -17,15 +16,15 @@ public class TaskParser {
             return new Todo(description, isDone);
         case "D":
             try {
-                LocalDate by = LocalDate.parse(parts[3], DATE_TIME_FORMATTER);
+                LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
                 return new Deadline(description, isDone, by);
             } catch (DateTimeParseException e) {
                 throw new YapperException("Sorry the date format you yapped is invalid :(");
             }
         case "E":
             try{
-                LocalDate from = LocalDate.parse(parts[3], DATE_TIME_FORMATTER);
-                LocalDate to = LocalDate.parse(parts[4], DATE_TIME_FORMATTER);
+                LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+                LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
                 return new Event(description, isDone, from, to);
             } catch (DateTimeParseException e) {
                 throw new YapperException("Sorry the date format you yapped is invalid :(");

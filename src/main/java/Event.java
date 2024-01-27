@@ -1,12 +1,12 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
 public class Event extends Task {
-    protected LocalDate from;
-    protected LocalDate to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, boolean isDone, LocalDate from, LocalDate to) {
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -14,7 +14,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + getType() + "]" + "[" + getStatusIcon() + "] " + description + " (from: " + from + " to: " + to + ")";
+        return "[" + getType() + "]" + "[" + getStatusIcon() + "] " + description + " "
+                + getFormattedDateRange();
     }
 
     @Override
@@ -28,7 +29,7 @@ public class Event extends Task {
     }
 
     protected String getFormattedDateRange() {
-        return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
-                " to " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma")) +
+                " to " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma"));
     }
 }

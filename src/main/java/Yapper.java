@@ -1,5 +1,6 @@
 import java.io.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 
 public class Yapper {
     private static final String FILE_PATH = "./src/main/java/data/Yapper.txt";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     public static void main(String[] args) {
         String chatbotName = "Yapper";
         List<Task> tasks = loadTasksFromFile();
@@ -22,6 +24,7 @@ public class Yapper {
                 processUserInput(userInput, tasks);
                 saveTasksToFile(tasks);
             } catch (YapperException e) {
+                e.printStackTrace();
                 System.out.println(e.getMessage());
             }
         }
@@ -35,6 +38,7 @@ public class Yapper {
      * @throws YapperException If any of user inputs is invalid.
      */
     private static void processUserInput(String userInput, List<Task> tasks) throws YapperException {
+
         if (userInput.equalsIgnoreCase("list")) {
             System.out.println(" Here are the tasks in your yapping list:");
             printTaskList(tasks);
@@ -69,7 +73,8 @@ public class Yapper {
         } else if (userInput.startsWith("deadline")) {
             try {
                 String[] parts = userInput.substring(9).split("/by");
-                Deadline newTask = new Deadline(parts[0].trim(), false, LocalDate.parse(parts[1].trim()));
+                Deadline newTask = new Deadline(parts[0].trim(), false, LocalDateTime.parse(parts[1].trim(),
+                        DATE_TIME_FORMATTER));
                 tasks.add(newTask);
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + newTask);
@@ -80,8 +85,9 @@ public class Yapper {
         } else if (userInput.startsWith("event")) {
             try {
                 String[] parts = userInput.substring(6).split("/from|/to");
-                Event newTask = new Event(parts[0].trim(), false, LocalDate.parse(parts[1].trim()),
-                        LocalDate.parse(parts[2].trim()));
+                Event newTask = new Event(parts[0].trim(), false, LocalDateTime.parse(parts[1].trim(),
+                        DATE_TIME_FORMATTER),
+                        LocalDateTime.parse(parts[2].trim(), DATE_TIME_FORMATTER));
                 tasks.add(newTask);
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + newTask);

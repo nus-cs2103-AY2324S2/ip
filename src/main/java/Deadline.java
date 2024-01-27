@@ -1,12 +1,12 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
-    protected LocalDate by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, boolean isDone, LocalDate by) {
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
@@ -27,6 +27,6 @@ public class Deadline extends Task {
     }
 
     protected String getFormattedDate(){
-        return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma"));
     }
 }
