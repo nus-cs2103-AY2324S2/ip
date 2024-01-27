@@ -58,7 +58,9 @@ public abstract class Task implements Serializable {
 
     protected static void validateComponentKeys(Set<String> expected, Set<String> actual) throws InvalidComponents {
         // DESCRIPTION is assumed to be implicit
-        actual.remove("DESCRIPTION");
+        if (!actual.remove("DESCRIPTION")) {
+            throw new InvalidComponents();
+        }
 
         if (expected.size() != actual.size()) {
             throw new InvalidComponents(actual, expected);
@@ -79,6 +81,10 @@ public abstract class Task implements Serializable {
     public static class InvalidComponents extends Exception {
         public InvalidComponents(Set<String> actual, Set<String> expected) {
             super("Invalid task components: " + actual + "; expected: " + expected);
+        }
+
+        public InvalidComponents() {
+            super("No description given");
         }
     }
 
