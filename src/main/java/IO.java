@@ -1,3 +1,7 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,7 +69,14 @@ class IO {
         if (cmd.equals("todo") && token.length == 2) {
             t = new Todo(token[1]);
         } else if (cmd.equals("deadline") && token.length == 3) {
-            t = new Deadline(token[1], token[2]);
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+            try {
+                LocalDate d = LocalDate.parse(token[2], formatter);
+                t = new Deadline(token[1], d);
+            } catch (DateTimeParseException de) {
+                echo("Date not in format: yyyy-MM-dd, please try again.");
+                return;
+            }
         } else if (cmd.equals("event") && token.length == 4) {
             t = new Event(token[1], token[2], token[3]);
         } else {
