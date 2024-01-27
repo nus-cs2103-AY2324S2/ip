@@ -28,61 +28,88 @@ public class Panda {
         }
     }
 
-    private static void comm() {
-        Scanner myObj  = new Scanner(System.in);
-        while(running) {
-            System.out.print("> ");
-            String userInput = myObj.nextLine();
-            if(userInput.equals("bye")) {
-                running = false;
-                continue;
-            }
-            if(userInput.equals(("list"))) {
-                Panda.printTlist();
-                continue;
-            }
-            if(userInput.split(" ")[0].equals("mark")) {
-                int target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
-                tlist[target].mark();
-                System.out.println("Nice! I've marked this task as done:\n  " + tlist[target]);
-                continue;
-            }
-            if(userInput.split(" ")[0].equals("unmark")) {
-                int target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
-                tlist[target].unmark();
-                System.out.println("OK, I've marked this task as not done yet:\n  " + tlist[target]);
-                continue;
-            }
-            if(userInput.split(" ")[0].equals("todo")) {
-                tlist[idx] = new Todo(userInput.split(" ", 2)[1].trim());
-                idx = idx + 1;
-                System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
-                continue;
-            }
-            if(userInput.split(" ")[0].equals("deadline")) {
-                String[] args = userInput.split(" ", 2)[1].split("/by");
-                tlist[idx] = new Deadline(args[0].trim(), args[1].trim());
-                idx = idx + 1;
-                System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
-                continue;
-            }
-            if(userInput.split(" ")[0].equals("event")) {
-                String[] args = userInput.split(" ", 2)[1].split("/from");
-                tlist[idx] = new Event(args[0].trim(), args[1].split("/to")[0].trim(), args[1].split("/to")[1].trim());
-                idx = idx + 1;
-                System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
-                continue;
-            }
-            tlist[idx] = new Task(userInput);
-            idx = idx + 1;
-            System.out.println("added: " + userInput);
+    private static void comm (String userInput) throws PandaException {
+        if(userInput.equals("bye")) {
+            running = false;
+            return;
         }
-        myObj.close();
+        if(userInput.equals(("list"))) {
+            Panda.printTlist();
+            return;
+        }
+        if(userInput.split(" ")[0].equals("mark")) {
+            int target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+            if(target >= idx) {
+                throw new OutOfBoundsException();
+            }
+            tlist[target].mark();
+            System.out.println("Nice! I've marked this task as done:\n  " + tlist[target]);
+            return;
+        }
+        if(userInput.split(" ")[0].equals("unmark")) {
+            int target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+            if(target >= idx) {
+                throw new OutOfBoundsException();
+            }
+            tlist[target].unmark();
+            System.out.println("OK, I've marked this task as not done yet:\n  " + tlist[target]);
+            return;
+        }
+        if(userInput.split(" ")[0].equals("todo")) {
+            String[] splitted = userInput.trim().split(" ", 2);
+            if(splitted.length < 2) {
+                throw new EmptyTodoException();
+            }
+            tlist[idx] = new Todo(splitted[1].trim());
+            idx = idx + 1;
+            System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
+            return;
+        }
+        if(userInput.split(" ")[0].equals("deadline")) {
+            String[] splitted = userInput.trim().split(" ", 2);
+            if(splitted.length < 2) {
+                throw new EmptyDeadlineException("desc");
+            }
+            String[] args = splitted[1].split("/by");
+            if(args.length < 2) {
+                throw new EmptyDeadlineException("date");
+            }
+            tlist[idx] = new Deadline(args[0].trim(), args[1].trim());
+            idx = idx + 1;
+            System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
+            return;
+        }
+        if(userInput.split(" ")[0].equals("event")) {
+            String[] splitted = userInput.trim().split(" ", 2);
+            if(splitted.length < 2) {
+                throw new EmptyEventException("desc");
+            }
+            String[] args = splitted[1].split("/from");
+            if(args.length < 2 || args[1].split("/to").length < 2) {
+                throw new EmptyEventException("date");
+            }
+            tlist[idx] = new Event(args[0].trim(), args[1].split("/to")[0].trim(), args[1].split("/to")[1].trim());
+            idx = idx + 1;
+            System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
+            return;
+        }
+        throw new UnknownCommandException();
     }
 
     public static void main(String[] args) {
         Panda.startUp();
-        Panda.comm();
+        Scanner myObj  = new Scanner(System.in);
+        while(running) {
+            System.out.print("> ");
+            String userInput = myObj.nextLine();
+            try {
+                Panda.comm(userInput);
+            }
+            catch (PandaException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        myObj.close();
         Panda.shutDown();
     }
 }
