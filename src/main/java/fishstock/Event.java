@@ -1,13 +1,16 @@
 package fishstock;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 class Event extends Task {
     protected final static String keyword = "event";
     private final static String fromKeyword = " /from ";
     private final static String toKeyword = " /to ";
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
-    protected Event(String description, String from, String to) {
+    protected Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -30,7 +33,7 @@ class Event extends Task {
                 throw new FishStockException("OH NOSE! \"" + toKeyword + "\" not found..");
             }
             if (fromIdx > toIdx) {
-                throw new FishStockException("OH NOSE! The from-date must be before the to-date..");
+                throw new FishStockException("OH NOSE! The from-date must be put first..");
             }
             if (fromIdx + fromKeyword.length() > toIdx) {
                 throw new FishStockException("OH NOSE! The from-date cannot be empty..");
@@ -40,23 +43,31 @@ class Event extends Task {
             }
 
             String description = input.substring(keyword.length() + 1, fromIdx);
-            String from = input.substring(fromIdx + fromKeyword.length(), toIdx);
-            String to = input.substring(toIdx + toKeyword.length());
+            String fromStr = input.substring(fromIdx + fromKeyword.length(), toIdx);
+            String toStr = input.substring(toIdx + toKeyword.length());
+            LocalDateTime from = LocalDateTime.parse(fromStr, inDateFormat);
+            LocalDateTime to = LocalDateTime.parse(toStr, inDateFormat);
+            if (from.isAfter(to) && !from.equals(to)) {
+                throw new FishStockException("OH NOSE! The from-date must be before the to-date..");
+            }
             return new Event(description, from, to);
 
         } catch (FishStockException e) {
             System.out.println(e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println("OH NOSE! Dates should be of the format <dd/mm/yyyy hh:mm>");
         }
         return null;
     }
 
     @Override
     protected String toSaveString() {
-        return keyword + " " + description + fromKeyword + from +
-                toKeyword + to + "/" + boolToInt(isDone) + System.lineSeparator();
+        return keyword + " " + description + fromKeyword + from.format(inDateFormat) +
+                toKeyword + to.format(inDateFormat) + "/" + boolToInt(isDone) + System.lineSeparator();
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(outDateFormat) +
+                " to: " + to.format(outDateFormat) + ")";
     }
 }
