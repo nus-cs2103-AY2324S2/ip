@@ -3,7 +3,10 @@ import java.util.Arrays;
 
 public class Todo extends Task{
 
-    public static Todo extractDetails(String s) {
+    public static Todo extractDetails(String s) throws BadAppleException {
+        if (s.split(" ").length == 1) {
+            throw new BadAppleException("There is nothing here.");
+        }
         // This removes the "todo" from the front
         return new Todo(s.substring(5));
     }

@@ -45,6 +45,13 @@ public class Tracker {
         System.out.println(CustomMessages.randomMsg(task));
         System.out.println(task);
     }
+
+    public static void removeTask(int i) {
+        tasks.remove(i);
+        System.out.println("Exploooosion! now task " + i + " has been Kazuma-ed out of existence");
+        listTasks();
+        System.out.println("You now have " + tasks.size() + " tasks in your list");
+    }
     public static String listTasks() {
         int index = 1;
         StringBuilder result = new StringBuilder();
@@ -61,7 +68,7 @@ public class Tracker {
         String[] tokens = s.split(" ");
         ArrayList<String> args = new ArrayList<String>(Arrays.asList(tokens));
 
-        switch (args.getFirst().toLowerCase()) {
+        switch (args.get(0).toLowerCase()) {
             case "list":
                 listTasks();
                 break;
@@ -70,8 +77,10 @@ public class Tracker {
                     int taskIndex = parseInt(tokens[1]) - 1;
                     Task t = tasks.get(taskIndex);
                     t.mark(true, taskIndex);
-                } catch(NumberFormatException | IndexOutOfBoundsException e) {
+                } catch(NumberFormatException e) {
                     System.out.println("Usage: mark <taskNumber>");
+                } catch(IndexOutOfBoundsException e) {
+                    System.out.println("Hey you don't have that task!");
                 }
                 break;
             case "unmark":
@@ -79,19 +88,45 @@ public class Tracker {
                     int taskIndex = parseInt(tokens[1]) - 1;
                     Task t = tasks.get(taskIndex);
                     t.mark(false, taskIndex);
-                } catch(NumberFormatException | IndexOutOfBoundsException e) {
+                } catch(NumberFormatException e) {
                     System.out.println("Usage: mark <taskNumber>");
+                } catch(IndexOutOfBoundsException e) {
+                    System.out.println("Calm down! You don't have THAT many tasks!");
                 }
                 break;
             case "todo":
-                // Can we get the class itself to perform regex?
-                addTask(Todo.extractDetails(s));
+                // it is possible to relegate exception handling to addTask
+                // you must use fp and implement lazy evaluation
+                try {
+                    addTask(Todo.extractDetails(s));
+                } catch (BadAppleException be) {
+                    System.out.println(be);
+                }
                 break;
             case "deadline":
-                addTask(Deadline.extractDetails(args));
+                try {
+                    addTask(Deadline.extractDetails(args));
+                } catch (BadAppleException be) {
+                    System.out.println(be);
+                }
                 break;
             case "event":
-                addTask(Event.extractDetails(args));
+                try {
+                    addTask(Event.extractDetails(args));
+                } catch (BadAppleException be) {
+                    System.out.println(be);
+                }
+                break;
+            case "delete":
+                if (tokens.length < 1) {
+                    System.out.println("Kel nuked, but he missed what task you wanted to remove!");
+                }
+                int taskIndex = parseInt(tokens[1]) - 1;
+                if (taskIndex >= 0) {
+                    removeTask(taskIndex);
+                } else {
+                    System.out.println("welcome to BLACK SPACE, you keyed in a negative number!");
+                }
                 break;
             default:
                 System.out.println("Whatcha sayin? scream 'help!' for list of my services");
