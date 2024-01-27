@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private LocalDateTime byDateTime;
-    private LocalDateTime to;
+    private LocalDateTime fromDateTime;
+    private LocalDateTime toDateTime;
 
     public Event(String description, String from, String to) {
         super(description);
-        this.byDateTime = parseDateTime(from);
-        this.to = parseDateTime(to);
+        this.fromDateTime = parseDateTime(from);
+        this.toDateTime = parseDateTime(to);
     }
 
     private LocalDateTime parseDateTime(String dateTimeString) {
@@ -20,14 +20,15 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"))
+                + " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " +
-                byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + " - " +
-                        to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"));
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + " - "
+                + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"));
     }
 }

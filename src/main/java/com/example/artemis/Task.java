@@ -48,7 +48,8 @@ public abstract class Task {
             String by = parts[3].trim();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
             LocalDateTime byDateTime = LocalDateTime.parse(by, formatter);
-            task = new Deadline(description, byDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
+            task = new Deadline(description, byDateTime
+                    .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
         } else if (taskType.equals("E")) {
             if (parts.length < 4) {
                 throw new IllegalArgumentException("Invalid file format: " + fileString);
@@ -58,7 +59,8 @@ public abstract class Task {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
             LocalDateTime byDateTimeFrom = LocalDateTime.parse(from, formatter);
             LocalDateTime byDateTimeTo = LocalDateTime.parse(to, formatter);
-            task = new Event(description, byDateTimeFrom.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")),
+            task = new Event(description, byDateTimeFrom
+                    .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")),
                     byDateTimeTo.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
         } else {
             // Handle unknown task type
