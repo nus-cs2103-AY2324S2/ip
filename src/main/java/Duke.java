@@ -1,15 +1,17 @@
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.IOException;
 
 public class Duke {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final TaskList TASKS = new TaskList();
+    private static TaskList TASKS;
     private static final Pattern DUE_PATTERN = Pattern.compile("/by (.+)");
     private static final Pattern EVENT_PATTERN = Pattern.compile("/from (.+) /to (.+)");
     private static final String HORIZONTAL_LINE =
             "____________________________________________________________";
     private static final String INDENT = "    ";
+    private static final String STORAGE_PATH = "./cappy.csv";
     private static final String LIST_COMMAND = "list";
     private static final String EXIT_COMMAND = "bye";
     private static final String MARK_COMMAND = "mark";
@@ -22,9 +24,23 @@ public class Duke {
     public static void main(String[] args) {
         printBanner();
         printGreetings();
-        inputLoop();
-        printExit();
-        Duke.SCANNER.close();
+        try {
+            Storage storage = new Storage(STORAGE_PATH);
+            TASKS = TaskList.load(storage);
+            inputLoop();
+            storage.close();
+        } catch (IOException e) {
+            print("Error: " + e.getMessage());
+            Duke.SCANNER.close();
+            System.exit(1);
+        } catch(DukeException e) {
+            print("Error: " + e.getMessage());
+            Duke.SCANNER.close();
+            System.exit(1);
+        } finally {
+            printExit();
+            Duke.SCANNER.close();
+        }
     }
 
     private static void inputLoop() {
@@ -38,11 +54,13 @@ public class Duke {
                 handleInput(input);
             } catch (DukeException e) {
                 print(e.getMessage());
+            } catch (IOException e) {
+                print("Error: " + e.getMessage());
             }
         }
     }
 
-    private static void handleInput(String input) throws DukeException {
+    private static void handleInput(String input) throws DukeException, IOException {
         if (input.equals(LIST_COMMAND)) {
             String[] messages = new String[TASKS.size() + 1];
             messages[0] = "Here are the tasks in your list:";
@@ -63,6 +81,7 @@ public class Duke {
                     "Nice! I've marked this task as done:", TASKS.getTask(index).toString()
                 };
                 print(messages);
+                TASKS.save();
             } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a valid number.");
             }
@@ -81,6 +100,7 @@ public class Duke {
                     "OK, I've marked this task as not done yet:", TASKS.getTask(index).toString()
                 };
                 print(messages);
+                TASKS.save();
             } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a valid number.");
             }
@@ -92,6 +112,7 @@ public class Duke {
             Task task = new Todo(description);
             TASKS.addTask(task);
             printAddedTask(task);
+            TASKS.save();
         } else if (input.startsWith(DEADLINE_COMMAND)) {
             if (input.length() < DEADLINE_COMMAND.length() + 2) {
                 throw new DukeException("Please enter the task description and /by [Date Time].");
@@ -104,6 +125,7 @@ public class Duke {
                 Task task = new Deadline(description, due);
                 TASKS.addTask(task);
                 printAddedTask(task);
+                TASKS.save();
             } else {
                 throw new DukeException(
                         "Please specify the due date of the deadline task using /by [Date Time].");
@@ -121,6 +143,7 @@ public class Duke {
                 Task task = new Event(description, from, to);
                 TASKS.addTask(task);
                 printAddedTask(task);
+                TASKS.save();
             } else {
                 throw new DukeException(
                         "Please specify the start and end date of the event task using /from"
@@ -143,6 +166,7 @@ public class Duke {
                     "Now you have " + TASKS.size() + " tasks in the list."
                 };
                 print(messages);
+                TASKS.save();
             } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a valid number.");
             }

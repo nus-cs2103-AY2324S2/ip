@@ -1,9 +1,14 @@
-public abstract class Task {
+public abstract class Task implements CsvFormat {
     private String description;
     private boolean done;
 
     public Task(String description) {
         this.description = description;
+    }
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.done = isDone;
     }
 
     public String getDescription() {
