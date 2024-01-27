@@ -1,4 +1,4 @@
-package junit.Task;
+package squid.tasks;
 
 import squid.tasks.Todo;
 import org.junit.Test;
