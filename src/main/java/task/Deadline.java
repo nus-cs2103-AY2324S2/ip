@@ -40,6 +40,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String by = this.endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
-        return String.format("[D]%s %s (by: %s)", (super.status ? "[X]" : "[ ]"), super.name, by);
+        return String.format("[D]%s %s (by: %s)", (super.isMarked ? "[X]" : "[ ]"), super.name, by);
     }
 }

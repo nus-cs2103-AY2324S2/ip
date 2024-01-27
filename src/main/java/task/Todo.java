@@ -20,6 +20,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + (super.status ? "[X] " : "[ ] ") + super.name;
+        return "[T]" + (super.isMarked ? "[X] " : "[ ] ") + super.name;
     }
 }

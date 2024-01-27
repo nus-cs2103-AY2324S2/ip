@@ -45,6 +45,6 @@ public class Event extends Task {
     public String toString() {
         String from = this.startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
         String to = this.endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
-        return String.format("[E]%s %s (from: %s to: %s)", (super.status ? "[X]" : "[ ]"), super.name, from, to);
+        return String.format("[E]%s %s (from: %s to: %s)", (super.isMarked ? "[X]" : "[ ]"), super.name, from, to);
     }
 }
