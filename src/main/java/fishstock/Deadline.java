@@ -1,7 +1,6 @@
 package fishstock;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 class Deadline extends Task {
     protected final static String keyword = "deadline";
@@ -15,7 +14,7 @@ class Deadline extends Task {
 
     protected static Deadline of(String input) {
         try {
-            if (!FishStock.startsWith(keyword, input)) {
+            if (!Parser.startsWith(keyword, input)) {
                 throw new FishStockException("OH NOSE! This input is not deadline..");
             }
             int byIdx = input.indexOf(byKeyword);
@@ -30,24 +29,25 @@ class Deadline extends Task {
             }
             String description = input.substring(keyword.length() + 1, byIdx);
             String byStr = input.substring(byIdx + byKeyword.length());
-            LocalDateTime by = LocalDateTime.parse(byStr, inDateFormat);
+            LocalDateTime by = Parser.parseDate(byStr);
+            if (by == null) {
+                return null;
+            }
             return new Deadline(description, by);
 
         } catch (FishStockException e) {
-            System.out.println(e.getMessage());
-        } catch (DateTimeParseException e) {
-            System.out.println("OH NOSE! Dates should be of the format <dd/mm/yyyy hh:mm>");
+            Ui.printError(e.getMessage());
         }
         return null;
     }
 
     @Override
     protected String toSaveString() {
-        return keyword + " " + description + byKeyword + by.format(inDateFormat) +
-                "/" + boolToInt(isDone) + System.lineSeparator();
+        return "D|" + description + "|" + Parser.inDate(by) +
+                "|" + boolToInt(isDone) + System.lineSeparator();
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(outDateFormat) + ")";
+        return "[D]" + super.toString() + " (by: " + Parser.outDate(by) + ")";
     }
 }
