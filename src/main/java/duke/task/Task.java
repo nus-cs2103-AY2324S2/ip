@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class Task implements Serializable {
-    protected static DateTimeFormatter describeTimeFormat = DateTimeFormatter.ofPattern("EE',' dd MMMM yy 'at' hh:mma");
+    protected static DateTimeFormatter describeTimeFormat =
+            DateTimeFormatter.ofPattern("EE',' dd MMMM yy 'at' hh:mma");
+
+    private final String description;
+    private Status status;
 
     private enum Status {
         Complete("completed", 'X'), Incomplete("pending", ' ');
@@ -22,9 +26,6 @@ public abstract class Task implements Serializable {
             this.description = description;
         }
     }
-
-    private final String description;
-    private Status status;
 
     protected Task(String description) {
         this.description = description;
@@ -56,7 +57,8 @@ public abstract class Task implements Serializable {
         return new HashSet<>(List.of(keys));
     }
 
-    protected static void validateComponentKeys(Set<String> expected, Set<String> actual) throws InvalidComponents {
+    protected static void validateComponentKeys(
+            Set<String> expected, Set<String> actual) throws InvalidComponents {
         // DESCRIPTION is assumed to be implicit
         if (!actual.remove("DESCRIPTION")) {
             throw new InvalidComponents();
