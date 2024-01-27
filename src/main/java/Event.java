@@ -21,8 +21,8 @@ public class Event extends Task {
     @Override
     public String getSaveFileString() {
         return String.format("E | %d | %s | %s | %s", super.getDoneAsInt(),
-                super.getDescription(), this.getStartTime(),
-                this.getEndTime());
+                super.getDescription(), this.getStartTime().format(super.dateTimeEntryForm),
+                this.getEndTime().format(dateTimeEntryForm));
     }
     @Override
     public String toString() {

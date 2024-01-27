@@ -15,7 +15,7 @@ public class Deadline extends Task {
     @Override
     public String getSaveFileString() {
         return String.format("D | %d | %s | %s", super.getDoneAsInt(),
-                super.getDescription(), this.getEndTime());
+                super.getDescription(), this.getEndTime().format(super.dateTimeEntryForm));
     }
 
     @Override

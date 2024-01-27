@@ -43,6 +43,9 @@ public class SaveFile {
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task curTask = taskList.getTask(i);
                 strBuild.append(curTask.getSaveFileString());
+                if (i < taskList.getSize() - 1) {
+                    strBuild.append("\n");
+                }
             }
             fileWriter.write(strBuild.toString());
             fileWriter.close();

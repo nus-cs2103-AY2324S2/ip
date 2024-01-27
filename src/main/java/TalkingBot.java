@@ -82,9 +82,9 @@ public class TalkingBot {
                     break;
                 case "save":
                     try {
-                        System.out.println("Saving tasks to file: " + fileName);
+                        System.out.println("\tSaving tasks to file: " + fileName);
                         saveFile.saveTasksToFile(taskList);
-                        System.out.println("Save done!");
+                        System.out.println("\tSave done!");
                     } catch (TalkingBotException e) {
                         System.out.println(e);
                     }
