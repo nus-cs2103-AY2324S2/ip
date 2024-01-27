@@ -1,13 +1,15 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     private static final String lineBreak = "_______________________________________________________________________________";
-    private static ArrayList<Task> lst = new ArrayList<>();
+    private static final ArrayList<Task> lst = new ArrayList<>();
+    private static final File f = new File("data/list.txt");
+
     public static void main(String[] args) throws IOException {
         greet();
+        loadExistingList(f);
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String command;
 
@@ -18,6 +20,7 @@ public class Duke {
                 System.out.println(ice.getMessage());
             }
         }
+
         exit();
     }
 
@@ -106,9 +109,58 @@ public class Duke {
     }
 
     public static void greet() {
+        String snowBoyAscii =
+                "      *      \n" +
+                        "     ***     \n" +
+                        "   *******   \n" +
+                        "  *  o o  *  \n" +
+                        " *    >    * \n" +
+                        " *  \\___/  * \n" +
+                        "  *       *  \n" +
+                        "   *******   \n" +
+                        "     ***     \n" +
+                        "      *      ";
         System.out.println(lineBreak);
+        System.out.println(snowBoyAscii);
         System.out.println(" Hello! I'm SnowBoy\n" + " What can I do for you?");
         System.out.println(lineBreak);
+    }
+
+    public static void loadExistingList(File f) throws IOException{
+        File parentD = f.getParentFile();
+        if (parentD != null && !parentD.exists()) {
+            parentD.mkdirs();
+        }
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String[] taskArr = s.nextLine().split(" \\| ");
+            switch (taskArr[0]) {
+                case "T":
+                    Task newTodo = new Todo(taskArr[2]);
+                    if (taskArr[1].equals("1")) {
+                        newTodo.markAsDone();
+                    }
+                    lst.add(newTodo);
+                    break;
+                case "D":
+                    Task newDeadline = new Deadline(taskArr[2], taskArr[3]);
+                    if (taskArr[1].equals("1")) {
+                        newDeadline.markAsDone();
+                    }
+                    lst.add(newDeadline);
+                    break;
+                case "E":
+                    Task newEvent = new Event(taskArr[2], taskArr[3], taskArr[4]);
+                    if (taskArr[1].equals("1")) {
+                        newEvent.markAsDone();
+                    }
+                    lst.add(newEvent);
+                    break;
+            }
+        }
     }
 
     public static void addLst(Task newTask) {
@@ -158,6 +210,15 @@ public class Duke {
     }
 
     public static void exit() {
+        try {
+            FileWriter cfw = new FileWriter(f);
+            for (Task t : lst) {
+                cfw.write(t.toSaveFormat() + "\n");
+            }
+            cfw.close();
+        } catch (IOException ie) {
+            System.out.println("Unable to save task(s) to local file");
+        }
         System.out.println(lineBreak);
         System.out.println(" Bye. Hope to see you again soon!");
         System.out.println(lineBreak);
