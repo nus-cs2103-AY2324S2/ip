@@ -19,4 +19,13 @@ event
 todo 
 todo
 deadline spppppeee
+deadline return book /by Monday
+event project meeting again /from Mon 6pm /to 9pm
+list
+mark 3
+unmark 1
+mark 2
+list
+deadline return book3 /by Friday
+event project meeting3 /from Mon 1am /to 9pm
 bye
