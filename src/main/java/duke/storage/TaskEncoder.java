@@ -5,7 +5,15 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * The TaskEncoder class implements a method that would encode Task object into string
+ */
 public class TaskEncoder {
+    /**
+     * Returns the encoded string of the task object using the predefined format
+     * @param task the Task object to be encoded
+     * @return The encoded string for a task
+     */
     public static String encodeTask(Task task) {
         int hasDoneInt = task.getHasDone() ? 1 : 0;
         if (task instanceof Todo) {

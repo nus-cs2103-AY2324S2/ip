@@ -1,13 +1,25 @@
 package duke.task;
 
+/**
+ * Represents a task. A <code>Task</code> object corresponds to a task with description and information of
+ * whether the task is done.
+ */
 public class Task {
     private String description;
     private boolean hasDone;
 
+    /**
+     * Returns the description of the task
+     * @return the description of the task
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets the description of the task
+     * @param description the description of the task
+     */
     public void setDescription(String description) {
         this.description = description;
     }
@@ -20,15 +32,27 @@ public class Task {
 
     }
 
+    /**
+     * Constructor of the task
+     * @param description the description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.hasDone = false;
     }
 
-    public void setHasDone(boolean isDone) {
-        this.hasDone = isDone;
+    /**
+     * Setter of whether the task is done
+     * @param hasDone A boolean variable representing whether the task has done
+     */
+    public void setHasDone(boolean hasDone) {
+        this.hasDone = hasDone;
     }
 
+    /**
+     * Returns a String representation of the task
+     * @return the string repreesntation of the task
+     */
     @Override
     public String toString() {
         if (this.hasDone) {

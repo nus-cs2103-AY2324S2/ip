@@ -13,6 +13,9 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The TaskDecoder class implements a method that would decode string and parse it into Task object
+ */
 public class TaskDecoder {
     private static final Pattern DEADLINE_SAVE_FORMAT = Pattern.compile(
             "D \\| (?<hasDone>(0|1)) \\| (?<taskDescription>.*) \\| (?<deadline>.*)");
@@ -22,6 +25,12 @@ public class TaskDecoder {
             " (?<taskDescription>.*) \\| (?<startDate>.*)\\-(?<endDate>.*)");
     private static final DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern("MM dd yyyy HH:mm");
 
+    /**
+     * Returns a task object based on string using pre-defined pattern
+     * @param taskString The task string to be decoded
+     * @return the Task object that the string decoded into
+     * @throws StorageOperationException If the string does not match any of the pattern or contains invalid contents
+     */
     public static Task decodeTask(String taskString) throws StorageOperationException {
         Matcher deadlineMatcher = DEADLINE_SAVE_FORMAT.matcher(taskString.trim());
         Matcher todoMatcher = TODO_SAVE_FORMAT.matcher(taskString.trim());

@@ -10,11 +10,17 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * The Duke program implements a chat bot that allows users to manage their tasks
+ */
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructor of the Duke program, it would create a new Ui, and load tasks that users have from storage
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
@@ -25,6 +31,10 @@ public class Duke {
             taskList = new TaskList(new ArrayList<>());
         }
     }
+
+    /**
+     * Run the Duke Program by reading command from the users and executing it
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -40,6 +50,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Calls run method of the Duke Program to starts the program
+     * @param args
+     */
     public static void main(String[] args) {
         //        String logo = " ____        _        \n"
         //                + "|  _ \\ _   _| | _____ \n"
