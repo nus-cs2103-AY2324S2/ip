@@ -54,7 +54,14 @@ public abstract class Task implements Serializable {
         return description;
     }
 
-    private static void validateComponentKeys(Set<String> expected, Set<String> actual) throws InvalidComponents {
+    protected static Set<String> keys(String... keys) {
+        return new HashSet<>(List.of(keys));
+    }
+
+    protected static void validateComponentKeys(Set<String> expected, Set<String> actual) throws InvalidComponents {
+        // DESCRIPTION is assumed to be implicit
+        actual.remove("DESCRIPTION");
+
         if (expected.size() != actual.size()) {
             throw new InvalidComponents(actual, expected);
         }
@@ -84,7 +91,7 @@ public abstract class Task implements Serializable {
         return components;
     }
 
-    private static LocalDateTime parseDateTime(String input) throws DateTimeParseException {
+    protected static LocalDateTime parseDateTime(String input) throws DateTimeParseException {
         DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return LocalDateTime.from(f.parse(input));
     }
@@ -94,16 +101,13 @@ public abstract class Task implements Serializable {
         Task task;
         switch (type) {
         case "todo":
-            validateComponentKeys(new HashSet<String>(List.of("DESCRIPTION")), components.keySet());
-            task = new Todo(components.get("DESCRIPTION"));
+            task = new Todo(components);
             break;
         case "deadline":
-            validateComponentKeys(new HashSet<String>(List.of("DESCRIPTION", "/by")), components.keySet());
-            task = new Deadline(components.get("DESCRIPTION"), parseDateTime(components.get("/by")));
+            task = new Deadline(components);
             break;
         case "event":
-            validateComponentKeys(new HashSet<String>(List.of("DESCRIPTION", "/from", "/to")), components.keySet());
-            task = new Event(components.get("DESCRIPTION"), parseDateTime(components.get("/from")), parseDateTime(components.get("/to")));
+            task = new Event(components);
             break;
         default:
             throw new InvalidType(type);

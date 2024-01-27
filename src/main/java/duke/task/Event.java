@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 public class Event extends Task {
     private LocalDateTime from, to;
@@ -9,6 +10,13 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    public Event(Map<String, String> components) throws InvalidComponents {
+        super(components.get("DESCRIPTION"));
+        validateComponentKeys(keys("/from", "/to"), components.keySet());
+        from = parseDateTime(components.get("/from"));
+        to = parseDateTime(components.get("/to"));
     }
 
     @Override
