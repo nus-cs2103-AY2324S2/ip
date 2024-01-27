@@ -46,8 +46,7 @@ public class Duke {
                 }
             }
         }
-
-        //save here
+        
         Storage.saveTasks(ls);
 
         System.out.println(line);
