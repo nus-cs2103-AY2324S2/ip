@@ -20,7 +20,7 @@ public class Duke {
             this.isDone = true;
         }
 
-        public void unmarkAsNotDone() {
+        public void markAsNotDone() {
             this.isDone = false;
         }
 
@@ -101,12 +101,37 @@ public class Duke {
     // The task list.
     ArrayList<Task> taskList = new ArrayList<>();
 
+    // Gets the i-th task from the task list, where i is the index.
+    private Task getTask(int index) {
+        return taskList.get(index - 1);
+    }
+
     // Adds the task to the task list.
     private void addTask(String task) {
         taskList.add(new Task(task));
         printHorizontalLine();
         printWithIndent(" added: " + task);
         printHorizontalLine();;
+    }
+
+    // Marks the i-th task in the task list as done, where i is the index.
+    private void markTaskAsDone(int index) {
+        Task task = getTask(index);
+        task.markAsDone();
+        printHorizontalLine();
+        printWithIndent(" Nice! I've marked this task as done:");
+        printWithIndent("   " + task);
+        printHorizontalLine();
+    }
+
+    // Marks the i-th task in the task list as not done, where i is the index.
+    private void markTaskAsNotDone(int index) {
+        Task task = getTask(index);
+        task.markAsNotDone();
+        printHorizontalLine();
+        printWithIndent(" OK, I've marked this task as not done yet:");
+        printWithIndent("   " + task);
+        printHorizontalLine();
     }
 
     // Prints the task list.
@@ -122,11 +147,6 @@ public class Duke {
         printHorizontalLine();
     }
 
-    // Gets the i-th task from the task list, where i is the index.
-    private Task getTask(int index) {
-        return taskList.get(index);
-    }
-
     // Takes inputs from user until bye has been input.
     private void takeInputsUntilBye() {
         // Waits for command from user
@@ -137,6 +157,10 @@ public class Duke {
             // If list is input, print list, else add task to list
             if (isCommandList(command)) {
                 printTaskList();
+            } else if (isCommandMark(command)) {
+                markTaskAsDone(getIndex(command));
+            } else if (isCommandUnmark(command)) {
+                markTaskAsNotDone(getIndex(command));
             } else {
                 addTask(command);
             }
