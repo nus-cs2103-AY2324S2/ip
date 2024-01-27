@@ -1,4 +1,11 @@
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.File;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +31,13 @@ public class FileHandler {
                         task = new Todo(parts[2]);
                         break;
                     case "D":
-                        task = new Deadline(parts[2], parts[3]);
+                        LocalDateTime deadlineTime = DateTimeUtil.parseDateTime(parts[3]);
+                        task = new Deadline(parts[2], deadlineTime);
                         break;
                     case "E":
-                        task = new Event(parts[2], parts[3], parts[4]);
+                        LocalDateTime startTime = DateTimeUtil.parseDateTime(parts[3]);
+                        LocalDateTime endTime = DateTimeUtil.parseDateTime(parts[4]);
+                        task = new Event(parts[2], startTime, endTime);
                         break;
                     default:
                         continue;
@@ -39,10 +49,13 @@ public class FileHandler {
             }
         } catch (IOException e) {
             throw new IOException("Error reading from file: " + filePath, e);
+        } catch (DukeException e) {
+            throw new RuntimeException("Error parsing date-time: " + e.getMessage(), e);
         }
 
         return tasks;
     }
+
 
     private File getFile() throws IOException {
         File file = new File(filePath);
@@ -77,14 +90,14 @@ public class FileHandler {
 
     private String taskToFileString(Task task) {
         String type = task instanceof Todo ? "T" :
-                task instanceof Deadline ? "D" :
-                        task instanceof Event ? "E" : "";
+                    task instanceof Deadline ? "D" :
+                    task instanceof Event ? "E" : "";
         String status = task.isDone() ? "1" : "0";
         String description = task.description;
 
         String details = type + " | " + status + " | " + description;
-        if (task instanceof Deadline) {
-            details += " | " + ((Deadline) task).by;
+        if (task instanceof Deadline deadline) {
+            details += " | " + deadline.by.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         } else if (task instanceof Event) {
             details += " | " + ((Event) task).from + " | " + ((Event) task).to;
         }
