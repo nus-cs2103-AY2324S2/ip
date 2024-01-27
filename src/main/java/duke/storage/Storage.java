@@ -228,41 +228,50 @@ public class Storage {
      * @param file File to load values from
      */
     private static void loadStorageFromFile(File file) throws TaskNotSupportedException, FileNotFoundException {
+        // Check if file is readable
+        if (!file.canRead()) {
+            throw new FileNotFoundException("File cannot be read");
+        }
+
         // Read stored tasks from file
         FileInputStream input = new FileInputStream(file);
         JSONArray jsonStorage = new JSONArray(new JSONTokener(input));
 
         // Populate storage array
         for (int i = 0; i < jsonStorage.length(); i++) {
-            // Get json entry
-            JSONObject entry = jsonStorage.getJSONObject(i);
+            try {
+                // Get json entry
+                JSONObject entry = jsonStorage.getJSONObject(i);
 
-            // Parse JSON entry to task
-            Task task;
-            switch (TaskType.valueOf(entry.getString("type"))) {
-            case TODO:
-                task = new Todo(entry.getString("description"), entry.getBoolean("isDone"));
-                break;
+                // Parse JSON entry to task
+                Task task;
+                switch (TaskType.valueOf(entry.getString("type"))) {
+                case TODO:
+                    task = new Todo(entry.getString("description"), entry.getBoolean("isDone"));
+                    break;
 
-            case DEADLINE:
-                task = new Deadline(entry.getString("description"),
-                        entry.getString("dueDate"),
-                        entry.getBoolean("isDone"));
-                break;
+                case DEADLINE:
+                    task = new Deadline(entry.getString("description"),
+                            entry.getString("dueDate"),
+                            entry.getBoolean("isDone"));
+                    break;
 
-            case EVENT:
-                task = new Event(entry.getString("description"),
-                        entry.getString("startDate"),
-                        entry.getString("endDate"),
-                        entry.getBoolean("isDone"));
-                break;
-            default:
-                throw new TaskNotSupportedException(
-                        String.format("Task '%s' not currently supported", entry.getString("type")));
+                case EVENT:
+                    task = new Event(entry.getString("description"),
+                            entry.getString("startDate"),
+                            entry.getString("endDate"),
+                            entry.getBoolean("isDone"));
+                    break;
+                default:
+                    throw new TaskNotSupportedException(
+                            String.format("Task '%s' not currently supported", entry.getString("type")));
+                }
+
+                // Add task to storage array
+                storageArray.add(task);
+            } catch (IllegalArgumentException e) {
+                System.out.println("WARNING: Task not currently supported, will not be loaded");
             }
-
-            // Add task to storage array
-            storageArray.add(task);
         }
     }
 
@@ -271,6 +280,10 @@ public class Storage {
      */
     public static void initialiseStorage() {
         try {
+            // Create data directory (if required)
+            saveFile.getParentFile().mkdirs();
+
+            // Load contents of file
             loadStorageFromFile(saveFile);
         } catch (TaskNotSupportedException e) {
             System.out.println(String.format("WARNING: %s, some stored tasks will not be loaded", e.getMessage()));
