@@ -145,8 +145,8 @@ public class Duke {
         fw.close();
     }
 
-    public static List<String> splitStringWithTrim(String info, String separator) {
-        return Arrays.stream(info.split(separator)).map(String::trim).collect(Collectors.toList());
+    public static List<String> splitStringWithTrim(String info, String separator, int maxTokens) {
+        return Arrays.stream(info.split(separator, maxTokens)).map(String::trim).collect(Collectors.toList());
     }
 
     public static void mark(String info) throws DukeException {
@@ -217,8 +217,8 @@ public class Duke {
             if (info.isEmpty()) {
                 throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
             }
-            List<String> deadlineInfo = splitStringWithTrim(info, "/");
-            Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1).substring(3));
+            List<String> deadlineInfo = splitStringWithTrim(info, "/by", 2);
+            Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1));
             taskList.add(deadline);
             printTaskAddedWithSolidLineBreak(deadline);
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
@@ -234,8 +234,8 @@ public class Duke {
             if (info.isEmpty()) {
                 throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
             }
-            List<String> eventInfo = splitStringWithTrim(info, "/");
-            Task event = new Event(eventInfo.get(0), eventInfo.get(1).substring(5), eventInfo.get(2).substring(3));
+            List<String> eventInfo = splitStringWithTrim(info, "/from|/to", 3);
+            Task event = new Event(eventInfo.get(0), eventInfo.get(1), eventInfo.get(2));
             taskList.add(event);
             printTaskAddedWithSolidLineBreak(event);
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
@@ -244,7 +244,6 @@ public class Duke {
         } catch (IOException e) {
             throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
-
     }
 
     public static void printWithSolidLineBreak(String s) {
