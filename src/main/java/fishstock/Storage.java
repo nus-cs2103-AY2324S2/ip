@@ -20,14 +20,16 @@ class Storage {
     private void loadTask(String line) {
         String[] arr = line.split("\\|");
         Task task = null;
-        if ("T".equals(arr[0])) { // Todo
-            task = new Todo(arr[1]);
-        } else if ("D".equals(arr[0])) { // Deadline
-            task = new Deadline(arr[1], Parser.parseDate(arr[2]));
-        } else if ("E".equals(arr[0])) { // Event
-            task = new Event(arr[1], Parser.parseDate(arr[2]), Parser.parseDate(arr[3]));
+        try {
+            if ("T".equals(arr[0])) { // Todo
+                task = new Todo(arr[1]);
+            } else if ("D".equals(arr[0])) { // Deadline
+                task = new Deadline(arr[1], Parser.parseDate(arr[2]));
+            } else if ("E".equals(arr[0])) { // Event
+                task = new Event(arr[1], Parser.parseDate(arr[2]), Parser.parseDate(arr[3]));
+            }
+        } catch (FishStockException ignored) {
         }
-
         if (task == null) { // invalid format
             return;
         }
@@ -52,16 +54,11 @@ class Storage {
         return list;
     }
 
-    protected void close() {
-        try {
-            FileWriter fw = new FileWriter(db);
-            for (Task task : list) {
-                fw.write(task.toSaveString());
-            }
-            fw.close();
-
-        } catch (IOException e) {
-            Ui.printError(e.getMessage());
+    protected void close() throws IOException {
+        FileWriter fw = new FileWriter(db);
+        for (Task task : list) {
+            fw.write(task.toSaveString());
         }
+        fw.close();
     }
 }

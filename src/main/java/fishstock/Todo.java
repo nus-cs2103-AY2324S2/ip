@@ -6,20 +6,14 @@ class Todo extends Task {
         super(description);
     }
 
-    protected static Todo of(String input) {
-        try {
-            if (!Parser.startsWith(keyword, input)) {
-                throw new FishStockException("OH NOSE! This input is not todo..");
-            }
-            if (keyword.length() + 1 >= input.length()) {
-                throw new FishStockException("OH NOSE! The description of todo cannot be empty..");
-            }
-            return new Todo(input.substring(keyword.length() + 1));
-
-        } catch (FishStockException e) {
-            Ui.printError(e.getMessage());
+    protected static Todo of(String input) throws FishStockException {
+        if (!Parser.startsWith(keyword, input)) {
+            throw new FishStockException("OH NOSE! This input is not todo..");
         }
-        return null;
+        if (keyword.length() + 1 >= input.length()) {
+            throw new FishStockException("OH NOSE! The description of todo cannot be empty..");
+        }
+        return new Todo(input.substring(keyword.length() + 1));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package fishstock;
 
+import java.io.IOException;
+
 class FishStock {
     protected enum Keyword {
         INVALID, BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
@@ -23,7 +25,12 @@ class FishStock {
         }
 
         ui.run(list);
-        storage.close();
+
+        try {
+            storage.close();
+        } catch (IOException e) {
+            Ui.printError(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

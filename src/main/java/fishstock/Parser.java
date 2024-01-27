@@ -36,26 +36,24 @@ class Parser {
         return Keyword.INVALID;
     }
 
-    protected static Integer getTaskFromIndex(String input) {
+    protected static Integer getTaskFromIndex(String input) throws FishStockException {
         try {
             int num = Integer.parseInt(input.split(" ", 2)[1]);
             return num - 1;
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            Ui.printError("OH NOSE! Task number cannot be empty..");
+            throw new FishStockException("OH NOSE! Task number cannot be empty..");
         } catch (NumberFormatException e) {
-            Ui.printError("OH NOSE! Task number has to be an integer..");
+            throw new FishStockException("OH NOSE! Task number has to be an integer..");
         }
-        return null;
     }
 
-    protected static LocalDateTime parseDate(String date) {
+    protected static LocalDateTime parseDate(String date) throws FishStockException {
         try {
             return LocalDateTime.parse(date, inDateFormat);
         } catch (DateTimeParseException e) {
-            Ui.printError("OH NOSE! Dates should be of the format <dd/mm/yyyy hh:mm>");
+            throw new FishStockException("OH NOSE! Dates should be of the format <dd/mm/yyyy hh:mm>");
         }
-        return null;
     }
 
     protected static String inDate(LocalDateTime date) {

@@ -13,56 +13,58 @@ class TaskList {
         this.list = new ArrayList<>();
     }
 
+    protected int getSize() {
+        return list.size();
+    }
+
     protected void printTasks() {
         for (int i = 0; i < list.size(); i++) {
             Ui.printMsg((i + 1) + "." + list.get(i));
         }
     }
 
-    protected void changeMark(Keyword keyword, String input) {
+    protected Task changeMark(Keyword keyword, String input) throws FishStockException {
         Integer idx = Parser.getTaskFromIndex(input);
-        if (idx == null) { // could not parse
-            return;
-        }
         try {
             Task task = list.get(idx);
             if (keyword == Keyword.MARK) {
                 task.markAsDone();
-                Ui.printMsg("Did you actually finish this? \uD83E\uDD14:\n" +
-                        "  " + task);
-            } else if (keyword == Keyword.UNMARK){
+            } else if (keyword == Keyword.UNMARK) {
                 task.markAsUndone();
-                Ui.printMsg("I knew you didn't finish it! \uD83D\uDE0F:\n" +
-                        "  " + task);
             }
+            return task;
+
         } catch (IndexOutOfBoundsException e) {
-            Ui.printError("OH NOSE! Task number must be in valid range..");
+            throw new FishStockException("OH NOSE! Task number must be in valid range..");
         }
     }
 
-    protected void deleteTask(String input) {
+    protected Task deleteTask(String input) throws FishStockException {
         Integer idx = Parser.getTaskFromIndex(input);
-        if (idx == null) { // could not parse
-            return;
-        }
         try {
             Task task = list.get(idx);
             list.remove(task);
-            Ui.printMsg("This task has been removed:\n  " + task +
-                    "\n" + "Now you have " + list.size() +
-                    " task(s) in total.");
+            return task;
 
         } catch (IndexOutOfBoundsException e) {
-            Ui.printError("OH NOSE! Task number must be in valid range..");
+            throw new FishStockException("OH NOSE! Task number must be in valid range..");
         }
     }
 
-    protected void addTask(Task task) {
-        if (task != null) {
-            list.add(task);
-            Ui.printMsg("This task has been added:\n  " + task +
-                    "\n" + "Now you have " + list.size() +
-                    " task(s) in total.");
+    protected Task addTask(Keyword keyword, String input) throws FishStockException {
+        Task task = null;
+        switch (keyword) {
+        case TODO:
+            task = Todo.of(input);
+            break;
+        case DEADLINE:
+            task = Deadline.of(input);
+            break;
+        case EVENT:
+            task = Event.of(input);
+            break;
         }
+        list.add(task);
+        return task;
     }
 }
