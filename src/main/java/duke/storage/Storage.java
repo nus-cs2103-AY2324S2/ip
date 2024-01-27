@@ -270,7 +270,7 @@ public class Storage {
                 // Add task to storage array
                 storageArray.add(task);
             } catch (IllegalArgumentException e) {
-                System.out.println("WARNING: Task not currently supported, will not be loaded");
+                System.out.println("WARNING: Task corrupted, will not be loaded");
             }
         }
     }
