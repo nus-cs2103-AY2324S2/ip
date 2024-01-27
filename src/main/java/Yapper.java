@@ -1,54 +1,68 @@
-import java.io.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
-import java.time.LocalDateTime;
 
 public class Yapper {
     private static final String FILE_PATH = "./src/main/java/data/Yapper.txt";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    public static void main(String[] args) {
-        String chatbotName = "Yapper";
-        List<Task> tasks = loadTasksFromFile();
 
-        Scanner userScanner = new Scanner(System.in);
-        System.out.println(" Hello! I'm " + chatbotName + ".");
-        System.out.println(" What would you like to yap about today? :-)");
+    private static List<Task> tasks;
+    private Scanner userScanner;
+    private static Ui ui;
+    private Storage storage;
+
+    public Yapper(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (YapperException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+        userScanner = new Scanner(System.in);
+    }
+
+    public void run() {
+        ui.showWelcomeMessage();
+        ui.showInstructions();
 
         while (true) {
-            System.out.println("User: ");
+            ui.showUserPrompt();
             String userInput = userScanner.nextLine();
             try {
-                processUserInput(userInput, tasks);
-                saveTasksToFile(tasks);
+                processUserInput(userInput);
+                storage.saveTasks(tasks);
             } catch (YapperException e) {
-                e.printStackTrace();
-                System.out.println(e.getMessage());
+                ui.showError(e.getMessage());
             }
         }
     }
+
 
     /**
      * Processes the various user inputs.
      *
      * @param userInput User input in string format.
-     * @param tasks List of tasks recorded thus far based on user inputs.
      * @throws YapperException If any of user inputs is invalid.
      */
-    private static void processUserInput(String userInput, List<Task> tasks) throws YapperException {
+    private static void processUserInput(String userInput) throws YapperException {
 
         if (userInput.equalsIgnoreCase("list")) {
             System.out.println(" Here are the tasks in your yapping list:");
-            printTaskList(tasks);
-        }
-         else if (userInput.startsWith("mark")) {
+            ui.showTaskList(tasks);
+        } else if (userInput.startsWith("mark")) {
             try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 tasks.get(taskNumber).markAsDone();
-                System.out.println(" Nice yap! I've marked this task as done:");
-                System.out.println(" " + tasks.get(taskNumber));
+                ui.showMarkedDoneMessage(tasks.get(taskNumber));
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new YapperException("Please provide a valid task number to mark as done.");
             }
@@ -56,8 +70,7 @@ public class Yapper {
             try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 tasks.get(taskNumber).markAsNotDone();
-                System.out.println(" Ok bro, I've marked this task as not done yet:");
-                System.out.println(" " + tasks.get(taskNumber));
+                ui.showMarkedNotDoneMessage(tasks.get(taskNumber));
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new YapperException("Please provide a valid task number to mark as not done.");
             }
@@ -67,18 +80,14 @@ public class Yapper {
             }
             Todo newTask = new Todo(userInput.substring(5), false);
             tasks.add(newTask);
-            System.out.println(" Got it. I've added this task:");
-            System.out.println("   " + newTask);
-            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            ui.showAddedTaskMessage(newTask, tasks.size());
         } else if (userInput.startsWith("deadline")) {
             try {
                 String[] parts = userInput.substring(9).split("/by");
                 Deadline newTask = new Deadline(parts[0].trim(), false, LocalDateTime.parse(parts[1].trim(),
                         DATE_TIME_FORMATTER));
                 tasks.add(newTask);
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + newTask);
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                ui.showAddedTaskMessage(newTask, tasks.size());
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new YapperException("Please provide a valid deadline task format.");
             }
@@ -89,9 +98,7 @@ public class Yapper {
                         DATE_TIME_FORMATTER),
                         LocalDateTime.parse(parts[2].trim(), DATE_TIME_FORMATTER));
                 tasks.add(newTask);
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + newTask);
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                ui.showAddedTaskMessage(newTask, tasks.size());
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new YapperException("Please provide a valid event task format.");
             }
@@ -99,15 +106,13 @@ public class Yapper {
             try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 Task removedTask = tasks.remove(taskNumber);
-                System.out.println(" Noted. I've removed this task:");
-                System.out.println("   " + removedTask);
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                ui.showRemovedTaskMessage(removedTask, tasks.size());
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new YapperException("Please provide a valid task number to delete.");
             }
-        } else if (userInput.equalsIgnoreCase("bye")){
+        } else if (userInput.equalsIgnoreCase("bye")) {
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to yap with you again soon!");
+                ui.showGoodbyeMessage();
                 System.exit(0);
             }
         } else {
@@ -115,53 +120,19 @@ public class Yapper {
         }
     }
 
+    public static void main(String[] args) {
+        new Yapper(FILE_PATH).run();
+    }
+
     /**
      * Prints the list of tasks.
      *
      * @param tasks List of tasks based on user inputs.
      * @return List of tasks.
-     * */
-     private static void printTaskList(List<Task> tasks) {
-         for (int i = 0; i < tasks.size(); i++) {
-             System.out.println((i + 1) + "." + tasks.get(i));
-         }
-     }
-
-    /**
-     * Returns list of tasks that has been recorded in the file based on user input.
-     *
-     * @return List of tasks as recorded in the file.
      */
-    private static List<Task> loadTasksFromFile(){
-        List<Task> tasks = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                tasks.add(TaskParser.parseTask(line));
-            }
-        } catch (IOException | YapperException e){
-            System.out.println("Error loading tasks from file. Creating a new task list.");
-            tasks = new ArrayList<>();
+    private static void printTaskList(List<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
-        return tasks;
-     }
-
-    /**
-     * Saves the tasks from user input in the file.
-     *
-     * @param tasks Task input extracted from user input.
-     */
-
-    private static void saveTasksToFile(List<Task> tasks){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))){
-            for (Task task : tasks){
-                writer.write(task.toFileString());
-                writer.newLine();
-            }
-        } catch (IOException e){
-            System.out.println("Error saving tasks to file :(");
-        }
-     }
+    }
 }
-
-
