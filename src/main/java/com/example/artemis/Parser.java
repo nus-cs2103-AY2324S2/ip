@@ -19,34 +19,37 @@ public class Parser {
         String command = tokens[0].toLowerCase();
 
         switch (command) {
-        case "bye":
-            ui.showGoodbyeMessage();
-            storage.save(tasks.getTasks());
-            System.exit(0);
-            break;
-        case "list":
-            ui.showTaskList(tasks.getTasks());
-            break;
-        case "mark":
-            handleMarkAsDone(tokens, tasks, ui);
-            break;
-        case "unmark":
-            handleMarkAsNotDone(tokens, tasks, ui);
-            break;
-        case "todo":
-            handleTodoTask(tokens, tasks, ui);
-            break;
-        case "deadline":
-            handleDeadlineTask(input, tasks, ui);
-            break;
-        case "event":
-            handleEventTask(input, tasks, ui);
-            break;
-        case "delete":
-            handleDeleteTask(tokens, tasks, ui);
-            break;
-        default:
-            ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            case "bye":
+                ui.showGoodbyeMessage();
+                storage.save(tasks.getTasks());
+                System.exit(0);
+                break;
+            case "list":
+                ui.showTaskList(tasks.getTasks());
+                break;
+            case "find":
+                ui.handleFindTask(tasks.getTasks(), tokens[1]);
+                break;
+            case "mark":
+                handleMarkAsDone(tokens, tasks, ui);
+                break;
+            case "unmark":
+                handleMarkAsNotDone(tokens, tasks, ui);
+                break;
+            case "todo":
+                handleTodoTask(tokens, tasks, ui);
+                break;
+            case "deadline":
+                handleDeadlineTask(input, tasks, ui);
+                break;
+            case "event":
+                handleEventTask(input, tasks, ui);
+                break;
+            case "delete":
+                handleDeleteTask(tokens, tasks, ui);
+                break;
+            default:
+                ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 

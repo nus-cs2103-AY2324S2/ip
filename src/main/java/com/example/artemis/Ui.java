@@ -61,6 +61,28 @@ public class Ui {
     }
 
     /**
+     * Handles the task finding operation by searching for tasks with descriptions
+     * containing the specified command. Displays the matching tasks and their
+     * corresponding numbers in the original task list.
+     *
+     * @param tasks   The list of tasks to search within.
+     * @param command The keyword to search for in task descriptions.
+     */
+    public void handleFindTask(ArrayList<Task> tasks, String command) {
+        int count = 1;
+
+        showLine();
+        System.out.println("     Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); ++i) {
+            if (tasks.get(i).description.contains(command)) {
+                System.out.println("     " + count + "." + tasks.get(i));
+                count++;
+            }
+        }
+        showLine();
+    }
+
+    /**
      * Displays a message indicating a task has been marked as done.
      *
      * @param task The task that has been marked as done.
