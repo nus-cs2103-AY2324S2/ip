@@ -1,7 +1,12 @@
 package duke.storage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import org.json.JSONArray;
 
 import duke.exceptions.MissingArgumentException;
 import duke.exceptions.TaskNotSupportedException;
@@ -14,6 +19,11 @@ import duke.exceptions.TaskNotSupportedException;
  */
 public class Storage {
     /**
+     * File to save storage to
+     */
+    private static final File saveFile = new File("data/tasks.json");
+
+    /**
      * Array used to store objects for the application
      */
     private static ArrayList<Task> storageArray = new ArrayList<>();
@@ -25,7 +35,8 @@ public class Storage {
      * @param arguments Arguments of the item type
      */
     public static void storeItem(String item, String[] arguments)
-            throws MissingArgumentException, TaskNotSupportedException {
+            throws MissingArgumentException, TaskNotSupportedException,
+            IOException {
         // Create task to be inserted
         Task task;
         String description;
@@ -101,6 +112,9 @@ public class Storage {
         // Add item to storage
         storageArray.add(task);
 
+        // Save to file
+        saveStorageToFile(saveFile);
+
         // Print confirmation message
         System.out.println("Got it. I've added this task:");
         System.out.println(String.format("  %s", task.toString()));
@@ -121,10 +135,15 @@ public class Storage {
      *
      * @param markIndex Index of the item to mark
      */
-    public static void markItem(int markIndex) {
+    public static void markItem(int markIndex) throws IOException {
         try {
+            // Mark Item
             storageArray.get(markIndex).mark();
 
+            // Save to file
+            saveStorageToFile(saveFile);
+
+            // Print message
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(String.format("  %s", storageArray.get(markIndex).toString()));
         } catch (IndexOutOfBoundsException e) {
@@ -137,10 +156,15 @@ public class Storage {
      *
      * @param unmarkIndex Index of the item to mark
      */
-    public static void unmarkItem(int unmarkIndex) {
+    public static void unmarkItem(int unmarkIndex) throws IOException {
         try {
+            // Unmark item
             storageArray.get(unmarkIndex).unmark();
 
+            // Save to file
+            saveStorageToFile(saveFile);
+
+            // Print message
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(String.format("  %s", storageArray.get(unmarkIndex).toString()));
         } catch (IndexOutOfBoundsException e) {
@@ -148,15 +172,48 @@ public class Storage {
         }
     }
 
-    public static void deleteItem(int deleteIndex) {
+    /**
+     * Deletes an item from storage
+     *
+     * @param unmarkIndex Index of the item to mark
+     */
+    public static void deleteItem(int deleteIndex) throws IOException {
         try {
+            // Delete item
             Task deletedItem = storageArray.remove(deleteIndex);
 
+            // Save to file
+            saveStorageToFile(saveFile);
+
+            // Print message
             System.out.println("Noted. I've removed this task:");
             System.out.println(String.format("  %s", deletedItem.toString()));
             System.out.println(String.format("Now you have %d tasks in the list.", storageArray.size()));
         } catch (IndexOutOfBoundsException e) {
             System.out.println("ERROR: Item cannot be deleted - Item does not exist");
         }
+    }
+
+    /**
+     * Writes storage array to file in JSON format
+     *
+     * @param file Path of the file to write to
+     */
+    private static void saveStorageToFile(File file) throws IOException {
+        // Create JSON array to be written to file
+        JSONArray jsonStorage = new JSONArray(storageArray);
+
+        // Create file (if required)
+        file.createNewFile();
+
+        // Check if file is writable
+        if (!file.canWrite()) {
+            throw new IOException(String.format("File '%s' cannot be written to", file.getAbsolutePath().toString()));
+        }
+
+        // Write to file
+        FileWriter writer = new FileWriter(file);
+        jsonStorage.write(writer, 2, 0);
+        writer.close();
     }
 }
