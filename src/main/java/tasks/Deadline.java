@@ -20,6 +20,8 @@ public class Deadline extends Task {
         // init by string depending on type, else use given by string
         if (byDateTime.isPresent() || byDate.isPresent()) {
             this.by = formatByString(by);
+        } else {
+            this.by = by;
         }
     }
 
