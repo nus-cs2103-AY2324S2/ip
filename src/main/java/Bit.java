@@ -138,24 +138,22 @@ public class Bit {
 
     public static void mark(int i, ArrayList<Task> list) {
         i -= 1;
-        if(list.get(i) == null) {
-           System.out.println("Sorry, but I couldn't find that task!");
-           return;
+        try {
+            list.get(i).complete();
+            System.out.println("Done and dusted: " + list.get(i).toString());
+        } catch (IndexOutOfBoundsException x) {
+            System.out.println("Hey, I don't think you have added that yet!");
         }
-
-        list.get(i).complete();
-        System.out.println("Alright! Task has been done and dusted:\n" +list.get(i).toString());
     }
 
     public static void unmark(int i, ArrayList<Task> list) {
         i -= 1;
-        if(list.get(i) == null) {
-            System.out.println("Sorry, but I couldn't find that task!");
-            return;
+        try {
+            list.get(i).incomplete();
+            System.out.println("Alright, let me uncheck that for you: " + list.get(i).toString());
+        } catch (IndexOutOfBoundsException x) {
+            System.out.println("Hey, I don't think you have added that yet!");
         }
-
-        list.get(i).incomplete();
-        System.out.println("Done!! Task is now incomplete:\n" + list.get(i).toString());
     }
 
 

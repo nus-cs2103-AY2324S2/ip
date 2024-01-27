@@ -11,4 +11,9 @@ deadline a /by 7
 deadliner
 deadline /by 7
 deadline b /by
+mark 1
+mark 4
+unmark 1
+mark
+mark 2
 list
