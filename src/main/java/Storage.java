@@ -1,29 +1,21 @@
 import java.io.*;
-import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
-public class StoreTask {
-    private static final String PROJECT_ROOT = "./duke.txt";
+public class Storage {
+    private String filePath;
 
-    public static void saveTasks(ArrayList<Task> tasks) throws DukeException {
-        ensureDirectoryExists();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(PROJECT_ROOT))) {
-            for (Task task : tasks) {
-                writer.write(task.saveData());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            throw new DukeException("Error Storing Tasks: " + e.getMessage());
-        }
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
-    public static ArrayList<Task> loadTasks() throws DukeException {
+    public ArrayList<Task> load() throws DukeException {
         ensureDirectoryExists();
         ArrayList<Task> tasks = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(PROJECT_ROOT))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 Task task = parseLineToTask(line);
@@ -37,11 +29,23 @@ public class StoreTask {
         return tasks;
     }
 
-    private static void ensureDirectoryExists() throws DukeException {
+    public void save(ArrayList<Task> tasks) throws DukeException {
+        ensureDirectoryExists();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath))) {
+            for (Task task : tasks) {
+                writer.write(task.saveData());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            throw new DukeException("Error Storing Tasks: " + e.getMessage());
+        }
+    }
+
+    private void ensureDirectoryExists() throws DukeException {
         try {
-            File file = new File(PROJECT_ROOT);
+            File file = new File(this.filePath);
             if (!file.exists()) {
-                Files.createDirectories(Paths.get(PROJECT_ROOT).getParent());
+                Files.createDirectories(Paths.get(this.filePath).getParent());
             }
         } catch (IOException e) {
             throw new DukeException("Error Creating Directory: " + e.getMessage());
