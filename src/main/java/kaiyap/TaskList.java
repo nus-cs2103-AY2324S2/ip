@@ -40,7 +40,7 @@ public class TaskList {
             try {
                 type = KaiYap.TaskType.valueOf(input.split(" ")[0].toUpperCase());
             } catch (Exception e) {
-                throw new InvalidInputException("I don't quite understand what you mean. Please try again! UwU :3");
+                throw new InvalidInputException("\tI don't quite understand what you mean. Please try again! UwU :3");
             }
             Task task = null;
             switch (type) {
