@@ -1,0 +1,5 @@
+T | 1 | read book
+T | 0 | return book
+D | 0 | buying book | Saturday
+E | 0 | online meeting | 4pm - 6pm
+E | 0 | presentation | February 1th 12pm - 1pm

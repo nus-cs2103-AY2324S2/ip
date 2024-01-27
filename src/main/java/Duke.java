@@ -1,15 +1,27 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.File;
 
 public class Duke {
+
+    private static final String FILE_PATH = "./data/artemis.txt";
+    private static final String DIRECTORY_PATH = "./data/";
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = loadTasksFromFile();
 
         System.out.println("    ____________________________________________________________");
         System.out.println("     Hello! I'm Artemis");
         System.out.println("     What can I do for you?");
         System.out.println("    ____________________________________________________________");
-        
+
         while (true) {
             System.out.println();
             String input = sc.nextLine();
@@ -93,11 +105,67 @@ public class Duke {
                 System.out.println("     OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println("    ____________________________________________________________");
             }
+
+            saveTasksToFile(tasks);
+
         }
 
         System.out.println("    ____________________________________________________________");
         System.out.println("     Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
         sc.close();
+    }
+
+    private static void saveTasksToFile(ArrayList<Task> tasks) {
+        try {
+            createDirectoryIfNotExists(DIRECTORY_PATH);
+
+            try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
+                for (Task task : tasks) {
+                    writer.println(task.toFileString());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            createDirectoryIfNotExists(DIRECTORY_PATH);
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    try {
+                        Task task = Task.fromFileString(line);
+                        tasks.add(task);
+                    } catch (IllegalArgumentException e) {
+                        // Log the error or handle it based on your application's needs
+                        System.err.println("Error loading task from file: " + e.getMessage());
+                        // Optionally, you can choose to skip the corrupted line and continue with the next line
+                        continue;
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // File doesn't exist, handle this case by creating an empty task list
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return tasks;
+    }
+
+    private static void createDirectoryIfNotExists(String directoryPath) {
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            boolean created = directory.mkdirs();
+            if (!created) {
+                System.err.println("Failed to create the directory: " + directoryPath);
+            }
+        }
     }
 }
