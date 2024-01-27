@@ -1,7 +1,30 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.Scanner;
 
 public class Duke {
-    private static final TaskList taskList = new TaskList();
+    private static TaskList taskList = new TaskList();
+
+    private static final String FILE_NAME = "duke.state";
+
+    private static void writeState(OutputStream file) throws IOException {
+        try (ObjectOutputStream stream = new ObjectOutputStream(file)) {
+            stream.writeObject(taskList);
+        }
+    }
+
+    private static void readState(InputStream file) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream stream = new ObjectInputStream(file)) {
+            taskList = (TaskList) stream.readObject();
+        }
+    }
 
     private static void cat() {
         System.out.println(" |\\ /| ");
@@ -86,8 +109,36 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        File file;
+        file = new File(FILE_NAME);
+        boolean successful = false;
+        try {
+            FileInputStream in = new FileInputStream(file);
+            readState(in);
+            successful = true;
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot find state file \"" + FILE_NAME + "\"");
+        } catch (IOException e) {
+            System.out.println("Cannot read from state file \"" + FILE_NAME + "\"");
+        } catch (ClassNotFoundException e) {
+            System.out.println("The data has been corrupted");
+        } finally {
+            if (!successful) {
+                System.out.println("Continuing with no saved state.");
+            }
+        }
+
         hello();
         repl();
         bye();
+
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            writeState(out);
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot find state file \"" + FILE_NAME + "\"");
+        } catch (IOException e) {
+            System.out.println("Cannot write to state file \"" + FILE_NAME + "\"");
+        }
     }
 }
