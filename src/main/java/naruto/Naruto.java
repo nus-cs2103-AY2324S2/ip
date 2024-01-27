@@ -4,18 +4,9 @@ import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
 import action.Action;
-import action.Goodbye;
-import action.Add;
-import action.Delete;
 import action.Greet;
 import action.HandleError;
-import action.List;
-import action.Mark;
-import action.Unmark;
 import exception.NarutoException;
-import task.Deadline;
-import task.Event;
-import task.ToDo;
 import util.*;
 
 public class Naruto {
@@ -29,8 +20,6 @@ public class Naruto {
             PrintUtil.print(NarutoException.createFileCorruptedException().getMessage());
         }
     }
-
-    private static Scanner sc = new Scanner(System.in);
 
     public Naruto() {
         actions.add(new Greet());

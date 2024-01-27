@@ -7,8 +7,6 @@ import task.*;
 
 import java.util.*;
 
-import static naruto.Naruto.*;
-
 public class Ui {
     private static Scanner sc = new Scanner(System.in);
 
@@ -17,8 +15,11 @@ public class Ui {
     }
 
     public static Action parseInput(TaskList taskList) {
-        // Tokenise input
         String input = sc.next();
+
+        // Pass the rest of the line to the Parser
+        String restOfLine = sc.nextLine();
+        // Tokenise input
         String[] tokens;
         String description;
         int idx;
@@ -28,76 +29,46 @@ public class Ui {
         case "list":
             return new List(taskList);
         case "mark":
-            input = sc.next();
             try {
-                idx = Integer.parseInt(input);
-            } catch (NumberFormatException e) {
-                return new HandleError(NarutoException.createInvalidIndexException());
-            }
-            if (idx > taskList.getSize() || idx <= 0) {
-                return new HandleError(NarutoException.createInvalidIndexException());
+                idx = Parser.parseIdx(restOfLine, taskList);
+            } catch (NarutoException e) {
+                return new HandleError(e);
             }
             return new Mark(taskList, idx);
         case "unmark":
-            input = sc.next();
             try {
-                idx = Integer.parseInt(input);
-            } catch (NumberFormatException e) {
-                return new HandleError(NarutoException.createInvalidIndexException());
-            }
-            if (idx > taskList.getSize() || idx <= 0) {
-                return new HandleError(NarutoException.createInvalidIndexException());
+                idx = Parser.parseIdx(restOfLine, taskList);
+            } catch (NarutoException e) {
+                return new HandleError(e);
             }
             return new Unmark(taskList, idx);
         case "todo":
-            description = sc.nextLine().trim();
-            if (description.isEmpty()) {
-                return new HandleError(NarutoException.createEmptyTodoException());
+            try {
+                description = Parser.parseDescription(restOfLine);
+            } catch (NarutoException e) {
+                return new HandleError(e);
             }
             return new Add(new ToDo(description), taskList);
         case "deadline":
-            input = sc.nextLine();
-            if (input.isEmpty()) {
-                return new HandleError(NarutoException.createEmptyDeadlineException());
-            }
-            if (!input.contains("/by")) {
-                return new HandleError(NarutoException.createInvalidDeadlineException());
-            }
-            tokens = input.split("/by");
-            description = tokens[0].trim();
-            String by = tokens[1].trim();
-            if (!DateTimeUtil.isValid(by)) {
-                return new HandleError(NarutoException.createInvalidDeadlineException());
-            }
-            return new Add(new Deadline(description, DateTimeUtil.format(by)), taskList);
-        case "event":
-            input = sc.nextLine();
-            if (input.isEmpty()) {
-                return new HandleError(NarutoException.createEmptyEventException());
-            }
-            if (!(input.contains("/from") && input.contains("/to"))) {
-                return new HandleError(NarutoException.createInvalidEventException());
-            }
-            tokens = input.split("/from");
-            description = tokens[0].trim();
-            tokens = tokens[1].split("/to");
-            String from = tokens[0].trim();
-            String to = tokens[1].trim();
-            if (!DateTimeUtil.isValid(from) || !DateTimeUtil.isValid(to)) {
-                return new HandleError(NarutoException.createInvalidDeadlineException());
-            }
-            return new Add(new Event(description, DateTimeUtil.format(from),
-                DateTimeUtil.format(to)),
-                taskList);
-        case "delete":
-            input = sc.next();
             try {
-                idx = Integer.parseInt(input);
-            } catch (NumberFormatException e) {
-                return new HandleError(NarutoException.createInvalidIndexException());
+                tokens = Parser.parseDeadline(restOfLine);
+            } catch (NarutoException e) {
+                return new HandleError(e);
             }
-            if (idx > taskList.getSize() || idx <= 0) {
-                return new HandleError(NarutoException.createInvalidIndexException());
+            return new Add(new Deadline(tokens[0], DateTimeUtil.format(tokens[1])), taskList);
+        case "event":
+            try {
+                tokens = Parser.parseEvent(restOfLine);
+            } catch (NarutoException e) {
+                return new HandleError(e);
+            }
+            return new Add(new Event(tokens[0], DateTimeUtil.format(tokens[1]),
+                DateTimeUtil.format(tokens[2])), taskList);
+        case "delete":
+            try {
+                idx = Parser.parseIdx(restOfLine, taskList);
+            } catch (NarutoException e) {
+                return new HandleError(e);
             }
             return new Delete(taskList, idx);
         default:
