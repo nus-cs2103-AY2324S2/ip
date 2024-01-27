@@ -1,9 +1,9 @@
 package duke.command;
 
 import duke.common.TaskList;
-import duke.storage.Storage;
 import duke.task.Todo;
 import duke.ui.Ui;
+import duke.storage.Storage;
 
 /**
  * Represents a Todo command initiated by the user. <code>TodoCommand</code> would add an new todo task to the TaskList.

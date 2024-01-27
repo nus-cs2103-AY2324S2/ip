@@ -7,8 +7,6 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.ui.Ui;
 
-import java.util.List;
-
 /**
  * Represents a mark command initiated by the user. <code>MarkCommand</code> would mark a task as done
  */
@@ -20,6 +18,7 @@ public class MarkCommand extends Command {
 
     /**
      * Constructor of the MarkCommand
+     *
      * @param taskNumber The task number in the list to be marked as done
      */
     public MarkCommand(int taskNumber) {
@@ -28,6 +27,7 @@ public class MarkCommand extends Command {
 
     /**
      * Marks the selected task as done and show the result to the user using ui
+     *
      * @param taskList
      * @param ui
      * @param storage
