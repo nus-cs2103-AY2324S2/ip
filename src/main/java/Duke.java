@@ -4,23 +4,27 @@ public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Declare Scanner instance
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String[] tasks = new String[100];
+        int taskCount = 0;
+
         String chatbotName = "Jamie";
         System.out.println("Hello! I'm " + chatbotName + "\nWhat can I do for you?");
 
         while (true) {
             System.out.print(">> ");
             String userInput = scanner.nextLine();
-            System.out.println(userInput);
-
-            // Check if the user wants to exit
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println(" Bye. Hope to see you again soon!");
                 break;
+
+            } else if (userInput.equalsIgnoreCase("list")) {
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println(" " + (i + 1) + ". " + tasks[i]);
+                }
+
+            } else {
+                tasks[taskCount++] = userInput;
+                System.out.println(" added: " + userInput);
             }
         }
 
