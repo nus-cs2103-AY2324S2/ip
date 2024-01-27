@@ -32,33 +32,33 @@ public class Parser {
             return new ListCommand();
         }
 
-
         if (!scanner.hasNextLine()) {
             throw new InvalidCommandData();
         }
+        String parameter = scanner.nextLine().trim();
 
         Command command;
         switch (type) {
         case "todo":
-            command = new AddCommand(AddCommand.Type.Todo, parseComponents(scanner.nextLine()));
+            command = new AddCommand(AddCommand.Type.Todo, parseComponents(parameter));
             break;
         case "deadline":
-            command = new AddCommand(AddCommand.Type.Deadline, parseComponents(scanner.nextLine()));
+            command = new AddCommand(AddCommand.Type.Deadline, parseComponents(parameter));
             break;
         case "event":
-            command = new AddCommand(AddCommand.Type.Event, parseComponents(scanner.nextLine()));
+            command = new AddCommand(AddCommand.Type.Event, parseComponents(parameter));
             break;
         case "mark":
-            command = new CompleteCommand(parseIndex(scanner.nextLine()), true);
+            command = new CompleteCommand(parseIndex(parameter), true);
             break;
         case "unmark":
-            command = new CompleteCommand(parseIndex(scanner.nextLine()), false);
+            command = new CompleteCommand(parseIndex(parameter), false);
             break;
         case "delete":
-            command = new DeleteCommand(parseIndex(scanner.nextLine()));
+            command = new DeleteCommand(parseIndex(parameter));
             break;
         case "find":
-            command = new FindCommand(scanner.nextLine().trim());
+            command = new FindCommand(parameter);
             break;
         default:
             throw new InvalidCommandType(type);
