@@ -1,3 +1,5 @@
 T | 0 | borrow book
 D | 0 | return book | Sunday
 E | 0 | project meeting | Mon 2pm | 4pm
+D | 0 | return book | Oct 15 2019
+D | 0 | return book | 2 of December 2019, 6PM
