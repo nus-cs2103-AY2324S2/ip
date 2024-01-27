@@ -1,4 +1,0 @@
-D,T,return book,2019-12-02T18:00
-E,F,do lecture,2019-12-02T19:00,2022-12-02T19:30
-T,T,say the n word
-E,T,say the n word,2024-02-19T18:00,2024-02-19T20:00
