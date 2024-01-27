@@ -14,7 +14,7 @@ public class Duke {
             Command.process(line, tasklist);
         }
         scanner.close();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye Bye. Hope to see you again soon!");
         System.exit(0);
     }
 }
