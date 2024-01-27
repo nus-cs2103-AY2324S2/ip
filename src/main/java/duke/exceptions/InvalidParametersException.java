@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 public class InvalidParametersException extends InvalidInputException {
   public InvalidParametersException() {
     super("That's an invalid parameter, " +
