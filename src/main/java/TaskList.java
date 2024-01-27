@@ -11,7 +11,12 @@ public class TaskList {
     public void addTask(String task) {
         Task newTask = null;
         if (task.startsWith("todo")) {
-            newTask = new ToDo(task.split("todo ")[1]);
+            if (task.split("todo ").length == 1) {
+                new DukeException("☹ OOPS!!! The description of a todo cannot be empty. \n");
+                return;
+            } else {
+                newTask = new ToDo(task.split("todo ")[1]);
+            }
         } else if (task.startsWith("deadline")) {
             String[] deadline = task.split("deadline ")[1].split(" /by ");
             newTask = new Deadline(deadline[0], deadline[1]);
@@ -19,7 +24,7 @@ public class TaskList {
             String[] event = task.split("event ")[1].split(" /");
             newTask = new Event(event[0], event[1], event[2]);
         } else {
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+            new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-( \n");
             return;
         }
 

@@ -1,14 +1,18 @@
 import java.util.Scanner;
 
 public class Duke {
-    private TaskList taskList = new TaskList();
+    private TaskList taskList;
+
+    public Duke() {
+        this.taskList = new TaskList();
+    }
 
     private void greet() {
         System.out.println("Hello! I'm Bot\nWhat can I do for you? \n");
     }
 
     private void exit() {
-        System.out.println("Bye. Hope to see you again soon! \n");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     private void echo(String input) {
@@ -21,20 +25,10 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
+        Handler handler = new Handler(bot.taskList);
 
         while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                bot.taskList.displayTasks();
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.split(" ")[1]);
-                bot.taskList.markTaskAsDone(index);
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.substring(7));
-                bot.taskList.unmarkTaskAsDone(index);
-            } else {
-                bot.taskList.addTask(input);
-            }
-
+            handler.handle(input);
             input = sc.nextLine();
         }
 
