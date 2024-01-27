@@ -58,6 +58,8 @@ public class Ui {
                 Parser.handleUnmark(list, message);
             } else if (message.startsWith("delete")) {
                 Parser.deleteTask(list, message);
+            } else if (message.startsWith("find")) {
+                Parser.findTask(list, message);
             } else if (!message.equals("bye")) {
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means buddy.");
             }

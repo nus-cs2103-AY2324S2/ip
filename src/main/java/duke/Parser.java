@@ -166,4 +166,28 @@ public class Parser {
         list.remove(index);
         Ui.printWithLines("OK, I've deleted this task:", task.toString());
     }
+
+    /**
+     * Parses and handles the "find" command.
+     * Finds all tasks in the task list that contain the specified keyword.
+     *
+     * @param list The task list to search for matching tasks.
+     * @param message The user input string.
+     * @throws DukeException If the keyword is missing.
+     */
+    public static void findTask(TaskList list, String message) throws DukeException {
+        if (message.trim().equals("find")) {
+            throw new DukeException("OOPS!!! The keyword is missing buddy.");
+        }
+        String keyword = message.substring(5).trim();
+        ArrayList<Task> matchingTasks = list.find(keyword);
+        if (matchingTasks.size() == 0) {
+            Ui.printWithLines("No matching task found.");
+        } else {
+            Ui.printWithLines("Here is the matching tasks in your list: ");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.get(i).toString());
+            }
+        }
+    }
 }
