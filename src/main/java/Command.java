@@ -10,7 +10,8 @@ enum Command {
     DEADLINE, // Command to add a new 'Deadline' task
     DELETE,  // Command to delete a task
     EVENT,   // Command to add a new 'Event' task
-    UNKNOWN; // Represents an unrecognized command
+    UNKNOWN, // Represents an unrecognized command
+    SAVE; // Command to save the current task list to disk
 
     /**
      * Converts a string to its corresponding Command enum value. If the string
