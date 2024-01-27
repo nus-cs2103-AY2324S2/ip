@@ -33,9 +33,6 @@ public class Duke {
     // The scanner the chatbot uses to scan users' inputs.
     Scanner sc = new Scanner(System.in);
 
-    // The task list.
-    ArrayList<Task> taskList = new ArrayList<>();
-
     // A horizontal line.
     private final String horizontalLine = "____________________________________________________________";
 
@@ -63,9 +60,22 @@ public class Duke {
         printHorizontalLine();
     }
 
+    // Checks if the last input is bye.
+    private boolean isCommandBye(String command) {
+        return Objects.equals(command, "bye");
+    }
+
+    // Checks if the last input is list.
+    private boolean isCommandList(String command) {
+        return Objects.equals(command, "list");
+    }
+
+    // The task list.
+    ArrayList<Task> taskList = new ArrayList<>();
+
     // Adds the task to the task list.
     private void addTask(String task) {
-        taskList.add(task);
+        taskList.add(new Task(task));
         printHorizontalLine();
         printWithIndent(" added: " + task);
         printHorizontalLine();;
@@ -75,21 +85,29 @@ public class Duke {
     private void printTaskList() {
         int numOfTasks = taskList.size();
         printHorizontalLine();
+        printWithIndent(" Here are the tasks in your list:");
+
         for (int index = 1; index <= numOfTasks; index++) {
-            printWithIndent(" " + index + ". " + taskList.get(index - 1));
+            printWithIndent(" " + index + "." + taskList.get(index - 1));
         }
+
         printHorizontalLine();
     }
 
-    // Adds tasks to task list until bye has been input.
-    private void addTaskUntilBye() {
+    // Gets the i-th task from the task list, where i is the index.
+    private Task getTask(int index) {
+        return taskList.get(index);
+    }
+
+    // Takes inputs from user until bye has been input.
+    private void takeInputsUntilBye() {
         // Waits for command from user
         String command = sc.nextLine();
 
         // While user hasn't input bye, add task to task list
-        while (!Objects.equals(command, "bye")) {
+        while (!isCommandBye(command)) {
             // If list is input, print list, else add task to list
-            if (Objects.equals(command, "list")) {
+            if (isCommandList(command)) {
                 printTaskList();
             } else {
                 addTask(command);
@@ -102,7 +120,7 @@ public class Duke {
     // Runs the chatbot.
     private void run() {
         greet();
-        addTaskUntilBye();
+        takeInputsUntilBye();
         bye();
     }
 
