@@ -11,6 +11,12 @@ public class Deadline extends Task {
         this.endDateTime = endDateTime;
     }
 
+    Deadline (String deadlineName, Boolean completed, String endDateTime) {
+        this.taskName = deadlineName;
+        this.completed = completed;
+        this.endDateTime = endDateTime;
+    }
+
     public void markComplete() {
         this.completed = true;
     }

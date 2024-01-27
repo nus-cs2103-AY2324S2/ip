@@ -13,6 +13,13 @@ public class Event extends Task {
         this.endDateTime = endDateTime;
     }
 
+    Event (String eventName, Boolean completed, String startDateTime, String endDateTime) {
+        this.taskName = eventName;
+        this.completed = completed;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+    }
+
     public void markComplete() {
         this.completed = true;
     }

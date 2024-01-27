@@ -7,6 +7,11 @@ public class ToDos extends Task {
         this.completed = false;
     }
 
+    ToDos (String TodoTask, Boolean completed) {
+        this.taskName = TodoTask;
+        this.completed = completed;
+    }
+
     public void markComplete() {
         this.completed = true;
     }

@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.*;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 /**
  * Contains the logic for the ChatBot named 'Campus'
@@ -13,6 +17,16 @@ public class Campus {
      */
     public static void main(String[] args) {
         Campus.greet();
+
+        try {
+            String filepath = "data.txt";
+            List<String> lines = Campus.readFromDBCreateIfNotExists(filepath);
+
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -32,6 +46,71 @@ public class Campus {
 
         scanner.close();
         Campus.exit();
+    }
+
+    public static void updateListFromFile(List<String> listOfStrings) throws CampusException {
+        if (listOfStrings == null) {
+            Campus.tasks = null;
+            return;
+        }
+
+        List<Task> task = new ArrayList<>();
+
+        for (String string : listOfStrings) {
+            String[] parts = string.split("\\|");
+            String typeOfTask = parts[0];
+            switch (typeOfTask) {
+                case "T":
+                    if (parts.length != 3) {
+                        throw new CampusException("File is Corrupted, Check Formatting for 'T'");
+                    } else {
+                        String todoName = parts[2].trim();
+                        Boolean completed = parts[1].trim().equals("1");
+                        task.add(new ToDos(todoName, completed));
+                    }
+                    break;
+                case "D":
+                    if (parts.length != 4) {
+                        throw new CampusException("File is Corrupted, Check Formatting for 'D'");
+                    } else {
+                        String deadlineName = parts[2].trim();
+                        Boolean completed = parts[1].trim().equals("1");
+                        String deadlineEndTime = parts[3].trim();
+                        task.add(new Deadline(deadlineName, completed, deadlineEndTime));
+                    }
+                    break;
+                case "E":
+                    if (parts.length != 5) {
+                        throw new CampusException("File is Corrupted, Check Formatting for 'E'");
+                    } else {
+                        String eventName = parts[2].trim();
+                        Boolean completed = parts[1].trim().equals("1");
+                        String eventStartTime = parts[3].trim();
+                        String eventEndTime = parts[4].trim();
+                        task.add(new Event(eventName, completed, eventStartTime, eventEndTime));
+                    }
+            }
+        }
+        Campus.tasks = task;
+    }
+
+    public static void updateFileFromList(List<Task> listOfTasks) {
+
+    }
+
+    /**
+     * Function to read from the expected file called "data", if not, create the file and return null
+     *
+     * @param filePath Takes in the relative path file that it expects the datafile to be at
+     * @return Returns a list of strings, each string contains information about the DB, null if initialised for the first time
+     */
+    public static List<String> readFromDBCreateIfNotExists(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        if (!Files.exists(path)) {
+            Files.createFile(path);
+            return null;
+        }
+        return Files.readAllLines(path);
     }
 
     /**
