@@ -5,6 +5,7 @@ import java.util.Scanner;
 import talkingbot.command.ByeCommand;
 import talkingbot.command.Command;
 import talkingbot.command.DeleteCommand;
+import talkingbot.command.FindCommand;
 import talkingbot.command.InvalidCommand;
 import talkingbot.command.ListCommand;
 import talkingbot.command.ModifyMarkCommand;
@@ -53,6 +54,8 @@ public class Parser {
             return new SaveCommand(curCommand);
         case "bye":
             return new ByeCommand(curCommand);
+        case "find":
+            return new FindCommand(curCommand);
         default:
             return new InvalidCommand(curCommand);
         }

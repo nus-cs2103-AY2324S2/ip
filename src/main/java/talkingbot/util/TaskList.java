@@ -79,13 +79,33 @@ public class TaskList {
      *
      * @return A formatted String.
      */
+    public String filterList(String filterString) {
+        StringBuilder returnedString = new StringBuilder();
+        returnedString.append("\tHere are the tasks with descriptions matching your query:\n");
+
+        for (int idx = 0; idx < this.tasks.size(); idx++) {
+            Task curTask = this.getTask(idx);
+
+            if (curTask.getDescription().contains(filterString)) {
+                returnedString.append(String.format("\t%d. %s", idx + 1, this.getTask(idx).toString()));
+
+                if (idx != this.getSize() - 1) {
+                    returnedString.append("\n");
+                }
+            }
+        }
+        return returnedString.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder returnedString = new StringBuilder();
         returnedString.append("\tHere are the tasks in your list:\n");
+
         for (int idx = 0; idx < this.tasks.size(); idx++) {
-            returnedString.append(String.format("\t%d. %s", idx+1, this.getTask(idx).toString()));
-            if (idx != this.tasks.size() - 1) {
+            returnedString.append(String.format("\t%d. %s", idx + 1, this.getTask(idx).toString()));
+
+            if (idx != this.getSize() - 1) {
                 returnedString.append("\n");
             }
         }
