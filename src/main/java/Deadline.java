@@ -1,6 +1,6 @@
 public class Deadline extends Task {
-    public Deadline(String description, String endTime) {
-        super(description, "", endTime, Type.DEADLINE);
+    public Deadline(String description, boolean isDone, String endTime) {
+        super(description, isDone, "", endTime, TaskType.DEADLINE);
     }
 
     @Override

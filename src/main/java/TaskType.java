@@ -1,3 +1,3 @@
-public enum Type {
+public enum TaskType {
     TODO, DEADLINE, EVENT
 }

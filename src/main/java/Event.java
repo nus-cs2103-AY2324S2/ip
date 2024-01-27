@@ -1,6 +1,6 @@
 public class Event extends Task {
-    public Event(String description, String startTime, String endTime) {
-        super(description, startTime, endTime, Type.EVENT);
+    public Event(String description, boolean isDone, String startTime, String endTime) {
+        super(description, isDone, startTime, endTime, TaskType.EVENT);
     }
 
     @Override

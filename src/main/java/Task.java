@@ -1,30 +1,30 @@
 public class Task {
     private final String description;
-    private boolean done;
+    private boolean isDone;
     private final String startTime;
     private final String endTime;
-    private final Type type;
+    private final TaskType taskType;
 
-    public Task(String description, String startTime, String endTime, Type type) {
+    public Task(String description, boolean isDone, String startTime, String endTime, TaskType taskType) {
         this.description = description;
-        this.done = false;
+        this.isDone = isDone;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.type = type;
+        this.taskType = taskType;
     }
 
     public static Task generateTask(String fullDescription, String type)
-        throws DukeException {
+            throws DukeException {
         if (type.equals("todo")) {
             if (fullDescription.isEmpty()) {
                 throw new DukeException("ERROR! todo descriptions cannot be empty" +
                         " nor only containing whitespaces.");
             }
-            return new Todo(fullDescription);
+            return new Todo(fullDescription, false);
         } else if (type.equals("deadline")) {
             String[] splitArr = fullDescription.split(" /by ");
             try {
-                return new Deadline(splitArr[0], splitArr[1]);
+                return new Deadline(splitArr[0], false, splitArr[1]);
             } catch (IndexOutOfBoundsException err) {
                 throw new DukeException(
                     "ERROR! deadline descriptions cannot be empty and must have a /by" +
@@ -34,7 +34,7 @@ public class Task {
         } else {
             String[] splitArr = fullDescription.split("( /from )|( /to )");
             try {
-                return new Event(splitArr[0], splitArr[1], splitArr[2]);
+                return new Event(splitArr[0], false, splitArr[1], splitArr[2]);
             } catch (IndexOutOfBoundsException err) {
                 throw new DukeException(
                     "ERROR! event descriptions cannot be empty, and must have" +
@@ -46,12 +46,13 @@ public class Task {
 
     public static Task generateTaskFromFile(String line) {
         String[] lineArr = line.split("\\|");
+        boolean mark = Boolean.parseBoolean(lineArr[1]);
         if (lineArr[0].equals("T")) {
-            return new Todo(lineArr[1]);
+            return new Todo(lineArr[2], mark);
         } else if (lineArr[0].equals("D")) {
-            return new Deadline(lineArr[1], lineArr[2]);
+            return new Deadline(lineArr[2], mark, lineArr[3]);
         } else {
-            return new Event(lineArr[1], lineArr[2], lineArr[3]);
+            return new Event(lineArr[2], mark, lineArr[3], lineArr[4]);
         }
     }
 
@@ -67,16 +68,16 @@ public class Task {
         return this.endTime;
     }
 
-    public Type getType() {
-        return this.type;
+    public boolean getTypeEquals(TaskType taskType) {
+        return this.taskType.equals(taskType);
     }
 
     public boolean getDone() {
-        return this.done;
+        return this.isDone;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override
