@@ -1,22 +1,24 @@
-public class Deadline extends Task {
-    private String by;
+import java.time.LocalDate;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Task {
+    private LocalDate by;
+
+    public Deadline(String description, LocalDate by) {
         this(description, false, by);
     }
 
-    public Deadline(String description, boolean isDone, String by) {
+    public Deadline(String description, boolean isDone, LocalDate by) {
         super(description, isDone);
         this.by = by;
     }
 
     @Override
     public String toFile() {
-        return "D | " + super.toFile() + " | " + this.by;
+        return "D | " + super.toFile() + " | " + DateTime.dateToString(this.by);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + DateTime.dateToString(this.by) + ")";
     }
 }

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 
-class Database {
+public class Database {
     private static final String DATABASE_DIRECTORY = "./data/";
     private static final String DATABASE_PATH = "./data/task_list.txt";
 
@@ -75,19 +75,24 @@ class Database {
         boolean isDone = (parts[1] == "1" ? true : false);
         String description = parts[2];
         Task task;
-        switch (parts[0]) {
-        case "T":
-            task = new ToDo(description, isDone);
-            break;
-        case "D":
-            task = new Deadline(description, isDone, parts[3]);
-            break;
-        case "E":
-            task = new Event(description, isDone, parts[3], parts[4]);
-            break;
-        default:
+        try {
+            switch (parts[0]) {
+            case "T":
+                task = new ToDo(description, isDone);
+                break;
+            case "D":
+                task = new Deadline(description, isDone, DateTime.stringToDate(parts[3]));
+                break;
+            case "E":
+                task = new Event(description, isDone, DateTime.stringToDate(parts[3]), DateTime.stringToDate(parts[4]));
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid line format: " + line);
+            }
+        } catch (ConvoBotException e) {
             throw new IllegalArgumentException("Invalid line format: " + line);
         }
+        
         return task;
     }
 
