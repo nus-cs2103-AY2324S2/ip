@@ -1,9 +1,17 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * A chatbot class named as MissA.
+ * Records 3 types of tasks for users.
+ */
 public class MissA {
-    // greet, exit sentences
+
+    /** An empty line */
     private String emptyLine = "____________________________________________________________\n";
+
+    /** Greeting sentences */
     private String greeting = "What can I do for you?\n"
             + emptyLine
             + "I can record 3 types of tasks now.\n"
@@ -17,13 +25,16 @@ public class MissA {
             + "\"delete + number\": I will remove task from the list.\n"
             + "\"bye\": this program will be closed.\n"
             + emptyLine;
+
+    /** Goodbye sentences */
     private String goodBye = "Bye. Have a nice day!\n"
             + emptyLine;
-    // store existing tasks in list
+
+    /** List of tasks added */
     private ArrayList<Task> taskList = new ArrayList<>(100);
 
     /*
-     * Display items in task list.
+     * Displays items in task list.
      *
      * @return A string containing all tasks added by user.
      */
@@ -38,7 +49,7 @@ public class MissA {
     }
 
     /*
-     * Mark task as done.
+     * Marks task as done.
      *
      * @param idx Index of task to be marked as done.
      */
@@ -48,7 +59,7 @@ public class MissA {
     }
 
     /*
-     * Mark task as not done.
+     * Marks task as not done.
      *
      * @param idx Index of task to be marked as not done.
      */
@@ -58,30 +69,37 @@ public class MissA {
     }
 
     /*
-     * Remove task.
+     * Removes task.
      *
      * @param idx Index of task to be removed from the list.
      */
     public void deleteTask(int idx) {
         taskList.remove(idx);
     }
+
+    /**
+     * Starts communication with chatbot MissA.
+     *
+     * @throws NoSuchTaskException Alerts users when wrong task number is given.
+     */
     public static void main(String[] args) throws NoSuchTaskException {
+
+        /** Chatbot used for communication */
         MissA missA = new MissA();
 
-        // greet users when first enter the program
+        // Greets users when first enter the program.
         System.out.println("Hello from Miss A\n" + missA.greeting);
 
+        // Collects user input.
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
 
         while (!userInput.equals("bye")) {
             try {
-                // show task list
-                if (userInput.equals("list")) {
+                if (userInput.equals("list")) { // Shows task list.
                     System.out.println(missA.getTasks());
 
-                    // mark task as done
-                } else if (userInput.startsWith("mark")) {
+                } else if (userInput.startsWith("mark")) { // Marks task as done.
                     String[] input = userInput.split(" ");
                     if (input.length < 2) {
                         throw new NoSuchTaskException();
@@ -95,8 +113,7 @@ public class MissA {
                             + "Great! You have completed this task!\n"
                             + missA.emptyLine);
 
-                    // unmark task
-                } else if (userInput.startsWith("unmark")) {
+                } else if (userInput.startsWith("unmark")) { // Unmarks task.
                     String[] input = userInput.split(" ");
                     if (input.length < 2) {
                         throw new NoSuchTaskException();
@@ -110,8 +127,7 @@ public class MissA {
                             + "Ok, this task is still in progress :-(\n"
                             + missA.emptyLine);
 
-                    // add task to task list
-                } else if (userInput.startsWith("delete")) {
+                } else if (userInput.startsWith("delete")) { // Deletes tasks.
                     String[] input = userInput.split(" ");
                     if (input.length < 2) {
                         throw new NoSuchTaskException();
@@ -128,14 +144,12 @@ public class MissA {
                             + missA.emptyLine);
                     missA.deleteTask(idx - 1);
 
-                    // add task to task list
-                } else {
+                } else { // Adds task to task list.
                     String[] task = userInput.split(" ", 2);
                     String taskType = task[0];
                     Task nextTask = null;
 
-                    // check if the task type is todo
-                    if (taskType.equals("todo")) {
+                    if (taskType.equals("todo")) { // Checks if the task type is todo.
                         if (task.length < 2) {
                             throw new NoContentException();
                         }
@@ -143,8 +157,7 @@ public class MissA {
                         nextTask = new ToDo(content);
                         missA.taskList.add(nextTask);
 
-                        // check if the task type is deadline
-                    } else if (taskType.equals("deadline")) {
+                    } else if (taskType.equals("deadline")) { // Checks if the task type is deadline.
                         if (task.length < 2) {
                             throw new NoContentException();
                         }
@@ -155,8 +168,7 @@ public class MissA {
                         nextTask = new Deadline(content[0], content[1]);
                         missA.taskList.add(nextTask);
 
-                        // check if the task type is event
-                    } else if (taskType.equals("event")) {
+                    } else if (taskType.equals("event")) { // Checks if the task type is event.
                         if (task.length < 2) {
                             throw new NoContentException();
                         }
@@ -168,6 +180,7 @@ public class MissA {
                         String[] interval = content[1].split("/to");
                         nextTask = new Event(text, interval[0], interval[1]);
                         missA.taskList.add(nextTask);
+
                     } else {
                         throw new IncorrectTaskTypeException();
                     }
@@ -188,7 +201,7 @@ public class MissA {
             }
         }
 
-        // exit program
+        // Exits program.
         System.out.println(missA.emptyLine + missA.goodBye);
     }
 }
