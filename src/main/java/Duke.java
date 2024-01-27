@@ -216,6 +216,8 @@ public class Duke {
     }
 
     public void writeToFile() throws IOException {
+        File directory = new File("data");
+        directory.mkdir();
         File f = new File("data" + File.separator + "ezra.txt");
         f.createNewFile();
         FileWriter fw = new FileWriter(f);
