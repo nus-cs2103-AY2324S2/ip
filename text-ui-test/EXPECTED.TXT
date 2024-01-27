@@ -1,7 +1,46 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+Greetings, mortal! I am Alastor, the Radio Demon at your service.
+What desires or inquiries do you bring to my infernal realm?
+
+____________________________________________________________
+Marvelous! Another task graces our repertoire:
+  [T][ ] borrow book
+And with this latest addition, our list of tasks swells to a delightful 1.
+____________________________________________________________
+
+____________________________________________________________
+Marvelous! Another task graces our repertoire:
+  [D][ ] return book (by: Sunday)
+And with this latest addition, our list of tasks swells to a delightful 2.
+____________________________________________________________
+
+____________________________________________________________
+Marvelous! Another task graces our repertoire:
+  [E][ ] project meeting (from: 4pm to: 4pm)
+And with this latest addition, our list of tasks swells to a delightful 3.
+____________________________________________________________
+
+____________________________________________________________
+Well, isn't this delightful! I've marked this task as done, my dear.
+  [T][X] borrow book
+____________________________________________________________
+____________________________________________________________
+Behold, my dear! Here unfurls the tasks in your list.
+0.[T][X] borrow book
+1.[D][ ] return book (by: Sunday)
+2.[E][ ] project meeting (from: 4pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+Very well, my dear! I've noted this task as yet untouched.
+  [T][ ] borrow book
+____________________________________________________________
+____________________________________________________________
+Behold, my dear! Here unfurls the tasks in your list.
+0.[T][ ] borrow book
+1.[D][ ] return book (by: Sunday)
+2.[E][ ] project meeting (from: 4pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+Farewell, fleeting soul! 'Til our paths entwine once more.
+____________________________________________________________
 
