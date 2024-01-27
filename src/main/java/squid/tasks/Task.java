@@ -1,6 +1,6 @@
 package squid.tasks;
 
-public abstract class Task {
+public abstract class Task implements TaskInterface {
     public String task;
     protected boolean completed;
 

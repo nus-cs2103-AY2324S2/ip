@@ -10,4 +10,9 @@ public class TodoTest {
         Todo task = new Todo("testTest");
         assertEquals("[T]", task.getType());
     }
+
+    @Test public void testTodoName() {
+        Todo task = new Todo("testTest");
+        assertEquals("testTest", task.task);
+    }
 }
