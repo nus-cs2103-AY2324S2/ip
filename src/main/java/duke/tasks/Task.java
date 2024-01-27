@@ -1,4 +1,4 @@
-package Tasks;
+package duke.tasks;
 
 public abstract class Task {
     private boolean isDone;
@@ -7,6 +7,14 @@ public abstract class Task {
     public Task(String desc) {
         this.isDone = false;
         this.desc = desc;
+    }
+    public Task(String desc, String isDone) {
+        this.desc = desc;
+        if (isDone.equals("1")) {
+            this.isDone = true;
+        } else {
+            this.isDone = false;
+        }
     }
 
     public boolean isDone() {
@@ -26,4 +34,5 @@ public abstract class Task {
     }
 
     public abstract String toString();
+    public abstract String save();
 }
