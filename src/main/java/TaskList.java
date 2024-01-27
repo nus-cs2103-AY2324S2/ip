@@ -2,16 +2,35 @@ import java.util.*;
 
 public class TaskList {
 
+    private static String taskAdded = "Got it. I've added this task:";
     private ArrayList<Task> tasks;
 
     public TaskList(){
         tasks = new ArrayList<Task>();
     }
 
-    public void addTask(String name){
+    public void addDeadline(String name, String deadline){
 
-        tasks.add(new Task(name));
-        System.out.println("added: " + name);
+        Task task = new Deadline(name, deadline);
+        tasks.add(task);
+        System.out.println(taskAdded);
+        System.out.println(task);
+    }
+
+    public void addTodo(String name){
+
+        Task task = new Todo(name);
+        tasks.add(task);
+        System.out.println(taskAdded);
+        System.out.println(task);
+    }
+
+    public void addEvent(String name, String start, String end){
+
+        Task task = new Event(name, start, end);
+        tasks.add(task);
+        System.out.println(taskAdded);
+        System.out.println(task);
     }
 
     public void markTask(Integer index){

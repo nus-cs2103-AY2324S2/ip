@@ -26,6 +26,13 @@ public class Jelly {
         String message = scanner.nextLine();
         String[] lines = message.split("\\s+");
         String command = lines[0];
+
+        String argument = "";
+
+        if(lines.length > 1) {
+        argument = message.substring(command.length() + 1);
+        }
+
         System.out.println(line);
 
         switch(command){
@@ -45,8 +52,85 @@ public class Jelly {
                 list.unmarkTask(Integer.parseInt(lines[1]));
                 break;
 
-            default:
-                list.addTask(command);
+            case "todo":
+
+                if(argument.length() == 0){
+
+                    System.out.println("formatting error! nothing todo");
+                }
+                list.addTodo(argument);
+                break;
+
+            case "deadline":
+
+                Integer deadlineIndex = argument.indexOf("/by ");
+
+                if(deadlineIndex.equals(-1)){ //formatting error
+
+                    System.out.println("formatting error! /by is missing");
+                    break;
+                }
+
+                String deadline = argument.substring(deadlineIndex + 3);
+
+                if(deadline.length()==1){
+
+                    System.out.println("formatting error! nothing after /by");
+                    break;
+                }
+
+                deadline = deadline.substring(1);
+
+                argument = argument.substring(0, argument.indexOf("/"));
+
+                list.addDeadline(argument, deadline);
+
+                break;
+
+            case "event":
+
+                Integer startIndex = argument.indexOf("/from ");
+
+                if(startIndex.equals(-1)){
+
+                    System.out.println("formatting error! /from is missing");
+                    break;
+                }
+
+                String timeframe = argument.substring(startIndex+1);
+
+                String start = timeframe.substring(4);
+
+                Integer endIndex = start.indexOf("/to ");
+
+                if(endIndex.equals(-1)){
+
+                    System.out.println("formatting error! /to is missing");
+                    break;
+                }
+
+                String end = start.substring(endIndex+3);
+                start = start.substring(0, endIndex);
+
+                if(start.length() == 1){
+
+                    System.out.println("formatting error! nothing after /from ");
+                    break;
+                }
+
+                start = start.substring(1);
+
+                if(end.length() == 1){
+
+                    System.out.println("formatting error! nothing after /to");
+                    break;
+                }
+
+                end = end.substring(1);
+
+                argument = argument.substring(0, argument.indexOf("/"));
+
+                list.addEvent(argument, start, end);
         }
 
         System.out.println(line);
