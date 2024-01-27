@@ -1,6 +1,18 @@
 package duke;
 
+/**
+ * Responsible for parsing user input
+ */
 public class Parser {
+    /**
+     * Parses user input and executes the command.
+     *
+     * @param command user input
+     * @param items TaskList class
+     * @param ui Ui class
+     * @return false if user ends the program, else false
+     * @throws DukeException if user input is invalid
+     */
     public static boolean parse(String command, TaskList items, Ui ui) throws DukeException {
         if (command.equals("bye")) {
             ui.bye();

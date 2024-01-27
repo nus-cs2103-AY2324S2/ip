@@ -5,14 +5,28 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Responsible for saving tasks to a text file.
+ */
 public class Storage {
     private final String filepath;
     private final ArrayList<Task> items = new ArrayList<>();
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param filepath path of text file
+     */
     Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Reads data from text file.
+     *
+     * @return list of tasks
+     * @throws DukeException if unable to understand file content
+     */
     public ArrayList<Task> readData() throws DukeException {
         try {
             File file = new File(filepath);
@@ -59,6 +73,12 @@ public class Storage {
         return items;
     }
 
+    /**
+     * Saves data to text file.
+     *
+     * @param items list of tasks
+     * @throws DukeException if unable to save tasks/write file
+     */
     public void saveData(TaskList items) throws DukeException {
         try {
             StringBuilder builder = new StringBuilder();
