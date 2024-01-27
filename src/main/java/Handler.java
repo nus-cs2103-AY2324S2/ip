@@ -12,6 +12,8 @@ public class Handler {
             handleMark(input);
         } else if (input.startsWith("unmark")) {
             handleUnmark(input);
+        } else if (input.startsWith("delete")) {
+            handleDelete(input);
         } else {
             handleAdd(input);
         }
@@ -33,6 +35,11 @@ public class Handler {
 
     private void handleAdd(String input) {
         taskList.addTask(input);
+    }
+
+    private void handleDelete(String input) {
+        int index = Integer.parseInt(input.split(" ")[1]);
+        taskList.deleteTask(index);
     }
 
 }
