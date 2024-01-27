@@ -26,7 +26,7 @@ public class Duke {
             try {
                 String command = parts[0].toUpperCase();
 
-                CommandType cmdType;
+                CommandType cmdType = null;
 
                 try {
                     cmdType = CommandType.valueOf(command);
@@ -35,112 +35,111 @@ public class Duke {
                     throw new InvalidCommandException(command);
                 }
 
+                boolean shouldBreak = false;
+
                 switch (cmdType) {
 
-                    case BYE: {
-                        System.out.println(goodbye);
-                        break;
+                case BYE:
+                    System.out.println(goodbye);
+                    shouldBreak = true;
+                    break;
+
+                case LIST:
+                    System.out.println(horizontalLine + "Here are the tasks in your list:");
+
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.printf("%d. %s\n", i + 1, tasks.get(i));
                     }
+                    System.out.println(horizontalLine);
+                    break;
 
-                    case LIST: {
-                        System.out.println(horizontalLine + "Here are the tasks in your list:");
+                case DELETE:
+                    try {
+                        int taskId = Integer.parseInt(parts[1]) - 1;
+                        Task task = tasks.get(taskId);
+                        tasks.remove(taskId);
+                        String taskCounter = String.format("Now you have %s tasks in the list.\n",
+                                tasks.size());
+                        System.out.println(horizontalLine +
+                                "OK. I've deleted this task:\n" +
+                                task + "\n" + taskCounter +
+                                horizontalLine);
 
-                        for (int i = 0; i < tasks.size(); i++) {
-                            System.out.printf("%d. %s\n", i + 1, tasks.get(i));
-                        }
-                        System.out.println(horizontalLine);
-                        break;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new MissingArgumentException(command);
+
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new NoTaskFoundException(parts[1]);
                     }
+                    break;
 
-                    case DELETE: {
-                        try {
-                            int taskId = Integer.parseInt(parts[1]) - 1;
-                            Task task = tasks.get(taskId);
-                            tasks.remove(taskId);
-                            String taskCounter = String.format("Now you have %s tasks in the list.\n",
-                                    tasks.size());
-                            System.out.println(horizontalLine +
-                                    "OK. I've deleted this task:\n" +
-                                    task + "\n" + taskCounter +
-                                    horizontalLine);
+                case MARK:
+                case UNMARK:
+                    try {
+                        int taskId = Integer.parseInt(parts[1]) - 1;
+                        Task task = tasks.get(taskId);
+                        String statement = task.changeMark(command);
+                        System.out.println(horizontalLine + statement + task + "\n" + horizontalLine);
 
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            throw new MissingArgumentException(command);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new MissingArgumentException(command);
 
-                        } catch (IndexOutOfBoundsException e) {
-                            throw new NoTaskFoundException(parts[1]);
-                        }
-                        break;
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new NoTaskFoundException(parts[1]);
                     }
+                    break;
 
-                    case MARK:
-                    case UNMARK: {
-                        try {
-                            int taskId = Integer.parseInt(parts[1]) - 1;
-                            Task task = tasks.get(taskId);
-                            String statement = task.changeMark(command);
-                            System.out.println(horizontalLine + statement + task + "\n" + horizontalLine);
+                case TODO:
+                    try {
+                        Task newTask = new Todo(parts[1]);
+                        tasks.add(newTask);
+                        String taskCounter = String.format("Now you have %s tasks in the list.\n", tasks.size());
+                        System.out.println(horizontalLine
+                                + "Got it. I've added this task:\n" + newTask + "\n" + taskCounter
+                                + horizontalLine);
 
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            throw new MissingArgumentException(command);
-
-                        } catch (IndexOutOfBoundsException e) {
-                            throw new NoTaskFoundException(parts[1]);
-                        }
-                        break;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new EmptyDescriptionException(command);
                     }
+                    break;
 
-                    case TODO: {
-                        try {
-                            Task newTask = new Todo(parts[1]);
-                            tasks.add(newTask);
-                            String taskCounter = String.format("Now you have %s tasks in the list.\n", tasks.size());
-                            System.out.println(horizontalLine
-                                    + "Got it. I've added this task:\n" + newTask + "\n" + taskCounter
-                                    + horizontalLine);
+                case DEADLINE:
+                    try {
+                        String[] splitDate = parts[1].split(" /by ", 2);
+                        Task newTask = new Deadline(splitDate[0], splitDate[1]);
+                        tasks.add(newTask);
+                        String taskCounter = String.format("Now you have %s tasks in the list.\n", tasks.size());
+                        System.out.println(horizontalLine
+                                + "Got it. I've added this task:\n" + newTask + "\n" + taskCounter
+                                + horizontalLine);
 
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            throw new EmptyDescriptionException(command);
-                        }
-                        break;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new EmptyDescriptionException(command);
                     }
+                    break;
 
-                    case DEADLINE: {
-                        try {
-                            String[] splitDate = parts[1].split(" /by ", 2);
-                            Task newTask = new Deadline(splitDate[0], splitDate[1]);
-                            tasks.add(newTask);
-                            String taskCounter = String.format("Now you have %s tasks in the list.\n", tasks.size());
-                            System.out.println(horizontalLine
-                                    + "Got it. I've added this task:\n" + newTask + "\n" + taskCounter
-                                    + horizontalLine);
+                case EVENT:
+                    try {
+                        String[] splitTaskName = parts[1].split(" /from ", 2);
+                        String[] splitFromToDates = splitTaskName[1].split(" /to ", 2);
+                        Task newTask = new Event(splitTaskName[0], splitFromToDates[0], splitFromToDates[1]);
+                        tasks.add(newTask);
+                        String taskCounter = String.format("Now you have %s tasks in the list.\n", tasks.size());
+                        System.out.println(horizontalLine
+                                + "Got it. I've added this task:\n" + newTask + "\n" + taskCounter
+                                + horizontalLine);
 
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            throw new EmptyDescriptionException(command);
-                        }
-                        break;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new EmptyDescriptionException(command);
                     }
+                    break;
 
-                    case EVENT: {
-                        try {
-                            String[] splitTaskName = parts[1].split(" /from ", 2);
-                            String[] splitFromToDates = splitTaskName[1].split(" /to ", 2);
-                            Task newTask = new Event(splitTaskName[0], splitFromToDates[0], splitFromToDates[1]);
-                            tasks.add(newTask);
-                            String taskCounter = String.format("Now you have %s tasks in the list.\n", tasks.size());
-                            System.out.println(horizontalLine
-                                    + "Got it. I've added this task:\n" + newTask + "\n" + taskCounter
-                                    + horizontalLine);
+                default:
+                    throw new InvalidCommandException(command);
+                }
 
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            throw new EmptyDescriptionException(command);
-                        }
-                        break;
-                    }
-
-                    default: {
-                        throw new InvalidCommandException(command);
-                    }
+                if (shouldBreak) {
+                    break;
                 }
 
             } catch (EmptyDescriptionException e) { // Handle empty task description
