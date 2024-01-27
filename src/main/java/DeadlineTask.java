@@ -5,4 +5,15 @@ public class DeadlineTask extends Task {
         super(name, Type.D);
         this.end_time = end_time;
     }
+
+    @Override
+    public String toString() {
+        String output;
+        if (done) {
+            output = "[" + this.type + "]" + "[X] " + this.name + " (by: " + this.end_time + ")\n";
+        } else {
+            output = "[" + this.type + "]" + "[ ] " + this.name + " (by: " + this.end_time + ")\n";
+        }
+        return output;
+    }
 }
