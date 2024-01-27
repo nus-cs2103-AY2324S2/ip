@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 import java.time.LocalDateTime;
 
 public class Deadline extends Task implements Serializable {
-    private final LocalDateTime by;
-    private final static Pattern formatter = Pattern.compile("(.+) /by (.+)");
+    protected final LocalDateTime by;
+    protected final static Pattern formatter = Pattern.compile("(.+) /by (.+)");
 
     public Deadline(String name, LocalDateTime by) {
         super(name);

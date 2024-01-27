@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 import java.time.LocalDateTime;
 
 public class Event extends Task implements Serializable {
-    private final LocalDateTime startTime;
-    private final LocalDateTime endTime;
-    private static final Pattern formatter = Pattern.compile("(.+) /from (.+) /to (.+)");
+    protected final LocalDateTime startTime;
+    protected final LocalDateTime endTime;
+    protected static final Pattern formatter = Pattern.compile("(.+) /from (.+) /to (.+)");
 
     public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name);
