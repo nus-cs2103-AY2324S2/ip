@@ -1,5 +1,7 @@
 package squid.tasks;
 
+import squid.constants.REGEX;
+
 import java.util.Objects;
 
 public class Todo extends Task {
@@ -24,11 +26,11 @@ public class Todo extends Task {
 
     @Override
     public String parseStr() {
-        return String.format("%s%c%s%c%s\n",
+        return String.format("%s%s%s%s%s\n",
                 getType(),
-                '\uFFFF',
+                REGEX.TASK_SPLIT,
                 Objects.equals(completedIcon(), "X") ? "X" : "-",
-                '\uFFFF',
+                REGEX.TASK_SPLIT,
                 task);
     }
 }

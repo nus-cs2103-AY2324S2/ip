@@ -1,6 +1,7 @@
 package squid.tasks;
 
 import squid.constants.MESSAGES;
+import squid.constants.REGEX;
 
 import java.util.Objects;
 
@@ -30,13 +31,13 @@ public class Deadline extends Task {
     @Override
     public String parseStr() {
         return String.format(
-                "%s%c%s%c%s%c%s\n",
+                "%s%s%s%s%s%s%s\n",
                 getType(),
-                '\uFFFF',
+                REGEX.TASK_SPLIT,
                 Objects.equals(completedIcon(), "X") ? "X" : "-",
-                '\uFFFF',
+                REGEX.TASK_SPLIT,
                 task,
-                '\uFFFF',
+                REGEX.TASK_SPLIT,
                 deadline);
     }
 }

@@ -2,6 +2,7 @@ package squid.tasks;
 
 import squid.constants.CORRECT_USAGE;
 import squid.constants.EXCEPTIONS;
+import squid.constants.REGEX;
 import squid.io.SquidFile;
 import squid.exceptions.DuplicateTaskNameException;
 import squid.exceptions.IncorrectIndexException;
@@ -10,6 +11,7 @@ import squid.exceptions.SquidDateException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Tasks {
@@ -57,7 +59,7 @@ public class Tasks {
     }
 
     public static Task parseTask(String s) throws ParseFailException, SquidDateException {
-        String[] params = s.split("\uFFFF");
+        String[] params = s.split(REGEX.TASK_SPLIT);
         Task task;
 //        System.out.println("string " + s + " length " + params.length);
         switch (params.length) {

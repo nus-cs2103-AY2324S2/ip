@@ -11,6 +11,4 @@ public class TodoTest {
         Todo task = new Todo("testTest");
         assertEquals("[T]", task.getType());
     }
-
-
 }
