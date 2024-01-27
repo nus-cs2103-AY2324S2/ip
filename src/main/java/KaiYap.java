@@ -4,21 +4,24 @@ import exceptions.KaiYapException;
 import exceptions.MissingInputException;
 
 import java.io.*;
-
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class KaiYap {
 
     public enum TaskType {
-        TODO, DEADLINE, EVENT;
+        TODO, DEADLINE, EVENT
     }
 
     ArrayList<Task> taskList;
     public String dataPath;
     public String fileName;
+
     public KaiYap() {
         this.taskList = new ArrayList<>();
         this.dataPath = System.getProperty("user.home") + "/data/";
@@ -34,11 +37,7 @@ public class KaiYap {
                 String line;
                 while ((line = br.readLine()) != null) {
                     boolean currTaskDone;
-                    if (line.substring(line.lastIndexOf(' ') + 1).equals("incomplete")) {
-                        currTaskDone = false;
-                    } else {
-                        currTaskDone = true;
-                    }
+                    currTaskDone = !line.substring(line.lastIndexOf(' ') + 1).equals("incomplete");
                     line = line.substring(0, line.lastIndexOf(' '));
                     Task task = taskCreator(line);
                     task.setTaskDone(currTaskDone);
@@ -46,9 +45,8 @@ public class KaiYap {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Unfortunately, an error occurred. Please try again! We try our utmost best to satisfy you. UwU :3");
+            printError("\tUnfortunately, an error occurred. Please try again! We try our utmost best to satisfy you. UwU :3");
         }
-
     }
 
     public void saveData() {
@@ -59,7 +57,7 @@ public class KaiYap {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("Unfortunately, an error occurred. Please try again! We try our utmost best to satisfy you. UwU :3");
+            printError("\tUnfortunately, an error occurred. Please try again! We try our utmost best to satisfy you. UwU :3");
         }
 
     }
@@ -122,7 +120,7 @@ public class KaiYap {
 
     public Task taskCreator(String input) {
         try {
-            TaskType type = null;
+            TaskType type;
             try {
                 type = TaskType.valueOf(input.split(" ")[0].toUpperCase());
             } catch (Exception e) {
@@ -196,10 +194,13 @@ public class KaiYap {
                 return new Deadline(
                         input.substring(input.indexOf(" ") + 1, input.indexOf("/by")).strip(),
                         input,
-                        input.substring(input.indexOf("/by") + 3).strip()
+                        LocalDateTime.parse(input.substring(input.indexOf("/by") + 3).strip(), DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
                 );
+            } catch (DateTimeParseException d) {
+                printError("\tYour deadline format is wrong - please use the dd/MM/yyyy MMhh format! UwU :3");
+                return null;
             } catch (Exception e) {
-                throw new MissingInputException("Your deadline is missing some important information. Please try again! UwU :3");
+                throw new MissingInputException("\tYour deadline is missing some important information. Please try again! UwU :3");
             }
         }
     }
@@ -212,13 +213,15 @@ public class KaiYap {
                 return new Event(
                         input.substring(input.indexOf(" ") + 1, input.indexOf("/from")).strip(),
                         input,
-                        input.substring(input.indexOf("/from") + 5, input.indexOf("/to")).strip(),
-                        input.substring(input.indexOf("/to") + 3).strip()
+                        LocalDateTime.parse(input.substring(input.indexOf("/from") + 5, input.indexOf("/to")).strip(), DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
+                        LocalDateTime.parse(input.substring(input.indexOf("/to") + 3).strip(), DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
                 );
+            } catch (DateTimeParseException d) {
+                printError("\tYour event timeline format is wrong - please use the dd/MM/yyyy MMhh format! UwU :3");
+                return null;
             } catch (Exception e) {
-                throw new MissingInputException("Your event is missing some important information. Please try again! UwU :3");
+                throw new MissingInputException("Your deadline is missing some important information. Please try again! UwU :3");
             }
-
         }
     }
 
