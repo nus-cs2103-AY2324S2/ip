@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
 
@@ -69,27 +71,51 @@ public class Duke {
                     System.out.println("    ____________________________________________________________");
                 }
             } else if (input.contains("deadline")) {
-                String[] tokens = input.split("/by");
-                String description = tokens[0].replace("deadline ", "").trim();
-                String by = tokens[1].trim();
-                tasks.add(new Deadline(description, by));
-                System.out.println("    ____________________________________________________________");
-                System.out.println("     Got it. I've added this task:");
-                System.out.println("       " + tasks.get(tasks.size() - 1));
-                System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("    ____________________________________________________________");
+                try {
+                    String[] tokens = input.split("/by");
+                    if (tokens.length < 2) {
+                        throw new ArtemisException("OOPS!!! Invalid deadline format. Please use: deadline [description] /by [dd-mm-yyyy hhmm]");
+                    }
+
+                    String description = tokens[0].replace("deadline ", "").trim();
+                    String by = tokens[1].trim();
+                    tasks.add(new Deadline(description, by));
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + tasks.get(tasks.size() - 1));
+                    System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("    ____________________________________________________________");
+                } catch (ArtemisException e) {
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     " + e.getMessage());
+                    System.out.println("    ____________________________________________________________");
+                }
             } else if (input.contains("event")) {
-                String[] tokens = input.split("/from");
-                String description = tokens[0].replace("event ", "").trim();
-                String[] fromTo = tokens[1].split("/to");
-                String from = fromTo[0].trim();
-                String to = fromTo[1].trim();
-                tasks.add(new Event(description, from, to));
-                System.out.println("    ____________________________________________________________");
-                System.out.println("     Got it. I've added this task:");
-                System.out.println("       " + tasks.get(tasks.size() - 1));
-                System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("    ____________________________________________________________");
+                try {
+                    String[] tokens = input.split("/from");
+                    if (tokens.length < 2) {
+                        throw new ArtemisException("OOPS!!! Invalid event format. Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
+                    }
+
+                    String description = tokens[0].replace("event ", "").trim();
+                    String[] fromTo = tokens[1].split("/to");
+                    if (fromTo.length < 2) {
+                        throw new ArtemisException("OOPS!!! Invalid event format. Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
+                    }
+
+                    String from = fromTo[0].trim();
+                    String to = fromTo[1].trim();
+                    tasks.add(new Event(description, from, to));
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + tasks.get(tasks.size() - 1));
+                    System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("    ____________________________________________________________");
+                } catch (ArtemisException e) {
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     " + e.getMessage());
+                    System.out.println("    ____________________________________________________________");
+                }
             } else if (input.contains("delete")) {
                 String[] token = input.split(" ");
                 int deleteIndex = Integer.parseInt(token[1]) - 1;
