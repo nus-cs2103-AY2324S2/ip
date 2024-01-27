@@ -10,46 +10,46 @@ import static constants.FilePaths.RELATIVE_OUTPUT_TXT_FILE_PATH;
 import static constants.Formats.DEADLINE_FORMAT;
 import static constants.Formats.EVENT_FORMAT;
 import static constants.Information.solidLineBreak;
-import static fileIO.PrintOutputs.printWithSolidLineBreak;
-import static fileIO.Storage.writeToFile;
+import static storage.Storage.writeToFile;
+import static ui.Ui.printWithSolidLineBreak;
 
 public class TaskList {
-    private static ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
     // private static HashMap<String, Task> taskHashMap;
 
     public TaskList() {
         taskList = new ArrayList<>();
     }
 
-    public static int size() {
+    public int size() {
         return taskList.size();
     }
 
-    public static void clear() {
+    public void clear() {
         taskList.clear();
     }
 
-    public static boolean contains(Task t) {
+    public boolean contains(Task t) {
         return taskList.contains(t);
     }
 
-    public static Task get(int i) {
+    public Task get(int i) {
         return taskList.get(i);
     }
 
-    public static boolean add(Task t) {
+    public boolean add(Task t) {
         return taskList.add(t);
     }
 
-    public static Task remove(int index) {
+    public Task remove(int index) {
         return taskList.remove(index);
     }
 
-    public static List<String> splitStringWithTrim(String info, String separator, int maxTokens) {
+    public List<String> splitStringWithTrim(String info, String separator, int maxTokens) {
         return Arrays.stream(info.split(separator, maxTokens)).map(String::trim).collect(Collectors.toList());
     }
 
-    public static void mark(String info) throws DukeException {
+    public void mark(String info) throws DukeException {
         try {
             int markIndex = Integer.parseInt(info.trim()) - 1;
             if (markIndex < 0 || markIndex >= taskList.size()) {
@@ -66,7 +66,7 @@ public class TaskList {
 
     }
 
-    public static void unmark(String info) throws DukeException {
+    public void unmark(String info) throws DukeException {
         try {
             int unmarkIndex = Integer.parseInt(info.trim()) - 1;
             if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) {
@@ -82,7 +82,7 @@ public class TaskList {
         }
     }
 
-    public static void delete(String info) throws DukeException {
+    public void delete(String info) throws DukeException {
         try {
             int deleteIndex = Integer.parseInt(info.trim()) - 1;
             if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
@@ -98,7 +98,7 @@ public class TaskList {
         }
     }
 
-    public static void todo(String info) throws DukeException {
+    public void todo(String info) throws DukeException {
         try {
             if (info.isEmpty()) {
                 throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
@@ -112,7 +112,7 @@ public class TaskList {
         }
     }
 
-    public static void deadline(String info) throws DukeException {
+    public void deadline(String info) throws DukeException {
         try {
             if (info.isEmpty()) {
                 throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
@@ -129,7 +129,7 @@ public class TaskList {
         }
     }
 
-    public static void event(String info) throws DukeException {
+    public void event(String info) throws DukeException {
         try {
             if (info.isEmpty()) {
                 throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
@@ -146,7 +146,7 @@ public class TaskList {
         }
     }
 
-    public static void printTaskList() {
+    public void printTaskList() {
         System.out.println("\t" + solidLineBreak);
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println("\t " + (i+1) + "." + taskList.get(i));
@@ -154,7 +154,7 @@ public class TaskList {
         System.out.println("\t" + solidLineBreak);
     }
 
-    public static String TaskListFormattedStringOutput (ArrayList<Task> taskList) {
+    public String TaskListFormattedStringOutput (ArrayList<Task> taskList) {
         StringBuilder s = new StringBuilder();
         for (Task task : taskList) {
             s.append(task.textFormattedOutput()).append("\n");
@@ -162,7 +162,7 @@ public class TaskList {
         return s.toString();
     }
 
-    public static void printTaskAddedWithSolidLineBreak(Task task) {
+    public void printTaskAddedWithSolidLineBreak(Task task) {
         System.out.println("\t" + solidLineBreak);
         System.out.println("\t Got it. I've Added this task:");
         System.out.println("\t\t " + task);
@@ -170,7 +170,7 @@ public class TaskList {
         System.out.println("\t" + solidLineBreak);
     }
 
-    public static void printTaskRemovedWithSolidLineBreak(Task task) {
+    public void printTaskRemovedWithSolidLineBreak(Task task) {
         System.out.println("\t" + solidLineBreak);
         System.out.println("\t Noted. I've removed this task:");
         System.out.println("\t\t " + task);

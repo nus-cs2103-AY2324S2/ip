@@ -1,4 +1,4 @@
-package fileIO;
+package storage;
 
 import exceptions.DukeException;
 import tasks.*;
@@ -14,13 +14,16 @@ import java.util.Scanner;
 
 public class Storage {
 
-    // initialisation of data dir and output file
-    public static TaskList load() throws DukeException{
+    public Storage() throws DukeException{
         init();
+    }
+
+    // initialisation of data dir and output file
+    public TaskList load() throws DukeException{
         return initTaskList(RELATIVE_OUTPUT_TXT_FILE_PATH);
     }
 
-    public static void init() throws DukeException {
+    public void init() throws DukeException {
         File dataDir = new File(RELATIVE_DATA_DIRECTORY_PATH);
         File outputTxt = new File(RELATIVE_OUTPUT_TXT_FILE_PATH);
         createOutputDirectoryAndFile(dataDir, outputTxt);
@@ -73,7 +76,7 @@ public class Storage {
         return list;
     }
 
-    public static void writeToFile(String filePath, ArrayList<Task> taskList) throws DukeException {
+    public void writeToFile(String filePath, ArrayList<Task> taskList) throws DukeException {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : taskList) {
                 writer.write(task.textFormattedOutput() + System.lineSeparator());
