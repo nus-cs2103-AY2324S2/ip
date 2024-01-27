@@ -1,3 +1,5 @@
+package talkingbot;
+
 import talkingbot.command.Command;
 import talkingbot.exception.TalkingBotException;
 import talkingbot.util.Parser;
