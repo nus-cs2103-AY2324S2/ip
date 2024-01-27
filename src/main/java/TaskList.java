@@ -9,7 +9,7 @@ public class TaskList implements Serializable {
     }
 
     public void addTask(Task task) {
-        this.tasks.add(task);
+        tasks.add(task);
     }
 
     public Task getTask(int index) throws TaskNotFound {

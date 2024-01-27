@@ -23,19 +23,19 @@ public abstract class Task implements Serializable {
 
     protected Task(String description) {
         this.description = description;
-        this.status = Status.Incomplete;
+        status = Status.Incomplete;
     }
 
     public void setComplete() {
-        this.status = Status.Complete;
+        status = Status.Complete;
     }
 
     public void setIncomplete() {
-        this.status = Status.Incomplete;
+        status = Status.Incomplete;
     }
 
     public String status() {
-        return this.status.description;
+        return status.description;
     }
 
     /**
@@ -113,6 +113,6 @@ public abstract class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "[" + this.status.icon + "] " + description;
+        return "[" + status.icon + "] " + description;
     }
 }
