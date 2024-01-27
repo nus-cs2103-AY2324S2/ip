@@ -1,8 +1,8 @@
 clear
 todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 02-02-2024
+event project meeting /from 03-02-2024 1400 /to 03-02-2024 1600
 todo wash dishes
 list
 mark 2
@@ -13,8 +13,8 @@ list
 mark 2
 mark 2
 list
-event coldplay concert /from tues 6pm /to tues 9.30pm
-deadline CS2109S assignment /by end of this week
+event coldplay concert /from 03-02-2024 1900 /to 03-02-2024 2100
+deadline CS2109S assignment /by 05-02-2024 2359
 list
 mark 5
 list
