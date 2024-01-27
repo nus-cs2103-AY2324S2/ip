@@ -45,6 +45,13 @@ public class Tracker {
         System.out.println(CustomMessages.randomMsg(task));
         System.out.println(task);
     }
+
+    public static void removeTask(int i) {
+        tasks.remove(i);
+        System.out.println("Exploooosion! now task " + i + " has been Kazuma-ed out of existence");
+        listTasks();
+        System.out.println("You now have " + tasks.size() + " tasks in your list");
+    }
     public static String listTasks() {
         int index = 1;
         StringBuilder result = new StringBuilder();
@@ -108,6 +115,17 @@ public class Tracker {
                     addTask(Event.extractDetails(args));
                 } catch (BadAppleException be) {
                     System.out.println(be);
+                }
+                break;
+            case "delete":
+                if (tokens.length < 1) {
+                    System.out.println("Kel nuked, but he missed what task you wanted to remove!");
+                }
+                int taskIndex = parseInt(tokens[1]) - 1;
+                if (taskIndex >= 0) {
+                    removeTask(taskIndex);
+                } else {
+                    System.out.println("welcome to BLACK SPACE, you keyed in a negative number!");
                 }
                 break;
             default:
