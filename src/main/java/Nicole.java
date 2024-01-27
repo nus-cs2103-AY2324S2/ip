@@ -1,7 +1,9 @@
-import java.time.format.DateTimeFormatter;
-import java.time.*;
 import java.io.*;
-import java.util.*;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class Nicole {
     public static final String botName = "Nicole";
@@ -21,7 +23,7 @@ public class Nicole {
         } else {
             salutation += "evening! Let's wrap it up soon? :P";
         }
-        return "Welcome to Nicole Mark I. New conversation at " + digitalTime.format(now) + "\n" +
+        return "Welcome to Nicole Mark II. New conversation at " + digitalTime.format(now) + "\n" +
                 "----------------------------- x ------------------------------" + "\n" +
                 Nicole.botName +
                 ": " + salutation;
@@ -57,6 +59,8 @@ public class Nicole {
     public static void main(String[] args) {
         System.out.println(Nicole.greet());
         try {
+            new File("./data").mkdirs();
+            new File("./data/tasks.txt");
             System.out.println(Nicole.talkToUser());
         } catch (IOException ioException) {
             System.out.println("Error reading request: " + ioException);
