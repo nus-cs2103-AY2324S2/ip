@@ -1,6 +1,6 @@
 echo "Testing Welcome and Exit Messages..."
 
-java -classpath ../bin Duke <<< 'bye' > ./out/welcome-exit.txt
+java -classpath ../bin Main <<< 'bye' > ./out/welcome-exit.txt
 
 cp ./expect/welcome-exit.txt ./expect/welcome-exit-UNIX.txt
 dos2unix ./out/welcome-exit.txt ./expect/welcome-exit-UNIX.txt

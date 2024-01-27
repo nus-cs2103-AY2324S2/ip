@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# IMPORTANT: Deprecated as of Level-8 onwards
+
 # create bin directory if it doesn't exist
 if [ ! -d "../bin" ]
 then
@@ -16,7 +18,8 @@ fi
 mkdir "./out"
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+CLASSPATH="../src/main/java"
+if ! javac -cp "$CLASSPATH" -Xlint:none -d ../bin ../src/main/java/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1

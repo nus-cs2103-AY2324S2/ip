@@ -1,6 +1,6 @@
 {
 	"hooks": {
 		"pre-commit": "echo \"Reminder to git tag the commit with the exact increment ID e.g., Level-2, A-TextUiTesting\"",
-		"pre-push": "cd ./text-ui-test && ./runtest.sh"
+		"pre-push": "./gradlew build && ./gradlew test"
 	}
 }
