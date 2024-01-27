@@ -10,20 +10,40 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
 
+/**
+ * The Storage class handles reading from and writing to a file for data persistence.
+ * It provides methods for retrieving lines, writing a line, reading a line by index,
+ * updating a line, and deleting a line from the stored data.
+ */
 public class Storage {
+
+    /** The file path for data storage. */
     private String filePath;
+
+    /** The File object representing the file for data storage. */
     private File file;
+
+    /** The Path object representing the file path. */
     private Path path;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * Initializes the File and Path objects for data storage.
+     * @param filePath The path to the file for data storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.file = new File(filePath);
         this.path = Path.of(this.filePath);
     }
 
+    /**
+     * Retrieves all lines from the stored data in the file.
+     * @return A List of strings representing the lines from the file.
+     */
     public List<String> retrieveLines() {
         List<String> result = new ArrayList<>();
         try {
@@ -37,6 +57,10 @@ public class Storage {
         return result;
     }
 
+    /**
+     * Writes a line of data to the file for data storage.
+     * @param data The data to be written to the file.
+     */
     public void writeLine(String data) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.file, true));
@@ -48,6 +72,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads a line from the stored data based on the specified index.
+     * @param index The index of the line to be read.
+     * @return The string representing the line at the specified index.
+     */
     public String readLine(int index) {
         try {
             Scanner scanner = new Scanner(this.file);
@@ -66,6 +95,11 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Updates a line in the stored data based on the specified index.
+     * @param index The index of the line to be updated.
+     * @param data The updated data to replace the existing line.
+     */
     public void updateLine(int index, String data) {
         try {
             List<String> lines = Files.readAllLines(this.path);
@@ -83,6 +117,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a line from the stored data based on the specified index.
+     * @param index The index of the line to be deleted.
+     */
     public void deleteLine(int index) {
         try {
             List<String> lines = Files.readAllLines(this.path);
@@ -99,5 +137,4 @@ public class Storage {
             UI.print(e.getMessage());
         }
     }
-
 }
