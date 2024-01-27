@@ -1,9 +1,17 @@
 package missminutes;
 
+/**
+ * MissMinutes is a personal chatbot to track your tasks
+ */
 public class MissMinutes {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Creates a MissMinutes instance and tries to load previous state from filePath
+     *
+     * @param filePath Path to save and load TaskList object from
+     */
     public MissMinutes(String filePath) {
         this.storage = new Storage(filePath);
         try {
@@ -28,7 +36,7 @@ public class MissMinutes {
                     Ui.sayBye();
                     return;
                 case LIST:
-                    Ui.printTasks(tasks);
+                    Ui.sendMsg(tasks.toString());
                     break;
                 case MARK:
                     // Fallthrough
@@ -59,6 +67,9 @@ public class MissMinutes {
                     isChanged = true;
                     Task task = tasks.createTask(request);
                     tasks.addTask(task);
+                    break;
+                case FIND:
+                    tasks.findTask(request);
                     break;
                 case UNKNOWN:
                         throw new MissMinutesException("Oh, I'm sowwy, I didn't undewstand dat. (>_<) Can I hewp wif sumthin' else, pwease? UwU");
