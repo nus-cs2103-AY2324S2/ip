@@ -7,11 +7,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class is responsible for handling file operations including
+ * loading tasks from a file and saving tasks to a file.
+ */
 public class Storage {
     protected Scanner scanner;
     protected static String filePath;
     protected File file;
 
+    /**
+     * Creates a Storage object which initializes a Scanner for reading from a file.
+     * The file path is specified by the provided string.
+     *
+     * @param filePath The file path of the storage file.
+     * @throws DukeException If the file is not found.
+     */
     public Storage (String filePath) throws DukeException {
         try {
             Storage.filePath = filePath;
@@ -22,6 +33,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the given text to a file at the specified file path.
+     *
+     * @param filePath The file path where the text is to be written.
+     * @param textToAdd The text to write to the file.
+     * @throws IOException If an I/O error occurs.
+     */
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
@@ -30,6 +48,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Saves the current list of tasks to the file.
+     *
+     * @param list The task list to be saved.
+     * @throws IOException If an I/O error occurs during writing.
+     */
     public static void saveCurrentList(TaskList list) throws IOException{
         StringBuilder sb = new StringBuilder();
         for (Task task : list.getList()) {
@@ -39,6 +63,12 @@ public class Storage {
         writeToFile(filePath, sb.toString());
     }
 
+    /**
+     * Loads tasks from the file and returns them as an ArrayList of Task objects.
+     *
+     * @return An ArrayList of Task objects.
+     * @throws DukeException If an error occurs while reading from the file.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> list = new ArrayList<>();
         while (scanner.hasNext()) {

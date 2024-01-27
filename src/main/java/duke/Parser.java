@@ -6,7 +6,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * The Parser class represents a parser that parses the user input.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param message The user input.
+     * @return The corresponding command.
+     * @throws DukeException If the user input is invalid.
+     */
     public static void handleTodo(TaskList list, String message) throws DukeException {
         if (message.trim().equals("todo")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty buddy.");
@@ -17,6 +28,14 @@ public class Parser {
         Ui.printWithLines("Got it. I've added this task:", task.toString(), "Now you have " + list.size() + " tasks in the list.");
     }
 
+    /**
+     * Parses and handles the "deadline" command.
+     * Adds a deadline task to the task list with a specified due date.
+     *
+     * @param list The task list to add the deadline to.
+     * @param message The user input string.
+     * @throws DukeException If the deadline or its date/time format is incorrect.
+     */
     public static void handleDeadline(TaskList list, String message) throws DukeException {
         String[] parts = message.split("/by", 2);
         if (parts.length < 2) {
@@ -36,6 +55,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses and handles the "event" command.
+     * Adds an event task to the task list with specified start and end times.
+     *
+     * @param list The task list to add the event to.
+     * @param message The user input string.
+     * @throws DukeException If the event time is missing or the date/time format is incorrect.
+     */
     public static void handleEvent(TaskList list, String message) throws DukeException {
         String[] parts = message.split(" /from ", 2);
         if (parts.length < 2 || !parts[1].contains(" /to ")) {
@@ -57,6 +84,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "list" command.
+     * Displays all tasks in the task list.
+     *
+     * @param list The task list to display.
+     */
     public static void handleList(TaskList list) {
         ArrayList<String> taskDescriptions = new ArrayList<>();
         taskDescriptions.add("Here are the tasks in your list:");
@@ -66,6 +99,14 @@ public class Parser {
         Ui.printWithLines(taskDescriptions.toArray(new String[0]));
     }
 
+    /**
+     * Parses and handles the "mark" command.
+     * Marks a task as done based on the specified task number.
+     *
+     * @param list The task list containing the task to be marked.
+     * @param message The user input string.
+     * @throws DukeException If the task number is missing or invalid.
+     */
     public static void handleMark(TaskList list, String message) throws DukeException {
         if (message.trim().equals("mark")) {
             throw new DukeException("OOPS!!! The task number is missing buddy.");
@@ -79,6 +120,14 @@ public class Parser {
         Ui.printWithLines("Nice! I've marked this task as done:", task.toString());
     }
 
+    /**
+     * Parses and handles the "unmark" command.
+     * Marks a task as not done based on the specified task number.
+     *
+     * @param list The task list containing the task to be unmarked.
+     * @param message The user input string.
+     * @throws DukeException If the task number is missing or invalid.
+     */
     public static void handleUnmark(TaskList list, String message) throws DukeException {
         if (message.trim().equals("unmark")) {
             throw new DukeException("OOPS!!! The task number is missing buddy.");
@@ -92,6 +141,14 @@ public class Parser {
         Ui.printWithLines("OK, I've marked this task as not done yet:", task.toString());
     }
 
+    /**
+     * Parses and handles the "delete" command.
+     * Deletes a task from the task list based on the specified task number.
+     *
+     * @param list The task list from which to delete the task.
+     * @param message The user input string.
+     * @throws DukeException If the task number is missing or invalid.
+     */
     public static void deleteTask(TaskList list, String message) throws DukeException {
         if (message.trim().equals("delete")) {
             throw new DukeException("OOPS!!! The task number is missing buddy.");

@@ -2,28 +2,54 @@ package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * Represents an event task with a description, start time, and end time.
+ * It extends the Task class by adding time-specific information.
+ */
 public class Event extends Task{
 
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Constructs an Event task with the specified description, start time, and end time.
+     *
+     * @param description The description of the event.
+     * @param from The start time of the event.
+     * @param to The end time of the event.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Returns a string representation of the event task, including its type, status, description, and timing.
+     *
+     * @return A string representation of the event task.
+     */
     @Override
     public String toString() {
         return "[E]" + (isDone ? "[X] " : "[ ] ") + super.description + " (from: " + from + " to: " + to + ")";
     }
 
+    /**
+     * Returns a string representation of the event task formatted for file storage.
+     *
+     * @return A string formatted for file storage.
+     */
     @Override
     public String toFileString() {
         return "E" + " | " + (isDone ? "1" : "0") + " | " + description + " | " +  from + " - " + to;
     }
 
+    /**
+     * Creates an Event object from a string representation formatted for file storage.
+     *
+     * @param str The string representation of the event from a file.
+     * @return An Event object, or null if the string format is invalid.
+     */
     public static Event fromFileString(String str) {
         String[] parts = str.split(" \\| ");
         if (!parts[0].equals("E")) {
@@ -45,10 +71,20 @@ public class Event extends Task{
         return event;
     }
 
+    /**
+     * Returns the start time of the event.
+     *
+     * @return A string representation of the start time.
+     */
     public String getFromDate() {
         return from.toString();
     }
 
+    /**
+     * Returns the end time of the event.
+     *
+     * @return A string representation of the end time.
+     */
     public String getToDate() {
         return to.toString();
     }
