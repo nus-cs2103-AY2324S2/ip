@@ -20,6 +20,6 @@ public class Ui {
     }
 
     public void sayGoodbye() {
-        System.out.println("    duke.command.Bye. Hope to see you again soon!");
+        System.out.println("    Bye, Hope to see you again soon!");
     }
 }
