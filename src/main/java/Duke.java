@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Duke {
@@ -32,9 +33,9 @@ public class Duke {
             if ("[T]".equals(inputs[0])) {
                 task = new Todo(inputs[2]);
             } else if ("[D]".equals(inputs[0])) {
-                task = new Deadline(inputs[2], inputs[3]);
+                task = new Deadline(inputs[2], LocalDate.parse(inputs[3]));
             } else if ("[E]".equals(inputs[0])) {
-                task = new Event(inputs[2], inputs[3], inputs[4]);
+                task = new Event(inputs[2], LocalDate.parse(inputs[3]), LocalDate.parse(inputs[4]));
             } else {
                 task = new Task(inputs[0], inputs[2]);
             }
@@ -182,7 +183,7 @@ public class Duke {
         } else {
             String desc = args[0].trim();
             String by = args[1].trim();
-            Task deadline = new Deadline(desc, by);
+            Task deadline = new Deadline(desc, LocalDate.parse(by));
             updateTasks(deadline);
             try {
                 appendToFile(file, deadline.getSymbol() + "/" + deadline.getStatus() +
@@ -214,7 +215,7 @@ public class Duke {
             } else {
                 String start = duration[0].trim();
                 String end = duration[1].trim();
-                Task event = new Event(desc, start, end);
+                Task event = new Event(desc, LocalDate.parse(start), LocalDate.parse(end));
                 updateTasks(event);
                 try {
                     appendToFile(file, event.getSymbol() + "/" + event.getStatus() +
