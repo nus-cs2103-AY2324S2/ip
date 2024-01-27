@@ -20,11 +20,11 @@ import util.*;
 
 public class Naruto {
     private static LinkedList<Action> actions = new LinkedList<>();
-    private static Store store;
+    private static TaskList taskList;
 
     static {
         try {
-            store = new Store();
+            taskList = new TaskList();
         } catch (IOException e) {
             PrintUtil.print(NarutoException.createFileCorruptedException().getMessage());
         }
@@ -47,7 +47,7 @@ public class Naruto {
             actions.addLast(new Goodbye());
             break;
         case "list":
-            actions.addLast(new List(store));
+            actions.addLast(new List(taskList));
             break;
         case "mark":
             input = sc.next();
@@ -57,11 +57,11 @@ public class Naruto {
                 handleException(NarutoException.createInvalidIndexException());
                 return;
             }
-            if (idx > store.getSize() || idx <= 0) {
+            if (idx > taskList.getSize() || idx <= 0) {
                 handleException(NarutoException.createInvalidIndexException());
                 return;
             }
-            actions.addLast(new Mark(store, idx));
+            actions.addLast(new Mark(taskList, idx));
             break;
         case "unmark":
             input = sc.next();
@@ -71,11 +71,11 @@ public class Naruto {
                 handleException(NarutoException.createInvalidIndexException());
                 return;
             }
-            if (idx > store.getSize() || idx <= 0) {
+            if (idx > taskList.getSize() || idx <= 0) {
                 handleException(NarutoException.createInvalidIndexException());
                 return;
             }
-            actions.addLast(new Unmark(store, idx));
+            actions.addLast(new Unmark(taskList, idx));
             break;
         case "todo":
             description = sc.nextLine().trim();
@@ -83,7 +83,7 @@ public class Naruto {
                 handleException(NarutoException.createEmptyTodoException());
                 return;
             }
-            actions.addLast(new Add(new ToDo(description), store));
+            actions.addLast(new Add(new ToDo(description), taskList));
             break;
         case "deadline":
             input = sc.nextLine();
@@ -102,7 +102,7 @@ public class Naruto {
                 handleException(NarutoException.createInvalidDeadlineException());
                 return;
             }
-            actions.addLast(new Add(new Deadline(description, DateTimeUtil.format(by)), store));
+            actions.addLast(new Add(new Deadline(description, DateTimeUtil.format(by)), taskList));
             break;
         case "event":
             input = sc.nextLine();
@@ -125,7 +125,7 @@ public class Naruto {
             }
             actions.addLast(new Add(new Event(description, DateTimeUtil.format(from),
                 DateTimeUtil.format(to)),
-                store));
+                taskList));
             break;
         case "delete":
             input = sc.next();
@@ -135,11 +135,11 @@ public class Naruto {
                 handleException(NarutoException.createInvalidIndexException());
                 return;
             }
-            if (idx > store.getSize() || idx <= 0) {
+            if (idx > taskList.getSize() || idx <= 0) {
                 handleException(NarutoException.createInvalidIndexException());
                 return;
             }
-            actions.addLast(new Delete(store, idx));
+            actions.addLast(new Delete(taskList, idx));
             break;
         default:
             handleException(NarutoException.createInvalidCommandException());

@@ -1,16 +1,16 @@
 package action;
 
 import util.PrintUtil;
-import util.Store;
+import util.TaskList;
 
 public class List implements Action {
-    private Store store;
+    private TaskList taskList;
 
-    public List(Store store) {
-        this.store = store;
+    public List(TaskList taskList) {
+        this.taskList = taskList;
     }
 
     public void execute() {
-        PrintUtil.print("Here are the tasks in your list:\n" + this.store.toString());
+        PrintUtil.print("Here are the tasks in your list:\n" + this.taskList.toString());
     }
 }

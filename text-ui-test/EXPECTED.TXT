@@ -13,7 +13,7 @@
 
     Got it! Task added:
       [T][ ] borrow book
-    Now you have 4 outstanding tasks.
+    Now you have 1 outstanding task.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -22,8 +22,8 @@
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     Got it! Task added:
-      [D][ ] return book (by: Sunday)
-    Now you have 5 outstanding tasks.
+      [D][ ] return book (by: 2/12/2019 1800)
+    Now you have 2 outstanding tasks.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -32,22 +32,8 @@
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     Got it! Task added:
-      [E][ ] project meeting (from: Mon 2pm to: 4pm)
-    Now you have 6 outstanding tasks.
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Here are the tasks in your list:
-    1.[T][ ] borrow book
-    2.[T][ ] borrow book
-    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-    4.[T][ ] borrow book
-    5.[D][ ] return book (by: Sunday)
-    6.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+      [E][ ] CS2103 Tutorial (from: 2/02/2024 0800 to: 2/02/2024 0900)
+    Now you have 3 outstanding tasks.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -62,68 +48,6 @@
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
       [T][X] borrow book
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Great job! You marked that task off your list! That's the way to go! 
-    Keep pushing yourself, and remember, every completed task brings you 
-    one step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [T][X] borrow book
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Great job! You marked that task off your list! That's the way to go! 
-    Keep pushing yourself, and remember, every completed task brings you 
-    one step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [E][X] project meeting (from: Mon 2pm to: 4pm)
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Great job! You marked that task off your list! That's the way to go! 
-    Keep pushing yourself, and remember, every completed task brings you 
-    one step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [T][X] borrow book
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Got it! Task deleted:
-      [T][X] borrow book
-    Now you have 5 tasks remaining.
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Got it! Task deleted:
-      [D][ ] return book (by: Sunday)
-    Now you have 4 tasks remaining.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -133,69 +57,8 @@
 
     Here are the tasks in your list:
     1.[T][X] borrow book
-    2.[E][X] project meeting (from: Mon 2pm to: 4pm)
-    3.[T][X] borrow book
-    4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    You know, sometimes things don't go as planned, but that's okay! 
-    The important part is to keep moving forward. 
-    Unmarking a task is just a step in the journey. Believe it! 
-    We'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [T][ ] borrow book
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    You know, sometimes things don't go as planned, but that's okay! 
-    The important part is to keep moving forward. 
-    Unmarking a task is just a step in the journey. Believe it! 
-    We'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [E][ ] project meeting (from: Mon 2pm to: 4pm)
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    You know, sometimes things don't go as planned, but that's okay! 
-    The important part is to keep moving forward. 
-    Unmarking a task is just a step in the journey. Believe it! 
-    We'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [T][ ] borrow book
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    You know, sometimes things don't go as planned, but that's okay! 
-    The important part is to keep moving forward. 
-    Unmarking a task is just a step in the journey. Believe it! 
-    We'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    2.[D][ ] return book (by: 2/12/2019 1800)
+    3.[E][ ] CS2103 Tutorial (from: 2/02/2024 0800 to: 2/02/2024 0900)
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -204,8 +67,8 @@
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     Got it! Task deleted:
-      [E][ ] project meeting (from: Mon 2pm to: 4pm)
-    Now you have 3 tasks remaining.
+      [E][ ] CS2103 Tutorial (from: 2/02/2024 0800 to: 2/02/2024 0900)
+    Now you have 2 tasks remaining.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -213,7 +76,13 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    Sorry, I couldn't find the task you indicated... ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡
+    Great job! You marked that task off your list! That's the way to go! 
+    Keep pushing yourself, and remember, every completed task brings you 
+    one step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+      [D][X] return book (by: 2/12/2019 1800)
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -222,9 +91,8 @@
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     Here are the tasks in your list:
-    1.[T][ ] borrow book
-    2.[T][ ] borrow book
-    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    1.[T][X] borrow book
+    2.[D][X] return book (by: 2/12/2019 1800)
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -232,8 +100,9 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    Looks like your todo is missing a description! 
-    Enter an input after the 'todo' command to enter a todo.
+    Got it! Task deleted:
+      [D][X] return book (by: 2/12/2019 1800)
+    Now you have 1 task remaining.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -241,7 +110,9 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    Sorry, I didn't catch that. ヾ(_ _。）
+    Got it! Task deleted:
+      [T][X] borrow book
+    Now you have 0 tasks remaining.
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -249,54 +120,8 @@
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    Looks like you forgot to enter a deadline! 
-    Enter a deadline after the command '/by' to indicate when your deadline is.
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Sorry, I didn't catch that. ヾ(_ _。）
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Looks like your event doesn't have a valid start or end time! 
-    Make sure your input uses the '/from' and '/to' commands to indicate
-    the start and end times of your event.
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Sorry, I didn't catch that. ヾ(_ _。）
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Looks like your event doesn't have a valid start or end time! 
-    Make sure your input uses the '/from' and '/to' commands to indicate
-    the start and end times of your event.
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    Looks like your event doesn't have a valid start or end time! 
-    Make sure your input uses the '/from' and '/to' commands to indicate
-    the start and end times of your event.
+    Here are the tasks in your list:
+    
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
