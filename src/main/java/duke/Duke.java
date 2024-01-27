@@ -2,7 +2,7 @@ package duke;
 
 import java.util.Scanner;
 import duke.Command.Command;
-import task.TaskManager;
+import database.TaskORM;
 
 public class Duke {
   private static final String logo = " ____        _        \n"
@@ -11,7 +11,7 @@ public class Duke {
     + "| |_| | |_| |   <  __/\n"
     + "|____/ \\__,_|_|\\_\\___|\n";
   private final String chatBotName;
-  private final TaskManager taskManager = new TaskManager();
+  private final TaskORM taskManager = new TaskORM();
 
   public Duke (String name) {
     this.chatBotName = name;

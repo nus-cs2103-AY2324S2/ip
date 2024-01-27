@@ -1,12 +1,12 @@
 package duke.Command;
 
-import task.TaskManager;
+import database.TaskORM;
 
 public class ExitCommand extends Command {
   public static final String COMMAND_WORD = "bye";
 
   @Override
-  public String execute(TaskManager tm) {
+  public String execute(TaskORM tm) {
     return "Bye. Hope to see you again soon!\n";
   }
 

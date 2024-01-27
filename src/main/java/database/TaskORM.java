@@ -1,11 +1,14 @@
-package task;
+package database;
 
 import java.sql.*;
 import java.util.ArrayList;
 import duke.Parser;
+import task.Deadline;
+import task.Event;
+import task.Todo;
 
-public class TaskManager {
-  public Task addTodoTask(String description) throws SQLException {
+public class TaskORM {
+  public task.Task createTodo(String description) throws SQLException {
     String sql = "INSERT INTO tasks (type, description) VALUES (?, ?)";
 
     ResultSet rs = database.DB.insert(sql, Todo.type, description);
@@ -14,7 +17,7 @@ public class TaskManager {
     return new Todo(id, description);
   }
 
-  public Task addDeadlineTask(String description, java.time.LocalDate deadline) throws SQLException {
+  public task.Task createDeadline(String description, java.time.LocalDate deadline) throws SQLException {
     String sql = "INSERT INTO tasks (type, description, deadline) VALUES (?, ?, ?)";
 
     ResultSet rs = database.DB.insert(sql, Deadline.type, description, deadline.toString());
@@ -23,7 +26,7 @@ public class TaskManager {
     return new Deadline(id, description, deadline);
   }
 
-  public Task addEventTask(String description, java.time.LocalDate startDate, java.time.LocalDate endDate) throws SQLException {
+  public task.Task createEvent(String description, java.time.LocalDate startDate, java.time.LocalDate endDate) throws SQLException {
     String sql = "INSERT INTO tasks (type, description, startDate, endDate) VALUES (?, ?, ?, ?)";
 
     ResultSet rs = database.DB.insert(sql, Event.type, description, startDate.toString(), endDate.toString());
@@ -36,10 +39,9 @@ public class TaskManager {
    * Marks the task as done.
    *
    * @param taskID the index of the task to be marked as done
-   * @return true if the task is successfully marked as done, false otherwise
    */
-  public void markTaskAsDone(int taskID) throws SQLException {
-    checkTaskExists(taskID);
+  public void mark(int taskID) throws SQLException {
+    checkExists(taskID);
     String sql = "UPDATE tasks SET isDone = 1 WHERE id = ?";
     database.DB.execute(sql, String.valueOf(taskID));
   }
@@ -49,14 +51,14 @@ public class TaskManager {
    *
    * @param taskID the index of the task to be unmarked as done
    */
-  public void unmarkTaskAsDone(int taskID) throws SQLException {
-    checkTaskExists(taskID);
+  public void unmark(int taskID) throws SQLException {
+    checkExists(taskID);
     String sql = "UPDATE tasks SET isDone = 0 WHERE id = ?";
     database.DB.execute(sql, String.valueOf(taskID));
   }
 
-  public Task deleteTask(int taskID) throws SQLException {
-    Task task = this.getTask(taskID);
+  public task.Task delete(int taskID) throws SQLException {
+    task.Task task = this.get(taskID);
 
     String sql = "DELETE FROM tasks WHERE id = ?";
     database.DB.execute(sql, String.valueOf(taskID));
@@ -64,7 +66,7 @@ public class TaskManager {
     return task;
   }
 
-  public Task getTask(int taskID) throws SQLException {
+  public task.Task get(int taskID) throws SQLException {
     String sql = "SELECT * FROM tasks WHERE id = ?";
 
     ResultSet rs = database.DB.select(sql, String.valueOf(taskID));
@@ -76,17 +78,29 @@ public class TaskManager {
   }
 
 
-  public int getNumberOfTasks() throws SQLException {
+  public int count() throws SQLException {
     String sql = "SELECT COUNT(*) FROM tasks";
     ResultSet rs = database.DB.select(sql);
     return rs.getInt(1);
   }
 
-  public ArrayList<Task> getTasks() throws SQLException {
-    ArrayList<Task> tasks = new ArrayList<>();
+  public ArrayList<task.Task> list() throws SQLException {
+    ArrayList<task.Task> tasks = new ArrayList<>();
 
     String sql = "SELECT * FROM tasks";
     ResultSet rs = database.DB.select(sql);
+    while (rs.next()) {
+      tasks.add(this.sqlRowToTask(rs));
+    }
+
+    return tasks;
+  }
+
+  public ArrayList<task.Task> list(String keyword) throws SQLException {
+    ArrayList<task.Task> tasks = new ArrayList<>();
+
+    String sql = "SELECT * FROM tasks WHERE description LIKE ?";
+    ResultSet rs = database.DB.select(sql, "%" + keyword + "%");
     while (rs.next()) {
       tasks.add(this.sqlRowToTask(rs));
     }
@@ -106,7 +120,7 @@ public class TaskManager {
     }
   }
 
-  private void checkTaskExists(int taskID) throws SQLException {
+  private void checkExists(int taskID) throws SQLException {
     String sql = "SELECT COUNT(*) FROM tasks WHERE id = ?";
     ResultSet rs = database.DB.select(sql, String.valueOf(taskID ));
 
@@ -117,7 +131,7 @@ public class TaskManager {
     }
   }
 
-  private Task sqlRowToTask(ResultSet rs) throws SQLException {
+  private task.Task sqlRowToTask(ResultSet rs) throws SQLException {
     int id = rs.getInt("id");
     String type = rs.getString("type");
     String description = rs.getString("description");

@@ -2,11 +2,10 @@ package duke.Command;
 
 import java.sql.SQLException;
 
+import database.TaskORM;
 import duke.Parser;
 import exceptions.BadInputException;
 import exceptions.BadTaskInputException;
-import task.Task;
-import task.TaskManager;
 
 public class AddTaskCommand extends Command {
   public static final String ADD_TODO_COMMAND = "todo";
@@ -20,9 +19,9 @@ public class AddTaskCommand extends Command {
   }
 
   @Override
-  public String execute(TaskManager tm) {
+  public String execute(TaskORM tm) {
     try {
-      Task task;
+      task.Task task;
       switch (this.command) {
         case "todo":
           if (this.description == null || this.description.isEmpty()) {
@@ -34,7 +33,7 @@ public class AddTaskCommand extends Command {
             );
           }
 
-          task = tm.addTodoTask(this.description);
+          task = tm.createTodo(this.description);
           break;
 
         case "deadline":
@@ -50,7 +49,7 @@ public class AddTaskCommand extends Command {
           }
 
           java.time.LocalDate deadline = Parser.parseDate(deadlineDetails[1]);
-          task = tm.addDeadlineTask(deadlineDetails[0], deadline);
+          task = tm.createDeadline(deadlineDetails[0], deadline);
           break;
 
         case "event":
@@ -75,7 +74,7 @@ public class AddTaskCommand extends Command {
               this.description);
           }
 
-          task = tm.addEventTask(eventDetails[0],startDate, endDate);
+          task = tm.createEvent(eventDetails[0],startDate, endDate);
           break;
 
         default:
@@ -83,7 +82,7 @@ public class AddTaskCommand extends Command {
       }
       return "Got it. I've added this task:\n"
         + "   " + task + "\n"
-        + String.format("Now you have %d tasks in the list.\n", tm.getNumberOfTasks());
+        + String.format("Now you have %d tasks in the list.\n", tm.count());
     } catch (SQLException | BadInputException e) {
       return e.getMessage();
     }

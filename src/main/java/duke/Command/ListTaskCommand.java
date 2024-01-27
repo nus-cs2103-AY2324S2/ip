@@ -1,7 +1,6 @@
 package duke.Command;
 
-import task.Task;
-import task.TaskManager;
+import database.TaskORM;
 
 import java.sql.SQLException;
 
@@ -9,13 +8,13 @@ public class ListTaskCommand extends Command {
   public static final String COMMAND_WORD = "list";
 
   @Override
-  public String execute(TaskManager tm) {
+  public String execute(TaskORM tm) {
     try {
-      if (tm.getNumberOfTasks() == 0) {
+      if (tm.count() == 0) {
         return "No tasks added yet!\n";
       }
       StringBuilder sb = new StringBuilder();
-      for (Task task :tm.getTasks()) {
+      for (task.Task task :tm.list()) {
         sb.append(String.format("%d. %s\n", task.taskID, task));
       }
       return sb.toString();

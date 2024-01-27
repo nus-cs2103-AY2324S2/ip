@@ -1,6 +1,6 @@
 package duke.Command;
 
-import task.TaskManager;
+import database.TaskORM;
 
 public class UnknownCommand extends Command {
   private final String command;
@@ -9,7 +9,7 @@ public class UnknownCommand extends Command {
   }
 
   @Override
-  public String execute(TaskManager tm) {
+  public String execute(TaskORM tm) {
     return String.format("I'm sorry, but I don't know what \"%s\" means.\n", this.command);
   }
 }

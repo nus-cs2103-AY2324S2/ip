@@ -1,7 +1,6 @@
 package duke.Command;
 
-import task.Task;
-import task.TaskManager;
+import database.TaskORM;
 
 import java.sql.SQLException;
 
@@ -13,15 +12,10 @@ public class MarkTaskCommand extends Command{
   }
 
   @Override
-  public String execute(TaskManager tm) {
+  public String execute(TaskORM tm) {
     try {
-      tm.markTaskAsDone(taskID);
-    } catch (SQLException e) {
-      return e.getMessage();
-    }
-
-    try {
-      Task task = tm.getTask(taskID);
+      tm.mark(taskID);
+      task.Task task = tm.get(taskID);
       return "Nice! I've marked this task as done:\n" + "  " + task + "\n";
     } catch (SQLException e) {
       return e.getMessage();
