@@ -28,7 +28,7 @@ public class Ragdoll{
         System.out.println(LINE);
 
         while(true) {
-            String input = scanner.nextLine().trim();
+            String input = scanner.nextLine().trim().toLowerCase();
             System.out.println(LINE);
 
             if ("bye".equalsIgnoreCase(input)) {
@@ -58,33 +58,56 @@ public class Ragdoll{
         }
 
         String[] parts = input.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            System.out.println("Sorry, " + USER + ", please format your tasks as [task type] [task description]!\n" +
+                    "I am only able to handle 3 task types: todo, deadline, and event.");
+            return;
+        }
+
         String taskType = parts[0].toLowerCase();
         Task task;
 
-        switch (taskType) {
-            case "todo":
-                task = new ToDo(parts[1]);
-                break;
-            case "deadline":
-                String[] info = parts[1].split(" /by ", 2);
-                task = new Deadline(info[0], info[1]);
-                break;
-            case "event":
-                String[] eventParts = parts[1].split(" /from ", 2);
-                String[] timeParts = eventParts[1].split(" /to ", 2);
-                task = new Event(eventParts[0], timeParts[0], timeParts[1]);
-                break;
-            default:
-                System.out.println("Sorry, " + USER + ", this is an invalid task type.");
-                return;
-        }
+        try {
+            switch (taskType) {
+                case "todo":
+                    task = new ToDo(parts[1]);
+                    break;
+                case "deadline":
+                    String[] info = parts[1].split(" /by ", 2);
+                    if (info.length < 2) {
+                        throw new IllegalArgumentException("Sorry, " + USER +
+                                ", please use 'deadline [task] /by [date]'.");
+                    }
+                    task = new Deadline(info[0], info[1]);
+                    break;
+                case "event":
+                    String[] eventParts = parts[1].split(" /from ", 2);
+                    if (eventParts.length < 2) {
+                        throw new IllegalArgumentException("Sorry, " + USER +
+                                ", please use 'event [task] /from [start time] /to [end time]'.");
+                    }
+                    String[] timeParts = eventParts[1].split(" /to ", 2);
+                    if (timeParts.length < 2) {
+                        throw new IllegalArgumentException("Sorry, " + USER +
+                                ", please use 'event [task] /from [start time] /to [end time]'.");
+                    }
+                    task = new Event(eventParts[0], timeParts[0], timeParts[1]);
+                    break;
+                default:
+                    System.out.println("Sorry, " + USER + ", please format your tasks as [task type] [task description]!\n" +
+                            "I am only able to handle 3 task types: todo, deadline, and event.");
+                    return;
+            }
 
-        tasks[taskCount++] = task;
-        System.out.println(USER + "!, I've added this task:\n  " + task);
-        if (taskCount <= 1) {
-            System.out.println("Now you have " + taskCount + " task in the list, " + USER + "!");
-        } else {
-            System.out.println("Now you have " + taskCount + " tasks in the list, " + USER + "!");
+            tasks[taskCount++] = task;
+            System.out.println(USER + ", I've added this task:\n  " + task);
+            if (taskCount <= 1) {
+                System.out.println("Now you have " + taskCount + " task in the list, " + USER + "!");
+            } else {
+                System.out.println("Now you have " + taskCount + " tasks in the list, " + USER + "!");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -100,22 +123,30 @@ public class Ragdoll{
     }
 
     private static void markTask(String input) {
-        int idx = Integer.parseInt(input.substring(5)) - 1;
-        if (idx < 0 || idx >= taskCount || tasks[idx] == null) {
-            System.out.println("No task numbered " + (idx + 1) + ", " + USER + "!");
-        } else {
-            tasks[idx].mark();
-            System.out.println(USER + "! I've marked this task as done:\n" + tasks[idx]);
+        try {
+            int idx = Integer.parseInt(input.substring(5)) - 1;
+            if (idx < 0 || idx >= taskCount || tasks[idx] == null) {
+                System.out.println("No task numbered " + (idx + 1) + ", " + USER + "!");
+            } else {
+                tasks[idx].mark();
+                System.out.println(USER + "! I've marked this task as done:\n" + tasks[idx]);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(USER + ", please format it as mark [task index].");
         }
     }
 
     private static void unmarkTask(String input) {
-        int idx = Integer.parseInt(input.substring(7)) - 1;
-        if (idx < 0 || idx >= taskCount || tasks[idx] == null) {
-            System.out.println("No task numbered " + (idx + 1) + ", " + USER + "!");
-        } else {
-            tasks[idx].unmark();
-            System.out.println("Ok, " + USER + "! I've undone this task:\n" + tasks[idx]);
+        try {
+            int idx = Integer.parseInt(input.substring(7)) - 1;
+            if (idx < 0 || idx >= taskCount || tasks[idx] == null) {
+                System.out.println("No task numbered " + (idx + 1) + ", " + USER + "!");
+            } else {
+                tasks[idx].unmark();
+                System.out.println("Ok, " + USER + "! I've undone this task:\n" + tasks[idx]);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(USER + ", please format it as mark [task index].");
         }
     }
 
