@@ -1,4 +1,13 @@
+package duke.commands;
 import java.time.format.DateTimeParseException;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.exceptions.TaskCreationException;
+import duke.utils.TaskList;
+import duke.tasks.Todo;
+import duke.utils.Storage;
+import duke.utils.Ui;
 
 public class GenerateTaskCommand extends Command {
     public static enum TaskType {TODO, DEADLINE, EVENT}

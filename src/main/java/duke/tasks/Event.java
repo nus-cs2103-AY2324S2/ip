@@ -1,5 +1,10 @@
+package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import duke.exceptions.TaskCreationException;
+import duke.utils.Parser;
 
 public class Event extends Task {
     private LocalDateTime start;

@@ -1,7 +1,17 @@
+package duke;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+
+import duke.commands.Command;
+import duke.exceptions.NoSuchCommandException;
+import duke.exceptions.TaskCreationException;
+import duke.exceptions.TaskModificationException;
+import duke.utils.Parser;
+import duke.utils.Storage;
+import duke.utils.TaskList;
+import duke.utils.Ui;
 
 public class Duke {
     
@@ -13,7 +23,7 @@ public class Duke {
         
         this.ui = new Ui();
 
-        try {
+        try {                
             this.storage = new Storage(filePath);
             this.tasks = storage.readSaveData(ui);
         } catch (FileNotFoundException e) {
