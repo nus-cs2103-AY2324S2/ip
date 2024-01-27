@@ -1,4 +1,4 @@
-package MissMinutes;
+package missminutes;
 
 /**
  * Wrapper class for exceptions specific to MissMinutes chatbot

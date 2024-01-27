@@ -1,4 +1,4 @@
-package MissMinutes;
+package missminutes;
 
 import java.io.Serializable;
 import java.time.format.DateTimeParseException;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Event extends Task implements Serializable {
     protected final LocalDateTime startTime;
     protected final LocalDateTime endTime;
-    protected static final Pattern formatter = Pattern.compile("(.+) /from (.+) /to (.+)");
+    protected static final Pattern FORMATTER = Pattern.compile("(.+) /from (.+) /to (.+)");
 
     /**
      * Creates a Event object with a given name, start time and end time
@@ -36,7 +36,7 @@ public class Event extends Task implements Serializable {
      * @throws MissMinutesException If the given string is in incorrect format
      */
     public static Event fromStr(String input) throws MissMinutesException {
-        Matcher matcher = Event.formatter.matcher(input);
+        Matcher matcher = Event.FORMATTER.matcher(input);
 
         if (matcher.find()) {
             String name = matcher.group(1);
@@ -45,8 +45,8 @@ public class Event extends Task implements Serializable {
 
             LocalDateTime startTime, endTime;
             try {
-                startTime = LocalDateTime.parse(startTimeStr, Task.inputFormat);
-                endTime = LocalDateTime.parse(endTimeStr, Task.inputFormat);
+                startTime = LocalDateTime.parse(startTimeStr, Task.INPUT_DATE_FORMAT);
+                endTime = LocalDateTime.parse(endTimeStr, Task.INPUT_DATE_FORMAT);
             } catch (DateTimeParseException err) {
                 throw new MissMinutesException("Please enter a valid date time format. For example, 2019-12-31 1800");
             }
@@ -64,7 +64,7 @@ public class Event extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime.format(Task.outputFormat)
-                + " to: " + endTime.format(Task.outputFormat) + ")";
+        return "[E]" + super.toString() + " (from: " + startTime.format(Task.OUTPUT_DATE_FORMAT)
+                + " to: " + endTime.format(Task.OUTPUT_DATE_FORMAT) + ")";
     }
 }
