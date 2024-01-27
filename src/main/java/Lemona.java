@@ -7,7 +7,8 @@ public class Lemona {
         ArrayList<Task> list = new ArrayList<>();
         //greeting
         System.out.println("\t______________________________________________________" +
-                "\n\t" + " Hello! I'm Lemona" + "\n\t" + " What can I do for you?" +
+                "\n\t Hello! I'm Lemona" +
+                "\n\t What can I do for you?" +
                 "\n\t______________________________________________________");
 
         while (true) {
@@ -18,7 +19,7 @@ public class Lemona {
             // EXIT when user types in "bye"
             if (input.equals("bye")) {
                 System.out.println("\t______________________________________________________");
-                System.out.println("\t" + " Bye. Don't forget to take a LEMONA!");
+                System.out.println("\t Bye. Don't forget to take a LEMONA!");
                 System.out.println("\t______________________________________________________");
                 break;
 
@@ -44,7 +45,7 @@ public class Lemona {
                 }
                 list.get(index - 1).markAsDone();
                 System.out.println("\t______________________________________________________");
-                System.out.println("\t" + " Nice! I've marked this task as done:" + "\n\t\t" +
+                System.out.println("\t Nice! I've marked this task as done:" + "\n\t\t" +
                         list.get(index - 1).print());
                 System.out.println("\t______________________________________________________");
 
@@ -53,7 +54,7 @@ public class Lemona {
                 int index = Integer.parseInt(parts[1]);
                 if (list.size() < index || parts.length == 1) {
                     System.out.println("\t______________________________________________________");
-                    System.out.println("\t I think you haven't had enough vitamin A." +
+                    System.out.println("\t I think you haven't had enough vitamin E." +
                             "\n\t You do not have that many tasks!" +
                             "\n\t I suggest you take some LEMONA.");
                     System.out.println("\t______________________________________________________");
@@ -61,8 +62,26 @@ public class Lemona {
                 }
                 list.get(index - 1).unmarkAsDone();
                 System.out.println("\t______________________________________________________");
-                System.out.println("\t" + " OK, I've marked this task as not done yet:" + "\n\t\t" +
+                System.out.println("\t OK, I've marked this task as not done yet:" + "\n\t\t" +
+                        list.get(index - 2).print());
+                System.out.println("\t______________________________________________________");
+
+            //DELETE the task from the list
+            } else if (parts[0].equals("delete")) {
+                int index = Integer.parseInt(parts[1]);
+                if (list.size() < index || parts.length == 1) {
+                    System.out.println("\t______________________________________________________");
+                    System.out.println("\t I think you haven't had enough vitamin K." +
+                            "\n\t You do not have a task to delete!" +
+                            "\n\t I suggest you take some LEMONA.");
+                    System.out.println("\t______________________________________________________");
+                    break;
+                }
+                System.out.println("\t______________________________________________________");
+                System.out.println("\t OK, I've removed this task:" + "\n\t\t" +
                         list.get(index - 1).print());
+                list.remove(index - 1);
+                System.out.println("\t Now you have " + list.size() + " tasks in the list.");
                 System.out.println("\t______________________________________________________");
 
             // ADD the task into the list when user types in new task
@@ -97,7 +116,7 @@ public class Lemona {
                          System.out.print("\t  " + task.print());
 
                      }
-                     System.out.println("\n\t " + "Now you have " + list.size() + " tasks in the list.");
+                     System.out.println("\n\t Now you have " + list.size() + " tasks in the list.");
                      System.out.println("\t______________________________________________________");
                  }
             } else {
