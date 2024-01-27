@@ -20,10 +20,6 @@ public class SaveFile {
         }
     }
 
-    public SaveFile() throws DukeException {
-        this("./data/duke.txt");
-    }
-
     public TaskList getTasksFromFile() throws DukeException {
         try {
             Scanner fileScanner = new Scanner(this.saveFile);
