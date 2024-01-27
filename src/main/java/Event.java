@@ -1,9 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 public class Event extends Task {
     private final String symbol = "[E]";
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
-    public Event(String description, String start, String end) {
+    public Event(String description, LocalDate start, LocalDate end) {
         super("[E]", description);
         this.start = start;
         this.end = end;
@@ -11,6 +15,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return this.symbol + super.toString() + " (from: " + start + " to: " + end + ")";
+        DateTimeFormatter dateformatter
+                = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
+        return this.symbol + super.toString() + " (From: " + dateformatter.format(this.start)
+                + " To: " + dateformatter.format(this.end) + ")";
     }
 }
