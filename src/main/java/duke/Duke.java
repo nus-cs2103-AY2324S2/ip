@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
+
 /**
  * Main Class for our Chat bot
  */
@@ -17,6 +18,10 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for chatbot.
+     * @param filePath file to load.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -45,6 +50,9 @@ public class Duke {
         parser = new Parser(tasks);
     }
 
+    /**
+     * Run the chat bot.
+     */
     public void run() {
         ui.showWelcome();
         while (true) {
@@ -67,6 +75,7 @@ public class Duke {
 
         }
     }
+
     /**
      * Main method
      * @param args command line arguments
