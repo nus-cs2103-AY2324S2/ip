@@ -1,4 +1,4 @@
-package squid.CONSTANTS;
+package squid.constants;
 
 public class CORRECT_USAGE {
     public static final String TODO = "todo [task]";

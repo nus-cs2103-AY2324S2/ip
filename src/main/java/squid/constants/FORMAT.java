@@ -1,4 +1,4 @@
-package squid.CONSTANTS;
+package squid.constants;
 
 public class FORMAT {
     public static final String DATE = "d MMM yyyy";

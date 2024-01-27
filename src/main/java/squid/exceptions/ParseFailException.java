@@ -1,4 +1,4 @@
-package squid.Exceptions;
+package squid.exceptions;
 
 public class ParseFailException extends DukeException {
     public ParseFailException(String message) {

@@ -1,4 +1,4 @@
-package squid.CONSTANTS;
+package squid.constants;
 
 public class FILEPATH {
     public static final String DIR = "data";

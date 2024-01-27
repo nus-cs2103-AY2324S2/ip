@@ -1,4 +1,4 @@
-package squid.Exceptions;
+package squid.exceptions;
 
 public class IncorrectInputException extends DukeException {
     public IncorrectInputException(String message) {

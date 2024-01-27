@@ -1,12 +1,12 @@
-package squid.Tasks;
+package squid.tasks;
 
-import squid.CONSTANTS.CORRECT_USAGE;
-import squid.CONSTANTS.EXCEPTIONS;
-import squid.DukeIO.SquidFile;
-import squid.Exceptions.DuplicateTaskNameException;
-import squid.Exceptions.IncorrectIndexException;
-import squid.Exceptions.ParseFailException;
-import squid.Exceptions.SquidDateException;
+import squid.constants.CORRECT_USAGE;
+import squid.constants.EXCEPTIONS;
+import squid.io.SquidFile;
+import squid.exceptions.DuplicateTaskNameException;
+import squid.exceptions.IncorrectIndexException;
+import squid.exceptions.ParseFailException;
+import squid.exceptions.SquidDateException;
 
 import java.io.IOException;
 import java.util.ArrayList;
