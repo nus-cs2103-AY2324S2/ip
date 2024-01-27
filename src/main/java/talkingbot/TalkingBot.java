@@ -7,6 +7,9 @@ import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
+/**
+ * Class serving as the entry point of the application.
+ */
 public class TalkingBot {
 
     private SaveFile saveFile;
@@ -14,6 +17,11 @@ public class TalkingBot {
     private Ui ui;
     private static final String FILE_PATH = "./data/taskList.txt";
 
+    /**
+     * Constructor for the TalkingBot class.
+     *
+     * @param fileName Path to text file saving the list of tasks.
+     */
     public TalkingBot(String fileName) {
         this.ui = new Ui();
         this.saveFile = new SaveFile(fileName);
@@ -25,6 +33,9 @@ public class TalkingBot {
         }
     }
 
+    /**
+     * Runs the application.
+     */
     public void runTalkingBot() {
         this.ui.printWelcomeMsg();
         Parser parser =  new Parser();
@@ -36,6 +47,9 @@ public class TalkingBot {
         }
     }
 
+    /**
+     * Main method.
+     */
     public static void main(String[] args) {
         new TalkingBot(FILE_PATH).runTalkingBot();
     }

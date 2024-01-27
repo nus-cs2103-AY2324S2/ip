@@ -11,13 +11,25 @@ import talkingbot.command.TaskCommand;
 
 import java.util.Scanner;
 
+/**
+ * Class representing the parser to process user commands.
+ */
 public class Parser {
     private Scanner scanner;
 
+    /**
+     * Constructor for the Parser class.
+     */
     public Parser() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Parses the current command and returns the appropriate
+     * Command object.
+     *
+     * @return A Command corresponding to the user input.
+     */
     public Command parseCommand() {
         String line = this.scanner.nextLine();
         String[] curCommand = line.split(" ");
