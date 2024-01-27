@@ -1,78 +1,139 @@
 import java.util.*;
 public class Duke {
-    public static void main(String[] args) {
-        String horizontalLine = "____________________________________________________________\n";
-        String greet = horizontalLine
+
+    public static String horizontalLine = "____________________________________________________________\n";
+
+    public static String greet() {
+        return horizontalLine
                 + "Greetings, mortal! I am Alastor, the Radio Demon at your service.\n"
                 + "What desires or inquiries do you bring to my infernal realm?\n";
-        String exit = horizontalLine
+    }
+    public static String exit() {
+        return horizontalLine
                 + "Farewell, fleeting soul! 'Til our paths entwine once more.\n"
                 + horizontalLine;
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<Task>(100);
+    }
 
-        System.out.println(greet);
+    public static void readInput(String input) throws DukeException{
+        if (input.equals("list")) {
+            list();
+        }
+        else if (input.startsWith("mark")) {
+            markUpdate(input, true);
+        }
+        else if (input.startsWith("unmark")) {
+            markUpdate(input, false);
+        }
+
+        else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+            String[] help = input.split("\\s+", 2);
+            if (help.length < 2 || help[1].isBlank()) {
+                throw new DukeException("Please enter a task (and date/time(s) if applicable).\n");
+            }
+            if (input.startsWith("todo")) {
+                todo(help[1]);
+            }
+            if (input.startsWith("deadline")) {
+                deadline(help[1]);
+            }
+            if (input.startsWith("event")) {
+                event(help[1]);
+            }
+        }
+        else {
+            throw new DukeException("I'm afraid I don't understand what you mean, my dear.\n"
+                    + "The requests I can process are:\n"
+                    + "  list\n"
+                    + "  mark <index>\n"
+                    + "  unmark <index>\n"
+                    + "  todo <task>\n"
+                    + "  deadline <task> /by <date/time>\n"
+                    + "  event <task> /from <date/time> /to <date/time>\n"
+                    + "  bye\n");
+        }
+    }
+
+    public static ArrayList<Task> list = new ArrayList<>(100);
+
+    public static void list() {
+        String output = horizontalLine
+                + "Behold, my dear! Here unfurls the tasks in your list.\n";
+        for (Task task : list)
+            output += list.indexOf(task) + "." + task.toString() + "\n";
+        output += horizontalLine;
+        System.out.println(output);
+    }
+
+    public static void markUpdate(String input, boolean isMark) throws DukeException {
+        try {
+            int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
+            if (isMark) {
+                list.get(index).mark();
+                System.out.println(horizontalLine
+                        + "Well, isn't this delightful! I've marked this task as done, my dear.\n"
+                        + "  " + list.get(index).toString() + "\n"
+                        + horizontalLine);
+            }
+            else {
+                list.get(index).unmark();
+                System.out.println(horizontalLine
+                        + "Very well, my dear! I've noted this task as yet untouched.\n"
+                        + "  " + list.get(index).toString() + "\n"
+                        + horizontalLine);
+            }
+        } catch (Exception e) {
+            throw new DukeException("Please enter a valid index.\n");
+        }
+    }
+
+    public static void todo(String input) {
+        Task temp = new ToDo(input);
+        added(temp);
+    }
+
+    public static void deadline(String input) throws DukeException{
+        String[] deadline = input.split("/by", 2);
+        if (deadline.length < 2 || deadline[0].isBlank() || deadline[1].isBlank()) {
+            throw new DukeException("Please format deadline <task> /by <date/time>.\n");
+        }
+        Task temp = new Deadline(deadline[0], deadline[1]);
+        added(temp);
+    }
+
+    public static void event(String input) throws DukeException {
+        String[] event = input.split("/from|/to", 3);
+        if (event.length < 3 || event[0].isBlank() || event[1].isBlank() || event[2].isBlank()) {
+            throw new DukeException("Please format event <task> /from <date/time> /to <date/time>.\n");
+        }
+        Task temp = new Event(event[0], event[1], event[2]);
+        added(temp);
+    }
+
+    public static void added(Task task) {
+        list.add(task);
+        System.out.println(horizontalLine
+                + "Marvelous! Another task graces our repertoire:\n"
+                + "  " + task.toString() + "\n"
+                + "And with this latest addition, our list of tasks swells to a delightful "
+                + list.size() + ".\n"
+                + horizontalLine);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println(greet());
         while (true) {
             String input = sc.nextLine();
             if (input.equals("bye")) {
                 break;
             }
-            if (input.equals("list")) {
-                System.out.print(horizontalLine);
-                System.out.println("Behold, my dear! Here unfurls the tasks in your list.");
-                for (Task task:list)
-                    System.out.println(list.indexOf(task) + "." + task.toString());
-                System.out.print(horizontalLine);
-                continue;
+            try {
+                readInput(input);
+            } catch (DukeException e) {
+                System.out.println(horizontalLine + e.getMessage() + horizontalLine);
             }
-
-            if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
-                list.get(index).mark();
-                System.out.print(horizontalLine
-                        + "Well, isn't this delightful! I've marked this task as done, my dear.\n"
-                        + "  " + list.get(index).toString() + "\n"
-                        + horizontalLine);
-                continue;
-            }
-            if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
-                list.get(index).unmark();
-                System.out.print(horizontalLine
-                        + "Very well, my dear! I've noted this task as yet untouched.\n"
-                        + "  " + list.get(index).toString() + "\n"
-                        + horizontalLine);
-                continue;
-            }
-
-            if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
-                Task temp = null;
-                if (input.startsWith("todo")) {
-                    String todo = input.split(" ", 2)[1];
-                    temp = new ToDo(todo);
-                }
-                if (input.startsWith("deadline")) {
-                    String[] deadline = input.split(" ", 2)[1].split("/by", 2);
-                    temp = new Deadline(deadline[0], deadline[1]);
-                }
-                if (input.startsWith("event")) {
-                    String[] event = input.split(" ", 2)[1].split("/from", 2);
-                    temp = new Event(event[0], event[1].split("/to")[0], event[1].split("/to")[1]);
-                }
-                list.add(temp);
-                System.out.println(horizontalLine
-                        + "Marvelous! Another task graces our repertoire:\n"
-                        + "  " + temp.toString() +"\n"
-                        + "And with this latest addition, our list of tasks swells to a delightful "
-                        + list.size() + ".\n"
-                        + horizontalLine);
-
-                continue;
-            }
-
-            list.add(new Task(input));
-            System.out.println(horizontalLine + "added: " + input + "\n" + horizontalLine);
         }
-        System.out.println(exit);
+        System.out.println(exit());
     }
 }
