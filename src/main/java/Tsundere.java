@@ -57,7 +57,7 @@ public class Tsundere {
 
         try {
             taskList = TaskManager.loadTasksFromFile(filepath);
-        } catch (IOException e) {
+        } catch (IOException | GeneralException e) {
             System.out.println("Something went wrong with loading your previous session data!");
         }
         greet();

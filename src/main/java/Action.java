@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Action {
 
     private final String name;
@@ -63,27 +67,28 @@ public class Action {
 
             try {
                 String deadline = this.name.split(" ", 2)[1];
-                String[] x = deadline.split("/");
-
-                Task t = new Deadline(x[0], x[1].split(" ", 2)[1]);
+                String[] x = deadline.split(",");
+                LocalDate d1 = LocalDate.parse(x[1].split(" ", 2)[1]);
+                String date = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                Task t = new Deadline(x[0], date);
                 Tsundere.taskList.add(t);
                 getListSize("added", t);
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
                 throw new GeneralException("Can't you even remember the proper format for this?\n" +
-                                            "deadline [task] /by [date]");
+                                            "deadline [task] ,by [yyyy-mm-dd]");
             }
 
         } else if (this.name.contains("event")) {
             try {
                 String event = this.name.split(" ", 2)[1];
-                String[] x = event.split("/");
+                String[] x = event.split(",");
 
                 Task t = new Event(x[0], x[1].split(" ", 2)[1], x[2].split(" ", 2)[1]);
                 Tsundere.taskList.add(t);
                 getListSize("added", t);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new GeneralException("Can't you even remember the proper format for this?\n" +
-                                            "event [task] /from [date] /to [date]");
+                                            "event [task] ,from [date] ,to [date]");
             }
 
         } else if (this.name.contains("todo")) {

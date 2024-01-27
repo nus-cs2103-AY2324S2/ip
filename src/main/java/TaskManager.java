@@ -24,7 +24,7 @@ public class TaskManager {
         }
     }
 
-    public static ArrayList<Task> loadTasksFromFile(String filepath) throws IOException{
+    public static ArrayList<Task> loadTasksFromFile(String filepath) throws IOException, GeneralException {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filepath);
         if (f.exists()) {
@@ -39,7 +39,7 @@ public class TaskManager {
         return tasks;
     }
 
-    private static Task parseTaskFromSaveString(String saveString) {
+    private static Task parseTaskFromSaveString(String saveString) throws GeneralException {
         String[] parsedData = saveString.split(",");
         String type = parsedData[0];
         Task task = null;
