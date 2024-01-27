@@ -4,8 +4,13 @@ public class Event extends Task {
 
     Event(String content, String startTime, String endTime) {
         super(content);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        if (startTime.isEmpty() || endTime.isEmpty()) { //handling the case where event does not get valid dates.
+            this.startTime = String.valueOf(MamtaException.invalidDates());
+            this.endTime = "";
+        } else {
+            this.startTime = startTime;
+            this.endTime = endTime;
+        }
     }
 
     Event(boolean isComplete, String content, String startTime, String endTime) {

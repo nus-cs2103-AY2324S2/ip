@@ -5,6 +5,11 @@ public class Task {
     Task(String content) {
         this.isComplete = false;
         this.content = content;
+
+    }
+
+    public String getContent() {
+        return this.content;
     }
 
     Task(boolean isComplete, String content)

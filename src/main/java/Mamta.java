@@ -37,22 +37,36 @@ public class Mamta {
                 history.set(taskNum - 1, history.get(taskNum - 1).unmarkTask());
                 return String.format("------------------------------------------\nOK, I've marked this task as not done yet:\n%s\n------------------------------------------", history.get(taskNum - 1));
             default:
+                //handle case where there is no command
+
                 if (taskType.equals("todo")) {
                     Todo myTodo = new Todo(command);
-                    history.add(myTodo);
-                    output = String.format("------------------------------------------\nGot it. I've added this task: \n%s\nNow you have %d tasks in the list\n------------------------------------------", myTodo, history.size());
+                    if (!command.isEmpty()) {
+                        history.add(myTodo);
+                        output = String.format("------------------------------------------\nGot it. I've added this task: \n%s\nNow you have %d tasks in the list\n------------------------------------------", myTodo, history.size());
+                    } else {
+                        output = String.valueOf(MamtaException.incompleteTaskDescription());
+                    }
+
                 } else if (taskType.equals("deadline")) {
                     Deadline myDead = new Deadline(command, deadline);
-                    history.add(myDead);
-                    output = String.format("------------------------------------------\nGot it. I've added this task: \n%s\nNow you have %d tasks in the list\n------------------------------------------", myDead, history.size());
+                    if (!command.isEmpty()) {
+                        history.add(myDead);
+                        output = String.format("------------------------------------------\nGot it. I've added this task: \n%s\nNow you have %d tasks in the list\n------------------------------------------", myDead, history.size());
+                    } else {
+                        output = String.valueOf(MamtaException.incompleteTaskDescription());
+                    }
                 } else if (taskType.equals("event")) {
                     Event myEve = new Event(command, deadline, endTime);
-                    history.add(myEve);
-                    output = String.format("------------------------------------------\nGot it. I've added this task: \n%s\nNow you have %d tasks in the list\n------------------------------------------", myEve, history.size());
+                    if (!command.isEmpty()) {
+                        history.add(myEve);
+                        output = String.format("------------------------------------------\nGot it. I've added this task: \n%s\nNow you have %d tasks in the list\n------------------------------------------", myEve, history.size());
+                    } else {
+                        output = String.valueOf(MamtaException.incompleteTaskDescription());
+                    }
                 } else {
-                    //handling the default case where its not a tracked task type
-                    output = String.format("------------------------------------------\nGot it. I've added this task: %s\nNow you have %d tasks in the list\n------------------------------------------", command, history.size());
-                    history.add(new Task(command));
+                    //handling the default case where its not a tracked task type, throw an errors
+                    output = String.format("------------------------------------------\n%s\n------------------------------------------", MamtaException.invalidTaskType());
                 }
                 break;
         }
@@ -79,7 +93,7 @@ public class Mamta {
                 String word = "";
                 int taskNum = -1;
 
-                //in the case user wants to mark/unmark
+                //in the case user wants to mark/unmark , export this into a helper later
                 switch (splitOutput[0]) {
                     case "mark":
                     case "unmark":

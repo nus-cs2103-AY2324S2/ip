@@ -2,7 +2,11 @@ public class Deadline extends Task {
     private final String deadline;
     Deadline(String content, String deadline) {
         super(content);
-        this.deadline = deadline;
+        if (deadline.isEmpty()) { //handling the case where deadline does not get a valid deadline
+            this.deadline = String.valueOf(MamtaException.invalidDates());
+        } else {
+            this.deadline = deadline;
+        }
     }
 
     Deadline(boolean isComplete, String content, String deadline) {
