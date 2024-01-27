@@ -9,14 +9,6 @@ public class Duke {
         String confirmation = "Got it. I've added this task:";
         String userInput;
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-
-
         //Greetings
         String name = "Tommy";
         String divider = "____________________________";
@@ -31,7 +23,6 @@ public class Duke {
 
                 if (userInput.contains("unmark")) {
                     // Unmark the tasks
-                    System.out.println(divider);
 
                     int indexToUnmark = Integer.parseInt(userInput.substring(7));
                     validateIndex(indexToUnmark, tasks.size());
@@ -40,13 +31,12 @@ public class Duke {
                     taskToUnmark.isDone = false;
 
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(taskToUnmark.toString());
+                    System.out.println("  " + taskToUnmark.toString());
 
                     System.out.println(divider);
 
                 }
                 else if (userInput.contains("mark")) {
-                    System.out.println(divider);
 
                     int indexToMark = Integer.parseInt(userInput.substring(5));
                     validateIndex(indexToMark, tasks.size());
@@ -55,15 +45,15 @@ public class Duke {
                     taskToMark.isDone = true;
 
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(taskToMark.toString());
+                    System.out.println("  " + taskToMark.toString());
 
                     System.out.println(divider);
 
                 }
                 else if (userInput.equals("list")) {
                     // listing
-                    System.out.println(divider);
 
+                    System.out.println("Here are the tasks in your list:");
                     int length = tasks.size();
                     for (int i = 0; i < length; i++) {
                         Task task = tasks.get(i);
@@ -75,7 +65,6 @@ public class Duke {
                 }
                 else if (userInput.contains("todo")) {
                     // to-do
-                    System.out.println(divider);
 
                     // validating data
                     String desc = userInput.substring(4);
@@ -84,7 +73,7 @@ public class Duke {
                     Todo todo = new Todo(desc);
                     tasks.add(todo);
                     System.out.println(confirmation);
-                    System.out.println(todo.toString());
+                    System.out.println("  " + todo.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     System.out.println(divider);
@@ -92,7 +81,6 @@ public class Duke {
                 }
                 else if (userInput.contains("deadline")) {
                     // Deadline
-                    System.out.println(divider);
 
                     //validate non-empty desc
                     String stringCheck = userInput.substring(8);
@@ -115,14 +103,13 @@ public class Duke {
                     Deadline deadline = new Deadline(desc, dateOfDeadline);
                     tasks.add(deadline);
                     System.out.println(confirmation);
-                    System.out.println(deadline.toString());
+                    System.out.println("  " + deadline.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     System.out.println(divider);
                 }
                 else if (userInput.contains("event")) {
                     // Event
-                    System.out.println(divider);
 
                     // validate non-empty string
                     String stringCheck = userInput.substring(5);
@@ -154,14 +141,13 @@ public class Duke {
                     Event event = new Event(desc, from, to);
                     tasks.add(event);
                     System.out.println(confirmation);
-                    System.out.println(event.toString());
+                    System.out.println("  " + event.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     System.out.println(divider);
                 }
                 else if (userInput.contains("delete")) {
 
-                    System.out.println(divider);
 
                     int indexToDelete = Integer.parseInt(userInput.substring(7));
                     validateIndex(indexToDelete, tasks.size());
@@ -171,7 +157,7 @@ public class Duke {
                     tasks.remove(taskToDelete);
 
                     System.out.println("Noted. I've removed this task:");
-                    System.out.println(desc);
+                    System.out.println("  " + desc);
 
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
@@ -191,7 +177,6 @@ public class Duke {
         }
 
         //Farewell
-        System.out.println(divider);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(divider);
 
