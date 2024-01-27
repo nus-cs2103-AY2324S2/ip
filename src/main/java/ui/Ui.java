@@ -1,13 +1,16 @@
 package ui;
 
+import java.util.Scanner;
+
 import static constants.Information.solidLineBreak;
 import static constants.Messages.BYE_MESSAGE;
 import static constants.Messages.START_MESSAGE;
 
 public class Ui {
+    private Scanner sc;
 
     public Ui() {
-        printStartMessage();
+        sc = new Scanner(System.in);
     }
 
     public static void printWithSolidLineBreak(String s) {
@@ -22,6 +25,10 @@ public class Ui {
 
     public static void printByeMessage() {
         printWithSolidLineBreak(BYE_MESSAGE);
+    }
+
+    public String readCommand() {
+        return sc.nextLine();
     }
 }
 
