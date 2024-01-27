@@ -1,4 +1,4 @@
-package MissMinutes;
+package missminutes;
 
 import java.io.Serializable;
 

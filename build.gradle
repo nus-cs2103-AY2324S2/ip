@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("MissMinutes.MissMinutes")
+    mainClass.set("missminutes.MissMinutes")
 }
 
 shadowJar {
