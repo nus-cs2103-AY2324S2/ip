@@ -1,3 +1,11 @@
+package missa;
+
+import missa.exception.WrongTaskDataException;
+import missa.task.Deadline;
+import missa.task.Event;
+import missa.task.Task;
+import missa.task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -21,7 +29,7 @@ public class Storage {
      *
      * @return A taskList stored in data file.
      */
-    public ArrayList<Task> loadData() throws FileNotFoundException, WrongTaskDataException{
+    public ArrayList<Task> loadData() throws FileNotFoundException, WrongTaskDataException {
         ArrayList<Task> tasks = new ArrayList<>(100);
 
         // Scans stored data.
@@ -38,7 +46,7 @@ public class Storage {
      * Fetches tasks stored in hard disk.
      *
      * @param task String representation of task stored.
-     * @return A Task in data file.
+     * @return A missa.task.Task in data file.
      * @throws WrongTaskDataException Alerts users when wrong data detected.
      */
     public Task getTasksFromData(String task) throws WrongTaskDataException {

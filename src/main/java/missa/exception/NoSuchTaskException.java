@@ -1,5 +1,7 @@
+package missa.exception;
+
 /**
- * NoSuchTaskException alerts users when wrong task number is given.
+ * missa.exception.NoSuchTaskException alerts users when wrong task number is given.
  */
 public class NoSuchTaskException extends Exception {
     public NoSuchTaskException() {

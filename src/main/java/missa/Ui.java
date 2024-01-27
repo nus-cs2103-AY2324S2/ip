@@ -1,7 +1,11 @@
+package missa;
+
+import missa.task.Task;
+
 import java.util.Scanner;
 
 /**
- * Ui class that deals with interactions with the users.
+ * missa.Ui class that deals with interactions with the users.
  */
 public class Ui {
     /** An empty line */
@@ -56,9 +60,9 @@ public class Ui {
     }
 
     /**
-     * Replies to delete command.
+     * Replies to delete missa.command.
      *
-     * @param taskinfo Task to be deleted.
+     * @param taskinfo missa.task.Task to be deleted.
      * @param noOfTasks Number of tasks left.
      * @return A message to show that the task is deleted successfully.
      */
@@ -72,9 +76,9 @@ public class Ui {
     }
 
     /**
-     * Replies to add tasks command.
+     * Replies to add tasks missa.command.
      *
-     * @param nextTask Task to be added.
+     * @param nextTask missa.task.Task to be added.
      * @param noOfTasks Number of tasks in taskList.
      * @return A message to show that the task is added successfully.
      */
@@ -88,7 +92,7 @@ public class Ui {
     }
 
     /**
-     * Replies to unmark tasks command.
+     * Replies to unmark tasks missa.command.
      *
      * @return A message to show that the task is unmarked.
      */
@@ -99,7 +103,7 @@ public class Ui {
     }
 
     /**
-     * Replies to mark tasks command.
+     * Replies to mark tasks missa.command.
      *
      * @return A message to show that the task is marked.
      */
@@ -110,7 +114,7 @@ public class Ui {
     }
 
     /**
-     * Replies to list command.
+     * Replies to list missa.command.
      *
      * @param tasks String representation of tasks in taskList.
      * @return String representation of tasks.

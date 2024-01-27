@@ -1,5 +1,7 @@
+package missa.exception;
+
 /**
- * NoTimingException alerts users when no timing is provided.
+ * missa.exception.NoTimingException alerts users when no timing is provided.
  */
 public class NoTimingException extends Exception {
     public NoTimingException() {

@@ -1,29 +1,41 @@
+package missa;
+
+import missa.command.*;
+import missa.exception.IncorrectTaskTypeException;
+import missa.exception.NoContentException;
+import missa.exception.NoSuchTaskException;
+import missa.exception.NoTimingException;
+import missa.task.Deadline;
+import missa.task.Event;
+import missa.task.Task;
+import missa.task.ToDo;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 
 /**
- * A class that deals with making sense of the user command.
+ * A class that deals with making sense of the user missa.command.
  */
 public class Parser {
     /**
-     * Analyses user input and translates it to a command.
+     * Analyses user input and translates it to a missa.command.
      *
      * @param input A string representation of user input.
-     * @param tasks TaskList stored.
-     * @return The respective command.
+     * @param tasks missa.TaskList stored.
+     * @return The respective missa.command.
      */
     public Command parse(String input, TaskList tasks) throws
             NoSuchTaskException, NoContentException,
             NoTimingException, IncorrectTaskTypeException {
-        if (input.equals("bye")) { // Bye command.
+        if (input.equals("bye")) { // Bye missa.command.
             return new ByeCommand(tasks);
         }
-        if (input.equals("list")) { // List command.
+        if (input.equals("list")) { // List missa.command.
             return new ListCommand(tasks);
         }
-        if (input.startsWith("mark")) { // Mark command.
+        if (input.startsWith("mark")) { // Mark missa.command.
             String[] inputs = input.split(" ");
             if (inputs.length < 2) {
                 throw new NoSuchTaskException();
@@ -34,7 +46,7 @@ public class Parser {
             }
             return new MarkCommand(tasks, idx - 1);
         }
-        if (input.startsWith("unmark")) { // Unmark command.
+        if (input.startsWith("unmark")) { // Unmark missa.command.
             String[] inputs = input.split(" ");
             if (inputs.length < 2) {
                 throw new NoSuchTaskException();
@@ -45,7 +57,7 @@ public class Parser {
             }
             return new UnmarkCommand(tasks, idx - 1);
         }
-        if (input.startsWith("delete")) { // Delete command.
+        if (input.startsWith("delete")) { // Delete missa.command.
             String[] inputs = input.split(" ");
             if (inputs.length < 2) {
                 throw new NoSuchTaskException();
@@ -55,7 +67,7 @@ public class Parser {
                 throw new NoSuchTaskException();
             }
             return new DeleteCommand(tasks, idx - 1);
-        } else { // Add command.
+        } else { // Add missa.command.
             String[] task = input.split(" ", 2);
             String taskType = task[0];
             Task nextTask = null;

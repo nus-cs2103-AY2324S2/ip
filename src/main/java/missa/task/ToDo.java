@@ -1,7 +1,11 @@
+package missa.task;
+
+import missa.task.Task;
+
 /**
  * Represents tasks that have no duration and no deadline.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     public ToDo(String todo) {
         super(todo);
     }

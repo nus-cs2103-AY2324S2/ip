@@ -1,5 +1,11 @@
+package missa.command;
+
+import missa.TaskList;
+import missa.Ui;
+import missa.command.Command;
+
 /**
- * Represents list command.
+ * Represents list missa.command.
  */
 public class ListCommand extends Command {
     private TaskList tasks;

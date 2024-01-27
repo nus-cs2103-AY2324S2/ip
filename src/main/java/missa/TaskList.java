@@ -1,3 +1,7 @@
+package missa;
+
+import missa.task.Task;
+
 import java.util.ArrayList;
 
 /**

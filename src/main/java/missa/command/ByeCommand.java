@@ -1,3 +1,8 @@
+package missa.command;
+
+import missa.TaskList;
+import missa.Ui;
+
 /**
  * Represents Bye commands.
  */

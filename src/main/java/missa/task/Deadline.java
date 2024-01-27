@@ -1,11 +1,13 @@
+package missa.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Deadline class for tasks with specified deadline.
+ * missa.task.Deadline class for tasks with specified deadline.
  */
-public class Deadline extends Task{
-    /** Deadline of task recorded */
+public class Deadline extends Task {
+    /** missa.task.Deadline of task recorded */
     private LocalDateTime deadline;
 
     public Deadline(String task, LocalDateTime deadline) {

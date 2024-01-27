@@ -1,5 +1,7 @@
+package missa.task;
+
 /**
- * Task class to store tasks for users.
+ * missa.task.Task class to store tasks for users.
  */
 public class Task {
     private boolean isDone = false;

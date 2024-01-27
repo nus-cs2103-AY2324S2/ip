@@ -1,3 +1,5 @@
+package missa.exception;
+
 /**
  * Alerts users when data file contains wrong info.
  */

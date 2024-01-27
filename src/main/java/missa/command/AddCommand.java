@@ -1,3 +1,9 @@
+package missa.command;
+
+import missa.task.Task;
+import missa.TaskList;
+import missa.Ui;
+
 /**
  * Represents add commands for 3 types of tasks.
  */

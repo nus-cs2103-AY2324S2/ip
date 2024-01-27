@@ -1,8 +1,10 @@
+package missa.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Event class stores tasks that have a duration.
+ * missa.task.Event class stores tasks that have a duration.
  */
 public class Event extends Task {
     private LocalDateTime from;

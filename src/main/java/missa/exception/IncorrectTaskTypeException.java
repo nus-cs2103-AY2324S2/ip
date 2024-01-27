@@ -1,5 +1,7 @@
+package missa.exception;
+
 /**
- * IncorrectTaskTypeException alerts users when wrong task type is given.
+ * missa.exception.IncorrectTaskTypeException alerts users when wrong task type is given.
  */
 public class IncorrectTaskTypeException extends Exception {
     public IncorrectTaskTypeException() {

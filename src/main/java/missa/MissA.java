@@ -1,3 +1,8 @@
+package missa;
+
+import missa.command.Command;
+import missa.exception.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
