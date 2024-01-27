@@ -74,7 +74,7 @@ public class Duke {
         Duke.addCommand("list", (args) -> {
             try {
                 if (args.length > 1) {
-                    throw new DukeOptionParsingException("options were not expected but were given");
+                    throw new DukeOptionParsingException("option was not expected but was given: " + args[1]);
                 }
                 Duke.print("Here's what you've done today...\n" + taskStrings());
                 
@@ -168,46 +168,78 @@ public class Duke {
         });
         
         Duke.addCommand("todo", (args) -> {
-            String str = Arrays.stream(args)
-                    .skip(1)
-                    .collect(Collectors.joining(" "));
+            
+            try {
+                if (args.length <= 1) {
+                    throw new DukeOptionParsingException("failed to specify a task to do");
+                }
+                String str = Arrays.stream(args)
+                        .skip(1)
+                        .collect(Collectors.joining(" "));
 
-            var t = new ToDo(str);
-            Duke.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
-            taskList.add(t);
+                var t = new ToDo(str);
+                Duke.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
+                taskList.add(t);
+            } catch (DukeException e) {
+                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+            }
         });
         
         Duke.addCommand("deadline", (args) -> {
-            int state = 0;
             StringBuilder by = new StringBuilder();
             StringBuilder name = new StringBuilder();
             
-            for (String arg : args) {
-                switch (state) {
-                    case 0: // read command name
-                        state = 1;
+            final String NO_NAME = "you didn't specify specify a name for your deadline";
+            final String NO_BY = "you failed to specify an end date using '/by'";
+            
+            try {
+                int ctr = 1;
+                for (; ; ctr++) {
+                    if (ctr >= args.length) {
+                        throw new DukeOptionParsingException(ctr == 1 ? NO_NAME : NO_BY);
+                    }
+                    if (args[ctr].startsWith("/")) {
                         break;
-                    case 1: // reading task name
-                        if (arg.equals("/by")) {
-                            state = 2;
-                        } else {
-                            if (!name.isEmpty()) {
-                                name.append(" ");
-                            }
-                            name.append(arg);
-                        }
-                        break;
-                    case 2: // reading by
-                        if (!by.isEmpty()) {
-                            by.append(" ");
-                        }
-                        by.append(arg);
-                        break;
+                    }
+                    if (!name.isEmpty()) {
+                        name.append(" ");
+                    }
+                    name.append(args[ctr]);
                 }
+
+                if (name.isEmpty()) {
+                    throw new DukeOptionParsingException
+                            (NO_NAME);
+                }
+                
+                if (!args[ctr].equals("/by")) {
+                    throw new DukeOptionParsingException
+                            (String.format("I encountered an unexpected option '%s'", args[ctr]));
+                }
+                ctr++;
+
+                for (; ctr < args.length; ctr++) {
+                    if (args[ctr].startsWith("/")) {
+                        throw new DukeOptionParsingException
+                                (String.format("I encountered an unexpected option '%s'", args[ctr]));
+                    }
+                    if (!by.isEmpty()) {
+                        by.append(" ");
+                    }
+                    by.append(args[ctr]);
+                }
+
+                if (by.isEmpty()) {
+                    throw new DukeOptionParsingException(NO_BY);
+                }
+                
+                Task t = new Deadline(name.toString(), by.toString());
+                Duke.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
+                Duke.taskList.add(t);
+            } catch (DukeException e) {
+                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
-            var t = new Deadline(name.toString(), by.toString());
-            Duke.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
-            Duke.taskList.add(t);
+            
             
         });
         

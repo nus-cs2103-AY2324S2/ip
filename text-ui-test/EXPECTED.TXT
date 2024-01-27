@@ -3,6 +3,9 @@
             What can I do for you today?
 
 
+    (>^.^<) no matching command...
+
+
     (>^.^<) Ok, I've added a new todo...
               [T][ ] read book
 
@@ -15,42 +18,97 @@
               [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 
 
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: this
+
+
     (>^.^<) Here's what you've done today...
             1.[T][ ] read book
             2.[D][ ] return book (by: June 6th)
             3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 
 
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 0
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 4
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: should
+
+
     (>^.^<) CONGRATULATION!!!!!! you completed this task:
             [T][X] read book
-
-
-    (>^.^<) Ok, I've added a new todo...
-              [T][ ] join sports club
-
-
-    (>^.^<) Ok, I've added a new todo...
-              [T][ ] borrow book
-
-
-    (>^.^<) CONGRATULATION!!!!!! you completed this task:
-            [T][X] join sports club
 
 
     (>^.^<) Here's what you've done today...
             1.[T][X] read book
             2.[D][ ] return book (by: June 6th)
             3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-            4.[T][X] join sports club
-            5.[T][ ] borrow book
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 0
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 4
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: should
+
+
+    (>^.^<) CONGRATULATION!!!!!! you un completed this task:
+            [T][ ] read book
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! failed to specify a task to do
+
+
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ] do sumting
+
+
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ]  do anadating
+
+
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ] do  samadating
+
+
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ]   do  sumting  with trailingspace
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you didn't specify specify a name for your deadline
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you failed to specify an end date using '/by'
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you didn't specify specify a name for your deadline
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you failed to specify an end date using '/by'
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! I encountered an unexpected option '/nonsenseoption'
 
 
     (>^.^<) Ok, I've added a new deadline...
-              [D][ ] return book (by: Sunday)
+              [D][ ] do sumting (by: time)
 
 
-    (>^.^<) Ok, I've added a new Event...
-              [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    (>^.^<) Here's what you've done today...
+            1.[T][ ] read book
+            2.[D][ ] return book (by: June 6th)
+            3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+            4.[T][ ] do sumting
+            5.[T][ ]  do anadating
+            6.[T][ ] do  samadating
+            7.[T][ ]   do  sumting  with trailingspace
+            8.[D][ ] do sumting (by: time)
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! options were not expected but were given
 
 
     (>^.^<) Ok, going to sleep...

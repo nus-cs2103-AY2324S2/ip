@@ -1,3 +1,4 @@
+
 todo read book
 deadline return book /by June 6th
 event project meeting /from Aug 6th 2pm /to 4pm
@@ -12,5 +13,17 @@ unmark 0
 unmark 4
 unmark 1 should throw
 unmark 1
+todo
+todo do sumting
+todo  do anadating
+todo do  samadating
+todo   do  sumting  with trailingspace   
+deadline
+deadline do sumting
+deadline /by no name
+deadline no by /by
+deadline do sumting /nonsenseoption asjkldf
+deadline do sumting /by time
+list
 bye this should throw
 bye
