@@ -1,15 +1,15 @@
 todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 3-4-2024
+event project meeting /from 27-1-2024 /to 30-2-2024
 delete 3
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 27-1-2024 /to 30-2-2024
 list
 todo
 deadline
 event
 deadline return book Sunday
-event LSRFM comeback /from 19 Feb 2023
+event LSRFM comeback /from 19 03 2023
 mark dfuhyasf
 mark 8
 delete dhuiasdhuasd
