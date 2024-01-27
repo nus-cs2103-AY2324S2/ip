@@ -1,5 +1,9 @@
-public class Ragdoll {
+import java.util.Scanner;
+
+public class Ragdoll{
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         String logo = " /$$$$$$$                            /$$           /$$ /$$\n"
                 + "| $$__  $$                          | $$          | $$| $$\n"
                 + "| $$  \\ $$  /$$$$$$   /$$$$$$   /$$$$$$$  /$$$$$$ | $$| $$\n"
@@ -13,12 +17,26 @@ public class Ragdoll {
                 + "                     \\______/                             \n";
         System.out.println("Hello! I am\n" + "\n" + logo);
 
-        System.out.println("How can I assist you today?\n");
+        System.out.println("How can I assist you today?");
 
         System.out.println("____________________________________________________________");
 
-        System.out.println("See ya!\n");
-        System.out.println("____________________________________________________________");
+        while(true) {
+            String input = scanner.nextLine();
+            System.out.println("____________________________________________________________");
 
+            if ("bye".equalsIgnoreCase(input.trim())) {
+                break;
+            }
+
+            System.out.println(input);
+
+            System.out.println("____________________________________________________________");
+
+        }
+
+        scanner.close();
+        System.out.println("See ya!");
+        System.out.println("____________________________________________________________");
     }
 }
