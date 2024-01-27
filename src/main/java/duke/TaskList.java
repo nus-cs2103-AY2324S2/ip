@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
     TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -13,16 +17,24 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public Task get(int index) {
-        return this.tasks.get(index);
+    public Task get(int index) throws DukeException {
+        try {
+            return this.tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Invalid task ID");
+        }
     }
 
     public ArrayList<Task> getAllTasks() {
         return this.tasks;
     }
 
-    public Task remove(int index) {
-        return this.tasks.remove(index);
+    public Task remove(int index) throws DukeException {
+        try {
+            return this.tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Invalid task ID");
+        }
     }
 
     public int size() {

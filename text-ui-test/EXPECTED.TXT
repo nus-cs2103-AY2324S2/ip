@@ -30,7 +30,7 @@ Here are the tasks in your list:
 1. [T][ ] borrow book
 2. [E][ ] project meeting (from: Jan 02 2024 to: Jan 05 2024)
 
-[!] OOPS!!! duke.Task ID cannot be empty.
+[!] OOPS!!! Task ID cannot be empty.
 
 Bye. Hope to see you again soon!
 

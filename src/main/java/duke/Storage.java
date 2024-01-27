@@ -45,7 +45,7 @@ public class Storage {
                 }
 
                 if (task == null) {
-                    throw new DukeException("duke.Task Type not found!");
+                    throw new DukeException("Task Type not found!");
                 }
 
                 task.isDone = isDone;
@@ -54,7 +54,7 @@ public class Storage {
             reader.close();
 
         } catch (IOException e) {
-            throw new DukeException("duke.Task Type not found!");
+            throw new DukeException("Task Type not found!");
         }
         return items;
     }

@@ -27,7 +27,7 @@ public class Ui {
         System.out.printf("Now you have %s tasks in the list.%n", i);
     }
 
-    public void tasks(TaskList items) {
+    public void tasks(TaskList items) throws DukeException {
         if (items.isEmpty()) {
             System.out.println("You have no tasking available.");
         } else {

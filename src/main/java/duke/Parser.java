@@ -61,7 +61,7 @@ public class Parser {
                 ui.println(deadline.toString());
                 ui.countTasks(items.size());;
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid deadline date. Use /by");
+                throw new DukeException("Use /by to specify deadline.");
             }
 
         } else if (command.startsWith("event")) {
@@ -89,7 +89,7 @@ public class Parser {
 
         } else if (command.startsWith("delete")) {
             if (command.length() <= 7) {
-                throw new DukeException("OOPS!!! duke.Task ID cannot be empty.");
+                throw new DukeException("OOPS!!! Task ID cannot be empty.");
             }
 
             try {
