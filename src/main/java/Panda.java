@@ -1,10 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Panda {
 
     private static boolean running = false;
-    private static Task[] tlist;
-    private static int idx = 0;
+    private static ArrayList<Task> tlist;
 
     private static void startUp() {
         System.out.println(
@@ -12,7 +12,7 @@ public class Panda {
             "What can I do for you?"
         );
         running = true;
-        tlist = new Task[100];
+        tlist = new ArrayList<>();
     }
 
     private static void shutDown() {
@@ -23,8 +23,8 @@ public class Panda {
 
     private static void printTlist() {
         System.out.println("Here are the tasks in your list:");
-        for(int i = 0; i < idx; i++) {
-            System.out.println((i + 1) + "." + tlist[i]);
+        for(int i = 0; i < tlist.size(); i++) {
+            System.out.println((i + 1) + "." + tlist.get(i));
         }
     }
 
@@ -38,21 +38,49 @@ public class Panda {
             return;
         }
         if(userInput.split(" ")[0].equals("mark")) {
-            int target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
-            if(target >= idx) {
+            int target;
+            try {
+                target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+            }
+            catch (NumberFormatException e) {
+                throw new InvalidFormatException();
+            }
+            if(target >= tlist.size()) {
                 throw new OutOfBoundsException();
             }
-            tlist[target].mark();
-            System.out.println("Nice! I've marked this task as done:\n  " + tlist[target]);
+            tlist.get(target).mark();
+            System.out.println("Nice! I've marked this task as done:\n  " + tlist.get(target));
             return;
         }
         if(userInput.split(" ")[0].equals("unmark")) {
-            int target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
-            if(target >= idx) {
+            int target;
+            try {
+                target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+            }
+            catch (NumberFormatException e) {
+                throw new InvalidFormatException();
+            }
+            if(target >= tlist.size()) {
                 throw new OutOfBoundsException();
             }
-            tlist[target].unmark();
-            System.out.println("OK, I've marked this task as not done yet:\n  " + tlist[target]);
+            tlist.get(target).unmark();
+            System.out.println("OK, I've marked this task as not done yet:\n  " + tlist.get(target));
+            return;
+        }
+        if(userInput.split(" ")[0].equals("delete")) {
+            int target;
+            try {
+                target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+            }
+            catch (NumberFormatException e) {
+                throw new InvalidFormatException();
+            }
+            if(target >= tlist.size()) {
+                throw new OutOfBoundsException();
+            }
+            Task tmp = tlist.get(target);
+            tlist.remove(target);
+            System.out.println("OK, I've deleted this task:\n  " + tmp + "\nNow you have " + tlist.size() + " tasks in the list.");
             return;
         }
         if(userInput.split(" ")[0].equals("todo")) {
@@ -60,9 +88,8 @@ public class Panda {
             if(splitted.length < 2) {
                 throw new EmptyTodoException();
             }
-            tlist[idx] = new Todo(splitted[1].trim());
-            idx = idx + 1;
-            System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
+            tlist.add(new Todo(splitted[1].trim()));
+            System.out.println("Got it. I've added this task:\n " + tlist.get(tlist.size() - 1) + "\nNow you have " + tlist.size() + " tasks in the list.");
             return;
         }
         if(userInput.split(" ")[0].equals("deadline")) {
@@ -74,9 +101,8 @@ public class Panda {
             if(args.length < 2) {
                 throw new EmptyDeadlineException("date");
             }
-            tlist[idx] = new Deadline(args[0].trim(), args[1].trim());
-            idx = idx + 1;
-            System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
+            tlist.add(new Deadline(args[0].trim(), args[1].trim()));
+            System.out.println("Got it. I've added this task:\n " + tlist.get(tlist.size() - 1) + "\nNow you have " + tlist.size() + " tasks in the list.");
             return;
         }
         if(userInput.split(" ")[0].equals("event")) {
@@ -88,9 +114,8 @@ public class Panda {
             if(args.length < 2 || args[1].split("/to").length < 2) {
                 throw new EmptyEventException("date");
             }
-            tlist[idx] = new Event(args[0].trim(), args[1].split("/to")[0].trim(), args[1].split("/to")[1].trim());
-            idx = idx + 1;
-            System.out.println("Got it. I've added this task:\n  " + tlist[idx - 1] + "\nNow you have " + idx + " tasks in the list.");
+            tlist.add(new Event(args[0].trim(), args[1].split("/to")[0].trim(), args[1].split("/to")[1].trim()));
+            System.out.println("Got it. I've added this task:\n " + tlist.get(tlist.size() - 1) + "\nNow you have " + tlist.size() + " tasks in the list.");
             return;
         }
         throw new UnknownCommandException();
