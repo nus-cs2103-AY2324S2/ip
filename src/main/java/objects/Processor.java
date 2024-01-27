@@ -13,22 +13,20 @@ public class Processor {
 
         try {
             switch (command) {
-                case "list":
-                    tasks.listTasks();
+                case Commands.LIST:
+                    Commands.listTasks(tasks);
                     break;
 
-                case "mark":
-                    tasks.markTask(Utils.getIndex(input));
+                case Commands.MARK:
+                case Commands.UNMARK:
+                case Commands.DELETE:
+                    Commands.processTask(tasks, input);
                     break;
 
-                case "unmark":
-                    tasks.unmarkTask(Utils.getIndex(input));
-                    break;
-
-                case "todo":
-                case "deadline":
-                case "event":
-                    tasks.addTask(input);
+                case Commands.TODO:
+                case Commands.DEADLINE:
+                case Commands.EVENT:
+                    Commands.createTask(tasks, input);
                     break;
 
                 default:

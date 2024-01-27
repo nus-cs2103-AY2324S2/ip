@@ -22,17 +22,9 @@ public class Task {
 
     public void mark() {
         this.isDone = true;
-
-        String o = String.format("Nice! I've marked this task as done: \n   %s",  this.toString());
-
-        Utils.encaseLines(o);
     }
 
     public void unmark() {
         this.isDone = false;
-
-        String o = String.format("OK, I've marked this task as not done yet: \n   %s", this.toString());
-
-        Utils.encaseLines(o);
     }
 }

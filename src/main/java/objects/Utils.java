@@ -33,8 +33,14 @@ public class Utils {
         }
     }
 
-    public static int getIndex(String input) {
-        return Integer.parseInt(input.split("\\s+")[1]) - 1;
+    public static int parseIndex(String input) {
+        String[] parts = input.split("\\s+");
+
+        if (parts.length >= 2) {
+            return Integer.parseInt(parts[1]) - 1;
+        }
+
+        return -1;
     }
 
     public static String getCommandType(String input) {
@@ -67,8 +73,4 @@ public class Utils {
 
         return new Events(name, from, to);
     };
-
-    public static String checkEmpty(String input) {
-        return input.isEmpty() ? "" : input;
-    }
 }
