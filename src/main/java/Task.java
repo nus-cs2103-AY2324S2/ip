@@ -1,6 +1,10 @@
-public class Task {
+public class Task implements FileFormattable {
     private final String description;
     private boolean isDone;
+    public Task (String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
 
     public Task(String description) {
         this.description = description;
@@ -16,7 +20,9 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
-
+    public String toFileFormat() {
+        return String.format("%d %s", this.isDone ? 1 : 0, this.description);
+    }
     @Override
     public String toString() {
         return String.format("[%c] %s", isDone ? 'X' : ' ', this.description);
