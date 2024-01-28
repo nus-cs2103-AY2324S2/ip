@@ -14,6 +14,10 @@ public class Event extends Task {
     protected static final String USAGE_HINT = "Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} "
             + "/to [d/m/yyyy] {hh:mm 24hr format}";
 
+    /**
+     * Creates new Event with specified description, start, and end time.
+     * @throws DukeException if end time is before start time.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) throws DukeException {
         super(description);
 

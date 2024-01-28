@@ -1,5 +1,8 @@
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,12 +12,11 @@ import java.util.ArrayList; // For storing to-do tasks
 import java.util.Arrays;
 
 public class Nollid {
-    private static ArrayList<Task> taskList = new ArrayList<>(100);
+    private TaskList tasks;
+    private Storage storage;
     /**
      * Unicode character U+2605 unlikely to be entered by user.
      */
-    private static final String DELIMITER = "\u2605";
-    private static final Path DATABASE_FILE = Paths.get(".", "data", "nollid.data");
 
     private enum Command {
         BYE("bye"),
@@ -39,8 +41,15 @@ public class Nollid {
         }
     }
 
+    public Nollid(Path filePath) {
+        this.storage = new Storage(filePath);
+        this.tasks = new TaskList(this.storage.load());
+    }
     public static void main(String[] args) {
-        loadDatabaseFile(taskList);
+        new Nollid(Storage.DEFAULT_FILEPATH).run();
+    }
+
+    public void run() {
         sendWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);
@@ -93,7 +102,7 @@ public class Nollid {
      * Sends a welcome message upon starting the bot, with horizontal lines
      * printed for visual separation.
      */
-    public static void sendWelcomeMessage() {
+    public void sendWelcomeMessage() {
         String welcomeMessage = "Hello! I'm Nollid.\n" + "What can I do for you?";
         botSays(welcomeMessage);
     }
@@ -102,7 +111,7 @@ public class Nollid {
      * Sends a goodbye message upon exiting the bot, with horizontal lines
      * printed for visual separation.
      */
-    public static void sendGoodbyeMessage() {
+    public void sendGoodbyeMessage() {
         String goodbyeMessage = "Bye. Hope to see you again soon!";
         botSays(goodbyeMessage);
     }
@@ -124,12 +133,12 @@ public class Nollid {
      *
      * @param task Task to store
      */
-    public static void addTaskToList(Task task) {
-        taskList.add(task);
+    public void addTaskToList(Task task) {
+        tasks.add(task);
 
         String message = "Alright, added:\n" + "\t" + task.toString() + "\n";
 
-        int listSize = taskList.size();
+        int listSize = tasks.size();
 
         // "task" for singular, "tasks" for plural
         if (listSize == 1) {
@@ -139,7 +148,7 @@ public class Nollid {
         }
         botSays(message);
 
-        updateDatabaseFile();
+        this.storage.update(this.tasks);
     }
 
     /**
@@ -147,7 +156,7 @@ public class Nollid {
      *
      * @param message The message for the bot to send.
      */
-    public static void botSays(String message) {
+    public void botSays(String message) {
         // Length of line to be printed.
         int lineLength = 30;
 
@@ -159,18 +168,18 @@ public class Nollid {
     /**
      * Method to execute when the 'list' command is used.
      */
-    public static void listCommand() {
+    public void listCommand() {
         // List items in to-do list
         StringBuilder response = new StringBuilder("Here are the tasks in your list: \n");
-        if (taskList.isEmpty()) {
+        if (tasks.isEmpty()) {
             response = new StringBuilder("Your list is empty!");
         }
 
-        for (int i = 0; i < taskList.size(); i++) {
-            if (i < taskList.size() - 1) {
-                response.append(i + 1).append(".").append(taskList.get(i).toString()).append("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (i < tasks.size() - 1) {
+                response.append(i + 1).append(".").append(tasks.get(i).toString()).append("\n");
             } else {
-                response.append(i + 1).append(".").append(taskList.get(i).toString());
+                response.append(i + 1).append(".").append(tasks.get(i).toString());
             }
         }
         botSays(response.toString());
@@ -181,7 +190,7 @@ public class Nollid {
      *
      * @throws DukeException if marking selected task as done is not possible.
      */
-    public static void markCommand(ArrayList<String> userInputAsList) throws DukeException {
+    public void markCommand(ArrayList<String> userInputAsList) throws DukeException {
         // This means that the user has not supplied any number with the command
         if (userInputAsList.size() == 1) {
             throw new DukeException("Please enter the task you wish to mark as done!\n" + "Usage: mark [task number]");
@@ -201,13 +210,13 @@ public class Nollid {
     /**
      * Marks the task with the given index as done.
      */
-    public static void markDone(int taskIndex) {
-        taskList.get(taskIndex - 1).setDone(true);
+    public void markDone(int taskIndex) {
+        tasks.get(taskIndex - 1).setDone(true);
         String response = "Good job! I've marked this task as done: \n"
-                + "\t " + taskList.get(taskIndex - 1).toString();
+                + "\t " + tasks.get(taskIndex - 1).toString();
         botSays(response);
 
-        updateDatabaseFile();
+        this.storage.update(this.tasks);
     }
 
     /**
@@ -215,7 +224,7 @@ public class Nollid {
      *
      * @throws DukeException if marking selected task as not done is not possible.
      */
-    public static void unmarkCommand(ArrayList<String> inputList) throws DukeException {
+    public void unmarkCommand(ArrayList<String> inputList) throws DukeException {
         // This means that the user has not supplied any number with the command
         if (inputList.size() == 1) {
             throw new DukeException("Please enter the task you wish to mark as not done!\n"
@@ -237,13 +246,13 @@ public class Nollid {
     /**
      * Marks the task with the given index as not done.
      */
-    public static void markNotDone(int taskIndex) {
-        taskList.get(taskIndex - 1).setDone(false);
+    public void markNotDone(int taskIndex) {
+        tasks.get(taskIndex - 1).setDone(false);
         String response = "Alright, I've marked this task as not done yet: \n"
-                + "\t " + taskList.get(taskIndex - 1).toString();
+                + "\t " + tasks.get(taskIndex - 1).toString();
         botSays(response);
 
-        updateDatabaseFile();
+        this.storage.update(this.tasks);
     }
 
     /**
@@ -251,7 +260,7 @@ public class Nollid {
      *
      * @throws DukeException if adding the task was unsuccessful.
      */
-    public static void addTodoCommand(ArrayList<String> userInputAsList) throws DukeException {
+    public void addTodoCommand(ArrayList<String> userInputAsList) throws DukeException {
         if (userInputAsList.size() == 1) {
             throw new DukeException("Todo description cannot be empty!\n"
                     + "Usage: todo [task description]");
@@ -275,7 +284,7 @@ public class Nollid {
      *
      * @throws DukeException if adding the task was unsuccessful.
      */
-    public static void addDeadlineCommand(ArrayList<String> inputList) throws DukeException {
+    public void addDeadlineCommand(ArrayList<String> inputList) throws DukeException {
         int byIndex = inputList.indexOf("/by");
         if (inputList.size() == 1 || byIndex == 1) {
             throw new DukeException("Deadline description cannot be empty!\n"
@@ -306,7 +315,7 @@ public class Nollid {
         }
 
         try {
-            LocalDateTime deadline = getLocalDateTimeFromString(deadlineString.toString());
+            LocalDateTime deadline = Task.getLocalDateTimeFromString(deadlineString.toString());
             Deadline task = new Deadline(taskDescription.toString(), deadline);
             addTaskToList(task);
         } catch (DateTimeParseException e) {
@@ -320,7 +329,7 @@ public class Nollid {
      *
      * @throws DukeException if adding the task was unsuccessful.
      */
-    public static void addEventCommand(ArrayList<String> userInputAsList) throws DukeException {
+    public void addEventCommand(ArrayList<String> userInputAsList) throws DukeException {
         int fromIndex = userInputAsList.indexOf("/from");
         int toIndex = userInputAsList.indexOf("/to");
 
@@ -351,8 +360,8 @@ public class Nollid {
         }
 
         try {
-            LocalDateTime fromDateTime = getLocalDateTimeFromString(from.toString());
-            LocalDateTime toDateTime = getLocalDateTimeFromString(to.toString());
+            LocalDateTime fromDateTime = Task.getLocalDateTimeFromString(from.toString());
+            LocalDateTime toDateTime = Task.getLocalDateTimeFromString(to.toString());
             Event task = new Event(taskDescription.toString(), fromDateTime, toDateTime);
             addTaskToList(task);
         } catch (DateTimeParseException e) {
@@ -367,7 +376,7 @@ public class Nollid {
      * Saves the appropriate data in the supplied StringBuilders, given the index of the '/from' and '/to' arguments
      * in the user input.
      */
-    private static void extractEventInfo(ArrayList<String> userInputAsList, int fromIndex, int toIndex,
+    private void extractEventInfo(ArrayList<String> userInputAsList, int fromIndex, int toIndex,
                                          StringBuilder taskDescription, StringBuilder from, StringBuilder to) {
         for (int i = 1; i < fromIndex; i++) {
             if (i != fromIndex - 1) {
@@ -399,7 +408,7 @@ public class Nollid {
      *
      * @throws DukeException if deleting the task was unsuccessful.
      */
-    public static void deleteTaskCommand(ArrayList<String> userInputAsList) throws DukeException {
+    public void deleteTaskCommand(ArrayList<String> userInputAsList) throws DukeException {
         // This means that the user has not supplied any number with the command
         if (userInputAsList.size() == 1) {
             throw new DukeException("Please enter the task you wish to delete!\n"
@@ -409,9 +418,9 @@ public class Nollid {
                 int taskIndex = Integer.parseInt(userInputAsList.get(1));
 
                 String message = "Alright, the following task has been removed:\n"
-                        + "\t" + taskList.remove(taskIndex - 1).toString() + "\n";
+                        + "\t" + tasks.remove(taskIndex - 1).toString() + "\n";
 
-                int listSize = taskList.size();
+                int listSize = tasks.size();
 
                 // "task" for singular, "tasks" for plural
                 if (listSize == 1) {
@@ -422,7 +431,7 @@ public class Nollid {
 
                 botSays(message);
 
-                updateDatabaseFile();
+                this.storage.update(this.tasks);
             } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a number for the delete command.\n"
                         + "Usage: delete [task number]");
@@ -436,7 +445,7 @@ public class Nollid {
     /**
      * Method to execute when the 'help' command is used.
      */
-    public static void helpCommand() {
+    public void helpCommand() {
         String message = "Available commands:\n"
                 + "list \t\t- Lists all your tasks\n"
                 + "todo \t\t- Create a new todo task.\n"
@@ -447,149 +456,5 @@ public class Nollid {
                 + "delete \t\t- Delete a task.";
 
         botSays(message);
-    }
-
-    /**
-     * Initializes the list of tasks from a file saved on disk.
-     *
-     * @param todoList The list of tasks.
-     */
-    public static void loadDatabaseFile(ArrayList<Task> todoList) {
-        int taskCounter = 0;
-        try {
-            if (Files.notExists(DATABASE_FILE)) {
-                if (Files.notExists(DATABASE_FILE.getParent())) {
-                    Files.createDirectories(DATABASE_FILE.getParent());
-                }
-                Files.createFile(DATABASE_FILE);
-                System.out.println("database created");
-            }
-
-            for (String line : Files.readAllLines(DATABASE_FILE)) {
-                String[] lineArray = line.split(DELIMITER);
-
-                Task taskToAdd;
-                // If there is a line that doesn't follow the format, skip it and continue.
-                try {
-                    String taskDescription = lineArray[2];
-                    switch (lineArray[0]) {
-                    case "T":
-                        taskToAdd = new ToDo(taskDescription);
-                        break;
-                    case "D":
-                        String deadlineString = lineArray[3];
-                        try {
-                            LocalDateTime deadline = getLocalDateTimeFromString(deadlineString);
-                            taskToAdd = new Deadline(taskDescription, deadline);
-                        } catch (DateTimeParseException e) {
-                            botSays("Unrecognized deadline format\n"
-                                    + Deadline.USAGE_HINT);
-                            continue;
-                        }
-                        break;
-                    case "E":
-                        String from = lineArray[3];
-                        String to = lineArray[4];
-
-                        try {
-                            LocalDateTime fromDateTime = getLocalDateTimeFromString(from);
-                            LocalDateTime toDateTime = getLocalDateTimeFromString(to);
-                            taskToAdd = new Event(taskDescription, fromDateTime, toDateTime);
-                        } catch (DateTimeParseException e) {
-                            botSays("Unrecognized start/end format\n"
-                                    + Event.USAGE_HINT);
-                            continue;
-                        } catch (DukeException e) {
-                            botSays(e.getMessage());
-                            continue;
-                        }
-                        break;
-                    default:
-                        // Unknown first character, go to next line
-                        continue;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    continue;
-                }
-
-                String doneFlag = lineArray[1];
-                if (doneFlag.equals("1")) {
-                    taskToAdd.setDone(true);
-                }
-
-                todoList.add(taskToAdd);
-                taskCounter++;
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-        if (taskCounter > 0) {
-            if (taskCounter == 1) {
-                botSays("Loaded " + taskCounter + " task from " + DATABASE_FILE.toAbsolutePath());
-            } else {
-                botSays("Loaded " + taskCounter + " tasks from " + DATABASE_FILE.toAbsolutePath());
-            }
-        }
-    }
-
-    /**
-     * Updates the database file on disk based on the current state of the task list.
-     */
-    public static void updateDatabaseFile() {
-        boolean isFirstLine = true;
-        if (taskList.isEmpty()) {
-            try {
-                Files.write(DATABASE_FILE, "".getBytes());
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        for (Task t : taskList) {
-            String lineToWrite = "";
-            try {
-                if (t instanceof ToDo) {
-                    lineToWrite = "T" + DELIMITER + t.getStatusNumber() + DELIMITER + t.getDescription() + "\n";
-                } else if (t instanceof Deadline) {
-                    Deadline deadline = (Deadline) t;
-                    lineToWrite = "D" + DELIMITER + deadline.getStatusNumber() + DELIMITER + deadline.getDescription()
-                            + DELIMITER + deadline.getDeadline().format(Deadline.SAVE_FORMAT) + "\n";
-                } else if (t instanceof Event) {
-                    Event event = (Event) t;
-                    lineToWrite = "E" + DELIMITER + event.getStatusNumber() + DELIMITER + event.getDescription()
-                            + DELIMITER + event.getFrom().format(Event.SAVE_FORMAT)
-                            + DELIMITER + event.getTo().format(Event.SAVE_FORMAT) + "\n";
-                }
-
-                if (isFirstLine) {
-                    Files.write(DATABASE_FILE, lineToWrite.getBytes());
-                    isFirstLine = false;
-                } else {
-                    Files.write(DATABASE_FILE, lineToWrite.getBytes(), StandardOpenOption.APPEND);
-                }
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Returns a LocalDateTime object from a date (and time) string.
-     *
-     * @throws DateTimeParseException if unable to retrieve a date (and time) from the string.
-     */
-    public static LocalDateTime getLocalDateTimeFromString(String deadlineString) throws DateTimeParseException {
-        ArrayList<String> deadlineList = new ArrayList<>(Arrays.asList(deadlineString.split(" ")));
-
-        LocalDate deadlineDate = LocalDate.parse(deadlineList.get(0), Deadline.DATE_INPUT_FORMAT);
-
-        // If only date provided, use the default time
-        if (deadlineList.size() == 1) {
-            return LocalDateTime.of(deadlineDate, Deadline.DEFAULT_TIME);
-        } else {
-            LocalTime deadlineTime = LocalTime.parse(deadlineList.get(1), Deadline.TIME_FORMAT);
-            return LocalDateTime.of(deadlineDate, deadlineTime);
-        }
-
     }
 }
