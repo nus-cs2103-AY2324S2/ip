@@ -1,4 +1,4 @@
 T | 1 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | 2pm | 4pm
 T | 1 | join sports club
+D | 0 | task | 28/01/2023 1800
+E | 0 | task | 28/01/2023 1800 | 28/01/2023 1900

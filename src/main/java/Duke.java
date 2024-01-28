@@ -64,7 +64,7 @@ public class Duke {
         } catch (WrongFormatException e) {
             System.out.println("\t" + e.getMessage());
         } catch (DateTimeParseException e) {
-            System.out.println("\tDate must be in the format yyyy-mm-dd");
+            System.out.println("\tDate time must be in this format: 28/01/2023 1800");
         }
         Duke.horizontalLine();
     }
@@ -198,7 +198,7 @@ public class Duke {
             return new Deadline(description, by);
         } else {
             throw new WrongFormatException(
-                    "Invalid 'deadline' command format. Usage: deadline <description> /by <date>"
+                    "Invalid 'deadline' command format. Usage: deadline <description> /by <date time>"
             );
         }
     }
@@ -213,7 +213,7 @@ public class Duke {
             return new Event(description, from, to);
         } else {
             throw new WrongFormatException(
-                    "Invalid 'event' command format. Usage: event <description> /from <date> /to <date>"
+                    "Invalid 'event' command format. Usage: event <description> /from <date time> /to <date time>"
             );
         }
     }
