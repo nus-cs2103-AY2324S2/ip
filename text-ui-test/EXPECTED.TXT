@@ -26,18 +26,22 @@
 
         ________________________________________________________________
          OOPS!!! The description and due of a deadline cannot be empty ૮₍´˶• . • ⑅ ₎ა
-         Try 'deadline [task description] /by [date/time]'.
+         Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.
         ________________________________________________________________
 
         ________________________________________________________________
          ᨐฅ Got it! I've added this task:
-                 [D][ ] return book (by: June 6th)
+                 [D][ ] return book (by: Jun 06 2023, 12:00)
          Now you have 2 tasks in the list.
         ________________________________________________________________
 
         ________________________________________________________________
+         OOPS!!! Invalid start/end date ૮ ̷ ̷ ̷・ﻌ ̷ ̷・ ა Specify date in format 'dd-MM-yyyy HH:mm'.
+        ________________________________________________________________
+
+        ________________________________________________________________
          ᨐฅ Got it! I've added this task:
-                 [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+                 [E][ ] project meeting (from: Mar 12 2024, 14:00 to: Mar 12 2024, 15:00)
          Now you have 3 tasks in the list.
         ________________________________________________________________
 
@@ -55,8 +59,8 @@
         ________________________________________________________________
          Here are the tasks in your list ૮ ˙Ⱉ˙ ა :
                  1.[T][X] read book
-                 2.[D][ ] return book (by: June 6th)
-                 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+                 2.[D][ ] return book (by: Jun 06 2023, 12:00)
+                 3.[E][ ] project meeting (from: Mar 12 2024, 14:00 to: Mar 12 2024, 15:00)
                  4.[T][X] join sports club
         ________________________________________________________________
 
@@ -68,8 +72,8 @@
         ________________________________________________________________
          Here are the tasks in your list ૮ ˙Ⱉ˙ ა :
                  1.[T][X] read book
-                 2.[D][ ] return book (by: June 6th)
-                 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+                 2.[D][ ] return book (by: Jun 06 2023, 12:00)
+                 3.[E][ ] project meeting (from: Mar 12 2024, 14:00 to: Mar 12 2024, 15:00)
                  4.[T][ ] join sports club
         ________________________________________________________________
 
@@ -77,8 +81,8 @@
          OOPS!!! Task (5) not found ૮₍ ˶0_0˶ ₎ა
          Here are the tasks in your list ૮ ˙Ⱉ˙ ა :
                  1.[T][X] read book
-                 2.[D][ ] return book (by: June 6th)
-                 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+                 2.[D][ ] return book (by: Jun 06 2023, 12:00)
+                 3.[E][ ] project meeting (from: Mar 12 2024, 14:00 to: Mar 12 2024, 15:00)
                  4.[T][ ] join sports club
         ________________________________________________________________
 
