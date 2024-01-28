@@ -188,7 +188,11 @@ public class Tyrone {
         if (description.isEmpty() || startDateTime.isEmpty() || endDateTime.isEmpty())
             throw new TyroneCmdException(errorMsg);
 
-        return new Event(description, new DateTime(startDateTime), new DateTime(endDateTime));
+        try {
+            return new Event(description, new DateTime(startDateTime), new DateTime(endDateTime));
+        } catch (DateTimeParseException e) {
+            throw new TyroneCmdException(errorMsg);
+        }
     }
 
     private static void handleMarkCommand(String input) throws TyroneCmdException {
