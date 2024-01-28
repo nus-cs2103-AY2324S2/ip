@@ -4,18 +4,29 @@ import java.util.List;
 public class TaskList {
     // List of tasks to be done by the user
     private ArrayList<Task> tasks;
+    private int taskCount;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    // Method to add task
-    public void addTask(Task task) {
-        tasks.add(task);
+    public void addTodo(String description) {
+        this.tasks.add(new Todo(description));
+        taskCount++;
+    }
+
+    public void addDeadline(String description, String dueDate) {
+        this.tasks.add(new Deadline(description, dueDate));
+        taskCount++;
+    }
+
+    public void addEvent(String description, String startTime, String endTime) {
+        this.tasks.add(new TimeBlock(description, startTime, endTime));
+        taskCount++;
     }
 
     // Method to remove task
-    // TODO: Implement this later
+    // TODO: Implement this later with rebalancing of task numbers
     public void removeTask(int taskNumber) {
         tasks.remove(taskNumber - 1);
     }
@@ -38,5 +49,10 @@ public class TaskList {
     // Method to mark task as undone
     public void markTaskAsUndone(int taskNumber) {
         tasks.get(taskNumber - 1).markAsUndone();
+    }
+
+    // Method to return the number of tasks
+    public int getTaskCount() {
+        return taskCount;
     }
 }

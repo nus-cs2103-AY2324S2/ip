@@ -3,6 +3,8 @@
 /out/
 /*.iml
 
+.gitignore
+
 # Gradle build files
 /.gradle/
 /build/
@@ -18,3 +20,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # .class files
 *.class
+
+
+deleteClasses.bat

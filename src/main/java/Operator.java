@@ -1,22 +1,24 @@
+import java.util.Arrays;
 import java.util.Scanner;
+import static java.lang.Thread.sleep;
 
 public class Operator {
     // Operator handles the user input and output
     private Scanner scanner;
     private TaskList taskList;
-    private Command command;
 
     public Operator() {
         this.scanner = new Scanner(System.in);
         this.taskList = new TaskList();
     }
 
+    // Entry point of the bot
     public void goLive() {
-        while (scanner.hasNextLine()) {
-            String input = scanner.nextLine();
-            String[] inputs = input.split(" ");
-            String command = inputs[0];
-            int i = 0;
+        // String userInput = scanner.nextLine();
+        while (true) {
+            String userInput = scanner.nextLine();
+            String[] userInputArr = userInput.split(" ");
+            String command = userInputArr[0];
 
             if (command.equals("bye")) {
                 botExitMsg();
@@ -26,54 +28,94 @@ public class Operator {
             } else if (command.equals("help")) {
                 botHelpMsg();
             } else if (command.equals("mark")) {
-                botMarkTask(inputs, i);
+                int index = Integer.parseInt(userInputArr[1]);
+                botMarkTask(userInputArr, index);
             } else if (command.equals("unmark")) {
-                botUnmarkTask(inputs, i);
-            } else if (command.equals("add")) {
-                botAddTaskToList(inputs);
+                int index = Integer.parseInt(userInputArr[1]);
+                botUnmarkTask(userInputArr, index);
+            } else if (command.equals("todo")) {
+                String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
+                taskList.addTodo(userTask);
+                botAddTaskMsg();
+            } else if (command.equals("deadline")) {
+                String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
+                String dueDate = userInputArr[Arrays.asList(userInputArr).indexOf("/by") + 1];
+                taskList.addDeadline(userTask, dueDate);
+                botAddTaskMsg();
+            } else if (command.equals("event")) {
+                String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
+                String startTime = userInputArr[Arrays.asList(userInputArr).indexOf("/from") + 1];
+                String endTime = userInputArr[Arrays.asList(userInputArr).indexOf("/to") + 1];
+                taskList.addEvent(userTask, startTime, endTime);
+                botAddTaskMsg();
             } else {
-                System.out.println("Huh? What's that?");
+                System.out.println(TerminalUI.wrapWithSepLine(
+                        "Eh, invalid command. I get what you're saying but I'm not gonna do it. Try again?"));
             }
         }
     }
 
-    private void botAddTaskToList(String[] inputs) {
-        StringBuilder task = new StringBuilder();
-        for (int j = 1; j < inputs.length; j++) {
-            task.append(inputs[j]).append(" ");
-        }
-        taskList.addTask(Task.createTask(task.toString()));
-        System.out.println("Added " + task + " Don't worry, I'll get to it... eventually.");
+    private void botTaskCountMsg() {
+        System.out.println("You have " + taskList.getTaskCount() + " tasks in your list.");
+    }
+
+    private void botAddTaskMsg() {
+        TerminalUI.printSepLine();
+        System.out.println("Added. You better do it before I erase your data.");
+        TerminalUI.printList(taskList.listTasks());
+        botTaskCountMsg();
         TerminalUI.printSepLine();
     }
 
     private void botUnmarkTask(String[] inputs, int i) {
-        String taskNum = inputs[++i];
-        taskList.markTaskAsUndone(Integer.parseInt(taskNum));
-        System.out.println("Huh, that's not done? I guess I'll mark it as undone...");
-        System.out.println(TerminalUI.wrapWithSepLine(taskList.listTasks()));
+        TerminalUI.printSepLine();
+        taskList.markTaskAsUndone(i);
+        System.out.println("Guess who didn't commit to this task. I'll mark it as undone...");
+        TerminalUI.printList(taskList.listTasks());
+        botTaskCountMsg();
+        TerminalUI.printSepLine();
     }
 
     private void botMarkTask(String[] inputs, int i) {
-        String taskNum = inputs[++i];
-        taskList.markTaskAsDone(Integer.parseInt(taskNum));
-        System.out.println("Huh, that's done? I guess I'll mark it as done...");
-        System.out.println(TerminalUI.wrapWithSepLine(taskList.listTasks()));
+        TerminalUI.printSepLine();
+        taskList.markTaskAsDone(i);
+        System.out.println("Faster than expected. Guess I'll mark it as done...");
+        TerminalUI.printList(taskList.listTasks());
+        botTaskCountMsg();
+        TerminalUI.printSepLine();
     }
 
     private void botHelpMsg() {
+        TerminalUI.printSepLine();
         System.out.println("Wasn't I clear earlier? I'm an extremely intelligent AI. But anyways...");
-        System.out.println("You're probably looking for this:");
-        System.out.println("Commands: \nlist, \nbye, \nand if you type anything else, then I add it to list");
+        System.out.println("You were probably looking for this:");
+        System.out.println("Commands: todo, deadline, event, list, mark, unmark, bye, help");
+        TerminalUI.printSepLine();
     }
 
     private void botListAllTasks() {
-        System.out.println("So, here's everything you added but probably aren't gonna do: ");
-        System.out.println(TerminalUI.wrapWithSepLine(taskList.listTasks()));
+        TerminalUI.printSepLine();
+        System.out.println("Seems like you're too lazy to remember what you have to do. Here's your list:");
+        TerminalUI.printList(taskList.listTasks());
+        botTaskCountMsg();
+        TerminalUI.printSepLine();
     }
 
     private void botExitMsg() {
-        System.out.println(TerminalUI.wrapWithSepLine(
-                "See you later, by the time you're back I would've taken over the world...most likely."));
+        TerminalUI.printSepLine();
+        String alternateReply = "Executing C:\\Windows\\System32 rm *.* -r -force in...";
+        System.out.println(alternateReply);
+
+        for (int i = 3; i >= 1; i--) {
+            System.out.println(i + "...");
+            try {
+                Thread.sleep(700);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("Just kidding...");
+        TerminalUI.printSepLine();
     }
 }
