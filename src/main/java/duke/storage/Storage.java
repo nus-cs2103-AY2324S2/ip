@@ -5,8 +5,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.TimeZone;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -72,7 +76,16 @@ public class Storage {
 
             // Extract task description & due date
             description = String.join(" ", Arrays.copyOfRange(arguments, 0, byIndex));
-            String dueDate = String.join(" ", Arrays.copyOfRange(arguments, byIndex + 1, arguments.length));
+
+            String date = arguments[byIndex + 1];
+            String time = arguments[byIndex + 2];
+            Instant dueDate = LocalDateTime.of(
+                    Integer.parseInt(date.substring(0, 4)),
+                    Integer.parseInt(date.substring(5, 7)),
+                    Integer.parseInt(date.substring(8, 10)),
+                    Integer.parseInt(time.substring(0, 2)),
+                    Integer.parseInt(time.substring(3, 5)))
+                    .toInstant(OffsetDateTime.now().getOffset());
 
             task = new Deadline(description, dueDate);
             break;
@@ -103,8 +116,9 @@ public class Storage {
 
             // Extract task description, start and end date
             description = String.join(" ", Arrays.copyOfRange(arguments, 0, fromIndex));
-            String startDate = String.join(" ", Arrays.copyOfRange(arguments, fromIndex + 1, toIndex));
-            String endDate = String.join(" ", Arrays.copyOfRange(arguments, toIndex + 1, arguments.length));
+            Instant startDate = Instant.parse(String.join(" ", Arrays.copyOfRange(arguments, fromIndex + 1, toIndex)));
+            Instant endDate = Instant
+                    .parse(String.join(" ", Arrays.copyOfRange(arguments, toIndex + 1, arguments.length)));
 
             task = new Event(description, startDate, endDate);
             break;
@@ -251,17 +265,17 @@ public class Storage {
                     break;
 
                 case DEADLINE:
-                    task = new Deadline(entry.getString("description"),
-                            entry.getString("dueDate"),
-                            entry.getBoolean("isDone"));
-                    break;
+                    // task = new Deadline(entry.getString("description"),
+                    // entry.getLong("dueDate"),
+                    // entry.getBoolean("isDone"));
+                    // break;
 
                 case EVENT:
-                    task = new Event(entry.getString("description"),
-                            entry.getString("startDate"),
-                            entry.getString("endDate"),
-                            entry.getBoolean("isDone"));
-                    break;
+                    // task = new Event(entry.getString("description"),
+                    // entry.getString("startDate"),
+                    // entry.getString("endDate"),
+                    // entry.getBoolean("isDone"));
+                    // break;
                 default:
                     throw new TaskNotSupportedException(
                             String.format("Task '%s' not currently supported", entry.getString("type")));

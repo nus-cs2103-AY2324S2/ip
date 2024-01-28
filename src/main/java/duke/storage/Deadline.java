@@ -1,5 +1,7 @@
 package duke.storage;
 
+import java.time.Instant;
+
 /**
  * The Deadline class defines a 'Deadline' task used for the application
  *
@@ -9,7 +11,7 @@ public class Deadline extends Task {
     /**
      * Due date/time of the deadline task
      */
-    private String dueDate;
+    private Instant dueDate;
 
     /**
      * Create a Deadline task
@@ -17,7 +19,7 @@ public class Deadline extends Task {
      * @param description Description of the deadline
      * @param dueDate     Due date of the deadline
      */
-    public Deadline(String description, String dueDate) {
+    public Deadline(String description, Instant dueDate) {
         super(description, TaskType.DEADLINE, false);
         this.dueDate = dueDate;
     }
@@ -29,7 +31,7 @@ public class Deadline extends Task {
      * @param dueDate     Due date of the deadline
      * @param isDone      Status of the deadline
      */
-    public Deadline(String description, String dueDate, boolean isDone) {
+    public Deadline(String description, Instant dueDate, boolean isDone) {
         super(description, TaskType.DEADLINE, isDone);
         this.dueDate = dueDate;
     }
@@ -39,7 +41,7 @@ public class Deadline extends Task {
      *
      * @return Due date of the deadline
      */
-    public String getDueDate() {
+    public Instant getDueDate() {
         return this.dueDate;
     }
 
