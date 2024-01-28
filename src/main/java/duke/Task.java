@@ -1,7 +1,5 @@
 package duke;
 
-import java.time.LocalDateTime;
-
 public class Task {
     protected String description;
     protected boolean isDone;

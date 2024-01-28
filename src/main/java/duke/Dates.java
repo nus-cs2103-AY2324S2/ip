@@ -46,6 +46,7 @@ public class Dates {
 
     /**
      * Creates a datetime object, using the input string formatter
+     *
      * @param date which is a string that has a valid input pattern
      * @return LocalDateTime class based on the date String
      */
@@ -60,6 +61,7 @@ public class Dates {
 
     /**
      * Creates a datetime object, using the db string formatter
+     *
      * @param date which is a string that has a valid db pattern
      * @return LocalDateTime class based on the date String
      */
