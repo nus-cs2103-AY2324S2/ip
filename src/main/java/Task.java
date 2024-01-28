@@ -1,8 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
     protected String description;
     protected boolean isDone;
-    protected String startDate;
-    protected String endDate;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
     protected char taskType;
 
     // To-do
@@ -13,7 +18,7 @@ public class Task {
     }
 
     // Deadline
-    public Task(boolean done, String description, String end) {
+    public Task(boolean done, String description, LocalDate end) {
         this.description = description;
         this.isDone = done;
         this.endDate = end;
@@ -21,7 +26,7 @@ public class Task {
     }
 
     // Event
-    public Task(boolean done, String description, String start, String end) {
+    public Task(boolean done, String description, LocalDate start, LocalDate end) {
         this.description = description;
         this.isDone = done;
         this.taskType = 'E';
@@ -38,10 +43,10 @@ public class Task {
                 + this.taskType + "] "
                 + this.description;
         if (this.taskType == 'E') {
-            status += "; from: " + this.startDate;
+            status += "\nfrom: " + this.startDate.format(formatter);
         }
         if (this.taskType == 'D' || this.taskType == 'E') {
-            status += "; end: " + this.endDate;
+            status += "\nend: " + this.endDate.format(formatter);
         }
         return status;
     }

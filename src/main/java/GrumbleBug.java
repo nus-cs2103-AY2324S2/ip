@@ -1,9 +1,12 @@
-import javax.sound.midi.SysexMessage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 public class GrumbleBug {
 
     public static String filePath = "./tasks.txt";
@@ -13,11 +16,6 @@ public class GrumbleBug {
             System.out.println(i+1 + list.get(i).getFullStatus());
         }
     }
-
-
-
-
-
 
     private static void writeToFile(ArrayList<Task> myList) throws IOException {
         try {
@@ -30,10 +28,10 @@ public class GrumbleBug {
                 fw.write(t.isDone ? "true" : "false");
                 fw.write("\n" + t.description + "\n");
                 if (t.taskType == 'D') {
-                    fw.write(t.endDate + "\n");
+                    fw.write(t.endDate.toString() + "\n");
                 } else if (t.taskType == 'E') {
-                    fw.write(t.startDate + "\n");
-                    fw.write(t.endDate + "\n");
+                    fw.write(t.startDate.toString() + "\n");
+                    fw.write(t.endDate.toString() + "\n");
                 }
             }
             fw.close();
@@ -44,6 +42,7 @@ public class GrumbleBug {
 
     public static void main(String[] args) {
         ArrayList<Task> myList = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         // load data from hard disk
         try {
@@ -60,11 +59,14 @@ public class GrumbleBug {
                     t = new Task(done, desc);
                 } else if (task.equals("D")) {
                     String deadline = s.nextLine();
-                    t = new Task(done, desc, deadline);
+                    LocalDate d = LocalDate.parse(deadline, formatter);
+                    t = new Task(done, desc, d);
                 } else if (task.equals("E")) {
                     String start = s.nextLine();
                     String deadline = s.nextLine();
-                    t = new Task(done, desc, start, deadline);
+                    LocalDate st = LocalDate.parse(start, formatter);
+                    LocalDate d = LocalDate.parse(deadline, formatter);
+                    t = new Task(done, desc, st, d);
                 } else {
                     t = null;
                     System.out.println("bad formatting in tasks.txt");
@@ -125,7 +127,8 @@ public class GrumbleBug {
                 String name = sc.nextLine();
                 System.out.println("Wow ok.. due by?");
                 String endDate = sc.nextLine();
-                Task task = new Task(false, name, endDate);
+                LocalDate d = LocalDate.parse(endDate, formatter);
+                Task task = new Task(false, name, d);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
@@ -137,9 +140,11 @@ public class GrumbleBug {
                 String name = sc.nextLine();
                 System.out.println("Start date?");
                 String startDate = sc.nextLine();
+                LocalDate st = LocalDate.parse(startDate, formatter);
                 System.out.println("End date?");
                 String endDate = sc.nextLine();
-                Task task = new Task(false, name, startDate, endDate);
+                LocalDate d = LocalDate.parse(endDate, formatter);
+                Task task = new Task(false, name, st, d);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
