@@ -15,6 +15,9 @@ import task.Deadline;
 import task.Event;
 import task.ToDo;
 
+/**
+ * The Ui class handles user interface related operations.
+ */
 public class Ui {
     private static Scanner sc = new Scanner(System.in);
 
@@ -22,6 +25,12 @@ public class Ui {
 
     }
 
+    /**
+     * Parses the user input and returns the corresponding Action object.
+     *
+     * @param taskList The TaskList object containing the list of tasks.
+     * @return The Action object based on the user input.
+     */
     public static Action parseInput(TaskList taskList) {
         String input = sc.next();
 
