@@ -1,18 +1,17 @@
 package util;
 
-import exception.NarutoException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import exception.NarutoException;
 
 public class ParserTest {
 
     @Test
     public void testParseDescription() {
         try {
-            assertEquals(Parser.parseDescription(" Homework"), "Homework" );
+            assertEquals(Parser.parseDescription(" Homework"), "Homework");
         } catch (NarutoException n) {
             System.out.println(n.getMessage());
             assertEquals(false, true);
