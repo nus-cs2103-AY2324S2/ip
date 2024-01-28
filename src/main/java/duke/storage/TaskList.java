@@ -184,7 +184,7 @@ public class TaskList {
      *
      * @param deleteIndex Index of the item to delete
      */
-    public Task deleteTask(int deleteIndex) throws IOException, MissingTaskException {
+    public Task deleteTask(int deleteIndex) throws StorageException, MissingTaskException {
         try {
             // Delete item
             Task deletedTask = taskArray.remove(deleteIndex);
@@ -196,6 +196,8 @@ public class TaskList {
             return deletedTask;
         } catch (IndexOutOfBoundsException e) {
             throw new MissingTaskException("Task does not exist");
+        } catch (IOException e) {
+            throw new StorageException(String.format("Failed to delete from file - %s", e.getMessage()));
         }
     }
 

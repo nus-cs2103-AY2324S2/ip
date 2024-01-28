@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 import duke.commands.Command;
+import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
@@ -50,11 +51,11 @@ public class Parser {
         case "bye": // Exit
             return new ExitCommand();
 
-        case "list":
+        case "list": // List tasks
             // Check if date filter exists
-            if (splitInput.length > 1) {
+            if (splitInput.length > 1) { // List filtered tasks
                 switch (splitInput[1]) {
-                case "/date":
+                case "/date": // Filter by date
                     try {
                         Instant filterDate = userDateToInstant(splitInput[2], "00:00");
 
@@ -65,7 +66,7 @@ public class Parser {
                                 "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD'");
                     }
 
-                default:
+                default: // Invalid filter
                     throw new InvalidArgumentException(
                             String.format("Unknown argument '%s' for the 'list' command", splitInput[1]));
                 }
@@ -73,7 +74,7 @@ public class Parser {
                 return new ListCommand();
             }
 
-        case "mark":
+        case "mark": // Mark task
             if (splitInput.length <= 1) {
                 throw new MissingArgumentException("Missing argument - Index of task required");
             }
@@ -84,13 +85,24 @@ public class Parser {
                 throw new InvalidArgumentException("Index to mark is not an integer");
             }
 
-        case "unmark":
+        case "unmark": // Unmark task
             if (splitInput.length <= 1) {
                 throw new MissingArgumentException("Missing argument - Index of task required");
             }
 
             try {
                 return new MarkCommand(Integer.parseInt(splitInput[1]) - 1, false);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Index to unmark is not an integer");
+            }
+
+        case "delete": // Delete task
+            if (splitInput.length <= 1) {
+                throw new MissingArgumentException("Missing argument - Index of task required");
+            }
+
+            try {
+                return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Index to unmark is not an integer");
             }

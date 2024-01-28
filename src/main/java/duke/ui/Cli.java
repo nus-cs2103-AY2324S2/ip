@@ -52,21 +52,6 @@ public class Cli extends Ui {
 
         sc.close();
 
-        // case "delete": // Delete item
-        // if (splitInput.length <= 1) {
-        // throw new MissingArgumentException("Missing argument - Index of task
-        // required");
-        // }
-
-        // // Print success message
-        // System.out.println("Noted. I've removed this task:");
-        // Task deletedTask = taskList.deleteTask(Integer.parseInt(splitInput[1]) - 1);
-        // System.out.println(String.format(" %s", deletedTask.toString()));
-        // System.out.println(String.format("Now you have %d tasks in the list.",
-        // taskList.size()));
-
-        // break;
-
         // default: // Store and echo items
         // // Store item
         // taskList.addTask(splitInput[0], Arrays.copyOfRange(splitInput, 1,
@@ -76,9 +61,6 @@ public class Cli extends Ui {
         // } catch (Exception exception) {
         // System.out.println(String.format("ERROR: %s", exception.getMessage()));
         // }
-
-        // System.out.println("------------------------------------------------------------");
-        // } while (!input.equals("bye"));
     }
 
     /**
