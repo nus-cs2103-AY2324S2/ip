@@ -1,12 +1,12 @@
 package bytebuddy.parser;
 
 import bytebuddy.commands.*;
-import bytebuddy.exceptions.DukeException;
+import bytebuddy.exceptions.ByteBuddyException;
 
 
 public class Parser {
 
-    public static Command parse(String fullInput) throws DukeException {
+    public static Command parse(String fullInput) throws ByteBuddyException {
         String[] commandParts = fullInput.split(" ", 2);
         String commandType = commandParts[0].toLowerCase();
         String commandInfo = commandParts.length > 1 ? commandParts[1].trim() : "";
@@ -29,7 +29,7 @@ public class Parser {
         case "event":
             return new EventCommand(commandInfo);
         default:
-            throw new DukeException("Sorry but this command does not exist~");
+            throw new ByteBuddyException("Sorry but this command does not exist~");
         }
     }
 

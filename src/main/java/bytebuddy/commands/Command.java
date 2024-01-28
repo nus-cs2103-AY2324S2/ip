@@ -1,6 +1,6 @@
 package bytebuddy.commands;
 
-import bytebuddy.exceptions.DukeException;
+import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.storage.Storage;
 import bytebuddy.tasks.TaskList;
 import bytebuddy.ui.Ui;
@@ -23,9 +23,9 @@ public interface Command {
      * @param taskList   The task list on which the command operates.
      * @param ui      The user interface for displaying information to the user.
      * @param storage The storage for saving and loading data.
-     * @throws DukeException If an error occurs during the execution of the command.
+     * @throws ByteBuddyException If an error occurs during the execution of the command.
      */
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException;
 
     /**
      * Checks if the command is an exit command, indicating whether the chatbot should exit after executing this command.

@@ -1,6 +1,5 @@
 package bytebuddy.commands;
 
-import bytebuddy.exceptions.DukeException;
 import bytebuddy.storage.Storage;
 import bytebuddy.tasks.TaskList;
 import bytebuddy.ui.Ui;

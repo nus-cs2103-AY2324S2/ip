@@ -1,6 +1,6 @@
 package bytebuddy.commands;
 
-import bytebuddy.exceptions.DukeException;
+import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.storage.Storage;
 import bytebuddy.tasks.TaskList;
 import bytebuddy.ui.Ui;
@@ -26,10 +26,10 @@ public class EventCommand implements Command {
      * @param taskList The task list to which the event task will be added.
      * @param ui       The user interface.
      * @param storage  The storage for saving and loading data.
-     * @throws DukeException If there is an error executing the EventCommand.
+     * @throws ByteBuddyException If there is an error executing the EventCommand.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
         taskList.event(info);
     }
 

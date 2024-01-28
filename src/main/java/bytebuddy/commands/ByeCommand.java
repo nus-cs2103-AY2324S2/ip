@@ -1,6 +1,6 @@
 package bytebuddy.commands;
 
-import bytebuddy.exceptions.DukeException;
+import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.storage.Storage;
 import bytebuddy.tasks.TaskList;
 import bytebuddy.ui.Ui;
@@ -17,7 +17,7 @@ public class ByeCommand implements Command {
      * @param storage The storage for saving and loading data.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
         // No action needed for ByeCommand
     }
 

@@ -1,6 +1,6 @@
 package bytebuddy.commands;
 
-import bytebuddy.exceptions.DukeException;
+import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.storage.Storage;
 import bytebuddy.tasks.TaskList;
 import bytebuddy.ui.Ui;
@@ -26,10 +26,10 @@ public class DeleteCommand implements Command {
      * @param taskList The task list from which the task will be deleted.
      * @param ui       The user interface.
      * @param storage  The storage for saving and loading data.
-     * @throws DukeException If there is an error executing the DeleteCommand.
+     * @throws ByteBuddyException If there is an error executing the DeleteCommand.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
         taskList.delete(info);
     }
 

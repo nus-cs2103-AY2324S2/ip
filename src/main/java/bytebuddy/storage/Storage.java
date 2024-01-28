@@ -1,6 +1,6 @@
 package bytebuddy.storage;
 
-import bytebuddy.exceptions.DukeException;
+import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.tasks.*;
 import static bytebuddy.constants.FilePaths.RELATIVE_DATA_DIRECTORY_PATH;
 import static bytebuddy.constants.FilePaths.RELATIVE_OUTPUT_TXT_FILE_PATH;
@@ -13,29 +13,29 @@ import java.util.Scanner;
 
 public class Storage {
 
-    public Storage() throws DukeException {
+    public Storage() throws ByteBuddyException {
         init();
     }
 
     // initialisation of data dir and output file
-    public void init() throws DukeException {
+    public void init() throws ByteBuddyException {
         File dataDir = new File(RELATIVE_DATA_DIRECTORY_PATH);
         File outputTxt = new File(RELATIVE_OUTPUT_TXT_FILE_PATH);
         createOutputDirectoryAndFile(dataDir, outputTxt);
     }
 
-    public static void createOutputDirectoryAndFile(File dataDir, File outputTxt) throws DukeException {
+    public static void createOutputDirectoryAndFile(File dataDir, File outputTxt) throws ByteBuddyException {
         try {
             dataDir.mkdirs();
             outputTxt.createNewFile();
         } catch (SecurityException | IOException e) {
-            throw new DukeException(e.toString());
+            throw new ByteBuddyException(e.toString());
         }
     }
 
 
     // init TaskList
-    public TaskList load() throws DukeException {
+    public TaskList load() throws ByteBuddyException {
         return initTaskList(RELATIVE_OUTPUT_TXT_FILE_PATH);
     }
 
@@ -47,7 +47,7 @@ public class Storage {
         fw.close();
     }
 
-    public static TaskList initTaskList(String filePath) throws DukeException {
+    public static TaskList initTaskList(String filePath) throws ByteBuddyException {
         TaskList list = new TaskList();
 
         try (Scanner scanner = new Scanner(new File(filePath))) {
@@ -68,7 +68,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new DukeException("Error reading from file: " + e);
+            throw new ByteBuddyException("Error reading from file: " + e);
         }
 
         return list;

@@ -1,6 +1,6 @@
 package bytebuddy.tasks;
 
-import bytebuddy.exceptions.DukeException;
+import bytebuddy.exceptions.ByteBuddyException;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -18,7 +18,7 @@ public class TaskListTest {
 
 
     @Test
-    public void testTodo() throws DukeException, IOException {
+    public void testTodo() throws ByteBuddyException, IOException {
         TaskList taskList = new TaskList();
         String todoInfo = "Test";
 
@@ -33,12 +33,12 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         String emptyTodoInfo = "";
 
-        DukeException exception = assertThrows(DukeException.class, () -> taskList.todo(emptyTodoInfo));
+        ByteBuddyException exception = assertThrows(ByteBuddyException.class, () -> taskList.todo(emptyTodoInfo));
         assertEquals("holup!! " + EMPTY_DESCRIPTION_ERROR_MESSAGE, exception.getMessage());
     }
 
     @Test
-    public void testDeadline() throws DukeException, IOException {
+    public void testDeadline() throws ByteBuddyException, IOException {
         TaskList taskList = new TaskList();
         String deadlineInfo = "Submit report /by 2023-02-28";
 
@@ -53,12 +53,12 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         String incorrectDeadlineInfo = "Submit report";
 
-        DukeException exception = assertThrows(DukeException.class, () -> taskList.deadline(incorrectDeadlineInfo));
+        ByteBuddyException exception = assertThrows(ByteBuddyException.class, () -> taskList.deadline(incorrectDeadlineInfo));
         assertEquals("holup!! The correct usage is: " + DEADLINE_FORMAT, exception.getMessage());
     }
 
     @Test
-    public void testEvent() throws DukeException, IOException {
+    public void testEvent() throws ByteBuddyException, IOException {
         TaskList taskList = new TaskList();
         String eventInfo = "TestEvent /from 2019-10-15 /to 2/12/2019 1800";
 
@@ -73,12 +73,12 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         String incorrectEventInfo = "Project meeting /from 2023-02-28 14:00";
 
-        DukeException exception = assertThrows(DukeException.class, () -> taskList.event(incorrectEventInfo));
+        ByteBuddyException exception = assertThrows(ByteBuddyException.class, () -> taskList.event(incorrectEventInfo));
         assertEquals("holup!! The correct usage is: " + EVENT_FORMAT, exception.getMessage());
     }
 
     @Test
-    public void testMark() throws DukeException, IOException {
+    public void testMark() throws ByteBuddyException, IOException {
         TaskList taskList = new TaskList();
         taskList.add(new Todo("Test"));
 
@@ -92,7 +92,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         String invalidMarkInfo = "abc";
 
-        DukeException exception = assertThrows(DukeException.class, () -> taskList.mark(invalidMarkInfo));
+        ByteBuddyException exception = assertThrows(ByteBuddyException.class, () -> taskList.mark(invalidMarkInfo));
         assertEquals("holup!! " + NUMBER_FORMAT_ERROR_MESSAGE, exception.getMessage());
     }
 
@@ -101,12 +101,12 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         String invalidTaskNumber = "10";
 
-        DukeException exception = assertThrows(DukeException.class, () -> taskList.mark(invalidTaskNumber));
+        ByteBuddyException exception = assertThrows(ByteBuddyException.class, () -> taskList.mark(invalidTaskNumber));
         assertEquals("holup!! " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE, exception.getMessage());
     }
 
     @Test
-    public void testUnmark() throws DukeException, IOException {
+    public void testUnmark() throws ByteBuddyException, IOException {
         TaskList taskList = new TaskList();
         taskList.add(new Todo("Test"));
         taskList.mark("1");
@@ -121,7 +121,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         String invalidUnmarkInfo = "xyz";
 
-        DukeException exception = assertThrows(DukeException.class, () -> taskList.unmark(invalidUnmarkInfo));
+        ByteBuddyException exception = assertThrows(ByteBuddyException.class, () -> taskList.unmark(invalidUnmarkInfo));
         assertEquals("holup!! " + NUMBER_FORMAT_ERROR_MESSAGE, exception.getMessage());
     }
 
@@ -130,12 +130,12 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         String invalidTaskNumber = "5";
 
-        DukeException exception = assertThrows(DukeException.class, () -> taskList.unmark(invalidTaskNumber));
+        ByteBuddyException exception = assertThrows(ByteBuddyException.class, () -> taskList.unmark(invalidTaskNumber));
         assertEquals("holup!! " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE, exception.getMessage());
     }
 
     @Test
-    public void testDelete() throws DukeException, IOException {
+    public void testDelete() throws ByteBuddyException, IOException {
         TaskList taskList = new TaskList();
         taskList.add(new Todo("Test"));
 
@@ -149,7 +149,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         String invalidDeleteInfo = "invalid";
 
-        DukeException exception = assertThrows(DukeException.class, () -> taskList.delete(invalidDeleteInfo));
+        ByteBuddyException exception = assertThrows(ByteBuddyException.class, () -> taskList.delete(invalidDeleteInfo));
         assertEquals("holup!! " + NUMBER_FORMAT_ERROR_MESSAGE, exception.getMessage());
     }
 
@@ -158,7 +158,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         String invalidTaskNumber = "8";
 
-        DukeException exception = assertThrows(DukeException.class, () -> taskList.delete(invalidTaskNumber));
+        ByteBuddyException exception = assertThrows(ByteBuddyException.class, () -> taskList.delete(invalidTaskNumber));
         assertEquals("holup!! " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE, exception.getMessage());
     }
 

@@ -1,6 +1,7 @@
 package bytebuddy.tasks;
 
-import bytebuddy.exceptions.DukeException;
+import bytebuddy.exceptions.ByteBuddyException;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -49,59 +50,59 @@ public class TaskList {
         return Arrays.stream(info.split(separator, maxTokens)).map(String::trim).collect(Collectors.toList());
     }
 
-    public void mark(String info) throws DukeException {
+    public void mark(String info) throws ByteBuddyException {
         try {
             int markIndex = Integer.parseInt(info.trim()) - 1;
             if (markIndex < 0 || markIndex >= taskList.size()) {
-                throw new DukeException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+                throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
             }
             String markToPrint = taskList.get(markIndex).markAsDone();
             printWithSolidLineBreak(markToPrint);
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
-            throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
+            throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
         } catch (IOException e) {
-            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
 
     }
 
-    public void unmark(String info) throws DukeException {
+    public void unmark(String info) throws ByteBuddyException {
         try {
             int unmarkIndex = Integer.parseInt(info.trim()) - 1;
             if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) {
-                throw new DukeException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+                throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
             }
             String unmarkToPrint = taskList.get(unmarkIndex).unmarkAsDone();
             printWithSolidLineBreak(unmarkToPrint);
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
-            throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
+            throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
         } catch (IOException e) {
-            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
     }
 
-    public void delete(String info) throws DukeException {
+    public void delete(String info) throws ByteBuddyException {
         try {
             int deleteIndex = Integer.parseInt(info.trim()) - 1;
             if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
-                throw new DukeException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+                throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
             }
             Task removed = taskList.remove(deleteIndex);
             printTaskRemovedWithSolidLineBreak(removed);
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
-            throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
+            throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
         } catch (IOException e) {
-            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
     }
 
-    public void todo(String info) throws DukeException {
+    public void todo(String info) throws ByteBuddyException {
         try {
             if (info.isEmpty()) {
-                throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                throw new ByteBuddyException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
             }
             Task todo = new Todo(info);
             taskList.add(todo);
@@ -109,14 +110,14 @@ public class TaskList {
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (IOException e) {
-            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
     }
 
-    public void deadline(String info) throws DukeException {
+    public void deadline(String info) throws ByteBuddyException {
         try {
             if (info.isEmpty()) {
-                throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                throw new ByteBuddyException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
             }
             List<String> deadlineInfo = splitStringWithTrim(info, "/by", 2);
             Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1));
@@ -125,16 +126,16 @@ public class TaskList {
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("The correct usage is: " + DEADLINE_FORMAT);
+            throw new ByteBuddyException("The correct usage is: " + DEADLINE_FORMAT);
         } catch (IOException e) {
-            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
     }
 
-    public void event(String info) throws DukeException {
+    public void event(String info) throws ByteBuddyException {
         try {
             if (info.isEmpty()) {
-                throw new DukeException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                throw new ByteBuddyException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
             }
 
             List<String> eventInfo = splitStringWithTrim(info, "/from|/to", 3);
@@ -144,9 +145,9 @@ public class TaskList {
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("The correct usage is: " + EVENT_FORMAT);
+            throw new ByteBuddyException("The correct usage is: " + EVENT_FORMAT);
         } catch (IOException e) {
-            throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
     }
 
