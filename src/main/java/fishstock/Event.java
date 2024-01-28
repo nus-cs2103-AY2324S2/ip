@@ -1,6 +1,5 @@
 package fishstock;
 
-import java.io.FileDescriptor;
 import java.time.LocalDateTime;
 
 class Event extends Task {
@@ -17,10 +16,6 @@ class Event extends Task {
         }
         this.from = from;
         this.to = to;
-    }
-
-    protected static boolean dateIsBefore(LocalDateTime from, LocalDateTime to) {
-        return from.isBefore(to) || from.equals(to);
     }
 
     protected static Event of(String input) throws FishStockException {
