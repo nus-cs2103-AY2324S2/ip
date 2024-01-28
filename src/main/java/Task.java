@@ -11,6 +11,10 @@ public class Task {
         this.isDone = true;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public void unMark() {
         this.isDone = false;
     }
