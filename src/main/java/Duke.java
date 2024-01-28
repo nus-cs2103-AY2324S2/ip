@@ -3,14 +3,22 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        // This is the fixed storage of all the tasks
-        ArrayList<Task> tasks = new ArrayList<>();
-
-
         String greetingMsg = "Hello! I'm PingMeBot\n" + "What can I do for you?";
         String exitMsg = "Bye. Hope to see you again soon!";
         System.out.println(greetingMsg);
+
+        // This is the fixed storage of all the tasks
+        ArrayList<Task> tasks = new ArrayList<>();
+        final String FILE_PATH = "./data/dukeData.txt";
+        fileStorage fs = null;
+
+        // Loading the data
+        try {
+            fs = new fileStorage(FILE_PATH);
+            tasks = fs.bootingUp();
+        } catch (myBotException e) {
+            System.out.println(e.getMessage());
+        }
 
         while (true) {
             String userInput = sc.nextLine();
@@ -36,6 +44,7 @@ public class Duke {
                         throw new myBotException("You cannot mark task which has not been completed!");
                     }
                     tasks.get(taskNumber).markAsDone();
+                    fs.updateFile(tasks);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " +  tasks.get(taskNumber).toString());
                 } catch (IndexOutOfBoundsException e) {
@@ -52,6 +61,7 @@ public class Duke {
                         throw new myBotException("You cannot un-mark task which has not been marked!");
                     }
                     tasks.get(taskNum).uncheckingTask();
+                    fs.updateFile(tasks);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " +  tasks.get(taskNum).toString());
                 } catch (IndexOutOfBoundsException e) {
@@ -64,16 +74,20 @@ public class Duke {
                 try {
                     ToDos todo = Parser.todoParser();
                     tasks.add(todo);
+                    fs.updateFile(tasks);
                     System.out.println("\n" + "Got it. I've added this task:");
                     System.out.println("  " + todo.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("OOPS! The command is incomplete. Please provide a task description!");
+                } catch (myBotException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (words[0].equals("deadline")) {
                 try {
                     Deadline deadlineTask = Parser.deadlineParser();
                     tasks.add(deadlineTask);
+                    fs.updateFile(tasks);
                     System.out.println("\n" + "Got it. I've added this task:");
                     System.out.println("  " + deadlineTask.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -85,6 +99,7 @@ public class Duke {
                 try {
                     Events events = Parser.eventsParser();
                     tasks.add(events);
+                    fs.updateFile(tasks);
                     System.out.println("\n" + "Got it. I've added this task:");
                     System.out.println("  " + events.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -97,6 +112,7 @@ public class Duke {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("  " +  tasks.get(taskNumber).toString());
                     tasks.remove(taskNumber);
+                    fs.updateFile(tasks);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("I'm not sure which task you wish to delete. Please specify and try again!");

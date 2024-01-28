@@ -6,8 +6,7 @@ public class Parser {
     protected ArrayList<String> words;
     public Parser (String userInput) {
         this.userInput = userInput;
-        this.words = new ArrayList<>(Arrays.asList(userInput.split(" ")));
-    }
+        this.words = new ArrayList<>(Arrays.asList(userInput.split(" ")));}
 
     /*
      * Returns a todo object with the task description
