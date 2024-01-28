@@ -1,9 +1,12 @@
 import CustomExceptions.NoTaskCreatedYetException;
 import CustomExceptions.TooManyTasksException;
+import TaskList.Deadline;
 import TaskList.Task;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -22,12 +25,15 @@ public class DataStorage {
 
         // Solution below adapted from https://www.w3schools.com/java/java_files_create.asp
         try {
+
             if (this.file.createNewFile()) {
                 // TODO: Remove this.
                 System.out.println("\t The database has not been created. A new database has been created at the following location: " + this.file.getAbsolutePath());
             } else {
                 System.out.println("\t Using the existing database located at: " + this.file.getAbsolutePath());
+                // Here means we need to load everything that is required into memory.
             }
+
 
         } catch (IOException e) {
             System.err.println("An error occurred while opening the file. \n" +
@@ -50,8 +56,14 @@ public class DataStorage {
             throw new TooManyTasksException();
         } else {
             this.tasksList.add(task);
+            addTaskToFile(task.toStorageString());
             this.taskCount++;
         }
+    }
+
+
+    public void addTaskToFile(String line) {
+        System.out.println(line);
     }
 
     public void setTaskStatus(int taskIndex, boolean status) throws NoTaskCreatedYetException {
