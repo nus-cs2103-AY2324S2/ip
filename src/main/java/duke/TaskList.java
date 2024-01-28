@@ -24,6 +24,25 @@ public class TaskList {
     }
   }
 
+  public TaskList() {
+    this.manager = null; // No manager for testing.
+  }
+
+  /**
+   * This function is used to test that adding tasks to internal task list is functional.
+   *
+   * @param t The task to add.
+   * @return The output to be printed by the TaskList.
+   */
+  public String addTaskTest(Task t) {
+    this.tasks.add(t);
+    String to_print = "_________________________\n" +
+      "added: " + t.getFullStatus() + "\n" +
+      "_________________________\n" +
+      "Now you have " + this.tasks.size() + " items in your list!\n";
+    return to_print;
+  }
+
   public void saveTaskList() {
     this.manager.writeLog(this.tasks);
   }
