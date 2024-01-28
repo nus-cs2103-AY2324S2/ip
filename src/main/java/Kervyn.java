@@ -3,7 +3,6 @@ import Tasks.Deadline;
 import Tasks.ToDo;
 import Tasks.Event;
 
-import java.lang.reflect.Array;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -65,6 +64,11 @@ public class Kervyn {
             }
         } while (!Objects.equals(userInput, "bye"));
 
+        Writer writer = new Writer("data/Kervyn.txt");
+        for (Task userRequest : userRequests) {
+            String content = userRequest.toString();
+            writer.writeToFile(content);
+        }
     }
 
     private static void markTask(ArrayList<Task> userRequests, String[] processedUserInput) {
@@ -126,7 +130,19 @@ public class Kervyn {
             Task task = userRequests.get(i);
             char check = task.getStatus() ? 'X' : ' ';
             char type = task.getCapitalType();
-            System.out.println("\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription());
+            switch (type) {
+                case 'T':
+                    System.out.println("\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription());
+                    break;
+                case 'D':
+                    Deadline deadlineTask = (Deadline) task;
+                    System.out.println("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")");
+                    break;
+                case 'E':
+                    Event eventTask = (Event) task;
+                    System.out.println("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from:" + eventTask.getStartDate() + " to:" + eventTask.getEndDate() + ")");
+                    break;
+            }
         }
     }
     private static ToDo getProcessedToDo(String userInput) {
