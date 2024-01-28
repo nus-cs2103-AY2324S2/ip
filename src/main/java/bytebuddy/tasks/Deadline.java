@@ -50,7 +50,7 @@ public class Deadline extends Task {
 
     private String formatByString(String by) {
         if (byDateTime.isPresent()) {
-            return byDateTime.get().format(DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha"));
+            return byDateTime.get().format(DateTimeFormatter.ofPattern("d MMMM yyyy, ha"));
         } else if (byDate.isPresent()) {
             return byDate.get().format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         }
