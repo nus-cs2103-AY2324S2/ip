@@ -1,7 +1,13 @@
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import java.nio.file.StandardOpenOption;
 
 public class ChatBot {
     private String name;
@@ -263,8 +269,21 @@ public class ChatBot {
 
     }
 
-    private void addEvent(String description, String from, String to) {
+    public void addEvent(String description, String from, String to) {
         this.addTask(new Event(description, from, to));
+    }
+
+    public StringBuilder createSaveData() {
+        StringBuilder saveData = new StringBuilder();
+        for (Task task: this.tasks) {
+            saveData.append(task.createSaveData());
+        }
+        return saveData;
+    }
+
+    public void saveToFile() throws IOException {
+        Files.createDirectories(Paths.get("data"));
+        Files.writeString(Paths.get("data","tasks.txt"), this.createSaveData(), StandardOpenOption.CREATE);
     }
 
     @Override

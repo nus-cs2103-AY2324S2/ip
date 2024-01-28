@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -95,6 +96,7 @@ public class Duke {
                     Paimon.deleteTask(parameters);
                     break;
                 case "bye":
+                    Paimon.saveToFile();
                     Paimon.bye();
                     return;
                 case "":
@@ -104,6 +106,8 @@ public class Duke {
                 }
             } catch (ChatBotCommandException e) {
                 System.out.println(e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }

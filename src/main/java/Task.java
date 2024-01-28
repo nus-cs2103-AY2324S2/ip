@@ -15,6 +15,10 @@ public class Task {
         return isDone;
     }
 
+    public String createSaveData() {
+        return String.format("T | %d | %s\n", ((this.isDone) ? 1 : 0), this.description);
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "]" + " " + this.description;
