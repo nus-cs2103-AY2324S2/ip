@@ -1,18 +1,20 @@
 package duke;
 
-import duke.tasks.ToDos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
+import duke.tasks.ToDos;
+
 public class TaskListTest {
-  @Test
-  public void testInsert() {
-    TaskList task_list = new TaskList();
-    ToDos to_add = new ToDos("do stuff");
-    ToDos to_add_2 = new ToDos("do more stuff");
-    task_list.addTaskTest(to_add);
-    assertEquals(1, task_list.getLength());
-    task_list.addTaskTest(to_add_2);
-    assertEquals(2, task_list.getLength());
-  }
+    @Test
+    public void testInsert() {
+        TaskList taskList = new TaskList();
+        ToDos toAdd = new ToDos("do stuff");
+        ToDos toAdd2 = new ToDos("do more stuff");
+        taskList.addTaskTest(toAdd);
+        assertEquals(1, taskList.getLength());
+        taskList.addTaskTest(toAdd2);
+        assertEquals(2, taskList.getLength());
+    }
 }
