@@ -6,11 +6,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Thrown to indicate that the description for a Todo task cannot be empty.
+ */
 class EmptyTodoException extends Exception {
     public EmptyTodoException() {
         super("Todo cannot have empty description .");
     }
 }
+
+/**
+ * Thrown to indicate that the description for a Deadline task cannot be empty.
+ */
 
 class EmptyDeadlineException extends Exception {
     public EmptyDeadlineException() {
@@ -18,17 +25,29 @@ class EmptyDeadlineException extends Exception {
     }
 }
 
+/**
+ * Thrown to indicate that the description for an Event task cannot be empty.
+ */
+
 class EmptyEventException extends Exception {
     public EmptyEventException() {
         super("Event cannot have empty description.");
     }
 }
 
+/**
+ * Thrown to indicate that the user input is invalid.
+ */
+
 class InvalidException extends Exception {
     public InvalidException() {
         super("Sorry, invalid input.");
     }
 }
+
+/**
+ * Represents a generic task with a description and a completion status.
+ */
 
  class Task {
     public String description;
@@ -57,6 +76,10 @@ class InvalidException extends Exception {
     }
 }
 
+/**
+ * Represents a Todo task.
+ */
+
 class Todo extends Task {
 
     public Todo(String description) {
@@ -67,6 +90,10 @@ class Todo extends Task {
         return ("[T]" + super.toString());
     }
 }
+
+/**
+ * Represents a Deadline task with a due date.
+ */
 
  class Deadline extends Task {
 
@@ -86,6 +113,9 @@ class Todo extends Task {
     }
 }
 
+/**
+ * Represents an Event task with a start and end time.
+ */
  class Event extends Task {
 
     protected String from;
@@ -103,7 +133,10 @@ class Todo extends Task {
     }
 }
 
-
+/**
+ * The main class for the chatbot application. It initializes and runs the chatbot,
+ * handling the primary control flow of the application.
+ */
 public class Duke {
     private TaskList myList;
     private Storage st;
@@ -118,7 +151,11 @@ public class Duke {
         this.ui = new Ui(this.myList);
     }
 
-
+    /**
+     * Starts and runs the chatbot. This method keeps the chatbot running
+     * until the user decides to exit.
+     * @throws IOException If an I/O error occurs.
+     */
      public void run() throws IOException{
         ui.start();
         boolean continueChat = true;
