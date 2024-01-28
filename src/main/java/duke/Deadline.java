@@ -16,11 +16,22 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Overloaded constructor, isDone can be set
+     * @param description of duke.Deadline
+     * @param isDone sets the completion status of Deadline
+     * @param by is the end of the deadline
+     */
     public Deadline(String description, Boolean isDone, String by) {
         super(description, isDone);
         this.by = by;
     }
 
+    /**
+     * Overloaded constructor
+     * @param description of duke.Deadline
+     * @param by is the end of the deadline
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = Dates.dateTime2DbStr(by);

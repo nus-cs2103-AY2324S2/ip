@@ -4,14 +4,17 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Parser {
-    private Scanner scanner;
     private TaskList myTasks;
 
     public Parser(Scanner scanner, TaskList myTasks) {
-        this.scanner = scanner;
         this.myTasks = myTasks;
     }
 
+    /**
+     * Processes a single command
+     * @param command taken in by scanner
+     * @return boolean that denotes whether to continue processing
+     */
     public boolean processCmd(String command) {
         String border = "____________________________________________________________";
 

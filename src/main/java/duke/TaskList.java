@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-//    private duke.Storage database;
-//    private String filepath = Duke.DBPATH;
     public ArrayList<Task> taskList;
 
     // duke.Todo representation - 0 means not done, 1 means done
@@ -31,6 +29,7 @@ public class TaskList {
 
     /**
      * Adds a task to the current taskList
+     *
      * @param task to be added
      */
     public void addTask(Task task) {
@@ -40,6 +39,7 @@ public class TaskList {
 
     /**
      * Gets a task from the current taskList
+     *
      * @param task to be added
      */
     public Task getTask(int index) throws DukeException.TaskNotFoundException {
@@ -53,7 +53,8 @@ public class TaskList {
 
     /**
      * Deletes a task from the duke.TaskList, given its index
-     * @param index
+     *
+     * @param index of task to delete
      */
     public void deleteTask(int index) throws DukeException.TaskNotFoundException {
         if (index < 1 || index > taskList.size()) {
@@ -66,7 +67,7 @@ public class TaskList {
     /**
      * markTask marks a task as completed by line number
      *
-     * @param index
+     * @param index of task to mark
      */
     public void markTask(int index) throws DukeException.TaskNotFoundException  {
         if (index < 1 || index > taskList.size()) {
@@ -80,7 +81,7 @@ public class TaskList {
     /**
      * unmarkTask unmarks a task as completed by line number
      *
-     * @param index
+     * @param index of the task to unmark
      */
     public void unmarkTask(int index) throws DukeException.TaskNotFoundException  {
         if (index < 1 || index > taskList.size()) {
@@ -100,6 +101,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Gets number of tasks
+     * @return int number of tasks
+     */
     public int size() {
         return this.taskList.size();
     }
@@ -151,68 +156,4 @@ public class TaskList {
             return null;
         }
     }
-
-//    public static void main(String[] args) {
-//        Storage storage = new Storage("data/duketest.txt");
-//        TaskList testTaskList;
-//        try {
-//            testTaskList = new TaskList(storage.load());
-//        } catch (DukeException e) {
-//            Ui ui = new Ui();
-//            ui.showLoadingError();
-//            testTaskList = new TaskList();
-//        }
-//
-//        // printTaskStatus
-//        testTaskList.addTask(new Todo("Buy Bread"));
-//        testTaskList.addTask(new Deadline("Return Bread", "today"));
-//        testTaskList.addTask(new Event("project meeting", "Mon 4pm", "6pm"));
-//        testTaskList.addTask(new Event("project meeting 2", "Tues 10pm", "6pm"));
-//        System.out.println("Current duke.Task list: ");
-//        testTaskList.printTasks();
-//        System.out.println();
-//
-//        // Get duke.Todo duke.Task
-//        System.out.println("Successfully got todo task: " + testTaskList.getTask(1));
-//
-//        // Get duke.Event duke.Task
-//        System.out.println("Successfully got event task: " + testTaskList.getTask(2));
-//
-//        // Get duke.Deadline duke.Task
-//        System.out.println("Successfully got deadline task: " + testTaskList.getTask(3));
-//
-//        // printTasks
-//        System.out.println();
-//        System.out.println("duke.Task list before deletion: ");
-//        testTaskList.printTasks();
-//
-//        // Delete duke.Event duke.Task
-//        testTaskList.deleteTask(2);
-//
-//        // Delete duke.Deadline duke.Task
-//        testTaskList.deleteTask(2);
-//
-//        // printTasks
-//        System.out.println();
-//        System.out.println("duke.Task list after deletion: ");
-//        testTaskList.printTasks();
-//
-//        // mark task 1
-//        System.out.println();
-//        System.out.println("Marking task 1");
-//        testTaskList.markTask(1);
-//
-//        // printTasks
-//        System.out.println("Tasks after marking T1: ");
-//        testTaskList.printTasks();
-//        System.out.println();
-//
-//        // unmark task 1
-//        System.out.println("Unmarking task 1");
-//        testTaskList.unmarkTask(1);
-//
-//        // printTasks
-//        System.out.println("Tasks after unmarking T1: ");
-//        testTaskList.printTasks();
-//    }
 }

@@ -28,6 +28,9 @@ public class Dates {
 
     /**
      * Validates an input string and returns true if it matches
+     *
+     * @param date is the date in "dd/MM/yyyy HHmm" format
+     * @return boolean if it matches
      */
     public static boolean isValidInputDate(String date) {
         Matcher matcher = Dates.DATE_INPUT_PATTERN.matcher(date);
@@ -37,6 +40,7 @@ public class Dates {
     /**
      * Checks that the db string date matches the db date pattern
      *
+     * @param date is the date in "dd Month yyyy HH:mm" format
      * @return True if the date String matches the pattern
      */
     public static boolean isValidDbDate(String date) {
@@ -46,6 +50,7 @@ public class Dates {
 
     /**
      * Creates a datetime object, using the input string formatter
+     *
      * @param date which is a string that has a valid input pattern
      * @return LocalDateTime class based on the date String
      */
@@ -60,6 +65,7 @@ public class Dates {
 
     /**
      * Creates a datetime object, using the db string formatter
+     *
      * @param date which is a string that has a valid db pattern
      * @return LocalDateTime class based on the date String
      */
@@ -72,6 +78,12 @@ public class Dates {
         return null;
     }
 
+    /**
+     * Converts a datetime object to its database string representation
+     *
+     * @param datetime object
+     * @return String representation for database dates
+     */
     public static String dateTime2DbStr(LocalDateTime datetime) {
         try {
             return datetime.format(Dates.DATE_DB_FORMATTER);
@@ -79,28 +91,5 @@ public class Dates {
             System.out.println("Failed to format datetime: " + e.getMessage());
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        String invalidInputDate1 = "01/13/2023 1200";
-        String invalidInputDate2 = "01/13/2023 2401";
-        String validInputDate1 = "15/01/2023 1430";
-        String validInputDate2 = "01/01/2025 2330";
-        System.out.println(Dates.isValidInputDate(validInputDate1));
-        System.out.println(Dates.isValidInputDate(validInputDate2));
-        System.out.println(Dates.isValidInputDate(invalidInputDate1));
-        System.out.println(Dates.isValidInputDate(invalidInputDate2));
-
-        // Convert valid date strings to LocalDateTime objects
-        LocalDateTime validDate1 = inputStr2DateTime(validInputDate1);
-        LocalDateTime validDate2 = inputStr2DateTime(validInputDate2);
-
-        // Convert LocalDateTime objects to string for storage in database file
-        String validDate1Str = dateTime2DbStr(validDate1);
-        String validDate2Str = dateTime2DbStr(validDate2);
-
-        // return the db string format when printing
-        System.out.println("Valid date 1 as string: " + validDate1Str);
-        System.out.println("Valid date 2 as string: " + validDate2Str);
     }
 }

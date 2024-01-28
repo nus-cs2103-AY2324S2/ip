@@ -2,14 +2,13 @@ package duke;
 
 public class Ui {
     public void greet() {
-        String logo = "     _______.___________. ___________    ____  _______ \n" +
-                        "    /       |           ||   ____\\   \\  /   / |   ____|\n" +
-                        "   |   (----`---|  |----`|  |__   \\   \\/   /  |  |__   \n" +
-                        "    \\   \\       |  |     |   __|   \\      /   |   __|  \n" +
-                        ".----)   |      |  |     |  |____   \\    /    |  |____ \n" +
-                        "|_______/       |__|     |_______|   \\__/     |_______|";
-
-        System.out.println(logo);
+        String logo =
+                "     _                 \n" +
+                        " ___| |_ _____   _____ \n" +
+                        "/ __| __/ _ \\ \\ / / _ \\\n" +
+                        "\\__ \\ ||  __/\\ V /  __/\n" +
+                        "|___/\\__\\___| \\_/ \\___|\n";
+//        System.out.println(logo);
         System.out.println(border);
         System.out.println("What's up! I'm steve");
         System.out.println("What do you want to do?");
