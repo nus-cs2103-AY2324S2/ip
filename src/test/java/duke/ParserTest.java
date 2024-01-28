@@ -33,9 +33,9 @@ class ParserTest {
             Parser.extractDescriptionData(testArray)[1]);
         assertEquals("date2",
             Parser.extractDescriptionData(testArray)[2]);
-        String[] test_array_2 = new String[]{"event", "do stuff", "date1", "/to", "date2"};
+        String[] testArray2 = new String[]{"event", "do stuff", "date1", "/to", "date2"};
         assertThrows(
-            InvalidParametersException.class, () -> Parser.extractDescriptionData(test_array_2),
+            InvalidParametersException.class, () -> Parser.extractDescriptionData(testArray2),
             "It should throw a InvalidParameterException"
         );
         String[] testArray3 = new String[]{"todo", "do stuff"};
