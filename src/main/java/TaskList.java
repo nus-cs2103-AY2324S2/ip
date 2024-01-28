@@ -34,5 +34,20 @@ public class TaskList extends ArrayList<Task> {
             System.out.println("_________________________________________");
         }
     }
+    public void deleteTask(int index) {
+        Task task = this.get(index);
+        System.out.println("_________________________________________");
+        System.out.println("  OK! I've removed this task:");
+        System.out.println("    " + task);
+        this.remove(index);
+        String numOfTask;
+        if (this.size() < 2) {
+            numOfTask = this.size() + " task";
+        } else {
+            numOfTask = this.size() + " tasks";
+        }
+        System.out.println("  Now you have " + numOfTask + " in the list.");
+        System.out.println("_________________________________________");
+    }
 
 }

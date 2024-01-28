@@ -1,5 +1,5 @@
 public class CommandScanner {
-    public enum Commands {TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE}
+    public enum Commands {TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE}
 
     public static String scanCommand(String[] inputs) throws DukeException {
 
@@ -22,6 +22,8 @@ public class CommandScanner {
                     return Commands.MARK.name();
                 case "UNMARK":
                     return Commands.UNMARK.name();
+                case "DELETE":
+                    return Commands.DELETE.name();
                 case "BYE":
                     return Commands.BYE.name();
                 default:

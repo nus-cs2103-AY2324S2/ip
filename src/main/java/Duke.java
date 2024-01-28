@@ -63,6 +63,10 @@ public class Duke {
                         var unmarkIndex = Integer.parseInt(words[words.length - 1]) - 1;
                         tasksList.getTask(unmarkIndex).markNotDone();
                         continue;
+                    case "DELETE":
+                        int index = Integer.parseInt(words[words.length - 1]) - 1;
+                        tasksList.deleteTask(index);
+                        continue;
                     case "BYE":
                         System.out.println("Sayonara! Do visit again. RAHHHHH 0.0");
                         runBot = false;
