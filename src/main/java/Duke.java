@@ -11,44 +11,79 @@ public class Duke {
         System.out.println("Hello! I'm " + chatbotName + "\nWhat can I do for you?");
 
         while (true) {
-            System.out.print(">> ");
-            String userInput = scanner.nextLine();
-            if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println(" Bye. Hope to see you again soon!");
-                break;
+            try {
+                System.out.print(">> ");
+                String userInput = scanner.nextLine();
 
-            } else if (userInput.equalsIgnoreCase("list")) {
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println(" " + (i + 1) + "." + tasks[i].toString());
-                }
-
-            } else if (userInput.startsWith("mark")) {
-                int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    tasks[taskIndex].markAsDone();
-                    System.out.println("Nice! I've marked this task as done: \n [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].getDescription());
-
+                if (userInput.equalsIgnoreCase("bye")) {
+                    System.out.println(" Bye. Hope to see you again soon!");
+                    break;
+                } else if (userInput.equalsIgnoreCase("list")) {
+                    listTasks(tasks, taskCount);
+                } else if (userInput.startsWith("mark")) {
+                    markTaskAsDone(userInput, tasks, taskCount);
+                } else if (userInput.startsWith("unmark")) {
+                    unmarkTaskAsUndone(userInput, tasks, taskCount);
                 } else {
-                    System.out.println("Invalid task index.");
+                    addTask(userInput, tasks, taskCount);
+                    taskCount++;
                 }
-
-            } else if (userInput.startsWith("unmark")) {
-                int taskIndex = Integer.parseInt(userInput.split(" ")[1]) -1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    tasks[taskIndex].markAsUndone();
-                    System.out.println("Ok, I've marked this task as not done yet: \n [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].getDescription());
-                } else {
-                    System.out.println("Invalid task index.");
-                }
-
-            } else {
-                Task newTask = TaskParser.parseTask(userInput);
-                tasks[taskCount++] = newTask;
-                System.out.println("Got it. I've added this task:\n " + newTask.toString() +
-                        "\nNow you have " + taskCount + " tasks in the list.");
+            } catch (JamieException e) {
+                System.out.println(" " + e.getMessage());
             }
         }
         scanner.close(); // Close the Scanner to avoid resource leaks
+    }
+
+    private static void addTask(String userInput, Task[] tasks, int taskCount) throws JamieException {
+        Task newTask = TaskParser.parseTask(userInput);
+        if (newTask != null) {
+            tasks[taskCount++] = newTask;
+            System.out.println("Got it. I've added this task:\n " + newTask.toString() +
+                    "\nNow you have " + taskCount + " tasks in the list.");
+        } else {
+            throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means");
+        }
+    }
+
+    private static void listTasks(Task[] tasks, int taskCount) throws JamieException {
+        if (taskCount != 0) {
+            System.out.println(" Here are the tasks in your list:");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println(" " + (i + 1) + "." + tasks[i].toString());
+            }
+        } else {
+            System.out.println(taskCount);
+            throw new JamieException("The task list is empty.");
+        }
+    }
+
+    private static void markTaskAsDone(String userInput, Task[] tasks, int taskCount) throws JamieException {
+        try {
+            int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            if (taskIndex >= 0 && taskIndex < taskCount) {
+                tasks[taskIndex].markAsDone();
+                System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex].toString());
+            } else {
+                throw new JamieException("Invalid task index.");
+            }
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new JamieException("Invalid command format for marking a task as done.");
+        }
+    }
+
+    private static void unmarkTaskAsUndone(String userInput, Task[] tasks, int taskCount) throws JamieException {
+        try {
+            int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            if (taskIndex >= 0 && taskIndex < taskCount) {
+                tasks[taskIndex].markAsUndone();
+                System.out.println("Ok, I've marked this task as not done yet:\n" + tasks[taskIndex].toString());
+            } else {
+                throw new JamieException("Invalid task index.");
+            }
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new JamieException("Invalid command format for marking a task as not done yet.");
+        }
     }
 }
 
@@ -118,8 +153,8 @@ class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String decription, String from, String to) {
-        super(decription);
+    public Event(String description, String from, String to) {
+        super(description);
         this.from = from;
         this.to = to;
     }
@@ -132,10 +167,10 @@ class Event extends Task {
 
 
 class TaskParser {
-    public static Task parseTask(String userInput) {
+    public static Task parseTask(String userInput) throws JamieException{
         String[] words = userInput.split(" ", 2);
         if (words.length < 2) {
-            return null;
+            throw new JamieException("OOPS!!! The description of a task cannot be empty.");
         }
 
         String command = words[0].toLowerCase();
@@ -143,23 +178,34 @@ class TaskParser {
 
         switch (command) {
             case "todo":
+                if (details.trim().isEmpty()) {
+                    throw new JamieException("OOPS!!! The description of a todo cannot be empty.");
+                }
                 return new ToDo(details);
             case "deadline":
                 String[] deadlineDetails = details.split(" /by ");
-                if (deadlineDetails.length == 2) {
-                    return new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                if (deadlineDetails.length != 2 || deadlineDetails[0].trim().isEmpty() || deadlineDetails[1].trim().isEmpty()) {
+                    throw new JamieException("OOPS!!! Invalid format for deadline. Please use: deadline <description> /by <date>");
                 }
-                break;
+                return new Deadline(deadlineDetails[0], deadlineDetails[1]);
             case "event":
                 String[] eventDetails = details.split(" /from ");
-                if (eventDetails.length == 2) {
-                    String[] eventTiming = eventDetails[1].split(" /to ");
-                    if (eventTiming.length == 2) {
-                        return new Event(eventDetails[0], eventTiming[0], eventTiming[1]);
-                    }
+                if (eventDetails.length != 2) {
+                    throw new JamieException("OOPS!!! Invalid format for event. Please use: event <description> /from <start> /to <end>");
                 }
-                break;
+                String[] eventTiming = eventDetails[1].split(" /to ");
+                if (eventTiming.length != 2 || eventTiming[0].trim().isEmpty() || eventTiming[1].trim().isEmpty()) {
+                    throw new JamieException("OOPS!!! Invalid format for event timing. Please use: event <description> /from <start> /to <end>");
+                }
+                return new Event(eventDetails[0], eventTiming[0], eventTiming[1]);
         }
-        return null;
+        throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+}
+
+class JamieException extends Exception {
+    public JamieException(String message) {
+        super(message);
     }
 }
