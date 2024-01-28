@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -83,6 +84,32 @@ public class Dino {
         }
         return deadlineTime;
     }
+
+    private String parseStringToNum(String time) {
+        time = time.trim();
+        DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
+
+        LocalDateTime deadlineTime;
+        if (time.contains(" ")) {
+            deadlineTime = LocalDateTime.parse(time, dateTimeFormatter);
+        } else {
+            deadlineTime = LocalDateTime.of(LocalDate.parse(time, dateOnlyFormatter), LocalTime.MIDNIGHT);
+        }
+
+        // Format LocalDateTime to string in "yyyy-MM-dd" format
+        DateTimeFormatter resultFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        String formattedDate = deadlineTime.format(resultFormatter);
+
+        // Append time if available
+        if (deadlineTime.toLocalTime() != LocalTime.MIDNIGHT) {
+            formattedDate += " " + deadlineTime.toLocalTime().format(DateTimeFormatter.ofPattern("HHmm"));
+        }
+
+        return formattedDate;
+    }
+
+
 
     private Task createTaskFromInput(TaskType taskType, String taskDetails) throws DinoException {
         switch (taskType) {
@@ -174,10 +201,15 @@ public class Dino {
                             task = createTaskFromInput(TaskType.TODO, parts[2].trim());
                             break;
                         case "D":
-                            task = createTaskFromInput(TaskType.DEADLINE, parts[2].trim() + " /by " + parts[3].trim());
+                            String[] deadlineParts = parts[3].split(" by: ");
+                            String deadlineDetails = parts[2].trim() + " /by " + parseStringToNum(deadlineParts[1]);
+                            task = createTaskFromInput(TaskType.DEADLINE, deadlineDetails);
                             break;
                         case "E":
-                            task = createTaskFromInput(TaskType.EVENT, parts[2].trim() + " /from " + parts[3].trim() + " /to " + parts[4].trim());
+                            String[] eventParts = parts[3].split("from:|to:");
+                            String eventDetails = parts[2].trim() + " /from " + parseStringToNum(eventParts[1]) +
+                                    " /to " + parseStringToNum(eventParts[2]);
+                            task = createTaskFromInput(TaskType.EVENT, eventDetails);
                             break;
                         default:
                             System.out.println("Unknown task type in file: " + taskTypeString);
@@ -213,6 +245,31 @@ public class Dino {
             System.out.println("Now you have " + taskList.size() + " in the list.");
         } catch (DinoException e) {
             System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void printTasksForDate(Scanner sc) {
+        try {
+            String dateString = sc.next();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+            LocalDate date = LocalDate.parse(dateString, dateFormatter);
+
+            System.out.println("Tasks for " + date + ":");
+
+            taskList.stream()
+                    .filter(task -> task instanceof Deadline)
+                    .map(task -> (Deadline) task)
+                    .filter(deadline -> deadline.getDateTime().toLocalDate().equals(date))
+                    .forEach(System.out::println);
+
+            taskList.stream()
+                    .filter(task -> task instanceof Event)
+                    .map(task -> (Event) task)
+                    .filter(event -> event.getStartTime().toLocalDate().equals(date) || event.getEndTime().toLocalDate().equals(date))
+                    .forEach(System.out::println);
+
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
         }
     }
 
@@ -255,6 +312,10 @@ public class Dino {
                 case "event":
                     taskType = TaskType.EVENT;
                     handleTaskCreation(sc, taskType);
+                    break;
+
+                case "filter":
+                    printTasksForDate(sc);
                     break;
 
                 case "mark":

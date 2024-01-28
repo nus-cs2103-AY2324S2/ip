@@ -4,9 +4,8 @@ public class ToDo extends Task {
     }
 
     public String toString() {
-        //return " T | " + getStatusIcon() + " | " + super.toString();
         return String.format(" T | %s | %s",
-                isDone ? "X" : " ",
+                getStatusIcon(),
                 description);
     }
 }

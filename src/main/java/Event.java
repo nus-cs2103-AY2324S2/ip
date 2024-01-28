@@ -2,8 +2,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    protected String from;
-    protected String to;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
@@ -13,10 +11,17 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
     public String toString() {
-        //return " E | " + getStatusIcon() + " | " + super.toString() + " | from: " + this.from + " | to: " + this.to;
-        return String.format(" E | %s | %s (from: %s to: %s)",
-                isDone ? "X" : " ",
+        return String.format(" E | %s | %s | from: %s to: %s",
+                getStatusIcon(),
                 description,
                 startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")),
                 endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
