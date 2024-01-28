@@ -28,6 +28,13 @@ public class Storage <T extends FileFormattable> implements FileFormattable {
     public int getSize() {
         return this.storage.size();
     }
+    public void dueBy(String date) {
+        for(T item : this.storage) {
+            if (item instanceof Deadline) {
+                ((Deadline) item).isDueBy(date);
+            }
+        }
+    }
     @Override
     public String toString() {
         String res = "";
