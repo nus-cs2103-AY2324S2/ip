@@ -1,6 +1,7 @@
 package dino.command;
 
-import dino.command.TaskList;
+import dino.task.Deadline;
+import dino.task.Event;
 import dino.task.Task;
 import dino.task.ToDo;
 
@@ -94,7 +95,6 @@ public class Parser {
                     }
                     break;
             }
-            command = sc.next();
         }
     }
 
