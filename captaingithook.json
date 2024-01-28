@@ -1,6 +1,6 @@
 {
 	"hooks": {
-		"pre-commit": "echo \"https://nus-cs2103-ay2324s2.github.io/dashboards/contents/ip-progress.html\"",
+		"pre-commit": "./gradlew build && echo \"https://nus-cs2103-ay2324s2.github.io/dashboards/contents/ip-progress.html\"",
 		"pre-push": "./gradlew build && ./gradlew test"
 	}
 }

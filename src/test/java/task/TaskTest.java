@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import duke.Parser; s
+import duke.Parser;
 
 public class TaskTest {
   @Test
