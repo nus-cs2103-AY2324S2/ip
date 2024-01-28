@@ -3,9 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    private Storage database;
-    private String filepath;
-    private ArrayList<Task> taskList;
+//    private Storage database;
+//    private String filepath = Duke.DBPATH;
+    public ArrayList<Task> taskList;
 
     // Todo representation - 0 means not done, 1 means done
     // T | done? | desc
@@ -16,45 +16,31 @@ public class TaskList {
     // Event representation
     // E | done? | desc | from | to
 
-    public TaskList(String filepath) {
-//        String projectRoot = System.getProperty("user.dir");
-//        this.filepath = projectRoot + "/data/duke.txt";
+    public TaskList() {
         this.taskList = new ArrayList<>();
-        this.database = new Storage(filepath);
     }
 
-    public TaskList(ArrayList<Task> tasks) {
-        this.taskList = tasks;
-    }
-
-    /**
-     * Loads tasks from database into taskList
-     */
-    public void load() {
-        List<String> stringTasksList;
-        stringTasksList = this.database.readLinesFromFile();
-
+    public TaskList(List<String> stringTasksList) throws DukeException.UnknownCommandException { // initialise the TaskList with a List<String>
+        this.taskList = new ArrayList<>();
         for (String s : stringTasksList) {
             this.taskList.add(db2Task(s));
         }
     }
 
-    public void save() {
-        List<String> lines = new ArrayList<>();
-        for (Task t : taskList) {
-            String stringTask = task2Db(t);
-            lines.add(stringTask);
-        }
-        this.database.writeLinesToFile(lines);
-    }
 
-    // Add a task to the task list
+    /**
+     * Adds a task to the current taskList
+     * @param task to be added
+     */
     public void addTask(Task task) {
         // Based on task type, extract traits
         taskList.add(task);
     }
 
-    // Get a task from the task list, given its line number index
+    /**
+     * Gets a task from the current taskList
+     * @param task to be added
+     */
     public Task getTask(int index) {
         // Check if the index is within the valid range
         if (index >= 1 && index <= taskList.size()) {
@@ -66,7 +52,10 @@ public class TaskList {
         }
     }
 
-    // Delete a task from the task list, given its index
+    /**
+     * Deletes a task from the TaskList, given its index
+     * @param index
+     */
     public void deleteTask(int index) {
         taskList.remove(index - 1);
     }
@@ -105,20 +94,12 @@ public class TaskList {
     }
 
     /**
-     * Clears your database file
-     */
-    public void clear() {
-        this.database.clearFile();
-        this.taskList.clear();
-    }
-
-    /**
      * Converts the database representation of a Task to the Task object
      *
      * @param dbTask the string rep of the Task in the database
      * @return Task the Task object
      */
-    public static Task db2Task(String dbTask) {
+    public static Task db2Task(String dbTask) throws DukeException.UnknownCommandException {
         String[] params = dbTask.split(" \\| ");
         String type = params[0];
         switch (type) {
@@ -133,7 +114,7 @@ public class TaskList {
                 return eventTask;
             default:
                 System.out.println("Failed to convert string to task!");
-                return null;
+                throw new DukeException.UnknownCommandException();
         }
     }
 
@@ -161,8 +142,15 @@ public class TaskList {
     }
 
     public static void main(String[] args) {
-        TaskList testTaskList = new TaskList(Duke.DBPATH);
-        testTaskList.database.clearFile();
+        Storage storage = new Storage("data/duketest.txt");
+        TaskList testTaskList;
+        try {
+            testTaskList = new TaskList(storage.load());
+        } catch (DukeException e) {
+            Ui ui = new Ui();
+            ui.showLoadingError();
+            testTaskList = new TaskList();
+        }
 
         // printTaskStatus
         testTaskList.addTask(new Todo("Buy Bread"));
