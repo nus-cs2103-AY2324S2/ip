@@ -10,13 +10,14 @@ public class Deadline extends Task {
     private String deadlineDateReformattedString;
     public Deadline(String name) throws NicoleException {
         super();
+        System.out.println(name);
         if (name.contains("null")) {
             throw new NicoleException("Describe your deadline like this: deadline [task] by YYYY-MM-DD");
         }
         this.parseDate(name);
         super.setName(name);
     }
-    private void parseDate(String name) throws NicoleException {
+    public void parseDate(String name) throws NicoleException {
         String[] whiteSpaceSeparatedDate = name.split(" ");
         String date = whiteSpaceSeparatedDate[whiteSpaceSeparatedDate.length - 1];
         try {

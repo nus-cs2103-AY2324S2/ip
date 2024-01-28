@@ -5,6 +5,8 @@ import NicoleExceptions.NicoleException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+
 public class Event extends Task {
     private LocalDateTime deadlineFromDateTimeLocalDate;
     private LocalDateTime deadlineToDateTimeLocalDate;
@@ -14,6 +16,7 @@ public class Event extends Task {
     private String deadlineToTimeReformattedString;
     public Event(String name) throws NicoleException {
         super();
+        System.out.println(name);
         if (name.contains("null")) {
             throw new NicoleException("Describe your event like this: " +
                                       "event [name] from YYYY-MM-DD at HH-MM-SS to YYYY-MM-DD at HH-MM-SS");
@@ -24,6 +27,7 @@ public class Event extends Task {
 
     private void parseDateTime(String name) throws NicoleException {
         String[] whiteSpaceSeparatedDate = name.split(" ");
+        System.out.println(Arrays.toString(whiteSpaceSeparatedDate));
         try {
             for (int i = 0; i < whiteSpaceSeparatedDate.length; i++) {
                 if (whiteSpaceSeparatedDate[i].matches("\\d{4}-\\d{2}-\\d{2}") && i < whiteSpaceSeparatedDate.length - 4) {
@@ -35,6 +39,7 @@ public class Event extends Task {
                 }
             }
         } catch (DateTimeParseException e) {
+            System.out.println(e);
             throw new NicoleException("Are you sure your date and time are in the proper [YYYY-MM-DD], [HH-MM-SS] format...?");
         }
         if (this.deadlineFromDateTimeLocalDate.isAfter(this.deadlineToDateTimeLocalDate)) {
