@@ -24,6 +24,8 @@ public class Parser {
         return UI.Command.MARK;
       case "delete":
         return UI.Command.DELETE;
+      case "find":
+        return UI.Command.FIND;
       default:
         throw new InvalidTaskException();
     }
@@ -83,6 +85,11 @@ public class Parser {
         start = String.join(" ",
           Arrays.copyOfRange(descriptionArray, start_idx + 1, descriptionArray.length));
         ret[0] = task_desc; ret[1] = start;
+        break;
+      case "find":
+        String key_word = String.join(" ",
+          Arrays.copyOfRange(descriptionArray, 1, descriptionArray.length));
+        ret[0] = key_word;
         break;
     }
     return ret;
