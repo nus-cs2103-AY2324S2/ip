@@ -6,7 +6,7 @@ import task.taskList;
 public class Duke {
     public static void main(String[] args) {
         final String FILE_LOCATION = "projects/personal/data/duke.txt";
-        System.out.println("Hello! I'm KAI\n" + "What can i do for you?");
+        System.out.println("Hello! I'm KAI\n" + "Please type in what you want to do");
 
         taskList tasklist = new taskList();
         File file = new File(FILE_LOCATION);
