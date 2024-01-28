@@ -10,9 +10,9 @@ public class Yapper {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     private static List<Task> tasks;
-    private Scanner userScanner;
+    private final Scanner userScanner;
     private static Ui ui;
-    private Storage storage;
+    private final Storage storage;
 
     public Yapper(String filePath) {
         ui = new Ui();
