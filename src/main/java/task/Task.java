@@ -66,4 +66,8 @@ public abstract class Task {
         String check = isMarked ? "X" : " ";
         return String.format("[%s] %s", check, description);
     }
+
+    public boolean contains(String s) {
+        return this.description.contains(s);
+    }
 }
