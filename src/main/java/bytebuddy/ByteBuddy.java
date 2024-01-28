@@ -16,10 +16,19 @@ public class ByteBuddy {
     private static TaskList taskList;
     private static Ui ui;
 
+    /**
+     * Main method to run ByteBuddy chatbot.
+     * @param args command line arguments.
+     * @throws DukeException if there is an error during the execution of the ByteBuddy chatbot.
+     */
     public static void main(String[] args) throws DukeException {
         new ByteBuddy().run();
     }
 
+    /**
+     * Creates a new chatbot called ByteBuddy that helps with tasking.
+     * @throws DukeException if there is an error during the creation of list from previous runs.
+     */
     public ByteBuddy() throws DukeException {
         ui = new Ui();
         storage = new Storage();
@@ -32,6 +41,9 @@ public class ByteBuddy {
         }
     }
 
+    /**
+     * Runs the ByteBuddy chatbot.
+     */
     public void run() {
         Ui.printStartMessage();
 
