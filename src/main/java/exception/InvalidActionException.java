@@ -1,6 +1,6 @@
 package exception;
 
-public class InvalidActionException extends NarutoException{
+public class InvalidActionException extends NarutoException {
     InvalidActionException(String message) {
         super(message);
     }

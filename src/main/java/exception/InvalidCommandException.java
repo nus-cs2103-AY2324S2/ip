@@ -9,5 +9,4 @@ public class InvalidCommandException extends NarutoException {
     public NarutoException.ErrorType getErrorType() {
         return ErrorType.INVALID_COMMAND;
     }
-    
 }

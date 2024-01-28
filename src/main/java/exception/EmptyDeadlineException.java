@@ -1,7 +1,6 @@
 package exception;
 
 public class EmptyDeadlineException extends NarutoException {
-
     EmptyDeadlineException(String message) {
         super(message);
     }
@@ -10,5 +9,4 @@ public class EmptyDeadlineException extends NarutoException {
     public NarutoException.ErrorType getErrorType() {
         return ErrorType.EMPTY_DEADLINE;
     }
-    
 }

@@ -5,7 +5,7 @@ import task.Event;
 import task.Task;
 import task.ToDo;
 
-public class CSVUtil {
+public class CsvUtil {
     private final String event;
     private final String marked;
     private final String description;
@@ -14,7 +14,7 @@ public class CSVUtil {
     private final String to;
 
     // Constructor for Todo type.
-    public CSVUtil(String event, String marked, String description) {
+    public CsvUtil(String event, String marked, String description) {
         this.event = event;
         this.marked = marked;
         this.description = description;
@@ -24,7 +24,7 @@ public class CSVUtil {
     }
 
     // Constructor for Deadline type.
-    public CSVUtil(String event, String marked, String description, String by) {
+    public CsvUtil(String event, String marked, String description, String by) {
         this.event = event;
         this.marked = marked;
         this.description = description;
@@ -34,7 +34,7 @@ public class CSVUtil {
     }
 
     // Constructor for Event type.
-    public CSVUtil(String event, String marked, String description, String from, String to) {
+    public CsvUtil(String event, String marked, String description, String from, String to) {
         this.event = event;
         this.marked = marked;
         this.description = description;
@@ -44,8 +44,8 @@ public class CSVUtil {
     }
 
     // Constructor for CSV values.
-    public CSVUtil(String CSV) {
-        String[] vals = CSV.split(",");
+    public CsvUtil(String csv) {
+        String[] vals = csv.split(",");
         this.event = vals[0];
         this.marked = vals[1];
         this.description = vals[2];
@@ -84,7 +84,7 @@ public class CSVUtil {
 
     }
 
-    public String toCSV() {
+    public String toCsv() {
         return String.format("%s,%s,%s,%s,%s,%s\n", event, marked, description,
             by, from, to);
     }

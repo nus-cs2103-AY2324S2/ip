@@ -1,9 +1,8 @@
 package task;
+import java.time.LocalDateTime;
 
-import util.*;
-
-import java.time.*;
-import java.time.format.DateTimeFormatter;
+import util.CsvUtil;
+import util.DateTimeUtil;
 
 public class Deadline extends Task {
     protected LocalDateTime by;
@@ -19,8 +18,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public CSVUtil format() {
-        return new CSVUtil("D", String.valueOf(super.isMarked), super.description,
+    public CsvUtil format() {
+        return new CsvUtil("D", String.valueOf(super.isMarked), super.description,
             DateTimeUtil.format(by));
     }
 

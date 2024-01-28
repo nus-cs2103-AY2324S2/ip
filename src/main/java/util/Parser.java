@@ -1,8 +1,8 @@
 package util;
 
-import exception.*;
+import java.util.Scanner;
 
-import java.util.*;
+import exception.NarutoException;
 
 public class Parser {
     private static Scanner sc = new Scanner(System.in);

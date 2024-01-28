@@ -10,6 +10,4 @@ public class EmptyTodoException extends NarutoException {
     public NarutoException.ErrorType getErrorType() {
         return ErrorType.EMPTY_TODO;
     }
-    
-
 }

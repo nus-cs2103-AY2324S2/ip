@@ -1,11 +1,19 @@
 package util;
 
-import action.*;
-import action.List;
-import exception.*;
-import task.*;
+import java.util.Scanner;
 
-import java.util.*;
+import action.Action;
+import action.Add;
+import action.Delete;
+import action.Goodbye;
+import action.HandleError;
+import action.List;
+import action.Mark;
+import action.Unmark;
+import exception.NarutoException;
+import task.Deadline;
+import task.Event;
+import task.ToDo;
 
 public class Ui {
     private static Scanner sc = new Scanner(System.in);

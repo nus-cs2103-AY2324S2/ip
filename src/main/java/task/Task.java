@@ -1,6 +1,5 @@
 package task;
-
-import util.CSVUtil;
+import util.CsvUtil;
 
 public abstract class Task {
     protected final String description;
@@ -26,7 +25,7 @@ public abstract class Task {
         return this;
     }
 
-    public abstract CSVUtil format();
+    public abstract CsvUtil format();
 
     @Override
     public String toString() {

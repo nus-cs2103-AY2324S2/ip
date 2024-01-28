@@ -9,5 +9,4 @@ public class InvalidEventException extends NarutoException {
     public NarutoException.ErrorType getErrorType() {
         return ErrorType.INVALID_EVENT;
     }
-    
 }

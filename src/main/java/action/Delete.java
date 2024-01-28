@@ -1,14 +1,13 @@
 package action;
+import java.io.IOException;
 
 import task.Task;
-import util.TaskList;
 import util.PrintUtil;
-
-import java.io.*;
+import util.TaskList;
 
 public class Delete implements Action {
-    private TaskList taskList;
-    private int idx;
+    private final TaskList taskList;
+    private final int idx;
 
     public Delete(TaskList taskList, int idx) {
         this.taskList = taskList;
@@ -20,7 +19,7 @@ public class Delete implements Action {
         Task task = this.taskList.delete(this.idx);
         int size = this.taskList.getSize();
         String plural = size == 1 ? "task" : "tasks";
-        PrintUtil.print("Got it! Task deleted:\n  " + task + "\nNow you have " +
-                size + " " + plural + " remaining.");
+        PrintUtil.print("Got it! Task deleted:\n  " + task + "\nNow you have "
+                + size + " " + plural + " remaining.");
     }
 }

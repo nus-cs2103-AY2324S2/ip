@@ -1,9 +1,8 @@
 package task;
-
-import util.*;
-
 import java.time.LocalDateTime;
-import java.time.format.*;
+
+import util.CsvUtil;
+import util.DateTimeUtil;
 
 public class Event extends Task {
     protected LocalDateTime from;
@@ -22,8 +21,8 @@ public class Event extends Task {
     }
 
     @Override
-    public CSVUtil format() {
-        return new CSVUtil("E", String.valueOf(super.isMarked), super.description,
+    public CsvUtil format() {
+        return new CsvUtil("E", String.valueOf(super.isMarked), super.description,
             DateTimeUtil.format(from),
             DateTimeUtil.format(to));
     }

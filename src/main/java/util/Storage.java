@@ -1,10 +1,14 @@
 package util;
-import exception.*;
-import task.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-import java.io.*;
-import java.nio.file.*;
-import java.util.*;
+import exception.NarutoException;
+import task.Task;
 
 public class Storage {
     private static final String FILE_PATH = "src/logs/tasks.txt";
@@ -27,7 +31,7 @@ public class Storage {
         try (Scanner sc = new Scanner(filePath)) {
             while (sc.hasNext()) {
                 try {
-                    tasks.add(new CSVUtil(sc.nextLine()).toTask());
+                    tasks.add(new CsvUtil(sc.nextLine()).toTask());
                 } catch (IllegalArgumentException e) {
                     PrintUtil.print(NarutoException.createFileCorruptedException().getMessage());
                     resetStorage();
@@ -52,7 +56,7 @@ public class Storage {
     void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task t : tasks) {
-            fw.write(t.format().toCSV());
+            fw.write(t.format().toCsv());
         }
         fw.close();
     }

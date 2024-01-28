@@ -1,6 +1,5 @@
 package task;
-
-import util.CSVUtil;
+import util.CsvUtil;
 
 public class ToDo extends Task {
 
@@ -13,8 +12,8 @@ public class ToDo extends Task {
     }
 
     @Override
-    public CSVUtil format() {
-        return new CSVUtil("T", String.valueOf(super.isMarked), super.description);
+    public CsvUtil format() {
+        return new CsvUtil("T", String.valueOf(super.isMarked), super.description);
     }
 
     @Override

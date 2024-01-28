@@ -1,13 +1,15 @@
 package naruto;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Scanner;
+
 import action.Action;
 import action.Greet;
 import action.HandleError;
 import exception.NarutoException;
-import util.*;
+import util.PrintUtil;
+import util.TaskList;
+import util.Ui;
 
 public class Naruto {
     private static LinkedList<Action> actions = new LinkedList<>();

@@ -13,8 +13,8 @@ public class PrintUtil {
     private static void printSpacer() {
         System.out.println();
         indent();
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" +
-                " - - - -\n");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+                + " - - - -\n");
     }
 
     private static void indent() {
