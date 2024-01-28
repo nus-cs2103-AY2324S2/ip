@@ -13,37 +13,42 @@ public class Cro {
         System.out.println("-----------------------------------");
     }
 
-    public static void addToDo(List<String> splitStr) {
+    public static void addToDo(List<String> splitStr) throws CroException {
         String description = String.join(" ", splitStr.subList(1, splitStr.size()));
+        if (description.equals("")) {
+            throw new CroException("description of todo cannot be empty!");
+        }
         ToDo newToDo = new ToDo(description);
         addToTaskList(newToDo);
     }
 
-    public static void addDeadline(List<String> splitStr) {
+    public static void addDeadline(List<String> splitStr) throws CroException {
         int byIndex = splitStr.indexOf("/by");
         if (byIndex < 0) {
-            System.out.println("-----------------------------------");
-            System.out.println("deadline not found, please include with '/by' as an indicator.");
-            System.out.println("-----------------------------------");
+            throw new CroException("deadline not found, please include with '/by' as an indicator.");
         } else {
             String description = String.join(" ", splitStr.subList(1, byIndex));
             String deadline = String.join(" ", splitStr.subList(byIndex + 1, splitStr.size()));
+            if (description.equals("") || deadline.equals("")) {
+                throw new CroException("description or deadline cannot be empty!");
+            }
             Deadline newDeadline = new Deadline(description, deadline);
             addToTaskList(newDeadline);
         }
     }
 
-    public static void addEvent(List<String> splitStr) {
+    public static void addEvent(List<String> splitStr) throws CroException {
         int fromIndex = splitStr.indexOf("/from");
         int toIndex = splitStr.indexOf("/to");
         if (fromIndex < 0 || toIndex < 0) {
-            System.out.println("-----------------------------------");
-            System.out.println("event timings not found, please use /from and /to to indicate.");
-            System.out.println("-----------------------------------");
+            throw new CroException("event timings not found, please use /from and /to to indicate.");
         } else {
             String description = String.join(" ", splitStr.subList(1, fromIndex));
             String start = String.join(" ", splitStr.subList(fromIndex + 1, toIndex));
             String end = String.join(" ", splitStr.subList(toIndex + 1, splitStr.size()));
+            if (description.equals("") || start.equals("") || end.equals("")) {
+                throw new CroException("description, start or end cannot be empty!");
+            }
             Event newEvent = new Event(description, start, end);
             addToTaskList(newEvent);
         }
@@ -55,11 +60,9 @@ public class Cro {
         }
     }
 
-    public static void markTaskAsDone(int taskNo) {
+    public static void markTaskAsDone(int taskNo) throws CroException {
         if (taskNo > taskList.size()) {
-            System.out.println("-----------------------------------");
-            System.out.println("Task not found!");
-            System.out.println("-----------------------------------");
+            throw new CroException("Task not found!");
         } else {
             taskList.get(taskNo-1).markAsDone();
             System.out.println("-----------------------------------");
@@ -69,11 +72,9 @@ public class Cro {
         }
     }
 
-    public static void markTaskAsUndone(int taskNo) {
+    public static void markTaskAsUndone(int taskNo) throws CroException {
         if (taskNo > taskList.size()) {
-            System.out.println("-----------------------------------");
-            System.out.println("Task not found!");
-            System.out.println("-----------------------------------");
+            throw new CroException("Task not found!");
         } else {
             taskList.get(taskNo-1).markAsUndone();
             System.out.println("-----------------------------------");
@@ -82,29 +83,36 @@ public class Cro {
             System.out.println("-----------------------------------");
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args){
         System.out.println(welcomeMessage);
         Scanner sc = new Scanner(System.in);
         while (true) {
             String inText = sc.nextLine();
             List<String> splitStr = Arrays.asList(inText.trim().split("\\s+"));
-            if (splitStr.get(0).equals("bye")) {
-                System.out.println("-----------------------------------");
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("-----------------------------------");
-                break;
-            } else if (splitStr.get(0).equals("list")) {
-                displayTasks();
-            } else if (splitStr.get(0).equals("mark")) {
-                markTaskAsDone(Integer.parseInt(splitStr.get(1)));
-            } else if (splitStr.get(0).equals("unmark")) {
-                markTaskAsUndone(Integer.parseInt(splitStr.get(1)));
-            } else if (splitStr.get(0).equals("todo")) {
-                addToDo(splitStr);
-            } else if (splitStr.get(0).equals("deadline")) {
-                addDeadline(splitStr);
-            } else if (splitStr.get(0).equals("event")) {
-                addEvent(splitStr);
+            String command = splitStr.get(0);
+            try {
+                if (command.equals("bye")) {
+                    System.out.println("-----------------------------------");
+                    System.out.println("Bye. Hope to see you again soon!");
+                    System.out.println("-----------------------------------");
+                    break;
+                } else if (command.equals("list")) {
+                    displayTasks();
+                } else if (command.equals("mark")) {
+                    markTaskAsDone(Integer.parseInt(splitStr.get(1)));
+                } else if (command.equals("unmark")) {
+                    markTaskAsUndone(Integer.parseInt(splitStr.get(1)));
+                } else if (command.equals("todo")) {
+                    addToDo(splitStr);
+                } else if (command.equals("deadline")) {
+                    addDeadline(splitStr);
+                } else if (command.equals("event")) {
+                    addEvent(splitStr);
+                } else {
+                    throw new CroException("Unknown command. Please try again.");
+                }
+            } catch (CroException e){
+                System.out.println(e.getMessage());
             }
         }
 
