@@ -12,10 +12,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 public class Storage {
 
-    public static final String filepath = "./data/data.txt";
+    public static String filepath = "./data/data.txt";
     public Storage() {
         try {
             TaskList.taskList = loadTasksFromFile(filepath);
+            System.out.println("hi there");
         } catch (IOException | GeneralException e) {
             System.out.println("Something went wrong with loading your previous session data!");
         }
@@ -27,6 +28,7 @@ public class Storage {
             }
             System.out.println("Your session has been saved.");
         } catch (FileNotFoundException e) {
+            System.out.println("hello there");
             File file = new File(filepath);
             if (file.createNewFile()) {
                 saveTasksToFile();

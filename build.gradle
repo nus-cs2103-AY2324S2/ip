@@ -39,6 +39,7 @@ checkstyle {
 shadowJar {
     archiveBaseName = "tsundere"
     archiveClassifier = null
+    archiveFileName = "tsundere.jar"
     dependsOn("distZip", "distTar")
 }
 

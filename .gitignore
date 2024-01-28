@@ -18,4 +18,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 /src/main/java/*.class
 
-/data
+data
