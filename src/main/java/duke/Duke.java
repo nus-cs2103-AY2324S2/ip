@@ -1,18 +1,14 @@
-import duke.Parser;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+package duke;
+
 import duke.command.Command;
 import duke.exceptions.ChatException;
-
-import java.util.Scanner;
 
 public class Duke {
 
     private TaskList taskList;
     private final Ui ui;
 
-    private Duke() {
+    public Duke() {
         this.ui = new Ui();
         // Inspired and referenced from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
         try {
@@ -49,9 +45,4 @@ public class Duke {
         this.ui.close();
     }
 
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.loop();
-        duke.end();
-    }
 }
