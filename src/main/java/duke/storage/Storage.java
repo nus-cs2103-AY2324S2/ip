@@ -155,11 +155,44 @@ public class Storage {
 
     /**
      * Method to print all items in storage to standard output
+     *
+     * @param arguments Arguments of list type
      */
-    public static void listItems() {
-        for (int i = 0; i < storageArray.size(); i++) {
-            System.out.println(String.format("%d.%s", i + 1, storageArray.get(i).toString()));
+    public static void listItems(String[] arguments) throws InvalidArgumentException, InvalidArgumentException {
+        // Check list type
+        if (arguments.length > 0) {
+            switch (arguments[0]) {
+            case "/date":
+                try {
+                    // Get date of argument
+                    Instant date = userDateToInstant(arguments[1], "00:00");
+                    int printIndex = 1;
+
+                    for (int i = 0; i < storageArray.size(); i++) {
+                        Task task = storageArray.get(i);
+
+                        if ((task instanceof Deadline && ((Deadline) task).isOn(date))
+                                || (task instanceof Event && ((Event) task).encompasses(date))) {
+                            System.out.println(String.format("%d.%s", printIndex, storageArray.get(i).toString()));
+                            printIndex++;
+                        }
+                    }
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                    throw new InvalidArgumentException(
+                            "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD'");
+                }
+                break;
+
+            default:
+                throw new InvalidArgumentException(
+                        String.format("Argument '%s' not currently supported for the 'list' command", arguments[0]));
+            }
+        } else { // Print all tasks
+            for (int i = 0; i < storageArray.size(); i++) {
+                System.out.println(String.format("%d.%s", i + 1, storageArray.get(i).toString()));
+            }
         }
+
     }
 
     /**

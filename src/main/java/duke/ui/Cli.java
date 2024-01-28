@@ -48,7 +48,7 @@ public class Cli {
                     break;
 
                 case "list": // List items
-                    Storage.listItems();
+                    Storage.listItems(Arrays.copyOfRange(splitInput, 1, splitInput.length));
                     break;
 
                 case "mark": // Mark item

@@ -1,6 +1,7 @@
 package duke.storage;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
@@ -57,6 +58,19 @@ public class Deadline extends Task {
      */
     public long getDueDate() {
         return this.dueDate.toEpochMilli();
+    }
+
+    /**
+     * Check if deadline is on the specified date
+     *
+     * @param date Date to check against
+     * @return True if deadline is on the specified date, false otherwise
+     */
+    public boolean isOn(Instant date) {
+        LocalDate dueDateLocal = this.dueDate.atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dateLocal = date.atZone(ZoneId.systemDefault()).toLocalDate();
+
+        return dueDateLocal.equals(dateLocal);
     }
 
     /**

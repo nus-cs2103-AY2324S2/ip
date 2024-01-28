@@ -1,6 +1,7 @@
 package duke.storage;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
@@ -77,6 +78,22 @@ public class Event extends Task {
      */
     public long getEndDate() {
         return this.endDate.toEpochMilli();
+    }
+
+    /**
+     * Check if event encompasses the specified date
+     *
+     * @param date Date to check against
+     * @return True if event is encompasses specified date, false otherwise
+     */
+    public boolean encompasses(Instant date) {
+        LocalDate startDateLocal = this.startDate.atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate endDateLocal = this.endDate.atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dateLocal = date.atZone(ZoneId.systemDefault()).toLocalDate();
+
+        return (dateLocal.isAfter(startDateLocal) && dateLocal.isBefore(endDateLocal))
+                || dateLocal.equals(startDateLocal)
+                || dateLocal.equals(endDateLocal);
     }
 
     /**
