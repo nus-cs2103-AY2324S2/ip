@@ -1,5 +1,5 @@
 public class ParameterNotFoundException extends BobException {
     public ParameterNotFoundException(String parameter) {
-        super(Replies.PARAMETER_NOT_FOUND + parameter);
+        super(String.format(Replies.PARAMETER_NOT_FOUND, parameter));
     }
 }

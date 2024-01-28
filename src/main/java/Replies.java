@@ -17,7 +17,7 @@ public class Replies {
 
     public static final String EMPTY_DESCRIPTION = "missing description for %s";
     public static final String INVALID_COMMAND = "what";
-    public static final String PARAMETER_NOT_FOUND = "not enough information: ";
+    public static final String PARAMETER_NOT_FOUND = "not enough information: %s";
     public static final String INVALID_TASK_INDEX = "invalid task index. "
             + "task index is non-zero integer at most the number of tasks you have. "
             + "you gave me \"%s\".";
