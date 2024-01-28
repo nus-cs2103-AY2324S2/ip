@@ -46,7 +46,6 @@ public class Storage {
             fw = new FileWriter(filePath, true);
             for (int i = 1; i <= TaskList.listSize(); i++) {
                 String textToAppend = TaskList.getTask(i).toString();
-                System.out.println(textToAppend);
                 fw.write(textToAppend + "\n");
             }   
         } catch (IOException e) {
