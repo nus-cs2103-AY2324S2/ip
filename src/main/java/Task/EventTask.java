@@ -15,6 +15,19 @@ public class EventTask extends Task {
         this.endDateTime = endDateTime;
     }
 
+    public EventTask(String taskName, String startDateTime, String endDateTime, boolean isCompleted) {
+        super(taskName, isCompleted);
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+    }
+
+
+    @Override
+    public String getStringStorageRepresentation() {
+        return String.format("E | %s | %s | %s", super.getStringStorageRepresentation(), this.startDateTime, this.endDateTime);
+    }
+
+
     @Override
     public String toString() {
         return String.format("[E] %s (from: %s to: %s)", super.toString(), this.startDateTime, this.endDateTime);

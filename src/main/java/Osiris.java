@@ -11,6 +11,7 @@ public class Osiris {
 
     public void startChat(){
         Scanner scanner = new Scanner(System.in);
+        this.taskManager.initialise();
         boolean terminateChat = false;
 
         this.printSeparator();
@@ -118,6 +119,8 @@ public class Osiris {
 
         }
 
+        this.taskManager.termintate();
+
         this.printSeparator();
         this.outputGoodbyes();
         this.printSeparator();
@@ -152,47 +155,33 @@ public class Osiris {
         System.out.println(goodbyes);
     }
 
-    private void echoUserInput(String input) {
-        this.printSeparator();
-        System.out.println("     " + input);
-        this.printSeparator();
-    }
-
-    private void addUserTask(String userInput) {
-        this.taskManager.addUserTask(userInput);
-
-        this.printSeparator();
-        System.out.println("     Added Task.Task: " + userInput);
-        this.printSeparator();
-    }
-
     private void addToDoTask(String taskName) {
-        this.taskManager.addToDoTask(taskName);
+        this.taskManager.addToDoTask(taskName, false);
 
         this.printSeparator();
         System.out.println("     Got it. I've added this task:");
-        System.out.println("        " + this.taskManager.getTask(taskManager.getTotalTaskCount() - 1).toString());
-        System.out.printf("     Now you have %d tasks in the list.%n", taskManager.getTotalTaskCount());
+        System.out.println("        " + this.taskManager.getTask(this.taskManager.getTotalTaskCount() - 1).toString());
+        System.out.printf("     Now you have %d tasks in the list.%n", this.taskManager.getTotalTaskCount());
         this.printSeparator();
     }
 
     private void addDeadlineTask(String taskName, String deadline) {
-        this.taskManager.addDeadlineTask(taskName,deadline);
+        this.taskManager.addDeadlineTask(taskName,deadline, false);
 
         this.printSeparator();
         System.out.println("     Got it. I've added this task:");
-        System.out.println("        " + this.taskManager.getTask(taskManager.getTotalTaskCount() - 1).toString());
-        System.out.printf("     Now you have %d tasks in the list.%n", taskManager.getTotalTaskCount());
+        System.out.println("        " + this.taskManager.getTask(this.taskManager.getTotalTaskCount() - 1).toString());
+        System.out.printf("     Now you have %d tasks in the list.%n", this.taskManager.getTotalTaskCount());
         this.printSeparator();
     }
 
     private void addEventTask(String taskName, String startDateTime, String endDateTime) {
-        this.taskManager.addEventTask(taskName, startDateTime, endDateTime);
+        this.taskManager.addEventTask(taskName, startDateTime, endDateTime, false);
 
         this.printSeparator();
         System.out.println("     Got it. I've added this task:");
-        System.out.println("        " + this.taskManager.getTask(taskManager.getTotalTaskCount() - 1).toString());
-        System.out.printf("     Now you have %d tasks in the list.%n", taskManager.getTotalTaskCount());
+        System.out.println("        " + this.taskManager.getTask(this.taskManager.getTotalTaskCount() - 1).toString());
+        System.out.printf("     Now you have %d tasks in the list.%n", this.taskManager.getTotalTaskCount());
         this.printSeparator();
     }
 
@@ -225,7 +214,7 @@ public class Osiris {
             this.printSeparator();
             System.out.println("     Noted. I've removed this task:");
             System.out.println("        " + removedTask.toString());
-            System.out.printf("     Now you have %d tasks in the list.%n", taskManager.getTotalTaskCount());
+            System.out.printf("     Now you have %d tasks in the list.%n", this.taskManager.getTotalTaskCount());
             this.printSeparator();
         }
     }

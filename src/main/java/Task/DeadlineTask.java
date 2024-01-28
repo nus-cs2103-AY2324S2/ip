@@ -11,6 +11,16 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
+    public DeadlineTask(String taskName, String deadline, boolean isCompleted) {
+        super(taskName, isCompleted);
+        this.deadline = deadline;
+    }
+
+    @Override
+    public String getStringStorageRepresentation() {
+        return String.format("D | %s | %s", super.getStringStorageRepresentation(), this.deadline);
+    }
+
     @Override
     public String toString() {
         return String.format("[D] %s (by: %s)", super.toString(), this.deadline);
