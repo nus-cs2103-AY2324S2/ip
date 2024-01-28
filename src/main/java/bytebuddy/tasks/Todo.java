@@ -1,4 +1,4 @@
-package tasks;
+package bytebuddy.tasks;
 
 public class Todo extends Task {
 

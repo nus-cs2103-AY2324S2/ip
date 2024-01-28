@@ -1,4 +1,4 @@
-package constants;
+package bytebuddy.constants;
 
 public class ExceptionErrorMessages {
     public static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description cannot be empty??";

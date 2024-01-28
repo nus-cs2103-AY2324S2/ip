@@ -1,9 +1,9 @@
-package commands;
+package bytebuddy.commands;
 
-import exceptions.DukeException;
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+import bytebuddy.exceptions.DukeException;
+import bytebuddy.storage.Storage;
+import bytebuddy.tasks.TaskList;
+import bytebuddy.ui.Ui;
 
 public class EventCommand implements Command {
     private String info;

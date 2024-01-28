@@ -1,4 +1,4 @@
-package tasks;
+package bytebuddy.tasks;
 
 public class Task {
     protected String description;

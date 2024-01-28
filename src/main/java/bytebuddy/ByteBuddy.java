@@ -1,13 +1,13 @@
-import commands.Command;
-import exceptions.DukeException;
-import parser.Parser;
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+package bytebuddy;
 
-import java.util.Scanner;
+import bytebuddy.commands.Command;
+import bytebuddy.exceptions.DukeException;
+import bytebuddy.parser.Parser;
+import bytebuddy.storage.Storage;
+import bytebuddy.tasks.TaskList;
+import bytebuddy.ui.Ui;
 
-import static ui.Ui.printWithSolidLineBreak;
+import static bytebuddy.ui.Ui.printWithSolidLineBreak;
 
 
 public class ByteBuddy {

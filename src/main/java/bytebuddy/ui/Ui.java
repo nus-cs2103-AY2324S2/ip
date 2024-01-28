@@ -1,10 +1,10 @@
-package ui;
+package bytebuddy.ui;
 
 import java.util.Scanner;
 
-import static constants.Information.solidLineBreak;
-import static constants.Messages.BYE_MESSAGE;
-import static constants.Messages.START_MESSAGE;
+import static bytebuddy.constants.Information.solidLineBreak;
+import static bytebuddy.constants.Messages.BYE_MESSAGE;
+import static bytebuddy.constants.Messages.START_MESSAGE;
 
 public class Ui {
     private Scanner sc;

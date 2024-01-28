@@ -1,7 +1,7 @@
-package parser;
+package bytebuddy.parser;
 
-import commands.*;
-import exceptions.DukeException;
+import bytebuddy.commands.*;
+import bytebuddy.exceptions.DukeException;
 
 
 public class Parser {

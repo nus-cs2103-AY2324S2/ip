@@ -1,4 +1,4 @@
-package constants;
+package bytebuddy.constants;
 
 public class Information {
     public static final String solidLineBreak = "____________________________________________________________";

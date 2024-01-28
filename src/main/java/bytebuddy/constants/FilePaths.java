@@ -1,4 +1,4 @@
-package constants;
+package bytebuddy.constants;
 
 public class FilePaths {
     public static final String RELATIVE_DATA_DIRECTORY_PATH = "./data";

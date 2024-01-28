@@ -1,4 +1,4 @@
-package exceptions;
+package bytebuddy.exceptions;
 
 public class DukeException extends Exception {
     public DukeException(String message) {
