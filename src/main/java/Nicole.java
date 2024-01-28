@@ -1,8 +1,8 @@
+import UserRequests.Ui;
+
 import java.io.IOException;
 
 public class Nicole {
-    public static final String botName = "Nicole";
-    private Ui ui;
     public Nicole() {
         try {
             System.out.println(new Ui().talkToUser());

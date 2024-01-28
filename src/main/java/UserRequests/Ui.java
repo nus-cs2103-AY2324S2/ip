@@ -1,3 +1,7 @@
+package UserRequests;
+
+import NicoleExceptions.NicoleException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -37,8 +41,7 @@ public class Ui {
         }
         return "Welcome to Nicole Mark II. New conversation at " + digitalTime.format(now) + "\n" +
                 "----------------------------- x ------------------------------" + "\n" +
-                Nicole.botName +
-                ": " + salutation;
+                "Nicole: " + salutation;
     }
     private String exit() {
         return "Bye, for now ;) Let's catch up again soon.";

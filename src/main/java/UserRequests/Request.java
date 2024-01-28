@@ -1,3 +1,11 @@
+package UserRequests;
+
+import Task.Task;
+
+import NicoleExceptions.NicoleException;
+
+import TaskStorage.TaskList;
+
 import java.io.IOException;
 
 public class Request {
@@ -28,7 +36,7 @@ public class Request {
             int taskNumber = Integer.parseInt(name.substring(7));
             taskList.deleteTask(taskNumber);
         } else if (name.equals("help")) {
-            System.out.println(Nicole.botName + ": " +
+            System.out.println("Nicole: " +
                     "I'm your task/deadline/event manager! I'm down with these requests,\n" +
                     "1. todo [task]\n" +
                     "2. deadline [task] by YYYY-MM-DD\n" +
