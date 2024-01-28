@@ -19,5 +19,7 @@ unmark 0
 delete 0
 delete abc
 delete 1
+find ip
+mark 2
 list
 bye
