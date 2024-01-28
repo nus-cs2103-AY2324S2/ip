@@ -17,7 +17,7 @@ bin/
 src/main/java/pan/*.class
 
 # output .txt file for level 7
-src/main/java/java/output/pan.txt
+src/main/java/pan/output/pan.txt
 
 # test scripts
 text-ui-test/ACTUAL.txt
