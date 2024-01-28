@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 class EmptyTodoException extends Exception {
     public EmptyTodoException() {
-        super("Todo cannot have empty description.");
+        super("Todo cannot have empty description .");
     }
 }
 
