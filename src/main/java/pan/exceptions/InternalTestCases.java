@@ -1,6 +1,6 @@
-package exceptions;
+package pan.exceptions;
 
-import enums.Commands;
+import pan.enums.Commands;
 
 public class InternalTestCases {
     public static void TestMissingParameters(String instruction) throws MissingParameterException {

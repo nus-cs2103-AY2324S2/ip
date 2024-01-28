@@ -1,4 +1,4 @@
-package exceptions;
+package pan.exceptions;
 import java.lang.Exception;
 
 public class MissingParameterException extends Exception {

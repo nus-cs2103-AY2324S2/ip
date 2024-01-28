@@ -1,4 +1,4 @@
-package exceptions;
+package pan.exceptions;
 
 public class TaskIndexException extends Exception {
     public TaskIndexException(String message) {
