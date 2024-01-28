@@ -45,9 +45,10 @@ public class Duke {
         private ArrayList<Task> taskList;
         //private final String FILE_PATH = "./data/duke.txt";
 
-        public TaskManager() {
-            taskList = new ArrayList<>();
+        public TaskManager(ArrayList<Task> taskList) {
+            this.taskList = taskList;
             loadTasksFromFile();
+            currIndex = taskList.size();
         }
 
         public void loadTasksFromFile() {
@@ -58,10 +59,63 @@ public class Duke {
             File file = new File(directory, "duke.txt");
             try {
                 file.createNewFile();
-            } catch (IOException e) {
-                System.err.println("Error creating 'duke.txt' file: " + e.getMessage());
+                Scanner fileScanner = new Scanner(file);
+                while (fileScanner.hasNext()) {
+                    String taskLine = fileScanner.nextLine();
+                    Task task = parseTask(taskLine); // Implement this method based on your task format
+                    if (task != null) {
+                        taskList.add(task);
+                    }
+                }
+            } catch(IOException e){
+                    System.err.println("Error creating 'duke.txt' file: " + e.getMessage());
+            }
+        }
+
+        private Task parseTask(String line) {
+            String[] parts = line.split(" \\| ");
+            if (parts.length < 3) {
+                System.err.println("Task in file not in correct format or missing parts: " + line);
+                return null;
             }
 
+            try {
+                String type = parts[0];
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+
+                switch (type) {
+                case "T":
+                    Todo todo = new Todo(description);
+                    if (isDone) todo.markDone();
+                    return todo;
+                case "D":
+                    if (parts.length < 4) {
+                        System.err.println("Deadline task missing 'by' part: " + line);
+                        return null;
+                    }
+                    String by = parts[3].trim();
+                    Deadline deadline = new Deadline(description, by);
+                    if (isDone) deadline.markDone();
+                    return deadline;
+                case "E":
+                    if (parts.length < 5) {
+                        System.err.println("Event task missing 'from' or 'to' parts: " + line);
+                        return null;
+                    }
+                    String from = parts[3].trim();
+                    String to = parts[4].trim();
+                    Event event = new Event(description, from, to);
+                    if (isDone) event.markDone();
+                    return event;
+                default:
+                    System.err.println("Unknown task type: " + type);
+                    return null;
+                }
+            } catch (Exception e) {
+                System.err.println("Error parsing task from file: " + e.getMessage() + " - Line: " + line);
+                return null;
+            }
         }
         private String formatTaskForFile(Task task) {
             String returnString = "";
@@ -96,7 +150,7 @@ public class Duke {
 
 
     public static void listFunction() {
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = new TaskManager(taskList);
         Scanner scanner = new Scanner(System.in);
         String currLine = scanner.nextLine();
         while(!currLine.equals("bye")) {
