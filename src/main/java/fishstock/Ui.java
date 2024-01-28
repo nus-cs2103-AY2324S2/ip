@@ -13,7 +13,7 @@ class Ui {
         System.out.println(error);
     }
 
-    protected void run(TaskList list) {
+    protected static void run(TaskList list) {
         String line = "____________________________________________________________";
         Scanner sc = new Scanner(System.in);
         String input;
