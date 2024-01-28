@@ -1,13 +1,14 @@
 package duke.exceptions;
 
 /**
- * The TaskNotSupportedException class provides an exception.
+ * The TaskNotSupportedException class provides an exception for unspported
+ * tasks in the Duke application.
  *
  * @author Ryan NgWH
  */
 public class TaskNotSupportedException extends DukeException {
     /**
-     * Constructor for a TaskNotSupportedException
+     * Creates a TaskNotSupportedException
      *
      * @param errorMessage Error message
      */

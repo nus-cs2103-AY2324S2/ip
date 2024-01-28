@@ -8,7 +8,7 @@ package duke.exceptions;
  */
 public class DukeException extends Exception {
 	/**
-	 * Constructor for a MissingArgumentException
+	 * Creates a DukeException
 	 *
 	 * @param errorMessage Error message
 	 */
