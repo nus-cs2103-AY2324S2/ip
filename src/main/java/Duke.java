@@ -14,8 +14,8 @@ public class Duke {
         }
         return true;
     }
-    private static void run() s{
-        ArrayList<Task> storage = new ArrayList<Task>();
+    private static void run() {
+        ArrayList<Task> storage = new ArrayList<>();
         int currentIdx = 0;
         Scanner sc = new Scanner(System.in);
 
@@ -38,6 +38,9 @@ public class Duke {
                 if (echoInput.substring(0, 4).equals("mark")
                         && isNumeric(echoInput.substring(5))) {
                     int taskIdx = Integer.parseInt(echoInput.substring(5));
+                    if (taskIdx >= currentIdx) {
+                        throw new InvalidTaskIndexException(currentIdx);
+                    }
                     storage.get(taskIdx - 1).markDone();
                     continue;
                 }
@@ -52,28 +55,26 @@ public class Duke {
                         throw new EmptyDescriptionException("event");
                     }
                     int startIdx = 0;
-                    boolean foundTime = false;
+                    int numOfSlash = 0;
                     while (startIdx < echoInput.length()) {
                         if (echoInput.charAt(startIdx) != '/') {
                             startIdx++;
                         } else {
-                            foundTime = true;
+                            numOfSlash++;
                             break;
                         }
-                    }
-                    if (!foundTime) {
-                        throw new InvalidDeadlineException();
                     }
                     int endIdx = startIdx + 1;
                     while (endIdx < echoInput.length()) {
                         if (echoInput.charAt(endIdx) != '/') {
                             endIdx++;
                         } else {
+                            numOfSlash++;
                             break;
                         }
                     }
-                    if (!foundTime) {
-                        throw new InvalidDeadlineException();
+                    if (numOfSlash < 2) {
+                        throw new InvalidEventException();
                     }
                     newTask = new Event(echoInput.substring(6, startIdx),
                             echoInput.substring(startIdx + 6, endIdx),
@@ -82,15 +83,21 @@ public class Duke {
                 else if (echoInput.substring(0, 6).equals("unmark") &&
                         isNumeric(echoInput.substring(7))) {
                     int taskIdx = Integer.parseInt(echoInput.substring(7));
+                    if (taskIdx >= currentIdx) {
+                        throw new InvalidTaskIndexException(currentIdx);
+                    }
                     storage.get(taskIdx - 1).unMarkDone();
                     continue;
                 }
                 else if (echoInput.substring(0, 6).equals("delete") &&
                         isNumeric(echoInput.substring(7))) {
                     int taskIdx = Integer.parseInt(echoInput.substring(7));
+                    if (taskIdx >= currentIdx) {
+                        throw new InvalidTaskIndexException(currentIdx);
+                    }
                     Task removed = storage.remove(taskIdx - 1);
                     currentIdx--;
-                    System.out.printf("%sNoted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n%s",
+                    System.out.printf("%s Noted. I've removed this task:\n   %s\n Now you have %d tasks in the list.\n%s",
                             hRULER, removed, currentIdx, hRULER);
                     continue;
                 }
