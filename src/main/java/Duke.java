@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -123,11 +126,15 @@ public class Duke {
             case DEADLINE:
                 if (lowerInput.matches("deadline\\s.+\\s/by\\s.+")) {
                     String[] task = input.split("/by");
-                    Task t = new Deadline(task[0].substring(9).trim(), task[1].trim());
-                    add(t, list);
+                    try {
+                        Task t = new Deadline(task[0].substring(9).trim(), task[1].trim());
+                        add(t, list);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("\t " + e.getMessage());
+                    }
                 } else {
                     System.out.println("\t OOPS!!! The description and due of a deadline cannot be empty ૮₍´˶• . • ⑅ ₎ა");
-                    System.out.println("\t Try 'deadline [task description] /by [date/time]'.");
+                    System.out.println("\t Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.");
                 }
                 try {
                     writeToFile(list);
@@ -141,11 +148,15 @@ public class Duke {
                 if (lowerInput.matches("event\\s.+\\s/from\\s.+\\s/to\\s.+")) {
                     String[] task = input.split("/from");
                     String[] time = task[1].split("/to");
-                    Task t = new Event(task[0].substring(6).trim(), time[0].trim(), time[1].trim());
-                    add(t, list);
+                    try {
+                        Task t = new Event(task[0].substring(6).trim(), time[0].trim(), time[1].trim());
+                        add(t, list);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("\t " + e.getMessage());
+                    }
                 } else {
                     System.out.println("\t OOPS!!! The description, start and end time of an event cannot be empty ૮₍´˶• . • ⑅ ₎ა");
-                    System.out.println("\t Try 'event [task description] /from [start date/time] /to [end date/time]'.");
+                    System.out.println("\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.");
                 }
                 try {
                     writeToFile(list);
