@@ -12,6 +12,12 @@ class DukeException extends Exception {
 }
 public class Duke {
     public static void main(String[] args) {
+        enum taskType {
+            todo,
+            deadline,
+            event,
+            delete
+        }
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -94,7 +100,7 @@ public class Duke {
                     System.out.println(barrier);
                     System.out.println("Sorry pal, but your description is empty.");
                     System.out.println("Please redo the command and remember to add a description of the action");
-                    System.out.println("The format to schedule a todo task is: todo (Description)");
+                    System.out.println("The format to schedule a todo task is: " + taskType.todo + " (Description)");
                     System.out.println(barrier);
                 }
             } else if (inputList[0].equals("deadline")) {
@@ -111,7 +117,7 @@ public class Duke {
                     System.out.println(barrier);
                     System.out.println("Oh, you forgot to indicate when is the deadline or maybe you forgot the description.");
                     System.out.println("Please redo the command and remember to add the necessary information.");
-                    System.out.println("The format to schedule a deadline is: deadline (Description) /by (Deadline Date + time)");
+                    System.out.println("The format to schedule a deadline is: " + taskType.deadline + " (Description) /by (Deadline Date + time)");
                     System.out.println(barrier);
                 }
             } else if (inputList[0].equals("event")) {
@@ -130,7 +136,7 @@ public class Duke {
                     System.out.println("You forgot to provide either a description, an start date or an end date for this event.");
                     System.out.println("Sorry, but mind reading is not installed in me yet.");
                     System.out.println("Please redo the command and remember to add the necessary information.");
-                    System.out.println("The format to schedule a event is: event (Description) /from (Start date + time) /to (End date + time)");
+                    System.out.println("The format to schedule a event is: " + taskType.event + " (Description) /from (Start date + time) /to (End date + time)");
                     System.out.println(barrier);
                 }
 
@@ -147,14 +153,14 @@ public class Duke {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(barrier);
                     System.out.println("The number you gave exceeds how many items is in the list.");
-                    System.out.println("Can't delete an item not in the list. Please try again.");
-                    System.out.println("The format to delete a task is: delete (task list number)");
+                    System.out.println("Can't " + taskType.delete + " an item not in the list. Please try again.");
+                    System.out.println("The format to delete a task is: " + taskType.delete + " (task list number)");
                     System.out.println(barrier);
                 } catch (NumberFormatException e) {
                     System.out.println(barrier);
                     System.out.println("Sorry, I'm only smart enough to find the task based on numbers.");
                     System.out.println("Please give a number. If you refuse, too bad, this is all I can do.");
-                    System.out.println("The format to delete a task is: delete (task list number)");
+                    System.out.println("The format to delete a task is: " + taskType.delete + " (task list number)");
                     System.out.println(barrier);
                 }
 
