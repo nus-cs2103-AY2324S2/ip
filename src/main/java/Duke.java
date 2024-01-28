@@ -5,6 +5,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeParseException;
 public class Duke {
     public enum Command {
         BYE, LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
@@ -193,7 +197,14 @@ public class Duke {
                     }
                 }
 
-                toBeAdded = new Deadline(description, time);
+                try {
+                    // Attempt to create a Deadline with the provided description and time
+                    toBeAdded = new Deadline(description, time);
+                } catch (DateTimeParseException e) {
+                    // Handle the case where the date format is incorrect
+                    System.out.println("OOPS!!! Incorrect date format. Please enter the date in the format yyyy-MM-dd.");
+                    return;
+                }
                 break;
             case TODO:
                 String descriptionTodo = sc.nextLine().trim();
