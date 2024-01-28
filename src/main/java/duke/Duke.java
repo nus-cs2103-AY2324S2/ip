@@ -2,6 +2,7 @@ package duke;
 
 import duke.storage.Storage;
 import duke.ui.Cli;
+import duke.ui.Ui;
 
 public class Duke {
     public static void main(String[] args) {
@@ -9,6 +10,7 @@ public class Duke {
         Storage.initialiseStorage();
 
         // Print CLI UI
-        Cli.printUI();
+        Ui ui = new Cli();
+        ui.startUI();
     }
 }
