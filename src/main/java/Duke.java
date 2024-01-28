@@ -88,7 +88,7 @@ public class Duke {
                         try {
                             if (item.isEmpty()) {
                                 
-                                throw new DukeException("Todo cannot be empty, please indicate what you plan to do.");
+                                throw new DukeException("Todo cannot be empty! please indicate what you plan to do.");
 
                             } else {
 
