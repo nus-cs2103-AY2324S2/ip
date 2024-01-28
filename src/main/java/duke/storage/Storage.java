@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.TimeZone;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import duke.exceptions.InvalidArgumentException;
 import duke.exceptions.MissingArgumentException;
 import duke.exceptions.TaskNotSupportedException;
 import duke.storage.Task.TaskType;
@@ -44,8 +44,10 @@ public class Storage {
      * @param arguments Arguments of the item type
      */
     public static void storeItem(String item, String[] arguments)
-            throws MissingArgumentException, TaskNotSupportedException,
-            IOException {
+            throws MissingArgumentException,
+            TaskNotSupportedException,
+            IOException,
+            InvalidArgumentException {
         // Create task to be inserted
         Task task;
         String description;
@@ -77,17 +79,23 @@ public class Storage {
             // Extract task description & due date
             description = String.join(" ", Arrays.copyOfRange(arguments, 0, byIndex));
 
-            String date = arguments[byIndex + 1];
-            String time = arguments[byIndex + 2];
-            Instant dueDate = LocalDateTime.of(
-                    Integer.parseInt(date.substring(0, 4)),
-                    Integer.parseInt(date.substring(5, 7)),
-                    Integer.parseInt(date.substring(8, 10)),
-                    Integer.parseInt(time.substring(0, 2)),
-                    Integer.parseInt(time.substring(3, 5)))
-                    .toInstant(OffsetDateTime.now().getOffset());
+            try {
+                String date = arguments[byIndex + 1];
+                String time = arguments[byIndex + 2];
+                Instant dueDate = LocalDateTime.of(
+                        Integer.parseInt(date.substring(0, 4)),
+                        Integer.parseInt(date.substring(5, 7)),
+                        Integer.parseInt(date.substring(8, 10)),
+                        Integer.parseInt(time.substring(0, 2)),
+                        Integer.parseInt(time.substring(3, 5)))
+                        .toInstant(OffsetDateTime.now().getOffset());
 
-            task = new Deadline(description, dueDate);
+                // Create new task
+                task = new Deadline(description, dueDate);
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                throw new InvalidArgumentException(
+                        "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD HH:MM'");
+            }
             break;
 
         case "event":
@@ -265,10 +273,10 @@ public class Storage {
                     break;
 
                 case DEADLINE:
-                    // task = new Deadline(entry.getString("description"),
-                    // entry.getLong("dueDate"),
-                    // entry.getBoolean("isDone"));
-                    // break;
+                    task = new Deadline(entry.getString("description"),
+                            entry.getLong("dueDate"),
+                            entry.getBoolean("isDone"));
+                    break;
 
                 case EVENT:
                     // task = new Event(entry.getString("description"),

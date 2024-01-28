@@ -37,12 +37,24 @@ public class Deadline extends Task {
     }
 
     /**
-     * Get the due date of the deadline
+     * Create a Deadline task
+     *
+     * @param description Description of the deadline
+     * @param dueDate     Due date of the deadline (in epoch Milliseconds)
+     * @param isDone      Status of the deadline
+     */
+    public Deadline(String description, long dueDate, boolean isDone) {
+        super(description, TaskType.DEADLINE, isDone);
+        this.dueDate = Instant.ofEpochMilli(dueDate);
+    }
+
+    /**
+     * Get the due date of the deadline (in epoch milliseconds)
      *
      * @return Due date of the deadline
      */
-    public Instant getDueDate() {
-        return this.dueDate;
+    public long getDueDate() {
+        return this.dueDate.toEpochMilli();
     }
 
     /**
