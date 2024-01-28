@@ -48,3 +48,8 @@ run{
 checkstyle {
     toolVersion = '10.2'
 }
+
+run {
+    enableAssertions = true
+}
+
