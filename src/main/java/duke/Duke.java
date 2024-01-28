@@ -95,7 +95,7 @@ public class Duke {
         new Duke("./tasks.txt").run();
     }
     /**
-     * Returns the Option inputted by user.
+     * Returns the Option input by user.
      *
      * @param option first word of input from user.
      * @return enum of given option.
