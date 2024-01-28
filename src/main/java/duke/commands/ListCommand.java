@@ -12,7 +12,6 @@ import duke.ui.Ui;
  *
  * @author Ryan NgWH
  */
-
 public class ListCommand extends Command {
     /**
      * Date filter for the list command

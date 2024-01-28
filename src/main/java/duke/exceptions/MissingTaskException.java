@@ -6,7 +6,6 @@ package duke.exceptions;
  *
  * @author Ryan NgWH
  */
-
 public class MissingTaskException extends DukeException {
     /**
      * Creates a MissingTaskException
