@@ -186,7 +186,7 @@ class handlerbot {
         }
     }
 
-    // Function to unmark a previously marked as completed task
+    // Function to unmark previously marked as completed task
     public void incompletionmark(int taskrecorder) {
         if (taskrecorder > 0 && taskrecorder <= countertaskings) // If there are tasks
         {
