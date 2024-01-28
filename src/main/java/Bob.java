@@ -1,32 +1,26 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Bob {
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private static int numberOfTasks = 0;
-    private static final int MAX_NUMBER_OF_TASKS = 100;
-    private static final Task[] TASKS = new Task[MAX_NUMBER_OF_TASKS];
+    private static final ArrayList<Task> TASKS = new ArrayList<>();
 
     public static void handleMark(int taskIndex, boolean done) throws InvalidTaskIndexException {
-        if (taskIndex < 0 || taskIndex >= numberOfTasks) {
+        if (taskIndex < 0 || taskIndex >= TASKS.size()) {
             throw new InvalidTaskIndexException();
         }
 
-        Task task = TASKS[taskIndex];
+        Task task = TASKS.get(taskIndex);
         task.setDone(done);
         Replies.mark(task, done);
     }
 
     public static void handleList() {
-        Replies.list(TASKS, numberOfTasks);
+        Replies.list(TASKS);
     }
 
     public static void handleAdd(String taskType, String[] parameters) {
-        if (numberOfTasks == MAX_NUMBER_OF_TASKS) {
-            Replies.print(Replies.EXCEEDED_MAX_NUMBER_OF_TASKS);
-            return;
-        }
-
         Task task;
         switch (taskType) {
         case Commands.TODO:
@@ -39,10 +33,9 @@ public class Bob {
             task = new Event(parameters[0], parameters[1], parameters[2]);
         }
 
-        TASKS[numberOfTasks] = task;
-        numberOfTasks++;
+        TASKS.add(task);
 
-        Replies.add(task, numberOfTasks);
+        Replies.add(task, TASKS.size());
     }
 
     public static void main(String[] args) {

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Replies {
     private static final int INDENT_SPACE_COUNT = 4;
 
@@ -6,7 +8,6 @@ public class Replies {
 
     public static final String[] GREET = new String[]{ "yo im bob", "what do you want" };
 
-    public static final String EXCEEDED_MAX_NUMBER_OF_TASKS = "not enough brain power";
     public static final String ADD_HEADER = "added:";
     public static final String NUMBER_OF_TASKS = "now you have %d task(s)";
 
@@ -54,12 +55,12 @@ public class Replies {
         });
     }
 
-    public static void list(Task[] tasks, int numberOfTasks) {
-        String[] lines = new String[numberOfTasks + 1];
+    public static void list(ArrayList<Task> tasks) {
+        String[] lines = new String[tasks.size() + 1];
         lines[0] = LIST_HEADER;
 
-        for (int i = 0; i < numberOfTasks; i++) {
-            lines[i + 1] = (i + 1) + ". " + tasks[i];
+        for (int i = 0; i < tasks.size(); i++) {
+            lines[i + 1] = (i + 1) + ". " + tasks.get(i);
         }
 
         print(lines);
