@@ -25,7 +25,8 @@ public class UI {
         DEADLINE,
         MARK,
         UNMARK,
-        DELETE
+        DELETE,
+        FIND,
     }
 
     public UI(Storage manager, Parser parser, TaskList history) {
@@ -154,6 +155,16 @@ public class UI {
                     } catch (InvalidInputException e) {
                         System.out.println("Invalid Input: " + e.getMessage());
                     }
+                    break;
+                case FIND:
+                    try {
+                        data = parser.extractDescriptionData(currentInputSplit);
+                    } catch (InvalidInputException e) {
+                        System.out.println("That's not a valid input :(");
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+                    history.ListKeywords(data[0]);
                     break;
                 default:
                     continue mainloop;
