@@ -21,16 +21,50 @@ public class Bob {
         Replies.unmark(task);
     }
 
-    private static void handleAdd(String description) {
+    private static Task addTodo(String todoString) {
+        return new Todo(todoString);
+    }
+
+    // TODO: Generalise the following two methods
+    private static Task addDeadline(String deadlineString) {
+        String[] splitString = deadlineString.split(" /by ", 2);
+        String by = splitString[1];
+
+        return new Deadline(splitString[0], by);
+    }
+
+    private static Task addEvent(String eventString) {
+        String[] splitString = eventString.split(" /to ", 2);
+        String to = splitString[1];
+
+        splitString = splitString[0].split(" /from ", 2);
+        String from = splitString[1];
+
+        return new Event(splitString[0], from, to);
+    }
+
+    private static void handleAdd(String[] commandArgs) {
         if (numberOfTasks == MAX_NUMBER_OF_TASKS) {
             Replies.print(Replies.EXCEEDED_MAX_NUMBER_OF_TASKS);
-        } else {
-            Task task = new Task(description);
-            TASKS[numberOfTasks] = task;
-            numberOfTasks++;
-
-            Replies.print(String.format(Replies.ADD, task));
+            return;
         }
+
+        Task task;
+        switch (commandArgs[0]) {
+        case Commands.TODO:
+            task = addTodo(commandArgs[1]);
+            break;
+        case Commands.DEADLINE:
+            task = addDeadline(commandArgs[1]);
+            break;
+        default:
+            task = addEvent(commandArgs[1]);
+        }
+
+        TASKS[numberOfTasks] = task;
+        numberOfTasks++;
+
+        Replies.print(String.format(Replies.ADD, task));
     }
 
     public static void main(String[] args) {
@@ -40,7 +74,7 @@ public class Bob {
             String command = SCANNER.nextLine();
 
             // TODO: treat invalid commands like "exit door", "list restaurants" as tasks (default)
-            String[] commandArgs = command.split(" ");
+            String[] commandArgs = command.split(" ", 2);
 
             if (commandArgs[0].equals(Commands.EXIT)) {
                 Replies.print(Replies.EXIT);
@@ -48,17 +82,24 @@ public class Bob {
             }
 
             switch (commandArgs[0]) {
-                case Commands.LIST:
-                    Replies.list(TASKS, numberOfTasks);
-                    break;
-                case Commands.MARK:
-                    handleMark(commandArgs[1]);
-                    break;
-                case Commands.UNMARK:
-                    handleUnmark(commandArgs[1]);
-                    break;
-                default:
-                    handleAdd(command);
+            case Commands.LIST:
+                Replies.list(TASKS, numberOfTasks);
+                break;
+            case Commands.MARK:
+                handleMark(commandArgs[1]);
+                break;
+            case Commands.UNMARK:
+                handleUnmark(commandArgs[1]);
+                break;
+            case Commands.TODO:
+                // Fallthrough
+            case Commands.DEADLINE:
+                // Fallthrough
+            case Commands.EVENT:
+                handleAdd(commandArgs);
+                break;
+            default:
+                Replies.print(Replies.INVALID_COMMAND);
             }
         }
     }

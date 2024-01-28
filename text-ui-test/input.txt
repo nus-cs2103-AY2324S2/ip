@@ -1,8 +1,12 @@
-read book
-return book
-buy bread
+todo visit new theme park
 mark 1
+deadline submit report /by 11/10/2019 5pm
+event team project meeting /from 2/10/2019 2pm /to 4pm
+todo join sports club
+mark 4
+todo borrow book
 list
-mark 2
-unmark 2
+deadline do homework /by no idea :-p
+event orientation week /from 4/10/2019 /to 11/10/2019
+a
 exit

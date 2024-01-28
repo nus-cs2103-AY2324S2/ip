@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private static final String DONE_ICON = "X";
     private static final String NOT_DONE_ICON = " ";
 
