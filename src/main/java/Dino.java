@@ -1,8 +1,17 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
 public class Dino {
     private ArrayList<Task> taskList;
+
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
+    TaskType taskType;
 
     public Dino() {
         this.taskList = new ArrayList<>();
@@ -48,10 +57,61 @@ public class Dino {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    private Task createTaskFromInput(TaskType taskType, String taskDetails) throws DinoException {
+        switch (taskType) {
+            case TODO:
+                return new ToDo(taskDetails);
+
+            case DEADLINE:
+                String[] deadlineParts = taskDetails.split("/by");
+                if (deadlineParts.length != 2) {
+                    throw new DinoException("Invalid input format for deadline. Please use: deadline <deadline name> /by <time>");
+                }
+                String deadlineName = deadlineParts[0].trim();
+                String deadlineTime = deadlineParts[1].trim();
+                if (deadlineName.isEmpty() || deadlineTime.isEmpty()) {
+                    throw new DinoException("Deadline name and time cannot be empty.");
+                }
+                return new Deadline(deadlineName, deadlineTime);
+
+            case EVENT:
+                String[] eventParts = taskDetails.split("/from|/to");
+                if (eventParts.length != 3) {
+                    throw new DinoException("Invalid input format for event. Please use: event <event name> /from <time> /to <time>");
+                }
+                String eventName = eventParts[0].trim();
+                String startTime = eventParts[1].trim();
+                String endTime = eventParts[2].trim();
+                if (eventName.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
+                    throw new DinoException("Event name, start time, and end time cannot be empty.");
+                }
+                return new Event(eventName, startTime, endTime);
+
+            default:
+                throw new DinoException("Unknown task type: " + taskType);
+        }
+    }
+
+    private void handleTaskCreation(Scanner sc, TaskType taskType) {
+        try {
+            String taskDetails = sc.nextLine().trim();
+            if (taskDetails.isEmpty()) {
+                throw new DinoException("Description cannot be empty.");
+            }
+
+            addTask(createTaskFromInput(taskType, taskDetails));
+
+            System.out.println("Okay.");
+            System.out.println("  " + taskList.get(taskList.size() - 1));
+            System.out.println("Now you have " + taskList.size() + " in the list.");
+        } catch (DinoException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     public void chatHere() {
 
         Scanner sc = new Scanner(System.in);
-
         String command = sc.next();
 
         while (true) {
@@ -75,66 +135,18 @@ public class Dino {
                     break;
 
                 case "todo":
-                    try {
-                        String todoDescription = sc.nextLine().trim();
-                        if (todoDescription.isEmpty()) {
-                            throw new DinoException("Task description cannot be empty.");
-                        }
-                        addTask(new ToDo(todoDescription));
-
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + taskList.get(taskList.size() - 1));
-                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    } catch (DinoException e) {
-                        System.out.println("Error: " + e.getMessage());
-                    }
+                    taskType = TaskType.TODO;
+                    handleTaskCreation(sc, taskType);
                     break;
 
                 case "deadline":
-                    try {
-                        String deadlineInput = sc.nextLine().trim();
-                        String[] deadlineParts = deadlineInput.split("/by");
-                        if (deadlineParts.length != 2) {
-                            throw new DinoException("Invalid input format for deadline. Please use: deadline <deadline name> /by <time>");
-                        }
-                        String deadlineName = deadlineParts[0].trim();
-                        String deadlineTime = deadlineParts[1].trim();
-                        addTask(new Deadline(deadlineName, deadlineTime));
-
-                        if (deadlineName.isEmpty() || deadlineTime.isEmpty()) {
-                            throw new DinoException("Deadline name and time cannot be empty.");
-                        }
-
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + taskList.get(taskList.size() - 1));
-                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    } catch (DinoException e) {
-                        System.out.println("Error: " + e.getMessage());
-                    }
+                    taskType = TaskType.DEADLINE;
+                    handleTaskCreation(sc, taskType);
                     break;
 
                 case "event":
-                    try {
-                        String eventInput = sc.nextLine().trim();
-                        String[] eventParts = eventInput.split("/from|/to");
-                        if (eventParts.length != 3) {
-                            throw new DinoException("Invalid input format for event. Please use: event <event name> /from <time> /to <time>");
-                        }
-                        String eventName = eventParts[0].trim();
-                        String startTime = eventParts[1].trim();
-                        String endTime = eventParts[2].trim();
-                        addTask(new Event(eventName, startTime, endTime));
-
-                        if (eventName.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
-                            throw new DinoException("Event name, start time, and end time cannot be empty.");
-                        }
-
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + taskList.get(taskList.size() - 1));
-                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    } catch (DinoException e) {
-                        System.out.println("Error: " + e.getMessage());
-                    }
+                    taskType = TaskType.EVENT;
+                    handleTaskCreation(sc, taskType);
                     break;
 
                 case "mark":
