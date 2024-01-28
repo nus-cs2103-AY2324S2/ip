@@ -4,6 +4,10 @@ import fishstock.FishStock.Keyword;
 
 import java.util.Scanner;
 
+/**
+ * Encapsulates a Ui.
+ * Handles all input/output to the user.
+ */
 class Ui {
     protected static void printMsg(String msg) {
         System.out.println(msg);
@@ -13,6 +17,10 @@ class Ui {
         System.out.println(error);
     }
 
+    /**
+     * The main loop for i/o.
+     * @param list The TaskList for this loop.
+     */
     protected void run(TaskList list) {
         String line = "____________________________________________________________";
         Scanner sc = new Scanner(System.in);

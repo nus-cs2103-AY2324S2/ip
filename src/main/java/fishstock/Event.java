@@ -3,6 +3,10 @@ package fishstock;
 import java.io.FileDescriptor;
 import java.time.LocalDateTime;
 
+/**
+ * Encapsulates an Event Task.
+ * This Task has a description, from date, and to date.
+ */
 class Event extends Task {
     protected final static String keyword = "event";
     private final static String fromKeyword = " /from ";
@@ -10,6 +14,13 @@ class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * Initialize Event object manually.
+     * @param description The task description.
+     * @param from The from date.
+     * @param to The to date.
+     * @throws FishStockException The exceptions while creating the Event object.
+     */
     protected Event(String description, LocalDateTime from, LocalDateTime to) throws FishStockException {
         super(description);
         if (from.isAfter(to) && !from.equals(to)) {
@@ -23,6 +34,13 @@ class Event extends Task {
         return from.isBefore(to) || from.equals(to);
     }
 
+    /**
+     * Initialize Event object from input.
+     * Has format "event [description] /from [date] /to [date]".
+     * @param input The input from user.
+     * @return The generated Event object.
+     * @throws FishStockException The exceptions while creating the Event object.
+     */
     protected static Event of(String input) throws FishStockException {
         if (!Parser.startsWith(keyword, input)) {
             throw new FishStockException("OH NOSE! This input is not event..");

@@ -2,16 +2,32 @@ package fishstock;
 
 import java.time.LocalDateTime;
 
+/**
+ * Encapsulates a Deadline Task.
+ * This Task has a description and deadline date.
+ */
 class Deadline extends Task {
     protected final static String keyword = "deadline";
     private final static String byKeyword = " /by ";
     private LocalDateTime by;
 
+    /**
+     * Initialize Deadline object manually.
+     * @param description The task description.
+     * @param by The deadline date.
+     */
     protected Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Initialize Deadline object from input.
+     * Has format "deadline [description] /by [date]".
+     * @param input The input from user.
+     * @return The generated Deadline object.
+     * @throws FishStockException The exceptions while creating the Deadline object.
+     */
     protected static Deadline of(String input) throws FishStockException {
         if (!Parser.startsWith(keyword, input)) {
             throw new FishStockException("OH NOSE! This input is not deadline..");

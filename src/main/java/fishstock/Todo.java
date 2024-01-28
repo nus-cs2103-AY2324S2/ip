@@ -1,12 +1,27 @@
 package fishstock;
 
+/**
+ * Encapsulates Todo Task.
+ * This Task only has a description.
+ */
 class Todo extends Task {
     protected final static String keyword = "todo";
 
+    /**
+     * Initialize Todo object manually.
+     * @param description The task description.
+     */
     protected Todo(String description) {
         super(description);
     }
 
+    /**
+     * Initialize Todo object from input.
+     * Has format "todo [description]".
+     * @param input The input from user.
+     * @return The generated Todo object.
+     * @throws FishStockException The exceptions while creating the Todo object.
+     */
     protected static Todo of(String input) throws FishStockException {
         if (!Parser.startsWith(keyword, input)) {
             throw new FishStockException("OH NOSE! This input is not todo..");
