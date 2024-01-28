@@ -8,6 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a chat bot that can keep track of tasks.
+ */
 public class Duke {
     protected static final String savePath = "./data/duke.txt";
     public static void main(String[] args) throws IOException {
