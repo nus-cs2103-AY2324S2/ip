@@ -33,4 +33,9 @@ public class Event extends Task {
         String xMarker = this.completed ? "[X]" : "[ ]";
         return String.format("[E] %s %s (from: %s to: %s)", xMarker, this.taskName, this.startDateTime, this.endDateTime);
     }
+
+    public String toDBFormat() {
+        String completed = this.completed ? "1" : "0";
+        return String.format("E | %s | %s | %s | %s", completed, this.taskName, this.startDateTime, this.endDateTime);
+    }
 }

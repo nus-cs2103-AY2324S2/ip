@@ -14,4 +14,8 @@ abstract public class Task {
 
     public void markIncomplete() {
     }
+
+    public String toDBFormat() {
+        return "Abstract Class";
+    }
 }

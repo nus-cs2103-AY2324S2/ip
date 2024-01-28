@@ -1,10 +1,9 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.*;
 import java.nio.file.*;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.util.List;
 
 /**
  * Contains the logic for the ChatBot named 'Campus'
@@ -21,9 +20,11 @@ public class Campus {
         try {
             String filepath = "data.txt";
             List<String> lines = Campus.readFromDBCreateIfNotExists(filepath);
-
+            updateListFromFile(lines);
         } catch (FileNotFoundException e) {
             System.err.println("Error: " + e.getMessage());
+        } catch (CampusException e) {
+            System.out.println(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,9 +49,14 @@ public class Campus {
         Campus.exit();
     }
 
+    /**
+     * Updates the Campus.tasks field using whatever data is in the data.text file
+     * @param listOfStrings A list of each line in the data.text file converted into a List<String>
+     * @throws CampusException Throws an error, likely that the data.text file is corrupted
+     */
     public static void updateListFromFile(List<String> listOfStrings) throws CampusException {
         if (listOfStrings == null) {
-            Campus.tasks = null;
+            Campus.tasks = Collections.emptyList();
             return;
         }
 
@@ -58,7 +64,7 @@ public class Campus {
 
         for (String string : listOfStrings) {
             String[] parts = string.split("\\|");
-            String typeOfTask = parts[0];
+            String typeOfTask = parts[0].trim();
             switch (typeOfTask) {
                 case "T":
                     if (parts.length != 3) {
@@ -94,13 +100,25 @@ public class Campus {
         Campus.tasks = task;
     }
 
+    /**
+     * Updates the data.txt file using what is currently in the Campus.tasks field
+     * @param listOfTasks Usually from the main Campus.tasks field
+     */
     public static void updateFileFromList(List<Task> listOfTasks) {
-
+        String filePath = "data.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Task task : listOfTasks) {
+                writer.write(task.toDBFormat());
+                writer.newLine();
+            }
+            // System.out.println("Tasks written to file successfully");
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     /**
      * Function to read from the expected file called "data", if not, create the file and return null
-     *
      * @param filePath Takes in the relative path file that it expects the datafile to be at
      * @return Returns a list of strings, each string contains information about the DB, null if initialised for the first time
      */
@@ -115,7 +133,6 @@ public class Campus {
 
     /**
      * Main Logic to keep the Chat Bot running until a user decides to quit talking by sending 'bye'
-     *
      * @param userInput A String i/o input
      * @return Returns int value 0 except for the "bye" case in which the value is 1
      * @throws CampusException Throws a CampusException, may arise due to improper syntax or unknown commands
@@ -223,6 +240,9 @@ public class Campus {
             default:
                 throw new CampusException("Sorry, I don't understand that command, please check for potential spelling errors");
         }
+
+        updateFileFromList(Campus.tasks);
+
         return 0;
     }
 

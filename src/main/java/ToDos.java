@@ -25,4 +25,9 @@ public class ToDos extends Task {
         String xMarker = this.completed ? "[X]" : "[ ]";
         return String.format("[T] %s %s", xMarker, this.taskName);
     }
+
+    public String toDBFormat() {
+        String completed = this.completed ? "1" : "0";
+        return String.format("T | %s | %s", completed, this.taskName);
+    }
 }

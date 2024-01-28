@@ -30,4 +30,9 @@ public class Deadline extends Task {
         String xMarker = this.completed ? "[X]" : "[ ]";
         return String.format("[D] %s %s (by: %s)", xMarker, this.taskName, this.endDateTime);
     }
+
+    public String toDBFormat() {
+        String completed = this.completed ? "1" : "0";
+        return String.format("D | %s | %s | %s", completed, this.taskName, this.endDateTime);
+    }
 }
