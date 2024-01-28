@@ -118,38 +118,24 @@ class ListAdder {
      */
     private void addTask(String task) {
         if (task.startsWith("todo")) {  // todo
-            String todoDescription = task.substring(4).trim();
-            if (todoDescription.isEmpty()) {
-                System.out.println("\t" + "Invalid input. Please enter a valid todo task.");
-            } else {
-                addTodoTask(todoDescription);
-            }
+            addTodoTask(task);
 
         } else if (task.startsWith("deadline")) {  // deadline
-            String[] deadlineDescription = task.substring(8).trim().split("/by", 2);
-            if (deadlineDescription.length != 2 || deadlineDescription[0].trim().isEmpty() 
-                || deadlineDescription[1].trim().isEmpty()) {
-                System.out.println("\t" + "Invalid input. Enter 'deadline <task> /by <deadline>'");
-            } else {
-                addDeadline(deadlineDescription[0].trim(), deadlineDescription[1].trim());
-            }
+            addDeadline(task);
 
         } else if (task.startsWith("event")) {  // event
-            String[] eventParts = task.substring(6).trim().split("/from");
-            if (eventParts.length == 2) {
-                String[] durationParts = eventParts[1].trim().split("/to");
-                if (durationParts.length == 2) {
-                    addEvent(eventParts[0].trim(), durationParts[0].trim(), durationParts[1].trim());
-                } else {
-                    System.out.println("\t" + "Invalid input for event. Please use the format: event <task> /from <start time> /to <end time>");
-                }
-            } else {
-                System.out.println("\t" + "Invalid input for event. Please use the format: event <task> /from <start time> /to <end time>");
-            }
+            addEvent(task);
 
         } else if (task.equals("help")) {  // help
             helpline();
-
+            
+        } else if (task.startsWith("delete")) {  // delete
+            try {
+                int index = Integer.parseInt(task.substring(6).trim()) - 1;
+                deleteTask(index);
+            } catch (NumberFormatException e) {
+                System.out.println("\t" + "Invalid input. Please enter a valid task index.");
+            }
         } else {
             System.out.println("\t" + "Sorry, that's not a command :( Enter 'help' for instructions.");
         }
@@ -162,10 +148,17 @@ class ListAdder {
      * @return void
      */
     private void addTodoTask(String task) {
-        Todo newTodo = new Todo (task);
-        this.taskList.add(newTodo);
+
+        String todoDescription = task.substring(4).trim();
+        if (todoDescription.isEmpty()) {
+            System.out.println("\t" + "Invalid input. Please enter a valid todo task.");
+        } else {
+            Todo newTodo = new Todo (todoDescription);
+            this.taskList.add(newTodo);
+            
+            System.out.println("\t" + "Added todo: " + todoDescription);
+        }
         
-        System.out.println("\t" + "Added todo: " + task);
     }
 
     /* 
@@ -174,11 +167,20 @@ class ListAdder {
      * @param by deadline of task
      * @return void
      */
-    private void addDeadline(String task, String by) {
-        Deadline newDeadline = new Deadline(task, by);
-        this.taskList.add(newDeadline);
-        
-        System.out.println("\t" + "Added deadline: " + task + " (by: " + by + ")");
+    private void addDeadline(String task) {
+
+        String[] deadlineDescription = task.substring(8).trim().split("/by", 2);
+        if (deadlineDescription.length != 2 || deadlineDescription[0].trim().isEmpty() 
+            || deadlineDescription[1].trim().isEmpty()) {
+            System.out.println("\t" + "Invalid input. Enter 'deadline <task> /by <deadline>'");
+        } else {
+            String description = deadlineDescription[0].trim();
+            String by = deadlineDescription[1].trim();
+            Deadline newDeadline = new Deadline(description, by);
+            this.taskList.add(newDeadline);
+            
+            System.out.println("\t" + "Added deadline: " + description + " (by: " + by + ")");
+        }
     }
 
     /* 
@@ -187,11 +189,47 @@ class ListAdder {
      * @param at time of event
      * @return void
      */
-    private void addEvent(String task, String at, String to) {
-        Events newEvent = new Events(task, at);
-        this.taskList.add(newEvent);
-        
-        System.out.println("\t" + "Added event: " + task + " (from: " + at + ", to: " + to + ")");
+    private void addEvent(String task) {
+
+        String[] eventParts = task.substring(6).trim().split("/from");
+        if (eventParts.length == 2) {
+            String[] durationParts = eventParts[1].trim().split("/to");
+            if (durationParts.length == 2) {
+                // addEvent(eventParts[0].trim(), durationParts[0].trim(), durationParts[1].trim());
+                String desc = eventParts[0].trim();
+                String from = durationParts[0].trim();
+                String to = durationParts[1].trim();
+                Events newEvent = new Events(desc, from, to);
+                this.taskList.add(newEvent);
+                
+                System.out.println("\t" + "Added event: " + desc + " (from: " + from + ", to: " + to + ")");
+
+            } else {
+                System.out.println("\t" + "Invalid input for event. Please use the format: event <task> /from <start time> /to <end time>");
+            }
+        } else {
+            System.out.println("\t" + "Invalid input for event. Please use the format: event <task> /from <start time> /to <end time>");
+        }
+    }
+
+    /* 
+     * Deletes task from taskList
+     * @param index index of task to be deleted
+     * @return void
+    * @throws IndexOutOfBoundsException if index is out of bounds
+    * @throws NumberFormatException if input is not a number
+     */
+    private void deleteTask(int index) {
+        try {
+            System.out.println("\t" + "Noted. I've removed this task:");
+            System.out.println("\t" + this.taskList.get(index));
+            this.taskList.remove(index);
+            System.out.println("\t" + "Now you have " + this.taskList.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\t" + "Oops! Your list isn't that long :P");
+        } catch (NumberFormatException e) {
+            System.out.println("\t" + "This number isn't valid!");
+        }
     }
 
     /* 
@@ -322,14 +360,14 @@ class Deadline extends Task {
 class Events extends Task {
     protected String at;
 
-    public Events(String description, String at) {
+    public Events(String description, String from, String to) {
         super(description);
-        this.at = at;
+        this.at = from + ", to: " + to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (from: " + at + ")";
     }
 }
 
