@@ -44,16 +44,16 @@ Here are the tasks in your list:
 5. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
-DukeException: The description for a todo task cannot be empty :3
+duke.DukeException: The description for a todo task cannot be empty :3
 ____________________________________________________________
 ____________________________________________________________
-DukeException: An event task must have a description, a 'from' time, and a 'to' time :3
+duke.DukeException: An event task must have a description, a 'from' time, and a 'to' time :3
 ____________________________________________________________
 ____________________________________________________________
-DukeException: An event task must have a description, a 'from' time, and a 'to' time :3
+duke.DukeException: An event task must have a description, a 'from' time, and a 'to' time :3
 ____________________________________________________________
 ____________________________________________________________
-DukeException: A deadline task must have a description and a 'by' time :3
+duke.DukeException: A deadline task must have a description and a 'by' time :3
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -84,10 +84,10 @@ Here are the tasks in your list:
 5. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
-DukeException: An integer argument is expected for a mark or unmark command :3
+duke.DukeException: An integer argument is expected for a mark or unmark command :3
 ____________________________________________________________
 ____________________________________________________________
-DukeException: An integer argument is expected for a mark or unmark command :3
+duke.DukeException: An integer argument is expected for a mark or unmark command :3
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
@@ -114,7 +114,7 @@ Here are the tasks in your list:
 3. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
-DukeException: Unknown command. Please enter a valid command :3
+duke.DukeException: Unknown command. Please enter a valid command :3
 ____________________________________________________________
 ____________________________________________________________
  Bye. Hope to see you again soon!

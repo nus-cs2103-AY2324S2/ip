@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -5,8 +7,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
-    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
-//    public static final String DBPATH = "data/duke.txt";
+//    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
+    public static final String DBPATH = "data/duke.txt";
     private Storage storage;
     private TaskList myTasks;
     private Ui ui;
@@ -53,7 +55,7 @@ public class Duke {
             line = scanner.nextLine();
         }
         System.out.println(goodbye);
-        // save the tasks from myTasks to Storage
+        // save the tasks from myTasks to duke.Storage
         this.save();
 
     }

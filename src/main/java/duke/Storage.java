@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,13 +10,13 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Used by the TaskList class, and handles reading, writing and deleting from lines in the file
+ * Used by the duke.TaskList class, and handles reading, writing and deleting from lines in the file
  */
 public class Storage {
 
     private String filepath;
 
-    // Initialise a Storage with a filepath
+    // Initialise a duke.Storage with a filepath
     public Storage(String filepath) {
         this.filepath = filepath;
         try {

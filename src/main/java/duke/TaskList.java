@@ -1,26 +1,27 @@
-import java.io.IOException;
+package duke;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-//    private Storage database;
+//    private duke.Storage database;
 //    private String filepath = Duke.DBPATH;
     public ArrayList<Task> taskList;
 
-    // Todo representation - 0 means not done, 1 means done
+    // duke.Todo representation - 0 means not done, 1 means done
     // T | done? | desc
 
-    // Deadline representation
+    // duke.Deadline representation
     // D | done? | desc | by
 
-    // Event representation
+    // duke.Event representation
     // E | done? | desc | from | to
 
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
-    public TaskList(List<String> stringTasksList) throws DukeException.UnknownCommandException { // initialise the TaskList with a List<String>
+    public TaskList(List<String> stringTasksList) throws DukeException.UnknownCommandException { // initialise the duke.TaskList with a List<String>
         this.taskList = new ArrayList<>();
         for (String s : stringTasksList) {
             this.taskList.add(db2Task(s));
@@ -53,7 +54,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the TaskList, given its index
+     * Deletes a task from the duke.TaskList, given its index
      * @param index
      */
     public void deleteTask(int index) {
@@ -94,10 +95,10 @@ public class TaskList {
     }
 
     /**
-     * Converts the database representation of a Task to the Task object
+     * Converts the database representation of a duke.Task to the duke.Task object
      *
-     * @param dbTask the string rep of the Task in the database
-     * @return Task the Task object
+     * @param dbTask the string rep of the duke.Task in the database
+     * @return duke.Task the duke.Task object
      */
     public static Task db2Task(String dbTask) throws DukeException.UnknownCommandException {
         String[] params = dbTask.split(" \\| ");
@@ -106,10 +107,10 @@ public class TaskList {
             case "T": //  To do
                 Todo todoTask = Todo.db2Todo(dbTask);
                 return todoTask;
-            case "D": // Deadline
+            case "D": // duke.Deadline
                 Deadline deadlineTask = Deadline.db2Deadline(dbTask);
                 return deadlineTask;
-            case "E": // Event
+            case "E": // duke.Event
                 Event eventTask = Event.db2Event(dbTask);
                 return eventTask;
             default:
@@ -119,10 +120,10 @@ public class TaskList {
     }
 
     /**
-     * Converts a Task to their database representation
+     * Converts a duke.Task to their database representation
      *
-     * @param task the Task object
-     * @return String the string rep of Task in the database
+     * @param task the duke.Task object
+     * @return String the string rep of duke.Task in the database
      */
     public static String task2Db(Task task) {
         // Based on task type, extract traits
@@ -157,33 +158,33 @@ public class TaskList {
         testTaskList.addTask(new Deadline("Return Bread", "today"));
         testTaskList.addTask(new Event("project meeting", "Mon 4pm", "6pm"));
         testTaskList.addTask(new Event("project meeting 2", "Tues 10pm", "6pm"));
-        System.out.println("Current Task list: ");
+        System.out.println("Current duke.Task list: ");
         testTaskList.printTasks();
         System.out.println();
 
-        // Get Todo Task
+        // Get duke.Todo duke.Task
         System.out.println("Successfully got todo task: " + testTaskList.getTask(1));
 
-        // Get Event Task
+        // Get duke.Event duke.Task
         System.out.println("Successfully got event task: " + testTaskList.getTask(2));
 
-        // Get Deadline Task
+        // Get duke.Deadline duke.Task
         System.out.println("Successfully got deadline task: " + testTaskList.getTask(3));
 
         // printTasks
         System.out.println();
-        System.out.println("Task list before deletion: ");
+        System.out.println("duke.Task list before deletion: ");
         testTaskList.printTasks();
 
-        // Delete Event Task
+        // Delete duke.Event duke.Task
         testTaskList.deleteTask(2);
 
-        // Delete Deadline Task
+        // Delete duke.Deadline duke.Task
         testTaskList.deleteTask(2);
 
         // printTasks
         System.out.println();
-        System.out.println("Task list after deletion: ");
+        System.out.println("duke.Task list after deletion: ");
         testTaskList.printTasks();
 
         // mark task 1

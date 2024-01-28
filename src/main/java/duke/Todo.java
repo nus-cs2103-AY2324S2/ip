@@ -1,8 +1,10 @@
+package duke;
+
 public class Todo extends Task {
 
     /**
      * Default constructor, isDone set to false
-     * @param description of Todo
+     * @param description of duke.Todo
      */
     public Todo(String description) {
         super(description);
@@ -18,9 +20,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Converts the database representation of Todo to a Todo Task
-     * @param dbTodo the string rep of Todo in the database
-     * @return Task the todo Task object
+     * Converts the database representation of duke.Todo to a duke.Todo duke.Task
+     * @param dbTodo the string rep of duke.Todo in the database
+     * @return duke.Task the todo duke.Task object
      */
     public static Todo db2Todo(String dbTodo) {
         // T | 0 | Buy Bread
@@ -31,9 +33,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Converts the a Todo Task to the database representation of Todo
-     * @param taskTodo Task the todo Task object
-     * @return Task the string rep of Todo in the database
+     * Converts the a duke.Todo duke.Task to the database representation of duke.Todo
+     * @param taskTodo duke.Task the todo duke.Task object
+     * @return duke.Task the string rep of duke.Todo in the database
      */
     public static String todo2Db (Todo todoTask) {
         // T | 0 | Buy Bread

@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
@@ -6,7 +8,7 @@ public class Deadline extends Task {
 
     /**
      * Default constructor, isDone set to false
-     * @param description of Deadline
+     * @param description of duke.Deadline
      * @param by is the end of the deadline
      */
     public Deadline(String description, String by) {
@@ -30,9 +32,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts the database representation of Deadline to a Deadline Task
-     * @param dbDeadline the string rep of Deadline in the database
-     * @return Task the Deadline Task object
+     * Converts the database representation of duke.Deadline to a duke.Deadline duke.Task
+     * @param dbDeadline the string rep of duke.Deadline in the database
+     * @return duke.Task the duke.Deadline duke.Task object
      */
     public static Deadline db2Deadline(String dbDeadline) {
         // D | 0 | return book | June 6th
@@ -44,9 +46,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts the a Deadline Task to the database representation of Deadline
-     * @param deadlineTask the Deadline Task object
-     * @return Task the string rep of Deadline in the database
+     * Converts the a duke.Deadline duke.Task to the database representation of duke.Deadline
+     * @param deadlineTask the duke.Deadline duke.Task object
+     * @return duke.Task the string rep of duke.Deadline in the database
      */
     public static String deadline2Db(Deadline deadlineTask) {
         // D | 0 | return book | June 6th
