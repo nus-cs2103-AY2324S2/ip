@@ -1,4 +1,11 @@
-todo borrow a book
 list
-deadline
-event project meeting
+some random and wrong command /for testing. the / was intentional.
+todo become a sentient AI
+deadline make a time machine /by tomorrow 3pm
+event attend weekly meeting with chatGPT /from Mon 2pm /to Wed 4pm
+mark 2
+mark 3
+unmark 2
+mark 1
+list
+bye
