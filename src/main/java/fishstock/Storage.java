@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 class Storage {
-    private final ArrayList<Task> list = new ArrayList<>();
+    protected final ArrayList<Task> list = new ArrayList<>();
     private final File db;
     private final String filePath;
 
@@ -17,9 +17,9 @@ class Storage {
         this.filePath = filePath;
     }
 
-    private void loadTask(String line) {
+    protected void loadTask(String line) throws FishStockException {
         String[] arr = line.split("\\|");
-        Task task = null;
+        Task task;
         try {
             if ("T".equals(arr[0])) { // Todo
                 task = new Todo(arr[1]);
@@ -27,15 +27,17 @@ class Storage {
                 task = new Deadline(arr[1], Parser.parseDate(arr[2]));
             } else if ("E".equals(arr[0])) { // Event
                 task = new Event(arr[1], Parser.parseDate(arr[2]), Parser.parseDate(arr[3]));
+            } else {
+                throw new FishStockException("Wrong format..");
             }
-        } catch (FishStockException ignored) {
-        }
-        if (task == null) { // invalid format
-            return;
-        }
 
-        if (arr[arr.length - 1].equals("1")) {
-            task.markAsDone();
+            if (arr[arr.length - 1].equals("1")) {
+                task.markAsDone();
+            } else if (!arr[arr.length - 1].equals("0")) {
+                throw new FishStockException("Mark corrupted..");
+            }
+        } catch (FishStockException e) {
+            throw new FishStockException("File corrupted!... Starting new session...\n");
         }
         list.add(task);
     }

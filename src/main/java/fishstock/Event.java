@@ -1,5 +1,6 @@
 package fishstock;
 
+import java.io.FileDescriptor;
 import java.time.LocalDateTime;
 
 class Event extends Task {
@@ -9,10 +10,17 @@ class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
-    protected Event(String description, LocalDateTime from, LocalDateTime to) {
+    protected Event(String description, LocalDateTime from, LocalDateTime to) throws FishStockException {
         super(description);
+        if (from.isAfter(to) && !from.equals(to)) {
+            throw new FishStockException("OH NOSE! The from-date must be before the to-date..");
+        }
         this.from = from;
         this.to = to;
+    }
+
+    protected static boolean dateIsBefore(LocalDateTime from, LocalDateTime to) {
+        return from.isBefore(to) || from.equals(to);
     }
 
     protected static Event of(String input) throws FishStockException {
@@ -45,9 +53,6 @@ class Event extends Task {
         String toStr = input.substring(toIdx + toKeyword.length());
         LocalDateTime from = Parser.parseDate(fromStr);
         LocalDateTime to = Parser.parseDate(toStr);
-        if (from.isAfter(to) && !from.equals(to)) {
-            throw new FishStockException("OH NOSE! The from-date must be before the to-date..");
-        }
         return new Event(description, from, to);
     }
 
