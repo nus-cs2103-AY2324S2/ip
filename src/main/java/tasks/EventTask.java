@@ -1,4 +1,7 @@
-public class EventTask extends Task{
+package tasks;
+
+import others.DateFormatter;
+public class EventTask extends Task {
 
     private String start;
     private String end;

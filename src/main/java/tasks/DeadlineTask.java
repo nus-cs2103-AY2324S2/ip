@@ -1,4 +1,7 @@
-public class DeadlineTask extends Task{
+package tasks;
+
+import others.DateFormatter;
+public class DeadlineTask extends Task {
     private String deadline;
     public DeadlineTask(String name, boolean done, String deadline) {
         super(name, done);

@@ -1,4 +1,12 @@
+package command;
+
 import java.io.IOException;
+import tasks.*;
+import run.Storage;
+import run.TaskList;
+import run.Ui;
+import others.BelleException;
+
 
 public class DeleteCommand extends Command {
     String index;
@@ -25,7 +33,7 @@ public class DeleteCommand extends Command {
         } catch (IndexOutOfBoundsException e){
             throw new BelleException("This is not a valid number in my task list :(");
         } catch (IOException e) {
-            throw new BelleException("Storage has error when running delete command");
+            throw new BelleException("run.Storage has error when running delete command");
         }
     }
 
