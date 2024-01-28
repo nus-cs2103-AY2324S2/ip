@@ -51,7 +51,7 @@ public class Task {
                 return "[" + letterType + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")";
             case 'E':
                 Event eventTask = (Event) this;
-                return "[" + letterType + "] " + "[" + check + "] " + eventTask.getDescription() + " (from:" + eventTask.getStartDate() + " to:" + eventTask.getEndDate() + ")";
+                return "[" + letterType + "] " + "[" + check + "] " + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")";
         }
         return "";
     }

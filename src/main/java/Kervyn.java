@@ -3,13 +3,16 @@ import Tasks.Deadline;
 import Tasks.ToDo;
 import Tasks.Event;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Kervyn {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> userRequests = new ArrayList<>();
+        Writer writer = new Writer("data/Kervyn.txt");
+        ArrayList<Task> userRequests = writer.readTasks();
+
         final String CHATBOTNAME = "Kervyn";
 
         System.out.println("\tHello! I'm " + CHATBOTNAME);
@@ -64,7 +67,6 @@ public class Kervyn {
             }
         } while (!Objects.equals(userInput, "bye"));
 
-        Writer writer = new Writer("data/Kervyn.txt");
         for (Task userRequest : userRequests) {
             String content = userRequest.toString();
             writer.writeToFile(content);
