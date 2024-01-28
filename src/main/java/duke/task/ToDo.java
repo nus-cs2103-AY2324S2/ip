@@ -7,7 +7,7 @@ package duke.task;
  */
 public class ToDo extends Task {
     // Format to create todo task in program.
-    public static String CREATE_TODO_FORMAT = "todo <task-name>";
+    public static final String INPUT_TODO_FORMAT = "todo <task-name>";
 
     /**
      * Creates a new task with no time limit attached.

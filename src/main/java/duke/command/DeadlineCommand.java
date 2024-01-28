@@ -1,14 +1,14 @@
 package duke.command;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand extends Command {
     private final String deadlineDescription;
@@ -20,12 +20,12 @@ public class DeadlineCommand extends Command {
             this.deadlineDescription = tokens[0].trim();
             if (this.deadlineDescription.isEmpty()) {
                 throw new CommandException("Error. Unable to create task.\nFormat: "
-                        + Deadline.CREATE_DEADLINE_FORMAT);
+                        + Deadline.INPUT_DEADLINE_FORMAT);
             }
             this.deadlineBy = LocalDateTime.parse(tokens[1].trim(), Task.INPUT_DATETIME_FORMAT);
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             throw new CommandException("Error. Unable to create task.\nFormat: "
-                    + Deadline.CREATE_DEADLINE_FORMAT);
+                    + Deadline.INPUT_DEADLINE_FORMAT);
         }
     }
 

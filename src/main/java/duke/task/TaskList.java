@@ -1,13 +1,12 @@
 package duke.task;
 
-import duke.storage.LoadException;
-import duke.utils.Parser;
-import duke.ui.Ui;
-import duke.command.CommandException;
-
-import java.lang.StringBuilder;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+
+import duke.command.CommandException;
+import duke.storage.LoadException;
+import duke.ui.Ui;
+import duke.utils.Parser;
 
 /**
  * Class to track and manage tasks.
@@ -106,7 +105,7 @@ public class TaskList {
 
     public void loadTasks(String data, Ui ui) {
         StringTokenizer st = new StringTokenizer(data, "\n");
-        while(st.hasMoreTokens()) {
+        while (st.hasMoreTokens()) {
             try {
                 this.addTask(Parser.parseData(st.nextToken()));
             } catch (LoadException e) {
