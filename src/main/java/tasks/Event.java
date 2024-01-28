@@ -20,6 +20,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String formattedString() {
+        return "E" + super.formattedString() + "|" + from + "|" + to;
+    }
+
+    @Override
     public String getType() {
         return type.toString();
     }

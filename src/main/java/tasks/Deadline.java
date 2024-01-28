@@ -18,6 +18,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String formattedString() {
+        return "D" + super.formattedString() + "|" + dueDate ;
+    }
+
+    @Override
     public String getType() {
         return type.toString();
     }

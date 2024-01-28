@@ -25,6 +25,16 @@ _______________________
 
 _______________________
 
+Got it dawg. I've added this task:
+
+[E][ ] project meeting  (from Mon 2pm  to 4pm)
+
+Now you got 3 tasks fam
+
+_______________________
+
+_______________________
+
 Marked item 2 as done dawg.
 _______________________
 
@@ -37,8 +47,11 @@ Here are the tasks in your list:
 
 [D][X] return book  (by Sunday)
 
+[E][ ] project meeting  (from Mon 2pm  to 4pm)
+
 _______________________
 
+Tasks have been saved to data.txt
 _______________________
 
 See ya later dawg!
