@@ -1,7 +1,7 @@
 public class Event extends Task {
-    private final String startDateTime;
-    private final String endDateTime;
-    public Event(String description, String startDateTime, String endDateTime) {
+    private final DateTime startDateTime;
+    private final DateTime endDateTime;
+    public Event(String description, DateTime startDateTime, DateTime endDateTime) {
         super(description);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -9,11 +9,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.startDateTime + " to: " + this.endDateTime +")";
+        return "[E] " + super.toString() + " (from: " + this.startDateTime.formatDateTime() + " to: " + this.endDateTime.formatDateTime() +")";
     }
 
     @Override
     public String serializeTask() {
-        return "E | " + super.serializeTask() + " | " + this.startDateTime + "-" + this.endDateTime;
+        return "E | " + super.serializeTask() + " | " + this.startDateTime.serializeDateTime() + " - " + this.endDateTime.serializeDateTime();
     }
 }
