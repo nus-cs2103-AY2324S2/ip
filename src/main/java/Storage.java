@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 
@@ -41,7 +43,7 @@ public class Storage {
             // To reset the file
             fw = new FileWriter(filePath);
             fw.write("");
-            fw.close();;
+            fw.close();
 
             fw = new FileWriter(filePath, true);
             for (int i = 1; i <= TaskList.listSize(); i++) {
@@ -65,12 +67,19 @@ public class Storage {
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String line = s.nextLine();
-            decode(line);
+            try {
+                decode(line);
+            } catch (InvalidDateFormat e) {
+                System.out.println("Decoding Error: " + e.getMessage());
+            }  
         }
         s.close();
     }
 
-    private static void decode(String line) {
+    private static void decode(String line) throws InvalidDateFormat {
+        DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
+        DateTimeFormatter newFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         String name;
         String[] parts;
 
@@ -87,15 +96,18 @@ public class Storage {
                 parts = line.split("\\(by: ");
                 name = parts[0].trim();
                 String by = parts[1].substring(0, parts[1].length() - 1).trim();
-                task = new Deadline(name, by);
+                String by2 = LocalDate.parse(by, originalFormat).format(newFormat).toString();
+                task = new Deadline(name, by2);
                 break;
             case 'E':
                 parts = line.split("\\(from: ");
                 name = parts[0].trim();
                 String[] parts2 = parts[1].split("to: ");
-                String from = parts2[0];
+                String from = parts2[0].trim();
+                String from2 = LocalDate.parse(from, originalFormat).format(newFormat).toString();
                 String to = parts2[1].substring(0, parts2[1].length() - 1).trim();
-                task = new Event(name, from, to);
+                String to2 = LocalDate.parse(to, originalFormat).format(newFormat).toString();
+                task = new Event(name, from2, to2);
                 break;
             default:
                 task = new ToDo("ERROR");

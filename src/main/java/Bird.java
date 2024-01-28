@@ -21,5 +21,4 @@ public class Bird {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-
 }
