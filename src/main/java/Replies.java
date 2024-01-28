@@ -7,7 +7,8 @@ public class Replies {
     public static final String[] GREET = new String[]{ "yo im bob", "what do you want" };
 
     public static final String EXCEEDED_MAX_NUMBER_OF_TASKS = "not enough brain power";
-    public static final String ADD = "added: %s";
+    public static final String ADD_HEADER = "added:";
+    public static final String NUMBER_OF_TASKS = "now you have %d task(s)";
 
     public static final String LIST_HEADER = "list of tasks:";
 
@@ -38,6 +39,14 @@ public class Replies {
 
     public static void print(String line) {
         print(new String[]{ line });
+    }
+
+    public static void add(Task task, int numberOfTasks) {
+        print(new String[] {
+                ADD_HEADER,
+                " ".repeat(2) + task,
+                String.format(NUMBER_OF_TASKS, numberOfTasks)
+        });
     }
 
     public static void list(Task[] tasks, int numberOfTasks) {

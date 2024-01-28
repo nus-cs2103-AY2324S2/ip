@@ -56,7 +56,7 @@ public class Bob {
         TASKS[numberOfTasks] = task;
         numberOfTasks++;
 
-        Replies.print(String.format(Replies.ADD, task));
+        Replies.add(task, numberOfTasks);
     }
 
     public static void main(String[] args) {
