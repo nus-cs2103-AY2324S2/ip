@@ -122,7 +122,7 @@ public class Duke {
 
     private static void handleCommands() {
         Scanner scnr = new Scanner(System.in);
-        while (true) {
+        while (scnr.hasNextLine()) {
             String userInput = scnr.nextLine();
             String[] args = userInput.split(" ");
             String command = args[0];
