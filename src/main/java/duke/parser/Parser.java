@@ -3,7 +3,9 @@ package duke.parser;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 
+import duke.commands.AddCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
@@ -13,6 +15,9 @@ import duke.exceptions.DukeException;
 import duke.exceptions.InvalidArgumentException;
 import duke.exceptions.InvalidCommandException;
 import duke.exceptions.MissingArgumentException;
+import duke.storage.Deadline;
+import duke.storage.Event;
+import duke.storage.Todo;
 
 /**
  * The Parser class handles the making sense of user commands
@@ -46,7 +51,12 @@ public class Parser {
      * @return A valid command for the application
      */
     public static Command parse(String input) throws DukeException {
+        // Split input
         String[] splitInput = input.split(" ");
+
+        String description;
+        String[] arguments;
+
         switch (splitInput[0].toLowerCase()) {
         case "bye": // Exit
             return new ExitCommand();
@@ -105,6 +115,94 @@ public class Parser {
                 return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Index to unmark is not an integer");
+            }
+
+        case "todo":
+            if (splitInput.length <= 1) {
+                throw new MissingArgumentException("Argument missing - Description of a todo cannot be empty");
+            }
+
+            description = String.join(" ", Arrays.copyOfRange(splitInput, 1, splitInput.length));
+
+            // Return new add todo command
+            return new AddCommand(new Todo(description));
+
+        case "deadline":
+            // Get arguments
+            arguments = Arrays.copyOfRange(splitInput, 1, splitInput.length);
+
+            // Get index of '/by' argument
+            int byIndex = -1;
+            for (int i = 0; i < arguments.length; i++) {
+                if (arguments[i].equals("/by")) {
+                    byIndex = i;
+                    break;
+                }
+            }
+
+            if (byIndex == -1) {
+                throw new MissingArgumentException("Argument '/by' missing");
+            }
+
+            // Extract task description & due date
+            description = String.join(" ", Arrays.copyOfRange(arguments, 0, byIndex));
+
+            try {
+                String date = arguments[byIndex + 1];
+                String time = arguments[byIndex + 2];
+
+                // Create new add deadline command
+                return new AddCommand(new Deadline(description, Parser.userDateToInstant(date, time)));
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                throw new InvalidArgumentException(
+                        "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
+            }
+
+        case "event":
+            // Get arguments
+            arguments = Arrays.copyOfRange(splitInput, 1, splitInput.length);
+
+            // Get index of '/from' and '/to' argument
+            int fromIndex = -1;
+            int toIndex = -1;
+            for (int i = 0; i < arguments.length; i++) {
+                if (fromIndex != -1 && toIndex != -1) {
+                    break;
+                }
+
+                if (fromIndex == -1 && arguments[i].equals("/from")) {
+                    fromIndex = i;
+                }
+
+                if (toIndex == -1 && arguments[i].equals("/to")) {
+                    toIndex = i;
+                }
+            }
+
+            if (fromIndex == -1) {
+                throw new MissingArgumentException("Argument '/from' missing");
+            } else if (toIndex == -1) {
+                throw new MissingArgumentException("Argument '/to' missing");
+            }
+
+            // Extract task description
+            description = String.join(" ", Arrays.copyOfRange(arguments, 0, fromIndex));
+
+            try {
+                // Extract start date
+                String fromDate = arguments[fromIndex + 1];
+                String fromTime = arguments[fromIndex + 2];
+
+                // Extract end date
+                String toDate = arguments[toIndex + 1];
+                String toTime = arguments[toIndex + 2];
+
+                // Create new add event command
+                return new AddCommand(new Event(description, Parser.userDateToInstant(fromDate, fromTime),
+                        Parser.userDateToInstant(toDate, toTime)));
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                throw new InvalidArgumentException(
+                        "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
             }
 
         default:

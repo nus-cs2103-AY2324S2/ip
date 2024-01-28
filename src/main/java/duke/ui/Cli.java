@@ -51,16 +51,6 @@ public class Cli extends Ui {
         }
 
         sc.close();
-
-        // default: // Store and echo items
-        // // Store item
-        // taskList.addTask(splitInput[0], Arrays.copyOfRange(splitInput, 1,
-        // splitInput.length));
-        // break;
-        // }
-        // } catch (Exception exception) {
-        // System.out.println(String.format("ERROR: %s", exception.getMessage()));
-        // }
     }
 
     /**

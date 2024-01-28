@@ -5,18 +5,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.json.JSONArray;
 
 import duke.Duke;
 import duke.exceptions.InvalidArgumentException;
-import duke.exceptions.MissingArgumentException;
 import duke.exceptions.MissingTaskException;
 import duke.exceptions.StorageException;
 import duke.exceptions.TaskCorruptedException;
 import duke.exceptions.TaskNotSupportedException;
-import duke.parser.Parser;
 import duke.ui.Cli;
 
 /**
@@ -56,123 +53,6 @@ public class TaskList {
     /**
      * Adds a task
      *
-     * @param item      Type of item to be stored
-     * @param arguments Arguments of the item type
-     */
-    public void addTask(String item, String[] arguments)
-            throws MissingArgumentException,
-            TaskNotSupportedException,
-            IOException,
-            InvalidArgumentException {
-        // Create task to be inserted
-        Task task;
-        String description;
-
-        switch (item.toLowerCase()) {
-        case "todo":
-            if (arguments.length <= 0) {
-                throw new MissingArgumentException("Argument missing - Description of a todo cannot be empty");
-            }
-
-            description = String.join(" ", arguments);
-            task = new Todo(description);
-            break;
-
-        case "deadline":
-            // Get index of '/by' argument
-            int byIndex = -1;
-            for (int i = 0; i < arguments.length; i++) {
-                if (arguments[i].equals("/by")) {
-                    byIndex = i;
-                    break;
-                }
-            }
-
-            if (byIndex == -1) {
-                throw new MissingArgumentException("Argument '/by' missing");
-            }
-
-            // Extract task description & due date
-            description = String.join(" ", Arrays.copyOfRange(arguments, 0, byIndex));
-
-            try {
-                String date = arguments[byIndex + 1];
-                String time = arguments[byIndex + 2];
-
-                // Create new task
-                task = new Deadline(description, Parser.userDateToInstant(date, time));
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-                throw new InvalidArgumentException(
-                        "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
-            }
-            break;
-
-        case "event":
-            // Get index of '/from' and '/to' argument
-            int fromIndex = -1;
-            int toIndex = -1;
-            for (int i = 0; i < arguments.length; i++) {
-                if (fromIndex != -1 && toIndex != -1) {
-                    break;
-                }
-
-                if (fromIndex == -1 && arguments[i].equals("/from")) {
-                    fromIndex = i;
-                }
-
-                if (toIndex == -1 && arguments[i].equals("/to")) {
-                    toIndex = i;
-                }
-            }
-
-            if (fromIndex == -1) {
-                throw new MissingArgumentException("Argument '/from' missing");
-            } else if (toIndex == -1) {
-                throw new MissingArgumentException("Argument '/to' missing");
-            }
-
-            // Extract task description
-            description = String.join(" ", Arrays.copyOfRange(arguments, 0, fromIndex));
-
-            try {
-                // Extract start date
-                String fromDate = arguments[fromIndex + 1];
-                String fromTime = arguments[fromIndex + 2];
-
-                // Extract end date
-                String toDate = arguments[toIndex + 1];
-                String toTime = arguments[toIndex + 2];
-
-                // Create new task
-                task = new Event(description, Parser.userDateToInstant(fromDate, fromTime),
-                        Parser.userDateToInstant(toDate, toTime));
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-                throw new InvalidArgumentException(
-                        "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
-            }
-            break;
-
-        default:
-            throw new TaskNotSupportedException(
-                    String.format("Task '%s' is not yet supported. Please try again with another task.", item));
-        }
-
-        // Add item to storage
-        taskArray.add(task);
-
-        // Save to file
-        JSONArray jsonArray = new JSONArray(taskArray);
-        Storage.saveToFile(jsonArray, Duke.SAVE_FILE);
-
-        // Print confirmation message
-        System.out.println("Got it. I've added this task:");
-        System.out.println(String.format("  %s", task.toString()));
-        System.out.println(String.format("Now you have %d tasks in the list.", taskArray.size()));
-    }
-
-    /**
-     * Adds a task
-     *
      * @param task Task to be added
      */
     public void addTask(Task task) {
@@ -190,14 +70,11 @@ public class TaskList {
             Task deletedTask = taskArray.remove(deleteIndex);
 
             // Save to file
-            JSONArray jsonArray = new JSONArray(taskArray);
-            Storage.saveToFile(jsonArray, Duke.SAVE_FILE);
+            saveTasks();
 
             return deletedTask;
         } catch (IndexOutOfBoundsException e) {
             throw new MissingTaskException("Task does not exist");
-        } catch (IOException e) {
-            throw new StorageException(String.format("Failed to delete from file - %s", e.getMessage()));
         }
     }
 
@@ -218,14 +95,11 @@ public class TaskList {
             }
 
             // Save to file
-            JSONArray jsonArray = new JSONArray(taskArray);
-            Storage.saveToFile(jsonArray, Duke.SAVE_FILE);
+            saveTasks();
 
             return taskArray.get(markIndex);
         } catch (IndexOutOfBoundsException e) {
             throw new MissingTaskException("Task does not exist");
-        } catch (IOException e) {
-            throw new StorageException(String.format("Failed to save to file - %s", e.getMessage()));
         }
     }
 
@@ -272,5 +146,19 @@ public class TaskList {
             return tasks.substring(0, tasks.length() - 1);
         }
         return tasks.toString();
+    }
+
+    /**
+     * Save the current tasklist to file
+     */
+    public void saveTasks() throws StorageException {
+        try {
+            // Save to file
+            JSONArray jsonArray = new JSONArray(taskArray);
+            Storage.saveToFile(jsonArray, Duke.SAVE_FILE);
+        } catch (IOException e) {
+            throw new StorageException(String.format("Failed to save to file - %s", e.getMessage()));
+        }
+
     }
 }
