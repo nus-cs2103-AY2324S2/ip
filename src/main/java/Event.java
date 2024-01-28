@@ -24,34 +24,10 @@ public class Event extends Task {
      * @param from Start datetime of event.
      * @param to End datetime of event.
      */
-    private Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
-    }
-
-    /**
-     * Creates a new Event task based on user input.
-     *
-     * @param input Input String after the "event" command.
-     * @return New Event task.
-     * @throws TaskException Exception when task cannot be created.
-     */
-    public static Event createEvent(String input) throws TaskException {
-        input = input.trim();
-        try {
-            String[] tokens = input.split(" /from ");
-            String description = tokens[0];
-            if (description.isEmpty()) {
-                throw new TaskException("Error. Unable to create task.\nFormat: " + Event.CREATE_EVENT_FORMAT);
-            }
-            tokens = tokens[1].split(" /to ");
-            LocalDateTime from = LocalDateTime.parse(tokens[0], Task.INPUT_DATETIME_FORMAT);
-            LocalDateTime to = LocalDateTime.parse(tokens[1], Task.INPUT_DATETIME_FORMAT);
-            return new Event(description, from, to);
-        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            throw new TaskException("Error. Unable to create task.\nFormat: " + Event.CREATE_EVENT_FORMAT);
-        }
     }
 
     /**
@@ -73,7 +49,7 @@ public class Event extends Task {
      * @return String data of task.
      */
     @Override
-    public String saveTaskAsString() {
+    public String toDataString() {
         return "E | " + (this.getIsDone() ? 1 : 0) + " | " + this.getDescription()
                 + " /from " + this.from.format(Task.INPUT_DATETIME_FORMAT)
                 + " /to " + this.to.format(Task.INPUT_DATETIME_FORMAT);

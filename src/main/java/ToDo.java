@@ -12,23 +12,8 @@ public class ToDo extends Task {
      *
      * @param description Description of task.
      */
-    private ToDo(String description) {
+    public ToDo(String description) {
         super(description);
-    }
-
-    /**
-     * Creates a new ToDo task based on user input.
-     *
-     * @param input Input String after the "todo" command.
-     * @return New ToDo task.
-     * @throws TaskException Exception when task cannot be created.
-     */
-    public static ToDo createToDo(String input) throws TaskException {
-        input = input.trim();
-        if (input.isEmpty()) {
-            throw new TaskException("Error. Unable to create task.\nFormat: " + ToDo.CREATE_TODO_FORMAT);
-        }
-        return new ToDo(input);
     }
 
     /**
@@ -49,7 +34,7 @@ public class ToDo extends Task {
      * @return String data of task.
      */
     @Override
-    public String saveTaskAsString() {
+    public String toDataString() {
         return "T | " + (this.getIsDone() ? 1 : 0) + " | " + this.getDescription();
     }
 }
