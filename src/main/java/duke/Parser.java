@@ -6,8 +6,18 @@ import duke.exceptions.ChatException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * General parser for commands from the user.
+ */
 public class Parser {
 
+    /**
+     * Wrapper around Integer.parseInt to re-raise our
+     * own exception.
+     * @param val The value to parse to an int.
+     * @return Parsed value.
+     * @throws ChatException if the value is invalid.
+     */
     private static int parseInt(String val) {
         try {
             return Integer.parseInt(val);
@@ -16,6 +26,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Simple validator to ensure the user doesn't pass in
+     * bad content.
+     *
+     * @param line User input.
+     * @param startFrom Which character to start checking from.
+     * @return Processed string.
+     */
     private static String getContents(String line, int startFrom) {
         String msg = line.substring(startFrom);
         if (msg.equals(" ") || msg.isEmpty()) {
@@ -28,6 +46,13 @@ public class Parser {
     private static LocalDateTime dateParse(String date) {
         return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"));
     }
+
+    /**
+     * Parse input from the user, returning the corresponding Command to execute.
+     * @param line Raw input from user.
+     * @return Command to execute.
+     * @throws ChatException if the command isn't valid.
+     */
     public static Command parse(String line) {
         String command = line.split(" ")[0];
         switch (command) {

@@ -5,6 +5,9 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
+/**
+ * Marks a task.
+ */
 public class MarkCommand extends Command{
 
     private final int idx;
@@ -13,6 +16,13 @@ public class MarkCommand extends Command{
         this.idx = idx;
     }
 
+    /**
+     * Mark a task.
+     * @param tasks The list of tasks.
+     * @param ui UI interface with the user.
+     * @param storage Storage interface for persistence.
+     * @return Which task was marked.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(this.idx);

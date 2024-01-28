@@ -4,16 +4,28 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Base class for all tasks.
+ * Represents common attributes shared between all of them.
+ */
 public abstract class Task implements Serializable {
-    protected String msg;
+    protected String event;
     protected boolean done;
 
     public Task() {
         this.done = false;
     }
+
+    /**
+     * Mark a task as done.
+     */
     public void mark() {
         this.done = true;
     }
+
+    /**
+     * Mark as task as not done.
+     */
     public void unmark() {
         this.done = false;
     }

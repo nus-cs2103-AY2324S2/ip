@@ -1,5 +1,8 @@
 package duke.exceptions;
 
+/**
+ * The general exception our chatbot uses.
+ */
 public class ChatException extends RuntimeException {
     public ChatException(String msg) {
         super(msg);

@@ -6,9 +6,18 @@ import duke.task.Task;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * General functionality handling persistence of task lists.
+ */
 public class Storage {
     private static final String fileName = "duke.ser";
-    public static void save(Object[] tasks) {
+
+    /**
+     * Save tasks to file.
+     * @param tasks ArrayList of tasks.
+     * @throws ChatException if we cannot write to the file.
+     */
+    public static void save(ArrayList<Task> tasks) {
         try (FileOutputStream file = new FileOutputStream(fileName);
             ObjectOutputStream objectOut = new ObjectOutputStream(file);) {
             for (Object task: tasks) {
@@ -20,6 +29,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Load tasks from a file.
+     * @return ArrayList of tasks
+     * @throws ChatException if file cannot be read or loaded from.
+     */
     public static ArrayList<Task> load() {
         try (FileInputStream file = new FileInputStream(fileName);
              ObjectInputStream objectIn = new ObjectInputStream(file);) {
