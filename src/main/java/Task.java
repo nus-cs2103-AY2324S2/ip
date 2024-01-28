@@ -1,9 +1,11 @@
+import exceptions.tasks.EmptyDescriptionException;
+
 public abstract class Task {
-    private final String description;
+    private String description;
     private boolean isDone;
 
-    public Task(String description) {
-        this.description = description;
+    public Task(String description) throws EmptyDescriptionException {
+        this.setDescription(description);
         this.isDone = false;
     }
 
@@ -13,6 +15,13 @@ public abstract class Task {
 
     private String getStatusIcon() {
         return (this.isDone ? "X" : " ");
+    }
+
+    private void setDescription(String description) throws EmptyDescriptionException {
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
+        this.description = description;
     }
 
     public void mark() {

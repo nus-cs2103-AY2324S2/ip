@@ -1,3 +1,5 @@
+import exceptions.tasks.EmptyDescriptionException;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -57,7 +59,7 @@ public class Duke {
         }
     }
 
-    private static Task addTodo(String[] taskArgs) {
+    private static Task addTodo(String[] taskArgs) throws EmptyDescriptionException {
         String description = String.join(" ", taskArgs);
 
         Todo todo = new Todo(description);
@@ -66,7 +68,7 @@ public class Duke {
         return todo;
     }
 
-    private static Task addDeadline(String[] taskArgs) {
+    private static Task addDeadline(String[] taskArgs) throws EmptyDescriptionException {
         String byDelim = "/by";
 
         String argsStr = String.join(" ", taskArgs);
@@ -81,7 +83,7 @@ public class Duke {
         return deadline;
     }
 
-    private static Task addEvent(String[] taskArgs) {
+    private static Task addEvent(String[] taskArgs) throws EmptyDescriptionException {
         String fromDelim = "/from";
         String toDelim = "/to";
 
@@ -104,19 +106,24 @@ public class Duke {
         String[] taskArgs = Arrays.copyOfRange(args, 1, args.length);
 
         Task task;
-        switch (taskType) {
-            case "todo":
-                task = addTodo(taskArgs);
-                break;
-            case "deadline":
-                task = addDeadline(taskArgs);
-                break;
-            case "event":
-                task = addEvent(taskArgs);
-                break;
-            default:
-                return "";
+        try {
+            switch (taskType) {
+                case "todo":
+                    task = addTodo(taskArgs);
+                    break;
+                case "deadline":
+                    task = addDeadline(taskArgs);
+                    break;
+                case "event":
+                    task = addEvent(taskArgs);
+                    break;
+                default:
+                    return "";
+            }
+        } catch (EmptyDescriptionException ede) {
+            return ede.toString();
         }
+
         return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task.toString(), TASKS.size());
     }
 
@@ -138,8 +145,13 @@ public class Duke {
                 case "unmark":
                     commandOutput = handleMarkUnMark(args);
                     break;
-                default:
+                case "todo":
+                case "deadline":
+                case "event":
                     commandOutput = handleAddTask(args);
+                    break;
+                default:
+                    commandOutput = "OOPS!!! I don't understand that command, try again later.";
                     break;
             }
             System.out.println(getBorder());
