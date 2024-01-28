@@ -4,7 +4,7 @@ public class Bob {
     private static final Scanner SCANNER = new Scanner(System.in);
 
     private static int numberOfTasks = 0;
-    private static final String[] TASKS = new String[100];
+    private static final String[] TASKS = new String[100]; // Could make 100 a constant
 
     private static void printFormatted(String[] lines) {
         String horizontalLine = "    .-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.\n";
@@ -15,7 +15,7 @@ public class Bob {
             formatted.append('\n');
         }
         formatted.append(horizontalLine);
-        System.out.println(formatted.toString());
+        System.out.println(formatted);
     }
 
     private static void printFormatted(String line) {
