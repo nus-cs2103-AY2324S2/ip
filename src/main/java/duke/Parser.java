@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 public class Parser {
 
     /**
@@ -41,6 +43,9 @@ public class Parser {
                 break;
             case "delete":
                 deleteTask(parts[1], tasks, ui, storage);
+                break;
+            case "find":
+                findTask(parts[1], tasks, ui);
                 break;
             default:
                 throw new DukeException("Invalid Command. I'm sorry, but I don't know what that means :-(");
@@ -154,5 +159,18 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new DukeException("The index provided is not a valid number.");
         }
+    }
+
+    /**
+     * Finds tasks that contain the given keyword in their description.
+     *
+     * @param input  The input command to parse.
+     * @param tasks   The list of tasks.
+     * @param ui      The UI for user interactions.
+     * @throws DukeException If the command is invalid or execution fails.
+     */
+    private static void findTask(String input, TaskList tasks, Ui ui) throws DukeException {
+        ArrayList<Task> foundTasks = tasks.findTasks(input);
+        ui.showFoundTasks(foundTasks);
     }
 }

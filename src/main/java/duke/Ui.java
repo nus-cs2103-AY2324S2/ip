@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+
 /**
  * Represents the user interface of the application.
  */
@@ -98,6 +100,20 @@ public class Ui {
     public void showError(String message) {
         printSeparator();
         System.out.println("ERROR: " + message);
+        printSeparator();
+    }
+
+    /**
+     * Displays the list of tasks found by the search.
+     *
+     * @param tasks The list of tasks that match the search.
+     */
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        printSeparator();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
         printSeparator();
     }
 
