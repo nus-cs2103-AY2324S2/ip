@@ -24,4 +24,10 @@ public class Delete extends Command {
             throw new KleeException("But we only have " + tasks.size() + " tasks in the list...");
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == Delete.class) return this.index == ((Delete) obj).index;
+        else return false;
+    }
 }

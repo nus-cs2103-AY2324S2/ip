@@ -76,7 +76,7 @@ public class Parser {
                     } catch (Exception e) {
                         throw new KleeException("There should be an integer after unmark to indicate which task to unmark!");
                     }
-                } else throw new KleeException("There should be an integer after mark to indicate which task to mark!");
+                } else throw new KleeException("There should be an integer after unmark to indicate which task to unmark!");
             case "todo":
                 try {
                     String description = input.split("todo ")[1];

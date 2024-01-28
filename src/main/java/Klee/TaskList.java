@@ -26,4 +26,20 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == TaskList.class) {
+            try {
+                if (this.size() == ((TaskList) obj).size()) {
+                    for (int i = 0; i < this.size(); i++) {
+                        if (this.get(i) == ((TaskList) obj).get(i)) return false;
+                    }
+                    return true;
+                } else return false;
+            } catch (Exception e) {
+                return false;
+            }
+        } else return false;
+    }
 }

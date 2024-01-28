@@ -22,4 +22,10 @@ public class Deadline extends Command {
         ui.showCreation(task, tasks.size());
         storage.saveTasks(tasks);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == Deadline.class) return (this.description.equals(((Deadline) obj).description) && this.deadline.equals((((Deadline) obj).deadline)));
+        else return false;
+    }
 }
