@@ -1,5 +1,6 @@
+package duke.exceptions;
 public class StartUpException extends Exception {
-    StartUpException(String message) {
+    public StartUpException(String message) {
         super(message);
     }
 }

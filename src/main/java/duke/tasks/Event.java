@@ -1,4 +1,7 @@
+package duke.tasks;
 import java.time.LocalDateTime;
+
+import duke.codec.TimeProcessor;
 
 public class Event extends Task {
     LocalDateTime from;

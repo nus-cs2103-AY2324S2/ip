@@ -1,5 +1,12 @@
+package duke.codec;
 import java.time.LocalDateTime;
 import java.util.StringJoiner;
+
+import duke.exceptions.ProcessingException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 public class Codec {
 

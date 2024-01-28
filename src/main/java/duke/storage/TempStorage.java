@@ -1,6 +1,11 @@
+package duke.storage;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
+
+import duke.codec.Codec;
+import duke.exceptions.ProcessingException;
+import duke.tasks.Task;
 
 public class TempStorage {
     Codec codec;

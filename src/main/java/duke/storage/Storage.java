@@ -1,6 +1,11 @@
+package duke.storage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
+
+import duke.exceptions.ProcessingException;
+import duke.exceptions.StartUpException;
+import duke.tasks.Task;
 
 public class Storage {
 

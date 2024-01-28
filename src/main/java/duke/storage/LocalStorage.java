@@ -1,3 +1,5 @@
+package duke.storage;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -5,8 +7,12 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import duke.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class LocalStorage {
         boolean createdNewFile;

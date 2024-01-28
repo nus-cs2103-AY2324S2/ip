@@ -1,4 +1,13 @@
+package duke.ui;
+
 import java.util.Scanner;
+
+import duke.command.Command;
+import duke.command.CommandProcessor;
+import duke.exceptions.InputException;
+import duke.exceptions.ProcessingException;
+import duke.exceptions.StartUpException;
+import duke.storage.Storage;
 
 public class UserInterface {
     /*

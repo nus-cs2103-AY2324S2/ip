@@ -1,3 +1,4 @@
+package duke.ui;
 public class Duke {
     public static void main(String[] args) {
         String logo = "          _______  _           _____   _______  _______  _______\n"

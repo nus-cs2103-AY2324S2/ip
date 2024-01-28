@@ -1,7 +1,9 @@
-enum Command {
+package duke.command;
+
+public enum Command {
     BYE ("bye") {
-        @Override 
-        boolean isExit() {
+        @Override
+        public boolean isExit() {
             return true;
         };
     },
@@ -19,7 +21,7 @@ enum Command {
     }
 
     
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }
