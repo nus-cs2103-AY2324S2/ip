@@ -1,4 +1,4 @@
-public class Task {
+abstract public class Task {
     protected String description;
     protected boolean isDone;
 
@@ -21,5 +21,24 @@ public class Task {
 
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    /**
+     * Returns the string representation of the task to be saved in the file.
+     *
+     * The string representation should be a sequence of valid commands for the program,
+     * separated by newlines,
+     * such that if there was originally taskIndex tasks in the list,
+     * then after executing the string representation,
+     * there will be taskIndex + 1 tasks in the list.
+     */
+    public abstract String serializeToCommand(int taskIndex);
+
+    protected String serializeDoneMark(int taskIndex) {
+        if (this.isDone) {
+            return "mark " + (taskIndex + 1) + "\n";
+        } else {
+            return "";
+        }
     }
 }

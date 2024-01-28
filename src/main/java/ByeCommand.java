@@ -1,6 +1,11 @@
 class ByeCommand extends Command {
-    public void execute(Storage storage) {
-        System.out.println("Bye. Hope to see you again soon!");
+    @Override
+    public void execute(Storage storage, boolean silent) {
+        if (!silent){
+            System.out.println("Bye. Hope to see you again soon!");
+        }
         System.exit(0);
     }
+
+
 }

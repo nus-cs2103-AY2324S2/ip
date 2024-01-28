@@ -6,4 +6,9 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String serializeToCommand(int taskIndex) {
+        return "todo " + description + "\n" + serializeDoneMark(taskIndex);
+    }
 }
