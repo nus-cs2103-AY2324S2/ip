@@ -10,20 +10,38 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-
+/**
+ * The Storage class manages the reading and writing of tasks to a file.
+ */
 public class Storage {
 
+    /**
+     * Creates a new Storage instance, initializing the data directory and output file.
+     *
+     * @throws ByteBuddyException If there is an issue with creating the directory or file.
+     */
     public Storage() throws ByteBuddyException {
         init();
     }
 
-    // initialisation of data dir and output file
+    /**
+     * Initializes the data directory and output file.
+     *
+     * @throws ByteBuddyException If there is an issue with creating the directory or file.
+     */
     public void init() throws ByteBuddyException {
         File dataDir = new File(RELATIVE_DATA_DIRECTORY_PATH);
         File outputTxt = new File(RELATIVE_OUTPUT_TXT_FILE_PATH);
         createOutputDirectoryAndFile(dataDir, outputTxt);
     }
 
+    /**
+     * Creates the output directory and file.
+     *
+     * @param dataDir   The data directory.
+     * @param outputTxt The output file.
+     * @throws ByteBuddyException If there is an issue with creating the directory or file.
+     */
     public static void createOutputDirectoryAndFile(File dataDir, File outputTxt) throws ByteBuddyException {
         try {
             dataDir.mkdirs();
@@ -34,19 +52,36 @@ public class Storage {
     }
 
 
-    // init TaskList
+    /**
+     * Loads tasks from the output file and returns a TaskList.
+     *
+     * @return The TaskList loaded from the output file.
+     * @throws ByteBuddyException If there is an issue with reading from the file.
+     */
     public TaskList load() throws ByteBuddyException {
         return initTaskList(RELATIVE_OUTPUT_TXT_FILE_PATH);
     }
 
-
-
+    /**
+     * Writes the given text to the specified file path.
+     *
+     * @param filePath  The path to the file.
+     * @param textToAdd The text to write to the file.
+     * @throws IOException If there is an issue with writing to the file.
+     */
     public static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Initializes a TaskList by reading tasks from the specified file path.
+     *
+     * @param filePath The path to the file.
+     * @return The initialized TaskList.
+     * @throws ByteBuddyException If there is an issue with reading from the file.
+     */
     public static TaskList initTaskList(String filePath) throws ByteBuddyException {
         TaskList list = new TaskList();
 
