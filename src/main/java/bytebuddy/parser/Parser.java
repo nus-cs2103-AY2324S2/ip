@@ -28,6 +28,8 @@ public class Parser {
             return new DeadlineCommand(commandInfo);
         case "event":
             return new EventCommand(commandInfo);
+        case "find":
+            return new FindCommand(commandInfo);
         default:
             throw new DukeException("Sorry but this command does not exist~");
         }
