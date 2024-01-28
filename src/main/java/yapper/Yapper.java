@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
+import java.io.InputStream;
 
 public class Yapper {
     private static final String FILE_PATH = "./src/main/java/data/yapper.Yapper.txt";
@@ -14,8 +16,8 @@ public class Yapper {
     private static Ui ui;
     private final Storage storage;
 
-    public Yapper(String filePath) {
-        ui = new Ui();
+    public Yapper(String filePath, InputStream inputStream) {
+        this.ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
@@ -23,24 +25,28 @@ public class Yapper {
             ui.showLoadingError();
             tasks = new TaskList();
         }
-        userScanner = new Scanner(System.in);
+        userScanner = new Scanner(inputStream);
     }
 
     public void run() {
         ui.showWelcomeMessage();
         ui.showInstructions();
 
-        while (true) {
-            ui.showUserPrompt();
-            String userInput = userScanner.nextLine();
-            try {
+        try {
+            while (true) {
+                ui.showUserPrompt();
+                String userInput = userScanner.nextLine();
                 processUserInput(userInput);
-                storage.saveTasks(tasks);
-            } catch (YapperException e) {
-                ui.showError(e.getMessage());
+                this.storage.saveTasks(tasks);
+            }
+        } catch (NoSuchElementException e) {
+            ui.showError("No input provided.");
+        } catch (YapperException e) {
+            ui.showError(e.getMessage());
+        } finally {
+            userScanner.close();
             }
         }
-    }
 
 
     /**
@@ -116,7 +122,8 @@ public class Yapper {
     }
 
     public static void main(String[] args) {
-        new Yapper(FILE_PATH).run();
+
+        new Yapper(FILE_PATH, System.in).run();
     }
 
     /**
@@ -129,5 +136,9 @@ public class Yapper {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
         }
+    }
+
+    public static List<Task> getTasks() {
+        return tasks;
     }
 }

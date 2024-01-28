@@ -1,7 +1,7 @@
 package yapper.tasks;
 
 public abstract class Task {
-    protected String description;
+    public String description;
     protected boolean isDone;
 
     public Task(String description, boolean isDone) {
@@ -21,7 +21,7 @@ public abstract class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
-    protected String getType() {
+    public String getType() {
         return "";
     }
     public String toString() {
