@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.*;
+
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 public class Dino {
     private ArrayList<Task> taskList;
@@ -12,9 +17,12 @@ public class Dino {
     }
 
     TaskType taskType;
+    Task task;
+    private static final String FILE_PATH = "./data/duke.txt";
 
     public Dino() {
         this.taskList = new ArrayList<>();
+        loadTasksFromFile();
     }
 
     public static void welcome() {
@@ -92,6 +100,74 @@ public class Dino {
         }
     }
 
+    private void saveTasksToFile() {
+        try {
+            File directory = new File("data");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+                for (Task task : taskList) {
+                    writer.println(task.toString());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+
+    private void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                System.out.println("Data file does not exist. Creating a new file.");
+                return;
+            }
+
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String taskData = fileScanner.nextLine();
+                String[] parts = taskData.split("\\|");
+
+                if (parts.length > 0) {
+                    String taskTypeString = parts[0].trim();
+                    switch (taskTypeString) {
+                        case "T":
+                            task = createTaskFromInput(TaskType.TODO, parts[2].trim());
+                            break;
+                        case "D":
+                            task = createTaskFromInput(TaskType.DEADLINE, parts[2].trim() + " /by " + parts[3].trim());
+                            break;
+                        case "E":
+                            task = createTaskFromInput(TaskType.EVENT, parts[2].trim() + " /from " + parts[3].trim() + " /to " + parts[4].trim());
+                            break;
+                        default:
+                            System.out.println("Unknown task type in file: " + taskTypeString);
+                    }
+                }
+
+                if (task != null) {
+                    taskList.add(task);
+                } else {
+                    System.out.println("Error loading task from file. Skipping invalid task.");
+                }
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        } catch (DinoException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     private void handleTaskCreation(Scanner sc, TaskType taskType) {
         try {
             String taskDetails = sc.nextLine().trim();
@@ -121,6 +197,7 @@ public class Dino {
                     break;
 
                 case "bye":
+                    saveTasksToFile();
                     goodbye();
                     sc.close();
                     return;

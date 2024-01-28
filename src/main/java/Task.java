@@ -9,17 +9,17 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone ? "1" : "0");
     }
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("[" + getStatusIcon() + "] " + description);
+        System.out.println(getStatusIcon() + " | " + description);
     }
 
     public void markAsUndone() {
         this.isDone = false;
-        System.out.println("[" + getStatusIcon() + "] " + description);
+        System.out.println(getStatusIcon() + " | " + description);
     }
 
     @Override
