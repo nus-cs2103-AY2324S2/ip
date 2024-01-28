@@ -93,7 +93,7 @@ public class Tasks {
         try {
             SquidFile.writeToFile(stringBuilder.toString(), false);
         } catch (IOException e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 
@@ -111,7 +111,7 @@ public class Tasks {
             }
 
         } catch (IOException e) {
-            System.out.println(e);
+//            System.out.println(e);
         }
     }
 }
