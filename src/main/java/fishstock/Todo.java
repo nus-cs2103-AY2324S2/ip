@@ -19,7 +19,7 @@ class Todo extends Task {
 
     @Override
     protected String toSaveString() {
-        return "T|" + description + "|" + boolToInt(isDone) + System.lineSeparator();
+        return "T|" + getDescription() + "|" + boolToInt(isDone) + System.lineSeparator();
     }
 
     @Override

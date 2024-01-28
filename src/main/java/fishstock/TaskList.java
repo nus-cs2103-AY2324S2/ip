@@ -19,10 +19,8 @@ class TaskList {
         return list.size();
     }
 
-    protected void printTasks() {
-        for (int i = 0; i < list.size(); i++) {
-            Ui.printMsg((i + 1) + "." + list.get(i));
-        }
+    protected ArrayList<Task> getList() {
+        return list;
     }
 
     protected Task changeMark(Keyword keyword, String input) throws FishStockException {
@@ -68,5 +66,21 @@ class TaskList {
         }
         list.add(task);
         return task;
+    }
+
+    protected ArrayList<Task> findTask(String input) throws FishStockException {
+        if (input.length() < 6) {
+            throw new FishStockException("OH NOSE! The match word is empty..");
+        }
+
+        String match = input.substring(5);
+
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : list) {
+            if (task.getDescription().contains(match)) {
+                result.add(task);
+            }
+        }
+        return result;
     }
 }
