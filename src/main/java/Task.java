@@ -1,4 +1,6 @@
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
@@ -17,6 +19,14 @@ public class Task {
 
     public void unmark() {
         this.isDone = false;
+    }
+
+    public String getType() {
+        return "Task";
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     @Override

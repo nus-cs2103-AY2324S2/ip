@@ -2,18 +2,35 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileNotFoundException;
 
 public class TheAdvisor {
+    private static final String FILE_PATH = "list.bin";
+
     public static void main(String[] args) throws IOException, TheAdvisorException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        // An ArrayList that stores the tasks to be done
+        ArrayList<Task> taskList = new ArrayList<>();
+        try {
+            taskList = loadList();
+        } catch (IOException err) {
+            System.out.println("No list found, creating empty task list");
+        } catch (ClassNotFoundException err) {
+            System.out.println("Class mismatch. Check and try again");
+        }
+
+
         String intro = "Hello, I am The Advisor. The one and only advisor you will ever need in your investing " +
                 "journey. What can I do for you?";
         System.out.println(intro + "\n");
 
-        // An ArrayList that stores the tasks to be done
-        ArrayList<Task> taskList = new ArrayList<>();
-
         while (true) {
+            boolean isUpdated = false;
             try {
                 String str = br.readLine();
                 String[] strings = str.split(" ");
@@ -48,6 +65,8 @@ public class TheAdvisor {
                         mark.markDone();
                         System.out.println("     Nice! I've marked this task as done:\n" + "       " +
                                 mark.toString());
+                        isUpdated = true;
+                        saveTasks(taskList);
                         break;
                     case UNMARK:
                         checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
@@ -59,6 +78,8 @@ public class TheAdvisor {
                         unmarked.unmark();
                         System.out.println("     OK, I've marked this task as not done yet:\n" + "       " +
                                 unmarked.toString());
+                        isUpdated = true;
+                        saveTasks(taskList);
                         break;
                     case DELETE:
                         checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
@@ -70,6 +91,8 @@ public class TheAdvisor {
                         taskList.remove(deleteNumber - 1);
                         System.out.println("     Noted. I've removed this task:\n" + "       " +
                                 deleted.toString() + "\n" + "     Now you have " + taskList.size() + " tasks in the list.");
+                        isUpdated = true;
+                        saveTasks(taskList);
                         break;
                     case TODO:
                         String todo = str.substring(4);
@@ -80,6 +103,8 @@ public class TheAdvisor {
                                 "       " + toDos.toString() + "\n" +
                                 "     Now you have " + taskList.size() +
                                 " tasks in the list.");
+                        isUpdated = true;
+                        saveTasks(taskList);
                         break;
                     case DEADLINE:
                         String due = str.substring(8);
@@ -93,6 +118,8 @@ public class TheAdvisor {
                                 "       " + deadline.toString() + "\n" +
                                 "     Now you have " + taskList.size() +
                                 " tasks in the list.");
+                        isUpdated = true;
+                        saveTasks(taskList);
                         break;
                     case EVENT:
                         String event = str.substring(5);
@@ -109,6 +136,8 @@ public class TheAdvisor {
                                 "       " + events.toString() + "\n" +
                                 "     Now you have " + taskList.size() +
                                 " tasks in the list.");
+                        isUpdated = true;
+                        saveTasks(taskList);
                         break;
                     default:
                         throw new TheAdvisorException("Incorrect input, please try again with the correct input of either: "
@@ -117,6 +146,23 @@ public class TheAdvisor {
             } catch (TheAdvisorException e) {
                 System.out.println("Error: " + e.getMessage());
             }
+        }
+    }
+
+    private static ArrayList<Task> loadList() throws IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream(FILE_PATH);
+        ObjectInputStream out = new ObjectInputStream(fileIn);
+            @SuppressWarnings("unchecked")
+            ArrayList<Task> task = (ArrayList<Task>) out.readObject();
+            return task;
+        }
+
+    private static void saveTasks(ArrayList<Task> taskList) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+            oos.writeObject(taskList);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks.");
+            e.printStackTrace();
         }
     }
 

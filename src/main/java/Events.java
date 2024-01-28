@@ -1,4 +1,6 @@
-public class Events extends Task {
+import java.io.Serializable;
+
+public class Events extends Task implements Serializable {
 
     protected String start;
     protected String end;
@@ -7,6 +9,16 @@ public class Events extends Task {
         super(description);
         this.start = start;
         this.end = end;
+    }
+
+    @Override
+    public String getType() {
+        return "E ";
+    }
+
+    @Override
+    public String getDescription() {
+        return this.description + " | " + start + " " + end;
     }
 
     @Override
