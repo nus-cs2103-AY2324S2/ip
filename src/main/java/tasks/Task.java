@@ -25,6 +25,10 @@ public abstract class Task {
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
     }
+
+    public String formattedString() {
+        return "|" + (isDone? 1 : 0) + "|" + description;
+    }
 }
 
 

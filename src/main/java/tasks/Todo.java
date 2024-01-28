@@ -16,6 +16,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String formattedString() {
+        return "T" + super.formattedString();
+    }
+
+    @Override
     public String getType() {
         return type.toString();
     }

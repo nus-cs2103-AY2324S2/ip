@@ -1,7 +1,9 @@
 import tasks.Task;
+import tasks.TaskType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
 public class TodoList {
     List<Task> list = new ArrayList<>();
@@ -67,6 +69,78 @@ public class TodoList {
             System.out.println(list.get(i).toString() + "\n");
         }
         line();
+    }
+
+    public String printTasksToString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i).formattedString()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public void saveToFile(String filename) {
+        String tasksText = printTasksToString();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write(tasksText);
+            System.out.println("Tasks have been saved to " + filename);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    public void loadData(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            list.clear(); // Clear the existing list before loading from file
+            while ((line = reader.readLine()) != null) {
+                Task task = createTaskFromLine(line);
+                list.add(task);
+            }
+
+            System.out.println("Tasks have been loaded from " + filename);
+        } catch (IOException e) {
+            list.clear();
+        }
+    }
+
+    // Example of parsing task lines and creating Task objects
+    private Task createTaskFromLine(String line) {
+        String[] parts = line.split("\\|");
+
+        if (parts.length >= 3) {
+            String taskType = parts[0];
+            int completionStatus = Integer.parseInt(parts[1]);
+            String taskDetails = parts[2];
+
+            // Depending on the task type, you may need to parse additional details
+            if (taskType.equals("T")) {
+                Task todo = new TaskFactory().createTask(TaskType.TODO, taskDetails);
+                if (completionStatus == 1) {
+                    todo.markAsDone();
+                }
+                return todo;
+            } else if (taskType.equals("D")) {
+                // Extract deadline date if available
+                String deadlineDate = (parts.length > 3) ? parts[3] : null;
+                Task deadline = new TaskFactory().createTask(TaskType.DEADLINE, taskDetails, deadlineDate);
+                if (completionStatus == 1) {
+                    deadline.markAsDone();
+                }
+                return deadline;
+            } else if (taskType.equals("E")) {
+                // Extract event time if available
+
+                Task event = new TaskFactory().createTask(TaskType.EVENT, taskDetails, parts[3], parts[4]);
+                if (completionStatus == 1) {
+                    event.markAsDone();
+                }
+                return event;
+            }
+        }
+
+        return null; // Handle invalid lines if needed
     }
 
     private static void line() {
