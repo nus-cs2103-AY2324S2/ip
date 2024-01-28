@@ -1,14 +1,7 @@
 package duke.exceptions;
 
-public class InvalidTaskException extends Exception {
+public class InvalidTaskException extends DukeException {
     public InvalidTaskException(String msg) {
         super(msg);
-    }
-
-    @Override
-    public String toString() {
-        return "________________________________________________\n"
-                + super.getMessage() +
-                "\n________________________________________________";
     }
 }

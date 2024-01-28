@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    protected static String filePath = "./data/duke.txt";
+    protected String filePath = "./data/duke.txt";
     private FileWriter data;
 
     public Storage(String filePath) {

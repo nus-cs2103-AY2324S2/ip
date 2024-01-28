@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exceptions.DukeException;
 import duke.exceptions.InvalidCmdException;
 import duke.exceptions.InvalidTaskException;
 
@@ -13,7 +14,7 @@ public class Command {
         this.arguments = args;
     }
 
-    public void execute(TaskList tl, Ui ui, Storage st) throws InvalidCmdException, InvalidTaskException {
+    public void execute(TaskList tl, Ui ui, Storage st) throws DukeException {
         if (this.command.equals("bye")) {
             ui.echo("Bye. Hope to see you again soon!");
             this.isExit = true;
