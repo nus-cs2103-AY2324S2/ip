@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
-import java.util.Arrays;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 public class TaskList {
     private final List<Task> tasks;
@@ -63,33 +60,10 @@ public class TaskList {
         String[] csvLines = storage.readAll().split("\n");
         for (String line : csvLines) {
             if (!line.equals("")) {
-                taskList.addTask(parseCsvLine(line));
+                taskList.addTask(Parser.parseCsvLine(line));
             }
         }
         return taskList;
-    }
-
-    private static Task parseCsvLine(String csvLine) throws DukeException {
-        String[] data = csvLine.split(",");
-        try {
-            String type = data[0];
-            boolean done = data[1].equals("1");
-            String description = data[2];
-            if (type.equals(Todo.TYPE_SYMBOL)) {
-                return new Todo(description, done);
-            } else if (type.equals(Deadline.TYPE_SYMBOL)) {
-                LocalDateTime due = LocalDateTime.parse(data[3], Event.DATE_TIME_FORMAT);
-                return new Deadline(description, done, due);
-            } else if (type.equals(Event.TYPE_SYMBOL)) {
-                LocalDateTime from = LocalDateTime.parse(data[3], Event.DATE_TIME_FORMAT);
-                LocalDateTime to = LocalDateTime.parse(data[4], Event.DATE_TIME_FORMAT);
-                return new Event(description, done, from, to);
-            } else {
-                throw new DukeException("Invalid Type");
-            }
-        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new DukeException("Invalid storage format!");
-        }
     }
 
     @Override
