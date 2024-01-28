@@ -1,22 +1,22 @@
-package duke.Command;
+package duke.command;
 
 import database.TaskORM;
 
 import java.sql.SQLException;
 
-public class MarkTaskCommand extends Command{
-  public static final String COMMAND_WORD = "mark";
+public class UnmarkTaskCommand extends Command{
+  public static final String COMMAND_WORD = "unmark";
   private final int taskID;
-  public MarkTaskCommand(int taskID) {
+  public UnmarkTaskCommand(int taskID) {
     this.taskID = taskID;
   }
 
   @Override
   public String execute(TaskORM tm) {
     try {
-      tm.mark(taskID);
+      tm.unmark(taskID);
       task.Task task = tm.get(taskID);
-      return "Nice! I've marked this task as done:\n" + "  " + task + "\n";
+      return "Ok, I've marked this task as not done yet:\n" + "  " + task + "\n";
     } catch (SQLException e) {
       return e.getMessage();
     }

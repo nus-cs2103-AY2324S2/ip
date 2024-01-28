@@ -1,7 +1,10 @@
 package task;
 
-import task.Task;
-
+/**
+ * Represents a Todo task.
+ * A <code>Todo</code> object corresponds to a task with a description.
+ * e.g., <code>Todo read book</code>
+ */
 public class Todo extends Task {
   public static final String type = "T";
   public Todo(int taskID, String description) {

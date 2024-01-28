@@ -1,9 +1,15 @@
 package duke;
 
 import java.util.Scanner;
-import duke.Command.Command;
+
+import database.DB;
+import duke.command.Command;
 import database.TaskORM;
 
+/**
+ * The Duke class is the main class of the application.
+ * It is responsible for the REPL (Read-Eval-Print-Loop).
+ */
 public class Duke {
   private static final String logo = " ____        _        \n"
     + "|  _ \\ _   _| | _____ \n"
@@ -11,10 +17,17 @@ public class Duke {
     + "| |_| | |_| |   <  __/\n"
     + "|____/ \\__,_|_|\\_\\___|\n";
   private final String chatBotName;
-  private final TaskORM taskManager = new TaskORM();
+  private final TaskORM taskManager;
+  private final view.PrettyPrinter printer;
 
+  /**
+   * Constructor for Duke.
+   * @param name The name of the chatbot.
+   */
   public Duke (String name) {
     this.chatBotName = name;
+    this.taskManager = new TaskORM();
+    this.printer = new view.PrettyPrinter();
   }
 
   private String greetMsg() {
@@ -37,19 +50,24 @@ public class Duke {
       if (c.terminate()) break;
 
       String output = c.execute(this.taskManager);
-      view.PrettyPrinter.print(output);
+      printer.print(output);
     }
 
     sc.close();
   }
 
+  /**
+   * Runs the Duke application.
+   * Greets the user, then enters the REPL.
+   * Finally, says goodbye to the user on exit.
+   */
   public void run() {
-    view.PrettyPrinter.print(logo);
+    printer.print(logo);
 
-    view.PrettyPrinter.print(this.greetMsg());
+    printer.print(this.greetMsg());
 
     this.REPL();
 
-    view.PrettyPrinter.print(this.exitMsg());
+    printer.print(this.exitMsg());
   }
 }

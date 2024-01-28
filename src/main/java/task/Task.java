@@ -1,7 +1,11 @@
 package task;
 
+/**
+ * Represents a Task.
+ * A <code>Task</code> object corresponds to a task with a description and a status.
+ * e.g., <code>Task read book</code>
+ */
 public class Task {
-
   public int taskID;
   protected final String description;
   protected boolean isDone = false;

@@ -1,7 +1,10 @@
 package task;
 
-import task.Task;
-
+/**
+ * Represents a Deadline task.
+ * A <code>Deadline</code> object corresponds to a task with a description and a deadline.
+ * e.g., <code>Deadline read book /by 2020-02-02</code>
+ */
 public class Deadline extends Task {
   public static final String type = "D";
   private final java.time.LocalDate deadline;
