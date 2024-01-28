@@ -1,13 +1,18 @@
 todo read book
 list
-deadline return book /by Sunday
+deadline return book /by
+deadline return book /by 2100 01/01/24
+deadline return book /by 2100 01/01/2024
 mark 1
 list
 blah
 todo
-deadline
+todo complete assignment
 event
-event photoshoot /from this week saturday /to about 5pm
+event photoshoot /from
+event photoshoot /from 0800 01/01/24 /to
+event photoshoot /from 0800 01/01/2024 /to from 2100 01/01/24
+event photoshoot /from 0800 01/01/2024 /to from 2100 01/01/2024
 unmark 1
 delete 1
 list
