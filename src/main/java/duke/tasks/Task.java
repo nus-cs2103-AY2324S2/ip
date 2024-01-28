@@ -32,6 +32,10 @@ public abstract class Task {
       dt.getHour() + ":" + minute + "H";
   }
 
+  public boolean checkKeyword(String keyword) {
+    return this.description.contains(keyword);
+  }
+
   public void setCompletion(boolean state) {this.isDone = state;}
 
   public String getDescription() {
