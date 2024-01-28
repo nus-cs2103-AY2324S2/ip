@@ -4,6 +4,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -99,18 +104,28 @@ public class Drake {
                         System.out.println(newTodo);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");                
                         System.out.println("____________________________________________________________");
-                            break;
+                        break;
                     case DEADLINE:
                         String[] parts = input.substring(9).split("/");
-                        Deadline newDeadline = new Deadline(parts[0], parts[1].substring(3));
-                        tasks.add(newDeadline);
-                        
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(newDeadline);
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");                
-                        System.out.println("____________________________________________________________");
+                        String dateString = parts[1].substring(3);
+
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate date = LocalDate.parse(dateString, formatter);
+                            LocalDateTime by = date.atStartOfDay();
+                            Deadline newDeadline = new Deadline(parts[0], by);
+                            tasks.add(newDeadline);
+
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(newDeadline);
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");                
+                            System.out.println("____________________________________________________________");
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Oops, format error! Type in a date in the form yy-mm-dd and try again!");
+                        }
                         break;
+
                     case EVENT:
                         parts = input.substring(6).split("/");
                         String title = parts[0];
