@@ -116,30 +116,76 @@ class ListAdder {
      * @param task task to be added
      * @return void
      */
-    private void addTask(String task) {
-        if (task.startsWith("todo")) {  // todo
-            addTodoTask(task);
+    // private void addTask(String task) {
+    //     if (task.startsWith("todo")) {  // todo
+    //         addTodoTask(task);
 
-        } else if (task.startsWith("deadline")) {  // deadline
-            addDeadline(task);
+    //     } else if (task.startsWith("deadline")) {  // deadline
+    //         addDeadline(task);
 
-        } else if (task.startsWith("event")) {  // event
-            addEvent(task);
+    //     } else if (task.startsWith("event")) {  // event
+    //         addEvent(task);
 
-        } else if (task.equals("help")) {  // help
-            helpline();
+    //     } else if (task.equals("help")) {  // help
+    //         helpline();
             
-        } else if (task.startsWith("delete")) {  // delete
-            try {
-                int index = Integer.parseInt(task.substring(6).trim()) - 1;
-                deleteTask(index);
-            } catch (NumberFormatException e) {
-                System.out.println("\t" + "Invalid input. Please enter a valid task index.");
-            }
-        } else {
-            System.out.println("\t" + "Sorry, that's not a command :( Enter 'help' for instructions.");
+    //     } else if (task.startsWith("delete")) {  // delete
+    //         try {
+    //             int index = Integer.parseInt(task.substring(6).trim()) - 1;
+    //             deleteTask(index);
+    //         } catch (NumberFormatException e) {
+    //             System.out.println("\t" + "Invalid input. Please enter a valid task index.");
+    //         }
+    //     } else {
+    //         System.out.println("\t" + "Sorry, that's not a command :( Enter 'help' for instructions.");
+    //     }
+    //     printLine();
+        
+    // }
+    private void addTask(String task) {
+        TaskType taskType = getTaskType(task);
+
+        switch (taskType) {
+            case TODO:
+                addTodoTask(task);
+                break;
+            case DEADLINE:
+                addDeadline(task);
+                break;
+            case EVENT:
+                addEvent(task);
+                break;
+            case HELP:
+                helpline();
+                break;
+            case DELETE:
+                try {
+                    int index = Integer.parseInt(task.substring(6).trim()) - 1;
+                    deleteTask(index);
+                } catch (NumberFormatException e) {
+                    System.out.println("\t" + "Invalid input. Please enter a valid task index.");
+                }
+                break;
+            default:
+                System.out.println("\t" + "Sorry, that's not a command :( Enter 'help' for instructions.");
         }
         printLine();
+    }
+
+    private TaskType getTaskType(String task) {
+        if (task.startsWith("todo")) {
+            return TaskType.TODO;
+        } else if (task.startsWith("deadline")) {
+            return TaskType.DEADLINE;
+        } else if (task.startsWith("event")) {
+            return TaskType.EVENT;
+        } else if (task.equals("help")) {
+            return TaskType.HELP;
+        } else if (task.startsWith("delete")) {
+            return TaskType.DELETE;
+        } else {
+            return TaskType.UNKNOWN;
+        }
     }
 
     /*
@@ -304,6 +350,15 @@ class ListAdder {
             System.out.println("\t" + "This number isn't valid!");
         }
     }
+}
+
+enum TaskType {
+    TODO,
+    DEADLINE,
+    EVENT,
+    HELP,
+    DELETE,
+    UNKNOWN
 }
 
 /*
