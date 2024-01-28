@@ -332,7 +332,7 @@ public class Duke {
     public static void dialogue() {
 
         System.out.println("   ____________________________________________________________");
-        System.out.println("    Hello! I'm QuantumBot");
+        System.out.println("    Hello! I'm BotYue");
         System.out.println("    What can I do for you?");
         System.out.println("   ____________________________________________________________");
     }
@@ -606,7 +606,7 @@ public class Duke {
     public static void dialogue() {
 
         System.out.println("   ____________________________________________________________");
-        System.out.println("    Hello! I'm QuantumBot");
+        System.out.println("    Hello! I'm BotYue");
         System.out.println("    What can I do for you?");
         System.out.println("   ____________________________________________________________");
     }
@@ -840,7 +840,7 @@ public class Duke {
     public static void dialogue() {
 
         System.out.println("   ____________________________________________________________");
-        System.out.println("    Hello! I'm QuantumBot");
+        System.out.println("    Hello! I'm BotYue");
         System.out.println("    What can I do for you?");
         System.out.println("   ____________________________________________________________");
     }
@@ -968,7 +968,7 @@ public class Duke {
     public static void dialogue() {
 
         System.out.println("   ____________________________________________________________");
-        System.out.println("    Hello! I'm QuantumBot");
+        System.out.println("    Hello! I'm BotYue");
         System.out.println("    What can I do for you?");
         System.out.println("   ____________________________________________________________");
     }
@@ -1028,7 +1028,7 @@ public class Duke {
 
     public static void dialogue() {
         System.out.println("   ____________________________________________________________");
-        System.out.println("   Hello! I'm QuantumBot");
+        System.out.println("   Hello! I'm BotYue");
         System.out.println("   What can I do for you?");
         System.out.println("   ____________________________________________________________");
     }
