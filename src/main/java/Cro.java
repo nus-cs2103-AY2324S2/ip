@@ -58,6 +58,7 @@ public class Cro {
             String output = String.format("%d. %s", i+1, taskList.get(i));
             System.out.println(output);
         }
+        System.out.println(String.format("Now you have %d tasks in the list", taskList.size()));
     }
 
     public static void markTaskAsDone(int taskNo) throws CroException {
