@@ -1,3 +1,5 @@
+package drake.task;
+
 import java.io.Serializable;
 
 public class Task implements Serializable { // adapted skeleton from cs2103t course website
