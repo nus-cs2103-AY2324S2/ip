@@ -1,3 +1,5 @@
+package duke;
+
 import duke.command.Command;
 import duke.command.CommandException;
 import duke.storage.Storage;
@@ -45,8 +47,7 @@ public class Duke {
             } catch (IOException e) {
                 ui.showError("An error has occurred with the save file. Exiting...");
                 isQuit = true;
-            }
-            finally {
+            } finally {
                 ui.showLine();
             }
         }

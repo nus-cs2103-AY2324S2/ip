@@ -31,15 +31,7 @@ public class Parser {
             return new DeleteCommand(input.substring(6));
         }
 
-        throw new CommandException("Error. Unable to recognize command. Commands are CASE SENSITIVE.\n"
-                + "Supported List of Commands:\n"
-                + "- " +  ToDo.CREATE_TODO_FORMAT + ": Adds new ToDo task.\n"
-                + "- " +  Deadline.CREATE_DEADLINE_FORMAT + ": Adds new Deadline task.\n"
-                + "- " +  Event.CREATE_EVENT_FORMAT + ": Adds new Event task.\n"
-                + "- mark <task-number>: Marks task at index <task-number> as done.\n"
-                + "- unmark <task-number>: Marks task at index <task-number> as not done.\n"
-                + "- delete <task-number>: Deletes task at index <task-number>.\n"
-                + "- bye: exits the program.");
+        throw new UnknownCommandException();
     }
 
     /**
