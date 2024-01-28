@@ -1,6 +1,6 @@
 package bytebuddy.commands;
 
-import bytebuddy.exceptions.DukeException;
+import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.storage.Storage;
 import bytebuddy.tasks.TaskList;
 import bytebuddy.ui.Ui;
@@ -30,10 +30,10 @@ public class FindCommand implements Command {
      * @param taskList The TaskList instance containing the list of tasks.
      * @param ui       The Ui instance for user interaction.
      * @param storage  The Storage instance for file storage operations.
-     * @throws DukeException If there is an issue executing the 'findInTaskList' method.
+     * @throws ByteBuddyException If there is an issue executing the 'findInTaskList' method.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
         taskList.findTaskWithKeywordInTaskList(info);
     }
 
