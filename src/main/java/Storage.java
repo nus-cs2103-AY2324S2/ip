@@ -5,26 +5,34 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
-public class TaskManager {
+public class Storage {
 
-    public static void saveTasksToFile(ArrayList<Task> tasks, String filePath) throws IOException {
+    public static final String filepath = "./data/data.txt";
+    public Storage() {
+        try {
+            TaskList.taskList = loadTasksFromFile(filepath);
+        } catch (IOException | GeneralException e) {
+            System.out.println("Something went wrong with loading your previous session data!");
+        }
+    }
+    public void saveTasksToFile() throws IOException {
         try (PrintWriter pw = new PrintWriter(new FileWriter("./data/data.txt"), true)) {
-            for (Task task : tasks) {
+            for (Task task : TaskList.taskList) {
                 pw.println(task.toSaveString());
             }
             System.out.println("Your session has been saved.");
         } catch (FileNotFoundException e) {
-            File file = new File(filePath);
+            File file = new File(filepath);
             if (file.createNewFile()) {
-                saveTasksToFile(tasks, filePath);
+                saveTasksToFile();
                 System.out.println("Your session has been saved.");
             } else {
-                throw new IOException("Unable to create the file: " + filePath);
+                throw new IOException("Unable to create the file: " + filepath);
             }
         }
     }
 
-    public static ArrayList<Task> loadTasksFromFile(String filepath) throws IOException, GeneralException {
+    public ArrayList<Task> loadTasksFromFile(String filepath) throws IOException, GeneralException {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filepath);
         if (f.exists()) {
