@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 class DukeException extends Exception {
     public DukeException(String message) {
@@ -78,9 +81,12 @@ class Event extends Task {
 }
 
 public class Duke {
+    private static final String DIRECTORY_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = DIRECTORY_PATH + File.separator + "duke.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        loadTasksFromFile();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Hello! I'm SCZL");
@@ -133,6 +139,7 @@ public class Duke {
 
         tasks.add(new Todo(description));
         printTaskAddedMessage(tasks.get(tasks.size() - 1));
+        saveTasksToFile();
     }
 
     private static void addDeadlineTask(String input) throws DukeException {
@@ -150,6 +157,7 @@ public class Duke {
         } else {
             throw new DukeException("OOPS!!! Invalid deadline command format.");
         }
+        saveTasksToFile();
     }
 
     private static void addEventTask(String input) throws DukeException {
@@ -169,6 +177,7 @@ public class Duke {
         } else {
             throw new DukeException("OOPS!!! Invalid event command format.");
         }
+        saveTasksToFile();
     }
 
     private static void markTask(String userInput) throws DukeException {
@@ -184,6 +193,7 @@ public class Duke {
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new DukeException("OOPS!!! Invalid command format.");
         }
+        saveTasksToFile();
     }
 
     private static void unmarkTask(String userInput) throws DukeException {
@@ -199,7 +209,80 @@ public class Duke {
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new DukeException("OOPS!!! Invalid command format.");
         }
+        saveTasksToFile();
     }
+    private static void loadTasksFromFile() {
+        File directory = new File(DIRECTORY_PATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return; // File will be created when saving tasks for the first time.
+        }
+
+        try (Scanner fileScanner = new Scanner(file)) {
+            while (fileScanner.hasNext()) {
+                String line = fileScanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                try {
+                    // Expected format: Type | Done | Description | Additional Info
+                    String type = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String description = parts[2];
+                    Task task = null;
+
+                    switch (type) {
+                        case "T":
+                            task = new Todo(description);
+                            break;
+                        case "D":
+                            if (parts.length < 4) throw new DukeException("Invalid deadline format in file.");
+                            task = new Deadline(description, parts[3]);
+                            break;
+                        case "E":
+                            if (parts.length < 5) throw new DukeException("Invalid event format in file.");
+                            task = new Event(description, parts[3], parts[4]);
+                            break;
+                    }
+
+                    if (task != null) {
+                        if (isDone) {
+                            task.markAsDone();
+                        }
+                        tasks.add(task);
+                    }
+                } catch (DukeException e) {
+                    System.out.println("Skipping invalid task: " + line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        }
+    }
+
+    private static void saveTasksToFile() {
+        try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
+            for (Task task : tasks) {
+                String type = task instanceof Todo ? "T" :
+                        task instanceof Deadline ? "D" :
+                                task instanceof Event ? "E" : "";
+                String status = task.isDone ? "1" : "0";
+                String line = type + " | " + status + " | " + task.getDescription();
+                if (task instanceof Deadline) {
+                    line += " | " + ((Deadline) task).by;
+                } else if (task instanceof Event) {
+                    line += " | " + ((Event) task).from + " | " + ((Event) task).to;
+                }
+                writer.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save tasks: " + e.getMessage());
+        }
+    }
+
+
 
     private static void deleteTask(String userInput) throws DukeException {
         try {
@@ -215,6 +298,7 @@ public class Duke {
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new DukeException("OOPS!!! Invalid command format.");
         }
+        saveTasksToFile();
     }
 
     private static void listTasks() {
@@ -240,3 +324,4 @@ public class Duke {
         return index >= 0 && index < tasks.size();
     }
 }
+
