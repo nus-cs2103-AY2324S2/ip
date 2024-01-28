@@ -4,6 +4,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'Nicole'
+
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
@@ -23,6 +25,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = "nicole.jar"
     archiveBaseName = "nicole"
     archiveClassifier = null
     dependsOn("distZip", "distTar")

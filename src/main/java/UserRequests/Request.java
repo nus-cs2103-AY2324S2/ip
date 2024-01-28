@@ -11,6 +11,16 @@ import java.io.IOException;
 public class Request {
     public static boolean priorityTasking = false;
     private Task newTask;
+
+    /**
+     * Initialises a Request
+     *
+     * @param name the user request.
+     * @throws NicoleException if the Parser throws this exception due to issues
+     *                         with the request.
+     * @throws IOException if the TaskList throws this exception due to issues with
+     *                     posting and retrieving data from hard drive.
+     */
     public Request(String name) throws NicoleException, IOException {
         if (name.equals("list") ||
                 name.contains("mark") ||
@@ -24,7 +34,7 @@ public class Request {
         this.handleRequest(name);
     }
 
-    private void handleRequest(String name) throws NicoleException, IOException {
+    private void handleRequest(String name) throws NicoleException {
         TaskList taskList = new TaskList();
         if (name.contains("unmark")) {
             int taskNumber = Integer.parseInt(name.substring(7));
