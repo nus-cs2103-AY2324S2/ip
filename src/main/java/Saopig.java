@@ -12,6 +12,9 @@ public class Saopig {
             String input = scanner.nextLine();
             Command command = getCommandFromString(input);
             switch (command) {
+            case COMMAND_LISTTASKONDATE:
+                taskList.listTasksOnDate(input);
+                break;
             case COMMAND_DELETE:
                 taskList.deleteTask(input);
                 break;
@@ -48,6 +51,8 @@ public class Saopig {
         String processedInput = input.trim().toUpperCase();
         String[] splitInput = processedInput.split(" ");
         switch (splitInput[0]) {
+        case "LISTTASKONDATE":
+            return Command.COMMAND_LISTTASKONDATE;
         case "DELETE":
             return Command.COMMAND_DELETE;
         case "UNMARK":
@@ -103,6 +108,7 @@ public class Saopig {
     }
 
     enum Command {
+        COMMAND_LISTTASKONDATE,
         COMMAND_BYE,
         COMMAND_MARK_DONE,
         COMMAND_UNMARK_DONE,

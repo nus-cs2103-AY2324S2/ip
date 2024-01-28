@@ -1,18 +1,32 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Locale;
+
+
 public class Deadline extends Task {
 
-    protected String by;
+    private LocalDateTime by;
+    private ZoneId userZoneId = ZoneId.systemDefault();
+    private ZonedDateTime byZonedDateTime;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
+        this.byZonedDateTime = by.atZone(userZoneId);
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return this.by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL)
+                .withLocale(Locale.ENGLISH);
+        return "[D]" + super.toString() + " (by: " + formatter.format(byZonedDateTime) + ")";
     }
 }
