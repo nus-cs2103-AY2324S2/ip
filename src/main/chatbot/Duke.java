@@ -6,6 +6,30 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+class EmptyTodoException extends Exception {
+    public EmptyTodoException() {
+        super("Todo cannot have empty description.");
+    }
+}
+
+class EmptyDeadlineException extends Exception {
+    public EmptyDeadlineException() {
+        super("Deadline cannot have empty description.");
+    }
+}
+
+class EmptyEventException extends Exception {
+    public EmptyEventException() {
+        super("Event cannot have empty description.");
+    }
+}
+
+class InvalidException extends Exception {
+    public InvalidException() {
+        super("Sorry, invalid input.");
+    }
+}
+
  class Task {
     protected String description;
     protected boolean isDone;
@@ -81,126 +105,30 @@ class Todo extends Task {
 
 
 public class Duke {
+    private TaskList myList;
+    private Storage st;
+    private Ui ui;
+    private Parser p;
+
+
+    public Duke(String filePath) {
+        this.st = new Storage(filePath);
+        this.myList = new TaskList(new ArrayList<Task>());
+        this.p = new Parser();
+        this.ui = new Ui(this.myList);
+    }
+
+
+     public void run() throws IOException{
+        ui.start();
+        boolean continueChat = true;
+        while (continueChat) {
+            continueChat = ui.reply(this.st); // This will be false when user types "bye"
+        }
+        
+    }
+
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter pw = new PrintWriter(System.out, true);
-
-        ArrayList<Task> myList = new ArrayList<Task>();
-        Storage st = new Storage("./data/duke.txt");
-        st.createFileIfNeeded();
-        int pointer = 0;
-
-        String prompt = "Hello! I'm TFamilyBot\n"
-                + "What can I do for you? \n"
-                + "____________________________________________________________\n";   
-        pw.println(prompt);
-
-        while (true) {
-            String io = br.readLine().trim();
-            String[] words = io.split("\\s+", 2); 
-            String detail = words.length > 1 ? words[1] : ""; 
-
-            pw.println("____________________________________________________________\n");
-            
-
-            if (words[0].equals("todo") && detail.equals("")){
-              pw.println("Todo cannot have empty description.");
-              pw.println("____________________________________________________________\n");
-
-            }
-
-            else if (words[0].equals("deadline") && detail.equals("")){
-              pw.println("Deadline cannot have empty description.");
-              pw.println("____________________________________________________________\n");
-
-            }
-
-            else if (words[0].equals("event") && detail.equals("")){
-              pw.println("Event cannot have empty description.");
-              pw.println("____________________________________________________________\n");
-
-            }
-
-            else if (words[0].equals("bye")) {
-                pw.println("Bye. Hope to see you again soon!");
-                pw.println("____________________________________________________________\n");
-                break;
-            }
-
-            else if (words[0].equals("list")) {
-                for (int i = 0; i < pointer; i++) {
-                    int show = i + 1;
-                    pw.println(show + "." + myList.get(i));
-                }
-                pw.println("____________________________________________________________\n");
-            }
-            else if (words[0].equals("mark")) {
-                int c = Integer.parseInt(words[1]);
-                myList.get(c-1).markAsDone();
-                st.rewriteFile(myList);
-                pw.println("Nice! I've marked this task as done:");
-                pw.println(myList.get(c-1));
-                pw.println("____________________________________________________________\n");
-
-            }
-            else if (words[0].equals("unmark")) {
-                int c = Integer.parseInt(words[1]);
-                myList.get(c-1).markAsUndone();
-                st.rewriteFile(myList);
-                pw.println("OK, I've marked this task as not done yet:");
-                pw.println(myList.get(c-1));
-                pw.println("____________________________________________________________\n");
-            } 
-            else if (words[0].equals("todo")) {
-                pw.println("Got it. I've added this task:");
-                Todo t = new Todo(detail);
-                pw.println(t);
-                myList.add(t);
-                st.rewriteFile(myList);
-                pointer++;
-                pw.println("Now you have " + pointer + " tasks in the list.");
-                pw.println("____________________________________________________________\n");
-            }
-            
-            else if (words[0].equals("deadline")) {
-                pw.println("Got it. I've added this task:");
-                String[] parts = detail.split("\\s*/by\\s*", 2);
-                Deadline t = new Deadline(parts[0], parts[1]);
-                pw.println(t);
-                myList.add(t);
-                st.rewriteFile(myList);
-                pointer++;
-                pw.println("Now you have " + pointer + " tasks in the list.");
-                pw.println("____________________________________________________________\n");
-            } 
-            
-            else if (words[0].equals("event")) {
-                pw.println("Got it. I've added this task:");
-                String[] firstSplit = detail.split("\\s*/from\\s*", 2);
-                String[] secondSplit = firstSplit[1].split("\\s*/to\\s*", 2);
-                Event t = new Event(firstSplit[0], secondSplit[0], secondSplit[1]);
-                pw.println(t);
-                myList.add(t);
-                st.rewriteFile(myList);
-                pointer++;
-                pw.println("Now you have " + pointer + " tasks in the list.");
-                pw.println("____________________________________________________________\n");
-
-            }
-            else if (words[0].equals("delete")) {
-                int c = Integer.parseInt(words[1]);
-                pw.println("Noted. I've removed this task:");
-                pw.println(myList.get(c-1));
-                myList.remove(c-1);
-                st.rewriteFile(myList);
-                pointer--;
-                pw.println("Now you have " + pointer + " tasks in the list.");
-                pw.println("____________________________________________________________\n");
-
-            } else {
-                pw.println("Sorry, invalid input.");
-                pw.println("____________________________________________________________\n");
+            new Duke("./data/tasks.txt").run();
             }
         }
-    }
-}
