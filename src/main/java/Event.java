@@ -14,7 +14,6 @@ public class Event extends Task {
     protected static final String USAGE_HINT = "Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} "
             + "/to [d/m/yyyy] {hh:mm 24hr format}";
 
-    //TODO check that from < to
     public Event(String description, LocalDateTime from, LocalDateTime to) throws DukeException {
         super(description);
 
