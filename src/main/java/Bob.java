@@ -7,14 +7,9 @@ public class Bob {
     private static final int MAX_NUMBER_OF_TASKS = 100;
     private static final Task[] TASKS = new Task[MAX_NUMBER_OF_TASKS];
 
-    public static void handleMark(int taskIndex, boolean done) {
-        try {
-            if (taskIndex < 0 || taskIndex >= numberOfTasks) {
-                throw new InvalidTaskIndexException(Integer.toString(taskIndex));
-            }
-        } catch (InvalidTaskIndexException e) {
-            Replies.print(e.getMessage());
-            return;
+    public static void handleMark(int taskIndex, boolean done) throws InvalidTaskIndexException {
+        if (taskIndex < 0 || taskIndex >= numberOfTasks) {
+            throw new InvalidTaskIndexException();
         }
 
         Task task = TASKS[taskIndex];
