@@ -70,7 +70,7 @@ public class Duke {
 
     public static void add(TaskType type, String description) throws DukeException {
         if (description.isEmpty()) {
-            throw new DukeException("OOPS!!! The description of a task cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a " + type + " task cannot be empty.");
         }
 
         Task task;
