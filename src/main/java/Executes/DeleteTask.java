@@ -1,5 +1,3 @@
-package Executes;
-
 import Actions.Action;
 import Exceptions.DukeException;
 
@@ -33,7 +31,7 @@ public class DeleteTask {
             actionList.remove(pos - 1);
             System.out.println("Now you have " + actionList.size() + " tasks in the list.");
 
-        } catch (ArrayIndexOutOfBoundsException err) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException err) {
             throw new DukeException("Please include index of task to be removed");
         }
     }

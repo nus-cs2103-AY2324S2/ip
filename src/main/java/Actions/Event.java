@@ -1,11 +1,9 @@
-package Actions;
-
-public class Event extends Action {
+public class Event extends Actions.Action {
     protected String from;
     protected String to;
 
     /**
-     * Constructor for Actions.Event class
+     * Constructor for Actions1.Event class
      * @param description action to be made
      * @param from
      * @param to

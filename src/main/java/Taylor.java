@@ -1,14 +1,12 @@
 import Actions.Action;
 
 import Exceptions.DukeException;
-import Executes.DeleteTask;
-import Executes.InsertTask;
-import Executes.ListTask;
-import Executes.MarkTask;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class Taylor {
     enum Activity {
@@ -16,11 +14,30 @@ public class Taylor {
     }
 
     public static void main(String[] args) {
+        List<Action> listing = new ArrayList<>();
+
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("taylor.txt"));
+            listing = (List<Action>) ois.readObject();
+            int pos = 1;
+            for (Action act : listing) {
+                System.out.println(pos++ + ". " + act);
+            }
+
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            System.out.println("Please create file in " + System.getProperty("user.dir"));
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("No past data");
+        } catch (ClassCastException e) {
+            System.out.println("Content are corrupted!");
+        }
+
         System.out.println("Hello! I'm Taylor");
         System.out.println("What can I do for you?");
         Scanner type = new Scanner(System.in);
 
-        List<Action> listing = new ArrayList<>();
 
         label:
         while(true) {
@@ -74,9 +91,16 @@ public class Taylor {
                         break;
                 }
             }
+
+            try {
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("taylor.txt"));
+                oos.writeObject(listing);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        System.out.println("Bye. Hope to see you again soon!");
         type.close();
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     private static Activity getActivity(String action) {

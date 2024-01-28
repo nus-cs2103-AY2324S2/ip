@@ -1,6 +1,4 @@
-package Actions;
-
-public class Deadline extends Action {
+public class Deadline extends Actions.Action {
     protected String by;
 
     /**
