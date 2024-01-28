@@ -13,26 +13,17 @@ import java.util.Scanner;
 
 public class Storage {
 
-    public Storage() throws DukeException{
+    public Storage() throws DukeException {
         init();
     }
 
     // initialisation of data dir and output file
-    public TaskList load() throws DukeException{
-        return initTaskList(RELATIVE_OUTPUT_TXT_FILE_PATH);
-    }
-
     public void init() throws DukeException {
         File dataDir = new File(RELATIVE_DATA_DIRECTORY_PATH);
         File outputTxt = new File(RELATIVE_OUTPUT_TXT_FILE_PATH);
         createOutputDirectoryAndFile(dataDir, outputTxt);
     }
 
-    public static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(textToAdd);
-        fw.close();
-    }
     public static void createOutputDirectoryAndFile(File dataDir, File outputTxt) throws DukeException {
         try {
             dataDir.mkdirs();
@@ -40,6 +31,20 @@ public class Storage {
         } catch (SecurityException | IOException e) {
             throw new DukeException(e.toString());
         }
+    }
+
+
+    // init TaskList
+    public TaskList load() throws DukeException {
+        return initTaskList(RELATIVE_OUTPUT_TXT_FILE_PATH);
+    }
+
+
+
+    public static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
     }
 
     public static TaskList initTaskList(String filePath) throws DukeException {
