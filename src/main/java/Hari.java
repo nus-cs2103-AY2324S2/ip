@@ -1,28 +1,49 @@
 import java.util.Scanner;
 
 // Class for the chatbot itself
-class handlerbot
-{
-    //Class Attributes
-    private taskings[] arrtaskings; //To store tasks created by user for easy retrieval and listing
-    private int countertaskings; //Counter for assumption that there are no more than 100 tasks
+class handlerbot {
 
-    //Class object
-    public handlerbot()
-    {
-        arrtaskings = new taskings[100]; //Assumption that there are no more than 100 tasks
-        countertaskings = 0; //Counter for number of tasks
+    //Class Attributes
+    private taskings[] arrtaskings; // To store tasks created by the user for easy retrieval and listing
+    private int countertaskings; // Counter for assumption that there are no more than 100 tasks
+
+    // Class object
+    public handlerbot() {
+        arrtaskings = new taskings[100]; // Assumption that there are no more than 100 tasks
+        countertaskings = 0; // Counter for the number of tasks
     }
 
     // Class for tasks (called taskings)
     public class taskings {
-        private String summary; //Description of tasks
-        private boolean completion; //To check if a task is or is not completed
+        private String summary; // Description of tasks
+        private boolean completion; // To check if a task is or is not completed
+        private String taskertype; // To identify the type of task
+        private String timerstart; // Start time for Event tasks
+        private String timerend; // End time for Event tasks
+        private String deadlinestat; // Deadline for Deadline tasks
 
-        // Constructor
+        // Constructor for To Do tasks
         public taskings(String summary) {
-            this.summary = summary; //Description of tasks
-            this.completion = false; //To check if a task is or is not completed
+            this.summary = summary; // Description of tasks
+            this.completion = false; // To check if a task is or is not completed
+            this.taskertype = "T"; // Set task type to T
+        }
+
+        // Constructor for Deadline tasks
+        public taskings(String summary, String deadlinestat) {
+            this.summary = summary;
+            this.completion = false;
+            this.taskertype = "D";
+            this.deadlinestat = deadlinestat;
+        }
+
+        // Constructor for Event tasks
+        public taskings(String summary, String timerstart, String timerend) {
+            this.summary = summary;
+            this.completion = false;
+            this.taskertype = "E";
+            this.timerstart = timerstart;
+            this.timerend = timerend;
         }
 
         // To mark as completed
@@ -35,20 +56,40 @@ class handlerbot
             this.completion = false;
         }
 
-        // For displaying the X or [ ] depending on completion
+        // For displaying the X or [ ] depending on completion status
         public String completionstatus() {
-            return (completion ? "[X] " : "[ ] "); // To display the X or [ ]
+            return (completion ? "X" : " "); // To display the X or [ ]
         }
 
-        // For displaying the task description
+        // For displaying task description
         public String summarystatus() {
             return summary;
         }
+
+        // For displaying the task type
+        public String taskstatus() {
+            return taskertype;
+        }
+
+        // For displaying start time of event tasks
+        public String timerstartstatus() {
+            return timerstart;
+        }
+
+        // For displaying end time of event tasks
+        public String timerendstatus() {
+            return timerend;
+        }
+
+        // For displaying deadline of deadline tasks
+        public String deadlinestatus() {
+            return deadlinestat;
+        }
+
     }
 
     // Function that handles the greeting message
-    public void messagegreeting()
-    {
+    public void messagegreeting() {
         System.out.println("____________________________________________________________");
         System.out.println(" Hey! I'm Hari!");
         System.out.println(" How may I be of service today?");
@@ -56,27 +97,23 @@ class handlerbot
     }
 
     // Function that handles the exit message
-    public void messagefarewell()
-    {
+    public void messagefarewell() {
         System.out.println("____________________________________________________________");
         System.out.println("Au revoir! Till we meet again!");
         System.out.println("____________________________________________________________");
     }
 
     // Function that handles and echoes user input (this is maintained as not all inputs are tasks)
-    public void userechoedinput(String readerinput)
-    {
-        if (readerinput.equalsIgnoreCase("list")) //To list out tasks
+    public void userechoedinput(String readerinput) {
+        if (readerinput.equalsIgnoreCase("list")) // To list out tasks
         {
             System.out.println("____________________________________________________________");
             taskingsdisplay();
             System.out.println("____________________________________________________________");
-        }
-        else if (readerinput.equalsIgnoreCase("bye")) //To exit the chatbot program
+        } else if (readerinput.equalsIgnoreCase("bye")) // To exit the chatbot program
         {
             messagefarewell();
-        }
-        else //Anything else, is assumed to be a new task to add
+        } else // Anything else, is assumed to be a new task to add
         {
             additiontaskings(readerinput);
         }
@@ -84,13 +121,29 @@ class handlerbot
 
     // Function to add tasks
     // No modification done to userechoedinput function as not all inputs are tasks
-    public void additiontaskings(String taskings)
-    {
+    public void additiontaskings(String taskings) {
         System.out.println("____________________________________________________________");
-        System.out.println(" What's new to do? : " + taskings); //Display message that tasks has been added
+        System.out.println(" Got it. I've added this task:");
+
+        // Display message based on the task type
+        if (taskings.startsWith("todo")) {
+            arrtaskings[countertaskings] = new taskings(taskings.substring(5).trim()); // 5 because of the word to do
+        } else if (taskings.startsWith("deadline")) {
+            String[] parts = taskings.substring(8).trim().split("/by"); // 8 because of the word deadline
+            arrtaskings[countertaskings] = new taskings(parts[0].trim(), parts[1].trim());
+        } else if (taskings.startsWith("event")) {
+            String[] parts = taskings.substring(5).trim().split("/from|/to"); // 5 because of the word event
+            arrtaskings[countertaskings] = new taskings(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        }
+        System.out.println("   " + "[" + arrtaskings[countertaskings].taskstatus() + "]" + "[" + arrtaskings[countertaskings].completionstatus() + "]" + arrtaskings[countertaskings].summarystatus() +
+                (arrtaskings[countertaskings].taskstatus().equals("E") ?
+                        " (from: " + arrtaskings[countertaskings].timerstartstatus() + " to: " + arrtaskings[countertaskings].timerendstatus() + ")" :
+                        (arrtaskings[countertaskings].taskstatus().equals("D") ? " (by: " + arrtaskings[countertaskings].deadlinestatus() + ")" : "")));
+
+        countertaskings++;
+
+        System.out.println(" Now you have " + countertaskings + " task(s) in the list");
         System.out.println("____________________________________________________________");
-        arrtaskings[countertaskings] = new taskings(taskings); //Add this task to the array storing all tasks
-        countertaskings++; // Increase count of tasks stored
     }
 
     // Function to display tasks
@@ -98,13 +151,16 @@ class handlerbot
     public void taskingsdisplay() {
         if (countertaskings == 0) {
             System.out.println("____________________________________________________________");
-            System.out.println(" Your task list is empty. Add tasks by simply typing them in."); //If there are no tasks, a message to guide user
+            System.out.println(" Your task list is empty. Add tasks by simply typing them in."); // If there are no tasks, a message to guide the user
             System.out.println("____________________________________________________________");
         } else {
             System.out.println("____________________________________________________________");
-            System.out.println(" Here are your tasks:"); //Display all tasks
+            System.out.println(" Here are your tasks:"); // Display all tasks
             for (int i = 0; i < countertaskings; i++) {
-                System.out.println(" " + (i + 1) + ". " + arrtaskings[i].completionstatus() + arrtaskings[i].summarystatus()); //Display the task
+                System.out.println(" " + (i + 1) + ". " +  "[" + arrtaskings[i].taskstatus() + "]" + "[" + arrtaskings[i].completionstatus() + "]" + arrtaskings[i].summarystatus() +
+                        (arrtaskings[i].taskstatus().equals("E") ?
+                                " (from: " + arrtaskings[i].timerstartstatus() + " to: " + arrtaskings[i].timerendstatus() + ")" :
+                                (arrtaskings[i].taskstatus().equals("D") ? " (by: " + arrtaskings[i].deadlinestatus() + ")" : "")));
             }
             System.out.println("____________________________________________________________");
         }
@@ -115,53 +171,56 @@ class handlerbot
         if (taskrecorder > 0 && taskrecorder <= countertaskings) // If there are tasks
         {
             System.out.println("____________________________________________________________");
-            System.out.println("Another one in the bag! Well done!");
-            arrtaskings[taskrecorder - 1].completionmark(); //Mark as complete
-            System.out.println(" " + (taskrecorder) + ". " + arrtaskings[taskrecorder - 1].completionstatus() + arrtaskings[taskrecorder - 1].summarystatus()); //Display the task
+            System.out.println(" Another one in the bag! Well done!");
+            arrtaskings[taskrecorder - 1].completionmark(); // Mark as complete
+            System.out.println("   " +  "[" + arrtaskings[taskrecorder - 1].taskstatus() + "]" + "[" + arrtaskings[taskrecorder - 1].completionstatus() + "]"  + arrtaskings[taskrecorder - 1].summarystatus() + "  " +
+                    (arrtaskings[taskrecorder - 1].taskstatus().equals("E") ?
+                            " (from: " + arrtaskings[taskrecorder - 1].timerstartstatus() + " to: " + arrtaskings[taskrecorder - 1].timerendstatus() + ")" :
+                            (arrtaskings[taskrecorder - 1].taskstatus().equals("D") ? " (by: " + arrtaskings[taskrecorder - 1].deadlinestatus() + ")" : "")));
             System.out.println("____________________________________________________________");
         } else // Error handling: There are no tasks
         {
             System.out.println("____________________________________________________________");
-            System.out.println("Hmmm...I dont see to have a task under this number");
+            System.out.println(" Hmmm...I don't seem to have a task under this number");
             System.out.println("____________________________________________________________");
         }
     }
 
     // Function to unmark a previously marked as completed task
-    public void incompletionmark(int taskrecorder)
-    {
+    public void incompletionmark(int taskrecorder) {
         if (taskrecorder > 0 && taskrecorder <= countertaskings) // If there are tasks
         {
             System.out.println("____________________________________________________________");
-            System.out.println("Oh dear, better get on it!");
+            System.out.println(" Oh dear, better get on it!");
             arrtaskings[taskrecorder - 1].incompletionmark(); // Mark as incomplete
-            System.out.println(" " + (taskrecorder) + ". " + arrtaskings[taskrecorder - 1].completionstatus() + arrtaskings[taskrecorder - 1].summarystatus()); //Display the task
+            System.out.println("   " +  "[" + arrtaskings[taskrecorder - 1].taskstatus() + "]" + "[" + arrtaskings[taskrecorder - 1].completionstatus() + "]"  + arrtaskings[taskrecorder - 1].summarystatus() + "  " +
+                    (arrtaskings[taskrecorder - 1].taskstatus().equals("E") ?
+                            " (from: " + arrtaskings[taskrecorder - 1].timerstartstatus() + " to: " + arrtaskings[taskrecorder - 1].timerendstatus() + ")" :
+                            (arrtaskings[taskrecorder - 1].taskstatus().equals("D") ? " (by: " + arrtaskings[taskrecorder - 1].deadlinestatus() + ")" : "")));
             System.out.println("____________________________________________________________");
         } else // Error handling: There are no tasks
         {
             System.out.println("____________________________________________________________");
-            System.out.println("Hmmm...I dont see to have a task under this number");
+            System.out.println(" Hmmm...I don't seem to have a task under this number");
             System.out.println("____________________________________________________________");
         }
     }
 }
 
-//Main Class
-public class Hari
-{
-    public static void main(String[] args)
-    {
-        Scanner inputread = new Scanner(System.in); //Scanner object to read and process user input
-        handlerbot hari = new handlerbot(); // Create new "Hari" chatbot (handlerbot object)
+// Main Class
+public class Hari {
+    public static void main(String[] args) {
+        Scanner inputread = new Scanner(System.in); // Scanner object to read and process user input
+        handlerbot hari = new handlerbot(); // Create a new "Hari" chatbot (handlerbot object)
         hari.messagegreeting(); // Call the messagegreeting function to greet the user
 
         String readerinput; // To store user input
 
-        while (true) //Modified do-while to a while as I have now streamlined all the code in the main body and reduced number of function calls
+        while (true) // Modified do-while to a while as I have now streamlined all the code in the main body and reduced the number of function calls
         {
-            readerinput = inputread.nextLine(); //Read and store user input inside readerinput variable
+            readerinput = inputread.nextLine(); // Read and store user input inside readerinput variable
 
-            if (readerinput.equalsIgnoreCase("bye")) {  // If "bye" is written as an input, the chatbot exits with the farewell message
+            if (readerinput.equalsIgnoreCase("bye")) { // If "bye" is written as an input, the chatbot exits with the farewell message
                 break;
             } else if (readerinput.equalsIgnoreCase("list")) { // To list out tasks
                 hari.taskingsdisplay();
@@ -169,12 +228,12 @@ public class Hari
                 // Extract the task number from user input
                 int taskindexer = Integer.parseInt(readerinput.substring(5).trim()); // 5 is because of the word "mark"
                 hari.completionmark(taskindexer);
-            } else if (readerinput.startsWith("unmark")) { // To unmark a previously marked as completed tasks
+            } else if (readerinput.startsWith("unmark")) { // To unmark a previously marked as completed task
                 // Extract task number from user input
-                int taskindexer= Integer.parseInt(readerinput.substring(7).trim()); // 7 is because of the word "unmark"
+                int taskindexer = Integer.parseInt(readerinput.substring(7).trim()); // 7 is because of the word "unmark"
                 hari.incompletionmark(taskindexer);
             } else {
-                hari.userechoedinput(readerinput); //Else, it proceeds to call the user input processing function
+                hari.userechoedinput(readerinput); // Else, it proceeds to call the user input processing function
             }
         }
 
