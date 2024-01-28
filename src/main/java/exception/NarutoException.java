@@ -3,7 +3,7 @@ package exception;
 public abstract class NarutoException extends Exception {
 
     public enum ErrorType {
-        EMPTY_TODO,
+        EMPTY_COMMAND,
         EMPTY_DEADLINE,
         EMPTY_EVENT,
         INVALID_DEADLINE,
@@ -18,9 +18,9 @@ public abstract class NarutoException extends Exception {
     }
     public abstract ErrorType getErrorType();
 
-    public static NarutoException createEmptyTodoException() {
-        return new EmptyTodoException("Looks like your todo is missing a description! \nEnter an "
-                + "input after the 'todo' command to enter a todo.");
+    public static NarutoException createEmptyCommandException() {
+        return new EmptyCommandException("Looks like you forgot to enter anything after your "
+                + "command! \nEnter an input after the command next time.");
     }
     public static NarutoException createEmptyDeadlineException() {
         return new EmptyDeadlineException("Looks like your deadline is missing a description! "

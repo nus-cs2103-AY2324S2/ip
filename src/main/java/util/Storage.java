@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import exception.NarutoException;
@@ -13,11 +13,11 @@ import task.Task;
 public class Storage {
     private static final String FILE_PATH = "src/logs/tasks.txt";
 
-    Storage(ArrayList<Task> tasks) throws IOException {
+    Storage(List<Task> tasks) throws IOException {
         initStorage(tasks);
     }
     // Reads from the file and adds the tasks to ArrayList.
-    private static void initStorage(ArrayList<Task> tasks) throws IOException {
+    private static void initStorage(List<Task> tasks) throws IOException {
         Path filePath = Paths.get(FILE_PATH);
 
         // Create the parent directories if they do not exist
@@ -53,7 +53,7 @@ public class Storage {
         Files.createFile(filePath);
     }
 
-    void writeToFile(ArrayList<Task> tasks) throws IOException {
+    void writeToFile(List<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task t : tasks) {
             fw.write(t.format().toCsv());

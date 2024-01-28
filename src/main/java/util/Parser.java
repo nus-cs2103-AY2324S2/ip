@@ -28,7 +28,7 @@ public class Parser {
         String description = input.trim();
 
         if (description.isEmpty()) {
-            throw NarutoException.createEmptyTodoException();
+            throw NarutoException.createEmptyCommandException();
         }
         return description;
     }

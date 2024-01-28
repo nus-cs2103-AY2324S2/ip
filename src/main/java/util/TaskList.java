@@ -2,15 +2,23 @@ package util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import task.Task;
 
 public class TaskList {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks;
     private final Storage storage;
 
     public TaskList() throws IOException {
+        this.tasks = new ArrayList<>();
         this.storage = new Storage(tasks);
+    }
+
+    private TaskList(ArrayList<Task> tasks, Storage storage) {
+        this.tasks = tasks;
+        this.storage = storage;
     }
 
     public void add(Task t) throws IOException {
@@ -39,6 +47,16 @@ public class TaskList {
         Task t = this.tasks.get(i - 1).unmark();
         storage.writeToFile(tasks);
         return t;
+    }
+
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    public static List<Task> find(String s) {
+        return tasks.stream()
+                .filter(t -> t.contains(s))
+                .collect(Collectors.toList());
     }
 
     @Override
