@@ -6,16 +6,38 @@ import java.time.format.DateTimeParseException;
 import duke.exceptions.TaskCreationException;
 import duke.utils.Parser;
 
+/**
+ * This class implements the Event task type for the bot.
+ * 
+ * @author delishad21
+ */
 public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
+    /**
+     * Basic constructor for Event.
+     * 
+     * @param isDone Marks if task is completed.
+     * @param description Description of the task.
+     * @param start Datetime value marking the start of the event.
+     * @param end Datetime value for marking the end of the event.
+     */
     public Event(boolean isDone, String description, LocalDateTime start, LocalDateTime end) {
         super(isDone, description);
         this.start = start;
         this.end = end;
     }
 
+    /**
+     * Factory method that takes in user input and parses it to return an Event task.
+     * 
+     * @param isDone Marks if task is completed.
+     * @param input User input to be parsed.
+     * @return Event object.
+     * @throws TaskCreationException
+     * @throws DateTimeParseException
+     */
     public static Event eventParse(boolean isDone, String input)  throws TaskCreationException, DateTimeParseException {
         // Check missing parameters
         String missingParams = "";
@@ -64,11 +86,21 @@ public class Event extends Task {
         return e;
     }
 
+    /** 
+     * Method for printing Event as a viewable String.
+     * 
+     * @return String
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start.format(Parser.outputdtFormatter) + " to: " + end.format(Parser.outputdtFormatter) + ")";
     }
 
+    /** 
+     * Method for converting Event into a String for saving in save file.
+     * 
+     * @return String
+     */
     @Override
     public String toSave() {
         return "[E]|" + super.toSave() + "|" + start.format(Parser.inputdtFormatter) + "|" + end.format(Parser.inputdtFormatter);
