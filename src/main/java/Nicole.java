@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Nicole {
     public static final String botName = "Nicole";
@@ -56,14 +57,46 @@ public class Nicole {
         return "Bye, for now ;) Let's catch up again soon.";
     }
 
+    private static void loadTasksFromFile() throws NicoleException, IOException {
+        File tasksFile = new File("./data/tasks.txt");
+        try {
+            Scanner userTaskFileReader = new Scanner(tasksFile);
+            int numTasksInFile = 0;
+            BufferedReader reader = new BufferedReader(new FileReader(tasksFile));
+            while (reader.readLine() != null) {
+                numTasksInFile++;
+            }
+            int i = 1;
+            while (userTaskFileReader.hasNextLine()) {
+                String task = userTaskFileReader.nextLine();
+                if (Nicole.taskList.size() < numTasksInFile) {
+                    char taskType = task.charAt(1);
+                    char taskCompleted = task.charAt(4);
+                    String taskDescription = task.substring(7);
+                    Task recreatedTask = Task.taskFactory(taskDescription, taskType);
+                    if (taskCompleted == 'C') {
+                        recreatedTask.markDone();
+                    }
+                    Nicole.taskList.add(recreatedTask);
+                }
+                i++;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(Nicole.botName + ": I have no past data with you, let's start something ;)");
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println(Nicole.greet());
         try {
             new File("./data").mkdirs();
             new File("./data/tasks.txt");
+            Nicole.loadTasksFromFile();
             System.out.println(Nicole.talkToUser());
         } catch (IOException ioException) {
             System.out.println("Error reading request: " + ioException);
+        } catch (NicoleException nicoleException) {
+            System.out.println(nicoleException);
         }
     }
 }

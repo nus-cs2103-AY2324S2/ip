@@ -1,3 +1,4 @@
+list
 help
 todo
 deadline
@@ -8,8 +9,8 @@ event \from xyz \to abc
 event xyz
 blah
 todo borrow book
-event read book /from Monday 4pm /to Monday 2pm
-deadline return book /by Wednesday
+event read book from 2024-01-30 at 16:00:00 to 2024-01-30 at 18:00:00
+deadline return book by 2024-01-29
 list
 delete 500
 delete -2
@@ -25,4 +26,6 @@ mark 1
 unmark 1
 unmark 1
 delete 1
+list
+priority
 list

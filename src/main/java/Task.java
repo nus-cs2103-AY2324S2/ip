@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Task {
     private boolean completed;
     private String name;
@@ -36,6 +38,10 @@ public class Task {
             this.completed = false;
             return Nicole.botName + ": Marked as incomplete. We'll get em next time";
         }
+    }
+
+    public LocalDate getDate() {
+        return LocalDate.parse("+999999999-12-31");
     }
 
     @Override
