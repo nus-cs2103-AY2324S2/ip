@@ -10,41 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 
 public class TaskListTest {
-    // @Test
-    // public void addTodoTaskTest(){
-    //     TaskList tskLst = new TaskList(new ArrayList<Task>());
-    //     Storage storage = new Storage("src/main/data/test/caching.txt");
-    //     try {
-    //         tskLst.addTask(TaskList.TaskCommand.TODO, "todo borrow books", storage);
-    //         // assertEquals("deadline return book /by Sunday", tsk.toString());
-    //     } catch (DukeException e) {
-    //         System.out.println(e.toString());
-    //     }
-    // }
-
-    // @Test
-    // public void deadlineTaskTest(){
-    //     TaskList tskLst = new TaskList(new ArrayList<Task>());
-    //     Storage storage = new Storage("src/main/data/test/caching.txt");
-    //     try {
-    //         tskLst.addTask(TaskList.TaskCommand.DEADLINE, "deadline return book /by Sunday", storage);
-    //         // assertEquals("deadline return book /by Sunday", tsk.toString());
-    //     } catch (DukeException e) {
-    //         System.out.println(e.toString());
-    //     }
-    // }
-
-    // @Test
-    // public void eventTaskTest(){
-    //     TaskList tskLst = new TaskList(new ArrayList<Task>());
-    //     Storage storage = new Storage("src/main/data/test/caching.txt");
-    //     try {
-    //         tskLst.addTask(TaskList.TaskCommand.EVENT, "event project meeting /from Mon 2pm /to 4pm", storage);
-    //         // assertEquals("deadline return book /by Sunday", tsk.toString());
-    //     } catch (DukeException e) {
-    //         System.out.println(e.toString());
-    //     }
-    // }
 
     @Test
     public void markTaskTest(){

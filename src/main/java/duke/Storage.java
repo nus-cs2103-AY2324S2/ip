@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.task.Deadline;
-import duke.task.Events;
+import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
@@ -72,7 +72,7 @@ public class Storage {
         } else if (arr[0].equals("D")) {
             return new Deadline(arr[2], arr[3], isDone);
         } else if (arr[0].equals("E")) {
-            return new Events(arr[2], arr[3], arr[4], isDone); 
+            return new Event(arr[2], arr[3], arr[4], isDone); 
         }
         return null; 
     }
