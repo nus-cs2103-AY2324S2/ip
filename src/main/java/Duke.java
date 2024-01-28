@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     static void greeting(String botName) {
         System.out.println("Hello! I'm " + botName + "\n"
@@ -6,6 +8,19 @@ public class Duke {
 
     static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    static void Echo() {
+        boolean isExit = false;
+        while (!isExit) {
+            Scanner scanner = new Scanner(System.in);
+            String userInput = scanner.next();
+            if (userInput.equals("bye")) {
+                isExit = true;
+            } else {
+                System.out.println(userInput);
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -18,6 +33,8 @@ public class Duke {
 
         String botName = "Zizhen";
         greeting(botName);
+
+        Echo();
 
         exit();
 
