@@ -32,6 +32,7 @@ test {
 //}
 
 // to fix Error: Could not find or load main class seedu.duke.Duke
+// use package path
 application {
     mainClassName = 'bytebuddy.ByteBuddy'
 }
