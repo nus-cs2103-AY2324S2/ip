@@ -15,7 +15,7 @@ public class Duke {
         String userInput = "";
 
         // Outsource the dataStorage.
-        DataStorage dataStorage = new DataStorage(Integer.MAX_VALUE);
+        DataStorage dataStorage = new DataStorage(Integer.MAX_VALUE, "database.txt");
 
         // To read in user input
         Scanner sc = new Scanner(System.in);

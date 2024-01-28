@@ -2,6 +2,8 @@ import CustomExceptions.NoTaskCreatedYetException;
 import CustomExceptions.TooManyTasksException;
 import TaskList.Task;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -9,11 +11,30 @@ public class DataStorage {
     private ArrayList<Task> tasksList;
     private int taskCount;
     private int maxTask;
+    private File file;
 
-    public DataStorage(int maxTask) {
+    public DataStorage(int maxTask, String fileName) {
         this.maxTask = maxTask;
         this.tasksList = new ArrayList<>();
         this.taskCount = 0;
+
+        this.file = new File(fileName);
+
+        // Solution below adapted from https://www.w3schools.com/java/java_files_create.asp
+        try {
+
+            if (this.file.createNewFile()) {
+                // TODO: Remove this
+                System.out.println("File created: " + this.file.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while opening the file. \n" +
+                    "An error occurred on your device; please check that there is at least 100 MB of free disk space.");
+            System.exit(1); // Exit the program. 1 indicates abnormal termination.
+        }
+
     }
 
     public Task getTask(int index) {
@@ -58,6 +79,7 @@ public class DataStorage {
             // It is a valid index, but there is no task there yet.
             throw new NoTaskCreatedYetException();
         } else {
+            // If we reach here, it means that there is no problem.
             this.tasksList.remove(indexToDelete);
             this.taskCount--;
         }
