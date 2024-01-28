@@ -9,4 +9,6 @@ list
 deadline do homework /by no idea :-p
 event orientation week /from 4/10/2019 /to 11/10/2019
 a
+unmark 1
+list
 exit

@@ -51,11 +51,7 @@ public class Replies {
         print(list);
     }
 
-    public static void mark(Task task) {
-        print(new String[] { MARK_HEADER, " ".repeat(2) + task });
-    }
-
-    public static void unmark(Task task) {
-        print(new String[] { UNMARK_HEADER, " ".repeat(2) + task });
+    public static void mark(Task task, boolean done) {
+        print(new String[] { done ? MARK_HEADER : UNMARK_HEADER, " ".repeat(2) + task });
     }
 }

@@ -7,18 +7,12 @@ public class Bob {
     private static final int MAX_NUMBER_OF_TASKS = 100;
     private static final Task[] TASKS = new Task[MAX_NUMBER_OF_TASKS];
 
-    private static void handleMark(String taskIndex) {
-        Task task = TASKS[Integer.parseInt(taskIndex) - 1];
-        task.setDone(true);
+    private static void handleMark(String[] commandArgs) {
+        Task task = TASKS[Integer.parseInt(commandArgs[1]) - 1];
+        boolean done = commandArgs[0].equals("mark");
 
-        Replies.mark(task);
-    }
-
-    private static void handleUnmark(String taskIndex) {
-        Task task = TASKS[Integer.parseInt(taskIndex) - 1];
-        task.setDone(false);
-
-        Replies.unmark(task);
+        task.setDone(done);
+        Replies.mark(task, done);
     }
 
     private static String[] extractParameters(String parametersString, String[] parameters) {
@@ -84,10 +78,9 @@ public class Bob {
                 Replies.list(TASKS, numberOfTasks);
                 break;
             case Commands.MARK:
-                handleMark(commandArgs[1]);
-                break;
+                // Fallthrough
             case Commands.UNMARK:
-                handleUnmark(commandArgs[1]);
+                handleMark(commandArgs);
                 break;
             case Commands.TODO:
                 // Fallthrough
