@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -11,6 +12,9 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.45.0.0'
+    implementation 'ch.qos.logback:logback-classic:1.4.12'
+    implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '3.0.0'
 }
 
 test {
@@ -39,4 +43,8 @@ shadowJar {
 
 run{
     standardInput = System.in
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
