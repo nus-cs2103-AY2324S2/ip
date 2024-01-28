@@ -131,6 +131,28 @@ public class Duke {
                     } else {
                         throw new DukeException("Invalid command >:(");
                     }
+                } else if (echo.startsWith("delete") || echo.startsWith("Delete")) {
+                    int pos = echo.indexOf(" ");
+                    if (pos != -1 && pos + 1 < echo.length()) {
+                        String taskStr = echo.substring(pos + 1);
+                        int taskNumber = Integer.parseInt(taskStr) - 1;
+
+                        if (taskStr.isEmpty()) {
+                            throw new DukeException("You're deleting air");
+                        }
+
+                        if (taskNumber >= 0 && taskNumber < tasknum) {
+                            System.out.println("    ____________________________________________________________");
+                            System.out.println("     Noted. I've removed this task:");
+                            System.out.println("       " + tasks[taskNumber]);
+                            removeTask(tasks, taskNumber, tasknum);
+                            tasknum--;
+                            System.out.println("     Now you have " + (tasknum) + " tasks in the list.");
+                            System.out.println("    ____________________________________________________________");
+                        } else {
+                            throw new DukeException("Invalid command >:(");
+                        }
+                    }
                 } else {
                     throw new DukeException("Gurl I'm sorry, idk what that means :-(");
                 }
@@ -140,5 +162,12 @@ public class Duke {
                 System.out.println("    ____________________________________________________________");
             }
         }
+    }
+
+    private static void removeTask(Task[] tasks, int index, int tasknum) {
+        for (int i = index; i < tasknum - 1; i++) {
+            tasks[i] = tasks[i + 1];
+        }
+        tasks[tasknum - 1] = null;
     }
 }
