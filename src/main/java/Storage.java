@@ -20,11 +20,9 @@ public class Storage {
         }
 
         try {
-            File parentDir = f.getParentFile();
-            parentDir.mkdirs();
-            FileReader fr = new FileReader(f);
-            fr.close();
-
+            File parentPath = f.getParentFile();
+            parentPath.mkdirs();
+            f.createNewFile();
         } catch (IOException e) {
             throw new DukeIOException("error creating file!");
         }
