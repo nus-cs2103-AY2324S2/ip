@@ -2,3 +2,8 @@ T | 1 | 1
 T | 0 | 2
 T | 0 | 3
 T | 0 | 4
+D | 0 | return book  | Jan 28 2024
+D | 0 | return book  | Jan 28 2024
+D | 0 | don't return book  | Jan 28 2024
+D | 0 | return book  | Dec 2 2019
+D | 0 | return book  | Jan 28 2024

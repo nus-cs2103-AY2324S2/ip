@@ -1,5 +1,8 @@
 package Tasks;
 
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 public class Task {
     String taskName;
     Boolean isDone;
@@ -40,16 +43,16 @@ public class Task {
         return this.isDone;
     }
 
-    public String getDeadline() {
-        return "";
+    public LocalDate getDeadline() {
+        return LocalDate.parse("12-12-2019");
     }
 
-    public String getStart() {
-        return "";
+    public LocalDate getStart() {
+        return LocalDate.parse("12-12-2019");
     }
 
-    public String getEnd() {
-        return "";
+    public LocalDate getEnd() {
+        return LocalDate.parse("12-12-2019");
     }
 
 }

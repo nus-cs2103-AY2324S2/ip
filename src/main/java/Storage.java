@@ -1,11 +1,11 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.io.IOException;
+
+import Parsers.DateTimeParser;
 import Tasks.Task;
-import Tasks.ToDo;
-import Tasks.Event;
-import Tasks.Deadline;
+import Tasks.TaskList;
+
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
@@ -46,7 +46,7 @@ public class Storage {
                 //System.out.println("1");
             } else if (taskType.equals("D")) {
                 String name = t.getTaskName();
-                String deadline = t.getDeadline();
+                String deadline = DateTimeParser.dtToString(t.getDeadline());
                 String isDone = "0";
                 if (t.getIsDone()) {
                     isDone = "1";
@@ -55,8 +55,8 @@ public class Storage {
                 fw.write(textToAdd);
             } else if (taskType.equals("E")) {
                 String name = t.getTaskName();
-                String start = t.getStart();
-                String end = t.getEnd();
+                String start = DateTimeParser.dtToString(t.getStart());
+                String end = DateTimeParser.dtToString(t.getEnd());
                 String isDone = "0";
                 if (t.getIsDone()) {
                     isDone = "1";
