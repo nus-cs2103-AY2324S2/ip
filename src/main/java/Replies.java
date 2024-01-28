@@ -9,6 +9,8 @@ public class Replies {
     public static final String EXCEEDED_MAX_NUMBER_OF_TASKS = "not enough brain power";
     public static final String ADD = "added: %s";
 
+    public static final String LIST_HEADER = "list of tasks:";
+
     public static final String MARK_HEADER = "good job!";
     public static final String UNMARK_HEADER = "ok you just undid this task";
 
@@ -37,12 +39,14 @@ public class Replies {
     }
 
     public static void list(Task[] tasks, int numberOfTasks) {
-        String[] numberedTasks = new String[numberOfTasks];
+        String[] list = new String[numberOfTasks + 1];
+        list[0] = LIST_HEADER;
+
         for (int i = 0; i < numberOfTasks; i++) {
-            numberedTasks[i] = (i + 1) + ". " + tasks[i];
+            list[i + 1] = (i + 1) + ". " + tasks[i];
         }
 
-        print(numberedTasks);
+        print(list);
     }
 
     public static void mark(Task task) {
