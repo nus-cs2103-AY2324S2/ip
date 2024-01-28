@@ -6,13 +6,10 @@ public class HASSTNT {
     private final ToDoList l;
 
 
-    private static final String welcome_message = "____________________________________________________________\n" +
-            "Hello! I'm HASSTNT\n" +
-            "What can I do for you?\n" +
-            "____________________________________________________________\n";
-    private static final String goodbye_message = "____________________________________________________________\n" +
-            "Bye. Hope to see you again soon!\n" +
-            "____________________________________________________________\n";
+    private static final String welcome_message = "HASSNT:\n" +
+            "Hello! I'm HASSTNT " + "What can I do for you?";
+    private static final String goodbye_message = "HASSNT:\n" +
+            "Bye. Hope to see you again soon!";
 
     public HASSTNT() {
         // initialize a scanner
@@ -26,26 +23,29 @@ public class HASSTNT {
         String input;
         while (true) {
             input = scanner.nextLine().toLowerCase();
-            switch (input) {
-                case "bye":
-                    handleByeCommand();
-                    return;
-                case "list":
-                    l.showLists();
-                    break;
-                default:
-                    if (input.startsWith("mark")) {
-                        handleMarkCommand(input);
-                    }
-                    else if (input.startsWith("remove")){
-                        handleRemoveCommand(input);
-                    } else if (input.startsWith("unmark")) {
-                        handleUnmarkCommand(input);
+            try {
+                switch (input) {
+                    case "bye":
+                        handleByeCommand();
+                        return;
+                    case "list":
+                        l.showLists();
+                        break;
+                    default:
+                        if (input.startsWith("mark")) {
+                            handleMarkCommand(input);
+                        } else if (input.startsWith("remove")) {
+                            handleRemoveCommand(input);
+                        } else if (input.startsWith("unmark")) {
+                            handleUnmarkCommand(input);
 
-                    } else {
-                        l.addToList(input);
-                    }
-                    break;
+                        } else {
+                            l.addToList(input);
+                        }
+                        break;
+                }
+            } catch(Exception e){
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -54,32 +54,32 @@ public class HASSTNT {
         System.out.println(goodbye_message);
     }
 
-    private void handleMarkCommand(String input) {
-        String numberString = input.substring("mark".length());
-        try {
-            int index = Integer.parseInt(numberString.trim());
-            l.showMark(index);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter mark followed by an integer");
+    private void handleMarkCommand(String input) throws IllegalArgumentException{
+        String numberString = input.substring("mark".length()).trim();
+        if (!numberString.matches("\\d+")) {
+            throw new IllegalArgumentException("Invalid input. Please enter mark followed by an integer.");
         }
+        int index = Integer.parseInt(numberString);
+        l.showMark(index);
     }
 
-    private void handleUnmarkCommand(String input) {
-        String numberString = input.substring("unmark".length());
-        try {
-            int index = Integer.parseInt(numberString.trim());
+    private void handleUnmarkCommand(String input) throws IllegalArgumentException {
+        {
+            String numberString = input.substring("unmark".length()).trim();
+            if (!numberString.matches("\\d+")) {
+                throw new IllegalArgumentException("Invalid input. Please enter unmark followed by an integer.");
+            }
+            int index = Integer.parseInt(numberString);
             l.showUnmark(index);
-        } catch (NumberFormatException e) {
-            System.out.println("\"Invalid input. Please enter unmark followed by an integer\"");
-        }
     }
-    private void handleRemoveCommand(String input){
-        String numberString = input.substring("remove".length());
-        try {
+    }
+        private void handleRemoveCommand(String input) throws IllegalArgumentException {
+            String numberString = input.substring("remove".length()).trim();
+            if (!numberString.matches("\\d+")) {
+                throw new IllegalArgumentException("Invalid input. Please enter remove followed by an integer.");
+            }
             int index = Integer.parseInt(numberString.trim());
             l.removeTask(index);
-        } catch (NumberFormatException e) {
-            System.out.println("\"Invalid input. Please enter remove followed by an integer\"");
+
         }
     }
-}
