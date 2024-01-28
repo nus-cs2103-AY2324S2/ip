@@ -50,14 +50,14 @@ public class Replies {
     }
 
     public static void list(Task[] tasks, int numberOfTasks) {
-        String[] list = new String[numberOfTasks + 1];
-        list[0] = LIST_HEADER;
+        String[] lines = new String[numberOfTasks + 1];
+        lines[0] = LIST_HEADER;
 
         for (int i = 0; i < numberOfTasks; i++) {
-            list[i + 1] = (i + 1) + ". " + tasks[i];
+            lines[i + 1] = (i + 1) + ". " + tasks[i];
         }
 
-        print(list);
+        print(lines);
     }
 
     public static void mark(Task task, boolean done) {
