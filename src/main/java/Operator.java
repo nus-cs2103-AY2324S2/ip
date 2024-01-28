@@ -38,15 +38,18 @@ public class Operator {
                 botAddTaskMsg();
             } else if (command.equals("deadline")) {
                 String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
-                        .split("/by", 100)[0].trim();
-                String dueDate = userInputArr[Arrays.asList(userInputArr).indexOf("/by") + 1];
+                        .split("/by", 2)[0].trim();
+                String dueDate = String.join(" ", Arrays.copyOfRange(userInputArr,
+                        Arrays.asList(userInputArr).indexOf("/by") + 1, userInputArr.length));
                 taskList.addDeadline(userTask, dueDate);
                 botAddTaskMsg();
             } else if (command.equals("event")) {
                 String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
-                        .split("/from", 100)[0].trim();
-                String startTime = userInputArr[Arrays.asList(userInputArr).indexOf("/from") + 1];
-                String endTime = userInputArr[Arrays.asList(userInputArr).indexOf("/to") + 1];
+                        .split("/from", 2)[0].trim();
+                int fromIndex = Arrays.asList(userInputArr).indexOf("/from") + 1;
+                int toIndex = Arrays.asList(userInputArr).indexOf("/to");
+                String startTime = String.join(" ", Arrays.copyOfRange(userInputArr, fromIndex, toIndex));
+                String endTime = String.join(" ", Arrays.copyOfRange(userInputArr, toIndex + 1, userInputArr.length));
                 taskList.addEvent(userTask, startTime, endTime);
                 botAddTaskMsg();
             } else {
