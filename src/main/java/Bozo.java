@@ -27,11 +27,15 @@ public class Bozo {
                 break;
             } else if (input.equals("list")){
                 printLine();
-                System.out.println("Here are the tasks in your list:");
-                int counter = 1;
-                for (Task task : list) {
-                    System.out.println(counter + ". " + task.toString());
-                    counter++;
+                if (list.size() == 0) {
+                    System.out.println("No tasks! You're a free man! :DD");
+                } else {
+                    System.out.println("Here are the tasks in your list:");
+                    int counter = 1;
+                    for (Task task : list) {
+                        System.out.println(counter + ". " + task.toString());
+                        counter++;
+                    }
                 }
                 printLine();
                 input = sc.nextLine();
@@ -67,6 +71,19 @@ public class Bozo {
                     printLine();
                     input = sc.nextLine();
                 }
+            } else if (input.startsWith("delete")) {
+                printLine();
+                if (list.size() == 0) {
+                    System.out.println("You have no tasks to delete! :O");
+                } else {
+                    String taskStr = input.substring(input.indexOf(" ") + 1);
+                    int taskNum = Integer.parseInt(taskStr);
+                    Task currentTask = list.remove(taskNum - 1);
+                    System.out.println("Noted: I've removed this task:");
+                    System.out.println("  " + currentTask);
+                }
+                printLine();
+                input = sc.nextLine();
             } else {
                 printLine();
                 if (input.startsWith("todo")) {
