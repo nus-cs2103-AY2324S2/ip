@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.Scanner;
 public class Johnny {
 
     private static ArrayList<Task> list = new ArrayList<>();
+    private static DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
 
     public static void main(String[] args) {
         try {
@@ -72,9 +76,12 @@ public class Johnny {
                     if (parsedInput[0].equals("T")) {
                         task = new ToDo(parsedInput[2]);
                     } else if (parsedInput[0].equals("D")) {
-                        task = new Deadline(parsedInput[2], parsedInput[3]);
+                        LocalDateTime by = LocalDateTime.parse(parsedInput[3], INPUT_FORMAT);
+                        task = new Deadline(parsedInput[2], by);
                     } else if (parsedInput[0].equals("E")) {
-                        task = new Event(parsedInput[2], parsedInput[3], parsedInput[4]);
+                        LocalDateTime from = LocalDateTime.parse(parsedInput[3], INPUT_FORMAT);
+                        LocalDateTime to = LocalDateTime.parse(parsedInput[4], INPUT_FORMAT);
+                        task = new Event(parsedInput[2], from, to);
                     } else {
                         throw new JohnnyException("The file has been corrupted bro.");
                     }
@@ -163,55 +170,66 @@ public class Johnny {
     }
 
     public static void addDeadline(String command) throws JohnnyException {
-        List<String> l = Arrays.asList(command.split(" "));
+        try {
+            List<String> l = Arrays.asList(command.split(" "));
 
-        if (l.size() == 1) {
-            throw new JohnnyException("What is your deadline bro?");
+            if (l.size() == 1) {
+                throw new JohnnyException("What is your deadline bro?");
+            }
+
+            int i = l.indexOf("/by");
+
+            if (i == -1) {
+                throw new JohnnyException("When is your deadline by bro?");
+            }
+            String name = String.join(" ", l.subList(1, i));
+            String by = String.join(" ", l.subList(i + 1, l.size()));
+            LocalDateTime byDate = LocalDateTime.parse(by, INPUT_FORMAT);
+            Task task = new Deadline(name, byDate);
+            Johnny.list.add(task);
+            appendToFile(task);
+            System.out.println("Go get this done bro:");
+            System.out.println(task);
+            System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
+        } catch (DateTimeParseException e) {
+            throw new JohnnyException("Date and Time should be in the format of YYYY/MM/DD HHMM bro.");
         }
-
-        int i = l.indexOf("/by");
-
-        if (i == -1) {
-            throw new JohnnyException("When is your deadline by bro?");
-        }
-        String name = String.join(" ", l.subList(1, i));
-        String by = String.join(" ", l.subList(i + 1, l.size()));
-        Task task = new Deadline(name, by);
-        Johnny.list.add(task);
-        appendToFile(task);
-        System.out.println("Go get this done bro:");
-        System.out.println(task);
-        System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
     }
 
     public static void addEvent(String command) throws JohnnyException {
-        List<String> l = Arrays.asList(command.split(" "));
+        try {
+            List<String> l = Arrays.asList(command.split(" "));
 
-        if (l.size() == 1) {
-            throw new JohnnyException("What is your event bro?");
+            if (l.size() == 1) {
+                throw new JohnnyException("What is your event bro?");
+            }
+
+            int i = l.indexOf("/from");
+
+            if (i == -1) {
+                throw new JohnnyException("When does your event start from bro?");
+            }
+
+            int j = l.indexOf("/to");
+
+            if (j == -1) {
+                throw new JohnnyException("When does your event last to bro?");
+            }
+
+            String name = String.join(" ", l.subList(1, i));
+            String from = String.join(" ", l.subList(i + 1, j));
+            String to = String.join(" ", l.subList(j + 1, l.size()));
+            LocalDateTime fromDate = LocalDateTime.parse(from, INPUT_FORMAT);
+            LocalDateTime toDate = LocalDateTime.parse(to, INPUT_FORMAT);
+            Task task = new Event(name, fromDate, toDate);
+            Johnny.list.add(task);
+            appendToFile(task);
+            System.out.println("Go get this done bro:");
+            System.out.println(task);
+            System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
+        } catch (DateTimeParseException e) {
+            throw new JohnnyException("Date and Time should be in the format of YYYY/MM/DD HHMM bro.");
         }
-
-        int i = l.indexOf("/from");
-
-        if (i == -1) {
-            throw new JohnnyException("When does your event start from bro?");
-        }
-
-        int j = l.indexOf("/to");
-
-        if (j == -1) {
-            throw new JohnnyException("When does your event last to bro?");
-        }
-
-        String name = String.join(" ", l.subList(1, i));
-        String from = String.join(" ", l.subList(i + 1, j));
-        String to = String.join(" ", l.subList(j + 1, l.size()));
-        Task task = new Event(name, from, to);
-        Johnny.list.add(task);
-        appendToFile(task);
-        System.out.println("Go get this done bro:");
-        System.out.println(task);
-        System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
     }
 
     public static void delete(String command) throws JohnnyException {
