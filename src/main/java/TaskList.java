@@ -1,13 +1,15 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
     private ArrayList<Task> items;
-    private final StorageHelper storageHelper;
-    private class StorageHelper {
+    private final static DateTimeParser dateTimeParser = new DateTimeParser();
+    private static final StorageHelper storageHelper = new StorageHelper();
+    private static class StorageHelper {
         private static final String directoryPath = "data";
         private static final String fileName = "task_list.txt";
 
@@ -42,7 +44,6 @@ public class TaskList {
 
     public TaskList() {
         this.items = new ArrayList<>();
-        this.storageHelper = new StorageHelper();
     }
 
     public int getListSize() {
@@ -53,13 +54,12 @@ public class TaskList {
         return this.items.get(index);
     }
 
-    public void loadTaskListFromFile() throws TyroneCmdException {
+    public void loadTaskListFromFile() throws TyroneStorageHelperException {
         try {
-            File file = this.storageHelper.loadFile();
+            File file = storageHelper.loadFile();
 
             // read the file and parse into the array
             Scanner sc = new Scanner(file);
-            StringBuilder output = new StringBuilder();
             while (sc.hasNext()) {
                 String[] strArr = sc.nextLine().split(" \\| ");
                 Task t;
@@ -68,14 +68,14 @@ public class TaskList {
                     t = new ToDo(strArr[2]);
                     break;
                 case "D":
-                    t = new Deadline(strArr[2], strArr[3]);
+                    t = new Deadline(strArr[2], dateTimeParser.parseDateTimeString(strArr[3]));
                     break;
                 case "E":
                     String[] periodArr = strArr[3].split("-");
                     t = new Event(strArr[2], periodArr[0], periodArr[1]);
                     break;
                 default:
-                    throw new TyroneCmdException("Invalid text file format.");
+                    throw new IOException("Invalid text file format.");
                 }
 
                 if (strArr[1].equals("1")) {
@@ -84,22 +84,23 @@ public class TaskList {
 
                 this.items.add(t);
             }
-        } catch (IOException e) {
+        } catch (IOException | DateTimeParseException e) {
+            System.out.println(e.getMessage());
             this.items = new ArrayList<>();
-            throw new TyroneCmdException("Error loading the local task list.");
+            throw new TyroneStorageHelperException("Error loading the local task list file.");
         }
     }
 
-    public void saveTaskListToFile() throws TyroneCmdException {
+    public void saveTaskListToFile() throws TyroneStorageHelperException {
         StringBuilder content = new StringBuilder();
         for (Task item : this.items) {
             content.append(item.serializeTask()).append("\n");
         }
 
         try {
-            this.storageHelper.saveFile(content.toString());
+            storageHelper.saveFile(content.toString());
         } catch (IOException | SecurityException e) {
-            throw new TyroneCmdException("Failed to save the list changes locally. My bad...");
+            throw new TyroneStorageHelperException("Failed to save the list changes locally. My bad...");
         }
     }
 

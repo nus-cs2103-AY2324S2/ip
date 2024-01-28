@@ -1,5 +1,9 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -16,6 +20,8 @@ public class Tyrone {
     private static final Scanner reader = new Scanner(System.in);
     private static final PrintWriter writer = new PrintWriter(System.out, true);
     private static final TaskList taskList = new TaskList();
+
+    private static DateTimeParser dateTimeParser = new DateTimeParser();
 
     private enum Command {
         BYE,
@@ -36,52 +42,56 @@ public class Tyrone {
             boolean isActive = true;
             while (isActive) {
                 // extract the command
-                String input = reader.nextLine();
-                String cmdStr = !input.contains(" ") ? input : input.substring(0, input.indexOf(" "));
-                if (!cmdMap.containsKey(cmdStr)) {
-                    throw new TyroneCmdException("Command entered doesn't exist.");
-                }
-                Command cmd = cmdMap.get(cmdStr);
+                try {
+                    String input = reader.nextLine();
+                    String cmdStr = !input.contains(" ") ? input : input.substring(0, input.indexOf(" "));
+                    if (!cmdMap.containsKey(cmdStr)) {
+                        throw new TyroneCmdException("Command entered doesn't exist.");
+                    }
+                    Command cmd = cmdMap.get(cmdStr);
 
-                // execute cmd logic respectively
-                switch (cmd) {
-                case BYE:
-                    handleByeCommand();
-                    isActive = false;
-                    break;
-                case LIST:
-                    handleListCommand();
-                    break;
-                case TODO:
-                    handleTodoCommand(input);
-                    break;
-                case DEADLINE:
-                    handleDeadlineCommand(input);
-                    break;
-                case EVENT:
-                    handleEventCommand(input);
-                    break;
-                case MARK:
-                    handleMarkCommand(input);
-                    break;
-                case UNMARK:
-                    handleUnmarkCommand(input);
-                    break;
-                case DELETE:
-                    handleDeleteCommand(input);
-                    break;
-                default:
-                    throw new TyroneCmdException("Command entered doesn't exist.");
+                    // execute cmd logic respectively
+                    switch (cmd) {
+                    case BYE:
+                        handleByeCommand();
+                        isActive = false;
+                        break;
+                    case LIST:
+                        handleListCommand();
+                        break;
+                    case TODO:
+                        handleTodoCommand(input);
+                        break;
+                    case DEADLINE:
+                        handleDeadlineCommand(input);
+                        break;
+                    case EVENT:
+                        handleEventCommand(input);
+                        break;
+                    case MARK:
+                        handleMarkCommand(input);
+                        break;
+                    case UNMARK:
+                        handleUnmarkCommand(input);
+                        break;
+                    case DELETE:
+                        handleDeleteCommand(input);
+                        break;
+                    default:
+                        throw new TyroneCmdException("Command entered doesn't exist.");
+                    }
+                    taskList.saveTaskListToFile();
+                } catch (TyroneCmdException e) {
+                    writer.println(Tyrone.formatStringOutput(e.getMessage()));
                 }
-
-                taskList.saveTaskListToFile();
             }
-        } catch (TyroneCmdException e) {
+        } catch (TyroneStorageHelperException e) {
             writer.println(Tyrone.formatStringOutput(e.getMessage()));
+            System.exit(1);
         }
     }
 
-    public static void handleInitialize() throws TyroneCmdException {
+    public static void handleInitialize() throws TyroneStorageHelperException {
         cmdMap.put("bye", Command.BYE);
         cmdMap.put("list", Command.LIST);
         cmdMap.put("todo", Command.TODO);
@@ -96,7 +106,8 @@ public class Tyrone {
     }
 
     private static void handleByeCommand() {
-        writer.println(Tyrone.formatStringOutput("Peace out! Crossin' my fingers for a speedy reunion, ya feel?"));
+        writer.println(
+                Tyrone.formatStringOutput("Peace out! Crossin' my fingers for a speedy reunion, ya feel?"));
     }
 
     private static void handleListCommand() {
@@ -119,36 +130,45 @@ public class Tyrone {
 
     private static void handleDeadlineCommand(String input) throws TyroneCmdException {
         // validate general input
-        String errorMsg = "Seems like the deadline command is incorrect.\n" +
-                "\t\tIt must be: \"deadline <task description> /by <date time>\".";
+        String errorMsg = "Seems like the deadline command is incorrect.\n"
+                + "\t\tIt must be: \"deadline <task description> /by <yyyy-mm-dd[ HH:mm]>\".";
         if (isEmptyParam(input) || !input.contains("/by"))
             throw new TyroneCmdException(errorMsg);
 
         // extract input params
         Deadline newItem = generateDeadlineFromInput(input.substring(9), errorMsg);
         taskList.addItem(newItem);
-        writer.println(Tyrone.formatStringOutput("Got it added homie:\n" + "\t\t" + newItem + "\n\tNow you have " + taskList.getListSize() + " in the list."));
+        writer.println(Tyrone.formatStringOutput("Got it added homie:\n" + "\t\t" + newItem +
+                "\n\tNow you have " + taskList.getListSize() + " in the list."));
     }
 
     private static Deadline generateDeadlineFromInput(String input, String errorMsg) throws TyroneCmdException {
         String[] params = input.split("/by");
 
         // check if enough params in the first place
-        if (params.length != 2) throw new TyroneCmdException(errorMsg);
+        if (params.length != 2) {
+            throw new TyroneCmdException(errorMsg);
+        }
 
         String description = params[0].trim();
-        String deadlineDateTime = params[1].trim();
+        String deadlineDateTimeStr = params[1].trim();
 
         // validate params
-        if (description.isEmpty() || deadlineDateTime.isEmpty())
+        if (description.isEmpty() || deadlineDateTimeStr.isEmpty()) {
             throw new TyroneCmdException(errorMsg);
+        }
 
-        return new Deadline(description, deadlineDateTime);
+        try {
+            return new Deadline(description, dateTimeParser.parseDateTimeString(deadlineDateTimeStr));
+        } catch (DateTimeParseException e) {
+            throw new TyroneCmdException(errorMsg);
+        }
     }
 
     private static void handleEventCommand(String input) throws TyroneCmdException {
-        String errorMsg = "Your event command is in incorrect format.\n" +
-                "\t\tGotta follow the groove: \"event <task description> /from <date time> /to <date time>\".";
+        String errorMsg = "Your event command is in incorrect format.\n"
+                + "\t\tGotta follow the groove: \"event <task description> "
+                + "/from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>\".";
 
         // validate general input
         if (isEmptyParam(input) || !input.contains("/from") || !input.contains("/to"))
@@ -157,7 +177,10 @@ public class Tyrone {
         // extract input params
         Event newItem = generateEventFromInput(input.substring(6), errorMsg);
         taskList.addItem(newItem);
-        writer.println(Tyrone.formatStringOutput("Got it added homie:\n" + "\t\t" + newItem + "\n\tNow you have " + taskList.getListSize() + " in the list."));
+        writer.println(
+                Tyrone.formatStringOutput(
+                        "Got it added homie:\n" + "\t\t" + newItem + "\n\tNow you have "
+                                + taskList.getListSize() + " in the list."));
     }
 
     private static Event generateEventFromInput(String input, String errorMsg) throws TyroneCmdException {
