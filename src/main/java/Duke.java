@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     private static final String NAME = "Arctic";
     private static final Integer BORDER_LEN = 60;
+    private static final ArrayList<String> TASKS = new ArrayList<>();
 
     private static String duplicateChar(Character c, Integer num) {
         return String.valueOf(c).repeat(num);
@@ -20,13 +22,14 @@ public class Duke {
     }
 
     private static void userFarewell() {
+        System.out.println(getBorder());
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(getBorder());
     }
 
-    private static void echoCommandOutput(String command) {
+    private static void printCommandOutput(String output) {
         System.out.println(getBorder());
-        System.out.println(command);
+        System.out.printf(output);
         System.out.println(getBorder());
     }
 
@@ -34,18 +37,27 @@ public class Duke {
         Scanner scnr = new Scanner(System.in);
         while (true) {
             String command = scnr.nextLine();
-            if (command.equals("bye")) {
-                echoCommandOutput("Bye. Hope to see you again soon!");
+
+            if (command.equals("list")) {
+                StringBuilder output  = new StringBuilder();
+                for (int i = 0; i < TASKS.size(); i++) {
+                    output.append(String.format("%d. %s\n", i + 1, TASKS.get(i)));
+                }
+                printCommandOutput(output.toString());
+            } else if (command.equals("bye")) {
                 break;
+            } else {
+                TASKS.add(command);
+                printCommandOutput(String.format("added: %s\n", command));
             }
-            echoCommandOutput(command);
         }
     }
 
     public static void main(String[] args) {
         userGreeting();
-        userFarewell();
 
         handleCommands();
+
+        userFarewell();
     }
 }
