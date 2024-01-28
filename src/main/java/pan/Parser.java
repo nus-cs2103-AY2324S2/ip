@@ -68,8 +68,8 @@ class Parser {
                     continue;
                 } else {
                     // catch other test cases
-                    InternalTestCases.TestMissingParameters(instruction);
-                    InternalTestCases.TestInvalidCommand(instruction);
+                    InternalTestCases.testMissingParameters(instruction);
+                    InternalTestCases.testInvalidCommand(instruction);
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());

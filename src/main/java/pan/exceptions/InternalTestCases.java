@@ -3,7 +3,7 @@ package pan.exceptions;
 import pan.enums.Commands;
 
 public class InternalTestCases {
-    public static void TestMissingParameters(String instruction) throws MissingParameterException {
+    public static void testMissingParameters(String instruction) throws MissingParameterException {
         String brokenCommand = instruction.split(" ")[0].trim();
         String backCommand = instruction.substring(brokenCommand.length()).trim();
         switch (brokenCommand) {
@@ -28,7 +28,7 @@ public class InternalTestCases {
         }
     }
 
-    public static void TestInvalidCommand(String instruction) throws InvalidCommandException {
+    public static void testInvalidCommand(String instruction) throws InvalidCommandException {
         String brokenCommand = instruction.split(" ")[0];
         Commands [] commands = {Commands.BYE, Commands.DEADLINE, Commands.DELETE, Commands.EVENT, Commands.MARK, Commands.UNMARK, Commands.TODO};
         boolean isMatched = false;

@@ -1,2 +1,1 @@
-[T][X] pan
-[T][ ] jerome
+[X] 

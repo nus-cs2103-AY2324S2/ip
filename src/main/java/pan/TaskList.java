@@ -28,7 +28,7 @@ class TaskList {
     }
 
     public void mark(int index) throws TaskIndexException {
-        if (index > tasks.size()) {
+        if (index > tasks.size() || index < 0) {
             throw new TaskIndexException("You have entered an invalid index!");
         } else {
             Task task = tasks.get(index - 1);
