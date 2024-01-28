@@ -1,3 +1,7 @@
+package Task;
+
+import NicoleExceptions.NicoleException;
+
 import java.time.LocalDate;
 
 public class Task {
@@ -27,7 +31,7 @@ public class Task {
             throw new NicoleException("That is already marked complete -_-");
         } else {
             this.completed = true;
-            return Nicole.botName + ": Marked as completed! Good job :3";
+            return "Nicole: Marked as completed! Good job :3";
         }
     }
 
@@ -36,7 +40,7 @@ public class Task {
             throw new NicoleException("That is already marked incomplete -_-");
         } else {
             this.completed = false;
-            return Nicole.botName + ": Marked as incomplete. We'll get em next time";
+            return "Nicole: Marked as incomplete. We'll get em next time";
         }
     }
 

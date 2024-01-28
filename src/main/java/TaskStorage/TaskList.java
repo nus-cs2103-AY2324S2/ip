@@ -1,3 +1,11 @@
+package TaskStorage;
+
+import Task.Task;
+
+import NicoleExceptions.NicoleException;
+
+import UserRequests.Request;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +23,7 @@ public class TaskList {
             throw new NicoleException("Huh? That's not a valid item number :')");
         }
     }
-    public void unmarkTask(int taskNumber) throws NicoleException, IOException {
+    public void unmarkTask(int taskNumber) throws NicoleException {
         this.crudChecker(taskNumber);
         System.out.println(TaskList.taskList.get(taskNumber - 1).markUndone());
         this.storage.saveTasksToFile();
@@ -30,7 +38,7 @@ public class TaskList {
     public void deleteTask(int taskNumber) throws NicoleException {
         this.crudChecker(taskNumber);
         TaskList.taskList.remove(taskNumber - 1);
-        System.out.println(Nicole.botName + ": Phew...deleted  :>");
+        System.out.println("Nicole: Phew...deleted  :>");
         this.storage.saveTasksToFile();
     }
 
@@ -43,15 +51,14 @@ public class TaskList {
         } catch (IOException e) {
             throw new NicoleException("I couldn't save the task >< try again plss");
         }
-        System.out.println(Nicole.botName +
-                ": Oki I added " + "\"" + newTask.toString().substring(7) + "\"");
+        System.out.println("Nicole: Oki I added " + "\"" + newTask.toString().substring(7) + "\"");
     }
     public void listTasks() {
         if (TaskList.taskList.size() == 0) {
-            System.out.println(Nicole.botName + ": No tasks yet. Let's make some moves BD");
+            System.out.println("Nicole: No tasks yet. Let's make some moves BD");
             return;
         }
-        System.out.println(Nicole.botName + ": Here's the tasks I saved so far,");
+        System.out.println("Nicole: Here's the tasks I saved so far,");
         if (Request.priorityTasking) {
             Comparator<Task> sorter = (task1, task2) -> {
                 if (task1.getDate().isBefore(task2.getDate())) {

@@ -1,3 +1,9 @@
+package TaskStorage;
+
+import Task.Task;
+
+import NicoleExceptions.NicoleException;
+
 import java.io.*;
 
 import java.util.Scanner;
@@ -50,7 +56,7 @@ public class Storage {
                 i++;
             }
         } catch (FileNotFoundException e) {
-            System.out.println(Nicole.botName + ": I have no past data with you, let's start something ;)");
+            System.out.println("Nicole: I have no past data with you, let's start something ;)");
         } catch (IOException e) {
             throw new NicoleException("Sorry sorry I have trouble loading your tasks from storage....");
         }

@@ -1,4 +1,6 @@
-import java.time.LocalDate;
+package Task;
+
+import NicoleExceptions.NicoleException;
 
 public class Todo extends Task {
     public Todo(String name) throws NicoleException {
