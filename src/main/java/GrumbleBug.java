@@ -46,6 +46,7 @@ public class GrumbleBug {
             f.createNewFile();
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
+
                 String task = s.nextLine();
                 boolean done = s.nextLine() == "true" ? true : false;
                 String desc = s.nextLine();
