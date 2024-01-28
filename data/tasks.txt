@@ -1,0 +1,4 @@
+T | 1 | play computer games | NILL | NILL
+E | 0 | see newjeans at orchard | Saturday | Sunday
+D | 0 | CS2103 | Friday | NILL
+T | 1 | CS2103 Level 8 | NILL | NILL

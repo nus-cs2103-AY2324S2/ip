@@ -1,16 +1,26 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class William {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Task> tasks = new ArrayList<Task>();
+        String filePath = "data/tasks.txt";
+
         Methods.openingTitle();
+        try {
+            tasks = FileSaving.loadFromFile(filePath);
+        } catch (FileNotFoundException | WilliamException e) {
+            System.out.println(e.getMessage() + "\n");
+        }
 
         while (true) {
             String input = sc.nextLine();
             Commands command = null;
             String[] texts = Methods.retrieveTexts(input);
-
             try {
                 command = Methods.retrieveCommand(texts[0]);
             } catch (WilliamException e) {
@@ -59,10 +69,14 @@ public class William {
                     break;
                 case bye:
                     System.out.println("Bye. Hope to see you again soon!");
+                    try {
+                        FileSaving.writeToFile(filePath, tasks);
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage() + "\n");
+                    }
                     sc.close();
                     return;
                 default:
-                    System.out.println("Unknown command, please try again!");
                     break;
             }
         }

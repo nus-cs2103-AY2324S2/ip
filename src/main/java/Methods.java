@@ -1,16 +1,26 @@
-import java.util.*;
+import java.util.List;
 
+/**
+ * The FileSaving class will store the methods that will be used by the
+ * William.java
+ */
 public class Methods {
-    // A method for the opening title:
+    /**
+     * Adds the opening message in the William Chatbot
+     */
     public static void openingTitle() {
         String logo = "William";
         System.out.println("Hello! I'm " + logo);
         System.out.println("What can I do for you?\n");
     }
 
-    // A method to split the input to get:
-    // text[0] == command
-    // text[1] == additional stuff
+    /**
+     * Returns the split input after getting the user input
+     * 
+     * @param input Input from the user
+     * @return string[] String[] consisting of two variables: [0] == command, [1] ==
+     *         additional information
+     */
     public static String[] retrieveTexts(String input) {
         String[] resultOfSplit = new String[2];
         int indexOfFirstSpace = input.indexOf(" ");
@@ -24,7 +34,13 @@ public class Methods {
         return resultOfSplit;
     }
 
-    // A method to retrieve the enum commands:
+    /**
+     * Returns the enum command
+     * 
+     * @param input Input that is a command in String format
+     * @return output Output that is a command in Commands format
+     * @throws WilliamException If the command does not exist in the Commands class
+     */
     public static Commands retrieveCommand(String input) throws WilliamException {
         try {
             return Commands.valueOf(input);
@@ -33,7 +49,12 @@ public class Methods {
         }
     }
 
-    // A method to mark/unmark the tasks:
+    /**
+     * Unmark/mark the task based on the ID
+     * 
+     * @param input The ID of the task
+     * @param tasks The list that contains the task
+     */
     public static void markAndUnmark(String input, List<Task> tasks) {
         int idOfItem = Integer.parseInt(input);
         int actualId = idOfItem - 1;
@@ -41,7 +62,11 @@ public class Methods {
         System.out.println(tasks.get(actualId).toString() + "\n");
     }
 
-    // A method to print out all of the tasks:
+    /**
+     * Print out of all the tasks
+     * 
+     * @param tasks The list that contains the task
+     */
     public static void printList(List<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("Your list is empty. Please add some task to the list first!");
@@ -54,7 +79,14 @@ public class Methods {
         System.out.println();
     }
 
-    // A method to split by "by":
+    /**
+     * Split the method by "/by"
+     * 
+     * @param input Input that is the additional details
+     * @return string[] String[] that contains the name and the date
+     * @throws WilliamException If the input does not have the "/by" or missing text
+     *                          before/after "/by"
+     */
     public static String[] splitBy(String input) throws WilliamException {
         checkAdditionalDetailEmpty(input);
         String[] twoParts = input.split(" /by ", 2);
@@ -65,7 +97,15 @@ public class Methods {
         return twoParts;
     }
 
-    // A method to split by "from" and "to":
+    /**
+     * Split the method by "/to" and "/from"
+     * 
+     * @param input Input that is the additional details
+     * @return string[] String[] that contains the name, from and to date
+     * @throws WilliamException If the input does not contain "/to", "/from"
+     *                          keywords
+     *                          and is missing text before/after the keywords
+     */
     public static String[] splitToAndFrom(String input) throws WilliamException {
         checkAdditionalDetailEmpty(input);
         String[] firstSplit = input.split(" /from ", 2);
@@ -82,8 +122,12 @@ public class Methods {
         return threeParts;
     }
 
-    // A method to add the tasks (regardless of todo, deadline, etc) to list of
-    // tasks:
+    /**
+     * Add task into the list of tasks
+     * 
+     * @param task  Input that is the task (could be todo, deadline or event)
+     * @param tasks The list that contains the tasks
+     */
     public static void addTask(Task task, List<Task> tasks) {
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
@@ -91,15 +135,24 @@ public class Methods {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
-    // A method to check whether the additional stuff is empty or not (if its empty,
-    // throw an exception):
+    /**
+     * Check whether the additional detail is empty
+     * 
+     * @param input Input that is the additional detail
+     * @throws WilliamException If the description of the additional detail is empty
+     */
     public static void checkAdditionalDetailEmpty(String input) throws WilliamException {
         if (input == null) {
             throw new WilliamException("The description of a task should not be empty. Please try again!");
         }
     }
 
-    // A method for deleting tasks from the list
+    /**
+     * Delete the specified task from the list
+     * 
+     * @param input The ID of the task
+     * @param tasks The list that contains the tasks
+     */
     public static void deleteFromList(String input, List<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("There are no task to be deleted. Please add some task to the list first!\n");
