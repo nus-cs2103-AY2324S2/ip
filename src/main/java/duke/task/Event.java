@@ -1,17 +1,17 @@
 package duke.task;
 
-public class Events extends Task {
+public class Event extends Task {
 
     protected String start;
     protected String end;
 
-    public Events(String description, String start, String end) {
+    public Event(String description, String start, String end) {
         super(description);
         this.start = start;
         this.end = end; 
     }
 
-    public Events(String description, String start, String end, Boolean isDone) {
+    public Event(String description, String start, String end, Boolean isDone) {
         super(description, isDone);
         this.start = start;
         this.end = end; 
