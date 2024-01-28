@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,8 +59,11 @@ public class fileStorage {
                         // Format for Deadline: D | 1/0 | read book | Date/Time
                         int isTaskCompleted = Integer.parseInt(segmentedText[1].trim());
                         String description = segmentedText[2].trim();
-                        String deadlineTime = " " + segmentedText[3].trim();
-                        Deadline deadline = new Deadline(description, deadlineTime);
+                        String deadlineTime = segmentedText[3].trim();
+
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+                        LocalDateTime parsedDateTime = LocalDateTime.parse(deadlineTime, formatter);
+                        Deadline deadline = new Deadline(description, parsedDateTime);
                         if (isTaskCompleted == 1) {
                             deadline.markAsDone();
                         }
@@ -98,7 +103,7 @@ public class fileStorage {
                     String toWrite = "todo | " + isCompleted + " | " + t.description;
                     fw.write(toWrite + System.lineSeparator());
                 } else if (t instanceof Deadline) {
-                    String toWrite = "deadline | " + isCompleted + " | " + t.description + " | " + ((Deadline) t).by;
+                    String toWrite = "deadline | " + isCompleted + " | " + t.description + " | " + ((Deadline) t).by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
                     fw.write(toWrite + System.lineSeparator());
                 } else if (t instanceof Events) {
                     String toWrite = "event | " + isCompleted + " | " + t.description + " | " + ((Events) t).start + " | " + ((Events) t).end;

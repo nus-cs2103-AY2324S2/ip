@@ -1,5 +1,9 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
     protected String userInput;
@@ -41,7 +45,7 @@ public class Parser {
                 description = new StringBuilder(this.words.get(1));
             }
         } else {
-            throw new myBotException("I don't understand your command. Try writing: deadline (task description) /by (date/time)");
+            throw new myBotException("I don't understand your command. Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
         }
 
         for (int i = 2; i < words.size(); i++) {
@@ -52,10 +56,18 @@ public class Parser {
             }
         }
         if (!(by.toString().isEmpty() || description.toString().isEmpty())) {
-            return new Deadline(description.toString(), by.toString());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime parsedDateTime;
+            try {
+                parsedDateTime = LocalDateTime.parse(by.toString().trim(), formatter);
+            } catch (DateTimeParseException e) {
+                throw new myBotException("I don't understand your command. Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
+            }
+            return new Deadline(description.toString(), parsedDateTime);
         } else {
             throw new myBotException("You have missing fields! You need a task description & a deadline to finish your task, try again!");
         }
+
 
     }
 
