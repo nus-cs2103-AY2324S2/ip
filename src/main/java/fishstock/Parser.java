@@ -25,6 +25,8 @@ class Parser {
             return Keyword.UNMARK;
         } else if (startsWith("delete", input)) {
             return Keyword.DELETE;
+        } else if (startsWith("find", input)) {
+            return Keyword.FIND;
         } else if (startsWith(Todo.keyword, input)) {
             return Keyword.TODO;
         } else if (startsWith(Deadline.keyword, input)) {

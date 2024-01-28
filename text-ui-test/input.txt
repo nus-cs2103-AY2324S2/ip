@@ -39,4 +39,6 @@ event project meeting /from 1/1/2001 /to 1/1/2001 23:00
 event project meeting /from 1/1/2001 00:00 /to 1/1
 deadline return book /by 31/13/2024 17:80
 list
+find
+find boo
 bye

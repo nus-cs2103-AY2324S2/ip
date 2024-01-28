@@ -2,6 +2,7 @@ package fishstock;
 
 import fishstock.FishStock.Keyword;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Ui {
@@ -17,6 +18,7 @@ class Ui {
         String line = "____________________________________________________________";
         Scanner sc = new Scanner(System.in);
         String input;
+        ArrayList<Task> result;
         boolean hasStopped = false;
         Task task;
 
@@ -35,8 +37,11 @@ class Ui {
                     hasStopped = true;
                     break;
                 case LIST:
+                    result = list.getList();
                     Ui.printMsg("Here are the tasks in your list:");
-                    list.printTasks();
+                    for (int i = 0; i < result.size(); i++) {
+                        Ui.printMsg((i + 1) + "." + result.get(i));
+                    }
                     break;
                 case MARK:
                     task = list.changeMark(keyword, input);
@@ -50,6 +55,13 @@ class Ui {
                     task = list.deleteTask(input);
                     Ui.printMsg("This task has been removed:\n  " + task + "\n" +
                             "Now you have " + list.getSize() + " task(s) in total.");
+                    break;
+                case FIND:
+                    result = list.findTask(input);
+                    Ui.printMsg("Here are the matching tasks in your list:");
+                    for (int i = 0; i < result.size(); i++) {
+                        Ui.printMsg((i + 1) + "." + result.get(i));
+                    }
                     break;
                 case TODO:
                     // Fallthrough

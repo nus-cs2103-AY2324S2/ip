@@ -1,7 +1,7 @@
 package fishstock;
 
 abstract class Task {
-    protected String description;
+    private String description;
     protected boolean isDone;
 
     protected Task(String description) {
@@ -21,6 +21,10 @@ abstract class Task {
 
     protected static int boolToInt(boolean bool) {
         return bool ? 1 : 0;
+    }
+
+    protected String getDescription() {
+        return description;
     }
 
     @Override

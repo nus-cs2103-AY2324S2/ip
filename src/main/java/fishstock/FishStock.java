@@ -4,7 +4,7 @@ import java.io.IOException;
 
 class FishStock {
     protected enum Keyword {
-        INVALID, BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
+        INVALID, BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT
     }
 
     private final String filePath;

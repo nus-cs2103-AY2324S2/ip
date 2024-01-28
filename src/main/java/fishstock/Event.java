@@ -58,7 +58,7 @@ class Event extends Task {
 
     @Override
     protected String toSaveString() {
-        return "E|" + description + "|" + Parser.inDate(from) + "|" + Parser.inDate(to) + "|" +
+        return "E|" + getDescription() + "|" + Parser.inDate(from) + "|" + Parser.inDate(to) + "|" +
                 boolToInt(isDone) + System.lineSeparator();
     }
 
