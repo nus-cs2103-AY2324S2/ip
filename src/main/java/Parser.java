@@ -1,4 +1,4 @@
-import javax.rmi.ssl.SslRMIClientSocketFactory;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,14 +33,13 @@ public class Parser {
         // Regex pattern: deadline + spaces + chars + spaces + /by + spaces + chars
         Pattern pattern = Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(.+)");
         Matcher matcher = pattern.matcher(input);
-
-        if (matcher.matches()) {
-            Storage.desc = matcher.group(1);
-            Storage.by = matcher.group(2);
-        } else {
-            throw new UkeCatException("Wrong format, use: deadline <desc> /by <by>");
+            if (matcher.matches()) {
+                Storage.desc = matcher.group(1);
+                Storage.by = LocalDate.parse(matcher.group(2));
+            } else {
+                throw new UkeCatException("Wrong format1, use: deadline <desc> /by yyyy-mm-dd");
+            }
         }
-    }
 
     public static void parseEvent(String input) throws UkeCatException {
         // Regex pattern: event + spaces + chars + spaces +
@@ -50,10 +49,10 @@ public class Parser {
 
         if (matcher.matches()) {
             Storage.desc = matcher.group(1);
-            Storage.start = matcher.group(2);
-            Storage.end = matcher.group(3);
+            Storage.start = LocalDate.parse(matcher.group(2));
+            Storage.end = LocalDate.parse(matcher.group(3));
         } else {
-            throw new UkeCatException("Wrong format, use: event <desc> /from <start> /to <end>");
+            throw new UkeCatException("Wrong format, use: event <desc> /from yyyy-mm-dd /to yyyy-mm-dd");
         }
     }
 
@@ -114,7 +113,7 @@ public class Parser {
                 break;
             case ("E"):
                 Storage.words[0] = "event";
-                Storage.input = String.format("deadline %s /from %s to %s", words[2], words[3], words[4]);
+                Storage.input = String.format("event %s /from %s /to %s", words[2], words[3], words[4]);
                 parseEvent(Storage.input);
                 break;
             default:
