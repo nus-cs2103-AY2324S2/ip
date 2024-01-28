@@ -19,7 +19,8 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
-    public TaskList(List<String> stringTasksList) throws DukeException.UnknownCommandException { // initialise the duke.TaskList with a List<String>
+    // initialise the duke.TaskList with a List<String>
+    public TaskList(List<String> stringTasksList) throws DukeException.UnknownCommandException {
         this.taskList = new ArrayList<>();
         for (String s : stringTasksList) {
             this.taskList.add(db2Task(s));
