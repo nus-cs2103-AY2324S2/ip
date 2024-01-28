@@ -7,7 +7,10 @@ import java.util.ArrayList;
 
 import duke.Parser;
 
-import task.*;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
 /**
  * A class that handles database operations for tasks.

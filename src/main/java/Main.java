@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+
 import config.Config;
 import database.Database;
 import duke.Duke;
