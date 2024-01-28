@@ -6,19 +6,16 @@ import java.io.File;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
-@SuppressWarnings("ClassEscapesDefinedScope")
-public class FileHandler {
+public class Storage {
     private final String filePath;
 
-    public FileHandler(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public List<Task> loadTasks() throws IOException {
-        List<Task> tasks = new ArrayList<>();
+    public TaskList loadTasks() throws IOException {
+        TaskList tasks = new TaskList();
         File file = getFile();
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -27,23 +24,25 @@ public class FileHandler {
                 String[] parts = line.split(" \\| ");
                 Task task;
                 switch (parts[0]) {
-                    case "T":
-                        task = new Todo(parts[2]);
-                        break;
-                    case "D":
-                        LocalDateTime deadlineTime = DateTimeUtil.parseDateTime(parts[3]);
-                        task = new Deadline(parts[2], deadlineTime);
-                        break;
-                    case "E":
-                        LocalDateTime startTime = DateTimeUtil.parseDateTime(parts[3]);
-                        LocalDateTime endTime = DateTimeUtil.parseDateTime(parts[4]);
-                        task = new Event(parts[2], startTime, endTime);
-                        break;
-                    default:
-                        continue;
+                case "T":
+                    task = new Todo(parts[2]);
+                    break;
+                case "D":
+                    LocalDateTime deadlineTime = DateTimeUtil.parseDateTime(parts[3]);
+                    task = new Deadline(parts[2], deadlineTime);
+                    break;
+                case "E":
+                    LocalDateTime startTime = DateTimeUtil.parseDateTime(parts[3]);
+                    LocalDateTime endTime = DateTimeUtil.parseDateTime(parts[4]);
+                    task = new Event(parts[2], startTime, endTime);
+                    break;
+                default:
+                    continue;
                 }
                 if (parts[1].equals("1")) {
                     task.markAsDone();
+                } else {
+                    task.markAsNotDone();
                 }
                 tasks.add(task);
             }
@@ -52,10 +51,8 @@ public class FileHandler {
         } catch (DukeException e) {
             throw new RuntimeException("Error parsing date-time: " + e.getMessage(), e);
         }
-
         return tasks;
     }
-
 
     private File getFile() throws IOException {
         File file = new File(filePath);
@@ -77,9 +74,9 @@ public class FileHandler {
         return file;
     }
 
-    public void saveTasks(List<Task> tasks) throws IOException {
+    public void saveTasks(TaskList tasks) throws IOException {
         try (PrintWriter pw = new PrintWriter(filePath)) {
-            for (Task task : tasks) {
+            for (Task task : tasks.getTasks()) {
                 String line = taskToFileString(task);
                 pw.println(line);
             }

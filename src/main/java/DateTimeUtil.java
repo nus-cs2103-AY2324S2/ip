@@ -10,7 +10,8 @@ public class DateTimeUtil {
                 "yyyy-MM-dd HHmm", "dd/MM/yyyy HHmm", "MM/dd/yyyy HHmm",
                 "dd-MM-yyyy HH:mm", "dd-MM-yyyy HHmm", "d-MM-yyyy HH:mm", "d-MM-yyyy HHmm",
                 "dd-M-yyyy HH:mm", "dd-M-yyyy HHmm", "d-M-yyyy HH:mm", "d-M-yyyy HHmm",
-                "d/M/yyyy HH:mm", "d/M/yyyy HHmm", "dd/M/yyyy HH:mm", "dd/M/yyyy HHmm"
+                "d/M/yyyy HH:mm", "d/M/yyyy HHmm", "dd/M/yyyy HH:mm", "dd/M/yyyy HHmm",
+                "m/d/yyyy HH:mm", "m/d/yyyy HHmm", "mm/d/yyyy HH:mm", "mm/d/yyyy HHmm"
         };
 
         try {
