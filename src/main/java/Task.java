@@ -26,4 +26,9 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
     //...
+    public Integer isDone() {
+        return this.isDone
+                ? 1
+                : 0;
+    }
 }
