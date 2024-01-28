@@ -1,8 +1,4 @@
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -20,8 +16,6 @@ public class Tyrone {
     private static final Scanner reader = new Scanner(System.in);
     private static final PrintWriter writer = new PrintWriter(System.out, true);
     private static final TaskList taskList = new TaskList();
-
-    private static DateTimeParser dateTimeParser = new DateTimeParser();
 
     private enum Command {
         BYE,
@@ -159,7 +153,7 @@ public class Tyrone {
         }
 
         try {
-            return new Deadline(description, dateTimeParser.parseDateTimeString(deadlineDateTimeStr));
+            return new Deadline(description, new DateTime(deadlineDateTimeStr));
         } catch (DateTimeParseException e) {
             throw new TyroneCmdException(errorMsg);
         }
@@ -194,7 +188,7 @@ public class Tyrone {
         if (description.isEmpty() || startDateTime.isEmpty() || endDateTime.isEmpty())
             throw new TyroneCmdException(errorMsg);
 
-        return new Event(description, startDateTime, endDateTime);
+        return new Event(description, new DateTime(startDateTime), new DateTime(endDateTime));
     }
 
     private static void handleMarkCommand(String input) throws TyroneCmdException {

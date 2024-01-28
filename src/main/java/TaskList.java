@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class TaskList {
     private ArrayList<Task> items;
-    private final static DateTimeParser dateTimeParser = new DateTimeParser();
     private static final StorageHelper storageHelper = new StorageHelper();
     private static class StorageHelper {
         private static final String directoryPath = "data";
@@ -68,11 +67,11 @@ public class TaskList {
                     t = new ToDo(strArr[2]);
                     break;
                 case "D":
-                    t = new Deadline(strArr[2], dateTimeParser.parseDateTimeString(strArr[3]));
+                    t = new Deadline(strArr[2], new DateTime(strArr[3]));
                     break;
                 case "E":
-                    String[] periodArr = strArr[3].split("-");
-                    t = new Event(strArr[2], periodArr[0], periodArr[1]);
+                    String[] periodArr = strArr[3].split(" - ");
+                    t = new Event(strArr[2], new DateTime(periodArr[0]), new DateTime(periodArr[1]));
                     break;
                 default:
                     throw new IOException("Invalid text file format.");
