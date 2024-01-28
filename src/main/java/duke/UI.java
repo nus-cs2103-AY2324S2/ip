@@ -36,6 +36,9 @@ public class UI {
     sayHi();
   }
 
+  /**
+   * Lets shuheng say hi to everyone! :)
+   */
   public void sayHi() {
     String name = "shu heng";
     String name_display = "_________________________\n" +
@@ -45,6 +48,9 @@ public class UI {
     System.out.println(name_display);
   }
 
+  /**
+   * Lets shuheng say bye to everyone! :)
+   */
   public void sayBye() {
     String final_print = "_________________________\n" +
       "Bye. Hope to see you again soon!\n" +
@@ -53,6 +59,9 @@ public class UI {
     this.sc.close();
   }
 
+  /**
+   * Runs the UI that continuously takes in user input and output.
+   */
   public void run() {
     mainloop: while (true) {
       String current_input = this.sc.nextLine();
