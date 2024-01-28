@@ -1,10 +1,12 @@
 package duke.commands;
 
 import duke.tasks.Task;
+
 import duke.utils.TaskList;
-import duke.exceptions.TaskModificationException;
 import duke.utils.Storage;
 import duke.utils.Ui;
+
+import duke.exceptions.TaskModificationException;
 
 /**
  * This class implements the modify task command that modifies tasks in the bot tasklist.
@@ -40,13 +42,16 @@ public class ModifyTaskCommand extends Command {
         
         String[] inputSplit = indexInput.split(" ");
         if (inputSplit.length < 1) {
-            throw new TaskModificationException("Input is missing task number\nList is of current length: \" + tasks.size()");
+            throw new TaskModificationException("Input is missing task number\nList is of current length: " 
+                                                + tasks.size());
         } 
 
         int index = Integer.parseInt(indexInput.split(" ")[1]);
 
         if (index < 1 || index > tasks.size()) {
-            throw new IndexOutOfBoundsException("Invalid Index " + index + " for current list\nList is of current length: " + tasks.size());
+            throw new IndexOutOfBoundsException("Invalid Index " + index 
+                                                + " for current list\nList is of current length: " 
+                                                + tasks.size());
         }
 
         switch (this.modType) {
