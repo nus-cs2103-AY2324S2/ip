@@ -182,6 +182,17 @@ public class Duke {
         Tasks.list();
     }
 
+    private static void find(String input) throws NotEnoughInputsException {
+        String[] params = input.split(" ", 2);
+        if (params.length == 1) {
+            throw new NotEnoughInputsException(
+                    String.format(EXCEPTIONS.NOT_ENOUGH_INPUTS, "find", CORRECT_USAGE.FIND));
+        }
+        String keyword = params[1];
+        echo(MESSAGES.FIND);
+        Tasks.find(keyword);
+    }
+
     private static boolean parseInput(boolean loop, String input) throws DukeException {
         System.out.println(MESSAGES.LINE_BREAK);
         String[] messages = input.split(" ", 2);
@@ -225,6 +236,9 @@ public class Duke {
                 Tasks.save();
                 echo(MESSAGES.SAVE);
                 break;
+            case ("find"):
+                find(input);
+                break;
             default:
                 throw new IncorrectInputException(EXCEPTIONS.INCORRECT_INPUT);
             }
@@ -233,6 +247,8 @@ public class Duke {
         }
         return loop;
     }
+
+
 
     public static void main(String[] args) throws DukeException {
         Squid();

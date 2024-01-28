@@ -12,6 +12,7 @@ import squid.exceptions.SquidDateException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Tasks {
@@ -56,6 +57,18 @@ public class Tasks {
             Task currTask = Tasks.get(i);
             System.out.printf("%d: %s%n", i + 1, currTask);
         }
+    }
+
+    public static void list(List<Task> arr) {
+        for (int i = 0; i < arr.size(); i++) {
+            Task currTask = arr.get(i);
+            System.out.printf("%d: %s%n", i + 1, currTask);
+        }
+    }
+
+    public static void find(String regex) {
+        List<Task> filtered = arr.stream().filter(x -> x.task.matches(".*" + regex + ".*")).toList();
+        list(filtered);
     }
 
     public Tasks() {
@@ -114,4 +127,7 @@ public class Tasks {
 //            System.out.println(e);
         }
     }
+
+
+
 }
