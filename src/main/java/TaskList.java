@@ -1,7 +1,7 @@
 import task.Deadlines;
-import task.Events;
 import task.Task;
 import task.ToDos;
+import task.Events;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;
@@ -85,8 +85,7 @@ public class TaskList {
         IntStream.iterate(1, x -> x + 1)
                 .limit(this.taskList.size())
                 .forEachOrdered(i -> {
-                    String s = String.format("%d. %s\n", i, this.taskList.get(i - 1))
-                            .stripTrailing();
+                    String s = String.format("%d. %s\n", i, this.taskList.get(i - 1));
                     sb.append(s);
                 });
         return sb.toString().stripTrailing();
