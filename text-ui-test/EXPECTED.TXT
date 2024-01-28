@@ -39,4 +39,13 @@ Here are the tasks in your list:
 3.[D][ ] return book (by: Sunday)
 4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 
+Noted. I've removed this task:
+[T][X] eat breakfast
+Now you have 3 tasks in the list.
+
+Here are the tasks in your list:
+1.[T][X] go for lunch
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
 Bye. Hope to see you again soon!
