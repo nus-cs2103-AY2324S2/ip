@@ -36,7 +36,7 @@ public class Bob {
         while (true) {
             String command = SCANNER.nextLine();
 
-            if (command.equals("bye")) {
+            if (command.equals("exit")) {
                 break;
             }
 
