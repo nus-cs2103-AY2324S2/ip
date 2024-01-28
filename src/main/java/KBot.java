@@ -71,7 +71,7 @@ public class KBot {
      * @throws KException Exceptions thrown when the command is not valid.
      */
     private static void executeCommand(String userInput) throws KException {
-        String[] input = userInput.split(" ", 2);
+        String[] input = userInput.trim().split(" ", 2);
         String ins = input[0];
         if (input.length > 1) { // for ins with parameter
             switch (ins) { // correct ins but wrong params handled by each method call
