@@ -21,26 +21,20 @@ public class Bob {
         Replies.unmark(task);
     }
 
-    private static Task addTodo(String todoString) {
-        return new Todo(todoString);
-    }
+    private static String[] extractParameters(String s, String[] parameters) {
+        // Might be able to use HashMap but a bit too fancy
+        int n = parameters.length;
+        String[] result = new String[n + 1];
 
-    // TODO: Generalise the following two methods
-    private static Task addDeadline(String deadlineString) {
-        String[] splitString = deadlineString.split(" /by ", 2);
-        String by = splitString[1];
+        String[] splitString = new String[] { s };
+        for (int i = n - 1; i >= 0; i--) {
+            splitString = splitString[0].split(" /" + parameters[i] + ' ', 2);
+            result[i + 1] = splitString[1];
+        }
 
-        return new Deadline(splitString[0], by);
-    }
+        result[0] = splitString[0];
 
-    private static Task addEvent(String eventString) {
-        String[] splitString = eventString.split(" /to ", 2);
-        String to = splitString[1];
-
-        splitString = splitString[0].split(" /from ", 2);
-        String from = splitString[1];
-
-        return new Event(splitString[0], from, to);
+        return result;
     }
 
     private static void handleAdd(String[] commandArgs) {
@@ -50,15 +44,19 @@ public class Bob {
         }
 
         Task task;
+        String[] parameters;
         switch (commandArgs[0]) {
         case Commands.TODO:
-            task = addTodo(commandArgs[1]);
+            parameters = extractParameters(commandArgs[1], new String[] {});
+            task = new Todo(parameters[0]);
             break;
         case Commands.DEADLINE:
-            task = addDeadline(commandArgs[1]);
+            parameters = extractParameters(commandArgs[1], new String[] { "by" });
+            task = new Deadline(parameters[0], parameters[1]);
             break;
         default:
-            task = addEvent(commandArgs[1]);
+            parameters = extractParameters(commandArgs[1], new String[] { "from", "to" });
+            task = new Event(parameters[0], parameters[1], parameters[2]);
         }
 
         TASKS[numberOfTasks] = task;
