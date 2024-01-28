@@ -3,8 +3,8 @@ package task;
 import util.CSVUtil;
 
 public abstract class Task {
-    String description;
-    boolean isMarked;
+    protected final String description;
+    protected boolean isMarked;
 
     Task(String description) {
         this.description = description;

@@ -1,7 +1,6 @@
 package exception;
 
 public class InvalidCommandException extends NarutoException {
-    
     InvalidCommandException(String message) {
         super(message);
     }
