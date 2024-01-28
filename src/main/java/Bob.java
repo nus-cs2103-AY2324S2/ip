@@ -7,53 +7,31 @@ public class Bob {
     private static final int MAX_NUMBER_OF_TASKS = 100;
     private static final Task[] TASKS = new Task[MAX_NUMBER_OF_TASKS];
 
-    private static void handleMark(String[] commandArgs) {
-        Task task = TASKS[Integer.parseInt(commandArgs[1]) - 1];
-        boolean done = commandArgs[0].equals("mark");
-
+    public static void handleMark(int taskIndex, boolean done) {
+        Task task = TASKS[taskIndex];
         task.setDone(done);
         Replies.mark(task, done);
     }
 
-    private static String[] extractParameters(String parametersString, String[] parameters) {
-        // Might be able to use HashMap but a bit too fancy
-        int n = parameters.length;
-        String[] result = new String[n + 1];
-
-        String[] splitString = new String[] { parametersString };
-        for (int i = n - 1; i >= 0; i--) {
-            splitString = splitString[0].split(" /" + parameters[i] + ' ', 2);
-            result[i + 1] = splitString[1];
-        }
-
-        result[0] = splitString[0];
-
-        return result;
+    public static void handleList() {
+        Replies.list(TASKS, numberOfTasks);
     }
 
-    private static void handleAdd(String[] commandArgs) throws EmptyDescriptionException {
+    public static void handleAdd(String taskType, String[] parameters) {
         if (numberOfTasks == MAX_NUMBER_OF_TASKS) {
             Replies.print(Replies.EXCEEDED_MAX_NUMBER_OF_TASKS);
             return;
         }
 
-        if (commandArgs.length == 1) {
-            throw new EmptyDescriptionException(commandArgs[0]);
-        }
-
         Task task;
-        String[] parameters;
-        switch (commandArgs[0]) {
+        switch (taskType) {
         case Commands.TODO:
-            parameters = extractParameters(commandArgs[1], new String[] {});
             task = new Todo(parameters[0]);
             break;
         case Commands.DEADLINE:
-            parameters = extractParameters(commandArgs[1], new String[] { "by" });
             task = new Deadline(parameters[0], parameters[1]);
             break;
         default:
-            parameters = extractParameters(commandArgs[1], new String[] { "from", "to" });
             task = new Event(parameters[0], parameters[1], parameters[2]);
         }
 
@@ -61,33 +39,6 @@ public class Bob {
         numberOfTasks++;
 
         Replies.add(task, numberOfTasks);
-    }
-
-    private static void processCommands(String[] commandArgs) throws InvalidCommandException {
-        // TODO: treat invalid commands like "exit door", "list restaurants" as tasks (default)
-        switch (commandArgs[0]) {
-            case Commands.LIST:
-                Replies.list(TASKS, numberOfTasks);
-                break;
-            case Commands.MARK:
-                // Fallthrough
-            case Commands.UNMARK:
-                handleMark(commandArgs);
-                break;
-            case Commands.TODO:
-                // Fallthrough
-            case Commands.DEADLINE:
-                // Fallthrough
-            case Commands.EVENT:
-                try {
-                    handleAdd(commandArgs);
-                } catch (EmptyDescriptionException e) {
-                    Replies.print(e.getMessage());
-                }
-                break;
-            default:
-                throw new InvalidCommandException();
-        }
     }
 
     public static void main(String[] args) {
@@ -103,7 +54,7 @@ public class Bob {
             }
 
             try {
-                processCommands(commandArgs);
+                Commands.processCommands(commandArgs);
             } catch (InvalidCommandException e) {
                 Replies.print(e.getMessage());
             }
