@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class TaskList {
     private final List<Task> tasks;
@@ -76,16 +78,16 @@ public class TaskList {
             if (type.equals(Todo.TYPE_SYMBOL)) {
                 return new Todo(description, done);
             } else if (type.equals(Deadline.TYPE_SYMBOL)) {
-                String due = data[3];
+                LocalDateTime due = LocalDateTime.parse(data[3], Event.DATE_TIME_FORMAT);
                 return new Deadline(description, done, due);
             } else if (type.equals(Event.TYPE_SYMBOL)) {
-                String from = data[3];
-                String to = data[4];
+                LocalDateTime from = LocalDateTime.parse(data[3], Event.DATE_TIME_FORMAT);
+                LocalDateTime to = LocalDateTime.parse(data[4], Event.DATE_TIME_FORMAT);
                 return new Event(description, done, from, to);
             } else {
                 throw new DukeException("Invalid Type");
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new DukeException("Invalid storage format!");
         }
     }

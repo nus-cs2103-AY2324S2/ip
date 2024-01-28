@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -121,7 +123,8 @@ public class Duke {
             if (matcher.find()) {
                 String description =
                         input.substring(DEADLINE_COMMAND.length() + 1, matcher.start() - 1);
-                String due = matcher.group(1);
+                String dueString = matcher.group(1);
+                LocalDateTime due = LocalDateTime.parse(dueString, Event.DATE_TIME_FORMAT);
                 Task task = new Deadline(description, due);
                 TASKS.addTask(task);
                 printAddedTask(task);
@@ -138,8 +141,10 @@ public class Duke {
             if (matcher.find()) {
                 String description =
                         input.substring(EVENT_COMMAND.length() + 1, matcher.start() - 1);
-                String from = matcher.group(1);
-                String to = matcher.group(2);
+                String fromString = matcher.group(1);
+                LocalDateTime from = LocalDateTime.parse(fromString, Event.DATE_TIME_FORMAT);
+                String toString = matcher.group(2);
+                LocalDateTime to = LocalDateTime.parse(toString, Event.DATE_TIME_FORMAT);
                 Task task = new Event(description, from, to);
                 TASKS.addTask(task);
                 printAddedTask(task);
