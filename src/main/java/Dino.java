@@ -1,4 +1,10 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 import java.io.IOException;
@@ -65,6 +71,19 @@ public class Dino {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    private LocalDateTime parseStringToTime(String time) {
+        DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", Locale.ENGLISH);
+
+        LocalDateTime deadlineTime;
+        if (time.contains(" ")) {
+            deadlineTime = LocalDateTime.parse(time, dateTimeFormatter);
+        } else {
+            deadlineTime = LocalDateTime.of(LocalDate.parse(time, dateOnlyFormatter), LocalTime.MIDNIGHT);
+        }
+        return deadlineTime;
+    }
+
     private Task createTaskFromInput(TaskType taskType, String taskDetails) throws DinoException {
         switch (taskType) {
             case TODO:
@@ -76,11 +95,16 @@ public class Dino {
                     throw new DinoException("Invalid input format for deadline. Please use: deadline <deadline name> /by <time>");
                 }
                 String deadlineName = deadlineParts[0].trim();
-                String deadlineTime = deadlineParts[1].trim();
-                if (deadlineName.isEmpty() || deadlineTime.isEmpty()) {
+                String deadlineTimeString = deadlineParts[1].trim();
+                if (deadlineName.isEmpty() || deadlineTimeString.isEmpty()) {
                     throw new DinoException("Deadline name and time cannot be empty.");
                 }
-                return new Deadline(deadlineName, deadlineTime);
+
+                try {
+                    return new Deadline(deadlineName, parseStringToTime(deadlineTimeString));
+                } catch (DateTimeParseException e) {
+                    throw new DinoException("Error parsing deadline date and time: " + e.getMessage());
+                }
 
             case EVENT:
                 String[] eventParts = taskDetails.split("/from|/to");
@@ -88,12 +112,19 @@ public class Dino {
                     throw new DinoException("Invalid input format for event. Please use: event <event name> /from <time> /to <time>");
                 }
                 String eventName = eventParts[0].trim();
-                String startTime = eventParts[1].trim();
-                String endTime = eventParts[2].trim();
-                if (eventName.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
+                String startTimeString = eventParts[1].trim();
+                String endTimeString = eventParts[2].trim();
+                if (eventName.isEmpty() || startTimeString.isEmpty() || endTimeString.isEmpty()) {
                     throw new DinoException("Event name, start time, and end time cannot be empty.");
                 }
-                return new Event(eventName, startTime, endTime);
+
+                try {
+                    LocalDateTime startTime = parseStringToTime(startTimeString);
+                    LocalDateTime endTime = parseStringToTime(endTimeString);
+                    return new Event(eventName, startTime, endTime);
+                } catch (DateTimeParseException e) {
+                    throw new DinoException("Error parsing event date and time: " + e.getMessage());
+                }
 
             default:
                 throw new DinoException("Unknown task type: " + taskType);
