@@ -1,8 +1,26 @@
+import java.util.Scanner;
+
 public class Ui {
     // Configuration to reset output color to System.out.
     private static final String ANSI_RESET = "\u001B[0m";
     // Configuration for red colored outputs to System.out.
     private static final String ANSI_RED = "\u001B[31m";
+
+    // BufferedReader for reading input commands.
+    private Scanner sc;
+
+    public Ui() {
+        this.sc = new Scanner(System.in);
+    }
+
+    /**
+     * Returns the input from user.
+     *
+     * @return String input by user.
+     */
+    public String readline() {
+        return sc.nextLine();
+    }
 
     /**
      * Prints divider line.

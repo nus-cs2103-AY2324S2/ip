@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -20,31 +19,9 @@ public class Deadline extends Task {
      * @param description Description of task.
      * @param by Deadline for the task.
      */
-    private Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
-    }
-
-    /**
-     * Creates a new Deadline task based on user input.
-     *
-     * @param input Input String after the "deadline" command.
-     * @return New Deadline task.
-     * @throws TaskException Exception when task cannot be created.
-     */
-    public static Deadline createDeadline(String input) throws TaskException {
-        input = input.trim();
-        try {
-            String[] tokens = input.split(" /by ");
-            String description = tokens[0];
-            if (description.isEmpty()) {
-                throw new TaskException("Error. Unable to create task.\nFormat: " + Deadline.CREATE_DEADLINE_FORMAT);
-            }
-            LocalDateTime by = LocalDateTime.parse(tokens[1], Task.INPUT_DATETIME_FORMAT);
-            return new Deadline(description, by);
-        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            throw new TaskException("Error. Unable to create task.\nFormat: " + Deadline.CREATE_DEADLINE_FORMAT);
-        }
     }
 
     /**
@@ -65,7 +42,7 @@ public class Deadline extends Task {
      * @return String data of task.
      */
     @Override
-    public String saveTaskAsString() {
+    public String toDataString() {
         return "D | " + (this.getIsDone() ? 1 : 0) + " | " + this.getDescription()
                 + " /by " + this.by.format(Task.INPUT_DATETIME_FORMAT);
     }

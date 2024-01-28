@@ -1,9 +1,6 @@
-import java.io.*;
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.nio.file.Files;
 import java.lang.StringBuilder;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Class to track and manage tasks.
@@ -11,11 +8,6 @@ import java.util.ArrayList;
  * @author KohGuanZeh
  */
 public class TaskList {
-    // File directory of stored data.
-    private static final String FILE_DIRECTORY = "data";
-    // File name of stored data.
-    private static final String FILE_NAME = "duke.txt";
-
     // Store list of tasks.
     private ArrayList<Task> taskList;
 
@@ -44,9 +36,9 @@ public class TaskList {
      * @param index Index of task to delete.
      * @return Message stating the deleted task.
      */
-    public String deleteTask(int index) throws TaskException {
+    public String deleteTask(int index) throws CommandException {
         if (index <= 0 || index > this.taskList.size()) {
-            throw new TaskException("Error. Task of index " + index + " cannot be found.");
+            throw new CommandException("Error. Task of index " + index + " cannot be found.");
         }
         Task removedTask = this.taskList.remove(index - 1);
         return "Removed: " + removedTask.getTaskInformation() + "\n" + this.getTotalTasks();
@@ -67,9 +59,9 @@ public class TaskList {
      * @param index Index of task. Note that this is always 1 more than index stored in the list.
      * @return Task completion message.
      */
-    public String markTask(int index) throws TaskException {
+    public String markTask(int index) throws CommandException {
         if (index <= 0 || index > this.taskList.size()) {
-            throw new TaskException("Error. Task of index " + index + " cannot be found.");
+            throw new CommandException("Error. Task of index " + index + " cannot be found.");
         }
         Task task = this.taskList.get(index - 1);
         task.markAsDone();
@@ -82,9 +74,9 @@ public class TaskList {
      * @param index Index of task. Note that this is always 1 more than index stored in the list.
      * @return Task incompletion message.
      */
-    public String unmarkTask(int index) throws TaskException {
+    public String unmarkTask(int index) throws CommandException {
         if (index <= 0 || index > this.taskList.size()) {
-            throw new TaskException("Error. Task of index " + index + " cannot be found.");
+            throw new CommandException("Error. Task of index " + index + " cannot be found.");
         }
         Task task = this.taskList.get(index - 1);
         task.unmarkAsDone();
@@ -105,40 +97,22 @@ public class TaskList {
         return sb.toString();
     }
 
-    /**
-     * Loads task list from file.
-     */
-    public void loadTaskList() throws IOException {
-        Path path = Paths.get(TaskList.FILE_DIRECTORY, TaskList.FILE_NAME);
-        if (Files.notExists(path)) {
-            // Create file directory if it does not exist.
-            Files.createDirectories(Paths.get(TaskList.FILE_DIRECTORY));
-            Files.createFile(path);
-        }
-        File file = path.toFile();
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String line = reader.readLine();
-        while (line != null) {
+    public void loadTasks(String data, Ui ui) {
+        StringTokenizer st = new StringTokenizer(data, "\n");
+        while(st.hasMoreTokens()) {
             try {
-                taskList.add(Task.getTaskFromString(line));
-            } catch (TaskException e) {
-                System.out.println(e.getMessage());
+                this.addTask(Parser.parseData(st.nextToken()));
+            } catch (LoadException e) {
+                ui.showError(e.getMessage());
             }
-            line = reader.readLine();
         }
-        reader.close();
     }
 
-    /**
-     * Saves task list to file.
-     */
-    public void saveTaskList() throws TaskException, IOException {
-        File file = Paths.get(TaskList.FILE_DIRECTORY, TaskList.FILE_NAME).toFile();
-        FileWriter writer = new FileWriter(file);
-        for (Task task : this.taskList) {
-            writer.write(task.saveTaskAsString());
-            writer.write("\n");
+    public String toDataString() {
+        StringBuilder sb = new StringBuilder();
+        for (Task task : taskList) {
+            sb.append(task.toDataString()).append("\n");
         }
-        writer.close();
+        return sb.toString();
     }
 }
