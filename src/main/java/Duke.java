@@ -201,7 +201,6 @@ class TaskParser {
         }
         throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
-
 }
 
 class JamieException extends Exception {
