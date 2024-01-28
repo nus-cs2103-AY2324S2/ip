@@ -52,27 +52,6 @@ public class Cli extends Ui {
 
         sc.close();
 
-        // // Store and echo user input
-        // do {
-        // input = sc.nextLine();
-        // String[] splitInput = input.split(" ");
-
-        // System.out.println("------------------------------------------------------------");
-
-        // try {
-        // switch (splitInput[0].toLowerCase()) {
-        // case "mark": // Mark item
-        // if (splitInput.length <= 1) {
-        // throw new MissingArgumentException("Missing argument - Index of task
-        // required");
-        // }
-
-        // // Print success message
-        // System.out.println("Nice! I've marked this task as done:");
-        // Task markedTask = taskList.markTask(Integer.parseInt(splitInput[1]) - 1);
-        // System.out.println(String.format(" %s", markedTask.toString()));
-        // break;
-
         // case "unmark": // Unmark item
         // if (splitInput.length <= 1) {
         // throw new MissingArgumentException("Missing argument - Index of task

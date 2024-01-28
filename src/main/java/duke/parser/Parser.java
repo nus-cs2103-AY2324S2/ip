@@ -7,9 +7,11 @@ import java.time.OffsetDateTime;
 import duke.commands.Command;
 import duke.commands.ExitCommand;
 import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidArgumentException;
 import duke.exceptions.InvalidCommandException;
+import duke.exceptions.MissingArgumentException;
 
 /**
  * The Parser class handles the making sense of user commands
@@ -70,6 +72,18 @@ public class Parser {
             } else { // Return full list
                 return new ListCommand();
             }
+
+        case "mark":
+            if (splitInput.length <= 1) {
+                throw new MissingArgumentException("Missing argument - Index of task required");
+            }
+
+            try {
+                return new MarkCommand(Integer.parseInt(splitInput[1]) - 1);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Index to mark is not an integer");
+            }
+
         default:
             throw new InvalidCommandException(String.format("Unknown command '%s'", splitInput[0]));
         }
