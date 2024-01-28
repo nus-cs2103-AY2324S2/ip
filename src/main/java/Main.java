@@ -1,23 +1,24 @@
 import java.sql.SQLException;
 import config.Config;
-import database.DB;
+import database.Database;
 import duke.Duke;
 
 /**
  * The main class of the application.
  * This class is responsible for starting the application.
- * It also handles the creation of the database object and the migration of the database.
+ * It also handles the creation of the database object and the migration of the
+ * database.
  */
 public class Main {
   public static void main(String[] args) {
     Config cfg = new Config();
 
     try {
-      DB db = new DB();
+      Database db = new Database();
       db.connect(cfg);
-      db.AutoMigrate();
+      db.autoMigrate();
 
-      Duke app = new Duke(cfg.appName);
+      Duke app = new Duke(cfg.APP_NAME);
       app.run();
 
       db.disconnect();

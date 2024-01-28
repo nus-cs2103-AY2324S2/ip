@@ -1,18 +1,20 @@
 package duke.command;
 
-import database.TaskORM;
-
 import java.sql.SQLException;
 
-public class MarkTaskCommand extends Command{
+import database.TaskOrm;
+
+public class MarkTaskCommand extends Command {
   public static final String COMMAND_WORD = "mark";
   private final int taskID;
+
   public MarkTaskCommand(int taskID) {
     this.taskID = taskID;
   }
 
   @Override
-  public String execute(TaskORM tm) {
+  public String execute() {
+    TaskOrm tm = new TaskOrm();
     try {
       tm.mark(taskID);
       task.Task task = tm.get(taskID);

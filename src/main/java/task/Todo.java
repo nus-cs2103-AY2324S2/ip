@@ -7,11 +7,12 @@ package task;
  */
 public class Todo extends Task {
   public static final String type = "T";
+
   public Todo(int taskID, String description) {
-    super( taskID, description);
+    super(taskID, description);
   }
 
-  public Todo(int taskID,  String description, boolean isDone) {
+  public Todo(int taskID, String description, boolean isDone) {
     super(taskID, description, isDone);
   }
 

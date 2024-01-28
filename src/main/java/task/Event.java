@@ -2,7 +2,8 @@ package task;
 
 /**
  * Represents an Event task.
- * An <code>Event</code> object corresponds to a task with a description and a start date and end date.
+ * An <code>Event</code> object corresponds to a task with a description and a
+ * start date and end date.
  * e.g., <code>Event project meeting /from 2020-02-02 to 2020-02-03</code>
  */
 public class Event extends Task {
@@ -17,7 +18,8 @@ public class Event extends Task {
     this.endDate = endDate;
   }
 
-  public Event(int taskID,String description, java.time.LocalDate startDate, java.time.LocalDate endDate, boolean isDone) {
+  public Event(int taskID, String description, java.time.LocalDate startDate, java.time.LocalDate endDate,
+      boolean isDone) {
     super(taskID, description, isDone);
     this.startDate = startDate;
     this.endDate = endDate;

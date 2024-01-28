@@ -2,7 +2,8 @@ package task;
 
 /**
  * Represents a Deadline task.
- * A <code>Deadline</code> object corresponds to a task with a description and a deadline.
+ * A <code>Deadline</code> object corresponds to a task with a description and a
+ * deadline.
  * e.g., <code>Deadline read book /by 2020-02-02</code>
  */
 public class Deadline extends Task {
@@ -14,7 +15,7 @@ public class Deadline extends Task {
     this.deadline = deadline;
   }
 
-  public Deadline(int taskID,  String description, java.time.LocalDate deadline, boolean isDone) {
+  public Deadline(int taskID, String description, java.time.LocalDate deadline, boolean isDone) {
     super(taskID, description, isDone);
     this.deadline = deadline;
   }

@@ -1,9 +1,10 @@
 package duke.command;
 
-import database.TaskORM;
-
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+
+import database.TaskOrm;
 
 public class FindTaskCommand extends Command {
   public static final String COMMAND_WORD = "find";
@@ -15,7 +16,8 @@ public class FindTaskCommand extends Command {
   }
 
   @Override
-  public String execute(TaskORM tm) {
+  public String execute() {
+    TaskOrm tm = new TaskOrm();
     try {
       ArrayList<task.Task> tasks = tm.list(this.searchTerm);
 

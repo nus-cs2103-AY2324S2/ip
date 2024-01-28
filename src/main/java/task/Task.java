@@ -2,7 +2,8 @@ package task;
 
 /**
  * Represents a Task.
- * A <code>Task</code> object corresponds to a task with a description and a status.
+ * A <code>Task</code> object corresponds to a task with a description and a
+ * status.
  * e.g., <code>Task read book</code>
  */
 public class Task {
@@ -15,7 +16,7 @@ public class Task {
     this.description = description;
   }
 
-  public Task(int taskID,String description, boolean isDone) {
+  public Task(int taskID, String description, boolean isDone) {
     this.taskID = taskID;
     this.description = description;
     this.isDone = isDone;

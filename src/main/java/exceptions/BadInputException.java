@@ -19,10 +19,9 @@ public class BadInputException extends RuntimeException {
     String expectedMessage = expected == null ? "" : String.format("Expected: %s\n", expected);
     String exampleMessage = example == null ? "" : String.format("Example: %s\n", example);
     return String.format("%s%s%s%s",
-      badInputMessage,
-      message,
-      expectedMessage,
-      exampleMessage
-    );
+        badInputMessage,
+        message,
+        expectedMessage,
+        exampleMessage);
   }
 }

@@ -8,6 +8,7 @@ public class PrettyPrinter {
   private void printHorizontalln() {
     printIndentedln("____________________________________________________________\n");
   }
+
   public void print(String message) {
     String[] lines = message.split("\n");
 
