@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -56,44 +57,6 @@ public class YodaUI {
         Task task = tasks.remove(taskNumber - 1);
         printMessage("Removed, this task has been:\n" + task + "\nTasks in the list, now you have " + tasks.size() + ", hmm.");
     }
-
-    /**
-     * Saves the current task list to a file called yoda.txt.
-     */
-    public void saveTasks() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./data/yoda.txt"))) {
-            for (Task task : tasks) {
-                writer.write(taskToFileFormat(task) + System.lineSeparator());
-            }
-            printMessage("Saved, your task list has been.");
-        } catch (IOException e) {
-            printMessage("Error saving tasks: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Converts a task to a formatted string suitable for file storage.
-     * @param task The task to convert.
-     * @return A string representing the task in the file format.
-     */
-    private String taskToFileFormat(Task task) {
-        String status = task.isDone() ? "1" : "0";
-        String type = task instanceof Todo ? "T" :
-                task instanceof Deadline ? "D" :
-                        task instanceof Event ? "E" : "";
-        String details = task.getDescription();
-
-        if (task instanceof Deadline) {
-            Deadline deadlineTask = (Deadline) task;
-            details += " | " + deadlineTask.getBy();
-        } else if (task instanceof Event) {
-            Event eventTask = (Event) task;
-            details += " | " + eventTask.getFrom() + " to " + eventTask.getTo();
-        }
-
-        return type + " | " + status + " | " + details;
-    }
-
 
     /**
      * Adds a new task to the list.
@@ -222,6 +185,45 @@ public class YodaUI {
     private interface TaskOperation {
         void perform(int taskNumber) throws Exception;
     }
+
+    /**
+     * Saves the current task list to a file called yoda.txt.
+     */
+    public void saveTasks() {
+//        String currentDir = System.getProperty("user.dir");
+//        System.out.println("Current directory: " + currentDir);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./data/yoda.txt"))) {
+            for (Task task : tasks) {
+                writer.write(taskToFileFormat(task) + System.lineSeparator());
+            }
+            printMessage("Saved, your task list has been.");
+        } catch (IOException e) {
+            printMessage("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Converts a task to a formatted string suitable for file storage.
+     * @param task The task to convert.
+     * @return A string representing the task in the file format.
+     */
+    private String taskToFileFormat(Task task) {
+        String status = task.isDone() ? "1" : "0";
+        String type = task instanceof Todo ? "T" :
+                task instanceof Deadline ? "D" :
+                        task instanceof Event ? "E" : "";
+        String details = task.getDescription();
+
+        if (task instanceof Deadline) {
+            Deadline deadlineTask = (Deadline) task;
+            details += " | " + deadlineTask.getBy();
+        } else if (task instanceof Event) {
+            Event eventTask = (Event) task;
+            details += " | " + eventTask.getFrom() + " to " + eventTask.getTo();
+        }
+        return type + " | " + status + " | " + details;
+    }
+
 
 
     /**

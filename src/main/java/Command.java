@@ -13,6 +13,7 @@ enum Command {
     UNKNOWN, // Represents an unrecognized command
     SAVE; // Command to save the current task list to disk
 
+
     /**
      * Converts a string to its corresponding Command enum value. If the string
      * does not match any command, UNKNOWN is returned.

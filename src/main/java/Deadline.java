@@ -19,6 +19,10 @@ public class Deadline extends Task {
         return this.by;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch-Level-7
     /**
      * Returns a string representation of the deadline task, including its type,
      * description, and deadline time.
