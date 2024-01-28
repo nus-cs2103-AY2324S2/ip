@@ -1,8 +1,13 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import YapchitExceptions.YapchitException;
 import YapchitExceptions.InvalidDetailException;
 import YapchitExceptions.InvalidKeywordException;
+import java.io.File;
+import java.io.FileWriter;
+
 
 public class Yapchit {
     private ArrayList<Task> list = new ArrayList<>();
@@ -20,8 +25,12 @@ public class Yapchit {
     public static void main(String[] args) {
 
         Yapchit bot = new Yapchit();
-
         bot.intro();
+
+        String filePath = "../../src/main/data/dataStore.txt";
+
+        bot.handleFileImport(filePath);
+
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -67,15 +76,15 @@ public class Yapchit {
                 break;
 
             case DEADLINE:
-                handleDeadline(input);
+                handleDeadline(input, true);
                 break;
 
             case EVENT:
-                handleEvent(input);
+                handleEvent(input, true);
                 break;
 
             case TODO:
-                handleTodo(input);
+                handleTodo(input, true);
                 break;
 
             default:
@@ -139,7 +148,7 @@ public class Yapchit {
         }
     }
 
-    private void handleEvent(String input) throws InvalidDetailException{
+    private void handleEvent(String input, boolean print) throws InvalidDetailException{
         int fromStart = input.indexOf("/from");
         int toStart = input.indexOf("/to");
 
@@ -158,12 +167,12 @@ public class Yapchit {
             } else {
                 Task t = new Event(desc, from, to);
                 addTask(t);
-                printTask(t);
+                if(print) printTask(t);
             }
         }
     }
 
-    private void handleDeadline(String input) throws InvalidDetailException{
+    private void handleDeadline(String input, boolean print) throws InvalidDetailException{
         int byStart = input.indexOf("/by");
         if(byStart == -1){
             throw new InvalidDetailException("Missing 'by' parameter in deadline detail");
@@ -179,12 +188,12 @@ public class Yapchit {
             } else {
                 Task t = new Deadline(desc, by);
                 addTask(t);
-                printTask(t);
+                if(print) printTask(t);
             }
         }
     }
 
-    private void handleTodo(String input) throws  InvalidDetailException{
+    private void handleTodo(String input, boolean print) throws  InvalidDetailException{
         if(5 >= input.length()){
             throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
         }
@@ -195,10 +204,49 @@ public class Yapchit {
         } else {
             Task t = new ToDo(desc);
             addTask(t);
-            printTask(t);
+            if(print) printTask(t);
         }
     }
 
+    private void handleFileImport(String filePath) {
+        print("check1");
+        File f = new File(filePath);
+        Scanner s;
+        try {
+            s = new Scanner(f);
+        } catch (FileNotFoundException e){
+            print("File not found");
+            return;
+        }
+
+        print("check2");
+        while (s.hasNext()) {
+            String input = s.nextLine();
+            print("input");
+            String[] parts = input.split(" ");
+            Operations k = Operations.valueOf(parts[0].toUpperCase());
+
+            try {
+                switch (k) {
+                    case EVENT:
+                        this.handleEvent(input, false);
+                        break;
+                    case DEADLINE:
+                        this.handleDeadline(input, false);
+                        break;
+                    case TODO:
+                        this.handleTodo(input, false);
+                        break;
+                }
+            } catch (InvalidDetailException e){
+                this.print("Error in parsing file. Some of the contents may be corrupted");
+                break;
+            }
+        }
+
+    }
+
+    
     private void printTask(Task t){
         line();
         print("\tGot it. I've added this task:");
@@ -252,6 +300,18 @@ public class Yapchit {
                 + "\t--------------------------------------------------";
 
         print(outro);
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
     }
 
     private void line(){
