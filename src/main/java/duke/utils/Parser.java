@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import duke.commands.Command;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
 import duke.commands.GenerateTaskCommand;
 import duke.commands.ListTaskCommand;
 import duke.commands.ModifyTaskCommand;
@@ -43,6 +44,8 @@ public class Parser {
         switch (action) {
         case "list":
             return new ListTaskCommand();
+        case "find":
+            return new FindCommand(input);
         case "todo":
             return new GenerateTaskCommand(GenerateTaskCommand.TaskType.TODO, input);
         case "event":

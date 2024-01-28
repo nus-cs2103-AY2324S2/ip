@@ -44,6 +44,15 @@ public class Task {
     }
     
     /**
+     * Getter for description.
+     * 
+     * @return description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Method for displaying Task as a viewable String
      * 
      * @return String
