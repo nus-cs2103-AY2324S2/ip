@@ -1,89 +1,19 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
-
-/**
- * Task - Represents a basic task with a description and completion status.
- */
-class Task {
-    protected String userInput;
-    protected boolean isDone;
-
-    public Task(String input) {
-        this.userInput = input;
-        this.isDone = false;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
-    }
-
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void unmarkTask() {
-        this.isDone = false;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + getStatusIcon() + "] " + userInput;
-    }
-}
-
-/**
- * Todo - Represents a todo task, a subclass of Task.
- */
-class Todo extends Task {
-    public Todo(String description) {
-        super(description);
-    }
-
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
-    }
-}
-
-/**
- * Event - Represents an event task with start and end dates, a subclass of Task.
- */
-class Event extends Task {
-    private String fromDate;
-    private String toDate;
-
-    public Event(String description, String fromDate, String toDate) {
-        super(description);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
-    }
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + fromDate + " to: " + toDate + ")";
-    }
-}
-
-/**
- * Deadlines - Represents a task with a deadline, a subclass of Task.
- */
-class Deadlines extends Task {
-    private String byDate;
-    public Deadlines(String description, String byDate) {
-        super(description);
-        this.byDate = byDate;
-    }
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + byDate + ")";
-    }
-}
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Duke - Main class that handles user interactions and task management.
  */
 public class Duke {
     private static ArrayList<Task> storage = new ArrayList<>();
+    private static final String FILEPATH = "./data/duke.txt";
     public static void main(String[] args) {
+        createFolder();
+        loadFile();
         Scanner scanner = new Scanner(System.in);
 
         //SAY HI, don't change
@@ -153,7 +83,7 @@ public class Duke {
                 continue;
             }
 
-            if (input.startsWith("remove")) {
+            if (input.startsWith("delete")) {
                 handleRemove(input);
                 printLine();
                 continue;
@@ -186,6 +116,7 @@ public class Duke {
      * @param input User input specifying the action and task index.
      */
 
+    //HANDLING CLASSES AND FUNCTIONS
     private static void markingHandler(String input) {
         String[] split = input.split(" ");
         if (split.length < 2) {
@@ -199,13 +130,16 @@ public class Duke {
 
             if ("mark".equalsIgnoreCase(split[0])) {
                 task.markAsDone();
+                saveTasks();
                 System.out.println("I've marked this task as done:\n  " + task);
             }
 
             else if ("unmark".equalsIgnoreCase(split[0])) {
                 task.unmarkTask();
+                saveTasks();
                 System.out.println("I've unmarked this task! It is now not done yet:\n  " + task);
             }
+
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println("Invalid task number. Please refer to your to-do list again.");
         }
@@ -219,6 +153,7 @@ public class Duke {
         String description = input.substring(5).trim();
         Todo todo = new Todo(description);
         storage.add(todo);
+        saveTasks();
         System.out.println("Ok! I've added this todo: " + todo);
         System.out.println("Now you have " + storage.size() + " tasks in your list.");
     }
@@ -235,6 +170,7 @@ public class Duke {
             String date = splitParts[1].trim();
             Deadlines deadline = new Deadlines(description, date);
             storage.add(deadline);
+            saveTasks();
             System.out.println("Ok! I've added this deadline: " + deadline);
             System.out.println("Now you have " + storage.size() + " tasks in your list.");
         }
@@ -257,6 +193,7 @@ public class Duke {
             String toDate = splitTo[1].trim();
             Event event = new Event(description, fromDate, toDate);
             storage.add(event);
+            saveTasks();
             System.out.println("Ok! I've added this event: " + event);
             System.out.println("Now you have " + storage.size() + " tasks in your list.");
         }
@@ -264,6 +201,26 @@ public class Duke {
             System.out.println("Invalid input format for event. Please provide a valid date/time.");
         }
     }
+
+    private static void handleRemove(String input) {
+        String[] splitParts = input.split(" ");
+        if (splitParts.length < 2) {
+            System.out.println("Please specify which task number you want to remove!");
+            return;
+        }
+
+        try {
+            int index = Integer.parseInt(splitParts[1]) - 1;
+            Task removedTask = storage.remove(index);
+            saveTasks();
+            System.out.println("Ok! I have removed this task from your list:\n  " + removedTask);
+            System.out.println("Now you have " + storage.size() + " tasks in your list.");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            System.out.println("Invalid task number. Please refer to your to-do list again.");
+        }
+    }
+
+    //PERFORMING CHECKS
 
     /**
      * Validates the input format for creating Deadlines.
@@ -294,20 +251,43 @@ public class Duke {
         return splitParts.length > 1;
     }
 
-    private static void handleRemove(String input) {
-        String[] splitParts = input.split(" ");
-        if (splitParts.length < 2) {
-            System.out.println("Please specify which task number you want to remove!");
+    //TO SAVE FILES
+
+    private static void createFolder() {
+        Path folder = Paths.get("./data/");
+        if (Files.notExists(folder)) {
+            try {
+                Files.createDirectories(folder);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void saveTasks() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH))) {
+            for (Task task : storage) {
+                writer.write(task.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadFile() {
+        File file = new File(FILEPATH);
+        if (!file.exists()) {
             return;
         }
 
-        try {
-            int index = Integer.parseInt(splitParts[1]) - 1;
-            Task removedTask = storage.remove(index);
-            System.out.println("Ok! I have removed this task from your list:\n  " + removedTask);
-            System.out.println("Now you have " + storage.size() + " tasks in your list.");
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number. Please refer to your to-do list again.");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                storage.add(new Task(line));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
