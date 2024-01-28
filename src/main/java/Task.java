@@ -1,7 +1,6 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-
     protected String doneIcon;
 
     public Task(String description) {
@@ -45,7 +44,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        return getDoneIcon() + getDescription();
+        return getDoneIcon() + " " + getDescription();
     }
 
 
