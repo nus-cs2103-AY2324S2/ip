@@ -5,7 +5,7 @@ public class Todo extends Task{
 
     @Override
     public String toString() {
-        return "[T][" + this.getStatus() + "] " + this.desc;
+        return "[T]" + super.toString();
     }
 }
 

@@ -1,7 +1,7 @@
 abstract public class Task {
     protected final String desc;
     private boolean isCompleted;
-    Task(String taskName) {
+    public Task(String taskName) {
         this.desc = taskName;
         this.isCompleted = false;
     }
@@ -9,13 +9,14 @@ abstract public class Task {
     public void markAsComplete() {
         this.isCompleted = true;
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.toString());
+        System.out.println(this.toString() + "\n");
     }
 
     public void markAsIncomplete() {
         this.isCompleted = false;
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.toString());
+        System.out.println(this.toString() + "\n");
+
     }
 
     public String getStatus() {
@@ -26,6 +27,6 @@ abstract public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatus() + "]" + this.desc;
+        return "[" + this.getStatus() + "] " + this.desc;
     }
 }
