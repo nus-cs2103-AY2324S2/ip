@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Taylor {
     enum Activity {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, SEARCH, INVALID
     }
 
     public static void main(String[] args) {
@@ -23,8 +23,6 @@ public class Taylor {
             for (Action act : listing) {
                 System.out.println(pos++ + ". " + act);
             }
-
-
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
             System.out.println("Please create file in " + System.getProperty("user.dir"));
@@ -81,6 +79,13 @@ public class Taylor {
                     case DELETE:
                         try {
                             DeleteTask.exec(input, listing);
+                        } catch (DukeException err) {
+                            System.out.println("Error: " + err.getMessage());
+                        }
+                        break;
+                    case SEARCH:
+                        try {
+                            SearchTask.exec(act[1], listing);
                         } catch (DukeException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
