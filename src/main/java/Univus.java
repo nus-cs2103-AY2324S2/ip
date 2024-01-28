@@ -37,7 +37,7 @@ public class Univus {
             try {
                 int index = Integer.parseInt(message.split(" ")[1]);
 
-                if (index > store.size()) {
+                if (index > store.size() || index < 1) {
                     throw new UnivusException("OOPS!!! Wrong Index!");
                 }
                 Task task = store.get(index - 1);
@@ -58,7 +58,7 @@ public class Univus {
         } else if (message.matches("unmark\\s\\d+")) {
             try {
                 int index = Integer.parseInt(message.split(" ")[1]);
-                if (index > store.size()) {
+                if (index > store.size() || index < 1) {
                     throw new UnivusException("OOPS!!! Wrong Index!");
                 }
                 Task task = store.get(index - 1);
@@ -127,6 +127,24 @@ public class Univus {
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("\t" + event.toString());
+                    System.out.println("Now you have " + store.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                }
+            } catch (UnivusException error) {
+                System.out.println("____________________________________________________________");
+                System.out.println(error.getMessage());
+                System.out.println("____________________________________________________________");
+            }
+        } else if (message.matches("delete\\s\\d+")) {
+            try {
+                int index = Integer.parseInt(message.split(" ")[1]);
+                if (index > store.size() || index < 1) {
+                    throw new UnivusException("OOPS!!! Wrong Index!");
+                } else {
+                    Task task = store.remove(index - 1);
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Noted. I've removed this task:");
+                    System.out.println("\t" + task.toString());
                     System.out.println("Now you have " + store.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
