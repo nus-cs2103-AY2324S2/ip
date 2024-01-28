@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Storage <T> {
+public class Storage <T extends FileFormattable> implements FileFormattable {
     private final ArrayList<T> storage;
 
     public Storage() {
@@ -28,12 +28,21 @@ public class Storage <T> {
     public int getSize() {
         return this.storage.size();
     }
-
-    public void listItem() {
+    @Override
+    public String toString() {
+        String res = "";
         for(int i = 0; i < this.storage.size(); ++i) {
-            final String output = String.format("%d. %s", i + 1,
-                    this.storage.get(i).toString());
-            System.out.println(output);
+            res = String.format("%s\n%d. %s", res, i + 1, this.storage.get(i).toString());
         }
+        return res;
+    }
+
+    @Override
+    public String toFileFormat() {
+        String res = "";
+        for (T item : this.storage) {
+            res = String.format("%s\n%s", res, item.toFileFormat());
+        }
+        return res;
     }
 }

@@ -30,7 +30,10 @@ public class Parser {
             if (!input.contains("/by ")) {
                 return null;
             } else {
-                return input.split("/by ");
+                final String[] res = input.split("/by ");
+                res[0] = res[0].trim();
+                res[1] = res[1].trim();
+                return res;
             }
         }
     }
