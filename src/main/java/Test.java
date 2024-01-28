@@ -8,8 +8,14 @@ public class Test {
 
         while (true) {
             String userInput = sc.nextLine();
-            String[] inputArray = userInput.split(" ");
-            String instruction = inputArray[0];
+            String[] inputArray = userInput.split(" ", 2);
+            String instruction = "", details = "";
+            if (inputArray.length > 1) {
+                instruction = inputArray[0];
+                details = inputArray[1];
+            } else {
+                instruction = inputArray[0];
+            }
             switch (instruction) {
                 case "bye":
                     bot.exit();
@@ -26,7 +32,7 @@ public class Test {
                     bot.markTaskIncomplete(incompleteTask);
                     break;
                 default:
-                    bot.storeUserTask(userInput);
+                    bot.createNewTask(instruction, details);
             }
         }
     }

@@ -1,8 +1,8 @@
-public class Task {
-    private String desc;
+abstract public class Task {
+    protected final String desc;
     private boolean isCompleted;
-    Task(String input) {
-        this.desc = input;
+    Task(String taskName) {
+        this.desc = taskName;
         this.isCompleted = false;
     }
 
@@ -18,12 +18,14 @@ public class Task {
         System.out.println("  " + this.toString());
     }
 
+    public String getStatus() {
+        return this.isCompleted
+                ? "X"
+                : " ";
+    }
+
     @Override
     public String toString() {
-        if (isCompleted) {
-            return "[X] " + this.desc;
-        } else {
-            return "[] " + this.desc;
-        }
+        return "[" + this.getStatus() + "]" + this.desc;
     }
 }
