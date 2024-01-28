@@ -6,7 +6,17 @@ import duke.storage.TaskList;
 import duke.ui.Cli;
 import duke.ui.Ui;
 
+/**
+ * The Duke class provides the Duke chatbot application
+ *
+ * @author Ryan NgWH
+ */
 public class Duke {
+    /**
+     * File to save storage to
+     */
+    public static final File SAVE_FILE = new File("data/tasks.json");
+
     /**
      * Task list for the Duke instance
      */
@@ -16,11 +26,6 @@ public class Duke {
      * UI of the Duke instance
      */
     private Ui ui;
-
-    /**
-     * File to save storage to
-     */
-    public static final File SAVE_FILE = new File("data/tasks.json");
 
     /**
      * Create a Duke instance

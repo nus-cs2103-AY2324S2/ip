@@ -36,7 +36,7 @@ public abstract class Command {
     /**
      * Executes the command
      *
-     * @param tasklist Tasklist used for the command
+     * @param taskList Tasklist used for the command
      * @param ui       UI used for the command
      */
     public abstract void execute(TaskList taskList, Ui ui) throws DukeException;

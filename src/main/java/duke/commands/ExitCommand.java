@@ -20,7 +20,7 @@ public class ExitCommand extends Command {
     /**
      * Executes the exit command
      *
-     * @param tasklist Tasklist used for the command
+     * @param taskList Tasklist used for the command
      * @param ui       UI used for the command
      */
     @Override

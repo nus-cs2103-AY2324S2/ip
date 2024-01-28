@@ -7,12 +7,12 @@ package duke.exceptions;
  * @author Ryan NgWH
  */
 public class DukeException extends Exception {
-	/**
-	 * Creates a DukeException
-	 *
-	 * @param errorMessage Error message
-	 */
-	public DukeException(String errorMessage) {
-		super(errorMessage);
-	}
+    /**
+     * Creates a DukeException
+     *
+     * @param errorMessage Error message
+     */
+    public DukeException(String errorMessage) {
+        super(errorMessage);
+    }
 }

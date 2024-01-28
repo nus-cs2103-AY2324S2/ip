@@ -8,8 +8,7 @@ import duke.parser.Parser;
 import duke.storage.TaskList;
 
 /**
- * The UI CLI class handles the displaying of UI elements in
- * the application
+ * The UI CLI class handles the displaying of UI elements in the application
  *
  * @author Ryan NgWH
  */
