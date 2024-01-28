@@ -1,19 +1,19 @@
 package taskstorage;
 
-import task.Task;
-
-import nicoleexceptions.NicoleException;
-
-import userrequests.Request;
-
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import nicoleexceptions.NicoleException;
+
+import task.Task;
+import userrequests.Request;
+
 public class TaskList {
-    public static final List<Task> taskList = new ArrayList<>();
+    protected static final List<Task> taskList = new ArrayList<>();
     private final Storage storage;
 
     /**
@@ -81,6 +81,27 @@ public class TaskList {
             throw new NicoleException("I couldn't save the task >< try again plss");
         }
         System.out.println("Nicole: Oki I added " + "\"" + newTask.toString().substring(7) + "\"");
+    }
+
+    /**
+     * Searches for a task using a specific keyword.
+     *
+     * @param name the keyword.
+     * @throws NicoleException if there are no matching tasks.
+     */
+    public void findTasks(String name) throws NicoleException {
+        int numMatchingTasks = 0;
+        System.out.println("Nicole: Let me see..");
+        for (int i = 0; i < TaskList.taskList.size(); i++) {
+            if (TaskList.taskList.get(i).contains(name)) {
+                System.out.println((i + 1) + ". " + taskList.get(i));
+                numMatchingTasks += 1;
+            }
+        }
+
+        if (numMatchingTasks == 0) {
+            throw new NicoleException("Sorry I couldn't find any matching tasks");
+        }
     }
 
     /**
