@@ -4,15 +4,15 @@ public class Charlie {
         System.out.println("Hello, I'm Charlie");
         System.out.println("What can I do for you?");
 
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-
         while (true) {
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+            } else {
+                System.out.println(input);
             }
-            break;
         }
     }
 }
