@@ -18,6 +18,9 @@ public class Task {
         this.isDone = false;
     }
 
+    public String command() {
+        return "How did you get here?";
+    }
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

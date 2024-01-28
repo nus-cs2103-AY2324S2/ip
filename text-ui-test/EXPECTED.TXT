@@ -4,6 +4,10 @@
      Whaaat can I do for you?
     ____________________________________________________________
 
+Folder does not exist. Creating folder...
+List created successfully at: C:\Users\Admin\Desktop\CS2103\cs2103-ip\text-ui-test\src\main\java\data\list.txt
+Initializing saved file...
+Done!
     You:
     Lamball
     ____________________________________________________________

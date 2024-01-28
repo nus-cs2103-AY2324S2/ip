@@ -1,9 +1,11 @@
-
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Lamball {
@@ -51,6 +53,7 @@ public class Lamball {
         }
         Task temp = tasks.get(idx);
         temp.mark();
+        replaceLine("1 | " + temp.command(), idx);
         if (!isInit) {
             System.out.println(indent + "    I have maaarked the task as done:\n");
             System.out.println("        " + temp.toString() + "\n" + indent);
@@ -70,6 +73,7 @@ public class Lamball {
         System.out.println(indent + "    I have maaarked the task as undone:\n" + indent);
         Task temp = tasks.get(idx);
         temp.unMark();
+        replaceLine("0 | " + temp.command(), idx);
         System.out.println("        " + temp.toString() + "\n" + indent);
     }
 
@@ -83,6 +87,7 @@ public class Lamball {
         if (!isInit) {
             System.out.println(indent + "    Added ToDo:\n        " + temp.toString() + "\n    Now you have " + tasks.size()
                     + " tasks in the list.\n" + indent);
+            writeToFile("0 | " + temp.command());
         }
     }
     private void deadline(String[] parts, boolean isInit) throws LamballParseException {
@@ -100,6 +105,7 @@ public class Lamball {
         if (!isInit) {
             System.out.println(indent + "    Added Deadline:\n        " + temp.toString() + "\n    Now you have " +
                     tasks.size() + " tasks in the list.\n" + indent);
+            writeToFile("0 | " + temp.command());
         }
     }
 
@@ -120,6 +126,7 @@ public class Lamball {
         if (!isInit) {
             System.out.println(indent + "    Added Event:\n        " + temp.toString() + "\n    Now you have "
                     + tasks.size() + " tasks in the list.\n" + indent);
+            writeToFile("0 | " + temp.command());
         }
     }
 
@@ -135,6 +142,7 @@ public class Lamball {
         }
         System.out.println(indent + "    I have removed this taaask:");
         Task temp = tasks.remove(idx);
+        deleteLine(idx);
         System.out.println("        " + temp.toString());
         System.out.println("    Now you have " + tasks.size() + " tasks in the list.\n" + indent);
     }
@@ -200,10 +208,26 @@ public class Lamball {
         }
     }
 
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(textToAdd + System.lineSeparator());
-        fw.close();
+    private static void writeToFile(String filePath, String toAdd) {
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
+            fw.write(toAdd + System.lineSeparator());
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Save Failed: " + e.getMessage());
+        }
+    }
+    private static void writeToFile(String toAdd) {
+        String filePath = "src/main/java/data/list.txt";
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
+            fw.write(toAdd + System.lineSeparator());
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Save Failed: " + e.getMessage());
+        }
     }
 
     private void initializeListFromText() throws FileNotFoundException {
@@ -240,14 +264,61 @@ public class Lamball {
             } catch (LamballParseException e) {
                 // Ignores line
                 System.out.println("Corrupt format, ignoring...");
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
         scanner.close();
         System.out.println("Done!");
         savedList.delete();
         tempFile.renameTo(savedList);
+    }
+
+    public static void replaceLine(String toWrite, int index) {
+        String filePath = "src/main/java/data/list.txt";
+//        System.out.println(toWrite);
+//        System.out.println(index);
+        try {
+            // Read all lines from the file
+            Path path = Paths.get(filePath);
+            List<String> lines = Files.readAllLines(path);
+
+            // Check if the index is valid
+            if (index >= 0 && index < lines.size()) {
+                // Replace the line at the specified index
+                lines.set(index, toWrite);
+
+                // Write the modified content back to the file
+                Files.write(path, lines);
+
+//                System.out.println("Line " + index + " replaced successfully.");
+            } else {
+//                System.err.println("aaaaaaa");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void deleteLine(int index) {
+        String filePath = "src/main/java/data/list.txt";
+        try {
+            // Read all lines from the file
+            Path path = Paths.get(filePath);
+            List<String> lines = Files.readAllLines(path);
+
+            // Check if the index is valid
+            if (index >= 0 && index < lines.size()) {
+                // Remove the line at the specified index
+                lines.remove(index);
+
+                // Write the modified content back to the file
+                Files.write(path, lines);
+
+//                System.out.println("Line " + index + " deleted successfully.");
+            } else {
+                System.err.println("Invalid line number.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

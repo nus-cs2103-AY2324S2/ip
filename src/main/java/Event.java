@@ -7,6 +7,10 @@ public class Event extends Task{
         this.to = to;
     }
     @Override
+    public String command() {
+        return "event " + description + " /from " + from + " /to " + to;
+    }
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
