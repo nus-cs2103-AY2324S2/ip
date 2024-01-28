@@ -42,11 +42,19 @@ public class TaskList {
             + "Now you have " + this.tasks.size() + " items in your list!\n";
         return toPrint;
     }
-
+    
+    /**
+     * Saves current state of the task list into the log.
+     */
     public void saveTaskList() {
         this.manager.writeLog(this.tasks);
     }
-
+    
+    /**
+     * Deletes the task at index i.
+     *
+     * @param i Index to delete the task at.
+     */
     public void deleteTask(int i) {
         Task deleted = this.tasks.remove(i);
         String printOut = "_________________________\n"
@@ -58,6 +66,11 @@ public class TaskList {
         this.saveTaskList();
     }
 
+    /**
+     * Adds task to the task list.
+     *
+     * @param t The task to add.
+     */
     public void addTask(Task t) {
         this.tasks.add(t);
         String toPrint = "_________________________\n"
@@ -72,6 +85,11 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param idx The index to mark the task done.
+     */
     public void markTask(int idx) {
         Task focusTask = this.tasks.get(idx);
         focusTask.mark();
@@ -82,7 +100,12 @@ public class TaskList {
         System.out.println(printOut);
         this.saveTaskList();
     }
-
+    
+    /**
+     * Marks a task as not completed.
+     *
+     * @param idx The index to unmark the task done.
+     */
     public void unmarkTask(int idx) {
         Task focusTask = this.tasks.get(idx);
         focusTask.unmark();
@@ -93,7 +116,10 @@ public class TaskList {
         System.out.println(printOut);
         this.saveTaskList();
     }
-
+    
+    /**
+     * Prints current tasks in the list as well as their respective states.
+     */
     public void showTaskList() {
         System.out.println("_________________________\n"
             + "Get off your ass and starting doing work!" + "\n");

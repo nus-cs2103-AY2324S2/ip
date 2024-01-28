@@ -10,7 +10,13 @@ import duke.exceptions.InvalidParametersException;
 import duke.exceptions.InvalidTaskException;
 
 public class Parser {
-
+  /**
+   * Parses command from array.
+   *
+   * @param arr The array to parse.
+   * @return A correct command enum assigned to the array.
+   * @throws InvalidTaskException When the command does not match any of the enums.
+   */
     public static UI.Command getCommand(String[] arr) throws InvalidTaskException {
         switch (arr[0]) {
         case "bye":
@@ -34,6 +40,14 @@ public class Parser {
         }
     }
 
+  /**
+   * Generates the index with respect to a zero-indexed task array.
+   *
+   * @param s The index in question.
+   * @param bounds The bounds of the task array.
+   * @return The correct index with respect to the task array.
+   * @throws HistoryIndexException The index is invalid.
+   */
     public static Integer checkIndexGiven(String s, int bounds) throws HistoryIndexException {
         Integer parsed = Integer.parseInt(s);
         if (parsed <= 0 || parsed > bounds) {
@@ -41,7 +55,14 @@ public class Parser {
         }
         return parsed - 1;
     }
-
+  
+  /**
+   * Extracts description data from an array.
+   *
+   * @param descriptionArray The array that holds description data to parse.
+   * @return An array representing the extracted data from the description array.
+   * @throws InvalidInputException The given input has something wrong (Parameter wise or command wise).
+   */
     public static String[] extractDescriptionData(String[] descriptionArray) throws
             InvalidInputException {
         String[] ret = new String[3];
@@ -99,6 +120,14 @@ public class Parser {
         return ret;
     }
 
+  /**
+   * Takes in a potential date and parses it into a LocalDateTime format.
+   *
+   * @param potential_date The String version of the input date.
+   * @return A LocalDateTime version of the input.
+   * @throws InvalidDateTimeException Thrown when there is something wrong with converting the
+   *  user's input into a LocalDateTime.
+   */
     public static LocalDateTime parseDate(String potentialDate) throws InvalidDateTimeException {
         String time;
         Integer year;
