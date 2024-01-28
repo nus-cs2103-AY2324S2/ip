@@ -1,3 +1,11 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -50,10 +58,76 @@ public class Duke {
             return subStr;
         }
     }
+
+    /**
+     * Return the list of task that were saved previously.
+     * @param fileName Name of the file.
+     * @return A list of tasks.
+     */
+    public static List<Task> getInputFromFile(String fileName) {
+        List<Task> lst = new ArrayList<>();
+        try {
+            File file = new File(fileName);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String str = sc.nextLine();
+                String[] subStr = str.split("\\| ");
+                if (subStr[0].trim().equalsIgnoreCase("T")) {
+                    Todo todo = new Todo(subStr[2]);
+                    if (subStr[1].trim().equalsIgnoreCase("1")) {
+                        todo.isCompleted();;
+                    } else {
+                        todo.isNotCompleted();
+                    }
+                    lst.add(todo);
+                } else if (subStr[0].trim().equalsIgnoreCase("D")) {
+                    Deadline deadline = new Deadline(subStr[2], subStr[3]);
+                    if (subStr[1].trim().equalsIgnoreCase("1")) {
+                        deadline.isCompleted();;
+                    } else {
+                        deadline.isNotCompleted();
+                    }
+                    lst.add(deadline);
+                } else if (subStr[0].trim().equalsIgnoreCase("E")) {
+                    Event event = new Event(subStr[2], subStr[3], subStr[4]);
+                    if (subStr[1].trim().equalsIgnoreCase("1")) {
+                        event.isCompleted();;
+                    } else {
+                        event.isNotCompleted();
+                    }
+                    lst.add(event);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Chat history are not present!");
+        }
+        return lst;
+    }
+
+    /**
+     * Write/Update/Delete task in the file.
+     * @param lst A list of tasks.
+     * @param fileName Name of the file.
+     * @throws IOException throw exception if there is an issue updating the file.
+     */
+    public static void writeDataToFile(List<Task> lst, String fileName) throws IOException {
+        try {
+            File file = new File(fileName);
+            FileWriter fw = new FileWriter(file);
+            for (Task task : lst) {
+                fw.write(task.toFile() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            Files.createDirectories(Paths.get("./data"));
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm GHBot");
         System.out.println("What can I do for you?");
-        List<Task> lst = new ArrayList<>();
+        String fileName = "./data/history.txt";
+        List<Task> lst = getInputFromFile(fileName);
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -110,13 +184,15 @@ public class Duke {
                     lst.add(event);
                     System.out.println("Got it. I've added this task:\n" + event);
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
+
                 } else if (instr.equalsIgnoreCase(Instruction.DELETE.toString())) {
                     int lstNo = Integer.parseInt(subStr[1]);
                     System.out.println("Noted. I've removed this task:\n" + lst.get(lstNo - 1));
                     lst.remove(lstNo - 1);
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
                 }
-            } catch (DukeException e){
+                writeDataToFile(lst, fileName);
+            } catch (DukeException | IOException e) {
                 System.out.println(e.getMessage());
             }
         }
