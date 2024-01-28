@@ -1,3 +1,5 @@
+package pan;
+
 import java.util.Scanner;
 
 public class Pan {

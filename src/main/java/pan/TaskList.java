@@ -1,8 +1,10 @@
+package pan;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import enums.TaskStatus;
+import pan.enums.TaskStatus;
 
 class TaskList {
     private List<Task> tasks;

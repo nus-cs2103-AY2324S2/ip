@@ -1,7 +1,8 @@
+package pan;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-import enums.TaskStatus;
+import pan.enums.TaskStatus;
 
 class Deadlines extends Task {
     private LocalDate byDate;

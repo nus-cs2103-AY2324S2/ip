@@ -1,14 +1,15 @@
+package pan;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-import enums.TaskStatus;
+import pan.enums.TaskStatus;
 
 class Events extends Task {
 
     private LocalDate from;
     private LocalDate to;
 
-    public Events(String description, TaskStatus isDone, LocalDate from, LocalDate to) {
+    public Events(String description, pan.enums.TaskStatus isDone, LocalDate from, LocalDate to) {
         super(description, isDone);
         this.from = from;
         this.to = to;

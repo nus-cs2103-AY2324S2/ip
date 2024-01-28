@@ -1,4 +1,6 @@
-import enums.TaskStatus;
+package pan;
+
+import pan.enums.TaskStatus;
 
 class ToDos extends Task{
     public ToDos(String description, TaskStatus isDone) {

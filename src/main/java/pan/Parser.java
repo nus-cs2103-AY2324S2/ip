@@ -1,8 +1,10 @@
+package pan;
+
 import java.util.Scanner;
-import enums.Commands;
-import enums.TaskStatus;
-import exceptions.InternalTestCases;
-import exceptions.TaskIndexException;
+import pan.enums.Commands;
+import pan.enums.TaskStatus;
+import pan.exceptions.InternalTestCases;
+import pan.exceptions.TaskIndexException;
 
 class Parser { 
     private Ui ui;

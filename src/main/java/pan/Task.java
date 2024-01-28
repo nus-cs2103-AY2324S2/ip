@@ -1,6 +1,8 @@
-import enums.TaskStatus;
+package pan;
 
-class Task {
+import pan.enums.TaskStatus;
+
+public class Task {
     private String description;
     private TaskStatus isDone;
 

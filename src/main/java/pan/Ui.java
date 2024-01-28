@@ -1,3 +1,5 @@
+package pan;
+
 public class Ui {
 
     public Ui() {}
