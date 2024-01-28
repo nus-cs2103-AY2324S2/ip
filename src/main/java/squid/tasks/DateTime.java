@@ -66,7 +66,7 @@ public class DateTime {
             } catch (DateTimeParseException e) {
                 try{
                     return LocalDate.parse(date);
-                } catch (DateTimeParseException f) {
+                } catch (DateTimeParseException ignored) {
                 }
             }
         }
