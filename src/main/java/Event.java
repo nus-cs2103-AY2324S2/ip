@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String name, String from, String to) {
+    public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name);
         this.from = from;
         this.to = to;
@@ -11,12 +14,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) +
+                " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
     }
 
     @Override
     public String addToFile() {
-        return "E | " + super.addToFile() + " | " + from + " | " + to + "\n";
+        return "E | " + super.addToFile() + " | " + from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) +
+                " | " + to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + "\n";
     }
 
 }
