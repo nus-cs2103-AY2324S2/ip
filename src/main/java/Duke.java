@@ -298,7 +298,7 @@ public class Duke {
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new DukeException("OOPS!!! Invalid command format.");
         }
-        saveTasksToFile();
+        saveTasksToFile(); // 
     }
 
     private static void listTasks() {
