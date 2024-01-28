@@ -9,8 +9,8 @@ public class Replies {
     public static final String EXCEEDED_MAX_NUMBER_OF_TASKS = "not enough brain power";
     public static final String ADD = "added: %s";
 
-    public static final String MARK_HEADER = "Nice! I've marked this task as done:";
-    public static final String UNMARK_HEADER = "OK, I've marked this task as not done yet:";
+    public static final String MARK_HEADER = "good job!";
+    public static final String UNMARK_HEADER = "ok you just undid this task";
 
     public static final String EXIT = "ok";
 
