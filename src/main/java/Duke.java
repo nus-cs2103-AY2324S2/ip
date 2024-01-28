@@ -10,10 +10,15 @@ public class Duke {
         System.out.printf("Hello! I'm %s\n", NAME);
         System.out.println("What can I do for you?");
         System.out.println(duplicateChar('_', BORDER_LEN));
+    }
+
+    private static void userFarewell() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(duplicateChar('_', BORDER_LEN));
     }
+
     public static void main(String[] args) {
         userGreeting();
+        userFarewell();
     }
 }
