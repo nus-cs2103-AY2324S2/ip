@@ -1,3 +1,4 @@
+package campus;
 /**
  * Contains the logic for the ChatBot named 'Campus'
  */
@@ -22,6 +23,6 @@ public class Campus {
      * Main Driver Logic of the Campus Class which handles user inputs and sorts them into cases
      */
     public static void main(String[] args) {
-        new Campus("src/main/java/data.txt").run();
+        new Campus("src/main/java/campus/data.txt").run();
     }
 }

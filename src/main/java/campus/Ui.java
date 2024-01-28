@@ -1,3 +1,5 @@
+package campus;
+
 /**
  * Deals with interactions with the User
  */
