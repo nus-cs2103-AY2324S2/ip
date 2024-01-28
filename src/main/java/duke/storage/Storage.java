@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,10 +17,11 @@ import org.json.JSONTokener;
 import duke.exceptions.InvalidArgumentException;
 import duke.exceptions.MissingArgumentException;
 import duke.exceptions.TaskNotSupportedException;
+import duke.parser.Parser;
 import duke.storage.Task.TaskType;
 
 /**
- * The UI CLI class handles storing of elements required for
+ * The Storage class handles storing of elements required for
  * the application
  *
  * @author Ryan NgWH
@@ -85,7 +84,7 @@ public class Storage {
                 String time = arguments[byIndex + 2];
 
                 // Create new task
-                task = new Deadline(description, userDateToInstant(date, time));
+                task = new Deadline(description, Parser.userDateToInstant(date, time));
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                 throw new InvalidArgumentException(
                         "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
@@ -129,7 +128,8 @@ public class Storage {
                 String toTime = arguments[toIndex + 2];
 
                 // Create new task
-                task = new Event(description, userDateToInstant(fromDate, fromTime), userDateToInstant(toDate, toTime));
+                task = new Event(description, Parser.userDateToInstant(fromDate, fromTime),
+                        Parser.userDateToInstant(toDate, toTime));
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                 throw new InvalidArgumentException(
                         "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD HH:MM'");
@@ -165,7 +165,7 @@ public class Storage {
             case "/date":
                 try {
                     // Get date of argument
-                    Instant date = userDateToInstant(arguments[1], "00:00");
+                    Instant date = Parser.userDateToInstant(arguments[1], "00:00");
                     int printIndex = 1;
 
                     for (int i = 0; i < storageArray.size(); i++) {
@@ -350,23 +350,5 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("WARNING: File not found, stored tasks will not be loaded");
         }
-    }
-
-    /**
-     * Converts user input date (in format 'YYYY/MM/DD hh:mm')
-     *
-     * @param date Date to be converted (in format 'YYYY/MM/DD')
-     * @param time Time to be converted (in format 'hh:mm')
-     *
-     * @return Instant of the specified datetime
-     */
-    private static Instant userDateToInstant(String date, String time) throws NumberFormatException {
-        return LocalDateTime.of(
-                Integer.parseInt(date.substring(0, 4)),
-                Integer.parseInt(date.substring(5, 7)),
-                Integer.parseInt(date.substring(8, 10)),
-                Integer.parseInt(time.substring(0, 2)),
-                Integer.parseInt(time.substring(3, 5)))
-                .toInstant(OffsetDateTime.now().getOffset());
     }
 }
