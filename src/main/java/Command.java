@@ -8,16 +8,22 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Command {
-//    public static final String FILE_LOCATION = "data/duke.txt";
+    public static String convertDateFormat(String date) {
+        LocalDate temp;
+        DateTimeFormatter readDateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        temp = LocalDate.parse(date, readDateFormat);
+        String formattedString = temp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        System.out.println(formattedString);
+        return formattedString;
+    }
 
     public static Task parse(String inputCommand) {
         String[] tokens = inputCommand.split(" \\| ");
-//        for (int i = 0; i < tokens.length; i++) {
-//            tokens[i].trim();
-//        }
         String taskType = tokens[0];
         boolean isDone = tokens[1].equals("O");
         String description = tokens[2];
@@ -28,7 +34,7 @@ public class Command {
                 task = new Todo(description, isDone);
                 break;
             case "D":
-                String deadlineBy = tokens[3];
+                String deadlineBy = convertDateFormat(tokens[3]);
                 task = new Deadline(description, deadlineBy, isDone);
                 break;
             case "E":
