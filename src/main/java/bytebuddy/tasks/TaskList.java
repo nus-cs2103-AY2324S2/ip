@@ -57,7 +57,7 @@ public class TaskList {
             }
             String markToPrint = taskList.get(markIndex).markAsDone();
             printWithSolidLineBreak(markToPrint);
-            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
             throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
         } catch (IOException e) {
@@ -74,7 +74,7 @@ public class TaskList {
             }
             String unmarkToPrint = taskList.get(unmarkIndex).unmarkAsDone();
             printWithSolidLineBreak(unmarkToPrint);
-            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
             throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
         } catch (IOException e) {
@@ -90,7 +90,7 @@ public class TaskList {
             }
             Task removed = taskList.remove(deleteIndex);
             printTaskRemovedWithSolidLineBreak(removed);
-            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
             throw new DukeException(NUMBER_FORMAT_ERROR_MESSAGE);
         } catch (IOException e) {
@@ -107,7 +107,7 @@ public class TaskList {
             taskList.add(todo);
             printTaskAddedWithSolidLineBreak(todo);
 
-            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
         } catch (IOException e) {
             throw new DukeException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
         }
@@ -123,7 +123,7 @@ public class TaskList {
             taskList.add(deadline);
             printTaskAddedWithSolidLineBreak(deadline);
 
-            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The correct usage is: " + DEADLINE_FORMAT);
         } catch (IOException e) {
@@ -142,7 +142,7 @@ public class TaskList {
             taskList.add(event);
             printTaskAddedWithSolidLineBreak(event);
 
-            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, TaskListFormattedStringOutput(taskList));
+            writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The correct usage is: " + EVENT_FORMAT);
         } catch (IOException e) {
@@ -158,10 +158,10 @@ public class TaskList {
         System.out.println("\t" + solidLineBreak);
     }
 
-    public String TaskListFormattedStringOutput (ArrayList<Task> taskList) {
+    public String getTaskListFormattedStringOutput(ArrayList<Task> taskList) {
         StringBuilder s = new StringBuilder();
         for (Task task : taskList) {
-            s.append(task.textFormattedOutput()).append("\n");
+            s.append(task.getTextFormattedOutput()).append("\n");
         }
         return s.toString();
     }

@@ -11,7 +11,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String textFormattedOutput() {
+    public String getTextFormattedOutput() {
         int intIsDone = isDone ? 1 : 0;
         return String.format("T | %d | %s", intIsDone, description);
     }

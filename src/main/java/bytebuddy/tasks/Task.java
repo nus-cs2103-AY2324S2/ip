@@ -28,7 +28,7 @@ public class Task {
         return (isDone ? "✓" : "✕"); // mark done task with ✓
     }
 
-    public String textFormattedOutput() {
+    public String getTextFormattedOutput() {
         return "";
     }
 
