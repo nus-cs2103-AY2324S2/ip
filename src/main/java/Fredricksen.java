@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Fredricksen {
@@ -7,6 +8,49 @@ public class Fredricksen {
         System.out.println("What can I do for you?");
         System.out.println(line);
     }
+
+    public static void updateFile(ArrayList<Task> list) {
+        String filename = "./data/Fredricksen.txt";
+        File file = new File(filename);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+            if (list.size() == 0) {
+                file.delete();
+                return;
+            }
+            for (int i = 0; i < list.size(); i++) {
+                Task task = list.get(i);
+                String type = task.getType();
+                String content = task.getTask();
+                boolean isDone = task.getDone();
+                bw.write("type: " + type + " isDone: " + isDone + " content: " + content);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static ArrayList<Task> loadList() {
+        ArrayList<Task> list = new ArrayList<>();
+        String filename = "./data/Fredricksen.txt";
+        File file = new File(filename);
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String next;
+            while ((next = br.readLine()) != null) {
+                int type = next.indexOf("type: ");
+                int isDone = next.indexOf("isDone: ");
+                int content = next.indexOf("content: ");
+                String done = next.substring(isDone + 8, isDone + 9);
+                Task newTask = new Task(next.substring(content + 9), next.substring(type + 6, type + 7), done.equals("t"));
+                list.add(newTask);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        // read file, if have content, add to list, else leave list as empty.
+        return list;
+    }
+
     public static void listOfCommands() {
         System.out.println("You might have entered an invalid command!");
         System.out.println("Below are the available commands and formats to follow!");
@@ -24,9 +68,9 @@ public class Fredricksen {
         list, todo, deadline, event, mark, unmark, delete, bye
     }
     public static void main(String[] args) {
+        ArrayList<Task> list = loadList();
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
-        // ArrayList<Boolean> taskType = new ArrayList();
+        // ArrayList<Task> list = new ArrayList<>();
         String line = "____________________________________________________________";
         greeting(line);
         boolean loop = true;
@@ -161,6 +205,8 @@ public class Fredricksen {
                     listOfCommands();
                     break;
             }
+            // TODO
+            updateFile(list);
         }
         in.close();
     }
