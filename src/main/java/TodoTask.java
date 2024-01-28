@@ -3,6 +3,9 @@ public class TodoTask extends Task{
         super(name, done);
     }
 
+    public String getType() {
+        return "T";
+    }
     @Override
     public String toString() {
         return " [T]" + super.toString();

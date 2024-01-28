@@ -1,10 +1,15 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
     private static ArrayList<Task> list = new ArrayList<>();
+    private static HardDisk storage = new HardDisk("src/main/data/belleList.txt");
     public static void main(String[] args) {
+
         try {
+            list = storage.loadList();
+
             Scanner sc = new Scanner(System.in);
             boolean exit = false;
             String input = "";
@@ -54,10 +59,13 @@ public class Duke {
             sc.close();
         } catch (BelleException e) {
             System.out.println(e.toString());
+        } catch (IOException e) {
+            e.getStackTrace();
+
         }
     }
 
-    private static void addTaskList(String type, String msg) throws BelleException {
+    private static void addTaskList(String type, String msg) throws BelleException, IOException {
         Task curr;
         if (type.equals("todo")) {
             try {
@@ -91,6 +99,9 @@ public class Duke {
         System.out.println("Now you have " + Task.getTotalTask()+ " tasks in the list.");
         System.out.println("--------------------------");
         list.add(curr);
+        storage.save(list);
+
+
     }
 
     private static void greet() {
@@ -100,7 +111,7 @@ public class Duke {
         System.out.println("--------------------------");
     }
 
-    private static void mark(String index) throws BelleException {
+    private static void mark(String index) throws BelleException, IOException {
         try {
             Task doingtask = list.get(Integer.valueOf(index)-1);
             doingtask.dotask();
@@ -108,12 +119,13 @@ public class Duke {
             System.out.println("Nice! I have marked this task as done:");
             System.out.println(doingtask.toString());
             System.out.println("--------------------------");
+            storage.save(list);
         } catch (IndexOutOfBoundsException e){
             throw new BelleException("This is not a valid number in my task list :(");
         }
     }
 
-    private static void unmark(String index) throws BelleException {
+    private static void unmark(String index) throws BelleException, IOException {
         try {
             Task doingtask = list.get(Integer.valueOf(index)-1);
             doingtask.undotask();
@@ -121,12 +133,13 @@ public class Duke {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(doingtask.toString());
             System.out.println("--------------------------");
+            storage.save(list);
         } catch (IndexOutOfBoundsException e){
             throw new BelleException("This is not a valid number in my task list :(");
         }
     }
 
-    private static void delete(String index) throws BelleException{
+    private static void delete(String index) throws BelleException, IOException {
         try {
             Task deletetask = list.get(Integer.valueOf(index)-1);
             list.remove(Integer.parseInt(index) - 1);
@@ -137,10 +150,24 @@ public class Duke {
             System.out.println("Now you have "+ Task.getTotalTask() + " tasks in the list.");
             System.out.println("--------------------------");
             System.out.println(list.size());
+            storage.save(list);
         } catch (IndexOutOfBoundsException e){
             throw new BelleException("This is not a valid number in my task list :(");
         }
     }
+
 }
 
-//enquire about where to add javadocs comments. only public methods?
+
+//beginning
+//if there is a file read,
+//if not ignore
+
+// to read look at type, then add task to arraylist depending on type
+
+//methods that update are mark, unmark, delete, addtasklist
+//everytime update need to write type, done, name, start, end
+
+//everytime method call, loop through arraylist and based on type write to file
+//
+

@@ -9,6 +9,9 @@ public class DeadlineTask extends Task{
         return this.deadline;
     }
 
+    public String getType() {
+        return "D";
+    }
     @Override
     public String toString() {
         return " [D]" + super.toString() + " (by: " + deadline + ")";

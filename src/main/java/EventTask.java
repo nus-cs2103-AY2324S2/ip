@@ -2,6 +2,7 @@ public class EventTask extends Task{
 
     private String start;
     private String end;
+
     public EventTask(String name, boolean done, String start, String end) {
         super(name, done);
         this.start = start;
@@ -14,6 +15,9 @@ public class EventTask extends Task{
 
     public String getEnd() {
         return this.end;
+    }
+    public String getType() {
+        return "E";
     }
 
     @Override

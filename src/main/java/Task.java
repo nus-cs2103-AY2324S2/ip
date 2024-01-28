@@ -41,4 +41,12 @@ class Task {
     public static void subtractTotal() {
         totaltask -= 1;
     }
+
+    public String getType() {
+        return "general";
+    }
+
+    public String getDone() {
+        return Boolean.toString(this.done);
+    }
 }
