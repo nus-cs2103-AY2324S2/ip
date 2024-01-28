@@ -14,42 +14,94 @@ import static bytebuddy.constants.Information.solidLineBreak;
 import static bytebuddy.storage.Storage.writeToFile;
 import static bytebuddy.ui.Ui.printWithSolidLineBreak;
 
+/**
+ * The TaskList class represents a collection of tasks and provides methods to manipulate and interact with the task list.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
     // private static HashMap<String, Task> taskHashMap;
 
+    /**
+     * Constructs a new TaskList with an empty list of tasks.
+     */
     public TaskList() {
         taskList = new ArrayList<>();
     }
 
+    /**
+     * Returns the size of the task list.
+     *
+     * @return The size of the task list.
+     */
     public int size() {
         return taskList.size();
     }
 
+    /**
+     * Clears all tasks from the task list.
+     */
     public void clear() {
         taskList.clear();
     }
 
+    /**
+     * Checks if the task list contains a specific task.
+     *
+     * @param t The task to check for.
+     * @return true if the task list contains the specified task, false otherwise.
+     */
     public boolean contains(Task t) {
         return taskList.contains(t);
     }
 
+    /**
+     * Gets a task at a specified index in the task list.
+     *
+     * @param i The index of the task.
+     * @return The task at the specified index.
+     */
     public Task get(int i) {
         return taskList.get(i);
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param t The task to add.
+     * @return true if the task was added successfully, false otherwise.
+     */
     public boolean add(Task t) {
         return taskList.add(t);
     }
 
+    /**
+     * Removes a task at a specified index from the task list.
+     *
+     * @param index The index of the task to remove.
+     * @return The removed task.
+     */
     public Task remove(int index) {
         return taskList.remove(index);
     }
 
+    /**
+     * Splits a string into a list of trimmed substrings using a specified separator and maximum number of tokens.
+     *
+     * @param info       The input string to split.
+     * @param separator  The separator to use.
+     * @param maxTokens  The maximum number of tokens to split the string into.
+     * @return A list of trimmed substrings.
+     */
     public List<String> splitStringWithTrim(String info, String separator, int maxTokens) {
         return Arrays.stream(info.split(separator, maxTokens)).map(String::trim).collect(Collectors.toList());
     }
 
+    /**
+     * Marks a task as done in the task list based on user input.
+     *
+     * @param info The user input containing task information.
+     * @throws ByteBuddyException If an error occurs during the marking process.
+     */
     public void mark(String info) throws ByteBuddyException {
         try {
             int markIndex = Integer.parseInt(info.trim()) - 1;
@@ -67,6 +119,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Marks a task as not done in the task list based on user input.
+     *
+     * @param info The user input containing task information.
+     * @throws ByteBuddyException If an error occurs during the unmarking process.
+     */
     public void unmark(String info) throws ByteBuddyException {
         try {
             int unmarkIndex = Integer.parseInt(info.trim()) - 1;
@@ -83,6 +141,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list based on user input.
+     *
+     * @param info The user input containing task information.
+     * @throws ByteBuddyException If an error occurs during the deletion process.
+     */
     public void delete(String info) throws ByteBuddyException {
         try {
             int deleteIndex = Integer.parseInt(info.trim()) - 1;
@@ -99,6 +163,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new Todo task to the task list based on user input.
+     *
+     * @param info The user input containing task information.
+     * @throws ByteBuddyException If an error occurs during the task creation process.
+     */
     public void todo(String info) throws ByteBuddyException {
         try {
             if (info.isEmpty()) {
@@ -114,6 +184,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new Deadline task to the task list based on user input.
+     *
+     * @param info The user input containing task information.
+     * @throws ByteBuddyException If an error occurs during the task creation process.
+     */
     public void deadline(String info) throws ByteBuddyException {
         try {
             if (info.isEmpty()) {
@@ -132,6 +208,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new Event task to the task list based on user input.
+     *
+     * @param info The user input containing task information.
+     * @throws ByteBuddyException If an error occurs during the task creation process.
+     */
     public void event(String info) throws ByteBuddyException {
         try {
             if (info.isEmpty()) {
@@ -151,6 +233,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints the entire task list with a solid line break above and below the list.
+     * Each task is numbered, and its details are displayed in the format "[task_number].[task_details]".
+     */
     public void printTaskList() {
         System.out.println("\t" + solidLineBreak);
         for (int i = 0; i < taskList.size(); i++) {
@@ -159,6 +245,13 @@ public class TaskList {
         System.out.println("\t" + solidLineBreak);
     }
 
+    /**
+     * Formats the task list into a string with each task's formatted output on a new line
+     * for writing into output file.
+     *
+     * @param taskList The list of tasks to format.
+     * @return A string containing the formatted output of each task in the list.
+     */
     public String TaskListFormattedStringOutput (ArrayList<Task> taskList) {
         StringBuilder s = new StringBuilder();
         for (Task task : taskList) {
@@ -167,6 +260,12 @@ public class TaskList {
         return s.toString();
     }
 
+    /**
+     * Prints a solid line break, followed by a confirmation message for the added task,
+     * and the updated total number of tasks in the list.
+     *
+     * @param task The task that was added to the list.
+     */
     public void printTaskAddedWithSolidLineBreak(Task task) {
         System.out.println("\t" + solidLineBreak);
         System.out.println("\t Got it. I've Added this task:");
@@ -175,6 +274,12 @@ public class TaskList {
         System.out.println("\t" + solidLineBreak);
     }
 
+    /**
+     * Prints a solid line break, followed by a confirmation message for the removed task,
+     * and the updated total number of tasks in the list.
+     *
+     * @param task The task that was removed from the list.
+     */
     public void printTaskRemovedWithSolidLineBreak(Task task) {
         System.out.println("\t" + solidLineBreak);
         System.out.println("\t Noted. I've removed this task:");
