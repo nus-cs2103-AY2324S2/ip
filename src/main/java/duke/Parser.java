@@ -29,7 +29,7 @@ public class Parser {
             int count = 0;
             for (String param : parameters) {
                 if (!cmd.contains(param)) {
-                    throw new InvalidCmdException("Missing parameter: " + param + ".");
+                    throw new InvalidCmdException("Missing parameter: " + param);
                 }
                 if (count == 0) {
                     delimiter = delimiter.concat(param + " ");
