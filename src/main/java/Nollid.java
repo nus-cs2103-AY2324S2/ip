@@ -1,5 +1,9 @@
 import java.io.IOException;
 import java.nio.file.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner; // For reading user input
 import java.util.ArrayList; // For storing to-do tasks
 import java.util.Arrays;
@@ -275,12 +279,12 @@ public class Nollid {
         int byIndex = inputList.indexOf("/by");
         if (inputList.size() == 1 || byIndex == 1) {
             throw new DukeException("Deadline description cannot be empty!\n"
-                    + "Usage: deadline [task description] /by [deadline]");
+                    + Deadline.USAGE_HINT);
         }
 
         if (byIndex == inputList.size() - 1 || byIndex == -1) {
             throw new DukeException("Please input a deadline!\n"
-                    + "Usage: deadline [task description] /by [deadline]");
+                    + Deadline.USAGE_HINT);
         }
 
         StringBuilder taskDescription = new StringBuilder();
@@ -292,17 +296,23 @@ public class Nollid {
             }
         }
 
-        StringBuilder deadline = new StringBuilder();
+        StringBuilder deadlineString = new StringBuilder();
         for (int i = byIndex + 1; i < inputList.size(); i++) {
             if (i != inputList.size() - 1) {
-                deadline.append(inputList.get(i)).append(" ");
+                deadlineString.append(inputList.get(i)).append(" ");
             } else {
-                deadline.append(inputList.get(i));
+                deadlineString.append(inputList.get(i));
             }
         }
 
-        Deadline task = new Deadline(taskDescription.toString(), deadline.toString());
-        addTaskToList(task);
+        try {
+            LocalDateTime deadline = getLocalDateTimeFromString(deadlineString.toString());
+            Deadline task = new Deadline(taskDescription.toString(), deadline);
+            addTaskToList(task);
+        } catch (DateTimeParseException e) {
+            botSays("Unrecognized deadline format\n"
+                    + Deadline.USAGE_HINT);
+        }
     }
 
     /**
@@ -316,17 +326,17 @@ public class Nollid {
 
         if (userInputAsList.size() == 1 || fromIndex == 1 || toIndex == 1) {
             throw new DukeException("Event description cannot be empty!\n"
-                    + "Usage: event [task description] /from [start] /to [end]");
+                    + Event.USAGE_HINT);
         }
 
         if (fromIndex == -1 || fromIndex == userInputAsList.size() - 1 || fromIndex == toIndex - 1) {
             throw new DukeException("Please enter the start of your event!\n"
-                    + "Usage: event [task description] /from [start] /to [end]");
+                    + Event.USAGE_HINT);
         }
 
         if (toIndex == -1 || toIndex == userInputAsList.size() - 1 || toIndex == fromIndex - 1) {
             throw new DukeException("Please enter the end of your event!\n"
-                    + "Usage: event [task description] /from [start] /to [end]");
+                    + Event.USAGE_HINT);
         }
 
         StringBuilder taskDescription = new StringBuilder();
@@ -340,8 +350,17 @@ public class Nollid {
             extractEventInfo(userInputAsList, toIndex, fromIndex, taskDescription, to, from);
         }
 
-        Event task = new Event(taskDescription.toString(), from.toString(), to.toString());
-        addTaskToList(task);
+        try {
+            LocalDateTime fromDateTime = getLocalDateTimeFromString(from.toString());
+            LocalDateTime toDateTime = getLocalDateTimeFromString(to.toString());
+            Event task = new Event(taskDescription.toString(), fromDateTime, toDateTime);
+            addTaskToList(task);
+        } catch (DateTimeParseException e) {
+            botSays("Unrecognized start/end format\n"
+                    + Event.USAGE_HINT);
+        } catch (DukeException e) {
+            botSays(e.getMessage());
+        }
     }
 
     /**
@@ -455,16 +474,35 @@ public class Nollid {
                     String taskDescription = lineArray[2];
                     switch (lineArray[0]) {
                     case "T":
-                        taskToAdd = createTask(taskDescription);
+                        taskToAdd = new ToDo(taskDescription);
                         break;
                     case "D":
-                        String deadline = lineArray[3];
-                        taskToAdd = createTask(taskDescription, deadline);
+                        String deadlineString = lineArray[3];
+                        try {
+                            LocalDateTime deadline = getLocalDateTimeFromString(deadlineString);
+                            taskToAdd = new Deadline(taskDescription, deadline);
+                        } catch (DateTimeParseException e) {
+                            botSays("Unrecognized deadline format\n"
+                                    + Deadline.USAGE_HINT);
+                            continue;
+                        }
                         break;
                     case "E":
                         String from = lineArray[3];
                         String to = lineArray[4];
-                        taskToAdd = createTask(taskDescription, from, to);
+
+                        try {
+                            LocalDateTime fromDateTime = getLocalDateTimeFromString(from);
+                            LocalDateTime toDateTime = getLocalDateTimeFromString(to);
+                            taskToAdd = new Event(taskDescription, fromDateTime, toDateTime);
+                        } catch (DateTimeParseException e) {
+                            botSays("Unrecognized start/end format\n"
+                                    + Event.USAGE_HINT);
+                            continue;
+                        } catch (DukeException e) {
+                            botSays(e.getMessage());
+                            continue;
+                        }
                         break;
                     default:
                         // Unknown first character, go to next line
@@ -496,27 +534,6 @@ public class Nollid {
     }
 
     /**
-     * Returns a ToDo task with the specified description.
-     */
-    public static ToDo createTask(String description) {
-        return new ToDo(description);
-    }
-
-    /**
-     * Returns a Deadline task with the specified description and deadline.
-     */
-    public static Deadline createTask(String description, String deadline) {
-        return new Deadline(description, deadline);
-    }
-
-    /**
-     * Returns an Event task with the specified description, start, and end time.
-     */
-    public static Event createTask(String description, String start, String end) {
-        return new Event(description, start, end);
-    }
-
-    /**
      * Updates the database file on disk based on the current state of the task list.
      */
     public static void updateDatabaseFile() {
@@ -536,11 +553,12 @@ public class Nollid {
                 } else if (t instanceof Deadline) {
                     Deadline deadline = (Deadline) t;
                     lineToWrite = "D" + DELIMITER + deadline.getStatusNumber() + DELIMITER + deadline.getDescription()
-                            + DELIMITER + deadline.getDeadline() + "\n";
+                            + DELIMITER + deadline.getDeadline().format(Deadline.SAVE_FORMAT) + "\n";
                 } else if (t instanceof Event) {
                     Event event = (Event) t;
                     lineToWrite = "E" + DELIMITER + event.getStatusNumber() + DELIMITER + event.getDescription()
-                            + DELIMITER + event.getFrom() + DELIMITER + event.getTo() + "\n";
+                            + DELIMITER + event.getFrom().format(Event.SAVE_FORMAT)
+                            + DELIMITER + event.getTo().format(Event.SAVE_FORMAT) + "\n";
                 }
 
                 if (isFirstLine) {
@@ -553,5 +571,25 @@ public class Nollid {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    /**
+     * Returns a LocalDateTime object from a date (and time) string.
+     *
+     * @throws DateTimeParseException if unable to retrieve a date (and time) from the string.
+     */
+    public static LocalDateTime getLocalDateTimeFromString(String deadlineString) throws DateTimeParseException {
+        ArrayList<String> deadlineList = new ArrayList<>(Arrays.asList(deadlineString.split(" ")));
+
+        LocalDate deadlineDate = LocalDate.parse(deadlineList.get(0), Deadline.DATE_INPUT_FORMAT);
+
+        // If only date provided, use the default time
+        if (deadlineList.size() == 1) {
+            return LocalDateTime.of(deadlineDate, Deadline.DEFAULT_TIME);
+        } else {
+            LocalTime deadlineTime = LocalTime.parse(deadlineList.get(1), Deadline.TIME_FORMAT);
+            return LocalDateTime.of(deadlineDate, deadlineTime);
+        }
+
     }
 }
