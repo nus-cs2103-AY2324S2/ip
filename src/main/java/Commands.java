@@ -70,9 +70,9 @@ public class Commands {
                 Bob.handleMark(Integer.parseInt(commandArgs[1]) - 1, commandArgs[0].equals(Commands.MARK));
             } catch (NumberFormatException e) {
                 // The more "correct" way is to throw an InvalidTaskIndexException?
-                Replies.print(Replies.INVALID_TASK_INDEX + ": " + commandArgs[1]);
+                Replies.print(String.format(Replies.INVALID_TASK_INDEX, commandArgs[1]));
             } catch (InvalidTaskIndexException e) {
-                Replies.print(e.getMessage() + ": " + commandArgs[1]);
+                Replies.print(String.format(e.getMessage(), commandArgs[1]));
             } catch (ArrayIndexOutOfBoundsException e) {
                 // TODO: processParameterisedCommands, which is any command other than exit and list
                 Replies.print(String.format(Replies.EMPTY_DESCRIPTION, commandArgs[0]));
