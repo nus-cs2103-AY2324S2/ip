@@ -1,6 +1,4 @@
-package duke;
-
-import duke.task.Task;
+package duke.task;
 
 public class Events extends Task {
 

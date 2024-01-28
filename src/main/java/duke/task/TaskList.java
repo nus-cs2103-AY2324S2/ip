@@ -3,11 +3,10 @@ package duke.task;
 import java.util.ArrayList;
 
 import duke.DukeException;
-import duke.Events;
 import duke.Storage;
 
 public class TaskList {
-    private ArrayList<Task> instrList = new ArrayList<>();
+    public ArrayList<Task> instrList = new ArrayList<>();
 
 
     public TaskList(ArrayList<Task> arr) {
@@ -116,5 +115,4 @@ public class TaskList {
             throw new DukeException("OOPS!! You have inputted an invalid task number. \nTry again with a different task number!"); 
         } 
     }
-
 }
