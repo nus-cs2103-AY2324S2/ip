@@ -1,3 +1,5 @@
+package dino.command;
+
 import java.util.Scanner;
 
 public class Dino {
