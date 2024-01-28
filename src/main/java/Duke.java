@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.lang.StringBuilder;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -62,6 +63,8 @@ public class Duke {
             }
         } catch (WrongFormatException e) {
             System.out.println("\t" + e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println("\tDate must be in the format yyyy-mm-dd");
         }
         Duke.horizontalLine();
     }
@@ -187,7 +190,7 @@ public class Duke {
         }
     }
 
-    public Deadline parseDeadline(String input) throws WrongFormatException {
+    public Deadline parseDeadline(String input) throws WrongFormatException, DateTimeParseException {
         if (Pattern.matches("deadline\\s\\S.*\\s/by\\s\\S.*", input)) {
             String[] arr = input.split("\\s/by\\s");
             String by = arr[1];
