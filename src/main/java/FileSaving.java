@@ -51,10 +51,11 @@ public class FileSaving {
                     tasks.add(new Todo(name, isDone));
                     break;
                 case "E":
-                    tasks.add(new Event(name, firstPart, secondPart, isDone));
+                    tasks.add(new Event(name, Methods.convertStringToDate(firstPart),
+                            Methods.convertStringToDate(secondPart), isDone));
                     break;
                 case "D":
-                    tasks.add(new Deadline(name, firstPart, isDone));
+                    tasks.add(new Deadline(name, Methods.convertStringToDate(firstPart), isDone));
                     break;
             }
         }

@@ -40,7 +40,7 @@ public class William {
                 case deadline:
                     try {
                         String[] deadlineDetails = Methods.splitBy(texts[1]);
-                        Methods.addTask(new Deadline(deadlineDetails[0], deadlineDetails[1]), tasks);
+                        Methods.addTask(new Deadline(deadlineDetails[0], Methods.convertStringToDate(deadlineDetails[1])), tasks);
                     } catch (WilliamException e) {
                         System.out.println(e.getMessage() + "\n");
                     }
@@ -48,7 +48,7 @@ public class William {
                 case event:
                     try {
                         String[] eventDetails = Methods.splitToAndFrom(texts[1]);
-                        Methods.addTask(new Event(eventDetails[0], eventDetails[1], eventDetails[2]), tasks);
+                        Methods.addTask(new Event(eventDetails[0], Methods.convertStringToDate(eventDetails[1]), Methods.convertStringToDate(eventDetails[2])), tasks);
                     } catch (WilliamException e) {
                         System.out.println(e.getMessage() + "\n");
                     }
