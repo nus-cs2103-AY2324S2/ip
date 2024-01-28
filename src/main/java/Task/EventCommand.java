@@ -7,11 +7,10 @@ public class EventCommand extends Command {
 
     public EventCommand(String body) {
         super(body);
-        String[] parts = body.split("/from", 2);
-        String[] parts2 = parts[1].split("/to", 2);
+        String[] parts = body.split("/from|/to", 3);
         this.taskDescription = parts[0].trim();
-        this.startTime = parts2[0].trim();
-        this.endTime = parts2[1].trim();
+        this.startTime = parts[1].trim();
+        this.endTime = parts[2].trim();
     }
 
     public boolean execute(TaskList list) throws DukeException {
