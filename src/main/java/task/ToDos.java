@@ -6,7 +6,7 @@ public class ToDos extends Task {
     }
 
     @Override
-    public String saveTaskString() {
+    public String getSaveString() {
         return String.format("T | %d | %s", this.isDone ? 1 : 0, this.description);
     }
 

@@ -1,6 +1,7 @@
 import task.Task;
 
 import java.nio.file.Path;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,7 +47,7 @@ public class Numerator {
                         }
                         storage.save();
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("task.Task does not exist");
+                        System.out.println("Task does not exist");
                     }
 
                 } else if (input.startsWith("unmark")) {
@@ -63,7 +64,7 @@ public class Numerator {
                             storage.save();
                         }
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("task.Task does not exist");
+                        System.out.println("Task does not exist");
                     }
                 } else if (input.startsWith("delete")) {
                     try {
@@ -80,7 +81,7 @@ public class Numerator {
                             storage.save();
                         }
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("task.Task does not exist");
+                        System.out.println("Task does not exist");
                     }
                 } else if (input.startsWith("todo")) {
                     Pattern p = Pattern.compile("todo (\\S+.*)");
@@ -102,9 +103,13 @@ public class Numerator {
                     } else {
                         String taskDesc = m.group(1);
                         String by = m.group(2);
-                        Task t = taskList.addDeadline(taskDesc, by);
-                        taskList.printAddTask(t);
-                        storage.save();
+                        try {
+                            Task t = taskList.addDeadline(taskDesc, by);
+                            taskList.printAddTask(t);
+                            storage.save();
+                        } catch (DateTimeParseException e) {
+                            System.out.println("The date should be in the format: yyyy/MM/dd or yyyy/MM/dd HH:mm");
+                        }
                     }
 
                 } else if (input.startsWith("event")) {

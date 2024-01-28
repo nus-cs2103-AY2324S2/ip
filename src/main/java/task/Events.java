@@ -1,13 +1,15 @@
 package task;
 
+import java.time.LocalDateTime;
+
 public class Events extends Task {
-    private final String from;
-    private final String to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     public Events(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = Task.parseStringToLocalDatetime(from);
+        this.to = Task.parseStringToLocalDatetime(to);
     }
 
 
@@ -15,12 +17,21 @@ public class Events extends Task {
     public String toString() {
         return String.format(
                 "[E][%s] %s (from: %s to: %s)",
-                this.getStatusIcon(), this.description, this.from, this.to
+                this.getStatusIcon(),
+                this.description,
+                Task.parseLocalDateTimeToString(this.from),
+                Task.parseLocalDateTimeToString(this.to)
         );
     }
 
     @Override
-    public String saveTaskString() {
-        return String.format("E | %d | %s | %s | %s", this.isDone ? 1 : 0, this.description, this.from, this.to);
+    public String getSaveString() {
+        return String.format(
+                "E | %d | %s | %s | %s",
+                this.isDone ? 1 : 0,
+                this.description,
+                Task.parseLocalDateTimeToString(this.from),
+                Task.parseLocalDateTimeToString(this.to)
+        );
     }
 }

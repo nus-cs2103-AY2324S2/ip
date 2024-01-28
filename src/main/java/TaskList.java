@@ -67,10 +67,10 @@ public class TaskList {
 
     }
 
-    public String saveTaskString() {
+    public String getSavedTasksString() {
         return String.join("\n", this.taskList
                 .stream()
-                .map(Task::saveTaskString)
+                .map(Task::getSaveString)
                 .toArray(String[]::new));
     }
 
