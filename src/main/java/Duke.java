@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a chat bot that can keep track of tasks.
+ */
 public class Duke {
     public static void main(String[] args) {
         ArrayList<Task> list = new ArrayList<>();
