@@ -1,4 +1,4 @@
-package Managers;
+package Dao;
 
 import Models.Event;
 import Utils.StringUtils;
