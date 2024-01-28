@@ -62,4 +62,11 @@ public class Ui {
     public void showGoodbyeMessage() {
         System.out.println("Bye. Hope to yap with you again soon!");
     }
+
+    public void showMatchingTasks(List<Task> matchingTasks, String keyword) {
+        System.out.println("Here are the matching tasks for keyword '" + keyword + "':");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
+    }
 }

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
 import java.io.InputStream;
+import java.util.stream.Collectors;
 
 /**
  * The Yapper class is the main class that handles user input and manages tasks.
@@ -124,6 +125,9 @@ public class Yapper {
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new YapperException("Please provide a valid task number to delete.");
             }
+        } else if(userInput.startsWith("find")) {
+            String keyword = userInput.substring(5).trim();
+            findTasks(keyword);
         } else if (userInput.equalsIgnoreCase("bye")) {
             if (userInput.equalsIgnoreCase("bye")) {
                 ui.showGoodbyeMessage();
@@ -163,5 +167,24 @@ public class Yapper {
      */
     public static List<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Finds tasks containing the specified keyword in their description.
+     *
+     * @param keyword Keyword to search for.
+     */
+    private static void findTasks(String keyword) {
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.description.toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+
+        if (!matchingTasks.isEmpty()) {
+            ui.showMatchingTasks(matchingTasks, keyword);
+        } else {
+            ui.showError("No matching tasks found for keyword: " + keyword);
+        }
+
+        ui.showTaskList(tasks);
     }
 }

@@ -9,7 +9,10 @@ public class Todo extends Task {
         super(description, isDone);
     }
 
-
+    @Override
+    public String getType() {
+        return "T";
+    }
     @Override
     public String toFileString() {
         return "T | " + (isDone ? "1" : "0") + " | "
