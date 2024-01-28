@@ -1,22 +1,26 @@
 package duke.tasks;
 
 public class ToDos extends Task {
-  public ToDos(String description) {
-    super(description, "[T]");
-  }
+    public ToDos(String description) {
+        super(description, "[T]");
+    }
 
-  @Override
-  public String getTimeData() {return "";}
+    @Override
+    public String getTimeData() {
+        return "";
+    }
 
-  @Override
-  public String getLogRepresentation() {
-    String complete_status = "F";
-    if (this.isDone) {complete_status = "T";}
-    return "T" + "," + complete_status + "," + this.description;
-  }
+    @Override
+    public String getLogRepresentation() {
+        String completeStatus = "F";
+        if (this.isDone) {
+            completeStatus = "T";
+        }
+        return "T" + "," + completeStatus + "," + this.description;
+    }
 
-  @Override
-  public String getFullStatus() {
-    return this.getStatusIcon() + " " + this.getDescription();
-  }
+    @Override
+    public String getFullStatus() {
+        return this.getStatusIcon() + " " + this.getDescription();
+    }
 }

@@ -1,7 +1,7 @@
 package duke.exceptions;
 
 public class InvalidInputException extends DukeException {
-  public InvalidInputException(String msg) {
-    super(msg);
-  }
+    public InvalidInputException(String msg) {
+        super(msg);
+    }
 }
