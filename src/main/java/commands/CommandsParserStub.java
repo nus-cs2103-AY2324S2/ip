@@ -1,9 +1,6 @@
 package commands;
 
 import exceptions.RyanGoslingException;
-import tasks.Deadline;
-import tasks.Events;
-import tasks.Todo;
 import utilities.MessagePrinter;
 
 import java.util.regex.Matcher;
