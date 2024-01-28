@@ -4,8 +4,8 @@ import java.util.Scanner;
 class handlerbot {
 
     //Class Attributes
-    private taskings[] arrtaskings; // To store tasks created by the user for easy retrieval and listing
-    private int countertaskings; // Counter for assumption that there are no more than 100 tasks
+    public taskings[] arrtaskings; // To store tasks created by the user for easy retrieval and listing
+    public int countertaskings; // Counter for assumption that there are no more than 100 tasks
 
     // Class object
     public handlerbot() {
@@ -246,7 +246,7 @@ class handlerbot {
     }
 }
 
-// Main Class
+// Main
 public class Hari {
     public static void main(String[] args) {
         Scanner inputread = new Scanner(System.in); // Scanner object to read and process user input
@@ -263,28 +263,88 @@ public class Hari {
                 break;
             } else if (readerinput.equalsIgnoreCase("list")) { // To list out tasks
                 hari.taskingsdisplay();
-            } else if (readerinput.startsWith("mark")) { // To mark a task as completed
-                try {
-                    // Extract the task number from user input
-                    int taskindexer = Integer.parseInt(readerinput.substring(5).trim()); // 5 is because of the word mark
-                    hari.incompletionmark(taskindexer);
-                } catch (NumberFormatException e) {
+            } else if (readerinput.startsWith("todo") || readerinput.startsWith("event")) {
+                // Check if there is anything following "todo" or "event"
+                if (readerinput.length() <= 5) {
                     System.out.println("____________________________________________________________");
-                    System.out.println(" SAD! Invalid task number to unmark.");
+                    System.out.println(" SAD! Missing task description after 'todo', 'deadline', or 'event'.");
                     System.out.println("____________________________________________________________");
+                } else {
+                    hari.userechoedinput(readerinput); // Else, it proceeds to call the user input processing function
                 }
-            } else if (readerinput.startsWith("delete")) { // To delete a task
-                try {
-                    // Extract task number from user input
-                    int taskindexer = Integer.parseInt(readerinput.substring(7).trim()); // 7 is because of the word "delete"
-                    hari.taskdeleter(taskindexer);
-                } catch (NumberFormatException e) {
+            } else if (readerinput.startsWith("deadline")) {
+                // Check if there is anything following "deadline"
+                if (readerinput.length() <= 9) {
                     System.out.println("____________________________________________________________");
-                    System.out.println(" SAD! Invalid task number to delete.");
+                    System.out.println(" SAD! Missing task description after 'todo', 'deadline', or 'event'.");
                     System.out.println("____________________________________________________________");
+                } else {
+                    hari.userechoedinput(readerinput); // Else, it proceeds to call the user input processing function
+                }
+            } else if (readerinput.startsWith("unmark") || readerinput.startsWith("delete")) {
+                // Check if there is anything following "unmark", "mark", or "delete"
+                if (readerinput.length() <= 6) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" SAD! Missing task number after 'unmark', 'mark', or 'delete'.");
+                    System.out.println("____________________________________________________________");
+                } else {
+                    try {
+                        int taskindexer = Integer.parseInt(readerinput.substring(6).trim());
+                        if (taskindexer > 0 && taskindexer <= hari.countertaskings) {
+                            if (readerinput.startsWith("unmark")) {
+                                hari.incompletionmark(taskindexer);
+                            } else if (readerinput.startsWith("mark")) {
+                                hari.completionmark(taskindexer);
+                            } else if (readerinput.startsWith("delete")) {
+                                hari.taskdeleter(taskindexer);
+                            }
+                        } else {
+                            // Error handling: Invalid task number
+                            System.out.println("____________________________________________________________");
+                            System.out.println(" SAD! Invalid task number.");
+                            System.out.println("____________________________________________________________");
+                        }
+                    } catch (NumberFormatException e) {
+                        // Error handling: Invalid task number format
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" SAD! Invalid task number.");
+                        System.out.println("____________________________________________________________");
+                    }
+                }
+            } else if (readerinput.startsWith("mark")) {
+                // Check if there is anything following "unmark", "mark", or "delete"
+                if (readerinput.length() < 5) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" SAD! Missing task number after 'unmark', 'mark', or 'delete'.");
+                    System.out.println("____________________________________________________________");
+                } else {
+                    try {
+                        int taskindexer = Integer.parseInt(readerinput.substring(5).trim());
+                        if (taskindexer > 0 && taskindexer <= hari.countertaskings) {
+                            if (readerinput.startsWith("unmark")) {
+                                hari.incompletionmark(taskindexer);
+                            } else if (readerinput.startsWith("mark")) {
+                                hari.completionmark(taskindexer);
+                            } else if (readerinput.startsWith("delete")) {
+                                hari.taskdeleter(taskindexer);
+                            }
+                        } else {
+                            // Error handling: Invalid task number
+                            System.out.println("____________________________________________________________");
+                            System.out.println(" SAD! Invalid task number.");
+                            System.out.println("____________________________________________________________");
+                        }
+                    } catch (NumberFormatException e) {
+                        // Error handling: Invalid task number format
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" SAD! Invalid task number.");
+                        System.out.println("____________________________________________________________");
+                    }
                 }
             } else {
-                hari.userechoedinput(readerinput); // Else, it proceeds to call the user input processing function
+                System.out.println("____________________________________________________________");
+                System.out.println(" SAD! I'm not sure what you mean. Please enter a valid command.");
+                System.out.println("____________________________________________________________");
             }
         }
         hari.messagefarewell(); // Call the messagefarewell function to display farewell message and exit the program
