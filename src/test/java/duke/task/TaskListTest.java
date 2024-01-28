@@ -18,6 +18,15 @@ public class TaskListTest {
     }
 
     @Test
+    public void testFindTasks() {
+        this.taskList.addTask(new Deadline("task 1",
+                LocalDateTime.parse("28-01-2024 13:00", Task.INPUT_DATETIME_FORMAT)));
+        this.taskList.addTask(new ToDo(("task 2")));
+        assertEquals("Here are the list of tasks that matches '2':\n    2.[T][ ] task 2",
+                this.taskList.findTasks("2"));
+    }
+
+    @Test
     public void markTask_existingIndex_success() {
         this.taskList.addTask(new ToDo("task 1"));
         try {

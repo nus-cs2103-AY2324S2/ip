@@ -56,6 +56,7 @@ Supported List of Commands:
 - mark <task-number>: Marks task at index <task-number> as done.
 - unmark <task-number>: Marks task at index <task-number> as not done.
 - delete <task-number>: Deletes task at index <task-number>.
+- find <task-name>: Finds task with matching keywords of <task-name>.
 - bye: exits the program.[0m
 ================================================================================
 ================================================================================
@@ -92,6 +93,14 @@ Format: event <task-name> /from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>[0m
 ================================================================================
 Removed: [T][X] homework
 There are now 2 tasks in the list.
+================================================================================
+================================================================================
+Here are the list of tasks that matches 'ip':
+    1.[D][ ] ip (by: Thursday, January 25, 2024, 11:59 PM)
+================================================================================
+================================================================================
+Great job for finishing the task:
+[E][X] tutorial (from: Friday, February 2, 2024, 3:00 PM to: Friday, February 2, 2024, 4:00 PM)
 ================================================================================
 ================================================================================
 Here are your list of tasks:

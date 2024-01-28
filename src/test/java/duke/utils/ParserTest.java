@@ -24,11 +24,7 @@ public class ParserTest {
 
     @Test
     public void parseInput_bye_success() {
-        try {
-            assertDoesNotThrow(() -> Parser.parseInput("bye"));
-        } catch (Exception e) {
-            fail();
-        }
+        assertDoesNotThrow(() -> Parser.parseInput("bye"));
     }
 
     @Test
@@ -42,11 +38,7 @@ public class ParserTest {
 
     @Test
     public void parseInput_list_success() {
-        try {
-            assertDoesNotThrow(() -> Parser.parseInput("list"));
-        } catch (Exception e) {
-            fail();
-        }
+        assertDoesNotThrow(() -> Parser.parseInput("list"));
     }
 
     @Test
@@ -60,11 +52,7 @@ public class ParserTest {
 
     @Test
     public void parseInput_todo_success() {
-        try {
-            assertDoesNotThrow(() -> Parser.parseInput("todo some task"));
-        } catch (Exception e) {
-            fail();
-        }
+        assertDoesNotThrow(() -> Parser.parseInput("todo some task"));
     }
 
     @Test
@@ -79,11 +67,8 @@ public class ParserTest {
 
     @Test
     public void parseInput_deadline_success() {
-        try {
-            assertDoesNotThrow(() -> Parser.parseInput("deadline some task /by 11-11-1111 11:11"));
-        } catch (Exception e) {
-            fail();
-        }
+        assertDoesNotThrow(() -> Parser.parseInput("deadline some task /by 11-11-1111 11:11"));
+
     }
 
     @Test
@@ -114,11 +99,7 @@ public class ParserTest {
 
     @Test
     public void parseInput_event_success() {
-        try {
-            assertDoesNotThrow(() -> Parser.parseInput("event some task /from 11-11-1111 11:11 /to 12-12-1212 12:12"));
-        } catch (Exception e) {
-            fail();
-        }
+        assertDoesNotThrow(() -> Parser.parseInput("event some task /from 11-11-1111 11:11 /to 12-12-1212 12:12"));
     }
 
     @Test
@@ -149,11 +130,7 @@ public class ParserTest {
 
     @Test
     public void parseInput_markWithNumber_success() {
-        try {
-            assertDoesNotThrow(() -> Parser.parseInput("mark 1"));
-        } catch (Exception e) {
-            fail();
-        }
+        assertDoesNotThrow(() -> Parser.parseInput("mark 1"));
     }
 
     @Test
@@ -167,11 +144,7 @@ public class ParserTest {
 
     @Test
     public void parseInput_unmarkWithNumber_success() {
-        try {
-            assertDoesNotThrow(() -> Parser.parseInput("unmark 20"));
-        } catch (Exception e) {
-            fail();
-        }
+        assertDoesNotThrow(() -> Parser.parseInput("unmark 20"));
     }
 
     @Test
@@ -185,11 +158,7 @@ public class ParserTest {
 
     @Test
     public void parseInput_deleteWithNumber_success() {
-        try {
-            assertDoesNotThrow(() -> Parser.parseInput("delete 100"));
-        } catch (Exception e) {
-            fail();
-        }
+        assertDoesNotThrow(() -> Parser.parseInput("delete 100"));
     }
 
     @Test
@@ -198,6 +167,22 @@ public class ParserTest {
             Parser.parseInput("delete test");
         } catch (Exception e) {
             assertEquals("Error. Delete expects the index of task to be deleted.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseInput_find_success() {
+        assertDoesNotThrow(() -> Parser.parseInput("find some value"));
+        // Allow finding of space character.
+        assertDoesNotThrow(() -> Parser.parseInput("find  "));
+    }
+
+    @Test
+    public void parseInput_findSingularSpace_exceptionThrown() {
+        try {
+            Parser.parseInput("find ");
+        } catch (Exception e) {
+            assertEquals("Error. Parameter for find Command cannot be empty.", e.getMessage());
         }
     }
 

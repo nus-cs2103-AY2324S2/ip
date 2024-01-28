@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 public class Parser {
     public static Command parseInput(String input) throws CommandException {
-        input = input.trim();
+        input = input.stripLeading();
 
         if (input.equals("bye")) {
             return new ByeCommand();
@@ -29,6 +29,9 @@ public class Parser {
             return new UnmarkCommand(input.substring(6));
         } else if (input.startsWith("delete")) {
             return new DeleteCommand(input.substring(6));
+        } else if (input.startsWith("find ")) {
+            // Account for space since parameters will not be trimmed.
+            return new FindCommand(input.substring(5));
         }
 
         throw new UnknownCommandException();

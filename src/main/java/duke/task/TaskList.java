@@ -15,7 +15,7 @@ import java.util.StringTokenizer;
  * @author KohGuanZeh
  */
 public class TaskList {
-    // Store list of tasks.
+    // Store list of all tasks.
     private ArrayList<Task> taskList;
 
     /**
@@ -38,9 +38,9 @@ public class TaskList {
     }
 
     /**
-     * Removes the task at specified and returns a message of the deleted Task.
+     * Removes the task at specified index and returns a message of the deleted Task.
      *
-     * @param index Index of task to delete.
+     * @param index Index of task as displayed.
      * @return Message stating the deleted task.
      */
     public String deleteTask(int index) throws CommandException {
@@ -63,7 +63,7 @@ public class TaskList {
     /**
      * Sets the task at the specified index as done and returns a task completion message.
      *
-     * @param index Index of task. Note that this is always 1 more than index stored in the list.
+     * @param index Index of task as displayed.
      * @return Task completion message.
      */
     public String markTask(int index) throws CommandException {
@@ -78,7 +78,7 @@ public class TaskList {
     /**
      * Sets the task at the specified index as not done and returns a task incompletion message.
      *
-     * @param index Index of task. Note that this is always 1 more than index stored in the list.
+     * @param index Index of task as displayed.
      * @return Task incompletion message.
      */
     public String unmarkTask(int index) throws CommandException {
@@ -99,6 +99,24 @@ public class TaskList {
         StringBuilder sb = new StringBuilder("Here are your list of tasks:");
         for (int i = 0; i < taskList.size(); i++) {
             sb.append("\n    ");
+            sb.append(i + 1).append(".").append(this.taskList.get(i).getTaskInformation());
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Returns the list of tasks matching given keyword.
+     *
+     * @param keyword Matching keyword in description.
+     * @return String containing list of tasks that matches keyword and their completion status.
+     */
+    public String findTasks(String keyword) {
+        StringBuilder sb = new StringBuilder("Here are the list of tasks that matches '" + keyword + "':");
+        for (int i = 0; i < taskList.size(); i++) {
+            if (!taskList.get(i).descriptionContains(keyword)) {
+                continue;
+            }
+            sb.append("\n    ");
             sb.append(i + 1).append(".").append(taskList.get(i).getTaskInformation());
         }
         return sb.toString();
@@ -117,7 +135,7 @@ public class TaskList {
 
     public String toDataString() {
         StringBuilder sb = new StringBuilder();
-        for (Task task : taskList) {
+        for (Task task : this.taskList) {
             sb.append(task.toDataString()).append("\n");
         }
         return sb.toString();
