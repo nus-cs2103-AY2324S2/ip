@@ -15,6 +15,11 @@ public class Deadline extends Task {
         this.by = by;       // Sets the deadline time for this task
     }
 
+    public String getBy() {
+        return this.by;
+    }
+
+
     /**
      * Returns a string representation of the deadline task, including its type,
      * description, and deadline time.
