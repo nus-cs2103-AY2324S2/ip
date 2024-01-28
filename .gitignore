@@ -15,3 +15,5 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+/src/main/java/data/list.txt
+text-ui-test/src/main/java/data/list.txt
