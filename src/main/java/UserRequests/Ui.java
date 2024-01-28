@@ -11,10 +11,19 @@ import java.time.format.DateTimeFormatter;
 
 public class Ui {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    public Ui() {
+
+    /**
+     * Initialises Ui and executes the user interaction loop.
+     *
+     * @throws IOException if Request throws this exception due to issues with
+     *                     posting and retrieving data from hard drive.
+     */
+    public Ui() throws IOException {
         System.out.println(this.greet());
+        this.talkToUser();
     }
-    public String talkToUser() throws IOException {
+
+    private void talkToUser() throws IOException {
         String request = br.readLine();
         while (request != null && !request.equals("bye")) {
             try {
@@ -24,7 +33,6 @@ public class Ui {
             }
             request = br.readLine();
         }
-        return this.exit();
     }
     private String greet() {
         DateTimeFormatter digitalTime = DateTimeFormatter.ofPattern("dd/MM/yyyy");

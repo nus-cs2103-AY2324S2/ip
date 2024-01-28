@@ -2,12 +2,20 @@ package Task;
 
 import NicoleExceptions.NicoleException;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private LocalDate deadlineDateLocalDate;
     private String deadlineDateReformattedString;
+
+    /**
+     * Initialises a Deadline
+     *
+     * @param name the user request.
+     * @throws NicoleException if the description is not as deadline [task] by YYYY-MM-DD.
+     */
     public Deadline(String name) throws NicoleException {
         super();
         System.out.println(name);
@@ -17,7 +25,7 @@ public class Deadline extends Task {
         this.parseDate(name);
         super.setName(name);
     }
-    public void parseDate(String name) throws NicoleException {
+    private void parseDate(String name) throws NicoleException {
         String[] whiteSpaceSeparatedDate = name.split(" ");
         String date = whiteSpaceSeparatedDate[whiteSpaceSeparatedDate.length - 1];
         try {

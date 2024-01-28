@@ -14,6 +14,15 @@ public class Event extends Task {
     private String deadlineFromTimeReformattedString;
     private String deadlineToDateReformattedString;
     private String deadlineToTimeReformattedString;
+
+    /**
+     * Initialises a Event
+     *
+     * @param name the user request.
+     * @throws NicoleException if the description is not
+     *                         as event [name] from YYYY-MM-DD at HH-MM-SS
+     *                         to YYYY-MM-DD at HH-MM-SS.
+     */
     public Event(String name) throws NicoleException {
         super();
         System.out.println(name);

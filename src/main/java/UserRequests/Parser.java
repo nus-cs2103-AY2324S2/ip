@@ -10,6 +10,14 @@ import java.util.regex.Pattern;
 public class Parser {
     public Parser() {
     }
+
+    /**
+     * Checks the validity of the user request.
+     *
+     * @param name the user request.
+     * @return the appropriate task for the user request.
+     * @throws NicoleException if the request is unknown or in the wrong format.
+     */
     public static Task parseRequest(String name) throws NicoleException {
         Pattern todoPattern = Pattern.compile("^todo(?: (.*?))?$");
         Pattern deadlinePattern = Pattern.compile("^deadline(?: (.*?))?(?: by (\\d{4}-\\d{2}-\\d{2}))?$");
