@@ -4,12 +4,14 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        DateFormatter dateFormat = new DateFormatter(); 
+        this.by = dateFormat.convertedDate(by);
     }
 
     public Deadline(String description, String by, Boolean isDone) {
         super(description, isDone); 
-        this.by = by;
+        DateFormatter dateFormat = new DateFormatter(); 
+        this.by = dateFormat.convertedDate(by);
     }
 
     @Override

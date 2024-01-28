@@ -1,2 +1,13 @@
-T|0|borrow books
-D|0|return book|Sunday
+T|0|0
+D|0|0||
+T|0|0
+D|0|0||
+D|0|0||
+D|0|0||
+D|0|0||
+D|0|0||
+D|0|0||
+D|0|0||
+D|0|0||
+D|0|return book|Dec 2 2019
+D|0|return book|Dec 2 2019
