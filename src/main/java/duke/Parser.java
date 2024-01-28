@@ -124,7 +124,7 @@ public class Parser {
                     throw new DukeException.UnknownCommandException();
             }
         } catch (DukeException e) {
-            System.out.println("duke.DukeException: " + e.getMessage());
+            System.out.println("DukeException: " + e.getMessage());
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("An unexpected error occurred.");

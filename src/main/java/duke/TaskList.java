@@ -42,14 +42,12 @@ public class TaskList {
      * Gets a task from the current taskList
      * @param task to be added
      */
-    public Task getTask(int index) {
+    public Task getTask(int index) throws DukeException.TaskNotFoundException {
         // Check if the index is within the valid range
         if (index >= 1 && index <= taskList.size()) {
             return taskList.get(index - 1);
         } else {
-            // Handle the case when the index is out of bounds
-            System.out.println("Invalid index. Please provide a valid index.");
-            return null;  // or throw an exception or handle it as needed
+            throw new DukeException.TaskNotFoundException();
         }
     }
 
@@ -57,8 +55,12 @@ public class TaskList {
      * Deletes a task from the duke.TaskList, given its index
      * @param index
      */
-    public void deleteTask(int index) {
-        taskList.remove(index - 1);
+    public void deleteTask(int index) throws DukeException.TaskNotFoundException {
+        if (index < 1 || index > taskList.size()) {
+            throw new DukeException.TaskNotFoundException();
+        } else {
+            taskList.remove(index - 1);
+        }
     }
 
     /**
@@ -66,9 +68,13 @@ public class TaskList {
      *
      * @param index
      */
-    public void markTask(int index) {
-        Task t =  this.getTask(index);
-        t.markAsDone();
+    public void markTask(int index) throws DukeException.TaskNotFoundException  {
+        if (index < 1 || index > taskList.size()) {
+            throw new DukeException.TaskNotFoundException();
+        } else {
+            Task t =  this.getTask(index);
+            t.markAsDone();
+        }
     }
 
     /**
@@ -76,9 +82,13 @@ public class TaskList {
      *
      * @param index
      */
-    public void unmarkTask(int index) {
-        Task t =  this.getTask(index);
-        t.unmarkAsDone();
+    public void unmarkTask(int index) throws DukeException.TaskNotFoundException  {
+        if (index < 1 || index > taskList.size()) {
+            throw new DukeException.TaskNotFoundException();
+        } else {
+            Task t =  this.getTask(index);
+            t.unmarkAsDone();
+        }
     }
 
     /**
@@ -142,67 +152,67 @@ public class TaskList {
         }
     }
 
-    public static void main(String[] args) {
-        Storage storage = new Storage("data/duketest.txt");
-        TaskList testTaskList;
-        try {
-            testTaskList = new TaskList(storage.load());
-        } catch (DukeException e) {
-            Ui ui = new Ui();
-            ui.showLoadingError();
-            testTaskList = new TaskList();
-        }
-
-        // printTaskStatus
-        testTaskList.addTask(new Todo("Buy Bread"));
-        testTaskList.addTask(new Deadline("Return Bread", "today"));
-        testTaskList.addTask(new Event("project meeting", "Mon 4pm", "6pm"));
-        testTaskList.addTask(new Event("project meeting 2", "Tues 10pm", "6pm"));
-        System.out.println("Current duke.Task list: ");
-        testTaskList.printTasks();
-        System.out.println();
-
-        // Get duke.Todo duke.Task
-        System.out.println("Successfully got todo task: " + testTaskList.getTask(1));
-
-        // Get duke.Event duke.Task
-        System.out.println("Successfully got event task: " + testTaskList.getTask(2));
-
-        // Get duke.Deadline duke.Task
-        System.out.println("Successfully got deadline task: " + testTaskList.getTask(3));
-
-        // printTasks
-        System.out.println();
-        System.out.println("duke.Task list before deletion: ");
-        testTaskList.printTasks();
-
-        // Delete duke.Event duke.Task
-        testTaskList.deleteTask(2);
-
-        // Delete duke.Deadline duke.Task
-        testTaskList.deleteTask(2);
-
-        // printTasks
-        System.out.println();
-        System.out.println("duke.Task list after deletion: ");
-        testTaskList.printTasks();
-
-        // mark task 1
-        System.out.println();
-        System.out.println("Marking task 1");
-        testTaskList.markTask(1);
-
-        // printTasks
-        System.out.println("Tasks after marking T1: ");
-        testTaskList.printTasks();
-        System.out.println();
-
-        // unmark task 1
-        System.out.println("Unmarking task 1");
-        testTaskList.unmarkTask(1);
-
-        // printTasks
-        System.out.println("Tasks after unmarking T1: ");
-        testTaskList.printTasks();
-    }
+//    public static void main(String[] args) {
+//        Storage storage = new Storage("data/duketest.txt");
+//        TaskList testTaskList;
+//        try {
+//            testTaskList = new TaskList(storage.load());
+//        } catch (DukeException e) {
+//            Ui ui = new Ui();
+//            ui.showLoadingError();
+//            testTaskList = new TaskList();
+//        }
+//
+//        // printTaskStatus
+//        testTaskList.addTask(new Todo("Buy Bread"));
+//        testTaskList.addTask(new Deadline("Return Bread", "today"));
+//        testTaskList.addTask(new Event("project meeting", "Mon 4pm", "6pm"));
+//        testTaskList.addTask(new Event("project meeting 2", "Tues 10pm", "6pm"));
+//        System.out.println("Current duke.Task list: ");
+//        testTaskList.printTasks();
+//        System.out.println();
+//
+//        // Get duke.Todo duke.Task
+//        System.out.println("Successfully got todo task: " + testTaskList.getTask(1));
+//
+//        // Get duke.Event duke.Task
+//        System.out.println("Successfully got event task: " + testTaskList.getTask(2));
+//
+//        // Get duke.Deadline duke.Task
+//        System.out.println("Successfully got deadline task: " + testTaskList.getTask(3));
+//
+//        // printTasks
+//        System.out.println();
+//        System.out.println("duke.Task list before deletion: ");
+//        testTaskList.printTasks();
+//
+//        // Delete duke.Event duke.Task
+//        testTaskList.deleteTask(2);
+//
+//        // Delete duke.Deadline duke.Task
+//        testTaskList.deleteTask(2);
+//
+//        // printTasks
+//        System.out.println();
+//        System.out.println("duke.Task list after deletion: ");
+//        testTaskList.printTasks();
+//
+//        // mark task 1
+//        System.out.println();
+//        System.out.println("Marking task 1");
+//        testTaskList.markTask(1);
+//
+//        // printTasks
+//        System.out.println("Tasks after marking T1: ");
+//        testTaskList.printTasks();
+//        System.out.println();
+//
+//        // unmark task 1
+//        System.out.println("Unmarking task 1");
+//        testTaskList.unmarkTask(1);
+//
+//        // printTasks
+//        System.out.println("Tasks after unmarking T1: ");
+//        testTaskList.printTasks();
+//    }
 }
