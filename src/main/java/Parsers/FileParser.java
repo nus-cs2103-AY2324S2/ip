@@ -1,13 +1,17 @@
+package Parsers;
+
+import Parsers.DateTimeParser;
 import Tasks.Event;
 import Tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Scanner;
 import Tasks.Deadline;
-import Tasks.ToDo;
-import Tasks.Event;
+import Tasks.TaskList;
+
 public class FileParser {
 
     public File file;
@@ -29,15 +33,14 @@ public class FileParser {
                 isDone = true;
             }
             String taskName = taskInfo[2];
-            String start, end = "";
             if (taskType.equals("T")) {
                 taskList.add(new ToDo(taskName, isDone, "T"));
             } else if (taskType.equals("D")) {
-                start = taskInfo[3];
+                LocalDate start = DateTimeParser.stringToDT(taskInfo[3]);
                 taskList.add(new Deadline(taskName, start, isDone,"D"));
             } else {
-                start = taskInfo[3];
-                end = taskInfo[4];
+                LocalDate start = DateTimeParser.stringToDT(taskInfo[3]);
+                LocalDate end = DateTimeParser.stringToDT(taskInfo[4]);
                 taskList.add(new Event(taskName, start, end, isDone, "E"));
             }
         }

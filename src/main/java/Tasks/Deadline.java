@@ -1,15 +1,20 @@
 package Tasks;
 
+
 import Tasks.Task;
+
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import Parsers.DateTimeParser;
 
 public class Deadline extends Task {
 
     String taskType;
     String taskName;
-    String deadline;
+    LocalDate deadline;
     Boolean isDone;
 
-    public Deadline(String taskName, String deadline, Boolean isDone, String taskType) {
+    public Deadline(String taskName, LocalDate deadline, Boolean isDone, String taskType) {
         super(taskName, isDone, taskType);
         this.deadline = deadline;
     }
@@ -24,11 +29,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + DateTimeParser.dtToString(this.deadline) + ")";
     }
 
     @Override
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return this.deadline;
     }
 }

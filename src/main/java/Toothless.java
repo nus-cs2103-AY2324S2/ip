@@ -1,10 +1,9 @@
 import Exceptions.InvalidInstructionException;
 import Exceptions.MissingToDoNameException;
 import Exceptions.MissingTaskToMarkException;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
+import Parsers.DateTimeParser;
+import Parsers.FileParser;
+import Tasks.*;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -12,6 +11,12 @@ import java.util.ArrayList;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Toothless {
     public static void main(String[] args) {
@@ -90,7 +95,8 @@ public class Toothless {
                     int startChar = 9;
                     String name = input.substring(9, endChar);
                     String deadline = input.substring(endChar + 4);
-                    String response = tasksList.add(new Deadline(name, deadline, false, "D"));
+                    LocalDate d = DateTimeParser.stringToDT(deadline);
+                    String response = tasksList.add(new Deadline(name, d, false, "D"));
                     Toothless.printLines();
                     System.out.println(response);
                     Toothless.printLines();
@@ -102,7 +108,9 @@ public class Toothless {
                     String name = input.substring(6, endChar);
                     String startTime = input.substring(endChar + 5, endChar2);
                     String endTime = input.substring(endChar2 + 3);
-                    String response = tasksList.add(new Event(name, startTime, endTime, false, "E"));
+                    LocalDate start = DateTimeParser.stringToDT(startTime);
+                    LocalDate end = DateTimeParser.stringToDT(endTime);
+                    String response = tasksList.add(new Event(name, start, end, false, "E"));
                     Toothless.printLines();
                     System.out.println(response);
                     Toothless.printLines();
@@ -170,6 +178,24 @@ public class Toothless {
 
     static void printLines() {
         System.out.println("____________________________________________________________");
+    }
+
+    static LocalDateTime parseDateTime(String dateTime) {
+        List<String> dateTimeFormats = Arrays.asList(
+                "dd/MM/yyyy HH:mm:ss",
+                "dd-MM-yyyy HH:mm:ss"
+        );
+        LocalDateTime parsedDateTime = null;
+        for (String format : dateTimeFormats) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+                parsedDateTime = LocalDateTime.parse(dateTime, formatter);
+                break;  // Exit loop if parsing succeeds
+            } catch (Exception e) {
+                // Parsing failed for the current format, try the next one
+            }
+        }
+        return parsedDateTime;
     }
 
 }

@@ -1,16 +1,20 @@
 package Tasks;
 
+import Parsers.DateTimeParser;
 import Tasks.Task;
+
+import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Event extends Task {
 
     String taskType;
     String taskName;
     Boolean isDone;
-    String start;
-    String end;
+    LocalDate start;
+    LocalDate end;
 
-    public Event(String taskName, String start, String end, Boolean isDone, String taskType) {
+    public Event(String taskName, LocalDate start, LocalDate end, Boolean isDone, String taskType) {
         super(taskName, isDone, taskType);
         this.start = start;
         this.end = end;
@@ -18,16 +22,17 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from:" + this.start + "to:" + this.end + ")";
+        return "[E]" + super.toString() + "(from:" + DateTimeParser.dtToString(this.start) +
+                "to:" + DateTimeParser.dtToString(this.end) + ")";
     }
 
     @Override
-    public String getStart() {
+    public LocalDate getStart() {
         return this.start;
     }
 
     @Override
-    public String getEnd() {
+    public LocalDate getEnd() {
         return this.end;
     }
 }
