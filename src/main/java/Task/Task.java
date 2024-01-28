@@ -10,6 +10,11 @@ public abstract class Task {
         this.taskName = taskName;
     }
 
+    public Task(String taskName, boolean isCompleted) {
+        this.taskName = taskName;
+        this.isCompleted = isCompleted;
+    }
+
     public void markCompleted() {
         this.isCompleted = true;
     }

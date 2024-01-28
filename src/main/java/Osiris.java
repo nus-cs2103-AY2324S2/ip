@@ -156,7 +156,7 @@ public class Osiris {
     }
 
     private void addToDoTask(String taskName) {
-        this.taskManager.addToDoTask(taskName);
+        this.taskManager.addToDoTask(taskName, false);
 
         this.printSeparator();
         System.out.println("     Got it. I've added this task:");
@@ -166,7 +166,7 @@ public class Osiris {
     }
 
     private void addDeadlineTask(String taskName, String deadline) {
-        this.taskManager.addDeadlineTask(taskName,deadline);
+        this.taskManager.addDeadlineTask(taskName,deadline, false);
 
         this.printSeparator();
         System.out.println("     Got it. I've added this task:");
@@ -176,7 +176,7 @@ public class Osiris {
     }
 
     private void addEventTask(String taskName, String startDateTime, String endDateTime) {
-        this.taskManager.addEventTask(taskName, startDateTime, endDateTime);
+        this.taskManager.addEventTask(taskName, startDateTime, endDateTime, false);
 
         this.printSeparator();
         System.out.println("     Got it. I've added this task:");

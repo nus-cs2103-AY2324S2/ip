@@ -14,35 +14,20 @@ public class TaskManager {
 
     private txtFileStorage taskStorage = new txtFileStorage(TASKSTORAGEFILEPATH);
 
-    public void initialise(){
-        this.taskStorage.createTxtFileStorage();
-    }
-
-    private void storeUserTaskToFileStorage() {
-        for (Task task : this.userTasks) {
-            this.taskStorage.appendToTxtFileStorage(task.getStringStorageRepresentation());
-        }
-    }
-
-    public void termintate(){
-        this.taskStorage.clearTxtFileStorage();
-        this.storeUserTaskToFileStorage();
-    }
-
-    public boolean addToDoTask(String taskName) {
-        ToDoTask newTask = new ToDoTask(taskName);
+    public boolean addToDoTask(String taskName, boolean isCompleted) {
+        ToDoTask newTask = new ToDoTask(taskName, isCompleted);
         this.userTasks.add(newTask);
         return true;
     }
 
-    public boolean addDeadlineTask(String taskName, String deadline) {
-        DeadlineTask newTask = new DeadlineTask(taskName, deadline);
+    public boolean addDeadlineTask(String taskName, String deadline, boolean isCompleted) {
+        DeadlineTask newTask = new DeadlineTask(taskName, deadline, isCompleted);
         this.userTasks.add(newTask);
         return true;
     }
 
-    public boolean addEventTask(String taskName, String startDateTime, String endDateTime) {
-        EventTask newTask = new EventTask(taskName, startDateTime, endDateTime);
+    public boolean addEventTask(String taskName, String startDateTime, String endDateTime, boolean isCompleted) {
+        EventTask newTask = new EventTask(taskName, startDateTime, endDateTime, isCompleted);
         this.userTasks.add(newTask);
         return true;
     }
@@ -89,5 +74,37 @@ public class TaskManager {
         }
     }
 
+    private void storeUserTaskToFileStorage() {
+        for (Task task : this.userTasks) {
+            this.taskStorage.appendToTxtFileStorage(task.getStringStorageRepresentation());
+        }
+    }
+
+    private void loadUserTaskFromFileStorage(){
+        ArrayList<String> readContents = this.taskStorage.readTxtFileStorage();
+        for (String readContentString : readContents) {
+            String[] readContentWord = readContentString.split("\\|");
+
+            if (readContentWord[0].trim().equals("T")) {
+                this.addToDoTask(readContentWord[2].trim(), readContentWord[1].trim().equals("Y"));
+            } else if (readContentWord[0].trim().equals("D")) {
+                this.addDeadlineTask(readContentWord[2].trim(), readContentWord[3].trim(), readContentWord[1].trim().equals("Y"));
+            } else if (readContentWord[0].trim().equals("E")) {
+                this.addEventTask(readContentWord[2].trim(), readContentWord[3].trim(), readContentWord[4].trim(), readContentWord[1].trim().equals("Y"));
+            }
+        }
+    }
+
+    public void initialise(){
+        if (!this.taskStorage.storageFileExist()) {
+            this.taskStorage.createTxtFileStorage();
+        }
+        this.loadUserTaskFromFileStorage();
+    }
+
+    public void termintate(){
+        this.taskStorage.clearTxtFileStorage();
+        this.storeUserTaskToFileStorage();
+    }
 
 }
