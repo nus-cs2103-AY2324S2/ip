@@ -14,10 +14,10 @@ src/main/resources/docs/
 bin/
 
 # Ensured .class is not version controlled
-*.class
+src/main/java/pan/*.class
 
 # output .txt file for level 7
-src/main/java/output/pan.txt
+src/main/java/java/output/pan.txt
 
 # test scripts
 text-ui-test/ACTUAL.txt
