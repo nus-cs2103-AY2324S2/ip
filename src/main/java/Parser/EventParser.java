@@ -22,7 +22,7 @@ public class EventParser {
             if (task.isEmpty()) {
                 throw new BlankEventException("Please do not enter an empty task.");
             } else {
-                Todo newTodoTask = new Todo(task);
+                Todo newTodoTask = new Todo(task, false);
                 return newTodoTask;
             }
 
@@ -46,7 +46,7 @@ public class EventParser {
             } else if (deadline.isEmpty()) {
                 throw new BlankEventException("Please do not enter an empty deadline.");
             } else {
-                Deadline newDeadline = new Deadline(task, deadline);
+                Deadline newDeadline = new Deadline(task, deadline, false);
                 return newDeadline;
             }
 
@@ -72,7 +72,7 @@ public class EventParser {
             } else if (to.isEmpty()) {
                 throw new BlankEventException("Please do not enter an empty to date.");
             } else {
-                Event newEventTask = new Event(task, from, to);
+                Event newEventTask = new Event(task, from, to, false);
                 return newEventTask;
             }
         } else {
