@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import duke.exceptions.TaskCreationException;
+
 import duke.utils.Parser;
 
 public class Deadline extends Task {
@@ -14,7 +15,8 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    public static Deadline deadlineParse(boolean isDone, String input) throws TaskCreationException, DateTimeParseException {
+    public static Deadline deadlineParse(boolean isDone, String input) 
+    throws TaskCreationException, DateTimeParseException {
         if (!input.contains("/by")) {
             throw new TaskCreationException("Missing parameters: /by");
         }
@@ -34,18 +36,18 @@ public class Deadline extends Task {
             throw new TaskCreationException("Missing information: " +  missingInfo);
         }
 
-        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineString, Parser.inputdtFormatter);
+        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineString, Parser.INPUT_DT_FORMATTER);
         Deadline d = new Deadline(isDone, description, deadlineDateTime);
         return d;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline.format(Parser.outputdtFormatter) + ")";
+        return "[D]" + super.toString() + " (by: " + deadline.format(Parser.OUTPUT_DT_FORMATTER) + ")";
     }
 
     @Override
     public String toSave() {
-        return "[D]|" + super.toSave() + "|" + deadline.format(Parser.inputdtFormatter);
+        return "[D]|" + super.toSave() + "|" + deadline.format(Parser.INPUT_DT_FORMATTER);
     }
 }

@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import duke.commands.Command;
+
 import duke.exceptions.NoSuchCommandException;
 import duke.exceptions.TaskCreationException;
 import duke.exceptions.TaskModificationException;
+
 import duke.utils.Parser;
 import duke.utils.Storage;
 import duke.utils.TaskList;
@@ -51,7 +53,8 @@ public class Duke {
             } catch (TaskCreationException e) {
                 ui.botPrint("Error Creating Task: " + e.getMessage());
             } catch (DateTimeParseException e) {
-                ui.botPrint("Error parsing datetime: " + e.getMessage() + "\nUse the format \"DD/MM/YYYY, HH:MM\" to enter date and time." );
+                ui.botPrint("Error parsing datetime: " + e.getMessage() 
+                            + "\nUse the format \"DD/MM/YYYY, HH:MM\" to enter date and time." );
             } catch (IndexOutOfBoundsException e) {
                 ui.botPrint(e.getMessage());
             } catch (NumberFormatException e) {

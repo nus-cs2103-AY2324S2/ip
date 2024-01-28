@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import duke.exceptions.TaskCreationException;
+
 import duke.utils.Parser;
 
 public class Event extends Task {
@@ -16,7 +17,8 @@ public class Event extends Task {
         this.end = end;
     }
 
-    public static Event eventParse(boolean isDone, String input)  throws TaskCreationException, DateTimeParseException {
+    public static Event eventParse(boolean isDone, String input) 
+    throws TaskCreationException, DateTimeParseException {
         // Check missing parameters
         String missingParams = "";
 
@@ -57,8 +59,8 @@ public class Event extends Task {
             throw new TaskCreationException("Missing information: " + missingInfo);
         }
 
-        LocalDateTime startDateTime = LocalDateTime.parse(startString, Parser.inputdtFormatter);
-        LocalDateTime endDateTime = LocalDateTime.parse(endString, Parser.inputdtFormatter);
+        LocalDateTime startDateTime = LocalDateTime.parse(startString, Parser.INPUT_DT_FORMATTER);
+        LocalDateTime endDateTime = LocalDateTime.parse(endString, Parser.INPUT_DT_FORMATTER);
             
         Event e = new Event(isDone, description, startDateTime, endDateTime);
         return e;
@@ -66,11 +68,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start.format(Parser.outputdtFormatter) + " to: " + end.format(Parser.outputdtFormatter) + ")";
+        return "[E]" + super.toString() + " (from: " + start.format(Parser.OUTPUT_DT_FORMATTER) 
+               + " to: " + end.format(Parser.OUTPUT_DT_FORMATTER) + ")";
     }
 
     @Override
     public String toSave() {
-        return "[E]|" + super.toSave() + "|" + start.format(Parser.inputdtFormatter) + "|" + end.format(Parser.inputdtFormatter);
+        return "[E]|" + super.toSave() + "|" + start.format(Parser.INPUT_DT_FORMATTER) 
+               + "|" + end.format(Parser.INPUT_DT_FORMATTER);
     }
 }
