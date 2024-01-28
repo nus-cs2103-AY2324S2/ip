@@ -1,3 +1,5 @@
+package tsundere;
+
 import java.io.IOException;
 
 public class Tsundere {

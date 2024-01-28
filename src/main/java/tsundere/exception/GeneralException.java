@@ -1,3 +1,5 @@
+package tsundere.exception;
+
 public class GeneralException extends Exception {
 
     private final String msg;
