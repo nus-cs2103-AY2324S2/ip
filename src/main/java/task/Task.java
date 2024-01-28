@@ -1,8 +1,8 @@
 package task;
 
-import nicoleexceptions.NicoleException;
-
 import java.time.LocalDate;
+
+import nicoleexceptions.NicoleException;
 
 public class Task {
     private boolean taskCompleted;
@@ -73,6 +73,15 @@ public class Task {
      */
     public LocalDate getDate() {
         return LocalDate.parse("+999999999-12-31");
+    }
+
+    /**
+     * Verifies if there is a keyword match with this task.
+     *
+     * @param name the keyword.
+     */
+    public boolean contains(String name) {
+        return this.name.contains(name);
     }
 
     @Override

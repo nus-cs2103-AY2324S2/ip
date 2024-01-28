@@ -27,7 +27,8 @@ public class Request {
                 || name.contains("unmark")
                 || name.contains("help")
                 || name.contains("delete")
-                || name.contains("priority")) {
+                || name.contains("priority")
+                || name.contains("find")) {
         } else {
             this.newTask = Parser.parseRequest(name);
         }
@@ -47,17 +48,20 @@ public class Request {
             taskList.deleteTask(taskNumber);
         } else if (name.equals("help")) {
             System.out.println("Nicole: " +
-                    "I'm your task/deadline/event manager! I'm down with these requests,\n" +
-                    "1. todo [task]\n" +
-                    "2. deadline [task] by YYYY-MM-DD\n" +
-                    "3. event [name] from YYYY-MM-DD at HH-MM-SS to YYY-MM-DD at HH-MM-SS\n" +
-                    "4. list\n" +
-                    "5. priority\n" +
-                    "6. bye\n" +
-                    "7. help"
+                    "I'm your task/deadline/event manager! I'm down with these requests,\n"
+                    + "1. todo [task]\n"
+                    + "2. deadline [task] by YYYY-MM-DD\n"
+                    + "3. event [name] from YYYY-MM-DD at HH-MM-SS to YYY-MM-DD at HH-MM-SS\n"
+                    + "4. list\n"
+                    + "5. priority\n"
+                    + "6. bye\n"
+                    + "7. help"
             );
         } else if (name.equals("priority")) {
             Request.needPriorityTasking = true;
+        } else if (name.contains("find")) {
+            String taskKeyWord = name.substring(6);
+            taskList.findTasks(taskKeyWord);
         } else if (!name.equals("list")) {
             taskList.addTask(newTask);
         } else {

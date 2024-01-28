@@ -1,9 +1,9 @@
 package task;
 
-import nicoleexceptions.NicoleException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import nicoleexceptions.NicoleException;
 
 public class Deadline extends Task {
     private LocalDate deadlineDateLocalDate;

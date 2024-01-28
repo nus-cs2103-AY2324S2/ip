@@ -1,11 +1,10 @@
 package task;
 
-import nicoleexceptions.NicoleException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
+
+import nicoleexceptions.NicoleException;
 
 public class Event extends Task {
     private LocalDateTime deadlineFromDateTimeLocalDate;

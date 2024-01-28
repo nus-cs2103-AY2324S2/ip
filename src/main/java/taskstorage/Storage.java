@@ -1,12 +1,17 @@
 package taskstorage;
 
-import task.Task;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import java.util.Scanner;
 
 import nicoleexceptions.NicoleException;
 
-import java.io.*;
-
-import java.util.Scanner;
+import task.Task;
 
 public class Storage {
     File tasksFile;
@@ -46,12 +51,7 @@ public class Storage {
         }
     }
 
-    /**
-     * Loads user tasks from "./data/tasks.txt" and recreates a list of tasks.
-     *
-     * @throws NicoleException if there are read issues from tasks.txt
-     */
-    protected void loadTasksFromFile() throws NicoleException {
+    private void loadTasksFromFile() throws NicoleException {
         File tasksFile = new File("./data/tasks.txt");
         try {
             int numTasksInFile = 0;
