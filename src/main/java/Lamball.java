@@ -1,7 +1,9 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Lamball {
@@ -179,6 +181,11 @@ public class Lamball {
     }
 
     public void obtainSavedFile() {
+        File folder = new File("src/main/java/data");
+        if (!folder.exists()) {
+            System.out.println("Folder does not exist. Creating folder...");
+            folder.mkdirs();
+        }
         savedList = new File("src/main/java/data/list.txt");
         try {
             // Try to create file
@@ -193,26 +200,54 @@ public class Lamball {
         }
     }
 
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAdd + System.lineSeparator());
+        fw.close();
+    }
+
     private void initializeListFromText() throws FileNotFoundException {
+        File tempFile = new File("src/main/java/data/tempfile.txt");
+        try {
+            // Delete and creates a new tempfile
+            tempFile.delete();
+            tempFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         Scanner scanner = new Scanner(savedList);
         System.out.println("Initializing saved file...");
         int count = 0;
         while(scanner.hasNext()) {
             try {
-                String[] parts = scanner.nextLine().split(" \\| ", 2);
-                if (parts.length != 2) {
+                // Parses every line of the saved file - if error, deletes line in the file and ignores command
+                String currLine = scanner.nextLine();
+                String[] parts = currLine.split(" \\| ", 2);
+                // Means that it is not formatted correctly in the <0 or 1> | <command> format
+                if (parts.length != 2 || !(Integer.valueOf(parts[0]) == 1 || Integer.valueOf(parts[0]) == 0)) {
                     throw new LamballParseException("Corrupt format, ignoring...");
                 }
                 this.parse(parts[1], true);
                 count++;
+                // Marks task if first character is 1. Else does not.
                 if (Integer.valueOf(parts[0]) == 1) {
                     this.parse("mark " + count, true);
                 }
+                // If code reaches here, means that the line is valid - write to temp file
+                writeToFile("src/main/java/data/tempfile.txt", currLine);
+
+
             } catch (LamballParseException e) {
+                // Ignores line
                 System.out.println("Corrupt format, ignoring...");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+        scanner.close();
         System.out.println("Done!");
+        savedList.delete();
+        tempFile.renameTo(savedList);
     }
 
 
