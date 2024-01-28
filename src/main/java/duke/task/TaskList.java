@@ -1,3 +1,10 @@
+package duke.task;
+
+import duke.storage.LoadException;
+import duke.utils.Parser;
+import duke.ui.Ui;
+import duke.command.CommandException;
+
 import java.lang.StringBuilder;
 import java.util.ArrayList;
 import java.util.StringTokenizer;

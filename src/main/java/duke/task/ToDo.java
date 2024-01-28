@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Task with no time limit attached.
  *
