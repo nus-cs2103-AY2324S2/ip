@@ -23,11 +23,12 @@ public class DataStorage {
         // Solution below adapted from https://www.w3schools.com/java/java_files_create.asp
         try {
             if (this.file.createNewFile()) {
-                // TODO: Remove this
-                System.out.println("\t The database has not been created. We have created one database for you at: " + this.file.getAbsolutePath());
+                // TODO: Remove this.
+                System.out.println("\t The database has not been created. A new database has been created at the following location: " + this.file.getAbsolutePath());
             } else {
-                System.out.println("\t Using database previously created at: " + this.file.getAbsolutePath());
+                System.out.println("\t Using the existing database located at: " + this.file.getAbsolutePath());
             }
+
         } catch (IOException e) {
             System.err.println("An error occurred while opening the file. \n" +
                     "An error occurred on your device; please check that there is at least 100 MB of free disk space.");
