@@ -1,3 +1,4 @@
+import Storage.txtFileStorage;
 import Task.Task;
 import Task.ToDoTask;
 import Task.DeadlineTask;
@@ -7,12 +8,25 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
-    ArrayList<Task> userTasks = new ArrayList<>();
+    private final String TASKSTORAGEFILEPATH = "src/main/java/Storage/data/task.txt";
 
-    public boolean addUserTask(String taskName) {
-        Task newTask = new Task(taskName);
-        this.userTasks.add(newTask);
-        return true;
+    private ArrayList<Task> userTasks = new ArrayList<>();
+
+    private txtFileStorage taskStorage = new txtFileStorage(TASKSTORAGEFILEPATH);
+
+    public void initialise(){
+        this.taskStorage.createTxtFileStorage();
+    }
+
+    private void storeUserTaskToFileStorage() {
+        for (Task task : this.userTasks) {
+            this.taskStorage.appendToTxtFileStorage(task.getStringStorageRepresentation());
+        }
+    }
+
+    public void termintate(){
+        this.taskStorage.clearTxtFileStorage();
+        this.storeUserTaskToFileStorage();
     }
 
     public boolean addToDoTask(String taskName) {
@@ -35,6 +49,10 @@ public class TaskManager {
 
     public Task getTask(int index){
         return this.userTasks.get(index);
+    }
+
+    public ArrayList<Task> getUserTasks(){
+        return userTasks;
     }
 
     public Task removeTask(int index) {
@@ -71,7 +89,5 @@ public class TaskManager {
         }
     }
 
-    public ArrayList<Task> getUserTasks(){
-        return userTasks;
-    }
+
 }

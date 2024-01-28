@@ -1,0 +1,4 @@
+T | [X] Borrow Book
+T | [ ] Return Book
+D | [ ] Finish 2030 Quiz | Jan 30th
+E | [ ] MSL meeting | Monday 10am | 12pm

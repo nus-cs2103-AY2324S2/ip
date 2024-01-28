@@ -1,6 +1,6 @@
 package Task;
 
-public class Task {
+public abstract class Task {
 
     private String taskName;
 
@@ -16,6 +16,11 @@ public class Task {
 
     public void markIncomplete() {
         this.isCompleted = false;
+    }
+
+    public String getStringStorageRepresentation() {
+        String completionStatus = isCompleted ? "Y" : "N";
+        return String.format("%s | %s", completionStatus, taskName);
     }
 
     @Override
