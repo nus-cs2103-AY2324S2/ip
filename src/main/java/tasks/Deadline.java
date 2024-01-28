@@ -1,7 +1,10 @@
 package tasks;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private String dueDate;
+    private LocalDateTime dueDate;
+
 
     public Deadline(String[] parts) {
         super(parts[0]);
@@ -9,17 +12,23 @@ public class Deadline extends Task {
         if (parts.length < 2) {
             throw new IllegalArgumentException("Invalid input for deadline task. Expected: <description> /by <dueDate>");
         }
-        this.dueDate = parts[1];
+        try {
+            String due = parts[1].substring(3).trim();
+            this.dueDate = Parser.parseDate(due);
+        } catch (Exception e) {
+            System.out.println("Error parsing LocalDateTime: " + e.getMessage());
+        }
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (" + dueDate + ")";
+        return "[D]" + super.toString() + " (" + dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy hh mm")) + ")";
     }
 
     @Override
     public String formattedString() {
-        return "D" + super.formattedString() + "|" + dueDate ;
+
+        return "D" + super.formattedString() + "|" + dueDate.toString();
     }
 
     @Override

@@ -1,6 +1,7 @@
 import tasks.Task;
 import tasks.TaskType;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
@@ -123,16 +124,15 @@ public class TodoList {
                 return todo;
             } else if (taskType.equals("D")) {
                 // Extract deadline date if available
-                String deadlineDate = (parts.length > 3) ? parts[3] : null;
-                Task deadline = new TaskFactory().createTask(TaskType.DEADLINE, taskDetails, deadlineDate);
+                String deadlineDate = parts[3];
+                Task deadline = new TaskFactory().createTask(TaskType.DEADLINE, taskDetails, "by: " + deadlineDate);
                 if (completionStatus == 1) {
                     deadline.markAsDone();
                 }
                 return deadline;
             } else if (taskType.equals("E")) {
                 // Extract event time if available
-
-                Task event = new TaskFactory().createTask(TaskType.EVENT, taskDetails, parts[3], parts[4]);
+                Task event = new TaskFactory().createTask(TaskType.EVENT, taskDetails, "from: " + parts[3], "to:" + parts[4]);
                 if (completionStatus == 1) {
                     event.markAsDone();
                 }

@@ -1,8 +1,10 @@
 package tasks;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     public Event(String[] parts) {
         super(parts[0]);
@@ -10,18 +12,24 @@ public class Event extends Task {
         if (parts.length < 3) {
             throw new IllegalArgumentException("Invalid input for event task. Expected: <description> /at <from> <to>");
         }
-        this.from = parts[1];
-        this.to = parts[2];
+        try {
+            String fromString = parts[1].substring(5).trim();
+            String toString = parts[2].substring(3);
+            this.from = Parser.parseDate(fromString);
+            this.to = Parser.parseDate(toString);
+        } catch (Exception e) {
+            System.out.println("Error parsing LocalDateTime: " + e.getMessage());
+        }
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (" + from + " " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy hh mm")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy hh mm")) + ")";
     }
 
     @Override
     public String formattedString() {
-        return "E" + super.formattedString() + "|" + from + "|" + to;
+        return "E" + super.formattedString() + "|" + from.toString() + "|" + to.toString();
     }
 
     @Override
