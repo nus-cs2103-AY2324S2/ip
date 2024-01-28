@@ -7,6 +7,14 @@ public class EventTask extends Task{
         super(name, done);
         this.start = start;
         this.end = end;
+        DateFormatter d1 = new DateFormatter(this.start);
+        if (d1.isValidDate()) {
+            this.start = d1.convertDate();
+        }
+        DateFormatter d2 = new DateFormatter(this.end);
+        if (d2.isValidDate()) {
+            this.end = d2.convertDate();
+        }
     }
 
     public String getStart() {

@@ -8,6 +8,11 @@ public class Duke {
     public static void main(String[] args) {
 
         try {
+//            DateFormatter d = new DateFormatter("2019-10-15");
+//            if (d.isValidDate()) {
+//                System.out.println(d.convertDate());
+//            }
+
             list = storage.loadList();
 
             Scanner sc = new Scanner(System.in);
