@@ -44,6 +44,7 @@ application {
     mainClassName = 'bytebuddy.ByteBuddy'
 }
 
+// JAR output is in build/libs
 shadowJar {
     archiveBaseName = "bytebuddy"
     archiveClassifier = null
