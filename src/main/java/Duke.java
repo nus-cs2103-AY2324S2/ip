@@ -9,18 +9,11 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        FileAccess fileAccesser = new FileAccess("src/main/data/caching.txt");
         System.out.println(greet());
 
-        try {
-            Duke.instrList = fileAccesser.loadTaskList();
-        } catch (DukeException e) {
-            System.out.println(e.toString());
-        }
-
         Scanner sc = new Scanner(System.in);
-        String instr = sc.nextLine();
 
+        String instr = sc.nextLine();
         while (!instr.equals("bye")) {
             if (instr.equals("list")) {
                 listOut();
@@ -29,23 +22,17 @@ public class Duke {
                 try {
                     if (cmdWord.equals("unmark")) {
                         unmark(instr);
-                        fileAccesser.saveTaskList(instrList);
                     } else if (cmdWord.equals("mark")) {
                         mark(instr);
-                        fileAccesser.saveTaskList(instrList);
                     } else if (cmdWord.equals("delete")) {
                         delete(instr);
-                        fileAccesser.saveTaskList(instrList);
                     } else {
                         if (cmdWord.equals("todo")) {
                             addTask(TaskCommand.TODO, instr);
-                            fileAccesser.saveTaskList(instrList);
                         } else if (cmdWord.equals("deadline")) {
                             addTask(TaskCommand.DEADLINE, instr);
-                            fileAccesser.saveTaskList(instrList);
                         } else if (cmdWord.equals("event")) {
                             addTask(TaskCommand.EVENT, instr);
-                            fileAccesser.saveTaskList(instrList);
                         } else {
                             throw new DukeException("OOPS!!! What is that? I'm sorry, but I don't recognise this command :-( \nTry another command!"); 
                         } 
