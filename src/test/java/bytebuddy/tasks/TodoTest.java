@@ -22,7 +22,7 @@ public class TodoTest {
         Todo todo = new Todo("Buy groceries");
 
         String expectedOutput = "T | 0 | Buy groceries";
-        String actualOutput = todo.textFormattedOutput();
+        String actualOutput = todo.getTextFormattedOutput();
 
         assertEquals(expectedOutput, actualOutput);
     }

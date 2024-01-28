@@ -59,7 +59,7 @@ public class Deadline extends Task {
 
 
     @Override
-    public String textFormattedOutput() {
+    public String getTextFormattedOutput() {
         int intIsDone = isDone ? 1 : 0;
         return String.format("D | %d | %s | %s", intIsDone, description, by);
     }
