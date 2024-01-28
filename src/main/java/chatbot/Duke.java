@@ -74,6 +74,10 @@ class InvalidException extends Exception {
     public String toString() {
         return (this.getStatusIcon() + this.description);
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
 
 /**
