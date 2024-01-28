@@ -1,6 +1,5 @@
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
+
 
 public class CommandHandler {
     public enum Command {
@@ -13,17 +12,6 @@ public class CommandHandler {
         DEADLINE,
         EVENT
     }
-
-    static final Set<Command> commandSet = new HashSet<>(Set.of(
-        Command.BYE,
-        Command.LIST,
-        Command.MARK,
-        Command.UNMARK,
-        Command.DELETE,
-        Command.TODO,
-        Command.DEADLINE,
-        Command.EVENT
-    ));
     
     public static void scan() {
         Scanner scanner = new Scanner(System.in);
@@ -107,7 +95,7 @@ public class CommandHandler {
         return new ToDo(arguments);
     }
 
-    private static Deadline processDeadline(String arguments) throws InvalidDeadlineFormatException {
+    private static Deadline processDeadline(String arguments) throws InvalidDeadlineFormatException, InvalidDateFormat {
         try {
             String[] parts = arguments.split("/by ");
             return new Deadline(parts[0], parts[1]);
@@ -116,7 +104,7 @@ public class CommandHandler {
         }
     }
 
-    private static Event processEvent(String arguments) throws InvalidEventFormatException {
+    private static Event processEvent(String arguments) throws InvalidEventFormatException, InvalidDateFormat {
         try {
             String[] parts = arguments.split("/from ");
             String[] parts2 = parts[1].split("/to ");
