@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
  * Contains the logic for the ChatBot named 'Campus'
  */
 public class Campus {
+    public static String DATAFILEPATH = "src/main/java/data.txt";
     static List<Task> tasks = new ArrayList<>();
 
     /**
@@ -18,7 +19,7 @@ public class Campus {
         Campus.greet();
 
         try {
-            String filepath = "data.txt";
+            String filepath = Campus.DATAFILEPATH;
             List<String> lines = Campus.readFromDBCreateIfNotExists(filepath);
             updateListFromFile(lines);
         } catch (FileNotFoundException e) {
@@ -56,7 +57,7 @@ public class Campus {
      */
     public static void updateListFromFile(List<String> listOfStrings) throws CampusException {
         if (listOfStrings == null) {
-            Campus.tasks = Collections.emptyList();
+            Campus.tasks = new ArrayList<>();
             return;
         }
 
@@ -105,7 +106,7 @@ public class Campus {
      * @param listOfTasks Usually from the main Campus.tasks field
      */
     public static void updateFileFromList(List<Task> listOfTasks) {
-        String filePath = "data.txt";
+        String filePath = Campus.DATAFILEPATH;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : listOfTasks) {
                 writer.write(task.toDBFormat());
@@ -161,49 +162,44 @@ public class Campus {
 
     public static void handleDeadlineCommand(String remaining) throws CampusException {
         String[] temp = remaining.split("/by", 2);
-        if (temp.length == 1) {
-            throw new CampusException("Error! A deadline task must have parameters, please follow the following syntax: deadline <deadline name> /by <endDateTime>\n");
+        if (temp.length != 2) {
+            throw new CampusException("Error! A deadline task must have the correct number of parameters, please follow the following syntax: deadline <deadline name> /by <endDateTime (HHmm dd/MM/yyyy)>\n");
         }
+
         String deadlineName = temp[0].trim();
         String endDateTime = temp[1].trim();
 
-        if (deadlineName.isEmpty()) {
-            throw new CampusException("Error! A deadline task must have a name, please follow the following syntax: deadline <deadline name> /by <endDateTime>\n");
-        } else if (endDateTime.isEmpty()) {
-            throw new CampusException("Error! A deadline task must have an end datetime, please follow the following syntax: deadline <deadline name> /by <endDateTime>\n");
-        } else {
+        try {
             Deadline deadline = new Deadline(deadlineName, endDateTime);
             Campus.add(deadline);
+        } catch (CampusException e) {
+            System.out.printf("%s\n%n", e.getMessage());
         }
     }
 
     public static void handleEventCommand(String remaining) throws CampusException {
-        String[] temp1 = remaining.split("/from", 2);
+        String[] temp = remaining.split("/from", 2);
 
-        if (temp1.length == 1) {
-            throw new CampusException("Error! An event task must have parameters, please follow the following syntax: event <event name> /from <startDateTime> /to <endDateTime>\n");
+        if (temp.length != 2) {
+            throw new CampusException("Error! An event task must have the correct number of parameters, please follow the following syntax: event <event name> /from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>\n");
         }
 
-        String eventName = temp1[0].trim();
-        String remaining1 = temp1[1].trim();
+        String eventName = temp[0].trim();
+        String remaining1 = temp[1].trim();
         String[] temp2 = remaining1.split("/to", 2);
 
-        if (temp2.length == 1) {
-            throw new CampusException("Error! An event task must have parameters, please follow the following syntax: event <event name> /from <startDateTime> /to <endDateTime>\n");
+        if (temp2.length != 2) {
+            throw new CampusException("Error! An event task must have parameters, please follow the following syntax: event <event name> /from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>\n");
         }
 
         String from = temp2[0].trim();
         String to = temp2[1].trim();
 
-        if (eventName.isEmpty()) {
-            throw new CampusException("Error! An event task must have a name, please follow the following syntax: event <event name> /from <startDateTime> /to <endDateTime>\n");
-        } else if (from.isEmpty()) {
-            throw new CampusException("Error! An event task must have a start datetime, please follow the following syntax: event <event name> /from <startDateTime> /to <endDateTime>\n");
-        } else if (to.isEmpty()) {
-            throw new CampusException("Error! An event task must have an end datetime, please follow the following syntax: event <event name> /from <startDateTime> /to <endDateTime>\n");
-        } else {
+        try {
             Event event = new Event(eventName, from, to);
             Campus.add(event);
+        } catch (CampusException e) {
+            System.out.printf("%s\n%n", e.getMessage());
         }
     }
 

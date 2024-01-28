@@ -15,9 +15,15 @@ Now you have 1 task(s) in the list.
 
 ------------------------------
 
+Error! A deadline task must have an end datetime in the correct format, please follow the following syntax: deadline <deadline name> /by <endDateTime (HHmm dd/MM/yyyy)>
+
+
+Error! A deadline task must have an end datetime in the correct format, please follow the following syntax: deadline <deadline name> /by <endDateTime (HHmm dd/MM/yyyy)>
+
+
 ------------------------------
 Got it. I've added this to our list of tasks:
-added: [D] [ ] return book (by: Sunday)
+added: [D] [ ] return book (by: 2100 01/01/2024)
 Now you have 2 task(s) in the list.
 ------------------------------
 
@@ -28,7 +34,7 @@ Nice! I've completed this task successfully:
 
 ------------------------------
 1. [T] [X] read book
-2. [D] [ ] return book (by: Sunday)
+2. [D] [ ] return book (by: 2100 01/01/2024)
 
 ------------------------------
 
@@ -42,20 +48,29 @@ Error! A todo task must have a name, please follow the following syntax: todo <t
 ------------------------------
 
 ------------------------------
-Error! A deadline task must have parameters, please follow the following syntax: deadline <deadline name> /by <endDateTime>
-
-------------------------------
-
-------------------------------
-Error! An event task must have parameters, please follow the following syntax: event <event name> /from <startDateTime> /to <endDateTime>
-
-------------------------------
-
-------------------------------
 Got it. I've added this to our list of tasks:
-added: [E] [ ] photoshoot (from: this week saturday to: about 5pm)
+added: [T] [ ] complete assignment
 Now you have 3 task(s) in the list.
 ------------------------------
+
+------------------------------
+Error! An event task must have the correct number of parameters, please follow the following syntax: event <event name> /from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>
+
+------------------------------
+
+------------------------------
+Error! An event task must have parameters, please follow the following syntax: event <event name> /from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>
+
+------------------------------
+
+Error! An event task must have a start datetime in the right format, please follow the following syntax: event <event name> /from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>
+
+
+Error! An event task must have an end datetime in the right format, please follow the following syntax: event <event name> /from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>
+
+
+Error! An event task must have an end datetime in the right format, please follow the following syntax: event <event name> /from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>
+
 
 ------------------------------
 Ok, this task is still not done yet:
@@ -69,8 +84,13 @@ Now you have 2 task(s) in the list.
 ------------------------------
 
 ------------------------------
-1. [D] [ ] return book (by: Sunday)
-2. [E] [ ] photoshoot (from: this week saturday to: about 5pm)
+Noted. Task deleted successfully. I have removed the following task:
+[D] [ ] return book (by: 2100 01/01/2024)
+Now you have 1 task(s) in the list.
+------------------------------
+
+------------------------------
+1. [T] [ ] complete assignment
 
 ------------------------------
 
