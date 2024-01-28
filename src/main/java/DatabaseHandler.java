@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -9,17 +12,30 @@ import java.util.Scanner;
 public class DatabaseHandler {
     private static final File DB = new File("./data/jivox.txt");
 
-    public void create() throws DataHandlerException {
-        try{
-            File parent = DB.getParentFile();
-            if(parent != null && !parent.exists() && !parent.mkdirs()){
-                throw new IOException("Can't create dir: " + parent);
-            }
-            DB.createNewFile();
-        } catch (IOException e) {
-            throw new DataHandlerException(e.getMessage());
+//    public void create() throws DataHandlerException {
+//        try{
+//            File parent = DB.getParentFile();
+//            if(parent != null && !parent.exists() && !parent.mkdirs()){
+//                throw new IOException("Can't create dir: " + parent);
+//            }
+//            DB.createNewFile();
+//        } catch (IOException e) {
+//            throw new DataHandlerException(e.getMessage());
+//        }
+//    }
+public void create() throws DataHandlerException {
+    Path path = Paths.get(DB.getPath());
+    try {
+        if (Files.notExists(path.getParent())) {
+            Files.createDirectories(path.getParent());
         }
+        if (Files.notExists(path)) {
+            Files.createFile(path);
+        }
+    } catch (IOException e) {
+        throw new DataHandlerException(e.getMessage());
     }
+}
 
     public void save(ArrayList<Task> tasks) throws DataHandlerException {
         try{
