@@ -1,26 +1,23 @@
 package duke.command;
 
+/**
+ * Enumeration of commands that can be executed in the Duke application.
+ */
 public enum Command {
-    BYE ("bye") {
+    BYE {
         @Override
         public boolean isExit() {
             return true;
-        };
+        }
     },
-    DEADLINE ("deadline"),
-    EVENT ("event"),
-    TODO ("todo"),
-    LIST ("list"),
-    MARK ("mark"),
-    UNMARK ("unmark"),
-    DELETE ("delete");
+    TODO,
+    DEADLINE,
+    EVENT,
+    LIST,
+    MARK,
+    UNMARK,
+    DELETE;
 
-    String equivalentString;
-    Command (String equivalentString) {
-        this.equivalentString = equivalentString;
-    }
-
-    
     public boolean isExit() {
         return false;
     }

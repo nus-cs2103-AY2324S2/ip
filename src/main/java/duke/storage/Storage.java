@@ -7,14 +7,23 @@ import duke.exceptions.ProcessingException;
 import duke.exceptions.StartUpException;
 import duke.tasks.Task;
 
+/**
+ * The `Storage` class manages the interaction between the temporary storage (`TempStorage`)
+ * and local storage (`LocalStorage`) for saving, loading, updating, and performing operations
+ * on tasks in the Duke application.
+ */
 public class Storage {
 
-    String fileLocation;
-    LocalStorage local;
-    TempStorage temp;
+    private final LocalStorage local;
+    private final TempStorage temp;
 
+    /**
+     * Constructs a new `Storage` object with the specified file location.
+     *
+     * @param fileLocation The file location where tasks are stored.
+     * @throws StartUpException If an error occurs during the startup process, such as file access issues.
+     */
     public Storage(String fileLocation) throws StartUpException {
-        this.fileLocation = fileLocation;
         temp = new TempStorage();
 
         try {
@@ -36,12 +45,16 @@ public class Storage {
     }
     private void saveFileNotFound() {
         System.out.println("Save file not found! Created an new one!");
-    }    
-    
+    }
     private void saveFileFound() {
         System.out.println("Save file found! Loading old save...");
     }
 
+    /**
+     * Updates the local storage with the data from the temporary storage.
+     *
+     * @throws ProcessingException If an error occurs while updating the save file.
+     */
     public void update() throws ProcessingException {
         try {
             Stream<String> stringStream = temp.save();
@@ -69,10 +82,5 @@ public class Storage {
     public void displayList() {
         temp.displayList();
     }
-
-
-    public void create(Task task) {}
-    public void read(int idx) {}
-    public void update(int idx, Task task) {}  
 
 }

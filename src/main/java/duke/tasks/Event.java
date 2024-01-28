@@ -3,15 +3,27 @@ import java.time.LocalDateTime;
 
 import duke.codec.TimeProcessor;
 
+/**
+ * The `Event` class represents a task with a specific event duration.
+ * It extends the `Task` class and inherits its properties and methods.
+ */
 public class Event extends Task {
-    LocalDateTime from;
-    LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
 
     public Event(String taskName, LocalDateTime from, LocalDateTime to) {
         this(taskName, from, to, false);
     }
 
+    /**
+     * Constructs a new `Event` task with the given task name, event start time, end time, and completion status.
+     *
+     * @param taskName The name or description of the `Event` task.
+     * @param from The start time of the event.
+     * @param to The end time of the event.
+     * @param done A boolean indicating whether the task is completed (true) or not (false).
+     */
     public Event(String taskName, LocalDateTime from, LocalDateTime to, Boolean done) {
         super(taskName, done);
         super.identifier = "E";
@@ -21,7 +33,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s from: %s to: %s", super.toString(), TimeProcessor.toString(from), TimeProcessor.toString(to));
+        return String.format("%s from: %s to: %s",
+                super.toString(),
+                TimeProcessor.toString(from),
+                TimeProcessor.toString(to)
+        );
     }
 
     @Override
@@ -29,9 +45,7 @@ public class Event extends Task {
         String[] encodedEvent = new String[5];
         String[] encodedTask = super.encode();
 
-        for (int i = 0; i < encodedTask.length; i++) {
-            encodedEvent[i] = encodedTask[i];
-        }
+        System.arraycopy(encodedTask, 0, encodedEvent, 0, encodedTask.length);
 
         encodedEvent[3] = TimeProcessor.toString(from);
         encodedEvent[4] = TimeProcessor.toString(to);

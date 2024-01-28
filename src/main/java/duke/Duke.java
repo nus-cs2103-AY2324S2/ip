@@ -1,4 +1,10 @@
-package duke.ui;
+package duke;
+
+import duke.ui.UserInterface;
+
+/**
+ *
+ */
 public class Duke {
     public static void main(String[] args) {
         String logo = "          _______  _           _____   _______  _______  _______\n"
@@ -11,7 +17,7 @@ public class Duke {
                 + "|/     \\||/     \\|(_______/  \\______/ (_______)(_______)(_______)\n";
         System.out.println(logo);
 
-        UserInterface UI = new UserInterface();
-        UI.start();
+        UserInterface userInterface = new UserInterface();
+        userInterface.start();
     }
 }

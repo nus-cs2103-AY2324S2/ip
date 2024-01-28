@@ -9,24 +9,25 @@ import duke.exceptions.ProcessingException;
 import duke.exceptions.StartUpException;
 import duke.storage.Storage;
 
+/**
+ * The `UserInterface` class handles user interactions and serves as the main interface for the Duke application.
+ */
 public class UserInterface {
-    /*
-    This class is for the the user interface.
-    */
 
-    Scanner scan;
-    CommandProcessor cmd;
-    Storage storage;
+    private final Scanner scan;
+    private CommandProcessor cmd;
 
-    String fileLocation = "savefile.txt";
-    String greeting = "Hi! My name is HAL9000";
-    String exit = "Bye! See ya soon";
-    boolean startUpSuccess = false;
+    private boolean startUpSuccess = false;
 
+    /**
+     * Initializes a new `UserInterface` object, sets up a scanner for user input,
+     * and attempts to start the Duke application.
+     */
     public UserInterface() {
         scan = new Scanner(System.in);
         try {
-            storage = new Storage(fileLocation);
+            String fileLocation = "./savefile.txt";
+            Storage storage = new Storage(fileLocation);
             cmd = new CommandProcessor(storage);
             startUpSuccess = true;
         } catch (StartUpException e) {
@@ -35,17 +36,32 @@ public class UserInterface {
 
     }
 
+    /**
+     * Displays a greeting message to the user.
+     */
     public void greet() {
+        String greeting = "Hi! My name is HAL9000";
         System.out.println(greeting);
     }
+
+    /**
+     * Displays a farewell message to the user.
+     */
     public void exit() {
+        String exit = "Bye! See ya soon";
         System.out.println(exit);
     }
 
+    /**
+     * Displays a message indicating a startup failure to the user.
+     */
     public void startUpFailure() {
         System.out.println("Hi, you failed to start up properly! Sorry, bye!");
     }
 
+    /**
+     * Polls for user input and processes commands until the user decides to exit.
+     */
     public void poll() {
         boolean polling = true;
         while (polling) {
@@ -63,22 +79,32 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Parses and returns the appropriate command based on user input.
+     *
+     * @param input The user's input string.
+     * @return The corresponding `Command` enum value.
+     * @throws InputException If there is an issue processing the input or if the command is unrecognized.
+     */
     public Command processCommand(String input) throws InputException {
         try {
             String commandString = input.split(" ")[0];
-            Command command = Command.valueOf(commandString.toUpperCase());
-            return command;
+            return Command.valueOf(commandString.toUpperCase());
         } catch (IndexOutOfBoundsException e) {
             String message = "Something went wrong when processing your command: \n"
-            + "Check your input again: " + input;
-            throw  new InputException(message, e);
-        } catch (IllegalArgumentException e) { 
+                + "Check your input again: " + input;
+            throw new InputException(message, e);
+        } catch (IllegalArgumentException e) {
             String message = "You inputted an unrecognizable command";
             throw new InputException(message);
         }
     }
 
+    /**
+     * Starts the Duke application by displaying a greeting, polling for user input, and then exiting.
+     */
     public void start() {
+
         if (!startUpSuccess) {
             startUpFailure();
             return;

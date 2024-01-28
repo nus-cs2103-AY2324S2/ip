@@ -2,6 +2,9 @@ package duke.exceptions;
 
 import duke.command.Command;
 
+/**
+ * The `InputException` class represents an exception related to input processing.
+ */
 public class InputException extends Exception {
     public InputException(String message) {
         super(message);
@@ -11,9 +14,17 @@ public class InputException extends Exception {
         super(message, cause);
     }
 
+    /**
+     * Creates an `InputException` for command processing with a specific command, input, and cause.
+     *
+     * @param command The command being processed when the exception occurred.
+     * @param input The input associated with the exception.
+     * @param cause The cause of the exception (a Throwable object).
+     * @return An `InputException` with a message describing the error during command processing.
+     */
     public static InputException exceptionCommandProcessing(Command command, String input, Throwable cause) {
         String message = "Something went wrong when processing your " + command + "command: \n"
-        + "Check your input again: " + input;
+            + "Check your input again: " + input;
         return new InputException(message, cause);
     }
 }

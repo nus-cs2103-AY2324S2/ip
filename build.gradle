@@ -2,7 +2,9 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
+
 
 repositories {
     mavenCentral()
@@ -28,7 +30,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("duke.Duke")
 }
 
 shadowJar {
@@ -37,6 +39,11 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
 }
+
+checkstyle {
+    version = '10.2'
+}
+

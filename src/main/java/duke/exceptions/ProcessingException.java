@@ -1,4 +1,8 @@
 package duke.exceptions;
+
+/**
+ * The `ProcessingException` class represents an exception related to processing tasks or data in the Duke application.
+ */
 public class ProcessingException extends Exception {
     public ProcessingException(String message) {
         super(message);
