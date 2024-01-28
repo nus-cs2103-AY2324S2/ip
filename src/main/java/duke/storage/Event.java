@@ -1,5 +1,10 @@
 package duke.storage;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Event class defines a 'Event' task used for the application
  *
@@ -9,12 +14,12 @@ public class Event extends Task {
     /**
      * Start date/time of the Event task
      */
-    private String startDate;
+    private Instant startDate;
 
     /**
      * End date/time of the Event task
      */
-    private String endDate;
+    private Instant endDate;
 
     /**
      * Create an Event task
@@ -23,7 +28,7 @@ public class Event extends Task {
      * @param startDate   Start date of the event
      * @param endDate     End date of the event
      */
-    public Event(String description, String startDate, String endDate) {
+    public Event(String description, Instant startDate, Instant endDate) {
         super(description, TaskType.EVENT, false);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -37,10 +42,24 @@ public class Event extends Task {
      * @param endDate     End date of the event
      * @param isDone      Status of the event
      */
-    public Event(String description, String startDate, String endDate, boolean isDone) {
+    public Event(String description, Instant startDate, Instant endDate, boolean isDone) {
         super(description, TaskType.EVENT, isDone);
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    /**
+     * Create an Event task
+     *
+     * @param description Description of the event
+     * @param startDate   Start date of the event (in epoch milliseconds)
+     * @param endDate     End date of the event (in epoch milliseconds)
+     * @param isDone      Status of the event
+     */
+    public Event(String description, long startDate, long endDate, boolean isDone) {
+        super(description, TaskType.EVENT, isDone);
+        this.startDate = Instant.ofEpochMilli(startDate);
+        this.endDate = Instant.ofEpochMilli(endDate);
     }
 
     /**
@@ -48,8 +67,8 @@ public class Event extends Task {
      *
      * @return Start date of the event
      */
-    public String getStartDate() {
-        return this.startDate;
+    public long getStartDate() {
+        return this.startDate.toEpochMilli();
     }
 
     /**
@@ -57,8 +76,24 @@ public class Event extends Task {
      *
      * @return End date of the event
      */
-    public String getEndDate() {
-        return this.endDate;
+    public long getEndDate() {
+        return this.endDate.toEpochMilli();
+    }
+
+    /**
+     * Check if event encompasses the specified date
+     *
+     * @param date Date to check against
+     * @return True if event is encompasses specified date, false otherwise
+     */
+    public boolean encompasses(Instant date) {
+        LocalDate startDateLocal = this.startDate.atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate endDateLocal = this.endDate.atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dateLocal = date.atZone(ZoneId.systemDefault()).toLocalDate();
+
+        return (dateLocal.isAfter(startDateLocal) && dateLocal.isBefore(endDateLocal))
+                || dateLocal.equals(startDateLocal)
+                || dateLocal.equals(endDateLocal);
     }
 
     /**
@@ -68,6 +103,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), startDate, endDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mma")
+                .withZone(ZoneId.systemDefault());
+
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), formatter.format(startDate),
+                formatter.format(endDate));
     }
 }

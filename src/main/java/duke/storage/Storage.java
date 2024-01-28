@@ -5,13 +5,18 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import duke.exceptions.InvalidArgumentException;
 import duke.exceptions.MissingArgumentException;
 import duke.exceptions.TaskNotSupportedException;
 import duke.storage.Task.TaskType;
@@ -40,8 +45,10 @@ public class Storage {
      * @param arguments Arguments of the item type
      */
     public static void storeItem(String item, String[] arguments)
-            throws MissingArgumentException, TaskNotSupportedException,
-            IOException {
+            throws MissingArgumentException,
+            TaskNotSupportedException,
+            IOException,
+            InvalidArgumentException {
         // Create task to be inserted
         Task task;
         String description;
@@ -72,9 +79,17 @@ public class Storage {
 
             // Extract task description & due date
             description = String.join(" ", Arrays.copyOfRange(arguments, 0, byIndex));
-            String dueDate = String.join(" ", Arrays.copyOfRange(arguments, byIndex + 1, arguments.length));
 
-            task = new Deadline(description, dueDate);
+            try {
+                String date = arguments[byIndex + 1];
+                String time = arguments[byIndex + 2];
+
+                // Create new task
+                task = new Deadline(description, userDateToInstant(date, time));
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                throw new InvalidArgumentException(
+                        "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
+            }
             break;
 
         case "event":
@@ -101,12 +116,24 @@ public class Storage {
                 throw new MissingArgumentException("Argument '/to' missing");
             }
 
-            // Extract task description, start and end date
+            // Extract task description
             description = String.join(" ", Arrays.copyOfRange(arguments, 0, fromIndex));
-            String startDate = String.join(" ", Arrays.copyOfRange(arguments, fromIndex + 1, toIndex));
-            String endDate = String.join(" ", Arrays.copyOfRange(arguments, toIndex + 1, arguments.length));
 
-            task = new Event(description, startDate, endDate);
+            try {
+                // Extract start date
+                String fromDate = arguments[fromIndex + 1];
+                String fromTime = arguments[fromIndex + 2];
+
+                // Extract end date
+                String toDate = arguments[toIndex + 1];
+                String toTime = arguments[toIndex + 2];
+
+                // Create new task
+                task = new Event(description, userDateToInstant(fromDate, fromTime), userDateToInstant(toDate, toTime));
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                throw new InvalidArgumentException(
+                        "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD HH:MM'");
+            }
             break;
 
         default:
@@ -128,11 +155,44 @@ public class Storage {
 
     /**
      * Method to print all items in storage to standard output
+     *
+     * @param arguments Arguments of list type
      */
-    public static void listItems() {
-        for (int i = 0; i < storageArray.size(); i++) {
-            System.out.println(String.format("%d.%s", i + 1, storageArray.get(i).toString()));
+    public static void listItems(String[] arguments) throws InvalidArgumentException, InvalidArgumentException {
+        // Check list type
+        if (arguments.length > 0) {
+            switch (arguments[0]) {
+            case "/date":
+                try {
+                    // Get date of argument
+                    Instant date = userDateToInstant(arguments[1], "00:00");
+                    int printIndex = 1;
+
+                    for (int i = 0; i < storageArray.size(); i++) {
+                        Task task = storageArray.get(i);
+
+                        if ((task instanceof Deadline && ((Deadline) task).isOn(date))
+                                || (task instanceof Event && ((Event) task).encompasses(date))) {
+                            System.out.println(String.format("%d.%s", printIndex, storageArray.get(i).toString()));
+                            printIndex++;
+                        }
+                    }
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                    throw new InvalidArgumentException(
+                            "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD'");
+                }
+                break;
+
+            default:
+                throw new InvalidArgumentException(
+                        String.format("Argument '%s' not currently supported for the 'list' command", arguments[0]));
+            }
+        } else { // Print all tasks
+            for (int i = 0; i < storageArray.size(); i++) {
+                System.out.println(String.format("%d.%s", i + 1, storageArray.get(i).toString()));
+            }
         }
+
     }
 
     /**
@@ -233,13 +293,13 @@ public class Storage {
             throw new FileNotFoundException("File cannot be read");
         }
 
-        // Read stored tasks from file
-        FileInputStream input = new FileInputStream(file);
-        JSONArray jsonStorage = new JSONArray(new JSONTokener(input));
+        try {
+            // Read stored tasks from file
+            FileInputStream input = new FileInputStream(file);
+            JSONArray jsonStorage = new JSONArray(new JSONTokener(input));
 
-        // Populate storage array
-        for (int i = 0; i < jsonStorage.length(); i++) {
-            try {
+            // Populate storage array
+            for (int i = 0; i < jsonStorage.length(); i++) {
                 // Get json entry
                 JSONObject entry = jsonStorage.getJSONObject(i);
 
@@ -252,14 +312,14 @@ public class Storage {
 
                 case DEADLINE:
                     task = new Deadline(entry.getString("description"),
-                            entry.getString("dueDate"),
+                            entry.getLong("dueDate"),
                             entry.getBoolean("isDone"));
                     break;
 
                 case EVENT:
                     task = new Event(entry.getString("description"),
-                            entry.getString("startDate"),
-                            entry.getString("endDate"),
+                            entry.getLong("startDate"),
+                            entry.getLong("endDate"),
                             entry.getBoolean("isDone"));
                     break;
                 default:
@@ -269,9 +329,9 @@ public class Storage {
 
                 // Add task to storage array
                 storageArray.add(task);
-            } catch (IllegalArgumentException e) {
-                System.out.println("WARNING: Task corrupted, will not be loaded");
             }
+        } catch (IllegalArgumentException | JSONException e) {
+            System.out.println("WARNING: Task corrupted, will not be loaded");
         }
     }
 
@@ -290,5 +350,23 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("WARNING: File not found, stored tasks will not be loaded");
         }
+    }
+
+    /**
+     * Converts user input date (in format 'YYYY/MM/DD hh:mm')
+     *
+     * @param date Date to be converted (in format 'YYYY/MM/DD')
+     * @param time Time to be converted (in format 'hh:mm')
+     *
+     * @return Instant of the specified datetime
+     */
+    private static Instant userDateToInstant(String date, String time) throws NumberFormatException {
+        return LocalDateTime.of(
+                Integer.parseInt(date.substring(0, 4)),
+                Integer.parseInt(date.substring(5, 7)),
+                Integer.parseInt(date.substring(8, 10)),
+                Integer.parseInt(time.substring(0, 2)),
+                Integer.parseInt(time.substring(3, 5)))
+                .toInstant(OffsetDateTime.now().getOffset());
     }
 }
