@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import duke.codec.Codec;
 import duke.exceptions.ProcessingException;
+import duke.search.Search;
 import duke.tasks.Task;
 
 /**
@@ -126,6 +127,24 @@ public class TempStorage {
         } else {
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);
+                System.out.printf("%d. %s%n", i + 1, task);
+            }
+        }
+    }
+
+    /**
+     * Displays a filtered list of tasks matching the search query.
+     *
+     * @param query The search query to match against task names.
+     */
+    public void displaySearchList(String query) {
+        ArrayList<Task> resultList = Search.search(list, query);
+        if (resultList.isEmpty()) {
+            System.out.println("Your search was fruitless. Trying looking again");
+        } else {
+            System.out.println("Here are your matching search results");
+            for (int i = 0; i < resultList.size(); i++) {
+                Task task = resultList.get(i);
                 System.out.printf("%d. %s%n", i + 1, task);
             }
         }

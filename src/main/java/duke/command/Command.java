@@ -16,6 +16,7 @@ public enum Command {
     LIST,
     MARK,
     UNMARK,
+    FIND,
     DELETE;
 
     public boolean isExit() {

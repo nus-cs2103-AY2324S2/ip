@@ -38,6 +38,10 @@ public abstract class Task {
         return String.format("[%s] [%s] %s", identifier, done ? "X" : " ", taskName);
     }
 
+    public String getTaskName() {
+        return taskName;
+    }
+
     public String[] encode() {
         return new String[]{identifier, done.toString(), taskName};
     }

@@ -39,7 +39,7 @@ public class CommandProcessor {
             break;
 
         case LIST:
-            displayList();
+            storage.displayList();
             break;
 
         case MARK:
@@ -60,6 +60,10 @@ public class CommandProcessor {
 
         case TODO:
             storage.add(processTodo(input));
+            break;
+
+        case FIND:
+            storage.displaySearchList(processFind(input));
             break;
 
         default:
@@ -93,7 +97,7 @@ public class CommandProcessor {
      */
     public Task processDeadline(String input) throws InputException {
         try {
-            String restOfInput = input.substring(8);
+            String restOfInput = input.substring(9);
             String[] splitInput = restOfInput.split(" /by ");
 
             String taskName = splitInput[0];
@@ -115,7 +119,7 @@ public class CommandProcessor {
      */
     public Task processTodo(String input) throws InputException {
         try {
-            String taskName = input.substring(4);
+            String taskName = input.substring(5);
             return new Todo(taskName);
         } catch (IndexOutOfBoundsException e) {
             throw InputException.exceptionCommandProcessing(Command.TODO, input, e);
@@ -131,7 +135,7 @@ public class CommandProcessor {
      */
     public Task processEvent(String input) throws InputException {
         try {
-            String restOfInput = input.substring(5);
+            String restOfInput = input.substring(6);
             String[] splitFrom = restOfInput.split(" /from ");
             String[] fromTo = splitFrom[1].split(" /to ");
             String taskName = splitFrom[0];
@@ -160,7 +164,20 @@ public class CommandProcessor {
             throw InputException.exceptionCommandProcessing(cmd, input, e);
         }
     }
-    public void displayList() {
-        storage.displayList();
+
+    /**
+     * Processes the FIND command input to extract the search query.
+     *
+     * @param input The user input for the FIND command.
+     * @return The search query to find matching tasks.
+     * @throws InputException If there is an issue with the input format or command.
+     */
+    public String processFind(String input) throws InputException {
+        try {
+            return input.split(" ")[1];
+
+        } catch (IndexOutOfBoundsException e) {
+            throw InputException.exceptionCommandProcessing(Command.FIND, input, e);
+        }
     }
 }
