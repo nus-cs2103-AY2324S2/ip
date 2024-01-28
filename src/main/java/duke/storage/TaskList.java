@@ -39,7 +39,7 @@ public class TaskList {
         try {
             Storage.loadFromFile(this, file);
         } catch (TaskNotSupportedException | TaskCorruptedException | FileNotFoundException e) {
-            Cli.displayLoadFromFileWarning();
+            Cli.printLoadFromFileWarning();
         }
     }
 
@@ -250,7 +250,7 @@ public class TaskList {
             tasks.append(String.format("%d.%s\n", i + 1, taskArray.get(i).toString()));
         }
 
-        return tasks.toString();
+        return tasks.substring(0, tasks.length() - 1).toString();
     }
 
     /**
@@ -258,7 +258,7 @@ public class TaskList {
      *
      * @param date Date to filter
      */
-    public String getTasks(Instant date) throws InvalidArgumentException, InvalidArgumentException {
+    public String getTasks(Instant date) throws InvalidArgumentException {
         StringBuilder tasks = new StringBuilder();
         try {
             int printIndex = 1;
@@ -266,6 +266,7 @@ public class TaskList {
             for (int i = 0; i < taskArray.size(); i++) {
                 Task task = taskArray.get(i);
 
+                // Check if date lies on deadline due date or within event start and end date
                 if ((task instanceof Deadline && ((Deadline) task).isOn(date))
                         || (task instanceof Event && ((Event) task).encompasses(date))) {
                     tasks.append(String.format("%d.%s\n", printIndex, taskArray.get(i).toString()));
@@ -277,6 +278,10 @@ public class TaskList {
                     "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD'");
         }
 
+        // Remove trailing '\n' characters
+        if (tasks.lastIndexOf("\n") != -1) {
+            return tasks.substring(0, tasks.length() - 1);
+        }
         return tasks.toString();
     }
 }
