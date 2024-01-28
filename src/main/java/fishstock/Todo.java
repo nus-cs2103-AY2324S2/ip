@@ -2,6 +2,7 @@ package fishstock;
 
 class Todo extends Task {
     protected final static String keyword = "todo";
+
     protected Todo(String description) {
         super(description);
     }

@@ -22,6 +22,7 @@ abstract class Task {
     protected static int boolToInt(boolean bool) {
         return bool ? 1 : 0;
     }
+
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.description;

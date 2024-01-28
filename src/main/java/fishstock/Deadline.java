@@ -34,9 +34,9 @@ class Deadline extends Task {
 
     @Override
     protected String toSaveString() {
-        return "D|" + description + "|" + Parser.inDate(by) +
-                "|" + boolToInt(isDone) + System.lineSeparator();
+        return "D|" + description + "|" + Parser.inDate(by) + "|" + boolToInt(isDone) + System.lineSeparator();
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + Parser.outDate(by) + ")";

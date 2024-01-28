@@ -1,10 +1,12 @@
 package fishstock;
 
-import java.util.ArrayList;
 import fishstock.FishStock.Keyword;
+
+import java.util.ArrayList;
 
 class TaskList {
     protected final ArrayList<Task> list;
+
     protected TaskList(ArrayList<Task> list) {
         this.list = list;
     }

@@ -6,7 +6,8 @@ class FishStock {
     protected enum Keyword {
         INVALID, BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
     }
-    private String filePath;
+
+    private final String filePath;
 
     private FishStock(String filePath) {
         this.filePath = filePath;

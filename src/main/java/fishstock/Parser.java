@@ -1,18 +1,17 @@
 package fishstock;
 
+import fishstock.FishStock.Keyword;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import fishstock.FishStock.Keyword;
 
 class Parser {
     protected static DateTimeFormatter inDateFormat = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
     protected static DateTimeFormatter outDateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
     protected static boolean startsWith(String keyword, String input) {
-        return input.length() >= keyword.length() &&
-                keyword.equals(input.substring(0, keyword.length()));
+        return input.length() >= keyword.length() && keyword.equals(input.substring(0, keyword.length()));
     }
 
     protected static Keyword parse(String input) {
