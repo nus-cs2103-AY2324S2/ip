@@ -1,6 +1,8 @@
 public class Replies {
+    private static final int INDENT_SPACE_COUNT = 4;
+
     public static final String HORIZONTAL_LINE
-            = "    .-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.\n";
+            = ".-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.";
 
     public static final String[] GREET = new String[]{ "yo im bob", "what do you want" };
 
@@ -12,18 +14,22 @@ public class Replies {
 
     public static final String EXIT = "ok";
 
+    private static String indentAndBreak(String line, int indentSpaceCount) {
+        return " ".repeat(indentSpaceCount) + line + '\n';
+    }
+
     public static void print(String[] lines) {
-        StringBuilder formatted = new StringBuilder(HORIZONTAL_LINE);
+        String formattedHorizontalLine = indentAndBreak(HORIZONTAL_LINE, INDENT_SPACE_COUNT);
+
+        StringBuilder output = new StringBuilder(formattedHorizontalLine);
 
         for (String line : lines) {
-            formatted.append("     ");
-            formatted.append(line);
-            formatted.append('\n');
+            output.append(indentAndBreak(line, INDENT_SPACE_COUNT + 1));
         }
 
-        formatted.append(HORIZONTAL_LINE);
+        output.append(formattedHorizontalLine);
 
-        System.out.println(formatted);
+        System.out.println(output);
     }
 
     public static void print(String line) {
@@ -40,10 +46,10 @@ public class Replies {
     }
 
     public static void mark(Task task) {
-        print(new String[] { MARK_HEADER, "  " + task });
+        print(new String[] { MARK_HEADER, " ".repeat(2) + task });
     }
 
     public static void unmark(Task task) {
-        print(new String[] { UNMARK_HEADER, "  " + task });
+        print(new String[] { UNMARK_HEADER, " ".repeat(2) + task });
     }
 }
