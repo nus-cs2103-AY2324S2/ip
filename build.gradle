@@ -40,7 +40,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "main"
+    archiveBaseName = "naruto.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
