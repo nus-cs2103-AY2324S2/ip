@@ -120,6 +120,8 @@ public class Duke {
             return Options.event;
         case "save":
             return Options.save;
+        case "find":
+            return Options.find;
         default:
             return Options.error;
         }
@@ -127,5 +129,5 @@ public class Duke {
 }
 
 enum Options {
-    bye, list, delete, mark, unmark, todo, deadline, event, error, save
+    bye, list, delete, mark, unmark, todo, deadline, event, error, save, find
 }

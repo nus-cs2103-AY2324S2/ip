@@ -130,6 +130,9 @@ public class Ui {
         case save:
             storage.save(taskList.getTaskList());
             break;
+        case find:
+            taskList.find(trail);
+            break;
         case error:
             throw new DukeException("Command not found! Please try again.");
         default:

@@ -100,6 +100,29 @@ public class TaskList {
         System.out.println(text);
     }
 
+    /**
+     * Prints all task with given text
+     *
+     * @param text Text to search for
+     */
+    public void find(String text) {
+        String found = "";
+        int i = 1;
+        System.out.println("\t____________________________________________________________");
+        for (Task t : this.taskList) {
+            if (t.toString().contains(text)) {
+                found = found + "\t" + i + "." + t + "\n";
+                i += 1;
+            }
+        }
+        if (i != 1) {
+            System.out.print(found);
+        } else {
+            System.out.println("\tNo tasks matching " + text + " found!");
+        }
+        System.out.println("\t____________________________________________________________\n");
+    }
+
     public int size() {
         return this.taskList.size();
     }
