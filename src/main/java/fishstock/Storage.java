@@ -7,16 +7,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Encapsulates a Storage object.
+ * Handles all storing/loading of save files.
+ */
 class Storage {
     protected final ArrayList<Task> list = new ArrayList<>();
     private final File db;
     private final String filePath;
 
+    /**
+     * Initialize a Storage object.
+     * @param filePath The path to the save file.
+     */
     protected Storage(String filePath) {
         db = new File(filePath);
         this.filePath = filePath;
     }
 
+    /**
+     * Loads a single Task into array.
+     * @param line The task string.
+     * @throws FishStockException The exceptions while loading the task.
+     */
     protected void loadTask(String line) throws FishStockException {
         String[] arr = line.split("\\|");
         Task task;
@@ -42,6 +55,11 @@ class Storage {
         list.add(task);
     }
 
+    /**
+     * Loads the entire save file into array.
+     * @return The array with all Tasks.
+     * @throws FishStockException The exceptions while loading all Tasks.
+     */
     protected ArrayList<Task> load() throws FishStockException {
         try {
             Scanner sc = new Scanner(db);
@@ -56,6 +74,10 @@ class Storage {
         return list;
     }
 
+    /**
+     * Saves all Tasks in array into save file.
+     * @throws IOException The exceptions while saving all Tasks.
+     */
     protected void close() throws IOException {
         FileWriter fw = new FileWriter(db);
         for (Task task : list) {

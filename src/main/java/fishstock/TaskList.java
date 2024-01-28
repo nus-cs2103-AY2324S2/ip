@@ -4,6 +4,10 @@ import fishstock.FishStock.Keyword;
 
 import java.util.ArrayList;
 
+/**
+ * Encapsulates a TaskList object.
+ * Handles all functions related to the array storing Tasks.
+ */
 class TaskList {
     protected final ArrayList<Task> list;
 
@@ -19,10 +23,21 @@ class TaskList {
         return list.size();
     }
 
+    /**
+     * Get list.
+     * @return The list.
+     */
     protected ArrayList<Task> getList() {
         return list;
     }
 
+    /**
+     * Marks whether Task is done.
+     * @param keyword The keyword command.
+     * @param input The input from user.
+     * @return The marked/unmarked Task.
+     * @throws FishStockException The exceptions while changing the mark.
+     */
     protected Task changeMark(Keyword keyword, String input) throws FishStockException {
         Integer idx = Parser.getTaskFromIndex(input);
         try {
@@ -39,6 +54,12 @@ class TaskList {
         }
     }
 
+    /**
+     * Removes Task from array.
+     * @param input The input from user.
+     * @return The removed Task.
+     * @throws FishStockException The exceptions while removing the Task.
+     */
     protected Task deleteTask(String input) throws FishStockException {
         Integer idx = Parser.getTaskFromIndex(input);
         try {
@@ -51,6 +72,13 @@ class TaskList {
         }
     }
 
+    /**
+     * Adds Task into array.
+     * @param keyword The keyword command.
+     * @param input The input from user.
+     * @return The added Task.
+     * @throws FishStockException The exceptions while adding the Task.
+     */
     protected Task addTask(Keyword keyword, String input) throws FishStockException {
         Task task = null;
         switch (keyword) {
