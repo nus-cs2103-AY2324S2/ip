@@ -5,10 +5,19 @@ import task.Task;
 import util.PrintUtil;
 import util.TaskList;
 
+/**
+ * Represents an action to delete a task from the task list.
+ */
 public class Delete implements Action {
     private final TaskList taskList;
     private final int idx;
 
+    /**
+     * Constructs a Delete action with the specified task list and index.
+     *
+     * @param taskList the task list to delete the task from
+     * @param idx the index of the task to be deleted
+     */
     public Delete(TaskList taskList, int idx) {
         this.taskList = taskList;
         this.idx = idx;

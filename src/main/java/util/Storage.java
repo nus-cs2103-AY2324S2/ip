@@ -10,13 +10,28 @@ import java.util.Scanner;
 import exception.NarutoException;
 import task.Task;
 
+/**
+ * The Storage class is responsible for reading and writing tasks to a file.
+ */
 public class Storage {
     private static final String FILE_PATH = "src/logs/tasks.txt";
 
+    /**
+     * Constructs a Storage object with the given list of tasks.
+     *
+     * @param tasks The list of tasks to be stored.
+     * @throws IOException If an I/O error occurs.
+     */
     Storage(ArrayList<Task> tasks) throws IOException {
         initStorage(tasks);
     }
-    // Reads from the file and adds the tasks to ArrayList.
+
+    /**
+     * Reads from the file and initializes the list of tasks.
+     *
+     * @param tasks The list of tasks to be initialized.
+     * @throws IOException If an I/O error occurs.
+     */
     private static void initStorage(ArrayList<Task> tasks) throws IOException {
         Path filePath = Paths.get(FILE_PATH);
 
@@ -40,6 +55,12 @@ public class Storage {
             }
         }
     }
+
+    /**
+     * Resets the storage by deleting the file and creating a new one.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public static void resetStorage() throws IOException {
         Path filePath = Paths.get(FILE_PATH);
 
@@ -53,7 +74,13 @@ public class Storage {
         Files.createFile(filePath);
     }
 
-    void writeToFile(ArrayList<Task> tasks) throws IOException {
+    /**
+     * Writes the tasks to the file.
+     *
+     * @param tasks The list of tasks to be written.
+     * @throws IOException If an I/O error occurs.
+     */
+    protected void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task t : tasks) {
             fw.write(t.format().toCsv());

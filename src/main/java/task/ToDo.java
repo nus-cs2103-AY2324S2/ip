@@ -1,42 +1,65 @@
 package task;
 import util.CsvUtil;
 
+/**
+ * Represents a todo task.
+ */
 public class ToDo extends Task {
 
+    /**
+     * Constructs a new ToDo object with the given description.
+     *
+     * @param description the description of the ToDo
+     */
     public ToDo(String description) {
         super(description);
     }
 
+    /**
+     * Constructs a new ToDo object with the given marked status and description.
+     *
+     * @param isMarked    the marked status of the ToDo
+     * @param description the description of the ToDo
+     */
     public ToDo(boolean isMarked, String description) {
         super(isMarked, description);
     }
 
+    /**
+     * Formats the ToDo object into a CsvUtil object.
+     *
+     * @return the CsvUtil object representing the formatted ToDo
+     */
     @Override
     public CsvUtil format() {
         return new CsvUtil("T", String.valueOf(super.isMarked), super.description);
     }
 
+    /**
+     * Returns a string representation of the ToDo object.
+     *
+     * @return a string representation of the ToDo object
+     */
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
 
+    /**
+     * Checks if the ToDo object is equal to another object.
+     *
+     * @param o the object to compare with
+     * @return true if the ToDo object is equal to the other object, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
-        // Step 1: Check if the objects are the same instance
         if (this == o) {
             return true;
         }
-
-        // Step 2: Check if the object is null or of a different class
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
-        // Step 3: Convert the object to a ToDo instance
         ToDo toDo = (ToDo) o;
-
-        // Step 4: Compare the individual fields for equality
         return isMarked == toDo.isMarked && description.equals(toDo.description);
     }
 }
