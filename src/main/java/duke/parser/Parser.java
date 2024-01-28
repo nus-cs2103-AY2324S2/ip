@@ -18,7 +18,8 @@ public class Parser {
      *
      * @return Instant of the specified datetime
      */
-    public static Instant userDateToInstant(String date, String time) throws NumberFormatException {
+    public static Instant userDateToInstant(String date, String time)
+            throws NumberFormatException, StringIndexOutOfBoundsException {
         return LocalDateTime.of(
                 Integer.parseInt(date.substring(0, 4)),
                 Integer.parseInt(date.substring(5, 7)),
