@@ -8,20 +8,42 @@ import duke.ui.Ui;
 
 public class Duke {
     /**
+     * Task list for the Duke instance
+     */
+    private TaskList taskList;
+
+    /**
+     * UI of the Duke instance
+     */
+    private Ui ui;
+
+    /**
      * File to save storage to
      */
     public static final File SAVE_FILE = new File("data/tasks.json");
 
-    public static void main(String[] args) {
+    /**
+     * Create a Duke instance
+     *
+     * @param file File to save and load tasks
+     */
+    public Duke(File file) {
+        this.ui = new Cli();
+
         // Create data directory (if required)
-        SAVE_FILE.getParentFile().mkdirs();
+        file.getParentFile().mkdirs();
 
-        TaskList taskList;
-        // Initialise stored tasks
-        taskList = new TaskList(SAVE_FILE);
+        this.taskList = new TaskList(file);
+    }
 
-        // Print CLI UI
-        Ui ui = new Cli();
-        ui.startUI(taskList);
+    /**
+     * Run the Duke instance
+     */
+    public void run() {
+        this.ui.startUI(this.taskList);
+    }
+
+    public static void main(String[] args) {
+        new Duke(SAVE_FILE).run();
     }
 }
