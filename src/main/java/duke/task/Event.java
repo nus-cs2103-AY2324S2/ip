@@ -1,5 +1,6 @@
+package duke.task;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * Task with a from and to date and time.

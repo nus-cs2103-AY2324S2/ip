@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
@@ -8,10 +10,10 @@ import java.time.format.FormatStyle;
  */
 public abstract class Task {
     // Input format for all datetime inputs.
-    protected static final DateTimeFormatter INPUT_DATETIME_FORMAT = DateTimeFormatter.ofPattern(
+    public static final DateTimeFormatter INPUT_DATETIME_FORMAT = DateTimeFormatter.ofPattern(
             "dd-MM-yyyy HH:mm");
     // Output format for all datetime outputs.
-    protected static final DateTimeFormatter OUTPUT_DATETIME_FORMAT = DateTimeFormatter.ofLocalizedDateTime(
+    public static final DateTimeFormatter OUTPUT_DATETIME_FORMAT = DateTimeFormatter.ofLocalizedDateTime(
             FormatStyle.FULL, FormatStyle.SHORT);
     // Task description.
     private String description;
