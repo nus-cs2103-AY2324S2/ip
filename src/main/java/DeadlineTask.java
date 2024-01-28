@@ -12,7 +12,7 @@ public class DeadlineTask extends Task{
     public void updateDoneIcon() {
         super.updateDoneIcon();
     }
-    public static String[] getDescription(String[] details) {
+    public static String[] getDescription(String[] details) throws DukeException {
         int byIndex = -1;
         for (int i = 0; i < details.length; i++) {
             if ("/by".equals(details[i])) {
@@ -21,13 +21,17 @@ public class DeadlineTask extends Task{
             }
         }
 
-        String description = null;
-        String deadlineDate = null;
-        if (byIndex != -1 && byIndex + 1 < details.length) {
+        if (byIndex == -1) {
+            throw new DukeException("No end date/time given, please try again!");
+        }
+
+        String description;
+        String deadlineDate;
+        if (byIndex + 1 < details.length) {
             deadlineDate = String.join(" ", Arrays.copyOfRange(details, byIndex + 1, details.length));
             description = String.join(" ", Arrays.copyOfRange(details, 1, byIndex));
         } else {
-            System.out.println("No deadline date found.");
+            throw new DukeException("No deadline given, please try again!");
         }
         return new String[]{description, deadlineDate};
     }

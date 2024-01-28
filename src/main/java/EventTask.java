@@ -8,7 +8,7 @@ public class EventTask extends Task{
         this.startBy = startBy;
         this.endBy = endBy;
     }
-    public static String[] getDescription(String[] details) {
+    public static String[] getDescription(String[] details) throws DukeException {
         int fromIndex = -1;
         int toIndex = -1;
         for (int i = 0; i < details.length; i++) {
@@ -18,17 +18,25 @@ public class EventTask extends Task{
             if ("/to".equals(details[i])) {
                 toIndex = i;
             }
+
         }
 
-        String description = null;
-        String startBy = null;
-        String endBy = null;
-        if (fromIndex != -1 && toIndex != -1 && toIndex - fromIndex > 1 && toIndex + 1 < details.length) {
+        if (fromIndex == -1) {
+            throw new DukeException("No start date/time given, please try again!");
+        }
+        if (toIndex == -1) {
+            throw new DukeException("No end date/time given, please try again!");
+        }
+
+        String description;
+        String startBy;
+        String endBy;
+        if (toIndex - fromIndex > 1 && toIndex + 1 < details.length) {
             startBy = String.join(" ", Arrays.copyOfRange(details, fromIndex + 1, toIndex));
             endBy = String.join(" ", Arrays.copyOfRange(details, toIndex + 1, details.length));
             description = String.join(" ", Arrays.copyOfRange(details, 1, fromIndex));
         } else {
-            System.out.println("Invalid event period");
+            throw new DukeException("Invalid/incomplete event period given, please try again!");
         }
 
         return new String[]{description, startBy, endBy};

@@ -17,7 +17,7 @@ public class TaskList extends ArrayList<Task> {
         System.out.println("_________________________________________");
     }
 
-    public Task getTask(int index) {
+    public Task getTask(int index) throws IndexOutOfBoundsException, IllegalArgumentException{
         return get(index);
     }
     public void displayTasks() {
