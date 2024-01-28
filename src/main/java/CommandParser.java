@@ -16,33 +16,33 @@ public class CommandParser {
     /**
      * Parses the token list to generate a Command object which is returned.
      * @return Command that can be executed.
-     * @throws MikeException If 
+     * @throws MikeException If there is no command input or the command is not recognized.
      */
     public Command parse() throws MikeException {
         Token commandToken = advance();
         switch (commandToken.getType()) {
-            case EXIT:
-                return parseExit();
-            case LIST:
-                return parseList();
-            case MARK:
-                return parseMark();
-            case UNMARK:
-                return parseUnmark();
-            case TODO:
-                return parseTodo();
-            case DEADLINE:
-                return parseDeadline();
-            case EVENT:
-                return parseEvent();
-            case DELETE:
-                return parseDelete();
-            case EOC:
-                throw new MikeException("Say something.");
-            default:
-                String errorMessage = "'" + commandToken.getText() + "' is not recognized as a command.\n"
-                        + "That is the weirdest thing you've ever said.";
-                throw new MikeException(errorMessage);
+        case EXIT:
+            return parseExit();
+        case LIST:
+            return parseList();
+        case MARK:
+            return parseMark();
+        case UNMARK:
+            return parseUnmark();
+        case TODO:
+            return parseTodo();
+        case DEADLINE:
+            return parseDeadline();
+        case EVENT:
+            return parseEvent();
+        case DELETE:
+            return parseDelete();
+        case EOC:
+            throw new MikeException("Say something.");
+        default:
+            String errorMessage = "'" + commandToken.getText() + "' is not recognized as a command.\n"
+                    + "That is the weirdest thing you've ever said.";
+            throw new MikeException(errorMessage);
         }
     }
 
