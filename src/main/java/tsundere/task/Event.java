@@ -4,7 +4,7 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
-    private static final String type = "E";
+    protected static final String type = "E";
 
     public Event(String description, String from, String to) {
         super(description);

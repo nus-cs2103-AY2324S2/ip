@@ -2,7 +2,7 @@ package tsundere.exception;
 
 public class GeneralException extends Exception {
 
-    private final String msg;
+    protected final String msg;
 
     public GeneralException(String msg) {
         this.msg = msg;

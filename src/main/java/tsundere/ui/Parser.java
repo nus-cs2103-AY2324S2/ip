@@ -1,4 +1,4 @@
-package tsundere;
+package tsundere.ui;
 
 import tsundere.exception.GeneralException;
 import tsundere.task.TaskList;
@@ -16,10 +16,8 @@ public class Parser {
             TaskList.unmark();
         } else if (name.contains("mark")) {
             TaskList.mark();
-
         } else if (name.contains("delete")) {
             TaskList.delete();
-
         } else if (name.contains("list")) {
             TaskList.list();
         } else if (name.contains("deadline")) {
@@ -33,7 +31,4 @@ public class Parser {
         }
 
     }
-
-
-
 }
