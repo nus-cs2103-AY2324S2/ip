@@ -13,14 +13,24 @@ import duke.utils.Storage;
 import duke.utils.TaskList;
 import duke.utils.Ui;
 
+/**
+ * This class implements the functionality of the Duke bot.
+ * @author delishad21
+ * @version 0.1
+ */
 public class Duke {
     
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
 
+
+    /**
+     * Constructor for Duke with filepath to data file.
+     * 
+     * @param filePath Filepath to save file.
+     */
     public Duke(String filePath) {
-        
         this.ui = new Ui();
 
         try {                
@@ -36,6 +46,9 @@ public class Duke {
 
     }
 
+    /**
+     * Method for starting up Duke chatbot.
+     */
     public void run() {
         ui.startupMessage();
 
@@ -67,6 +80,13 @@ public class Duke {
         ui.closeUi();
     }
 
+    
+    
+    /** 
+     * Main method for starting up bot.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         new Duke("data/data.txt").run();
     }

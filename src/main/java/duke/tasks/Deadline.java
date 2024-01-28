@@ -6,14 +6,35 @@ import java.time.format.DateTimeParseException;
 import duke.exceptions.TaskCreationException;
 import duke.utils.Parser;
 
+/**
+ * This class implements the Deadline task type for the bot.
+ * 
+ * @author delishad21
+ */
 public class Deadline extends Task {
     private LocalDateTime deadline;
 
+    /**
+     * Basic constructor for Deadline.
+     * 
+     * @param isDone Marks if task is completed.
+     * @param description Description of the task.
+     * @param deadline Datetime value for the deadline of the task.
+     */
     public Deadline(boolean isDone, String description, LocalDateTime deadline) {
         super(isDone, description);
         this.deadline = deadline;
     }
 
+    /**
+     * Factory method that takes in user input and parses it to return a Deadline task.
+     * 
+     * @param isDone Marks if task is completed.
+     * @param input User input to be parsed.
+     * @return Deadline object.
+     * @throws TaskCreationException
+     * @throws DateTimeParseException
+     */
     public static Deadline deadlineParse(boolean isDone, String input) throws TaskCreationException, DateTimeParseException {
         if (!input.contains("/by")) {
             throw new TaskCreationException("Missing parameters: /by");
@@ -39,11 +60,23 @@ public class Deadline extends Task {
         return d;
     }
 
+    
+    /** 
+     * Method for printing Deadline as a viewable String.
+     * 
+     * @return String
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline.format(Parser.outputdtFormatter) + ")";
     }
 
+    
+    /** 
+     * Method for converting Deadline into a String for saving in save file.
+     * 
+     * @return String
+     */
     @Override
     public String toSave() {
         return "[D]|" + super.toSave() + "|" + deadline.format(Parser.inputdtFormatter);

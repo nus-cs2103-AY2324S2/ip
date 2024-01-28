@@ -6,18 +6,35 @@ import duke.exceptions.TaskModificationException;
 import duke.utils.Storage;
 import duke.utils.Ui;
 
+/**
+ * This class implements the modify task command that modifies tasks in the bot tasklist.
+ */
 public class ModifyTaskCommand extends Command {
     
     public enum ModificationTypes {MARK, UNMARK, DELETE}
     private ModificationTypes modType;
     private String indexInput;
 
+    /**
+     * Basic constructor, takes in type of modificaiton and the user input for index to be modified.
+     * 
+     * @param modType Modification type based on enum ModificationTypes.
+     * @param indexInput user input to be parsed into index.
+     */
     public ModifyTaskCommand(ModificationTypes modType, String indexInput) {
         super(false);
         this.modType = modType;
         this.indexInput = indexInput;
     }
 
+    /** 
+     * Method for executing modify task command, modifies tasks in list based on index and type.
+     * 
+     * @param tasks the current list of tasks.
+     * @param ui Ui object used by bot for printing information.
+     * @param storage Storage object with save file.
+     */
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) 
     throws IndexOutOfBoundsException, NumberFormatException, TaskModificationException {
         

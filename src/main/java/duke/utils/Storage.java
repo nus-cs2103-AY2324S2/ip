@@ -14,14 +14,31 @@ import duke.tasks.Todo;
 
 import java.time.LocalDateTime;
 
+/**
+ * This class implements the saving and reading of bot data into a text file.
+ * 
+ * @author delishad21
+ */
 public class Storage {
     private File f;
     
+    /**
+     * Constructor for a storage object, takes in a filepath for the file in which data
+     * should be saved.
+     * 
+     * @param filePath File to save data to and load data from.
+     * @throws IOException 
+     */
     public Storage(String filePath) throws IOException {
         this.f = new File(filePath);
         checkAndCreateFile();
     }
 
+    /**
+     * Method for checking and creating file based on filepath.
+     * 
+     * @throws IOException
+     */
     private void checkAndCreateFile() throws IOException {
         // Reading and creating data save file
         // making data folder
@@ -37,6 +54,13 @@ public class Storage {
          }
     }
 
+    /**
+     * Method for reading save data from save file.
+     * 
+     * @param ui Used for printing information.
+     * @return TaskList read from save data.
+     * @throws FileNotFoundException
+     */
     public TaskList readSaveData(Ui ui) throws FileNotFoundException{
         TaskList todoList = new TaskList();
 
@@ -57,6 +81,13 @@ public class Storage {
 
     }
 
+    /**
+     * Method for saving data from bot back to save file.
+     * 
+     * @param data The data from the bot.
+     * @param ui Used for printing information.
+     * @throws IOException
+     */
     public void saveTodoData(TaskList data, Ui ui) throws IOException {
         this.checkAndCreateFile();
 
@@ -73,6 +104,14 @@ public class Storage {
 
         ui.botPrint(data.size() + " tasks saved");
     }
+
+    /**
+     * Method for individually parsing each line from save file into Tasks.
+     * 
+     * @param task Each line read from save file.
+     * @return A Task object generated with information parsed from input.
+     * @throws TaskCreationException
+     */
 
     private Task parseTaskFromSave(String task) throws TaskCreationException {
         String[] taskSplit = task.split("\\|");
