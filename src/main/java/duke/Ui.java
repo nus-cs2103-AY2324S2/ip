@@ -9,10 +9,11 @@ public class Ui {
                         ".----)   |      |  |     |  |____   \\    /    |  |____ \n" +
                         "|_______/       |__|     |_______|   \\__/     |_______|";
 
-        System.out.println("\n" + logo);
+        System.out.println(logo);
         System.out.println(border);
         System.out.println("What's up! I'm steve");
         System.out.println("What do you want to do?");
+        System.out.println(border);
     }
 
     public static String border = "____________________________________________________________";

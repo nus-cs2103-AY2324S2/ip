@@ -8,8 +8,8 @@ import java.util.Scanner;
 import duke.DukeException;
 
 public class Duke {
-    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
-//    public static final String DBPATH = "data/duke.txt";
+//    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
+    public static final String DBPATH = "data/duke.txt";
     private Storage storage;
     private TaskList myTasks;
     private Ui ui;
@@ -45,8 +45,7 @@ public class Duke {
 
         String goodbye = " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________";
-
-        System.out.println(greeting);
+        ui.greet();
 
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
         String line = scanner.nextLine(); // Get first input
