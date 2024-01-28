@@ -7,31 +7,31 @@ public class Skyler {
 
     public static void main(String[] args) {
         String chatbotName = "Skyler";
-        String line = "------------------------------------------------------------";
+        String LINE = "------------------------------------------------------------";
 
         System.out.println("   /\\_/\\");
         System.out.println("  ( o.o ) Hello! I'm " + chatbotName);
         System.out.println("   > ^ < What can I do for you?");
-        System.out.println(line);
+        System.out.println(LINE);
 
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             System.out.print("You: ");
             String userInput = scanner.nextLine();
-            System.out.println(line);
+            System.out.println(LINE);
+
+            if (userInput.equals("bye")) {
+                System.out.println("Skyler: Bye. Hope to see you again soon!");
+                System.out.println(LINE);
+                break;
+            }
 
             try {
                 processUserInput(userInput);
             } catch (SkylerException e) {
                 System.out.println("Skyler: Woof, " + e.getMessage());
-                System.out.println(line);
-            }
-
-            if (userInput.equals("bye")) {
-                System.out.println("Skyler: Bye. Hope to see you again soon!");
-                System.out.println(line);
-                break;
+                System.out.println(LINE);
             }
         }
 
@@ -44,13 +44,28 @@ public class Skyler {
         } else if (userInput.startsWith("todo")) {
             addTask(new ToDo(getTaskDescription(userInput, 4)));
         } else if (userInput.startsWith("deadline")) {
-            String description = getTaskDescription(userInput, 9);
-            String by = getTaskDetails(userInput, "/by");
+            String[] parts = userInput.split("/by", 2);
+
+            if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+                throw new SkylerException(
+                        "Invalid 'deadline' command. Please provide a valid description and deadline.");
+            }
+
+            String description = parts[0].substring(9).trim();
+            String by = parts[1].trim();
+
             addTask(new Deadline(description, by));
         } else if (userInput.startsWith("event")) {
-            String description = getTaskDescription(userInput, 6);
-            String from = getTaskDetails(userInput, "/from");
-            String to = getTaskDetails(userInput, "/to");
+            String[] parts = userInput.split("/from", 2);
+
+            if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+                throw new SkylerException("Invalid 'event' command. Please provide a valid description and timeframe.");
+            }
+
+            String description = parts[0].substring(6).trim();
+            String from = parts[1].split("/to")[0].trim();
+            String to = parts[1].split("/to")[1].trim();
+
             addTask(new Event(description, from, to));
         } else if (userInput.startsWith("delete")) {
             deleteTask(userInput);
@@ -63,20 +78,19 @@ public class Skyler {
         }
     }
 
-    private static String getTaskDescription(String userInput, int startIndex) throws SkylerException {
+    private static String getTaskDescription(String userInput, int startIndex, String... keywords)
+            throws SkylerException {
         String description = userInput.substring(startIndex).trim();
+        for (String keyword : keywords) {
+            if (description.startsWith(keyword)) {
+                description = description.substring(keyword.length()).trim();
+                break;
+            }
+        }
         if (description.isEmpty()) {
             throw new SkylerException("The description of a task cannot be empty.");
         }
         return description;
-    }
-
-    private static String getTaskDetails(String userInput, String keyword) throws SkylerException {
-        int index = userInput.indexOf(keyword);
-        if (index == -1) {
-            throw new SkylerException("Missing " + keyword + " in the command.");
-        }
-        return userInput.substring(index + keyword.length()).trim();
     }
 
     private static void addTask(Task task) {
