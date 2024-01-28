@@ -21,12 +21,12 @@ public class Bob {
         Replies.unmark(task);
     }
 
-    private static String[] extractParameters(String s, String[] parameters) {
+    private static String[] extractParameters(String parametersString, String[] parameters) {
         // Might be able to use HashMap but a bit too fancy
         int n = parameters.length;
         String[] result = new String[n + 1];
 
-        String[] splitString = new String[] { s };
+        String[] splitString = new String[] { parametersString };
         for (int i = n - 1; i >= 0; i--) {
             splitString = splitString[0].split(" /" + parameters[i] + ' ', 2);
             result[i + 1] = splitString[1];
