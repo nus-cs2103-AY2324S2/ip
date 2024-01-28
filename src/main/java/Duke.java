@@ -1,6 +1,6 @@
 public class Duke {
     public static final String botName = "Raphael";
-    public static final TaskList taskList = new TaskList();
+    public static final TaskList taskList = new TaskList("./data/duke.txt");
     public static void main(String[] args) {
         String logo = "\n"
                 + "  _____                _                   _\n"
