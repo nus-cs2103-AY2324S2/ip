@@ -59,6 +59,63 @@ public class Duke {
                         erroring(tasknum, taskNumber);
                     }
                 }
+            } else if (echo.startsWith("todo") || echo.startsWith("Todo")) {
+                int pos = echo.indexOf(" ");
+                if (pos != -1 && pos + 1 < echo.length()) {
+                    String taskStr = echo.substring(pos + 1);
+
+                    tasks[tasknum] = new Todo(taskStr);
+
+                    tasks[tasknum].markAsNotDone();
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + tasks[tasknum]);
+                    tasknum++;
+                    System.out.println("     Now you have " + (tasknum) + " tasks in the list.");
+                    System.out.println("    ____________________________________________________________");
+                } else {
+                    erroring(tasknum, tasknum);
+                }
+            } else if (echo.startsWith("deadline") || echo.startsWith("Deadline")) {
+                int pos = echo.indexOf(" ");
+                int posBy = echo.indexOf("/");
+                if (pos != -1 && pos + 1 < echo.length() && posBy != -1 && posBy + 1 < echo.length()) {
+                    String taskStr = echo.substring(pos + 1, posBy - 1);
+                    String taskStrby = echo.substring(posBy + 4);
+
+                    tasks[tasknum] = new Deadline(taskStr, taskStrby);
+
+                    tasks[tasknum].markAsNotDone();
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + tasks[tasknum]);
+                    tasknum++;
+                    System.out.println("     Now you have " + (tasknum) + " tasks in the list.");
+                    System.out.println("    ____________________________________________________________");
+                } else {
+                    erroring(tasknum, tasknum);
+                }
+            } else if (echo.startsWith("event") || echo.startsWith("Event")) {
+                int pos = echo.indexOf(" ");
+                int posFrom = echo.indexOf("/from");
+                int posTo = echo.indexOf("/to");
+                if (pos != -1 && pos + 1 < echo.length() && posFrom != -1 && posFrom + 1 < echo.length() && posTo != -1 && posTo + 1 < echo.length()) {
+                    String taskStr = echo.substring(pos + 1,posFrom - 1);
+                    String taskStrFrom = echo.substring(posFrom + 6, posTo - 1);
+                    String taskStrTo = echo.substring(posTo + 4);
+
+                    tasks[tasknum] = new Event(taskStr, taskStrFrom, taskStrTo);
+
+                    tasks[tasknum].markAsNotDone();
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + tasks[tasknum]);
+                    tasknum++;
+                    System.out.println("     Now you have " + (tasknum) + " tasks in the list.");
+                    System.out.println("    ____________________________________________________________");
+                } else {
+                    erroring(tasknum, tasknum);
+                }
             } else {
                 System.out.println("    _______________________________________________________");
                 System.out.println("     added:" + echo);
@@ -81,4 +138,6 @@ public class Duke {
         }
     }
 }
+
+
 
