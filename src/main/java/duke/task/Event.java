@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task {
     // Format to create event task in program.
-    public static String CREATE_EVENT_FORMAT = "event <task-name> /from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>";
+    public static final String INPUT_EVENT_FORMAT = "event <task-name> /from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>";
 
     // Start datetime.
     private LocalDateTime from;

@@ -1,16 +1,16 @@
 package duke.utils;
 
-import duke.command.CommandException;
-import duke.command.UnknownCommandException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.ToDo;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import duke.command.UnknownCommandException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
 
 public class ParserTest {
     @Test
@@ -72,7 +72,7 @@ public class ParserTest {
         try {
             Parser.parseInput("todo");
         } catch (Exception e) {
-            assertEquals("Error. Unable to create ToDo task.\nFormat: " + ToDo.CREATE_TODO_FORMAT,
+            assertEquals("Error. Unable to create ToDo task.\nFormat: " + ToDo.INPUT_TODO_FORMAT,
                     e.getMessage());
         }
     }
@@ -88,7 +88,7 @@ public class ParserTest {
 
     @Test
     public void parseInput_deadlineWrongFormats_exceptionThrown() {
-        String commandExceptionMsg = "Error. Unable to create task.\nFormat: " + Deadline.CREATE_DEADLINE_FORMAT;
+        String commandExceptionMsg = "Error. Unable to create task.\nFormat: " + Deadline.INPUT_DEADLINE_FORMAT;
 
         // Empty parameters
         try {
@@ -123,7 +123,7 @@ public class ParserTest {
 
     @Test
     public void parseInput_eventWrongFormats_exceptionThrown() {
-        String commandExceptionMsg = "Error. Unable to create task.\nFormat: " + Event.CREATE_EVENT_FORMAT;
+        String commandExceptionMsg = "Error. Unable to create task.\nFormat: " + Event.INPUT_EVENT_FORMAT;
 
         // Empty parameters
         try {

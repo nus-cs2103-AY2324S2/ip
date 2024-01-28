@@ -1,11 +1,11 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.task.ToDo;
 import duke.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Class to run the ToDo Command.
@@ -24,7 +24,7 @@ public class ToDoCommand extends Command {
     public ToDoCommand(String input) throws CommandException {
         this.toDoDescription = input.trim();
         if (toDoDescription.isEmpty()) {
-            throw new CommandException("Error. Unable to create ToDo task.\nFormat: " + ToDo.CREATE_TODO_FORMAT);
+            throw new CommandException("Error. Unable to create ToDo task.\nFormat: " + ToDo.INPUT_TODO_FORMAT);
         }
     }
 

@@ -1,14 +1,14 @@
 package duke.command;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import duke.storage.Storage;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * Class to run Event Command.
@@ -32,13 +32,13 @@ public class EventCommand extends Command {
             String[] tokens = input.split("/from");
             this.eventDescription = tokens[0].trim();
             if (eventDescription.isEmpty()) {
-                throw new CommandException("Error. Unable to create task.\nFormat: " + Event.CREATE_EVENT_FORMAT);
+                throw new CommandException("Error. Unable to create task.\nFormat: " + Event.INPUT_EVENT_FORMAT);
             }
             tokens = tokens[1].split("/to");
             this.eventFrom = LocalDateTime.parse(tokens[0].trim(), Task.INPUT_DATETIME_FORMAT);
             this.eventTo = LocalDateTime.parse(tokens[1].trim(), Task.INPUT_DATETIME_FORMAT);
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            throw new CommandException("Error. Unable to create task.\nFormat: " + Event.CREATE_EVENT_FORMAT);
+            throw new CommandException("Error. Unable to create task.\nFormat: " + Event.INPUT_EVENT_FORMAT);
         }
     }
 

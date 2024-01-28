@@ -1,13 +1,23 @@
 package duke.utils;
 
-import duke.command.*;
+import java.time.LocalDateTime;
+
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.CommandException;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.ToDoCommand;
+import duke.command.UnknownCommandException;
+import duke.command.UnmarkCommand;
 import duke.storage.LoadException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-
-import java.time.LocalDateTime;
 
 /**
  * Class to parse information from one type to another.
@@ -86,6 +96,8 @@ public class Parser {
                 LocalDateTime from = LocalDateTime.parse(tokens[0].trim(), Task.INPUT_DATETIME_FORMAT);
                 LocalDateTime to = LocalDateTime.parse(tokens[1].trim(), Task.INPUT_DATETIME_FORMAT);
                 task = new Event(description, from, to);
+                break;
+            default:
                 break;
             }
 

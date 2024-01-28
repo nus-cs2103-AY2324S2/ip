@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task {
     // Format to create Deadline task in program.
-    public static String CREATE_DEADLINE_FORMAT = "deadline <task-name> /by <dd-MM-yyyy HH:mm>";
+    public static final String INPUT_DEADLINE_FORMAT = "deadline <task-name> /by <dd-MM-yyyy HH:mm>";
 
     // Deadline of task.
     private LocalDateTime by;
