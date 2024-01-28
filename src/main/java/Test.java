@@ -4,17 +4,19 @@ public class Test {
     public static void main(String[] args) {
         Jimmy bot = new Jimmy();
         bot.greetUser();
-        bot.exit();
+        Scanner sc = new Scanner(System.in);
 
         while (true) {
-            Scanner sc = new Scanner(System.in);
             String userInput = sc.nextLine();
             switch (userInput) {
                 case "bye":
                     bot.exit();
                     return;
+                case "list":
+                    bot.displayList();
+                    break;
                 default:
-                    System.out.println(userInput);
+                    bot.storeUserInput(userInput);
             }
         }
     }
