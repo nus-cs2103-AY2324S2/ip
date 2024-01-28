@@ -88,19 +88,10 @@ public class Parser {
                     throw new NoTimingException();
                 }
                 String[] content = task[1].split(" /by ");
-                String[] time = content[1].split(" ");
-                int[] timing = Arrays.stream(time[0].split("-"))
-                        .mapToInt(Integer::valueOf).toArray();
-
-                if (time.length != 2 || timing.length != 3) {
-                    throw new NoTimingException();
-                }
 
                 nextTask = new Deadline(
                         content[0],
-                        LocalDateTime.of(
-                                LocalDate.of(timing[0], timing[1], timing[2]),
-                                LocalTime.of(Integer.valueOf(time[1]), 0)));
+                        strToDateTime(content[1]));
                 return new AddCommand(nextTask, tasks);
 
             } else if (taskType.equals("event")) { // Checks if the task type is event.
@@ -114,34 +105,35 @@ public class Parser {
                 String text = content[0];
                 String[] interval = content[1].split(" /to ");
 
-                // Gets start date and time.
-                String[] from = interval[0].split(" ");
-                int[] fromDate = Arrays.stream(from[0].split("-"))
-                        .mapToInt(Integer::valueOf).toArray();
-
-                //Gets end date and time.
-                String[] to = interval[1].split(" ");
-                int[] toDate = Arrays.stream(to[0].split("-"))
-                        .mapToInt(Integer::valueOf).toArray();
-
-                if (fromDate.length != 3 || toDate.length != 3
-                        || from.length != 2 || to.length != 2) {
-                    throw new NoTimingException();
-                }
-
                 nextTask = new Event(
                         text,
-                        LocalDateTime.of(
-                                LocalDate.of(fromDate[0], fromDate[1], fromDate[2]),
-                                LocalTime.of(Integer.valueOf(from[1]), 0)),
-                        LocalDateTime.of(
-                                LocalDate.of(toDate[0], toDate[1], toDate[2]),
-                                LocalTime.of(Integer.valueOf(to[1]), 0)));
+                        strToDateTime(interval[0]),
+                        strToDateTime(interval[1]));
                 return new AddCommand(nextTask, tasks);
 
             } else {
                 throw new IncorrectTaskTypeException();
             }
         }
+    }
+
+    /**
+     * Change user input of date and time to java object LocalDateTime.
+     *
+     * @param userInput String representation of date and time in the form of "yyyy-MM-dd HH".
+     * @return Java object LocalDateTime.
+     */
+    public LocalDateTime strToDateTime(String userInput) throws NoTimingException {
+        String[] time = userInput.split(" ");
+        int[] timing = Arrays.stream(time[0].split("-"))
+                .mapToInt(Integer::valueOf).toArray();
+
+        if (time.length != 2 || timing.length != 3) {
+            throw new NoTimingException();
+        }
+
+        return LocalDateTime.of(
+                        LocalDate.of(timing[0], timing[1], timing[2]),
+                        LocalTime.of(Integer.valueOf(time[1]), 0));
     }
 }
