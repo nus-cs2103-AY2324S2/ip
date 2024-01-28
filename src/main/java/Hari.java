@@ -166,7 +166,7 @@ class handlerbot {
         }
     }
 
-    // Function to mark task as completed
+    // Function to mark task completed
     public void completionmark(int taskrecorder) {
         if (taskrecorder > 0 && taskrecorder <= countertaskings) // If there are tasks
         {
