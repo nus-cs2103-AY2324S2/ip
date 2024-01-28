@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pan.enums.TaskStatus;
+import pan.exceptions.TaskIndexException;
 
 class TaskList {
     private List<Task> tasks;
@@ -26,18 +27,26 @@ class TaskList {
         this.storage.save(tasks);
     }
 
-    public void mark(int index) {
-        Task task = tasks.get(index - 1);
-        task.setIsDone(TaskStatus.COMPLETE);
-        System.out.println("Nice! I've marked this task as done:\n\t" + task.toString());
-        this.storage.save(tasks);
+    public void mark(int index) throws TaskIndexException {
+        if (index > tasks.size()) {
+            throw new TaskIndexException("You have entered an invalid index!");
+        } else {
+            Task task = tasks.get(index - 1);
+            task.setIsDone(TaskStatus.COMPLETE);
+            System.out.println("Nice! I've marked this task as done:\n\t" + task.toString());
+            this.storage.save(tasks);
+        }
     }
 
-    public void unmark(int index) {
-        Task task = tasks.get(index - 1);
-        task.setIsDone(TaskStatus.INCOMPLETE);
-        System.out.println("OK, I've marked this task as not done yet:\n\t" + task.toString());
-        this.storage.save(tasks);
+    public void unmark(int index) throws TaskIndexException{
+        if (index > tasks.size()) {
+            throw new TaskIndexException("You have entered an invalid index!");
+        } else {
+            Task task = tasks.get(index - 1);
+            task.setIsDone(TaskStatus.INCOMPLETE);
+            System.out.println("OK, I've marked this task as not done yet:\n\t" + task.toString());
+            this.storage.save(tasks);
+        }
     }
 
     public void delete(int index) {

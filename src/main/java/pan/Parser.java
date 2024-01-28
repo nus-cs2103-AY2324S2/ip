@@ -33,16 +33,10 @@ class Parser {
                     break;
                 } else if (instruction.matches("(mark) \\d+")) {
                     String index = instruction.substring(4).trim();
-                    if (Integer.parseInt(index) > taskList.getTasks().size()) {
-                        throw new TaskIndexException("You have entered an invalid index!");
-                    }
                     taskList.mark(Integer.parseInt(index));
                     continue;
                 } else if (instruction.matches("(unmark) \\d+")) {
                     String index = instruction.substring(6).trim();
-                    if (Integer.parseInt(index) > taskList.getTasks().size()) {
-                        throw new TaskIndexException("You have entered an invalid index!");
-                    }
                     taskList.unmark(Integer.parseInt(index));
                     continue;
                 } else if (instruction.matches("(todo)\\s(.+)")) {
