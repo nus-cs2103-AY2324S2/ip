@@ -35,6 +35,8 @@ public class Parser {
             return UI.Command.MARK;
         case "delete":
             return UI.Command.DELETE;
+        case "find":
+            return UI.Command.FIND;
         default:
             throw new InvalidTaskException();
         }
@@ -68,8 +70,13 @@ public class Parser {
         switch(descriptionArray[0]) {
         case "todo":
             taskDesc = String.join(" ",
-              Arrays.copyOfRange(descriptionArray, 1, descriptionArray.length));
+                Arrays.copyOfRange(descriptionArray, 1, descriptionArray.length));
             ret[0] = taskDesc;
+            break;
+        case "find":
+            String searchDesc = String.join(" ",
+                Arrays.copyOfRange(descriptionArray, 1, descriptionArray.length));
+            ret[0] = searchDesc;
             break;
         case "event":
             Integer startIdx = -1;
