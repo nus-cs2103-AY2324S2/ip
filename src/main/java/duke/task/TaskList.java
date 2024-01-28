@@ -1,4 +1,10 @@
+package duke.task;
+
 import java.util.ArrayList;
+
+import duke.DukeException;
+import duke.Events;
+import duke.Storage;
 
 public class TaskList {
     private ArrayList<Task> instrList = new ArrayList<>();

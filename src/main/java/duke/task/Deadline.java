@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DateFormatter;
+
 public class Deadline extends Task {
 
     protected String by;
