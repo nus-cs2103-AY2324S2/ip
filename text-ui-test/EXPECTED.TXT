@@ -1,12 +1,12 @@
 ____________________________________________________________________________
-Hello! My name is Klee.
-Are you here to break Klee out of solitary confinement?
+Hello! My name is Klee.Klee.
+Are you here to break Klee.Klee out of solitary confinement?
 ____________________________________________________________________________
 ____________________________________________________________________________
-Klee will help you write that down! : todo Make bomb
+Klee.Klee will help you write that down! : todo Make bomb
 ____________________________________________________________________________
 ____________________________________________________________________________
-Klee will help you write that down! : deadline Blast lake /by tonight
+Klee.Klee will help you write that down! : deadline Blast lake /by tonight
 ____________________________________________________________________________
 ____________________________________________________________________________
 These are all the things that we have to do today:
@@ -14,7 +14,7 @@ These are all the things that we have to do today:
 2. [D][ ] Blast lake  (by: tonight)
 ____________________________________________________________________________
 ____________________________________________________________________________
-Great! Klee will put a big cross on this box:
+Great! Klee.Klee will put a big cross on this box:
 [T][X] todo Make bomb
 ____________________________________________________________________________
 ____________________________________________________________________________
@@ -23,7 +23,7 @@ These are all the things that we have to do today:
 2. [D][ ] Blast lake  (by: tonight)
 ____________________________________________________________________________
 ____________________________________________________________________________
-Oh no! Klee will burn the cross away...:
+Oh no! Klee.Klee will burn the cross away...:
 [T][ ] todo Make bomb
 ____________________________________________________________________________
 ____________________________________________________________________________
@@ -32,5 +32,5 @@ These are all the things that we have to do today:
 2. [D][ ] Blast lake  (by: tonight)
 ____________________________________________________________________________
 ____________________________________________________________________________
-Goodbye. Klee will go back to solitary confinement now...
+Goodbye. Klee.Klee will go back to solitary confinement now...
 ____________________________________________________________________________
