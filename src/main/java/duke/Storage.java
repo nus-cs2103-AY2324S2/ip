@@ -10,10 +10,21 @@ import java.util.ArrayList;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with a given file path.
+     *
+     * @param filePath The path of the file used for storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws DukeException If there is an error loading the file.
+     */
     public ArrayList<Task> load() throws DukeException {
         ensureDirectoryExists();
         ArrayList<Task> tasks = new ArrayList<>();
@@ -43,6 +54,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks The ArrayList of tasks to be saved.
+     * @throws DukeException If there is an error saving the file.
+     */
     public void save(ArrayList<Task> tasks) throws DukeException {
         ensureDirectoryExists();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath))) {
@@ -55,6 +72,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Ensures that the directory for the file exists.
+     *
+     * @throws DukeException If there is an error creating the directory.
+     */
     private void ensureDirectoryExists() throws DukeException {
         try {
             File file = new File(this.filePath);
@@ -66,6 +88,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line from the file to a task.
+     *
+     * @param line The line to be parsed.
+     * @return The task parsed from the line.
+     * @throws DukeException If the line is not in a valid format.
+     */
     private static Task parseLineToTask(String line) throws DukeException {
         // Assuming the format is "T | 1 | read book"
         String[] parts = line.split(" \\| ");

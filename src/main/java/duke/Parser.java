@@ -2,6 +2,15 @@ package duke;
 
 public class Parser {
 
+    /**
+     * Parses and executes a given command.
+     *
+     * @param input   The input command to parse.
+     * @param tasks   The list of tasks.
+     * @param ui      The UI for user interactions.
+     * @param storage The storage for tasks.
+     * @throws DukeException If the command is invalid or execution fails.
+     */
     public static void parseAndExecute(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (input.equals("bye")) {
             ui.showGoodbyeMessage();
@@ -36,6 +45,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a todo task to the list of tasks.
+     *
+     * @param description  The description of the todo task.
+     * @param tasks   The list of tasks.
+     * @param ui      The UI for user interactions.
+     * @param storage The storage for tasks.
+     * @throws DukeException If the command is invalid or execution fails.
+     */
     private static void addTodo(String description, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (description.isEmpty()) {
             throw new DukeException("The description of a todo cannot be empty.");
@@ -46,6 +64,15 @@ public class Parser {
         storage.save(tasks.getTasks());
     }
 
+    /**
+     * Adds a deadline task to the list of tasks.
+     *
+     * @param input  The input command to parse.
+     * @param tasks   The list of tasks.
+     * @param ui      The UI for user interactions.
+     * @param storage The storage for tasks.
+     * @throws DukeException If the command is invalid or execution fails.
+     */
     private static void addDeadline(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String[] splitInput = input.split(" /by ");
         if (splitInput.length < 2 || splitInput[0].isEmpty() || splitInput[1].isEmpty()) {
@@ -57,6 +84,15 @@ public class Parser {
         storage.save(tasks.getTasks());
     }
 
+    /**
+     * Adds a event task to the list of tasks.
+     *
+     * @param input  The input command to parse.
+     * @param tasks   The list of tasks.
+     * @param ui      The UI for user interactions.
+     * @param storage The storage for tasks.
+     * @throws DukeException If the command is invalid or execution fails.
+     */
     private static void addEvent(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String[] splitInput = input.split(" /from ");
         if (splitInput.length < 2 || splitInput[0].isEmpty() || splitInput[1].isEmpty()) {
@@ -72,6 +108,15 @@ public class Parser {
         storage.save(tasks.getTasks());
     }
 
+    /**
+     * Marks or unmarks a task in the list of tasks.
+     *
+     * @param input  The input command to parse.
+     * @param tasks   The list of tasks.
+     * @param ui      The UI for user interactions.
+     * @param storage The storage for tasks.
+     * @throws DukeException If the command is invalid or execution fails.
+     */
     private static void markOrUnmarkTask(String input, TaskList tasks, Ui ui, Storage storage, boolean isMark) throws DukeException {
         try {
             int idx = Integer.parseInt(input) - 1;
@@ -89,6 +134,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task from the list of tasks.
+     *
+     * @param input  The input command to parse.
+     * @param tasks   The list of tasks.
+     * @param ui      The UI for user interactions.
+     * @param storage The storage for tasks.
+     * @throws DukeException If the command is invalid or execution fails.
+     */
     private static void deleteTask(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             int idx = Integer.parseInt(input) - 1;
