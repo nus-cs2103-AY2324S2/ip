@@ -29,7 +29,8 @@ public class Storage {
                 tasks.add(Parser.parseTask(line));
             }
         } catch (IOException e) {
-            throw new YapperException("Error loading tasks from file. Creating a new task list.");
+            throw new YapperException("Error loading tasks from file. " +
+                    "Creating a new task list.");
         }
         return tasks;
     }

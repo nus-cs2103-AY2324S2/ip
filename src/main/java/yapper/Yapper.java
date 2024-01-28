@@ -98,8 +98,8 @@ public class Yapper {
         } else if (userInput.startsWith("deadline")) {
             try {
                 String[] parts = userInput.substring(9).split("/by");
-                Deadline newTask = new Deadline(parts[0].trim(), false, LocalDateTime.parse(parts[1].trim(),
-                        DATE_TIME_FORMATTER));
+                Deadline newTask = new Deadline(parts[0].trim(), false,
+                        LocalDateTime.parse(parts[1].trim(), DATE_TIME_FORMATTER));
                 tasks.add(newTask);
                 ui.showAddedTaskMessage(newTask, tasks.size());
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -108,8 +108,8 @@ public class Yapper {
         } else if (userInput.startsWith("event")) {
             try {
                 String[] parts = userInput.substring(6).split("/from|/to");
-                Event newTask = new Event(parts[0].trim(), false, LocalDateTime.parse(parts[1].trim(),
-                        DATE_TIME_FORMATTER),
+                Event newTask = new Event(parts[0].trim(), false,
+                        LocalDateTime.parse(parts[1].trim(), DATE_TIME_FORMATTER),
                         LocalDateTime.parse(parts[2].trim(), DATE_TIME_FORMATTER));
                 tasks.add(newTask);
                 ui.showAddedTaskMessage(newTask, tasks.size());

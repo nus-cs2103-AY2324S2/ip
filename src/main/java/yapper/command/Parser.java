@@ -10,7 +10,8 @@ import java.time.format.DateTimeParseException;
  * The Parser class is responsible for parsing task strings and creating Task objects.
  */
 public class Parser {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Parses a task string and returns the corresponding Task object.
@@ -34,7 +35,8 @@ public class Parser {
                 LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
                 return new Deadline(description, isDone, by);
             } catch (DateTimeParseException e) {
-                throw new YapperException("Sorry the date format you yapped is invalid :(");
+                throw new YapperException(
+                        "Sorry the date format you yapped is invalid :(");
             }
         case "E":
             try{
@@ -42,10 +44,12 @@ public class Parser {
                 LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
                 return new Event(description, isDone, from, to);
             } catch (DateTimeParseException e) {
-                throw new YapperException("Sorry the date format you yapped is invalid :(");
+                throw new YapperException(
+                        "Sorry the date format you yapped is invalid :(");
             }
         default:
-            throw new YapperException("The task type you're yapping about is invalid.");
+            throw new YapperException(
+                    "The task type you're yapping about is invalid.");
         }
     }
 }

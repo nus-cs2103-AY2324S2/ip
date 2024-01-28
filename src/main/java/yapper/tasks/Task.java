@@ -53,12 +53,14 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the task, including type, status icon, and description.
+     * Returns a string representation of the task, including type,
+     * status icon, and description.
      *
      * @return A formatted string representing the task.
      */
     public String toString() {
-        return "[" + getType() + "] " + "[" + getStatusIcon() + "] " + description;
+        return "[" + getType() + "] " + "[" + getStatusIcon() + "] "
+                + description;
     }
 
     /**

@@ -27,8 +27,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + getType() + "]" + "[" + getStatusIcon() + "] " + description + " "
-                + getFormattedDateRange();
+        return "[" + getType() + "]" + "[" + getStatusIcon() + "] "
+                + description + " " + getFormattedDateRange();
     }
 
     @Override
@@ -38,7 +38,8 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+        return "E | " + (isDone ? "1" : "0") + " | "
+                + description + " | " + from + " | " + to;
     }
 
     protected String getFormattedDateRange() {
