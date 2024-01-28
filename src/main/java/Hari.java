@@ -172,7 +172,7 @@ class handlerbot {
             System.out.println("____________________________________________________________");
             System.out.println(" Here are your tasks:"); // Display all tasks
             for (int i = 0; i < countertaskings; i++) {
-                System.out.println(" " + (i + 1) + ". " +  "[" + arrtaskings[i].taskstatus() + "]" + "[" + arrtaskings[i].completionstatus() + "]" + arrtaskings[i].summarystatus() +
+                System.out.println(" " + (i + 1) + ". " + "[" + arrtaskings[i].taskstatus() + "]" + "[" + arrtaskings[i].completionstatus() + "]" + arrtaskings[i].summarystatus() +
                         (arrtaskings[i].taskstatus().equals("E") ?
                                 " (from: " + arrtaskings[i].timerstartstatus() + " to: " + arrtaskings[i].timerendstatus() + ")" :
                                 (arrtaskings[i].taskstatus().equals("D") ? " (by: " + arrtaskings[i].deadlinestatus() + ")" : "")));
@@ -188,7 +188,7 @@ class handlerbot {
             System.out.println("____________________________________________________________");
             System.out.println(" Another one in the bag! Well done!");
             arrtaskings[taskrecorder - 1].completionmark(); // Mark as complete
-            System.out.println("   " +  "[" + arrtaskings[taskrecorder - 1].taskstatus() + "]" + "[" + arrtaskings[taskrecorder - 1].completionstatus() + "]"  + arrtaskings[taskrecorder - 1].summarystatus() + "  " +
+            System.out.println("   " + "[" + arrtaskings[taskrecorder - 1].taskstatus() + "]" + "[" + arrtaskings[taskrecorder - 1].completionstatus() + "]" + arrtaskings[taskrecorder - 1].summarystatus() + "  " +
                     (arrtaskings[taskrecorder - 1].taskstatus().equals("E") ?
                             " (from: " + arrtaskings[taskrecorder - 1].timerstartstatus() + " to: " + arrtaskings[taskrecorder - 1].timerendstatus() + ")" :
                             (arrtaskings[taskrecorder - 1].taskstatus().equals("D") ? " (by: " + arrtaskings[taskrecorder - 1].deadlinestatus() + ")" : "")));
@@ -208,13 +208,37 @@ class handlerbot {
             System.out.println("____________________________________________________________");
             System.out.println(" Oh dear, better get on it!");
             arrtaskings[taskrecorder - 1].incompletionmark(); // Mark as incomplete
-            System.out.println("   " +  "[" + arrtaskings[taskrecorder - 1].taskstatus() + "]" + "[" + arrtaskings[taskrecorder - 1].completionstatus() + "]"  + arrtaskings[taskrecorder - 1].summarystatus() + "  " +
+            System.out.println("   " + "[" + arrtaskings[taskrecorder - 1].taskstatus() + "]" + "[" + arrtaskings[taskrecorder - 1].completionstatus() + "]" + arrtaskings[taskrecorder - 1].summarystatus() + "  " +
                     (arrtaskings[taskrecorder - 1].taskstatus().equals("E") ?
                             " (from: " + arrtaskings[taskrecorder - 1].timerstartstatus() + " to: " + arrtaskings[taskrecorder - 1].timerendstatus() + ")" :
                             (arrtaskings[taskrecorder - 1].taskstatus().equals("D") ? " (by: " + arrtaskings[taskrecorder - 1].deadlinestatus() + ")" : "")));
             System.out.println("____________________________________________________________");
         } else // Error handling: There are no tasks or invalid task number
         {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Hmmm...I don't seem to have a task under this number");
+            System.out.println("____________________________________________________________");
+        }
+    }
+
+    // Function to delete a task
+    public void taskdeleter(int tasknumber) {
+        if (tasknumber > 0 && tasknumber <= countertaskings) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Okay, I've removed this task:");
+            System.out.println("   " + "[" + arrtaskings[tasknumber - 1].taskstatus() + "]" + "[" + arrtaskings[tasknumber - 1].completionstatus() + "]" + arrtaskings[tasknumber - 1].summarystatus() + "  " +
+                    (arrtaskings[tasknumber - 1].taskstatus().equals("E") ?
+                            " (from: " + arrtaskings[tasknumber - 1].timerstartstatus() + " to: " + arrtaskings[tasknumber- 1].timerendstatus() + ")" :
+                            (arrtaskings[tasknumber - 1].taskstatus().equals("D") ? " (by: " + arrtaskings[tasknumber - 1].deadlinestatus() + ")" : "")));
+            // Shift tasks in the array to fill the gap
+            for (int i = tasknumber - 1; i < countertaskings - 1; i++) {
+                arrtaskings[i] = arrtaskings[i + 1];
+            }
+            arrtaskings[countertaskings - 1] = null; // Set the last element to null
+            countertaskings--;
+            System.out.println(" Now you have " + countertaskings + " task(s) in the list");
+            System.out.println("____________________________________________________________");
+        } else {
             System.out.println("____________________________________________________________");
             System.out.println(" Hmmm...I don't seem to have a task under this number");
             System.out.println("____________________________________________________________");
@@ -242,28 +266,27 @@ public class Hari {
             } else if (readerinput.startsWith("mark")) { // To mark a task as completed
                 try {
                     // Extract the task number from user input
-                    int taskindexer = Integer.parseInt(readerinput.substring(5).trim()); // 5 is because of the word "mark"
-                    hari.completionmark(taskindexer);
-                } catch (NumberFormatException e) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" SAD! Invalid task number to mark.");
-                    System.out.println("____________________________________________________________");
-                }
-            } else if (readerinput.startsWith("unmark")) { // To unmark a previously marked as completed task
-                try {
-                    // Extract task number from user input
-                    int taskindexer = Integer.parseInt(readerinput.substring(7).trim()); // 7 is because of the word "unmark"
+                    int taskindexer = Integer.parseInt(readerinput.substring(5).trim()); // 5 is because of the word mark
                     hari.incompletionmark(taskindexer);
                 } catch (NumberFormatException e) {
                     System.out.println("____________________________________________________________");
                     System.out.println(" SAD! Invalid task number to unmark.");
                     System.out.println("____________________________________________________________");
                 }
+            } else if (readerinput.startsWith("delete")) { // To delete a task
+                try {
+                    // Extract task number from user input
+                    int taskindexer = Integer.parseInt(readerinput.substring(7).trim()); // 7 is because of the word "delete"
+                    hari.taskdeleter(taskindexer);
+                } catch (NumberFormatException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" SAD! Invalid task number to delete.");
+                    System.out.println("____________________________________________________________");
+                }
             } else {
                 hari.userechoedinput(readerinput); // Else, it proceeds to call the user input processing function
             }
         }
-
         hari.messagefarewell(); // Call the messagefarewell function to display farewell message and exit the program
     }
 }
