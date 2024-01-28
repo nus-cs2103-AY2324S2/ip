@@ -1,3 +1,5 @@
+package cappy.task;
+
 public class Todo extends Task {
     public static final String TYPE_SYMBOL = "T";
 

@@ -1,6 +1,12 @@
+package cappy.task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
+
+import cappy.error.CappyException;
+import cappy.parser.Parser;
+import cappy.storage.Storage;
 
 public class TaskList {
     private final List<Task> tasks;
@@ -55,7 +61,7 @@ public class TaskList {
         }
     }
 
-    public static TaskList load(Storage storage) throws IOException, DukeException {
+    public static TaskList load(Storage storage) throws IOException, CappyException {
         TaskList taskList = new TaskList(storage);
         String[] csvLines = storage.readAll().split("\n");
         for (String line : csvLines) {

@@ -1,6 +1,15 @@
+package cappy.parser;
+
 import java.util.List;
 import java.util.HashMap;
 import java.io.IOException;
+
+import cappy.command.Command;
+import cappy.command.CommandType;
+import cappy.storage.Storage;
+import cappy.task.TaskList;
+import cappy.ui.Ui;
+import cappy.error.CappyException;
 
 public class ParsedInput {
     private CommandType commandType;
@@ -39,7 +48,7 @@ public class ParsedInput {
         return namedArguments.containsKey(name);
     }
 
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws CappyException, IOException {
         command.execute(tasks, ui, storage, this);
     }
 }

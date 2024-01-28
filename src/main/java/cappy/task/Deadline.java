@@ -1,4 +1,8 @@
+package cappy.task;
+
 import java.time.LocalDateTime;
+
+import cappy.parser.Parser;
 
 public class Deadline extends Task {
     public static final String TYPE_SYMBOL = "D";

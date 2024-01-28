@@ -1,3 +1,5 @@
+package cappy.parser;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -6,10 +8,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 
+import cappy.command.CommandType;
+import cappy.error.CappyException;
+import cappy.task.Task;
+import cappy.task.Todo;
+import cappy.task.Deadline;
+import cappy.task.Event;
+
 public class Parser {
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public static ParsedInput parse(String input) throws DukeException, IOException {
+    public static ParsedInput parse(String input) throws CappyException, IOException {
         StringTokenizer st = new StringTokenizer(input,  " ");
         int numTokens = st.countTokens();
         if (numTokens == 0) {
@@ -26,7 +35,7 @@ public class Parser {
             String token = st.nextToken();
             if (token.startsWith("/")) {
                 if (!st.hasMoreTokens()) {
-                    throw new DukeException("Missing value for argument " + token);
+                    throw new CappyException("Missing value for argument " + token);
                 }
                 namedArguments.put(token.substring(1), st.nextToken());
             } else {
@@ -44,7 +53,7 @@ public class Parser {
         return dateTime.format(DATE_TIME_FORMAT);
     }
 
-    public static Task parseCsvLine(String csvLine) throws DukeException {
+    public static Task parseCsvLine(String csvLine) throws CappyException {
         String[] data = csvLine.split(",");
         try {
             String type = data[0];
@@ -60,10 +69,10 @@ public class Parser {
                 LocalDateTime to = parseDateTime(data[4]);
                 return new Event(description, done, from, to);
             } else {
-                throw new DukeException("Invalid Type");
+                throw new CappyException("Invalid Type");
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new DukeException("Invalid storage format!");
+            throw new CappyException("Invalid storage format!");
         }
     }
 }

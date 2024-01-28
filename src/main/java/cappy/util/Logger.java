@@ -1,3 +1,5 @@
+package cappy.util;
+
 public class Logger {
     public enum LogLevel {
         DEBUG,
