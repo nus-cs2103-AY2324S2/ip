@@ -21,10 +21,15 @@ public class EventTask extends Task {
         }
     }
 
+    public String getTime() {
+        return from + " - " + to;
+    }
+
     @Override
     public String tag() {
         return "[E]";
     }
+
     @Override
     public String toString() {
         return tag() + mark() + " " + task + " (from: " + from + " to: " + to + ")";

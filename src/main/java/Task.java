@@ -7,6 +7,10 @@ public abstract class Task {
         this.marked = false;
     }
 
+    public String getTask() {
+        return task;
+    }
+
     public void markDone() {
         marked = true;
     }
@@ -22,5 +26,8 @@ public abstract class Task {
 
     public abstract String tag();
 
-    public abstract String toString();
+    @Override
+    public String toString() {
+        return mark() + " " + task;
+    }
 }

@@ -15,13 +15,18 @@ public class DeadlineTask extends Task {
         }
     }
 
+    public String getBy() {
+        return by;
+    }
+    @Override
+    public String toString() {
+        return tag() + mark() + " " + task + " (by: " + by + ")";
+    }
+
     @Override
     public String tag() {
         return "[D]";
     }
 
-    @Override
-    public String toString() {
-        return tag() + mark() + " " + task + " (by: " + by + ")";
-    }
 }
+
