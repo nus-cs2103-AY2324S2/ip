@@ -14,7 +14,7 @@ public class DateFormatter{
             LocalDate currdate = LocalDate.parse(this.date);
             return true;
         } catch (DateTimeException e) {
-            System.out.println("Please give date in the proper format of YYYY-MM-DD");
+            // don't change the date in this case
         }
         return false;
     }

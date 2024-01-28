@@ -2,11 +2,11 @@ class Task {
 
     private boolean done = false;
     private String name = "";
-    private static int totaltask = 0;
+//    private static int totaltask = 0;
     public Task(String name, boolean done) {
         this.name = name;
         this.done = done;
-        totaltask +=1;
+//        totaltask +=1;
     }
 
     public String getName() {
@@ -34,13 +34,13 @@ class Task {
         return " [" + isDone() + "] "+ this.name ;
     }
 
-    public static String getTotalTask() {
-        return Integer.toString(totaltask);
-    }
-
-    public static void subtractTotal() {
-        totaltask -= 1;
-    }
+//    public static String getTotalTask() {
+//        return Integer.toString(totaltask);
+//    }
+//
+//    public static void subtractTotal() {
+//        totaltask -= 1;
+//    }
 
     public String getType() {
         return "general";

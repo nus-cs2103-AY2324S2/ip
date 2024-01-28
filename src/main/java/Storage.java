@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class HardDisk{
+public class Storage{
     private String filepath;
 
-    public HardDisk(String filepath) {
+    public Storage(String filepath) {
         this.filepath = filepath;
     }
 
@@ -67,7 +67,4 @@ public class HardDisk{
         fw.close();
 
     }
-
-
 }
-
