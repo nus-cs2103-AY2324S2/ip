@@ -1,5 +1,4 @@
 package duke;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,12 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Storage class to handle save/load of tasks.
+ */
 public class Storage {
-    File f;
+    private File f;
+    /**
+     * Constructor for Storage
+     *
+     * @param filePath Path to the save file.
+     */
     public Storage(String filePath) {
         this.f = new File(filePath);
     }
 
+    /**
+     * Save current taskList into a .txt file.
+     *
+     * @param taskList List of tasks to save.
+     */
     public void save(List<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(f, false); // create a new file
         String text = "";
@@ -32,6 +44,11 @@ public class Storage {
         System.out.println(output);
     }
 
+    /**
+     * Load from .txt file to current taskList.
+     *
+     * @return Updated taskList.
+     */
     public List<Task> load() throws DukeException, IOException {
         if (f.createNewFile()) { // check if save exist
             throw new DukeException();
@@ -41,8 +58,12 @@ public class Storage {
 
         List<Task> taskList = new ArrayList<>();
         Scanner s = new Scanner(f);
-        String curr, taskName, taskType, isMarked;
-        LocalDate start, finish;
+        String curr;
+        String taskName;
+        String taskType;
+        String isMarked;
+        LocalDate start;
+        LocalDate finish;
         int index;
         Task t;
 

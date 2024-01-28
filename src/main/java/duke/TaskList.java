@@ -1,10 +1,13 @@
 package duke;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TaskList to handle all operations related to tasks.
+ */
+
 public class TaskList {
-    List<Task> taskList;
+    private List<Task> taskList;
     public TaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
@@ -12,16 +15,24 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
-    public void List() {
+    /**
+     * Lists all current tasks
+     */
+    public void list() {
         String text;
         System.out.println("\t____________________________________________________________");
         for (int i = 0; i < this.taskList.size(); i++) {
-            text = "\t" + (i+1) + "." + this.taskList.get(i).toString();
+            text = "\t" + (i + 1) + "." + this.taskList.get(i).toString();
             System.out.println(text);
         }
         System.out.println("\t____________________________________________________________\n");
     }
 
+    /**
+     * Marks a specified task as done.
+     *
+     * @param num Number of task to mark.
+     */
     public void mark(int num) {
         Task curr = this.taskList.get(num - 1);
         curr.mark();
@@ -34,6 +45,11 @@ public class TaskList {
         System.out.println(text);
     }
 
+    /**
+     * Unmarks a specified task.
+     *
+     * @param num Number of task to unmark.
+     */
     public void unmark(int num) {
         Task curr = this.taskList.get(num - 1);
         curr.unmark();
@@ -46,10 +62,17 @@ public class TaskList {
         System.out.println(text);
     }
 
+    /**
+     * Adds a new task.
+     *
+     * @param add Task to add.
+     */
     public void add(Task add) {
         this.taskList.add(add);
         String word = " task";
-        if (this.taskList.size() != 1) {word += "s";}
+        if (this.taskList.size() != 1) {
+            word += "s";
+        }
 
         String text = "\t____________________________________________________________\n"
                 + "\tGot it. I've added this task:\n"
@@ -60,6 +83,11 @@ public class TaskList {
         System.out.println(text);
     }
 
+    /**
+     * Deletes a specified task.
+     *
+     * @param num Number of task to delete.
+     */
     public void delete(int num) {
         Task curr = this.taskList.get(num - 1);
         this.taskList.remove(curr);
@@ -70,6 +98,10 @@ public class TaskList {
                 + "\t____________________________________________________________\n";
 
         System.out.println(text);
+    }
+
+    public int size() {
+        return this.taskList.size();
     }
 
     public List<Task> getTaskList() {

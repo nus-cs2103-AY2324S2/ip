@@ -1,10 +1,19 @@
 package duke;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Parser class to help with formatting user input.
+ */
 public class Parser {
 
+    /**
+     * Returns lateral location of the specified position.
+     * If the position is unset, NaN is returned.
+     *
+     * @param input User input.
+     * @return List<> of formatted user input.
+     */
     public List<String> parse(String input) {
         List<String> stringList = new ArrayList<>();
 
