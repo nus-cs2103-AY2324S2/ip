@@ -177,6 +177,8 @@ public class Tam {
                         "(eg: mark 2)\n");
                 System.out.print("Mark a task as incomplete: unmark [task number on list] " +
                         "(eg: unmark 2)\n");
+                System.out.print("Delete a task: delete [task number on list] " +
+                        "(eg: delete 3)\n");
                 System.out.print("Close Tam the Task Manager: bye\n");
                 System.out.print(dividerText);
                 return 1;
