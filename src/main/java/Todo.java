@@ -1,8 +1,11 @@
 import java.io.Serializable;
+<<<<<<< HEAD
 
 public class Todo extends Task implements Serializable {
+=======
+>>>>>>> branch-Level-7
 
-    
+public class Todo extends Task implements Serializable {
 
     public Todo(String description) {
         super(description);

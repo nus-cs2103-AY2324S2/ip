@@ -27,7 +27,11 @@ public class SaveTask {
                 file.createNewFile();
 
             } catch (IOException e) {
+<<<<<<< HEAD
                 System.err.println("Error creating new file; " + e.getMessage());
+=======
+                System.err.println("Error creating new file: " + e.getMessage());
+>>>>>>> branch-Level-7
             }
         }
     }
