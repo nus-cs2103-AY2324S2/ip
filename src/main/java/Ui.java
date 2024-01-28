@@ -92,7 +92,7 @@ public abstract class Ui {
                             String[] inputArr = Parser.getTaskAndDates(deadline, false);
                             if (inputArr == null) {
                                 final String output = "Due time not found!\n"
-                                        + "Please follow the format: deadline [task] /by [due]\n";
+                                        + "Please follow the format: deadline [task] /by [yyyy-mm-dd]\n";
                                 System.out.println(output);
                             } else {
                                 Duke.taskList.storeItem(new Deadline(inputArr[0], inputArr[1]));
@@ -108,7 +108,7 @@ public abstract class Ui {
                             if (inputArr == null) {
                                 final String output = "Due time not found!\n"
                                         + "Please follow the format: \n"
-                                        + "deadline [task] /from [start time] /to [end time]\n";
+                                        + "deadline [task] /from [yyyy-mm-dd] /to [yyyy-mm-dd]\n";
                                 System.out.println(output);
                             } else {
                                 Duke.taskList.storeItem(new Event(inputArr[0], inputArr[1], inputArr[2]));
@@ -124,6 +124,15 @@ public abstract class Ui {
                             final String output = "Failed to get the index!";
                             System.out.println(output);
                             Ui.printWarningLine();
+                        }
+                        break;
+                    case "any":
+                        String specificDeadline = Parser.getDate(input);
+                        if (specificDeadline == null) {
+                            System.out.println("Please follow the format:\n"
+                                    + "any [yyyy-mm-dd]\n");
+                        } else {
+                            Duke.taskList.dueBy(specificDeadline);
                         }
                         break;
                     default:
