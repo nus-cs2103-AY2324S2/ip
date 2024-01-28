@@ -16,4 +16,10 @@ public class ToDo extends Task {
         task.isDone = done.equals("1");
         return task;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (Task.class.isAssignableFrom(obj.getClass())) return super.equals(obj);
+        else return false;
+    }
 }

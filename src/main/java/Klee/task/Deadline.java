@@ -26,4 +26,10 @@ public class Deadline extends Task {
         task.isDone = done.equals("1");
         return task;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (Task.class.isAssignableFrom(obj.getClass())) return super.equals(obj) && this.deadline == ((Deadline) obj).deadline;
+        else return false;
+    }
 }

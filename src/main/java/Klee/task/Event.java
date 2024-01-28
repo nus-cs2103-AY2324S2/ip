@@ -28,4 +28,10 @@ public class Event extends Task {
         task.isDone = done.equals("1");
         return task;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (Task.class.isAssignableFrom(obj.getClass())) return super.equals(obj) && this.from == ((Event) obj).from && this.to == ((Event) obj).to;
+        else return false;
+    }
 }
