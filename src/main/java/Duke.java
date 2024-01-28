@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.lang.StringBuilder;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -62,6 +63,8 @@ public class Duke {
             }
         } catch (WrongFormatException e) {
             System.out.println("\t" + e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println("\tDate time must be in this format: 28/01/2023 1800");
         }
         Duke.horizontalLine();
     }
@@ -187,7 +190,7 @@ public class Duke {
         }
     }
 
-    public Deadline parseDeadline(String input) throws WrongFormatException {
+    public Deadline parseDeadline(String input) throws WrongFormatException, DateTimeParseException {
         if (Pattern.matches("deadline\\s\\S.*\\s/by\\s\\S.*", input)) {
             String[] arr = input.split("\\s/by\\s");
             String by = arr[1];
@@ -195,12 +198,12 @@ public class Duke {
             return new Deadline(description, by);
         } else {
             throw new WrongFormatException(
-                    "Invalid 'deadline' command format. Usage: deadline <description> /by <date>"
+                    "Invalid 'deadline' command format. Usage: deadline <description> /by <date time>"
             );
         }
     }
 
-    public Event parseEvent(String input) throws WrongFormatException {
+    public Event parseEvent(String input) throws WrongFormatException, DateTimeParseException {
         if (Pattern.matches("event\\s\\S.*\\s/from\\s\\S.*\\s/to\\s\\S.*", input)) {
             String[] splitTo = input.split("\\s/to\\s");
             String to = splitTo[1];
@@ -210,7 +213,7 @@ public class Duke {
             return new Event(description, from, to);
         } else {
             throw new WrongFormatException(
-                    "Invalid 'event' command format. Usage: event <description> /from <date> /to <date>"
+                    "Invalid 'event' command format. Usage: event <description> /from <date time> /to <date time>"
             );
         }
     }
