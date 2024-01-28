@@ -1,15 +1,23 @@
 import java.util.ArrayList;
+import java.io.File;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 public class Duke {
 
     private static String name = "GanAnWo";
+    private static String currentWorkingDirectory = System.getProperty("user.dir");
+    private static String path = "/list.txt";
+    private static FileWriter f;
 
     private static ArrayList<Task> task = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException{
         Scanner inp = new Scanner(System.in);
         System.out.println("Hello! I'm " + name + "\n"
                 + "What can I do for you?");
+        start();
         String input;
         Boolean running = true;
 
@@ -64,6 +72,11 @@ public class Duke {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(task.get(task.size()-1).toString());
                         System.out.println("Now you have " + task.size() + " tasks in the list.");
+                        try {
+                            write();
+                        } catch (IOException e) {
+                            System.out.println("Save failed ");
+                        }
                     }
                     break;
                 case "todo": // when the task added is todo
@@ -75,7 +88,11 @@ public class Duke {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(task.get(task.size()-1).toString());
                         System.out.println("Now you have " + task.size() + " tasks in the list.");
-
+                        try {
+                            write();
+                        } catch (IOException e) {
+                            System.out.println("Save failed");
+                        }
                     }
                     break;
                 case "deadline": // when the task added is deadline
@@ -88,6 +105,11 @@ public class Duke {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(task.get(task.size()-1).toString());
                         System.out.println("Now you have " + task.size() + " tasks in the list.");
+                        try {
+                            write();
+                        } catch (IOException e) {
+                            System.out.println("Save failed");
+                        }
                     }
                     break;
                 default:
@@ -116,6 +138,11 @@ public class Duke {
             }
             noArr = Integer.parseInt(inputs[1])-1;
             task.get(noArr).mark();
+            try {
+                write();
+            } catch (IOException e) {
+                System.out.println("Save failed");
+            }
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(task.get(noArr).toString());
         } catch (IndexOutOfBoundsException e){ //when the given number is out of bounds (exception handling)
@@ -136,6 +163,11 @@ public class Duke {
             }
             noArr = Integer.parseInt(inputs[1])-1;
             task.get(noArr).unMark();
+            try {
+                write();
+            } catch (IOException e) {
+                System.out.println("Save failed");
+            }
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(task.get(noArr).toString());
         } catch (IndexOutOfBoundsException e){  //when the given number is out of bounds (exception handling)
@@ -157,6 +189,11 @@ public class Duke {
             noArr = Integer.parseInt(inputs[1])-1;
             Task delT = task.get(noArr);
             task.remove(noArr);
+            try {
+                write();
+            } catch (IOException e) {
+                System.out.println("Save failed");
+            }
             System.out.println("Noted. I've removed this task:");
             System.out.println(delT.toString());
             System.out.println("Now you have " + task.size() + " tasks in the list. ");
@@ -177,5 +214,41 @@ public class Duke {
             }
         }
         return false;
+    }
+
+    public static void start() throws FileNotFoundException{
+        File data = new File(currentWorkingDirectory + path);
+        if(data.exists()){
+            Scanner sc = new Scanner(data);
+            while (sc.hasNext()){
+                String dt = sc.nextLine();
+                String[] dtl = dt.split("/");
+                switch (dtl[0]) {
+                    case "T":
+                        task.add(new ToDos(dtl[1], dtl[2]));
+                        break;
+                    case "D":
+                        task.add(new Deadline(dtl[1], dtl[2], dtl[3]));
+                        break;
+                    case "E":
+                        task.add(new Event(dtl[1], dtl[2], dtl[3], dtl[4]));
+                }
+            }
+        }
+    }
+
+    public static void write() throws IOException {
+        FileWriter rf;
+        try {
+            rf = new FileWriter(currentWorkingDirectory + path);
+            for(int i = 0; i < task.size(); i++){
+                rf.write(task.get(i).toWrite());
+                rf.write("\n");
+            }
+            rf.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: Cannot load your saved tasks");
+        }
+
     }
 }

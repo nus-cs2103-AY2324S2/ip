@@ -22,4 +22,9 @@ public class Task {
         String s = "[" + this.getStatusIcon() + "] " + this.description;
         return s;
     }
+
+    public String toWrite(){ //method to get the string representation of task
+        String s = this.getStatusIcon() + " | " + this.description;
+        return s;
+    }
 }
