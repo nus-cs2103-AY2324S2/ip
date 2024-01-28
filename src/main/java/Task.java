@@ -22,4 +22,8 @@ public class Task {
     public String toString() {
         return curStatus() + ' ' + desc;
     }
+
+    public String saveString() {
+        return (isDone ? "1" : "0") + " | " + desc;
+    }
 }
