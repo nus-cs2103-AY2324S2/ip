@@ -71,7 +71,6 @@ public class GrumbleBug {
             e.printStackTrace();
         }
 
-
         String starter = "GrumbleBug:"
                 + "_______________________________________\n"
                 + "Oh hey, adventurer.\n"
