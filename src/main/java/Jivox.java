@@ -3,7 +3,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
 
 
@@ -15,13 +20,15 @@ public class Jivox {
     private final ArrayList<Task> list = dbHandler.load();
 
     private final Scanner sc = new Scanner(System.in);
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
     public Jivox(){
 
     }
     private  enum COMMANDS {
         TODO,DEADLINE,EVENT,
-        MARK,UNMARK,DELETE,BYE,LIST
+        MARK,UNMARK,DELETE,BYE,LIST,
+        SHOW
     }
     public void greet(){
         addDivider();
@@ -71,15 +78,20 @@ public class Jivox {
     }
 
     private void addEvent(String content) throws JivoxException {
-        String[] first = content.split("/from");
+        String[] first = content.split(" /from ");
         if(first.length == 1){
             throw new JivoxException("No time interval (from) received  for the event , Please try again!");
         }
-        String[] second = first[1].split("/to");
+        String[] second = first[1].split(" /to ",2);
         if(second.length == 1){
             throw new JivoxException("No time interval received (to) for the event , Please try again!");
         }
-        this.list.add(new Event(first[0].trim(),second[0].trim(),second[1].trim()));
+        LocalDateTime from = LocalDateTime.parse(second[0] ,formatter);
+        LocalDateTime to = LocalDateTime.parse(second[1] ,formatter);
+        if(to.isBefore(from)){
+            throw new JivoxException("Invalid event ! To is before From");
+        }
+        this.list.add(new Event(first[0].trim(),from,to));
         dbHandler.save(this.list);
     }
 
@@ -89,11 +101,12 @@ public class Jivox {
     }
 
     private void addDeadline(String content) throws JivoxException {
-        String[] in = content.split("/by");
+        String[] in = content.split(" /by ",2);
         if(in.length == 1){
             throw new JivoxException("Oooops! Please provide a deadline");
         }
-        this.list.add(new Deadline(in[0].trim(),in[1].trim()));
+        LocalDateTime deadline = LocalDateTime.parse(in[1],formatter);
+        this.list.add(new Deadline(in[0].trim(),deadline));
         dbHandler.save(this.list);
     }
 
@@ -133,6 +146,22 @@ public class Jivox {
         System.out.println(" Noted. I've removed this task:\n" + t);
         System.out.println("Now you have " + this.list.size() +" Tasks in the List");
         addDivider();
+    }
+
+    public void show(String input){
+        String[] split = input.split("/on ");
+
+        LocalDate time = LocalDate.parse(split[1].replaceFirst(" ",""), DateTimeFormatter.ofPattern("d/MM/yyyy"));
+        System.out.println("You have following Task due on " + time.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":-\n");
+        for(int i = 0; i < list.size(); i++){
+            LocalDateTime deadline = this.list.get(i).getDeadline();
+            if(deadline != null){
+                if(deadline.getMonth() == time.getMonth() && deadline.getYear() == time.getYear() && deadline.getDayOfMonth() == time.getDayOfMonth()){
+                    System.out.println(this.list.get(i));
+                    System.out.println("\n");
+                }
+            }
+        }
     }
 
     public void addDivider(){
@@ -217,6 +246,9 @@ public class Jivox {
                     break;
                 case LIST:
                     this.showList();
+                    break;
+                case SHOW:
+                    this.show(input[1]);
                     break;
             }
         } while (isRunning);

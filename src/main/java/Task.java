@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public abstract class Task {
     private boolean isDone;
     private String content;
@@ -9,6 +11,10 @@ public abstract class Task {
 
     public void mark(){
         this.isDone = true;
+    }
+
+    public LocalDateTime getDeadline(){
+        return null;
     }
 
     public void unmark(){
