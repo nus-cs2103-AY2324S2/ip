@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,9 +11,14 @@ public class Johnny {
     private static ArrayList<Task> list = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println("Johnny here. What do you want bro?\n");
-        Johnny.takeCommands();
-        System.out.println("Bye bro. I'm going back to sleep.");
+        try {
+            System.out.println("Johnny here. What do you want bro?\n");
+            Johnny.start();
+            Johnny.takeCommands();
+            System.out.println("Bye bro. I'm going back to sleep.");
+        } catch (JohnnyException e) {
+            System.out.println(e.getMessage() + "\n");
+        }
     }
 
     public static void takeCommands() {
@@ -48,6 +56,43 @@ public class Johnny {
         scanner.close();
     }
 
+    public static void start() throws JohnnyException {
+        try {
+            File file = new File("./data/johnny.txt");
+            if (!file.isFile() && file.getParentFile().mkdir()) {
+                file.createNewFile();
+            } else {
+                Scanner scanner = new Scanner(file);
+
+                while (scanner.hasNext()) {
+                    String input = scanner.nextLine();
+                    String[] parsedInput = input.split(" \\| ");
+                    Task task;
+
+                    if (parsedInput[0].equals("T")) {
+                        task = new ToDo(parsedInput[2]);
+                    } else if (parsedInput[0].equals("D")) {
+                        task = new Deadline(parsedInput[2], parsedInput[3]);
+                    } else if (parsedInput[0].equals("E")) {
+                        task = new Event(parsedInput[2], parsedInput[3], parsedInput[4]);
+                    } else {
+                        throw new JohnnyException("The file has been corrupted bro.");
+                    }
+
+                    if (parsedInput[1].equals("1")) {
+                        task.mark();
+                    }
+
+                    Johnny.list.add(task);
+                }
+
+                scanner.close();
+            }
+        } catch (IOException e) {
+            throw new JohnnyException("I can't create a new file bro: " + e.getMessage());
+        }
+    }
+
     public static void list() {
         System.out.println("Get all these done bro:");
         for (int i = 0; i < Johnny.list.size(); i++) {
@@ -69,6 +114,7 @@ public class Johnny {
             int index = Integer.parseInt(arr[1]) - 1;
             Task task = Johnny.list.get(index);
             task.mark();
+            rewriteFile();
             System.out.println("Finally done bro.");
             System.out.println(task + "\n");
         } catch (NumberFormatException e) {
@@ -91,6 +137,7 @@ public class Johnny {
             int index = Integer.parseInt(arr[1]) - 1;
             Task task = Johnny.list.get(index);
             task.unmark();
+            rewriteFile();
             System.out.println("Why are you not done yet bro?");
             System.out.println(task + "\n");
         } catch (NumberFormatException e) {
@@ -106,9 +153,10 @@ public class Johnny {
         if (l.size() == 1) {
             throw new JohnnyException("What is your todo bro?");
         }
-
-        Task task = new ToDo(String.join(" ", l.subList(1, l.size())));
+        String name = String.join(" ", l.subList(1, l.size()));
+        Task task = new ToDo(name);
         Johnny.list.add(task);
+        appendToFile(task);
         System.out.println("Go get this done bro:");
         System.out.println(task);
         System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
@@ -126,10 +174,11 @@ public class Johnny {
         if (i == -1) {
             throw new JohnnyException("When is your deadline by bro?");
         }
-
-        Task task = new Deadline(String.join(" ", l.subList(1, i)),
-                String.join(" ", l.subList(i + 1, l.size())));
+        String name = String.join(" ", l.subList(1, i));
+        String by = String.join(" ", l.subList(i + 1, l.size()));
+        Task task = new Deadline(name, by);
         Johnny.list.add(task);
+        appendToFile(task);
         System.out.println("Go get this done bro:");
         System.out.println(task);
         System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
@@ -154,10 +203,12 @@ public class Johnny {
             throw new JohnnyException("When does your event last to bro?");
         }
 
-        Task task = new Event(String.join(" ", l.subList(1, i)),
-                String.join(" ", l.subList(i + 1, j)),
-                String.join(" ", l.subList(j + 1, l.size())));
+        String name = String.join(" ", l.subList(1, i));
+        String from = String.join(" ", l.subList(i + 1, j));
+        String to = String.join(" ", l.subList(j + 1, l.size()));
+        Task task = new Event(name, from, to);
         Johnny.list.add(task);
+        appendToFile(task);
         System.out.println("Go get this done bro:");
         System.out.println(task);
         System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
@@ -175,6 +226,7 @@ public class Johnny {
 
             int index = Integer.parseInt(arr[1]) - 1;
             Task task = Johnny.list.remove(index);
+            rewriteFile();
             System.out.println("Task removed. Why so lazy bro?");
             System.out.println(task);
             System.out.println("You still have " + Johnny.list.size() + " tasks in your list bro.\n");
@@ -182,6 +234,28 @@ public class Johnny {
             throw new JohnnyException("Key in a number bro.");
         } catch (IndexOutOfBoundsException e) {
             throw new JohnnyException("This task does not exist bro.");
+        }
+    }
+
+    public static void rewriteFile() throws JohnnyException {
+        try {
+            FileWriter fw = new FileWriter("./data/johnny.txt");
+            for (Task task: Johnny.list) {
+                fw.write(task.addToFile());
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new JohnnyException("Cannot write to file bro: " + e.getMessage());
+        }
+    }
+
+    public static void appendToFile(Task task) throws JohnnyException {
+        try {
+            FileWriter fw = new FileWriter("./data/johnny.txt", true);
+            fw.write(task.addToFile());
+            fw.close();
+        } catch (IOException e) {
+            throw new JohnnyException("Cannot write to file bro: " + e.getMessage());
         }
     }
 

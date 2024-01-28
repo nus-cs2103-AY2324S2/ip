@@ -8,17 +8,22 @@ public class Task {
     }
 
     public void mark() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void unmark() {
-        this.isDone = false;
+        isDone = false;
     }
 
     @Override
     public String toString() {
         String x = isDone ? "X" : " ";
-        return "[" + x + "] " + this.name;
+        return "[" + x + "] " + name;
+    }
+
+    public String addToFile() {
+        String isDone = this.isDone ? "1" : "0";
+        return isDone + " | " + name;
     }
 
 }
