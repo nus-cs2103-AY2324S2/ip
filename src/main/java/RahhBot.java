@@ -41,14 +41,19 @@ public class RahhBot {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("_________________________________________\n");
                 break;
-            }
-
-            if (command.equalsIgnoreCase(("list"))) {
+            } else if (command.equalsIgnoreCase(("list"))) {
                 tasksList.displayTasks();
-                continue;
+            } else {
+                int index = command.charAt(command.length() - 1) - '0' - 1;
+                if (command.contains("unmark")) {
+                    tasksList.getTask(index).markNotDone();
+                } else if (command.contains("mark")) {
+                    tasksList.getTask(index).markDone();
+                } else {
+                    Task task = new Task(command);
+                    tasksList.addTask(task);
+                }
             }
-
-            tasksList.addTask(command);
         }
     }
 }
