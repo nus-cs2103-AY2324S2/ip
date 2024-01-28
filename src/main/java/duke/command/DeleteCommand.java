@@ -6,8 +6,20 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Class to run Delete Command.
+ *
+ * @author KohGuanZeh
+ */
 public class DeleteCommand extends Command {
     private final int indexToDelete;
+
+    /**
+     * Creates a Command that runs to delete a task at a specified index.
+     *
+     * @param input Input of task to delete.
+     * @throws CommandException Exception when input is not given in integer format.
+     */
     public DeleteCommand(String input) throws CommandException {
         input = input.trim();
         try {

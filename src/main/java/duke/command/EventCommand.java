@@ -10,10 +10,22 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class to run Event Command.
+ *
+ * @author KohGuanZeh
+ */
 public class EventCommand extends Command {
     private final String eventDescription;
     private final LocalDateTime eventFrom;
     private final LocalDateTime eventTo;
+
+    /**
+     * Creates a Command that runs to add an Event task.
+     *
+     * @param input Input of Event information.
+     * @throws CommandException Exception when there is a formatting error in the input.
+     */
     public EventCommand(String input) throws CommandException {
         input = input.trim();
         try {

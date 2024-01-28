@@ -2,6 +2,11 @@ package duke.ui;
 
 import java.util.Scanner;
 
+/**
+ * Class for displaying outputs and reading inputs from user.
+ *
+ * @author KohGuanZeh
+ */
 public class Ui {
     // Configuration to reset output color to System.out.
     private static final String ANSI_RESET = "\u001B[0m";

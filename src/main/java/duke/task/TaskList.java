@@ -104,6 +104,12 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Loads the given String data as tasks and add them to the list.
+     *
+     * @param data String data stored in file.
+     * @param ui UI to output feedback to user.
+     */
     public void loadTasks(String data, Ui ui) {
         StringTokenizer st = new StringTokenizer(data, "\n");
         while(st.hasMoreTokens()) {
@@ -115,6 +121,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the String format as to how data should be written to file.
+     *
+     * @return String to be written to save file.
+     */
     public String toDataString() {
         StringBuilder sb = new StringBuilder();
         for (Task task : taskList) {

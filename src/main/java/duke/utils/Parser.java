@@ -9,7 +9,18 @@ import duke.task.ToDo;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class to parse information from one type to another.
+ * Types are bound to custom application types.
+ */
 public class Parser {
+    /**
+     * Returns a Command that corresponds to given input.
+     *
+     * @param input User input to application.
+     * @return Command to be executed.
+     * @throws CommandException Exception when input does not match with any known Command format.
+     */
     public static Command parseInput(String input) throws CommandException {
         input = input.trim();
 
