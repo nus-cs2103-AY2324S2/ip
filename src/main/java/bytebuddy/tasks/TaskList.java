@@ -1,6 +1,8 @@
 package bytebuddy.tasks;
 
 import bytebuddy.exceptions.DukeException;
+import bytebuddy.ui.Ui;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -180,6 +182,41 @@ public class TaskList {
         System.out.println("\t\t " + task);
         System.out.println("\t Now you have " + taskList.size() + " tasks in the list.");
         System.out.println("\t" + solidLineBreak);
+    }
+
+    /**
+     * Finds tasks in the task list that match a specified keyword in their descriptions.
+     * The method searches for tasks containing the specified text in their descriptions
+     * and prints the matching tasks to the console.
+     *
+     * @param keyword The keyword or text to search for among all the tasks in the task list.
+     * @throws DukeException If there is an issue with the search operation, such as an empty keyword.
+     */
+    public void findTaskWithKeywordInTaskList(String keyword) throws DukeException {
+        if (keyword.isEmpty()) {
+            throw new DukeException(EMPTY_KEYWORD_ERROR_MESSAGE);
+        }
+
+        keyword = keyword.toLowerCase();
+        boolean foundTask = false;
+        StringBuilder str = new StringBuilder();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            String description = taskList.get(i).getDescription().toLowerCase();
+            if (description.contains(keyword)) {
+                if (!foundTask) {
+                    str.append("Here are the matching tasks in your list:");
+                    foundTask = true;
+                }
+                str.append("\n\t ").append(i + 1).append(".").append(taskList.get(i));
+            }
+        }
+
+        if (!foundTask) {
+            Ui.printWithSolidLineBreak("There are no matching tasks in your list :(");
+        } else {
+            Ui.printWithSolidLineBreak(str.toString());
+        }
     }
 
 }

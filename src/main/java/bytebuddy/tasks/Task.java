@@ -9,6 +9,14 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
