@@ -48,7 +48,8 @@ class Ui {
                     break;
                 case DELETE:
                     task = list.deleteTask(input);
-                    Ui.printMsg("This task has been removed:\n  " + task + "\n" + "Now you have " + list.getSize() + " task(s) in total.");
+                    Ui.printMsg("This task has been removed:\n  " + task + "\n" +
+                            "Now you have " + list.getSize() + " task(s) in total.");
                     break;
                 case TODO:
                     // Fallthrough
@@ -56,7 +57,8 @@ class Ui {
                     // Fallthrough
                 case EVENT:
                     task = list.addTask(keyword, input);
-                    Ui.printMsg("This task has been added:\n  " + task + "\n" + "Now you have " + list.getSize() + " task(s) in total.");
+                    Ui.printMsg("This task has been added:\n  " + task + "\n" +
+                            "Now you have " + list.getSize() + " task(s) in total.");
                     break;
                 default:
                     Ui.printMsg("OH NOSE! Wakaranai... :(");
