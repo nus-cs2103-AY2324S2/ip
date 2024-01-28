@@ -20,11 +20,11 @@ public class TaskListTest {
     @Test
     public void testTodo() throws DukeException, IOException {
         TaskList taskList = new TaskList();
-        String todoInfo = "Buy groceries";
+        String todoInfo = "Test";
 
         taskList.todo(todoInfo);
 
-        assertEquals("[T][✕] Buy groceries", taskList.get(0).toString());
+        assertEquals("[T][✕] Test", taskList.get(0).toString());
         assertEquals(1, taskList.size());
     }
 
@@ -80,11 +80,11 @@ public class TaskListTest {
     @Test
     public void testMark() throws DukeException, IOException {
         TaskList taskList = new TaskList();
-        taskList.add(new Todo("Buy groceries"));
+        taskList.add(new Todo("Test"));
 
         taskList.mark("1");
 
-        assertEquals("[T][✓] Buy groceries", taskList.get(0).toString());
+        assertEquals("[T][✓] Test", taskList.get(0).toString());
     }
 
     @Test
@@ -108,12 +108,12 @@ public class TaskListTest {
     @Test
     public void testUnmark() throws DukeException, IOException {
         TaskList taskList = new TaskList();
-        taskList.add(new Todo("Buy groceries"));
+        taskList.add(new Todo("Test"));
         taskList.mark("1");
 
         taskList.unmark("1");
 
-        assertEquals("[T][✕] Buy groceries", taskList.get(0).toString());
+        assertEquals("[T][✕] Test", taskList.get(0).toString());
     }
 
     @Test
@@ -137,7 +137,7 @@ public class TaskListTest {
     @Test
     public void testDelete() throws DukeException, IOException {
         TaskList taskList = new TaskList();
-        taskList.add(new Todo("Buy groceries"));
+        taskList.add(new Todo("Test"));
 
         taskList.delete("1");
 
@@ -169,13 +169,13 @@ public class TaskListTest {
         System.setOut(new PrintStream(outContent));
 
         TaskList taskList = new TaskList();
-        taskList.add(new Todo("Buy groceries"));
+        taskList.add(new Todo("Test"));
         taskList.add(new Deadline("Submit report", "2023-02-28"));
 
         taskList.printTaskList();
 
         String expectedOutput = "\t" + solidLineBreak +
-                "\n\t 1.[T][✕] Buy groceries\n" +
+                "\n\t 1.[T][✕] Test\n" +
                 "\t 2.[D][✕] Submit report (by: Feb 28 2023)\n" +
                 "\t" +
                 solidLineBreak +
