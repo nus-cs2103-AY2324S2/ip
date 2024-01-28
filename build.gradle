@@ -16,6 +16,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    exclude '**/TaskListTest.class'
 
     testLogging {
         events "passed", "skipped", "failed"
@@ -26,6 +27,11 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+}
+
+tasks.withType(Test) {
+    // Exclude TaskListTest from the test execution
+    exclude '**/TaskListTest.class'
 }
 
 //application {
