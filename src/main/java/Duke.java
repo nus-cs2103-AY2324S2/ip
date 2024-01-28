@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 public class Duke {
     private static final Task[] store = new Task[100];
     private static int count = 0;
@@ -258,10 +259,10 @@ public class Duke {
                 }
                 writer.write(taskType + " | " + (task.marked ? "1" : "0") + " | " + task.getTask());
                 if (task instanceof DeadlineTask) {
-                    writer.write(" | " + ((DeadlineTask) task).getBy());
+                    writer.write(" | " + ((DeadlineTask) task).getDateTime());
 
                 } else if (task instanceof EventTask) {
-                    writer.write(" | " + ((EventTask) task).getTime());
+                    writer.write(" | " + ((EventTask) task).getDateTime());
 
                 } else if (task instanceof EventTaskLoad) {
                     writer.write(" | " + ((EventTaskLoad) task).getTime());
