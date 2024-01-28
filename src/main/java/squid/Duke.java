@@ -7,7 +7,14 @@ import squid.constants.EXCEPTIONS;
 import squid.constants.REGEX;
 import squid.constants.CORRECT_USAGE;
 
-import squid.exceptions.*;
+import squid.exceptions.DukeException;
+import squid.exceptions.DuplicateTaskNameException;
+import squid.exceptions.IncorrectIndexException;
+import squid.exceptions.IncorrectInputException;
+import squid.exceptions.NotEnoughDatesException;
+import squid.exceptions.NotEnoughInputsException;
+import squid.exceptions.ParseFailException;
+import squid.exceptions.SquidDateException;
 
 import squid.tasks.Todo;
 import squid.tasks.Event;
@@ -15,7 +22,6 @@ import squid.tasks.DateTime;
 import squid.tasks.Deadline;
 import squid.tasks.Task;
 import squid.tasks.Tasks;
-
 
 public class Duke {
 
@@ -249,6 +255,18 @@ public class Duke {
     }
 
 
+
+    private static void find(String input) throws NotEnoughInputsException {
+        String[] params = input.split(" ", 2);
+        if (params.length == 1) {
+            throw new NotEnoughInputsException(
+                    String.format(EXCEPTIONS.NOT_ENOUGH_INPUTS, "find", CORRECT_USAGE.FIND));
+        }
+        String keyword = params[1];
+        echo(MESSAGES.FIND);
+        Tasks.find(keyword);
+    }
+
     /**
      * Parse the user's input and assigns them to separate helper functions depending on command
      *
@@ -300,6 +318,9 @@ public class Duke {
                 Tasks.save();
                 echo(MESSAGES.SAVE);
                 break;
+            case ("find"):
+                find(input);
+                break;
             default:
                 throw new IncorrectInputException(EXCEPTIONS.INCORRECT_INPUT);
             }
@@ -308,6 +329,8 @@ public class Duke {
         }
         return loop;
     }
+
+
 
     public static void main(String[] args) throws DukeException {
         Squid();

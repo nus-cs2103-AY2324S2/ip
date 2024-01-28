@@ -11,6 +11,7 @@ import squid.exceptions.SquidDateException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Tasks {
@@ -61,7 +62,7 @@ public class Tasks {
      * @throws IncorrectIndexException If there is no task at the specified index.
      */
     public static Task delete(String index) throws IncorrectIndexException {
-        int i = 0;
+        int i = -1;
         Task deleted;
         try {
             i = Integer.parseInt(index.strip()) - 1;
@@ -83,6 +84,18 @@ public class Tasks {
             Task currTask = Tasks.get(i);
             System.out.printf("%d: %s%n", i + 1, currTask);
         }
+    }
+
+    public static void list(List<Task> arr) {
+        for (int i = 0; i < arr.size(); i++) {
+            Task currTask = arr.get(i);
+            System.out.printf("%d: %s%n", i + 1, currTask);
+        }
+    }
+
+    public static void find(String regex) {
+        List<Task> filtered = arr.stream().filter(x -> x.taskName.matches(".*" + regex + ".*")).toList();
+        list(filtered);
     }
 
     /**
@@ -156,7 +169,9 @@ public class Tasks {
             }
 
         } catch (IOException e) {
-//            System.out.println(e);
         }
     }
+
+
+
 }

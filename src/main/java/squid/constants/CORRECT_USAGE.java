@@ -11,4 +11,6 @@ public class CORRECT_USAGE {
     public static final String MARK(boolean isMark) {
         return isMark ? "mark [task]" : "unmark [task]";
     }
+
+    public static final String FIND = "find [keyword]";
 }
