@@ -42,6 +42,6 @@ public class Task {
     // To string
     @Override
     public String toString() {
-        return "[" + (isComplete ? "✓" : " ") + "]" + description;
+        return "[" + (isComplete ? "X" : " ") + "]" + description;
     }
 }
