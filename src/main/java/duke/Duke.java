@@ -33,7 +33,9 @@ public class Duke {
                         this.tasks.mark(instr, this.storage);
                     } else if (cmdWord.equals("delete")) {
                         this.tasks.delete(instr, this.storage);
-                    } else {
+                    } else if (cmdWord.equals("find")) {
+                        this.tasks.find(instr); 
+                    }else {
                         if (cmdWord.equals("todo")) {
                             this.tasks.addTask(TaskList.TaskCommand.TODO, instr, this.storage);
                         } else if (cmdWord.equals("deadline")) {
