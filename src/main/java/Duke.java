@@ -41,6 +41,7 @@ public class Duke {
             }
         }
     }
+
     public static class TaskManager {
         private ArrayList<Task> taskList;
         //private final String FILE_PATH = "./data/duke.txt";
@@ -117,7 +118,7 @@ public class Duke {
                 return null;
             }
         }
-        private String formatTaskForFile(Task task) {
+        public String formatTaskForFile(Task task) {
             String returnString = "";
             String type =
                     task instanceof Todo ? "T" :
@@ -146,6 +147,19 @@ public class Duke {
             }
 
         }
+        public void saveAllTasksToFile() {
+            // overwrites all files for mark/unmark functions
+            try {
+                FileWriter fileWriter = new FileWriter("./data/duke.txt", false);
+                for (Task task : taskList) {
+                    String taskLine = formatTaskForFile(task);
+                    fileWriter.write(taskLine + "\n");
+                }
+                fileWriter.close();
+            } catch (IOException error) {
+                System.err.println("Error saving tasks to file: " + error.toString());
+            }
+        }
     }
 
 
@@ -169,6 +183,8 @@ public class Duke {
                         System.out.println(gap() + "Nice! I've marked this task as done:");
                         System.out.println(gap() + gap() + taskList.get(taskIndex));
                         displayLine();
+                        taskManager.saveAllTasksToFile();
+                        break;
                     } else { // out of range
                         System.out.println("invalid, out of range");
                     }
@@ -187,6 +203,8 @@ public class Duke {
                         System.out.println(gap() + "OK, I've marked this task as not done yet:");
                         System.out.println(gap() + gap() + taskList.get(taskIndex));
                         displayLine();
+                        taskManager.saveAllTasksToFile();
+                        break;
                     } else { // out of range
                         System.out.println("invalid, out of range");
                     }
@@ -195,6 +213,7 @@ public class Duke {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("There are " + currIndex + " items, please enter a number from 1 to " + currIndex);
                 }
+
                 break;
             case TODO:
                 try {
@@ -253,6 +272,7 @@ public class Duke {
                         System.out.println(gap() + gap() + removedTask);
                         System.out.println(gap() + "You have " + taskList.size() + " tasks remaining in the list.");
                         displayLine();
+                        taskManager.saveAllTasksToFile();
                     } else {
                         System.out.println("Invalid task number: " + (taskIndex + 1));
                     }
