@@ -61,26 +61,57 @@ public class Cro {
         System.out.println(String.format("Now you have %d tasks in the list", taskList.size()));
     }
 
-    public static void markTaskAsDone(int taskNo) throws CroException {
+    public static void markTaskAsDone(List<String> splitStr) throws CroException {
+        int taskNo;
+        try {
+            taskNo = Integer.parseInt(splitStr.get(1));
+        } catch (Exception e) {
+            throw new CroException("index must be a number");
+        }
         if (taskNo > taskList.size()) {
             throw new CroException("Task not found!");
         } else {
-            taskList.get(taskNo-1).markAsDone();
+            taskList.get(taskNo - 1).markAsDone();
             System.out.println("-----------------------------------");
             System.out.println("Nice! I've marked this task as done!");
-            System.out.println(taskList.get(taskNo-1));
+            System.out.println(taskList.get(taskNo - 1));
             System.out.println("-----------------------------------");
         }
     }
 
-    public static void markTaskAsUndone(int taskNo) throws CroException {
+    public static void markTaskAsUndone(List<String> splitStr) throws CroException {
+        int taskNo;
+        try {
+            taskNo = Integer.parseInt(splitStr.get(1));
+        } catch (Exception e) {
+            throw new CroException("index must be a number");
+        }
         if (taskNo > taskList.size()) {
             throw new CroException("Task not found!");
         } else {
-            taskList.get(taskNo-1).markAsUndone();
+            taskList.get(taskNo - 1).markAsUndone();
             System.out.println("-----------------------------------");
             System.out.println("OK, I've marked this task as not done yet.");
-            System.out.println(taskList.get(taskNo-1));
+            System.out.println(taskList.get(taskNo - 1));
+            System.out.println("-----------------------------------");
+        }
+    }
+
+    public static void deleteEvent(List<String> splitStr) throws CroException {
+        int taskNo;
+        try {
+            taskNo = Integer.parseInt(splitStr.get(1));
+        } catch (Exception e) {
+            throw new CroException("index must be a number");
+        }
+        if (taskNo > taskList.size()) {
+            throw new CroException("Task not found!");
+        } else {
+            Task removedTask = taskList.remove(taskNo - 1);
+            System.out.println("-----------------------------------");
+            System.out.println("OK, I've removed this task.");
+            System.out.println(removedTask);
+            System.out.println(String.format("Now you have %d tasks in the list", taskList.size()));
             System.out.println("-----------------------------------");
         }
     }
@@ -100,19 +131,21 @@ public class Cro {
                 } else if (command.equals("list")) {
                     displayTasks();
                 } else if (command.equals("mark")) {
-                    markTaskAsDone(Integer.parseInt(splitStr.get(1)));
+                    markTaskAsDone(splitStr);
                 } else if (command.equals("unmark")) {
-                    markTaskAsUndone(Integer.parseInt(splitStr.get(1)));
+                    markTaskAsUndone(splitStr);
                 } else if (command.equals("todo")) {
                     addToDo(splitStr);
                 } else if (command.equals("deadline")) {
                     addDeadline(splitStr);
                 } else if (command.equals("event")) {
                     addEvent(splitStr);
+                } else if (command.equals("delete")) {
+                    deleteEvent(splitStr);
                 } else {
                     throw new CroException("Unknown command. Please try again.");
                 }
-            } catch (CroException e){
+            } catch (Exception e){
                 System.out.println(e.getMessage());
             }
         }
