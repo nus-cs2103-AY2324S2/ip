@@ -3,19 +3,25 @@ ____________________________________________________________
  How can I help?
 ____________________________________________________________
 ____________________________________________________________
+Looks like you left the description of the todo empty. This isn't allowed!
+____________________________________________________________
+____________________________________________________________
+That's not a valid command!
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task:
 [T][ ] eat dinner
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] finish 2103 assignment (by: Wednesday)
+[D][ ] finish 2103 assignment(by: Oct 06 2024)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 You asked for the tasks in your list? Here:
 1. [T][ ] eat dinner
-2. [D][ ] finish 2103 assignment (by: Wednesday)
+2. [D][ ] finish 2103 assignment(by: Oct 06 2024)
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -25,7 +31,7 @@ ____________________________________________________________
 ____________________________________________________________
 You asked for the tasks in your list? Here:
 1. [T][ ] eat dinner
-2. [D][ ] finish 2103 assignment (by: Wednesday)
+2. [D][ ] finish 2103 assignment(by: Oct 06 2024)
 3. [E][ ] hackathon (from: Wed 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
@@ -33,9 +39,12 @@ Cool. I now declare this task marked as, done:
 [E][X] hackathon (from: Wed 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
+Oops, format error! Type in a date in the form yy-mm-dd and try again!
+____________________________________________________________
+____________________________________________________________
 You asked for the tasks in your list? Here:
 1. [T][ ] eat dinner
-2. [D][ ] finish 2103 assignment (by: Wednesday)
+2. [D][ ] finish 2103 assignment(by: Oct 06 2024)
 3. [E][X] hackathon (from: Wed 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
@@ -45,12 +54,12 @@ ____________________________________________________________
 ____________________________________________________________
 You asked for the tasks in your list? Here:
 1. [T][ ] eat dinner
-2. [D][ ] finish 2103 assignment (by: Wednesday)
+2. [D][ ] finish 2103 assignment(by: Oct 06 2024)
 3. [E][ ] hackathon (from: Wed 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
 Cool. I now declare this task marked as, done:
-[D][X] finish 2103 assignment (by: Wednesday)
+[D][X] finish 2103 assignment(by: Oct 06 2024)
 ____________________________________________________________
 ____________________________________________________________
 Cool. I now declare this task marked as, done:
@@ -59,7 +68,7 @@ ____________________________________________________________
 ____________________________________________________________
 You asked for the tasks in your list? Here:
 1. [T][X] eat dinner
-2. [D][X] finish 2103 assignment (by: Wednesday)
+2. [D][X] finish 2103 assignment(by: Oct 06 2024)
 3. [E][ ] hackathon (from: Wed 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________

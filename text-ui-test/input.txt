@@ -1,9 +1,12 @@
+todo
+invalidddd command
 todo eat dinner
-deadline finish 2103 assignment /by Wednesday
+deadline finish 2103 assignment /by 2024-10-06
 list
 event hackathon /from Wed 2pm /to 4pm
 list
 mark 3
+deadline finish 2103 assignment /by Wednesday
 list
 unmark 3
 list
