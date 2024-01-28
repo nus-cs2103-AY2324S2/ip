@@ -15,6 +15,7 @@ public class Task {
         this.isDone = b;
     }
 
+    @Override
     public String toString() {
         return this.task;
     }
