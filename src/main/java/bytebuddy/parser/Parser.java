@@ -7,7 +7,7 @@ import bytebuddy.exceptions.DukeException;
 public class Parser {
 
     public static Command parse(String fullInput) throws DukeException {
-        String[] commandParts = fullInput.split(" ", 2);
+        String[] commandParts = fullInput.trim().split(" ", 2);
         String commandType = commandParts[0].toLowerCase();
         String commandInfo = commandParts.length > 1 ? commandParts[1].trim() : "";
 
