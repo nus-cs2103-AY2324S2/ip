@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 public class Parser {
     private static final Pattern datePattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//    public static Command parse(String input) {
+//
+//    }
     public static String getCommand(String input) {
         if (input.isEmpty()) {
             return null;
