@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {
@@ -7,7 +9,7 @@ public class Event extends Task {
 
     /**
      * Default constructor, isDone set to false
-     * @param description of Event
+     * @param description of duke.Event
      * @param from is the start time of event
      * @param to is the end time of event
      */
@@ -36,9 +38,9 @@ public class Event extends Task {
     }
 
     /**
-     * Converts the database representation of Event to a Event Task
-     * @param dbEvent the string rep of Event in the database
-     * @return Task the Event Task object
+     * Converts the database representation of duke.Event to a duke.Event duke.Task
+     * @param dbEvent the string rep of duke.Event in the database
+     * @return duke.Task the duke.Event duke.Task object
      */
     public static Event db2Event(String dbEvent) {
         // E | 0 | project meeting | Aug 6th 2 | 4pm
@@ -51,9 +53,9 @@ public class Event extends Task {
     }
 
     /**
-     * Converts a Event Task to the database representation of Event
-     * @param eventTask the Event Task object
-     * @return Task the string rep of Event in the database
+     * Converts a duke.Event duke.Task to the database representation of duke.Event
+     * @param eventTask the duke.Event duke.Task object
+     * @return duke.Task the string rep of duke.Event in the database
      */
     public static String event2Db(Event eventTask) {
         // E | 0 | project meeting | Aug 6th 2 | 4pm

@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeException extends Exception {
     // unknown command
     //  todo - no description

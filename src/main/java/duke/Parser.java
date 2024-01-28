@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -122,7 +124,7 @@ public class Parser {
                     throw new DukeException.UnknownCommandException();
             }
         } catch (DukeException e) {
-            System.out.println("DukeException: " + e.getMessage());
+            System.out.println("duke.DukeException: " + e.getMessage());
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("An unexpected error occurred.");
