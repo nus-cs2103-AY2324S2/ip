@@ -20,6 +20,11 @@ public class Mylist {
         this.mylist.get(i-1).markUndone();
         this.returnList();
     }
+    public void delete(int i) {
+        this.mylist.remove(0);
+        System.out.println("Deleted task no. " + i);
+        System.out.println("You have " + this.len() + " tasks left");
+    }
     public int len() {
         return mylist.size();
     }
