@@ -1,8 +1,10 @@
 import java.util.Scanner;
 
 public class Bob {
+    private static final Scanner SCANNER = new Scanner(System.in);
+
     private static int numberOfTasks = 0;
-    private static String[] tasks;
+    private static final String[] TASKS = new String[100];
 
     private static void printFormatted(String[] lines) {
         String horizontalLine = "    .-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.\n";
@@ -23,7 +25,7 @@ public class Bob {
     private static void handleList() {
         String[] numberedTasks = new String[numberOfTasks];
         for (int i = 0; i < numberOfTasks; i++) {
-            numberedTasks[i] = (i + 1) + ". " + tasks[i];
+            numberedTasks[i] = (i + 1) + ". " + TASKS[i];
         }
         printFormatted(numberedTasks);
     }
@@ -31,10 +33,8 @@ public class Bob {
     public static void main(String[] args) {
         printFormatted(new String[]{ "yo im bob", "what do you want" });
 
-        Scanner scanner = new Scanner(System.in);
-        tasks = new String[100];
         while (true) {
-            String command = scanner.nextLine();
+            String command = SCANNER.nextLine();
 
             if (command.equals("bye")) {
                 break;
@@ -43,7 +43,7 @@ public class Bob {
             if (command.equals("list")) {
                 handleList();
             } else {
-                tasks[numberOfTasks] = command;
+                TASKS[numberOfTasks] = command;
                 numberOfTasks++;
                 printFormatted("added: " + command);
             }
