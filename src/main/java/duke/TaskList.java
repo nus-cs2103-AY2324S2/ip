@@ -32,7 +32,7 @@ public class TaskList {
                 LocalDate d = LocalDate.parse(args[1], formatter);
                 t = new Deadline(args[0], d);
             } catch (DateTimeParseException de) {
-                System.out.println("Date not in format: yyyy-MM-dd, please try again.");
+                throw new InvalidTaskException("Date not in format: yyyy-MM-dd, please try again.");
             }
         } else if (cmd.equals("event")) {
             t = new Event(args[0], args[1], args[2]);

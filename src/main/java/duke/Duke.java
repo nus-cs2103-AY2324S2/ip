@@ -1,8 +1,6 @@
 package duke;
 
 import duke.exceptions.DukeException;
-import duke.exceptions.InvalidCmdException;
-import duke.exceptions.InvalidTaskException;
 
 import java.io.IOException;
 
@@ -40,6 +38,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Duke("./data/test.txt").run();
     }
 }
