@@ -1,9 +1,13 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateTimeUtil {
-    static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
+    public static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
         DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         String[] dateTimeFormats = {
                 "yyyy-MM-dd HH:mm", "dd/MM/yyyy HH:mm", "MM/dd/yyyy HH:mm",

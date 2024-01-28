@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Ui;
+import duke.task.Task;
+import duke.task.Storage;
+import duke.task.TaskList;
+
 import java.io.IOException;
 
 public class MarkCommand extends Command {
@@ -12,7 +20,7 @@ public class MarkCommand extends Command {
         try {
             int index = Integer.parseInt(fullCommand.substring(5).trim()) - 1;
             if (index < 0 || index >= tasks.size()) {
-                throw new DukeException("Task number " + (index + 1) + " does not exist.");
+                throw new DukeException("duke.Task number " + (index + 1) + " does not exist.");
             }
             Task task = tasks.getTasks().get(index);
             ui.showMarkedMessage(task);
