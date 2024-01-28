@@ -12,4 +12,7 @@ mark 6
 unmark 6
 todo
 blah
+
+todo book fair
+find book
 bye

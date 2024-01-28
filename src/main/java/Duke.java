@@ -26,7 +26,6 @@ public class Duke {
 
     public void loop() {
         String output = null;
-        String line = ui.readCommand();
         boolean isExit = false;
         // Inspired and referenced from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
         while(!isExit) {

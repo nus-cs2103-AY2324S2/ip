@@ -57,4 +57,9 @@ public class ParserTest {
                 )
         );
     }
+
+    @Test
+    public void testParseFind() {
+        assertEquals(Parser.parse("find hello"), new FindCommand("hello"));
+    }
 }
