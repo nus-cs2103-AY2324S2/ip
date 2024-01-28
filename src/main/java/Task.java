@@ -23,7 +23,10 @@ public class Task {
         return msg + "[" + this.getStatusIcon() + "] " + this.description;
     }
     public String getType() {
-        return "[]";
+        return "";
+    }
+    public String getExtraInfoShortened() {
+        return "";
     }
 
     public String getExtraInfo() {
