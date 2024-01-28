@@ -81,6 +81,8 @@ public class Parser {
             String[] res = Parser.getContents(line, 5).split(" ((/from)|(/to)) ");
             return new EventCommand(res[0], Parser.dateParse(res[1]), Parser.dateParse(res[2]));
         }
+        case "find":
+            return new FindCommand(Parser.getContents(line, 4));
         case "":
             return new NothingCommand();
         default:

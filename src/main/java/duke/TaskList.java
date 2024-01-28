@@ -68,6 +68,17 @@ public class TaskList implements Iterable<Task> {
     }
 
     @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        int idx = 1;
+        for (Task msg : tasks) {
+            res.append(String.format("%d. %s\n", idx, msg));
+            idx++;
+        }
+        return res.toString();
+    }
+
+    @Override
     public Iterator<Task> iterator() {
         return this.tasks.iterator();
     }

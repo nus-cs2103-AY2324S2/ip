@@ -34,4 +34,13 @@ public abstract class Task implements Serializable {
     protected String dateFormat(LocalDateTime date) {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
+
+    /**
+     * Checks if the task contains a keyword.
+     * @param keyword The keyword to check for.
+     * @return true if contains, false if it does not.
+     */
+    public boolean contains(String keyword) {
+        return this.msg.contains(keyword);
+    }
 }
