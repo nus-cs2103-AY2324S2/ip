@@ -83,19 +83,12 @@ public class Storage {
             try {
                 String date = arguments[byIndex + 1];
                 String time = arguments[byIndex + 2];
-                Instant dueDate = LocalDateTime.of(
-                        Integer.parseInt(date.substring(0, 4)),
-                        Integer.parseInt(date.substring(5, 7)),
-                        Integer.parseInt(date.substring(8, 10)),
-                        Integer.parseInt(time.substring(0, 2)),
-                        Integer.parseInt(time.substring(3, 5)))
-                        .toInstant(OffsetDateTime.now().getOffset());
 
                 // Create new task
-                task = new Deadline(description, dueDate);
+                task = new Deadline(description, userDateToInstant(date, time));
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                 throw new InvalidArgumentException(
-                        "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD HH:MM'");
+                        "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
             }
             break;
 
@@ -123,13 +116,24 @@ public class Storage {
                 throw new MissingArgumentException("Argument '/to' missing");
             }
 
-            // Extract task description, start and end date
+            // Extract task description
             description = String.join(" ", Arrays.copyOfRange(arguments, 0, fromIndex));
-            Instant startDate = Instant.parse(String.join(" ", Arrays.copyOfRange(arguments, fromIndex + 1, toIndex)));
-            Instant endDate = Instant
-                    .parse(String.join(" ", Arrays.copyOfRange(arguments, toIndex + 1, arguments.length)));
 
-            task = new Event(description, startDate, endDate);
+            try {
+                // Extract start date
+                String fromDate = arguments[fromIndex + 1];
+                String fromTime = arguments[fromIndex + 2];
+
+                // Extract end date
+                String toDate = arguments[toIndex + 1];
+                String toTime = arguments[toIndex + 2];
+
+                // Create new task
+                task = new Event(description, userDateToInstant(fromDate, fromTime), userDateToInstant(toDate, toTime));
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                throw new InvalidArgumentException(
+                        "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD HH:MM'");
+            }
             break;
 
         default:
@@ -280,11 +284,11 @@ public class Storage {
                     break;
 
                 case EVENT:
-                    // task = new Event(entry.getString("description"),
-                    // entry.getString("startDate"),
-                    // entry.getString("endDate"),
-                    // entry.getBoolean("isDone"));
-                    // break;
+                    task = new Event(entry.getString("description"),
+                            entry.getLong("startDate"),
+                            entry.getLong("endDate"),
+                            entry.getBoolean("isDone"));
+                    break;
                 default:
                     throw new TaskNotSupportedException(
                             String.format("Task '%s' not currently supported", entry.getString("type")));
@@ -313,5 +317,23 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("WARNING: File not found, stored tasks will not be loaded");
         }
+    }
+
+    /**
+     * Converts user input date (in format 'YYYY/MM/DD hh:mm')
+     *
+     * @param date Date to be converted (in format 'YYYY/MM/DD')
+     * @param time Time to be converted (in format 'hh:mm')
+     *
+     * @return Instant of the specified datetime
+     */
+    private static Instant userDateToInstant(String date, String time) throws NumberFormatException {
+        return LocalDateTime.of(
+                Integer.parseInt(date.substring(0, 4)),
+                Integer.parseInt(date.substring(5, 7)),
+                Integer.parseInt(date.substring(8, 10)),
+                Integer.parseInt(time.substring(0, 2)),
+                Integer.parseInt(time.substring(3, 5)))
+                .toInstant(OffsetDateTime.now().getOffset());
     }
 }

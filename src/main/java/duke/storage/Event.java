@@ -1,5 +1,7 @@
 package duke.storage;
 
+import java.time.Instant;
+
 /**
  * The Event class defines a 'Event' task used for the application
  *
@@ -9,12 +11,12 @@ public class Event extends Task {
     /**
      * Start date/time of the Event task
      */
-    private String startDate;
+    private Instant startDate;
 
     /**
      * End date/time of the Event task
      */
-    private String endDate;
+    private Instant endDate;
 
     /**
      * Create an Event task
@@ -23,7 +25,7 @@ public class Event extends Task {
      * @param startDate   Start date of the event
      * @param endDate     End date of the event
      */
-    public Event(String description, String startDate, String endDate) {
+    public Event(String description, Instant startDate, Instant endDate) {
         super(description, TaskType.EVENT, false);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -37,10 +39,24 @@ public class Event extends Task {
      * @param endDate     End date of the event
      * @param isDone      Status of the event
      */
-    public Event(String description, String startDate, String endDate, boolean isDone) {
+    public Event(String description, Instant startDate, Instant endDate, boolean isDone) {
         super(description, TaskType.EVENT, isDone);
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    /**
+     * Create an Event task
+     *
+     * @param description Description of the event
+     * @param startDate   Start date of the event (in epoch milliseconds)
+     * @param endDate     End date of the event (in epoch milliseconds)
+     * @param isDone      Status of the event
+     */
+    public Event(String description, long startDate, long endDate, boolean isDone) {
+        super(description, TaskType.EVENT, isDone);
+        this.startDate = Instant.ofEpochMilli(startDate);
+        this.endDate = Instant.ofEpochMilli(endDate);
     }
 
     /**
@@ -48,8 +64,8 @@ public class Event extends Task {
      *
      * @return Start date of the event
      */
-    public String getStartDate() {
-        return this.startDate;
+    public long getStartDate() {
+        return this.startDate.toEpochMilli();
     }
 
     /**
@@ -57,8 +73,8 @@ public class Event extends Task {
      *
      * @return End date of the event
      */
-    public String getEndDate() {
-        return this.endDate;
+    public long getEndDate() {
+        return this.endDate.toEpochMilli();
     }
 
     /**
