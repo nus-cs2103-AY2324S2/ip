@@ -48,7 +48,6 @@ public class Duke {
         if (input.equals("bye")) {
             throw new ExitProgramException("Fair winds to ye, me hearty! May the tide carry ye safely until our paths cross again.");
         } else if (input.equals("list")) {
-           //TODO: implement printing of items to console
             printDivider(90);
             for (int i = 0; i < taskCount; i++) {
                 String tempNum = Integer.toString(i + 1);
@@ -58,7 +57,6 @@ public class Duke {
             printDivider(90);
         } else {
             printDivider(90);
-            //TODO: Implement adding items to task list
             tasks[taskCount] = input;
             taskCount += 1;
             System.out.println("added: " + input);
