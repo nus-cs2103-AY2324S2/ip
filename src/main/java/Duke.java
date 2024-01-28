@@ -203,7 +203,7 @@ public class Duke {
         }
     }
 
-    public Event parseEvent(String input) throws WrongFormatException {
+    public Event parseEvent(String input) throws WrongFormatException, DateTimeParseException {
         if (Pattern.matches("event\\s\\S.*\\s/from\\s\\S.*\\s/to\\s\\S.*", input)) {
             String[] splitTo = input.split("\\s/to\\s");
             String to = splitTo[1];

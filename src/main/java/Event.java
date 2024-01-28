@@ -1,21 +1,26 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     @Override
     public String toString() {
+        String startDate = this.start.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        String endDate = this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
         return String.format(
                 "[E][%s] %s (from: %s | to: %s)",
                 this.getStatusIcon(),
                 this.description,
-                this.start,
-                this.end
+                startDate,
+                endDate
         );
     }
 
