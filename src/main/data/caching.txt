@@ -1,5 +1,0 @@
-T|0|0
-E|0|0|||p
-D|0|return book|Dec 2 2019 6:00 PM
-D|0|return book|Sunday
-D|0|return book|Dec 2 2019
