@@ -23,7 +23,7 @@ public class TaskList {
         try {
             Task t = TaskList.taskList.get(Integer.parseInt(Parser.name.substring(7, 8)) - 1);
             if (t.getStatusIcon().equals(" ")) {
-                System.out.println("You haven't even started this tsundere.task dummy!");
+                System.out.println("You haven't even started this task dummy!");
             } else {
                 t.unMark();
                 System.out.println(t);
@@ -31,7 +31,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you spell?");
         } catch (IndexOutOfBoundsException e ) {
-            throw new GeneralException("Im pretty sure that's the wrong tsundere.task number! Check again!");
+            throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
         }
 
     }
@@ -55,7 +55,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you spell?");
         } catch (IndexOutOfBoundsException e ) {
-            throw new GeneralException("Im pretty sure that's the wrong tsundere.task number! Check again!");
+            throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
         }
 
     }
@@ -77,7 +77,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you spell?");
         } catch (IndexOutOfBoundsException e ) {
-            throw new GeneralException("Im pretty sure that's the wrong tsundere.task number! Check again!");
+            throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
         }
 
     }
@@ -94,7 +94,7 @@ public class TaskList {
                 + "Go find something to do!");
         for (int i = 0; i < size; i++) {
             Task t = TaskList.taskList.get(i);
-            System.out.println((i + 1) + ". " + t.toString());
+            System.out.println((i + 1) + ". " + t);
         }
 
     }
@@ -114,7 +114,7 @@ public class TaskList {
             getListSize("added", t);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
-                    + "todo [tsundere.task]");
+                    + "todo [task]");
         }
 
     }
@@ -135,7 +135,7 @@ public class TaskList {
             getListSize("added", t);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
-                    + "event [tsundere.task] ,from [date],to [date]");
+                    + "event [task] ,from [date],to [date]");
         }
 
     }
@@ -159,7 +159,36 @@ public class TaskList {
 
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
-                    + "deadline [tsundere.task] ,by [yyyy-mm-dd]");
+                    + "deadline [task] ,by [yyyy-mm-dd]");
+        }
+
+    }
+
+    /**
+     * Displays Tasks that contain given keyword.
+     *
+     * @throws GeneralException If TaskList is empty.
+     */
+    public static void find() throws GeneralException {
+
+        int size = TaskList.taskList.size();
+        if (TaskList.taskList.isEmpty()) throw new GeneralException("Theres's nothing to find here!");
+
+        try {
+            int count = 0;
+            String keyword = Parser.name.split(" ", 2)[1];
+            for (int i = 0; i < size; i++) {
+                Task t = TaskList.taskList.get(i);
+                if (t.description.contains(keyword)) {
+                    System.out.println((i + 1) + ". " + t);
+                    count++;
+                }
+            }
+            if (count == 0) {
+                System.out.println("I couldn't find anything related to that!");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new GeneralException("Proper format is 'find [keyword]' just so you know...");
         }
 
     }

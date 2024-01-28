@@ -10,6 +10,11 @@ public class Parser {
         Parser.name = name;
     }
 
+    /**
+     * Parses command given and executes corresponding action.
+     *
+     * @throws GeneralException If actions executed cause exceptions.
+     */
     public void execute() throws GeneralException {
 
         if (name.contains("unmark")) {
@@ -26,6 +31,8 @@ public class Parser {
             TaskList.addEvent();
         } else if (name.contains("todo")) {
             TaskList.addToDo();
+        } else if (name.contains("find")) {
+            TaskList.find();
         } else {
             System.out.println("Don't talk to me!\nGive me proper instructions!");
         }
