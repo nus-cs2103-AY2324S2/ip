@@ -8,12 +8,248 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.io.IOException;
+import java.io.FileWriter;
 
 class DukeException extends Exception {
     public DukeException(String message) {
         super(message);
     }
 }
+
+class Ui {
+    private Scanner scanner;
+
+    public Ui() {
+        scanner = new Scanner(System.in);
+    }
+
+    public void showWelcome() {
+        System.out.println("Hello! I'm SCZL");
+        System.out.println("What can I do for you?");
+    }
+
+    public void showGoodbye() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public void showError(String message) {
+        System.out.println(message);
+    }
+
+    public void showTaskAdded(Task task, int taskCount) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public void showTaskList(TaskList tasks) {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            System.out.println((i + 1) + "." + tasks.getTask(i));
+        }
+    }
+
+    public String readCommand() {
+        return scanner.nextLine();
+    }
+
+    public void showLoadingError() {
+        System.out.println("Error loading file.");
+    }
+
+    public void closeScanner() {
+        scanner.close();
+    }
+}
+
+
+class Storage {
+    private String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public ArrayList<Task> load() throws DukeException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            throw new DukeException("File not found");
+        }
+
+        try (Scanner fileScanner = new Scanner(file)) {
+            while (fileScanner.hasNext()) {
+                String line = fileScanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                try {
+                    String type = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String description = parts[2];
+                    Task task = null;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+                    switch (type) {
+                        case "T":
+                            task = new Todo(description);
+                            break;
+                        case "D":
+                            if (parts.length < 4) throw new DukeException("Invalid deadline format in file.");
+                            LocalDateTime byDate = LocalDateTime.parse(parts[3], formatter);
+                            task = new Deadline(description, byDate);
+                            break;
+                        case "E":
+                            if (parts.length < 5) throw new DukeException("Invalid event format in file.");
+                            LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+                            LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
+                            task = new Event(description, from, to);
+                            break;
+                    }
+
+                    if (task != null) {
+                        if (isDone) {
+                            task.markAsDone();
+                        }
+                        tasks.add(task);
+                    }
+                } catch (DukeException | DateTimeParseException e) {
+                    System.out.println("Skipping invalid task: " + line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new DukeException("File not found: " + e.getMessage());
+        }
+        return tasks;
+
+    }
+
+    public void save(TaskList tasks) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            for (int i = 0; i < tasks.getSize(); i++) {
+                Task task = tasks.getTask(i);
+                writer.println(taskToFileString(task));
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private String taskToFileString(Task task) {
+        String type = task instanceof Todo ? "T" :
+                task instanceof Deadline ? "D" :
+                        task instanceof Event ? "E" : "";
+        String status = task.isDone ? "1" : "0";
+        String details = task.getDescription();
+        String additionalInfo = "";
+
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            additionalInfo = " | " + deadline.getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            additionalInfo = " | " + event.getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
+                    " | " + event.getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        }
+
+        return type + " | " + status + " | " + details + additionalInfo;
+    }
+
+}
+
+
+class Parser {
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    public static Command parse(String fullCommand) throws DukeException {
+        String[] commandParts = fullCommand.split(" ", 2);
+        String commandType = commandParts[0];
+        String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
+
+        switch (commandType) {
+            case "todo":
+                if (commandArgs.isEmpty()) {
+                    throw new DukeException("The description of a todo cannot be empty.");
+                }
+                return new AddTodoCommand(commandArgs);
+            case "deadline":
+                return parseAddDeadlineCommand(commandArgs);
+            case "event":
+                return parseAddEventCommand(commandArgs);
+            case "list":
+                return new ListCommand();
+            default:
+                throw new DukeException("Unknown command");
+        }
+    }
+
+    private static Command parseAddDeadlineCommand(String commandArgs) throws DukeException {
+        String[] parts = commandArgs.split("/by", 2);
+        if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+            throw new DukeException("Invalid deadline command format.");
+        }
+        String description = parts[0].trim();
+        String by = parts[1].trim();
+        try {
+            LocalDateTime byDate = LocalDateTime.parse(by, dateTimeFormatter);
+            return new AddDeadlineCommand(description, byDate);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format. Please use yyyy-MM-dd HHmm format.");
+        }
+    }
+
+    private static Command parseAddEventCommand(String commandArgs) throws DukeException {
+        String[] parts = commandArgs.split("/at", 2);
+        if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+            throw new DukeException("Invalid event command format.");
+        }
+        String description = parts[0].trim();
+        String at = parts[1].trim();
+        String[] timeParts = at.split("-", 2);
+        if (timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
+            throw new DukeException("Invalid time format for event command.");
+        }
+        try {
+            LocalDateTime startTime = LocalDateTime.parse(timeParts[0].trim(), dateTimeFormatter);
+            LocalDateTime endTime = LocalDateTime.parse(timeParts[1].trim(), dateTimeFormatter);
+            return new AddEventCommand(description, startTime, endTime);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format. Please use yyyy-MM-dd HHmm format.");
+        }
+    }
+}
+
+
+class TaskList {
+    private ArrayList<Task> tasks;
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public TaskList() {
+        this(new ArrayList<>());
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    public Task removeTask(int index) {
+        return tasks.remove(index);
+    }
+
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
+
+    public int getSize() {
+        return tasks.size();
+    }
+
+    // ... any other methods needed for task management ...
+}
+
 
 enum TaskType {
     TODO,
@@ -47,6 +283,10 @@ class Task {
     public void markAsNotDone() {
         isDone = false;
     }
+    @Override
+    public String toString() {
+        return getStatusIcon() + getDescription();
+    }
 }
 
 class Todo extends Task {
@@ -68,6 +308,9 @@ class Deadline extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
         return super.getDescription() + " (by: " + formatter.format(by) + ")";
     }
+    public LocalDateTime getBy() {
+        return by;
+    }
 }
 
 class Event extends Task {
@@ -85,293 +328,132 @@ class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
         return super.getDescription() + " (from: " + formatter.format(from) + " to: " + formatter.format(to) + ")";
     }
+    public LocalDateTime getFrom() {
+        return from;
+    }
+    public LocalDateTime getTo() {
+        return to;
+    }
 }
 
 public class Duke {
-    private static final String DIRECTORY_PATH = "./data/duke.txt";
-    private static final String FILE_PATH = DIRECTORY_PATH + File.separator + "duke.txt";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            }
+        }
+        ui.showGoodbye();
+        ui.closeScanner();
+    }
 
     public static void main(String[] args) {
-        loadTasksFromFile();
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Hello! I'm SCZL");
-        System.out.println("What can I do for you?");
-
-        while (true) {
-            String userInput = scanner.nextLine();
-
-            System.out.println("____________________________________________________________\n");
-
-            try {
-                if (userInput.equalsIgnoreCase("bye")) {
-                    System.out.println(" Bye. Hope to see you again soon!");
-                    break;
-                } else if (userInput.equalsIgnoreCase("list")) {
-                    listTasks();
-                } else {
-                    processTaskInput(userInput);
-                }
-            } catch (DukeException e) {
-                System.out.println(" " + e.getMessage());
-            }
-        }
-
-        scanner.close();
-    }
-
-    private static void processTaskInput(String userInput) throws DukeException {
-        if (userInput.startsWith("Tasks on ")) {
-            printTasksOnDate((userInput.substring(9).trim()));
-        } else if (userInput.startsWith("deadline")) {
-            addDeadlineTask(userInput.substring(9).trim());
-        } else if (userInput.startsWith("event")) {
-            addEventTask(userInput.substring(6).trim());
-        } else if (userInput.startsWith("mark")) {
-            markTask(userInput);
-        } else if (userInput.startsWith("unmark")) {
-            unmarkTask(userInput);
-        } else if (userInput.startsWith("delete")) {
-            deleteTask(userInput);
-        } else if (userInput.startsWith("todo")) {
-            addTodoTask(userInput.substring(5).trim());
-        } else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
-    }
-
-    private static void addTodoTask(String description) throws DukeException {
-        if (description.isEmpty()) {
-            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-        }
-
-        tasks.add(new Todo(description));
-        printTaskAddedMessage(tasks.get(tasks.size() - 1));
-        saveTasksToFile();
-    }
-
-    private static void addDeadlineTask(String input) throws DukeException {
-        int byIndex = input.indexOf("/by");
-        if (byIndex != -1) {
-            String description = input.substring(0, byIndex).trim();
-            String by = input.substring(byIndex + 3).trim();
-
-            if (description.isEmpty() || by.isEmpty()) {
-                throw new DukeException("OOPS!!! The description and /by cannot be empty for a deadline.");
-            }
-
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                LocalDateTime byDate = LocalDateTime.parse(by, formatter);
-                tasks.add(new Deadline(description, byDate));
-                printTaskAddedMessage(tasks.get(tasks.size() - 1));
-            } catch (DateTimeParseException e) {
-                throw new DukeException("OOPS!!! Invalid date format. Please use yyyy-MM-dd HHmm format.");
-            }
-        } else {
-            throw new DukeException("OOPS!!! Invalid deadline command format.");
-        }
-        saveTasksToFile();
-    }
-
-    private static void addEventTask(String input) throws DukeException {
-        int fromIndex = input.indexOf("/from");
-        int toIndex = input.indexOf("/to");
-        if (fromIndex != -1 && toIndex != -1) {
-            String description = input.substring(0, fromIndex).trim();
-            String from = input.substring(fromIndex + 6, toIndex).trim();
-            String to = input.substring(toIndex + 4).trim();
-
-            if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                throw new DukeException("OOPS!!! The description, /from, and /to cannot be empty for an event.");
-            }
-
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                LocalDateTime fromDate = LocalDateTime.parse(from, formatter);
-                LocalDateTime toDate = LocalDateTime.parse(to, formatter);
-                tasks.add(new Event(description, fromDate, toDate));
-                printTaskAddedMessage(tasks.get(tasks.size() - 1));
-            } catch (DateTimeParseException e) {
-                throw new DukeException("OOPS!!! Invalid date format. Please use yyyy-MM-dd HHmm format.");
-            }
-        } else {
-            throw new DukeException("OOPS!!! Invalid event command format.");
-        }
-        saveTasksToFile();
-    }
-
-    private static void markTask(String userInput) throws DukeException {
-        try {
-            int taskIndex = Integer.parseInt(userInput.substring(5).trim()) - 1;
-            if (isValidTaskIndex(taskIndex)) {
-                tasks.get(taskIndex).markAsDone();
-                System.out.println(" Nice! I've marked this task as done:");
-                System.out.println("   " + tasks.get(taskIndex).getStatusIcon() + tasks.get(taskIndex).getDescription());
-            } else {
-                throw new DukeException("OOPS!!! Invalid task number.");
-            }
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! Invalid command format.");
-        }
-        saveTasksToFile();
-    }
-
-    private static void unmarkTask(String userInput) throws DukeException {
-        try {
-            int taskIndex = Integer.parseInt(userInput.substring(7).trim()) - 1;
-            if (isValidTaskIndex(taskIndex)) {
-                tasks.get(taskIndex).markAsNotDone();
-                System.out.println(" OK, I've marked this task as not done yet:");
-                System.out.println("   " + tasks.get(taskIndex).getStatusIcon() + tasks.get(taskIndex).getDescription());
-            } else {
-                throw new DukeException("OOPS!!! Invalid task number.");
-            }
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! Invalid command format.");
-        }
-        saveTasksToFile();
-    }
-    private static void loadTasksFromFile() {
-        File directory = new File(DIRECTORY_PATH);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            return; // File will be created when saving tasks for the first time.
-        }
-
-        try (Scanner fileScanner = new Scanner(file)) {
-            while (fileScanner.hasNext()) {
-                String line = fileScanner.nextLine();
-                String[] parts = line.split(" \\| ");
-                try {
-                    // Expected format: Type | Done | Description | Additional Info
-                    String type = parts[0];
-                    boolean isDone = parts[1].equals("1");
-                    String description = parts[2];
-                    Task task = null;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-                    switch (type) {
-                        case "T":
-                            task = new Todo(description);
-                            break;
-                        case "D":
-                            if (parts.length < 4) throw new DukeException("Invalid deadline format in file.");
-                            LocalDateTime byDate = LocalDateTime.parse(parts[3], formatter);
-                            task = new Deadline(description, byDate);
-                            break;
-                        case "E":
-                            if (parts.length < 5) throw new DukeException("Invalid event format in file.");
-                            LocalDateTime fromDate = LocalDateTime.parse(parts[3], formatter);
-                            LocalDateTime toDate = LocalDateTime.parse(parts[4], formatter);
-                            task = new Event(description, fromDate, toDate);
-                            break;
-                    }
-
-                    if (task != null) {
-                        if (isDone) {
-                            task.markAsDone();
-                        }
-                        tasks.add(task);
-                    }
-                } catch (DukeException | DateTimeParseException e) {
-                    System.out.println("Skipping invalid task: " + line);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
-        }
-    }
-
-    private static void saveTasksToFile() {
-        DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
-            for (Task task : tasks) {
-                String type = task instanceof Todo ? "T" :
-                        task instanceof Deadline ? "D" :
-                                task instanceof Event ? "E" : "";
-                String status = task.isDone ? "1" : "0";
-                String line = type + " | " + status + " | " + task.getDescription();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                if (task instanceof Deadline) {
-                    Deadline deadline = (Deadline) task;
-                    line += " | " + storageFormatter.format(deadline.by);
-                } else if (task instanceof Event) {
-                    Event event = (Event) task;
-                    line += " | " + storageFormatter.format(event.from) + " | " + storageFormatter.format(event.to);
-                }
-                writer.println(line);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save tasks: " + e.getMessage());
-        }
-    }
-
-    private static void printTasksOnDate(String dateString) {
-        try {
-            LocalDate date = LocalDate.parse(dateString);
-            System.out.println("Tasks on " + date + ":");
-            for (Task task : tasks) {
-                if (task instanceof Deadline) {
-                    Deadline deadline = (Deadline) task;
-                    if (deadline.by.toLocalDate().equals(date)) {
-                        System.out.println(task.getStatusIcon() + task.getDescription());
-                    }
-                } else if (task instanceof Event) {
-                    Event event = (Event) task;
-                    if (!event.from.toLocalDate().isAfter(date) && !event.to.toLocalDate().isBefore(date)) {
-                        System.out.println(task.getStatusIcon() + task.getDescription());
-                    }
-                }
-            }
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd format.");
-        }
-    }
-
-    private static void deleteTask(String userInput) throws DukeException {
-        try {
-            int taskIndex = Integer.parseInt(userInput.substring(7).trim()) - 1;
-            if (isValidTaskIndex(taskIndex)) {
-                Task removedTask = tasks.remove(taskIndex);
-                System.out.println(" Noted. I've removed this task:");
-                System.out.println("   " + removedTask.getStatusIcon() + removedTask.getDescription());
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-            } else {
-                throw new DukeException("OOPS!!! Invalid task number.");
-            }
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! Invalid command format.");
-        }
-        saveTasksToFile();
-    }
-
-    private static void listTasks() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks in your list:");
-
-        if (tasks.isEmpty()) {
-            System.out.println(" No tasks yet.");
-        } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + tasks.get(i).getStatusIcon() + tasks.get(i).getDescription());
-            }
-        }
-    }
-
-    private static void printTaskAddedMessage(Task task) {
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task.getStatusIcon() + task.getDescription());
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-    }
-
-    private static boolean isValidTaskIndex(int index) {
-        return index >= 0 && index < tasks.size();
+        new Duke("./data/duke.txt/duke.txt").run();
     }
 }
 
+abstract class Command {
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract boolean isExit();
+}
+
+class ListCommand extends Command {
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ui.showTaskList(tasks);
+    }
+    public boolean isExit() {
+        return false;
+    }
+}
+
+class AddTodoCommand extends Command {
+    private String description;
+
+    public AddTodoCommand(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        Todo newTodo = new Todo(description);
+        tasks.addTask(newTodo);
+        ui.showTaskAdded(newTodo, tasks.getSize());
+        storage.save(tasks);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+}
+
+class AddDeadlineCommand extends Command {
+    private String description;
+    private LocalDateTime by;
+
+    public AddDeadlineCommand(String description, LocalDateTime by) {
+        this.description = description;
+        this.by = by;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        Deadline newDeadline = new Deadline(description, by);
+        tasks.addTask(newDeadline);
+        ui.showTaskAdded(newDeadline, tasks.getSize());
+        storage.save(tasks);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+}
+
+class AddEventCommand extends Command {
+    private String description;
+    private LocalDateTime start;
+    private LocalDateTime end;
+
+    public AddEventCommand(String description, LocalDateTime start, LocalDateTime end) {
+        this.description = description;
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        Event newEvent = new Event(description, start, end);
+        tasks.addTask(newEvent);
+        ui.showTaskAdded(newEvent, tasks.getSize());
+        storage.save(tasks);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+}
