@@ -1,9 +1,5 @@
 package tasks;
 
-public enum TaskType {
-    TODO, DEADLINE, EVENT
-}
-
 public abstract class Task {
     protected String description;
     protected boolean isDone;
