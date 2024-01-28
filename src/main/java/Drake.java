@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,9 +35,9 @@ enum Command {
     }
 }
 
-// ... (rest of your classes)
-
 public class Drake {
+    private static final String FILE_PATH = "./list.dat";
+
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
         System.out.println(" What's up everyone. I'm Drake.");
@@ -39,7 +45,7 @@ public class Drake {
         System.out.println("____________________________________________________________");
         
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = loadList();
         Boolean running = true;
         
         while (running) {
@@ -55,6 +61,7 @@ public class Drake {
                         System.out.println(" See you later, alligator! ");
                         System.out.println("____________________________________________________________");
                         running = false;
+                        saveList(tasks);
                         break;
                     case LIST:
                         System.out.println("____________________________________________________________");
@@ -140,7 +147,6 @@ public class Drake {
                     case INVALID:
                         notValidCommand();
                         break;
-                    // ... handle other cases
                 }
             } catch (NotValidCommand e) {
                 System.out.println("____________________________________________________________");
@@ -166,6 +172,28 @@ public class Drake {
 
     public static void notValidCommand() throws NotValidCommand {
         throw new NotValidCommand("That's not a valid command!");
+    }
+
+    private static void saveList(ArrayList<Task> tasks) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+            oos.writeObject(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving list!: " + e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> loadList() {
+        File file = new File(FILE_PATH);
+        if (file.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+                return (ArrayList<Task>) ois.readObject();
+            } catch (IOException e) {
+                return new ArrayList<>();
+            } catch (ClassNotFoundException e) {
+                System.out.println("Class not found!: " + e.getMessage());
+            }
+        }
+        return new ArrayList<>();
     }
 
     
