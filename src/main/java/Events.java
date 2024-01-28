@@ -9,8 +9,20 @@ public class Events extends Task {
         this.end = end; 
     }
 
+    public Events(String description, String start, String end, Boolean isDone) {
+        super(description, isDone);
+        this.start = start;
+        this.end = end; 
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+    }
+
+    @Override
+    public String toSave() {
+        String strDone = this.isDone ? "1" : "0";
+        return "E|" + strDone + "|" + this.description + "|" + this.start + "|" + this.end;
     }
 }
