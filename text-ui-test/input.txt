@@ -1,0 +1,12 @@
+hi
+log
+add
+add todo eat supper
+log
+add deadline CS2109s Problem set 0 /by 03/02/2024 2359
+log
+done 2
+log
+redo 2
+log
+bye

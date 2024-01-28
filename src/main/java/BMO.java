@@ -10,7 +10,7 @@ public class BMO {
             + "    BMO don't understand ;;;\n"
             + "    You could have a formatting error\n    or typo!\n"
             + "    You can refer to the command formats\n    that appear when you switch me on. ^^\n"
-            + "-----------------------------------------";
+            + "-----------------------------------------\n";
     static String tutorialPrint = "Command BMO with these keywords!\n"
                             + "0. hi [greet BMO]\n"
                             + "1. bye [shut BMO down]\n"
@@ -29,31 +29,30 @@ public class BMO {
 
     static void receive() {
         Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine().toLowerCase();
 
-        if (input.startsWith("hi")) {
-            greet();
-            receive();
-        } else if (input.startsWith("bye")) {
-            salute();
-        } else if (input.startsWith("log")) {
-            viewLog();
-            receive();
-        } else if (input.startsWith("done") && input.length() > 5) {
-            int index = Integer.parseInt(input.substring(5));
-            done(index);
-            receive();
-        } else if (input.startsWith("redo") && input.length() > 5) {
-            int index = Integer.parseInt(input.substring(5));
-            unDone(index);
-            receive();
-        } else if (input.startsWith("add") && input.length() > 4){
-            addLog(input.substring(4));
-            receive();
-        } else {
-            System.out.println(errorPrint);
-            receive();
+        while (sc.hasNextLine()) {
+            String input = sc.nextLine().toLowerCase().trim();
+
+            if (input.startsWith("hi")) {
+                greet();
+            } else if (input.startsWith("bye")) {
+                salute();
+                break;
+            } else if (input.startsWith("log")) {
+                viewLog();
+            } else if (input.startsWith("done") && input.length() > 5) {
+                int index = Integer.parseInt(input.substring(5));
+                done(index);
+            } else if (input.startsWith("redo") && input.length() > 5) {
+                int index = Integer.parseInt(input.substring(5));
+                unDone(index);
+            } else if (input.startsWith("add") && input.length() > 4){
+                addLog(input.substring(4));
+            } else {
+                System.out.println(errorPrint);
+            }
         }
+        return;
     }
 
     static void intro() {
@@ -69,6 +68,7 @@ public class BMO {
                 + "    Good day! What can BMO help you with?\n"
                 + "-----------------------------------------\n";
         System.out.println(hiPrint);
+        return;
     }
 
     static void salute() {
@@ -76,6 +76,7 @@ public class BMO {
                     + "    Beep boop BMO shutting down...\n"
                     + "-----------------------------------------\n";
         System.out.println(byePrint);
+        return;
     }
 
     static void addLog(String input) {
