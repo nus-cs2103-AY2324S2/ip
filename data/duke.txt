@@ -1,4 +1,3 @@
- T | 1 | read book
- D | 0 | return book | by: June 6th
- E | 0 | project meeting | from: Aug 6th 2pm | to: Aug 6th 4pm
- T | 1 | join sports club
+ D |   | hi | by: Apr 05 2013 00:00
+ D |   | hi | by: Dec 02 2023 12:34
+ E |   | hi | from: Apr 05 2013 12:34 to: Mar 05 2013 12:56

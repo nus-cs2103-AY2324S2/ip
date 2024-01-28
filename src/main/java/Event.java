@@ -1,14 +1,29 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
     public String toString() {
-        return " E | " + getStatusIcon() + " | " + super.toString() + " | from: " + this.from + " | to: " + this.to;
+        return String.format(" E | %s | %s | from: %s to: %s",
+                getStatusIcon(),
+                description,
+                startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")),
+                endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
     }
 }

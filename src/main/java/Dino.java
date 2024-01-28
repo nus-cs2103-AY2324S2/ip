@@ -1,4 +1,11 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 import java.io.IOException;
@@ -65,6 +72,45 @@ public class Dino {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    private LocalDateTime parseStringToTime(String time) {
+        DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", Locale.ENGLISH);
+
+        LocalDateTime deadlineTime;
+        if (time.contains(" ")) {
+            deadlineTime = LocalDateTime.parse(time, dateTimeFormatter);
+        } else {
+            deadlineTime = LocalDateTime.of(LocalDate.parse(time, dateOnlyFormatter), LocalTime.MIDNIGHT);
+        }
+        return deadlineTime;
+    }
+
+    private String parseStringToNum(String time) {
+        time = time.trim();
+        DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
+
+        LocalDateTime deadlineTime;
+        if (time.contains(" ")) {
+            deadlineTime = LocalDateTime.parse(time, dateTimeFormatter);
+        } else {
+            deadlineTime = LocalDateTime.of(LocalDate.parse(time, dateOnlyFormatter), LocalTime.MIDNIGHT);
+        }
+
+        // Format LocalDateTime to string in "yyyy-MM-dd" format
+        DateTimeFormatter resultFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        String formattedDate = deadlineTime.format(resultFormatter);
+
+        // Append time if available
+        if (deadlineTime.toLocalTime() != LocalTime.MIDNIGHT) {
+            formattedDate += " " + deadlineTime.toLocalTime().format(DateTimeFormatter.ofPattern("HHmm"));
+        }
+
+        return formattedDate;
+    }
+
+
+
     private Task createTaskFromInput(TaskType taskType, String taskDetails) throws DinoException {
         switch (taskType) {
             case TODO:
@@ -76,11 +122,16 @@ public class Dino {
                     throw new DinoException("Invalid input format for deadline. Please use: deadline <deadline name> /by <time>");
                 }
                 String deadlineName = deadlineParts[0].trim();
-                String deadlineTime = deadlineParts[1].trim();
-                if (deadlineName.isEmpty() || deadlineTime.isEmpty()) {
+                String deadlineTimeString = deadlineParts[1].trim();
+                if (deadlineName.isEmpty() || deadlineTimeString.isEmpty()) {
                     throw new DinoException("Deadline name and time cannot be empty.");
                 }
-                return new Deadline(deadlineName, deadlineTime);
+
+                try {
+                    return new Deadline(deadlineName, parseStringToTime(deadlineTimeString));
+                } catch (DateTimeParseException e) {
+                    throw new DinoException("Error parsing deadline date and time: " + e.getMessage());
+                }
 
             case EVENT:
                 String[] eventParts = taskDetails.split("/from|/to");
@@ -88,12 +139,19 @@ public class Dino {
                     throw new DinoException("Invalid input format for event. Please use: event <event name> /from <time> /to <time>");
                 }
                 String eventName = eventParts[0].trim();
-                String startTime = eventParts[1].trim();
-                String endTime = eventParts[2].trim();
-                if (eventName.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
+                String startTimeString = eventParts[1].trim();
+                String endTimeString = eventParts[2].trim();
+                if (eventName.isEmpty() || startTimeString.isEmpty() || endTimeString.isEmpty()) {
                     throw new DinoException("Event name, start time, and end time cannot be empty.");
                 }
-                return new Event(eventName, startTime, endTime);
+
+                try {
+                    LocalDateTime startTime = parseStringToTime(startTimeString);
+                    LocalDateTime endTime = parseStringToTime(endTimeString);
+                    return new Event(eventName, startTime, endTime);
+                } catch (DateTimeParseException e) {
+                    throw new DinoException("Error parsing event date and time: " + e.getMessage());
+                }
 
             default:
                 throw new DinoException("Unknown task type: " + taskType);
@@ -143,10 +201,15 @@ public class Dino {
                             task = createTaskFromInput(TaskType.TODO, parts[2].trim());
                             break;
                         case "D":
-                            task = createTaskFromInput(TaskType.DEADLINE, parts[2].trim() + " /by " + parts[3].trim());
+                            String[] deadlineParts = parts[3].split(" by: ");
+                            String deadlineDetails = parts[2].trim() + " /by " + parseStringToNum(deadlineParts[1]);
+                            task = createTaskFromInput(TaskType.DEADLINE, deadlineDetails);
                             break;
                         case "E":
-                            task = createTaskFromInput(TaskType.EVENT, parts[2].trim() + " /from " + parts[3].trim() + " /to " + parts[4].trim());
+                            String[] eventParts = parts[3].split("from:|to:");
+                            String eventDetails = parts[2].trim() + " /from " + parseStringToNum(eventParts[1]) +
+                                    " /to " + parseStringToNum(eventParts[2]);
+                            task = createTaskFromInput(TaskType.EVENT, eventDetails);
                             break;
                         default:
                             System.out.println("Unknown task type in file: " + taskTypeString);
@@ -182,6 +245,31 @@ public class Dino {
             System.out.println("Now you have " + taskList.size() + " in the list.");
         } catch (DinoException e) {
             System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void printTasksForDate(Scanner sc) {
+        try {
+            String dateString = sc.next();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+            LocalDate date = LocalDate.parse(dateString, dateFormatter);
+
+            System.out.println("Tasks for " + date + ":");
+
+            taskList.stream()
+                    .filter(task -> task instanceof Deadline)
+                    .map(task -> (Deadline) task)
+                    .filter(deadline -> deadline.getDateTime().toLocalDate().equals(date))
+                    .forEach(System.out::println);
+
+            taskList.stream()
+                    .filter(task -> task instanceof Event)
+                    .map(task -> (Event) task)
+                    .filter(event -> event.getStartTime().toLocalDate().equals(date) || event.getEndTime().toLocalDate().equals(date))
+                    .forEach(System.out::println);
+
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
         }
     }
 
@@ -224,6 +312,10 @@ public class Dino {
                 case "event":
                     taskType = TaskType.EVENT;
                     handleTaskCreation(sc, taskType);
+                    break;
+
+                case "filter":
+                    printTasksForDate(sc);
                     break;
 
                 case "mark":
