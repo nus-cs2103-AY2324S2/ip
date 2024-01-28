@@ -39,8 +39,7 @@ public class Bob {
         }
     }
 
-    public static void main(String[] args) {
-
+    public static Bob init() {
         BobUI ui = new BobUI(new Scanner(System.in));
         BobStorage storage = new BobStorage();
         BobParser parser = new BobParser();
@@ -49,6 +48,10 @@ public class Bob {
         Bob bob = new Bob(ui, storage, parser, taskList);
         parser.setSelf(bob).setUi(ui).setTaskList(taskList);
 
-        bob.start();
+        return bob;
+    }
+
+    public static void main(String[] args) {
+        init().start();
     }
 }

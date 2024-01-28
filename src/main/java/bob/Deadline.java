@@ -53,7 +53,14 @@ public class Deadline extends Task {
 
         String deadline = this.deadline;
         if (dateTime != null) {
-            deadline = dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+
+            String format = "MMM dd yyyy HH:mm";
+
+            if (!hasTime) {
+                format = "MMM dd yyyy";
+            }
+
+            deadline = dateTime.format(DateTimeFormatter.ofPattern(format));
         }
 
         return super.toString() + " (by: " + deadline + ")";
@@ -67,5 +74,13 @@ public class Deadline extends Task {
     @Override
     public String getType() {
         return "[D]";
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public boolean hasTime() {
+        return this.hasTime;
     }
 }
