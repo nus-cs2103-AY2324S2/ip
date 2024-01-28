@@ -1,6 +1,4 @@
-package Actions;
-
-public class Todo extends Action {
+public class Todo extends Actions.Action {
     /**
      * Constructor
      * @param description action to be made

@@ -1,11 +1,13 @@
 package Actions;
 
-public class Action {
+import java.io.Serializable;
+
+public class Action implements Serializable {
     private String marking;
     private String execute;
 
     /**
-     * Constructor for Actions.Action (User input their task)
+     * Constructor for Actions1.Action (User input their task)
      *
      * @param execute task noted
      */
