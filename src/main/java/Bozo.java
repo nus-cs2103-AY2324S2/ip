@@ -1,9 +1,7 @@
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Bozo {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -72,30 +70,41 @@ public class Duke {
             } else {
                 printLine();
                 if (input.startsWith("todo")) {
-                    Todo td = new Todo(input.substring(input.indexOf(" ") + 1));
-                    list.add(td);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + td);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    if (input.length() < 6) {
+                        System.out.println("I want that too but a todo can't be empty :((");
+                    } else {
+                        Todo td = new Todo(input.substring(input.indexOf(" ") + 1));
+                        list.add(td);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + td);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    }
                 } else if (input.startsWith("deadline")) {
-                    int indexOfSlash = input.indexOf("/by");
-                    Deadline d = new Deadline(input.substring(input.indexOf(" ")+ 1, indexOfSlash - 1),
-                                                input.substring(indexOfSlash + 4));
-                    list.add(d);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + d);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    if (input.length() < 10) {
+                        System.out.println("I want that too but a deadline can't be empty :((");
+                    } else {
+                        int indexOfSlash = input.indexOf("/by");
+                        Deadline d = new Deadline(input.substring(input.indexOf(" ")+ 1, indexOfSlash - 1),
+                                input.substring(indexOfSlash + 4));
+                        list.add(d);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + d);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    }
                 } else if (input.startsWith("event")) {
-                    int indexOfFrom = input.indexOf("/from");
-                    int indexOfTo = input.indexOf("/to");
-                    Event e = new Event(input.substring(input.indexOf(" ")+ 1, indexOfFrom - 1),
-                                          "from: " + input.substring(indexOfFrom + 6, indexOfTo - 1) + " ",
-                                            "to: " + input.substring(indexOfTo + 4));
-                    list.add(e);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + e);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
-
+                    if (input.length() < 7) {
+                        System.out.println("I want that too but an event can't be empty :((");
+                    } else {
+                        int indexOfFrom = input.indexOf("/from");
+                        int indexOfTo = input.indexOf("/to");
+                        Event e = new Event(input.substring(input.indexOf(" ")+ 1, indexOfFrom - 1),
+                                "from: " + input.substring(indexOfFrom + 6, indexOfTo - 1) + " ",
+                                "to: " + input.substring(indexOfTo + 4));
+                        list.add(e);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + e);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    }
                 } else {
                     System.out.println("Oops! I don't know what you are saying :(");
                 }
