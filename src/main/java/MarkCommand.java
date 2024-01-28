@@ -3,6 +3,7 @@ import java.io.IOException;
 public class MarkCommand extends Command {
     private final int indexToMark;
     public MarkCommand(String input) throws CommandException {
+        input = input.trim();
         try {
             this.indexToMark = Integer.parseInt(input);
         } catch (NumberFormatException e) {

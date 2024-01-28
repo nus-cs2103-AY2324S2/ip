@@ -3,6 +3,7 @@ import java.io.IOException;
 public class UnmarkCommand extends Command {
     private final int indexToUnmark;
     public UnmarkCommand(String input) throws CommandException {
+        input = input.trim();
         try {
             this.indexToUnmark = Integer.parseInt(input);
         } catch (NumberFormatException e) {

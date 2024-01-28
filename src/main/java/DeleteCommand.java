@@ -3,6 +3,7 @@ import java.io.IOException;
 public class DeleteCommand extends Command {
     private final int indexToDelete;
     public DeleteCommand(String input) throws CommandException {
+        input = input.trim();
         try {
             this.indexToDelete = Integer.parseInt(input);
         } catch (NumberFormatException e) {
