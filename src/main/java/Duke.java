@@ -1,8 +1,13 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 class DukeException extends Exception {
     public DukeException(String message) {
@@ -51,24 +56,25 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description, TaskType.DEADLINE);
         this.by = by;
     }
 
     @Override
     public String getDescription() {
-        return super.getDescription() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+        return super.getDescription() + " (by: " + formatter.format(by) + ")";
     }
 }
 
 class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description, TaskType.EVENT);
         this.from = from;
         this.to = to;
@@ -76,7 +82,8 @@ class Event extends Task {
 
     @Override
     public String getDescription() {
-        return super.getDescription() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+        return super.getDescription() + " (from: " + formatter.format(from) + " to: " + formatter.format(to) + ")";
     }
 }
 
@@ -115,8 +122,8 @@ public class Duke {
     }
 
     private static void processTaskInput(String userInput) throws DukeException {
-        if (userInput.startsWith("todo")) {
-            addTodoTask(userInput.substring(5).trim());
+        if (userInput.startsWith("Tasks on ")) {
+            printTasksOnDate((userInput.substring(9).trim()));
         } else if (userInput.startsWith("deadline")) {
             addDeadlineTask(userInput.substring(9).trim());
         } else if (userInput.startsWith("event")) {
@@ -127,6 +134,8 @@ public class Duke {
             unmarkTask(userInput);
         } else if (userInput.startsWith("delete")) {
             deleteTask(userInput);
+        } else if (userInput.startsWith("todo")) {
+            addTodoTask(userInput.substring(5).trim());
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -152,8 +161,14 @@ public class Duke {
                 throw new DukeException("OOPS!!! The description and /by cannot be empty for a deadline.");
             }
 
-            tasks.add(new Deadline(description, by));
-            printTaskAddedMessage(tasks.get(tasks.size() - 1));
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                LocalDateTime byDate = LocalDateTime.parse(by, formatter);
+                tasks.add(new Deadline(description, byDate));
+                printTaskAddedMessage(tasks.get(tasks.size() - 1));
+            } catch (DateTimeParseException e) {
+                throw new DukeException("OOPS!!! Invalid date format. Please use yyyy-MM-dd HHmm format.");
+            }
         } else {
             throw new DukeException("OOPS!!! Invalid deadline command format.");
         }
@@ -165,15 +180,22 @@ public class Duke {
         int toIndex = input.indexOf("/to");
         if (fromIndex != -1 && toIndex != -1) {
             String description = input.substring(0, fromIndex).trim();
-            String from = input.substring(fromIndex + 5, toIndex).trim();
-            String to = input.substring(toIndex + 3).trim();
+            String from = input.substring(fromIndex + 6, toIndex).trim();
+            String to = input.substring(toIndex + 4).trim();
 
             if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
                 throw new DukeException("OOPS!!! The description, /from, and /to cannot be empty for an event.");
             }
 
-            tasks.add(new Event(description, from, to));
-            printTaskAddedMessage(tasks.get(tasks.size() - 1));
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                LocalDateTime fromDate = LocalDateTime.parse(from, formatter);
+                LocalDateTime toDate = LocalDateTime.parse(to, formatter);
+                tasks.add(new Event(description, fromDate, toDate));
+                printTaskAddedMessage(tasks.get(tasks.size() - 1));
+            } catch (DateTimeParseException e) {
+                throw new DukeException("OOPS!!! Invalid date format. Please use yyyy-MM-dd HHmm format.");
+            }
         } else {
             throw new DukeException("OOPS!!! Invalid event command format.");
         }
@@ -232,6 +254,7 @@ public class Duke {
                     boolean isDone = parts[1].equals("1");
                     String description = parts[2];
                     Task task = null;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
                     switch (type) {
                         case "T":
@@ -239,11 +262,14 @@ public class Duke {
                             break;
                         case "D":
                             if (parts.length < 4) throw new DukeException("Invalid deadline format in file.");
-                            task = new Deadline(description, parts[3]);
+                            LocalDateTime byDate = LocalDateTime.parse(parts[3], formatter);
+                            task = new Deadline(description, byDate);
                             break;
                         case "E":
                             if (parts.length < 5) throw new DukeException("Invalid event format in file.");
-                            task = new Event(description, parts[3], parts[4]);
+                            LocalDateTime fromDate = LocalDateTime.parse(parts[3], formatter);
+                            LocalDateTime toDate = LocalDateTime.parse(parts[4], formatter);
+                            task = new Event(description, fromDate, toDate);
                             break;
                     }
 
@@ -253,7 +279,7 @@ public class Duke {
                         }
                         tasks.add(task);
                     }
-                } catch (DukeException e) {
+                } catch (DukeException | DateTimeParseException e) {
                     System.out.println("Skipping invalid task: " + line);
                 }
             }
@@ -263,6 +289,7 @@ public class Duke {
     }
 
     private static void saveTasksToFile() {
+        DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
             for (Task task : tasks) {
                 String type = task instanceof Todo ? "T" :
@@ -270,10 +297,13 @@ public class Duke {
                                 task instanceof Event ? "E" : "";
                 String status = task.isDone ? "1" : "0";
                 String line = type + " | " + status + " | " + task.getDescription();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 if (task instanceof Deadline) {
-                    line += " | " + ((Deadline) task).by;
+                    Deadline deadline = (Deadline) task;
+                    line += " | " + storageFormatter.format(deadline.by);
                 } else if (task instanceof Event) {
-                    line += " | " + ((Event) task).from + " | " + ((Event) task).to;
+                    Event event = (Event) task;
+                    line += " | " + storageFormatter.format(event.from) + " | " + storageFormatter.format(event.to);
                 }
                 writer.println(line);
             }
@@ -282,7 +312,27 @@ public class Duke {
         }
     }
 
-
+    private static void printTasksOnDate(String dateString) {
+        try {
+            LocalDate date = LocalDate.parse(dateString);
+            System.out.println("Tasks on " + date + ":");
+            for (Task task : tasks) {
+                if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    if (deadline.by.toLocalDate().equals(date)) {
+                        System.out.println(task.getStatusIcon() + task.getDescription());
+                    }
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    if (!event.from.toLocalDate().isAfter(date) && !event.to.toLocalDate().isBefore(date)) {
+                        System.out.println(task.getStatusIcon() + task.getDescription());
+                    }
+                }
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use yyyy-MM-dd format.");
+        }
+    }
 
     private static void deleteTask(String userInput) throws DukeException {
         try {
@@ -298,7 +348,7 @@ public class Duke {
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new DukeException("OOPS!!! Invalid command format.");
         }
-        saveTasksToFile(); // 
+        saveTasksToFile();
     }
 
     private static void listTasks() {
