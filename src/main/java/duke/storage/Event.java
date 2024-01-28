@@ -1,6 +1,8 @@
 package duke.storage;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The Event class defines a 'Event' task used for the application
@@ -84,6 +86,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), startDate, endDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mma")
+                .withZone(ZoneId.systemDefault());
+
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), formatter.format(startDate),
+                formatter.format(endDate));
     }
 }

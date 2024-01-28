@@ -1,6 +1,8 @@
 package duke.storage;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The Deadline class defines a 'Deadline' task used for the application
@@ -64,6 +66,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), dueDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mma")
+                .withZone(ZoneId.systemDefault());
+
+        return String.format("[D]%s (by: %s)", super.toString(), formatter.format(dueDate));
     }
 }
