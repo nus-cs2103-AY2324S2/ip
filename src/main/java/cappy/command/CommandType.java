@@ -1,3 +1,5 @@
+package cappy.command;
+
 public enum CommandType {
     LIST("list", new ListCommand()),
     MARK("mark", new MarkCommand()),

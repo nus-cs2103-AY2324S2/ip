@@ -1,3 +1,7 @@
+package cappy.task;
+
+import cappy.storage.CsvFormat;
+
 public abstract class Task implements CsvFormat {
     private String description;
     private boolean done;

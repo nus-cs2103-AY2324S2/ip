@@ -1,4 +1,8 @@
+package cappy.task;
+
 import java.time.LocalDateTime;
+
+import cappy.parser.Parser;
 
 public class Event extends Task {
     public static final String TYPE_SYMBOL = "E";
