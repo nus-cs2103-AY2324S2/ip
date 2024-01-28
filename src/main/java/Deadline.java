@@ -9,7 +9,7 @@ public class Deadline extends Task {
     protected static final DateTimeFormatter DATE_INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
     protected static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy");
     protected static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
-    protected static final String USAGE_HINT = "Usage: deadline [task description] /by [d/m/yyyy] {23:59}";
+    protected static final String USAGE_HINT = "Usage: deadline [task description] /by [d/m/yyyy] {hh:mm 24hr format}";
     protected LocalDateTime deadline;
 
     public Deadline(String description, LocalDateTime deadline) {

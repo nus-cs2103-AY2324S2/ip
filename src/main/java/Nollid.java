@@ -326,17 +326,17 @@ public class Nollid {
 
         if (userInputAsList.size() == 1 || fromIndex == 1 || toIndex == 1) {
             throw new DukeException("Event description cannot be empty!\n"
-                    + "Usage: event [task description] /from [start] /to [end]");
+                    + Event.USAGE_HINT);
         }
 
         if (fromIndex == -1 || fromIndex == userInputAsList.size() - 1 || fromIndex == toIndex - 1) {
             throw new DukeException("Please enter the start of your event!\n"
-                    + "Usage: event [task description] /from [start] /to [end]");
+                    + Event.USAGE_HINT);
         }
 
         if (toIndex == -1 || toIndex == userInputAsList.size() - 1 || toIndex == fromIndex - 1) {
             throw new DukeException("Please enter the end of your event!\n"
-                    + "Usage: event [task description] /from [start] /to [end]");
+                    + Event.USAGE_HINT);
         }
 
         StringBuilder taskDescription = new StringBuilder();
@@ -350,8 +350,17 @@ public class Nollid {
             extractEventInfo(userInputAsList, toIndex, fromIndex, taskDescription, to, from);
         }
 
-        Event task = new Event(taskDescription.toString(), from.toString(), to.toString());
-        addTaskToList(task);
+        try {
+            LocalDateTime fromDateTime = getLocalDateTimeFromString(from.toString());
+            LocalDateTime toDateTime = getLocalDateTimeFromString(to.toString());
+            Event task = new Event(taskDescription.toString(), fromDateTime, toDateTime);
+            addTaskToList(task);
+        } catch (DateTimeParseException e) {
+            botSays("Unrecognized start/end format\n"
+                    + Event.USAGE_HINT);
+        } catch (DukeException e) {
+            botSays(e.getMessage());
+        }
     }
 
     /**
@@ -481,7 +490,19 @@ public class Nollid {
                     case "E":
                         String from = lineArray[3];
                         String to = lineArray[4];
-                        taskToAdd = new Event(taskDescription, from, to);
+
+                        try {
+                            LocalDateTime fromDateTime = getLocalDateTimeFromString(from);
+                            LocalDateTime toDateTime = getLocalDateTimeFromString(to);
+                            taskToAdd = new Event(taskDescription, fromDateTime, toDateTime);
+                        } catch (DateTimeParseException e) {
+                            botSays("Unrecognized start/end format\n"
+                                    + Event.USAGE_HINT);
+                            continue;
+                        } catch (DukeException e) {
+                            botSays(e.getMessage());
+                            continue;
+                        }
                         break;
                     default:
                         // Unknown first character, go to next line
@@ -536,7 +557,8 @@ public class Nollid {
                 } else if (t instanceof Event) {
                     Event event = (Event) t;
                     lineToWrite = "E" + DELIMITER + event.getStatusNumber() + DELIMITER + event.getDescription()
-                            + DELIMITER + event.getFrom() + DELIMITER + event.getTo() + "\n";
+                            + DELIMITER + event.getFrom().format(Event.SAVE_FORMAT)
+                            + DELIMITER + event.getTo().format(Event.SAVE_FORMAT) + "\n";
                 }
 
                 if (isFirstLine) {
@@ -553,6 +575,7 @@ public class Nollid {
 
     /**
      * Returns a LocalDateTime object from a date (and time) string.
+     *
      * @throws DateTimeParseException if unable to retrieve a date (and time) from the string.
      */
     public static LocalDateTime getLocalDateTimeFromString(String deadlineString) throws DateTimeParseException {
@@ -562,7 +585,6 @@ public class Nollid {
 
         // If only date provided, use the default time
         if (deadlineList.size() == 1) {
-            botSays("No time detected, using default time. (" + Deadline.DEFAULT_TIME.toString() + ")");
             return LocalDateTime.of(deadlineDate, Deadline.DEFAULT_TIME);
         } else {
             LocalTime deadlineTime = LocalTime.parse(deadlineList.get(1), Deadline.TIME_FORMAT);
