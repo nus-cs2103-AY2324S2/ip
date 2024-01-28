@@ -11,6 +11,12 @@ public class Deadline extends Task {
         this.endDateTime = endDateTime;
     }
 
+    Deadline (String deadlineName, Boolean completed, String endDateTime) {
+        this.taskName = deadlineName;
+        this.completed = completed;
+        this.endDateTime = endDateTime;
+    }
+
     public void markComplete() {
         this.completed = true;
     }
@@ -23,5 +29,10 @@ public class Deadline extends Task {
     public String toString() {
         String xMarker = this.completed ? "[X]" : "[ ]";
         return String.format("[D] %s %s (by: %s)", xMarker, this.taskName, this.endDateTime);
+    }
+
+    public String toDBFormat() {
+        String completed = this.completed ? "1" : "0";
+        return String.format("D | %s | %s | %s", completed, this.taskName, this.endDateTime);
     }
 }

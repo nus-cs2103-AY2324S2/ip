@@ -7,6 +7,11 @@ public class ToDos extends Task {
         this.completed = false;
     }
 
+    ToDos (String TodoTask, Boolean completed) {
+        this.taskName = TodoTask;
+        this.completed = completed;
+    }
+
     public void markComplete() {
         this.completed = true;
     }
@@ -19,5 +24,10 @@ public class ToDos extends Task {
     public String toString() {
         String xMarker = this.completed ? "[X]" : "[ ]";
         return String.format("[T] %s %s", xMarker, this.taskName);
+    }
+
+    public String toDBFormat() {
+        String completed = this.completed ? "1" : "0";
+        return String.format("T | %s | %s", completed, this.taskName);
     }
 }

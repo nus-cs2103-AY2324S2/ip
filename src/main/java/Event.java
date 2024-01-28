@@ -13,6 +13,13 @@ public class Event extends Task {
         this.endDateTime = endDateTime;
     }
 
+    Event (String eventName, Boolean completed, String startDateTime, String endDateTime) {
+        this.taskName = eventName;
+        this.completed = completed;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+    }
+
     public void markComplete() {
         this.completed = true;
     }
@@ -25,5 +32,10 @@ public class Event extends Task {
     public String toString() {
         String xMarker = this.completed ? "[X]" : "[ ]";
         return String.format("[E] %s %s (from: %s to: %s)", xMarker, this.taskName, this.startDateTime, this.endDateTime);
+    }
+
+    public String toDBFormat() {
+        String completed = this.completed ? "1" : "0";
+        return String.format("E | %s | %s | %s | %s", completed, this.taskName, this.startDateTime, this.endDateTime);
     }
 }
