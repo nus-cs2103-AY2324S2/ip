@@ -86,6 +86,11 @@ class handlerbot {
             return deadlinestat;
         }
 
+        // Additional method to check if task description is empty
+        public boolean summaryempty() {
+            return summary.trim().isEmpty();
+        }
+
     }
 
     // Function that handles the greeting message
@@ -122,19 +127,29 @@ class handlerbot {
     // Function to add tasks
     // No modification done to userechoedinput function as not all inputs are tasks
     public void additiontaskings(String taskings) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Got it. I've added this task:");
-
         // Display message based on the task type
         if (taskings.startsWith("todo")) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Got it. I've added this task:");
             arrtaskings[countertaskings] = new taskings(taskings.substring(5).trim()); // 5 because of the word to do
         } else if (taskings.startsWith("deadline")) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Got it. I've added this task:");
             String[] parts = taskings.substring(8).trim().split("/by"); // 8 because of the word deadline
             arrtaskings[countertaskings] = new taskings(parts[0].trim(), parts[1].trim());
         } else if (taskings.startsWith("event")) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Got it. I've added this task:");
             String[] parts = taskings.substring(5).trim().split("/from|/to"); // 5 because of the word event
             arrtaskings[countertaskings] = new taskings(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        } else {
+            // Error handling for missing task types
+            System.out.println("____________________________________________________________");
+            System.out.println(" SAD! Please start your task with 'todo', 'deadline', or 'event'.");
+            System.out.println("____________________________________________________________");
+            return;
         }
+
         System.out.println("   " + "[" + arrtaskings[countertaskings].taskstatus() + "]" + "[" + arrtaskings[countertaskings].completionstatus() + "]" + arrtaskings[countertaskings].summarystatus() +
                 (arrtaskings[countertaskings].taskstatus().equals("E") ?
                         " (from: " + arrtaskings[countertaskings].timerstartstatus() + " to: " + arrtaskings[countertaskings].timerendstatus() + ")" :
@@ -178,7 +193,7 @@ class handlerbot {
                             " (from: " + arrtaskings[taskrecorder - 1].timerstartstatus() + " to: " + arrtaskings[taskrecorder - 1].timerendstatus() + ")" :
                             (arrtaskings[taskrecorder - 1].taskstatus().equals("D") ? " (by: " + arrtaskings[taskrecorder - 1].deadlinestatus() + ")" : "")));
             System.out.println("____________________________________________________________");
-        } else // Error handling: There are no tasks
+        } else // Error handling: There are no tasks or invalid task number
         {
             System.out.println("____________________________________________________________");
             System.out.println(" Hmmm...I don't seem to have a task under this number");
@@ -198,7 +213,7 @@ class handlerbot {
                             " (from: " + arrtaskings[taskrecorder - 1].timerstartstatus() + " to: " + arrtaskings[taskrecorder - 1].timerendstatus() + ")" :
                             (arrtaskings[taskrecorder - 1].taskstatus().equals("D") ? " (by: " + arrtaskings[taskrecorder - 1].deadlinestatus() + ")" : "")));
             System.out.println("____________________________________________________________");
-        } else // Error handling: There are no tasks
+        } else // Error handling: There are no tasks or invalid task number
         {
             System.out.println("____________________________________________________________");
             System.out.println(" Hmmm...I don't seem to have a task under this number");
@@ -225,13 +240,25 @@ public class Hari {
             } else if (readerinput.equalsIgnoreCase("list")) { // To list out tasks
                 hari.taskingsdisplay();
             } else if (readerinput.startsWith("mark")) { // To mark a task as completed
-                // Extract the task number from user input
-                int taskindexer = Integer.parseInt(readerinput.substring(5).trim()); // 5 is because of the word "mark"
-                hari.completionmark(taskindexer);
+                try {
+                    // Extract the task number from user input
+                    int taskindexer = Integer.parseInt(readerinput.substring(5).trim()); // 5 is because of the word "mark"
+                    hari.completionmark(taskindexer);
+                } catch (NumberFormatException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" SAD! Invalid task number to mark.");
+                    System.out.println("____________________________________________________________");
+                }
             } else if (readerinput.startsWith("unmark")) { // To unmark a previously marked as completed task
-                // Extract task number from user input
-                int taskindexer = Integer.parseInt(readerinput.substring(7).trim()); // 7 is because of the word "unmark"
-                hari.incompletionmark(taskindexer);
+                try {
+                    // Extract task number from user input
+                    int taskindexer = Integer.parseInt(readerinput.substring(7).trim()); // 7 is because of the word "unmark"
+                    hari.incompletionmark(taskindexer);
+                } catch (NumberFormatException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" SAD! Invalid task number to unmark.");
+                    System.out.println("____________________________________________________________");
+                }
             } else {
                 hari.userechoedinput(readerinput); // Else, it proceeds to call the user input processing function
             }
