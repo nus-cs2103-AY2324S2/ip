@@ -1,12 +1,11 @@
-package Task;
+package task;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Task {
-    private boolean completed;
+    private boolean taskCompleted;
     private String name;
 
     /**
@@ -14,10 +13,10 @@ public class Task {
      *
      */
     public Task() {
-        this.completed = false;
+        this.taskCompleted = false;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
@@ -45,10 +44,10 @@ public class Task {
      * @throws NicoleException if the task is already marked completed.
      */
     public String markDone() throws NicoleException {
-        if (this.completed) {
+        if (this.taskCompleted) {
             throw new NicoleException("That is already marked complete -_-");
         } else {
-            this.completed = true;
+            this.taskCompleted = true;
             return "Nicole: Marked as completed! Good job :3";
         }
     }
@@ -59,10 +58,10 @@ public class Task {
      * @throws NicoleException if the task is already marked incomplete.
      */
     public String markUndone() throws NicoleException {
-        if (!this.completed) {
+        if (!this.taskCompleted) {
             throw new NicoleException("That is already marked incomplete -_-");
         } else {
-            this.completed = false;
+            this.taskCompleted = false;
             return "Nicole: Marked as incomplete. We'll get em next time";
         }
     }
@@ -78,6 +77,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.completed ? "[C] " + this.name : "[I] " + this.name;
+        return this.taskCompleted ? "[C] " + this.name : "[I] " + this.name;
     }
 }

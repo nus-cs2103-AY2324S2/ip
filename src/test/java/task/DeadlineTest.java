@@ -1,6 +1,6 @@
-package Task;
+package task;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
 import org.junit.jupiter.api.Test;
 
@@ -54,7 +54,7 @@ public class DeadlineTest {
     }
 
     @Test
-    void testDeadlineCreation_toString() {
+    void deadlineCreation_perfectConditions_toStringCorrect() {
         try {
             Deadline testDeadline = new Deadline("return book by 2024-01-29");
             assertEquals("[D][I] return book by 2024-01-29", testDeadline.toString());

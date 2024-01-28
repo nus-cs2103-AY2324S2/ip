@@ -1,4 +1,4 @@
-import UserRequests.Ui;
+import userrequests.Ui;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ public class Nicole {
      */
     public Nicole() {
         try {
-            System.out.println(new Ui());
+            new Ui();
         } catch (IOException e) {
             System.out.println(e);
         }

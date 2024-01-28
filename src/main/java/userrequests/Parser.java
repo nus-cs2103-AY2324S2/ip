@@ -1,8 +1,8 @@
-package UserRequests;
+package userrequests;
 
-import Task.Task;
+import task.Task;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,12 +18,12 @@ public class Parser {
      * @return the appropriate task for the user request.
      * @throws NicoleException if the request is unknown or in the wrong format.
      */
-    public static Task parseRequest(String name) throws NicoleException {
+    protected static Task parseRequest(String name) throws NicoleException {
         Pattern todoPattern = Pattern.compile("^todo(?: (.*?))?$");
         Pattern deadlinePattern = Pattern.compile("^deadline(?: (.*?))?(?: by (\\d{4}-\\d{2}-\\d{2}))?$");
-        Pattern eventPattern = Pattern.compile("^event(?: (.*?))?(?: " +
-                "from (\\d{4}-\\d{2}-\\d{2}) at (\\d{2}:\\d{2}:\\d{2}) " +
-                "to (\\d{4}-\\d{2}-\\d{2}) at (\\d{2}:\\d{2}:\\d{2}))?$");
+        Pattern eventPattern = Pattern.compile("^event(?: (.*?))?(?: "
+                + "from (\\d{4}-\\d{2}-\\d{2}) at (\\d{2}:\\d{2}:\\d{2}) "
+                + "to (\\d{4}-\\d{2}-\\d{2}) at (\\d{2}:\\d{2}:\\d{2}))?$");
 
         Matcher todoMatcher = todoPattern.matcher(name);
         Matcher deadlineMatcher = deadlinePattern.matcher(name);
@@ -41,7 +41,8 @@ public class Parser {
                         + " to "
                         + eventMatcher.group(4) + " at " + eventMatcher.group(5), 'E');
         } else {
-            throw new NicoleException("What does this mean? Send 'help' if you want to know what commands I can help you with");
+            throw new NicoleException("What does this mean? "
+                    + "Send 'help' if you want to know what commands I can help you with");
         }
     }
 }

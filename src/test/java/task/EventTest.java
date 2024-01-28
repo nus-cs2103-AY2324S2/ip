@@ -1,6 +1,6 @@
-package Task;
+package task;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,7 +54,7 @@ public class EventTest {
     }
 
     @Test
-    void testEventCreation_toString() {
+    void eventCreation_perfectConditions_toStringCorrect() {
         try {
             Event testEvent = new Event("meeting with kay from 2024-01-29 at 18:00:00 to 2024-01-30 at 21:00:00");
             assertEquals("[E][I] meeting with kay from 2024-01-29 at 18:00:00 to 2024-01-30 at 21:00:00", testEvent.toString());

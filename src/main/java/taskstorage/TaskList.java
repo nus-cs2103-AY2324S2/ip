@@ -1,17 +1,16 @@
-package TaskStorage;
+package taskstorage;
 
-import Task.Task;
+import task.Task;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
-import UserRequests.Request;
+import userrequests.Request;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 
 public class TaskList {
     public static final List<Task> taskList = new ArrayList<>();
@@ -92,10 +91,11 @@ public class TaskList {
     public void listTasks() {
         if (TaskList.taskList.size() == 0) {
             System.out.println("Nicole: No tasks yet. Let's make some moves BD");
-            return;
+        } else {
+            System.out.println("Nicole: Here's the tasks I saved so far,");
         }
-        System.out.println("Nicole: Here's the tasks I saved so far,");
-        if (Request.priorityTasking) {
+
+        if (Request.needPriorityTasking) {
             Comparator<Task> sorter = (task1, task2) -> {
                 if (task1.getDate().isBefore(task2.getDate())) {
                     return -1;
@@ -107,6 +107,7 @@ public class TaskList {
             };
             TaskList.taskList.sort(sorter);
         }
+
         for (int i = 0; i < TaskList.taskList.size(); i++) {
             System.out.println((i + 1) + ". " + TaskList.taskList.get(i));
         }

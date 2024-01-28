@@ -1,6 +1,6 @@
-package Task;
+package task;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +17,7 @@ public class TodoTest {
     }
 
     @Test
-    void testTodoCreation_toString() {
+    void todoCreation_perfectConditions_toStringCorrect() {
         try {
             Todo testTodo = new Todo("borrow book");
             assertEquals("[T][I] borrow book", testTodo.toString());

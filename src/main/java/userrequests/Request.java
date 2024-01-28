@@ -1,15 +1,15 @@
-package UserRequests;
+package userrequests;
 
-import Task.Task;
+import task.Task;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
-import TaskStorage.TaskList;
+import taskstorage.TaskList;
 
 import java.io.IOException;
 
 public class Request {
-    public static boolean priorityTasking = false;
+    public static boolean needPriorityTasking = false;
     private Task newTask;
 
     /**
@@ -22,12 +22,12 @@ public class Request {
      *                     posting and retrieving data from hard drive.
      */
     public Request(String name) throws NicoleException, IOException {
-        if (name.equals("list") ||
-                name.contains("mark") ||
-                name.contains("unmark") ||
-                name.contains("help") ||
-                name.contains("delete") ||
-                name.contains("priority")) {
+        if (name.equals("list")
+                || name.contains("mark")
+                || name.contains("unmark")
+                || name.contains("help")
+                || name.contains("delete")
+                || name.contains("priority")) {
         } else {
             this.newTask = Parser.parseRequest(name);
         }
@@ -57,7 +57,7 @@ public class Request {
                     "7. help"
             );
         } else if (name.equals("priority")) {
-            Request.priorityTasking = true;
+            Request.needPriorityTasking = true;
         } else if (!name.equals("list")) {
             taskList.addTask(newTask);
         } else {

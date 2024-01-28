@@ -1,4 +1,4 @@
-package NicoleExceptions;
+package nicoleexceptions;
 
 public class NicoleException extends Exception {
     private String errorMessage;
