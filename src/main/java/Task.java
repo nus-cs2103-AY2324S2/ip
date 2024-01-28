@@ -1,8 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     private String name;
     private boolean isDone;
     private String type;
     private String[] times;
+    private static DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("d/M/yyyy EEEE, ha");
+    private static DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public Task(String name) {
         this.name = name;
@@ -36,6 +41,14 @@ public class Task {
 
     public String getName() {
         return this.name;
+    }
+
+    public String outputDateAsString(LocalDateTime dateTime) {
+        return dateTime.format(outputFormat);
+    }
+
+    public String changeDateToString(LocalDateTime dateTime) {
+        return dateTime.format(inputFormat);
     }
 
     @Override

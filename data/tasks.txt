@@ -1,4 +1,4 @@
-T | 1 | play computer games | NILL | NILL
-E | 0 | see newjeans at orchard | Saturday | Sunday
-D | 0 | CS2103 | Friday | NILL
-T | 1 | CS2103 Level 8 | NILL | NILL
+T | 0 | sleep | NILL | NILL
+D | 0 | sleep | 2/12/2019 1800 | NILL
+E | 0 | play computer games | 2/12/2019 1800 | 3/12/2019 1800
+D | 0 | cs2103 homework | 2/12/2019 1900 | NILL
