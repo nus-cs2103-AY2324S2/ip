@@ -1,5 +1,5 @@
 /**
- * Task class
+ * Task class.
  * This class contains informations about the task.
  */
 public class Task {
@@ -7,8 +7,8 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Task Constructor
-     * @param description
+     * Task Constructor.
+     * @param description Description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -16,7 +16,6 @@ public class Task {
     }
 
     /**
-     * isCompleted Method
      * It is to set isDone to true.
      */
     public void isCompleted() {
@@ -24,7 +23,6 @@ public class Task {
     }
 
     /**
-     * isNotCompleted Method
      * It is to set isDone to false.
      */
     public void isNotCompleted() {
@@ -32,8 +30,7 @@ public class Task {
     }
 
     /**
-     * getStatusIcon Method
-     * It is to check isDone and return X or " ".
+     * Return X if isDone is true or " " if isDone is false.
      * @return X or " " depending on isDone.
      */
     public String getStatusIcon() {
@@ -41,11 +38,19 @@ public class Task {
     }
 
     /**
-     * toString Method
+     * Return a string description for the item in the list for file operation.
+     * @return a string.
+     */
+    public String toFile() {
+        return "| " + (isDone ? "1" : "0") + " | " + this.description.trim();
+    }
+
+    /**
+     * Return a string description of a task.
      * @return a string that describe the task.
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description.trim();
     }
 }
