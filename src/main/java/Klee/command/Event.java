@@ -24,4 +24,10 @@ public class Event extends Command {
         ui.showCreation(task, tasks.size());
         storage.saveTasks(tasks);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == Event.class) return (this.description.equals(((Event) obj).description) && this.from.equals((((Event) obj).from)) && this.to.equals((((Event) obj).to)));
+        else return false;
+    }
 }

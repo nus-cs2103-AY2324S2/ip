@@ -8,4 +8,9 @@ public class List extends Command {
     public void runCommand(Ui ui, Storage storage, TaskList tasks) {
         ui.showTasks(tasks);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj.getClass() == List.class;
+    }
 }

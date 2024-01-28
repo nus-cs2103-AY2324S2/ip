@@ -22,4 +22,10 @@ public class Mark extends Command {
             ui.showMarked(task);
         } else throw new KleeException("We do not have that many tasks on the list!");
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == Mark.class) return this.index == ((Mark) obj).index;
+        else return false;
+    }
 }

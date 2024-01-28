@@ -11,4 +11,9 @@ public class Bye extends Command {
     public void runCommand(Ui ui, Storage storage, TaskList tasks) {
         ui.showBye();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj.getClass() == Bye.class;
+    }
 }

@@ -18,4 +18,10 @@ public class ToDo extends Command {
         ui.showCreation(task, tasks.size());
         storage.saveTasks(tasks);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == ToDo.class) return this.description.equals(((ToDo) obj).description);
+        else return false;
+    }
 }

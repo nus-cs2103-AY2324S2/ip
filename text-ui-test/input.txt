@@ -1,5 +1,5 @@
 todo Make bomb
-deadline Blast lake /by tonight
+deadline Blast lake /by 30/1/2024
 list
 mark 1
 list
