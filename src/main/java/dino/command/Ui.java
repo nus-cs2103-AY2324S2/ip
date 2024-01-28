@@ -1,3 +1,5 @@
+package dino.command;
+
 public class Ui {
     public void welcome() {
         System.out.println("Hola! I'm Dino.\nWhat are you doing here?");
