@@ -1,0 +1,3 @@
+ T | 0 | Sample ToDo
+ D | 0 | Sample Deadline | by: Jan 01 2022
+ E | 0 | Sample Event | from: Jan 01 2022 12:00  to: Jan 01 2022 14:00

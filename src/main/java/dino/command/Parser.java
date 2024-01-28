@@ -198,7 +198,7 @@ public class Parser {
         return formattedDate;
     }
 
-    private void printTasksForDate(Scanner sc) {
+    void printTasksForDate(Scanner sc) {
         try {
             String dateString = sc.next();
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
