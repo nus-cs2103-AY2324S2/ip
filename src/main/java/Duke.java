@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
 
 import task.Command;
 import task.DukeException;
@@ -14,6 +15,8 @@ public class Duke {
     private static final String chatbotName = "Sylvia";
 
     private static final String dataFilePath = "data/duke.txt";
+    private static final Path dataPath = Path.of(dataFilePath);
+    private static final String curDir = System.getProperty("user.dir") + System.getProperty("file.separator");
 
     public Duke() {
     }
@@ -48,22 +51,26 @@ public class Duke {
     }
 
     private TaskList readData() {
+        System.out.println("Loading data from file " + curDir + dataPath + "...");
         try {
             File file = new File(dataFilePath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
+            System.out.println("Data loaded successfully!");
             return TaskListParser.parse(file);
         } catch (IOException e) {
             System.out.println("____________________________________________________________");
-            System.out.println("An error occurred while reading data from file " + System.getProperty("user.dir")
-                    + dataFilePath + ": " + e.getMessage());
+            System.out.println(
+                    "An error occurred while reading data from file " + curDir + dataPath + ": " + e.getMessage());
+            System.out.println("Sylvia will start with an empty task list.");
             System.out.println("____________________________________________________________");
             return new TaskList();
         } catch (InvalidDataFormatException e) {
             System.out.println("____________________________________________________________");
-            System.out.println("e.getBotMessage()");
+            System.out.println(e.getBotMessage());
+            System.out.println("Sylvia will start with an empty task list.");
             System.out.println("____________________________________________________________");
             return new TaskList();
         }
@@ -86,6 +93,7 @@ public class Duke {
             }
             loopSignal = runCommand(input);
         }
+        // only write data to file when the bot is about to exit
         writeData();
     }
 

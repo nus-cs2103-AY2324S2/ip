@@ -51,7 +51,7 @@ public class TaskListParser {
         return task.serialize();
     }
 
-    // TODO: add a method to write to file
+    // TODO: change to a more efficient method
     public static void writeToFile(TaskList list, File file) throws IOException {
         if (!file.exists()) {
             file.getParentFile().mkdirs();
