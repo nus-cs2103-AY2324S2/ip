@@ -1,3 +1,7 @@
+package Tasks;
+
+import Tasks.Task;
+
 public class Deadline extends Task {
 
     String taskType;
@@ -5,9 +9,8 @@ public class Deadline extends Task {
     String deadline;
     Boolean isDone;
 
-    public Deadline(String taskName, String deadline) {
-        super(taskName);
-        this.taskType = "D";
+    public Deadline(String taskName, String deadline, Boolean isDone, String taskType) {
+        super(taskName, isDone, taskType);
         this.deadline = deadline;
     }
 
@@ -22,5 +25,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+    }
+
+    @Override
+    public String getDeadline() {
+        return this.deadline;
     }
 }

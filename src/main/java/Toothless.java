@@ -1,13 +1,46 @@
 import Exceptions.InvalidInstructionException;
 import Exceptions.MissingToDoNameException;
 import Exceptions.MissingTaskToMarkException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.io.File;
+import java.io.IOException;
+
 public class Toothless {
     public static void main(String[] args) {
+        String filePath = "data/toothless.txt";
+        File f = new File(filePath);
+        try {
+            boolean fileCreated = f.createNewFile();
+
+        } catch (IOException e) {
+            System.err.println("Error creating the file: " + e.getMessage());
+            e.printStackTrace();
+        }
+        FileParser parser = new FileParser(f);
+        try {
+            parser.parseFile(f);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        TaskList currTaskList = parser.getTaskList();
         Toothless.greet();
-        Toothless.echo();
+        currTaskList = Toothless.taskListModify(currTaskList);
+        Storage storage = new Storage(currTaskList);
+        try {
+            storage.store();
+        } catch (IOException e) {
+            System.err.println("Error writing to the file: " + e.getMessage());
+            e.printStackTrace();
+        }
         Toothless.bye();
     }
 
@@ -23,25 +56,24 @@ public class Toothless {
         Toothless.printLines();
     }
 
-    static void echo() throws InvalidInstructionException {
+    static TaskList taskListModify(TaskList tasksList) throws InvalidInstructionException {
         Scanner scanner = new Scanner(System.in);
-        TaskList tasksList = new TaskList();
         String input = "";
 
-        while (!input.equals("bye")) {
+        while (!input.toLowerCase().equals("bye")) {
             input = scanner.nextLine();
 
-            if (!input.equals("bye")) {
+            if (!input.toLowerCase().equals("bye")) {
                 if (input.equals("list")) {
                     System.out.println(tasksList.toString());
 
-                } else if (input.contains("todo")) {
+                } else if (input.toLowerCase().startsWith("todo")) {
                     try {
                         if (input.split(" ").length == 1) {
                             throw new MissingToDoNameException("Please provide the description of the todo task :) Eg. 'Todo Chores'");
                         } else {
                             String name = input.substring(5);
-                            String response = tasksList.add(new ToDo(name));
+                            String response = tasksList.add(new ToDo(name, false, "T"));
                             Toothless.printLines();
                             System.out.println(response);
                             Toothless.printLines();
@@ -53,29 +85,29 @@ public class Toothless {
                     }
 
 
-                } else if (input.contains("deadline")) {
+                } else if (input.toLowerCase().startsWith("deadline")) {
                     int endChar = input.indexOf("/");
                     int startChar = 9;
                     String name = input.substring(9, endChar);
                     String deadline = input.substring(endChar + 4);
-                    String response = tasksList.add(new Deadline(name, deadline));
+                    String response = tasksList.add(new Deadline(name, deadline, false, "D"));
                     Toothless.printLines();
                     System.out.println(response);
                     Toothless.printLines();
 
-                } else if (input.contains("event")) {
+                } else if (input.toLowerCase().startsWith("event")) {
                     int endChar = input.indexOf("/");
                     int endChar2 = input.indexOf("/", endChar + 1);
                     int startChar = 6;
                     String name = input.substring(6, endChar);
                     String startTime = input.substring(endChar + 5, endChar2);
                     String endTime = input.substring(endChar2 + 3);
-                    String response = tasksList.add(new Event(name, startTime, endTime));
+                    String response = tasksList.add(new Event(name, startTime, endTime, false, "E"));
                     Toothless.printLines();
                     System.out.println(response);
                     Toothless.printLines();
 
-                } else if (input.contains("unmark")) {
+                } else if (input.toLowerCase().startsWith("unmark")) {
                     try {
                         if (input.split(" ").length == 1) {
                             throw new MissingTaskToMarkException("Please provide a task to unmark :)");
@@ -92,7 +124,7 @@ public class Toothless {
                         Toothless.printLines();
                     }
 
-                } else if (input.contains("mark")) {
+                } else if (input.toLowerCase().startsWith("mark")) {
                     try {
                         if (input.split(" ").length == 1) {
                             throw new MissingTaskToMarkException("Please provide a task to mark :)");
@@ -109,7 +141,7 @@ public class Toothless {
                     }
 
 
-                } else if (input.contains("delete")){
+                } else if (input.toLowerCase().startsWith("delete")){
                     int index = Integer.parseInt(input.substring(7));
                     System.out.print(index);
                     String response = tasksList.delete(index);
@@ -125,6 +157,7 @@ public class Toothless {
             }
 
         }
+        return tasksList;
     }
 
     static void printTasks(ArrayList<Task> tasksList) {

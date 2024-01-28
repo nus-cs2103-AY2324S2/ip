@@ -1,3 +1,7 @@
+package Tasks;
+
+import Tasks.Task;
+
 public class Event extends Task {
 
     String taskType;
@@ -6,9 +10,8 @@ public class Event extends Task {
     String start;
     String end;
 
-    public Event(String taskName, String start, String end) {
-        super(taskName);
-        this.taskType = "E";
+    public Event(String taskName, String start, String end, Boolean isDone, String taskType) {
+        super(taskName, isDone, taskType);
         this.start = start;
         this.end = end;
     }
@@ -16,5 +19,15 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(from:" + this.start + "to:" + this.end + ")";
+    }
+
+    @Override
+    public String getStart() {
+        return this.start;
+    }
+
+    @Override
+    public String getEnd() {
+        return this.end;
     }
 }
