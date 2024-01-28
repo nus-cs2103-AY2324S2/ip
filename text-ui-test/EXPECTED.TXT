@@ -73,6 +73,13 @@ Error! An event task must have an end datetime in the right format, please follo
 
 
 ------------------------------
+1. [T] [X] read book
+2. [D] [ ] return book (by: 2100 01/01/2024)
+3. [T] [ ] complete assignment
+
+------------------------------
+
+------------------------------
 Ok, this task is still not done yet:
 [T] [ ] read book
 ------------------------------
@@ -84,13 +91,8 @@ Now you have 2 task(s) in the list.
 ------------------------------
 
 ------------------------------
-Noted. Task deleted successfully. I have removed the following task:
-[D] [ ] return book (by: 2100 01/01/2024)
-Now you have 1 task(s) in the list.
-------------------------------
-
-------------------------------
-1. [T] [ ] complete assignment
+1. [D] [ ] return book (by: 2100 01/01/2024)
+2. [T] [ ] complete assignment
 
 ------------------------------
 
