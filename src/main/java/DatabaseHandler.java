@@ -1,3 +1,5 @@
+import javafx.scene.input.DataFormat;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -5,7 +7,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class DatabaseHandler {
@@ -35,15 +40,15 @@ public class DatabaseHandler {
                 switch (task.getType()) {
                     case "D":
                         Deadline d = (Deadline) task;
-                        fw.write(d.getType() + " | " + (d.getStatus() ? "1" : "0") + " | " + d.getDescription() + "| " + d.getDeadline());
+                        fw.write(d.saveFormat());
                         break;
                     case "E":
                         Event e = (Event) task;
-                        fw.write(e.getType() + " | " + (e.getStatus() ? "1" : "0") + " | " + e.getDescription() + "| " + e.getStart() + "-" + e.getEnd());
+                        fw.write(e.saveFormat());
                         break;
                     case "T":
                         Todo t = (Todo) task;
-                        fw.write(t.getType() + " | " + (t.getStatus() ? "1" : "0") + " | " + t.getDescription());
+                        fw.write(t.saveFormat());
                         break;
                 }
                 fw.write("\n");
@@ -56,6 +61,8 @@ public class DatabaseHandler {
 
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         try {
             if (!DB.exists()) {
                 return list;
@@ -67,15 +74,17 @@ public class DatabaseHandler {
                 String[] split = line.split("\\|");
                 switch (split[0].trim()) {
                     case "D":
-                        Deadline d = new Deadline(split[2].trim(), split[3].trim());
+                        Deadline d = new Deadline(split[2].trim(), LocalDateTime.parse(split[3].replaceFirst(" ",""),formatter));
                         if (split[1].trim().equals("1")) {
                             d.mark();
                         }
                         list.add(d);
                         break;
                     case "E":
-                        String[] start_end = split[3].split("-");
-                        Event e = new Event(split[2].trim(),start_end[0].trim(), start_end[1].trim());
+                        String[] start_end = split[3].split(" to ");
+                        System.out.println(Arrays.toString(start_end));
+                        Event e = new Event(split[2].trim(),LocalDateTime.parse(start_end[0].replaceFirst(" ",""),formatter),
+                                LocalDateTime.parse(start_end[1],formatter));
                         if (split[1].trim().equals("1")) {
                             e.mark();
                         }
