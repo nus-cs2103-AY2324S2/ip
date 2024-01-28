@@ -41,6 +41,6 @@ public abstract class Task implements Serializable {
      * @return true if contains, false if it does not.
      */
     public boolean contains(String keyword) {
-        return this.msg.contains(keyword);
+        return this.event.contains(keyword);
     }
 }
