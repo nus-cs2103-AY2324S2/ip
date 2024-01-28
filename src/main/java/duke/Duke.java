@@ -8,8 +8,8 @@ import java.util.Scanner;
 import duke.DukeException;
 
 public class Duke {
-//    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
-    public static final String DBPATH = "data/duke.txt";
+    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
+//    public static final String DBPATH = "data/duke.txt";
     private Storage storage;
     private TaskList myTasks;
     private Ui ui;

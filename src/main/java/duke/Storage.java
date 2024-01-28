@@ -16,7 +16,6 @@ public class Storage {
 
     private String filepath;
 
-    // Initialise a duke.Storage with a filepath
     public Storage(String filepath) {
         this.filepath = filepath;
         try {
@@ -44,7 +43,7 @@ public class Storage {
 
     /**
      * Given a list of strings, writes to a file
-     * @param stringTaskList
+     * @param stringTaskList that is a list of tasks in their string database representation
      */
     public void writeLinesToFile(List<String> stringTaskList) {
         try {
@@ -65,7 +64,7 @@ public class Storage {
 
     /**
      * Returns a List<String> of tasks in db representation
-     * @return
+     * @return List<String> of tasks in db representation
      */
     public List<String> load() {
         List<String> stringTasksList = this.readLinesFromFile();
