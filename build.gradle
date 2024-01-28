@@ -8,6 +8,10 @@ application {
     mainClass.set("duke.Duke")
 }
 
+shadowJar {
+    archiveFileName = 'shuheng.jar'
+}
+
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testImplementation 'junit:junit:4.13.1'
