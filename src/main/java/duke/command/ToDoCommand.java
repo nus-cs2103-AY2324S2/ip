@@ -7,8 +7,20 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Class to run the ToDo Command.
+ *
+ * @author KohGuanZeh
+ */
 public class ToDoCommand extends Command {
     private final String toDoDescription;
+
+    /**
+     * Creates a Command that runs to add a ToDo task.
+     *
+     * @param input Input of ToDo information.
+     * @throws CommandException Exception when there is a formatting error in the input.
+     */
     public ToDoCommand(String input) throws CommandException {
         this.toDoDescription = input.trim();
         if (toDoDescription.isEmpty()) {

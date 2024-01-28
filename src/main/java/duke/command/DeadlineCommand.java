@@ -10,9 +10,22 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class to run Deadline Command.
+ *
+ * @author KohGuanZeh
+ */
 public class DeadlineCommand extends Command {
+
     private final String deadlineDescription;
     private final LocalDateTime deadlineBy;
+
+    /**
+     * Creates a Command that runs to add a Deadline task.
+     *
+     * @param input Input of Deadline information.
+     * @throws CommandException Exception when there is a formatting error in the input.
+     */
     public DeadlineCommand(String input) throws CommandException {
         input = input.trim();
         try {

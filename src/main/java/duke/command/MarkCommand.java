@@ -6,8 +6,20 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Class to run the Mark Command.
+ *
+ * @author KohGuanZeh
+ */
 public class MarkCommand extends Command {
     private final int indexToMark;
+
+    /**
+     * Creates a Command that runs to mark a task as done at a specified index.
+     *
+     * @param input Input of task to mark.
+     * @throws CommandException Exception when input is not given in integer format.
+     */
     public MarkCommand(String input) throws CommandException {
         input = input.trim();
         try {

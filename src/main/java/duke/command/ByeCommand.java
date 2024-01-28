@@ -6,6 +6,11 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Class to run Bye Command.
+ *
+ * @author KohGuanZeh
+ */
 public class ByeCommand extends Command {
     @Override
     public void run(TaskList taskList, Ui ui, Storage storage) throws IOException, CommandException {

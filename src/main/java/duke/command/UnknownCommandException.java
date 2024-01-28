@@ -4,7 +4,15 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
 
+/**
+ * Class to raise errors for unknown Commands.
+ *
+ * @author KohGuanZeh
+ */
 public class UnknownCommandException extends CommandException {
+    /**
+     * Creates a new UnknownCommandException with a message regarding all commands and their format.
+     */
     public UnknownCommandException() {
         super("Error. Unable to recognize command. Commands are CASE SENSITIVE.\n"
                 + "Supported List of Commands:\n"
