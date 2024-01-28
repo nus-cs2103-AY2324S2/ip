@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Scanner;
-import static java.lang.Thread.sleep;
 
 public class Operator {
     // Operator handles the user input and output
@@ -38,12 +37,14 @@ public class Operator {
                 taskList.addTodo(userTask);
                 botAddTaskMsg();
             } else if (command.equals("deadline")) {
-                String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
+                String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
+                        .split("/by", 100)[0].trim();
                 String dueDate = userInputArr[Arrays.asList(userInputArr).indexOf("/by") + 1];
                 taskList.addDeadline(userTask, dueDate);
                 botAddTaskMsg();
             } else if (command.equals("event")) {
-                String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
+                String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
+                        .split("/from", 100)[0].trim();
                 String startTime = userInputArr[Arrays.asList(userInputArr).indexOf("/from") + 1];
                 String endTime = userInputArr[Arrays.asList(userInputArr).indexOf("/to") + 1];
                 taskList.addEvent(userTask, startTime, endTime);
@@ -107,12 +108,12 @@ public class Operator {
         System.out.println(alternateReply);
 
         for (int i = 3; i >= 1; i--) {
-            System.out.println(i + "...");
             try {
-                Thread.sleep(700);
+                Thread.sleep(750);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            System.out.println(i + "...");
         }
 
         System.out.println("Just kidding...");
