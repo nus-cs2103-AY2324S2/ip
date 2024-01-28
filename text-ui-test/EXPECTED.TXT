@@ -6,24 +6,24 @@
 
 ____________________________________________________________
 Oh, hello there!
- I am Saopig, your personal assistant.
+ I am saopig.Saopig, your personal assistant.
  It's such a pleasure to meet you.
  I'm just over the moon to have someone new to chat with!
  I hope your day is as bright and cheerful as a sunny garden.
 
 ____________________________________________________________
 
-Oh, splendid! Your Todo task: {[T][ ] borrow book} has been added successfully.
+Oh, splendid! Your saopig.task.Todo task: {[T][ ] borrow book} has been added successfully.
  Now you have 1 tasks in the list.
 ____________________________________________________________
 1. [T][ ] borrow book
 ____________________________________________________________
 
-Oh, splendid! Your Deadline task: {[D][ ] return book (by: Sunday)} has been added successfully.
+Oh, splendid! Your saopig.task.Deadline task: {[D][ ] return book (by: Sunday)} has been added successfully.
  Now you have 2 tasks in the list.
 ____________________________________________________________
 
-Oh, splendid! Your Event task: {[E][ ] project meeting (from: Mon 2pm to 4pm)} has been added successfully.
+Oh, splendid! Your saopig.task.Event task: {[E][ ] project meeting (from: Mon 2pm to 4pm)} has been added successfully.
  Isn't it just wonderful when things go exactly as planned?
  I'm so proud of you for getting it done!
  Now you have 3 tasks in the list.
@@ -52,11 +52,11 @@ ____________________________________________________________
 3. [E][ ] project meeting (from: Mon 2pm to 4pm)
 ____________________________________________________________
 
-Oh, splendid! Your Deadline task: {[D][ ] return book2 (by: Monday)} has been added successfully.
+Oh, splendid! Your saopig.task.Deadline task: {[D][ ] return book2 (by: Monday)} has been added successfully.
  Now you have 4 tasks in the list.
 ____________________________________________________________
 
-Oh, splendid! Your Event task: {[E][ ] project meeting2 (from: Mon 4pm to 9pm)} has been added successfully.
+Oh, splendid! Your saopig.task.Event task: {[E][ ] project meeting2 (from: Mon 4pm to 9pm)} has been added successfully.
  Isn't it just wonderful when things go exactly as planned?
  I'm so proud of you for getting it done!
  Now you have 5 tasks in the list.

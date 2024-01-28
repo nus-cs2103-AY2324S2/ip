@@ -1,6 +1,10 @@
+package saopig;
+
+import saopig.Saopig;
+
 public class SaopigInvaildSizeException extends Throwable {
     public SaopigInvaildSizeException(String message) {
-        Saopig.speak(message);
+        super();
     }
 
     // Constructor with a message and a cause
