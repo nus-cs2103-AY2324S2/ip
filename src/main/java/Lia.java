@@ -118,6 +118,29 @@ public class Lia {
                             "[" + eventTask.getStatusIcon() + "] " + eventTask.description +
                             " (from: " + ((Event) eventTask).start + " to: " + ((Event) eventTask).end + ")");
                     System.out.println("You have " + tasks.size() + " task(s) in the list.");
+                } else if (input.startsWith("delete")) {
+                    String[] tokens = input.split(" ");
+                    int pos = Integer.parseInt(tokens[1]);
+                    if (pos <= 0 || pos > tasks.size()) {
+                        throw new LiaException("There are only " + tasks.size() + " tasks in the list.");
+                    }
+
+                    Task task = tasks.get(pos - 1);
+                    tasks.remove(pos - 1);
+                    System.out.println("I've removed this task:");
+                    if (task instanceof Todo) {
+                        System.out.println("[" + task.getTaskIcon() + "]" +
+                                "[" + task.getStatusIcon() + "] " + task.description);
+                    } else if (task instanceof Deadline) {
+                        System.out.println("[" + task.getTaskIcon() + "]" +
+                                "[" + task.getStatusIcon() + "] " + task.description +
+                                " (by: " + ((Deadline) task).date + ")");
+                    } else if (task instanceof Event) {
+                        System.out.println("[" + task.getTaskIcon() + "]" +
+                                "[" + task.getStatusIcon() + "] " + task.description +
+                                " (from: " + ((Event) task).start + " to: " + ((Event) task).end + ")");
+                    }
+                    System.out.println("You have " + tasks.size() + " task(s) in the list.");
                 } else if (input.equals("help")) {
                     System.out.println("list");
                     System.out.println("- Lists out all your tasks");
@@ -131,6 +154,8 @@ public class Lia {
                     System.out.println("- Marks task at specified position as done");
                     System.out.println("unmark <task number>");
                     System.out.println("- Marks task at specified position as not done");
+                    System.out.println("delete <task number>");
+                    System.out.println(" - Deletes task at specified position");
                     System.out.println("exit");
                     System.out.println("- Ends the conversation");
                 } else {
