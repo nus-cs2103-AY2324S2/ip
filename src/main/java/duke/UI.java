@@ -164,7 +164,7 @@ public class UI {
                         System.out.println(e.getMessage());
                         continue;
                     }
-                    history.ListKeywords(data[0]);
+                    history.listKeywords(data[0]);
                     break;
                 default:
                     continue mainloop;
