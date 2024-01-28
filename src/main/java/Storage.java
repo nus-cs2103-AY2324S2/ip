@@ -14,6 +14,7 @@ public class Storage {
 
     private String filepath;
 
+    // Initialise a Storage with a filepath
     public Storage(String filepath) {
         this.filepath = filepath;
         try {
@@ -58,6 +59,15 @@ public class Storage {
             System.out.println("Failed to write to file: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Returns a List<String> of tasks in db representation
+     * @return
+     */
+    public List<String> load() {
+        List<String> stringTasksList = this.readLinesFromFile();
+        return stringTasksList;
     }
 
     /**

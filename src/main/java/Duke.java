@@ -1,155 +1,65 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
-//    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
-    public static final String DBPATH = "data/duke.txt";
+    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
+//    public static final String DBPATH = "data/duke.txt";
+    private Storage storage;
+    private TaskList myTasks;
+    private Ui ui;
 
-    public static void main(String[] args) {
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            myTasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            myTasks = new TaskList();
+        }
+    }
+
+    /**
+     * Saves the current tasklist to the hard drive
+     */
+    private void save() {
+        List<String> lines = new ArrayList<>();
+        for (Task t : this.myTasks.taskList) {
+            String stringTask = TaskList.task2Db(t);
+            lines.add(stringTask);
+        }
+        this.storage.writeLinesToFile(lines);
+    }
+
+    public void run() {
         String greeting = "____________________________________________________________\n" +
                 " Hello! I'm steve\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________";
 
-        String goodbye = "____________________________________________________________\n" +
-                        " Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________";
+        String goodbye = " Bye. Hope to see you again soon!\n" +
+                "____________________________________________________________";
 
         System.out.println(greeting);
 
-        TaskList myTasks = new TaskList(DBPATH);
-        myTasks.load();
-
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
         String line = scanner.nextLine(); // Get first input
+        Parser parser = new Parser(scanner, this.myTasks);
 
-        while (!Objects.equals(line, "bye")) {
-            String border = "____________________________________________________________";
-
-            try {
-                System.out.println(border);
-
-                String cmd = line.split(" ")[0];
-                String params = line.substring(cmd.length()).trim();
-                switch (cmd) {
-                    case "list":
-                        System.out.println("Here are the tasks in your list:");
-                        myTasks.printTasks();
-                        break;
-                    case "mark":
-                        if (params.length() == 0) {
-                            throw new DukeException.MarkParamsException();
-                        }
-                        int num = Integer.valueOf(params);
-                        myTasks.markTask(num);
-                        Task t = myTasks.getTask(num);
-
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(t);
-                        break;
-                    case "unmark":
-                        if (params.length() == 0) {
-                            throw new DukeException.MarkParamsException();
-                        }
-                        num = Integer.valueOf(params);
-                        myTasks.unmarkTask(num);
-                        t = myTasks.getTask(num);
-
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(t);
-                        break;
-                    case "delete":
-                        if (params.length() == 0) {
-                            throw new DukeException.DeleteParamsException();
-                        }
-                        num = Integer.valueOf(params);
-                        Task toDelete = myTasks.getTask(num);
-                        myTasks.deleteTask(num);
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println(toDelete);
-                        System.out.println("Now you have " + myTasks.size() + " tasks in the list");
-                        break;
-                    case "todo":
-                        if (params.length() == 0) {
-                            throw new DukeException.TodoDescriptionMissingException();
-                        }
-
-                        String desc = params;
-
-                        Task newTask = new Todo(desc);
-                        myTasks.addTask(newTask);
-
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(newTask);
-                        System.out.println("Now you have " + myTasks.size() + " tasks in the list");
-                        break;
-                    case "deadline":
-                        if (!params.contains("/by")) {
-                            throw new DukeException.DeadlineDetailsMissingException();
-                        }
-
-                        desc = params.split("/by")[0].trim();
-                        String by = params.split("/by")[1].trim();
-
-                        // Check if by is in valid date format
-                        if (Dates.isValidInputDate(by)) {
-                            LocalDateTime dateObj = Dates.inputStr2DateTime(by);
-                            newTask = new Deadline(desc, dateObj); // Create date object
-                        } else {
-                            newTask = new Deadline(desc, by);
-                        }
-                        myTasks.addTask(newTask);
-
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(newTask);
-                        System.out.println("Now you have " + myTasks.size() + " tasks in the list");
-                        break;
-                    case "event":
-                        if (!params.contains("/from") || !params.contains("/to")) {
-                            throw new DukeException.EventDetailsMissingException();
-                        }
-
-                        desc = params.split("/from")[0];
-                        String from = params.split("/from")[1].split("/to")[0].trim();
-                        String to = params.split("/to")[1].trim();
-
-                        if (Dates.isValidInputDate(from) && Dates.isValidInputDate(to)) {
-                            LocalDateTime dateObjFrom = Dates.inputStr2DateTime(from);
-                            LocalDateTime dateObjTo = Dates.inputStr2DateTime(to);
-                            newTask = new Event(desc, dateObjFrom, dateObjTo); // Create date object
-                        } else {
-                            newTask = new Event(desc, from, to);
-                        }
-                        myTasks.addTask(newTask);
-
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(newTask);
-                        System.out.println("Now you have " + myTasks.size() + " tasks in the list");
-                        break;
-                    case "clear":
-                        myTasks.clear();
-                        System.out.println("Got it. I've cleared the database.");
-                        myTasks.load();
-                        break;
-                    default:
-                        throw new DukeException.UnknownCommandException();
-                }
-            } catch (DukeException e) {
-                System.out.println("DukeException: " + e.getMessage());
-            } catch (Exception e) {
-                System.out.println(e);
-                System.out.println("An unexpected error occurred.");
-            } finally {
-                System.out.println(border);
-            }
-
+        while (parser.processCmd(line)) {
             line = scanner.nextLine();
         }
-        myTasks.save();
-
         System.out.println(goodbye);
+        // save the tasks from myTasks to Storage
+        this.save();
 
     }
+
+    public static void main(String[] args) {
+        new Duke(DBPATH).run();
+    }
+
 }
