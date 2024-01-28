@@ -7,7 +7,7 @@ public class Task {
     /**
      * Describes the task that the user has to do.  
      */
-    protected String description;
+    public String description;
 
     /**
      * Represents whether a task has be completed. 

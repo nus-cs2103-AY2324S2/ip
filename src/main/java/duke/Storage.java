@@ -93,7 +93,7 @@ public class Storage {
      * @param fileStr String line in the local file. 
      */
     public Task deconstruct(String fileStr) {
-        String[] arr = fileStr.split("|"); 
+        String[] arr = fileStr.split("\\|"); 
         Boolean isDone = arr[1].equals("1") ? true : false;
         if (arr[0].equals("T")) {
             return new Todo(arr[2], isDone); 

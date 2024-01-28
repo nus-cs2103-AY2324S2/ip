@@ -36,7 +36,7 @@ public class TaskList {
     public void listOut() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.instrList.size() ; i++) {
-            System.out.println(i + 1 + "."+ this.instrList.get(i).toString());
+            System.out.println(i + 1 + "." + this.instrList.get(i).toString());
         }
     }
 
@@ -161,5 +161,20 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("OOPS!! You have inputted an invalid task number. \nTry again with a different task number!"); 
         } 
+    }
+
+    public void find(String instr) throws DukeException {
+        try {
+            String taskKeyword = instr.split(" ")[1]; 
+            System.out.println("Here are the matching tasks in your list:");
+            int ctr = 1; 
+            for (int i = 0; i < this.instrList.size() ; i++) {
+                if (this.instrList.get(i).description.contains(taskKeyword)) {
+                    System.out.println(ctr + 1 + "." + this.instrList.get(i).toString());
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("OOOPS!!! You missed out the task to search for."); 
+        }
     }
 }
