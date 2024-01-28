@@ -4,7 +4,8 @@ public class Bob {
     private static final Scanner SCANNER = new Scanner(System.in);
 
     private static int numberOfTasks = 0;
-    private static final String[] TASKS = new String[100]; // Could make 100 a constant
+    private static final int MAX_NUMBER_OF_TASKS = 100;
+    private static final String[] TASKS = new String[MAX_NUMBER_OF_TASKS];
 
     private static void printFormatted(String[] lines) {
         String horizontalLine = "    .-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.\n";
@@ -43,9 +44,13 @@ public class Bob {
             if (command.equals("list")) {
                 handleList();
             } else {
-                TASKS[numberOfTasks] = command;
-                numberOfTasks++;
-                printFormatted("added: " + command);
+                if (numberOfTasks == MAX_NUMBER_OF_TASKS) {
+                    printFormatted("not enough brain power");
+                } else {
+                    TASKS[numberOfTasks] = command;
+                    numberOfTasks++;
+                    printFormatted("added: " + command);
+                }
             }
         }
 
