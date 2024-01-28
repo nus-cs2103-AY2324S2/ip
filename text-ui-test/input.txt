@@ -1,5 +1,16 @@
 todo
 deadline
 event
+mark
 blah
+mark 1
+mark a
+deadline a /by a
+deadline a /by
+deadline a
+event a /from a /to a
+event a /from a /to
+event a /from a
+event a /from
+event a
 exit

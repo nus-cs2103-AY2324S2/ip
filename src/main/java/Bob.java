@@ -8,6 +8,15 @@ public class Bob {
     private static final Task[] TASKS = new Task[MAX_NUMBER_OF_TASKS];
 
     public static void handleMark(int taskIndex, boolean done) {
+        try {
+            if (taskIndex < 0 || taskIndex >= numberOfTasks) {
+                throw new InvalidTaskIndexException(Integer.toString(taskIndex));
+            }
+        } catch (InvalidTaskIndexException e) {
+            Replies.print(e.getMessage());
+            return;
+        }
+
         Task task = TASKS[taskIndex];
         task.setDone(done);
         Replies.mark(task, done);
@@ -53,11 +62,7 @@ public class Bob {
                 break;
             }
 
-            try {
-                Commands.processCommands(commandArgs);
-            } catch (InvalidCommandException e) {
-                Replies.print(e.getMessage());
-            }
+            Commands.processCommands(commandArgs);
         }
     }
 }
