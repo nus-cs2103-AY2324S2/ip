@@ -117,14 +117,15 @@ class ListAdder {
      * @return void
      */
     private void addTask(String task) {
-        if (task.startsWith("todo")) {
+        if (task.startsWith("todo")) {  // todo
             String todoDescription = task.substring(4).trim();
             if (todoDescription.isEmpty()) {
                 System.out.println("\t" + "Invalid input. Please enter a valid todo task.");
             } else {
                 addTodoTask(todoDescription);
             }
-        } else if (task.startsWith("deadline")) {
+
+        } else if (task.startsWith("deadline")) {  // deadline
             String[] deadlineDescription = task.substring(8).trim().split("/by", 2);
             if (deadlineDescription.length != 2 || deadlineDescription[0].trim().isEmpty() 
                 || deadlineDescription[1].trim().isEmpty()) {
@@ -132,7 +133,8 @@ class ListAdder {
             } else {
                 addDeadline(deadlineDescription[0].trim(), deadlineDescription[1].trim());
             }
-        } else if (task.startsWith("event")) {
+
+        } else if (task.startsWith("event")) {  // event
             String[] eventParts = task.substring(6).trim().split("/from");
             if (eventParts.length == 2) {
                 String[] durationParts = eventParts[1].trim().split("/to");
@@ -144,8 +146,12 @@ class ListAdder {
             } else {
                 System.out.println("\t" + "Invalid input for event. Please use the format: event <task> /from <start time> /to <end time>");
             }
+
+        } else if (task.equals("help")) {  // help
+            helpline();
+
         } else {
-            System.out.println("\t" + "Invalid input. Please enter a valid task.");
+            System.out.println("\t" + "Sorry, that's not a command :( Enter 'help' for instructions.");
         }
         printLine();
     }
