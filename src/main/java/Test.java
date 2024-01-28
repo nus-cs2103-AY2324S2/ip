@@ -8,15 +8,25 @@ public class Test {
 
         while (true) {
             String userInput = sc.nextLine();
-            switch (userInput) {
+            String[] inputArray = userInput.split(" ");
+            String instruction = inputArray[0];
+            switch (instruction) {
                 case "bye":
                     bot.exit();
                     return;
                 case "list":
-                    bot.displayList();
+                    bot.displayTasks();
+                    break;
+                case "mark":
+                    int completeTask = Integer.parseInt(inputArray[1]) - 1;
+                    bot.markTaskComplete(completeTask);
+                    break;
+                case "unmark":
+                    int incompleteTask = Integer.parseInt(inputArray[1]) - 1;
+                    bot.markTaskIncomplete(incompleteTask);
                     break;
                 default:
-                    bot.storeUserInput(userInput);
+                    bot.storeUserTask(userInput);
             }
         }
     }
