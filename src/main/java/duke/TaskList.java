@@ -42,17 +42,14 @@ public class TaskList {
             + "Now you have " + this.tasks.size() + " items in your list!\n";
         return toPrint;
     }
-    
     /**
      * Saves current state of the task list into the log.
      */
     public void saveTaskList() {
         this.manager.writeLog(this.tasks);
     }
-    
     /**
      * Deletes the task at index i.
-     *
      * @param i Index to delete the task at.
      */
     public void deleteTask(int i) {
@@ -100,10 +97,8 @@ public class TaskList {
         System.out.println(printOut);
         this.saveTaskList();
     }
-    
     /**
      * Marks a task as not completed.
-     *
      * @param idx The index to unmark the task done.
      */
     public void unmarkTask(int idx) {
@@ -116,7 +111,6 @@ public class TaskList {
         System.out.println(printOut);
         this.saveTaskList();
     }
-    
     /**
      * Prints current tasks in the list as well as their respective states.
      */

@@ -47,7 +47,6 @@ public class UI {
             + "_________________________\n";
         System.out.println(nameDisplay);
     }
-    
     /**
      * Lets shuheng say bye to everyone! :)
      */
@@ -58,7 +57,6 @@ public class UI {
         System.out.println(finalPrint);
         this.sc.close();
     }
-    
     /**
      * Runs the UI that continuously takes in user input and output.
      */
