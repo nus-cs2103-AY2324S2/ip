@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'application'
 }
 
@@ -9,6 +10,10 @@ repositories {
 
 application {
     mainClass.set('yapper.Yapper')
+}
+
+shadowJar {
+    archiveFileName = 'yapper.jar'
 }
 
 dependencies {
