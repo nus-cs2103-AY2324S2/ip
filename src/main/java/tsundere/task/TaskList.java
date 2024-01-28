@@ -1,17 +1,19 @@
 package tsundere.task;
 
-import tsundere.Parser;
-import tsundere.exception.GeneralException;
-
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
+
 import java.util.ArrayList;
+
+import tsundere.ui.Parser;
+import tsundere.exception.GeneralException;
 
 public class TaskList {
     public static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void unmark() throws GeneralException {
+
         if (TaskList.taskList.isEmpty()) throw new GeneralException("What you tryna unmark huh?");
         try {
             Task t = TaskList.taskList.get(Integer.parseInt(Parser.name.substring(7, 8)) - 1);
@@ -26,9 +28,11 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e ) {
             throw new GeneralException("Im pretty sure that's the wrong tsundere.task number! Check again!");
         }
+
     }
 
     public static void mark() throws GeneralException {
+
         if (TaskList.taskList.isEmpty()) throw new GeneralException("What you tryna mark huh?");
         try {
             Task t = TaskList.taskList.get(Integer.parseInt(Parser.name.substring(5, 6)) - 1);
@@ -43,10 +47,13 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e ) {
             throw new GeneralException("Im pretty sure that's the wrong tsundere.task number! Check again!");
         }
+
     }
 
     public static void delete() throws GeneralException {
+
         if (TaskList.taskList.isEmpty()) throw new GeneralException("What you tryna delete huh?");
+
         try {
             int idx = Integer.parseInt(Parser.name.substring(7, 8)) - 1;
             Task t = TaskList.taskList.get(idx);
@@ -57,18 +64,23 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e ) {
             throw new GeneralException("Im pretty sure that's the wrong tsundere.task number! Check again!");
         }
+
     }
+
     public static void list() throws GeneralException {
+
         int size = TaskList.taskList.size();
-        if (TaskList.taskList.isEmpty()) throw new GeneralException("Aren't you pretty free now? " +
-                "Go find something to do!");
+        if (TaskList.taskList.isEmpty()) throw new GeneralException("Aren't you pretty free now? "
+                + "Go find something to do!");
         for (int i = 0; i < size; i++) {
             Task t = TaskList.taskList.get(i);
             System.out.println((i + 1) + ". " + t.toString());
         }
+
     }
 
     public static void addToDo() throws GeneralException {
+
         try {
             String todo = Parser.name.split(" ", 2)[1];
 
@@ -76,12 +88,14 @@ public class TaskList {
             TaskList.taskList.add(t);
             getListSize("added", t);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new GeneralException("Can't you even remember the proper format for this?\n" +
-                    "todo [tsundere.task]");
+            throw new GeneralException("Can't you even remember the proper format for this?\n"
+                    + "todo [tsundere.task]");
         }
+
     }
 
     public static void addEvent() throws GeneralException {
+
         try {
             String event = Parser.name.split(" ", 2)[1];
             String[] x = event.split(",");
@@ -90,30 +104,37 @@ public class TaskList {
             TaskList.taskList.add(t);
             getListSize("added", t);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new GeneralException("Can't you even remember the proper format for this?\n" +
-                    "event [tsundere.task] ,from [date],to [date]");
+            throw new GeneralException("Can't you even remember the proper format for this?\n"
+                    + "event [tsundere.task] ,from [date],to [date]");
         }
+
     }
 
     public static void addDeadline() throws GeneralException {
+
         try {
             String deadline = Parser.name.split(" ", 2)[1];
             String[] x = deadline.split(",");
             LocalDate d1 = LocalDate.parse(x[1].split(" ", 2)[1]);
             String date = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
             Task t = new Deadline(x[0], date);
             TaskList.taskList.add(t);
             getListSize("added", t);
+
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new GeneralException("Can't you even remember the proper format for this?\n" +
-                    "deadline [tsundere.task] ,by [yyyy-mm-dd]");
+            throw new GeneralException("Can't you even remember the proper format for this?\n"
+                    + "deadline [tsundere.task] ,by [yyyy-mm-dd]");
         }
+
     }
 
     public static void getListSize(String str, Task t) {
+
         int size = TaskList.taskList.size();
         System.out.println("Noted...");
         System.out.println(" " + t.toString() + " has been " + str);
+
         if (size > 0) {
             System.out.println("Get to work! You still have " + size + " " + (size > 1 ? "tasks" : "task") + " left!");
         } else {

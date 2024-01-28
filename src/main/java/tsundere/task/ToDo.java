@@ -1,10 +1,8 @@
 package tsundere.task;
 
-import tsundere.task.Task;
-
 public class ToDo extends Task {
 
-    private static final String type = "T";
+    protected static final String type = "T";
     public ToDo(String description) {
         super(description);
     }
