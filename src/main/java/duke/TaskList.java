@@ -125,4 +125,17 @@ public class TaskList {
         System.out.println("_________________________\n");
     }
 
+  public void ListKeywords(String keyword) {
+    System.out.println("_________________________\n" +
+      "Asking shuheng for tasks related to " + keyword + "...\n");
+    for (int i = 0; i < this.tasks.size(); i++) {
+      Task curr = this.tasks.get(i);
+      if (!curr.checkKeyword(keyword)) {
+        continue;
+      }
+      System.out.println((i + 1) + "." +
+        curr.getFullStatus());
+    }
+    System.out.println("_________________________\n");
+  }
 }

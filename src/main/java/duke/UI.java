@@ -35,7 +35,6 @@ public class UI {
         this.sc = new Scanner(System.in);
         sayHi();
     }
-
     /**
      * Lets shuheng say hi to everyone! :)
      */

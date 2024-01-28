@@ -28,6 +28,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean checkKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     public String decomposeDateTime(LocalDateTime dt) {
         String minute = ((Integer) dt.getMinute()).toString();
         if (minute.length() < 2) {
