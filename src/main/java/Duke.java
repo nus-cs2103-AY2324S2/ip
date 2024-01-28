@@ -187,7 +187,7 @@ public class Duke {
             //ld = LocalDate.parse(str, formatter);
             ld = LocalDate.parse(str);
         } catch (DateTimeParseException dt) {
-            throw new DukeException("Invalid date format");
+            throw new DukeException("Invalid date format. Use yyyy-MM-dd format.");
         }
 
         return ld;
