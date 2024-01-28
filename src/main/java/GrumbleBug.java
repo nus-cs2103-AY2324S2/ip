@@ -46,6 +46,7 @@ public class GrumbleBug {
             f.createNewFile();
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
+
                 String task = s.nextLine();
                 boolean done = s.nextLine() == "true" ? true : false;
                 String desc = s.nextLine();
@@ -69,7 +70,6 @@ public class GrumbleBug {
             System.out.println("An IO error occurred with the data file.");
             e.printStackTrace();
         }
-
 
         String starter = "GrumbleBug:"
                 + "_______________________________________\n"
