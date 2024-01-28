@@ -20,7 +20,6 @@ import static bytebuddy.ui.Ui.printWithSolidLineBreak;
  */
 public class TaskList {
     private ArrayList<Task> taskList;
-    // private static HashMap<String, Task> taskHashMap;
 
     /**
      * Constructs a new TaskList with an empty list of tasks.
@@ -110,7 +109,7 @@ public class TaskList {
                 throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
             }
             String markToPrint = taskList.get(markIndex).markAsDone();
-            printWithSolidLineBreak(markToPrint);
+            printWithSolidLineBreak("\t " + markToPrint);
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
             throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
@@ -133,7 +132,7 @@ public class TaskList {
                 throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
             }
             String unmarkToPrint = taskList.get(unmarkIndex).unmarkAsDone();
-            printWithSolidLineBreak(unmarkToPrint);
+            printWithSolidLineBreak("\t " + unmarkToPrint);
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
         } catch (NumberFormatException e) {
             throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
@@ -239,11 +238,16 @@ public class TaskList {
      * Each task is numbered, and its details are displayed in the format "[task_number].[task_details]".
      */
     public void printTaskList() {
-        System.out.println("\t" + solidLineBreak);
+        StringBuilder str = new StringBuilder();
+
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("\t " + (i+1) + "." + taskList.get(i));
+            if (i > 0) {
+                str.append("\n");
+            }
+            str.append("\t ").append(i + 1).append(".").append(taskList.get(i));
         }
-        System.out.println("\t" + solidLineBreak);
+
+        Ui.printWithSolidLineBreak(str.toString());
     }
 
 
@@ -269,11 +273,12 @@ public class TaskList {
      * @param task The task that was added to the list.
      */
     public void printTaskAddedWithSolidLineBreak(Task task) {
-        System.out.println("\t" + solidLineBreak);
-        System.out.println("\t Got it. I've Added this task:");
-        System.out.println("\t\t " + task);
-        System.out.println("\t Now you have " + taskList.size() + " tasks in the list.");
-        System.out.println("\t" + solidLineBreak);
+        StringBuilder str = new StringBuilder();
+
+        str.append("\t Got it. I've Added this task:\n")
+                .append("\t\t ").append(task).append("\n")
+                .append("\t Now you have ").append(taskList.size()).append(" tasks in the list.");
+        Ui.printWithSolidLineBreak(str.toString());
     }
 
     /**
@@ -283,11 +288,12 @@ public class TaskList {
      * @param task The task that was removed from the list.
      */
     public void printTaskRemovedWithSolidLineBreak(Task task) {
-        System.out.println("\t" + solidLineBreak);
-        System.out.println("\t Noted. I've removed this task:");
-        System.out.println("\t\t " + task);
-        System.out.println("\t Now you have " + taskList.size() + " tasks in the list.");
-        System.out.println("\t" + solidLineBreak);
+        StringBuilder str = new StringBuilder();
+
+        str.append("\t Noted. I've removed this task:\n")
+                .append("\t\t ").append(task).append("\n")
+                .append("\t Now you have ").append(taskList.size()).append(" tasks in the list.");
+        Ui.printWithSolidLineBreak(str.toString());
     }
 
     /**
@@ -319,9 +325,9 @@ public class TaskList {
         }
 
         if (!foundTask) {
-            Ui.printWithSolidLineBreak("There are no matching tasks in your list :(");
+            Ui.printWithSolidLineBreak("\t There are no matching tasks in your list :(");
         } else {
-            Ui.printWithSolidLineBreak(str.toString());
+            Ui.printWithSolidLineBreak("\t " + str.toString());
         }
     }
 

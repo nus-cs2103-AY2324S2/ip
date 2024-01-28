@@ -56,7 +56,7 @@ public class ByteBuddy {
                 c.execute(taskList, ui, storage);
                 isExit = c.isExit();
             } catch (ByteBuddyException e) {
-                printWithSolidLineBreak(e.getMessage());
+                printWithSolidLineBreak("\t " + e.getMessage());
             }
         }
 

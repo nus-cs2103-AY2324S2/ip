@@ -26,7 +26,7 @@ public class Ui {
      */
     public static void printWithSolidLineBreak(String s) {
         System.out.println("\t" + solidLineBreak);
-        System.out.println("\t " + s);
+        System.out.println(s);
         System.out.println("\t" + solidLineBreak);
     }
 
@@ -34,14 +34,14 @@ public class Ui {
      * Prints the start message with a solid line break above and below it.
      */
     public static void printStartMessage() {
-        printWithSolidLineBreak(START_MESSAGE);
+        printWithSolidLineBreak("\t " + START_MESSAGE);
     }
 
     /**
      * Prints the bye message with a solid line break above and below it.
      */
     public static void printByeMessage() {
-        printWithSolidLineBreak(BYE_MESSAGE);
+        printWithSolidLineBreak("\t " + BYE_MESSAGE);
     }
 
     /**

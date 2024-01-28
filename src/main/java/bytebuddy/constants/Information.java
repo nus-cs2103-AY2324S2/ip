@@ -1,7 +1,7 @@
 package bytebuddy.constants;
 
 public class Information {
-    public static final String solidLineBreak = "____________________________________________________________";
+    public static final String solidLineBreak = "-".repeat(60);
     public static final String CHATBOT_NAME = "ByteBuddy";
     public static final String CHATBOT_NAME_LOGO =
             "\t\t   ____   __   __  _____  U _____ u   ____     _   _   ____     ____   __   __ \n" +
