@@ -22,10 +22,10 @@ public class Task {
     @Override
     public String toString() {
         if (isDone) {
-            return "Nice! I've marked this task as done:\n  [X] " + description;
+            return "[X] " + description;
         }
         else {
-            return "OK, I've marked this task as not done yet:\n  [ ] " + description;
+            return "[ ] " + description;
         }
     }
 
