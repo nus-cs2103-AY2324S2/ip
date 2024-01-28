@@ -33,4 +33,23 @@ public class Event extends Task {
             DateTimeUtil.format(from),
             DateTimeUtil.format(to));
     }
+    @Override
+    public boolean equals(Object o) {
+        // Step 1: Check if the objects are the same instance
+        if (this == o) {
+            return true;
+        }
+
+        // Step 2: Check if the object is null or of a different class
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        // Step 3: Convert the object to a ToDo instance
+        Event e = (Event) o;
+
+        // Step 4: Compare the individual fields for equality
+        return isMarked == e.isMarked && description.equals(e.description)
+                && e.from.equals(from) && e.to.equals(to);
+    }
 }
