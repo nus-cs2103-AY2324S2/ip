@@ -52,9 +52,9 @@ public class DukeException extends Exception {
     }
 
     // Custom exception for getTask where index is wrong, or the entry is not of type T, E, D
-    public static class GetTaskException extends DukeException {
-        public GetTaskException() {
-            super("An error occurred when getting task, reinput your index!");
+    public static class TaskNotFoundException extends DukeException {
+        public TaskNotFoundException() {
+            super("Could not find task!");
         }
     }
 }
