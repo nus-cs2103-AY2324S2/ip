@@ -45,9 +45,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "bytebuddy"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'bytebuddy.jar'
 }
 
 run {
