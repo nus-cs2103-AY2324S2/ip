@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Duke {
     private static final String NAME = "Arctic";
     private static final Integer BORDER_LEN = 60;
-    private static final ArrayList<String> TASKS = new ArrayList<>();
+    private static final ArrayList<Task> TASKS = new ArrayList<>();
 
     private static String duplicateChar(Character c, Integer num) {
         return String.valueOf(c).repeat(num);
@@ -36,19 +36,41 @@ public class Duke {
     private static void handleCommands() {
         Scanner scnr = new Scanner(System.in);
         while (true) {
-            String command = scnr.nextLine();
+            String userInput = scnr.nextLine();
+            String[] userInputSplit = userInput.split(" ");
+            String command = userInputSplit[0];
 
-            if (command.equals("list")) {
-                StringBuilder output  = new StringBuilder();
-                for (int i = 0; i < TASKS.size(); i++) {
-                    output.append(String.format("%d. %s\n", i + 1, TASKS.get(i)));
-                }
-                printCommandOutput(output.toString());
-            } else if (command.equals("bye")) {
-                break;
-            } else {
-                TASKS.add(command);
-                printCommandOutput(String.format("added: %s\n", command));
+            switch (command) {
+                case "list":
+                    StringBuilder output  = new StringBuilder();
+                    for (int i = 0; i < TASKS.size(); i++) {
+                        Task task = TASKS.get(i);
+                        output.append(String.format("%d. %s\n", i + 1, task.toString()));
+                    }
+                    printCommandOutput(output.toString());
+
+                    break;
+                case "bye":
+                    break;
+                case "mark":
+                case "unmark":
+                    int taskNum = Integer.parseInt(userInputSplit[1]);
+                    Task task = TASKS.get(taskNum - 1);
+
+                    if (command.equals("mark")) {
+                        task.mark();
+                        printCommandOutput(String.format("Nice! I've marked this task as done:\n  %s\n", task.toString()));
+                    } else {
+                        task.unmark();
+                        printCommandOutput(String.format("OK, I've marked this task as not done yet::\n  %s\n", task.toString()));
+                    }
+
+                    break;
+                default:
+                    TASKS.add(new Task(userInput));
+                    printCommandOutput(String.format("added: %s\n", userInput));
+
+                    break;
             }
         }
     }
