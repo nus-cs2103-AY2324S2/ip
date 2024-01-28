@@ -245,8 +245,12 @@ public class Duke {
             if (file.exists()) {
                 Scanner scanner = new Scanner(file);
                 while (scanner.hasNext()) {
-                    System.out.println(scanner.nextLine());
+                    String line = scanner.nextLine();
+                    Task task = convertTask(line);
+                    tasks.add(task);
+                    taskCount++;
                 }
+                scanner.close();
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -259,11 +263,63 @@ public class Duke {
             File file = new File(FILE_PATH);
             FileWriter fileWriter = new FileWriter(file);
             for (Task task : tasks) {
-                fileWriter.write(task.toString() + "/n");
+                fileWriter.write(task.toString() + "\n");
             }
             fileWriter.close();
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
+    }
+
+    //Convert text in file to Task format
+    private static Task convertTask(String line) {
+        String taskType = line.substring(1, 2);
+        boolean isDone = line.substring(4, 5).equals("X");
+        String description;
+
+        if (taskType.equals("T")) {
+            description = line.substring(7);
+        } else if (taskType.equals("D")) {
+            int byIndex = line.indexOf("(by: ");
+            int endIndex = line.indexOf(")");
+            description = line.substring(7, byIndex) + line.substring(endIndex + 1);
+        } else if (taskType.equals("E")) {
+            int fromIndex = line.indexOf("(from: ");
+            int toIndex = line.indexOf(" to: ");
+            int endIndex = line.indexOf(")");
+            description = line.substring(7, fromIndex) + line.substring(endIndex + 1);
+        } else {
+            return null;
+        }
+
+        Task task;
+
+        switch (taskType) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                int byIndex = line.indexOf("(by: ");
+                int endIndex = line.indexOf(")");
+                String by = line.substring(byIndex + 5, endIndex);
+                task = new Deadline(description, by);
+                break;
+            case "E":
+                int fromIndex = line.indexOf("(from: ");
+                int toIndex = line.indexOf(" to: ");
+                int end = line.indexOf(")");
+                String from = line.substring(fromIndex + 7, toIndex);
+                String to = line.substring(toIndex + 5, end);
+                task = new Event(description, from, to);
+                break;
+            default:
+                return null;
+        }
+
+        if (isDone) {
+            task.mark();
+        }
+
+        return task;
     }
 }
