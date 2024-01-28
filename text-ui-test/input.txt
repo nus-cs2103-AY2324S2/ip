@@ -1,0 +1,22 @@
+hi
+add
+add task
+add todo
+add todo todo1
+add deadline
+add deadline deadline1
+add deadline deadline1 /by
+add deadline deadline1 /by 1st jan
+add event
+add event event1
+add event event1 /from /to
+add event event1 /from 1st jan /to
+add event event1 /from 1st jan /to 2nd jan
+list
+mark 0
+mark 1
+mark 1
+unmark 0
+unmark 1
+unmark 1
+end
