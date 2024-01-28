@@ -19,7 +19,7 @@ public class TodoTest {
 
     @Test
     public void testTodoName() {
-        assertEquals("testTest", task.task);
+        assertEquals("testTest", task.taskName);
     }
 
     @Test

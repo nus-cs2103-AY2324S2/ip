@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.*;
 
-public class DateTest {
+public class DateTimeTest {
     @BeforeEach
     public void setup() {
 
@@ -20,7 +20,7 @@ public class DateTest {
     @Test
     public void testInitialization() {
         try {
-            Date date = new Date("20:00, 27 Jan 2024");
+            DateTime dateTime = new DateTime("20:00, 27 Jan 2024");
         } catch (SquidDateException e) {
             Assertions.fail();
         }
@@ -29,7 +29,7 @@ public class DateTest {
     @Test
     public void testInitialization_invalidInput_exceptionThrown() {
         assertThrows(SquidDateException.class, () -> {
-            Date error = new Date("dawwadadaw");
+            DateTime error = new DateTime("dawwadadaw");
         });
     }
 
@@ -37,7 +37,7 @@ public class DateTest {
     public void testWordDate_today() {
         String expected = LocalDate.now().format(DateTimeFormatter.ofPattern(FORMAT.DATE));
         try {
-            String actual = new Date("today").toString();
+            String actual = new DateTime("today").toString();
             Assertions.assertEquals(expected, actual);
         } catch (SquidDateException e) {
             Assertions.fail();
@@ -48,7 +48,7 @@ public class DateTest {
     public void testWordDate_tomorrow() {
         String expected = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern(FORMAT.DATE));
         try {
-            String actual = new Date("tomorrow").toString();
+            String actual = new DateTime("tomorrow").toString();
             Assertions.assertEquals(expected, actual);
         } catch (SquidDateException e) {
             Assertions.fail();
@@ -59,7 +59,7 @@ public class DateTest {
     public void testWordDate_tmr() {
         String expected = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern(FORMAT.DATE));
         try {
-            String actual = new Date("tmr").toString();
+            String actual = new DateTime("tmr").toString();
             Assertions.assertEquals(expected, actual);
         } catch (SquidDateException e) {
             Assertions.fail();
@@ -70,7 +70,7 @@ public class DateTest {
     public void testWordTime_now() {
         String expected = LocalTime.now().format(DateTimeFormatter.ofPattern(FORMAT.TIME));
         try {
-            String actual = new Date("now, 27 Jan 2025").toString().split(",")[0];
+            String actual = new DateTime("now, 27 Jan 2025").toString().split(",")[0];
             Assertions.assertEquals(expected, actual);
         } catch (SquidDateException e) {
             Assertions.fail();

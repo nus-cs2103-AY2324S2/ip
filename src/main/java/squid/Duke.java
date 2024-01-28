@@ -11,7 +11,7 @@ import squid.exceptions.*;
 
 import squid.tasks.Todo;
 import squid.tasks.Event;
-import squid.tasks.Date;
+import squid.tasks.DateTime;
 import squid.tasks.Deadline;
 import squid.tasks.Task;
 import squid.tasks.Tasks;
@@ -19,16 +19,26 @@ import squid.tasks.Tasks;
 
 public class Duke {
 
+
     private static void Squid() {
         new Tasks();
     }
 
+    /**
+     * List all existing tasks.
+     *
+     * @throws NotEnoughInputsException If there are not enough parameters.
+     * @throws IncorrectIndexException Should never happen.
+     */
     private static void list() throws NotEnoughInputsException, IncorrectIndexException {
         echo(MESSAGES.LIST);
         Tasks.list();
     }
 
-    private static void hello() throws NotEnoughInputsException {
+    /**
+     * Initializes Squid.
+     */
+    private static void hello() {
         try {
             Tasks.read();
         } catch (ParseFailException | DuplicateTaskNameException | SquidDateException e) {
@@ -39,13 +49,28 @@ public class Duke {
         System.out.println(MESSAGES.LINE_BREAK);
     }
 
+    /**
+     * Terminates the program.
+     *
+     * @throws NotEnoughInputsException Should never happen, unless constant MESSAGES.BYE is blank.
+     */
     private static void bye() throws NotEnoughInputsException {
-        String message = MESSAGES.BYE;
-        echo(message);
+        echo(MESSAGES.BYE);
         Tasks.save();
     }
 
+    /**
+     * Overloaded method to include this as a valid command.
+     *
+     * @param message The raw input from the user, or message to be printed.
+     * @param isFromUser Whether to further process message.
+     * @throws NotEnoughInputsException If there are not enough parameters.
+     */
     private static void echo(String message, boolean isFromUser) throws NotEnoughInputsException {
+        if (!isFromUser) {
+            echo(message);
+            return;
+        }
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
             throw new NotEnoughInputsException(
@@ -55,15 +80,22 @@ public class Duke {
         echo(params[1]);
     }
 
-    private static void echo(String message) throws NotEnoughInputsException {
-        if (message.isBlank()) {
-            throw new NotEnoughInputsException(
-                    String.format(
-                            EXCEPTIONS.NOT_ENOUGH_INPUTS, "echo", CORRECT_USAGE.ECHO));
-        }
+    /**
+     * Prints a message with a custom header.
+     *
+     * @param message The message to be printed.
+     */
+    private static void echo(String message) {
         System.out.println(MESSAGES.ECHO + message);
     }
 
+    /**
+     * Handles the creation of a todo task.
+     *
+     * @param message The user's raw input.
+     * @throws NotEnoughInputsException If there are not enough parameters.
+     * @throws DuplicateTaskNameException If there is an existing task with the same name.
+     */
     private static void todo(String message) throws NotEnoughInputsException, DuplicateTaskNameException {
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
@@ -78,7 +110,18 @@ public class Duke {
         echo(String.format(MESSAGES.TODO, t));
     }
 
-    private static void deadline(String message) throws NotEnoughInputsException, DuplicateTaskNameException, SquidDateException {
+    /**
+     * Handles the creation of a deadline task.
+     *
+     * @param message The user's raw input.
+     * @throws NotEnoughInputsException If there are not enough parameters.
+     * @throws DuplicateTaskNameException If there is an existing task with the same name.
+     * @throws SquidDateException If the date given is unable to be parsed.
+     */
+    private static void deadline(String message) throws
+            NotEnoughInputsException,
+            DuplicateTaskNameException,
+            SquidDateException {
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
             throw new NotEnoughInputsException(
@@ -98,12 +141,20 @@ public class Duke {
                             CORRECT_USAGE.DEADLINE));
         }
         String task = arguments[0];
-        Date date = new Date(arguments[1]);
-        Task t = new Deadline(task, date);
+        DateTime dateTime = new DateTime(arguments[1]);
+        Task t = new Deadline(task, dateTime);
         Tasks.add(t);
         echo(String.format(MESSAGES.DEADLINE, t));
     }
 
+    /**
+     * Handles the creation of an event task.
+     *
+     * @param message The user's raw input.
+     * @throws NotEnoughInputsException If there are not enough parameters.
+     * @throws DuplicateTaskNameException If there is an existing task with the same name.
+     * @throws SquidDateException If the date given is unable to be parsed.
+     */
     private static void event(String message) throws
             NotEnoughInputsException,
             DuplicateTaskNameException,
@@ -126,14 +177,22 @@ public class Duke {
                             CORRECT_USAGE.EVENT));
         }
         String[] dates = params[1].split(REGEX.EVENT_TO);
-        Date from = new Date(dates[0]);
-        Date to = new Date(dates[1]);
+        DateTime from = new DateTime(dates[0]);
+        DateTime to = new DateTime(dates[1]);
         Task t = new Event(params[0], from, to);
         Tasks.add(t);
         echo(String.format(MESSAGES.EVENT, t));
     }
 
 
+    /**
+     * Mark a task as either complete or incomplete.
+     *
+     * @param input The user's raw input.
+     * @param isCompleted Whether to mark it completed or incomplete.
+     * @throws NotEnoughInputsException If there are not enough parameters.
+     * @throws IncorrectIndexException If the index does not refer to a valid task.
+     */
     private static void mark(String input, boolean isCompleted) throws
             NotEnoughInputsException,
             IncorrectIndexException {
@@ -149,7 +208,7 @@ public class Duke {
         // Find the task entry.
         Task found = null;
         for (int i = 0; i < Tasks.size(); i++) {
-            if (Tasks.get(i).task.equals(task)) {
+            if (Tasks.get(i).taskName.equals(task)) {
                 found = Tasks.get(i);
             }
         }
@@ -169,6 +228,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Delete an existing task based on its index.
+     *
+     * @param input The user's raw input.
+     * @throws NotEnoughInputsException If there are not enough parameters.
+     * @throws IncorrectIndexException If the index does not refer to a valid task.
+     */
     private static void delete(String input) throws NotEnoughInputsException, IncorrectIndexException {
         String[] params = input.split(" ", 2);
         if (params.length == 1) {
@@ -182,6 +248,15 @@ public class Duke {
         Tasks.list();
     }
 
+
+    /**
+     * Parse the user's input and assigns them to separate helper functions depending on command
+     *
+     * @param loop Condition whether to terminate loop.
+     * @param input The user's input.
+     * @return Whether the loop should continue (Usually true unless "bye" command is given).
+     * @throws DukeException General exception thrown by Squid.
+     */
     private static boolean parseInput(boolean loop, String input) throws DukeException {
         System.out.println(MESSAGES.LINE_BREAK);
         String[] messages = input.split(" ", 2);

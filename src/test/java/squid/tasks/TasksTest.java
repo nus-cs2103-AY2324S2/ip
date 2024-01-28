@@ -2,7 +2,6 @@ package squid.tasks;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -141,8 +140,8 @@ public class TasksTest {
         try {
             Task actual = Tasks.parseTask(stub.parseStr());
 
-            System.out.println("actual"+ actual.task);
-            assertEquals(expected, actual.task);
+            System.out.println("actual"+ actual.taskName);
+            assertEquals(expected, actual.taskName);
         } catch (ParseFailException | SquidDateException e) {
             fail();
         }

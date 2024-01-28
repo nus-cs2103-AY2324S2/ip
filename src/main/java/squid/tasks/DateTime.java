@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 
-public class Date {
+public class DateTime {
     private String date;
     private LocalDate formattedDate;
     private LocalTime formattedTime;
@@ -74,7 +74,13 @@ public class Date {
     }
 
 
-    public Date(String date) throws SquidDateException {
+    /**
+     * Initializer to store a string to be understood as a date/time.
+     *
+     * @param date The string to be parsed.
+     * @throws SquidDateException If the string is unable to be parsed.
+     */
+    public DateTime(String date) throws SquidDateException {
         this.date = date;
         String[] params = this.date.split(",", 2);
 
@@ -87,6 +93,11 @@ public class Date {
         }
     }
 
+    /**
+     * Custom formatting for printing DateTime objects.
+     *
+     * @return The custom format for DateTime objects.
+     */
     public String toString() {
         String timeString = "";
         if (this.formattedTime != null) {
