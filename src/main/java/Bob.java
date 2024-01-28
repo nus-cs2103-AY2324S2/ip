@@ -7,53 +7,32 @@ public class Bob {
     private static final int MAX_NUMBER_OF_TASKS = 100;
     private static final String[] TASKS = new String[MAX_NUMBER_OF_TASKS];
 
-    private static void printFormatted(String[] lines) {
-        String horizontalLine = "    .-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.\n";
-        StringBuilder formatted = new StringBuilder(horizontalLine);
-        for (String line : lines) {
-            formatted.append("     ");
-            formatted.append(line);
-            formatted.append('\n');
+    private static void handleAdd(String task) {
+        if (numberOfTasks == MAX_NUMBER_OF_TASKS) {
+            Replies.print(Replies.EXCEEDED_MAX_NUMBER_OF_TASKS);
+        } else {
+            TASKS[numberOfTasks] = task;
+            numberOfTasks++;
+            Replies.print(String.format(Replies.ADD, task));
         }
-        formatted.append(horizontalLine);
-        System.out.println(formatted);
-    }
-
-    private static void printFormatted(String line) {
-        printFormatted(new String[]{ line });
-    }
-
-    private static void handleList() {
-        String[] numberedTasks = new String[numberOfTasks];
-        for (int i = 0; i < numberOfTasks; i++) {
-            numberedTasks[i] = (i + 1) + ". " + TASKS[i];
-        }
-        printFormatted(numberedTasks);
     }
 
     public static void main(String[] args) {
-        printFormatted(new String[]{ "yo im bob", "what do you want" });
+        Replies.print(Replies.GREET);
 
         while (true) {
             String command = SCANNER.nextLine();
 
-            if (command.equals("exit")) {
+            if (command.equals(Commands.EXIT)) {
+                Replies.print(Replies.EXIT);
                 break;
             }
 
-            if (command.equals("list")) {
-                handleList();
+            if (command.equals(Commands.LIST)) {
+                Replies.list(TASKS, numberOfTasks);
             } else {
-                if (numberOfTasks == MAX_NUMBER_OF_TASKS) {
-                    printFormatted("not enough brain power");
-                } else {
-                    TASKS[numberOfTasks] = command;
-                    numberOfTasks++;
-                    printFormatted("added: " + command);
-                }
+                handleAdd(command);
             }
         }
-
-        printFormatted("ok");
     }
 }
