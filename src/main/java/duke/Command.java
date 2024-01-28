@@ -1,6 +1,7 @@
 package duke;
 
 import duke.exceptions.DukeException;
+
 public class Command {
     private String command;
     private String[] arguments;
