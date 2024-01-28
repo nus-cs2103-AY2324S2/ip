@@ -1,14 +1,14 @@
 todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline read book 1 /by 2024-02-12 12:00
+event project meeting /from 2024-01-02 12:00 /to 2024-03-02 12:00
 list
 mark 2
 unmark 2
 mark 1
 list
-deadline return book2 /by Monday
-event project meeting2 /from Mon 4pm /to 9pm
+deadline return book /by 2024-02-21 12:00
+event project meeting2 /from 2025-01-02 12:00 /to 2025-03-02 12:00
 unmark
 mark
 deadline
@@ -20,12 +20,17 @@ todo
 todo
 deadline spppppeee
 deadline return book /by Monday
-event project meeting again /from Mon 6pm /to 9pm
+deadline read book 1 /by 2024-02-12 12:00
+event project meeting /from 2025-01-02 12:00 /to 2025-03-02 12:00
+todo Coding the Homework
+deadline return book /by 2024-02-21 12:00
+event project meeting2 /from 2025-01-02 12:00 /to 2025-03-02 12:00
 list
 mark 3
 unmark 1
-mark 2
-list
-deadline return book3 /by Friday
-event project meeting3 /from Mon 1am /to 9pm
+listtaskondate 2025-01-02
+listtaskondate
+listtaskondate 
+listtaskondate dsadasdas
+listtaskondate 2025-1-02
 bye

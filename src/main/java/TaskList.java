@@ -1,10 +1,16 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
+    private static final String TIME_PATTERN = "yyyy-MM-dd HH:mm";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
     private static final String FILE_PATH = "./data/saopigTaskList.txt";
     private static final String FILE_DIRECTORY = "./data";
     private ArrayList<Task> tasks;
@@ -39,15 +45,19 @@ public class TaskList {
                     String isDone = task.getIsDoneState() ? "1" : "0";
                     String description = task.getDescription();
                     if (task instanceof Deadline) {
-                        description += " %&///&% " + ((Deadline) task).getBy();
+                        description += " %&///&% " +
+                                DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Deadline) task).getBy());
                     } else if (task instanceof Event) {
-                        description += " %&///&% " + ((Event) task).getStartTime() + " %&///&% " + ((Event) task).getEndTime();
+                        description += " %&///&% " +
+                                DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getStartTime()) +
+                                " %&///&% " +
+                                DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getEndTime());
                     }
                     fileWriter.write(taskType + " %&///&% " + isDone + " %&///&% " + description + "\n");
                 }
             }
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException | DateTimeException e) {
             Saopig.speakWithHorizontalLines("\n" +
                     "Oh no! I'm sorry, but I couldn't save your tasks.\n " +
                     "Please try again, or type 'bye' to exit.");
@@ -75,10 +85,13 @@ public class TaskList {
                     taskList.tasks.add(new Todo(splitInput[2]));
                     break;
                 case "D":
-                    taskList.tasks.add(new Deadline(splitInput[2], splitInput[3]));
+                    LocalDateTime deadlineDateTime = LocalDateTime.parse(splitInput[3], DATE_TIME_FORMATTER);
+                    taskList.tasks.add(new Deadline(splitInput[2], deadlineDateTime));
                     break;
                 case "E":
-                    taskList.tasks.add(new Event(splitInput[2], splitInput[3], splitInput[4]));
+                    LocalDateTime fromDateTime = LocalDateTime.parse(splitInput[3], DATE_TIME_FORMATTER);
+                    LocalDateTime toDateTime = LocalDateTime.parse(splitInput[4], DATE_TIME_FORMATTER);
+                    taskList.tasks.add(new Event(splitInput[2], fromDateTime, toDateTime));
                     break;
                 }
                 if (splitInput[1].equals("1")) {
@@ -86,9 +99,9 @@ public class TaskList {
                 }
             }
             scanner.close();
-            Saopig.speakWithHorizontalLines("Successfully loaded your previous task list!\n " +
+            Saopig.speak("Successfully loaded your previous task list!\n " +
                     "Now you have " + taskList.getSize() + " tasks in the list.\n");
-        } catch (IOException e) {
+        } catch (IOException | DateTimeParseException e) {
             Saopig.speakWithHorizontalLines("\n" +
                     "Oh no! I'm sorry, but I couldn't load your tasks.\n " +
                     "Please try again, or type 'bye' to exit.");
@@ -198,7 +211,18 @@ public class TaskList {
                         "Whoopsie!\n " +
                         "It seems like you may have forgotten to write the deadline time.");
             }
-            Deadline task = new Deadline(splitArguments[0], splitArguments[1]);
+            LocalDateTime deadlineDateTime = null;
+            try {
+                deadlineDateTime = LocalDateTime.parse(splitArguments[1], DATE_TIME_FORMATTER);
+
+            } catch (DateTimeParseException e) {
+                Saopig.speakWithHorizontalLines("\n" +
+                        "Whoopsie!\n " +
+                        "It seems like you may have given an invalid date time format.\n " +
+                        "Please use the format: yyyy-MM-dd HH:mm");
+                return;
+            }
+            Deadline task = new Deadline(splitArguments[0], deadlineDateTime);
             this.tasks.add(task);
             saveTaskList(this);
             Saopig.speakWithHorizontalLines("\n" +
@@ -238,7 +262,19 @@ public class TaskList {
             String description = splitArguments[0].trim();
             String fromTime = splitArguments[1].trim().substring(5); // Remove "from " prefix
             String toTime = splitArguments[2].trim().substring(3); // Remove "to " prefix
-            Event task = new Event(description, fromTime, toTime);
+            LocalDateTime fromDateTime = null;
+            LocalDateTime toDateTime = null;
+            try {
+                fromDateTime = LocalDateTime.parse(fromTime, DATE_TIME_FORMATTER);
+                toDateTime = LocalDateTime.parse(toTime, DATE_TIME_FORMATTER);
+            } catch (DateTimeParseException e) {
+                Saopig.speakWithHorizontalLines("\n" +
+                        "Whoopsie!\n " +
+                        "It seems like you may have given an invalid date time format.\n " +
+                        "Please use the format: yyyy-MM-dd HH:mm");
+                return;
+            }
+            Event task = new Event(description, fromDateTime, toDateTime);
             this.tasks.add(task);
             saveTaskList(this);
             Saopig.speakWithHorizontalLines("\n" +
@@ -322,5 +358,57 @@ public class TaskList {
             Saopig.speak((i + 1) + ". " + task.toString());
         }
         Saopig.speak("____________________________________________________________");
+    }
+
+    public void listTasksOnDate(String input) {
+        try {
+            checkValue(input.length(), 16, Integer.MAX_VALUE);
+            String date = input.substring(15);
+            Saopig.speak("\n" +
+                    "Oh, splendid! Let me check my calendar for tasks on " + date + "...");
+            LocalDateTime dateTime = LocalDateTime.parse(date + " 00:00", DATE_TIME_FORMATTER);
+            ArrayList<Task> tasksOnDate = new ArrayList<>();
+            for (Task task : this.tasks) {
+                if (task instanceof Deadline) {
+                    if (((Deadline) task).getBy().toLocalDate().isEqual(dateTime.toLocalDate())) {
+                        tasksOnDate.add(task);
+                    }
+                } else if (task instanceof Event) {
+                    if (((Event) task).getStartTime().toLocalDate().isEqual(dateTime.toLocalDate()) ||
+                            ((Event) task).getEndTime().toLocalDate().isEqual(dateTime.toLocalDate())) {
+                        tasksOnDate.add(task);
+                    }
+                }
+            }
+            if (tasksOnDate.isEmpty()) {
+                Saopig.speakWithHorizontalLines("\n" +
+                        "Oh dear, it looks like there are no tasks on " + date + "!\n " +
+                        "But that's alright.\n " +
+                        "It gives us a chance to start fresh and dream up some new plans.\n " +
+                        "Whenever you're ready to add tasks, I'll be right here to assist you.\n " +
+                        "Let's make it a magical journey together!");
+                return;
+            }
+            Saopig.speakWithHorizontalLines("\n" +
+                    "Oh, splendid! Here are the tasks on " + date + ":");
+            for (int i = 0; i < tasksOnDate.size(); i++) {
+                Task task = tasksOnDate.get(i);
+                Saopig.speak((i + 1) + ". " + task.toString());
+            }
+            Saopig.speak("____________________________________________________________");
+        } catch (SaopigInvaildSizeException e) {
+            Saopig.speakWithHorizontalLines(e.getMessage() +
+                    "\n" +
+                    "Oopses daisy!\n " +
+                    "It seems like you might have forgotten to give an argument for the listtaskondate command.\n " +
+                    "Don't worry, it happens to most of us.\n " +
+                    "Just add the date for the task you'd like to list, and you'll be all set.\n " +
+                    "Please try again, or type 'bye' to exit.");
+        } catch (DateTimeParseException e) {
+            Saopig.speakWithHorizontalLines("\n" +
+                    "Oopses daisy!\n " +
+                    "It seems like you might have given an invalid date time format.\n " +
+                    "Please use the format: yyyy-MM-dd");
+        }
     }
 }
