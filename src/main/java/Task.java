@@ -7,12 +7,21 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
     public boolean isDone() {
         return isDone;
+    }
+
+    public String createSaveData() {
+        return String.format("T | %d | %s\n", ((this.isDone) ? 1 : 0), this.description);
     }
 
     @Override
