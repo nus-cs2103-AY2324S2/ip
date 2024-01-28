@@ -1,13 +1,27 @@
+import task.Deadlines;
+import task.Events;
+import task.Task;
+import task.ToDos;
+
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 public class TaskList {
     ArrayList<Task> taskList = new ArrayList<>();
 
+
     public void markAsDone(int idx) throws IndexOutOfBoundsException {
         Task t = this.taskList.get(idx);
         t.markAsDone();
 
+    }
+
+    public void markLastAsDone() {
+        if (this.taskList.isEmpty()) {
+            return;
+        }
+        Task t = this.taskList.get(this.taskList.size() - 1);
+        t.markAsDone();
     }
 
     public void markAsUndone(int idx) throws IndexOutOfBoundsException {
@@ -41,7 +55,6 @@ public class TaskList {
     }
 
 
-
     public void printTask(int idx) {
         System.out.printf("%s\n", this.taskList.get(idx).toString());
     }
@@ -52,6 +65,13 @@ public class TaskList {
         System.out.printf("Now you have %d tasks in the list\n", taskList.size());
 
 
+    }
+
+    public String saveTaskString() {
+        return String.join("\n", this.taskList
+                .stream()
+                .map(Task::saveTaskString)
+                .toArray(String[]::new));
     }
 
     @Override
@@ -65,7 +85,8 @@ public class TaskList {
         IntStream.iterate(1, x -> x + 1)
                 .limit(this.taskList.size())
                 .forEachOrdered(i -> {
-                    String s = String.format("%d. %s\n", i, this.taskList.get(i - 1));
+                    String s = String.format("%d. %s\n", i, this.taskList.get(i - 1))
+                            .stripTrailing();
                     sb.append(s);
                 });
         return sb.toString().stripTrailing();
