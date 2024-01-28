@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exceptions.InvalidTaskException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -61,18 +69,26 @@ public class TaskList {
     }
 
     protected void mark(Ui ui, Storage st, String[] args) {
-        Task t = tasks.get(Integer.parseInt(args[0]) - 1);
-        t.markAsDone();
-        st.save(this.tasks);
-        ui.echo("Nice! I've marked this task as done:\n"
-                + t);
+        try {
+            Task t = tasks.get(Integer.parseInt(args[0]) - 1);
+            t.markAsDone();
+            st.save(this.tasks);
+            ui.echo("Nice! I've marked this task as done:\n"
+                    + t);
+        } catch (IndexOutOfBoundsException ie) {
+            throw new IllegalArgumentException("Index number cannot be out of bounds.");
+        }
     }
 
     protected void unmark(Ui ui, Storage st, String[] args) {
-        Task t = tasks.get(Integer.parseInt(args[0]) - 1);
-        t.markUndone();
-        st.save(this.tasks);
-        ui.echo("OK, I've marked this task as not done yet:\n"
-                + t);
+        try {
+            Task t = tasks.get(Integer.parseInt(args[0]) - 1);
+            t.markUndone();
+            st.save(this.tasks);
+            ui.echo("OK, I've marked this task as not done yet:\n"
+                    + t);
+        } catch (IndexOutOfBoundsException ie) {
+            throw new IllegalArgumentException("Index number cannot be out of bounds.");
+        }
     }
 }

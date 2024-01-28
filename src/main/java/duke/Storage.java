@@ -1,3 +1,10 @@
+package duke;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    protected static String filePath = "./data/duke.txt";
+    protected String filePath = "./data/duke.txt";
     private FileWriter data;
 
     public Storage(String filePath) {
@@ -43,14 +50,14 @@ public class Storage {
             tl.forEach(t -> {
                 try {
                     if (t instanceof Todo) {
-                        this.data.write(String.format("T|%s|%s\n", t.taskName, t.isDone));
+                        this.data.write(String.format("T|%s|%s\n", t.getTaskName(), t.isDone()));
                     } else if (t instanceof Deadline) {
                         this.data.write(String.format("D|%s|%s|%s\n",
-                                t.taskName, t.isDone,
-                                ((Deadline) t).by.format(DateTimeFormatter.ISO_LOCAL_DATE))
+                                t.getTaskName(), t.isDone(),
+                                ((Deadline) t).getBy().format(DateTimeFormatter.ISO_LOCAL_DATE))
                         );
                     } else if (t instanceof Event) {
-                        this.data.write(String.format("E|%s|%s|%s|%s\n", t.taskName, t.isDone, ((Event) t).from, ((Event) t).to));
+                        this.data.write(String.format("E|%s|%s|%s|%s\n", t.getTaskName(), t.isDone(), ((Event) t).getFrom(), ((Event) t).getTo()));
                     }
                 } catch (IOException e) {
                     System.out.println(e.getMessage());

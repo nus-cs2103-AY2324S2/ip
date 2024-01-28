@@ -1,3 +1,9 @@
+package duke;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidCmdException;
+import duke.exceptions.InvalidTaskException;
+
 import java.io.IOException;
 
 public class Duke {
@@ -25,10 +31,10 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(this.tasks, this.ui, this.storage);
                 isExit = c.isExit();
-            } catch (InvalidCmdException ce) {
-                this.ui.echo(ce.getMessage());
-            } catch (InvalidTaskException te) {
-                this.ui.echo(te.getMessage());
+            } catch (DukeException de) {
+                System.out.println(de);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }
