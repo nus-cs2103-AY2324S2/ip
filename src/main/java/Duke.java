@@ -4,8 +4,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
-    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
-//    public static final String DBPATH = "data/duke.txt";
+//    public static final String DBPATH = "../data/duke.txt"; // uncommment for runtest.sh
+    public static final String DBPATH = "data/duke.txt";
 
     public static void main(String[] args) {
         String greeting = "____________________________________________________________\n" +
@@ -19,7 +19,8 @@ public class Duke {
 
         System.out.println(greeting);
 
-        TaskList myTasks = new TaskList();
+        TaskList myTasks = new TaskList(DBPATH);
+        myTasks.load();
 
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
         String line = scanner.nextLine(); // Get first input
@@ -130,6 +131,7 @@ public class Duke {
                     case "clear":
                         myTasks.clear();
                         System.out.println("Got it. I've cleared the database.");
+                        myTasks.load();
                         break;
                     default:
                         throw new DukeException.UnknownCommandException();
@@ -145,7 +147,7 @@ public class Duke {
 
             line = scanner.nextLine();
         }
-
+        myTasks.save();
 
         System.out.println(goodbye);
 

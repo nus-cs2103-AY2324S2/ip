@@ -3,8 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    private TaskListFileHandler database;
-    private String filepath = Duke.DBPATH;
+    private Storage database;
+    private String filepath;
+    private ArrayList<Task> taskList;
 
     // Todo representation - 0 means not done, 1 means done
     // T | done? | desc
@@ -15,41 +16,59 @@ public class TaskList {
     // Event representation
     // E | done? | desc | from | to
 
-    public TaskList() {
+    public TaskList(String filepath) {
 //        String projectRoot = System.getProperty("user.dir");
 //        this.filepath = projectRoot + "/data/duke.txt";
-        this.database = new TaskListFileHandler(filepath);
+        this.taskList = new ArrayList<>();
+        this.database = new Storage(filepath);
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.taskList = tasks;
+    }
+
+    /**
+     * Loads tasks from database into taskList
+     */
+    public void load() {
+        List<String> stringTasksList;
+        stringTasksList = this.database.readLinesFromFile();
+
+        for (String s : stringTasksList) {
+            this.taskList.add(db2Task(s));
+        }
+    }
+
+    public void save() {
+        List<String> lines = new ArrayList<>();
+        for (Task t : taskList) {
+            String stringTask = task2Db(t);
+            lines.add(stringTask);
+        }
+        this.database.writeLinesToFile(lines);
     }
 
     // Add a task to the task list
     public void addTask(Task task) {
         // Based on task type, extract traits
-        String dbTask = TaskList.task2Db(task);
-        try {
-            this.database.appendToFile(dbTask);
-        } catch (IOException e) {
-            System.out.println("Failed to add task: " + e.getMessage());
-        }
+        taskList.add(task);
     }
 
     // Get a task from the task list, given its line number index
     public Task getTask(int index) {
-        try {
-            String line = this.database.readLineFromFile(index);
-            return TaskList.db2Task(line);
-        } catch (IOException e) {
-            System.out.println("Failed to get task: " + e.getMessage());
+        // Check if the index is within the valid range
+        if (index >= 1 && index <= taskList.size()) {
+            return taskList.get(index - 1);
+        } else {
+            // Handle the case when the index is out of bounds
+            System.out.println("Invalid index. Please provide a valid index.");
+            return null;  // or throw an exception or handle it as needed
         }
-        return null;
     }
 
     // Delete a task from the task list, given its index
     public void deleteTask(int index) {
-        try {
-            this.database.deleteLineFromFile(index);
-        } catch (IOException e) {
-            System.out.println("Failed to delete task: " + e.getMessage());
-        }
+        taskList.remove(index - 1);
     }
 
     /**
@@ -58,15 +77,8 @@ public class TaskList {
      * @param index
      */
     public void markTask(int index) {
-        try {
-            String line = this.database.readLineFromFile(index);
-            Task t = TaskList.db2Task(line);
-            t.markAsDone();
-            String newDbTask = TaskList.task2Db(t);
-            this.database.writeLineToFile(index, newDbTask);
-        } catch (IOException e) {
-            System.out.println("Failed to mark task as complete: " + e.getMessage());
-        }
+        Task t =  this.getTask(index);
+        t.markAsDone();
     }
 
     /**
@@ -75,40 +87,21 @@ public class TaskList {
      * @param index
      */
     public void unmarkTask(int index) {
-        try {
-            String line = this.database.readLineFromFile(index);
-            Task t = TaskList.db2Task(line);
-            t.unmarkAsDone();
-            String newDbTask = TaskList.task2Db(t);
-            this.database.writeLineToFile(index, newDbTask);
-        } catch (IOException e) {
-            System.out.println("Failed to unmark task as completed: " + e.getMessage());
-        }
+        Task t =  this.getTask(index);
+        t.unmarkAsDone();
     }
 
     /**
      * Prints out the contents of the tasklist
      */
     public void printTasks() {
-        try {
-            List<String> tasks = this.database.readLinesFromFile();
-            for (int i = 0; i < tasks.size(); i++) {
-                String line = tasks.get(i);
-                Task t = db2Task(line);
-                System.out.println((i + 1) + ". " + t);
-            }
-        } catch (IOException e) {
-            System.out.println("Failed to print tasklist: " + e.getMessage());
+        for (int i = 0; i < this.taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + this.taskList.get(i));
         }
     }
 
     public int size() {
-        try {
-            return this.database.readLinesFromFile().size();
-        } catch (IOException e) {
-            System.out.println("Failed to get size: " + e.getMessage());
-        }
-        return 0;
+        return this.taskList.size();
     }
 
     /**
@@ -116,6 +109,7 @@ public class TaskList {
      */
     public void clear() {
         this.database.clearFile();
+        this.taskList.clear();
     }
 
     /**
@@ -138,6 +132,7 @@ public class TaskList {
                 Event eventTask = Event.db2Event(dbTask);
                 return eventTask;
             default:
+                System.out.println("Failed to convert string to task!");
                 return null;
         }
     }
@@ -160,16 +155,20 @@ public class TaskList {
             Event eventTask = (Event) task;
             return Event.event2Db(eventTask);
         } else {
+            System.out.println("Failed to add task: " + task);
             return null;
         }
     }
 
-
     public static void main(String[] args) {
-        TaskList testTaskList = new TaskList();
+        TaskList testTaskList = new TaskList(Duke.DBPATH);
         testTaskList.database.clearFile();
 
         // printTaskStatus
+        testTaskList.addTask(new Todo("Buy Bread"));
+        testTaskList.addTask(new Deadline("Return Bread", "today"));
+        testTaskList.addTask(new Event("project meeting", "Mon 4pm", "6pm"));
+        testTaskList.addTask(new Event("project meeting 2", "Tues 10pm", "6pm"));
         System.out.println("Current Task list: ");
         testTaskList.printTasks();
         System.out.println();
