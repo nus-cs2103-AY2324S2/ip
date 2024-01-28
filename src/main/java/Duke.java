@@ -82,6 +82,25 @@ public class Duke {
         breakLine();
     }
 
+    static void delete(String input) throws DukeException {
+        breakLine();
+        String taskNumber = input.replaceAll("delete", "").replaceAll(" ","");
+        if (taskNumber.length() < 1) {
+            throw new DukeException("which task?");
+        }
+        try {
+            int task = Integer.parseInt(taskNumber);
+            Task removedTask = tasks.get(task-1);
+            tasks.remove(task -1);
+            int numItems = tasks.size();
+            String sOrP = numItems == 1 ? "task" : "tasks";
+            System.out.println("Noted. I've removed this task:\n" + removedTask.toString() + "Now you have " + numItems + " " + sOrP + " in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("invalid task number... count properly xx");
+        }
+        breakLine();
+    }
+
     public static void main(String[] args) {
         greet();
         while (true) {
@@ -124,6 +143,13 @@ public class Duke {
                 } catch (IndexOutOfBoundsException b) {
                     breakLine();
                     System.out.println("Invalid task number... count properly xx");
+                    breakLine();
+                }
+            } else if (input.startsWith("delete")) {
+                try {
+                    delete(input);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
                     breakLine();
                 }
             } else {
