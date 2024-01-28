@@ -13,50 +13,65 @@ public class Operator {
 
     // Entry point of the bot
     public void goLive() {
-        // String userInput = scanner.nextLine();
         while (true) {
             String userInput = scanner.nextLine();
             String[] userInputArr = userInput.split(" ");
             String command = userInputArr[0];
 
-            if (command.equals("bye")) {
-                botExitMsg();
-                break;
-            } else if (command.equals("list")) {
-                botListAllTasks();
-            } else if (command.equals("help")) {
-                botHelpMsg();
-            } else if (command.equals("mark")) {
-                int index = Integer.parseInt(userInputArr[1]);
-                botMarkTask(userInputArr, index);
-            } else if (command.equals("unmark")) {
-                int index = Integer.parseInt(userInputArr[1]);
-                botUnmarkTask(userInputArr, index);
-            } else if (command.equals("todo")) {
-                String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
-                taskList.addTodo(userTask);
-                botAddTaskMsg();
-            } else if (command.equals("deadline")) {
-                String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
-                        .split("/by", 2)[0].trim();
-                String dueDate = String.join(" ", Arrays.copyOfRange(userInputArr,
-                        Arrays.asList(userInputArr).indexOf("/by") + 1, userInputArr.length));
-                taskList.addDeadline(userTask, dueDate);
-                botAddTaskMsg();
-            } else if (command.equals("event")) {
-                String userTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
-                        .split("/from", 2)[0].trim();
-                int fromIndex = Arrays.asList(userInputArr).indexOf("/from") + 1;
-                int toIndex = Arrays.asList(userInputArr).indexOf("/to");
-                String startTime = String.join(" ", Arrays.copyOfRange(userInputArr, fromIndex, toIndex));
-                String endTime = String.join(" ", Arrays.copyOfRange(userInputArr, toIndex + 1, userInputArr.length));
-                taskList.addEvent(userTask, startTime, endTime);
-                botAddTaskMsg();
-            } else {
-                System.out.println(TerminalUI.wrapWithSepLine(
-                        "Eh, invalid command. I get what you're saying but I'm not gonna do it. Try again?"));
+            switch (command) {
+                case "bye":
+                    botExitMsg();
+                    return;
+                case "list":
+                    botListAllTasks();
+                    break;
+                case "help":
+                    botHelpMsg();
+                    break;
+                case "mark":
+                    int markIndex = Integer.parseInt(userInputArr[1]);
+                    botMarkTask(userInputArr, markIndex);
+                    break;
+                case "unmark":
+                    int unmarkIndex = Integer.parseInt(userInputArr[1]);
+                    botUnmarkTask(userInputArr, unmarkIndex);
+                    break;
+                case "todo":
+                    String todoTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
+                    taskList.addTodo(todoTask);
+                    botAddTaskMsg();
+                    break;
+                case "deadline":
+                    handleDeadlineCommand(userInputArr);
+                    break;
+                case "event":
+                    handleEventCommand(userInputArr);
+                    break;
+                default:
+                    System.out.println(TerminalUI.wrapWithSepLine(
+                            "Eh, invalid command. I get what you're saying but I'm not gonna do it. Try again?"));
             }
         }
+    }
+
+    private void handleDeadlineCommand(String[] userInputArr) {
+        String deadlineTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
+                .split("/by", 2)[0].trim();
+        String dueDate = String.join(" ", Arrays.copyOfRange(userInputArr,
+                Arrays.asList(userInputArr).indexOf("/by") + 1, userInputArr.length));
+        taskList.addDeadline(deadlineTask, dueDate);
+        botAddTaskMsg();
+    }
+
+    private void handleEventCommand(String[] userInputArr) {
+        String eventTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
+                .split("/from", 2)[0].trim();
+        int fromIndex = Arrays.asList(userInputArr).indexOf("/from") + 1;
+        int toIndex = Arrays.asList(userInputArr).indexOf("/to");
+        String startTime = String.join(" ", Arrays.copyOfRange(userInputArr, fromIndex, toIndex));
+        String endTime = String.join(" ", Arrays.copyOfRange(userInputArr, toIndex + 1, userInputArr.length));
+        taskList.addEvent(eventTask, startTime, endTime);
+        botAddTaskMsg();
     }
 
     private void botTaskCountMsg() {
