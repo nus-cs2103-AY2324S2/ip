@@ -31,8 +31,18 @@ Yer task has been added:
 Now you have 3 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
-Yer task has been added: 
-  D][ ] do homework (by: no idea :-p)
-Now you have 4 task(s) in the list.
+The description of a todo cannot be empty.
 ____________________________________________________________
-
+____________________________________________________________
+Please enter a valid command.
+____________________________________________________________
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from Mon 2pm to 4pm)
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task: 
+  [E][ ] project meeting (from Mon 2pm to 4pm)
+Now you have 2 task(s) in the list.
+____________________________________________________________

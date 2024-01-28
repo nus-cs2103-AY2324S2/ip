@@ -7,6 +7,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     *
+     * @param description
+     * @throws ArrayIndexOutOfBoundsException
+     */
     public static void addTask(String description) throws ArrayIndexOutOfBoundsException {
         String[] tokens = description.split("/");
         String[] tokens2 = tokens[0].split(" ");
