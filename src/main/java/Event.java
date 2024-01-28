@@ -1,14 +1,20 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
     private static final String EVENT_MESSAGE = "[E]%s (from: %s to: %s)";
     private static final String EVENT_FILE_TEMPLATE = "E | %s | %s | %s";
-    private final String startTime;
-    private final String endTime;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
+    private final DateTimeFormatter returnFormatter = DateTimeFormatter.ofPattern("EEE HHmm dd/MM/yyyy");
+
 
     public Event(String description, String startTime, String endTime) {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        DateTimeFormatter acceptFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+        this.startTime = LocalDateTime.parse(startTime, acceptFormatter);
+        this.endTime = LocalDateTime.parse(endTime, acceptFormatter);
     }
 
     public String taskFileTemplate() {
@@ -17,7 +23,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format(EVENT_MESSAGE, super.toString(), startTime, endTime);
+        return String.format(EVENT_MESSAGE, super.toString(), startTime.format(returnFormatter), endTime.format(returnFormatter));
     }
 
 }

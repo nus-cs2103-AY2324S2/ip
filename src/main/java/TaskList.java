@@ -107,15 +107,18 @@ public class TaskList {
                     taskTokens[j] = taskTokens[j].trim();
                 }
                 String command = taskTokens[0];
-                String status = taskTokens[1];
-                String description = taskTokens[2];
 
-                if (command.equals("T")) {
-                    syncListWithStorage("T", status, description, "", "", "");
-                } else if (command.equals("D")) {
-                    syncListWithStorage("D", status, description, taskTokens[3], "", "");
-                } else {
-                    syncListWithStorage("E", status, description, "", taskTokens[3], taskTokens[4]);
+                if (!command.isEmpty()) {
+                    String status = taskTokens[1];
+                    String description = taskTokens[2];
+
+                    if (command.equals("T")) {
+                        syncListWithStorage("T", status, description, "", "", "");
+                    } else if (command.equals("D")) {
+                        syncListWithStorage("D", status, description, taskTokens[3], "", "");
+                    } else {
+                        syncListWithStorage("E", status, description, "", taskTokens[3], taskTokens[4]);
+                    }
                 }
 
             }
