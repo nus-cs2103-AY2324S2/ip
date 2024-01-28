@@ -39,6 +39,19 @@ public class Task {
     }
 
     /**
+     * Checks if this is a matching task.
+     *
+     * @param keyword String used to find matching tasks.
+     * @return True if this task contains keyword.
+     */
+    public boolean checkKeyword(String keyword) {
+        if (task.contains(keyword)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Returns string representation of task.
      * Indicates if the task is completed.
      *
