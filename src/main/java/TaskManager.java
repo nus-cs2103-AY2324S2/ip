@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class TaskManager {
     /** ArrayList<Task> to store all the Tasks the user has created. */
-    private ArrayList<Task> TASKS = new ArrayList<>();
+    private ArrayList<Task> Tasks = new ArrayList<>();
 
     /**
      * Constructor for TaskManager
@@ -25,7 +25,7 @@ public class TaskManager {
      */
     public void loadLocal() {
         try {
-            this.TASKS = TaskFileManager.loadTasksFromFile();
+            this.Tasks = TaskFileManager.loadTasksFromFile();
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         } catch (IOException e) {
@@ -34,11 +34,11 @@ public class TaskManager {
     }
 
     /**
-     * Saves the data in the TASKS ArrayList onto a local file.
+     * Saves the data in the Tasks ArrayList onto a local file.
      */
     public void saveLocal() {
         try {
-            TaskFileManager.saveTasksToFile(TASKS);
+            TaskFileManager.saveTasksToFile(this.Tasks);
         } catch (IOException e) {
             System.out.println("Error while accessing the file: " + e.getMessage());
         }
@@ -80,13 +80,11 @@ public class TaskManager {
                 String endTime = timeParts[1];
                 t = new Event(eName, startTime, endTime);
                 break;
-            default:
-                break;
         }
         if (t != null) {
-            TASKS.add(t);
+            this.Tasks.add(t);
             String response = "Got it. I've added this task:\n" + t + "\n" +
-                    "Now you have " + TASKS.size() + " tasks in the list.";
+                    "Now you have " + this.Tasks.size() + " tasks in the list.";
             System.out.println(response);
         }
         saveLocal();
@@ -96,13 +94,13 @@ public class TaskManager {
      * Prints the Task List, labels them with numbers
      */
     protected void listTasks() {
-        if (TASKS.size() == 0) {
+        if (this.Tasks.size() == 0) {
             System.out.println("There are no tasks here. Please add a task!");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < TASKS.size(); i++) {
+            for (int i = 0; i < this.Tasks.size(); i++) {
                 System.out.print((i + 1) + ".");
-                System.out.println(TASKS.get(i));
+                System.out.println(this.Tasks.get(i));
             }
         }
     }
@@ -110,13 +108,13 @@ public class TaskManager {
     /**
      * Marks a Task as completed.
      * 
-     * @param index Index of Task to be marked in the TASKS ArrayList.
+     * @param index Index of Task to be marked in the Tasks ArrayList.
      */
     protected void markTask(int index) throws KException {
-        if (index + 1 > TASKS.size() || index < 0) {
+        if (index + 1 > this.Tasks.size() || index < 0) {
             throw new KException("Error: " + "Index out of range!");
         }
-        Task t = TASKS.get(index);
+        Task t = this.Tasks.get(index);
         t.setCompleted();
         System.out.println("Nice! I've marked this task as done:\n" + t);
         saveLocal();
@@ -125,13 +123,13 @@ public class TaskManager {
     /**
      * Marks Task as not completed.
      * 
-     * @param index Index of Task to be marked in the TASKS ArrayList.
+     * @param index Index of Task to be marked in the Tasks ArrayList.
      */
     protected void unmarkTask(int index) throws KException {
-        if (index + 1 > TASKS.size() || index < 0) {
+        if (index + 1 > this.Tasks.size() || index < 0) {
             throw new KException("Error: " + "Index out of range!");
         }
-        Task t = TASKS.get(index);
+        Task t = this.Tasks.get(index);
         t.setNotCompleted();
         System.out.println("OK, I've marked this task as not done yet:\n" + t);
         saveLocal();
@@ -144,12 +142,12 @@ public class TaskManager {
      * @throws KException Exception called when index is out of range.
      */
     protected void delete(int index) throws KException {
-        if (index + 1 > TASKS.size() || index < 0) {
+        if (index + 1 > this.Tasks.size() || index < 0) {
             throw new KException("Error: " + "Index out of range!");
         }
-        Task t = TASKS.remove(index);
+        Task t = this.Tasks.remove(index);
         System.out.println("OK, I've deleted this task:\n" + t
-                + "\nNow you have " + TASKS.size() + " tasks in this list!");
+                + "\nNow you have " + this.Tasks.size() + " tasks in this list!");
         saveLocal();
     }
 }
