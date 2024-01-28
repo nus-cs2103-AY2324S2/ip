@@ -27,7 +27,7 @@ public class Jimmy {
         list[counter] = newTask;
         counter++;
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + newTask.toString());
+        System.out.println(newTask.toString());
         System.out.println(this.generateListCounter());
     }
 

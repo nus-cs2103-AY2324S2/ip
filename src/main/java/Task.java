@@ -9,13 +9,13 @@ abstract public class Task {
     public void markAsComplete() {
         this.isCompleted = true;
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + this.toString());
+        System.out.println(this.toString());
     }
 
     public void markAsIncomplete() {
         this.isCompleted = false;
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + this.toString());
+        System.out.println(this.toString());
     }
 
     public String getStatus() {
