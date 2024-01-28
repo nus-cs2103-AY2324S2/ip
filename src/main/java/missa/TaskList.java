@@ -55,6 +55,25 @@ public class TaskList {
     }
 
     /*
+     * Returns matching items in task list.
+     *
+     * @param keyword String used to search for tasks.
+     * @return A string containing matching tasks added by user.
+     */
+    public String findTasks(String keyword) {
+        String str = "";
+        int count = 1;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            if (t.checkKeyword(keyword)) {
+                str += count + ". " + t + "\n";
+                count++;
+            }
+        }
+        return str;
+    }
+
+    /*
      * Marks task as done.
      *
      * @param idx Index of task to be marked as done.

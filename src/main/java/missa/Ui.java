@@ -114,7 +114,7 @@ public class Ui {
     }
 
     /**
-     * Replies to list missa.command.
+     * Replies to list commands.
      *
      * @param tasks String representation of tasks in taskList.
      * @return String representation of tasks.
@@ -122,6 +122,19 @@ public class Ui {
     public String loadingTaskList(String tasks) {
         return emptyLine
                 + "Here are your tasks:\n"
+                + tasks
+                + emptyLine;
+    }
+
+    /**
+     * Replies to find commands.
+     *
+     * @param tasks String representation of matching tasks in taskList.
+     * @return String representation of matching tasks.
+     */
+    public String replyFindCommand(String tasks) {
+        return emptyLine
+                + "Yes! Here are the matching tasks in your list:\n"
                 + tasks
                 + emptyLine;
     }

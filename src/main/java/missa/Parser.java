@@ -29,13 +29,13 @@ public class Parser {
     public Command parse(String input, TaskList tasks) throws
             NoSuchTaskException, NoContentException,
             NoTimingException, IncorrectTaskTypeException {
-        if (input.equals("bye")) { // Bye missa.command.
+        if (input.equals("bye")) { // Bye command.
             return new ByeCommand(tasks);
         }
         if (input.equals("list")) { // List missa.command.
             return new ListCommand(tasks);
         }
-        if (input.startsWith("mark")) { // Mark missa.command.
+        if (input.startsWith("mark")) { // Mark command.
             String[] inputs = input.split(" ");
             if (inputs.length < 2) {
                 throw new NoSuchTaskException();
@@ -46,7 +46,7 @@ public class Parser {
             }
             return new MarkCommand(tasks, idx - 1);
         }
-        if (input.startsWith("unmark")) { // Unmark missa.command.
+        if (input.startsWith("unmark")) { // Unmark command.
             String[] inputs = input.split(" ");
             if (inputs.length < 2) {
                 throw new NoSuchTaskException();
@@ -57,7 +57,14 @@ public class Parser {
             }
             return new UnmarkCommand(tasks, idx - 1);
         }
-        if (input.startsWith("delete")) { // Delete missa.command.
+        if (input.startsWith("find")) { // Find command.
+            String[] inputs = input.split(" ", 2);
+            if (inputs.length < 2) {
+                throw new NoSuchTaskException();
+            }
+            return new FindCommand(inputs[1], tasks);
+        }
+        if (input.startsWith("delete")) { // Delete command.
             String[] inputs = input.split(" ");
             if (inputs.length < 2) {
                 throw new NoSuchTaskException();
