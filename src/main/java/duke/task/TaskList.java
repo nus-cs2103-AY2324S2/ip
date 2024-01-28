@@ -5,18 +5,34 @@ import java.util.ArrayList;
 import duke.DukeException;
 import duke.Storage;
 
+/**
+ * Represents the management of the task list. 
+ */
 public class TaskList {
+    /**
+     * Tracks the list of task inputteed by the user. 
+     */
     public ArrayList<Task> instrList = new ArrayList<>();
 
-
+    /**
+     * Constructor that creates an instance of task list. 
+     * 
+     * @param arr The current instruction list. 
+     */
     public TaskList(ArrayList<Task> arr) {
         this.instrList = arr; 
     }
 
+    /**
+     * Enums for tasks. 
+     */
     public enum TaskCommand {
         TODO, DEADLINE, EVENT
     }
 
+    /**
+     * Prints out the tasks in the instruction list. 
+     */
     public void listOut() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.instrList.size() ; i++) {
@@ -24,6 +40,16 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Adds tasks to the list based of what tasks they are. 
+     * 
+     * @param cmd Represents the type of the task.
+     * @param instr The string with the task information. 
+     * @param thisStorage Local file access management. 
+     * 
+     * @throws DukeException When there is inappropriate input. 
+     */
     public void addTask(TaskCommand cmd, String instr, Storage thisStorage) throws DukeException {
         switch (cmd) {
         case TODO: 
@@ -76,6 +102,13 @@ public class TaskList {
         System.out.println("Now you have " + this.instrList.size() + " tasks in the list."); 
     }
 
+    /**
+     * Marks the task off the list if the user commands it to. 
+     * 
+     * @param instr The string with the task information. 
+     * @param thisStorage Local file access management. 
+     * @throws DukeException When there is inappropriate input. 
+     */
     public void mark(String instr, Storage thisStorage) throws DukeException {
         try {
             int instrNum = Integer.valueOf(instr.split(" ")[1]) - 1;
@@ -89,6 +122,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmark a task if the user commands it to. 
+     * 
+     * @param instr The string with the task information. 
+     * @param thidStorage Local file access management. 
+     * @throws DukeException When there is inappropriate input. 
+     */
     public void unmark(String instr, Storage thisStorage) throws DukeException {
         try {
             int instrNum = Integer.valueOf(instr.split(" ")[1]) - 1;
@@ -102,6 +142,13 @@ public class TaskList {
         }
     } 
 
+    /**
+     * Deletes a task if the user commands it to. 
+     * 
+     * @param instr The string with the task information. 
+     * @param thisStorage Local file access management. 
+     * @throws DukeException When there is inappropriate input. 
+     */
     public void delete(String instr, Storage thisStorage) throws DukeException { 
         try {
             int ptr = Integer.valueOf(instr.split(" ")[1]) - 1; 
