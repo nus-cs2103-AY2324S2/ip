@@ -1,3 +1,7 @@
+package duke;
+
+import duke.exceptions.InvalidCmdException;
+
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -15,10 +19,10 @@ public class Parser {
     protected static Command parse(String cmd) throws InvalidCmdException {
         String[] token = cmd.split(" ");
         if (!Parser.CMD_LIST.containsKey(token[0])) {
-            throw new InvalidCmdException("Invalid Command, please try again.");
+            throw new InvalidCmdException("Invalid duke.Command, please try again.");
         }
         if (token.length < Parser.CMD_LIST.get(token[0])) {
-            throw new InvalidCmdException("Command " + token[0] + " is missing arguments, please try again.");
+            throw new InvalidCmdException("duke.Command " + token[0] + " is missing arguments, please try again.");
         }
         String actualCmd = token[0];
         token = cmd.split(actualCmd + " | \\/from | \\/by | \\/to ");

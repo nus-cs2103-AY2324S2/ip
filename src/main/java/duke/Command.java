@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exceptions.InvalidCmdException;
+import duke.exceptions.InvalidTaskException;
+
 public class Command {
     private String command;
     private String[] arguments;

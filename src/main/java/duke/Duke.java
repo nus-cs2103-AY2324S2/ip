@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exceptions.InvalidCmdException;
+import duke.exceptions.InvalidTaskException;
+
 import java.io.IOException;
 
 public class Duke {

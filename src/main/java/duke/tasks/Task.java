@@ -1,4 +1,6 @@
-class Task {
+package duke.tasks;
+
+public class Task {
     protected String taskName;
     protected boolean isDone;
 
@@ -24,5 +26,13 @@ class Task {
 
     public void markUndone() {
         this.isDone = false;
+    }
+
+    public String getTaskName() {
+        return this.taskName;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
     }
 }

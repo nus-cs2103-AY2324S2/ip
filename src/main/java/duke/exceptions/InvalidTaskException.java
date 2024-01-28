@@ -1,5 +1,7 @@
-public class InvalidCmdException extends Exception {
-    public InvalidCmdException(String msg) {
+package duke.exceptions;
+
+public class InvalidTaskException extends Exception {
+    public InvalidTaskException(String msg) {
         super(msg);
     }
 
