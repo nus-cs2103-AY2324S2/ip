@@ -1,6 +1,6 @@
-package Task;
+package task;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,7 +25,6 @@ public class Event extends Task {
      */
     public Event(String name) throws NicoleException {
         super();
-        System.out.println(name);
         if (name.contains("null")) {
             throw new NicoleException("Describe your event like this: " +
                                       "event [name] from YYYY-MM-DD at HH-MM-SS to YYYY-MM-DD at HH-MM-SS");
@@ -36,24 +35,27 @@ public class Event extends Task {
 
     private void parseDateTime(String name) throws NicoleException {
         String[] whiteSpaceSeparatedDate = name.split(" ");
-        System.out.println(Arrays.toString(whiteSpaceSeparatedDate));
+
         try {
             for (int i = 0; i < whiteSpaceSeparatedDate.length; i++) {
-                if (whiteSpaceSeparatedDate[i].matches("\\d{4}-\\d{2}-\\d{2}") && i < whiteSpaceSeparatedDate.length - 4) {
+                if (whiteSpaceSeparatedDate[i].matches("\\d{4}-\\d{2}-\\d{2}")
+                    && i < whiteSpaceSeparatedDate.length - 4) {
                     this.deadlineFromDateTimeLocalDate = LocalDateTime.parse(whiteSpaceSeparatedDate[i]
                             + "T" + whiteSpaceSeparatedDate[i + 2]);
-                } else if (whiteSpaceSeparatedDate[i].matches("\\d{4}-\\d{2}-\\d{2}") && i > whiteSpaceSeparatedDate.length - 4) {
+                } else if (whiteSpaceSeparatedDate[i].matches("\\d{4}-\\d{2}-\\d{2}")
+                           && i > whiteSpaceSeparatedDate.length - 4) {
                     this.deadlineToDateTimeLocalDate = LocalDateTime.parse(whiteSpaceSeparatedDate[i]
                             + "T" + whiteSpaceSeparatedDate[i + 2]);
                 }
             }
         } catch (DateTimeParseException e) {
-            System.out.println(e);
-            throw new NicoleException("Are you sure your date and time are in the proper [YYYY-MM-DD], [HH-MM-SS] format...?");
+            throw new NicoleException("Are you sure your date and time are in the proper " +
+                    "[YYYY-MM-DD], [HH-MM-SS] format...?");
         }
         if (this.deadlineFromDateTimeLocalDate.isAfter(this.deadlineToDateTimeLocalDate)) {
             throw new NicoleException("Erm, the 'to' datetime can't be before 'from' right...");
         }
+
         this.deadlineFromDateReformattedString = ""
                 + this.deadlineFromDateTimeLocalDate.getDayOfMonth() + " "
                 + this.deadlineFromDateTimeLocalDate.getMonth().toString() + " "

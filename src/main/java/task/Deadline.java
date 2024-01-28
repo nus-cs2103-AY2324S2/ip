@@ -1,8 +1,7 @@
-package Task;
+package task;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -18,7 +17,6 @@ public class Deadline extends Task {
      */
     public Deadline(String name) throws NicoleException {
         super();
-        System.out.println(name);
         if (name.contains("null")) {
             throw new NicoleException("Describe your deadline like this: deadline [task] by YYYY-MM-DD");
         }
@@ -28,6 +26,7 @@ public class Deadline extends Task {
     private void parseDate(String name) throws NicoleException {
         String[] whiteSpaceSeparatedDate = name.split(" ");
         String date = whiteSpaceSeparatedDate[whiteSpaceSeparatedDate.length - 1];
+
         try {
             this.deadlineDateLocalDate = LocalDate.parse(date);
         } catch (DateTimeParseException e) {
@@ -36,6 +35,7 @@ public class Deadline extends Task {
         if (LocalDate.now().isAfter(this.deadlineDateLocalDate)) {
             throw new NicoleException("Erm, the deadline can't be before now right...");
         }
+
         this.deadlineDateReformattedString = ""
                 + this.deadlineDateLocalDate.getDayOfMonth() + " "
                 + this.deadlineDateLocalDate.getMonth().toString() + " "

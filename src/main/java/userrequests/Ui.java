@@ -1,6 +1,6 @@
-package UserRequests;
+package userrequests;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,7 +33,9 @@ public class Ui {
             }
             request = br.readLine();
         }
+        System.out.println(this.exit());
     }
+
     private String greet() {
         DateTimeFormatter digitalTime = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter parseHour = DateTimeFormatter.ofPattern("HH");
@@ -47,10 +49,12 @@ public class Ui {
         } else {
             salutation += "evening! Let's wrap it up soon? :P";
         }
-        return "Welcome to Nicole Mark II. New conversation at " + digitalTime.format(now) + "\n" +
-                "----------------------------- x ------------------------------" + "\n" +
-                "Nicole: " + salutation;
+        return "Welcome to Nicole Mark II. New conversation at "
+                + digitalTime.format(now) + "\n"
+                + "----------------------------- x ------------------------------"
+                + "\n" + "Nicole: " + salutation;
     }
+
     private String exit() {
         return "Bye, for now ;) Let's catch up again soon.";
     }

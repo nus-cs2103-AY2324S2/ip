@@ -1,8 +1,8 @@
-package TaskStorage;
+package taskstorage;
 
-import Task.Task;
+import task.Task;
 
-import NicoleExceptions.NicoleException;
+import nicoleexceptions.NicoleException;
 
 import java.io.*;
 
@@ -20,11 +20,13 @@ public class Storage {
     public Storage() throws NicoleException {
         new File("./data").mkdirs();
         this.tasksFile = new File("./data/tasks.txt");
+
         try {
             this.taskFileWriter = new FileWriter("./data/tasks.txt");
         } catch (IOException e) {
             throw new NicoleException("Sorry sorry I couldn't create a file to save your tasks...");
         }
+
         this.loadTasksFromFile();
     }
 
@@ -33,7 +35,7 @@ public class Storage {
      *
      * @throws NicoleException if there are write issues to tasks.txt
      */
-    public void saveTasksToFile() throws NicoleException {
+    protected void saveTasksToFile() throws NicoleException {
         try {
             for (int i = 0; i < TaskList.taskList.size(); i++) {
                 this.taskFileWriter.write(TaskList.taskList.get(i) + "\n");
@@ -49,7 +51,7 @@ public class Storage {
      *
      * @throws NicoleException if there are read issues from tasks.txt
      */
-    public void loadTasksFromFile() throws NicoleException {
+    protected void loadTasksFromFile() throws NicoleException {
         File tasksFile = new File("./data/tasks.txt");
         try {
             int numTasksInFile = 0;
@@ -57,8 +59,8 @@ public class Storage {
             while (reader.readLine() != null) {
                 numTasksInFile++;
             }
+
             Scanner userTaskFileReader = new Scanner(tasksFile);
-            int i = 1;
             while (userTaskFileReader.hasNextLine()) {
                 String task = userTaskFileReader.nextLine();
                 if (TaskList.taskList.size() < numTasksInFile) {
@@ -71,7 +73,6 @@ public class Storage {
                     }
                     TaskList.taskList.add(recreatedTask);
                 }
-                i++;
             }
         } catch (FileNotFoundException e) {
             System.out.println("Nicole: I have no past data with you, let's start something ;)");
