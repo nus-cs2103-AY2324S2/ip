@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,19 +17,23 @@ class DukeException extends Exception {
 }
 
 enum TaskType {
-    T, D, E;
+    T, D, E
 }
 class Task {
     protected String description;
     protected TaskType type;
     protected boolean isDone;
+    protected String statusIcon;
 
     public Task(TaskType type, String description) {
         this.type = type;
         this.description = description;
         this.isDone = false;
+        updateStatusIcon();
     }
-
+    private void updateStatusIcon() {
+        this.statusIcon = (isDone ? "X" : " ");
+    }
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -161,15 +169,33 @@ class Event extends Task {
 }
 
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
+
     public static void main(String[] args) {
-        ArrayList < Task > tasks = new ArrayList < > ();
+        boolean hasChanged = false;
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner scan = new Scanner(System.in);
+
+        try {
+            loadTasks(tasks);
+        } catch (DukeException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
 
         System.out.println("-------------------------------");
         System.out.println("Hello! I'm Tango. \nWhat can I do for you today?");
         System.out.println("-------------------------------");
 
+
         while (true) {
+            if (hasChanged) {
+                try {
+                    saveTasks(tasks);
+                    hasChanged = false;
+                } catch (IOException e) {
+                    System.out.println("Error saving tasks: " + e.getMessage());
+                }
+            }
             String input = scan.nextLine().trim();
             String[] words = input.split("\\s+");
 
@@ -196,7 +222,9 @@ public class Duke {
                     Task task = tasks.get(index);
                     try {
                         System.out.println(task.markStatus());
-                    } catch (DukeException e) {
+                        saveTasks(tasks);
+                        hasChanged = true;
+                    } catch (DukeException | IOException e) {
                         System.out.println(e);
                     }
                 } else {
@@ -214,7 +242,9 @@ public class Duke {
                     Task task = tasks.get(index);
                     try {
                         System.out.println(task.unmarkStatus());
-                    } catch (DukeException e) {
+                        saveTasks(tasks);
+                        hasChanged = true;
+                    } catch (DukeException | IOException e) {
                         System.out.println(e);
                     }
                 } else {
@@ -229,15 +259,17 @@ public class Duke {
                 System.out.println("-------------------------------");
                 int index = Integer.parseInt(words[1]) - 1;
 
-                    try {
-                        Task.deleteTask(index, tasks);
-                        Task.numberOfTasks(tasks);
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    System.out.println("-------------------------------");
+                try {
+                    Task.deleteTask(index, tasks);
+                    Task.numberOfTasks(tasks);
+                    saveTasks(tasks);
+                    hasChanged = true;
+                } catch (DukeException | IOException e) {
+                    System.out.println(e.getMessage());
+                }
+                System.out.println("-------------------------------");
 
-        } else if (words[0].equalsIgnoreCase("todo")) {
+            } else if (words[0].equalsIgnoreCase("todo")) {
                 System.out.println("-------------------------------");
                 try {
                     if (words.length == 1) {
@@ -247,6 +279,7 @@ public class Duke {
                     tasks.add(task);
                     System.out.println(task.toString());
                     task.numberOfTasks(tasks);
+                    hasChanged = true;
                 } catch (DukeException e) {
                     System.out.println(e);
                 }
@@ -259,6 +292,7 @@ public class Duke {
                         tasks.add(task);
                         System.out.println(task);
                         task.numberOfTasks(tasks);
+                        hasChanged = true;
                     } else {
                         throw new DukeException("Deadline for what and by when? Please re-enter correctly");
                     }
@@ -272,12 +306,15 @@ public class Duke {
                     Matcher fromMatcher = Pattern.compile("/from\\s+(\\S+[^/]+)").matcher(input);
                     Matcher toMatcher = Pattern.compile("/to\\s+(\\S.+)").matcher(input);
                     String eventDescription = "";
+                    Matcher descriptionMatcher = Pattern.compile("event\\s+(.+?)\\s*/from").matcher(input);
 
                     if (words.length > 1) {
-                        eventDescription = (words[1].equalsIgnoreCase("/from") || words[1].equalsIgnoreCase("/to")) ? "" : words[1];
+                        if (descriptionMatcher.find()) {
+                            eventDescription = descriptionMatcher.group(1).trim();
+                        }
                     } else {
-                        throw new DukeException("You didn't enter the details or duration!");
-                    }
+                            throw new DukeException("You didn't enter the details or duration!");
+                        }
                     String from = fromMatcher.find() ? fromMatcher.group(1).trim() : "";
                     String to = toMatcher.find() ? toMatcher.group(1).trim() : "";
 
@@ -285,6 +322,7 @@ public class Duke {
                     tasks.add(task);
                     System.out.println(task.toString());
                     task.numberOfTasks(tasks);
+                    hasChanged = true;
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -298,6 +336,62 @@ public class Duke {
                 }
                 System.out.println("-------------------------------");
             }
+        }
+    }
+    private static void saveTasks(ArrayList<Task> tasks) throws IOException {
+        File file = new File(FILE_PATH);
+        File parentFolder = file.getParentFile();
+
+        if (!parentFolder.exists()) {
+            if (!parentFolder.mkdirs()) {
+                throw new IOException("Failed to create the data folder.");
+            }
+        }
+
+        try (FileWriter fileWriter = new FileWriter(file, false)) {
+            for (Task task : tasks) {
+                String text = task.type + " | " + (task.getStatusIcon().equals("X") ? "1" : "0") + " | " + task.description;
+                if (task instanceof Deadline) {
+                    text += " | " + ((Deadline) task).by;
+                } else if (task instanceof Event) {
+                    text += " | " + ((Event) task).from + "-" + ((Event) task).to;
+                }
+                fileWriter.write(text);
+                fileWriter.append("\n");
+            }
+        }
+    }
+    private static void loadTasks(ArrayList<Task> tasks) throws DukeException {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                System.out.println("\nData file does not currently exist. However, as you add a task, it will save it to\nthe " +
+                        "path specified. You can view your task list after exiting the chatbot.");
+                return;
+            }
+                try(Scanner scanner = new Scanner(file)) {
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split("\\|");
+                    TaskType taskType = TaskType.valueOf(parts[0].trim());
+                    boolean isDone = parts[1].trim().equals("1");
+                    String description = parts[2].trim();
+                    String additionalInfo = (parts.length > 3) ? parts[3].trim() : null;
+
+                    Task task = new Task(null, null);
+
+                    if (taskType == TaskType.T) {
+                        task = new ToDo(description);
+                    } else if (taskType == TaskType.D) {
+                        task = new Deadline(description, additionalInfo);
+                    } else if (taskType == TaskType.E) {
+                        String[] p = additionalInfo.split("-");
+                        task = new Event(description, p[0].trim(), p[1].trim());
+                    }
+                    tasks.add(task);
+                }
+            }
+        catch (FileNotFoundException e) {
+            System.out.println(e);
         }
     }
 }
