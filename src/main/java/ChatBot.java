@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -118,9 +117,10 @@ public class ChatBot {
         this.displayTasksSize();
     }
 
-    public void addTask(String description) {
-        this.addTask(new Task(description));
+    public void addTaskFromLoad(Task task) {
+        this.tasks.add(task);
     }
+
     public void deleteTask(String parameters) {
         try {
             if (parameters.isEmpty()) {
@@ -217,21 +217,27 @@ public class ChatBot {
         }
     }
 
-    public void addToDo(String description) {
+    public void addToDo(String description, boolean isDone) {
         try {
             if (description.isEmpty()) {
                 throw new ChatBotParameterException("Missing description for ToDo \n" +
                         "try: todo <todo_name>");
             }
-            this.addTask(new ToDo(description));
+            this.addTask(new ToDo(description, isDone));
         } catch (ChatBotParameterException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    public void addToDo(String parameters) {
+        this.addToDo(parameters, false);
+    }
 
-    public void addDeadline(String description, String by) {
-        this.addTask(new Deadline(description, by));
+
+
+
+    public void addDeadline(String description, String by, boolean isDone) {
+        this.addTask(new Deadline(description, by, isDone));
     }
 
     public void addDeadline(String parameters) {
@@ -245,7 +251,7 @@ public class ChatBot {
                 throw new ChatBotParameterException("Missing description or by for Deadline \n" +
                         "try: deadline <deadline_name> /by <by>");
             }
-            this.addDeadline(parametersArr[0], parametersArr[1]);
+            this.addDeadline(parametersArr[0], parametersArr[1], false);
         } catch (ChatBotParameterException e) {
             System.out.println(e.getMessage());
         }
@@ -262,15 +268,27 @@ public class ChatBot {
                 throw new ChatBotParameterException("Missing description and/or from and/or to for Event \n" +
                         "try: event <event_name> /by <from> /to <to>");
             }
-            this.addEvent(parametersArr[0], parametersArr[1], parametersArr[2]);
+            this.addEvent(parametersArr[0], parametersArr[1], parametersArr[2], false);
         } catch (ChatBotParameterException e) {
             System.out.println(e.getMessage());
         }
 
     }
 
-    public void addEvent(String description, String from, String to) {
-        this.addTask(new Event(description, from, to));
+    public void addEvent(String description, String from, String to, boolean isDone) {
+        this.addTask(new Event(description, from, to, isDone));
+    }
+
+    public void addEventFromLoad(String description, String from, String to, boolean isDone) {
+        this.addTaskFromLoad(new Event(description, from, to, isDone));
+    }
+
+    public void addDeadlineFromLoad(String description, String by, boolean isDone) {
+        this.addTaskFromLoad(new Deadline(description, by, isDone));
+    }
+
+    public void addTodoFromLoad(String description, boolean isDone) {
+        this.addTaskFromLoad(new ToDo(description, isDone));
     }
 
     public StringBuilder createSaveData() {
@@ -281,10 +299,30 @@ public class ChatBot {
         return saveData;
     }
 
-    public void saveToFile() throws IOException {
+    public void saveTasksToFile() throws IOException {
         Files.createDirectories(Paths.get("data"));
-        Files.writeString(Paths.get("data","tasks.txt"), this.createSaveData(), StandardOpenOption.CREATE);
+        Files.writeString(Paths.get("data","tasks.txt"), this.createSaveData(),
+                StandardOpenOption.CREATE);
     }
+
+    public void loadTasksFromFile() throws IOException {
+        List<String> tasks = Files.readAllLines(Paths.get("data","tasks.txt"));
+        for (String taskString: tasks) {
+            String[] parameters = taskString.split(" \\| ");
+            switch (parameters[0]) {
+            case ("T"):
+                this.addTodoFromLoad(parameters[2], parameters[1].equals("1"));
+                break;
+            case ("D"):
+                this.addDeadlineFromLoad(parameters[2], parameters[3], parameters[1].equals("1"));
+                break;
+            case ("E"):
+                this.addEventFromLoad(parameters[2], parameters[3], parameters[4], parameters[1].equals("1"));
+                break;
+            }
+        }
+    }
+
 
     @Override
     public String toString() {

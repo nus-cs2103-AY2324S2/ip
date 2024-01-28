@@ -57,7 +57,7 @@ public class Duke {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ChatBot Paimon;
         if (args.length > 0 && args[0].equals("test-mode")) {
             Paimon = createPaimonChatBotForTesting();
@@ -65,6 +65,7 @@ public class Duke {
             Paimon = createPaimonChatBot();
         }
         Paimon.greet();
+        Paimon.loadTasksFromFile();
         Scanner scanner = new Scanner(System.in);
         String command, input;
         String parameters;
@@ -96,7 +97,7 @@ public class Duke {
                     Paimon.deleteTask(parameters);
                     break;
                 case "bye":
-                    Paimon.saveToFile();
+                    Paimon.saveTasksToFile();
                     Paimon.bye();
                     return;
                 case "":
