@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Klee.Klee")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "klee"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
