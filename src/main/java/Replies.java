@@ -15,6 +15,7 @@ public class Replies {
     public static final String MARK_HEADER = "good job!";
     public static final String UNMARK_HEADER = "ok you just undid this task";
 
+    public static final String EMPTY_DESCRIPTION = "OOPS!!! The description of a %s cannot be empty.";
     public static final String INVALID_COMMAND = "what";
 
     public static final String EXIT = "ok";

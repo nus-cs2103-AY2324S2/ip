@@ -31,10 +31,14 @@ public class Bob {
         return result;
     }
 
-    private static void handleAdd(String[] commandArgs) {
+    private static void handleAdd(String[] commandArgs) throws EmptyDescriptionException {
         if (numberOfTasks == MAX_NUMBER_OF_TASKS) {
             Replies.print(Replies.EXCEEDED_MAX_NUMBER_OF_TASKS);
             return;
+        }
+
+        if (commandArgs.length == 1) {
+            throw new EmptyDescriptionException(commandArgs[0]);
         }
 
         Task task;
@@ -59,21 +63,9 @@ public class Bob {
         Replies.add(task, numberOfTasks);
     }
 
-    public static void main(String[] args) {
-        Replies.print(Replies.GREET);
-
-        while (true) {
-            String command = SCANNER.nextLine();
-
-            // TODO: treat invalid commands like "exit door", "list restaurants" as tasks (default)
-            String[] commandArgs = command.split(" ", 2);
-
-            if (commandArgs[0].equals(Commands.EXIT)) {
-                Replies.print(Replies.EXIT);
-                break;
-            }
-
-            switch (commandArgs[0]) {
+    private static void processCommands(String[] commandArgs) throws InvalidCommandException {
+        // TODO: treat invalid commands like "exit door", "list restaurants" as tasks (default)
+        switch (commandArgs[0]) {
             case Commands.LIST:
                 Replies.list(TASKS, numberOfTasks);
                 break;
@@ -87,10 +79,33 @@ public class Bob {
             case Commands.DEADLINE:
                 // Fallthrough
             case Commands.EVENT:
-                handleAdd(commandArgs);
+                try {
+                    handleAdd(commandArgs);
+                } catch (EmptyDescriptionException e) {
+                    Replies.print(e.getMessage());
+                }
                 break;
             default:
-                Replies.print(Replies.INVALID_COMMAND);
+                throw new InvalidCommandException();
+        }
+    }
+
+    public static void main(String[] args) {
+        Replies.print(Replies.GREET);
+
+        while (true) {
+            String command = SCANNER.nextLine();
+            String[] commandArgs = command.split(" ", 2);
+
+            if (commandArgs[0].equals(Commands.EXIT)) {
+                Replies.print(Replies.EXIT);
+                break;
+            }
+
+            try {
+                processCommands(commandArgs);
+            } catch (InvalidCommandException e) {
+                Replies.print(e.getMessage());
             }
         }
     }
