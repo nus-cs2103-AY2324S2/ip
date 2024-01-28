@@ -18,7 +18,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon1() {
+    public String getTaskIcon() {
         if (isTodo) {
             return "T";
         } else if (isDeadline) {
@@ -28,7 +28,7 @@ public class Task {
         }
     }
 
-    public String getStatusIcon2() {
+    public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 }
