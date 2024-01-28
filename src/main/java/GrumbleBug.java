@@ -1,5 +1,8 @@
 import javax.sound.midi.SysexMessage;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
 import java.util.Scanner;
 
 public class GrumbleBug {
@@ -10,13 +13,45 @@ public class GrumbleBug {
         }
     }
     public static void main(String[] args) {
+
+        ArrayList<Task> myList = new ArrayList<>();
+
+        // load data from hard disk
+        try {
+            File f = new File("./tasks.txt");
+            f.createNewFile();
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String task = s.nextLine();
+                boolean done = s.nextBoolean();
+                String desc = s.nextLine();
+                Task t;
+                if (task.equals("T")) {
+                    t = new Task(done, desc);
+                } else if (task.equals("D")) {
+                    String deadline = s.nextLine();
+                    t = new Task(done, desc, deadline);
+                } else if (task.equals("E")) {
+                    String start = s.nextLine();
+                    String deadline = s.nextLine();
+                    t = new Task(done, desc, start, deadline);
+                } else {
+                    t = null;
+                    System.out.println("bad formatting in tasks.txt");
+                }
+                myList.add(t);
+            }
+        } catch (IOException e) {
+            System.out.println("An IO error occurred with the data file.");
+        }
+
+
         String starter = "GrumbleBug:"
                 + "_______________________________________\n"
                 + "Oh hey, adventurer.\n"
                 + "I'm GrumbleBug.\n";
         System.out.println(starter);
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> myList = new ArrayList<>();
 
         while (true) {
             String input1 = sc.nextLine();

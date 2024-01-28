@@ -6,24 +6,24 @@ public class Task {
     protected char taskType;
 
     // To-do
-    public Task(String description) {
+    public Task(boolean done, String description) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = done;
         this.taskType = 'T';
     }
 
     // Deadline
-    public Task(String description, String end) {
+    public Task(boolean done, String description, String end) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = done;
         this.endDate = end;
         this.taskType = 'D';
     }
 
     // Event
-    public Task(String description, String start, String end) {
+    public Task(boolean done, String description, String start, String end) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = done;
         this.taskType = 'E';
         this.startDate = start;
         this.endDate = end;
