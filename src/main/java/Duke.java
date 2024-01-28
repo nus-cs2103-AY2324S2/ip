@@ -2,6 +2,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
+    private static final int TASKS_MAX = 100;
+    private static String[] tasks = new String[TASKS_MAX];
+    private static int taskCount = 0;
     public static void main(String[] args) {
         String logo = " _  _   __    ____  ____ \n" +
                 "( \\/ ) /__\\  (  _ \\(  _ \\\n" +
@@ -16,7 +19,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
-                echoInput(scanner);
+                handleInput(scanner);
             } catch (IllegalArgumentException e) {
                 printDivider(90);
                 System.out.println(e.getMessage());
@@ -39,18 +42,27 @@ public class Duke {
     }
 
     // Solution below adapted from https://www.geeksforgeeks.org/ways-to-read-input-from-console-in-java/
-    private static void echoInput(Scanner scanner) {
-
+    private static void handleInput(Scanner scanner) {
         String input = scanner.nextLine();
         // Handle inputs
-        if (input.equals("list") || input.equals("blah")) {
-            printDivider(90);
-            System.out.println(input);
-            printDivider(90);
-        } else if (input.equals("bye")) {
+        if (input.equals("bye")) {
             throw new ExitProgramException("Fair winds to ye, me hearty! May the tide carry ye safely until our paths cross again.");
+        } else if (input.equals("list")) {
+           //TODO: implement printing of items to console
+            printDivider(90);
+            for (int i = 0; i < taskCount; i++) {
+                String tempNum = Integer.toString(i + 1);
+                System.out.println(tempNum + ". " + tasks[i]);
+            }
+            System.out.println();
+            printDivider(90);
         } else {
-            throw new IllegalArgumentException("Invalid input. Expected: 'list', 'blah' or 'bye'");
+            printDivider(90);
+            //TODO: Implement adding items to task list
+            tasks[taskCount] = input;
+            taskCount += 1;
+            System.out.println("added: " + input);
+            printDivider(90);
         }
     }
 }
