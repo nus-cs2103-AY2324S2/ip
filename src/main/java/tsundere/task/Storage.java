@@ -15,17 +15,26 @@ public class Storage {
 
     private static final String filepath = "./data/data.txt";
 
+    /**
+     * Initializes Storage.
+     */
     public Storage() {
 
         try {
             new File("./data").mkdirs();
-            TaskList.taskList = loadTasksFromFile(filepath);
+            TaskList.taskList = loadTasksFromFile();
         } catch (IOException | GeneralException e) {
             System.out.println("Something went wrong with loading your previous session data!");
         }
 
     }
 
+    /**
+     * Saves current data in TaskList to provided path.
+     * Creates new directory and file if needed.
+     *
+     * @throws IOException If file cannot be found at provided path and new file cannot be created.
+     */
     public void saveTasksToFile() throws IOException {
 
         try (PrintWriter pw = new PrintWriter(new FileWriter(filepath), true)) {
@@ -51,10 +60,18 @@ public class Storage {
 
     }
 
-    private ArrayList<Task> loadTasksFromFile(String filepath) throws IOException, GeneralException {
+    /**
+     * Loads data from provided path.
+     * Creates new directory and file if needed.
+     *
+     * @return TaskList containing data from provided path.
+     * @throws IOException If Scanner object fails to read from file.
+     * @throws GeneralException If parsing from stored data fails.
+     */
+    private ArrayList<Task> loadTasksFromFile() throws IOException, GeneralException {
 
         ArrayList<Task> tasks = new ArrayList<>();
-        File f = new File(filepath);
+        File f = new File(Storage.filepath);
 
         if (f.exists()) {
             Scanner scanner = new Scanner(f);
@@ -70,7 +87,13 @@ public class Storage {
 
     }
 
-    private static Task parseTaskFromSaveString(String saveString) throws GeneralException {
+    /**
+     * Parses stored data to be used for reconstructing TaskList.
+     *
+     * @param saveString Stored data.
+     * @return Task object to be created from saved data.
+     */
+    private static Task parseTaskFromSaveString(String saveString) {
 
         String[] parsedData = saveString.split(",");
         String type = parsedData[0];

@@ -24,7 +24,10 @@ public class Ui {
                 +"_________________________________________________________________________________");
     }
 
-
+    /**
+     * Initializes Parser to read commands from command line for execution.
+     * Exits program when "bye" command is given.
+     */
     public void chat() {
 
         String str = sc.nextLine();
@@ -32,9 +35,9 @@ public class Ui {
         while (!str.equals("bye")) {
             System.out.println("_________________________________________________________________________________");
 
-            Parser action = new Parser(str);
+            Parser parser = new Parser(str);
             try {
-                action.execute();
+                parser.execute();
             } catch (GeneralException e) {
                 System.out.println(e);
             }
