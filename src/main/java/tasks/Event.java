@@ -1,3 +1,5 @@
+package tasks;
+
 import exceptions.tasks.EmptyDescriptionException;
 
 public class Event extends Task {

@@ -1,4 +1,7 @@
+package tasks;
+
 import exceptions.tasks.EmptyDescriptionException;
+import tasks.Task;
 
 public class Todo extends Task {
     public Todo(String description) throws EmptyDescriptionException {

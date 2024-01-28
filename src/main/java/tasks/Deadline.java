@@ -1,4 +1,7 @@
+package tasks;
+
 import exceptions.tasks.EmptyDescriptionException;
+import tasks.Task;
 
 public class Deadline extends Task {
     private String by;

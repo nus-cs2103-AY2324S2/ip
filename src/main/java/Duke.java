@@ -1,8 +1,13 @@
-import exceptions.tasks.EmptyDescriptionException;
-
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
+import exceptions.tasks.EmptyDescriptionException;
 
 public class Duke {
     private static final String NAME = "Arctic";
@@ -124,7 +129,15 @@ public class Duke {
             return ede.toString();
         }
 
-        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task.toString(), TASKS.size());
+        return String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", task.toString(), TASKS.size());
+    }
+
+    private static String handleDeleteTask(String[] args) {
+        int taskNum = Integer.parseInt(args[1]);
+        Task task = TASKS.get(taskNum - 1);
+        TASKS.remove(taskNum);
+
+        return String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", task.toString(), TASKS.size());
     }
 
     private static void handleCommands() {
@@ -149,6 +162,9 @@ public class Duke {
                 case "deadline":
                 case "event":
                     commandOutput = handleAddTask(args);
+                    break;
+                case "delete":
+                    commandOutput = handleDeleteTask(args);
                     break;
                 default:
                     commandOutput = "OOPS!!! I don't understand that command, try again later.";
