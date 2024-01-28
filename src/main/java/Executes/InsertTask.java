@@ -1,10 +1,11 @@
 import Actions.Action;
-//import Actions.Deadline;
-//import Actions.Event;
-//import Actions.Todo;
 import Exceptions.DukeException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class InsertTask {
     enum Type {
@@ -72,8 +73,8 @@ public class InsertTask {
                         "deadline <action> /by <time>");
             }
 
+            Deadline dl = new Deadline(splitter[0], dateConversion(splitter[1].trim()));
             System.out.println("Got it. I've added this task:");
-            Deadline dl = new Deadline(splitter[0], splitter[1]);
             actionList.add(dl);
             System.out.println(dl);
             System.out.println("Now you have " + actionList.size() + " tasks in the list.");
@@ -105,7 +106,8 @@ public class InsertTask {
                     throw new DukeException("Invalid format. Please type in the following format: " +
                             "event <action> /from <time> /to <time>");
                 }
-                Event eve = new Event(splitter[0], splitter1[0], splitter1[1]);
+                Event eve = new Event(splitter[0],
+                        dateConversion(splitter1[0].trim()), dateConversion(splitter1[1].trim()));
                 actionList.add(eve);
 
                 System.out.println(eve);
@@ -120,4 +122,16 @@ public class InsertTask {
         }
     }
 
+    public static LocalDateTime dateConversion(String inputDate) throws DukeException{
+        try {
+            LocalDateTime date = LocalDateTime.parse(inputDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", Locale.ENGLISH));
+            if (date.isBefore(LocalDateTime.now())) {
+                throw new DukeException("Date input is in the past");
+            }
+
+            return date;
+        } catch (Exception e) {
+            throw new DukeException(e.getMessage());
+        }
+    }
 }
