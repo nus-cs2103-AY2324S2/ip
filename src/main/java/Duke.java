@@ -1,10 +1,15 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static final int max_tasks = 100;
-    private static final ArrayList<Task> tasks = new ArrayList<Task>(max_tasks);
+    private static final ArrayList<Task> tasks = new ArrayList<>(max_tasks);
     private static int taskCount = 0;
+    private static final String FILE_PATH = "./duke.txt";
 
     private enum Command {
         BYE,
@@ -26,6 +31,8 @@ public class Duke {
                 " Hello! I'm " + name + "\n What can I do for you?\n" +
                 "____________________________________________________________\n");
 
+        loadTasksFromHardDisk();
+
         userInput();
     }
 
@@ -42,6 +49,7 @@ public class Duke {
                             e.getMessage() + "\n" +
                             "____________________________________________________________\n");
                 }
+                saveTaskToHardDisk();
             }
         } finally {
                 scanner.close();
@@ -227,6 +235,35 @@ public class Duke {
             }
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException(" Please indicate the task number you want to delete.");
+        }
+    }
+
+    //Load data from hard disk when BotChat starts up
+    private static void loadTasksFromHardDisk() {
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNext()) {
+                    System.out.println(scanner.nextLine());
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    //Save the changes to the hard disk
+    private static void saveTaskToHardDisk() {
+        try {
+            File file = new File(FILE_PATH);
+            FileWriter fileWriter = new FileWriter(file);
+            for (Task task : tasks) {
+                fileWriter.write(task.toString() + "/n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 }
