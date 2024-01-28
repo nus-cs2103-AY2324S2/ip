@@ -91,7 +91,7 @@ public class TaskList {
             getListSize("added", t);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n" +
-                    "event [tsundere.task] ,from [date] ,to [date]");
+                    "event [tsundere.task] ,from [date],to [date]");
         }
     }
 
