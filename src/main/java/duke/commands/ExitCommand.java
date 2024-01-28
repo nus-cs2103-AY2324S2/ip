@@ -24,7 +24,7 @@ public class ExitCommand extends Command {
      * @param ui       UI used for the command
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui) {
+    public void execute(TaskList taskList, Ui ui) {
         // Goodbye message
         String goodbye = "Bye. Hope to see you again soon!";
 
