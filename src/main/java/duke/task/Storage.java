@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.BufferedReader;

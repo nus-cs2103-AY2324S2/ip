@@ -1,9 +1,17 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.task.Storage;
+import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.io.IOException;
 
-public class UnmarkCommand extends Command {
+public class DeleteCommand extends Command {
     private final String fullCommand;
 
-    public UnmarkCommand(String fullCommand) {
+    public DeleteCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
@@ -14,11 +22,10 @@ public class UnmarkCommand extends Command {
             if (index < 0 || index >= tasks.size()) {
                 throw new DukeException("Task number " + (index + 1) + " does not exist.");
             }
-            Task task = tasks.getTasks().get(index);
-            ui.showUnmarkedMessage(task);
-            task.markAsNotDone();
+            Task removedTask = tasks.removeTask(index);
+            ui.showDeletedMessage(tasks, removedTask);
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid task number to unmark.");
+            throw new DukeException("Please enter a valid task number to delete.");
         }
         storage.saveTasks(tasks);
     }

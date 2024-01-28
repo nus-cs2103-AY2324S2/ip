@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +13,9 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
-
     public Task removeTask(int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("Task number out of range.");
+            throw new DukeException("duke.task.Task number out of range.");
         }
         return tasks.remove(index);
     }
@@ -46,9 +46,5 @@ public class TaskList {
 
     public String get(int index) {
         return tasks.get(index).toString();
-    }
-
-    public Task remove(int index) {
-        return tasks.remove(index);
     }
 }
