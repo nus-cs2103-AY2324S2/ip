@@ -1,13 +1,13 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Declare Scanner instance
 
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
-
+        ArrayList<Task> tasks = new ArrayList<>();
         String chatbotName = "Jamie";
+
         System.out.println("Hello! I'm " + chatbotName + "\nWhat can I do for you?");
 
         while (true) {
@@ -19,14 +19,15 @@ public class Duke {
                     System.out.println(" Bye. Hope to see you again soon!");
                     break;
                 } else if (userInput.equalsIgnoreCase("list")) {
-                    listTasks(tasks, taskCount);
+                    listTasks(tasks);
                 } else if (userInput.startsWith("mark")) {
-                    markTaskAsDone(userInput, tasks, taskCount);
+                    markTaskAsDone(userInput, tasks);
                 } else if (userInput.startsWith("unmark")) {
-                    unmarkTaskAsUndone(userInput, tasks, taskCount);
+                    unmarkTaskAsUndone(userInput, tasks);
+                } else if (userInput.startsWith("delete")) {
+                    deleteTask(userInput, tasks);
                 } else {
-                    addTask(userInput, tasks, taskCount);
-                    taskCount++;
+                    addTask(userInput, tasks);
                 }
             } catch (JamieException e) {
                 System.out.println(" " + e.getMessage());
@@ -35,35 +36,34 @@ public class Duke {
         scanner.close(); // Close the Scanner to avoid resource leaks
     }
 
-    private static void addTask(String userInput, Task[] tasks, int taskCount) throws JamieException {
+    private static void addTask(String userInput, ArrayList<Task> tasks) throws JamieException {
         Task newTask = TaskParser.parseTask(userInput);
         if (newTask != null) {
-            tasks[taskCount++] = newTask;
+            tasks.add(newTask);
             System.out.println("Got it. I've added this task:\n " + newTask.toString() +
-                    "\nNow you have " + taskCount + " tasks in the list.");
+                    "\nNow you have " + tasks.size() + " tasks in the list.");
         } else {
             throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means");
         }
     }
 
-    private static void listTasks(Task[] tasks, int taskCount) throws JamieException {
-        if (taskCount != 0) {
+    private static void listTasks(ArrayList<Task> tasks) throws JamieException {
+        if (!tasks.isEmpty()) {
             System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(" " + (i + 1) + "." + tasks[i].toString());
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(" " + (i + 1) + "." + tasks.get(i).toString());
             }
         } else {
-            System.out.println(taskCount);
             throw new JamieException("The task list is empty.");
         }
     }
 
-    private static void markTaskAsDone(String userInput, Task[] tasks, int taskCount) throws JamieException {
+    private static void markTaskAsDone(String userInput, ArrayList<Task> tasks) throws JamieException {
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsDone();
-                System.out.println("Nice! I've marked this task as done:\n" + tasks[taskIndex].toString());
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markAsDone();
+                System.out.println("Nice! I've marked this task as done:\n" + tasks.get(taskIndex).toString());
             } else {
                 throw new JamieException("Invalid task index.");
             }
@@ -72,17 +72,32 @@ public class Duke {
         }
     }
 
-    private static void unmarkTaskAsUndone(String userInput, Task[] tasks, int taskCount) throws JamieException {
+    private static void unmarkTaskAsUndone(String userInput, ArrayList<Task> tasks) throws JamieException {
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsUndone();
-                System.out.println("Ok, I've marked this task as not done yet:\n" + tasks[taskIndex].toString());
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markAsUndone();
+                System.out.println("Ok, I've marked this task as not done yet:\n" + tasks.get(taskIndex).toString());
             } else {
                 throw new JamieException("Invalid task index.");
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new JamieException("Invalid command format for marking a task as not done yet.");
+        }
+    }
+
+    private static void deleteTask(String userInput, ArrayList<Task> tasks) throws JamieException {
+        try {
+            int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                Task removedTask = tasks.remove(taskIndex);
+                System.out.println("Noted. I've removed this task:\n" + removedTask.toString() +
+                        "\nNow you have " + tasks.size() + " tasks in the list.");
+            } else {
+                throw new JamieException("Invalid task index.");
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new JamieException("Invalid command format for deleting a task.");
         }
     }
 }
