@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
         protected String symbol;
         protected String description;
