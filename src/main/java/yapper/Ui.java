@@ -3,7 +3,12 @@ package yapper;
 import yapper.tasks.Task;
 
 import java.util.List;
+
+/**
+ * The Ui class handles user interface-related functions, such as displaying messages.
+ */
 public class Ui {
+
     public void showWelcomeMessage() { System.out.println ("Hello! I'm Yapper.");
     }
 

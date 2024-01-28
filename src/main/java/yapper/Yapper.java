@@ -7,6 +7,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
 import java.io.InputStream;
 
+/**
+ * The Yapper class is the main class that handles user input and manages tasks.
+ * It includes methods for processing user input, displaying messages, and interacting with storage.
+ */
 public class Yapper {
     private static final String FILE_PATH = "./src/main/java/data/yapper.Yapper.txt";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -16,6 +20,12 @@ public class Yapper {
     private static Ui ui;
     private final Storage storage;
 
+    /**
+     * Constructs a new Yapper instance.
+     *
+     * @param filePath      The file path for task data.
+     * @param inputStream   The input stream for user input.
+     */
     public Yapper(String filePath, InputStream inputStream) {
         this.ui = new Ui();
         storage = new Storage(filePath);
@@ -28,6 +38,9 @@ public class Yapper {
         userScanner = new Scanner(inputStream);
     }
 
+    /**
+     * Runs the Yapper application, displaying welcome messages and handling user input.
+     */
     public void run() {
         ui.showWelcomeMessage();
         ui.showInstructions();
@@ -121,6 +134,11 @@ public class Yapper {
         }
     }
 
+    /**
+     * Main method to start the Yapper application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
 
         new Yapper(FILE_PATH, System.in).run();
@@ -138,6 +156,11 @@ public class Yapper {
         }
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return List of tasks.
+     */
     public static List<Task> getTasks() {
         return tasks;
     }

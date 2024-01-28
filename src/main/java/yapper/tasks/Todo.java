@@ -1,7 +1,9 @@
 package yapper.tasks;
 
-import yapper.tasks.Task;
-
+/**
+ * The Todo class represents a task of type Todo.
+ * It extends the Task class and includes additional methods specific to Todo tasks.
+ */
 public class Todo extends Task {
     public Todo(String description, boolean isDone) {
         super(description, isDone);
