@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
+
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -25,7 +29,6 @@ public class Duke {
     }
 
 
-    //static Task[] taskList = new Task[100];
     static ArrayList<Task> taskList = new ArrayList<>();
     static int currIndex = 0;
     enum CommandType {
@@ -38,116 +41,179 @@ public class Duke {
             }
         }
     }
-    public static void listFunction(String line){
-        String[] command = line.split(" ", 2);
-        CommandType commandType = CommandType.getCommandType(command[0]);
+    public static class TaskManager {
+        private ArrayList<Task> taskList;
+        //private final String FILE_PATH = "./data/duke.txt";
 
-        switch (commandType) {
-        case LIST:
-            displayList(taskList);
-            break;
-
-        case MARK:
-            try {
-                int taskIndex = Integer.parseInt(command[1]) - 1;
-                if (taskIndex < currIndex) {
-                    taskList.get(taskIndex).markDone();
-                    // displayLine();
-                    System.out.println(gap() + "Nice! I've marked this task as done:");
-                    System.out.println(gap() + gap() + taskList.get(taskIndex));
-                    displayLine();
-                } else { // out of range
-                    System.out.println("invalid, out of range");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid task number: " + command[1]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("There are " + currIndex + "numbers, please enter a number from 1 to " + currIndex);
-            }
-            break;
-        case UNMARK:
-            try {
-                int taskIndex = Integer.parseInt(command[1]) - 1;
-                if (taskIndex < currIndex) {
-                    taskList.get(taskIndex).markUndone();
-                    displayLine();
-                    System.out.println(gap() + "OK, I've marked this task as not done yet:");
-                    System.out.println(gap() + gap() + taskList.get(taskIndex));
-                    displayLine();
-                } else { // out of range
-                    System.out.println("invalid, out of range");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid task number: " + command[1]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("There are " + currIndex + " items, please enter a number from 1 to " + currIndex);
-            }
-            break;
-        case TODO:
-            try {
-                Task newTodo = new Todo(command[1]);
-                taskList.add(newTodo);
-                // taskList[currIndex] = newTodo;
-                currIndex++;
-                addMessage(newTodo, currIndex);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("oopsy doopsy you made a -ucky wucky! The description of a todo cannot be empty.");
-            }
-            break;
-        case DEADLINE:
-            try {
-                String[] details = command[1].split(" /by ");
-                String description = details[0];
-                String by = details[1];
-
-                Task newDeadline = new Deadline(description, by);
-                taskList.add(newDeadline);
-                currIndex++;
-                addMessage(newDeadline, currIndex);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
-                        " must be in the format 'deadline [task] /by [time]'.");
-            }
-            break;
-        case EVENT:
-            try {
-                String[] details = command[1].split(" /from ");
-                String description = details[0];
-                String[] fromTo = details[1].split(" /to ");
-                String from = fromTo[0];
-                String to = fromTo[1];
-
-                Task newEvent = new Event(description, from, to);
-                taskList.add(newEvent);
-                currIndex++;
-                addMessage(newEvent, currIndex);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
-                        " must be in the format 'deadline [task] /from [time]' /to [time].");
-            }
-            break;
-        case DELETE:
-            try {
-                int taskIndex = Integer.parseInt(command[1]) - 1;
-                if (taskIndex >= 0 && taskIndex < taskList.size()) {
-                    Task removedTask = taskList.remove(taskIndex);
-                    displayLine();
-                    System.out.println(gap() + "Ok, I've removed the task:");
-                    System.out.println(gap() + gap() + removedTask);
-                    System.out.println(gap() + "You have " + taskList.size() + " tasks remaining in the list.");
-                    displayLine();
-                } else {
-                    System.out.println("Invalid task number: " + (taskIndex + 1));
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid task number: " + command[1]);
-            }
-            break;
-        default:
-            System.out.println("OH NO I'm not sure what that command is. You may use the commands " +
-                    "todo, deadline, list, event, mark and unmark");
-            break;
+        public TaskManager() {
+            taskList = new ArrayList<>();
+            loadTasksFromFile();
         }
+
+        public void loadTasksFromFile() {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdirs(); // create directory if does not exist
+            }
+            File file = new File(directory, "duke.txt");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error creating 'duke.txt' file: " + e.getMessage());
+            }
+
+        }
+        private String formatTaskForFile(Task task) {
+            String returnString = "";
+            String type =
+                    task instanceof Todo ? "T" :
+                    task instanceof Deadline ? "D" :
+                            task instanceof Event ? "E" : "";
+            int status = task.isDone();
+            String details = task.getDescription();
+            returnString += type + " | " + status + " | " + details;
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                returnString += " | " + deadline.getBy();
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                returnString += " | " + event.getFrom() + " | " + event.getTo();
+            }
+            return returnString;
+        }
+        public void saveTaskToFile(Task task) {
+            try {
+                FileWriter fileWriter = new FileWriter("./data/duke.txt", true);
+                String taskLine = formatTaskForFile(task);
+                fileWriter.write(taskLine + "\n");
+                fileWriter.close();
+            } catch (IOException error) {
+                System.err.println("Error saving task to file: " + error.toString());
+            }
+
+        }
+    }
+
+
+    public static void listFunction() {
+        TaskManager taskManager = new TaskManager();
+        Scanner scanner = new Scanner(System.in);
+        String currLine = scanner.nextLine();
+        while(!currLine.equals("bye")) {
+            String[] command = currLine.split(" ", 2);
+            CommandType commandType = CommandType.getCommandType(command[0]);
+            switch (commandType) {
+            case LIST:
+                displayList(taskList);
+                break;
+            case MARK:
+                try {
+                    int taskIndex = Integer.parseInt(command[1]) - 1;
+                    if (taskIndex < currIndex) {
+                        taskList.get(taskIndex).markDone();
+                        // displayLine();
+                        System.out.println(gap() + "Nice! I've marked this task as done:");
+                        System.out.println(gap() + gap() + taskList.get(taskIndex));
+                        displayLine();
+                    } else { // out of range
+                        System.out.println("invalid, out of range");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number: " + command[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("There are " + currIndex + "numbers, please enter a number from 1 to " + currIndex);
+                }
+                break;
+            case UNMARK:
+                try {
+                    int taskIndex = Integer.parseInt(command[1]) - 1;
+                    if (taskIndex < currIndex) {
+                        taskList.get(taskIndex).markUndone();
+                        displayLine();
+                        System.out.println(gap() + "OK, I've marked this task as not done yet:");
+                        System.out.println(gap() + gap() + taskList.get(taskIndex));
+                        displayLine();
+                    } else { // out of range
+                        System.out.println("invalid, out of range");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number: " + command[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("There are " + currIndex + " items, please enter a number from 1 to " + currIndex);
+                }
+                break;
+            case TODO:
+                try {
+                    Task newTodo = new Todo(command[1]);
+                    taskList.add(newTodo);
+                    // taskList[currIndex] = newTodo;
+                    currIndex++;
+                    addMessage(newTodo, currIndex);
+                    taskManager.saveTaskToFile(newTodo);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("oopsy doopsy you made a -ucky wucky! The description of a todo cannot be empty.");
+                }
+
+                break;
+            case DEADLINE:
+                try {
+                    String[] details = command[1].split(" /by ");
+                    String description = details[0];
+                    String by = details[1];
+
+                    Task newDeadline = new Deadline(description, by);
+                    taskList.add(newDeadline);
+                    currIndex++;
+                    addMessage(newDeadline, currIndex);
+                    taskManager.saveTaskToFile(newDeadline);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
+                            " must be in the format 'deadline [task] /by [time]'.");
+                }
+                break;
+            case EVENT:
+                try {
+                    String[] details = command[1].split(" /from ");
+                    String description = details[0];
+                    String[] fromTo = details[1].split(" /to ");
+                    String from = fromTo[0];
+                    String to = fromTo[1];
+
+                    Task newEvent = new Event(description, from, to);
+                    taskList.add(newEvent);
+                    currIndex++;
+                    addMessage(newEvent, currIndex);
+                    taskManager.saveTaskToFile(newEvent);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
+                            " must be in the format 'deadline [task] /from [time]' /to [time].");
+                }
+                break;
+            case DELETE:
+                try {
+                    int taskIndex = Integer.parseInt(command[1]) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                        Task removedTask = taskList.remove(taskIndex);
+                        displayLine();
+                        System.out.println(gap() + "Ok, I've removed the task:");
+                        System.out.println(gap() + gap() + removedTask);
+                        System.out.println(gap() + "You have " + taskList.size() + " tasks remaining in the list.");
+                        displayLine();
+                    } else {
+                        System.out.println("Invalid task number: " + (taskIndex + 1));
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number: " + command[1]);
+                }
+                break;
+            default:
+                System.out.println("OH NO I'm not sure what that command is. You may use the commands " +
+                        "todo, deadline, list, event, mark and unmark");
+                break;
+            }
+            currLine = scanner.nextLine();
+        }
+
     }
 
     public static <T extends Task> void addMessage(T task, Integer number){
@@ -175,12 +241,24 @@ public class Duke {
 
     public static void main(String[] args){
         greet();
-        Scanner scanner = new Scanner(System.in);
-        String currLine = scanner.nextLine();
-        while(!currLine.equals("bye")) {
-            listFunction(currLine);
-            currLine = scanner.nextLine();
-        }
+        listFunction();
         exit();
     }
 }
+
+
+//                switch (commandType) {
+//                case LIST:
+//                    break;
+//                case MARK:
+//                    break;
+//                case UNMARK:
+//                    break;
+//                case TODO:
+//                    break;
+//                case DEADLINE:
+//                    break;
+//                case EVENT:
+//                    break;
+//                case DELETE:
+//                    break;
