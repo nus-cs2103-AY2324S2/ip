@@ -64,6 +64,12 @@ OK, I've marked this task as not done yet:
 [E][ ] project meeting 2  (from: Mon 2pm to: 5pm)
 ____________________________________________________________
 ____________________________________________________________
+Here are the matching tasks in your list:
+1. [E][ ] project meeting  (from: 01 October 2023 00:00 to: 01 December 2024 23:59)
+2. [E][X] long project meeting  (from: 01 May 2000 00:01 to: 01 May 2020 10:00)
+3. [E][ ] project meeting 2  (from: Mon 2pm to: 5pm)
+____________________________________________________________
+____________________________________________________________
 Here are the tasks in your list:
 1. [E][ ] project meeting  (from: 01 October 2023 00:00 to: 01 December 2024 23:59)
 2. [E][X] long project meeting  (from: 01 May 2000 00:01 to: 01 May 2020 10:00)

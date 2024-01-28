@@ -111,4 +111,15 @@ public class TaskListTest {
         testTasks.addTask(t);
         assertEquals(1, testTasks.size());
     }
+
+    @Test
+    public void testFindTasks() {
+        testTasks.addTask(new Todo("Buy Bread"));
+        testTasks.addTask(new Todo("Borrow book"));
+        testTasks.addTask(new Deadline("Return Bread", "tomorrow"));
+        testTasks.addTask(new Todo("eat bread"));
+        testTasks.addTask(new Event("Bread discussion", "Mon 4pm", "5pm"));
+
+        testTasks.findTasks("Bread");
+    }
 }

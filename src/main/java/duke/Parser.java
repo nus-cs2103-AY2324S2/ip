@@ -31,6 +31,13 @@ public class Parser {
                 System.out.println("Here are the tasks in your list:");
                 myTasks.printTasks();
                 break;
+            case "find":
+                if (params.length() == 0) {
+                    throw new DukeException.FindParamsException();
+                }
+                String keyword = params.trim();
+                myTasks.findTasks(keyword);
+                break;
             case "mark":
                 if (params.length() == 0) {
                     throw new DukeException.MarkParamsException();

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-//    public static final String DB_PATH = "../data/duke.txt"; // uncommment for runtest.sh
-    public static final String DB_PATH = "data/duke.txt";
+    public static final String DB_PATH = "../data/duke.txt"; // uncommment for runtest.sh
+//    public static final String DB_PATH = "data/duke.txt";
     private Storage storage;
     private TaskList myTasks;
     private Ui ui;
