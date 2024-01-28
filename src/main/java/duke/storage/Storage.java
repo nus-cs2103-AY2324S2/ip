@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -255,13 +256,13 @@ public class Storage {
             throw new FileNotFoundException("File cannot be read");
         }
 
-        // Read stored tasks from file
-        FileInputStream input = new FileInputStream(file);
-        JSONArray jsonStorage = new JSONArray(new JSONTokener(input));
+        try {
+            // Read stored tasks from file
+            FileInputStream input = new FileInputStream(file);
+            JSONArray jsonStorage = new JSONArray(new JSONTokener(input));
 
-        // Populate storage array
-        for (int i = 0; i < jsonStorage.length(); i++) {
-            try {
+            // Populate storage array
+            for (int i = 0; i < jsonStorage.length(); i++) {
                 // Get json entry
                 JSONObject entry = jsonStorage.getJSONObject(i);
 
@@ -291,9 +292,9 @@ public class Storage {
 
                 // Add task to storage array
                 storageArray.add(task);
-            } catch (IllegalArgumentException e) {
-                System.out.println("WARNING: Task corrupted, will not be loaded");
             }
+        } catch (IllegalArgumentException | JSONException e) {
+            System.out.println("WARNING: Task corrupted, will not be loaded");
         }
     }
 
