@@ -9,6 +9,5 @@ list
 mark 1
 mark 4
 list
-delete 3
-list
+save
 bye
