@@ -2,12 +2,21 @@ package bob;
 
 import java.util.ArrayList;
 
+/**
+ * Class that handles the task list of the chat bot.
+ */
 public class BobTaskList {
 
     private ArrayList<Task> list;
     private BobStorage storage;
     private BobUI ui;
 
+    /**
+     * Constructor of BobTaskList.
+     *
+     * @param storage Chatbot's storage component.
+     * @param ui Chatbot's UI component.
+     */
     public BobTaskList(BobStorage storage, BobUI ui) {
         this.storage = storage;
         this.ui = ui;
@@ -28,6 +37,8 @@ public class BobTaskList {
 
     /**
      * Mark item done.
+     *
+     * @param item The ID of the item to be marked done.
      */
     private void markDone(int item) {
         this.list.get(item).updateStatus(true);
@@ -36,12 +47,19 @@ public class BobTaskList {
 
     /**
      * Mark item undone.
+     *
+     * @param item The ID of the item to be marked undone.
      */
     private void markUndone(int item) {
         this.list.get(item).updateStatus(false);
         this.storage.updateTaskList(this.list);
     }
 
+    /**
+     * Mark tasks as done/undone based on user input.
+     *
+     * @param input User input when calling the command.
+     */
     public void handleTaskMarking(String input) throws BobException {
 
         String[] args = input.split("\\s+");
@@ -71,6 +89,11 @@ public class BobTaskList {
         this.ui.printLine();
     }
 
+    /**
+     * Handle the creation of user tasks.
+     *
+     * @param input User input when calling the command.
+     */
     public void handleTaskCreation(String input) throws BobException {
 
         Task t = null;
@@ -144,6 +167,11 @@ public class BobTaskList {
         }
     }
 
+    /**
+     * Handle the deletion of user tasks.
+     *
+     * @param input User input when calling the command.
+     */
     public void handleTaskDeletion(String input) throws BobException {
         String[] args = input.split("\\s+");
         if (args.length < 2) {

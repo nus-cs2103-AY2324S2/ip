@@ -1,5 +1,8 @@
 package bob;
 
+/**
+ * Parse user input into commands.
+ */
 public class BobParser {
 
     public static final String TERMINATE_COMMAND = "bye";
@@ -32,6 +35,11 @@ public class BobParser {
         return this;
     }
 
+    /**
+     * Process user input and calls the appropriate handler.
+     *
+     * @param input User input in plain text.
+     */
     public void processInput(String input) {
 
         final String command = input.split("\\s+")[0];
