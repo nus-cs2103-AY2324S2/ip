@@ -1,6 +1,4 @@
 import java.util.HashMap;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 public class Parser {
     private static HashMap<String, CommandBuilder> registeredCommands = new HashMap<>();

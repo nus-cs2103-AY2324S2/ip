@@ -40,6 +40,7 @@ public class Duke {
      * Main function to run the chatbot.
      */
     public void run() {
+        storage.loadFromFile(parser);
         printBanner();
         while (true) {
             String prompt;
@@ -47,7 +48,11 @@ public class Duke {
                 prompt = askForPrompt();
             } catch (NoSuchElementException e) {
                 System.out.println();
-                new ByeCommand().execute(storage);
+                try {
+                    new ByeCommand().execute(storage);
+                } catch (DukeException e2) {
+                    System.out.println(e2.getMessage());
+                }
                 break;
             }
 

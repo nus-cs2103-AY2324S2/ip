@@ -7,6 +7,11 @@ public class Deadline extends Task {
     }
 
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String serializeToCommand(int taskIndex) {
+        return "deadline " + description + " /by " + by + "\n" + serializeDoneMark(taskIndex);
     }
 }
