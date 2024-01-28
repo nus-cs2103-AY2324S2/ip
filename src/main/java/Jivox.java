@@ -1,4 +1,8 @@
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,8 +10,16 @@ import java.util.Scanner;
 public class Jivox {
 
 
-    private ArrayList<Task> list = new ArrayList<>();
-    private static enum COMMANDS {
+    private final DatabaseHandler dbHandler = new DatabaseHandler();
+
+    private final ArrayList<Task> list = dbHandler.load();
+
+    private final Scanner sc = new Scanner(System.in);
+
+    public Jivox(){
+
+    }
+    private  enum COMMANDS {
         TODO,DEADLINE,EVENT,
         MARK,UNMARK,DELETE,BYE,LIST
     }
@@ -25,30 +37,32 @@ public class Jivox {
     }
 
 
-    public void mark(int i) throws JivoxException {
+    private void mark(int i) throws JivoxException {
         if(i > this.list.size() || i < 0){
             throw new JivoxException("Oops! There are only " + this.list.size() + " Tasks!");
         }
         Task t = this.list.get(i-1);
         t.mark();
+        dbHandler.save(this.list);
         addDivider();
         System.out.println("Nice! , I've marked this task as done:\n" + t);
         addDivider();
 
     }
 
-    public void unmark(int i) throws JivoxException {
+    private void unmark(int i) throws JivoxException {
         if(i > this.list.size() || i < 0){
             throw new JivoxException("Oops! There are only " + this.list.size() + " Tasks!");
         }
         Task t = this.list.get(i-1);
         t.unmark();
+        dbHandler.save(this.list);
         addDivider();
         System.out.println("OK, I've marked this task as not done yet:\n" + t);
         addDivider();
     }
 
-    public COMMANDS getCommandType(String type) throws JivoxException {
+    private COMMANDS getCommandType(String type) throws JivoxException {
         try{
             return COMMANDS.valueOf(type.toUpperCase());
         } catch (IllegalArgumentException e){
@@ -56,29 +70,43 @@ public class Jivox {
         }
     }
 
-    public void add(String type,String description) throws JivoxException {
+    private void addEvent(String content) throws JivoxException {
+        String[] first = content.split("/from");
+        if(first.length == 1){
+            throw new JivoxException("No time interval (from) received  for the event , Please try again!");
+        }
+        String[] second = first[1].split("/to");
+        if(second.length == 1){
+            throw new JivoxException("No time interval received (to) for the event , Please try again!");
+        }
+        this.list.add(new Event(first[0].trim(),second[0].trim(),second[1].trim()));
+        dbHandler.save(this.list);
+    }
 
+    private void addTodo(String content) throws DataHandlerException {
+        this.list.add(new Todo(content));
+        dbHandler.save(this.list);
+    }
+
+    private void addDeadline(String content) throws JivoxException {
+        String[] in = content.split("/by");
+        if(in.length == 1){
+            throw new JivoxException("Oooops! Please provide a deadline");
+        }
+        this.list.add(new Deadline(in[0].trim(),in[1].trim()));
+        dbHandler.save(this.list);
+    }
+
+    public void add(String type,String description) throws JivoxException {
         switch (type){
             case "todo":
-                this.list.add(new Todo(description));
+                addTodo(description);
                 break;
             case "deadline":
-                String[] in = description.split("/by");
-                if(in.length == 1){
-                    throw new JivoxException("Oooops! Please provide a deadline");
-                }
-                this.list.add(new Deadline(in[0],in[1]));
+                addDeadline(description);
                 break;
             case "event":
-                String[] first = description.split("/from");
-                if(first.length == 1){
-                    throw new JivoxException("No time interval (from) received  for the event , Please try again!");
-                }
-                String[] second = first[1].split("/to");
-                if(second.length == 1){
-                    throw new JivoxException("No time interval received (to) for the event , Please try again!");
-                }
-                this.list.add(new Event(first[0],second[0],second[1]));
+                addEvent(description);
                 break;
         }
         addDivider();
@@ -113,7 +141,6 @@ public class Jivox {
 
     public void run(){
         boolean isRunning = true;
-        Scanner sc = new Scanner(System.in);
         do {
             String rawInput = sc.nextLine();
             String[] input = rawInput.split(" ",2);
