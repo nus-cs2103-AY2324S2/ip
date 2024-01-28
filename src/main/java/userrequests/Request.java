@@ -4,6 +4,7 @@ import task.Task;
 
 import nicoleexceptions.NicoleException;
 
+import taskstorage.Storage;
 import taskstorage.TaskList;
 
 import java.io.IOException;
@@ -38,14 +39,26 @@ public class Request {
     private void handleRequest(String name) throws NicoleException {
         TaskList taskList = new TaskList();
         if (name.contains("unmark")) {
-            int taskNumber = Integer.parseInt(name.substring(7));
-            taskList.unmarkTask(taskNumber);
+            try {
+                int taskNumber = Integer.parseInt(name.substring(7));
+                taskList.unmarkTask(taskNumber);
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                throw new NicoleException("unmark [task number] pls...");
+            }
         } else if (name.contains("mark")) {
-            int taskNumber = Integer.parseInt(name.substring(5));
-            taskList.markTask(taskNumber);
+            try {
+                int taskNumber = Integer.parseInt(name.substring(5));
+                taskList.markTask(taskNumber);
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                throw new NicoleException("mark [task number] pls...");
+            }
         } else if (name.contains("delete")) {
-            int taskNumber = Integer.parseInt(name.substring(7));
-            taskList.deleteTask(taskNumber);
+            try {
+                int taskNumber = Integer.parseInt(name.substring(7));
+                taskList.deleteTask(taskNumber);
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                throw new NicoleException("delete [task number] pls...");
+            }
         } else if (name.equals("help")) {
             System.out.println("Nicole: " +
                     "I'm your task/deadline/event manager! I'm down with these requests,\n"
@@ -54,18 +67,23 @@ public class Request {
                     + "3. event [name] from YYYY-MM-DD at HH-MM-SS to YYY-MM-DD at HH-MM-SS\n"
                     + "4. list\n"
                     + "5. priority\n"
-                    + "6. bye\n"
-                    + "7. help"
+                    + "6. find [keyword]\n"
+                    + "7. bye\n"
+                    + "8. help"
             );
         } else if (name.equals("priority")) {
             Request.needPriorityTasking = true;
         } else if (name.contains("find")) {
-            String taskKeyWord = name.substring(6);
-            taskList.findTasks(taskKeyWord);
+            try {
+                String taskKeyWord = name.substring(6);
+                taskList.findTasks(taskKeyWord);
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                throw new NicoleException("find [keyword] pls...");
+            }
         } else if (!name.equals("list")) {
             taskList.addTask(newTask);
         } else {
-            taskList.listTasks();
+              taskList.listTasks();
         }
     }
 }

@@ -23,9 +23,6 @@ public class Storage {
      * @throws NicoleException if there are issues with creating a writer to the task file.
      */
     public Storage() throws NicoleException {
-        new File("./data").mkdirs();
-        this.tasksFile = new File("./data/tasks.txt");
-
         try {
             this.taskFileWriter = new FileWriter("./data/tasks.txt");
         } catch (IOException e) {
@@ -51,7 +48,7 @@ public class Storage {
         }
     }
 
-    private void loadTasksFromFile() throws NicoleException {
+    public void loadTasksFromFile() throws NicoleException {
         File tasksFile = new File("./data/tasks.txt");
         try {
             int numTasksInFile = 0;

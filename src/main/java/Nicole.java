@@ -1,6 +1,9 @@
 import userrequests.Ui;
 
+import java.io.File;
 import java.io.IOException;
+
+import java.util.Scanner;
 
 public class Nicole {
 
@@ -17,6 +20,8 @@ public class Nicole {
     }
 
     public static void main(String[] args) {
+        new File("./data").mkdirs();
+        new File("./data/tasks.txt");
         new Nicole();
     }
 }
