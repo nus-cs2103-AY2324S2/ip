@@ -1,3 +1,8 @@
+package tsundere.task;
+
+import tsundere.Parser;
+import tsundere.exception.GeneralException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,7 +16,7 @@ public class TaskList {
         try {
             Task t = TaskList.taskList.get(Integer.parseInt(Parser.name.substring(7, 8)) - 1);
             if (t.getStatusIcon().equals(" ")) {
-                System.out.println("You haven't even started this task dummy!");
+                System.out.println("You haven't even started this tsundere.task dummy!");
             } else {
                 t.unMark();
                 System.out.println(t);
@@ -19,7 +24,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you spell?");
         } catch (IndexOutOfBoundsException e ) {
-            throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
+            throw new GeneralException("Im pretty sure that's the wrong tsundere.task number! Check again!");
         }
     }
 
@@ -36,7 +41,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you spell?");
         } catch (IndexOutOfBoundsException e ) {
-            throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
+            throw new GeneralException("Im pretty sure that's the wrong tsundere.task number! Check again!");
         }
     }
 
@@ -50,7 +55,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you spell?");
         } catch (IndexOutOfBoundsException e ) {
-            throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
+            throw new GeneralException("Im pretty sure that's the wrong tsundere.task number! Check again!");
         }
     }
     public static void list() throws GeneralException {
@@ -72,7 +77,7 @@ public class TaskList {
             getListSize("added", t);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n" +
-                    "todo [task]");
+                    "todo [tsundere.task]");
         }
     }
 
@@ -86,7 +91,7 @@ public class TaskList {
             getListSize("added", t);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n" +
-                    "event [task] ,from [date] ,to [date]");
+                    "event [tsundere.task] ,from [date] ,to [date]");
         }
     }
 
@@ -101,7 +106,7 @@ public class TaskList {
             getListSize("added", t);
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n" +
-                    "deadline [task] ,by [yyyy-mm-dd]");
+                    "deadline [tsundere.task] ,by [yyyy-mm-dd]");
         }
     }
 

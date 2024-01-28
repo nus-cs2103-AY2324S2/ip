@@ -1,3 +1,7 @@
+package tsundere;
+
+import tsundere.exception.GeneralException;
+
 import java.util.Scanner;
 
 public class Ui {

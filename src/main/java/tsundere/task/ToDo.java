@@ -1,3 +1,7 @@
+package tsundere.task;
+
+import tsundere.task.Task;
+
 public class ToDo extends Task {
 
     private static final String type = "T";
