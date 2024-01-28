@@ -17,17 +17,17 @@ public class Duke {
 
         while(true) {
             String input = scanner.nextLine();
-            String str = input.split(" ")[0];
-            if(Objects.equals(str, "list")) {
+            String firstWord = input.split(" ")[0];
+            if(Objects.equals(firstWord, "list")) {
                 list.printActivity();
-            } else if (Objects.equals(str, "delete")) {
+            } else if (Objects.equals(firstWord, "delete")) {
                 list.deleteActivity(input.substring(input.indexOf(" ") + 1));
-            } else if(Objects.equals(str, "bye")) {
+            } else if(Objects.equals(firstWord, "bye")) {
                 break;
-            } else if (Objects.equals(str, "mark") || Objects.equals(str, "unmark")) {
-                list.markActivity(str, input.substring(input.indexOf(" ") + 1));
+            } else if (Objects.equals(firstWord, "mark") || Objects.equals(firstWord, "unmark")) {
+                list.markActivity(firstWord, input.substring(input.indexOf(" ") + 1));
             } else {
-                list.addActivity(str, input);
+                list.addActivity(firstWord, input);
             }
         }
         System.out.println("\t____________________________________________________________");
