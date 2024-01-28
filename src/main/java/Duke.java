@@ -27,7 +27,6 @@ public class Duke {
                 System.out.println(" added: " + userInput);
             }
         }
-
         scanner.close(); // Close the Scanner to avoid resource leaks
     }
 }
