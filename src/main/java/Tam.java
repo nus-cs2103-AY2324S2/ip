@@ -44,18 +44,39 @@ public class Tam {
 
             case "mark":
             case "unmark":
-                int taskNum = Integer.parseInt(splitInput[1]);
-                if (command.equals("mark")) {
-                    Tam.markTaskDone(taskNum);
+                try {
+                    int taskNum = Integer.parseInt(splitInput[1]);
+                    if (command.equals("mark")) {
+                        Tam.markTaskDone(taskNum);
+                    } else {
+                        Tam.markTaskUndone(taskNum);
+                    }
                 }
-                else {
-                    Tam.markTaskUndone(taskNum);
+                catch (NumberFormatException e) {
+                    System.out.print("Invalid task number entered\n");
+                }
+                catch (IndexOutOfBoundsException e) {
+                    System.out.print("Task does not exist! Type 'list' to check task numbers\n");
+                }
+                return 1;
+
+            case "delete":
+                try {
+                    int taskNum = Integer.parseInt(splitInput[1]);
+                    Tam.deleteTask(taskNum);
+                }
+                catch (NumberFormatException e) {
+                    System.out.print("Invalid task number entered\n");
+                    System.out.print(dividerText);
+                }
+                catch (IndexOutOfBoundsException e) {
+                    System.out.print("Task does not exist! Type 'list' to check task numbers\n");
+                    System.out.print(dividerText);
                 }
                 return 1;
 
             case "todo":
                 String todoDescription = input.replace("todo", "").trim();
-                //System.out.println(todoDescription);
                 if (todoDescription.equals("")) { // missing description
                     System.out.print("Missing task description!\n");
                     System.out.print(dividerText);
@@ -167,6 +188,16 @@ public class Tam {
         }
     }
 
+    private static void deleteTask(int taskNum) {
+        Task taskToBeRemoved = taskList.get(taskNum-1);
+        taskList.remove(taskToBeRemoved);
+        numTasks--;
+        System.out.print("Task deleted:\n");
+        System.out.print("   " + taskToBeRemoved.getTaskDetails() + "\n");
+        System.out.print("Tasks in list: " + numTasks + "\n");
+        System.out.print(dividerText);
+    }
+
     public static void addTodo(String description) {
         Todo newTodo = new Todo(description);
         taskList.add(newTodo);
@@ -198,9 +229,14 @@ public class Tam {
     }
 
     public static void listTasks() {
-        for (int i = 0; i < numTasks; i++) {
-            Task thisTask = taskList.get(i);
-            System.out.print((i+1) + ". " + thisTask.getTaskDetails() + "\n");
+        if (numTasks != 0) {
+            for (int i = 0; i < numTasks; i++) {
+                Task thisTask = taskList.get(i);
+                System.out.print((i + 1) + ". " + thisTask.getTaskDetails() + "\n");
+            }
+        }
+        else {
+            System.out.print("No tasks in list.\n");
         }
         System.out.print(dividerText);
     }
