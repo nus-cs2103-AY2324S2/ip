@@ -200,16 +200,20 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as completed
+     * Mark a task as completed/uncompleted
      *
-     * @param markIndex Index of the item to mark
+     * @param markIndex   Index of the item to mark
+     * @param isCompleted Status of the task
      *
      * @return Task succesfully marked as completed
      */
-    public Task markTask(int markIndex) throws StorageException, MissingTaskException {
+    public Task markTask(int markIndex, boolean isCompleted) throws StorageException, MissingTaskException {
         try {
-            // Mark task
-            taskArray.get(markIndex).mark();
+            if (isCompleted) { // Mark task
+                taskArray.get(markIndex).mark();
+            } else { // Unmark task
+                taskArray.get(markIndex).unmark();
+            }
 
             // Save to file
             JSONArray jsonArray = new JSONArray(taskArray);
@@ -220,26 +224,6 @@ public class TaskList {
             throw new MissingTaskException("Task does not exist");
         } catch (IOException e) {
             throw new StorageException(String.format("Failed to save to file - %s", e.getMessage()));
-        }
-    }
-
-    /**
-     * Unmark a task as not completed
-     *
-     * @param unmarkIndex Index of the item to unmark
-     */
-    public Task unmarkTask(int unmarkIndex) throws IOException, MissingTaskException {
-        try {
-            // Unmark task
-            taskArray.get(unmarkIndex).unmark();
-
-            // Save to file
-            JSONArray jsonArray = new JSONArray(taskArray);
-            Storage.saveToFile(jsonArray, Duke.SAVE_FILE);
-
-            return taskArray.get(unmarkIndex);
-        } catch (IndexOutOfBoundsException e) {
-            throw new MissingTaskException("Task does not exist");
         }
     }
 

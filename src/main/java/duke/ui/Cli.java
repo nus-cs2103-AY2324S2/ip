@@ -52,18 +52,6 @@ public class Cli extends Ui {
 
         sc.close();
 
-        // case "unmark": // Unmark item
-        // if (splitInput.length <= 1) {
-        // throw new MissingArgumentException("Missing argument - Index of task
-        // required");
-        // }
-
-        // // Print success message
-        // System.out.println("OK, I've marked this task as not done yet:");
-        // Task unmarkedTask = taskList.unmarkTask(Integer.parseInt(splitInput[1]) - 1);
-        // System.out.println(String.format(" %s", unmarkedTask.toString()));
-        // break;
-
         // case "delete": // Delete item
         // if (splitInput.length <= 1) {
         // throw new MissingArgumentException("Missing argument - Index of task

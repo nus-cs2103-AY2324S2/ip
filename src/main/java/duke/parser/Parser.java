@@ -79,9 +79,20 @@ public class Parser {
             }
 
             try {
-                return new MarkCommand(Integer.parseInt(splitInput[1]) - 1);
+                return new MarkCommand(Integer.parseInt(splitInput[1]) - 1, true);
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Index to mark is not an integer");
+            }
+
+        case "unmark":
+            if (splitInput.length <= 1) {
+                throw new MissingArgumentException("Missing argument - Index of task required");
+            }
+
+            try {
+                return new MarkCommand(Integer.parseInt(splitInput[1]) - 1, false);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Index to unmark is not an integer");
             }
 
         default:
