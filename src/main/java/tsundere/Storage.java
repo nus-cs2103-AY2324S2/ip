@@ -15,14 +15,14 @@ public class Storage {
     public static String filepath = "./data/data.txt";
     public Storage() {
         try {
+            new File("./data").mkdirs();
             TaskList.taskList = loadTasksFromFile(filepath);
-            System.out.println("hi there");
         } catch (IOException | GeneralException e) {
             System.out.println("Something went wrong with loading your previous session data!");
         }
     }
     public void saveTasksToFile() throws IOException {
-        try (PrintWriter pw = new PrintWriter(new FileWriter("./data/data.txt"), true)) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(filepath), true)) {
             for (Task task : TaskList.taskList) {
                 pw.println(task.toSaveString());
             }
