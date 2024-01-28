@@ -3,12 +3,14 @@ package saopig;
 import saopig.command.Command;
 import saopig.task.TaskList;
 
-import java.util.Scanner;
-
 public class Saopig {
     private TaskList taskList = new TaskList();
     private Ui ui = new Ui();
     private Storage storage = new Storage(this.ui, this.taskList);
+
+    public static void main(String[] args) {
+        new Saopig().run();
+    }
 
     private void run() {
         ui.showWelcome();
@@ -26,9 +28,5 @@ public class Saopig {
             }
         }
         ui.showGoodbye();
-    }
-
-    public static void main(String[] args) {
-        new Saopig().run();
     }
 }

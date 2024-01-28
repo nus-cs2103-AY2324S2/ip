@@ -5,10 +5,16 @@ import saopig.Storage;
 import saopig.Ui;
 import saopig.task.TaskList;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     private String command;
     private int typeIndex;
+
+    public DeleteCommand(String command, int typeIndex) {
+        this.command = command;
+        this.typeIndex = typeIndex;
+    }
+
     private static void checkValue(int value, int lowerBound, int upperBound) throws SaopigInvaildSizeException {
         if (value < lowerBound || value > upperBound) {
             throw new SaopigInvaildSizeException("Error");
@@ -41,12 +47,11 @@ public class DeleteCommand extends Command{
                     "Oopses daisy!\n " +
                     "It seems like you might have given an invalid index for the task list " +
                     "or your input is not a number.");
+        } catch (NullPointerException e) {
+            ui.printMessage("\n" +
+                    "Oopses daisy!\n " +
+                    "It seems that taskList do not have anything inside it (return null).");
         }
-    }
-
-    public DeleteCommand(String command, int typeIndex) {
-        this.command = command;
-        this.typeIndex = typeIndex;
     }
 
     @Override

@@ -1,6 +1,5 @@
 # Duke User Guide
 
-
 ## Features
 
 // Update the title above to match the actual product name
@@ -37,7 +36,6 @@ expected output
 ## Feature ABC
 
 // Feature details
-
 
 ## Feature XYZ
 
