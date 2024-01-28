@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 // Holds information to be used conveniently
 // Contains:
@@ -10,9 +11,9 @@ public class Storage {
     public static String input; // user input
     public static String[] words; // split words using
     public static String desc; // for any task
-    public static String by; // for deadlines
-    public static String start; // for events
-    public static String end; // for events
+    public static LocalDate by; // for deadlines
+    public static LocalDate start; // for events
+    public static LocalDate end; // for events
 
     // Tasks
     private static final ArrayList<Task> tasks = new ArrayList<>();
@@ -84,7 +85,7 @@ public class Storage {
 
     // words[1] is "0"/"1"
     public static void addCsvTask() {
-        Task t = new Task();
+        Task t;
         try{
             switch (words[0]) {
             case "todo":
