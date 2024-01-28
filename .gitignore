@@ -15,3 +15,9 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# test file
+src/main/java/test.java
+
+# local storage file
+src/main/java/temp/output.txt

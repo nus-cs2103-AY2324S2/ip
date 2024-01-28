@@ -1,5 +1,4 @@
-import java.util.*;
-import java.io.*;
+import java.util.Scanner;
 
 /**
  * Encapsulate a chatbot names kaipybara that takes in input from the user and
@@ -9,29 +8,21 @@ import java.io.*;
  * @version: CS2103T AY23/24 Semester 2
  */
 public class KBot {
-    /**
-     * Creates a TaskManager to manage interactions between user and Tasks database
-     */
-    private static final TaskManager taskManager = new TaskManager();
+    /** A TaskManager to manage interactions between user and Tasks database */
+    private static TaskManager taskManager = new TaskManager();
 
     /**
      * Stores the information in String into a Task and adds into the ArrayList
      * 
-     * @param info The information from userInput
+     * @param userInput The information about the Task to store.
+     * @param ins       The type of Task that we want to store.
      */
-    private static void store(String userInput, String ins) {
+    private static void addTask(String userInput, String ins) {
         try {
             taskManager.addTask(userInput, ins);
         } catch (KException e) {
             System.out.println("Error: " + e.getMessage());
         }
-    }
-
-    /**
-     * Prints the Task List, labels them with numbers
-     */
-    private static void printTasks() {
-        taskManager.listTasks();
     }
 
     /**
@@ -60,6 +51,11 @@ public class KBot {
         }
     }
 
+    /**
+     * Deletes an entry at index given.
+     * 
+     * @param index Index at which the Task will be removed from the List.
+     */
     private static void delete(int index) {
         try {
             taskManager.delete(index);
@@ -77,36 +73,50 @@ public class KBot {
     private static void executeCommand(String userInput) throws KException {
         String[] input = userInput.split(" ", 2);
         String ins = input[0];
-        switch (ins) {
-            case "list":
-                printTasks();
-                break;
-            case "mark":
-                int indexToMark = Integer.parseInt(input[1]);
-                mark(indexToMark - 1);
-                break;
-            case "unmark":
-                int indexToUnmark = Integer.parseInt(input[1]);
-                unmark(indexToUnmark - 1);
-                break;
-            case "delete":
-                int indexToDelete = Integer.parseInt(input[1]);
-                delete(indexToDelete - 1);
-                break;
-            case "todo":
-            case "deadline":
-            case "event":
-                if (input.length == 1) {
+        if (input.length > 1) { // for ins with parameter
+            switch (ins) { // correct ins but wrong params handled by each method call
+                case "mark":
+                    int indexToMark = Integer.parseInt(input[1]);
+                    mark(indexToMark - 1);
+                    break;
+                case "unmark":
+                    int indexToUnmark = Integer.parseInt(input[1]);
+                    unmark(indexToUnmark - 1);
+                    break;
+                case "delete":
+                    int indexToDelete = Integer.parseInt(input[1]);
+                    delete(indexToDelete - 1);
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    String info = input[1];
+                    addTask(info, ins);
+                    break;
+                default: // incorrect ins with incorrect params handled here
+                    throw new KException("Invalid command: " + ins
+                            + "\nPlease input the correct commands. Input help to see list of commands.");
+            }
+        } else { // for ins with no parameter
+            switch (ins) {
+                case "list":
+                    taskManager.listTasks();
+                    break;
+                case "help":
+                    System.out.println(
+                            "list\n" + "mark\n" + "unmark\n" + "delete\n" + "todo\n" + "deadline\n" + "event\n");
+                    break;
+                case "mark":
+                case "unmark":
+                case "delete":
+                case "todo":
+                case "deadline":
+                case "event": // correct ins but no param handled
                     throw new KException("Error: " + "Invalid parameters for " + ins);
-                }
-                String info = input[1];
-                store(info, ins);
-                break;
-            case "help":
-                System.out.println("list\n" + "mark\n" + "unmark\n" + "todo\n" + "deadline\n" + "event\n");
-            default:
-                throw new KException("Invalid command: " + ins
-                        + "\nPlease input the correct commands. Input help to see list of commands.");
+                default: // incorrect ins and no param handled here
+                    throw new KException("Invalid command: " + ins
+                            + "\nPlease input the correct commands. Input help to see list of commands.");
+            }
         }
     }
 
@@ -118,8 +128,7 @@ public class KBot {
         while (true) {
             String userInput = sc.nextLine();
             System.out.println(Messages.getLine());
-            // stops the program
-            if (userInput.equals("bye")) {
+            if (userInput.equals("bye")) { // stops the program
                 break;
             } else {
                 try {
@@ -130,12 +139,12 @@ public class KBot {
             }
             System.out.print(Messages.getLine());
         }
-        ;
         sc.close();
     }
 
     public static void main(String[] args) {
         System.out.println(Messages.getStartMessage()); // opening statement
+        taskManager.loadLocal(); // checking if there are local files to load
         simulate(); // simulate kaipybara chatbot
         System.out.println(Messages.getEndMessage() + Messages.getLine()); // closing statement
     }

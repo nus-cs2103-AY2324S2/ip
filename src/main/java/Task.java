@@ -41,6 +41,16 @@ public class Task {
     }
 
     /**
+     * Converts the data here into a format to be stored in the file.
+     * 
+     * @return String representation of the Task to be store in local disk.
+     */
+    public String convertToFormat() {
+        String mark = completed ? "X" : " ";
+        return this.type + " | " + mark + " | " + this.name;
+    }
+
+    /**
      * String representation of a Task.
      * 
      * @return Returns the String representation of a Task.

@@ -1,5 +1,6 @@
-import java.util.*;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Manages all communications between the bot simulation and the database of
@@ -11,7 +12,7 @@ import java.io.*;
  */
 public class TaskManager {
     /** ArrayList<Task> to store all the Tasks the user has created. */
-    private final ArrayList<Task> TASKS = new ArrayList<>();
+    private ArrayList<Task> TASKS = new ArrayList<>();
 
     /**
      * Constructor for TaskManager
@@ -20,11 +21,36 @@ public class TaskManager {
     }
 
     /**
+     * Checks if there is local save and load it into system if there exist.
+     */
+    public void loadLocal() {
+        try {
+            this.TASKS = TaskFileManager.loadTasksFromFile();
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error while accessing the file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Saves the data in the TASKS ArrayList onto a local file.
+     */
+    public void saveLocal() {
+        try {
+            TaskFileManager.saveTasksToFile(TASKS);
+        } catch (IOException e) {
+            System.out.println("Error while accessing the file: " + e.getMessage());
+        }
+    }
+
+    /**
      * Stores the information in String into a Task and adds into the ArrayList
      * 
      * @param info The information from userInput
+     * @param ins  The type of Task
      */
-    protected void addTask(String info, String ins) throws KException {
+    public void addTask(String info, String ins) throws KException {
         Task t = null;
         switch (ins) {
             case "todo":
@@ -63,6 +89,7 @@ public class TaskManager {
                     "Now you have " + TASKS.size() + " tasks in the list.";
             System.out.println(response);
         }
+        saveLocal();
     }
 
     /**
@@ -92,6 +119,7 @@ public class TaskManager {
         Task t = TASKS.get(index);
         t.setCompleted();
         System.out.println("Nice! I've marked this task as done:\n" + t);
+        saveLocal();
     }
 
     /**
@@ -106,8 +134,15 @@ public class TaskManager {
         Task t = TASKS.get(index);
         t.setNotCompleted();
         System.out.println("OK, I've marked this task as not done yet:\n" + t);
+        saveLocal();
     }
 
+    /**
+     * Deletes an entry at index given.
+     * 
+     * @param index Index at which the Task will be removed from the List.
+     * @throws KException Exception called when index is out of range.
+     */
     protected void delete(int index) throws KException {
         if (index + 1 > TASKS.size() || index < 0) {
             throw new KException("Error: " + "Index out of range!");
@@ -115,5 +150,6 @@ public class TaskManager {
         Task t = TASKS.remove(index);
         System.out.println("OK, I've deleted this task:\n" + t
                 + "\nNow you have " + TASKS.size() + " tasks in this list!");
+        saveLocal();
     }
 }

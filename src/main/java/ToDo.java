@@ -18,6 +18,16 @@ public class ToDo extends Task {
     }
 
     /**
+     * Converts the data (ToDo) here into a format to be stored in the file.
+     * 
+     * @return String representation of the ToDo to be store in local disk.
+     */
+    @Override
+    public String convertToFormat() {
+        return super.convertToFormat();
+    }
+
+    /**
      * String representation of a ToDo.
      * 
      * @return Returns the String representation of a ToDo.

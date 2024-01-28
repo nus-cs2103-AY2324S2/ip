@@ -23,6 +23,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Converts the data (Deadline) here into a format to be stored in the file.
+     * 
+     * @return String representation of the Deadline to be store in local disk.
+     */
+    @Override
+    public String convertToFormat() {
+        return super.convertToFormat() + " | " + this.endTime;
+    }
+
+    /**
      * String representation of a Deadline.
      * 
      * @return Returns the String representation of a Deadline.
