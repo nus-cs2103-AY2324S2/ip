@@ -12,11 +12,12 @@ import duke.storage.Storage;
  *
  * @author Ryan NgWH
  */
-public class Cli {
+public class Cli extends Ui {
     /**
-     * Method to print the CLI UI
+     * Displays the CLI UI of the application
      */
-    public static void printUI() {
+    @Override
+    public void startUI() {
         // UI Greeting
         String greeting = "------------------------------------------------------------\n" +
                 "Hello! I'm Ciara\n" +
