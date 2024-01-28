@@ -140,7 +140,6 @@ public class Duke {
     }
 
 
-    
 
     public static void list() {
         System.out.println("   ____________________________________________________________");
@@ -248,7 +247,11 @@ public class Duke {
                     taskType = "T";
                 } else if (task instanceof DeadlineTask) {
                     taskType = "D";
+                } else if (task instanceof DeadlineTaskLoad) {
+                    taskType = "D";
                 } else if (task instanceof EventTask) {
+                    taskType = "E";
+                } else if (task instanceof EventTaskLoad) {
                     taskType = "E";
                 } else {
                     continue;
@@ -259,7 +262,14 @@ public class Duke {
 
                 } else if (task instanceof EventTask) {
                     writer.write(" | " + ((EventTask) task).getTime());
+
+                } else if (task instanceof EventTaskLoad) {
+                    writer.write(" | " + ((EventTaskLoad) task).getTime());
+
+                } else if (task instanceof DeadlineTaskLoad) {
+                    writer.write(" | " + ((DeadlineTaskLoad) task).getBy());
                 }
+
 
                 writer.write(System.lineSeparator());
             }

@@ -22,7 +22,7 @@ public class EventTask extends Task {
     }
 
     public String getTime() {
-        return from + " - " + to;
+        return from + "-" + to;
     }
 
     @Override
