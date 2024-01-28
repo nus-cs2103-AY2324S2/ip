@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("tsundere.Tsundere")
 }
 
 checkstyle {
@@ -37,7 +37,7 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "tsundere"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
