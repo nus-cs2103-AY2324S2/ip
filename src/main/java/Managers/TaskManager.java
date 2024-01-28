@@ -11,14 +11,8 @@ import Utils.StringUtils;
 // TODO: Stretch goal: add exceptions for marking and listing non-existent indexes
 public class TaskManager {
 
-  public static final String mark = "mark";
-  public static final String unmark = "unmark";
-  public static final String list = "list";
-  public static final String delete = "delete";
-  public static final String bye = "bye";
-
   private List<Task> tasks = new ArrayList<>();
-  
+
   private Task get(int i) {
     return this.tasks.get(i);
   }
@@ -36,7 +30,7 @@ public class TaskManager {
   }
 
   protected void delete(String input) {
-    int i = Integer.parseInt(StringUtils.getValueOfCommand(input, delete, null)) - 1;
+    int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.DELETE.getCommand(), null)) - 1;
 
     this.printSeparator();
     Task task = this.tasks.remove(i);
@@ -74,15 +68,15 @@ public class TaskManager {
         addDeadline(input);
       } else if (command.equals(EventDao.name)) {
         addEvent(input);
-      } else if (command.equals(list)) {
+      } else if (command.equals(Commands.LIST.getCommand())) {
         print();
-      } else if (command.equals(mark)) {
+      } else if (command.equals(Commands.MARK.getCommand())) {
         mark(input);
-      } else if (command.equals(unmark)) {
+      } else if (command.equals(Commands.UNMARK.getCommand())) {
         unmark(input);
-      }  else if (command.equals(delete)) {
+      }  else if (command.equals(Commands.DELETE.getCommand())) {
         delete(input);
-      } else if (command.equals(bye)) {
+      } else if (command.equals(Commands.BYE.getCommand())) {
         return;
       } else {
         throw new IllegalArgumentException("Command not recognized");
@@ -109,7 +103,7 @@ public class TaskManager {
   }
 
   private void mark(String input) {
-    int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, mark, null)) - 1;
+    int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.MARK.getCommand(), null)) - 1;
     Task task = this.get(taskIndex);
     this.printSeparator();
     task.markAsDone();
@@ -118,7 +112,7 @@ public class TaskManager {
   }
 
   private void unmark(String input) {
-    int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, unmark, null)) - 1;
+    int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.UNMARK.getCommand(), null)) - 1;
     Task task = this.get(taskIndex);
     this.printSeparator();
     task.markAsUndone();
