@@ -1,11 +1,15 @@
+package Tasks;
+
+import Tasks.Task;
+
 public class ToDo extends Task {
 
     String taskType;
     String taskName;
     Boolean isDone;
 
-    public ToDo(String taskName) {
-        super(taskName);
+    public ToDo(String taskName, Boolean isDone, String taskType) {
+        super(taskName, isDone, taskType);
         this.taskType = "T";
     }
 
@@ -13,5 +17,4 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
-
 }

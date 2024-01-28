@@ -1,3 +1,8 @@
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
+
 import java.util.ArrayList;
 public class TaskList {
     ArrayList<Task> tasksList;
@@ -98,6 +103,9 @@ public class TaskList {
         return output;
     }
 
+    public ArrayList<Task> getTasksList() {
+        return this.tasksList;
+    }
     void printLines() {
         System.out.println("____________________________________________________________");
     }
