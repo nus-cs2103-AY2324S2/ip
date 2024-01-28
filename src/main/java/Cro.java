@@ -1,26 +1,36 @@
 import java.util.*;
 public class Cro {
-    public static void handleInput(String input) {
-
+    static String welcomeMessage = "-----------------------------------\n"
+                            + "Hello! I'm Cro!\n"
+                            + "What can I do for you?\n"
+                            + "-----------------------------------\n";
+    static List<String> taskList = new ArrayList<>();
+    public static void addToTasks(String input) {
+        taskList.add(input);
         System.out.println("-----------------------------------");
-        System.out.println(input);
+        System.out.println("added: " + input);
         System.out.println("-----------------------------------");
     }
+    public static void displayTasks() {
+        for (int i = 0; i < taskList.size(); i++) {
+            String output = String.format("%d. %s", i+1, taskList.get(i));
+            System.out.println(output);
+        }
+    }
     public static void main(String[] args) {
-        System.out.println("-----------------------------------");
-        System.out.println("Hello! I'm Cro!");
-        System.out.println("What can I do for you?");
-        System.out.println("-----------------------------------");
+        System.out.println(welcomeMessage);
         Scanner sc = new Scanner(System.in);
         while (true) {
-            String input = sc.nextLine();
-            if (input.equals("bye")) {
+            String inText = sc.nextLine();
+            if (inText.equals("bye")) {
                 System.out.println("-----------------------------------");
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("-----------------------------------");
                 break;
+            } else if (inText.equals("list")) {
+                displayTasks();
             } else {
-                handleInput(input);
+                addToTasks(inText);
             }
         }
 
