@@ -1,14 +1,49 @@
 package duke;
 
-import duke.storage.Storage;
+import java.io.File;
+
+import duke.storage.TaskList;
 import duke.ui.Cli;
+import duke.ui.Ui;
 
 public class Duke {
-    public static void main(String[] args) {
-        // Initialise stored tasks
-        Storage.initialiseStorage();
+    /**
+     * Task list for the Duke instance
+     */
+    private TaskList taskList;
 
-        // Print CLI UI
-        Cli.printUI();
+    /**
+     * UI of the Duke instance
+     */
+    private Ui ui;
+
+    /**
+     * File to save storage to
+     */
+    public static final File SAVE_FILE = new File("data/tasks.json");
+
+    /**
+     * Create a Duke instance
+     *
+     * @param file File to save and load tasks
+     */
+    public Duke(File file) {
+        this.ui = new Cli();
+
+        // Create data directory (if required)
+        file.getParentFile().mkdirs();
+
+        this.taskList = new TaskList(file);
+    }
+
+    /**
+     * Run the Duke instance
+     */
+    public void run() {
+        this.ui.startUI(this.taskList);
+    }
+
+    public static void main(String[] args) {
+        new Duke(SAVE_FILE).run();
     }
 }

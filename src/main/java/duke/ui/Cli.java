@@ -1,10 +1,11 @@
 package duke.ui;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
-import duke.exceptions.MissingArgumentException;
-import duke.storage.Storage;
+import duke.commands.Command;
+import duke.exceptions.DukeException;
+import duke.parser.Parser;
+import duke.storage.TaskList;
 
 /**
  * The UI CLI class handles the displaying of UI elements in
@@ -12,81 +13,86 @@ import duke.storage.Storage;
  *
  * @author Ryan NgWH
  */
-public class Cli {
+public class Cli extends Ui {
     /**
-     * Method to print the CLI UI
+     * Shared scanner for user input
      */
-    public static void printUI() {
-        // UI Greeting
-        String greeting = "------------------------------------------------------------\n" +
-                "Hello! I'm Ciara\n" +
-                "What can I do for you?\n" +
-                "------------------------------------------------------------";
+    private final Scanner sc = new Scanner(System.in);
 
-        // UI Goodbye message
-        String goodbye = "Bye. Hope to see you again soon!";
+    /**
+     * Displays the CLI UI of the application
+     */
+    @Override
+    public void startUI(TaskList taskList) {
+        // Print greeting
+        printGreeting();
 
-        // Display greeting
-        System.out.println(greeting);
+        boolean isExit = false;
 
-        // Scanner for getting user input
-        Scanner sc = new Scanner(System.in);
-
-        String input;
-        // Store and echo user input
-        do {
-            input = sc.nextLine();
-            String[] splitInput = input.split(" ");
-
-            System.out.println("------------------------------------------------------------");
-
+        while (!isExit) {
             try {
-                switch (splitInput[0].toLowerCase()) {
-                case "bye": // Exit
-                    // Print exit message
-                    System.out.println(goodbye);
-                    break;
+                // Get user input
+                String input = readCommand();
+                printDividerLine();
 
-                case "list": // List items
-                    Storage.listItems(Arrays.copyOfRange(splitInput, 1, splitInput.length));
-                    break;
+                // Parse user input
+                Command command = Parser.parse(input);
 
-                case "mark": // Mark item
-                    if (splitInput.length <= 1) {
-                        throw new MissingArgumentException("Missing argument - Index of task required");
-                    }
+                // Execute command
+                command.execute(taskList, this);
 
-                    Storage.markItem(Integer.parseInt(splitInput[1]) - 1);
-                    break;
-
-                case "unmark": // Unmark item
-                    if (splitInput.length <= 1) {
-                        throw new MissingArgumentException("Missing argument - Index of task required");
-                    }
-
-                    Storage.unmarkItem(Integer.parseInt(splitInput[1]) - 1);
-                    break;
-
-                case "delete": // Delete item
-                    if (splitInput.length <= 1) {
-                        throw new MissingArgumentException("Missing argument - Index of task required");
-                    }
-
-                    Storage.deleteItem(Integer.parseInt(splitInput[1]) - 1);
-                    break;
-
-                default: // Store and echo items
-                    // Store item
-                    Storage.storeItem(splitInput[0], Arrays.copyOfRange(splitInput, 1, splitInput.length));
-                    break;
-                }
-            } catch (Exception exception) {
-                System.out.println(String.format("ERROR: %s", exception.getMessage()));
+                // Exit (if applicable)
+                isExit = command.isExit();
+            } catch (DukeException e) {
+                printError(e.getMessage());
+            } finally {
+                printDividerLine();
             }
-
-            System.out.println("------------------------------------------------------------");
-        } while (!input.equals("bye"));
+        }
 
         sc.close();
+    }
+
+    /**
+     * Print warning on standard output when application fails to load tasks from
+     * file
+     */
+    public static void printLoadFromFileWarning() {
+        System.out.println("WARNING: Failed to load from file, starting with empty list");
+    }
+
+    /**
+     * Get user input and return a complete command for the application
+     */
+    private String readCommand() {
+        return sc.nextLine();
+    }
+
+    /**
+     * Print greeting on standard output
+     */
+    private void printGreeting() {
+        // UI Greeting
+        String greeting = "Hello! I'm Ciara\n"
+                + "What can I do for you?";
+
+        // Display greeting
+        printDividerLine();
+        System.out.println(greeting);
+        printDividerLine();
+    }
+
+    /**
+     * Print divider line on standard output
+     */
+    private void printDividerLine() {
+        System.out.println("------------------------------------------------------------");
+    }
+
+    /**
+     * Print error on standard output
+     */
+    private void printError(String error) {
+        System.out.println(String.format("ERROR: %s", error));
     }
 }
