@@ -27,7 +27,7 @@
 
 	____________________________________________________________
 	Got it added homie:
-		[D] [ ] return book (by: Sunday)
+		[D] [ ] return book (by: Jan 25 2024 02:00pm )
 	Now you have 2 in the list.
 
 	____________________________________________________________
@@ -35,7 +35,7 @@
 
 	____________________________________________________________
 	Got it added homie:
-		[E] [ ] project meeting (from: Mon 2pm to: 4pm)
+		[E] [ ] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 	Now you have 3 in the list.
 
 	____________________________________________________________
@@ -44,8 +44,8 @@
 	____________________________________________________________
 	Peep the lineup, here's the rundown of tasks on your list:
 	1.  [T] [ ] borrow book
-	2.  [D] [ ] return book (by: Sunday)
-	3.  [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+	2.  [D] [ ] return book (by: Jan 25 2024 02:00pm )
+	3.  [E] [ ] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 
 	____________________________________________________________
 
@@ -59,14 +59,14 @@
 
 	____________________________________________________________
 	Dope! Check it, I've tagged this task as handled:
-		[D] [X] return book (by: Sunday)
+		[D] [X] return book (by: Jan 25 2024 02:00pm )
 
 	____________________________________________________________
 
 
 	____________________________________________________________
 	Dope! Check it, I've tagged this task as handled:
-		[E] [X] project meeting (from: Mon 2pm to: 4pm)
+		[E] [X] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 
 	____________________________________________________________
 
@@ -74,22 +74,22 @@
 	____________________________________________________________
 	Peep the lineup, here's the rundown of tasks on your list:
 	1.  [T] [X] borrow book
-	2.  [D] [X] return book (by: Sunday)
-	3.  [E] [X] project meeting (from: Mon 2pm to: 4pm)
+	2.  [D] [X] return book (by: Jan 25 2024 02:00pm )
+	3.  [E] [X] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 
 	____________________________________________________________
 
 
 	____________________________________________________________
 	A'ight, I've stamped this task as still in the works:
-		[E] [ ] project meeting (from: Mon 2pm to: 4pm)
+		[E] [ ] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 
 	____________________________________________________________
 
 
 	____________________________________________________________
 	A'ight, I've stamped this task as still in the works:
-		[D] [ ] return book (by: Sunday)
+		[D] [ ] return book (by: Jan 25 2024 02:00pm )
 
 	____________________________________________________________
 
@@ -104,8 +104,8 @@
 	____________________________________________________________
 	Peep the lineup, here's the rundown of tasks on your list:
 	1.  [T] [ ] borrow book
-	2.  [D] [ ] return book (by: Sunday)
-	3.  [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+	2.  [D] [ ] return book (by: Jan 25 2024 02:00pm )
+	3.  [E] [ ] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 
 	____________________________________________________________
 
@@ -120,8 +120,8 @@
 
 	____________________________________________________________
 	Peep the lineup, here's the rundown of tasks on your list:
-	1.  [D] [ ] return book (by: Sunday)
-	2.  [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+	1.  [D] [ ] return book (by: Jan 25 2024 02:00pm )
+	2.  [E] [ ] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 
 	____________________________________________________________
 
@@ -144,7 +144,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Seems like the deadline command is incorrect.
-		It must be: "deadline <task description> /by <date time>".
+		It must be: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -152,7 +152,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Seems like the deadline command is incorrect.
-		It must be: "deadline <task description> /by <date time>".
+		It must be: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -160,7 +160,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Seems like the deadline command is incorrect.
-		It must be: "deadline <task description> /by <date time>".
+		It must be: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -168,7 +168,15 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Seems like the deadline command is incorrect.
-		It must be: "deadline <task description> /by <date time>".
+		It must be: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>".
+
+	____________________________________________________________
+
+
+	____________________________________________________________
+	Hey homie, we've got a hiccup...
+		Seems like the deadline command is incorrect.
+		It must be: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -176,7 +184,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <date time> /to <date time>".
+		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -184,7 +192,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <date time> /to <date time>".
+		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -192,7 +200,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <date time> /to <date time>".
+		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -200,7 +208,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <date time> /to <date time>".
+		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -208,7 +216,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <date time> /to <date time>".
+		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -216,7 +224,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <date time> /to <date time>".
+		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -224,7 +232,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <date time> /to <date time>".
+		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
@@ -232,7 +240,7 @@
 	____________________________________________________________
 	Hey homie, we've got a hiccup...
 		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <date time> /to <date time>".
+		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
 	____________________________________________________________
 
