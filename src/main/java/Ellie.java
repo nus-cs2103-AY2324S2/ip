@@ -5,12 +5,12 @@ public class Ellie {
     final static String horizontalLine = "____________________________________________________________";
     final static String logoEllie =
             " _______   ___       ___       ___  _______          \n" +
-            "|\\  ___ \\ |\\  \\     |\\  \\     |\\  \\|\\  ___ \\         \n" +
-            "\\ \\   __/|\\ \\  \\    \\ \\  \\    \\ \\  \\ \\   __/|        \n" +
-            " \\ \\  \\_|/_\\ \\  \\    \\ \\  \\    \\ \\  \\ \\  \\_|/__      \n" +
-            "  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\ \\  \\_|\\ \\     \n" +
-            "   \\ \\_______\\ \\_______\\ \\_______\\ \\__\\ \\_______\\    \n" +
-            "    \\|_______|\\|_______|\\|_______|\\|__|\\|_______|    \n";
+                    "|\\  ___ \\ |\\  \\     |\\  \\     |\\  \\|\\  ___ \\         \n" +
+                    "\\ \\   __/|\\ \\  \\    \\ \\  \\    \\ \\  \\ \\   __/|        \n" +
+                    " \\ \\  \\_|/_\\ \\  \\    \\ \\  \\    \\ \\  \\ \\  \\_|/__      \n" +
+                    "  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\ \\  \\_|\\ \\     \n" +
+                    "   \\ \\_______\\ \\_______\\ \\_______\\ \\__\\ \\_______\\    \n" +
+                    "    \\|_______|\\|_______|\\|_______|\\|__|\\|_______|    \n";
 
     enum Command {
         MARK,
@@ -27,7 +27,7 @@ public class Ellie {
     }
 
 
-    private Tracker tracker;
+    private final Tracker tracker;
 
     public Ellie() {
         tracker = new Tracker();
@@ -39,60 +39,57 @@ public class Ellie {
         Command command = Command.UNKNOWN;
         String input = reader.nextLine();
 
-        while ( true ) {
+        while (true) {
 
             String[] inputArray = input.split(" ", 2);
             String stringHeader = inputArray[0].toLowerCase();
 
             switch (stringHeader) {
-                case "list":
-                    command = Command.LIST;
-                    break;
-                case "mark":
-                    command = Command.MARK;
-                    break;
-                case "unmark":
-                    command = Command.UNMARK;
-                    break;
-                case "delete":
-                    command = Command.DELETE;
-                    break;
-                case "todo":
-                    command = Command.TODO;
-                    break;
-                case "deadline":
-                    command = Command.DEADLINE;
-                    break;
-                case "event":
-                    command = Command.EVENT;
-                    break;
-                case "help":
-                    command = Command.HELP;
-                    break;
-                case "bye":
-                    command = Command.BYE;
-                    break;
-                default:
-                    command = Command.UNKNOWN;
+            case "list":
+                command = Command.LIST;
+                break;
+            case "mark":
+                command = Command.MARK;
+                break;
+            case "unmark":
+                command = Command.UNMARK;
+                break;
+            case "delete":
+                command = Command.DELETE;
+                break;
+            case "todo":
+                command = Command.TODO;
+                break;
+            case "deadline":
+                command = Command.DEADLINE;
+                break;
+            case "event":
+                command = Command.EVENT;
+                break;
+            case "help":
+                command = Command.HELP;
+                break;
+            case "bye":
+                command = Command.BYE;
+                break;
+            default:
+                command = Command.UNKNOWN;
             }
 
             // commands with no argument: BYE / LIST / UNKNOWN
             if (command == Command.BYE) {
                 break;
-            }
-            else if (command == Command.LIST) {
+            } else if (command == Command.LIST) {
                 tracker.listTasks();
                 input = reader.nextLine();
                 continue;
-            }
-            else if (command == Command.HELP) {
+            } else if (command == Command.HELP) {
                 System.out.println("Here's a list of supported commands so far:" +
                         "\n help \n list \n mark/unmark [int] \n todo [task] \n " +
                         "deadline [task] /by [date]  \n event [task] /from [date] /to [date] \n bye \n");
                 input = reader.nextLine();
                 continue;
-            }
-            else if (command == Command.UNKNOWN) {
+            } else if (command == Command.UNKNOWN) {
                 try {
                     throw new UnknownInputException("Command Unknown or Missing");
                 } catch (UnknownInputException e) {
@@ -108,8 +105,7 @@ public class Ellie {
                 if (inputArray.length < 2) {
                     throw new InvalidTaskInputException("command contains no argument");
                 }
-            }
-            catch (InvalidTaskInputException e) {
+            } catch (InvalidTaskInputException e) {
                 System.out.println("Please input an argument! \n [command] [argument]\n");
                 input = reader.nextLine();
                 continue;
@@ -124,16 +120,14 @@ public class Ellie {
                 } else {
                     System.out.println("Input a valid number to mark! \n Usage: mark [int]\n");
                 }
-            }
-            else if (command == Command.UNMARK) {
+            } else if (command == Command.UNMARK) {
                 if (isNumeric(stringBody)) {
                     int index = Integer.parseInt(stringBody);
                     tracker.unmarkTaskIndex(index);
                 } else {
                     System.out.println("Input a valid number to unmark! \n Usage: unmark [int]\n");
                 }
-            }
-            else if (command == Command.DELETE) {
+            } else if (command == Command.DELETE) {
                 if (isNumeric(stringBody)) {
                     int index = Integer.parseInt(stringBody);
                     tracker.deleteTaskIndex(index);
@@ -141,12 +135,10 @@ public class Ellie {
                     System.out.println("Input a valid number to delete! \n Usage: delete [int]\n");
                 }
 
-            }
-            else if (command == Command.TODO) {
+            } else if (command == Command.TODO) {
                 Task task = new Todo(stringBody);
                 tracker.addTask(task);
-            }
-            else if (command == Command.DEADLINE) {
+            } else if (command == Command.DEADLINE) {
                 if (!stringBody.contains("/by")) {
                     System.out.println("Please add a due date for your dateline using '/by'!");
                 } else {
@@ -162,15 +154,12 @@ public class Ellie {
                         tracker.addTask(task);
                     }
                 }
-            }
-            else if (command == Command.EVENT) {
+            } else if (command == Command.EVENT) {
                 if (!stringBody.contains("/from")) {
                     System.out.println("Please add a start date for your event using '/from'!");
-                }
-                else if (!stringBody.contains("/to")) {
+                } else if (!stringBody.contains("/to")) {
                     System.out.println("Please add an end date for your event using '/to'!");
-                }
-                else {
+                } else {
                     String[] deadlineArray = stringBody.split("/from");
                     String event = deadlineArray[0].trim();
                     String eventDuration = deadlineArray[1];

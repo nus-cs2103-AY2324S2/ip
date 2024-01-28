@@ -4,7 +4,7 @@ public class Tracker {
 
     private final ArrayList<Task> taskList;
 
-    public Tracker(){
+    public Tracker() {
         taskList = new ArrayList<>();
     }
 
@@ -23,7 +23,7 @@ public class Tracker {
 
         int index = 0;
         System.out.println("Here are your tasks!");
-        for (Task element: taskList) {
+        for (Task element : taskList) {
             index++;
             System.out.println("    " + index + "." + element.listTaskString());
         }
@@ -44,7 +44,7 @@ public class Tracker {
         task.markTask();
 
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task.listTaskString() +"\n");
+        System.out.println("  " + task.listTaskString() + "\n");
 
     }
 
@@ -62,7 +62,7 @@ public class Tracker {
 
     }
 
-    public void deleteTaskIndex (int index) {
+    public void deleteTaskIndex(int index) {
         if (index > taskList.size()) {
             System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
             return;
