@@ -18,6 +18,13 @@ public class DukeException extends Exception {
     }
 
     // Custom exception for unknown command
+    public static class FindParamsException extends DukeException {
+        public FindParamsException() {
+            super("A string keyword is expected for a find command :3");
+        }
+    }
+
+    // Custom exception for unknown command
     public static class MarkParamsException extends DukeException {
         public MarkParamsException() {
             super("An integer argument is expected for a mark or unmark command :3");

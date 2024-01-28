@@ -27,6 +27,21 @@ public class TaskList {
         }
     }
 
+    /**
+     * Gives users a way to find a task by searching for a keyword
+     * @param keyword to search for in description, is case-sensitive
+     */
+    public void findTasks(String keyword) {
+        int num = 0;
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task t = this.taskList.get(i);
+            if (t.description.contains(keyword)) {
+                System.out.println((num + 1) + ". " + t);
+                num++;
+            }
+        }
+    }
 
     /**
      * Adds a task to the current taskList
