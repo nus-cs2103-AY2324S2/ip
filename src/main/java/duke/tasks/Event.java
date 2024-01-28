@@ -52,4 +52,9 @@ public class Event extends Task {
 
         return encodedEvent;
     }
+
+    @Override
+    public String getTaskName() {
+        return super.getTaskName();
+    }
 }

@@ -83,4 +83,7 @@ public class Storage {
         temp.displayList();
     }
 
+    public void displaySearchList(String query) {
+        temp.displaySearchList(query);
+    }
 }

@@ -45,4 +45,9 @@ public class Deadline extends Task {
 
         return encodedDeadline;
     }
+
+    @Override
+    public String getTaskName() {
+        return super.getTaskName();
+    }
 }
