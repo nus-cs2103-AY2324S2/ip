@@ -5,6 +5,7 @@ public abstract class Task {
     public Task(String task) {
         this.task = task;
         this.marked = false;
+
     }
 
     public String getTask() {

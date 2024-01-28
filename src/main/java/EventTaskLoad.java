@@ -21,7 +21,7 @@ public class EventTaskLoad extends Task {
                 this.to = split[1].trim();
             }
     }
-    
+
 
     @Override
     public String toString() {
