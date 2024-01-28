@@ -3,27 +3,51 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
-import java.util.Scanner;
-
+import java.io.FileWriter;
 public class GrumbleBug {
+
+    public static String filePath = "./tasks.txt";
 
     public static void printList(ArrayList<Task> list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(i+1 + list.get(i).getFullStatus());
         }
     }
-    public static void main(String[] args) {
 
+    private static void writeToFile(ArrayList<Task> myList) throws IOException {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            for (int i = 0; i < myList.size(); i++) {
+
+                Task t = myList.get(i);
+                fw.write(t.taskType);
+                fw.write("\n");
+                fw.write(t.isDone ? "true" : "false");
+                fw.write("\n" + t.description + "\n");
+                if (t.taskType == 'D') {
+                    fw.write(t.endDate + "\n");
+                } else if (t.taskType == 'E') {
+                    fw.write(t.startDate + "\n");
+                    fw.write(t.endDate + "\n");
+                }
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Oops, IO Exception when writing to file");
+        }
+    }
+
+    public static void main(String[] args) {
         ArrayList<Task> myList = new ArrayList<>();
 
         // load data from hard disk
         try {
-            File f = new File("./tasks.txt");
+            File f = new File(filePath);
             f.createNewFile();
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String task = s.nextLine();
-                boolean done = s.nextBoolean();
+                boolean done = s.nextLine() == "true" ? true : false;
                 String desc = s.nextLine();
                 Task t;
                 if (task.equals("T")) {
@@ -43,6 +67,7 @@ public class GrumbleBug {
             }
         } catch (IOException e) {
             System.out.println("An IO error occurred with the data file.");
+            e.printStackTrace();
         }
 
 
@@ -83,7 +108,7 @@ public class GrumbleBug {
             } else if (input1.equals("todo")) { // add to list
                 System.out.println("Task name?");
                 String name = sc.nextLine();
-                Task task = new Task(name);
+                Task task = new Task(false, name);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
@@ -95,7 +120,7 @@ public class GrumbleBug {
                 String name = sc.nextLine();
                 System.out.println("Wow ok.. due by?");
                 String endDate = sc.nextLine();
-                Task task = new Task(name, endDate);
+                Task task = new Task(false, name, endDate);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
@@ -109,7 +134,7 @@ public class GrumbleBug {
                 String startDate = sc.nextLine();
                 System.out.println("End date?");
                 String endDate = sc.nextLine();
-                Task task = new Task(name, startDate, endDate);
+                Task task = new Task(false, name, startDate, endDate);
                 myList.add(task);
                 String reply = "GrumbleBug:"
                         + "_______________________________________\n"
@@ -129,6 +154,11 @@ public class GrumbleBug {
             } else {
                 // error, cannot understand
                 System.out.println("I don't understand. Try again, or go away");
+            }
+            try {
+                GrumbleBug.writeToFile(myList);
+            } catch (IOException e) {
+                System.out.println("IOEXception");
             }
         }
     }
