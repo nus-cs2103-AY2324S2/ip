@@ -96,6 +96,8 @@ public class Duke {
                     System.out.println("  " + e);
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
 
+                } else {
+                    System.out.println("Oops! I don't know what you are saying :(");
                 }
                 printLine();
                 input = sc.nextLine();
