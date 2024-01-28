@@ -6,6 +6,7 @@ public class Commands {
     public static final String TODO = "todo";
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
+    public static final String DELETE = "delete";
 
     public static String[] extractParameters(String parametersString,
                                              String[] parameters) throws ParameterNotFoundException {
@@ -28,6 +29,16 @@ public class Commands {
         result[0] = splitString[0];
 
         return result;
+    }
+
+    public static void processDeleteOrMarkCommands(String[] commandArgs) throws NumberFormatException,
+            InvalidTaskIndexException, ArrayIndexOutOfBoundsException {
+        int taskIndex = Integer.parseInt(commandArgs[1]) - 1;
+        if (commandArgs[0].equals(Commands.DELETE)) {
+            Bob.handleDelete(taskIndex);
+        } else {
+            Bob.handleMark(taskIndex, commandArgs[0].equals(Commands.MARK));
+        }
     }
 
     public static void processAddCommands(String[] commandArgs) throws EmptyDescriptionException {
@@ -63,11 +74,13 @@ public class Commands {
         case Commands.LIST:
             Bob.handleList();
             break;
+        case Commands.DELETE:
+            // Fallthrough
         case Commands.UNMARK:
             // Fallthrough
         case Commands.MARK:
             try {
-                Bob.handleMark(Integer.parseInt(commandArgs[1]) - 1, commandArgs[0].equals(Commands.MARK));
+                processDeleteOrMarkCommands(commandArgs);
             } catch (NumberFormatException e) {
                 // The more "correct" way is to throw an InvalidTaskIndexException?
                 Replies.print(String.format(Replies.INVALID_TASK_INDEX, commandArgs[1]));

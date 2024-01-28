@@ -16,6 +16,9 @@ public class Replies {
     public static final String MARK_HEADER = "good job!";
     public static final String UNMARK_HEADER = "ok you just undid this task";
 
+    public static final String DELETE_HEADER = "removed:";
+    public static final String DELETE_FOOTER = "%d task(s) left";
+
     public static final String EMPTY_DESCRIPTION = "missing description for %s";
     public static final String INVALID_COMMAND = "what";
     public static final String PARAMETER_NOT_FOUND = "not enough information: %s";
@@ -68,5 +71,9 @@ public class Replies {
 
     public static void mark(Task task, boolean done) {
         print(new String[] { done ? MARK_HEADER : UNMARK_HEADER, " ".repeat(2) + task });
+    }
+
+    public static void delete(Task task, int numberOfTasks) {
+        print(new String[] { DELETE_HEADER, " ".repeat(2) + task, String.format(DELETE_FOOTER, numberOfTasks) });
     }
 }

@@ -1,16 +1,12 @@
-todo
-deadline
-event
-mark
-blah
+todo read book
 mark 1
-mark a
-deadline a /by a
-deadline a /by
-deadline a
-event a /from a /to a
-event a /from a /to
-event a /from a
-event a /from
-event a
+deadline return book /by June 6th
+mark 2
+event project meeting /from Aug 6th 2pm /to 4pm
+todo join sports club
+mark 4
+todo borrow book
+list
+delete 3
+list
 exit

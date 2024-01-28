@@ -16,6 +16,16 @@ public class Bob {
         Replies.mark(task, done);
     }
 
+    public static void handleDelete(int taskIndex) throws InvalidTaskIndexException {
+        if (taskIndex < 0 || taskIndex >= TASKS.size()) {
+            throw new InvalidTaskIndexException();
+        }
+
+        Task task = TASKS.get(taskIndex);
+        TASKS.remove(taskIndex);
+        Replies.delete(task, TASKS.size());
+    }
+
     public static void handleList() {
         Replies.list(TASKS);
     }
