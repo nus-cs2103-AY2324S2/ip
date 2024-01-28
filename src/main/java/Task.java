@@ -1,6 +1,9 @@
 public class Task {
     String description;
     boolean isDone;
+    boolean isTodo;
+    boolean isDeadline;
+    boolean isEvent;
 
     public Task(String description) {
         this.description = description;
@@ -15,10 +18,18 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public String getStatusIcon1() {
+        if (isTodo) {
+            return "T";
+        } else if (isDeadline) {
+            return "D";
+        } else {
+            return "E";
+        }
     }
 
-    //...
+    public String getStatusIcon2() {
+        return (isDone ? "X" : " ");
+    }
 }
 
