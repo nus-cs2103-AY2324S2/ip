@@ -1,6 +1,15 @@
 import java.util.Scanner;
 
 public class Gandalf {
+
+    public static void checkCommand(String[] taskInfo) throws GandalfException{
+        if(!taskInfo[0].equals("todo") && !taskInfo[0].equals("deadline") && !taskInfo[0].equals("event")){
+            throw new GandalfException("Please forgive me for I do not understand. They are spoken in a tongue lost in time.");
+        }
+        else if(taskInfo.length == 1){
+            throw new GandalfException("I cannot add " + taskInfo[0] + " without a description");
+        }
+    }
     public static void main(String[] args) {
         Task[] list = new Task[100];
         int numOfActions = 0;
@@ -9,6 +18,9 @@ public class Gandalf {
         Scanner scanner = new Scanner(System.in);
         while(true) {
             String input = scanner.nextLine();
+            if(input.length() == 0){ //ignore accidental new lines from user
+                continue;
+            }
             //need to parse before checking for different commands
             //first split by "/"
             String[] splitInput = input.split("/"); //to separate dates for deadline and event
@@ -49,7 +61,14 @@ public class Gandalf {
                 System.out.println(correspondingTask);
                 continue;
             }
-            //if reach this point assume task is new and does not exist in current array and must further breakdown the array
+            try{
+                checkCommand(taskInfo);
+            }
+            catch(GandalfException e){
+                System.out.println(e.getMessage());
+                continue;
+            }
+            //if reach this point assume task is new (and recognized) and does not exist in current array and must further breakdown the array
             numOfActions++;
             if(taskInfo[0].equals("todo")){
                 Task currentTask = new ToDos(taskInfo[1]);
@@ -67,9 +86,6 @@ public class Gandalf {
                 Task currentTask = new Events(taskInfo[1], startDate, endDate);
                 list[numOfActions] = currentTask;
                 System.out.println("added new task: " + currentTask);
-            }
-            else{
-                System.out.println("Apologies command not recognized");
             }
             System.out.println("Total number of tasks so far: " + numOfActions);
         }
