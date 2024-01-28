@@ -1,8 +1,28 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Duke {
+    //Array to contain the task list
+    private final static ArrayList<Task> taskList = new ArrayList<>();
+    private final static String fileName = "./data/duke.txt";
+
     public static void main(String[] args) {
+        try {
+            File file = new File(fileName);
+            if (!file.exists()) {
+                File f = new File("./data");
+                f.mkdir();
+                file.createNewFile();
+            } else {
+                readFile(file);
+            }
+        } catch (Exception e){
+            printingString(e.toString());
+        }
+
         //Starting and Ending Text
         String start = "Hello! I'm Unknown \n"
                 + "What can I do for you? \n";
@@ -10,9 +30,6 @@ public class Duke {
 
         //Boolean value to indicate whether the user has finished
         boolean finished = false;
-
-        //Array to contain the task list
-        ArrayList<Task> taskList = new ArrayList<Task>();
 
         //Printing of Start text
         printingString(start);
@@ -28,61 +45,17 @@ public class Duke {
                 } else if (s.equalsIgnoreCase("list")) {
                     printingList(taskList);
                 } else if (s.equalsIgnoreCase("mark")) {
-                    int num = Integer.parseInt(in.next()) - 1;
-                    taskList.get(num).markAsDone();
-                    printingString("Nice! I've marked this task as done\n" + "  " + taskList.get(num));
+                    mark(Integer.parseInt(in.next()) - 1);
                 } else if (s.equalsIgnoreCase("unmark")) {
-                    int num = Integer.parseInt(in.next()) - 1;
-                    taskList.get(num).markAsUndone();
-                    printingString("OK, I've marked this task as not done yet\n" + "  " + taskList.get(num));
+                    unmark(Integer.parseInt(in.next()) - 1);
                 } else if (s.equalsIgnoreCase("todo")) {
-                    String out = in.nextLine();
-                    if (out.length() <= 1) {
-                        throw new DukeException("Please enter something that you want to do. \n");
-                    } else {
-                        taskList.add(new ToDos(out));
-                        printingAdd(taskList.get(taskList.size() - 1), taskList.size());
-                    }
+                    toDo(in.nextLine());
                 } else if (s.equalsIgnoreCase("deadline")) {
-                    String out = in.nextLine();
-                    if (out.length() <= 1) {
-                        throw new DukeException("Please enter something that you want to do. \n");
-                    } else {
-                        String[] split = out.split("/by");
-                        if (split[0].length() <= 1) {
-                            throw new DukeException("Please enter something that you want to do. \n");
-                        } else if (split.length != 2 || split[1].length() <= 1) {
-                            throw new DukeException("Please enter the deadline of the task. \n");
-                        } else {
-                            taskList.add(new Deadlines(split[0], split[1]));
-                            printingAdd(taskList.get(taskList.size() - 1), taskList.size());
-                        }
-                    }
+                    deadline(in.nextLine());
                 } else if (s.equalsIgnoreCase("event")) {
-                    String out = in.nextLine();
-                    if (out.length() <= 1) {
-                        throw new DukeException("Please enter something that you want to do. \n");
-                    } else {
-                        String[] split1 = out.split("/from");
-                        if (split1[0].length() <= 1) {
-                            throw new DukeException("Please enter something that you want to do. \n");
-                        } else if (split1.length != 2) {
-                            throw new DukeException("Please enter the duration of the event. \n");
-                        } else {
-                            String[] split2 = split1[1].split("/to");
-                            if (split2.length != 2) {
-                                throw new DukeException("Please enter the ending time of the event. \n");
-                            } else {
-                                taskList.add(new Events(split1[0], split2[0], split2[1]));
-                                printingAdd(taskList.get(taskList.size() - 1), taskList.size());
-                            }
-                        }
-                    }
+                    event(in.nextLine());
                 } else if (s.equalsIgnoreCase("delete")) {
-                    int num = Integer.parseInt(in.next()) - 1;
-                    Task task = taskList.get(num);
-                    taskList.remove(num);
-                    printingString("Noted. I've removed this task: \n" + task + "\nNow you have " + taskList.size() + " tasks in the list.\n");
+                    delete(Integer.parseInt(in.next()) - 1);
                 } else {
                     throw new DukeException("Please do enter a new proper command.\n");
                 }
@@ -92,6 +65,8 @@ public class Duke {
                 printingString("Please enter a number for the task that you wish to edit.\n");
             } catch (IndexOutOfBoundsException e) {
                 printingString("Please enter a number for the task that is on the list.\n");
+            } catch (IOException e) {
+                printingString("Error when writing to file\n");
             }
         }
 
@@ -116,5 +91,110 @@ public class Duke {
 
     private static void printingAdd(Task task, int size) {
         printingString("Got it. I've added this task: \n" + task + "\nNow you have " + size + " tasks in the list.\n");
+    }
+
+    private static void mark(int num) throws DukeException,IOException {
+        taskList.get(num).markAsDone();
+        arrayToFile();
+        printingString("Nice! I've marked this task as done\n" + "  " + taskList.get(num) + "\n");
+    }
+
+    private static void unmark(int num) throws DukeException,IOException {
+        taskList.get(num).markAsUndone();
+        arrayToFile();
+        printingString("OK, I've marked this task as not done yet\n" + "  " + taskList.get(num) + "\n");
+    }
+
+    private static void toDo(String out) throws DukeException,IOException {
+        if (out.length() <= 1) {
+            throw new DukeException("Please enter something that you want to do. \n");
+        } else {
+            appendToFile("T|0|" + out);
+            taskList.add(new ToDos(out));
+            printingAdd(taskList.get(taskList.size() - 1), taskList.size());
+        }
+    }
+
+    private static void deadline(String out) throws DukeException,IOException {
+        if (out.length() <= 1) {
+            throw new DukeException("Please enter something that you want to do. \n");
+        } else {
+            String[] split = out.split("/by");
+            if (split[0].length() <= 1) {
+                throw new DukeException("Please enter something that you want to do. \n");
+            } else if (split.length != 2 || split[1].length() <= 1) {
+                throw new DukeException("Please enter the deadline of the task. \n");
+            } else {
+                appendToFile("D|0|" + split[0] + "|" + split[1]);
+                taskList.add(new Deadlines(split[0], split[1]));
+                printingAdd(taskList.get(taskList.size() - 1), taskList.size());
+            }
+        }
+    }
+
+    private static void event(String out) throws DukeException,IOException {
+        if (out.length() <= 1) {
+            throw new DukeException("Please enter something that you want to do. \n");
+        } else {
+            String[] split1 = out.split("/from");
+            if (split1[0].length() <= 1) {
+                throw new DukeException("Please enter something that you want to do. \n");
+            } else if (split1.length != 2) {
+                throw new DukeException("Please enter the duration of the event. \n");
+            } else {
+                String[] split2 = split1[1].split("/to");
+                if (split2.length != 2) {
+                    throw new DukeException("Please enter the ending time of the event. \n");
+                } else {
+                    appendToFile("E|0|" + split1[0] + "|" + split2[0] + "|" + split2[1]);
+                    taskList.add(new Events(split1[0], split2[0], split2[1]));
+                    printingAdd(taskList.get(taskList.size() - 1), taskList.size());
+                }
+            }
+        }
+    }
+
+    private static void delete(int num) throws DukeException,IOException {
+        Task task = taskList.get(num);
+        taskList.remove(num);
+        arrayToFile();
+        printingString("Noted. I've removed this task: \n" + task + "\nNow you have " + taskList.size() + " tasks in the list.\n");
+    }
+
+    private static void readFile(File file) throws FileNotFoundException {
+        Scanner s = new Scanner(file);
+        int count = 0;
+        while (s.hasNext()) {
+            String str = s.nextLine();
+            String[] split = str.split("[|]");
+
+            if (split[0].equalsIgnoreCase("T")) {
+                taskList.add(new ToDos(split[2]));
+            } else if (split[0].equalsIgnoreCase("D")) {
+                taskList.add(new Deadlines(split[2],split[3]));
+            } else if (split[0].equalsIgnoreCase("E")) {
+                taskList.add(new Events(split[2],split[3],split[4]));
+            }
+
+            if (Boolean.parseBoolean(split[0])) {
+                taskList.get(count).markAsDone();
+            }
+        }
+    }
+
+    private static void appendToFile(String str) throws IOException {
+        FileWriter fw = new FileWriter(fileName, true);
+        fw.write(str + "\n");
+        fw.close();
+    }
+
+    private static void arrayToFile() throws IOException{
+        FileWriter fw = new FileWriter(fileName);
+        fw.write("");
+        fw.close();
+
+        for (Task task : taskList) {
+            appendToFile(task.toFile());
+        }
     }
 }
