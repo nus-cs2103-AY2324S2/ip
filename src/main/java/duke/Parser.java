@@ -34,8 +34,10 @@ public class Parser {
                 addEvent(parts[1], tasks, ui, storage);
                 break;
             case "mark":
+                markOrUnmarkTask(parts[1], tasks, ui, storage, true);
+                break;
             case "unmark":
-                markOrUnmarkTask(parts[1], tasks, ui, storage, commandWord.equals("mark"));
+                markOrUnmarkTask(parts[1], tasks, ui, storage, false);
                 break;
             case "delete":
                 deleteTask(parts[1], tasks, ui, storage);

@@ -109,7 +109,9 @@ public class Storage {
         switch (type) {
             case "T":
                 Todo todo = new Todo(description);
-                if (isDone) todo.markAsDone();
+                if (isDone) {
+                    todo.markAsDone();
+                }
                 return todo;
             case "D":
                 if (parts.length < 4) {
@@ -117,7 +119,9 @@ public class Storage {
                 }
                 LocalDate byDate = LocalDate.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE);
                 Deadline deadline = new Deadline(description, byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                if (isDone) deadline.markAsDone();
+                if (isDone) {
+                    deadline.markAsDone();
+                }
                 return deadline;
             case "E":
                 if (parts.length < 5) {
@@ -126,7 +130,9 @@ public class Storage {
                 LocalDate fromDate = LocalDate.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE);
                 LocalDate toDate = LocalDate.parse(parts[4], DateTimeFormatter.ISO_LOCAL_DATE);
                 Event event = new Event(description, fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                if (isDone) event.markAsDone();
+                if (isDone) {
+                    event.markAsDone();
+                }
                 return event;
             default:
                 throw new DukeException("Unknown task type: " + type);
