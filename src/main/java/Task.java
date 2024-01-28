@@ -15,18 +15,20 @@ public class Task {
         return (this.isDone ? "X" : " ");
     }
 
-    public void markAsDone() {
+    public void markAsDone() throws DukeException {
+        Duke.breakLine();
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
-//        System.out.printf("  [%s] %s\n", this.getStatusIcon(), this.getDescription());
         System.out.println("  " + this.toString());
+        Duke.breakLine();
     }
 
     public void unmark() {
+        Duke.breakLine();
         this.isDone = false;
         System.out.println("OK, I've marked this task as not done yet");
-//        System.out.printf("  [%s] %s\n", this.getStatusIcon(), this.getDescription());
         System.out.println("  " + this.toString());
+        Duke.breakLine();
     }
 
     public String toString() {
