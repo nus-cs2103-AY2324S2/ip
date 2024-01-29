@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestParser {
     @Test
-    public void TestParseDeadline() {
+    public void TestParseDeadline() throws WrongFormatException {
         assertThrows(WrongFormatException.class, () ->
                 Parser.parseDeadline("deadline return books"));
         assertThrows(WrongFormatException.class, () ->
@@ -15,6 +15,8 @@ public class TestParser {
                 Parser.parseDeadline("deadline return books /by"));
         assertThrows(WrongFormatException.class, () ->
                 Parser.parseDeadline("deadline return books by 29/01/24 1800"));
+        assertEquals(new Deadline("return books", "29/01/2024 1800"),
+                Parser.parseDeadline("deadline return books /by 29/01/2024 1800"));
     }
 
     @Test
