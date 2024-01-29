@@ -6,6 +6,8 @@
 
 package duke.task;
 
+import java.util.Collection;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -60,6 +62,16 @@ public class Task {
      */
     public boolean isDone() {
         return this.isDone;
+    }
+
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
     }
 }
 
