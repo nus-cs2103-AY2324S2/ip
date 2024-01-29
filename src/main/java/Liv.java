@@ -1,5 +1,9 @@
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 
 // name of the chat bot
 public class Liv {
@@ -25,6 +29,8 @@ public class Liv {
     private static LinkedList<Task> tasks = null;
     private static int numberOfTasks;
 
+    private static String dataFilePath = "Data/savedTasks.txt";
+
     private Liv() {
         // initial setup
         horizontalLine = HorizontalLine.getInstance();
@@ -32,6 +38,42 @@ public class Liv {
         scanner = new Scanner(System.in);
         tasks = new LinkedList<>();
         numberOfTasks = 0;
+
+        //loadFromMemory();
+
+
+
+
+    }
+
+    private void loadFromMemory() throws FileNotFoundException {
+        File file = new File(dataFilePath);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            loadSingleRowOfData(scanner.nextLine());
+        }
+    }
+
+    private void loadSingleRowOfData(String s) {
+    }
+
+    private void saveToMemory() {
+        try {
+            String dataToWrite = "";
+            for (int i = 1; i <= numberOfTasks; i++) {
+                dataToWrite += tasks.get(i - 1).convertToDataRow();
+                if (i < numberOfTasks) dataToWrite += System.lineSeparator();
+            }
+            writeToFile(dataFilePath, dataToWrite);
+        } catch (IOException e) {
+            System.out.println(System.getProperty("user.dir"));//"Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
+        fileWriter.write(textToAdd);
+        fileWriter.close();
     }
 
     public static Liv getInstance() {
@@ -165,11 +207,17 @@ public class Liv {
 
         if (input.equals("bye")) {
             EndSession();
+            saveToMemory();
             return;
         }
 
         if (input.equals("list")) {
             listTasks();
+            return;
+        }
+
+        if (input.equals("print tasks")) {
+            speak(tasks.toString());
             return;
         }
 

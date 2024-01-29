@@ -82,6 +82,14 @@ public abstract class Task {
         return input.split(delimiter);
     }
 
+    public String convertToDataRow() {
+        return printType() + " | " + boolToInt(isDone) + " | " + description;
+    }
+
     public abstract String printType();
     public abstract void setUpTask(String input) throws MissingInputFieldException;
+
+    private static int boolToInt(boolean b) {
+        return b ? 1 : 0;
+    }
 }

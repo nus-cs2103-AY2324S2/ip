@@ -12,7 +12,7 @@ public class Event extends Task {
 
     @Override
     public String printType() {
-        return "[E]";
+        return "E";
     }
 
     @Override
@@ -31,8 +31,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return printType() + "[" + getIsDoneStatus() + "] "
+        return convertToDataRow();
+                /*"[" + printType() + "]" + "[" + getIsDoneStatus() + "] "
                 + description + " " + "(from: "
-                + from + " to: " + to + ")";
+                + from + " to: " + to + ")";*/
+    }
+
+    @Override
+    public String convertToDataRow() {
+        return super.convertToDataRow() + " | " + from + " | " + to;
     }
 }

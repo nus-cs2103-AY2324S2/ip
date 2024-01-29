@@ -11,7 +11,7 @@ public class Deadline extends Task {
 
     @Override
     public String printType() {
-        return "[D]";
+        return "D";
     }
 
     @Override
@@ -29,7 +29,12 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return printType() + "[" + getIsDoneStatus() + "] "
-                + description + " " + "(by: " + by + ")";
+        return convertToDataRow();/*"[" + printType() + "]" + "[" + getIsDoneStatus() + "] "
+                + description + " " + "(by: " + by + ")";*/
+    }
+
+    @Override
+    public String convertToDataRow() {
+        return super.convertToDataRow() + " | " + by;
     }
 }
