@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,7 +24,14 @@ public class Duke {
     public static void main(String[] args) throws IOException {
         printOutput(logo, "Hello! I'm Lucky the cat", "What can I do for you?");
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = Storage.readFromStorage();
+        ArrayList<Task> tasks;
+
+        if (new File("src/main/java/storage/data.txt").exists()) {
+            tasks = Storage.readFromStorage();
+        } else {
+            tasks = new ArrayList<>();
+        }
+
         boolean isChatting = true;
         Command command;
 
