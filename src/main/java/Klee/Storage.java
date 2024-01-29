@@ -16,7 +16,7 @@ public class Storage {
     private static String path = "data";
     private static String fileName = "data/Klee.txt";
 
-    public Storage () {}
+    public Storage() {}
 
     public static LocalDateTime parseDateTime(String dateTime) throws KleeException {
         String[] splitDateTime = dateTime.split(" ");
@@ -59,7 +59,7 @@ public class Storage {
         return returnVariable;
     }
 
-    public static LocalDateTime parseDateTimeTxt (String txt) {
+    public static LocalDateTime parseDateTimeTxt(String txt) {
         String[] dateTime = txt.split(" ");
         int year = Integer.parseInt(dateTime[0]);
         int month = Integer.parseInt(dateTime[1]);
@@ -70,7 +70,7 @@ public class Storage {
         return returnVariable;
     }
 
-    public void saveTasks (TaskList tasks) {
+    public void saveTasks(TaskList tasks) {
         try {
             FileWriter file = new FileWriter("data/Klee.txt");
             for (int i = 0; i < tasks.size(); i++) {
@@ -84,7 +84,7 @@ public class Storage {
         }
     }
 
-    public TaskList retrieveTasks (Ui ui) {
+    public TaskList retrieveTasks(Ui ui) {
         TaskList tasks = new TaskList();
 
         //Create /data directory only if it does not exist

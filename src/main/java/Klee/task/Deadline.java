@@ -29,7 +29,10 @@ public class Deadline extends Task {
 
     @Override
     public boolean equals(Object obj) {
-        if (Task.class.isAssignableFrom(obj.getClass())) return super.equals(obj) && this.deadline == ((Deadline) obj).deadline;
-        else return false;
+        if (Task.class.isAssignableFrom(obj.getClass())) {
+            return super.equals(obj) && this.deadline == ((Deadline) obj).deadline;
+        } else {
+            return false;
+        }
     }
 }

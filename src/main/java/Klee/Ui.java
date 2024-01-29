@@ -4,11 +4,12 @@ import Klee.task.Task;
 
 public class Ui {
     protected static String divider = "____________________________________________________________________________";
-    public Ui () {
+
+    public Ui() {
 
     }
 
-    public void showWelcome () {
+    public void showWelcome() {
         //Greet user
         System.out.println(divider);
         System.out.println("Hello! My name is Klee.");
@@ -16,13 +17,13 @@ public class Ui {
         System.out.println(divider);
     }
 
-    public void showError (String errorMessage) {
+    public void showError(String errorMessage) {
         System.out.println(divider);
         System.out.println(errorMessage);
         System.out.println(divider);
     }
 
-    public void showTasks (TaskList tasks) {
+    public void showTasks(TaskList tasks) {
         System.out.println(divider);
         System.out.println("These are all the things that we have to do today:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -31,7 +32,7 @@ public class Ui {
         System.out.println(divider);
     }
 
-    public void showCreation (Task task, int size) {
+    public void showCreation(Task task, int size) {
         System.out.println(divider);
         System.out.println("Klee will help you write that down! : ");
         System.out.println(task.getStatus());
@@ -39,7 +40,7 @@ public class Ui {
         System.out.println(divider);
     }
 
-    public void showMarked (Task task) {
+    public void showMarked(Task task) {
         System.out.println(divider);
         System.out.println("Great! Klee will put a big cross on this box:");
         System.out.println(task.getStatus());
@@ -53,7 +54,7 @@ public class Ui {
         System.out.println(divider);
     }
 
-    public void showDeletion (Task task, int size) {
+    public void showDeletion(Task task, int size) {
         System.out.println(divider);
         System.out.println("Okay, Klee will wipe this task away!");
         System.out.println(task.getStatus());
@@ -61,7 +62,7 @@ public class Ui {
         System.out.println(divider);
     }
 
-    public void showBye () {
+    public void showBye() {
         System.out.println(divider);
         System.out.println("Goodbye. Klee will go back to solitary confinement now...");
         System.out.println(divider);

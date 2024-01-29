@@ -5,7 +5,7 @@ import Klee.command.*;
 import java.time.LocalDateTime;
 
 public class Parser {
-    public Parser () {}
+    public Parser() {}
 
     public static LocalDateTime parseDateTime(String dateTime) throws KleeException {
         String[] splitDateTime = dateTime.split(" ");
@@ -48,7 +48,7 @@ public class Parser {
         return returnVariable;
     }
 
-    public Command parseInput (String input) throws KleeException {
+    public Command parseInput(String input) throws KleeException {
         switch (input) {
         case "bye":
             return new Bye();
@@ -61,22 +61,32 @@ public class Parser {
                 if (command.length == 2) {
                     try {
                         Integer index = Integer.parseInt(command[1]) - 1;
-                        if (index >= 0) return new Mark(index);
-                        else throw new KleeException("Is that a negative number? I usually start counting from number 1...");
+                        if (index >= 0) {
+                            return new Mark(index);
+                        } else {
+                            throw new KleeException("Is that a negative number? I usually start counting from number 1...");
+                        }
                     } catch (Exception e) {
                         throw new KleeException("There should be an integer after mark to indicate which task to mark!");
                     }
-                } else throw new KleeException("There should be an integer after mark to indicate which task to mark!");
+                } else {
+                    throw new KleeException("There should be an integer after mark to indicate which task to mark!");
+                }
             case "unmark":
                 if (command.length == 2) {
                     try {
                         Integer index = Integer.parseInt(command[1]) - 1;
-                        if (index >= 0) return new Unmark(index);
-                        else throw new KleeException("Is that a negative number? I usually start counting from number 1...");
+                        if (index >= 0) {
+                            return new Unmark(index);
+                        } else {
+                            throw new KleeException("Is that a negative number? I usually start counting from number 1...");
+                        }
                     } catch (Exception e) {
                         throw new KleeException("There should be an integer after unmark to indicate which task to unmark!");
                     }
-                } else throw new KleeException("There should be an integer after unmark to indicate which task to unmark!");
+                } else {
+                    throw new KleeException("There should be an integer after unmark to indicate which task to unmark!");
+                }
             case "todo":
                 try {
                     String description = input.split("todo ")[1];
@@ -106,12 +116,17 @@ public class Parser {
                 if (command.length == 2) {
                     try {
                         Integer index = Integer.parseInt(command[1]) - 1;
-                        if (index >= 0) return new Delete(index);
-                        else throw new KleeException("Is that a negative number? I usually start counting from number 1...");
+                        if (index >= 0) {
+                            return new Delete(index);
+                        } else {
+                            throw new KleeException("Is that a negative number? I usually start counting from number 1...");
+                        }
                     } catch (Exception e) {
                         throw new KleeException("There should be an integer after delete to indicate which task to delete!");
                     }
-                } else throw new KleeException("There should be an integer after delete to indicate which task to delete!");
+                } else {
+                    throw new KleeException("There should be an integer after delete to indicate which task to delete!");
+                }
             default:
                 throw new KleeException("Klee doesn't understand, what are you talking about?");
             }

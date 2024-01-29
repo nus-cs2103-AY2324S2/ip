@@ -11,7 +11,10 @@ public class KleeException extends Exception {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj.getClass() == KleeException.class) return this.getMessage().equals(((KleeException) obj).getMessage());
-        else return false;
+        if (obj.getClass() == KleeException.class) {
+            return this.getMessage().equals(((KleeException) obj).getMessage());
+        } else {
+            return false;
+        }
     }
 }

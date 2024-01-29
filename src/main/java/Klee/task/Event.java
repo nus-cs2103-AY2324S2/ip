@@ -31,7 +31,10 @@ public class Event extends Task {
 
     @Override
     public boolean equals(Object obj) {
-        if (Task.class.isAssignableFrom(obj.getClass())) return super.equals(obj) && this.from == ((Event) obj).from && this.to == ((Event) obj).to;
-        else return false;
+        if (Task.class.isAssignableFrom(obj.getClass())) {
+            return super.equals(obj) && this.from == ((Event) obj).from && this.to == ((Event) obj).to;
+        } else {
+            return false;
+        }
     }
 }

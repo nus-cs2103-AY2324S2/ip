@@ -7,7 +7,7 @@ import Klee.task.Task;
 
 public class ToDo extends Command {
     protected String description;
-    public ToDo (String description) {
+    public ToDo(String description) {
         this.description = description;
     }
 
@@ -21,7 +21,10 @@ public class ToDo extends Command {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj.getClass() == ToDo.class) return this.description.equals(((ToDo) obj).description);
-        else return false;
+        if (obj.getClass() == ToDo.class) {
+            return this.description.equals(((ToDo) obj).description);
+        } else {
+            return false;
+        }
     }
 }

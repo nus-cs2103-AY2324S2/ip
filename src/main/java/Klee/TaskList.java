@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class TaskList {
     protected ArrayList<Task> tasks;
 
-    public TaskList () {
+    public TaskList() {
         tasks = new ArrayList<>();
     }
 
@@ -36,10 +36,14 @@ public class TaskList {
                         if (this.get(i) == ((TaskList) obj).get(i)) return false;
                     }
                     return true;
-                } else return false;
+                } else {
+                    return false;
+                }
             } catch (Exception e) {
                 return false;
             }
-        } else return false;
+        } else {
+            return false;
+        }
     }
 }

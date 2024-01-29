@@ -26,8 +26,11 @@ public class Klee {
 
     public static String checkToDo(String input) throws KleeException {
         String[] description = input.split("todo ");
-        if (description.length == 2) return description[1];
-        else throw new KleeException("We should think of a name for the Klee.task!");
+        if (description.length == 2) {
+            return description[1];
+        } else {
+            throw new KleeException("We should think of a name for the Klee.task!");
+        }
     }
 
     public static String[] checkDeadline(String input) throws KleeException {
@@ -39,9 +42,12 @@ public class Klee {
                 output[0] = command[0];
                 output[1] = command[1];
                 return output;
-            } else throw new KleeException("We should indicate when this Klee.task is due with `/by`");
+            } else {
+                throw new KleeException("We should indicate when this Klee.task is due with `/by`");
+            }
+        } else {
+            throw new KleeException("We should think of a name for the Klee.task!");
         }
-        else throw new KleeException("We should think of a name for the Klee.task!");
     }
 
     public static String[] checkEvent(String input) throws KleeException {
@@ -56,9 +62,15 @@ public class Klee {
                     output[1] = command[0];
                     output[2] = command[1];
                     return output;
-                } else throw new KleeException("We should indicate when this event ends with `/to`");
-            } else throw new KleeException("We should indicate when this event starts with `/from`");
-        } else throw new KleeException("We should think of a name for the Klee.task!");
+                } else {
+                    throw new KleeException("We should indicate when this event ends with `/to`");
+                }
+            } else {
+                throw new KleeException("We should indicate when this event starts with `/from`");
+            }
+        } else {
+            throw new KleeException("We should think of a name for the Klee.task!");
+        }
     }
 
     public static void saveData(ArrayList<Task> tasks) {
@@ -116,7 +128,7 @@ public class Klee {
         return returnVariable;
     }
 
-    public static LocalDateTime parseDateTimeTxt (String txt) {
+    public static LocalDateTime parseDateTimeTxt(String txt) {
         String[] dateTime = txt.split(" ");
         int year = Integer.parseInt(dateTime[0]);
         int month = Integer.parseInt(dateTime[1]);
@@ -127,15 +139,15 @@ public class Klee {
         return returnVariable;
     }
 
-    public static String parseTxtDateTime (LocalDateTime dateTime) {
+    public static String parseTxtDateTime(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("yyyy MM dd H m"));
     }
 
-    public static String dateTimeString (LocalDateTime dateTime) {
+    public static String dateTimeString(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:ma"));
     }
 
-    public static void run (Ui ui, Parser parser, Storage storage, TaskList tasks) {
+    public static void run(Ui ui, Parser parser, Storage storage, TaskList tasks) {
         Scanner getInput = new Scanner(System.in);
         while (true) {
             String input = getInput.nextLine();

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class Deadline extends Command {
     protected String description;
     protected LocalDateTime deadline;
-    public Deadline (String description, LocalDateTime deadline) {
+    public Deadline(String description, LocalDateTime deadline) {
         this.description = description;
         this.deadline = deadline;
     }
@@ -25,7 +25,10 @@ public class Deadline extends Command {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj.getClass() == Deadline.class) return (this.description.equals(((Deadline) obj).description) && this.deadline.equals((((Deadline) obj).deadline)));
-        else return false;
+        if (obj.getClass() == Deadline.class) {
+            return (this.description.equals(((Deadline) obj).description) && this.deadline.equals((((Deadline) obj).deadline)));
+        } else {
+            return false;
+        }
     }
 }
