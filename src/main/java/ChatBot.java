@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -306,7 +307,13 @@ public class ChatBot {
     }
 
     public void loadTasksFromFile() throws IOException {
-        List<String> tasks = Files.readAllLines(Paths.get("data","tasks.txt"));
+
+        Path savedPath = Paths.get("data", "tasks.txt");
+        if (!Files.exists(savedPath)) {
+            return;
+        }
+
+        List<String> tasks = Files.readAllLines(savedPath);
         for (String taskString: tasks) {
             String[] parameters = taskString.split(" \\| ");
             switch (parameters[0]) {
