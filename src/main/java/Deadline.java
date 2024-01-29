@@ -11,4 +11,8 @@ public class Deadline extends Task{
         String tag = super.getTag() ? "[X]" : "[ ]";
         return "[D]" + tag + " " + super.getName().strip() + " (by: " + this.by + ")";
     }
+
+    public String getBy() {
+        return this.by;
+    }
 }

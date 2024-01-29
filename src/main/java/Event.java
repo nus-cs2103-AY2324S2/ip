@@ -13,4 +13,12 @@ public class Event extends Task{
         String tag = super.getTag() ? "[X]" : "[ ]";
         return "[E]" + tag + " " + super.getName().strip() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    public String getFrom(){
+        return this.from;
+    }
+
+    public String getTo(){
+        return this.to;
+    }
 }

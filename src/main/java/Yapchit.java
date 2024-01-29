@@ -27,7 +27,7 @@ public class Yapchit {
         Yapchit bot = new Yapchit();
         bot.intro();
 
-        String filePath = "../../src/main/data/dataStore.txt";
+        String filePath = "./src/main/data/dataStore.txt";
 
         bot.handleFileImport(filePath);
 
@@ -44,7 +44,7 @@ public class Yapchit {
                 input = scanner.nextLine();
             }
         }
-
+        bot.handleFileUpdate(filePath);
         bot.outro();
     }
 
@@ -148,9 +148,16 @@ public class Yapchit {
         }
     }
 
-    private void handleEvent(String input, boolean print) throws InvalidDetailException{
+    private void handleEvent(String input, boolean newTask) throws InvalidDetailException{
         int fromStart = input.indexOf("/from");
         int toStart = input.indexOf("/to");
+
+        char done = '0';
+
+        if(!newTask){
+            done = input.charAt(input.length() - 1);
+            input = input.substring(0, input.length() - 1);
+        }
 
         if(fromStart == -1 || toStart == -1 || fromStart >= toStart){
             throw new InvalidDetailException("invalid /from and /to parameters. Please retry");
@@ -167,13 +174,26 @@ public class Yapchit {
             } else {
                 Task t = new Event(desc, from, to);
                 addTask(t);
-                if(print) printTask(t);
+                if(newTask){
+                    printTask(t);
+                } else {
+                    t.updateTag(done == '1' ? true : false);
+                }
             }
         }
     }
 
-    private void handleDeadline(String input, boolean print) throws InvalidDetailException{
+    private void handleDeadline(String input, boolean newTask) throws InvalidDetailException{
+
         int byStart = input.indexOf("/by");
+
+        char done = '0';
+
+        if(!newTask){
+            done = input.charAt(input.length() - 1);
+            input = input.substring(0, input.length() - 1);
+        }
+
         if(byStart == -1){
             throw new InvalidDetailException("Missing 'by' parameter in deadline detail");
         } else {
@@ -188,12 +208,24 @@ public class Yapchit {
             } else {
                 Task t = new Deadline(desc, by);
                 addTask(t);
-                if(print) printTask(t);
+                if(newTask){
+                    printTask(t);
+                } else {
+                    t.updateTag(done == '1' ? true : false);
+                }
             }
         }
     }
 
-    private void handleTodo(String input, boolean print) throws  InvalidDetailException{
+    private void handleTodo(String input, boolean newTask) throws  InvalidDetailException{
+
+        char done = '0';
+
+        if(!newTask){
+            done = input.charAt(input.length() - 1);
+            input = input.substring(0, input.length() - 1);
+        }
+
         if(5 >= input.length()){
             throw new InvalidDetailException("todo description cannot be an empty string. Please retry");
         }
@@ -204,29 +236,30 @@ public class Yapchit {
         } else {
             Task t = new ToDo(desc);
             addTask(t);
-            if(print) printTask(t);
+
+            if(newTask){
+                printTask(t);
+            } else {
+                t.updateTag(done == '1' ? true : false);
+            }
         }
     }
 
     private void handleFileImport(String filePath) {
-        print("check1");
         File f = new File(filePath);
         Scanner s;
         try {
             s = new Scanner(f);
         } catch (FileNotFoundException e){
-            print("File not found");
             return;
         }
 
-        print("check2");
         while (s.hasNext()) {
             String input = s.nextLine();
-            print("input");
             String[] parts = input.split(" ");
-            Operations k = Operations.valueOf(parts[0].toUpperCase());
 
             try {
+                Operations k = Operations.valueOf(parts[0].toUpperCase());
                 switch (k) {
                     case EVENT:
                         this.handleEvent(input, false);
@@ -238,7 +271,7 @@ public class Yapchit {
                         this.handleTodo(input, false);
                         break;
                 }
-            } catch (InvalidDetailException e){
+            } catch (Exception e){
                 this.print("Error in parsing file. Some of the contents may be corrupted");
                 break;
             }
@@ -246,7 +279,52 @@ public class Yapchit {
 
     }
 
-    
+    private void handleFileUpdate(String filePath){
+        String toWrite = "";
+        for(Task t : list){
+            if(t instanceof ToDo){
+                toWrite = toWrite + "todo "+ t.getName() + (t.getTag() == true ? "1" : "0\n");
+            }
+
+            if(t instanceof Event){
+                toWrite = toWrite
+                        + "\nevent "+ t.getName()
+                        + " /from " + ((Event) t).getFrom()
+                        + " /to " + ((Event) t).getTo()
+                        +(t.getTag() == true ? "1" : "0");
+            }
+
+            if(t instanceof Deadline){
+                toWrite = toWrite
+                        + "\nevent "+ t.getName()
+                        + " /by " + ((Deadline) t).getBy()
+                        +(t.getTag() == true ? "1" : "0");
+            }
+        }
+        File f = new File(filePath);
+
+
+        File dirCheck = f.getParentFile();
+        if(!dirCheck.exists()){
+            dirCheck.mkdirs();
+        }
+
+        try {
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+        } catch (IOException e){
+            print("Error in creating file. " + e.getMessage());
+        }
+
+        try{
+            this.writeToFile(filePath, toWrite);
+        } catch (IOException e){
+            print(e.getMessage());
+            return;
+        }
+
+    }
     private void printTask(Task t){
         line();
         print("\tGot it. I've added this task:");
