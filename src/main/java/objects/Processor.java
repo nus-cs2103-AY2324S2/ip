@@ -1,4 +1,6 @@
 package objects;
+import view.EncaseLines;
+
 import static objects.Commands.*;
 import static objects.FilePath.*;
 import static objects.Utils.*;
@@ -6,7 +8,7 @@ import static objects.Utils.*;
 public class Processor {
     public static void greet() {
         System.out.println(getFile(LOGO_PATH));
-        encaseLines(getFile(GREETING_PATH));
+        EncaseLines.display(getFile(GREETING_PATH));
     }
 
     public static void process (String input, TaskList tasks) {
@@ -40,12 +42,12 @@ public class Processor {
             }
 
         } catch (DukeException e) {
-            encaseLines(e.getMessage());
+            EncaseLines.display(e.getMessage());
 
         }
     }
 
     public static void exit() {
-        encaseLines(getFile(EXIT_PATH));
+        EncaseLines.display(getFile(EXIT_PATH));
     }
 }

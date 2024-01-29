@@ -1,4 +1,6 @@
 package objects;
+import view.EncaseLines;
+
 import static objects.Utils.*;
 
 public class Commands {
@@ -61,14 +63,14 @@ public class Commands {
 
         tasks.addTask(task);
         String o = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", task.toString(), tasks.size());
-        encaseLines(o);
+        EncaseLines.display(o);
     }
 
     public static void listTasks(TaskList tasks) {
         StringBuilder output = new StringBuilder();
 
         if (tasks.isEmpty()) {
-            encaseLines("List is empty!");
+            EncaseLines.display("List is empty!");
         } else {
 
             for (int i = 0; i < tasks.size(); i++) {
@@ -79,7 +81,7 @@ public class Commands {
                 }
             }
 
-            encaseLines(output.toString());
+            EncaseLines.display(output.toString());
         }
     }
 
@@ -89,7 +91,7 @@ public class Commands {
 
         String o = String.format("Nice! I've marked this task as not done yet: \n   %s",  t.toString());
 
-        encaseLines(o);
+        EncaseLines.display(o);
     }
 
     private static void markTask(TaskList tasks, int i) throws DukeException {
@@ -98,7 +100,7 @@ public class Commands {
 
         String o = String.format("Nice! I've marked this task as done: \n   %s",  t.toString());
 
-        encaseLines(o);
+        EncaseLines.display(o);
     }
 
     public static void deleteTask(TaskList tasks, int i) throws DukeException {
@@ -110,10 +112,10 @@ public class Commands {
 
         tasks.remove(i);
         String o = String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.", task.toString(), tasks.size());
-        encaseLines(o);
+        EncaseLines.display(o);
     }
 
     public static void printHelp() {
-        encaseLines(getFile(FilePath.HELP_PATH));
+        EncaseLines.display(getFile(FilePath.HELP_PATH));
     }
 }

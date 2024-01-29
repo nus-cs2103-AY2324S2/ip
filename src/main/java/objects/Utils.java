@@ -1,5 +1,7 @@
 package objects;
 
+import view.SingleLine;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -7,19 +9,6 @@ import java.nio.file.Paths;
 import static objects.FilePath.LINE_PATH;
 
 public class Utils {
-    public static void printLine() {
-        String character = Utils.getFile(LINE_PATH);
-        String line = String.valueOf(character).repeat(60);
-
-        System.out.println(line);
-    }
-
-    public static void encaseLines(String string) {
-        Utils.printLine();
-        System.out.println(string);
-        Utils.printLine();
-    }
-
     public static String getFile(String path) {
         try {
             if (System.getProperty("user.dir").contains("text-ui-test")) {
