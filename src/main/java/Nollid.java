@@ -1,4 +1,5 @@
 import java.nio.file.Path;
+import java.util.Scanner;
 
 public class Nollid {
     private final TaskList tasks;
@@ -17,9 +18,10 @@ public class Nollid {
 
     public void run() {
         this.ui.sendWelcomeMessage();
+        Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            String fullCommand = this.ui.readCommand();
+            String fullCommand = this.ui.readCommand(scanner);
             Command command;
             try {
                 command = Parser.parse(fullCommand);

@@ -48,8 +48,7 @@ public class Ui {
     /**
      * Returns a String of the user's input.
      */
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
+    public String readCommand(Scanner scanner) {
         return scanner.nextLine().strip();
     }
 }
