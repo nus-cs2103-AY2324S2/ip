@@ -45,44 +45,21 @@ public class    Duke {
                     }
                     Task task = new ToDo(description);
                     list.add(task);
-                    String output = "____________________________________________________________\n"
-                            + " Got it. I've added this task:\n"
-                            + "   " + task
-                            + "\n Now you have " + (list.size()) + " tasks in the list.\n"
-                            + "____________________________________________________________\n";
-                    System.out.print(output);
+                    System.out.print(Duke.addMessage(task));
                 } else if (inputParts[0].equals("deadline")) {
                     //handle "deadline"
                     String[] parts = original.replace("deadline", "").split(" /");
                     Task task = new Deadline(parts[0], parts[1].replace("by ", ""));
-                    list.add(task);
-                    String output = "____________________________________________________________\n"
-                            + " Got it. I've added this task:\n"
-                            + "   " + task
-                            + "\n Now you have " + (list.size()) + " tasks in the list.\n"
-                            + "____________________________________________________________\n";
-                    System.out.print(output);
+                    System.out.print(Duke.addMessage(task));
                 } else if (inputParts[0].equals("event")) {
                     //handle event
                     String[] parts = original.replace("event", "").split(" /");
                     Task task = new Event(parts[0], parts[1].replace("from ", ""), parts[2].replace("to ", ""));
-                    list.add(task);
-                    String output = "____________________________________________________________\n"
-                            + " Got it. I've added this task:\n"
-                            + "   " + task
-                            + "\n Now you have " + (list.size()) + " tasks in the list.\n"
-                            + "____________________________________________________________\n";
-                    System.out.print(output);
+                    System.out.print(Duke.addMessage(task));
                 } else if (inputParts[0].equals("delete")) {
                     //handle delete
                     int inputInt = Integer.parseInt(inputParts[1]);
-                    String output = "____________________________________________________________\n"
-                            + " Noted. I've removed this task:\n"
-                            + "   " + list.get(inputInt - 1)
-                            + "\n Now you have " + (list.size() - 1) + " tasks in the list.\n"
-                            + "____________________________________________________________\n";
-                    list.remove(inputInt - 1);
-                    System.out.println(output);
+                    System.out.println(Duke.deleteMessage(inputInt));
                 } else {
                     throw new DukeException("harh what u talking sia walao");
                 }
@@ -108,6 +85,25 @@ public class    Duke {
             }
             listOutput.append("____________________________________________________________\n");
             System.out.print(listOutput);
+        }
+
+        public static String deleteMessage(int i) {
+            String output = "____________________________________________________________\n"
+                    + " Noted. I've removed this task:\n"
+                    + "   " + list.get(i - 1)
+                    + "\n Now you have " + (list.size() - 1) + " tasks in the list.\n"
+                    + "____________________________________________________________\n";
+            list.remove(i - 1);
+            return output;
+        }
+
+        public static String addMessage(Task task) {
+            list.add(task);
+            return "____________________________________________________________\n"
+                    + " Got it. I've added this task:\n"
+                    + "   " + task
+                    + "\n Now you have " + (list.size()) + " tasks in the list.\n"
+                    + "____________________________________________________________\n";
         }
 
         public static void loadFileContents() {
