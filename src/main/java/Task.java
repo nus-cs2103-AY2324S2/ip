@@ -1,19 +1,16 @@
 /**
- * Task is a class with description, can record whether a task is done or not done
+ * Task is a class with description, can record whether a task is done or not done.
  */
 public class Task {
-    /**
-     * Description of the task
-     */
+    /** Description of the task. */
     private String description;
-    /**
-     * Record a task is done or not done
-     */
+    /** Record a task is done or not done. */
     private boolean isDone;
 
     /**
-     * Constructor of task class
-     * @param description The description of the task
+     * Constructor of task class.
+     *
+     * @param description The description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -21,7 +18,7 @@ public class Task {
     }
 
     /**
-     * To mark a task as done
+     * Marks a task as done.
      */
     public void markDone() {
         this.isDone = true;
@@ -31,7 +28,7 @@ public class Task {
 
 
     /**
-     * To mark a task as undone
+     * Marks a task as undone.
      */
     public void markUndone() {
         this.isDone = false;
@@ -41,8 +38,9 @@ public class Task {
 
 
     /**
-     * String representation of task
-     * @return string representation of task for done and not done task
+     * String representation of task.
+     *
+     * @return string representation of task for done and not done task.
      */
     @Override
     public String toString() {
