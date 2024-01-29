@@ -100,7 +100,8 @@ public class Duke {
                         deleteTask(i);
                     }
                 } catch (java.lang.NumberFormatException e) { // non number typed
-                    throw (new DukeException(INDENT + "Ain't no way! We lackin' just numbers after mark/unmark/delete.\n"
+                    throw (new DukeException(INDENT
+                            + "Ain't no way! We lackin' just numbers after mark/unmark/delete.\n"
                             + INDENT + "e.g. unmark 2"));
                 } catch (DukeException e) {
                     throw (e);
@@ -139,13 +140,13 @@ public class Duke {
 
     public static void hello() {
         String logo =
-                "       :::   :::           :::        :::::::::       :::::::::       ::::::::::       :::::::::\n" +
-                        "      :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+:\n" +
-                        "      +:+ +:+         +:+   +:+     +:+    +:+      +:+    +:+      +:+              +:+    +:+\n" +
-                        "      +#++:         +#++:++#++:    +#++:++#+       +#++:++#+       +#++:++#         +#++:++#:\n" +
-                        "      +#+          +#+     +#+    +#+             +#+             +#+              +#+    +#+\n" +
-                        "     #+#          #+#     #+#    #+#             #+#             #+#              #+#    #+#\n" +
-                        "    ###          ###     ###    ###             ###             ##########       ###    ###\n\n";
+                "       :::   :::           :::        :::::::::       :::::::::       ::::::::::       :::::::::\n"
+                +  "      :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+:\n"
+                + "      +:+ +:+         +:+   +:+     +:+    +:+      +:+    +:+      +:+              +:+    +:+\n"
+                + "      +#++:         +#++:++#++:    +#++:++#+       +#++:++#+       +#++:++#         +#++:++#:\n"
+                + "      +#+          +#+     +#+    +#+             +#+             +#+              +#+    +#+\n"
+                + "     #+#          #+#     #+#    #+#             #+#             #+#              #+#    #+#\n"
+                + "    ###          ###     ###    ###             ###             ##########       ###    ###\n\n";
         System.out.print(LINE + "    What's poppin' fam, it's ya boi\n\n" + logo +
                 "    Hit me up with those deets and let's vibe together!\n" + LINE);
     }
@@ -170,7 +171,8 @@ public class Duke {
             Todo todo = new Todo(arg);
             tasks.add(todo);
             System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + todo);
-            System.out.println(INDENT + "Yo, we're " + tasks.size() + " task(s) deep! Let's keep this SIGMA GRINDSET!");
+            System.out.println(INDENT + "Yo, we're " + tasks.size() +
+                    " task(s) deep! Let's keep this SIGMA GRINDSET!");
             break;
         case DEADLINE: {
             String[] descTime = arg.split(" /by "); // [description, by]
@@ -178,7 +180,8 @@ public class Duke {
                 Deadline deadline = new Deadline(descTime[0], descTime[1]);
                 tasks.add(deadline);
                 System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + deadline);
-                System.out.println(INDENT + "Yo, we're " + tasks.size() + " task(s) deep! Let's keep this SIGMA GRINDSET!");
+                System.out.println(INDENT + "Yo, we're " + tasks.size() +
+                        " task(s) deep! Let's keep this SIGMA GRINDSET!");
             } else { // incorrect formatting for /by
                 System.out.println(INDENT + "When you wanna do this task by lil bro?\n"
                         + INDENT + "e.g. deadline <task> /by <date/time>");
@@ -193,7 +196,8 @@ public class Duke {
                     Event event = new Event(descTime[0], fromTo[0], fromTo[1]);
                     tasks.add(event);
                     System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + event);
-                    System.out.print(INDENT + "Yo, we're " + tasks.size() + " task(s) deep! Let's keep this SIGMA GRINDSET!\n");
+                    System.out.print(INDENT + "Yo, we're " + tasks.size() +
+                            " task(s) deep! Let's keep this SIGMA GRINDSET!\n");
                 } else { // incorrect formatting for /to
                     throw (new DukeException(INDENT + "When does this event end lil bro?\n"
                             + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>"));
