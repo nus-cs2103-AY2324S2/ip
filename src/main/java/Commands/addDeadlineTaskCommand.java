@@ -11,7 +11,7 @@ public class addDeadlineTaskCommand extends Command{
 
     private String deadline;
 
-    public addDeadlineTaskCommand(String taskName, String deadline ){
+    public addDeadlineTaskCommand(String taskName, String deadline){
         this.taskName = taskName;
         this.deadline = deadline;
     }
