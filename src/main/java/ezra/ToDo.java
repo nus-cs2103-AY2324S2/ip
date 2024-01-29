@@ -1,4 +1,4 @@
-package src.main.java.ezra;
+package ezra;
 
 public class ToDo extends Task {
     public ToDo(String description) {

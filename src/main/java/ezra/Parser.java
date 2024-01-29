@@ -1,4 +1,4 @@
-package src.main.java.ezra;
+package ezra;
 
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;

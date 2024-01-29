@@ -1,4 +1,4 @@
-package src.main.java.ezra;
+package ezra;
 
 public class Ui {
     public static void horizontalLine() {

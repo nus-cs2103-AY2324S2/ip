@@ -1,4 +1,4 @@
-package src.main.java.ezra;
+package ezra;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

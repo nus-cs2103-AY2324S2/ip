@@ -1,4 +1,4 @@
-package src.main.java.ezra;
+package ezra;
 
 public class WrongFormatException extends Exception {
     public WrongFormatException(String message) {

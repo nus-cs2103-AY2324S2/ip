@@ -1,4 +1,4 @@
-package src.main.java.ezra;
+package ezra;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
