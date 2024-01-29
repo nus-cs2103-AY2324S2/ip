@@ -1,88 +1,56 @@
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Scanner;
+
 
 
 public class Jivox {
 
+    private DatabaseHandler dbHandler;
+    private Ui ui;
+    private final TaskList list;
+    private Parser parser;
 
-    private final DatabaseHandler dbHandler = new DatabaseHandler();
-
-    private final ArrayList<Task> list = dbHandler.load();
-
-    private final Scanner sc = new Scanner(System.in);
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
-    public Jivox(){
-
+    public Jivox(String FILE_PATH){
+        this.dbHandler = new DatabaseHandler(FILE_PATH);
+        this.list = new TaskList(dbHandler.load());
+        this.ui = new Ui();
+        this.parser = new Parser();
     }
-    private  enum COMMANDS {
-        TODO,DEADLINE,EVENT,
-        MARK,UNMARK,DELETE,BYE,LIST,
-        SHOW
-    }
-    public void greet(){
-        addDivider();
-        System.out.println(" Hello! I'm Jivox");
-        System.out.println(" What can I do for you?");
-        addDivider();
-    }
-
-    public void exit(){
-        addDivider();
-        System.out.println(" Bye. Hope to see you again soon!");
-        addDivider();
-    }
-
 
     private void mark(int i) throws JivoxException {
-        if(i > this.list.size() || i < 0){
-            throw new JivoxException("Oops! There are only " + this.list.size() + " Tasks!");
+        if(i > this.list.getLength() || i < 0){
+            throw new JivoxException("Oops! There are only " + this.list.getLength() + " Tasks!");
         }
-        Task t = this.list.get(i-1);
+        Task t = this.list.getTask(i-1);
         t.mark();
         dbHandler.save(this.list);
-        addDivider();
-        System.out.println("Nice! , I've marked this task as done:\n" + t);
-        addDivider();
+        this.ui.showMark(t);
 
     }
 
     private void unmark(int i) throws JivoxException {
-        if(i > this.list.size() || i < 0){
-            throw new JivoxException("Oops! There are only " + this.list.size() + " Tasks!");
+        if(i > this.list.getLength() || i < 0){
+            throw new JivoxException("Oops! There are only " + this.list.getLength() + " Tasks!");
         }
-        Task t = this.list.get(i-1);
+        Task t = this.list.getTask(i-1);
         t.unmark();
         dbHandler.save(this.list);
-        addDivider();
-        System.out.println("OK, I've marked this task as not done yet:\n" + t);
-        addDivider();
-    }
-
-    private COMMANDS getCommandType(String type) throws JivoxException {
-        try{
-            return COMMANDS.valueOf(type.toUpperCase());
-        } catch (IllegalArgumentException e){
-            throw new JivoxException("Opps! I can't understand your Input, Please try again");
-        }
+        this.ui.showUnmark(t);
     }
 
     private void addEvent(String content) throws JivoxException {
-        String[] first = content.split(" /from ");
+        String[] first = this.parser.split(content," /from ");
+            //    content.split(" /from ");
         if(first.length == 1){
             throw new JivoxException("No time interval (from) received  for the event , Please try again!");
         }
-        String[] second = first[1].split(" /to ",2);
+        String[] second = this.parser.split(first[1]," /to ",2);
+                //first[1].split(" /to ",2);
         if(second.length == 1){
             throw new JivoxException("No time interval received (to) for the event , Please try again!");
         }
@@ -101,7 +69,8 @@ public class Jivox {
     }
 
     private void addDeadline(String content) throws JivoxException {
-        String[] in = content.split(" /by ",2);
+        String[] in = this.parser.split(content," /by ",2);
+               // content.split(" /by ",2);
         if(in.length == 1){
             throw new JivoxException("Oooops! Please provide a deadline");
         }
@@ -122,76 +91,52 @@ public class Jivox {
                 addEvent(description);
                 break;
         }
-        addDivider();
-        System.out.println("Got it. I've added this task:\n" + this.list.get(this.list.size()-1));
-        System.out.println("Now you have " + this.list.size() +" tasks in the list.");
-        addDivider();
+        this.ui.showAdd(this.list.getTask(this.list.getLength()-1),this.list.getLength());
     }
 
-    public void showList(){
-        addDivider();
-        for(int i = 0; i < this.list.size(); i++){
-            System.out.println((i+1) + ". " + this.list.get(i));
-        }
-        addDivider();
-    }
+
 
     public void delete(int i) throws JivoxException {
-        if(i > this.list.size() || i < 0){
-            throw new JivoxException("Oops! There are only " + this.list.size() + " Tasks!");
+        if(i > this.list.getLength() || i < 0){
+            throw new JivoxException("Oops! There are only " + this.list.getLength() + " Tasks!");
         }
-        Task t = this.list.get(i-1);
-        this.list.remove(i-1);
-        addDivider();
-        System.out.println(" Noted. I've removed this task:\n" + t);
-        System.out.println("Now you have " + this.list.size() +" Tasks in the List");
-        addDivider();
+        Task t = this.list.getTask(i-1);
+        this.list.delete(i-1);
+        this.dbHandler.save(this.list);
+        this.ui.showDelete(t,this.list.getLength());
     }
 
     public void show(String input){
-        String[] split = input.split("/on ");
-
+        String[] split = this.parser.split(input,"/on ");
+               // input.split("/on ");
         LocalDate time = LocalDate.parse(split[1].replaceFirst(" ",""), DateTimeFormatter.ofPattern("d/MM/yyyy"));
-        System.out.println("You have following Task due on " + time.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":-\n");
-        for(int i = 0; i < list.size(); i++){
-            LocalDateTime deadline = this.list.get(i).getDeadline();
-            if(deadline != null){
-                if(deadline.getMonth() == time.getMonth() && deadline.getYear() == time.getYear() && deadline.getDayOfMonth() == time.getDayOfMonth()){
-                    System.out.println(this.list.get(i));
-                    System.out.println("\n");
-                }
-            }
-        }
-    }
-
-    public void addDivider(){
-        System.out.println("============================================================");
+        this.ui.showDeadline(this.list,time);
     }
 
     public void run(){
+        this.ui.greet();
         boolean isRunning = true;
         do {
-            String rawInput = sc.nextLine();
-            String[] input = rawInput.split(" ",2);
+            String rawInput = this.ui.input();
             COMMANDS type;
+            String[] input = this.parser.parseInput(rawInput);
             try {
-                type = this.getCommandType(input[0]);
+                 type = parser.parseCommand(rawInput);
             } catch (JivoxException e){
-                System.out.println(e.getMessage());
+                this.ui.showException(e);
                 continue;
             }
             switch (type){
                 case BYE:
                     isRunning = false;
-                    sc.close();
-                    this.exit();
+                    this.ui.close();
+                    this.ui.exit();
                     break;
                 case DEADLINE:
                     try {
-
                         this.add("deadline", input[1]);
                     } catch (JivoxException e){
-                        System.out.println(e.getMessage());
+                        this.ui.showException(e);
                     }
                     break;
                 case EVENT:
@@ -201,7 +146,7 @@ public class Jivox {
                         }
                         this.add("event", input[1]);
                     } catch (JivoxException e){
-                        System.out.println(e.getMessage());
+                        this.ui.showException(e);
                     }
                     break;
                 case TODO:
@@ -211,7 +156,7 @@ public class Jivox {
                         }
                         this.add("todo", input[1]);
                     } catch (JivoxException e){
-                        System.out.println(e.getMessage());
+                        this.ui.showException(e);
                     }
                     break;
                 case MARK:
@@ -221,7 +166,7 @@ public class Jivox {
                         }
                         this.mark(Integer.parseInt(input[1]));
                     } catch (JivoxException e){
-                        System.out.println(e.getMessage());
+                        this.ui.showException(e);
                     }
                     break;
                 case UNMARK:
@@ -231,7 +176,7 @@ public class Jivox {
                         }
                         this.unmark(Integer.parseInt(input[1]));
                     } catch (JivoxException e){
-                        System.out.println(e.getMessage());
+                        this.ui.showException(e);
                     }
                     break;
                 case DELETE:
@@ -241,11 +186,11 @@ public class Jivox {
                         }
                         this.delete(Integer.parseInt(input[1]));
                     } catch (JivoxException e){
-                        System.out.println(e.getMessage());
+                        this.ui.showException(e);
                     }
                     break;
                 case LIST:
-                    this.showList();
+                    this.ui.showList(this.list);
                     break;
                 case SHOW:
                     this.show(input[1]);

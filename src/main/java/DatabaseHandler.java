@@ -1,5 +1,6 @@
 import javafx.scene.input.DataFormat;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,7 +15,11 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class DatabaseHandler {
-    private static final File DB = new File("./data/jivox.txt");
+    private File DB = null;
+
+    public DatabaseHandler(String FILE_PATH){
+        this.DB = new File(FILE_PATH);
+    }
 
     public void create() throws DataHandlerException {
         Path path = Paths.get(DB.getPath());
@@ -30,14 +35,15 @@ public class DatabaseHandler {
         }
     }
 
-    public void save(ArrayList<Task> tasks) throws DataHandlerException {
+    public void save(TaskList tasks) throws DataHandlerException {
         try{
             if(!DB.exists()){
                 create();
             }
             FileWriter fw = new FileWriter(DB);
-            for (Task task : tasks) {
-                switch (task.getType()) {
+            for (int i = 0; i < tasks.getLength(); i++) {
+                Task task =  tasks.getTask(i);
+                switch (tasks.getTask(i).getType()) {
                     case "D":
                         Deadline d = (Deadline) task;
                         fw.write(d.saveFormat());
@@ -74,7 +80,8 @@ public class DatabaseHandler {
                 String[] split = line.split("\\|");
                 switch (split[0].trim()) {
                     case "D":
-                        Deadline d = new Deadline(split[2].trim(), LocalDateTime.parse(split[3].replaceFirst(" ",""),formatter));
+                        Deadline d = new Deadline(split[2].trim(),
+                                LocalDateTime.parse(split[3].replaceFirst(" ",""),formatter));
                         if (split[1].trim().equals("1")) {
                             d.mark();
                         }
@@ -82,7 +89,6 @@ public class DatabaseHandler {
                         break;
                     case "E":
                         String[] start_end = split[3].split(" to ");
-                        System.out.println(Arrays.toString(start_end));
                         Event e = new Event(split[2].trim(),LocalDateTime.parse(start_end[0].replaceFirst(" ",""),formatter),
                                 LocalDateTime.parse(start_end[1],formatter));
                         if (split[1].trim().equals("1")) {
