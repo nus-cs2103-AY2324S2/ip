@@ -1,0 +1,5 @@
+[T][X] read book
+[T][ ] join club
+[E][ ] project (from: now to: tmr)
+[D][ ] return book (by: now)
+[T][ ] event

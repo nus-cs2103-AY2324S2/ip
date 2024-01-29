@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +19,9 @@ public class Duke {
         DELETE,
         BYE
     }
+
+
+
     static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -54,7 +61,6 @@ public class Duke {
                     addEvent(userInput);
 
                 } else if (splitInput[0].equalsIgnoreCase(Action.DELETE.toString())) {
-
                     deleteTask(userInput);
 
                 } else {
@@ -93,6 +99,9 @@ public class Duke {
         }
         ToDo newToDo= new ToDo(name.trim());
         tasks.add(newToDo);
+        ArrayList<Task> newToDoList = new ArrayList<>();
+        newToDoList.add(newToDo);
+        loadArrayListToFile("duke", newToDoList, false);//TODO Add the file function here
         System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newToDo.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
@@ -110,11 +119,13 @@ public class Duke {
             throw new DukeException("      Invalid format for new Deadline!");
         }
 
-
         String name = deadlineSplit[0].substring(9).trim();
         String by = deadlineSplit[1].substring(3).trim();
         Deadline newDeadline = new Deadline(name, by);
         tasks.add(newDeadline);
+        ArrayList<Task> newDeadlineList = new ArrayList<>();
+        newDeadlineList.add(newDeadline);
+        loadArrayListToFile("duke", newDeadlineList, false);//TODO Add the file function here
         System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newDeadline.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
@@ -136,6 +147,9 @@ public class Duke {
         String end = eventSplit[2].substring(3).trim();
         Event newEvent = new Event(name, start, end);
         tasks.add(newEvent);
+        ArrayList<Task> newEventList = new ArrayList<>();
+        newEventList.add(newEvent);
+        loadArrayListToFile("duke", newEventList, false);//TODO Add the file function here
         System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newEvent.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
@@ -156,6 +170,7 @@ public class Duke {
         }
         if (choiceMark <= tasks.size() && choiceMark > 0) {
             tasks.get(choiceMark - 1).markAsDone();
+            loadArrayListToFile("duke", tasks, true);
             System.out.println("      Nice! I've marked this task as done:");
 //            System.out.println("        " + "[X] " + tasks.get(choiceMark - 1).toString());
             System.out.println("        " + tasks.get(choiceMark - 1).toString());
@@ -180,6 +195,7 @@ public class Duke {
         }
         if (choiceUnmark <= tasks.size() && choiceUnmark > 0) {
             tasks.get(choiceUnmark - 1).markAsUndone();
+            loadArrayListToFile("duke", tasks, true);
             System.out.println("      OK, I've marked this task as not done yet:");
 //            System.out.println("        " + "[ ] " + tasks.get(choiceUnmark - 1).toString());
             System.out.println("        " + tasks.get(choiceUnmark - 1).toString());
@@ -204,14 +220,29 @@ public class Duke {
         if (choiceDelete <= tasks.size() && choiceDelete > 0) {
             Task deletedTask = tasks.get(choiceDelete - 1);
             tasks.remove(choiceDelete - 1);
+            loadArrayListToFile("duke", tasks, true);
             System.out.println("      Noted, I've removed this task:");
             System.out.println("      " + deletedTask.toString());
             System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
         } else {
             System.out.println("      Invalid choice");
         }
-
     }
+
+    /**
+     * Load the data into a txt file
+     *
+     * @param fileName name of the txt file
+     * @param tasks context to be stored in the txt file
+     * @param isOverwrite check if we need to delete the current context in the txt file
+     */
+    static void loadArrayListToFile(String fileName, ArrayList<Task> tasks, boolean isOverwrite) {
+        FileManager fileManager = new FileManager(fileName);
+        fileManager.writeArrayListToFile(tasks, isOverwrite);
+    }
+
+
+
 }
 
 class Task {
@@ -293,8 +324,3 @@ class Event extends Task {
     }
 }
 
-class DukeException extends Exception{
-    public DukeException(String message) {
-        super(message);
-    }
-}
