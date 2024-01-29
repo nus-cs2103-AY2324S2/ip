@@ -22,4 +22,15 @@ public class Deadline extends Task {
     public String toString2() {
         return String.format("D | %d | %s | %s", this.isDone ? 1 : 0, this.description, this.byInput);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Deadline d)) {
+            return false;
+        }
+        return this.description.equals(d.description) && this.byInput.equals(d.byInput);
+    }
 }

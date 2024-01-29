@@ -38,4 +38,17 @@ public class Event extends Task {
                 this.endInput
         );
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Event e)) {
+            return false;
+        }
+        return this.description.equals(e.description) &&
+                this.startInput.equals(e.startInput) &&
+                this.endInput.equals(e.endInput);
+    }
 }
