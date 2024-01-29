@@ -21,6 +21,7 @@ public class SlayBot {
         MARK,
         UNMARK,
         DELETE,
+
     }
 
     public static void main(String[] args) {
