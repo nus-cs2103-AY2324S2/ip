@@ -60,7 +60,7 @@ public class Duke {
                     System.out.println("_______________________________________________________\n " +
                             "Nice! I've marked this task as done:\n " + task +
                             "\n_______________________________________________________\n");
-                } else if (input.equals("unmark")) {
+                } else if (input.toLowerCase().equals("unmark")) {
                     int index = sc.nextInt();
                     if (index > todo_list.size() || index <= 0) throw new Exception("Index has to be within list size!");
                     Task task = todo_list.get(index - 1);
@@ -68,26 +68,50 @@ public class Duke {
                     System.out.println("_______________________________________________________\n " +
                             "Ok, I've marked this task as not done yet:\n " + task +
                             "\n_______________________________________________________\n");
-                } else if (input.equals("todo")) {
+                } else if (input.toLowerCase().equals("delete")) {
+                    int index = sc.nextInt();
+                    if (index > todo_list.size() || index <= 0) throw new Exception("Index has to be within list size!");
+                    Task task = todo_list.remove(index - 1);
+                    System.out.println("_______________________________________________________\n " +
+                            "Noted. I've removed this task from the list:\n " + task +
+                            "\nNow you have " + todo_list.size() + " tasks in the list.\n" +
+                            "_______________________________________________________\n");
+                } else if (input.toLowerCase().equals("todo")) {
                     String str = sc.nextLine().trim();
                     if (str.length() == 0) throw new Exception("Todo task cannot be empty!");
                     addTodo(str);
-                } else if (input.equals("deadline")) {
+                } else if (input.toLowerCase().equals("deadline")) {
                     String s = sc.nextLine();
+                    if (s.split("/by").length != 2) {
+                        throw new Exception("Please provide your deadline task in the following format:\n" +
+                                "Deadline <description> /by <description>");
+                    }
                     String name = s.split("/by")[0].trim();
-                    if (name.length() == 0) throw new Exception("Deadline task description cannot be empty!");
-                    if (s.split("/by").length == 1) throw new Exception("Please include your deadline too!");
                     String by = s.split("/by")[1].trim();
+                    if (name.length() == 0 || by.length() == 0 ) {
+                        throw new Exception(("Event names/to/from cannot be empty"));
+                    }
 
                     addDeadline(name, by);
-                } else if (input.equals("event")) {
+                } else if (input.toLowerCase().equals("event")) {
                     String s = sc.nextLine();
-                    String[] split = s.split("/from");
-                    String name = split[0].trim();
-                    if (name.length() == 0) throw new Exception("Event task description cannot be empty!");
-                    if (split.length == 1 || split[1].split("/to").length != 2) throw new Exception("Please include the start and end date/time of your event too!");
-                    String from = split[1].split("/to")[0].trim();
-                    String to = split[1].split("/to")[1].trim();
+                    String[] split1 = s.split("/from");
+                    if (split1.length != 2) {
+                        throw new Exception("Please provide your event task in the following format:\n" +
+                                "Event <description> /from <description> /to <description>");
+                    }
+                    String[] split2 = split1[1].split("/to");
+                    if (split2.length != 2) {
+                        throw new Exception("Please provide your event task in the following format:\n" +
+                                "Event <description> /from <description> /to <description>");
+                    }
+                    String name = split1[0].trim();
+                    String from = split2[0].trim();
+                    String to = split2[1].trim();
+                    if (name.length() == 0 || from.length() == 0 || to.length() == 0) {
+                        throw new Exception(("Event names/to/from cannot be empty"));
+                    }
+
 
                     addEvent(name, from, to);
                 } else {
