@@ -35,7 +35,7 @@ public class Ui {
     }
 
     private static final String HORIZONTAL_LINE =
-            "_______________________________________";
+            "___________________________________________________________________________";
     public void showLine() {
         System.out.println(HORIZONTAL_LINE);
     }
@@ -60,28 +60,30 @@ public class Ui {
 
     public void showTaskList(TaskList taskList) {
         this.showTaskListStatus(taskList);
+        int count = 1;
         for (Task task : taskList) {
-            System.out.println(task);
+            System.out.printf("%d. %s\n", count, task);
+            count++;
         }
     }
 
     public void showAddedTask(Task task) {
-        System.out.println("added: " + task.toString());
+        System.out.println("Got it. I've added this task: \n" + task.toString());
     }
 
     public void showTaskListStatus(TaskList taskList) {
-        System.out.printf("Now you have %d tasks in the list.%n\n", taskList.size());
+        System.out.printf("Now you have %d tasks in the list.%n", taskList.size());
     }
 
     public void showMarkedTask(Task task) {
-        System.out.println("marked: " + task.toString());
+        System.out.println("Nice! I've marked this task as done: \n" + task.toString());
     }
 
     public void showUnmarkedTask(Task task) {
-        System.out.println("unmarked: " + task.toString());
+        System.out.println("OK, I've marked this task as not done yet: \n" + task.toString());
     }
 
     public void showDeletedTask(Task task) {
-        System.out.println("deleted: " + task.toString());
+        System.out.println("Noted. I've removed this task: \n" + task.toString());
     }
 }

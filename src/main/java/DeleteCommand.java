@@ -14,6 +14,7 @@ public class DeleteCommand extends Command {
         try {
             Task task = taskList.deleteTask(parameters);
             ui.showDeletedTask(task);
+            ui.showTaskListStatus(taskList);
         } catch (Exception e) {
             ui.showError(e.getMessage());
         }
