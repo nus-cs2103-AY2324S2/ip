@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -79,20 +82,21 @@ public class Duke {
     }
 
     private void deadline(String fullCmd) {
-        String deadlineFormTxt = "\tSorry! Please use the given format for deadline tasks:\n" +
-                "\t\tdeadline (description) /by (due date/time)\n";
+        String deadlineFormTxt = "\tSorry! Please use the given format for deadline tasks:\n"
+                + "\t\tdeadline (description) /by DD/MM/YYYY hhmm\n"
+                + "\t\teg. deadline homework /by 30/01/2023 1800\n";
 
         try {
-            String[] fullCmdArr = fullCmd.split("/");
+            String[] fullCmdArr = fullCmd.split("/", 2);
             if (fullCmdArr.length != 2) throw new DukeException("Improper Format");
             if (!fullCmdArr[1].substring(0, Math.min(3, fullCmdArr[1].length())).equals("by ")) throw new DukeException("Improper Format");
 
             String name = fullCmdArr[0].substring(9);
-            String dueDate = fullCmd.split("/")[1].substring(3);
+            String dueDate = fullCmd.split("/", 2)[1].substring(3);
             if (name.trim().isEmpty()) throw new DukeException("Description Blank");
             if (dueDate.trim().isEmpty()) throw new DukeException("End Blank");
 
-            Task newTask = new Deadline(name, dueDate);
+            Task newTask = new Deadline(name, convertDate(dueDate));
             addTaskPrint(newTask);
 
         } catch (DukeException e) {
@@ -103,33 +107,37 @@ public class Duke {
         }
     }
 
+    // convert DD/MM/YY hhmm to localdatetime object
+    private LocalDateTime convertDate(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return LocalDateTime.parse(dateTime, formatter);
+    }
+
     private void event(String fullCmd) {
-        String eventFormTxt = "\tSorry! Please use the given format for event tasks:\n" +
-                "\t\tevent (description) /from (start) /to (end)\n";
-        String noStartTxt = "\tHey, please let me know the start date/time for this task!";
+        String eventFormTxt = "\tSorry! Please use the given format for event tasks:\n"
+                + "\t\tevent (description) /from DD/MM/YYYY hhmm /to DD/MM/YYYY hhmm\n"
+                + "\t\teg. event assignment /from 30/01/2023 1200 /to 12/02/2023 2359\n";
 
         try {
-            String[] fullCmdArr = fullCmd.split("/");
-            if (fullCmdArr.length != 3) throw new DukeException("Improper Format");
-            if (!fullCmdArr[1].substring(0, Math.min(5, fullCmdArr[1].length())).equals("from ")) throw new DukeException("Improper Format");
-            if (!fullCmdArr[2].substring(0, Math.min(3, fullCmdArr[2].length())).equals("to ")) throw new DukeException("Improper Format");
+            String[] fullCmdArr = fullCmd.split("/from ");
+            if (fullCmdArr.length != 2) throw new DukeException("Improper Format");
+
+            String[] fromToArr = fullCmdArr[1].split(" /to ");
+            if (fromToArr.length != 2) throw new DukeException("Improper Format");
 
             String name = fullCmdArr[0].substring(6);
-            String start = fullCmdArr[1].substring(5);
-            String end = fullCmdArr[2].substring(3);
             if (name.trim().isEmpty()) throw new DukeException("Description Blank");
-            if (start.trim().isEmpty()) throw new DukeException("Start Blank");
-            if (end.trim().isEmpty()) throw new DukeException("End Blank");
 
-            Task newTask = new Event(name, start, end);
+            Task newTask = new Event(name, convertDate(fromToArr[0]),
+                    convertDate(fromToArr[1]));
             addTaskPrint(newTask);
 
         } catch (DukeException e) {
             String errorMsg = e.getMessage();
             if (errorMsg.equals("Improper Format")) System.out.println(TXT_LINE + eventFormTxt + TXT_LINE);
             if (errorMsg.equals("Description Blank")) System.out.println(TXT_LINE + TXT_NODESC + "deadline task!\n" + TXT_LINE);
-            if (errorMsg.equals("Start Blank")) System.out.println(TXT_LINE + noStartTxt + "\n" + TXT_LINE);
-            if (errorMsg.equals("End Blank")) System.out.println(TXT_LINE + TXT_NOEND + "\n" + TXT_LINE);
+        } catch (DateTimeParseException e) {
+            System.out.println(TXT_LINE + eventFormTxt + TXT_LINE);
         }
     }
 
@@ -196,18 +204,23 @@ public class Duke {
             while (s.hasNext()) {
                 String[] taskLine = s.nextLine().split(";;;");
                 String[] details = taskLine[2].split(":::");
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
+
                 if (Objects.equals(taskLine[0], "T")) store.add(new ToDo(details[0]));
-                else if (Objects.equals(taskLine[0], "D")) store.add(new Deadline(details[0], details[1]));
-                else if (Objects.equals(taskLine[0], "E")) store.add(new Event(details[0], details[1], details[2]));
+                else if (Objects.equals(taskLine[0], "D")) store.add(new Deadline(details[0], LocalDateTime.parse(details[1], formatter)));
+                else if (Objects.equals(taskLine[0], "E")) store.add(new Event(details[0],
+                        LocalDateTime.parse(details[1], formatter), LocalDateTime.parse(details[2], formatter)));
 
                 if (Objects.equals(taskLine[1], "1")) store.get(numItems).mark();
                 numItems++;
             }
         } catch (FileNotFoundException e) {
 			try {
-                File yourFile = new File(FILEPATH);
-                yourFile.getParentFile().mkdirs();
-                yourFile.createNewFile();
+                File f = new File(FILEPATH);
+                f.getParentFile().mkdirs();
+                f.createNewFile();
 			} catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }

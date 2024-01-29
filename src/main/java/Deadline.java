@@ -1,10 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
     private static final String TYPE = "D";
 
-    protected String dueDate;
+    protected LocalDateTime dueDate;
 
-    public Deadline(String name, String dueDate) {
+    public Deadline(String name, LocalDateTime dueDate) {
         super(name);
         this.dueDate = dueDate;
     }
@@ -21,7 +24,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + TYPE + "]" + super.toString() + " (by: " + dueDate + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
+        String printDate = dueDate.format(formatter);
+        return "[" + TYPE + "]" + super.toString() + " (by: " + printDate + ")";
     }
 
 }
