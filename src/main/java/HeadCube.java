@@ -58,8 +58,8 @@ public class HeadCube {
             String[] parts = split[1].split(" /from ", 2);
             description = parts[0];
             String[] times = parts[1].split(" /to ", 2);
-            String start = times[0];
-            String end = times[1];
+            String start = times[0].trim();
+            String end = times[1].trim();
             tasks.add(new Events(description, start, end));
         } else {
             throw new HeadCubeException("I do not understand what that means!!");
