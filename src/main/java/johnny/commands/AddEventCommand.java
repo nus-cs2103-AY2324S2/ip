@@ -1,3 +1,12 @@
+package johnny.commands;
+
+import johnny.exceptions.JohnnyException;
+import johnny.storage.Storage;
+import johnny.ui.Ui;
+import johnny.tasks.Event;
+import johnny.tasks.Task;
+import johnny.tasks.TaskList;
+
 import java.time.LocalDateTime;
 
 public class AddEventCommand extends Command {

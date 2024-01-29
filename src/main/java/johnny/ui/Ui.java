@@ -1,3 +1,8 @@
+package johnny.ui;
+
+import johnny.tasks.Task;
+import johnny.tasks.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -9,7 +14,7 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println("Johnny here. What do you want bro?\n");
+        System.out.println("johnny.Johnny here. What do you want bro?\n");
     }
 
     public void showEnd() {
@@ -36,15 +41,15 @@ public class Ui {
     }
 
     public void showDelete(Task task, TaskList tasks) {
-        System.out.println("Task removed. Why so lazy bro?");
+        System.out.println("Task.Task removed. Why so lazy bro?");
         System.out.println(task);
-        System.out.println("You still have " + tasks.size() + " tasks in your list bro.\n");
+        System.out.println("You still have " + tasks.size() + " johnny.commands.tasks in your list bro.\n");
     }
 
     public void showAddTask(Task task, TaskList tasks) {
         System.out.println("Go get this done bro:");
         System.out.println(task);
-        System.out.println("You still have " + tasks.size() + " tasks in your list bro.\n");
+        System.out.println("You still have " + tasks.size() + " johnny.commands.tasks in your list bro.\n");
     }
 
     public String readCommand() {
