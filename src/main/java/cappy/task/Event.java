@@ -29,9 +29,9 @@ public class Event extends Task {
                 + ","
                 + super.getDescription()
                 + ","
-                + Parser.dateTimeToString(this.begin)
+                + Parser.dateTimeToString(begin)
                 + ","
-                + Parser.dateTimeToString(this.end);
+                + Parser.dateTimeToString(end);
     }
 
     @Override
@@ -41,9 +41,9 @@ public class Event extends Task {
                 + "]"
                 + super.toString()
                 + " (from: "
-                + Parser.dateTimeToString(this.begin)
+                + Parser.dateTimeToString(begin)
                 + " to: "
-                + Parser.dateTimeToString(this.end)
+                + Parser.dateTimeToString(end)
                 + ")";
     }
 
@@ -53,6 +53,6 @@ public class Event extends Task {
             return false;
         }
         Event other = (Event) obj;
-        return super.equals(other) && this.begin.equals(other.begin) && this.end.equals(other.end);
+        return super.equals(other) && begin.equals(other.begin) && end.equals(other.end);
     }
 }

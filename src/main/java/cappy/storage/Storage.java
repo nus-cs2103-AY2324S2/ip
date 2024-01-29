@@ -15,17 +15,17 @@ public class Storage implements AutoCloseable {
     public Storage(String path) throws IOException {
         this.path = path;
         this.file = new File(path);
-        this.file.getParentFile().mkdirs(); // create parent directories if not exists
-        this.file.createNewFile(); // create file if not exists
-        this.writer = new BufferedWriter(new FileWriter(this.file, true));
+        file.getParentFile().mkdirs(); // create parent directories if not exists
+        file.createNewFile(); // create file if not exists
+        this.writer = new BufferedWriter(new FileWriter(file, true));
     }
 
     public void empty() throws IOException {
         close();
-        try (FileWriter fileWriter = new FileWriter(this.file, false)) {
+        try (FileWriter fileWriter = new FileWriter(file, false)) {
             fileWriter.write("");
         }
-        this.writer = new BufferedWriter(new FileWriter(this.file));
+        writer = new BufferedWriter(new FileWriter(file));
     }
 
     public void writeLine(String line) throws IOException {
@@ -34,7 +34,7 @@ public class Storage implements AutoCloseable {
     }
 
     public String readAll() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(this.file));
+        BufferedReader reader = new BufferedReader(new FileReader(file));
         StringBuilder builder = new StringBuilder();
         String line = reader.readLine();
         while (line != null) {

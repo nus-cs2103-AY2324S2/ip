@@ -26,7 +26,7 @@ public class Deadline extends Task {
                 + ","
                 + super.getDescription()
                 + ","
-                + Parser.dateTimeToString(this.due)
+                + Parser.dateTimeToString(due)
                 + ",";
     }
 
@@ -37,7 +37,7 @@ public class Deadline extends Task {
                 + "]"
                 + super.toString()
                 + " (by: "
-                + Parser.dateTimeToString(this.due)
+                + Parser.dateTimeToString(due)
                 + ")";
     }
 
@@ -47,6 +47,6 @@ public class Deadline extends Task {
             return false;
         }
         Deadline other = (Deadline) obj;
-        return super.equals(other) && this.due.equals(other.due);
+        return super.equals(other) && due.equals(other.due);
     }
 }

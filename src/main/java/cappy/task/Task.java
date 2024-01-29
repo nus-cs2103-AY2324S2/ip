@@ -16,24 +16,24 @@ public abstract class Task implements CsvFormat {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public boolean getDone() {
-        return this.done;
+        return done;
     }
 
     public void done() {
-        this.done = true;
+        done = true;
     }
 
     public void undone() {
-        this.done = false;
+        done = false;
     }
 
     @Override
     public String toString() {
-        return "[" + (this.done ? "X" : " ") + "] " + this.description;
+        return "[" + (done ? "X" : " ") + "] " + description;
     }
 
     @Override
@@ -42,6 +42,6 @@ public abstract class Task implements CsvFormat {
             return false;
         }
         Task other = (Task) obj;
-        return this.description.equals(other.description) && this.done == other.done;
+        return description.equals(other.description) && done == other.done;
     }
 }

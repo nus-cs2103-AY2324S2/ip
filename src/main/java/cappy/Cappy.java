@@ -28,14 +28,14 @@ public class Cappy {
             storage.close();
         } catch (IOException e) {
             UI.showError(e.getMessage());
-            Cappy.SCANNER.close();
+            SCANNER.close();
             System.exit(1);
         } catch (CappyException e) {
             UI.showError(e.getMessage());
-            Cappy.SCANNER.close();
+            SCANNER.close();
             System.exit(1);
         } finally {
-            Cappy.SCANNER.close();
+            SCANNER.close();
         }
     }
 

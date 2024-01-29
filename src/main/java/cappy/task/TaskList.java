@@ -18,7 +18,7 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
-        this.tasks.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -28,7 +28,7 @@ public class TaskList {
      * @return the task at the specified 1-based index.
      */
     public Task getTask(int index) {
-        return this.tasks.get(index - 1);
+        return tasks.get(index - 1);
     }
 
     /**
@@ -37,11 +37,11 @@ public class TaskList {
      * @param index 1-based index of the task to remove.
      */
     public void removeTask(int index) {
-        this.tasks.remove(index - 1);
+        tasks.remove(index - 1);
     }
 
     public int size() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     /**
@@ -51,13 +51,13 @@ public class TaskList {
      * @return true if the specified index is valid.
      */
     public boolean validIndex(int index) {
-        return index >= 1 && index <= this.tasks.size();
+        return index >= 1 && index <= tasks.size();
     }
 
     public void save() throws IOException {
-        this.storage.empty();
-        for (Task task : this.tasks) {
-            this.storage.writeLine(task.toCsv());
+        storage.empty();
+        for (Task task : tasks) {
+            storage.writeLine(task.toCsv());
         }
     }
 
@@ -75,8 +75,8 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            sb.append(i + 1).append(". ").append(this.tasks.get(i).toString()).append("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(". ").append(tasks.get(i).toString()).append("\n");
         }
         return sb.toString();
     }
