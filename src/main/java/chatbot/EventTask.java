@@ -1,21 +1,32 @@
 package chatbot;
 
+import chatbot.exceptions.InvalidArgumentException;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class EventTask extends Task implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String startTime;
-    private String endTime;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
-    public EventTask(String desc, String startTime, String endTime) {
+    public EventTask(String desc, String startTime, String endTime) throws InvalidArgumentException {
         super(desc);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        try {
+            this.startTime = LocalDateTime.parse(startTime);
+            this.endTime = LocalDateTime.parse(endTime);
+        } catch (DateTimeParseException e) {
+            throw new InvalidArgumentException();
+        }
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), startTime, endTime);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }
 
