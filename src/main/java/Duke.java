@@ -1,16 +1,23 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Duke {
 
     private static String name = "GanAnWo";
     private static String currentWorkingDirectory = System.getProperty("user.dir");
     private static String path = "/list.txt";
-    private static FileWriter f;
-
+    private static DateTimeFormatter dFormatInp = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
+    private static DateTimeFormatter dFormatOut = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     private static ArrayList<Task> task = new ArrayList<>();
 
     public static void main(String[] args) throws FileNotFoundException, IOException{
@@ -62,13 +69,19 @@ public class Duke {
             switch (inputs[0]) {
                 case "event": // when the task added is event
                     if(inputs.length == 1){
-                        throw new DescriptionFormatException(); //when the description format is wrong (e.g: no desc)
+                        throw new DescriptionFormatException("Wrong format!, please use this format: "
+                                + Event.getFormat()); //when the description format is wrong (e.g: no desc)
                     } else {
                         name = item.split("event ");
                         String[] desFromTo = name[1].split(" /from ");
                         String[] fromTo = desFromTo[1].split(" /to ");
-
-                        task.add(new Event(desFromTo[0], fromTo[0], fromTo[1]));
+                        if (!(desFromTo.length != 2 || fromTo.length != 2)){
+                            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                                    + Event.getFormat());
+                        }
+                        LocalDateTime ldtf = LocalDateTime.parse(fromTo[0], dFormatInp);
+                        LocalDateTime ldtt = LocalDateTime.parse(fromTo[1], dFormatInp);
+                        task.add(new Event(desFromTo[0], ldtf, ldtt));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(task.get(task.size()-1).toString());
                         System.out.println("Now you have " + task.size() + " tasks in the list.");
@@ -80,10 +93,15 @@ public class Duke {
                     }
                     break;
                 case "todo": // when the task added is todo
-                    if(inputs.length == 1){
-                        throw new DescriptionFormatException(); //when the description format is wrong (e.g: no desc)
+                    if((inputs.length == 1)){
+                        throw new DescriptionFormatException("Wrong format!, please use this format: "
+                                + ToDos.getFormat()); //when the description format is wrong (e.g: no desc)
                     } else {
                         name = item.split("todo ");
+                        if(name.length != 2){
+                            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                                    + ToDos.getFormat());
+                        }
                         task.add(new ToDos(name[1]));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(task.get(task.size()-1).toString());
@@ -97,11 +115,17 @@ public class Duke {
                     break;
                 case "deadline": // when the task added is deadline
                     if(inputs.length == 1){
-                        throw new DescriptionFormatException(); //when the description format is wrong (e.g: no desc)
+                        throw new DescriptionFormatException("Wrong format!, please use this format: "
+                                + Deadline.getFormat()); //when the description format is wrong (e.g: no desc)
                     } else {
                         name = item.split("deadline ");
                         String[] desBy = name[1].split(" /by ");
-                        task.add(new Deadline(desBy[0], desBy[1]));
+                        if(desBy.length != 2) {
+                            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                                    + Deadline.getFormat());
+                        }
+                        LocalDateTime ldt = LocalDateTime.parse(desBy[1], dFormatInp);
+                        task.add(new Deadline(desBy[0], ldt));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(task.get(task.size()-1).toString());
                         System.out.println("Now you have " + task.size() + " tasks in the list.");
@@ -117,9 +141,11 @@ public class Duke {
                     // when none of task type matched the available task type which means the command is invalid
             }
         } catch (DescriptionFormatException e){ // the description format exception handling
-            System.out.println("Please add description for the " + inputs[0] + " command");
+            System.out.println(e.getMessage());
         } catch (CommandInvalidException e){ // the invalid command exception handling
             System.out.println("Invalid command -_-, please use the available commands!!");
+        } catch (DateTimeParseException e){
+            System.out.println("Please use the date format: yyyy-MM-dd HH:mm (e.g.: 2023-02-01 12:30)");
         }
     }
 
@@ -228,10 +254,11 @@ public class Duke {
                         task.add(new ToDos(dtl[1], dtl[2]));
                         break;
                     case "D":
-                        task.add(new Deadline(dtl[1], dtl[2], dtl[3]));
+                        task.add(new Deadline(dtl[1], dtl[2], LocalDateTime.parse(dtl[3], dFormatInp)));
                         break;
                     case "E":
-                        task.add(new Event(dtl[1], dtl[2], dtl[3], dtl[4]));
+                        task.add(new Event(dtl[1], dtl[2], LocalDateTime.parse(dtl[3],dFormatInp),
+                                LocalDateTime.parse(dtl[4],dFormatInp)));
                 }
             }
         }
