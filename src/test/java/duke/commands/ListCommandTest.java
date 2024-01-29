@@ -136,7 +136,7 @@ public class ListCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute withou filter and an
+     * Test print to standard output for successful execute without filter and an
      * unpopulated tasklist
      */
     @Test
@@ -150,7 +150,7 @@ public class ListCommandTest {
     }
 
     /**
-     * Test print to standard output for successful execute withou filter and an
+     * Test print to standard output for successful execute with filter and an
      * unpopulated tasklist
      */
     @Test
