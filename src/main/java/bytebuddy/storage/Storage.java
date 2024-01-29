@@ -1,7 +1,5 @@
 package bytebuddy.storage;
 
-import bytebuddy.exceptions.ByteBuddyException;
-import bytebuddy.tasks.*;
 import static bytebuddy.constants.FilePaths.RELATIVE_DATA_DIRECTORY_PATH;
 import static bytebuddy.constants.FilePaths.RELATIVE_OUTPUT_TXT_FILE_PATH;
 
@@ -9,6 +7,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import bytebuddy.exceptions.ByteBuddyException;
+import bytebuddy.tasks.Deadline;
+import bytebuddy.tasks.Event;
+import bytebuddy.tasks.TaskList;
+import bytebuddy.tasks.Todo;
 
 /**
  * The Storage class manages the reading and writing of tasks to a file.

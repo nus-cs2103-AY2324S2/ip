@@ -1,5 +1,8 @@
 package bytebuddy.constants;
 
+/**
+ * The {@code ExceptionErrorMessages} class contains constants representing error messages for exception handling.
+ */
 public class ExceptionErrorMessages {
     public static final String EMPTY_DESCRIPTION_ERROR_MESSAGE = "The description cannot be empty??";
     public static final String EMPTY_KEYWORD_ERROR_MESSAGE = "Are you finding anything at all?";

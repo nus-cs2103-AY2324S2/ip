@@ -1,22 +1,28 @@
 package bytebuddy.tasks;
 
-import bytebuddy.ui.Ui;
-import bytebuddy.exceptions.ByteBuddyException;
-
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static bytebuddy.constants.ExceptionErrorMessages.*;
+import static bytebuddy.constants.ExceptionErrorMessages.EMPTY_DESCRIPTION_ERROR_MESSAGE;
+import static bytebuddy.constants.ExceptionErrorMessages.EMPTY_KEYWORD_ERROR_MESSAGE;
+import static bytebuddy.constants.ExceptionErrorMessages.FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
+import static bytebuddy.constants.ExceptionErrorMessages.NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
+import static bytebuddy.constants.ExceptionErrorMessages.NUMBER_FORMAT_ERROR_MESSAGE;
 import static bytebuddy.constants.FilePaths.RELATIVE_OUTPUT_TXT_FILE_PATH;
 import static bytebuddy.constants.Formats.DEADLINE_FORMAT;
 import static bytebuddy.constants.Formats.EVENT_FORMAT;
-import static bytebuddy.constants.Information.solidLineBreak;
 import static bytebuddy.storage.Storage.writeToFile;
 import static bytebuddy.ui.Ui.printWithSolidLineBreak;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import bytebuddy.exceptions.ByteBuddyException;
+import bytebuddy.ui.Ui;
+
 /**
- * The TaskList class represents a collection of tasks and provides methods to manipulate and interact with the task list.
+ * The TaskList class represents a collection of tasks and
+ * provides methods to manipulate and interact with the task list.
  */
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -258,7 +264,7 @@ public class TaskList {
      * @param taskList The list of tasks to format.
      * @return A string containing the formatted output of each task in the list.
      */
-    public String getTaskListFormattedStringOutput (ArrayList<Task> taskList) {
+    public String getTaskListFormattedStringOutput(ArrayList<Task> taskList) {
         StringBuilder s = new StringBuilder();
         for (Task task : taskList) {
             s.append(task.getTextFormattedOutput()).append("\n");

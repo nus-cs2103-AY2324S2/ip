@@ -1,10 +1,10 @@
 package bytebuddy.ui;
 
-import java.util.Scanner;
-
-import static bytebuddy.constants.Information.solidLineBreak;
+import static bytebuddy.constants.Information.SOLID_LINE_BREAK;
 import static bytebuddy.constants.Messages.BYE_MESSAGE;
 import static bytebuddy.constants.Messages.START_MESSAGE;
+
+import java.util.Scanner;
 
 /**
  * The Ui class handles user interface interactions, including printing messages and reading user input.
@@ -25,9 +25,9 @@ public class Ui {
      * @param s The string to be printed.
      */
     public static void printWithSolidLineBreak(String s) {
-        System.out.println("\t" + solidLineBreak);
+        System.out.println("\t" + SOLID_LINE_BREAK);
         System.out.println(s);
-        System.out.println("\t" + solidLineBreak);
+        System.out.println("\t" + SOLID_LINE_BREAK);
     }
 
     /**

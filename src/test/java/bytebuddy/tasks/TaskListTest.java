@@ -1,18 +1,21 @@
 package bytebuddy.tasks;
 
-import bytebuddy.exceptions.ByteBuddyException;
-import org.junit.jupiter.api.Test;
+import static bytebuddy.constants.ExceptionErrorMessages.EMPTY_DESCRIPTION_ERROR_MESSAGE;
+import static bytebuddy.constants.ExceptionErrorMessages.NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
+import static bytebuddy.constants.ExceptionErrorMessages.NUMBER_FORMAT_ERROR_MESSAGE;
+import static bytebuddy.constants.Formats.DEADLINE_FORMAT;
+import static bytebuddy.constants.Formats.EVENT_FORMAT;
+import static bytebuddy.constants.Information.SOLID_LINE_BREAK;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import static bytebuddy.constants.ExceptionErrorMessages.*;
-import static bytebuddy.constants.Formats.DEADLINE_FORMAT;
-import static bytebuddy.constants.Formats.EVENT_FORMAT;
-import static bytebuddy.constants.Information.solidLineBreak;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import bytebuddy.exceptions.ByteBuddyException;
 
 public class TaskListTest {
 
@@ -53,7 +56,8 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         String incorrectDeadlineInfo = "Submit report";
 
-        ByteBuddyException exception = assertThrows(ByteBuddyException.class, () -> taskList.deadline(incorrectDeadlineInfo));
+        ByteBuddyException exception =
+                assertThrows(ByteBuddyException.class, () -> taskList.deadline(incorrectDeadlineInfo));
         assertEquals("holup!! The correct usage is: " + DEADLINE_FORMAT, exception.getMessage());
     }
 
@@ -174,12 +178,13 @@ public class TaskListTest {
 
         taskList.printTaskList();
 
-        String expectedOutput = "\t" + solidLineBreak +
-                "\n\t 1.[T][✕] Test\n" +
-                "\t 2.[D][✕] Submit report (by: Feb 28 2023)\n" +
-                "\t" +
-                solidLineBreak +
-                "\n";
+        String expectedOutput = "\t"
+                + SOLID_LINE_BREAK
+                + "\n\t 1.[T][✕] Test\n"
+                + "\t 2.[D][✕] Submit report (by: Feb 28 2023)\n"
+                + "\t"
+                + SOLID_LINE_BREAK
+                + "\n";
         assertEquals(expectedOutput, outContent.toString());
 
         // Reset System.out
