@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a chat bot to keep track of user's tasks.
+ */
 public class    Duke {
 
     private static final String FILE_PATH = "./data/Duke.txt";
@@ -77,101 +80,124 @@ public class    Duke {
             sc.close();
         }
 
-        public static void listOut() {
-            StringBuilder listOutput = new StringBuilder("____________________________________________________________\n"
-                            + " Here are the tasks in your list:\n");
-            for (int i = 0; i < list.size(); i++) {
-                listOutput.append(" ").append(i + 1).append(". ").append(list.get(i).toString()).append("\n");
+    /**
+     * Lists out all tasks in task list.
+     */
+    public static void listOut() {
+        StringBuilder listOutput = new StringBuilder("____________________________________________________________\n"
+                + " Here are the tasks in your list:\n");
+        for (int i = 0; i < list.size(); i++) {
+            listOutput.append(" ").append(i + 1).append(". ").append(list.get(i).toString()).append("\n");
+        }
+        listOutput.append("____________________________________________________________\n");
+        System.out.print(listOutput);
+    }
+
+    /**
+     * Returns message string for "delete" action.
+     *
+     * @param i index of task to delete.
+     * @return string to output for "delete" action.
+     */
+    public static String deleteMessage(int i) {
+        String output = "____________________________________________________________\n"
+                + " Noted. I've removed this task:\n"
+                + "   " + list.get(i - 1)
+                + "\n Now you have " + (list.size() - 1) + " tasks in the list.\n"
+                + "____________________________________________________________\n";
+        list.remove(i - 1);
+        return output;
+    }
+
+    /**
+     * Returns message string for "add" action
+     *
+     * @param task new task to add to list.
+     * @return string to output for "add" action.
+     */
+    public static String addMessage(Task task) {
+        list.add(task);
+        return "____________________________________________________________\n"
+                + " Got it. I've added this task:\n"
+                + "   " + task
+                + "\n Now you have " + (list.size()) + " tasks in the list.\n"
+                + "____________________________________________________________\n";
+    }
+
+    /**
+     * Reads from file and writes into ArrayList.
+     */
+    public static void loadFileContents() {
+        File f = new File(FILE_PATH);
+        try {
+            if (!f.exists()) {
+                f.getParentFile().mkdirs();
+                f.createNewFile();
             }
-            listOutput.append("____________________________________________________________\n");
-            System.out.print(listOutput);
-        }
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                String string = s.nextLine();
+                String[] inputParts = string.split("\\s+");
 
-        public static String deleteMessage(int i) {
-            String output = "____________________________________________________________\n"
-                    + " Noted. I've removed this task:\n"
-                    + "   " + list.get(i - 1)
-                    + "\n Now you have " + (list.size() - 1) + " tasks in the list.\n"
-                    + "____________________________________________________________\n";
-            list.remove(i - 1);
-            return output;
-        }
-
-        public static String addMessage(Task task) {
-            list.add(task);
-            return "____________________________________________________________\n"
-                    + " Got it. I've added this task:\n"
-                    + "   " + task
-                    + "\n Now you have " + (list.size()) + " tasks in the list.\n"
-                    + "____________________________________________________________\n";
-        }
-
-        public static void loadFileContents() {
-            File f = new File(FILE_PATH);
-            try {
-                if (!f.exists()) {
-                    f.getParentFile().mkdirs();
-                    f.createNewFile();
-                }
-                Scanner s = new Scanner(f);
-                while (s.hasNextLine()) {
-                    String string = s.nextLine();
-                    String[] inputParts = string.split("\\s+");
-
-                    if (inputParts[0].equals("[T]")) {
-                        //handle "todoo"
-                        String status = inputParts[1];
-                        String description = inputParts[2];
-                        Task task = new ToDo(description);
-                        if (status.equals("[X]")) {
-                            task.toggle();
-                        }
-                        list.add(task);
-                    } else if (inputParts[0].equals("[D]")) {
-                        //handle "deadline"
-                        String status = inputParts[1];
-                        String[] parts = string.replace("[D] [ ] ", "").replace("[D] [X] ", "").
-                                split(" \\(by: ");
-                        String description = parts[0];
-                        String by = parts[1].replace(")", "");
-                        Task task = new Deadline(description, by);
-                        if (status.equals("[X]")) {
-                            task.toggle();
-                        }
-                        list.add(task);
-                    } else if (inputParts[0].equals("[E]")) {
-                        //handle event
-                        String status = inputParts[1];
-                        String[] parts = string.replace("[E] [ ] ", "").replace("[E] [X] ", "").
-                                split(" from: ");
-                        String description = parts[0];
-                        String from = parts[1].split(" to: ")[0];
-                        String to = parts[1].split(" to: ")[1];
-
-                        Task task = new Event(description, from, to);
-                        if (status.equals("[X]")) {
-                            task.toggle();
-                        }
-                        list.add(task);
+                if (inputParts[0].equals("[T]")) {
+                    //handle "todoo"
+                    String status = inputParts[1];
+                    String description = inputParts[2];
+                    Task task = new ToDo(description);
+                    if (status.equals("[X]")) {
+                        task.toggle();
                     }
-                }
-                s.close();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+                    list.add(task);
+                } else if (inputParts[0].equals("[D]")) {
+                    //handle "deadline"
+                    String status = inputParts[1];
+                    String[] parts = string.replace("[D] [ ] ", "").replace("[D] [X] ", "").
+                            split(" \\(by: ");
+                    String description = parts[0];
+                    String by = parts[1].replace(")", "");
+                    Task task = new Deadline(description, by);
+                    if (status.equals("[X]")) {
+                        task.toggle();
+                    }
+                    list.add(task);
+                } else if (inputParts[0].equals("[E]")) {
+                    //handle event
+                    String status = inputParts[1];
+                    String[] parts = string.replace("[E] [ ] ", "").replace("[E] [X] ", "").
+                            split(" from: ");
+                    String description = parts[0];
+                    String from = parts[1].split(" to: ")[0];
+                    String to = parts[1].split(" to: ")[1];
 
-        public static void writeToFile() throws IOException {
-            try {
-                FileWriter fw = new FileWriter(FILE_PATH);
-                for (Task task : list) {
-                    fw.write(task.toString() + "\n");
+                    Task task = new Event(description, from, to);
+                    if (status.equals("[X]")) {
+                        task.toggle();
+                    }
+                    list.add(task);
                 }
-                fw.close();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
             }
+            s.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Writes current tasklist into specified file
+     *
+     * @throws IOException
+     */
+    public static void writeToFile() throws IOException {
+        try {
+            FileWriter fw = new FileWriter(FILE_PATH);
+            for (Task task : list) {
+                fw.write(task.toString() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
         
     }
 
