@@ -8,12 +8,11 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(String task) {
+    public void addTask(String task) throws DukeException {
         Task newTask = null;
         if (task.startsWith("todo")) {
             if (task.split("todo ").length == 1) {
-                new DukeException("☹ OOPS!!! The description of a todo cannot be empty. \n");
-                return;
+                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty. \n");
             } else {
                 newTask = new ToDo(task.split("todo ")[1]);
             }
@@ -24,8 +23,7 @@ public class TaskList {
             String[] event = task.split("event ")[1].split(" /");
             newTask = new Event(event[0], event[1], event[2]);
         } else {
-            new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-( \n");
-            return;
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-( \n");
         }
 
         tasks.add(newTask);

@@ -5,7 +5,7 @@ public class Handler {
         this.taskList = taskList;
     }
 
-    public void handle(String input) {
+    public void handle(String input) throws DukeException {
         if (input.equals("list")) {
             handleList();
         } else if (input.startsWith("mark")) {
@@ -33,7 +33,7 @@ public class Handler {
         taskList.unmarkTaskAsDone(index);
     }
 
-    private void handleAdd(String input) {
+    private void handleAdd(String input) throws DukeException {
         taskList.addTask(input);
     }
 

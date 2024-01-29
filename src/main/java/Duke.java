@@ -28,7 +28,11 @@ public class Duke {
         Handler handler = new Handler(bot.taskList);
 
         while (!input.equals("bye")) {
-            handler.handle(input);
+            try {
+                handler.handle(input);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
             input = sc.nextLine();
         }
 
