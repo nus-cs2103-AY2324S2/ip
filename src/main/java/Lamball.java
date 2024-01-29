@@ -2,6 +2,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -100,12 +101,17 @@ public class Lamball {
             throw new LamballParseException(indent + "    Deadline is in the wrong formaaaaaaat, baa. :(\n    Correct fo" +
                     "rmaaat is: deadline <name> /by <time>, baa.\n" + indent);
         }
-        Task temp = new Deadline(furtherSplit[0], furtherSplit[1].replaceFirst("by ", ""));
-        tasks.add(temp);
-        if (!isInit) {
-            System.out.println(indent + "    Added Deadline:\n        " + temp.toString() + "\n    Now you have " +
-                    tasks.size() + " tasks in the list.\n" + indent);
-            writeToFile("0 | " + temp.command());
+        try {
+            Task temp = new Deadline(furtherSplit[0], furtherSplit[1].replaceFirst("by ", ""));
+            tasks.add(temp);
+            if (!isInit) {
+                System.out.println(indent + "    Added Deadline:\n        " + temp.toString() + "\n    Now you have " +
+                        tasks.size() + " tasks in the list.\n" + indent);
+                writeToFile("0 | " + temp.command());
+            }
+        } catch (DateTimeParseException e) {
+            throw new LamballParseException(indent + "    Date is in the wrong formaaaaaaat, baa. :(\n    Correct fo" +
+                    "rmaaat is: yyyy-mm-dd (e.g 2001-01-20) \n" + indent);
         }
     }
 
@@ -120,13 +126,18 @@ public class Lamball {
             throw new LamballParseException(indent + "    Event is in the wrong formaaaaaaat, baa. :(\n    Correct " +
                     "formaaat is: event <name> /from <time> /to <time>, baa.\n" + indent);
         }
-        Task temp = new Event(furtherSplit[0], furtherSplit[1].replaceFirst("from ", ""),
-                furtherSplit[2].replaceFirst("to ", ""));
-        tasks.add(temp);
-        if (!isInit) {
-            System.out.println(indent + "    Added Event:\n        " + temp.toString() + "\n    Now you have "
-                    + tasks.size() + " tasks in the list.\n" + indent);
-            writeToFile("0 | " + temp.command());
+        try {
+            Task temp = new Event(furtherSplit[0], furtherSplit[1].replaceFirst("from ", ""),
+                    furtherSplit[2].replaceFirst("to ", ""));
+            tasks.add(temp);
+            if (!isInit) {
+                System.out.println(indent + "    Added Event:\n        " + temp.toString() + "\n    Now you have "
+                        + tasks.size() + " tasks in the list.\n" + indent);
+                writeToFile("0 | " + temp.command());
+            }
+        } catch (DateTimeParseException e) {
+            throw new LamballParseException(indent + "    Dates are in the wrong formaaaaaaat, baa. :(\n    Correct fo" +
+                    "rmaaat is: yyyy-mm-dd (e.g 2001-01-20) \n" + indent);
         }
     }
 
