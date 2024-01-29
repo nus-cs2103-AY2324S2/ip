@@ -8,8 +8,28 @@ import java.util.List;
 public class Storage {
     private String filePath;
 
-    public Storage(String filePath) {
+    public Storage(String filePath) throws DukeException {
         this.filePath = filePath;
+        try {
+            createFolder();
+            createFile();
+        } catch (IOException e) {
+            throw new DukeException("Error creating file");
+        }
+    }
+
+    private void createFolder() throws IOException {
+        Path path = Paths.get(filePath).getParent();
+        if (!Files.exists(path)) {
+            Files.createDirectories(path);
+        }
+    }
+
+    private void createFile() throws IOException {
+        Path path = Paths.get(filePath);
+        if (!Files.exists(path)) {
+            Files.createFile(path);
+        }
     }
 
     public List<Task> load() throws IOException {
