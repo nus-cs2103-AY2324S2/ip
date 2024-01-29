@@ -1,18 +1,24 @@
-public class Deadline extends Task{
-    private String by;
+import utils.DukeDateFormater;
 
-    public Deadline(Boolean status, String detail, String by) {
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+public class Deadline extends Task{
+    private LocalDate by;
+    private DukeDateFormater formater = new DukeDateFormater();
+
+    public Deadline(Boolean status, String detail, String by) throws DateTimeParseException {
         super(status, detail);
-        this.by = by;
+        this.by = this.formater.stringToDate(by);
     }
 
     @Override
     public String inFileStringFormat() {
-        return "D|" + super.inFileStringFormat() + "|" + this.by;
+        return "D|" + super.inFileStringFormat() + "|" + this.by.toString();
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return "[D]" + super.toString() + "(by: " + this.formater.dateToString(this.by) + ")";
     }
 }

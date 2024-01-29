@@ -3,6 +3,7 @@ import exceptions.WrongFormatException;
 import exceptions.InvalidKeyException;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -54,7 +55,6 @@ public class Duke {
                 currentKey = KeyEnum.DELETE;
                 break;
         }
-        System.out.println(this.currentKey);
         if (this.currentKey.equals(KeyEnum.INVALID)) {
             // raise InvalidKeyException
             System.out.println(new InvalidKeyException().getMessage());;
@@ -101,6 +101,8 @@ public class Duke {
                         break;
                     } catch (IOException e){
                         System.out.println("Fail to write to file: " + e.getMessage());
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Please write the finish time in the format of yyyy-mm-dd");
                     } catch (Exception e) {
                         System.out.println(new WrongFormatException("\"deadline content /by time\"").getMessage());
                         break;
