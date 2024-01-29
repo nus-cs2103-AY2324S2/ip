@@ -1,4 +1,0 @@
-T | 0 | j
-T | 0 | f
-D | 0 | d | 2024-03-03
-E | 0 | e | sun from mon
