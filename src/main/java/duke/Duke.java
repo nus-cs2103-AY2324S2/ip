@@ -1,3 +1,5 @@
+package duke;
+
 import static java.lang.Integer.parseInt;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -102,13 +104,13 @@ public class Duke {
     }
 
 
-//    public static void main(String[] args) throws DukeException {
+//    public static void main(String[] args) throws duke.DukeException {
 //
 //
 //
 //
 //
-//        List<Task> tasksList = new ArrayList<Task>();
+//        List<duke.Task> tasksList = new ArrayList<duke.Task>();
 //
 //
 ////        try {
@@ -119,14 +121,14 @@ public class Duke {
 ////                isCreated = file.createNewFile();
 ////
 ////                if (!isCreated) {
-////                    throw new DukeException("Error: File could not be created.");
+////                    throw new duke.DukeException("Error: File could not be created.");
 ////                }
 ////            }
 ////            else {
 ////                Scanner s = new Scanner(file);
 ////                while (s.hasNext()) {
 ////                    String line = s.nextLine();
-////                    Task task = getTask(line);
+////                    duke.Task task = getTask(line);
 ////                    tasksList.add(task);
 ////                }
 ////                s.close();
@@ -156,26 +158,26 @@ public class Duke {
 //
 //                    if (command.equals("todo")) {
 //                        if (input.split(" ").length == 1) {
-//                            throw new DukeException("The description of a todo cannot be empty. \n\t" +
+//                            throw new duke.DukeException("The description of a todo cannot be empty. \n\t" +
 //                                "Please use the following format: todo <description>");
 //                        }
 //                        String details = input.split(" ", 2)[1];
-//                        Task task = new Todo(details);
+//                        duke.Task task = new duke.Todo(details);
 //                        tasksList.add(task);
 //                        System.out.println("DevGPT:\n\t" + " Got it. I've added this task: \n\t\t" + task.toString());
 //                        System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
 //                    } else if (command.equals("deadline")) {
 //                        if (input.split(" ").length <= 3) {
-//                            throw new DukeException("The deadline and date for a task cannot be empty. \n\t" +
+//                            throw new duke.DukeException("The deadline and date for a task cannot be empty. \n\t" +
 //                                "Please use the following format: deadline <description> /by <date>");
 //                        } else if (!input.contains("/by")) {
-//                            throw new DukeException("Invalid command for deadline. \n\t" +
+//                            throw new duke.DukeException("Invalid command for deadline. \n\t" +
 //                                "Please use the following format: deadline <description> /by <date>");
 //                        }
 //                        String details = input.split(" ", 2)[1];
 //                        String description = details.split("/by ")[0].trim();
 //                        String by = details.split("/by ")[1].trim();
-//                        Task task = new Deadline(description, getInputDateFormat(by));
+//                        duke.Task task = new duke.Deadline(description, getInputDateFormat(by));
 //                        tasksList.add(task);
 //                        System.out.println("DevGPT:\n\t" + " Got it. I've added this task: \n\t\t" + task.toString());
 //                        System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
@@ -183,10 +185,10 @@ public class Duke {
 //
 //                        // parser part
 //                        if (input.split(" ").length <= 3) {
-//                            throw new DukeException("The date for an event cannot be empty. \n\t" +
+//                            throw new duke.DukeException("The date for an event cannot be empty. \n\t" +
 //                                "Please use the following format: event <description> /from <date> /to <date>");
 //                        } else if (!input.contains("/from") || !input.contains("/to")) {
-//                            throw new DukeException("Invalid command for event. \n\t" +
+//                            throw new duke.DukeException("Invalid command for event. \n\t" +
 //                                "Please use the following format: event <description> /from <date> /to <date>");
 //                        }
 //                        String details = input.split(" ", 2)[1];
@@ -194,57 +196,57 @@ public class Duke {
 //                        String from = details.split("/from")[1].split("/to")[0].trim();
 //                        String to = details.split("/to")[1].trim();
 //
-//                        Task task = new Event(description, getInputDateFormat(from), getInputDateFormat(to));
+//                        duke.Task task = new duke.Event(description, getInputDateFormat(from), getInputDateFormat(to));
 //                        tasksList.add(task);
 //                        System.out.println("DevGPT:\n\t" + " Got it. I've added this task: \n\t\t" + task.toString());
 //                        System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
 //                    } else if (command.equals("list")) {
 //                        System.out.println("DevGPT:\n\t Here are the tasks in your list:");
 //                        for (int i = 0; i < tasksList.size(); i++) {
-//                            Task task = tasksList.get(i);
+//                            duke.Task task = tasksList.get(i);
 //                            System.out.println("\t\t" + (i + 1) + ". " + task.toString());
 //                        }
 //                    } else if (command.equals("unmark")) {
 //                        String[] split = input.split(" ");
 //                        if (split.length == 1) {
-//                            throw new DukeException("The index of a task cannot be empty. \n\t" +
+//                            throw new duke.DukeException("The index of a task cannot be empty. \n\t" +
 //                                "Please use the following format: unmark <index>");
 //                        } else if (parseInt(split[1]) > tasksList.size() || parseInt(split[1]) < 1) {
-//                            throw new DukeException("No such task exists.");
+//                            throw new duke.DukeException("No such task exists.");
 //                        }
 //                        int index = parseInt(split[1]);
-//                        Task task = tasksList.get(index - 1);
+//                        duke.Task task = tasksList.get(index - 1);
 //                        task.markAsUndone();
 //                        System.out.println("DevGPT:\n\t Got it! I've marked this task as not done yet:");
 //                        System.out.println("\t\t" + task.toString());
 //                    } else if (command.equals("mark")) {
 //                        String[] split = input.split(" ");
 //                        if (split.length == 1) {
-//                            throw new DukeException("The index of a task cannot be empty. \n\t" +
+//                            throw new duke.DukeException("The index of a task cannot be empty. \n\t" +
 //                                "Please use the following format: mark <index>");
 //                        } else if (parseInt(split[1]) > tasksList.size() || parseInt(split[1]) < 1) {
-//                            throw new DukeException("No such task exists.");
+//                            throw new duke.DukeException("No such task exists.");
 //                        }
 //                        int index = Integer.parseInt(split[1]);
-//                        Task task = tasksList.get(index - 1);
+//                        duke.Task task = tasksList.get(index - 1);
 //                        task.markAsDone();
 //                        System.out.println("DevGPT:\n\t Nice! I've marked this task as done:");
 //                        System.out.println("\t\t" + task.toString());
 //                    } else if (command.equals("delete")) {
 //                        String[] split = input.split(" ");
 //                        if (split.length == 1) {
-//                            throw new DukeException("The index of a task cannot be empty. \n\t" +
+//                            throw new duke.DukeException("The index of a task cannot be empty. \n\t" +
 //                                "Please use the following format: delete <index>");
 //                        } else if (parseInt(split[1]) > tasksList.size() || parseInt(split[1]) < 1) {
-//                            throw new DukeException("No such task exists.");
+//                            throw new duke.DukeException("No such task exists.");
 //                        }
 //                        int index = Integer.parseInt(split[1]);
-//                        Task task = tasksList.remove(index - 1);
+//                        duke.Task task = tasksList.remove(index - 1);
 //                        System.out.println("DevGPT:\n\t Poof! I've removed this task:");
 //                        System.out.println("\t\t" + task.toString());
 //                        System.out.println("DevGPT:\n\t Now you have " + tasksList.size() + " tasks in the list.");
 //                    } else {
-//                        throw new DukeException(
+//                        throw new duke.DukeException(
 //                            "Your message is not understood. Please use the following:\n\t1. todo <description>" +
 //                                "\n\t2. deadline <description> /by <dd-mm-yyyy>\n\t3. event <description> /from <dd-mm-yyyy> /to <dd-mm-yyyy>" +
 //                                "\n\t4. list\n\t5. mark <index>\n\t6. unmark <index>\n\t7. delete <index>\n\t8. bye");
@@ -258,7 +260,7 @@ public class Duke {
 //
 //            } catch (NumberFormatException e) {
 //                System.out.println("DevGPT:\n\t" + "Input error: Please enter a valid number to modify task");
-//            } catch (DukeException e) {
+//            } catch (duke.DukeException e) {
 //                System.out.println("DevGPT:\n\t" + e.getMessage());
 //            } catch (DateTimeParseException e) {
 //                System.out.println("DevGPT:\n\t" + "Input error: Please enter a valid date in the format dd-mm-yyyy");
