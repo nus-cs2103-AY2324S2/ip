@@ -5,8 +5,9 @@ import java.util.ArrayList;
 
 public class Duke {
     protected static ArrayList<Task> taskList = new ArrayList<>();
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    protected static boolean initialize = true;
+
+    public static void greet() {
         String logo = "$$\\      $$\\  $$$$$$\\  $$\\   $$\\       $$\\      $$\\ $$$$$$\\ $$\\   $$\\ \n"
                 + "$$$\\    $$$ |$$  __$$\\ $$ |  $$ |      $$ | $\\  $$ |\\_$$  _|$$$\\  $$ | \n"
                 + "$$$$\\  $$$$ |$$ /  $$ |\\$$\\ $$  |      $$ |$$$\\ $$ |  $$ |  $$$$\\ $$ | \n"
@@ -16,11 +17,6 @@ public class Duke {
                 + "$$ | \\_/ $$ |$$ |  $$ |$$ /  $$ |      $$  /   \\$$ |$$$$$$\\ $$ | \\$$ | \n"
                 + "\\__|     \\__|\\__|  \\__|\\__|  \\__|      \\__/     \\__|\\______|\\__|  \\__| \n";
         System.out.println("Hello from\n" + logo);
-        Duke.greet();
-        Duke.echo(br);
-    }
-
-    public static void greet() {
         Duke.line();
         System.out.println("Hello! I'm Anita MaxWynn");
         System.out.println("What can I do for you?");
@@ -78,5 +74,15 @@ public class Duke {
 
     public static void line() {
         System.out.println("____________________________________________________________");
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Duke.greet();
+        Database.createFile();
+        Database.loadData(Database.readFile());
+        initialize = false;
+        Task.listTask();
+        Duke.echo(br);
     }
 }

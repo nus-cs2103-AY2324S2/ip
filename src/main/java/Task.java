@@ -30,6 +30,7 @@ public class Task {
     public static void addTask(String description) {
         Task curr = new Task(description);
         Duke.taskList.add(curr);
+        Database.writeFile(description);
         System.out.println("added: " + curr);
     }
 
@@ -39,6 +40,7 @@ public class Task {
             throw new ArrayIndexOutOfBoundsException("Please enter the index of the task to be deleted.");
         int index = Integer.parseInt(tokens[1]);
         Task curr = Duke.taskList.remove(index-1);
+        Database.deleteLine(index);
         System.out.println("Noted. I've removed this task: ");
         System.out.println("  " + curr);
         getNumberOfTasks();

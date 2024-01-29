@@ -15,8 +15,11 @@ public class Todo extends Task {
         }
         Todo curr = new Todo(taskName.strip());
         Duke.taskList.add(curr);
-        System.out.println("Yer task has been added: \n  " + curr);
-        Task.getNumberOfTasks();
+        Database.writeFile(description);
+        if (!Duke.initialize) {
+            System.out.println("Yer task has been added: \n  " + curr);
+            Task.getNumberOfTasks();
+        }
     }
     @Override
     public String toString() {

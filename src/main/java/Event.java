@@ -22,8 +22,11 @@ public class Event extends Task {
         }
         Event curr = new Event(taskName.strip(), tokens[1], tokens[2]);
         Duke.taskList.add(curr);
-        System.out.println("Yer task has been added: \n  " + curr);
-        Task.getNumberOfTasks();
+        Database.writeFile(description);
+        if (!Duke.initialize) {
+            System.out.println("Yer task has been added: \n  " + curr);
+            Task.getNumberOfTasks();
+        }
     }
     @Override
     public String toString() {
