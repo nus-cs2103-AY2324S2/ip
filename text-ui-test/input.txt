@@ -1,2 +1,7 @@
-list
+apple
+pear
+orange
+read
+chicken
+read
 bye
