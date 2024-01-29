@@ -7,6 +7,7 @@ import command.MarkCommand;
 import command.UnmarkCommand;
 import command.ListCommand;
 import command.Command;
+import command.FindCommand;
 
 import others.BelleException;
 public class Parser {
