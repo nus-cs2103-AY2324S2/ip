@@ -15,11 +15,18 @@ public class Task {
         return this.description;
     }
 
+
+
     public void taskDone(){
         isDone = true;
     }
 
     public void taskUndone(){
         isDone = false;
+    }
+
+    @Override
+    public String toString(){
+        return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 }
