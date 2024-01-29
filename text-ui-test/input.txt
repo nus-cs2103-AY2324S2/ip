@@ -1,0 +1,9 @@
+allo
+todo bruh
+event nig /from asd /to lalala
+deadline laugh /by tomorrow
+mark 2
+unmark 2
+delete 3
+list
+bye
