@@ -10,11 +10,7 @@ public class GrumbleBug {
     private TaskList taskList;
     private Ui ui;
     private static Parser parserInput;
-
     public static String filePath = "./tasks.txt";
-
-
-
 
     public GrumbleBug() {
         this.storage = new Storage();
