@@ -11,6 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Storage class handles the loading and saving of the task list.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/saopigTaskList.txt";
     private static final String FILE_DIRECTORY = "./data";
@@ -19,12 +22,21 @@ public class Storage {
     private Ui ui;
     private TaskList taskList;
 
+    /**
+     * Constructor for Storage class.
+     * @param ui Ui object to handle printing of messages.
+     * @param taskList TaskList object to store the list of tasks.
+     */
     public Storage(Ui ui, TaskList taskList) {
         this.ui = ui;
         this.taskList = taskList;
 
     }
 
+    /**
+     * Saves the task list to the file path specified in FILE_PATH.
+     * @param taskList TaskList object to store the list of tasks.
+     */
     public void saveTaskList(TaskList taskList) {
         try {
             if (!new File(FILE_DIRECTORY).exists()) {
@@ -64,6 +76,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task list from the file path specified in FILE_PATH.
+     * @param taskList TaskList object to store the list of tasks.
+     * @return TaskList object with the tasks loaded from the file.
+     */
     public TaskList loadTaskList(TaskList taskList) {
         try {
             File file = new File(FILE_PATH);

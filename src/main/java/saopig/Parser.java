@@ -2,7 +2,21 @@ package saopig;
 
 import saopig.command.*;
 
+/**
+ * Represents a Parser.
+ * A Parser object deals with making sense of the user command.
+ */
 public class Parser {
+    /**
+     * Parses the user command and returns the corresponding Command object.
+     * The user command is split into two parts: the command word and the rest of the command.
+     * The command word is used to determine the type of Command object to return.
+     * The rest of the command is used to determine the details of the Command object.
+     *
+     * @param fullCommand User input command.
+     * @return Command object corresponding to the user command.
+     * @throws SaopigInvaildSizeException If the user command is invalid.
+     */
     public static Command parse(String fullCommand) throws SaopigInvaildSizeException {
         String processedInput = fullCommand.trim().toUpperCase();
         String[] splitInput = processedInput.split(" ");

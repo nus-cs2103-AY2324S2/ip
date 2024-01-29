@@ -2,6 +2,9 @@ package saopig;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the program.
+ */
 public class Ui {
     private final String logo = " ____    _    ___  ____ ___ ____   ____   ___ _____ \n" +
             "/ ___|  / \\  / _ \\|  _ \\_ _/ ___| | __ ) / _ \\_   _|\n" +
@@ -10,16 +13,24 @@ public class Ui {
             "|____/_/   \\_\\___/|_|  |___\\____| |____/ \\___/ |_|\n";
     private Scanner scanner;
 
+    /**
+     * Constructs a Ui object.
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
-    public short printLine() {
+    /**
+     * Prints line.
+     */
+    public void printLine() {
         System.out.println("____________________________________________________________");
-        return 0;
     }
 
-    public short showWelcome() {
+    /**
+     * Prints the welcome message.
+     */
+    public void showWelcome() {
         System.out.println(this.logo);
         System.out.println("Oh, hello there!\n " +
                 "I am saopig.Saopig, your personal assistant.\n " +
@@ -27,30 +38,48 @@ public class Ui {
                 "I'm just over the moon to have someone new to chat with!\n " +
                 "I hope your day is as bright and cheerful as a sunny garden.\n");
         System.out.println("____________________________________________________________");
-        return 0;
     }
 
+    /**
+     * Prints the loading error message.
+     */
     public void showLoadingError() {
         System.out.println("Error loading tasks!");
     }
 
+    /**
+     * Prints the error message.
+     */
     public void showError(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Use scanner to read command.
+     * @return the command read.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
 
+    /**
+     * Prints the message.
+     */
     public void printMessage(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Prints the message with lines.
+     */
     private void printMessageWithLines(String message) {
         System.out.println(message);
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints goodbye message.
+     */
     public void showGoodbye() {
         System.out.println("\n" +
                 "As our time together comes to a close, " +
