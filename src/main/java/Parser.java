@@ -47,7 +47,35 @@ public class Parser {
     }
 
     public void handleEvent(String s, TaskList t) {
-        //FILL IN HERE
+        String eventname = "";
+        String[] temp = s.split(" ");
+        if (temp.length == 1 || temp[1].startsWith("/from")) {
+            System.out.println("Event cannot be blank");
+            return;
+        }
+        for (int a = 1; a < temp.length; a++) {
+            if (temp[a].startsWith("/from")) {
+                break;
+            }
+            eventname = eventname.concat(temp[a]);
+            eventname = eventname.concat(" ");
+        }
+        try {
+            String[] findperiod = s.split(" /from ");
+            String start = findperiod[1].split(" /to ")[0];
+            String end = findperiod[1].split(" /to ")[1];
+            if (!canBeHandled(start) || !canBeHandled(end)) {
+                System.out.println("Please enter a event with the format event eventname /from dd/mm/yyyy /to dd/mm/yyyy!");
+                return;
+            }
+            Task ne = new Event(eventname, DateConvert(start), DateConvert(end));
+            t.add(ne);
+            System.out.println("Task added! You now have " + t.length() +" tasks to attend to.");
+            return;
+
+        } catch (ArrayIndexOutOfBoundsException b) {
+            System.out.println("Please enter a event with the format event eventname /from dd/mm/yyyy /to dd/mm/yyyy!");
+        }
     }
 
     public boolean canBeHandled(String s) {
@@ -79,6 +107,9 @@ public class Parser {
 
         //create the deadline name
         for (int a = 1; a < temp.length; a++) {
+            if (temp[a].startsWith("/by")) {
+                break;
+            }
             deadlinename = deadlinename.concat(temp[a]);
             deadlinename = deadlinename.concat(" ");
         }

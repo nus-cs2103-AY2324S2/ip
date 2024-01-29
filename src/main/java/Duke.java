@@ -25,31 +25,3 @@ public class Duke {
     }
 
 }
-/*
-                    case "event":
-                        if (temp.length == 1) {
-                            System.out.println("Event cannot be blank");
-                            break;
-                        }
-                        String eventname = "";
-                        for (int a = 1; a < temp.length; a++) {
-                            eventname = eventname.concat(temp[a]);
-                            eventname = eventname.concat(" ");
-                        }
-                        try {
-                            Task ne = new Event(eventname, inputs[1], inputs[2]);
-                            tasks.add(ne);
-                            System.out.println("Task added! You now have " + tasks.size() + " tasks to attend to.");
-                            break;
-                        } catch (ArrayIndexOutOfBoundsException b) {
-                            System.out.println("Please enter an event with the format event eventname /start time /finish time!");
-                            break;
-                        }
-
-
-                }
-
-
-        }
-    }
-} */
