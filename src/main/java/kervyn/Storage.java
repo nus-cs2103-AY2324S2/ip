@@ -1,7 +1,9 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
+package kervyn;
+
+import kervyn.Tasks.Deadline;
+import kervyn.Tasks.Event;
+import kervyn.Tasks.Task;
+import kervyn.Tasks.ToDo;
 
 import java.io.BufferedWriter;
 import java.io.File;

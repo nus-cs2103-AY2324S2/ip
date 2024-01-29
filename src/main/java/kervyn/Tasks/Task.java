@@ -1,4 +1,4 @@
-package Tasks;
+package kervyn.Tasks;
 
 public class Task {
     private String description;

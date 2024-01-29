@@ -1,4 +1,7 @@
-import Tasks.TaskList;
+package kervyn;
+import kervyn.Storage;
+import kervyn.Tasks.TaskList;
+import kervyn.Ui;
 
 import java.io.IOException;
 public class Kervyn {
