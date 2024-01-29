@@ -1,15 +1,17 @@
-package campus;
+package campus.tasks;
+
+import campus.tasks.Task;
 
 /**
  * Contains the logic for the ToDos Class which extends the abstract Task Class
  */
 public class ToDos extends Task {
-    ToDos (String TodoTask) {
+    public ToDos(String TodoTask) {
         this.taskName = TodoTask;
         this.completed = false;
     }
 
-    ToDos (String TodoTask, Boolean completed) {
+    public ToDos (String TodoTask, Boolean completed) {
         this.taskName = TodoTask;
         this.completed = completed;
     }

@@ -1,4 +1,10 @@
-package campus;
+package campus.infrastructure;
+
+import campus.exceptions.CampusException;
+import campus.tasks.Deadline;
+import campus.tasks.Event;
+import campus.tasks.Task;
+import campus.tasks.ToDos;
 
 import java.util.Scanner;
 

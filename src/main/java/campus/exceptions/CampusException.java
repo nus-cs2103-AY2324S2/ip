@@ -1,4 +1,4 @@
-package campus;
+package campus.exceptions;
 
 public class CampusException extends Exception {
     public CampusException() {

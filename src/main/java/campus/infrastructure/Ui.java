@@ -1,4 +1,7 @@
-package campus;
+package campus.infrastructure;
+
+import campus.exceptions.CampusException;
+import campus.tasks.Task;
 
 /**
  * Deals with interactions with the User
