@@ -1,3 +1,1 @@
-T | 0 | CS2103T IP 
-D | 0 | CS2101 OP1 | tomorrow
-E | 0 | CS3230 Tutorial | 9am | 10am
+T | 1 | CS2103T IP 

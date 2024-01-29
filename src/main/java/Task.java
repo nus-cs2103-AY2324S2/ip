@@ -16,14 +16,18 @@ class Task {
         return this.getStatusIcon() + " " + this.description;
     }
 
-    public void markDone() {
+    public void markDone(boolean start) {
         if (this.isDone) {
             System.out.println("Stop yappin' bruh... Task is already marked as done");
         } else {
             this.isDone = true;
+            if (!start) {
             System.out.println("Good job Yapper! I've marked this task as done:");
+            }
         }
-        System.out.println(this);
+        if (!start) {
+            System.out.println(this);
+        }
     }
 
     public void unmarkDone() {

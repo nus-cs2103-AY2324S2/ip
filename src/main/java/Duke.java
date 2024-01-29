@@ -21,13 +21,14 @@ class Duke {
                 String message = sc.nextLine();
                 if (message.equals("bye")) {
                     input = false;
+                    saveTasks();
                 } else if (message.equals("yap")) {
                     Duke.listYaps(taskList);
                 } else if (message.startsWith("mark ")) {
                     String[] inputs = message.split(" ");
                     Integer index = Integer.parseInt(inputs[1]);
                     Task task = taskList.get(index - 1);
-                    task.markDone();
+                    task.markDone(false);
                 } else if (message.startsWith("unmark ")) {
                     String[] inputs = message.split(" ");
                     Integer index = Integer.parseInt(inputs[1]);
@@ -168,7 +169,7 @@ class Duke {
                 }
                 if (!task.equals(null)) {
                     if (inputs[1].equals("1")) {
-                        task.markDone();
+                        task.markDone(true);
                     }
                     taskList.add(task);
                 }
@@ -176,6 +177,15 @@ class Duke {
             sc.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error reading the datafile, it might be corrupted. Creating a new database with any salvaged data");
+            saveTasks();
+            file.delete();
+            try {
+                file.createNewFile();
+            } catch (IOException ioException) {
+                System.out.println("Failed to create a new blank file: " + ioException.getMessage());
+            }
         }
     }
 
