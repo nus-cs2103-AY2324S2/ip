@@ -1,3 +1,9 @@
+package duke.storage;
+
+import duke.parser.Parser;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

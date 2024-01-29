@@ -1,13 +1,20 @@
+package duke.command;
+
+import duke.exception.ChatBotParameterException;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 public class ExitCommand extends Command {
     public ExitCommand(String keyword, String parameters) {
         super(keyword, parameters);
     }
 
     /**
-     * @return
+     * @return true
      */
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return true;
     }
 
@@ -15,7 +22,6 @@ public class ExitCommand extends Command {
      * @param storage
      * @param ui
      * @param taskList
-     * @throws ChatBotParameterException
      */
 
 

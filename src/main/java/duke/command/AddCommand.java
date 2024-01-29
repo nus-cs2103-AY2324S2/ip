@@ -1,6 +1,14 @@
+package duke.command;
+
+import duke.exception.ChatBotParameterException;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 public class AddCommand extends Command{
 
-    protected AddCommand(String keyword, String parameters) {
+    public AddCommand(String keyword, String parameters) {
         super(keyword, parameters);
     }
 
