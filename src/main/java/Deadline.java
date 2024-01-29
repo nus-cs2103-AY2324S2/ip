@@ -1,17 +1,19 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Deadline extends Task {
     String type = "[D]";
-    String deadline;
+    LocalDate deadline;
 
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline.replace(" ", ""));
     }
 
     @Override
     public String toString() {
-        return this.type + this.display + " " + this.description + "(by: " + this.deadline.replaceAll("\\s+$", "") + ")";
+        return this.type + this.display + " " + this.description + "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
@@ -22,6 +24,6 @@ public class Deadline extends Task {
         } else {
             display = "1";
         }
-        return "T|" + display + "|" + this.description + "|" + this.deadline;
+        return "D|" + display + "|" + this.description + "|" + this.deadline;
     }
 }
