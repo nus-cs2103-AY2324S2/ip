@@ -1,9 +1,11 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 public class Duke {
     /**
-     * Print out a line on the screen
+     * Prints out a line on the screen.
      */
     public static void drawLine() {
         System.out.println("------------------------------------------------------" +
@@ -11,9 +13,9 @@ public class Duke {
     }
 
     /**
-     * Display a message with two draw lines
+     * Displays a message with two draw lines.
      *
-     * @param message display message
+     * @param message message to be displayed.
      */
     public static void displayToScreen(String message) {
         drawLine();
@@ -21,6 +23,9 @@ public class Duke {
         drawLine();
     }
 
+    /**
+     * Prints out available commands.
+     */
     public static void printCommandList() {
         drawLine();
         System.out.println("These are the available commands :");
@@ -38,11 +43,11 @@ public class Duke {
 
 
     /**
-     * Add input task into storage
+     * Adds input task into storage.
      *
      * @param type Type of the task.
      * @param task The task to be done.
-     * @param storage The storage to store the task
+     * @param storage The storage to store the task.
      */
     public static void addTask(String type, String task, List<Task> storage) throws DukeException {
         Task newTask;
@@ -103,8 +108,9 @@ public class Duke {
     }
 
     /**
-     * List out all the task from the storage
-     * @param storage where the task are kept in
+     * Lists out all the task from the storage.
+     *
+     * @param storage where the task are kept in.
      */
     public static void listTask(List<Task> storage) {
         drawLine();
@@ -120,9 +126,11 @@ public class Duke {
     }
 
     /**
-     * To mark a task as done
-     * @param storage where the task is kept in
-     * @param input index of the task to be marked as done
+     * Marks a task as done.
+     *
+     * @param storage where the task is kept in.
+     * @param input index of the task to be marked as done.
+     * @throws DukeException If input task number is not in storage range.
      */
     public static void markDone(List<Task> storage, String input) throws DukeException {
         try {
@@ -146,9 +154,11 @@ public class Duke {
     }
 
     /**
-     * To unmark a task
-     * @param storage where the task is kept in
-     * @param input index of the task to be unmarked
+     * Unmarks a task.
+     *
+     * @param storage where the task is kept in.
+     * @param input index of the task to be unmarked.
+     * @throws DukeException If input task number is not in storage range.
      */
     public static void markUndone(List<Task> storage, String input) throws DukeException {
         try {
@@ -172,9 +182,11 @@ public class Duke {
     }
 
     /**
-     * To delete a task
-     * @param storage where the task is kept in
-     * @param input index of the task to be deleted
+     * Deletes a task.
+     *
+     * @param storage where the task is kept in.
+     * @param input index of the task to be deleted.
+     * @throws DukeException If input task number is not in storage range.
      */
     public static void deleteTask(List<Task> storage, String input) throws DukeException {
         try {
@@ -197,7 +209,7 @@ public class Duke {
     }
 
     /**
-     * Provide commands to communicate with chatbot
+     * Starts communication with chatbot
      */
     public static void startChat() {
         drawLine();
@@ -206,6 +218,14 @@ public class Duke {
         drawLine();
         Scanner scanner = new Scanner(System.in);
         List<Task> storage = new ArrayList<>();
+
+        try {
+            FileManaging.readFileContent(CommandType.FILEPATH.toString(), storage);
+        } catch (DukeException e) {
+            displayToScreen(e.getMessage());
+        } catch (FileNotFoundException e) {
+            displayToScreen(e.getMessage());
+        }
 
         while (true) {
             String command = scanner.nextLine();
@@ -221,14 +241,20 @@ public class Duke {
                     listTask(storage);
                 } else if (commandArr[0].equals(CommandType.MARK.toString())) {
                     markDone(storage, commandArr.length > 1 ? commandArr[1] : "");
+                    FileManaging.writeToFile(CommandType.FILEPATH.toString(), storage);
                 } else if (commandArr[0].equals(CommandType.UNMARK.toString())) {
                     markUndone(storage, commandArr.length > 1 ? commandArr[1] : "");
+                    FileManaging.writeToFile(CommandType.FILEPATH.toString(), storage);
                 } else if (commandArr[0].equals(CommandType.DELETE.toString())) {
                     deleteTask(storage, commandArr.length > 1 ? commandArr[1] : "");
+                    FileManaging.writeToFile(CommandType.FILEPATH.toString(), storage);
                 } else {
                     addTask(commandArr[0], commandArr.length > 1 ? commandArr[1] : "", storage);
+                    FileManaging.writeToFile(CommandType.FILEPATH.toString(), storage);
                 }
             } catch (DukeException e) {
+                displayToScreen(e.getMessage());
+            } catch (IOException e) {
                 displayToScreen(e.getMessage());
             }
 

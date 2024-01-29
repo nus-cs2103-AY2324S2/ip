@@ -1,19 +1,16 @@
 /**
- * Task is a class with description, can record whether a task is done or not done
+ * Task is a class with description, can record whether a task is done or not done.
  */
-public class Task {
-    /**
-     * Description of the task
-     */
+public abstract class Task {
+    /** Description of the task. */
     private String description;
-    /**
-     * Record a task is done or not done
-     */
+    /** Record a task is done or not done. */
     private boolean isDone;
 
     /**
-     * Constructor of task class
-     * @param description The description of the task
+     * Constructor of task class.
+     *
+     * @param description The description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -21,7 +18,56 @@ public class Task {
     }
 
     /**
-     * To mark a task as done
+     * Constructor of task class.
+     *
+     * @param description The description of the task.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    /**
+     * Factory method to create TODO.
+     *
+     * @return ToDo task.
+     */
+    public static Task of(String type, boolean isDone, String description) throws DukeException {
+        if (type.equals(CommandType.TODO.toString())) {
+            return new ToDo(description, isDone);
+        } else {
+            throw new DukeException("Storage Format Issue");
+        }
+    }
+
+    /**
+     * Factory method to create Deadline.
+     *
+     * @return Deadline task.
+     */
+    public static Task of(String type, boolean isDone, String description, String deadline) throws DukeException {
+        if (type.equals(CommandType.DEADLINE.toString())) {
+            return new Deadline(description, deadline, isDone);
+        } else {
+            throw new DukeException("Storage Format Issue");
+        }
+    }
+
+    /**
+     * Factory method to create Event.
+     *
+     * @return Event task.
+     */
+    public static Task of(String type, boolean isDone, String description, String from, String to) throws DukeException {
+        if (type.equals(CommandType.EVENT.toString())) {
+            return new Event(description, from, to, isDone);
+        } else {
+            throw new DukeException("Storage Format Issue");
+        }
+    }
+
+    /**
+     * Marks a task as done.
      */
     public void markDone() {
         this.isDone = true;
@@ -31,7 +77,7 @@ public class Task {
 
 
     /**
-     * To mark a task as undone
+     * Marks a task as undone.
      */
     public void markUndone() {
         this.isDone = false;
@@ -41,8 +87,9 @@ public class Task {
 
 
     /**
-     * String representation of task
-     * @return string representation of task for done and not done task
+     * String representation of task.
+     *
+     * @return string representation of task for done and not done task.
      */
     @Override
     public String toString() {
@@ -52,4 +99,22 @@ public class Task {
             return "[ ] " + this.description;
         }
     }
+
+    /**
+     * Returns integer representation of isDone.
+     *
+     * @return integer 1 - done, 0 - not done.
+     */
+    public int isDone() {
+        return isDone ? 1 : 0;
+    }
+
+    /**
+     * String representation for storage.
+     *
+     * @return String representation for storage of ToDo task.
+     */
+    public String toStorageString() {
+        return this.isDone() + " " + this.description;
+    };
 }
