@@ -1,3 +1,7 @@
+package main.java;
+
+import tasks.Task;
+
 import java.util.Scanner;
 
 public class Ui {

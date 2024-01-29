@@ -1,3 +1,5 @@
+package tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -18,7 +20,7 @@ public class Task {
 
     public void markDone(boolean start) {
         if (this.isDone) {
-            System.out.println("Stop yappin' bruh... Task is already marked as done");
+            System.out.println("Stop yappin' bruh... tasks.Task is already marked as done");
         } else {
             this.isDone = true;
             if (!start) {
@@ -32,7 +34,7 @@ public class Task {
 
     public void unmarkDone() {
         if (!this.isDone) {
-            System.out.println("Stop yappin' bruh... Task remains incomplete");
+            System.out.println("Stop yappin' bruh... tasks.Task remains incomplete");
         } else {
             this.isDone = false;
             System.out.println("YAPYAP! I've unmarked this task...");

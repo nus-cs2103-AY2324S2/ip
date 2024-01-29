@@ -12,7 +12,7 @@ Added task:
 [T][ ] Learn about Git commands
 Good job Yapper! I've marked this task as done:
 [D][X] CS2103T work (by: Wednesday 11am)
-Stop yappin' bruh... Task is already marked as done
+Stop yappin' bruh... tasks.Task is already marked as done
 [D][X] CS2103T work (by: Wednesday 11am)
 YAPYAP! I've unmarked this task...
 [D][ ] CS2103T work (by: Wednesday 11am)

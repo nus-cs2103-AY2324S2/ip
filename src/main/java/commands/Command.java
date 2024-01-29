@@ -1,3 +1,10 @@
+package commands;
+
+import tasks.Task;
+import tasks.TaskList;
+import main.java.Ui;
+import main.java.Storage;
+
 public enum Command {
     BYE {
         @Override
@@ -34,7 +41,7 @@ public enum Command {
     ADD_TODO {
         @Override
         public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
-            // Create a new ToDo task and add it to the task list
+            // Create a new tasks.ToDo task and add it to the task list
             Task task = tasks.initTask(message, "todo");
             tasks.addTasktoTaskList(task);
             ui.triggerAddMessage(task);
@@ -44,7 +51,7 @@ public enum Command {
     ADD_DEADLINE {
         @Override
         public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
-            // Create a new Deadline task and add it to the task list
+            // Create a new tasks.Deadline task and add it to the task list
             Task task = tasks.initTask(message, "deadline");
             tasks.addTasktoTaskList(task);
             ui.triggerAddMessage(task);
@@ -54,7 +61,7 @@ public enum Command {
     ADD_EVENT {
         @Override
         public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
-            // Create a new Event task and add it to the task list
+            // Create a new tasks.Event task and add it to the task list
             Task task = tasks.initTask(message, "event");
             tasks.addTasktoTaskList(task);
             ui.triggerAddMessage(task);
