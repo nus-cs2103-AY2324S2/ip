@@ -3,12 +3,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Duke { // put LINE at start and end of switch then can remove all inbetween, make DukeException Class,
+public class Duke {
     private static final String LINE = "    ____________________________________________________________\n";
     private static final String INDENT = "    ";
     private static final ArrayList<Task> tasks = new ArrayList<Task>();
 
-    private static boolean running = true;
+    private static boolean isRunning = true;
+
     public enum Command {
         BYE("bye"),
         LIST("list"),
@@ -30,6 +31,7 @@ public class Duke { // put LINE at start and end of switch then can remove all i
                 COMMAND_MAP.put(c.name, c);
             }
         }
+
         public static Command valueOfCommandName(String name) {
             return COMMAND_MAP.get(name);
         }
@@ -39,14 +41,13 @@ public class Duke { // put LINE at start and end of switch then can remove all i
         Duke.hello();
         Scanner in = new Scanner(System.in);
 
-        while (running) {
-
-
+        while (isRunning) {
             // get next command and arguments
             String input = in.nextLine().trim();
             String[] cmdArg = input.split(" ", 2); // [command, arguments]
 
             System.out.print(LINE);
+
             try {
                 parseCommand(cmdArg);
             } catch (DukeException e) {
@@ -61,93 +62,97 @@ public class Duke { // put LINE at start and end of switch then can remove all i
         Command cmd = Command.valueOfCommandName(cmdArg[0]);
 
         // invalid command
-        if (cmd == null) throw (new DukeException(INDENT + "What is blud yappin'? Here's the legit commands:\n"
+        if (cmd == null) {
+            throw (new DukeException(INDENT + "What is blud yappin'? Here's the legit commands:\n"
                     + INDENT + "list, todo, deadline, event, mark, unmark, delete, bye"));
+        }
 
         // Commands
         switch (cmd) {
-            case BYE:
-                Duke.bye();
-                break;
-            case LIST:
-                listTasks();
-                break;
-            case MARK:
-            case UNMARK:
-            case DELETE:
-                if (cmdArg.length == 2) {
-                    try {
-                        int i = Integer.parseInt(cmdArg[1]);
+        case BYE:
+            Duke.bye();
+            break;
+        case LIST:
+            listTasks();
+            break;
+        case MARK:
+            // Fallthrough
+        case UNMARK:
+            // Fallthrough
+        case DELETE:
+            if (cmdArg.length == 2) {
+                try {
+                    int i = Integer.parseInt(cmdArg[1]);
 
-                        // incorrect index
-                        if (i > tasks.size()) {
-                            throw(new DukeException(INDENT + "You ain't got that many tasks bruh!"));
-                        } else if (i < 1) { // incorrect index
-                            throw(new DukeException(INDENT + "Start from task 1 lil bro!"));
-                        }
-
-                        // Execute MARK/UNMARK/DELETE
-                        if (cmdArg[0].equals("mark")) {
-                            markTask(i);
-                        } else if (cmdArg[0].equals("unmark")) {
-                            unmarkTask(i);
-                        } else {
-                            deleteTask(i);
-                        }
-                    } catch (java.lang.NumberFormatException e) { // non number typed
-                        throw(new DukeException(INDENT + "Ain't no way! We lackin' just numbers after mark/unmark/delete.\n"
-                                + INDENT + "e.g. unmark 2"));
-                    } catch (DukeException e) {
-                        throw(e);
+                    // incorrect index
+                    if (i > tasks.size()) {
+                        throw (new DukeException(INDENT + "You ain't got that many tasks bruh!"));
+                    } else if (i < 1) { // incorrect index
+                        throw (new DukeException(INDENT + "Start from task 1 lil bro!"));
                     }
-                } else { // no arguments
-                    throw(new DukeException(INDENT + "Ain't no way! Which task in the list we vibin' with?\n"
-                            + INDENT + "e.g. mark/unmark/delete 1"));
+
+                    // Execute MARK/UNMARK/DELETE
+                    if (cmdArg[0].equals("mark")) {
+                        markTask(i);
+                    } else if (cmdArg[0].equals("unmark")) {
+                        unmarkTask(i);
+                    } else {
+                        deleteTask(i);
+                    }
+                } catch (java.lang.NumberFormatException e) { // non number typed
+                    throw (new DukeException(INDENT + "Ain't no way! We lackin' just numbers after mark/unmark/delete.\n"
+                            + INDENT + "e.g. unmark 2"));
+                } catch (DukeException e) {
+                    throw (e);
                 }
-                break;
-            case TODO:
-                if (cmdArg.length != 2) { // no arguments
-                    throw(new DukeException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
-                            + INDENT + "e.g. todo <task>"));
-                }
-                addTask(cmdArg[1], Task.ID.TODO);
-                break;
-            case DEADLINE:
-                if (cmdArg.length != 2) { // no arguments
-                    throw(new DukeException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
-                            + INDENT + "e.g. deadline <task> /by <date/time>"));
-                }
-                addTask(cmdArg[1], Task.ID.DEADLINE);
-                break;
-            case EVENT:
-                if (cmdArg.length != 2) { // no arguments
-                    throw(new DukeException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
-                            + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>"));
-                }
-                addTask(cmdArg[1], Task.ID.EVENT);
-                break;
-            default: // Shouldn't reach here, invalid commands should be null
-                throw(new DukeException(INDENT + "What is blud yappin'? Here's the legit commands:"
-                        + INDENT + "list, todo, deadline, event, mark, unmark, delete, bye"));
+            } else { // no arguments
+                throw (new DukeException(INDENT + "Ain't no way! Which task in the list we vibin' with?\n"
+                        + INDENT + "e.g. mark/unmark/delete 1"));
+            }
+            break;
+        case TODO:
+            if (cmdArg.length != 2) { // no arguments
+                throw (new DukeException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
+                        + INDENT + "e.g. todo <task>"));
+            }
+            addTask(cmdArg[1], Task.ID.TODO);
+            break;
+        case DEADLINE:
+            if (cmdArg.length != 2) { // no arguments
+                throw (new DukeException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
+                        + INDENT + "e.g. deadline <task> /by <date/time>"));
+            }
+            addTask(cmdArg[1], Task.ID.DEADLINE);
+            break;
+        case EVENT:
+            if (cmdArg.length != 2) { // no arguments
+                throw (new DukeException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
+                        + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>"));
+            }
+            addTask(cmdArg[1], Task.ID.EVENT);
+            break;
+        default: // Shouldn't reach here, invalid commands should be null
+            throw (new DukeException(INDENT + "What is blud yappin'? Here's the legit commands:"
+                    + INDENT + "list, todo, deadline, event, mark, unmark, delete, bye"));
         }
     }
 
     public static void hello() {
         String logo =
                 "       :::   :::           :::        :::::::::       :::::::::       ::::::::::       :::::::::\n" +
-                "      :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+:\n" +
-                "      +:+ +:+         +:+   +:+     +:+    +:+      +:+    +:+      +:+              +:+    +:+\n" +
-                "      +#++:         +#++:++#++:    +#++:++#+       +#++:++#+       +#++:++#         +#++:++#:\n" +
-                "      +#+          +#+     +#+    +#+             +#+             +#+              +#+    +#+\n" +
-                "     #+#          #+#     #+#    #+#             #+#             #+#              #+#    #+#\n" +
-                "    ###          ###     ###    ###             ###             ##########       ###    ###\n\n";
+                        "      :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+:\n" +
+                        "      +:+ +:+         +:+   +:+     +:+    +:+      +:+    +:+      +:+              +:+    +:+\n" +
+                        "      +#++:         +#++:++#++:    +#++:++#+       +#++:++#+       +#++:++#         +#++:++#:\n" +
+                        "      +#+          +#+     +#+    +#+             +#+             +#+              +#+    +#+\n" +
+                        "     #+#          #+#     #+#    #+#             #+#             #+#              #+#    #+#\n" +
+                        "    ###          ###     ###    ###             ###             ##########       ###    ###\n\n";
         System.out.print(LINE + "    What's poppin' fam, it's ya boi\n\n" + logo +
                 "    Hit me up with those deets and let's vibe together!\n" + LINE);
     }
 
     public static void bye() {
         System.out.print(INDENT + "Peace out, fam! Stay lit and keep those good vibes rollin'!\n");
-        running = false;
+        isRunning = false;
     }
 
     public static void listTasks() {
@@ -161,46 +166,46 @@ public class Duke { // put LINE at start and end of switch then can remove all i
     // ID = { 0 : Todo, 1 : Deadline, 2 : Event }
     public static void addTask(String arg, Task.ID id) throws DukeException {
         switch (id) {
-            case TODO:
-                Todo todo = new Todo(arg);
-                tasks.add(todo);
-                System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + todo);
+        case TODO:
+            Todo todo = new Todo(arg);
+            tasks.add(todo);
+            System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + todo);
+            System.out.println(INDENT + "Yo, we're " + tasks.size() + " task(s) deep! Let's keep this SIGMA GRINDSET!");
+            break;
+        case DEADLINE: {
+            String[] descTime = arg.split(" /by "); // [description, by]
+            if (descTime.length == 2) {
+                Deadline deadline = new Deadline(descTime[0], descTime[1]);
+                tasks.add(deadline);
+                System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + deadline);
                 System.out.println(INDENT + "Yo, we're " + tasks.size() + " task(s) deep! Let's keep this SIGMA GRINDSET!");
-                break;
-            case DEADLINE: {
-                String[] descTime = arg.split(" /by "); // [description, by]
-                if (descTime.length == 2) {
-                    Deadline deadline = new Deadline(descTime[0], descTime[1]);
-                    tasks.add(deadline);
-                    System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + deadline);
-                    System.out.println(INDENT + "Yo, we're " + tasks.size() + " task(s) deep! Let's keep this SIGMA GRINDSET!");
-                } else { // incorrect formatting for /by
-                    System.out.println(INDENT + "When you wanna do this task by lil bro?\n"
-                            + INDENT + "e.g. deadline <task> /by <date/time>");
-                }
-                break;
+            } else { // incorrect formatting for /by
+                System.out.println(INDENT + "When you wanna do this task by lil bro?\n"
+                        + INDENT + "e.g. deadline <task> /by <date/time>");
             }
-            case EVENT: {
-                String[] descTime = arg.split(" /from "); // [description, fromTo]
-                if (descTime.length == 2) {
-                    String[] fromTo = descTime[1].split(" /to "); // [from , to]
-                    if (fromTo.length == 2) {
-                        Event event = new Event(descTime[0], fromTo[0], fromTo[1]);
-                        tasks.add(event);
-                        System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + event);
-                        System.out.print(INDENT + "Yo, we're " + tasks.size() + " task(s) deep! Let's keep this SIGMA GRINDSET!\n");
-                    } else { // incorrect formatting for /to
-                        throw(new DukeException(INDENT + "When does this event end lil bro?\n"
-                                + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>"));
-                    }
-                } else { // incorrect formatting for /from
-                    throw(new DukeException(INDENT + "When does this event start lil bro?\n"
+            break;
+        }
+        case EVENT: {
+            String[] descTime = arg.split(" /from "); // [description, fromTo]
+            if (descTime.length == 2) {
+                String[] fromTo = descTime[1].split(" /to "); // [from , to]
+                if (fromTo.length == 2) {
+                    Event event = new Event(descTime[0], fromTo[0], fromTo[1]);
+                    tasks.add(event);
+                    System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + event);
+                    System.out.print(INDENT + "Yo, we're " + tasks.size() + " task(s) deep! Let's keep this SIGMA GRINDSET!\n");
+                } else { // incorrect formatting for /to
+                    throw (new DukeException(INDENT + "When does this event end lil bro?\n"
                             + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>"));
                 }
-                break;
+            } else { // incorrect formatting for /from
+                throw (new DukeException(INDENT + "When does this event start lil bro?\n"
+                        + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>"));
             }
-            default: // Invalid Task ID
-                throw(new DukeException("Invalid Task ID, user shouldn't reach here"));
+            break;
+        }
+        default: // Invalid Task ID
+            throw (new DukeException("Invalid Task ID, user shouldn't reach here"));
         }
     }
 
