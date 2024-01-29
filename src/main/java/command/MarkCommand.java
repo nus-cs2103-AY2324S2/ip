@@ -18,7 +18,7 @@ public class MarkCommand extends Command {
     public void execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
             Task doingtask = t.getTask(Integer.valueOf(index)-1);
-            doingtask.dotask();
+            doingtask.setTaskDone();
             System.out.println("--------------------------");
             System.out.println("Nice! I have marked this task as done:");
             System.out.println(doingtask.toString());

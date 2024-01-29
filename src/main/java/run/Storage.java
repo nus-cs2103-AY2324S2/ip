@@ -8,13 +8,25 @@ import java.util.Scanner;
 import tasks.*;
 import others.BelleException;
 
-public class Storage{
+public class Storage {
     private String filepath;
 
+    /**
+     * Constructs Storage.
+     *
+     * @param filepath File containing storage data.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Returns list that was saved previously.
+     *
+     * @return ArrayList that was saved previously.
+     * @throws BelleException  If an invalid item in HardDisk.
+     * @throws IOException  If an invalid item in HardDisk.
+     */
     public ArrayList<Task> loadList() throws IOException, BelleException {
         ArrayList<Task> currList = new ArrayList<>();
         File f = new File(filepath);
@@ -42,6 +54,12 @@ public class Storage{
 
     }
 
+    /**
+     * Saves list everytime it is updated.
+     *
+     * @throws BelleException  If an invalid item that is being saved.
+     * @throws IOException  If there is an error with filewriter.
+     */
     public void save(ArrayList<Task> currList) throws IOException, BelleException {
         File f = new File(this.filepath);
         if (!f.exists()) {

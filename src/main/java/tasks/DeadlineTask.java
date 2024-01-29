@@ -3,6 +3,10 @@ package tasks;
 import others.DateFormatter;
 public class DeadlineTask extends Task {
     private String deadline;
+
+    /**
+     * Constructs DeadlineTask.
+     */
     public DeadlineTask(String name, boolean done, String deadline) {
         super(name, done);
         this.deadline = deadline;

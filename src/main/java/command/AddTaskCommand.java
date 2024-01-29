@@ -32,9 +32,11 @@ public class AddTaskCommand extends Command {
                 String[] deadlinelist = msg.substring(9).split(" /by ");
                 curr = new DeadlineTask(deadlinelist[0], false, deadlinelist[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new BelleException("You did not specify all the required information for deadline task.");
+                throw new BelleException("You did not specify " +
+                        "all the required information for deadline task.");
             } catch (StringIndexOutOfBoundsException e) {
-                throw new BelleException("You did not specify all the required information for deadline task.");
+                throw new BelleException("You did not specify " +
+                        "all the required information for deadline task.");
             }
         } else {
             try {
@@ -42,9 +44,11 @@ public class AddTaskCommand extends Command {
                 String[] startend = eventlist[1].split(" /to ");
                 curr = new EventTask(eventlist[0], false, startend[0], startend[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new BelleException("You did not specify all the required information for deadline task.");
+                throw new BelleException("You did not " +
+                        "specify all the required information for deadline task.");
             } catch (StringIndexOutOfBoundsException e) {
-                throw new BelleException("You did not specify all the required information for deadline task.");
+                throw new BelleException("You did not " +
+                        "specify all the required information for deadline task.");
             }
         }
         t.addTask(curr);

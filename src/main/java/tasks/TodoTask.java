@@ -3,6 +3,10 @@ package tasks;
 import tasks.Task;
 
 public class TodoTask extends Task {
+
+    /**
+     * Constructs TodoTask.
+     */
     public TodoTask(String name, boolean done) {
         super(name, done);
     }

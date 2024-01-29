@@ -19,7 +19,7 @@ public class UnmarkCommand extends Command {
     public void execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
             Task doingtask = t.getTask(Integer.valueOf(index)-1);
-            doingtask.undotask();
+            doingtask.setTaskUndone();
             System.out.println("--------------------------");
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(doingtask.toString());

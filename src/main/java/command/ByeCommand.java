@@ -12,7 +12,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(Storage s, TaskList t, Ui u)  {
+    public void execute(Storage s, TaskList t, Ui u) {
         u.bye();
     }
 

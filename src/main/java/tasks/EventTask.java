@@ -6,6 +6,9 @@ public class EventTask extends Task {
     private String start;
     private String end;
 
+    /**
+     * Constructs EventTask.
+     */
     public EventTask(String name, boolean done, String start, String end) {
         super(name, done);
         this.start = start;
@@ -33,6 +36,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return " [E]" + super.toString() + " (from: " + this.start + " " + "to: " + end +")";
+        return " [E]" + super.toString() +
+                " (from: " + this.start + " " + "to: " + end +")";
     }
 }

@@ -13,7 +13,7 @@ public class Task {
         return this.name;
     }
 
-    public String isDone() {
+    public String setIsDone() {
         if (this.done) {
             return "X";
         } else {
@@ -21,17 +21,22 @@ public class Task {
         }
     }
 
-    public void dotask() {
+    public void setTaskDone() {
         this.done = true;
     }
 
-    public void undotask() {
+    public void setTaskUndone() {
         this.done = false;
     }
 
+    /**
+     * Returns Task in correct String format.
+     *
+     * @return Task in correct String format.
+     */
     @Override
     public String toString() {
-        return " [" + isDone() + "] "+ this.name ;
+        return " [" + setIsDone() + "] "+ this.name ;
     }
 
 

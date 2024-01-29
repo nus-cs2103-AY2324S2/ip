@@ -4,10 +4,21 @@ package run;
 import command.*;
 import others.BelleException;
 public class Parser {
-    public Parser() {
 
+    /**
+     * Constructs Parser.
+     */
+    public Parser() {
     }
 
+    /**
+     * Returns correct command based on users
+     * input.
+     *
+     * @param input Users input.
+     * @return Correct command.
+     * @throws BelleException  If an invalid command is entered.
+     */
     public Command parse(String input) throws BelleException {
         String[] inputlist = input.split(" ");
 

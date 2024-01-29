@@ -11,7 +11,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(Storage s, TaskList t, Ui u)  {
+    public void execute(Storage s, TaskList t, Ui u) {
         System.out.println("--------------------------");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < t.getSize(); i++) {
