@@ -1,3 +1,5 @@
+package duke.command;
+
 /**
  * Enums of all command type.
  */

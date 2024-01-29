@@ -1,6 +1,14 @@
+package duke.command;
+
+import duke.helpers.FileManaging;
+import duke.helpers.Storage;
+import duke.exception.DukeException;
+import duke.helpers.Ui;
+import duke.task.TaskList;
+
 import java.io.IOException;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private String[] commandArr;
 
     public MarkCommand(String[] commandArr) {
