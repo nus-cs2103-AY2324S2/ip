@@ -1,4 +1,9 @@
 import java.io.Serializable;
+<<<<<<< HEAD
+=======
+
+public class Todo extends Task implements Serializable {
+>>>>>>> branch-Level-8
 
 public class Todo extends Task implements Serializable {
 
@@ -13,4 +18,3 @@ public class Todo extends Task implements Serializable {
     }
 
 }
-
