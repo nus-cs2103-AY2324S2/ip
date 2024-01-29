@@ -2,11 +2,8 @@ package Gluti.utils;
 
 public class Todo extends Task {
 
-    protected String by;
-
-    public Todo(String description, String by) {
+    public Todo(String description) {
         super(description);
-        this.by = by;
     }
 
     @Override

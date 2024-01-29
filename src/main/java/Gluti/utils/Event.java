@@ -2,15 +2,15 @@ package Gluti.utils;
 
 public class Event extends Task {
 
-    protected String by;
+    protected String[] date;
 
-    public Event(String description, String by) {
+    public Event(String description, String[] date) {
         super(description);
-        this.by = by;
+        this.date = date;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (by: " + by + ")";
+        return "[E]" + super.toString() + "(from:" + date[0] + "to:"+ date[1] + ")";
     }
 }
