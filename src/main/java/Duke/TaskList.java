@@ -44,6 +44,7 @@ public class TaskList {
                     this.taskList.add(task);
                 }
                 lines++;
+                this.currIndex++;
             }
             ui.loadFiles(lines);
         } catch(IOException e){
