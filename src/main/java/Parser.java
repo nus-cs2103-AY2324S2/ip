@@ -1,3 +1,91 @@
-public class Parser {
+import java.util.ArrayList;
+import java.util.Arrays;
 
+public class Parser {
+    enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT,
+    }
+    private static final ArrayList<String> TASK_TYPES = new ArrayList<String>(Arrays.asList("todo", "deadline", "event"));
+    public Command parse(String input) throws DookException {
+        String[] split = input.split(" ", 2);
+        String firstWord = split[0];
+        if (input.equals("bye")) {
+            return new ByeCommand();
+        } else if (firstWord.equals("list")) {
+            return new ListCommand();
+        } else if (TASK_TYPES.contains(firstWord)) {
+            String secondWord;
+            try {
+                secondWord = split[1];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DookException("Noo!! task description cannot be empty!!");
+            }
+            switch (firstWord) {
+                case "todo":
+                    return new AddCommand(TaskType.TODO, secondWord);
+                case "deadline":
+                    return new AddCommand(TaskType.DEADLINE, secondWord);
+                default:
+                    return new AddCommand(TaskType.EVENT, secondWord);
+            }
+        } else if (firstWord.equals("mark")) {
+            try {
+                String secondWord;
+                secondWord = split[1];
+                return new MarkCommand(Integer.valueOf(secondWord));
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                throw new DookException("Ohnoo! Please enter a number after \"mark\"!");
+            }
+        } else if (firstWord.equals("unmark")) {
+            try {
+                String secondWord;
+                secondWord = split[1];
+                return new UnmarkCommand(Integer.valueOf(secondWord));
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                throw new DookException("Ohnoo! Please enter a number after \"unmark\"!");
+            }
+        } else if (firstWord.equals("delete")){
+            try {
+                String secondWord;
+                secondWord = split[1];
+                return new DeleteCommand(Integer.valueOf(secondWord));
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                throw new DookException("Ohnoo! Please enter a number after \"delete\"!");
+            }
+        } else {
+            throw new DookException("I don't understand this command :( Try again!");
+        }
+    }
+
+    public static Task getTask(TaskType taskType, String taskDetails) throws DookException {
+        String name;
+        String[] details;
+        try {
+            if (taskDetails.isBlank()) {
+                throw new DookException(":( Task description cannot be empty!");
+            }
+            switch (taskType) {
+            case TODO:
+                return new ToDo(taskDetails);
+            case DEADLINE:
+                details = taskDetails.split(" /by ", 2);
+                name = details[0];
+                String doBy = details[1];
+                return new Deadline(name, doBy);
+            case EVENT:
+                details = taskDetails.split(" /from ", 2);
+                name = details[0];
+                String[] startAndEnd = details[1].split(" /to ", 2);
+                String start = startAndEnd[0];
+                String end = startAndEnd[1];
+                return new Event(name, start, end);
+            default:
+                throw new DookException("Oh nyo! Wrong format for " + taskType + " command!");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DookException("Oh nyo! Wrong format for " + taskType + " command!");
+        }
+    }
 }

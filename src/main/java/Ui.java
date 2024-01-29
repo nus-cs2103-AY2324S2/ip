@@ -14,6 +14,5 @@ public class Ui {
         printSeparator();
         System.out.println("Hello from Dook! :D meow\n" + logo);
         System.out.println("What can I do for you? uwu");
-        printSeparator();
     }
 }
