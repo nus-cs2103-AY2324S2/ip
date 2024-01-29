@@ -37,7 +37,7 @@ public class Duke {
 
     private void delete(int i) {
         System.out.println("Deleting task...");
-        tm.delete(i);
+        tm.deleteTask(i);
     }
 
     private Event createEvent(String s) throws DukeException {
