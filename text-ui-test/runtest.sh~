@@ -26,10 +26,10 @@ fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin Duke <input.txt >ACTUAL.TXT
-java -classpath ../bin Duke < input1.txt > ACTUAL1.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
+
 diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
@@ -40,7 +40,11 @@ else
     exit 1
 fi
 
+java -classpath ../bin Duke < input1.txt > ACTUAL1.TXT
+
 cp EXPECTED1.TXT EXPECTED1-UNIX.TXT
+
+
 diff ACTUAL1.TXT EXPECTED1-UNIX.TXT
 if [ $? -eq 0 ]
 then

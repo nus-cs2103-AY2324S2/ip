@@ -7,3 +7,6 @@ todo join sport club
 mark 4
 todo borrow book
 list
+delete 4
+mark 5
+unmark 5
