@@ -24,4 +24,5 @@ public class Task {
     public String getTask() {
         return index + ". [" + getStatusIcon() + "] " + description;
     }
+
 }

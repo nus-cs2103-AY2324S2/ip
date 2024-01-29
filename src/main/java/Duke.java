@@ -42,6 +42,29 @@ public class Duke {
                 } catch (Exception e) {
                     System.out.println("Your task number input is invalid, please try again");
                 }
+            } else if (userInput.toLowerCase().contains("todo")) {
+                task_arr.add(new ToDo(index, userInput));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task_arr.get(index).getTask());
+                System.out.println("Now you have " + task_arr.size() + " tasks in the list");
+                index++;
+            } else if (userInput.toLowerCase().contains("deadline")) {
+                String[] str = userInput.split("/");
+                String deadline = str[1];
+                task_arr.add(new Deadline(index, str[0], deadline));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task_arr.get(index).getTask());
+                System.out.println("Now you have " + task_arr.size() + " tasks in the list");
+                index++;
+            } else if (userInput.toLowerCase().contains("event")) {
+                String[] str = userInput.split("/");
+                String start = str[1];
+                String end = str[2];
+                task_arr.add(new Event(index, str[0], start, end));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task_arr.get(index).getTask());
+                System.out.println("Now you have " + task_arr.size() + " tasks in the list");
+                index++;
             } else {
                 task_arr.add(new Task(index, userInput));
                 System.out.println(userInput);
