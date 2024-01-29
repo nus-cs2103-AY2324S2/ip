@@ -47,10 +47,10 @@ public class Storage {
         }
     }
 
-    public static ArrayList<Task> readTasks() throws IOException {
+    public ArrayList<Task> readTasks() throws IOException {
         ArrayList<Task> userRequests = new ArrayList<Task>();
         try {
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
+            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(this.path), StandardCharsets.UTF_8);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, ha");
             for (String line : lines) {
                 char[] lineToCharArr = line.toCharArray();

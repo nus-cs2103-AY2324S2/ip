@@ -1,7 +1,4 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
+import Tasks.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -15,11 +12,10 @@ public class Ui {
     private final String CHATBOTNAME = "Kervyn";
     public Ui() {}
 
-    public void startChatBot() throws IOException {
+    public void startChatBot(TaskList taskList, Storage storage) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        Storage storage = new Storage("data/Kervyn.txt");
-        ArrayList<Task> userRequests = Storage.readTasks();
 
+        ArrayList<Task> userTasks = taskList.getTaskList();
         System.out.println("\tHello! I'm " + this.CHATBOTNAME);
         System.out.println("\tWhat can I do for you?");
         String userInput;
@@ -34,36 +30,36 @@ public class Ui {
                     System.out.println("\tBye. Hope to see you again soon!");
                     break;
                 case "list":
-                    listTasks(userRequests);
+                    listTasks(userTasks);
                     break;
                 case "mark":
-                    markTask(userRequests, processedUserInput);
+                    markTask(userTasks, processedUserInput);
                     break;
                 case "unmark":
-                    unMarkTask(userRequests, processedUserInput);
+                    unMarkTask(userTasks, processedUserInput);
                     break;
                 case "delete":
-                    removeTask(userRequests, processedUserInput);
+                    removeTask(userTasks, processedUserInput);
                     break;
                 case "todo":
                     ToDo newToDo = getProcessedToDo(userInput);
                     if (newToDo != null) {
-                        userRequests.add(newToDo);
-                        toDoTaskTextDisplay(newToDo, userRequests);
+                        userTasks.add(newToDo);
+                        toDoTaskTextDisplay(newToDo, userTasks);
                     }
                     break;
                 case "deadline":
                     Deadline newDeadline = getProcessedDeadline(userInput);
                     if (newDeadline != null) {
-                        userRequests.add(newDeadline);
-                        deadlineTaskTextDisplay(newDeadline, userRequests);
+                        userTasks.add(newDeadline);
+                        deadlineTaskTextDisplay(newDeadline, userTasks);
                     }
                     break;
                 case "event":
                     Event newEvent = getProcessedEvent(userInput);
                     if (newEvent != null) {
-                        userRequests.add(newEvent);
-                        eventTaskTextDisplay(newEvent, userRequests);
+                        userTasks.add(newEvent);
+                        eventTaskTextDisplay(newEvent, userTasks);
                     }
                     break;
                 default:
@@ -72,14 +68,14 @@ public class Ui {
             }
         } while (!Objects.equals(userInput, "bye"));
 
-        for (Task userRequest : userRequests) {
+        for (Task userRequest : userTasks) {
             String content = userRequest.toString();
             storage.writeToFile(content);
         }
     }
-    private static void markTask(ArrayList<Task> userRequests, String[] processedUserInput) {
+    private static void markTask(ArrayList<Task> userTasks, String[] processedUserInput) {
         try {
-            Task task = userRequests.get(Integer.parseInt(processedUserInput[1]) - 1);
+            Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (task.getStatus()) {
                 taskAlreadyMarked();
             } else {
@@ -96,9 +92,9 @@ public class Ui {
         }
     }
 
-    private static void unMarkTask(ArrayList<Task> userRequests, String[] processedUserInput) {
+    private static void unMarkTask(ArrayList<Task> userTasks, String[] processedUserInput) {
         try {
-            Task task = userRequests.get(Integer.parseInt(processedUserInput[1]) - 1);
+            Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (!task.getStatus()) {
                 taskAlreadyUnMarked();
             } else {
@@ -115,14 +111,14 @@ public class Ui {
         }
     }
 
-    private static void removeTask(ArrayList<Task> userRequests, String[] processedUserInput) {
+    private static void removeTask(ArrayList<Task> userTasks, String[] processedUserInput) {
         try {
-            Task task = userRequests.get(Integer.parseInt(processedUserInput[1]) - 1);
+            Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             System.out.println("\tOK, I've removed this task as per your request:");
             char check = task.getStatus() ? 'X' : ' ';
             char type = task.getCapitalType();
             System.out.println("\t[" + type + "] " + "[" + check + "] " + task.getDescription());
-            userRequests.remove(task);
+            userTasks.remove(task);
         }
         catch (IndexOutOfBoundsException e) {
             // Need to account for trying to delete a task that doesn't exist
@@ -130,10 +126,10 @@ public class Ui {
         }
     }
 
-    private static void listTasks(ArrayList<Task> userRequests) {
+    private static void listTasks(ArrayList<Task> userTasks) {
         System.out.println("\tHere are the tasks on your list:");
-        for (int i = 0; i < userRequests.size(); i++) {
-            Task task = userRequests.get(i);
+        for (int i = 0; i < userTasks.size(); i++) {
+            Task task = userTasks.get(i);
             char check = task.getStatus() ? 'X' : ' ';
             char type = task.getCapitalType();
             switch (type) {
@@ -258,19 +254,19 @@ public class Ui {
         System.out.println("\tUnderstood. I've added this task:");
     }
 
-    private static void toDoTaskTextDisplay(ToDo toDo, ArrayList<Task> userRequests) {
+    private static void toDoTaskTextDisplay(ToDo toDo, ArrayList<Task> userTasks) {
         System.out.println("\t[" + toDo.getCapitalType() + "]" + "[ ]" + toDo.getDescription());
-        System.out.println("\tNow you have " + userRequests.size() + " tasks in the list.");
+        System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
 
-    private static void deadlineTaskTextDisplay(Deadline deadline, ArrayList<Task> userRequests) {
+    private static void deadlineTaskTextDisplay(Deadline deadline, ArrayList<Task> userTasks) {
         System.out.println("\t[" + deadline.getCapitalType() + "]" + "[ ]" + deadline.getDescription() + " (by: " + deadline.getDeadline() + ")");
-        System.out.println("\tNow you have " + userRequests.size() + " tasks in the list.");
+        System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
 
-    private static void eventTaskTextDisplay(Event event, ArrayList<Task> userRequests) {
+    private static void eventTaskTextDisplay(Event event, ArrayList<Task> userTasks) {
         System.out.println("\t[" + event.getCapitalType() + "]" + "[ ]" + event.getDescription() + " (from: " + event.getStartDate() + " to: " + event.getEndDate() + ")");
-        System.out.println("\tNow you have " + userRequests.size() + " tasks in the list.");
+        System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
 
     private static String convertDate(String inputDateTime) {
