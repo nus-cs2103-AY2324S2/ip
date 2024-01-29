@@ -163,6 +163,27 @@ public class TaskList {
         } catch (IOException e) {
             throw new StorageException(String.format("Failed to save to file - %s", e.getMessage()));
         }
+    }
 
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof TaskList) {
+            TaskList taskList = (TaskList) obj;
+
+            return this.taskArray.equals(taskList.taskArray);
+        }
+
+        return false;
     }
 }

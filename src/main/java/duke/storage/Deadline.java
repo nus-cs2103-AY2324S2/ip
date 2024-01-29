@@ -85,4 +85,26 @@ public class Deadline extends Task {
 
         return String.format("[D]%s (by: %s)", super.toString(), formatter.format(dueDate));
     }
+
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof Deadline) {
+            Deadline task = (Deadline) obj;
+
+            return super.equals(task) && this.dueDate.equals(task.dueDate);
+        }
+
+        return false;
+    }
 }

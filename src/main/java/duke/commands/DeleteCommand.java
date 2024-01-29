@@ -43,4 +43,26 @@ public class DeleteCommand extends Command {
         System.out.println(String.format("  %s", deletedTask.toString()));
         System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
     }
+
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof DeleteCommand) {
+            DeleteCommand command = (DeleteCommand) obj;
+
+            return super.equals(command) && this.index == command.index;
+        }
+
+        return false;
+    }
 }
