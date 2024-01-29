@@ -1,5 +1,7 @@
 package bytebuddy;
 
+import static bytebuddy.ui.Ui.printWithSolidLineBreak;
+
 import bytebuddy.commands.Command;
 import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.parser.Parser;
@@ -7,23 +9,15 @@ import bytebuddy.storage.Storage;
 import bytebuddy.tasks.TaskList;
 import bytebuddy.ui.Ui;
 
-import static bytebuddy.ui.Ui.printWithSolidLineBreak;
-
-
+/**
+ * The {@code ByteBuddy} class represents the main application class for the ByteBuddy chatbot.
+ * It initializes the chatbot, runs the main loop to process user commands, and handles exceptions.
+ */
 public class ByteBuddy {
     // class variables
     private static Storage storage;
     private static TaskList taskList;
     private static Ui ui;
-
-    /**
-     * Main method to run ByteBuddy chatbot.
-     * @param args command line arguments.
-     * @throws ByteBuddyException if there is an error during the execution of the ByteBuddy chatbot.
-     */
-    public static void main(String[] args) throws ByteBuddyException {
-        new ByteBuddy().run();
-    }
 
     /**
      * Creates a new chatbot called ByteBuddy that helps with tasking.
@@ -39,6 +33,15 @@ public class ByteBuddy {
             taskList = new TaskList();
             throw new ByteBuddyException("Error loading the list from output.txt");
         }
+    }
+
+    /**
+     * Main method to run ByteBuddy chatbot.
+     * @param args command line arguments.
+     * @throws ByteBuddyException if there is an error during the execution of the ByteBuddy chatbot.
+     */
+    public static void main(String[] args) throws ByteBuddyException {
+        new ByteBuddy().run();
     }
 
     /**

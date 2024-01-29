@@ -1,6 +1,5 @@
 package bytebuddy.tasks;
 
-import bytebuddy.tasks.Task;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -10,7 +10,7 @@ import java.io.PrintStream;
 import static bytebuddy.constants.ExceptionErrorMessages.*;
 import static bytebuddy.constants.Formats.DEADLINE_FORMAT;
 import static bytebuddy.constants.Formats.EVENT_FORMAT;
-import static bytebuddy.constants.Information.solidLineBreak;
+import static bytebuddy.constants.Information.SOLID_LINE_BREAK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -174,11 +174,11 @@ public class TaskListTest {
 
         taskList.printTaskList();
 
-        String expectedOutput = "\t" + solidLineBreak +
+        String expectedOutput = "\t" + SOLID_LINE_BREAK +
                 "\n\t 1.[T][✕] Test\n" +
                 "\t 2.[D][✕] Submit report (by: Feb 28 2023)\n" +
                 "\t" +
-                solidLineBreak +
+                SOLID_LINE_BREAK +
                 "\n";
         assertEquals(expectedOutput, outContent.toString());
 

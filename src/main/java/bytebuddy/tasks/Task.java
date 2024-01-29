@@ -18,6 +18,17 @@ public class Task {
     }
 
     /**
+     * Constructs a new Task with the given description and completion status.
+     *
+     * @param description The description of the task.
+     * @param isDone      The completion status of the task.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    /**
      * Gets the description of the task.
      *
      * @return The description of the task.
@@ -33,17 +44,6 @@ public class Task {
      */
     public boolean isDone() {
         return this.isDone;
-    }
-
-    /**
-     * Constructs a new Task with the given description and completion status.
-     *
-     * @param description The description of the task.
-     * @param isDone      The completion status of the task.
-     */
-    public Task(String description, boolean isDone) {
-        this.description = description;
-        this.isDone = isDone;
     }
 
     /**

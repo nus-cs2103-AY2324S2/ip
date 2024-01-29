@@ -8,7 +8,8 @@ import bytebuddy.ui.Ui;
 
 /**
  * Interface that represents a Command to be executed by the Bytebuddy chatbot.
- * A command typically performs an action on the task list, interacts with the user interface, and may involve storage operations.
+ * A command typically performs an action on the task list,
+ * interacts with the user interface, and may involve storage operations.
  * Implementing classes must provide an implementation for the {@code execute} method.
  *
  * @see bytebuddy.tasks.TaskList
@@ -28,7 +29,8 @@ public interface Command {
     void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException;
 
     /**
-     * Checks if the command is an exit command, indicating whether the chatbot should exit after executing this command.
+     * Checks if the command is an exit command,
+     * indicating whether the chatbot should exit after executing this command.
      *
      * @return {@code true} if the command is an exit command, {@code false} otherwise.
      */
