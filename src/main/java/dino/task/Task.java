@@ -1,8 +1,6 @@
 package dino.task;
 
-/**
- * Represents a Task with a description and completion status.
- */
+/** Represents a Task with a description and completion status. */
 public class Task {
     protected String description;
     protected boolean isDone;

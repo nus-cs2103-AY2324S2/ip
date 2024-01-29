@@ -3,9 +3,7 @@ package dino.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Represents a Task with a single deadline.
- */
+/** Represents a Task with a single deadline. */
 public class Deadline extends Task {
     private LocalDateTime deadlineTime;
 

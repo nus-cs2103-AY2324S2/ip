@@ -4,16 +4,12 @@ import dino.task.Task;
 
 import java.util.ArrayList;
 
-/**
- * Represents an ArrayList of Task.
- */
+/** Represents an ArrayList of Task. */
 public class TaskList {
 
     private ArrayList<Task> taskList;
 
-    /**
-     * Constructs a new TaskList.
-     */
+    /** Constructs a new TaskList. */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
@@ -44,9 +40,7 @@ public class TaskList {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
-    /**
-     * Lists the Task in the TaskList.
-     */
+    /** Lists the Task in the TaskList. */
     public void listTask() {
         try {
             if (taskList.isEmpty()) {

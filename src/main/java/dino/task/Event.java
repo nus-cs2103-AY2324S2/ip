@@ -3,9 +3,7 @@ package dino.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Represents a Task with a deadline interval.
- */
+/** Represents a Task with a deadline interval. */
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;

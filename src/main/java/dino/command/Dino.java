@@ -2,9 +2,7 @@ package dino.command;
 
 import java.util.Scanner;
 
-/**
- * The main class for the Dino application.
- */
+/** The main class for the Dino application. */
 public class Dino {
     private Ui ui;
     private Storage storage;
@@ -30,9 +28,7 @@ public class Dino {
 
     }
 
-    /**
-     * Runs the Dino application, handling user input and executing commands.
-     */
+    /** Runs the Dino application, handling user input and executing commands. */
     public void run() {
         ui.welcome();
 

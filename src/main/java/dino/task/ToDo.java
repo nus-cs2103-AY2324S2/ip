@@ -1,12 +1,10 @@
 package dino.task;
 
-/**
- * Represents a <code>Task</code> without a deadline.
- */
+/** Represents a Task without a deadline. */
 public class ToDo extends Task {
 
     /**
-     * Constructs a new <code>ToDo</code> task with the given description.
+     * Constructs a new ToDo task with the given description.
      *
      * @param description   The description of the task.
      */
@@ -15,7 +13,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns a string representation of the <code>ToDo</code> task.
+     * Returns a string representation of the ToDo task.
      *
      * @return A formatted string representing the task's status, description.
      */
