@@ -20,7 +20,7 @@ public class Storage {
 
     }
 
-    public ArrayList<Task> readFromStorage() throws FileNotFoundException {
+    public static ArrayList<Task> readFromStorage() throws FileNotFoundException {
         try {
             File file = new File(FILE_PATH);
             Scanner sc = new Scanner(file);
@@ -88,7 +88,7 @@ public class Storage {
         }
     }
 
-    public void writeToStorage(ArrayList<Task> tasks) throws IOException {
+    public static void writeToStorage(ArrayList<Task> tasks) throws IOException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
 
@@ -102,7 +102,7 @@ public class Storage {
         }
     }
 
-    public void writeToStorage(Task task) throws IOException {
+    public static void writeToStorage(Task task) throws IOException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH, true);
 
