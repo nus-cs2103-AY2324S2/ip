@@ -7,7 +7,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    void execute(TaskList taskList, Ui ui) throws MikeException {
+    void execute(TaskList taskList) throws MikeException {
         int taskIndex = taskNumber - 1;
         if (taskList.isEmpty()) {
             throw new MikeException("There are no tasks to remove.");
@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
                 "Noted! I've removed this task:\n  " +
                 task + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list.";
-        ui.display(message);
+        Ui.display(message);
     }
 
     @Override

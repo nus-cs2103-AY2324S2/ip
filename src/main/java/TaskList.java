@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 import java.util.Scanner;
@@ -38,7 +37,6 @@ public class TaskList extends ArrayList<Task>  {
             }
 
             Scanner fileScanner = new Scanner(file);
-            // TaskList data formatted as csv
             String line;
             Task newTask;
             while (fileScanner.hasNext()) {

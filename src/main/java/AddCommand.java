@@ -5,7 +5,7 @@ abstract class AddCommand extends Command {
         this.description = description;
     }
 
-    protected void respond(TaskList taskList, Ui ui, Task newTask) {
+    protected void respond(TaskList taskList, Task newTask) {
         String message =
                 "Got it, I've added this task:\n  "
                 + newTask + "\n"

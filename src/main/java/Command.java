@@ -5,7 +5,7 @@ public abstract class Command {
         this.text = text;
     }
 
-    abstract void execute(TaskList taskList, Ui ui) throws MikeException;
+    abstract void execute(TaskList taskList) throws MikeException;
 
     abstract boolean isExit();
 

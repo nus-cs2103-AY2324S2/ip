@@ -16,23 +16,23 @@ public class Mike {
     }
 
     public void run() {
-        this.ui.displayWelcome();
+        ui.displayWelcome();
         boolean exitSeen = false;
         while (!exitSeen) {
             try {
                 String userInput = ui.scanInput();
-                ui.displayLine();
+                Ui.displayLine();
                 List<Token> tokens = new CommandScanner(userInput).scanTokens();
                 // System.out.println(tokens);
                 Command command = new CommandParser(tokens).parse();
-                command.execute(taskList, ui);
+                command.execute(taskList);
                 if (command.isExit()) {
                     exitSeen = true;
                 }
             } catch (MikeException e) {
                 Ui.displayError(e.getMessage());
             } finally {
-                ui.displayLine();
+                Ui.displayLine();
             }
         }
         taskList.writeToFile();

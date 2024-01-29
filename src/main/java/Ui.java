@@ -30,7 +30,7 @@ public class Ui {
     /**
      * Displays a farewell message with Wazowski pizazz.
      */
-    public void farewell() {
+    public static void farewell() {
         String farewell =
                 " Where are you going? We'll talk.\n" +
                         " We'll have a latte.";
@@ -74,7 +74,7 @@ public class Ui {
         display(greeting);
     }
 
-    public void displayLine() {
+    public static void displayLine() {
         String horizontalLine = "==========================================";
         display(horizontalLine);
     }

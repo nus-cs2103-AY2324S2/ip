@@ -7,7 +7,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    void execute(TaskList taskList, Ui ui) throws MikeException {
+    void execute(TaskList taskList) throws MikeException {
         int taskIndex = taskNumber - 1;
         if (taskList.isEmpty()) {
             throw new MikeException("There are no tasks to mark. Please add a task first.");
@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
         Task task = taskList.get(taskIndex);
         task.markAsNotDone();
         String message = "I've marked this task as not done:\n  " + task;
-        ui.display(message);
+        Ui.display(message);
         /*
            TODO:
             1. Check that task is or is not done.

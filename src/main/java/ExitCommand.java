@@ -4,8 +4,8 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    void execute(TaskList taskList, Ui ui) {
-        ui.farewell();
+    void execute(TaskList taskList) {
+        Ui.farewell();
     }
 
     @Override
