@@ -4,60 +4,60 @@
          .-_)( /(__)\\  //(__)\ \__ \\__ \ _)(_ \__ \  )(
         \____)(__)(__)\/(__)(__)(___/(___/(____)(___/ (__)
 
-    	 Hello! I'm JavAssist ૮ฅ・ﻌ・აฅ
+    	 Hello! I'm JavAssist.
     	 What can I do for you?
     	________________________________________________________________
 
     	________________________________________________________________
-         OOPS!!! No task in list ૮ ´• ﻌ ´• ა
+         OOPS!!! No task in list.
          You may add task with keywords: todo, deadline, event.
         ________________________________________________________________
 
         ________________________________________________________________
-         ᨐฅ Got it! I've added this task:
+         Got it! I've added this task:
                  [T][ ] read book
          Now you have 1 task in the list.
     	________________________________________________________________
 
         ________________________________________________________________
-         Nice! ૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა I've marked this task as done:
+         Nice! I've marked this task as done:
                  [T][X] read book
         ________________________________________________________________
 
         ________________________________________________________________
-         OOPS!!! The description and due of a deadline cannot be empty ૮₍´˶• . • ⑅ ₎ა
+         OOPS!!! The description and due of a deadline cannot be empty.
          Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.
         ________________________________________________________________
 
         ________________________________________________________________
-         ᨐฅ Got it! I've added this task:
+         Got it! I've added this task:
                  [D][ ] return book (by: Jun 06 2023, 12:00)
          Now you have 2 tasks in the list.
         ________________________________________________________________
 
         ________________________________________________________________
-         OOPS!!! Invalid start/end date ૮ ̷ ̷ ̷・ﻌ ̷ ̷・ ა Specify date in format 'dd-MM-yyyy HH:mm'.
+         OOPS!!! Invalid start/end date. Specify date in format 'dd-MM-yyyy HH:mm'.
         ________________________________________________________________
 
         ________________________________________________________________
-         ᨐฅ Got it! I've added this task:
+         Got it! I've added this task:
                  [E][ ] project meeting (from: Mar 12 2024, 14:00 to: Mar 12 2024, 15:00)
          Now you have 3 tasks in the list.
         ________________________________________________________________
 
         ________________________________________________________________
-         ᨐฅ Got it! I've added this task:
+         Got it! I've added this task:
                  [T][ ] join sports club
          Now you have 4 tasks in the list.
         ________________________________________________________________
 
         ________________________________________________________________
-         Nice! ૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა I've marked this task as done:
+         Nice! I've marked this task as done:
                  [T][X] join sports club
         ________________________________________________________________
 
         ________________________________________________________________
-         Here are the tasks in your list ૮ ˙Ⱉ˙ ა :
+         Here are the tasks in your list:
                  1.[T][X] read book
                  2.[D][ ] return book (by: Jun 06 2023, 12:00)
                  3.[E][ ] project meeting (from: Mar 12 2024, 14:00 to: Mar 12 2024, 15:00)
@@ -65,12 +65,12 @@
         ________________________________________________________________
 
         ________________________________________________________________
-         Ok, ૮₍ ˶•⤙•˶ ₎ა I've marked this task as not done yet:
+         Ok, I've marked this task as not done yet:
                  [T][ ] join sports club
         ________________________________________________________________
 
         ________________________________________________________________
-         Here are the tasks in your list ૮ ˙Ⱉ˙ ა :
+         Here are the tasks in your list:
                  1.[T][X] read book
                  2.[D][ ] return book (by: Jun 06 2023, 12:00)
                  3.[E][ ] project meeting (from: Mar 12 2024, 14:00 to: Mar 12 2024, 15:00)
@@ -78,8 +78,8 @@
         ________________________________________________________________
 
         ________________________________________________________________
-         OOPS!!! Task (5) not found ૮₍ ˶0_0˶ ₎ა
-         Here are the tasks in your list ૮ ˙Ⱉ˙ ა :
+         OOPS!!! Task (5) not found.
+         Here are the tasks in your list:
                  1.[T][X] read book
                  2.[D][ ] return book (by: Jun 06 2023, 12:00)
                  3.[E][ ] project meeting (from: Mar 12 2024, 14:00 to: Mar 12 2024, 15:00)
@@ -87,16 +87,16 @@
         ________________________________________________________________
 
         ________________________________________________________________
-         Noted ૮ ˶ᵔ ᵕ ᵔ˶ ა I've removed this task:
+         Noted I've removed this task:
                  [T][X] read book
          Now you have 3 tasks in the list.
         ________________________________________________________________
 
         ________________________________________________________________
-         OOPS!!! Sorry I don't know what that means ૮₍ ´• ˕ •` ₎ა
+         OOPS!!! Sorry I don't know what that means.
          Try keywords: todo, deadline, event, list, mark, unmark, delete.
         ________________________________________________________________
 
         ________________________________________________________________
-         Bye. Hope to see you again soon! ʕ •ɷ•ʔฅ
+         Bye. Hope to see you again soon!
         ________________________________________________________________

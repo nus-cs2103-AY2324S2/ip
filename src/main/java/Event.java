@@ -18,7 +18,7 @@ public class Event extends Task{
         try {
             date = LocalDateTime.parse(s, formatter);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("OOPS!!! Invalid start/end date ૮ ̷ ̷ ̷・ﻌ ̷ ̷・ ა Specify date in format 'dd-MM-yyyy HH:mm'.", e.getParsedString(), e.getErrorIndex());
+            throw new DateTimeParseException("Invalid start/end date. Specify date in format 'dd-MM-yyyy HH:mm'.", e.getParsedString(), e.getErrorIndex());
         }
         return date;
     }
