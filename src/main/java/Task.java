@@ -1,4 +1,5 @@
-abstract class Task {
+import java.io.Serializable;
+abstract class Task implements Serializable {
     private String description;
     private boolean isDone;
     Task(String description) {

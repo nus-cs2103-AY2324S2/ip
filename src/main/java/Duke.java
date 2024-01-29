@@ -5,8 +5,8 @@ public class Duke {
     private static final int MAX_TASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     public static void main(String[] args) throws DukeException {
+        tasks = TaskStorage.loadTasks();
         Scanner scanner = new Scanner(System.in);
-        int taskCount = 0;
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -30,11 +30,11 @@ public class Duke {
             } else if (command.toLowerCase().equals("list")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("     Here are the tasks in your list:");
-                if (taskCount == 0) {
+                if (tasks.size() == 0) {
                     System.out.println("     No tasks added yet.");
                     continue;
                 }
-                for (int i = 0; i < taskCount; i++) {
+                for (int i = 0; i < tasks.size(); i++) {
                     System.out.println("     " + (i + 1) + "." + tasks.get(i));
                 }
                 System.out.println("____________________________________________________________");
@@ -42,15 +42,17 @@ public class Duke {
                 int index = Integer.parseInt(parts[1]) - 1;
                 String action = command.toLowerCase();
                 // if there exists a task, and you are referring to a valid task to mark
-                if (index >= 0 && index < taskCount) {
+                if (index >= 0 && index < tasks.size()) {
                     if (action.equals("mark")) {
                         tasks.get(index).markAsDone();
+                        TaskStorage.saveTasks(tasks);
                         System.out.println("____________________________________________________________");
                         System.out.println("     Nice! I've marked this task as done:");
                         System.out.println("       " + tasks.get(index));
                         System.out.println("____________________________________________________________");
                     } else if (action.equals("unmark")) {
                         tasks.get(index).markAsNotDone();
+                        TaskStorage.saveTasks(tasks);
                         System.out.println("____________________________________________________________");
                         System.out.println("     OK, I've marked this task as not done yet:");
                         System.out.println("       " + tasks.get(index));
@@ -70,6 +72,7 @@ public class Duke {
                         throw new DukeException("Invalid task number. Index out of bounds");
                     }
                     Task removedTask = tasks.remove(taskIndex);
+                    TaskStorage.saveTasks(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println("     Noted. I've removed this task:");
                     System.out.println("       " + removedTask);
@@ -92,7 +95,7 @@ public class Duke {
                     if (parts.length == 1) {
                         throw new DukeException("☹ OOPS!!! The description of a command cannot be empty.");
                     }
-                    if (taskCount < MAX_TASKS) {
+                    if (tasks.size() < MAX_TASKS) {
                         Task task = null;
                         if (command.toLowerCase().equals("todo")) {
                             task = new Todo(input.substring(5));
@@ -121,11 +124,11 @@ public class Duke {
                             throw new DukeException("Invalid command. Please try again.");
                         }
                         tasks.add(task);
-                        taskCount++;
+                        TaskStorage.saveTasks(tasks);
                         System.out.println("____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
                         System.out.println("       " + task);
-                        System.out.println("     Now you have " + taskCount + " tasks in the list.");
+                        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                     } else {
                         throw new DukeException("Maximum tasks reached. Cannot add more tasks.");
