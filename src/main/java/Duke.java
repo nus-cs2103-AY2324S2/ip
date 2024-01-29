@@ -3,6 +3,93 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    private ArrayList<Task> storage = new ArrayList<>();
+
+    public void returnList () {
+        System.out.println("    Here are the tasks in your list:");
+        for (int i = 0; i < storage.size(); i++) {
+            System.out.println("    " + (i + 1) + "." + storage.get(i).toString());
+        }
+    }
+
+    public void markTask(String[] split_message) {
+        Integer index = Integer.parseInt(split_message[1]) - 1;
+        this.storage.get(index).setStatus(true);
+        System.out.println("    Nice! I've marked this task as done:");
+        System.out.println("      " + this.storage.get(index).toString());
+    }
+
+    public void unmarkTask(String[] split_message) {
+        Integer index = Integer.parseInt(split_message[1]) - 1;
+        this.storage.get(index).setStatus(false);
+        System.out.println("    OK, I've marked this task as not done yet:");
+        System.out.println("      " + this.storage.get(index).toString());
+    }
+
+    public void addTask(String[] split_message) {
+        try {
+            Task message;
+            if (split_message[0].equals("todo")) {
+                try {
+                    if (split_message.length == 1) {
+                        throw new DukeException.TODONoTaskException("No Task");
+                    }
+                    message = Task.TODO;
+                    String task = " ";
+                    for (int i = 1; i < split_message.length; i++) {
+                        task = task + split_message[i] + " ";
+                    }
+                    task = task.strip();
+                    message.setTask(task);
+                } catch (DukeException.TODONoTaskException ex) {
+                    System.out.println("    " + ex.getMessage() + ". Please enter the task, too.");
+                    return;
+                }
+            } else if (split_message[0].equals("deadline")) {
+                message = Task.DEADLINE;
+                String content = " ";
+                for (int i = 1; i < split_message.length; i++) {
+                    if (split_message[i].equals("/by")) {
+                        content = content.strip();
+                        message.setTask(content);
+                        content = "";
+                    } else {
+                        content = content + split_message[i] + " ";
+                    }
+                }
+                content = content.strip();
+                message.setTo(content);
+            } else if (split_message[0].equals("event")) {
+                message = Task.Event;
+                String content = " ";
+                for (int i = 1; i < split_message.length; i++) {
+                    if (split_message[i].equals("/from")) {
+                        content = content.strip();
+                        message.setTask(content);
+                        content = "";
+                    } else if (split_message[i].equals("/to")) {
+                        content = content.strip();
+                        message.setFrom(content);
+                        content = "";
+                    } else {
+                        content = content + split_message[i] + " ";
+                    }
+                }
+                content = content.strip();
+                message.setTo(content);
+            } else {
+                throw new DukeException.UnsupportedTaskException("This is unsupported task");
+            }
+            storage.add(message);
+            System.out.println("    Got it. I've added this task:");
+            System.out.println("       " + message.toString());
+            System.out.println("    Now you have " + storage.size() + " tasks in the list.");
+        } catch (DukeException.UnsupportedTaskException ex) {
+            System.out.println("    " + ex.getMessage() + ". Please only enter the supported types of task.");
+
+        }
+    }
+
     public static void main(String[] args) {
         /*
         String logo = " ____        _        \n"
@@ -11,7 +98,7 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         */
-        ArrayList<Task> storage = new ArrayList<>();
+        Duke chatbot = new Duke();
         System.out.println("    -----------------------------------");
         System.out.println("    Hello! I'm ByteTalker");
         System.out.println("    What can I do for you?");
@@ -24,67 +111,13 @@ public class Duke {
             if (userInput_String.equals("bye")) {
                 break;
             } else if (userInput_String.equals("list")) {
-                System.out.println("    Here are the tasks in your list:");
-                for (int i = 0; i < storage.size(); i++) {
-                    System.out.println("    " + (i + 1) + "." + storage.get(i).getMessage());
-                }
+                chatbot.returnList();
             } else if (split_message[0].equals("mark")) {
-                Integer index = Integer.parseInt(split_message[1]) - 1;
-                storage.get(index).setStatus(true);
-                System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("      " + storage.get(index).getMessage());
+                chatbot.markTask(split_message);
             } else if (split_message[0].equals("unmark")) {
-                Integer index = Integer.parseInt(split_message[1]) - 1;
-                storage.get(index).setStatus(false);
-                System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println("      " + storage.get(index).getMessage());
+                chatbot.unmarkTask(split_message);
             } else {
-                Task message;
-                if (split_message[0].equals("todo")) {
-                    message = Task.TODO;
-                    String task = " ";
-                    for (int i = 1; i < split_message.length; i++) {
-                        task = task + split_message[i] + " ";
-                    }
-                    task = task.strip();
-                    message.setTask(task);
-                } else if (split_message[0].equals("deadline")) {
-                    message = Task.DEADLINE;
-                    String content = " ";
-                    for (int i = 1; i < split_message.length; i++) {
-                        if (split_message[i].equals("/by")) {
-                            content = content.strip();
-                            message.setTask(content);
-                            content = "";
-                        } else {
-                            content = content + split_message[i] + " ";
-                        }
-                    }
-                    content = content.strip();
-                    message.setTo(content);
-                } else {
-                    message = Task.Event;
-                    String content = " ";
-                    for (int i = 1; i < split_message.length; i++) {
-                        if (split_message[i].equals("/from")) {
-                            content = content.strip();
-                            message.setTask(content);
-                            content = "";
-                        } else if (split_message[i].equals("/to")) {
-                            content = content.strip();
-                            message.setFrom(content);
-                            content = "";
-                        } else {
-                            content = content + split_message[i] + " ";
-                        }
-                    }
-                    content = content.strip();
-                    message.setTo(content);
-                }
-                storage.add(message);
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("       " + message.getMessage());
-                System.out.println("    Now you have " + storage.size() + " tasks in the list.");
+                chatbot.addTask(split_message);
             }
             System.out.println("    -----------------------------------");
         }

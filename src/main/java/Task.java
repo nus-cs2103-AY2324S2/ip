@@ -1,19 +1,19 @@
 enum Task {
     TODO("T") {
         @Override
-        public String getMessage() {
+        public String toString() {
             return "[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask();
         }
     },
     DEADLINE("D") {
         @Override
-        public String getMessage() {
+        public String toString() {
             return "[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask() + " (by: " + getTo() + ")";
         }
     },
     Event("E") {
         @Override
-        public String getMessage() {
+        public String toString() {
             return "[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask() + " (from: " + getFrom() + " to:" + getTo() + ")";
         }
     };
@@ -36,7 +36,7 @@ enum Task {
         return this.task;
     }
 
-    public abstract String getMessage();
+    public abstract String toString();
 
     public String getStatusIcon() {
         return this.isDone ? "X" : " ";
