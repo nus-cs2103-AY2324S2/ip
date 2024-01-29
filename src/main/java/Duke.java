@@ -6,7 +6,6 @@ import java.util.List;
 
 import java.io.IOException;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,125 +14,119 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 public class Duke {
-    public static void main(String[] args) {
-        String botName = "KokBot";
 
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
-        welcome(botName);
-        lineBreak();
-        Path path = Paths.get("data", "duke.txt");
+    public enum CommandType {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
+    }
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-        File file;
+    private Parser parser;
 
+    public Duke(Path filePath, String botName) {
+        ui = new Ui(botName);
+        storage = new Storage(filePath);
+        parser = new Parser();
         try {
-            file = getFile(path);
+            tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            lineBreak();
-            System.out.println(e.getMessage());
-            lineBreak();
-            return;
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split(",");
-                switch (parts[0]) {
-                    case "T" -> tasks.add(new Todo(parts[2]));
-                    case "D" -> tasks.add(new Deadline(parts[2], parts[3]));
-                    case "E" -> tasks.add(new Event(parts[2], parts[3], parts[4]));
-                }
-                if (parts[1].equals("X")) {
-                    tasks.get(tasks.size() - 1).markAsDone();
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
-        }
+    }
+    public void run() {
 
-        Scanner streamScan = new Scanner(System.in);
-        String input = streamScan.nextLine();
-
+        ui.showWelcome();
+        String input = ui.readCommand();
         while (true) {
             try {
                 if (input.equals("bye")) {
                     break;
                 }
-                String[] parts = input.split(" ");
-                switch (parts[0]) {
-                    case "list":
-                        printList(tasks);
-                        break;
-                    case "mark":
-                        int toMark = Integer.parseInt(parts[1]) - 1;
-                        markTask(tasks.get(toMark));
-                        break;
-                    case "unmark":
-                        int toUnmark = Integer.parseInt(parts[1]) - 1;
-                        unmarkTask(tasks.get(toUnmark));
-                        break;
-                    case "todo":
-                        tasks.add(createTodo(input));
-                        numList(tasks.size());
-                        break;
-                    case "deadline":
-                        tasks.add(createDeadline(parts));
-                        numList(tasks.size());
-                        break;
-                    case "event":
-                        tasks.add(createEvent(parts));
-                        numList(tasks.size());
-                        break;
-                    case "delete":
-                        deleteTask(parts, tasks);
-                        numList(tasks.size());
-                        break;
-                    default:
-                        throw new DukeException("Unknown command");
+                Command cmd = parser.parse(input);
+                switch (cmd.type) {
+                    case LIST -> ui.showTaskList(tasks.getTaskStrings());
+                    case MARK -> {
+                        int toMark = Integer.parseInt(cmd.args[0]) - 1;
+                        tasks.markTaskAsDone(toMark);
+                        ui.showTaskMarked(tasks.getTask(toMark));
+                    }
+                    case UNMARK -> {
+                        int toUnmark = Integer.parseInt(cmd.args[0]) - 1;
+                        tasks.markTaskAsUndone(toUnmark);
+                        ui.showTaskUnmarked(tasks.getTask(toUnmark));
+                    }
+                    case TODO -> {
+                        Todo newTodo = createTodo(cmd.args[0]);
+                        tasks.addTask(newTodo);
+                        ui.showTaskAdded(newTodo, tasks.getSize());
+                    }
+                    case DEADLINE -> {
+                        Deadline newDeadline = createDeadline(cmd.args[0], cmd.args[1]);
+                        tasks.addTask(newDeadline);
+                        ui.showTaskAdded(newDeadline, tasks.getSize());
+                        //numList(tasks.getSize());
+                    }
+                    case EVENT -> {
+                        Event newEvent = createEvent(cmd.args[0], cmd.args[1], cmd.args[2]);
+                        tasks.addTask(newEvent);
+                        ui.showTaskAdded(newEvent, tasks.getSize());
+                        //numList(tasks.getSize());
+                    }
+                    case DELETE -> {
+                        deleteTask(cmd.args[0], tasks);
+                        numList(tasks.getSize());
+                    }
+                    default -> throw new DukeException("Unknown command");
                 }
-                updateFile(path, tasks);
+                storage.updateFile(tasks.getFileStrings());
             } catch (DukeException e) {
                 lineBreak();
                 System.out.println(e.getMessage());
             }
             lineBreak();
-            input = streamScan.nextLine();
+            input = ui.readCommand();
         }
-        farewell();
+        ui.showGoodbye();
     }
 
-    public static File getFile(Path path) throws DukeException {
-        File file = new File(path.toString());
-        if (!file.exists()) {
-            try {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-                System.out.println(" New duke.txt file created!");
-            } catch (IOException e) {
-                throw new DukeException("Error creating file");
-            }
-        } else {
-            System.out.println(" Existing duke.txt file successfully retrieved!");
-        }
-        lineBreak();
-        return file;
+    public static void lineBreak() {
+        System.out.println("____________________________________________________________\n");
     }
 
-    public static void updateFile(Path path, ArrayList<Task> tasks) throws DukeException {
-        List<String> lines = new ArrayList<>();
-        for (Task task : tasks) {
-            lines.add(task.toFileString());
+    public static void numList(int len) {
+        System.out.printf(" Now you have %d tasks in the list.%n", len);
+    }
+
+    public static void printList(ArrayList<Task> tasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf(" %d. %s%n", i + 1, tasks.get(i));
         }
-        try {
-            Files.write(path, lines);
-        } catch (IOException e) {
-            throw new DukeException("Error writing to file");
-        }
+    }
+
+    public static void markTask(Task task) {
+        task.markAsDone();
+        System.out.println("____________________________________________________________");
+        System.out.println(" Nice! I've marked this task as done:");
+        System.out.printf(" %s%n", task);
+    }
+
+    public static void unmarkTask(Task task) {
+        task.markAsUndone();
+        System.out.println("____________________________________________________________");
+        System.out.println(" OK, I've marked this task as not done yet:");
+        System.out.printf(" %s%n", task);
+    }
+
+    public static void welcome(String botName) {
+        System.out.printf("""
+                ____________________________________________________________
+                 Hello! I'm %s
+                 What can I do for you?
+                %n""", botName);
     }
 
     public static LocalDateTime createDateTime(String input) throws DukeException {
@@ -186,130 +179,29 @@ public class Duke {
 
     }
 
-    public static void lineBreak() {
-        System.out.println("____________________________________________________________\n");
-    }
-
-    public static void numList(int len) {
-        System.out.printf(" Now you have %d tasks in the list.%n", len);
-    }
-
-    public static void printList(ArrayList<Task> tasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf(" %d. %s%n", i + 1, tasks.get(i));
-        }
-    }
-
-    public static void markTask(Task task) {
-        task.markAsDone();
-        System.out.println("____________________________________________________________");
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.printf(" %s%n", task);
-    }
-
-    public static void unmarkTask(Task task) {
-        task.markAsUndone();
-        System.out.println("____________________________________________________________");
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.printf(" %s%n", task);
-    }
-
-    public static void welcome(String botName) {
-        System.out.printf("""
-                ____________________________________________________________
-                 Hello! I'm %s
-                 What can I do for you?
-                %n""", botName);
-    }
-
-    public static Todo createTodo(String input) throws DukeException {
-        if (input.length() <= 5) {
-            throw new DukeException("Unknown usage - description should of \"todo\" should not be empty.");
-        }
-        Todo newTodo = new Todo(input.substring(5));
-        System.out.printf("""
-                ____________________________________________________________
-                 Got it. I've added this task:
-                   %s%n""", newTodo);
+    public static Todo createTodo(String description) throws DukeException {
+        Todo newTodo = new Todo(description);
         return newTodo;
     }
 
-    public static Deadline createDeadline(String[] parts) throws DukeException{
-        int i;
-        for (i = 0; i < parts.length; i++) {
-            if (parts[i].equals("/by")) {
-                break;
-            }
-        }
+    public static Deadline createDeadline(String description, String dueDate) throws DukeException{
 
-        if (i == parts.length) {
-            throw new DukeException("Unknown usage - /by not found in \"deadline\" command.");
-        }
-
-        String description = String.join(" ", Arrays.copyOfRange(parts, 1, i));
-        String dueDateStr = String.join(" ", Arrays.copyOfRange(parts, i + 1, parts.length));
-
-        if (description.equals("")) {
-            throw new DukeException("Unknown usage - description of \"deadline\" should not be empty.");
-        }
-        if (dueDateStr.equals("")) {
-            throw new DukeException("Unknown usage - due date of \"deadline\" should not be empty.");
-        }
-
-        LocalDateTime dueDateTime = createDateTime(dueDateStr);
+        LocalDateTime dueDateTime = createDateTime(dueDate);
         if (dueDateTime == null) {
             throw new DukeException("Unknown usage - due date of \"deadline\" is not in a valid date-time format.");
         }
 
-        Deadline newDeadline = new Deadline(description, dueDateTime);
-        System.out.printf("""
-                ____________________________________________________________
-                 Got it. I've added this task:
-                   %s%n""", newDeadline);
-        return newDeadline;
+        return new Deadline(description, dueDateTime);
     }
 
-    public static Event createEvent(String[] parts) throws DukeException{
-        int fromIndex = -1;
-        int toIndex = -1;
+    public static Event createEvent(String description, String startDate, String endDate) throws DukeException{
 
-        for (int i = 0; i < parts.length; i++) {
-            if (parts[i].equals("/from")) {
-                fromIndex = i;
-            } else if (parts[i].equals("/to")) {
-                toIndex = i;
-            }
-        }
-
-        if (fromIndex == -1) {
-            throw new DukeException("Unknown usage - /from not found in \"event\" command.");
-        }
-        if (toIndex == -1) {
-            throw new DukeException("Unknown usage - /to not found in \"event\" command.");
-        }
-
-        String description = String.join(" ", Arrays.copyOfRange(parts, 1, fromIndex));
-        String startDateStr = String.join(" ", Arrays.copyOfRange(parts, fromIndex + 1, toIndex));
-        String endDateStr = String.join(" ", Arrays.copyOfRange(parts, toIndex + 1, parts.length));
-
-        if (description.equals("")) {
-            throw new DukeException("Unknown usage - description of \"event\" should not be empty.");
-        }
-        if (startDateStr.equals("")) {
-            throw new DukeException("Unknown usage - start date of \"event\" should not be empty.");
-        }
-        if (endDateStr.equals("")) {
-            throw new DukeException("Unknown usage - end date of \"event\" should not be empty.");
-        }
-
-        LocalDateTime startDateTime = createDateTime(startDateStr);
+        LocalDateTime startDateTime = createDateTime(startDate);
         if (startDateTime == null) {
             throw new DukeException("Unknown usage - start date of \"event\" is not in a valid date-time format.");
         }
 
-        LocalDateTime endDateTime = createDateTime(endDateStr);
+        LocalDateTime endDateTime = createDateTime(endDate);
         if (endDateTime == null) {
             throw new DukeException("Unknown usage - end date of \"event\" is not in a valid date-time format.");
         }
@@ -318,29 +210,13 @@ public class Duke {
             throw new DukeException("Unknown usage - start date of \"event\" is after end date.");
         }
 
-        Event newEvent = new Event(description, startDateTime, endDateTime);
-        System.out.println(String.format("""
-                ____________________________________________________________
-                 Got it. I've added this task:
-                   %s""", newEvent));
-        return newEvent;
+        return new Event(description, startDateTime, endDateTime);
     }
 
-    public static void deleteTask (String[] parts, ArrayList<Task> tasks) throws DukeException {
-        if (parts.length == 1) {
-            throw new DukeException("Unknown usage - task number should be included in \"delete\" command");
-        }
-        for (char c : parts[1].toCharArray()) {
-            if (!Character.isDigit(c)) {
-                throw new DukeException("Unknown usage - task number given is not a valid number");
-            }
-        }
-        int i = Integer.parseInt(parts[1]) - 1;
-        if (i < 0 || i >= tasks.size()) {
-            throw new DukeException("Unknown usage - task number given is not a valid number");
-        }
+    public static void deleteTask (String toRemove,  TaskList tasks) throws DukeException {
 
-        Task removedTask = tasks.remove(i);
+        int i = Integer.parseInt(toRemove) - 1;
+        Task removedTask = tasks.deleteTask(i );
         System.out.println(String.format("""
                 ____________________________________________________________
                  Noted. I've removed this task:
@@ -352,5 +228,11 @@ public class Duke {
                  Bye. Hope to see you again soon!
                 ____________________________________________________________
                  """);
+    }
+
+    public static void main(String[] args) {
+        String botName = "KokBot";
+        Path path = Paths.get("data", "duke.txt");
+        new Duke(path, botName).run();
     }
 }
