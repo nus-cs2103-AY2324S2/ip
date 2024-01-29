@@ -7,7 +7,7 @@ import java.io.IOException;
 
 
 public class Storage {
-    String filePath;
+    protected String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -20,8 +20,6 @@ public class Storage {
             if (!new File("../../../data").exists()) {
                 new File("../../../data").mkdirs();    
             }
-            
-
             File file = new File(filePath);
             Scanner sc = new Scanner(file);
             ArrayList<String> dataFromFile = new ArrayList<>();

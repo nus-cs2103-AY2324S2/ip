@@ -8,7 +8,7 @@ public class Ui {
     public String showLoadingError() {
         return "Error loading the data!";
     }
-
+    
     public String end() {
         return "Bye. Hope to see you again soon!";
     }

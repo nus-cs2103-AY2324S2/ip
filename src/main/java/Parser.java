@@ -1,10 +1,7 @@
 public class Parser {
-
-    private boolean terminate = false;
-    String input;
-    TaskList taskList;
-
-    // Just init;
+    protected boolean terminate = false;
+    protected String input;
+    protected TaskList taskList;
 
     public String parse(String input, TaskList taskList) throws TinyException {
         this.input = input;
