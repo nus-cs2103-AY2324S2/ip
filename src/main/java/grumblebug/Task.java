@@ -3,6 +3,9 @@ package grumblebug;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task that is added by user. Can be of several different types.
+ */
 public class Task {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
@@ -36,10 +39,18 @@ public class Task {
         this.endDate = end;
     }
 
+    /**
+     * To return a representation of doneness of task.
+     * @return X or no X, for doneness.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * To return full status representing a task.
+     * @return a String that is readable easily, showing task info.
+     */
     public String getFullStatus() {
         String status = ". [" + this.getStatusIcon() + "] ["
                 + this.taskType + "] "
@@ -53,6 +64,10 @@ public class Task {
         return status;
     }
 
+    /**
+     * Set the doneness state of a task.
+     * @param doneness Boolean representing new state to set.
+     */
     public void setDone(boolean doneness) {
         this.isDone = doneness;
     }

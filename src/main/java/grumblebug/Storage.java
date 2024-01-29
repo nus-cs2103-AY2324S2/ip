@@ -6,8 +6,17 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Class represents the object used to deal with storage into and out of the local file.
+ */
 public class Storage {
     // load data from hard disk
+
+    /**
+     * Load any previously stored task data into the current taskList.
+     * @param filePath The path to the storage file.
+     * @param taskList The taskList to store this data into.
+     */
     public static void loadFromFile(String filePath, TaskList taskList) {
         Parser parserStorage = new Parser("yyyy-MM-dd");
         try {
@@ -43,7 +52,13 @@ public class Storage {
         }
     }
 
-    public static void writeToFile(String filePath, TaskList taskList) throws IOException {
+    /**
+     * Write newly acquired task data into the storage.
+     * @param filePath The path to the storage to write into.
+     * @param taskList The taskList of tasks to add.
+     * @throws IOException
+     */
+    public void writeToFile(String filePath, TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < taskList.size(); i++) {

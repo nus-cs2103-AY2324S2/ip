@@ -2,7 +2,9 @@ package grumblebug;
 
 import java.util.Scanner;
 
-
+/**
+ * Represents the overall chatbot object, with text input/output capabilities.
+ */
 public class GrumbleBug {
     private Storage storage;
     private TaskList taskList;
@@ -26,6 +28,9 @@ public class GrumbleBug {
         bot.runBot();
     }
 
+    /**
+     * Runs the GrumbleBug chatbot interactions with the user, in a loop until it is terminated by user.
+     */
     public void runBot() {
         this.storage.loadFromFile(filePath, taskList);
         this.ui.start();
@@ -54,6 +59,7 @@ public class GrumbleBug {
                 // error, cannot understand
                 ui.badInput();
             }
+            this.storage.writeToFile(filePath, taskList);
         }
     }
 }
