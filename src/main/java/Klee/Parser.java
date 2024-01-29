@@ -4,9 +4,23 @@ import Klee.command.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a parser to parse String input from the user.
+ */
 public class Parser {
+    /**
+     * Constructor for Parser class.
+     */
     public Parser () {}
 
+    /**
+     * Parse the String dateTime into a LocalDateTime instance.
+     * If the syntax of dateTime cannot be understood throw KleeException.
+     *
+     * @param dateTime
+     * @return LocalDateTime instance.
+     * @throws KleeException
+     */
     public static LocalDateTime parseDateTime(String dateTime) throws KleeException {
         String[] splitDateTime = dateTime.split(" ");
         int year = 0;
@@ -48,6 +62,14 @@ public class Parser {
         return returnVariable;
     }
 
+    /**
+     * Given input String try to derive which command it is and return an instance of Command.
+     * If input is in the wrong syntax throw KleeException.
+     *
+     * @param input
+     * @return Command instance
+     * @throws KleeException
+     */
     public Command parseInput (String input) throws KleeException {
         switch (input) {
         case "bye":
