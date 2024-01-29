@@ -1,10 +1,6 @@
-import java.io.IOException;
-import java.util.ArrayList;
+package grumblebug;
+
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 
 public class GrumbleBug {
