@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 public class Storage {
     String filePath;
 
@@ -15,6 +16,12 @@ public class Storage {
     // Returns a string of message to be parsed.
     public ArrayList<String> load() throws TinyException {
         try {
+            //Creating the folder if it does not exists
+            if (!new File("../../../data").exists()) {
+                new File("../../../data").mkdirs();    
+            }
+            
+
             File file = new File(filePath);
             Scanner sc = new Scanner(file);
             ArrayList<String> dataFromFile = new ArrayList<>();
