@@ -148,7 +148,7 @@ public class Kervyn {
                     break;
                 case 'E':
                     Event eventTask = (Event) task;
-                    System.out.println("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from:" + eventTask.getStartDate() + " to:" + eventTask.getEndDate() + ")");
+                    System.out.println("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")");
                     break;
             }
         }
@@ -188,6 +188,13 @@ public class Kervyn {
             }
             String[] deadlineDescriptionArray = deadlineProcessedInput[0].split(" ");
 
+            StringBuilder deadlineDescription = new StringBuilder();
+
+            for (int i = 1; i < deadlineDescriptionArray.length; i++) {
+                deadlineDescription.append(" ");
+                deadlineDescription.append(deadlineDescriptionArray[i]);
+            }
+
             String[] deadlineTimeArray = userInput.split("/by");
             // No longer a String
             String convertedDeadline = convertDate(deadlineTimeArray[1].trim());
@@ -195,12 +202,6 @@ public class Kervyn {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             LocalDateTime deadline = LocalDateTime.parse(convertedDeadline,  formatter);
 
-            StringBuilder deadlineDescription = new StringBuilder();
-
-            for (int i = 1; i < deadlineDescriptionArray.length; i++) {
-                deadlineDescription.append(" ");
-                deadlineDescription.append(deadlineDescriptionArray[i]);
-            }
             taskAdded();
             return new Deadline(deadlineDescription.toString(), false, deadline);
         }

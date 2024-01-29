@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Writer {
@@ -50,6 +51,7 @@ public class Writer {
         ArrayList<Task> userRequests = new ArrayList<Task>();
         try {
             ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, ha");
             for (String line : lines) {
                 char[] lineToCharArr = line.toCharArray();
                 char type = lineToCharArr[1];
@@ -69,7 +71,7 @@ public class Writer {
 
                         String temp = finalSplitContent[1];
                         String deadlineStr = temp.substring(0, temp.length() - 1).trim();
-                        LocalDateTime deadline = LocalDateTime.parse(deadlineStr);
+                        LocalDateTime deadline = LocalDateTime.parse(deadlineStr, formatter);
 
                         description = furtherSplitContent[0].trim();
                         Deadline newDeadline = new Deadline(description, false, deadline);
@@ -84,8 +86,11 @@ public class Writer {
                         String startDateStr = splitAtFrom[1].trim();
                         temp = splitAtTo[1];
                         String endDateStr = temp.substring(0, temp.length() - 1).trim();
-//                        Event newEvent = new Event(description, false, startDateStr, endDateStr);
-//                        userRequests.add(newEvent);
+
+                        LocalDateTime startDate = LocalDateTime.parse(startDateStr, formatter);
+                        LocalDateTime endDate = LocalDateTime.parse(endDateStr, formatter);
+                        Event newEvent = new Event(description, false, startDate, endDate);
+                        userRequests.add(newEvent);
                         break;
                 }
             }
