@@ -1,4 +1,7 @@
-import java.util.Arrays;
+package jivox;
+
+
+import jivox.exception.JivoxException;
 
 public class Parser {
     public COMMANDS parseCommand(String rawInput) throws JivoxException {

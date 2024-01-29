@@ -1,3 +1,4 @@
+package jivox.task;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -7,6 +8,7 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks){
         this.tasks = tasks;
     }
+
 
     public void delete(int taskNum){
         this.tasks.remove(taskNum);
