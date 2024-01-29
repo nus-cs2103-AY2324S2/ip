@@ -38,7 +38,11 @@ public class Youdon {
                     System.out.println((i + 1) + ". " + taskList[i].toString());
                 }
                 System.out.println(line);
-                data = input.nextLine();
+                if (input.hasNextLine()) {
+                    data = input.nextLine();
+                } else {
+                    data = "";
+                }
                 continue;
             }
 
@@ -56,10 +60,14 @@ public class Youdon {
 
                     // print out changes
                     System.out.println(line);
-                    System.out.println("Nicely done! The task has been marked as done: ");
+                    System.out.println("Nicely done! The task has been marked as done:");
                     System.out.println("  " + taskList[taskNumber - 1].toString());
                     System.out.println(line);
-                    data = input.nextLine();
+                    if (input.hasNextLine()) {
+                        data = input.nextLine();
+                    } else {
+                        data = "";
+                    }
                     continue;
                 }
 
@@ -74,7 +82,11 @@ public class Youdon {
                     System.out.println("Okies! The task has been marked as undone: ");
                     System.out.println("  " + taskList[taskNumber - 1].toString());
                     System.out.println(line);
-                    data = input.nextLine();
+                    if (input.hasNextLine()) {
+                        data = input.nextLine();
+                    } else {
+                        data = "";
+                    }
                     continue;
                 }
 
@@ -125,7 +137,11 @@ public class Youdon {
                         index++;
                     }
                 }
-                data = input.nextLine();
+                if (input.hasNextLine()) {
+                    data = input.nextLine();
+                } else {
+                    data = "";
+                }
             }
         }
     }
