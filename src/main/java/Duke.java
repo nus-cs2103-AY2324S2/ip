@@ -1,19 +1,28 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 enum TodoState {
-    UNDONE,
-    DONE
+    UNDONE, DONE
 }
+
 class Todo extends Task {
     public Todo(String task) {
         super(task);
     }
 
+    public Todo(String task, TodoState todoState) {
+        super(task, todoState);
+    }
+
     @Override
     public String toString() {
         return "[T] " + super.toString();
+    }
+    @Override
+    public String toFileString() {
+        return "T | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task;
     }
 }
 
@@ -25,9 +34,18 @@ class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public Deadline(String task, String deadline, TodoState todoState) {
+        super(task, todoState);
+        this.deadline = deadline;
+    }
+
     @Override
     public String toString() {
         return "[D] " + super.toString() + "(by: " + deadline + ")";
+    }
+    @Override
+    public String toFileString() {
+        return "D | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task + " | " + deadline;
     }
 }
 
@@ -41,9 +59,20 @@ class Event extends Task {
         this.end = end;
     }
 
+    public Event(String task, String start, String end, TodoState todoState) {
+        super(task, todoState);
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public String toString() {
         return "[E] " + super.toString() + "(from: " + start + " to: " + end + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "E | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task + " | " + start + " | " + end;
     }
 }
 
@@ -56,12 +85,20 @@ abstract class Task {
         this.task = task;
     }
 
+    public Task(String task, TodoState todoState) {
+        this.todoState = todoState;
+        this.task = task;
+    }
+
 
     @Override
     public String toString() {
         return "[" + (todoState == TodoState.DONE ? "X" : " ") + "] " + task;
     }
+
+    public abstract String toFileString();
 }
+
 
 class DukeException extends Exception {
     public DukeException(String message) {
@@ -71,13 +108,39 @@ class DukeException extends Exception {
 
 public class Duke {
     static String line = "____________________________________________________________";
+    static String dataDir = "./data";
+    static String dataPath = dataDir + "/duke.txt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         System.out.println(line);
         System.out.println("Hello! I'm Brian\nWhat can I do for you?");
         System.out.println(line);
         ArrayList<Task> data = new ArrayList<>();
+        // Create file it it does not exist
+        new File(dataDir).mkdirs();
+        File file = new File(dataPath);
+        file.createNewFile();
+        // Read file
+        Scanner fileScanner = new Scanner(file);
+        while (fileScanner.hasNext()) {
+            String[] split = fileScanner.nextLine().split(" \\| ");
+            TodoState state = split[1].equals("1") ? TodoState.DONE : TodoState.UNDONE;
+            switch (split[0]) {
+                case "T": {
+                    data.add(new Todo(split[2], state));
+                    break;
+                }
+                case "D": {
+                    data.add(new Deadline(split[2], split[3], state));
+                    break;
+                }
+                case "E": {
+                    data.add(new Event(split[2], split[3], split[4], state));
+                    break;
+                }
+            }
+        }
         Scanner sc = new Scanner(System.in);
         while (true) {
             String[] input = sc.nextLine().split(" ", 2);
@@ -85,7 +148,6 @@ public class Duke {
             String params = input.length == 1 ? "" : input[1];
             System.out.println(line);
             try {
-
                 switch (method) {
                     case "list": {
                         for (int i = 0; i < data.size(); i++) {
@@ -173,6 +235,14 @@ public class Duke {
                     }
                     case "bye": {
                         System.out.println("Bye. Hope to see you again soon!");
+                        // write to disk
+                        file.delete();
+                        Writer fileWriter = new FileWriter(file);
+                        for (Task task: data) {
+                            fileWriter.write(task.toFileString() + "\n");
+                        }
+                        fileWriter.flush();
+                        fileWriter.close();
                         System.exit(0);
                         break;
                     }
