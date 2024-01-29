@@ -1,4 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+
 import exceptions.BluException;
 import exceptions.InvalidCommandException;
 import exceptions.IllegalCommandException;
@@ -7,6 +11,7 @@ public class InputHandler {
     private static final String BY_PARAM = "/by";
     private static final String FROM_PARAM = "/from";
     private static final String TO_PARAM = "/to";
+    private static final DateTimeFormatter INPUT_DATETIMEFORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     private int findParamIdx(String[] tokens, String param) {
         for (int i = 0; i < tokens.length; i++) {
@@ -104,8 +109,14 @@ public class InputHandler {
                     throw new IllegalCommandException("Datetime of deadline cannot be empty.\n"
                                                             + "Usage: deadline <task_title> /by <datetime>");
                 }
-                String deadlineBy = getParamValue(tokens, paramIdx, tokens.length);
-                bot.addTask(new Deadline(deadlineTitle, deadlineBy));
+                String byStr = getParamValue(tokens, paramIdx, tokens.length);
+                try {
+                    LocalDateTime byDateTime = LocalDateTime.parse(byStr, INPUT_DATETIMEFORMAT);
+                    bot.addTask(new Deadline(deadlineTitle, byDateTime));
+                } catch (DateTimeParseException e) {
+                    throw new IllegalCommandException("Invalid DateTime format.\n"
+                                                        + "Please use dd-MM-yyyy format.");
+                }
                 break;
             case EVENT:
                 baseIdx = 0;
@@ -126,10 +137,19 @@ public class InputHandler {
                     throw new IllegalCommandException("Datetimes of event cannot be empty.\n"
                                                             + "Usage: event <task_title> /from <datetime> /to <datetime>");
                 }
-                String eventFrom = getParamValue(tokens, fromParamIdx, toParamIdx);
-                System.out.println(eventFrom);
-                String eventTo = getParamValue(tokens, toParamIdx, tokens.length);
-                bot.addTask(new Event(eventTitle, eventFrom, eventTo));
+                String fromStr = getParamValue(tokens, fromParamIdx, toParamIdx);
+                try {
+                    LocalDateTime fromDateTime = LocalDateTime.parse(fromStr, INPUT_DATETIMEFORMAT);
+                    String toStr = getParamValue(tokens, toParamIdx, tokens.length);
+                    LocalDateTime toDateTime = LocalDateTime.parse(toStr, INPUT_DATETIMEFORMAT);
+                    bot.addTask(new Event(eventTitle, fromDateTime, toDateTime));
+                    if (fromDateTime.isAfter(toDateTime)) {
+                        throw new IllegalCommandException("From Datetime is later than To Datetime");
+                    }
+                } catch (DateTimeParseException e) {
+                    throw new IllegalCommandException("Invalid DateTime format.\n"
+                                                        + "Please use dd-MM-yyyy format.");
+                }
                 break;
             case DELETE:
                 if (!iskNumberOfParamCorrect(tokens, 2)) {

@@ -4,7 +4,7 @@ import exceptions.BluException;
 
 public class Blu {
     private static final String PROMPT = "> ";
-    private static final String STORAGE_PATH = "./data.csv";
+    private static final String STORAGE_PATH = "../data/data.csv";
     private static Storage storage;
 
     private static String readUserInput(Scanner scanner) {

@@ -12,6 +12,12 @@ then
     rm ACTUAL.TXT
 fi
 
+# delete data.csv from previous run
+if [ -e "../data/data.csv" ]
+then
+    rm ../data/data.csv
+fi
+
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java ../src/main/java/**/*.java
 then
