@@ -3,3 +3,4 @@ E | 0 | dinner | sat 6pm-sat 8pm
 D | 0 | homework | tmr 9pm
 E | 0 | go out with john | sun 8am-sum11am
 D | 0 | finish 2103 project | friday
+E | 0 | drinking | friday 7pm-saturday 2am

@@ -243,7 +243,7 @@ public class Ypxmm {
                     if (info[1].isBlank()) {
                         throw new YpxmmException("Help la, can just tell me what is the name of your task anot?");
                     }
-                    Task t = new ToDo(info[1]);
+                    Task t = new ToDo(info[1].trim());
                     tasks.add(t);
                     appendToFile(t.toWrite());
                     System.out.println("Ok I help you add this one liao:\n" + t.toString() +
@@ -261,7 +261,7 @@ public class Ypxmm {
                     if (info[0].split("deadline ")[1].isBlank() || info[1].isBlank()) {
                         throw new YpxmmException("Help la, can just tell me what is the name of your task anot?");
                     }
-                    Task t = new Deadline(info[0].substring(9), info[1]);
+                    Task t = new Deadline(info[0].substring(9).trim(), info[1].trim());
                     tasks.add(t);
                     appendToFile(t.toWrite());
                     System.out.println("Ok I help you add this one liao:\n" + t.toString() +
@@ -280,7 +280,7 @@ public class Ypxmm {
                     if (info[0].split("event ")[1].isBlank() || info[1].isBlank() || info[2].isBlank()) {
                         throw new YpxmmException("Help la, can just tell me what is the name of your task anot?");
                     }
-                    Task t = new Event(info[0].substring(6), info[1], info[2]);
+                    Task t = new Event(info[0].substring(6).trim(), info[1].trim(), info[2].trim());
                     tasks.add(t);
                     appendToFile(t.toWrite());
                     System.out.println("Ok I help you add this one liao:\n" + t.toString() +
