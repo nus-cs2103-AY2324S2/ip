@@ -16,7 +16,7 @@ public class Deadline extends Task {
     }
 
     public String getFormattedBy() {
-        return this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a z"));
+        return this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
     }
     @Override
     public String createSaveData() {

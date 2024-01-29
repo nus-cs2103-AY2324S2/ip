@@ -241,7 +241,7 @@ public class ChatBot {
 
     public void addDeadline(String description, String by, boolean isDone) {
         try {
-            LocalDateTime byDateTime = LocalDateTime.parse(by);
+            LocalDateTime byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy Hmm"));
             this.addTask(new Deadline(description, byDateTime, isDone));
         } catch (DateTimeParseException e) {
             System.out.println("Wrong Date Time format " + by);
