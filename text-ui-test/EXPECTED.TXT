@@ -12,37 +12,30 @@ ____________________________________________________________
 ____________________________________________________________
 > ____________________________________________________________
 I have added the task:
-[D][ ] return book (By: Sunday)
+[D][ ] return book (By: Oct 12 2024, 10:00)
 You have 2 tasks currently.
 ____________________________________________________________
 > ____________________________________________________________
 Marked task as done:
 [T][X] borrow book
 ____________________________________________________________
-> ____________________________________________________________
-I have added the task:
-[E][ ] project meeting (From: Mon To: 4pm)
-You have 3 tasks currently.
-____________________________________________________________
+> BluException:
+Illegal Command Format: Invalid DateTime format.
+Please use dd-MM-yyyy format.
 > ____________________________________________________________
 Unmarked task as not done:
 [T][ ] borrow book
 ____________________________________________________________
 > ____________________________________________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (By: Sunday)
-3. [E][ ] project meeting (From: Mon To: 4pm)
+2. [D][ ] return book (By: Oct 12 2024, 10:00)
 ____________________________________________________________
-> ____________________________________________________________
-I have added the task:
-[D][ ] do homework (By: no idea :-p)
-You have 4 tasks currently.
-____________________________________________________________
+> BluException:
+Illegal Command Format: Invalid DateTime format.
+Please use dd-MM-yyyy format.
 > ____________________________________________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (By: Sunday)
-3. [E][ ] project meeting (From: Mon To: 4pm)
-4. [D][ ] do homework (By: no idea :-p)
+2. [D][ ] return book (By: Oct 12 2024, 10:00)
 ____________________________________________________________
 > BluException:
 Illegal Command Format: Description of a todo cannot be empty.
@@ -71,11 +64,9 @@ Usage: deadline <task_title> /by <datetime>
 > BluException:
 Illegal Command Format: Datetime of deadline cannot be empty.
 Usage: deadline <task_title> /by <datetime>
-> ____________________________________________________________
-I have added the task:
-[D][ ] a (By: 2pm)
-You have 5 tasks currently.
-____________________________________________________________
+> BluException:
+Illegal Command Format: Invalid DateTime format.
+Please use dd-MM-yyyy format.
 > BluException:
 Illegal Command Format: /from or /to not found!
 Usage: event <task_title> /from <datetime> /to <datetime>
@@ -88,32 +79,31 @@ Usage: event <task_title> /from <datetime> /to <datetime>
 > BluException:
 Illegal Command Format: Datetimes of event cannot be empty.
 Usage: event <task_title> /from <datetime> /to <datetime>
-> ____________________________________________________________
-I have added the task:
-[E][ ] important event (From:  To: 3pm)
-You have 6 tasks currently.
-____________________________________________________________
+> BluException:
+Illegal Command Format: Invalid DateTime format.
+Please use dd-MM-yyyy format.
 > ____________________________________________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (By: Sunday)
-3. [E][ ] project meeting (From: Mon To: 4pm)
-4. [D][ ] do homework (By: no idea :-p)
-5. [D][ ] a (By: 2pm)
-6. [E][ ] important event (From:  To: 3pm)
+2. [D][ ] return book (By: Oct 12 2024, 10:00)
 ____________________________________________________________
 > ____________________________________________________________
 Deleted task from list:
 [T][ ] borrow book
-You have 5 tasks currently
+You have 1 tasks currently
 ____________________________________________________________
 > BluException:
 Illegal Parameter: Failed to delete task. Task number 999 does not exist!
 Please use the list command to view task numbers.
+> BluException:
+Illegal Parameter: Failed to delete task. Task number 2 does not exist!
+Please use the list command to view task numbers.
 > ____________________________________________________________
-Deleted task from list:
-[E][ ] project meeting (From: Mon To: 4pm)
-You have 4 tasks currently
+I have added the task:
+[E][ ] project meeting (From: Oct 12 2024, 12:00 To: Oct 12 2024, 10:00)
+You have 2 tasks currently.
 ____________________________________________________________
+BluException:
+Illegal Command Format: From Datetime is later than To Datetime
 > ____________________________________________________________
 Goodbye!
 ____________________________________________________________

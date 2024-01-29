@@ -1,7 +1,8 @@
+import java.time.LocalDateTime;
+
 import exceptions.BluException;
 
 public class TaskDecoder {
-
     private static ToDo parseToDo(String[] tokens) {
         ToDo todo = new ToDo(tokens[2]);
         if (tokens[1] == "T") {
@@ -11,7 +12,7 @@ public class TaskDecoder {
     }
 
     private static Deadline parseDeadline(String[] tokens) {
-        Deadline deadline = new Deadline(tokens[2], tokens[3]);
+        Deadline deadline = new Deadline(tokens[2], LocalDateTime.parse(tokens[3]));
         if (tokens[1] == "T") {
             deadline.setMarked();
         }
@@ -19,7 +20,8 @@ public class TaskDecoder {
     }
 
     private static Event parseEvent(String[] tokens) {
-        Event event = new Event(tokens[2], tokens[3], tokens[4]);
+        Event event = new Event(tokens[2], LocalDateTime.parse(tokens[3])
+                        , LocalDateTime.parse(tokens[4]));
         if (tokens[1] == "T") {
             event.setMarked();
         }
