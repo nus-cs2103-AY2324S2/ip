@@ -55,8 +55,8 @@ public class Event extends Task {
      */
     @Override
     public String toStorageString() {
-        return CommandType.EVENT.toString() + " " + super.toStorageString() + " "
-                + MyDateTime.formatter(this.from) + " " + MyDateTime.formatter(this.to);
+        return CommandType.EVENT.toString() + " , " + super.toStorageString() + " , "
+                + MyDateTime.formatter(this.from) + " , " + MyDateTime.formatter(this.to);
     }
 
     /**

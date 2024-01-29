@@ -14,14 +14,15 @@ public class FileManaging {
      * @throws FileNotFoundException if file is not found.
      * @throws DukeException if there is storage format wrong.
      */
-    public static void readFileContent(String filePath, List<Task> storage) throws FileNotFoundException, DukeException {
+    public static void readFileContent(String filePath, TaskList storage) throws FileNotFoundException, DukeException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
 
         while (s.hasNext()) {
             // Create a Task object and store into local array.
             String line = s.nextLine();
-            String[] arr = line.split(" ");
+            String[] arr = line.split(" , ");
+
             if (arr.length == 3) {
                 Task curr = Task.of(arr[0], Integer.parseInt(arr[1]) == 1 , arr[2]);
                 storage.add(curr);
@@ -47,21 +48,10 @@ public class FileManaging {
      * @param storage
      * @throws IOException
      */
-    public static void writeToFile(String filePath, List<Task> storage) throws IOException {
+    public static void writeToFile(String filePath, TaskList storage) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 
-        StringBuffer textToWrite = new StringBuffer("");
-
-        for (Task item : storage) {
-            if (textToWrite.toString().equals("")) {
-                textToWrite.append(item.toStorageString());
-            } else {
-                textToWrite.append("\n");
-                textToWrite.append(item.toStorageString());
-            }
-        }
-
-        fw.write(textToWrite.toString());
+        fw.write(storage.storageListing());
         fw.close();
     }
 }

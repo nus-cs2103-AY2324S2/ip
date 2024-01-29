@@ -49,7 +49,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageString() {
-        return CommandType.DEADLINE.toString() + " " + super.toStorageString() + " " + MyDateTime.formatter(this.by);
+        return CommandType.DEADLINE.toString() + " , "
+                + super.toStorageString() + " , " + MyDateTime.formatter(this.by);
     }
 
     /**
