@@ -1,4 +1,4 @@
-public class Deadline extends Task {
+class Deadline extends Task {
 
     protected String by;
 
@@ -10,5 +10,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    public String toFileFormat() {
+        String completed = this.isDone ? "1" : "0";
+        return "D | " + completed + " | " + this.description + " | " + this.by;
     }
 }
