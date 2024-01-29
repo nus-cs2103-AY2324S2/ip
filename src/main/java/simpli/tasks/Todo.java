@@ -1,8 +1,13 @@
 package simpli.tasks;
 
 public class Todo extends Task {
-    public Todo(String name) {
-        super(name);
+    public Todo(boolean isDone, String name) {
+        super(isDone, name);
+    }
+
+    @Override
+    public String toCsv() {
+        return "Todo," + super.toCsv();
     }
 
     @Override

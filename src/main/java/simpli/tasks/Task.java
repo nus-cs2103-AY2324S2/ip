@@ -4,9 +4,9 @@ public class Task {
     private final String name;
     private boolean isDone;
 
-    public Task(String name) {
+    public Task(boolean isDone, String name) {
         this.name = name;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void done() {
@@ -15,6 +15,10 @@ public class Task {
 
     public void undone() {
         this.isDone = false;
+    }
+
+    public String toCsv() {
+        return String.format("%s,%s", isDone ? 1 : 0, name);
     }
 
     public String toString() {
