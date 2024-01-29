@@ -22,7 +22,7 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
         String user_input = sc.nextLine();
-        //conditions 
+        //conditions
         while (!user_input.equals("bye")) {
             try {
                 String[] inputArray = user_input.split(" ");
