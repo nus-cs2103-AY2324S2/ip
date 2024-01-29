@@ -1,13 +1,8 @@
 import java.io.Serializable;
-<<<<<<< HEAD
-
-public class Deadline extends Task implements Serializable {
-=======
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
->>>>>>> branch-Level-8
 
 public class Deadline extends Task implements Serializable {
 

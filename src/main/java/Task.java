@@ -1,9 +1,7 @@
 import java.io.Serializable;
-<<<<<<< HEAD
-=======
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
->>>>>>> branch-Level-8
+
 
 public class Task implements Serializable {
     private String description;

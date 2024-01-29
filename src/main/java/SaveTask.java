@@ -64,9 +64,4 @@ public class SaveTask {
         return tasks;
     }
 
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> branch-Level-8
