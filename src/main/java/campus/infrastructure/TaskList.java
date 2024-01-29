@@ -75,6 +75,17 @@ public class TaskList {
         return this.tasks;
     }
 
+    public TaskList getTaskListWhere(String string) {
+        TaskList temp = new TaskList();
+
+        for (Task task : this.tasks) {
+            if (task.taskName.contains(string)) {
+                temp.add(task);
+            }
+        }
+        return temp;
+    }
+
     public Task getIthTaskInteger(int index) {
         return this.tasks.get(index);
     }

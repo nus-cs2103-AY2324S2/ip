@@ -91,11 +91,19 @@ public class Parser {
             return false;
         case "":
             break;
+        case "find":
+            handleFindCommand(remaining);
+            break;
         default:
             throw new CampusException("Sorry, I don't understand that command, please check for potential spelling errors");
         }
         this.storage.updateFileFromList(this.taskList);
         return true;
+    }
+
+    public void handleFindCommand(String remaining) {
+        TaskList tempTaskList = this.taskList.getTaskListWhere(remaining);
+        this.ui.display(tempTaskList);
     }
 
     /**
