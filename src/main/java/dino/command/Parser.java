@@ -28,73 +28,73 @@ public class Parser {
 
     public void parseCommand(String command) {
 
-        while (true) {
-            switch (command) {
-                case "list":
-                    tasks.listTask();
-                    break;
 
-                case "bye":
-                    break;
+        switch (command) {
+            case "list":
+                tasks.listTask();
+                break;
 
-                case "delete":
-                    try {
-                        int taskNum = sc.nextInt();
-                        tasks.deleteTask(taskNum);
-                    } catch (DinoException e) {
-                        System.out.println("Error: " + e.getMessage());
-                    }
-                    break;
+            case "bye":
+                break;
 
-                case "todo":
-                    taskType = Dino.TaskType.TODO;
-                    handleTaskCreation(sc, taskType);
-                    break;
-
-                case "deadline":
-                    taskType = Dino.TaskType.DEADLINE;
-                    handleTaskCreation(sc, taskType);
-                    break;
-
-                case "event":
-                    taskType = Dino.TaskType.EVENT;
-                    handleTaskCreation(sc, taskType);
-                    break;
-
-                case "filter":
-                    printTasksForDate(sc);
-                    break;
-
-                case "mark":
+            case "delete":
+                try {
                     int taskNum = sc.nextInt();
-                    if (taskNum > tasks.size()) {
-                        System.out.println("Uh oh, we do not have a task assigned to that number.");
-                    } else {
-                        System.out.println("Good job on completing the task! I have checked it off the list.");
-                        Task completed = tasks.get(taskNum - 1);
-                        completed.markAsDone();
-                    }
-                    break;
+                    tasks.deleteTask(taskNum);
+                } catch (DinoException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+                break;
 
-                case "unmark":
-                    int taskNumber = sc.nextInt();
-                    if (taskNumber > tasks.size()) {
-                        System.out.println("Uh oh, we do not have a task assigned to that number.");
-                    } else {
-                        System.out.println("Ah, I will mark it as undone. Remember to do it asap!");
-                        Task missing = tasks.get(taskNumber - 1);
-                        missing.markAsUndone();
-                    }
-                    break;
+            case "todo":
+                taskType = Dino.TaskType.TODO;
+                handleTaskCreation(sc, taskType);
+                break;
 
-                default:
-                    try {
-                        throw new DinoException("I don't understand ;;");
-                    } catch (DinoException e) {
-                        System.out.println("Error: " + e.getMessage());
-                    }
-                    break;
-            }
+            case "deadline":
+                taskType = Dino.TaskType.DEADLINE;
+                handleTaskCreation(sc, taskType);
+                break;
+
+            case "event":
+                taskType = Dino.TaskType.EVENT;
+                handleTaskCreation(sc, taskType);
+                break;
+
+            case "filter":
+                printTasksForDate(sc);
+                break;
+
+            case "mark":
+                int taskNum = sc.nextInt();
+                if (taskNum > tasks.size()) {
+                    System.out.println("Uh oh, we do not have a task assigned to that number.");
+                } else {
+                    System.out.println("Good job on completing the task! I have checked it off the list.");
+                    Task completed = tasks.get(taskNum - 1);
+                    completed.markAsDone();
+                }
+                break;
+
+            case "unmark":
+                int taskNumber = sc.nextInt();
+                if (taskNumber > tasks.size()) {
+                    System.out.println("Uh oh, we do not have a task assigned to that number.");
+                } else {
+                    System.out.println("Ah, I will mark it as undone. Remember to do it asap!");
+                    Task missing = tasks.get(taskNumber - 1);
+                    missing.markAsUndone();
+                }
+                break;
+
+            default:
+                try {
+                    throw new DinoException("I don't understand ;;");
+                } catch (DinoException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+                break;
+
         }
     }
 

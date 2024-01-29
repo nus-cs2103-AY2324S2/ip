@@ -23,10 +23,6 @@ public class Storage {
         TaskList taskList = new TaskList();
         try {
             File file = new File(filePath);
-            if (!file.exists()) {
-                System.out.println("Data file does not exist. Creating a new file.");
-            }
-
             Scanner fileScanner = new Scanner(file);
             Parser parser = new Parser(taskList, new Ui(), fileScanner);
 
@@ -64,7 +60,7 @@ public class Storage {
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
+            System.out.println(e.getMessage() + " seems to not exist. TT Let me create one for you.");
         } catch (DinoException e) {
             throw new RuntimeException(e);
         }

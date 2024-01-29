@@ -29,7 +29,7 @@ public class Dino {
         Parser parser = new Parser(tasks, ui, sc);
 
         while (true) {
-            String command = sc.nextLine();
+            String command = sc.next();
             if (command.equals("bye")) {
                 storage.saveTasksToFile(tasks.getTaskList());
                 ui.goodbye();
