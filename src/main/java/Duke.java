@@ -133,14 +133,37 @@ public class Duke {
         return Objects.equals(firstWord, "unmark");
     }
 
-    // Gets the index input by the user.
+    // Checks if the last input is todo.
+    private boolean isCommandTodo(String command) {
+        String firstWord = getFirstWord(command);
+        return Objects.equals(firstWord, "todo");
+    }
+
+    // Checks if the last input is deadline.
+    private boolean isCommandDeadline(String command) {
+        String firstWord = getFirstWord(command);
+        return Objects.equals(firstWord, "deadline");
+    }
+
+    // Checks if the last input is event.
+    private boolean isCommandEvent(String command) {
+        String firstWord = getFirstWord(command);
+        return Objects.equals(firstWord, "event");
+    }
+
+    // Gets the index input by the user for a mark/unmark command.
     private int getIndex(String command) {
         String otherThanFirstWord = getOtherThanFirstWord(command);
         return Integer.parseInt(otherThanFirstWord);
     }
-
+    
     // The task list.
     ArrayList<Task> taskList = new ArrayList<>();
+
+    // Gets the number of tasks in the task list.
+    private int numTasks() {
+        return taskList.size();
+    }
 
     // Gets the i-th task from the task list, where i is the index.
     private Task getTask(int index) {
