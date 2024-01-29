@@ -152,7 +152,7 @@ public class Duke {
     }
 
     // Gets the index input by the user for a mark/unmark command.
-    private int getIndex(String command) {
+    private int getMarkUnmarkIndex(String command) {
         String otherThanFirstWord = getOtherThanFirstWord(command);
         return Integer.parseInt(otherThanFirstWord);
     }
@@ -207,12 +207,43 @@ public class Duke {
         return taskList.get(index - 1);
     }
 
-    // Adds the task to the task list.
-    private void addTask(String task) {
-        taskList.add(new Task(task));
+    // Adds a todo task to the task list.
+    private void addTodo(String description) {
+        Todo todo = new Todo(description);
+        taskList.add(todo);
+        int numTasks = numTasks();
+        String sOrNone = numTasks == 1 ? "" : "s";
         printHorizontalLine();
-        printWithIndent(" added: " + task);
-        printHorizontalLine();;
+        printWithIndent(" Got it. I've added this task:");
+        printWithIndent("   " + todo);
+        printWithIndent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
+        printHorizontalLine();
+    }
+
+    // Adds a deadline task to the task list.
+    private void addDeadline(String description, String by) {
+        Deadline deadline = new Deadline(description, by);
+        taskList.add(deadline);
+        int numTasks = numTasks();
+        String sOrNone = numTasks == 1 ? "" : "s";
+        printHorizontalLine();
+        printWithIndent(" Got it. I've added this task:");
+        printWithIndent("   " + deadline);
+        printWithIndent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
+        printHorizontalLine();
+    }
+
+    // Adds an event task to the task list.
+    private void addEvent(String description, String from, String to) {
+        Event event = new Event(description, from, to);
+        taskList.add(event);
+        int numTasks = numTasks();
+        String sOrNone = numTasks == 1 ? "" : "s";
+        printHorizontalLine();
+        printWithIndent(" Got it. I've added this task:");
+        printWithIndent("   " + event);
+        printWithIndent(" Now you have " + numTasks + " task" + sOrNone + " in the list.");
+        printHorizontalLine();
     }
 
     // Marks the i-th task in the task list as done, where i is the index.
@@ -256,14 +287,18 @@ public class Duke {
         // While user hasn't input bye, add task to task list
         while (!isCommandBye(command)) {
             // If list is input, print list, else add task to list
-            if (isCommandList(command)) {
-                printTaskList();
-            } else if (isCommandMark(command)) {
-                markTaskAsDone(getIndex(command));
+            if (isCommandMark(command)) {
+                markTaskAsDone(getMarkUnmarkIndex(command));
             } else if (isCommandUnmark(command)) {
-                markTaskAsNotDone(getIndex(command));
-            } else {
-                addTask(command);
+                markTaskAsNotDone(getMarkUnmarkIndex(command));
+            } else if (isCommandList(command)) {
+                printTaskList();
+            } else if (isCommandTodo(command)) {
+                addTodo(getTodoDescription(command));
+            } else if (isCommandDeadline(command)) {
+                addDeadline(getDeadlineDescription(command), getDeadlineBy(command));
+            } else if (isCommandEvent(command)) {
+                addEvent(getEventDescription(command), getEventFrom(command), getEventTo(command));
             }
 
             command = sc.nextLine();
