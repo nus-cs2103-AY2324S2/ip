@@ -6,7 +6,7 @@ public class MarkCommand extends Command {
         this.positionToMark = positionToMark;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui) throws DookException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         Task toMark;
         try {
             toMark = tasks.get(positionToMark - 1);

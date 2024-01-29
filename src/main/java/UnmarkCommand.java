@@ -6,7 +6,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws DookException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         Task toUnmark;
         try {
             toUnmark = tasks.get(positionToUnmark - 1);

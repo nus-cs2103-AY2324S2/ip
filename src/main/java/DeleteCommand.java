@@ -4,7 +4,7 @@ public class DeleteCommand extends Command {
     DeleteCommand(int positionToDelete) {
         this.positionToDelete = positionToDelete;
     }
-    public void execute(TaskList tasks, Ui ui) throws DookException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         Task toDelete;
         try {
             toDelete = tasks.get(positionToDelete - 1);

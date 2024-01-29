@@ -8,7 +8,7 @@ public class AddCommand extends Command {
         this.description = description;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui) throws DookException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         Task toAdd = Parser.getTask(tasktype, description);
         tasks.addTask(toAdd);
         System.out.println("Oki! I've added this task:");

@@ -18,3 +18,4 @@ delete  8
 delete 8
 delete 5
 list
+bye
