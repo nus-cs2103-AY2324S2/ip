@@ -92,7 +92,7 @@ public class BobTaskList {
     /**
      * Handle the creation of user tasks.
      *
-     * @param input User input when calling the command.
+     * @param input User input when calling the task creation command.
      */
     public void handleTaskCreation(String input) throws BobException {
 
