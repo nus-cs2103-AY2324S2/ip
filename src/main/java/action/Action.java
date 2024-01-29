@@ -1,7 +1,6 @@
 package action;
 
 import action.exception.ActionException;
-import action.exception.UnrecognizedArgumentException;
 import action.exception.UnrecognizedCommandException;
 import action.util.Argument;
 import action.util.Command;
@@ -29,7 +28,6 @@ public abstract class Action {
     public Action(Command command, Argument... suppliedArguments) throws ActionException {
         this.command = command;
         this.suppliedArguments = suppliedArguments;
-        validateExpectedArguments();
         command.validateSuppliedArguments(suppliedArguments);
     }
 
@@ -70,19 +68,6 @@ public abstract class Action {
      */
     final Command getCommand() {
         return command;
-    }
-
-    /**
-     * Validates the argument names.
-     *
-     * @throws UnrecognizedArgumentException If an argument is unrecognizable.
-     */
-    private void validateExpectedArguments() throws UnrecognizedArgumentException {
-        for (Argument suppliedArg : suppliedArguments) {
-            if (!command.hasArgumentName(suppliedArg)) {
-                throw new UnrecognizedArgumentException(command, suppliedArg);
-            }
-        }
     }
 
     /**

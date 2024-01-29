@@ -2,6 +2,7 @@ package action.util;
 
 import action.exception.ActionException;
 import action.exception.MissingArgumentException;
+import action.exception.UnrecognizedArgumentException;
 
 import java.lang.StringBuilder;
 
@@ -155,12 +156,35 @@ public enum Command {
     }
 
     /**
-     * Validates the supplied argument names and values
+     * Validates the supplied argument names and values.
      *
      * @param suppliedArguments the argument names
-     * @throws ActionException If an argument is missing.
+     * @throws ActionException If an argument is missing or invalid, or unrecognized.
      */
     public void validateSuppliedArguments(Argument[] suppliedArguments) throws ActionException {
+        validateArgumentsRecognized(suppliedArguments);
+        validateArgumentsPresentAndValid(suppliedArguments);
+    }
+
+    /**
+     * Validates the argument names, that they are recognizable.
+     *
+     * @throws UnrecognizedArgumentException If an argument is unrecognizable.
+     */
+    private void validateArgumentsRecognized(Argument[] suppliedArguments) throws UnrecognizedArgumentException {
+        for (Argument suppliedArg : suppliedArguments) {
+            if (!hasArgumentName(suppliedArg)) {
+                throw new UnrecognizedArgumentException(this, suppliedArg);
+            }
+        }
+    }
+
+    /**
+     * Validates that all argument names expected are present and not invalid.
+     *
+     * @throws ActionException If an argument is missing or invalid.
+     */
+    private void validateArgumentsPresentAndValid(Argument[] suppliedArguments) throws ActionException {
         for (ExpectedArgument expectedArg : this.arguments) {
             boolean isRecognized = false;
             for (Argument suppliedArg : suppliedArguments) {
