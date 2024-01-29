@@ -10,7 +10,7 @@ public class UnmarkCommand extends Command {
      * @throws ChatBotParameterException
      */
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) throws ChatBotParameterException {
+    public void execute(Storage storage, Ui ui, TaskList taskList)  {
         try {
             Task task = taskList.markTaskAsUndone(parameters);
             ui.showUnmarkedTask(task);
