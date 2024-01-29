@@ -13,6 +13,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to list tasks.
+ */
 public class ListCommand extends Command {
     private static final String TIME_PATTERN = "yyyy-MM-dd HH:mm";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
@@ -22,6 +25,12 @@ public class ListCommand extends Command {
     private String command;
     private int typeIndex; //0 for list all, 1 for listtaskondate
 
+    /**
+     * Constructs a list command.
+     *
+     * @param command   The command.
+     * @param typeIndex The type index.
+     */
     public ListCommand(String command, int typeIndex) {
         this.command = command;
         this.typeIndex = typeIndex;
@@ -33,6 +42,13 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Lists all tasks.
+     * If there are no tasks, prints a message.
+     *
+     * @param taskList The task list.
+     * @param ui       The user interface.
+     */
     public void listTasks(TaskList taskList, Ui ui) {
         if (taskList.getTasks().isEmpty()) {
             ui.printMessage("\n" +
@@ -49,6 +65,18 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Lists tasks on a date.
+     * If there are no tasks on the date, prints a message.
+     * If the date is invalid, prints a message.
+     * If the command is invalid, prints a message.
+     * If the command is incomplete, prints a message.
+     * If the command is empty, prints a message.
+     *
+     * @param input    The input.
+     * @param taskList The task list.
+     * @param ui       The user interface.
+     */
     public void listTasksOnDate(String input, TaskList taskList, Ui ui) {
         try {
             checkValue(input.length(), 16, Integer.MAX_VALUE);
@@ -100,6 +128,13 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command to list tasks.
+     *
+     * @param tasks   The task list.
+     * @param ui      The user interface.
+     * @param storage The storage.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (typeIndex == 0) {
@@ -109,6 +144,11 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Returns false to indicate that the program should continue running.
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;

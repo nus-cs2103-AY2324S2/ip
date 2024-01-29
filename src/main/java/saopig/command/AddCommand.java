@@ -12,6 +12,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add a task to the task list.
+ * A <code>AddCommand</code> object corresponds to
+ * an executable command to add a task to the task list.
+ * It contains the task description and the type of task to be added.
+ * e.g., <code>todo read book</code>, <code>deadline return book /by 2020-02-02 18:00</code>,
+ */
 public class AddCommand extends Command {
     private static final String TIME_PATTERN = "yyyy-MM-dd HH:mm";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
@@ -20,6 +27,12 @@ public class AddCommand extends Command {
     private String command;
     private int typeIndex; //0 for todo, 1 for deadline, 2 for event
 
+    /**
+     * Constructs a <code>AddCommand</code> object with the given command and type index.
+     *
+     * @param command   The command to be executed.
+     * @param typeIndex The type of task to be added.
+     */
     public AddCommand(String command, int typeIndex) {
         this.command = command;
         this.typeIndex = typeIndex;
@@ -31,6 +44,20 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds a todo task to the task list.
+     * The task description is extracted from the command.
+     * The task is then added to the task list.
+     * The task list is then saved to the hard disk.
+     * The user interface prints a message to the user to indicate the task has been added.
+     * If the command is invalid, the user interface prints a message to the user to indicate the error.
+     * e.g., <code>todo read book</code>
+     *
+     * @param input     The command to be executed.
+     * @param taskList  The task list to be added to.
+     * @param ui        The user interface to be used.
+     * @param storage   The storage to be used.
+     */
     public void addTodoTask(String input, TaskList taskList, Ui ui, Storage storage) {
         try {
             checkValue(input.length(), 6, Integer.MAX_VALUE);
@@ -52,6 +79,20 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds a deadline task to the task list.
+     * The task description and deadline time are extracted from the command.
+     * The task is then added to the task list.
+     * The task list is then saved to the hard disk.
+     * The user interface prints a message to the user to indicate the task has been added.
+     * If the command is invalid, the user interface prints a message to the user to indicate the error.
+     * e.g., <code>deadline return book /by 2020-02-02 18:00</code>
+     *
+     * @param input     The command to be executed.
+     * @param taskList  The task list to be added to.
+     * @param ui        The user interface to be used.
+     * @param storage   The storage to be used.
+     */
     public void addDeadlineTask(String input, TaskList taskList, Ui ui, Storage storage) {
         try {
             checkValue(input.length(), 10, Integer.MAX_VALUE);
@@ -100,6 +141,20 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds an event task to the task list.
+     * The task description and event start and end time are extracted from the command.
+     * The task is then added to the task list.
+     * The task list is then saved to the hard disk.
+     * The user interface prints a message to the user to indicate the task has been added.
+     * If the command is invalid, the user interface prints a message to the user to indicate the error.
+     * e.g., <code>event project meeting /from 2020-02-02 18:00 /to 2020-02-02 20:00</code>
+     *
+     * @param input     The command to be executed.
+     * @param taskList  The task list to be added to.
+     * @param ui        The user interface to be used.
+     * @param storage   The storage to be used.
+     */
     public void addEventTask(String input, TaskList taskList, Ui ui, Storage storage) {
         try {
             checkValue(input.length(), 7, Integer.MAX_VALUE);
@@ -155,6 +210,13 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command to add a task to the task list.
+     *
+     * @param tasks     The task list to be added to.
+     * @param ui        The user interface to be used.
+     * @param storage   The storage to be used.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         switch (typeIndex) {
@@ -170,6 +232,11 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Returns false to indicate the program should continue running.
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;
