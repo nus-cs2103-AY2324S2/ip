@@ -35,9 +35,9 @@ public class FileManager {
     void writeArrayListToFile(ArrayList<Task> tasks, boolean isOverwrite) {
         try {
             if (isOverwrite) {
-                Files.write(filePath, convertTaskToString(tasks).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+                Files.write(filePath, convertTasksToString(tasks).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
             } else {
-                Files.write(filePath, convertTaskToString(tasks).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+                Files.write(filePath, convertTasksToString(tasks).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
             }
         } catch (IOException io) {
             System.out.println("There is an error when writing to file. The error is " + io.getMessage());
@@ -45,16 +45,49 @@ public class FileManager {
     }
 
 
-    private String convertTaskToString(ArrayList<Task> tasks) {
+    private String convertTasksToString(ArrayList<Task> tasks) {
         StringBuilder result = new StringBuilder();
         for (Task task: tasks) {
-            result.append(task.toString());
-            result.append(System.getProperty("line.separator"));
+//            result.append(task.toString());
+//            result.append(System.getProperty("line.separator"));
+            if (task instanceof ToDo) {
+                result.append("T | ");
+                result.append(task.getStatusIcon().equals("X") ? "1 | " : "0 | ");
+                result.append(task.getDescription());
+                result.append(System.getProperty("line.separator"));
+            } else if (task instanceof Deadline) {
+                result.append("D | ");
+                result.append(task.getStatusIcon().equals("X") ? "1 | " : "0 | ");
+                result.append(task.getDescription() + " | ");
+                result.append(((Deadline) task).getBy());
+                result.append(System.getProperty("line.separator"));
+            } else {
+                result.append("D | ");
+                result.append(task.getStatusIcon().equals("X") ? "1 | " : "0 | ");
+                result.append(task.getDescription() + " | ");
+                result.append(((Event) task).getStart() + " | ");
+                result.append(((Event) task).getEnd());
+                result.append(System.getProperty("line.separator"));
+            }
+
         }
         return result.toString();
     }
 
-
+//    private ArrayList<Task> convertStringToTasks(String content) {
+//        String[] individualStringTask = content.trim().split(System.lineSeparator());
+//        ArrayList<Task> fileTasks = new ArrayList<>();
+//        for (String i : individualStringTask) {
+//            String[] stringAttributes = i.split("|");
+//            if (stringAttributes[0].equals("T")) {
+//                fileTasks.add(new ToDo());
+//            } else if (stringAttributes[0].equals("D")) {
+//
+//            } else if (stringAttributes[0].equals("E")) {
+//
+//            }
+//        }
+//    }
 
 
 }

@@ -97,7 +97,7 @@ public class Duke {
         for (int i = 1; i < splitInput.length; i++) {
             name += splitInput[i] + " ";
         }
-        ToDo newToDo= new ToDo(name.trim());
+        ToDo newToDo= new ToDo(name.trim(), false);
         tasks.add(newToDo);
         ArrayList<Task> newToDoList = new ArrayList<>();
         newToDoList.add(newToDo);
@@ -121,7 +121,7 @@ public class Duke {
 
         String name = deadlineSplit[0].substring(9).trim();
         String by = deadlineSplit[1].substring(3).trim();
-        Deadline newDeadline = new Deadline(name, by);
+        Deadline newDeadline = new Deadline(name,false, by);
         tasks.add(newDeadline);
         ArrayList<Task> newDeadlineList = new ArrayList<>();
         newDeadlineList.add(newDeadline);
@@ -145,7 +145,7 @@ public class Duke {
         String name = eventSplit[0].substring(6).trim();
         String start = eventSplit[1].substring(5).trim();
         String end = eventSplit[2].substring(3).trim();
-        Event newEvent = new Event(name, start, end);
+        Event newEvent = new Event(name, false, start, end);
         tasks.add(newEvent);
         ArrayList<Task> newEventList = new ArrayList<>();
         newEventList.add(newEvent);
@@ -250,9 +250,9 @@ class Task {
     private String description;
     private boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getDescription() {
@@ -274,8 +274,8 @@ class Task {
 
 class ToDo extends Task {
 
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     @Override
@@ -286,8 +286,8 @@ class ToDo extends Task {
 
 class Deadline extends Task {
     String by;
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
         this.by = by;
     }
 
@@ -304,8 +304,8 @@ class Deadline extends Task {
 class Event extends Task {
     String start;
     String end;
-    public Event(String description, String start, String end) {
-        super(description);
+    public Event(String description, boolean isDone, String start, String end) {
+        super(description, isDone);
         this.start = start;
         this.end = end;
     }

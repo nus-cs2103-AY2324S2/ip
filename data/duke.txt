@@ -1,5 +1,4 @@
-[T][X] read book
-[T][ ] join club
-[E][ ] project (from: now to: tmr)
-[D][ ] return book (by: now)
-[T][ ] event
+T | 0 | read book
+D | 1 | return book | now
+D | 0 | meeting | now | tmr
+T | 0 | join club
