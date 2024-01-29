@@ -1,12 +1,16 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Dook {
 
     private static final ArrayList<String> TASK_TYPES = new ArrayList<String>(Arrays.asList("todo", "deadline", "event"));
-    private static final String LINE_SEPARATOR = "____________________________________________________________";
+
+    private static final String FILE_PATH = "./data/dook.txt";
     private TaskList tasks;
+    private Ui ui;
 
     enum Command {
         BYE,
@@ -20,6 +24,7 @@ public class Dook {
 
     Dook() {
         this.tasks = new TaskList();
+        this.ui = new Ui();
     }
 
     private static Command getCommand(String input) {
@@ -75,20 +80,6 @@ public class Dook {
         }
     }
 
-    private void introduceSelf() {
-        String logo = " ____              _    \n"
-                + "|  _ \\  ___   ___ | | __      ╱|、\n"
-                + "| | | |/ _ \\ / _ \\| |/ /    (˚ˎ 。7  \n"
-                + "| |_| | |_| | |_| |   <      |、˜〵 \n"
-                + "|____/ \\___/ \\___/|_|\\_\\     じしˍ,)ノ\n"; Dook.printSeparator();
-        System.out.println("Hello from Dook! :D meow\n" + logo);
-        System.out.println("What can I do for you? uwu"); Dook.printSeparator();
-    }
-
-    private static void printSeparator() {
-        System.out.println(Dook.LINE_SEPARATOR);
-    }
-
     private boolean executeCommand(String input) throws DookException {
         Command command = Dook.getCommand(input);
         String[] cmds = input.split(" ", 2);
@@ -119,7 +110,7 @@ public class Dook {
 
     private void executeBYE() {
         System.out.println("Bye :(. Hope to see you again soon! ≽^- ˕ -^≼");
-        Dook.printSeparator();
+        this.ui.printSeparator();
     }
 
     private void executeLIST() {
@@ -208,13 +199,14 @@ public class Dook {
         System.out.println("You deleted this task :(");
         System.out.println(toDelete);
     }
+
     public static void main(String[] args) {
         Dook dook = new Dook();
-        dook.introduceSelf();
+        //dook.ui.introduce();
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
-            Dook.printSeparator();
+            dook.ui.printSeparator();
             boolean willExitLoop = false;
             try {
                 willExitLoop = dook.executeCommand(input);
@@ -226,7 +218,7 @@ public class Dook {
             if (willExitLoop) {
                 break;
             }
-            Dook.printSeparator();
+            dook.ui.printSeparator();
         }
     }
 }
