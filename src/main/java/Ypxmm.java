@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -273,6 +274,8 @@ public class Ypxmm {
                     throw new YpxmmException("File not created yet la bro. In the ip folder, create a new folder \"data\" and a new txt file \"Ypxmm\" to proceed");
                 } catch (IOException e) {
                     throw new YpxmmException("IOException");
+                } catch (DateTimeParseException e) {
+                    throw new YpxmmException("Brother, follow format can or not? Enter dates in dd-mm-yyyy HHmm (24-08-2024 1800)");
                 }
             } else {
                 try {
@@ -292,6 +295,8 @@ public class Ypxmm {
                     throw new YpxmmException("File not created yet la bro. In the ip folder, create a new folder \"data\" and a new txt file \"Ypxmm\" to proceed");
                 } catch (IOException e) {
                     throw new YpxmmException("IOException");
+                } catch (DateTimeParseException e) {
+                    throw new YpxmmException("Brother, follow format can or not? Enter dates in dd-mm-yyyy HHmm (24-08-2024 1800)");
                 }
             }
         } catch (YpxmmException y) {
