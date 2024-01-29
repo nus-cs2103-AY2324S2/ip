@@ -1,5 +1,11 @@
 import java.io.IOException;
+
 import java.nio.file.Path;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -238,7 +244,12 @@ public class ChatBot {
 
 
     public void addDeadline(String description, String by, boolean isDone) {
-        this.addTask(new Deadline(description, by, isDone));
+        try {
+            LocalDateTime byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy Hmm"));
+            this.addTask(new Deadline(description, byDateTime, isDone));
+        } catch (DateTimeParseException e) {
+            System.out.println("Wrong Date Time format " + by);
+        }
     }
 
     public void addDeadline(String parameters) {
@@ -285,7 +296,8 @@ public class ChatBot {
     }
 
     public void addDeadlineFromLoad(String description, String by, boolean isDone) {
-        this.addTaskFromLoad(new Deadline(description, by, isDone));
+        LocalDateTime byDateTime = LocalDateTime.parse(by);
+        this.addTaskFromLoad(new Deadline(description, byDateTime, isDone));
     }
 
     public void addTodoFromLoad(String description, boolean isDone) {
