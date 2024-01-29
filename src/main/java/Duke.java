@@ -2,9 +2,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.*;
 
 class DukeException extends Exception {
     public DukeException(String message) {
@@ -73,7 +77,7 @@ class Task {
                 "[" + removedTask.type + "][" + removedTask.getStatusIcon() + "] " + removedTask.getDescription();
         if (removedTask instanceof Deadline) {
             Deadline deadlineTask = (Deadline) removedTask;
-           taskDetails += " (by: " + deadlineTask.by + ")";
+            taskDetails += " (by: " + deadlineTask.by + ")";
         } else if (removedTask instanceof Event) {
             Event eventTask = (Event) removedTask;
             taskDetails += " (from: " + eventTask.from + " to: " + eventTask.to + ")";
@@ -113,58 +117,87 @@ class ToDo extends Task {
 }
 
 class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
+    protected String byString;
 
-    public Deadline(String description, String by) throws DukeException {
+    public Deadline(String description, String byString) throws DukeException {
         super(TaskType.D, description);
 
-        if (!description.contains("/by")) {
-            throw new DukeException("By when? You forgot to enter \"/by\"");
+        this.byString = byString.trim();
+
+        try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            this.by = LocalDateTime.parse(byString, dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            this.by = null;
         }
 
-        int index = description.indexOf("/by");
-
-        if (index == 0 || index == description.length() - 3) {
+        if (this.byString.isEmpty()) {
+            throw new DukeException("By when? You forgot to enter \"/by\"");
+        } else if (description.isEmpty()) {
             throw new DukeException("You forgot to enter the task for which you have to complete it by");
         }
-
-        this.by = description.substring(index + 3).trim();
-        this.description = description.substring(0, index).trim();
     }
 
     @Override
     public String toString() {
-        return "Got it. I've added this task: \n [D][" + getStatusIcon() + "] " + getDescription() + " (by: " + by + ")";
+        String byStringFormatted = (by != null) ?
+                " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm")) + ")" :
+                (this.byString != null ? " (by: " + this.byString + ")" : "");
+
+        return "Got it. I've added this task:\n [D][" + getStatusIcon() + "] " + getDescription() + byStringFormatted;// + by.getClass();
     }
 }
 
 class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected String fromString;
+    protected LocalDateTime to;
+    protected String toString;
 
-    public Event(String description, String from, String to) throws DukeException {
+    public Event(String description, String fromString, String toString) throws DukeException {
         super(TaskType.E, description);
 
-        if (description.isEmpty() && (!from.isEmpty() && !to.isEmpty())) {
-            throw new DukeException("You didn't specify the event!");
-        } else if (description.isEmpty() && (!from.isEmpty() || !to.isEmpty())) {
-            throw new DukeException("You didn't specify the details or give the duration correctly! Please re-enter");
-        } else if (!description.isEmpty() && (from.isEmpty() && to.isEmpty())) {
-            throw new DukeException("You did not mention the duration! Please re-enter correctly!");
-        } else if (!description.isEmpty() && from.isEmpty()) {
-            throw new DukeException("You did not mention from when! Please re-enter correctly!");
-        } else if (!description.isEmpty() && to.isEmpty()) {
-            throw new DukeException("You did not mention till when! Please re-enter correctly!");
+        this.fromString = fromString.trim();
+        this.toString = toString.trim();
+
+        try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            this.from = LocalDateTime.parse(fromString, dateTimeFormatter);
+            this.to = LocalDateTime.parse(toString, dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            this.from = null;
+            this.to = null;
         }
 
-        this.from = from;
-        this.to = to;
+        validateInputs();
     }
+
+    private void validateInputs() throws DukeException {
+        if ((from == null && to == null) && (fromString.isEmpty() && toString.isEmpty())) {
+            throw new DukeException("You did not mention the duration! Please re-enter correctly!");
+        }  else if (from == null && fromString.isEmpty()) {
+            throw new DukeException("You did not mention from when! Please re-enter correctly!");
+        } else if (to == null && toString.isEmpty()) {
+            throw new DukeException("You did not mention till when! Please re-enter correctly!");
+        } else if (description.isEmpty()) {
+            throw new DukeException("You didn't specify the event!");
+        }
+    }
+
 
     @Override
     public String toString() {
+        String fromStringFormatted = (from != null) ?
+                " from: " + from.format(DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm")) :
+                (this.fromString != null ? " from: " + this.fromString : "");
+
+        String toStringFormatted = (to != null) ?
+                " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm")) :
+                (this.toString != null ? " to: " + this.toString : "");
+
         return "Got it. I've added this task:\n [E][" + getStatusIcon() + "] " + getDescription() +
-                (from.isEmpty() ? "" : " (from: " + from) + (to.isEmpty() ? "" : " to: " + to + ")");
+                fromStringFormatted + toStringFormatted; //+ from.getClass() + to.getClass();
     }
 }
 
@@ -287,20 +320,24 @@ public class Duke {
             } else if (words[0].equalsIgnoreCase("deadline")) {
                 System.out.println("-------------------------------");
                 try {
-                    if (input.length() >= 9) {
-                        Task task = new Deadline(input.substring(9).trim(), words.length > 2 ? words[2] : "");
+                    if (input.length() >= 9 && input.contains("/by")) {
+                        int byIndex = input.indexOf("/by");
+                        String description = input.substring(9, byIndex).trim();
+                        String by = input.substring(byIndex + 3).trim();
+
+                        Task task = new Deadline(description, by);
                         tasks.add(task);
                         System.out.println(task);
                         task.numberOfTasks(tasks);
                         hasChanged = true;
                     } else {
-                        throw new DukeException("Deadline for what and by when? Please re-enter correctly");
+                        throw new DukeException("Invalid Deadline input. Please include both task description and deadline.");
                     }
                 } catch (DukeException e) {
                     System.out.println(e);
                 }
                 System.out.println("-------------------------------");
-            } else if (words[0].equalsIgnoreCase("event")) {
+        } else if (words[0].equalsIgnoreCase("event")) {
                 System.out.println("-------------------------------");
                 try {
                     Matcher fromMatcher = Pattern.compile("/from\\s+(\\S+[^/]+)").matcher(input);
@@ -313,8 +350,8 @@ public class Duke {
                             eventDescription = descriptionMatcher.group(1).trim();
                         }
                     } else {
-                            throw new DukeException("You didn't enter the details or duration!");
-                        }
+                        throw new DukeException("You didn't enter the details or duration!");
+                    }
                     String from = fromMatcher.find() ? fromMatcher.group(1).trim() : "";
                     String to = toMatcher.find() ? toMatcher.group(1).trim() : "";
 
@@ -352,9 +389,28 @@ public class Duke {
             for (Task task : tasks) {
                 String text = task.type + " | " + (task.getStatusIcon().equals("X") ? "1" : "0") + " | " + task.description;
                 if (task instanceof Deadline) {
-                    text += " | " + ((Deadline) task).by;
+                    Deadline deadline = (Deadline) task;
+                    if (deadline.by != null) {
+                        try {
+                            String formattedDateTime = deadline.by.format(DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm"));
+                            text += " | " + formattedDateTime;
+                        } catch (DateTimeException e) {
+                            text += " | " + deadline.byString;
+                        }
+                    } else {
+                        text += " | " + deadline.byString;
+                    }
                 } else if (task instanceof Event) {
-                    text += " | " + ((Event) task).from + "-" + ((Event) task).to;
+                    Event event = (Event) task;
+                    String fromString = (event.from != null) ?
+                            event.from.format(DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm")) :
+                            (event.fromString != null ? event.fromString : "");
+
+                    String toString = (event.to != null) ?
+                            event.to.format(DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm")) :
+                            (event.toString != null ? event.toString : "");
+
+                    text += " | " + fromString + " - " + toString;
                 }
                 fileWriter.write(text);
                 fileWriter.append("\n");
@@ -362,34 +418,34 @@ public class Duke {
         }
     }
     private static void loadTasks(ArrayList<Task> tasks) throws DukeException {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                System.out.println("\nData file does not currently exist. However, as you add a task, it will save it to\nthe " +
-                        "path specified. You can view your task list after exiting the chatbot.");
-                return;
-            }
-                try(Scanner scanner = new Scanner(file)) {
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] parts = line.split("\\|");
-                    TaskType taskType = TaskType.valueOf(parts[0].trim());
-                    boolean isDone = parts[1].trim().equals("1");
-                    String description = parts[2].trim();
-                    String additionalInfo = (parts.length > 3) ? parts[3].trim() : null;
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            System.out.println("\nData file does not currently exist. However, as you add a task, it will save it to\nthe " +
+                    "path specified. You can view your task list after exiting the chatbot.");
+            return;
+        }
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split("\\|");
+                TaskType taskType = TaskType.valueOf(parts[0].trim());
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+                String additionalInfo = (parts.length > 3) ? parts[3].trim() : null;
 
-                    Task task = new Task(null, null);
+                Task task = new Task(null, null);
 
-                    if (taskType == TaskType.T) {
-                        task = new ToDo(description);
-                    } else if (taskType == TaskType.D) {
-                        task = new Deadline(description, additionalInfo);
-                    } else if (taskType == TaskType.E) {
-                        String[] p = additionalInfo.split("-");
-                        task = new Event(description, p[0].trim(), p[1].trim());
-                    }
-                    tasks.add(task);
+                if (taskType == TaskType.T) {
+                    task = new ToDo(description);
+                } else if (taskType == TaskType.D) {
+                    task = new Deadline(description, additionalInfo);
+                } else if (taskType == TaskType.E) {
+                    String[] p = additionalInfo.split("-");
+                    task = new Event(description, p[0].trim(), p[1].trim());
                 }
+                tasks.add(task);
             }
+        }
         catch (FileNotFoundException e) {
             System.out.println(e);
         }
