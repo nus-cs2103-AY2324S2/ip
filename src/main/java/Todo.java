@@ -1,4 +1,6 @@
-public class Todo extends Task {
+import java.io.Serializable;
+
+public class Todo extends Task implements Serializable {
 
     
 
@@ -13,4 +15,3 @@ public class Todo extends Task {
     }
 
 }
-
