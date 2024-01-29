@@ -1,6 +1,7 @@
 import Actions.Action;
 
 import Exceptions.DukeException;
+import FileHandler.FileInput;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -17,19 +18,9 @@ public class Taylor {
         List<Action> listing = new ArrayList<>();
 
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("taylor.txt"));
-            listing = (List<Action>) ois.readObject();
-            int pos = 1;
-            for (Action act : listing) {
-                System.out.println(pos++ + ". " + act);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            System.out.println("Please create file in " + System.getProperty("user.dir"));
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("No past data");
-        } catch (ClassCastException e) {
-            System.out.println("Content are corrupted!");
+            listing = FileInput.execInput(listing);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
         System.out.println("Hello! I'm Taylor");
@@ -98,12 +89,12 @@ public class Taylor {
             }
 
             try {
-                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("taylor.txt"));
-                oos.writeObject(listing);
+                FileInput.execOutput(listing);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
         type.close();
         System.out.println("Bye. Hope to see you again soon!");
     }
