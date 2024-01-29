@@ -25,7 +25,7 @@ public class Duke {
 
     public static void echo(BufferedReader br) throws IOException {
         String description = br.readLine();
-        String[] tokens = description.split("/");
+        String[] tokens = description.split("/", 2);
         String command = tokens[0].split(" ")[0];
         while (!command.equals("bye")) {
             Duke.line();
@@ -46,7 +46,7 @@ public class Duke {
             }
             Duke.line();
             description = br.readLine();
-            tokens = description.split("/");
+            tokens = description.split("/", 2);
             command = tokens[0].split(" ")[0];
         }
         Duke.bye();

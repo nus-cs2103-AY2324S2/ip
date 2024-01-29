@@ -1,10 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDate.parse(by);
     }
 
     /**
@@ -13,8 +16,8 @@ public class Deadline extends Task {
      * @throws ArrayIndexOutOfBoundsException
      */
     public static void addTask(String description) throws ArrayIndexOutOfBoundsException {
-        String[] tokens = description.split("/");
-        String[] tokens2 = tokens[0].split(" ");
+        String[] tokens = description.split("/", 2);
+        String[] tokens2 = tokens[0].split(" ", 2);
         String taskName = "";
         if (tokens2.length == 1)
             throw new ArrayIndexOutOfBoundsException("The description of a deadline cannot be empty.");
@@ -32,7 +35,7 @@ public class Deadline extends Task {
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
 
