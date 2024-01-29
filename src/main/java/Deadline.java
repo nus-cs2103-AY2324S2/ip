@@ -1,14 +1,22 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
     private static final String TYPE = "Deadline";
-    protected String deadline;
+    protected LocalDate deadline;
 
-    Deadline(String description, String deadline) {
+    Deadline(String description, String deadline) throws MikeException {
         super(description, TYPE);
-        this.deadline = deadline;
+        try {
+            this.deadline = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            throw new MikeException("Please enter a valid date " + e.getParsedString());
+        }
     }
 
     private String getDeadline() {
-        return deadline;
+        return deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     @Override

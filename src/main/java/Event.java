@@ -1,20 +1,28 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
     private static final String TYPE = "Event";
-    protected String startDate;
-    protected String endDate;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
 
-    Event(String description, String startDate, String endDate) {
+    Event(String description, String startDate, String endDate) throws MikeException {
         super(description, TYPE);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        try {
+            this.startDate = LocalDate.parse(startDate);
+            this.endDate = LocalDate.parse(endDate);
+        } catch (DateTimeParseException e) {
+            throw new MikeException("Please enter a valid date " + e.getParsedString());
+        }
     }
 
     private String getStartDate() {
-        return startDate;
+        return startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     private String getEndDate() {
-        return endDate;
+        return endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     @Override
