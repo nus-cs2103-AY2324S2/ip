@@ -1,4 +1,6 @@
-public class Event extends Task{
+import java.io.Serializable;
+
+public class Event extends Task {
     private String from;
     private String to;
     Event(String description, String from, String to) {
