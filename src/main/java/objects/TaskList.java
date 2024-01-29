@@ -7,7 +7,7 @@ public class TaskList extends ArrayList<Task>{
         this.add(task);
     }
 
-    public void markTask(int i) throws InvalidIndexException {
+    public void markTask(int i) {
         Task task = this.get(i);
 
         if (task != null) {
@@ -15,7 +15,7 @@ public class TaskList extends ArrayList<Task>{
         }
     }
 
-    public void unmarkTask(int i) throws InvalidIndexException {
+    public void unmarkTask(int i) {
         Task task = this.get(i);
 
         if (task != null) {

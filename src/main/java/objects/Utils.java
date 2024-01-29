@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static objects.FilePath.LINE_PATH;
+
 public class Utils {
     public static void printLine() {
-        String character = Utils.getFile(FilePath.LINE_PATH);
+        String character = Utils.getFile(LINE_PATH);
         String line = String.valueOf(character).repeat(60);
 
         System.out.println(line);
@@ -28,6 +30,7 @@ public class Utils {
 
         } catch (IOException e) {
             e.printStackTrace();
+
             return null;
 
         }
@@ -54,6 +57,7 @@ public class Utils {
 
         String[] parts = input.split("/by", 2);
         String name = parts[0].trim();
+        // throw error if empty
         String by = parts.length > 1 ? parts[1].trim() : "";
 
         return new Deadlines(name, by);

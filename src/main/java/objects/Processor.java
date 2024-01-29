@@ -1,35 +1,38 @@
 package objects;
+import static objects.Commands.*;
+import static objects.FilePath.*;
+import static objects.Utils.*;
 
 public class Processor {
     public static void greet() {
-        System.out.println(Utils.getFile(FilePath.LOGO_PATH));
-        Utils.encaseLines(Utils.getFile(FilePath.GREETING_PATH));
+        System.out.println(getFile(LOGO_PATH));
+        encaseLines(getFile(GREETING_PATH));
     }
 
     public static void process (String input, TaskList tasks) {
-        input = input.trim();
-        String command = Utils.getCommandType(input);
+        input = input.trim().toLowerCase();
+        String command = getCommandType(input);
 
         try {
             switch (command) {
-                case Commands.LIST:
-                    Commands.listTasks(tasks);
+                case LIST:
+                    listTasks(tasks);
                     break;
 
-                case Commands.MARK:
-                case Commands.UNMARK:
-                case Commands.DELETE:
-                    Commands.processTask(tasks, input);
+                case MARK:
+                case UNMARK:
+                case DELETE:
+                    processTask(tasks, input);
                     break;
 
-                case Commands.TODO:
-                case Commands.DEADLINE:
-                case Commands.EVENT:
-                    Commands.createTask(tasks, input);
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    createTask(tasks, input);
                     break;
 
-                case Commands.HELP:
-                    Commands.printHelp();
+                case HELP:
+                    printHelp();
                     break;
 
                 default:
@@ -37,12 +40,12 @@ public class Processor {
             }
 
         } catch (DukeException e) {
-            Utils.encaseLines(e.getMessage());
+            encaseLines(e.getMessage());
 
         }
     }
 
     public static void exit() {
-        Utils.encaseLines(Utils.getFile(FilePath.EXIT_PATH));
+        encaseLines(getFile(EXIT_PATH));
     }
 }
