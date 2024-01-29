@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-/*
+/**
  * Duke class
  * Contains main method
  */
@@ -12,7 +12,8 @@ public class Duke {
     }    
 }
 
-/* 
+
+/**
  * ListAdder class
  * Contains methods to add tasks to a list
  */
@@ -25,9 +26,8 @@ class ListAdder {
         this.taskIndex = 1;
     }
 
-    /*
+    /**
      * Starts the program
-     * @return void
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      * @throws StringIndexOutOfBoundsException if input is not a number
@@ -70,9 +70,8 @@ class ListAdder {
     }
 
 
-    /*
+    /**
      * Greets user and prints instructions
-     * @return void
      */
     private void greeting() {
         printLine();
@@ -80,17 +79,15 @@ class ListAdder {
         printLine();
     }
 
-    /* 
+    /**
      * Prints line
-     * @return void
      */
     private void printLine() {
         System.out.println(line);
     }
 
-    /*
+    /**
      * Prints instructions
-     * @return void
      */
     private void helpline() {
         System.out.println("\t" + "Help: ");
@@ -103,75 +100,54 @@ class ListAdder {
         System.out.println("\t" + "7. Exit: bye");
     }
 
-    /*
+    /**
      * Prints goodbye message
-     * @return void
      */
     private void goodbye() {
         System.out.println("\t" + "Bye. Hope to see you again soon!");
     }
 
-    /*
+    /**
      * Adds task to taskList
+     * 
      * @param task task to be added
-     * @return void
      */
-    // private void addTask(String task) {
-    //     if (task.startsWith("todo")) {  // todo
-    //         addTodoTask(task);
-
-    //     } else if (task.startsWith("deadline")) {  // deadline
-    //         addDeadline(task);
-
-    //     } else if (task.startsWith("event")) {  // event
-    //         addEvent(task);
-
-    //     } else if (task.equals("help")) {  // help
-    //         helpline();
-            
-    //     } else if (task.startsWith("delete")) {  // delete
-    //         try {
-    //             int index = Integer.parseInt(task.substring(6).trim()) - 1;
-    //             deleteTask(index);
-    //         } catch (NumberFormatException e) {
-    //             System.out.println("\t" + "Invalid input. Please enter a valid task index.");
-    //         }
-    //     } else {
-    //         System.out.println("\t" + "Sorry, that's not a command :( Enter 'help' for instructions.");
-    //     }
-    //     printLine();
-        
-    // }
     private void addTask(String task) {
         TaskType taskType = getTaskType(task);
 
         switch (taskType) {
-            case TODO:
-                addTodoTask(task);
-                break;
-            case DEADLINE:
-                addDeadline(task);
-                break;
-            case EVENT:
-                addEvent(task);
-                break;
-            case HELP:
-                helpline();
-                break;
-            case DELETE:
-                try {
-                    int index = Integer.parseInt(task.substring(6).trim()) - 1;
-                    deleteTask(index);
-                } catch (NumberFormatException e) {
-                    System.out.println("\t" + "Invalid input. Please enter a valid task index.");
-                }
-                break;
-            default:
-                System.out.println("\t" + "Sorry, that's not a command :( Enter 'help' for instructions.");
+        case TODO:
+            addTodoTask(task);
+            break;
+        case DEADLINE:
+            addDeadline(task);
+            break;
+        case EVENT:
+            addEvent(task);
+            break;
+        case HELP:
+            helpline();
+            break;
+        case DELETE:
+            try {
+                int index = Integer.parseInt(task.substring(6).trim()) - 1;
+                deleteTask(index);
+            } catch (NumberFormatException e) {
+                System.out.println("\t" + "Invalid input. Please enter a valid task index.");
+            }
+            break;
+        default:
+            System.out.println("\t" + "Sorry, that's not a command :( Enter 'help' for instructions.");
         }
         printLine();
     }
 
+    /**
+     * Returns task type
+     * 
+     * @param task task to be added
+     * @return TaskType
+     */
     private TaskType getTaskType(String task) {
         if (task.startsWith("todo")) {
             return TaskType.TODO;
@@ -188,10 +164,9 @@ class ListAdder {
         }
     }
 
-    /*
-     * Adds todo task to taskList
+    /**
+     * Adds todoTask to taskList
      * @param task task to be added
-     * @return void
      */
     private void addTodoTask(String task) {
 
@@ -207,11 +182,9 @@ class ListAdder {
         
     }
 
-    /* 
+    /** 
      * Adds deadline to taskList
      * @param task task to be added
-     * @param by deadline of task
-     * @return void
      */
     private void addDeadline(String task) {
 
@@ -229,11 +202,9 @@ class ListAdder {
         }
     }
 
-    /* 
+    /** 
      * Adds eventTask to taskList
      * @param task task to be added
-     * @param at time of event
-     * @return void
      */
     private void addEvent(String task) {
 
@@ -258,12 +229,11 @@ class ListAdder {
         }
     }
 
-    /* 
+    /** 
      * Deletes task from taskList
      * @param index index of task to be deleted
-     * @return void
-    * @throws IndexOutOfBoundsException if index is out of bounds
-    * @throws NumberFormatException if input is not a number
+     * @throws IndexOutOfBoundsException if index is out of bounds
+     * @throws NumberFormatException if input is not a number
      */
     private void deleteTask(int index) {
         try {
@@ -278,31 +248,26 @@ class ListAdder {
         }
     }
 
-    /* 
+    /** 
      * Prints taskList
-     * @return void
      */
     private void printList() {
         System.out.println("\t" + "Here is your to-do list:");
         this.taskIndex = 1;
         for (Task task : this.taskList) {
-            System.out.println(
-                task.isDone() 
-                ? "\t" + this.taskIndex + ". " + task 
-                : "\t" + this.taskIndex + ". " + task);
+            System.out.println("\t" + this.taskIndex + ". " + task);
             this.taskIndex++;
         }
         printLine();
     }
 
-    /* 
+    /** 
      * Marks task as done
      * If task is already done, prints error message
      * If task is undone, marks as done
      * If task does not exist, prints error message
      * If input is not a number, prints error message
      * @param index index of task to be marked as done
-     * @return void
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
@@ -323,14 +288,13 @@ class ListAdder {
         }
     }
 
-    /* 
+    /** 
      * Marks task as undone
      * If task is already undone, prints error message
      * If task is done, marks as undone
      * If task does not exist, prints error message
      * If input is not a number, prints error message
      * @param index index of task to be marked as undone
-     * @return void
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
@@ -352,6 +316,9 @@ class ListAdder {
     }
 }
 
+/**
+ * TaskType enum
+ */
 enum TaskType {
     TODO,
     DEADLINE,
@@ -361,7 +328,7 @@ enum TaskType {
     UNKNOWN
 }
 
-/*
+/**
  * Task class
  */
 class Task {
@@ -395,8 +362,24 @@ class Task {
     }
 }
 
-/* 
- * Subclasses of Task
+
+/**
+ * Todo class
+ */
+class Todo extends Task {
+    public Todo (String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+
+/**
+ * Deadline class
  */
 class Deadline extends Task {
     protected String by;
@@ -412,6 +395,10 @@ class Deadline extends Task {
     }
 }
 
+
+/**
+ * Events class
+ */
 class Events extends Task {
     protected String at;
 
@@ -423,16 +410,5 @@ class Events extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + at + ")";
-    }
-}
-
-class Todo extends Task {
-    public Todo (String description) {
-        super(description);
-    }
-
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
     }
 }
