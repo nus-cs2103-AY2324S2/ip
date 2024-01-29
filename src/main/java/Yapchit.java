@@ -1,12 +1,16 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 import YapchitExceptions.YapchitException;
 import YapchitExceptions.InvalidDetailException;
 import YapchitExceptions.InvalidKeywordException;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class Yapchit {
@@ -201,10 +205,10 @@ public class Yapchit {
                 throw new InvalidDetailException("Deadline description and/or by parameter cannot be empty");
             }
             String desc = input.substring(9, byStart).strip();
-            String by = input.substring(byStart + 4).strip();
+            LocalDate by = parseTimestamp(input.substring(byStart + 4).strip());
 
-            if(desc.length() == 0 || by.length() == 0){
-                throw new InvalidDetailException("Deadline description and/or by parameter cannot be empty");
+            if(desc.length() == 0 || by == null){
+                throw new InvalidDetailException("Invalid or empty Deadline description and/or by parameter");
             } else {
                 Task t = new Deadline(desc, by);
                 addTask(t);
@@ -321,9 +325,17 @@ public class Yapchit {
             this.writeToFile(filePath, toWrite);
         } catch (IOException e){
             print(e.getMessage());
-            return;
         }
 
+    }
+
+    private LocalDate parseTimestamp(String timestamp) throws InvalidDetailException{
+        try {
+            LocalDate d = LocalDate.parse(timestamp);
+        } catch (DateTimeParseException e){
+            throw new InvalidDetailException("Please enter date in yyyy-mm-dd format");
+        }
+        return LocalDate.parse(timestamp);
     }
     private void printTask(Task t){
         line();
