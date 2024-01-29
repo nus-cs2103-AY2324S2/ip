@@ -83,11 +83,18 @@ public class Duke {
             storage.add(message);
             System.out.println("    Got it. I've added this task:");
             System.out.println("       " + message.toString());
-            System.out.println("    Now you have " + storage.size() + " tasks in the list.");
+            System.out.println("    Now you have " + this.storage.size() + " tasks in the list.");
         } catch (DukeException.UnsupportedTaskException ex) {
             System.out.println("    " + ex.getMessage() + ". Please only enter the supported types of task.");
-
         }
+    }
+
+    public void deleteTask(int position) {
+        Task task = this.storage.get(position - 1);
+        this.storage.remove(position - 1);
+        System.out.println("    Got it. I've removed this task:");
+        System.out.println("        " + task.toString());
+        System.out.println("    Now you have " + this.storage.size() + " task in the list.");
     }
 
     public static void main(String[] args) {
@@ -116,6 +123,8 @@ public class Duke {
                 chatbot.markTask(split_message);
             } else if (split_message[0].equals("unmark")) {
                 chatbot.unmarkTask(split_message);
+            } else if (split_message[0].equals("delete")) {
+                chatbot.deleteTask(Integer.parseInt(split_message[1]));
             } else {
                 chatbot.addTask(split_message);
             }
