@@ -45,6 +45,22 @@ public class Duke {
                     } catch (DukeException d) {
                         System.out.println("ERROR: " + d);
                     }
+                } else if (userInput.toLowerCase().contains("delete")) {
+                    int markedIndex = Integer.parseInt(userInput.replaceAll("[^0-9]", "")) - 1;
+                    try {
+                        DukeException.validateArrIndex(markedIndex, task_arr);
+
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(task_arr.get(markedIndex).getTask());
+
+                        task_arr.remove(markedIndex);
+
+                        System.out.println("Now you have " + task_arr.size() + " tasks in the list");
+                        
+                        index--;
+                    } catch (DukeException d) {
+                        System.out.println("ERROR: " + d);
+                    }
                 } else if (userInput.toLowerCase().contains("todo")) {
                     try {
                         DukeException.validateToDo(userInput);
