@@ -20,18 +20,11 @@ Chat bot is able to store and list out tasks from the user via the "store" and "
 
 Chat bot is able to modify stored tasks as done or undone.
 
-### Feature-Local file storage
-
-Chat bot is able to save data into a local file and read the data upon startup.
-
 ## Usage
 
 ### Adding a task
-
 ### `todo *` or `t *` - Add a task (todo), where * is the name of the task
-
 ### `deadline *` or `d *` - Add a task (deadline), where * is the name of the task
-
 ### `event *` or `e *` - Add a task (event), where * is the name of the task
 
 Stores a task into the storage. Todos only have a string as its name. Deadlines have a string as its name and a string as its deadline. Events have a string as its name and 2 strings as its start and end.
