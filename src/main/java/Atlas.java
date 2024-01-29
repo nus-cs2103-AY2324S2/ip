@@ -4,6 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 public class Atlas {
@@ -34,6 +38,15 @@ public class Atlas {
                     deleteTask(taskNumber);
                 } else if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
                     addTask(input);
+                } else if (input.startsWith("tasks on ")) {
+                    String dateString = input.substring(9).trim();
+                    LocalDate date;
+                    try {
+                        date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        listTasksOnDate(date);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid date format. Please use 'yyyy-MM-dd'.");
+                    }
                 } else {
                     throw new AtlasException("Invalid Command!!");
                 }
@@ -64,17 +77,27 @@ public class Atlas {
                 throw new AtlasException("Invalid deadline format. Please use 'deadline [description] /by [due date]'.");
             }
             String description = parts[0];
-            String dueDate = parts[1];
-            tasks.add(new Deadline(description, dueDate));
+            LocalDateTime by;
+            try {
+                by = LocalDateTime.parse(parts[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            } catch (DateTimeParseException e) {
+                throw new AtlasException("Invalid date format. Please use 'yyyy-MM-dd HHmm'.");
+            }
+            tasks.add(new Deadline(description, by));
         } else if (input.startsWith("event ")) {
             String[] parts = input.substring(6).split(" /");
             if (parts.length < 3) {
                 throw new AtlasException("Invalid event format. Please use 'event [description] /from [start date] /to [end date]'.");
             }
             String description = parts[0];
-            String startTime = parts[1].substring(5); // Remove "from " prefix
-            String endTime = parts[2].substring(3); // Remove "to " prefix
-            tasks.add(new Event(description, startTime, endTime));
+            LocalDateTime start, end;
+            try {
+                start = LocalDateTime.parse(parts[1].substring(5).trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                end = LocalDateTime.parse(parts[2].substring(3).trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            } catch (DateTimeParseException e) {
+                throw new AtlasException("Invalid date and time format. Please use 'yyyy-MM-dd HHmm'.");
+            }
+            tasks.add(new Event(description, start, end));
         }
         taskCounter++;
         System.out.println("Got it. I've added this task:\n" + tasks.get(taskCounter - 1));
@@ -168,21 +191,52 @@ public class Atlas {
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
         switch (type) {
         case "T":
             ToDo todo = new ToDo(description);
             if (isDone) todo.toggle();
             return todo;
         case "D":
-            Deadline deadline = new Deadline(description, parts[3].trim());
-            if (isDone) deadline.toggle();
-            return deadline;
+            try {
+                LocalDateTime by = LocalDateTime.parse(parts[3].trim());
+                Deadline deadline = new Deadline(description, by);
+                if (isDone) deadline.toggle();
+                return deadline;
+            } catch (DateTimeParseException e) {
+                System.err.println("Failed to parse deadline date: " + parts[3]);
+                return null;
+            }
         case "E":
-            Event event = new Event(description, parts[3].trim(), parts[4].trim());
-            if (isDone) event.toggle();
-            return event;
+            try {
+                LocalDateTime start = LocalDateTime.parse(parts[3].trim());
+                LocalDateTime end = LocalDateTime.parse(parts[4].trim());
+                Event event = new Event(description, start, end);
+                if (isDone) event.toggle();
+                return event;
+            } catch (DateTimeParseException e) {
+                System.err.println("Failed to parse event dates: " + parts[3] + " and " + parts[4]);
+                return null;
+            }
         default:
             return null;
+        }
+    }
+
+    private static void listTasksOnDate(LocalDate date) {
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getBy().toLocalDate().equals(date)) {
+                    System.out.println(deadline);
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getStart().toLocalDate().equals(date) || event.getEnd().toLocalDate().equals(date)) {
+                    System.out.println(event);
+                }
+            }
         }
     }
 
