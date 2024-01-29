@@ -1,4 +1,3 @@
-import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -31,22 +30,36 @@ public class Duke {
             } else {
                 String s = getDescripition(arr);
                 String[] newArr = s.split(" /");
-                System.out.println("\t\tAdded a new task to the list!");
-                if (arr[0].equals("deadline")) {
-                    Deadline d = new Deadline(newArr[0], newArr[1]);
-                    list.add(d);
-                    System.out.println("\t\t  " + d.toString());
-                } else if (arr[0].equals("todo")) {
-                    Todo td = new Todo(newArr[0]);
-                    list.add(td);
-                    System.out.println("\t\t  " + td.toString());
-                } else if (arr[0].equals("event")) {
-                    Event e = new Event(newArr[0], newArr[1], newArr[2]);
-                    list.add(e);
-                    System.out.println("\t\t  " + e.toString());
+                try {
+                    if (arr[0].equals("deadline")) {
+                        if (newArr.length < 2) {
+                            throw new DukeException("Incomplete deadline information");
+                        }
+                        System.out.println("\t\tAdded a new task to the list!");
+                        Deadline d = new Deadline(newArr[0], newArr[1]);
+                        list.add(d);
+                        System.out.println("\t\t  " + d.toString());
+                    } else if (arr[0].equals("todo")) {
+                        System.out.println("\t\tAdded a new task to the list!");
+                        Todo td = new Todo(newArr[0]);
+                        list.add(td);
+                        System.out.println("\t\t  " + td.toString());
+                    } else if (arr[0].equals("event")) {
+                        if (newArr.length < 3) {
+                            throw new DukeException("Incomplete event information");
+                        }
+                        System.out.println("\t\tAdded a new task to the list!");
+                        Event e = new Event(newArr[0], newArr[1], newArr[2]);
+                        list.add(e);
+                        System.out.println("\t\t  " + e.toString());
+                    } else {
+                        throw new DukeException("Invalid task type");
+                    }
+                    System.out.println("\t\tYou have " + list.size() + " too many tasks to do!!!" +
+                            "\n\t\tQuickly start working on them!!!\n");
+                } catch (DukeException e) {
+                    System.out.println("\t\t" + e.getMessage());
                 }
-                System.out.println("\t\tYou have " + list.size() + " too many tasks to do!!!" +
-                        "\n\t\tQuickly start working on them!!!\n");
             }
         }
         System.out.println("\t\tBye bye, see you next time!!!");
