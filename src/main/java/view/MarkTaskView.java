@@ -3,13 +3,13 @@ package view;
 import model.Task;
 
 /**
- * The {@code MarkTaskView} class represents a view for displaying information after marking a task as done.
+ * The {@link MarkTaskView} class represents a view for displaying information after marking a task as done.
  */
 public class MarkTaskView extends Ui {
     private final Task task;
 
     /**
-     * Constructs a {@code MarkTaskView} with the specified task.
+     * Constructs a {@link MarkTaskView} with the specified task.
      *
      * @param task The task that has been marked as done.
      */

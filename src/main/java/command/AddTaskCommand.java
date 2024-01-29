@@ -16,7 +16,7 @@ public class AddTaskCommand extends Command {
     private final TaskList taskList;
 
     /**
-     * Constructs an {@code AddTaskCommand} object with the specified {@code Task} and {@code TaskList}.
+     * Constructs an {@link AddTaskCommand} object with the specified {@link Task} and {@link TaskList}.
      * This command is used to add a new task to the given task list.
      *
      * @param task The task to be added, in the form of {@code ToDo}, {@code Event} or {@code Deadline}.
@@ -28,7 +28,7 @@ public class AddTaskCommand extends Command {
     }
 
     /**
-     * Executes the {@code AddTaskCommand}, performing the necessary actions to carry out the specific functionality
+     * Executes the {@link AddTaskCommand}, performing the necessary actions to carry out the specific functionality
      * related to adding a task.
      * <p>
      * This method adds the given task to the task list, update the storage and display the add task message by

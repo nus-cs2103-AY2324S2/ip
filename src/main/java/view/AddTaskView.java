@@ -4,14 +4,14 @@ import model.Task;
 import model.TaskList;
 
 /**
- * The {@code AddTaskView} class represents a view for displaying information after adding a {@code Task}.
+ * The {@link AddTaskView} class represents a view for displaying information after adding a {@link Task}.
  */
 public class AddTaskView extends Ui {
     private final Task task;
     private final String size;
 
     /**
-     * Constructs an {@code AddTaskView} with the specified {@code Task} and {@code TaskList}.
+     * Constructs an {@link AddTaskView} with the specified {@link Task} and {@link TaskList}.
      *
      * @param task The task that has been added.
      * @param taskList The task list to which the task has been added.

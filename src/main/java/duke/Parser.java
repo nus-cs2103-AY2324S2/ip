@@ -26,7 +26,7 @@ public class Parser {
     private final TaskList taskList;
 
     /**
-     * Constructs a {@code Parser} with the specified command string and {@code TaskList}.
+     * Constructs a {@link Parser} with the specified command string and {@link TaskList}.
      *
      * @param command The raw command string provided by the user for parsing.
      * @param taskList The {@code TaskList} associated with the parser, providing context for command execution.

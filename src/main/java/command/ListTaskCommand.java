@@ -13,7 +13,7 @@ public class ListTaskCommand extends Command {
     private final TaskListView taskListView;
 
     /**
-     * Constructs a {@code ListTaskCommand} object using {@code TaskList}.
+     * Constructs a {@link ListTaskCommand} object using {@link TaskList}.
      * This command is used to list all tasks in the given task list.
      *
      * @param taskList The task list to be listed .
@@ -23,11 +23,11 @@ public class ListTaskCommand extends Command {
     }
 
     /**
-     * Executes the {@code ListTaskCommand}, prints {@code TaskList}.
+     * Executes the {@link ListTaskCommand}, prints {@link TaskList}.
      * <p>
      * This method display the task list using the task list view.
      *
-     * @param storage The storage object that manages the data persistence. It is not used in {@code ListTaskCommand}
+     * @param storage The storage object that manages the data persistence. It is not used in {@link ListTaskCommand}
      */
     @Override
     public void execute(Storage storage) {

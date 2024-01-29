@@ -9,7 +9,7 @@ import duke.Storage;
 import model.TaskList;
 
 /**
- * {@code Duke} is the main class of this program.
+ * {@link Duke} is the main class of this program.
  *
  * @author Tsui Yi Wern (yiwern5)
  */
@@ -18,7 +18,7 @@ public class Duke {
     private final Storage storage;
 
     /**
-     * Constructor for {@code Duke} to initialize the storage or
+     * Constructor for {@link Duke} to initialize the storage or
      * get task list from the storage.
      * @param filePath the file path of the storage.
      */
@@ -35,7 +35,7 @@ public class Duke {
 
     /**
      * Launch the program and initiate the command loop to process user input.
-     * It displays a greeting message by calling the {@code GreetCommand}.
+     * It displays a greeting message by calling the {@link GreetCommand}.
      */
     public void launch() {
         new GreetCommand().execute(storage);

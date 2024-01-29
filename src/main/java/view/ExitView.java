@@ -1,7 +1,7 @@
 package view;
 
 /**
- * The {@code ExitView} class represents a view for displaying a farewell message upon exiting the application.
+ * The {@link ExitView} class represents a view for displaying a farewell message upon exiting the application.
  */
 public class ExitView extends Ui {
 

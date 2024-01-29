@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The {@code Deadline} class represents a task with a specific deadline.
+ * The {@link Deadline} class represents a task with a specific deadline.
  */
 public class Deadline extends Task {
     private final LocalDateTime date;
 
     /**
-     * Constructs a {@code Deadline} instance with the specified title and deadline date.
+     * Constructs a {@link Deadline} instance with the specified title and deadline date.
      *
      * @param title The title of the deadline task.
      * @param date The deadline date and time.

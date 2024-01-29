@@ -1,12 +1,12 @@
 package model;
 
 /**
- * The {@code ToDo} class represents a todo task.
+ * The {@link ToDo} class represents a todo task.
  */
 public class ToDo extends Task {
 
     /**
-     * Constructs a {@code ToDo} instance with the specified title.
+     * Constructs a {@link ToDo} instance with the specified title.
      *
      * @param title The title of the ToDo task.
      */

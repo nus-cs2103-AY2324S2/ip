@@ -1,7 +1,7 @@
 package view;
 
 /**
- * The {@code greetView} class represents a view for displaying a welcome message upon starting the application.
+ * The {@link GreetView} class represents a view for displaying a welcome message upon starting the application.
  */
 public class GreetView extends Ui {
 

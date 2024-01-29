@@ -6,7 +6,7 @@ import model.TaskList;
 import view.DeleteTaskView;
 
 /**
- * Command to delete a {@code Task} from the {@code TaskList} using the task index.
+ * Command to delete a {@link Task} from the {@link TaskList} using the task index.
  */
 public class DeleteTaskCommand extends Command {
     public static final String COMMAND_WORD = "delete";
@@ -14,7 +14,7 @@ public class DeleteTaskCommand extends Command {
     private final TaskList taskList;
 
     /**
-     * Constructs a {@code DeleteTaskCommand} object with the specified {@code Task} index and {@code TaskList}.
+     * Constructs a {@link DeleteTaskCommand} object with the specified {@link Task} index and {@link TaskList}.
      * This command is used to delete a task from the given task list.
      *
      * @param index The index of the task to be deleted.
@@ -26,7 +26,7 @@ public class DeleteTaskCommand extends Command {
     }
 
     /**
-     * Executes the {@code DeleteTaskCommand}, performing the necessary actions to carry out the specific functionality
+     * Executes the {@link DeleteTaskCommand}, performing the necessary actions to carry out the specific functionality
      * related to deleting a task.
      * <p>
      * This method deletes the given task index from the task list, update the storage and display the delete task

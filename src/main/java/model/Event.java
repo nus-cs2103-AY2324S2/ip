@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The {@code Event} class represents a task with a specific time range.
+ * The {@link Event} class represents a task with a specific time range.
  */
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
     /**
-     * Constructs an {@code Event} instance with the specified title, start time, and end time.
+     * Constructs an {@link Event} instance with the specified title, start time, and end time.
      *
      * @param title The title of the event task.
      * @param from The start time of the event.

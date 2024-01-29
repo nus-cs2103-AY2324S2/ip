@@ -3,21 +3,21 @@ package model;
 import java.util.ArrayList;
 
 /**
- * The {@code TaskList} class encapsulates an {@code ArrayList<Task>} and provides methods to
+ * The {@link TaskList} class encapsulates an {@link ArrayList<Task>} and provides methods to
  * manipulate and retrieve tasks.
  */
 public class TaskList {
     private final ArrayList<Task> taskList;
 
     /**
-     * Constructs an empty {@code TaskList} with an initial capacity of 100.
+     * Constructs an empty {@link TaskList} with an initial capacity of 100.
      */
     public TaskList() {
         this.taskList = new ArrayList<>(100);
     }
 
     /**
-     * Constructs a {@code TaskList} with the specified list of tasks loaded from storage.
+     * Constructs a {@link TaskList} with the specified list of tasks loaded from storage.
      *
      * @param taskList The list of tasks to be initialized with.
      */

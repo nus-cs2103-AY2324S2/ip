@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import model.Task;
 
 /**
- * The {@code Storage} class is responsible for handling the reading, writing and saving task data to a file.
+ * The {@link Storage} class is responsible for handling the reading, writing and saving task data to a file.
  */
 public class Storage {
     private final File file;
 
     /**
-     * Constructs a {@code Storage} instance with the specified file path.
+     * Constructs a {@link Storage} instance with the specified file path.
      *
      * @param filePath The file path where task data is stored or will be stored.
      */
@@ -68,7 +68,7 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the file and returns them as an {@code ArrayList<Task>}.
+     * Loads tasks from the file and returns them as an {@link ArrayList<Task>}.
      *
      * @return The list of tasks loaded from the file. If an error occurs during loading,
      *         an empty list is returned.

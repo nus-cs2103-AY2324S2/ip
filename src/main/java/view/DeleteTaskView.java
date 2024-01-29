@@ -4,14 +4,14 @@ import model.Task;
 import model.TaskList;
 
 /**
- * The {@code DeleteTaskView} class represents a view for displaying information after deleting a {@code Task}.
+ * The {@link DeleteTaskView} class represents a view for displaying information after deleting a {@link Task}.
  */
 public class DeleteTaskView extends Ui {
     private final Task task;
     private final String size;
 
     /**
-     * Constructs an {@code DeleteTaskView} with the specified {@code Task} and {@code TaskList}.
+     * Constructs an {@link DeleteTaskView} with the specified {@link Task} and {@link TaskList}.
      *
      * @param task The task that has been deleted.
      * @param taskList The task list to which the task has been deleted.

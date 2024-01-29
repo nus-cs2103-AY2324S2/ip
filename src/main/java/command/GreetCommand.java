@@ -17,11 +17,11 @@ public class GreetCommand extends Command {
     }
 
     /**
-     * Executes the {@code GreetCommand}, print a welcome message greeting the user.
+     * Executes the {@link GreetCommand}, print a welcome message greeting the user.
      * <p>
      * This method display the exit message by initialising the exit view.
      *
-     * @param storage The storage object that manages the data persistence. It is not used in {@code GreetCommand}
+     * @param storage The storage object that manages the data persistence. It is not used in {@link GreetCommand}
      */
     @Override
     public void execute(Storage storage) {

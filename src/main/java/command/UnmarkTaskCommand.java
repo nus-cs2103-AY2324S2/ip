@@ -6,7 +6,7 @@ import model.TaskList;
 import view.UnmarkTaskView;
 
 /**
- * Command to mark a {@code Task} as not done.
+ * Command to mark a {@link Task} as not done.
  */
 public class UnmarkTaskCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
@@ -14,7 +14,7 @@ public class UnmarkTaskCommand extends Command {
     private final TaskList taskList;
 
     /**
-     * Constructs a {@code UnmarkTaskCommand} object with the specified {@code Task} index and {@code TaskList}.
+     * Constructs a {@link UnmarkTaskCommand} object with the specified {@link Task} index and {@link TaskList}.
      * This command is used to mark a task as not done from the given task list.
      *
      * @param index The index of the task to be marked as not done.
@@ -26,7 +26,7 @@ public class UnmarkTaskCommand extends Command {
     }
 
     /**
-     * Executes the {@code UnmarkTaskCommand}, performing the necessary actions to carry out the specific functionality
+     * Executes the {@link UnmarkTaskCommand}, performing the necessary actions to carry out the specific functionality
      * related to marking a task.
      * <p>
      * This method marks the given task as not done from the task list, update the storage and display the unmark task

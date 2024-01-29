@@ -6,7 +6,7 @@ import model.TaskList;
 import view.MarkTaskView;
 
 /**
- * Command to mark a {@code Task} as done.
+ * Command to mark a {@link Task} as done.
  */
 public class MarkTaskCommand extends Command {
     public static final String COMMAND_WORD = "mark";
@@ -15,7 +15,7 @@ public class MarkTaskCommand extends Command {
     private final TaskList taskList;
 
     /**
-     * Constructs a {@code MarkTaskCommand} object with the specified {@code Task} index and {@code TaskList}.
+     * Constructs a {@link MarkTaskCommand} object with the specified {@link Task} index and {@link TaskList}.
      * This command is used to mark a task as done from the given task list.
      *
      * @param index The index of the task to be marked as done.
@@ -27,7 +27,7 @@ public class MarkTaskCommand extends Command {
     }
 
     /**
-     * Executes the {@code MarkTaskCommand}, performing the necessary actions to carry out the specific functionality
+     * Executes the {@link MarkTaskCommand}, performing the necessary actions to carry out the specific functionality
      * related to marking a task.
      * <p>
      * This method marks the given task as done from the task list, update the storage and display the mark task
