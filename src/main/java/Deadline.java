@@ -1,5 +1,7 @@
 public class Deadline extends Task {
 
+    private static final String TYPE = "D";
+
     protected String dueDate;
 
     public Deadline(String name, String dueDate) {
@@ -8,8 +10,18 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getDetails() {
+        return super.getDetails() + ":::" + this.dueDate;
+    }
+
+    @Override
+    public String getType() {
+        return TYPE;
+    }
+
+    @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dueDate + ")";
+        return "[" + TYPE + "]" + super.toString() + " (by: " + dueDate + ")";
     }
 
 }

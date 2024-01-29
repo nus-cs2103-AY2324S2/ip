@@ -7,6 +7,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public abstract String getType();
+
     protected String getStatusIcon() {
         return (this.getStatus() ? "X" : " ");
     }
@@ -22,6 +24,8 @@ public abstract class Task {
     public void unmark() {
         this.isDone = false;
     }
+
+    public String getDetails() { return this.name; }
 
     @Override
     public String toString() {
