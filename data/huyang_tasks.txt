@@ -1,3 +1,3 @@
+D | 1 | read NGT readings | 2024-01-31T14:00:00
 T | 0 | Read a book
-D | 0 | Submit assignment | 2023-03-15T23:59:00
 E | 0 | Project meeting | 2023-03-20T14:00:00 to 2023-03-20T16:00:00

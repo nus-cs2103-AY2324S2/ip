@@ -23,9 +23,12 @@ public class Event extends Task {
 
     public static Event fromFileFormat(String fileFormat) throws TaskException {
         String[] parts = fileFormat.split(" \\| ");
-        LocalDateTime start = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        LocalDateTime end = LocalDateTime.parse(parts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        Event event = new Event(parts[2], start, end);
+        String description = parts[2];
+        String[] times = parts[3].split(" to "); // Split by " to "
+
+        LocalDateTime start = LocalDateTime.parse(times[0], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime end = LocalDateTime.parse(times[1], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        Event event = new Event(description, start, end);
         if (parts[1].equals("1")) {
             event.check();
         }
