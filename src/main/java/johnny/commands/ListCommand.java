@@ -2,8 +2,8 @@ package johnny.commands;
 
 import johnny.exceptions.JohnnyException;
 import johnny.storage.Storage;
-import johnny.ui.Ui;
 import johnny.tasks.TaskList;
+import johnny.ui.Ui;
 
 public class ListCommand extends Command {
 

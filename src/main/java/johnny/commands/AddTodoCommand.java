@@ -2,10 +2,10 @@ package johnny.commands;
 
 import johnny.exceptions.JohnnyException;
 import johnny.storage.Storage;
-import johnny.ui.Ui;
 import johnny.tasks.Task;
 import johnny.tasks.TaskList;
 import johnny.tasks.ToDo;
+import johnny.ui.Ui;
 
 public class AddTodoCommand extends Command {
 

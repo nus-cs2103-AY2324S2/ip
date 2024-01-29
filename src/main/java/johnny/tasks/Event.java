@@ -15,14 +15,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + super.formatOutputDate(from) +
-                " to: " + super.formatOutputDate(to) + ")";
+        return "[E]" + super.toString() + " (from: " + super.formatOutputDate(from)
+                + " to: " + super.formatOutputDate(to) + ")";
     }
 
     @Override
     public String addToFile() {
-        return "E | " + super.addToFile() + " | " + super.formatInputDate(from) +
-                " | " + super.formatInputDate(to) + "\n";
+        return "E | " + super.addToFile() + " | " + super.formatInputDate(from)
+                + " | " + super.formatInputDate(to) + "\n";
     }
 
 }

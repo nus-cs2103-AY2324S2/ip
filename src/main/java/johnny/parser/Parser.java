@@ -6,12 +6,20 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
-import johnny.commands.*;
+import johnny.commands.AddDeadlineCommand;
+import johnny.commands.AddEventCommand;
+import johnny.commands.AddTodoCommand;
+import johnny.commands.Command;
+import johnny.commands.DeleteCommand;
+import johnny.commands.ExitCommand;
+import johnny.commands.ListCommand;
+import johnny.commands.MarkCommand;
+import johnny.commands.UnmarkCommand;
 import johnny.exceptions.JohnnyException;
 
 public class Parser {
 
-    private static DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
 
     public static Command parse(String fullCommand) throws JohnnyException {
         List<String> parsedCommand = Arrays.asList(fullCommand.split(" "));

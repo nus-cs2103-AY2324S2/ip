@@ -10,12 +10,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import johnny.exceptions.JohnnyException;
-import johnny.tasks.*;
+import johnny.tasks.Deadline;
+import johnny.tasks.Event;
+import johnny.tasks.Task;
+import johnny.tasks.TaskList;
+import johnny.tasks.ToDo;
 
 public class Storage {
 
+    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
     private String filePath;
-    private DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+
 
     public Storage(String filePath) {
         this.filePath = filePath;
