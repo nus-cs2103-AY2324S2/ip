@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileManager {
     static final Path DIRECTORY_PATH = Paths.get("./data");
@@ -44,6 +45,17 @@ public class FileManager {
         }
     }
 
+    ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> result = new ArrayList<>();
+        try {
+            List<String> fileContentLines = Files.readAllLines(filePath);
+            result = convertStringListToTasks(fileContentLines);
+        } catch (IOException io) {
+            System.out.println("There is an error when reading the file.");
+        }
+        return result;
+    }
+
 
     private String convertTasksToString(ArrayList<Task> tasks) {
         StringBuilder result = new StringBuilder();
@@ -74,20 +86,36 @@ public class FileManager {
         return result.toString();
     }
 
-//    private ArrayList<Task> convertStringToTasks(String content) {
-//        String[] individualStringTask = content.trim().split(System.lineSeparator());
-//        ArrayList<Task> fileTasks = new ArrayList<>();
-//        for (String i : individualStringTask) {
-//            String[] stringAttributes = i.split("|");
-//            if (stringAttributes[0].equals("T")) {
-//                fileTasks.add(new ToDo());
-//            } else if (stringAttributes[0].equals("D")) {
-//
-//            } else if (stringAttributes[0].equals("E")) {
-//
-//            }
-//        }
-//    }
+    private ArrayList<Task> convertStringListToTasks(List<String> content) {
+        ArrayList<Task> fileTasks = new ArrayList<>();
+        for (String i : content) {
+            String[] stringAttributes = i.split("\\|");
+            if (stringAttributes[0].trim().equals("T")) {
+                fileTasks.add(new ToDo(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false));
+            } else if (stringAttributes[0].trim().equals("D")) {
+                fileTasks.add(new Deadline(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false, stringAttributes[3].trim()));
+            } else if (stringAttributes[0].trim().equals("E")) {
+                fileTasks.add(new Event(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false, stringAttributes[3].trim(), stringAttributes[4].trim()));
+            }
+        }
+        return fileTasks;
+    }
+
+    private ArrayList<Task> convertStringToTasks(String content) {
+        String[] individualStringTask = content.trim().split(System.lineSeparator());
+        ArrayList<Task> fileTasks = new ArrayList<>();
+        for (String i : individualStringTask) {
+            String[] stringAttributes = i.split("|");
+            if (stringAttributes[0].equals("T")) {
+                fileTasks.add(new ToDo(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false));
+            } else if (stringAttributes[0].equals("D")) {
+                fileTasks.add(new Deadline(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false, stringAttributes[3].trim()));
+            } else if (stringAttributes[0].equals("E")) {
+                fileTasks.add(new Event(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false, stringAttributes[3].trim(), stringAttributes[4].trim()));
+            }
+        }
+        return fileTasks;
+    }
 
 
 }

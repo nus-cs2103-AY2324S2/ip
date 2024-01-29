@@ -1,4 +1,4 @@
 T | 0 | read book
-D | 1 | return book | now
-D | 0 | meeting | now | tmr
+D | 0 | return book | now
+D | 0 | meeting | now
 T | 0 | join club

@@ -82,6 +82,8 @@ public class Duke {
 
     public static void listMethod() {
         System.out.println("      Here are the tasks in your list:");
+        ArrayList<Task> allTasksFromFile = getTasksFromFile("duke");
+        tasks = allTasksFromFile;
         for (int i = 0; i < tasks.size(); i++) {
 
             System.out.println("      " + (i + 1) + "." + tasks.get(i).toString());
@@ -241,6 +243,11 @@ public class Duke {
         fileManager.writeArrayListToFile(tasks, isOverwrite);
     }
 
+
+    static ArrayList<Task> getTasksFromFile(String filename) {
+        FileManager fileManager = new FileManager(filename);
+        return fileManager.loadTasksFromFile();
+    }
 
 
 }
