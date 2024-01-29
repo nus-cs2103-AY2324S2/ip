@@ -1,3 +1,4 @@
+package skyler.main;
 import java.util.Scanner;
 
 public class Ui {

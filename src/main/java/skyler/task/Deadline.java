@@ -1,7 +1,11 @@
+package skyler.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-class Deadline extends Task {
+import skyler.exception.SkylerException;
+
+public class Deadline extends Task {
     private LocalDate by;
 
     public Deadline(String description, LocalDate by, boolean isDone) throws SkylerException {

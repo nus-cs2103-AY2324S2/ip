@@ -1,4 +1,7 @@
+package skyler.main;
+
 import java.util.Scanner;
+import skyler.exception.SkylerException;
 
 public class Skyler {
     private static final String CHATBOT_NAME = "Skyler";
@@ -29,8 +32,3 @@ public class Skyler {
     }
 }
 
-class SkylerException extends Exception {
-    public SkylerException(String message) {
-        super(message);
-    }
-}

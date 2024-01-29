@@ -1,7 +1,10 @@
+package skyler.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-class Event extends Task {
+import skyler.exception.SkylerException;
+
+public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
 

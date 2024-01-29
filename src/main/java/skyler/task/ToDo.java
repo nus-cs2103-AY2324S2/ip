@@ -1,4 +1,6 @@
-class ToDo extends Task {
+package skyler.task;
+
+public class ToDo extends Task {
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
     }
