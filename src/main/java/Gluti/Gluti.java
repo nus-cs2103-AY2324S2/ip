@@ -1,22 +1,27 @@
 package Gluti;
 
+import Gluti.helpers.FileStorage;
 import Gluti.utils.Task;
 import Gluti.utils.Todo;
 import Gluti.utils.Deadline;
 import Gluti.utils.Event;
 import Gluti.utils.GlutiException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Gluti {
-    public static void main(String[] args) throws GlutiException {
+    public static void main(String[] args) throws GlutiException, IOException {
+        FileStorage fStorage = new FileStorage();
+        ArrayList<Task> storage = fStorage.readList();
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
 
         String logo = " Hello! I'm Gluti\n" +
                 " What can I do for you?";
         String end = " Bye. Hope to see you again soon!";
         System.out.println(logo);
-        ArrayList<Task> storage = new ArrayList<>();
+        //ArrayList<Task> storage = new ArrayList<>();
         String word = "";
         String function = word.split(" ")[0].toLowerCase();
         while(!function.equals("bye")) {
@@ -28,8 +33,13 @@ public class Gluti {
                 break;
             case "list":
                 int num = 1;
-                for (Task x : storage) {
-                    System.out.println(num++ + "." + x.toString());
+                System.out.println(storage.size());
+                if (!storage.isEmpty()) {
+                    for (Task x : storage) {
+                        System.out.println(num++ + "." + x.toString());
+                    }
+                } else {
+                    System.out.println("List is Empty!");
                 }
                 break;
             case "mark":
@@ -121,11 +131,12 @@ public class Gluti {
                 }
                 break;
             default:
-                storage.add(new Task(word));
-                System.out.println("added: " + word + "\n");
+//                storage.add(new Task(word));
+//                System.out.println("added: " + word + "\n");
                 break;
             }
         }
+        fStorage.saveList(storage);
         System.out.println(end);
     }
 }

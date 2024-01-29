@@ -1,0 +1,3 @@
+[T][X] test
+[D][ ] Meeting  (by:  Monday)
+[E][ ] Test Meeting (from: Monday 5pm to: 7pm)
