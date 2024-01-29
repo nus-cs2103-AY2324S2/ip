@@ -13,6 +13,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * Handles the parsing of user commands and creating tasks based on the input.
+ */
 public class Parser {
 
     private TaskList tasks;
@@ -20,15 +23,25 @@ public class Parser {
     private Dino.TaskType taskType;
     private Scanner sc;
 
+    /**
+     * Constructs a new Parser instance with the specified TaskList, Ui, and Scanner.
+     *
+     * @param tasks The TaskList to be operated on.
+     * @param ui    The Ui for handling user interface interactions.
+     * @param sc    The Scanner for reading user input.
+     */
     public Parser(TaskList tasks, Ui ui, Scanner sc) {
         this.tasks = tasks;
         this.ui = ui;
         this.sc = sc;
     }
 
+    /**
+     * Parses the given command and performs the corresponding action.
+     *
+     * @param command The user command to be parsed.
+     */
     public void parseCommand(String command) {
-
-
         switch (command) {
             case "list":
                 tasks.listTask();
@@ -94,10 +107,15 @@ public class Parser {
                     System.out.println("Error: " + e.getMessage());
                 }
                 break;
-
         }
     }
 
+    /**
+     * Handles the creation of tasks based on user input for tasks like ToDo, Deadline, and Event.
+     *
+     * @param sc        The Scanner for reading user input.
+     * @param taskType  The type of the task (ToDo, Deadline, or Event).
+     */
     private void handleTaskCreation(Scanner sc, Dino.TaskType taskType) {
         try {
             String taskDetails = sc.nextLine().trim();
@@ -115,6 +133,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a Task object based on the provided task type and task details.
+     *
+     * @param taskType     The type of the task (ToDo, Deadline, or Event).
+     * @param taskDetails  The details of the task.
+     * @return A Task object representing the created task.
+     * @throws DinoException If there is an error creating the task.
+     */
     public Task createTaskFromInput(Dino.TaskType taskType, String taskDetails) throws DinoException {
         switch (taskType) {
             case TODO:
@@ -163,6 +189,12 @@ public class Parser {
     }
 
 
+    /**
+     * Parses a string representing date and time into a LocalDateTime object.
+     *
+     * @param time The string representation of date and time.
+     * @return A LocalDateTime object representing the parsed date and time.
+     */
     public LocalDateTime parseStringToTime(String time) {
         DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", Locale.ENGLISH);
@@ -176,6 +208,12 @@ public class Parser {
         return deadlineTime;
     }
 
+    /**
+     * Parses a string representing date into a formatted string with a specific pattern.
+     *
+     * @param time The string representation of date.
+     * @return A formatted string representing the parsed date.
+     */
     public String parseStringToNum(String time) {
         time = time.trim();
         DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
@@ -198,6 +236,11 @@ public class Parser {
         return formattedDate;
     }
 
+    /**
+     * Prints tasks for a specific date.
+     *
+     * @param sc The Scanner for reading user input.
+     */
     void printTasksForDate(Scanner sc) {
         try {
             String dateString = sc.next();

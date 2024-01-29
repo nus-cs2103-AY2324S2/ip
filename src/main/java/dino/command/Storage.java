@@ -1,6 +1,5 @@
 package dino.command;
 
-import dino.command.TaskList;
 import dino.task.Task;
 
 import java.io.File;
@@ -12,13 +11,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks from/to a file.
+ */
 public class Storage {
     private String filePath;
     private Task task;
 
+    /**
+     * Constructs a new Storage instance with the specified file path.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Loads tasks from the file specified in the constructor and returns a TaskList.
+     *
+     * @return The TaskList containing tasks loaded from the file.
+     */
     public TaskList loadTasksFromFile() {
         TaskList taskList = new TaskList();
         try {
@@ -67,6 +80,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the provided task list to the file specified in the constructor.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public void saveTasksToFile(ArrayList<Task> taskList) {
         try {
             File directory = new File("data");
