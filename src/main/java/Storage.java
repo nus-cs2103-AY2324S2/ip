@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Writer {
+public class Storage {
     private String path;
-    public Writer(String path) {
+    public Storage(String path) {
         this.path = path;
     }
 
@@ -47,7 +47,7 @@ public class Writer {
         }
     }
 
-    public ArrayList<Task> readTasks() throws IOException {
+    public static ArrayList<Task> readTasks() throws IOException {
         ArrayList<Task> userRequests = new ArrayList<Task>();
         try {
             ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
