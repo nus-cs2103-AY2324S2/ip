@@ -1,4 +1,6 @@
-public class Todo extends Task{
+package tasks;
+
+public class Todo extends Task {
     public Todo(Boolean status, String detail) {
         super(status, detail);
     }

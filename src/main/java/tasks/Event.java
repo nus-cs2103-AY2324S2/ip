@@ -1,4 +1,8 @@
-public class Event extends Task{
+package tasks;
+
+import tasks.Task;
+
+public class Event extends Task {
     private String start;
     private String by;
     public Event(Boolean status, String detail, String start, String by) {

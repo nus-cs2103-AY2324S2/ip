@@ -1,22 +1,34 @@
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class DukeFile {
-    private final String filePath = "./data/duke.txt";
+public class Storage {
+    private String filePath = "./data/duke.txt";
     private File file;
 
-    public DukeFile() throws IOException {
-        this.file = new File(this.filePath);
+    public Storage() {
+        this.file = new File(filePath);
+    }
 
+    public Storage(String filePath) {
+        this.file = new File(filePath);
+        this.filePath = filePath;
+    }
+
+    public ArrayList<Task> load() throws IOException {
         if (!this.file.getParentFile().exists())
             this.file.getParentFile().mkdirs();
         if (!this.file.exists())
             this.file.createNewFile();
+        return this.readFile();
     }
 
     /**
@@ -24,7 +36,7 @@ public class DukeFile {
      * @return task list read from file
      * @throws FileNotFoundException if the file is not found
      */
-    public ArrayList<Task> readFile() throws FileNotFoundException{
+    private ArrayList<Task> readFile() throws FileNotFoundException{
         ArrayList<Task> taskList = new ArrayList<>();
         Scanner s = new Scanner(file); // create a Scanner using the File as the source
         while (s.hasNext()) {
@@ -37,13 +49,13 @@ public class DukeFile {
 
     /**
      * write all the tasks in the task list to the file stored
-     * @param tasksToWrite tasks to be written to the file
-     * @throws IOException exception throw when try to write to the file.
+     * @param taskList
+     * @throws IOException
      */
-    public void writeTasksToFile(ArrayList<Task> tasksToWrite) throws IOException {
+    public void writeTasksToFile(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
-        for(Task t: tasksToWrite) {
-            fw.write(t.inFileStringFormat() + "\n");
+        for(int i = 0; i< taskList.getNumOfTasks(); i++) {
+            fw.write(taskList.getTaskInfileStringFormat(i) + "\n");
         }
         fw.close();
     }

@@ -1,15 +1,23 @@
+package tasks;
+
+import exceptions.InvalidDateTimeException;
+import tasks.Task;
 import utils.DukeDateFormater;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate by;
     private DukeDateFormater formater = new DukeDateFormater();
 
     public Deadline(Boolean status, String detail, String by) throws DateTimeParseException {
         super(status, detail);
-        this.by = this.formater.stringToDate(by);
+        try {
+            this.by = this.formater.stringToDate(by);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
+        }
     }
 
     @Override
