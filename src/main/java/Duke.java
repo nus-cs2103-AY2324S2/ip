@@ -1,9 +1,46 @@
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.ArrayList;
+
 
 public class Duke {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList(new ArrayList<>());
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Duke("./data/botYue.txt").run();
+    }
+}
+
+/*
+public class Duke {
+
     private static final Task[] store = new Task[100];
     private static int count = 0;
     private static final String DATA_FILE_PATH = "./data/botYue.txt";
@@ -281,11 +318,10 @@ public class Duke {
         }
     }
 
-
 }
 
 class DukeException extends Exception {
     public DukeException(String message) {
         super(message);
     }
-}
+}*/

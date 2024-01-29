@@ -1,6 +1,5 @@
-T | 1 | read book
+T | 0 | read book
 D | 0 | return book | 2/12/2019 1800
-E | 0 | project meeting | Aug 6th 2-4pm
 T | 1 | join sports club
 E | 0 | project meeting  | Dec 02 2019 18:00-Oct 15 2019 18:00
 D | 0 | return book  | Oct 15 2019
@@ -9,4 +8,8 @@ D | 0 | return book  | Dec 02 2019
 E | 1 | project meeting  | Oct 15 2019 00:00-Oct 15 2019 18:00
 E | 0 | project meeting  | Oct 15 2019-Oct 15 2019
 T | 0 | borrow book
-E | 0 | project meeting  | Dec 02 2019-Dec 02 2019
+T | 0 | borrow book
+E | 0 | project meeting  | Dec 02 2019 18:00-Dec 02 2019 18:30
+E | 0 | project meeting  | Dec 02 2019-Oct 15 2019
+E | 0 | project meeting  | Dec 02 2019-Oct 15 2019
+D | 0 | return book  | 2019-12-02T18:00
