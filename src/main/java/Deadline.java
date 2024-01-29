@@ -1,7 +1,10 @@
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String taskName, String by) {
+public class Deadline extends Task {
+    protected LocalDateTime by;
+
+    public Deadline(String taskName, LocalDateTime by) {
         super(taskName);
         this.by = by;
     }
@@ -12,7 +15,8 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat() {
-        return "D | " + (isDone ? "1" : "0") + " | " + taskName + " | " + by;
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        return "D | " + (isDone ? "1" : "0") + " | " + taskName + " | " + by.format(formatter);
     }
 
     public static Deadline fromFileFormat(String fileFormat) throws TaskException {
@@ -20,7 +24,8 @@ public class Deadline extends Task {
         if (parts.length < 3) {
             throw TaskException.forInvalidTaskFormat("ToDo");
         }
-        Deadline deadline = new Deadline(parts[2], parts[3]);
+        LocalDateTime byTime = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        Deadline deadline = new Deadline(parts[2], byTime);
         if (parts[1].equals("1")) {
             deadline.check();
         }
@@ -29,6 +34,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return getTypeIcon() + super.getStatusIcon() + " " + taskName + " (by: " + by + ")";
+        return getTypeIcon() + super.getStatusIcon() + " " + taskName
+                + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 }

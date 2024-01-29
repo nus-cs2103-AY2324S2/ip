@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -158,11 +161,17 @@ public class Huyang {
         if (byIndex == -1) {
             throw TaskException.forInvalidTaskFormat("deadline");
         }
-        String description = input.substring(9, byIndex).trim();
-        String by = input.substring(byIndex + 4).trim();
-        tasks.add(new Deadline(description, by));
-        printAddedTask();
-        updateTasks();
+
+        try {
+            String description = input.substring(9, byIndex).trim();
+            String by = input.substring(byIndex + 4).trim();
+            LocalDateTime byTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            tasks.add(new Deadline(description, byTime));
+            printAddedTask();
+            updateTasks();
+        } catch (DateTimeParseException e) {
+            throw new TaskException("Invalid date format. Please use YYYY-MM-DD HHMM, e.g., 2020-12-02 1800.");
+        }
     }
 
     private void addEventTask(String input) throws TaskException {
@@ -174,12 +183,19 @@ public class Huyang {
         if (fromIndex == -1 || toIndex == -1) {
             throw TaskException.forInvalidTaskFormat("event");
         }
-        String description = input.substring(6, fromIndex).trim();
-        String start = input.substring(fromIndex + 6, toIndex).trim();
-        String end = input.substring(toIndex + 4).trim();
-        tasks.add(new Event(description, start, end));
-        printAddedTask();
-        updateTasks();
+
+        try {
+            String description = input.substring(6, fromIndex).trim();
+            String start = input.substring(fromIndex + 6, toIndex).trim();
+            String end = input.substring(toIndex + 4).trim();
+            LocalDateTime startTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            LocalDateTime endTime = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            tasks.add(new Event(description, startTime, endTime));
+            printAddedTask();
+            updateTasks();
+        } catch (DateTimeParseException e) {
+            throw new TaskException("Invalid date format. Please use YYYY-MM-DD HHMM, e.g., 2020-12-02 1800.");
+        }
     }
 
     private void printAddedTask() {
