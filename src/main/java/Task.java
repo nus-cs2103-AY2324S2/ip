@@ -9,6 +9,11 @@ class Task {
         this.isDone = false;
     }
 
+    public Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }    
+
     public String getName() {
         return this.name;
     }
@@ -28,6 +33,10 @@ class Task {
     public void taskUndone() {
         this.isDone = false;
     }    
+
+    public String toSave() {
+        return  " | " + (isDone ? "1" : "0") + " | " + name;
+    }
 
     @Override
     public String toString() {
