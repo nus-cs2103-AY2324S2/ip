@@ -1,5 +1,11 @@
+import java.io.IOException;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.util.stream.Collectors;
 
 public class Skibidi {
     public static String logo = " ____  _  _____ ____ ___ ____ ___ \n"+
@@ -51,11 +57,19 @@ public class Skibidi {
     private void inputComprehension(String in) {
         if (in.equals("list")) printList();
 
-        else if (in.startsWith("mark")) mark(in);
+        else if (in.equals("save")) {
+            try {
+                save();
+            } catch (IOException e) {
+                System.out.println("I/O Exception");
+            }
+        }
 
-        else if (in.startsWith("unmark")) unmark(in);
+        else if (in.startsWith("mark ")) mark(in);
 
-        else if (in.startsWith("delete")) delete(in);
+        else if (in.startsWith("unmark ")) unmark(in);
+
+        else if (in.startsWith("delete ")) delete(in);
 
         else {
             try {
@@ -177,5 +191,30 @@ public class Skibidi {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Sorry, index out of range!");
         }
+    }
+
+    public void save() throws IOException {
+        // Check if the directory exists
+        String userDir = System.getProperty("user.dir");
+        Path pathDir = Paths.get(userDir, "data");
+        if (!Files.exists(pathDir)) {
+            Files.createDirectories(pathDir);
+        }
+        // Check if the save file exists
+        Path pathFile = Paths.get(userDir, "data", "duke.txt");
+        if (Files.exists(pathFile)) {
+            Files.delete(pathFile);
+        }
+        Files.createFile(pathFile);
+        // Writing to the file
+        writeToFile(pathFile);
+    }
+
+    private void writeToFile(Path f) throws IOException {
+        List<String> lines = list.stream()
+                .map(Object::toString)
+                .map(s -> s.substring(0, s.length() - 1))
+                .collect(Collectors.toList());
+        Files.write(f, lines);
     }
 }
