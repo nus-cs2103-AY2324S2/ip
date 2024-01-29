@@ -6,24 +6,10 @@ import java.util.regex.Pattern;
 public class BMO {
 
     static List<Task> taskLog = new ArrayList<>();
-    static String errorPrint = "-----------------------------------------\n"
-            + "    BMO don't understand ;;;\n"
-            + "    You could have a formatting error\n    or typo!\n"
-            + "    You can refer to the command formats\n    that appear when you switch me on. ^^\n"
-            + "-----------------------------------------\n";
-    static String tutorialPrint = "Command BMO with these keywords!\n"
-                            + "0. hi [greet BMO]\n"
-                            + "1. bye [shut BMO down]\n"
-                            + "2. log [view task log]\n"
-                            + "3. add todo <task> [add todo task]\n"
-                            + "4. add deadline <task> /by <date> [add deadline]\n"
-                            + "5. add event <event> /from <start> /to <end> [add event]\n"
-                            + "6. done <task number> [check task as done]\n"
-                            + "7. redo <task number> [uncheck task]\n"
-                            + "-----------------------------------------\n";
 
     public static void main(String[] args) {
-        intro();
+        System.out.println(Constants.introPrint);
+        System.out.println(Constants.tutorialPrint);
         receive();
     }
 
@@ -40,42 +26,26 @@ public class BMO {
                 break;
             } else if (input.startsWith("log")) {
                 viewLog();
-            } else if (input.startsWith("done") && input.length() > 5) {
-                int index = Integer.parseInt(input.substring(5));
-                done(index);
-            } else if (input.startsWith("redo") && input.length() > 5) {
-                int index = Integer.parseInt(input.substring(5));
-                unDone(index);
-            } else if (input.startsWith("add") && input.length() > 4){
-                addLog(input.substring(4));
+            } else if (input.startsWith("done")) {
+                done(input.substring(4).trim());
+            } else if (input.startsWith("redo")) {
+                unDone(input.substring(4).trim());
+            } else if (input.startsWith("add")) {
+                addLog(input.substring(3).trim());
             } else {
-                System.out.println(errorPrint);
+                System.out.println(Constants.errorPrint.general());
             }
         }
         return;
     }
 
-    static void intro() {
-        String introPrint = "-----------------------------------------\n"
-                    + "    BMO chop!\n    Do you want to play video games?\n"
-                    + "-----------------------------------------\n";
-        System.out.println(introPrint);
-        System.out.println(tutorialPrint);
-    }
-
     static void greet() {
-        String hiPrint = "-----------------------------------------\n"
-                + "    Good day! What can BMO help you with?\n"
-                + "-----------------------------------------\n";
-        System.out.println(hiPrint);
+        System.out.println(Constants.hiPrint);
         return;
     }
 
     static void salute() {
-        String byePrint = "-----------------------------------------\n"
-                    + "    Beep boop BMO shutting down...\n"
-                    + "-----------------------------------------\n";
-        System.out.println(byePrint);
+        System.out.println(Constants.byePrint);
         return;
     }
 
@@ -107,7 +77,17 @@ public class BMO {
             String task = toDoMatcher.group(1);
             newTask = new ToDos(task);
         } else {
-            System.out.print(errorPrint);
+            if (input.startsWith("deadline")) {
+                System.out.println(Constants.errorPrint.deadline());
+            } else if (input.startsWith("todo")) {
+                System.out.println(Constants.errorPrint.todo());
+            } else if (input.startsWith("event")) {
+                System.out.println(Constants.errorPrint.event());
+            } else if (input.isBlank()){
+                System.out.println(Constants.errorPrint.emptyAdd());
+            } else {
+                System.out.println(Constants.errorPrint.general());
+            }
             return;
         }
 
@@ -123,11 +103,7 @@ public class BMO {
     static void viewLog() {
         StringBuilder logPrint = new StringBuilder();
         if (taskLog.isEmpty()) {
-            String emptyLogPrint = "-----------------------------------------\n"
-                            + "    Wow! Your log is actually empty.\n"
-                            + "    Let's play mario kart right now!!\n"
-                            + "-----------------------------------------\n";
-            System.out.println(emptyLogPrint);
+            System.out.println(Constants.emptyLogPrint);
             return;
         }
         for (int i = 0; i < taskLog.size(); i++) {
@@ -140,9 +116,28 @@ public class BMO {
         return;
     }
 
-    static void done(int index) {
+    static void done(String input) {
+        if (input.isBlank() || !input.matches("\\d+")) {
+            System.out.println(Constants.errorPrint.noInt());
+            return;
+        }
+
+        int index = Integer.parseInt((input));
+
+        if (index >= taskLog.size()) {
+            System.out.println(Constants.errorPrint.outOfRange());
+            return;
+        }
+
         Task currTask = taskLog.get(index - 1);
+
+        if (currTask.getStatus()) {
+            System.out.println(Constants.errorPrint.alreadyDone());
+            return;
+        }
+
         currTask.setStatus(true);
+
         String donePrint = "-----------------------------------------\n"
                 + "    Nice! Just a little more and you can play with BMO!\n"
                 + "    Completed: " + taskLog.get(index - 1) + "\n"
@@ -151,9 +146,28 @@ public class BMO {
         return;
     }
 
-    static void unDone(int index) {
+    static void unDone(String input) {
+        if (input.isBlank() || !input.matches("\\d+")) {
+            System.out.println(Constants.errorPrint.noInt());
+            return;
+        }
+
+        int index = Integer.parseInt((input));
+
+        if (index >= taskLog.size()) {
+            System.out.println(Constants.errorPrint.outOfRange());
+            return;
+        }
+
         Task currTask = taskLog.get(index - 1);
+
+        if (!currTask.getStatus()) {
+            System.out.println(Constants.errorPrint.alreadyUnDone());
+            return;
+        }
+
         currTask.setStatus(false);
+
         String unDonePrint = "-----------------------------------------\n"
                 + "    Aww come on hurry up and finish so we can play!\n"
                 + "    Now I have to wait awhile longer >:(\n"

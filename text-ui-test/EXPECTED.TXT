@@ -25,42 +25,129 @@ Command BMO with these keywords!
 
 -----------------------------------------
     BMO don't understand ;;;
-    You could have a formatting error
-    or typo!
     You can refer to the command formats
     that appear when you switch me on. ^^
 -----------------------------------------
 
 -----------------------------------------
-    added to log: [T] eat supper
+    If you want BMO to add a task to the log,
+    please use these formats:
+    add todo <task>
+    add deadline <task> /by <due date>
+    add event <task> /from <start> /to <end>
+-----------------------------------------
+
+-----------------------------------------
+    If you want BMO to record a todo,
+    please input add todo <task>
+-----------------------------------------
+
+-----------------------------------------
+    If you want BMO to record an event,
+    please input add event <task> /from <start> /to <end>
+-----------------------------------------
+
+-----------------------------------------
+    If you want BMO to record a deadline,
+    please input add deadline <task> /by <due date>
+-----------------------------------------
+
+-----------------------------------------
+    Wow! Your log is actually empty.
+    Let's play mario kart right now!!
+-----------------------------------------
+
+-----------------------------------------
+    If you want BMO to record an event,
+    please input add event <task> /from <start> /to <end>
+-----------------------------------------
+
+-----------------------------------------
+    If you want BMO to record a deadline,
+    please input add deadline <task> /by <due date>
+-----------------------------------------
+
+-----------------------------------------
+    Wow! Your log is actually empty.
+    Let's play mario kart right now!!
+-----------------------------------------
+
+-----------------------------------------
+    added to log: [T] cook dinner
     key in 'log' to view your current task log ^.^
 -----------------------------------------
 
-1. [ ] [T] eat supper
-
 -----------------------------------------
-    added to log: [D] cs2109s problem set 0 (by: 03/02/2024 2359)
+    added to log: [E] coldplay concert (from: 29/01/2024 to: 30/01/2024)
     key in 'log' to view your current task log ^.^
 -----------------------------------------
 
-1. [ ] [T] eat supper
-2. [ ] [D] cs2109s problem set 0 (by: 03/02/2024 2359)
+-----------------------------------------
+    added to log: [D] finish cs2109s ps1 (by: 3 feb)
+    key in 'log' to view your current task log ^.^
+-----------------------------------------
+
+1. [ ] [T] cook dinner
+2. [ ] [E] coldplay concert (from: 29/01/2024 to: 30/01/2024)
+3. [ ] [D] finish cs2109s ps1 (by: 3 feb)
+
+-----------------------------------------
+    BMO needs to know the index of the task!
+-----------------------------------------
+
+-----------------------------------------
+    The index you have provided
+    is out of BMO's range!
+-----------------------------------------
 
 -----------------------------------------
     Nice! Just a little more and you can play with BMO!
-    Completed: [D] cs2109s problem set 0 (by: 03/02/2024 2359)
+    Completed: [T] cook dinner
 -----------------------------------------
-1. [ ] [T] eat supper
-2. [X] [D] cs2109s problem set 0 (by: 03/02/2024 2359)
+1. [X] [T] cook dinner
+2. [ ] [E] coldplay concert (from: 29/01/2024 to: 30/01/2024)
+3. [ ] [D] finish cs2109s ps1 (by: 3 feb)
+
+-----------------------------------------
+    Are you playing with BMO's feelings >:(
+    The task is already done silly!
+-----------------------------------------
+
+1. [X] [T] cook dinner
+2. [ ] [E] coldplay concert (from: 29/01/2024 to: 30/01/2024)
+3. [ ] [D] finish cs2109s ps1 (by: 3 feb)
+
+-----------------------------------------
+    BMO needs to know the index of the task!
+-----------------------------------------
+
+-----------------------------------------
+    The index you have provided
+    is out of BMO's range!
+-----------------------------------------
+
+1. [X] [T] cook dinner
+2. [ ] [E] coldplay concert (from: 29/01/2024 to: 30/01/2024)
+3. [ ] [D] finish cs2109s ps1 (by: 3 feb)
 
 -----------------------------------------
     Aww come on hurry up and finish so we can play!
     Now I have to wait awhile longer >:(
-    Incomplete again: [D] cs2109s problem set 0 (by: 03/02/2024 2359)
+    Incomplete again: [T] cook dinner
 -----------------------------------------
 
-1. [ ] [T] eat supper
-2. [ ] [D] cs2109s problem set 0 (by: 03/02/2024 2359)
+1. [ ] [T] cook dinner
+2. [ ] [E] coldplay concert (from: 29/01/2024 to: 30/01/2024)
+3. [ ] [D] finish cs2109s ps1 (by: 3 feb)
+
+-----------------------------------------
+    Did you really think that task was already done...
+    You don't have to redo what you haven't even completed!
+-----------------------------------------
+
+1. [ ] [T] cook dinner
+2. [ ] [E] coldplay concert (from: 29/01/2024 to: 30/01/2024)
+3. [ ] [D] finish cs2109s ps1 (by: 3 feb)
 
 -----------------------------------------
     Beep boop BMO shutting down...

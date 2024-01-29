@@ -1,12 +1,30 @@
 hi
 log
+do you understand this
 add
-add todo eat supper
+add todo
+add event
+add deadline
 log
-add deadline CS2109s Problem set 0 /by 03/02/2024 2359
+add event bruno mars concert 25 jan to 27 jan
+add deadline watch netflix until 11pm
 log
-done 2
+add todo cook dinner
+add event Coldplay concert /from 29/01/2024 /to 30/01/2024
+add deadline finish CS2109S PS1 /by 3 Feb
+log
+done
+done 4
+done 1
+log
+done 1
+log
+redo
+redo 4
+log
+redo 1
 log
 redo 2
 log
 bye
+
