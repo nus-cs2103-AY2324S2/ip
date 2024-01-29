@@ -25,7 +25,7 @@ import duke.ui.Ui;
  */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ExitCommandTest {
-    // Steams for testing standard output
+    // Streams for testing standard output
     private final ByteArrayOutputStream OUT_CONTENT = new ByteArrayOutputStream();
     private final ByteArrayOutputStream ERR_CONTENT = new ByteArrayOutputStream();
     private final PrintStream ORIGINAL_OUT = System.out;
