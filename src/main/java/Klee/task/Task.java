@@ -33,6 +33,10 @@ public class Task {
         isDone = false;
     }
 
+    public boolean include(String searchTerm) {
+        return this.description.toLowerCase().contains(searchTerm.toLowerCase());
+    }
+
     @Override
     public boolean equals(Object obj) {
         System.out.println("Gets called");

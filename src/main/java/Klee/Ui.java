@@ -31,6 +31,15 @@ public class Ui {
         System.out.println(divider);
     }
 
+    public void showFilteredTasks (TaskList tasks) {
+        System.out.println(divider);
+        System.out.println("These are all the things that are similar to what you are looking for:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i+1) + ". " + tasks.get(i).getStatus());
+        }
+        System.out.println(divider);
+    }
+
     public void showCreation (Task task, int size) {
         System.out.println(divider);
         System.out.println("Klee will help you write that down! : ");
