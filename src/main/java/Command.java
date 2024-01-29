@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +73,7 @@ public enum Command {
                 case Bye:
                     isDone = true;
                     System.out.println(exitString);
+                    writeTasks();
                     break;
                 case Invalid:
                     throw new ToothlessException("Me dragon, no understand this action :P");
@@ -118,6 +123,22 @@ public enum Command {
             }
         }
         return newTask;
+    }
+
+    public static void writeTasks(){
+        try {
+            new File("./data/toothless.txt").getParentFile().mkdirs();
+            FileWriter writer = new FileWriter("./data/toothless.txt");
+            for(Task task : listOfTasks){
+                writer.write(task.toWrite() + "\n");
+            }
+            writer.close();
+        } catch (FileNotFoundException e){
+            System.err.println("Unable to find task list :(");
+        } catch (IOException e){
+            System.err.println("Unable to save task :(");
+        }
+
     }
 
     public static int getTaskIndex(String detail) throws ToothlessException{

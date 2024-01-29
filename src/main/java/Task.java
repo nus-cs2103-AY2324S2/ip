@@ -19,5 +19,9 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String toWrite(){
+        return (isDone ? 1 : 0) + " | " + this.description;
+    }
+
     public abstract String getTaskIcon();
 }

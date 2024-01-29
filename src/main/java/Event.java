@@ -14,6 +14,11 @@ public class Event extends Task{
     }
 
     @Override
+    public String toWrite(){
+        return "D | " + super.toWrite() + " | " + this.startDate + " | " + this.endDate;
+    }
+
+    @Override
     public String toString(){
         return this.description + " (from: " + this.startDate + " to: " + this.endDate + ")";
     }

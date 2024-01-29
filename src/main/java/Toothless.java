@@ -14,14 +14,13 @@ public class Toothless {
         } catch (FileNotFoundException e){
             System.out.println("Can't Find Task File!");
         }
-        System.out.println(splitLine + "\n" + greetingString);
     }
 
     public void start(Scanner sc) {
         String input;
         Command command;
         boolean isDone = false;
-
+        System.out.println(splitLine + "\n" + greetingString);
         while(!isDone){
             input = sc.nextLine();
             System.out.println(splitLine);
