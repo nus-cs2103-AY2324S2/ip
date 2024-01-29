@@ -101,6 +101,14 @@ public class Duke {
                     }
                     tasks.get(index).markAsNotDone();
                     System.out.println("Marked as not done: " + tasks.get(index));
+                } else if (input.startsWith("delete ")) {
+                    int index = Integer.parseInt(input.substring(7));
+                    if (index < 0 || index >= tasks.size()) {
+                        throw new IndexOutOfBoundsException("Task number does not exist.");
+                    }
+                    Task removedTask = tasks.remove(index);
+                    System.out.println("Deleted: " + removedTask);
+
                 } else {
                     String[] parts = input.split(" ", 2);
                     String command = parts[0];
