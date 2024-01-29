@@ -25,4 +25,5 @@ public class UiOutputs {
 
     public static final String GOODBYES = "Bye. Hope to see you again soon!";
 
+    public static final String UNSUPPORTEDCOMMANDSOUTPUT = "Sorry, but I am unable to comprehend the instruction at my current development stage. Please enter something else.";
 }

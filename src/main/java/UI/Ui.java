@@ -16,12 +16,14 @@ public class Ui {
         this.printSeparator();
     }
 
-    public void outputGoodbyes() {
-        System.out.println(UiOutputs.GOODBYES);
+    public void unsupportedCommandsOutput() {
+        System.out.println(UiOutputs.UNSUPPORTEDCOMMANDSOUTPUT);
     }
 
-    private void printSeparator() {
-        System.out.println(UiOutputs.SEPERATOR);
+    public void outputGoodbyes() {
+        this.printSeparator();
+        System.out.println(UiOutputs.GOODBYES);
+        this.printSeparator();
     }
 
     public void addToDoTaskSuccessNotification(String taskDetails, int taskCount) {
@@ -70,14 +72,17 @@ public class Ui {
         this.printSeparator();
     }
 
-    public void printUserTasks(ArrayList<String> toPrint){
+    public void printUserTasks(ArrayList<String> taskDetailsList){
         this.printSeparator();
         System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < toPrint.size(); i++) {
-            System.out.println("     " + (i + 1) + ". " + toPrint.get(i));
+        for (int i = 0; i < taskDetailsList.size(); i++) {
+            System.out.println("     " + (i + 1) + ". " + taskDetailsList.get(i));
         }
         this.printSeparator();
     }
 
+    private void printSeparator() {
+        System.out.println(UiOutputs.SEPERATOR);
+    }
 
 }
