@@ -283,22 +283,22 @@ public class Yapchit {
         String toWrite = "";
         for(Task t : list){
             if(t instanceof ToDo){
-                toWrite = toWrite + "todo "+ t.getName() + (t.getTag() == true ? "1" : "0\n");
+                toWrite = toWrite + "todo "+ t.getName() + (t.getTag() == true ? "1" : "0") + "\n";
             }
 
             if(t instanceof Event){
                 toWrite = toWrite
-                        + "\nevent "+ t.getName()
+                        + "event "+ t.getName()
                         + " /from " + ((Event) t).getFrom()
                         + " /to " + ((Event) t).getTo()
-                        +(t.getTag() == true ? "1" : "0");
+                        +(t.getTag() == true ? "1" : "0") + "\n";
             }
 
             if(t instanceof Deadline){
                 toWrite = toWrite
-                        + "\nevent "+ t.getName()
+                        + "event "+ t.getName()
                         + " /by " + ((Deadline) t).getBy()
-                        +(t.getTag() == true ? "1" : "0");
+                        +(t.getTag() == true ? "1" : "0") + "\n";
             }
         }
         File f = new File(filePath);
