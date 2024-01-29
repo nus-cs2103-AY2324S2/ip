@@ -63,6 +63,13 @@ public class Operator {
                         System.out.println(e.getMessage());
                     }
                     break;
+                case "delete":
+                    try {
+                        handleDeleteCommand(userInputArr);
+                    } catch (BotException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 default:
                     try {
                         handleInvalidCommand();
@@ -74,7 +81,37 @@ public class Operator {
     }
 
     private void handleInvalidCommand() throws BotException {
+        // System.out.println("Reached haere");
         throw new BotException("Eh, invalid command. I get what you're saying but I'm not gonna do it. Try again?");
+    }
+
+    private void handleDeleteCommand(String[] userInputArr) throws BotException {
+        // System.out.println("Reached handler");
+        if (userInputArr.length < 2) {
+            throw new BotException("Please enter a task number to delete.");
+        }
+        int i;
+        try {
+            i = Integer.parseInt(userInputArr[1]);
+        } catch (NumberFormatException e) {
+            throw new BotException("Task number should be numeric.");
+        }
+        if (i <= 0 || i > taskList.getTaskCount()) {
+            throw new BotException("Task number is out of range.");
+        }
+        TerminalUI.printSepLine();
+        // System.out.println("Reached here, trying to remove");
+        Task taskToRemove = taskList.getTaskByNum(i);
+        taskList.removeTask(i);
+        System.out.println("Bet. I'll remove it from your list. You weren't gonna do it anyways...");
+        if (taskList.getTaskCount() > 0) {
+            System.out.println("Removed Task: " + taskToRemove);
+            TerminalUI.printList(taskList.listTasks());
+        } else {
+            System.out.println("All tasks have been removed.");
+        }
+        botTaskCountMsg();
+        TerminalUI.printSepLine();
     }
 
     private void handleTodoCommand(String[] userInputArr) throws BotException {

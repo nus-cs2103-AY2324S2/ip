@@ -25,10 +25,17 @@ public class TaskList {
         taskCount++;
     }
 
+    // Method to return task by index
+    public Task getTaskByNum(int taskNumber) {
+        // System.out.println("Task Number: " + taskNumber + "at index: " + (taskNumber
+        // - 1));
+        return tasks.get(taskNumber - 1);
+    }
+
     // Method to remove task
-    // TODO: Implement this later with rebalancing of task numbers
     public void removeTask(int taskNumber) {
         tasks.remove(taskNumber - 1);
+        taskCount--;
     }
 
     // Method to list all tasks
