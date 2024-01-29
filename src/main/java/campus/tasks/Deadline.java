@@ -1,4 +1,6 @@
-package campus;
+package campus.tasks;
+
+import campus.exceptions.CampusException;
 
 import java.time.LocalDateTime;
 
@@ -9,7 +11,7 @@ import java.time.LocalDateTime;
 public class Deadline extends Task {
     LocalDateTime endDateTime;
 
-    Deadline (String deadlineName, String endDateTime) throws CampusException {
+    public Deadline(String deadlineName, String endDateTime) throws CampusException {
         this.taskName = deadlineName;
         this.completed = false;
 
@@ -20,7 +22,7 @@ public class Deadline extends Task {
         }
     }
 
-    Deadline (String deadlineName, Boolean completed, String endDateTime) throws CampusException {
+    public Deadline(String deadlineName, Boolean completed, String endDateTime) throws CampusException {
         this.taskName = deadlineName;
         this.completed = completed;
         if (!isValidDateTimeFormat(endDateTime, this.formatter)) {

@@ -1,4 +1,6 @@
-package campus;
+package campus.infrastructure;
+
+import campus.tasks.Task;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;

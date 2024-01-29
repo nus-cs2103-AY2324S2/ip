@@ -1,4 +1,4 @@
-package campus;
+package campus.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,9 +8,9 @@ import java.time.format.DateTimeParseException;
  * Class object which represents a Task, which has a name and a status completion
  */
 abstract public class Task {
-    boolean completed;
-    String taskName;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm dd/MM/yyyy");
+    public boolean completed;
+    public String taskName;
+    public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm dd/MM/yyyy");
 
     /**
      * Checks to see if the input string is of the correct format pattern

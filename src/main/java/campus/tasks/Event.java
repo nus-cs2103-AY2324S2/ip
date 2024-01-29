@@ -1,4 +1,6 @@
-package campus;
+package campus.tasks;
+
+import campus.exceptions.CampusException;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +12,7 @@ public class Event extends Task {
     LocalDateTime startDateTime;
     LocalDateTime endDateTime;
 
-    Event (String eventName, String startDateTime, String endDateTime) throws CampusException {
+    public Event(String eventName, String startDateTime, String endDateTime) throws CampusException {
         this.taskName = eventName;
         this.completed = false;
 
@@ -24,7 +26,7 @@ public class Event extends Task {
         }
     }
 
-    Event (String eventName, Boolean completed, String startDateTime, String endDateTime) throws CampusException {
+    public Event(String eventName, Boolean completed, String startDateTime, String endDateTime) throws CampusException {
         this.taskName = eventName;
         this.completed = completed;
 

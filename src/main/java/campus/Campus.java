@@ -1,4 +1,10 @@
 package campus;
+
+import campus.infrastructure.Parser;
+import campus.infrastructure.Storage;
+import campus.infrastructure.TaskList;
+import campus.infrastructure.Ui;
+
 /**
  * Contains the logic for the ChatBot named 'Campus'
  */
