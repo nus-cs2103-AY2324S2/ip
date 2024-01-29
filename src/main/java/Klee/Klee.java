@@ -35,7 +35,7 @@ public class Klee {
      * @param storage
      * @param tasks
      */
-    public static void run (Ui ui, Parser parser, Storage storage, TaskList tasks) {
+    public static void run(Ui ui, Parser parser, Storage storage, TaskList tasks) {
         Scanner getInput = new Scanner(System.in);
         while (true) {
             String input = getInput.nextLine();

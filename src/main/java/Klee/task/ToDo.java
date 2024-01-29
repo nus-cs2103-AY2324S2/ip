@@ -45,7 +45,10 @@ public class ToDo extends Task {
      */
     @Override
     public boolean equals(Object obj) {
-        if (Task.class.isAssignableFrom(obj.getClass())) return super.equals(obj);
-        else return false;
+        if (Task.class.isAssignableFrom(obj.getClass())) {
+            return super.equals(obj);
+        } else {
+            return false;
+        }
     }
 }

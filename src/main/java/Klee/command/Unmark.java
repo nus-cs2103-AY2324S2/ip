@@ -17,7 +17,7 @@ public class Unmark extends Command {
      *
      * @param index
      */
-    public Unmark (int index) {
+    public Unmark(int index) {
         this.index = index;
     }
 
@@ -39,7 +39,9 @@ public class Unmark extends Command {
             task.unMark();
             storage.saveTasks(tasks);
             ui.showMarked(task);
-        } else throw new KleeException("We do not have that many tasks on the list!");
+        } else {
+            throw new KleeException("We do not have that many tasks on the list!");
+        }
     }
 
     /**
@@ -50,7 +52,10 @@ public class Unmark extends Command {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj.getClass() == Unmark.class) return this.index == ((Unmark) obj).index;
-        else return false;
+        if (obj.getClass() == Unmark.class) {
+            return this.index == ((Unmark) obj).index;
+        } else {
+            return false;
+        }
     }
 }

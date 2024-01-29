@@ -22,7 +22,7 @@ public class Storage {
     /**
      * Constructor for Storage class.
      */
-    public Storage () {}
+    public Storage() {}
 
     /**
      * Parse String returned from txt file into an instance of LocalDateTime.
@@ -30,7 +30,7 @@ public class Storage {
      * @param txt
      * @return LocalDateTime instance
      */
-    public static LocalDateTime parseDateTimeTxt (String txt) {
+    public static LocalDateTime parseDateTimeTxt(String txt) {
         String[] dateTime = txt.split(" ");
         int year = Integer.parseInt(dateTime[0]);
         int month = Integer.parseInt(dateTime[1]);
@@ -46,7 +46,7 @@ public class Storage {
      *
      * @param tasks
      */
-    public void saveTasks (TaskList tasks) {
+    public void saveTasks(TaskList tasks) {
         try {
             FileWriter file = new FileWriter("data/Klee.txt");
             for (int i = 0; i < tasks.size(); i++) {
@@ -66,7 +66,7 @@ public class Storage {
      * @param ui
      * @return TaskList with all tasks inside txt file.
      */
-    public TaskList retrieveTasks (Ui ui) {
+    public TaskList retrieveTasks(Ui ui) {
         TaskList tasks = new TaskList();
 
         //Create /data directory only if it does not exist

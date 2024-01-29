@@ -22,7 +22,7 @@ public class Event extends Command {
      * @param from
      * @param to
      */
-    public Event (String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         this.description = description;
         this.from = from;
         this.to = to;
@@ -54,7 +54,10 @@ public class Event extends Command {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj.getClass() == Event.class) return (this.description.equals(((Event) obj).description) && this.from.equals((((Event) obj).from)) && this.to.equals((((Event) obj).to)));
-        else return false;
+        if (obj.getClass() == Event.class) {
+            return (this.description.equals(((Event) obj).description) && this.from.equals((((Event) obj).from)) && this.to.equals((((Event) obj).to)));
+        } else {
+            return false;
+        }
     }
 }

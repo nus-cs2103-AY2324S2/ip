@@ -8,7 +8,7 @@ import Klee.TaskList;
  * Represents the command for the user to end the program.
  */
 public class Bye extends Command {
-    public Bye () {}
+    public Bye() {}
 
     /**
      * Invoke the UI to say goodbye to the user.

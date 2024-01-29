@@ -17,7 +17,7 @@ public class Mark extends Command {
      *
      * @param index
      */
-    public Mark (int index) {
+    public Mark(int index) {
         this.index = index;
     }
 
@@ -39,7 +39,9 @@ public class Mark extends Command {
             task.mark();
             storage.saveTasks(tasks);
             ui.showMarked(task);
-        } else throw new KleeException("We do not have that many tasks on the list!");
+        } else {
+            throw new KleeException("We do not have that many tasks on the list!");
+        }
     }
 
     /**
@@ -50,7 +52,10 @@ public class Mark extends Command {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj.getClass() == Mark.class) return this.index == ((Mark) obj).index;
-        else return false;
+        if (obj.getClass() == Mark.class) {
+            return this.index == ((Mark) obj).index;
+        } else {
+            return false;
+        }
     }
 }

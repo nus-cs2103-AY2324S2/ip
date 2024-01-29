@@ -17,7 +17,7 @@ public class Delete extends Command {
      *
      * @param index
      */
-    public Delete (int index) {
+    public Delete(int index) {
         this.index = index;
     }
 
@@ -52,7 +52,10 @@ public class Delete extends Command {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj.getClass() == Delete.class) return this.index == ((Delete) obj).index;
-        else return false;
+        if (obj.getClass() == Delete.class) {
+            return this.index == ((Delete) obj).index;
+        } else {
+            return false;
+        }
     }
 }
