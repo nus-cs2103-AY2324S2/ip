@@ -84,6 +84,7 @@ public class Event extends Task {
      * Check if event encompasses the specified date
      *
      * @param date Date to check against
+     *
      * @return True if event is encompasses specified date, false otherwise
      */
     public boolean encompasses(Instant date) {
@@ -111,7 +112,7 @@ public class Event extends Task {
     }
 
     /**
-     * Indicates whether some other object is "equal to" this command
+     * Indicates whether some other object is "equal to" this Event
      *
      * @param obj Object to be checked against
      *

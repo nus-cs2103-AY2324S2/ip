@@ -6,9 +6,7 @@ package duke.exceptions;
  *
  * @author Ryan NgWH
  */
-public class InvalidArgumentException
-        extends DukeException {
-
+public class InvalidArgumentException extends DukeException {
     /**
      * Creates am InvalidArgumentException
      *

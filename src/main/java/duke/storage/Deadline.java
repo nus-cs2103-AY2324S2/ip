@@ -64,6 +64,7 @@ public class Deadline extends Task {
      * Check if deadline is on the specified date
      *
      * @param date Date to check against
+     *
      * @return True if deadline is on the specified date, false otherwise
      */
     public boolean isOn(Instant date) {
@@ -87,7 +88,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Indicates whether some other object is "equal to" this command
+     * Indicates whether some other object is "equal to" this Deadline
      *
      * @param obj Object to be checked against
      *

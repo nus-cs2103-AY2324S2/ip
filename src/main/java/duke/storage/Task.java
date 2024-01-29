@@ -95,7 +95,7 @@ public class Task {
     }
 
     /**
-     * Indicates whether some other object is "equal to" this command
+     * Indicates whether some other object is "equal to" this Task
      *
      * @param obj Object to be checked against
      *

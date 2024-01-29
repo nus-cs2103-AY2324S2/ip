@@ -36,7 +36,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Indicates whether some other object is "equal to" this command
+     * Indicates whether some other object is "equal to" this Todo
      *
      * @param obj Object to be checked against
      *
