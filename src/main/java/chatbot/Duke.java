@@ -1,6 +1,7 @@
 package chatbot;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -51,7 +52,7 @@ class InvalidException extends Exception {
  */
 class Task {
 
-  public String description;
+  private String description;
   private boolean isDone;
 
   public Task(String description) {
