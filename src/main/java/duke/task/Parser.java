@@ -11,6 +11,7 @@ import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
@@ -40,6 +41,8 @@ public class Parser {
             return new AddCommand(fullCommand);
         case "delete":
             return new DeleteCommand(fullCommand);
+        case "find":
+            return new FindCommand(fullCommand);
         default:
             throw new DukeException("Unrecognized command.");
         }
