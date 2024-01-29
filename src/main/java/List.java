@@ -11,14 +11,14 @@ public class List {
 
     public void addTask(Task task) throws IOException {
         tasks.add(task);
-        String task_s = this.tasks.size() == 1 ? " task " : " tasks ";
+        String task_s = tasks.size() == 1 ? " task " : " tasks ";
         System.out.println("__________________________________________________________\n"
                 + "Got it. I've added this task:\n"
                 + task.toString()
-                + "\nNow you have " + this.tasks.size() + task_s + "in the list.\n"
+                + "\nNow you have " + tasks.size() + task_s + "in the list.\n"
                 + "__________________________________________________________\n");
         BufferedWriter writer = new BufferedWriter(new FileWriter("./data/duke.txt", true));
-        writer.write("\n" + this.tasks.size() + "." + task.toString());
+        writer.write("\n" + tasks.size() + "." + task.toString());
         writer.close();
     }
 
@@ -33,11 +33,11 @@ public class List {
     }
 
     public void deleteTask(int taskNum) throws IOException {
-        String task_s = this.tasks.size() - 1 == 1 ? " task " : " tasks ";
+        String task_s = tasks.size() - 1 == 1 ? " task " : " tasks ";
         System.out.println("__________________________________________________________\n"
                 + "Noted. I've removed this task:\n"
                 + tasks.get(taskNum).toString()
-                + "\nNow you have " + (this.tasks.size() - 1) + task_s + "in the list.\n"
+                + "\nNow you have " + (tasks.size() - 1) + task_s + "in the list.\n"
                 + "__________________________________________________________\n");
         BufferedReader reader = new BufferedReader(new FileReader("./data/duke.txt"));
         StringBuilder newFileContent = new StringBuilder();
@@ -53,7 +53,7 @@ public class List {
         BufferedWriter writer = new BufferedWriter(new FileWriter("./data/duke.txt"));
         writer.write(newFileContent.toString());
         writer.close();
-        this.tasks.remove(taskNum);
+        tasks.remove(taskNum);
     }
 
     public boolean validTaskNum(int taskNum) {
@@ -61,10 +61,10 @@ public class List {
     }
 
     public void markTask(int taskNum) throws IOException {
-        this.tasks.get(taskNum).mark();
+        tasks.get(taskNum).mark();
         BufferedReader reader = new BufferedReader(new FileReader("./data/duke.txt"));
         StringBuilder newFileContent = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             String currLine = reader.readLine();
             if (i == taskNum) {
                 String newLine = currLine.split("\\[")[0] + "["
@@ -82,10 +82,10 @@ public class List {
     }
 
     public void unmarkTask(int taskNum) throws IOException {
-        this.tasks.get(taskNum).unmark();
+        tasks.get(taskNum).unmark();
         BufferedReader reader = new BufferedReader(new FileReader("./data/duke.txt"));
         StringBuilder newFileContent = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             String currLine = reader.readLine();
             if (i == taskNum) {
                 String newLine = currLine.split("\\[")[0] + "["
@@ -103,7 +103,7 @@ public class List {
     }
 
     public int getListSize() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
 //    public void saveTasks() throws IOException {
@@ -127,18 +127,18 @@ public class List {
             switch (taskType) {
             case "T":
                 String description = currLine.split("] ")[1];
-                this.tasks.add(new ToDo(description));
+                tasks.add(new ToDo(description));
                 break;
             case "D":
                 description = currLine.split(" \\(by:")[0].split("] ")[1];
                 String dueDate = currLine.split("\\(by: ")[1].split("\\)")[0];
-                this.tasks.add(new Deadline(description, dueDate));
+                tasks.add(new Deadline(description, dueDate));
                 break;
             case "E":
                 description = currLine.split(" \\(from:")[0].split("] ")[1];
                 String startDate = currLine.split("\\(from: ")[1].split(" to:")[0];
                 String endDate = currLine.split("to: ")[1].split("\\)")[0];
-                this.tasks.add(new Event(description, startDate, endDate));
+                tasks.add(new Event(description, startDate, endDate));
                 break;
             }
             if (isDone) {
