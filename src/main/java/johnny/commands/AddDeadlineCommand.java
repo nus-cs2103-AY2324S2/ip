@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 
 import johnny.exceptions.JohnnyException;
 import johnny.storage.Storage;
-import johnny.ui.Ui;
 import johnny.tasks.Deadline;
 import johnny.tasks.Task;
 import johnny.tasks.TaskList;
+import johnny.ui.Ui;
 
 public class AddDeadlineCommand extends Command {
 

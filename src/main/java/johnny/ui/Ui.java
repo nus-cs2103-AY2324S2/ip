@@ -1,10 +1,11 @@
 package johnny.ui;
 
+import java.util.Scanner;
+
 import johnny.exceptions.JohnnyException;
 import johnny.tasks.Task;
 import johnny.tasks.TaskList;
 
-import java.util.Scanner;
 
 public class Ui {
 
