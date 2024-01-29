@@ -63,7 +63,7 @@ public class Storage {
         case "T" -> {
             Task task = new ToDo(inputs[2]);
             if (marked) {
-                task.Mark();
+                task.mark();
             }
             return task;
         }
@@ -72,7 +72,7 @@ public class Storage {
             LocalDate end = LocalDate.parse(inputs[4], dateFormatter);
             Task task = new Event(inputs[2], start, end);
             if (marked) {
-                task.Mark();
+                task.mark();
             }
             return task;
         }
@@ -80,7 +80,7 @@ public class Storage {
             LocalDate due = LocalDate.parse(inputs[3], dateFormatter);
             Task task = new Deadline(inputs[2], due);
             if (marked) {
-                task.Mark();
+                task.mark();
             }
             return task;
         }

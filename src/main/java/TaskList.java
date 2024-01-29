@@ -12,10 +12,23 @@ public class TaskList {
 
 
     public void mark(int num) {
-
+        tasklist.get(num).mark();
     }
 
     public void unmark(int num) {
+        tasklist.get(num).unmark();
+    }
 
+    public void delete(int num) {
+        tasklist.remove(num);
+    }
+
+    public int length() {
+        return tasklist.size();
+    }
+    public iterateout() {
+        for (int i = 0; i < tasklist.size(); i++) {
+            //HAVENT DONE YET, SUPPOSED TO PRINT ALL TASKS
+        }
     }
 }

@@ -15,12 +15,12 @@ public class Task {
         return ("["+ this.getStatusIcon()+"] " + this.description);
     }
 
-    public void Mark() {
+    public void mark() {
 
         this.isDone = true;
     }
 
-    public void unMark() {
+    public void unmark() {
 
         this.isDone = false;
     }

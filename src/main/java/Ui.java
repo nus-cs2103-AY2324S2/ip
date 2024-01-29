@@ -15,4 +15,7 @@ public class Ui {
     public void happy() {
         System.out.println("[happy quacking]");
     }
+    public void goodbye() {
+        System.out.println("[sad quacking] Can I have some bread before you go?");
+    }
 }

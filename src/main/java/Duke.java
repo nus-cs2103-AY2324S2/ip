@@ -15,7 +15,7 @@ public class Duke {
     public void run() {
         ui.greet();
         Scanner scanner = new Scanner(System.in);
-        Parser parser = new Parser(scanner, tasks);
+        Parser parser = new Parser(scanner, tasks, storage);
         parser.read();
     }
 
@@ -26,41 +26,7 @@ public class Duke {
 
 }
 /*
-                try {
-                        tasks.get(num - 1).Mark();
-                    } else if (inputs[0].equals("unmark")) {
-                        tasks.get(num - 1).unMark();
-                    } else if (inputs[0].equals("delete")) {
-                        System.out.println("Bearducky is fighting the task " +  tasks.get(num - 1));
-                        tasks.remove(num - 1);
-                        System.out.println("[tired quacking] Task has been... eliminated.");
-                    }
-                    System.out.println("[busy quacking]");
-                } catch (NumberFormatException e) {
-                    System.out.println("[angry quacking] I can only mark numbers!");
-                } catch (IndexOutOfBoundsException a) {
-                    System.out.println("[exasperated quacking] You're not that busy - numbers from 1 to " + x + " only, please.");
-                }
-                continue;
-            }
 
-            //other hard commands
-            switch (userInput.toLowerCase()) {
-                case "bye":
-                    System.out.println("[sad quacking] Can I have my bread now?\n");
-                    break label;
-                case "list":
-                    if (tasks.isEmpty()) {
-                        System.out.println("You're a lazy bastard. Go get something to do.");
-                        break;
-                    }
-                    int i = 1;
-                    for (Task a : tasks) {
-                        System.out.println(i + ". " + a);
-                        i++;
-                    }
-                    break;
-            }
 
             //marking or not
             if (userInput.toLowerCase().startsWith("todo ") || userInput.toLowerCase().startsWith("event ") ||
