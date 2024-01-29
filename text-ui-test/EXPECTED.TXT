@@ -2,15 +2,9 @@ Hello! I'm HeadCube
 What can I do for you?
 
 Here are the tasks in your list:
-
-Got it. I've added this task:
-  [T][ ] hi
-Now you have 1 tasks in the list.
-
-Nice! I've marked this task as done:
-  [T][X] hi
-Noted. I've removed this task:
-  [T][X] hi
-Now you have 0 tasks in the list.
+1. [T][ ] hi
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+4. [T][ ] hii
 
 Bye. Hope to see you again soon!

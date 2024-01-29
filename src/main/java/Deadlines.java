@@ -18,5 +18,10 @@ public class Deadlines extends Task {
         return "[D]" + super.toString() +
                 " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
+
+    @Override
+    public String toFileFormat() {
+        return "D | " + super.toFileFormat() + " | " + "(by: " + by + ")";
+    }
 }
 

@@ -1,0 +1,4 @@
+T | 1 | hi
+D | 0 | return book | (by: Sunday)
+E | 0 | project meeting | (from: Mon 2pm to: 4pm)
+T | 0 | hii

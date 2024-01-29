@@ -1,10 +1,17 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 public class HeadCube {
     private static List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        load();
         greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -22,6 +29,8 @@ public class HeadCube {
 
                 } else if (split[0].equals("delete")) {
                     delete(Integer.parseInt(split[1]));
+                } else if (input.equals("save")) {
+                    save();
                 } else {
                     add(input);
                 }
@@ -89,4 +98,79 @@ public class HeadCube {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
+    public static void save() {
+        try {
+            String directoryPath = "./data";
+            String filePath = directoryPath + "/HeadCube.txt";
+            Files.createDirectories(Paths.get(directoryPath));
+            File file = new File(filePath);
+            if (!file.exists()) {
+               file.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(file);
+            for (Task task : tasks) {
+                fw.write(task.toFileFormat() + System.lineSeparator());
+            }
+            fw.close();
+            System.out.println("Finished saving");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks" + e.getMessage());
+        }
+    }
+
+    public static void load() {
+        File file = new File("./data/HeadCube.txt");
+        if (!file.exists()) {
+            return;
+        }
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                Task task = parse(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No tasks to load" + e.getMessage());
+        }
+    }
+
+    private static Task parse(String input) {
+        String[] parts = input.split(" \\| ");
+        if (parts.length < 3) {
+            return null;
+        }
+
+        String event = parts[0];
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+
+        Task task = null;
+
+        if ("T".equals(event)) {
+            task = new ToDos(description);
+        } else if ("D".equals(event)) {
+            if (parts.length > 3) {
+                String by = parts[3].replace("(by: ", "").replace(")", "");
+                task = new Deadlines(description,by);
+            }
+        } else {
+            if (parts.length > 3) {
+                String timeInfo = parts[3].replace("(from: ", "").replace(")", "");
+                String[] times = timeInfo.split(" to: ");
+                String start = times[0];
+                String end = times.length > 1 ? times[1] : "";
+                task = new Events(description, start, end);
+            }
+        }
+
+        if (isDone) {
+            task.done();
+        }
+        return task;
+    }
 }
