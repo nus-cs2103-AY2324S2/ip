@@ -18,6 +18,7 @@ public class Task {
     public String getStatusIcon() {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
+
     public String getStatusNumber() {
         return (this.isDone ? "1" : "0"); // mark done task with X
     }
@@ -49,6 +50,7 @@ public class Task {
         }
 
     }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

@@ -69,7 +69,7 @@ public class Storage {
                         LocalDateTime fromDateTime = Task.getLocalDateTimeFromString(from);
                         LocalDateTime toDateTime = Task.getLocalDateTimeFromString(to);
                         taskToAdd = new Event(taskDescription, fromDateTime, toDateTime);
-                    } catch (DateTimeParseException | DukeException e) {
+                    } catch (DateTimeParseException | NollidException e) {
                         System.out.println(e.getMessage());
                         continue;
                     }

@@ -16,13 +16,14 @@ public class Event extends Task {
 
     /**
      * Creates new Event with specified description, start, and end time.
-     * @throws DukeException if end time is before start time.
+     *
+     * @throws NollidException if end time is before start time.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) throws DukeException {
+    public Event(String description, LocalDateTime from, LocalDateTime to) throws NollidException {
         super(description);
 
         if (from.isAfter(to)) {
-            throw new DukeException("Start time and date must be before end time and date.");
+            throw new NollidException("Start time and date must be before end time and date.");
         }
         this.from = from;
         this.to = to;

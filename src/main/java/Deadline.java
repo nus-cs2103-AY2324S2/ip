@@ -3,7 +3,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    protected static final LocalTime DEFAULT_TIME = LocalTime.of(0,0);
+    protected static final LocalTime DEFAULT_TIME = LocalTime.of(0, 0);
     protected static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
 
     protected static final DateTimeFormatter DATE_INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -21,6 +21,7 @@ public class Deadline extends Task {
     public LocalDateTime getDeadline() {
         return this.deadline;
     }
+
     public String getDeadlineString() {
         return this.deadline.format(DATE_OUTPUT_FORMAT) + " " + this.deadline.format(TIME_FORMAT);
     }
