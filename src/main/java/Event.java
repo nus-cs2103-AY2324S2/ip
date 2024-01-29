@@ -1,11 +1,14 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * Event class with attributes from and to.
  */
 public class Event extends Task {
     /** describe the start period. */
-    private String from;
+    private LocalDateTime from;
     /** describe the end period. */
-    private String to;
+    private LocalDateTime to;
 
     /**
      * Constructor of Event.
@@ -14,7 +17,7 @@ public class Event extends Task {
      * @param from period when the event start.
      * @param to period when the event end.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -28,7 +31,7 @@ public class Event extends Task {
      * @param to period when the event end.
      * @param isDone
      */
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -41,7 +44,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + MyDateTime.englishFormatter(this.from)
+                + " to: " + MyDateTime.englishFormatter(this.to) + ")";
     }
 
     /**
@@ -51,6 +55,21 @@ public class Event extends Task {
      */
     @Override
     public String toStorageString() {
-        return CommandType.EVENT.toString() + " " + super.toStorageString() + " " + this.from + " " + this.to;
+        return CommandType.EVENT.toString() + " " + super.toStorageString() + " "
+                + MyDateTime.formatter(this.from) + " " + MyDateTime.formatter(this.to);
+    }
+
+    /**
+     * Returns boolean value of date is within event period.
+     *
+     * @param date
+     * @return true if date is within event period.
+     */
+    @Override
+    public boolean checkDate(LocalDate date) {
+        LocalDate f = this.from.toLocalDate();
+        LocalDate t = this.to.toLocalDate();
+
+        return date.isAfter(f.minusDays(1)) && date.isBefore(t.plusDays(1));
     }
 }

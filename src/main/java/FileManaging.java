@@ -25,11 +25,14 @@ public class FileManaging {
             if (arr.length == 3) {
                 Task curr = Task.of(arr[0], Integer.parseInt(arr[1]) == 1 , arr[2]);
                 storage.add(curr);
-            } else if (arr.length == 4) {
-                Task curr = Task.of(arr[0], Integer.parseInt(arr[1]) == 1, arr[2], arr[3]);
-                storage.add(curr);
             } else if (arr.length == 5) {
-                Task curr = Task.of(arr[0], Integer.parseInt(arr[1]) == 1, arr[2], arr[3], arr[4]);
+                String by = arr[3] + " " + arr[4];
+                Task curr = Task.of(arr[0], Integer.parseInt(arr[1]) == 1, arr[2], by);
+                storage.add(curr);
+            } else if (arr.length == 7) {
+                String from = arr[3] + " " + arr[4];
+                String to = arr[5] + " " + arr[6];
+                Task curr = Task.of(arr[0], Integer.parseInt(arr[1]) == 1, arr[2], from, to);
                 storage.add(curr);
             } else {
                 throw new DukeException("Storage Format Issue");

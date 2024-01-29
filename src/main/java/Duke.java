@@ -1,5 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -37,7 +40,8 @@ public class Duke {
         System.out.println("5. To " + CommandType.MARK.toString() + " task done : " + CommandType.MARK.getCommand());
         System.out.println("6. To " + CommandType.UNMARK.toString() + " task : " + CommandType.UNMARK.getCommand());
         System.out.println("7. To " + CommandType.DELETE.toString() + " a task : " + CommandType.DELETE.getCommand());
-        System.out.println("8. Close chatbot : " + CommandType.BYE.getCommand());
+        System.out.println("8. To tasks related to a date : " + CommandType.CHECKDATE.getCommand());
+        System.out.println("9. Close chatbot : " + CommandType.BYE.getCommand());
         drawLine();
     }
 
@@ -71,8 +75,9 @@ public class Duke {
             }
 
             String by = taskArr[1];
+            LocalDateTime datetime = MyDateTime.convertDateTime(by);
             String description = taskArr[0];
-            newTask = new Deadline(description, by);
+            newTask = new Deadline(description, datetime);
 
         } else if (type.equals(CommandType.EVENT.toString())) {
             String[] taskArr = task.split(" /from ");
@@ -94,7 +99,7 @@ public class Duke {
             String by = fromArr[0];
             String to = fromArr[1];
             String description = taskArr[0];
-            newTask = new Event(description, by, to);
+            newTask = new Event(description, MyDateTime.convertDateTime(by), MyDateTime.convertDateTime(to));
         } else {
             throw new DukeException("This command is unavailable. Please refer to command list by using command: " +
                     CommandType.LIST.getCommand());
@@ -118,6 +123,19 @@ public class Duke {
             System.out.println("Your task list is empty. Create your first task now!");
         } else {
             System.out.println("Here are the tasks in your list:");
+        }
+        for (int i = 0; i < storage.size(); i++) {
+            System.out.println((i + 1) + ". " + storage.get(i));
+        }
+        drawLine();
+    }
+
+    public static void listTask(List<Task> storage, LocalDate date) {
+        drawLine();
+        if (storage.size() == 0) {
+            System.out.println("No event on " + date.toString());
+        } else {
+            System.out.println("Here are the tasks in your list related to " +  date.toString() + " :");
         }
         for (int i = 0; i < storage.size(); i++) {
             System.out.println((i + 1) + ". " + storage.get(i));
@@ -209,6 +227,29 @@ public class Duke {
     }
 
     /**
+     * Prints out all event/deadline related to the date given.
+     *
+     * @param date date that user interested in.
+     * @param storage
+     */
+    public static void checkDate(String date, List<Task> storage) {
+        try {
+            LocalDate d = MyDateTime.convertDate(date);
+            List<Task> arr = new ArrayList<>();
+
+            for (Task curr : storage) {
+                if (curr.checkDate(d)) {
+                    arr.add(curr);
+                }
+            }
+            listTask(arr, d);
+        } catch (DukeException e){
+            displayToScreen(e.getMessage() + ". Please use format : " + CommandType.CHECKDATE.getCommand());
+        }
+    }
+
+
+    /**
      * Starts communication with chatbot
      */
     public static void startChat() {
@@ -239,6 +280,8 @@ public class Duke {
                     printCommandList();
                 } else if (command.equals(CommandType.LIST.toString())) {
                     listTask(storage);
+                } else if (commandArr[0].equals(CommandType.CHECKDATE.toString())){
+                    checkDate(commandArr.length > 1 ? commandArr[1] : "", storage);
                 } else if (commandArr[0].equals(CommandType.MARK.toString())) {
                     markDone(storage, commandArr.length > 1 ? commandArr[1] : "");
                     FileManaging.writeToFile(CommandType.FILEPATH.toString(), storage);

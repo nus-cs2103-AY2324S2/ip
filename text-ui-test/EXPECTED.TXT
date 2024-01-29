@@ -6,64 +6,32 @@ What can I do for you?
 These are the available commands :
 0. Do list commands : list commands
 1. Add todo task : todo [your task]
-2. Add deadline task : deadline [your task] /by [deadline]
-3. Add event task : event [your task] /from [start time] /to [end time]
+2. Add deadline task : deadline [your task] /by [yyyy-mm-dd hh:mm]
+3. Add event task : event [your task] /from [yyyy-mm-dd hh:mm] /to [yyyy-mm-dd hh:mm]
 4. To list all tasks : list
 5. To mark task done : mark [task number (integer)]
 6. To unmark task : unmark [task number (integer)]
 7. To delete a task : delete [task number (integer)]
-8. Close chatbot : bye
----------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------
-Got it. I've added this task:
-[T][ ] study
-Now you have 1 task in the list.
----------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------
-Got it. I've added this task:
-[D][ ] submission (by: Sunday 1pm)
-Now you have 2 tasks in the list.
----------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------
-Got it. I've added this task:
-[E][ ] workshop (from: Jan 4pm to: 8pm)
-Now you have 3 tasks in the list.
+8. To tasks related to a date : checkdate [yyyy-mm-dd]
+9. Close chatbot : bye
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
 Here are the tasks in your list:
-1. [T][ ] study
-2. [D][ ] submission (by: Sunday 1pm)
-3. [E][ ] workshop (from: Jan 4pm to: 8pm)
+1. [T][X] todo1
+2. [D][ ] deadline1 (by: Jan 01, 2024 06:30)
+3. [E][ ] event1 (from: Jan 01, 2024 06:30 to: Jan 02, 2024 06:30)
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
-Nice! I've marked this task as done:
-[T][X] study
+Here are the tasks in your list related to 2024-01-01 :
+1. [D][ ] deadline1 (by: Jan 01, 2024 06:30)
+2. [E][ ] event1 (from: Jan 01, 2024 06:30 to: Jan 02, 2024 06:30)
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
-OK, I've marked this task as not done yet
-[T][ ] study
+The description or deadline is not provided. Write command using format: deadline [your task] /by [yyyy-mm-dd hh:mm]
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+Wrong format for date. Please use format : checkdate [yyyy-mm-dd]
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
 The description is not provided. Write command using format: todo [your task]
----------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------
-The description or deadline is not provided. Write command using format: deadline [your task] /by [deadline]
----------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------
-Please insert valid integer for task number. Write command using format: mark [task number (integer)]
----------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------
-Invalid task number. Please check your task list using command : list
-Write command using format: mark [task number (integer)]
----------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------
-Please insert valid integer for task number. Write command using format: delete [task number (integer)]
----------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------
-Noted. I've removed this task:
-[T][ ] study
-Now you have 2 tasks in the list.
----------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------
-Bye. Hope to see you again soon!
 ---------------------------------------------------------------------------------------------------------
