@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-class Event extends Task {
+public class Event extends Task {
 
     protected LocalDate from;
     protected LocalDate to;

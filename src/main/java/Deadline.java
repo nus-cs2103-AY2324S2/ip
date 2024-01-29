@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-class Deadline extends Task {
+public class Deadline extends Task {
 
     protected LocalDate by;
 

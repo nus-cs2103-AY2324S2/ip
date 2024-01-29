@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.io.File;
 
-class Duke {
+public class Duke {
 
     private static List<Task> taskList = new ArrayList<>();
     private static final String FILE_PATH = "./data/taskyapper.txt";
