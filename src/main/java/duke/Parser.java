@@ -4,13 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import command.AddTaskCommand;
-import command.Command;
-import command.DeleteTaskCommand;
-import command.InvalidCommand;
-import command.ListTaskCommand;
-import command.MarkTaskCommand;
-import command.UnmarkTaskCommand;
+import command.*;
 import model.Deadline;
 import model.Event;
 import model.Task;
@@ -69,6 +63,9 @@ public class Parser {
             break;
         case DeleteTaskCommand.COMMAND_WORD:
             command = parseDelete(splitTask);
+            break;
+        case FindTaskCommand.COMMAND_WORD:
+            command = parseFind(splitTask);
             break;
         default:
             command = new InvalidCommand();
@@ -203,5 +200,17 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new DukeException("The index you've input is not an integer.");
         }
+    }
+
+    /**
+     * Parse a find task input.
+     * @return a {@link FindTaskCommand} based on user's input.
+     * @throws DukeException if user left the description empty.
+     */
+    private FindTaskCommand parseFind(String[] input) throws DukeException {
+        if (input.length != 2 || input[1].isEmpty()) {
+            throw new DukeException("The description of find cannot be empty.");
+        }
+        return new FindTaskCommand(input[1], this.taskList);
     }
 }

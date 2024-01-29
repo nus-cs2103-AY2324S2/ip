@@ -70,4 +70,20 @@ public class TaskList {
     public int size() {
         return this.taskList.size();
     }
+
+    /**
+     * Returns the filtered task list based on user's input.
+     *
+     * @param input user's desired find task keyword.
+     * @return the filtered task list.
+     */
+    public TaskList find(String input) {
+        ArrayList<Task> filteredTaskList = new ArrayList<>();
+        for (Task task: taskList) {
+            if (task.getTitle().contains(input)) {
+                filteredTaskList.add(task);
+            }
+        }
+        return new TaskList(filteredTaskList);
+    }
 }
