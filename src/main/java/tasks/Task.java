@@ -34,8 +34,15 @@ public class Task implements Serializable {
     }
 
     /**
+     * Get description of the tasks
+     * @return description of task
+     */
+    public String getExecute() {
+        return this.execute;
+    }
+
+    /**
      * Override toString to print the task
-     *
      * @return task and its status
      */
     @Override
