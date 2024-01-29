@@ -1,9 +1,11 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
-    public Event(String description, String start, String end) {
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;

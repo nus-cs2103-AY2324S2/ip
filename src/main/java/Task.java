@@ -16,10 +16,12 @@ public class Task {
     }
 
     public void Mark() {
+
         this.isDone = true;
     }
 
     public void unMark() {
+
         this.isDone = false;
     }
 

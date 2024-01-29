@@ -1,32 +1,32 @@
-import java.util.*;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.File;
 public class Duke {
-    public static void main(String[] args) {
+    private Storage storage; //deals with loading and saving
+    private TaskList tasks; //operations to add and delete
+    private final Ui ui; //deals with interactions from user
 
-        //name and introduction
-        String name = "Bearducky";
-        System.out.println("Quack! My name is " + name + ". I would like to earn some bread. How may I " +
-                "help?");
+    public Duke(String filePath) { //creating a Duke object
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.load());
+    }
 
-        //Set up scanner, store user's inputs, structure to store tasks
+    public void run() {
+        ui.greet();
         Scanner scanner = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
+        Parser parser = new Parser(scanner, tasks);
+        parser.read();
+    }
 
-        label:
-        while (true) {
-            String userInput = scanner.nextLine();
-            int x = tasks.size();
+    public static void main(String[] args) {
+        Duke bearducky = new Duke("./data/tasks.txt");
+        bearducky.run();
+    }
 
-            if (userInput.toLowerCase().equals("feed bread to bearducky")) {
-                System.out.println("[very happy quacking]");
-                continue;
-            }
-
-            //marking or not
-            if (userInput.toLowerCase().startsWith("mark ") || userInput.toLowerCase().startsWith("unmark ") || userInput.toLowerCase().startsWith("delete ")) {
-                String[] inputs = userInput.split(" ");
+}
+/*
                 try {
-                    int num = Integer.parseInt(inputs[1]);
-                    if (inputs[0].equals("mark")) {
                         tasks.get(num - 1).Mark();
                     } else if (inputs[0].equals("unmark")) {
                         tasks.get(num - 1).unMark();
@@ -135,4 +135,4 @@ public class Duke {
             }
         }
     }
-}
+} */
