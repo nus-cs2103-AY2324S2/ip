@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -217,6 +219,14 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         List<Task> storage = new ArrayList<>();
 
+        try {
+            FileManaging.readFileContent(CommandType.FILEPATH.toString(), storage);
+        } catch (DukeException e) {
+            displayToScreen(e.getMessage());
+        } catch (FileNotFoundException e) {
+            displayToScreen(e.getMessage());
+        }
+
         while (true) {
             String command = scanner.nextLine();
             String[] commandArr = command.split(" ", 2);
@@ -231,14 +241,20 @@ public class Duke {
                     listTask(storage);
                 } else if (commandArr[0].equals(CommandType.MARK.toString())) {
                     markDone(storage, commandArr.length > 1 ? commandArr[1] : "");
+                    FileManaging.writeToFile(CommandType.FILEPATH.toString(), storage);
                 } else if (commandArr[0].equals(CommandType.UNMARK.toString())) {
                     markUndone(storage, commandArr.length > 1 ? commandArr[1] : "");
+                    FileManaging.writeToFile(CommandType.FILEPATH.toString(), storage);
                 } else if (commandArr[0].equals(CommandType.DELETE.toString())) {
                     deleteTask(storage, commandArr.length > 1 ? commandArr[1] : "");
+                    FileManaging.writeToFile(CommandType.FILEPATH.toString(), storage);
                 } else {
                     addTask(commandArr[0], commandArr.length > 1 ? commandArr[1] : "", storage);
+                    FileManaging.writeToFile(CommandType.FILEPATH.toString(), storage);
                 }
             } catch (DukeException e) {
+                displayToScreen(e.getMessage());
+            } catch (IOException e) {
                 displayToScreen(e.getMessage());
             }
 

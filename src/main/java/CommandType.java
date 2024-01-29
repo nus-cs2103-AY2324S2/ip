@@ -2,7 +2,7 @@
  * Enums of all command type.
  */
 public enum CommandType {
-    TODO, DEADLINE, EVENT, TASK, LIST, LISTCOMMANDS, MARK, UNMARK, DELETE, BYE;
+    TODO, DEADLINE, EVENT, TASK, LIST, LISTCOMMANDS, MARK, UNMARK, DELETE, BYE, FILEPATH;
 
     public String getCommand() {
         switch(this) {
@@ -70,6 +70,9 @@ public enum CommandType {
 
         case BYE:
             return "bye";
+
+        case FILEPATH:
+            return "storage.txt";
 
         default:
             return null;

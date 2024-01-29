@@ -17,6 +17,18 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructor of deadline class.
+     *
+     * @param description describe the deadline task.
+     * @param by deadline of the task.
+     * @param isDone
+     */
+    public Deadline(String description, String by, boolean isDone) {
+        super(description, isDone);
+        this.by = by;
+    }
+
+    /**
      * String representation of deadline task.
      *
      * @return String representation of deadline task.
@@ -24,5 +36,15 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
+    }
+
+    /**
+     * String representation for storage.
+     *
+     * @return String representation for storage of Deadline task.
+     */
+    @Override
+    public String toStorageString() {
+        return CommandType.DELETE.toString() + " " + super.toStorageString() + " " + this.by;
     }
 }
