@@ -61,7 +61,7 @@ public class Wei {
         }
     }
 
-        private static void addTask(ArrayList<Task> tasks, String input) throws WeiException {
+    private static void addTask(ArrayList<Task> tasks, String input) throws WeiException {
         if (input.startsWith("todo")) {
             addToDo(tasks, input);
         }
