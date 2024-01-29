@@ -5,9 +5,19 @@ public class Deadline extends Task {
         this.date = date;
     }
 
+    public Deadline(String task, String date, boolean status) {
+        super(task, status);
+        this.date = date;
+    }
+
     @Override
     public String stringify() {
         return "[D]" + super.stringify() + "(by: " + this.date + ")";
+    }
+
+    @Override
+    public String toString() {
+        return "D | " + super.toString() + " | " + date;
     }
 
 }

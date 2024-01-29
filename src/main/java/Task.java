@@ -7,6 +7,11 @@ public class Task {
         this.status = false;
     }
 
+    public Task(String description, boolean status) {
+        this.description = description;
+        this.status = status;
+    }
+
     public void setStatus(boolean done) {
         this.status = done;
     }
@@ -18,4 +23,13 @@ public class Task {
         }
         return done + " " + this.description;
     }
+
+    public String toString() {
+        String done = "O";
+        if (this.status) {
+            done = "X";
+        }
+        return done + " | " + this.description;
+    }
+
 }
