@@ -1,7 +1,7 @@
 public class Event extends Task {
   private String startToEnd;
 
-  public Event(String description, String startToEnd) {
+  Event(String description, String startToEnd) {
     super(description);
     this.startToEnd = startToEnd;
   }

@@ -15,20 +15,20 @@ public class Chatbot {
   }
 
   private String name;
-  private String line = "\t____________________________________________________________\n";
-  private String hello = this.line
+  private static final String LINE = "\t____________________________________________________________\n";
+  private String hello = Chatbot.LINE
       + "\tHello! I'm %s\n" + "\tWhat can I do for you?\n"
-      + this.line;
+      + Chatbot.LINE;
 
   private String goodbye = "\tBye. Hope to see you again soon!\n"
-      + this.line;
+      + Chatbot.LINE;
 
-  private ArrayList<Task> storage;
+  private ArrayList<Task> tasks;
   private int storageFill;
 
-  public Chatbot(String name) {
+  Chatbot(String name) {
     this.name = name;
-    this.storage = new ArrayList<>();
+    this.tasks = new ArrayList<>();
     this.storageFill = 0;
     this.hello = String.format(this.hello, name);
   }
@@ -46,14 +46,14 @@ public class Chatbot {
 
     while (true) {
       String input = scanner.nextLine();
-      System.out.println(this.line);
+      System.out.println(Chatbot.LINE);
 
       if (input.equals("bye")) {
         System.out.println(this.goodbye);
         break;
       } else {
         System.out.println("\t" + input);
-        System.out.println(this.line);
+        System.out.println(Chatbot.LINE);
       }
     }
 
@@ -63,7 +63,7 @@ public class Chatbot {
   public void list() {
     System.out.println("\tHere are the tasks in your list:");
     for (int i = 0; i < this.storageFill; i++) {
-      String formattedOutput = String.format("\t%d. %s", (i + 1), this.storage.get(i));
+      String formattedOutput = String.format("\t%d. %s", (i + 1), this.tasks.get(i));
       System.out.println(formattedOutput);
     }
   }
@@ -75,7 +75,7 @@ public class Chatbot {
 
     while (true) {
       String input = scanner.nextLine();
-      System.out.print(this.line);
+      System.out.print(Chatbot.LINE);
       String[] parts = input.split(" "); // split input
       if (input.replaceAll("\\s", "").equals("")) { // check empty input
         System.out.println("\tEnter a non-empty command!");
@@ -105,14 +105,14 @@ public class Chatbot {
                 System.out.println("\tOut of bounds!");
               } else { // valid operation
                 if (parts[0].equals("mark")) {
-                  this.storage.get(taskNumber - 1).mark();
+                  this.tasks.get(taskNumber - 1).mark();
                 }
                 if (parts[0].equals("unmark")) {
-                  this.storage.get(taskNumber - 1).unmark();
+                  this.tasks.get(taskNumber - 1).unmark();
                 }
                 if (parts[0].equals("delete")) {
-                  Task task = this.storage.get(taskNumber - 1);
-                  this.storage.remove(taskNumber - 1);
+                  Task task = this.tasks.get(taskNumber - 1);
+                  this.tasks.remove(taskNumber - 1);
                   System.out.println("\tNoted. I've removed this task:\n\t" + task);
                   System.out.println("\tNow you have " + --this.storageFill + " tasks in the list.");
                 }
@@ -131,7 +131,7 @@ public class Chatbot {
             break;
         }
       }
-      System.out.println(this.line);
+      System.out.println(Chatbot.LINE);
     }
 
   }
@@ -191,7 +191,7 @@ public class Chatbot {
     }
 
     if (newTask != null) {
-      this.storage.add(newTask);
+      this.tasks.add(newTask);
       this.storageFill++;
       System.out.println("\tGot it. I've added this task:\n\t" + newTask);
       System.out.println("\tNow you have " + this.storageFill + " tasks in the list.");
