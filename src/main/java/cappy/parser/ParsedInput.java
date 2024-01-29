@@ -1,15 +1,15 @@
 package cappy.parser;
 
-import java.util.List;
-import java.util.HashMap;
-import java.io.IOException;
-
 import cappy.command.Command;
 import cappy.command.CommandType;
+import cappy.error.CappyException;
 import cappy.storage.Storage;
 import cappy.task.TaskList;
 import cappy.ui.Ui;
-import cappy.error.CappyException;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 public class ParsedInput {
     private CommandType commandType;
@@ -17,7 +17,10 @@ public class ParsedInput {
     private HashMap<String, String> namedArguments;
     private List<String> positionalArguments;
 
-    public ParsedInput(CommandType commandType, HashMap<String, String> namedArguments, List<String> positionalArguments) {
+    public ParsedInput(
+            CommandType commandType,
+            HashMap<String, String> namedArguments,
+            List<String> positionalArguments) {
         this.commandType = commandType;
         this.command = commandType.getCommand();
         this.namedArguments = namedArguments;
@@ -48,7 +51,8 @@ public class ParsedInput {
         return namedArguments.containsKey(name);
     }
 
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws CappyException, IOException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage)
+            throws CappyException, IOException {
         command.execute(tasks, ui, storage, this);
     }
 
@@ -58,11 +62,19 @@ public class ParsedInput {
             return false;
         }
         ParsedInput other = (ParsedInput) obj;
-        return commandType == other.commandType && namedArguments.equals(other.namedArguments) && positionalArguments.equals(other.positionalArguments);
+        return commandType == other.commandType
+                && namedArguments.equals(other.namedArguments)
+                && positionalArguments.equals(other.positionalArguments);
     }
 
     @Override
     public String toString() {
-        return "ParsedInput(" + commandType + ", " + namedArguments + ", " + positionalArguments + ")";
+        return "ParsedInput("
+                + commandType
+                + ", "
+                + namedArguments
+                + ", "
+                + positionalArguments
+                + ")";
     }
 }

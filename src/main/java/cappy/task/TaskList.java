@@ -1,12 +1,12 @@
 package cappy.task;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.io.IOException;
-
 import cappy.error.CappyException;
 import cappy.parser.Parser;
 import cappy.storage.Storage;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private final List<Task> tasks;

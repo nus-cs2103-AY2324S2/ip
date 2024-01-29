@@ -13,7 +13,12 @@ public class Todo extends Task {
 
     @Override
     public String toCsv() {
-        return TYPE_SYMBOL + "," + (super.getDone() ? "1" : "0") + "," + super.getDescription() + ",,";
+        return TYPE_SYMBOL
+                + ","
+                + (super.getDone() ? "1" : "0")
+                + ","
+                + super.getDescription()
+                + ",,";
     }
 
     @Override

@@ -1,15 +1,15 @@
 package cappy;
 
-import java.util.Scanner;
-import java.io.IOException;
-
-import cappy.parser.Parser;
-import cappy.parser.ParsedInput;
 import cappy.command.CommandType;
+import cappy.error.CappyException;
+import cappy.parser.ParsedInput;
+import cappy.parser.Parser;
 import cappy.storage.Storage;
 import cappy.task.TaskList;
 import cappy.ui.Ui;
-import cappy.error.CappyException;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Cappy {
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -30,7 +30,7 @@ public class Cappy {
             UI.showError(e.getMessage());
             Cappy.SCANNER.close();
             System.exit(1);
-        } catch(CappyException e) {
+        } catch (CappyException e) {
             UI.showError(e.getMessage());
             Cappy.SCANNER.close();
             System.exit(1);

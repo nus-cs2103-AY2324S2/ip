@@ -1,8 +1,8 @@
 package cappy.ui;
 
-import cappy.util.Logger;
 import cappy.task.Task;
 import cappy.task.TaskList;
+import cappy.util.Logger;
 
 public class Ui {
     private static final String HORIZONTAL_LINE =

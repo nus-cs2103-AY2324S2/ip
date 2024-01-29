@@ -1,8 +1,8 @@
 package cappy.task;
 
-import java.time.LocalDateTime;
-
 import cappy.parser.Parser;
+
+import java.time.LocalDateTime;
 
 public class Deadline extends Task {
     public static final String TYPE_SYMBOL = "D";
@@ -20,13 +20,25 @@ public class Deadline extends Task {
 
     @Override
     public String toCsv() {
-        return TYPE_SYMBOL + "," + (super.getDone() ? "1" : "0") + "," + super.getDescription() + ","
-                + Parser.dateTimeToString(this.due) + ",";
+        return TYPE_SYMBOL
+                + ","
+                + (super.getDone() ? "1" : "0")
+                + ","
+                + super.getDescription()
+                + ","
+                + Parser.dateTimeToString(this.due)
+                + ",";
     }
 
     @Override
     public String toString() {
-        return "[" + TYPE_SYMBOL + "]" + super.toString() + " (by: " + Parser.dateTimeToString(this.due) + ")";
+        return "["
+                + TYPE_SYMBOL
+                + "]"
+                + super.toString()
+                + " (by: "
+                + Parser.dateTimeToString(this.due)
+                + ")";
     }
 
     @Override

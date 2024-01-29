@@ -1,13 +1,11 @@
 package cappy.storage;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.lang.AutoCloseable;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Storage implements AutoCloseable {
     private final String path;

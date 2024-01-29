@@ -1,13 +1,15 @@
 package cappy.parser;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
-import org.junit.jupiter.api.Test;
-import cappy.command.CommandType;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import cappy.command.CommandType;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ParsedInputTest {
     @Test
@@ -33,7 +35,8 @@ public class ParsedInputTest {
 
         for (Map.Entry<String, String> entry : namedArgs.entrySet()) {
             iterNamedArgs.put(entry.getKey(), entry.getValue());
-            ParsedInput parsedInput = new ParsedInput(CommandType.EMPTY, iterNamedArgs, positionalArgs);
+            ParsedInput parsedInput =
+                    new ParsedInput(CommandType.EMPTY, iterNamedArgs, positionalArgs);
             assertEquals(iterNamedArgs.size(), parsedInput.numberOfNamedArguments());
         }
     }
@@ -73,4 +76,3 @@ public class ParsedInputTest {
         }
     }
 }
-
