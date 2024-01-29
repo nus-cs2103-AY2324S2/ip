@@ -4,31 +4,35 @@ public class Task {
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }
 
+    public void setToDone() {
+        isDone = true;
+    }
+
     public void mark() {
-        this.isDone = true;
+        isDone = true;
         System.out.println("__________________________________________________________\n"
                 + "Nice! I've marked this task as done:\n"
-                + this.toString()
+                + toString()
                 + "\n__________________________________________________________\n");
     }
 
     public void unmark() {
-        this.isDone = false;
+        isDone = false;
         System.out.println("__________________________________________________________\n"
                 + "OK, I've marked this task as not done yet:\n"
-                + this.toString()
+                + toString()
                 + "\n__________________________________________________________\n");
     }
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
