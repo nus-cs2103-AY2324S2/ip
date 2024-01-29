@@ -2,7 +2,7 @@ public class Event extends Task {
     protected String startDate;
     protected String endDate;
 
-    public Event() { name = "event"; startDate = "(NOW)"; endDate = "(NOW)"; isMarked = false; }
+    public Event() { type = "Event"; name = "event"; startDate = "(NOW)"; endDate = "(NOW)"; isMarked = false; }
     public Event(String _s, boolean _flag) {
         // Check for invalid params
         if (!_s.contains(" /from ") || (!_s.contains(" /to "))) {
@@ -15,6 +15,7 @@ public class Event extends Task {
             throw new InvalidParamException("Invalid param for event", null);
         }
 
+        type = "Event";
         name = _s.substring(0, a);
         
         String n = _s.substring(a + 7);
@@ -34,5 +35,10 @@ public class Event extends Task {
         s += "] " + name + " (from: " + startDate + " to: " + endDate + ")";
 
         return s;
+    }
+
+    @Override
+    public String GetFileFormatParam() {
+        return name + " /from " + startDate + " /to " + endDate;
     }
 }

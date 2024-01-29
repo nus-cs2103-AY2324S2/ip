@@ -1,6 +1,4 @@
 /* Handles printing messages  */
-
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class MessagePrinter {

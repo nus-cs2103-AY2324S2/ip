@@ -2,15 +2,10 @@ import java.util.Scanner;
 
 public class Jav {
     public static Storage storage = new Storage();
+    public static FileManager fileManager = new FileManager();
 
     public static void main(String[] args) {
-        String logo = 
-                //   " ____        _        \n"
-                // + "|  _ \\ _   _| | _____ \n"
-                // + "| | | | | | | |/ / _ \\\n"
-                // + "| |_| | |_| |   <  __/\n"
-                // + "|____/ \\__,_|_|\\_\\___|\n";
-
+        String logo =
                   "      ____.  _________   ____\n"
                 + "     |    | /  _  \\   \\ /   /\n"
                 + "     |    |/  /_\\  \\   Y   /\n"
@@ -23,14 +18,22 @@ public class Jav {
         System.out.println("Hello from\n" + logo);
         System.out.println("<---------------------------------------------------------->");
         MessagePrinter.PrintGreeting();
-
+        
         boolean isExiting = false;
         Scanner scan = new Scanner(System.in);
+
+        // Load neccessary data
+        try {
+            storage.Load(fileManager.LoadStorageData());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         while (!isExiting) {
             System.out.println("| User Input:");
             System.out.print("> ");
             String s = scan.nextLine();
-
+            
             try {
                 if (CheckExiting(s)) {
                     isExiting = true;
@@ -44,9 +47,12 @@ public class Jav {
                     String cmd = s.substring(0, s.indexOf(' '));
                     String parameters = s.substring(s.indexOf(' ') + 1);
 
-                    if (CheckStoring(cmd, parameters)) {} 
-                    else if (CheckMarking(cmd, parameters)) {} 
-                    else if (CheckDeleting(cmd, parameters)) {} 
+                    if (CheckStoring(cmd, parameters) ||
+                        CheckMarking(cmd, parameters) ||
+                        CheckDeleting(cmd, parameters)) {
+                        // Save the new data into the text file
+                        fileManager.SaveStorageData(storage.GetFileFormat());
+                    } 
                     else {
                         throw new InvalidParamException ("Multi char detected but cmd entered doesn't exist", null);
                     }
@@ -56,6 +62,8 @@ public class Jav {
             } catch (InvalidParamException e) {
                 MessagePrinter.PrintInvalid();
                 MessagePrinter.Echo(s);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
 
