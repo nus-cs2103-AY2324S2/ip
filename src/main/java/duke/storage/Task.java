@@ -71,17 +71,28 @@ public class Task {
     }
 
     /**
-     * Method to mark the task as done
+     * Mark the task as done
      */
     public void mark() {
         this.isDone = true;
     }
 
     /**
-     * Method to unmark the task as not done
+     * Mark the task as not done
      */
     public void unmark() {
         this.isDone = false;
+    }
+
+    /**
+     * Check if task description contains keyword
+     *
+     * @param keyword Keyword to check against
+     *
+     * @return True if description contains keyword, false otherwise
+     */
+    public boolean descriptionContains(String keyword) {
+        return this.description.contains(keyword);
     }
 
     /**

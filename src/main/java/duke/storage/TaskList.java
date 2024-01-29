@@ -153,6 +153,32 @@ public class TaskList {
     }
 
     /**
+     * Get all items in storage filtered by keyword
+     *
+     * @param keyword Keyword to filter
+     */
+    public String getTasks(String keyword) {
+        StringBuilder tasks = new StringBuilder();
+        int printIndex = 1;
+
+        for (int i = 0; i < taskArray.size(); i++) {
+            Task task = taskArray.get(i);
+
+            // Check if task description contains keyword
+            if (task.descriptionContains(keyword)) {
+                tasks.append(String.format("%d.%s\n", printIndex, taskArray.get(i).toString()));
+                printIndex++;
+            }
+        }
+
+        // Remove trailing '\n' characters
+        if (tasks.lastIndexOf("\n") != -1) {
+            return tasks.substring(0, tasks.length() - 1);
+        }
+        return tasks.toString();
+    }
+
+    /**
      * Save the current tasklist to file
      */
     public void saveTasks() throws StorageException {
