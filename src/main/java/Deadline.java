@@ -29,12 +29,12 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return convertToDataRow();/*"[" + printType() + "]" + "[" + getIsDoneStatus() + "] "
-                + description + " " + "(by: " + by + ")";*/
+        return "[" + printType() + "]" + "[" + getIsDoneStatus() + "] "
+                + description + " " + "(by: " + by + ")";
     }
 
     @Override
     public String convertToDataRow() {
-        return super.convertToDataRow() + " | " + by;
+        return super.convertToDataRow() + dataStringSplitter + by;
     }
 }

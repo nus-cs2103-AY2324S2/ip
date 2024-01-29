@@ -31,14 +31,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return convertToDataRow();
-                /*"[" + printType() + "]" + "[" + getIsDoneStatus() + "] "
+        return "[" + printType() + "]" + "[" + getIsDoneStatus() + "] "
                 + description + " " + "(from: "
-                + from + " to: " + to + ")";*/
+                + from + " to: " + to + ")";
     }
 
     @Override
     public String convertToDataRow() {
-        return super.convertToDataRow() + " | " + from + " | " + to;
+        return super.convertToDataRow() + dataStringSplitter + from + dataStringSplitter + to;
     }
 }

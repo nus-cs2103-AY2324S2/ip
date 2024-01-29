@@ -26,7 +26,7 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return convertToDataRow();//"[" + printType() + "]" + "[" + getIsDoneStatus() + "] " + getDescription();
+        return "[" + printType() + "]" + "[" + getIsDoneStatus() + "] " + getDescription();
     }
 
     @Override
