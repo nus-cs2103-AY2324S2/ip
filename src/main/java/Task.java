@@ -23,5 +23,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toString() {
+        String statusWithDesc = String.format("[%s] %s", getStatusIcon(), getDescription());
+        return statusWithDesc;
+    }
+
 }
 

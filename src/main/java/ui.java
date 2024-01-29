@@ -31,28 +31,35 @@ public class ui {
             String userInput = scanner.nextLine();
             String[] userInputArray = userInput.split(" ");
 
+            System.out.println(divider);
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
+
             } else if (userInput.equalsIgnoreCase("list")) {
-                System.out.println(divider);
                 newTodoList.listTasks();
-                System.out.println(divider);
+
             } else if (userInputArray[0].equalsIgnoreCase("mark")) {
                 String taskString = newTodoList.markAsDone(Integer.parseInt(userInputArray[1]) - 1);
-                System.out.println(divider);
                 System.out.println("Nice! I've marked this task as done:\n" + taskString);
-                System.out.println(divider);
+
             } else if (userInputArray[0].equalsIgnoreCase("unmark")) {
                 String taskString = newTodoList.markAsUndone(Integer.parseInt(userInputArray[1]) - 1);
-                System.out.println(divider);
                 System.out.println("OK, I've marked this task as not done yet:\n" + taskString);
-                System.out.println(divider);
+
+            } else if (userInputArray[0].equalsIgnoreCase("todo") ||
+                       userInputArray[0].equalsIgnoreCase("deadline") ||
+                       userInputArray[0].equalsIgnoreCase("event")) {
+                String taskString = newTodoList.addTask(userInput);
+                System.out.println("Roger. I have added this task.");
+                System.out.println(taskString);
+                System.out.printf("Now you have %d tasks in the list.", newTodoList.getNumberOfTasks());
+
             } else {
-                newTodoList.addTask(userInput);
-                System.out.println(divider);
-                System.out.println("added: " + userInput);
-                System.out.println(divider);
+                System.out.println("Invalid command");
+
             }
+            System.out.println("\n" + divider);
+
         }
 
         System.out.println(divider);
