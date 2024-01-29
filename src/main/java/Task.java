@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Task {
         protected String description;
         protected boolean isDone;
@@ -32,4 +36,11 @@ public class Task {
             return "[" + this.getStatusIcon() + "] " + this.description;
         }
 
+        public static LocalDate getInputDateFormat(String s) throws DateTimeParseException {
+            return LocalDate.parse(s, DateTimeFormatter.ofPattern("d-M-yyyy"));
+        }
+
+        public static String getLocalDateOutputFormat(LocalDate date) throws DateTimeParseException {
+            return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        }
 }

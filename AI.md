@@ -16,3 +16,13 @@ Thus, it is better with laborous tasks with certain existing code for better cod
 
 Personally think that it saves some time by helping you type similar code again 
 or very trivial next few steps that you expect to take.
+
+### Benefits
+Helps to reduce cognitive load of typing and thinking of the variable names.
+
+Speed up refactoring of code when shifting to more OOP, and it will consider the
+original code written to suggest the right code in new classes.
+
+### Limitations
+Sometimes it is not able to suggest the right code, and you have to manually type it out.
+Sometimes it does not suggest everything previously written, so similar bugs might appear again.
