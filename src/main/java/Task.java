@@ -11,6 +11,10 @@ public class Task {
         return isDone ? "X" : " ";
     }
 
+    public void setToDone() {
+        this.isDone = true;
+    }
+
     public void mark() {
         this.isDone = true;
         System.out.println("__________________________________________________________\n"

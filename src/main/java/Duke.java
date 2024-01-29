@@ -1,8 +1,20 @@
 import java.util.*;
+import java.io.*;
 
 public class Duke {
-    public static void main(String[] args) throws TaskNotFoundException, UnknownCommandException, InvalidSyntaxException {
+    public static void main(String[] args) throws TaskNotFoundException, UnknownCommandException,
+            InvalidSyntaxException, IOException {
         List taskList = new List(new ArrayList<>());
+        String fileName = "./data/duke.txt";
+        File f = new File(fileName);
+        if (!f.exists()) {
+            if (!f.getParentFile().exists()) {
+                f.getParentFile().mkdirs();
+            }
+            f.createNewFile();
+        } else {
+            taskList.loadTasks();
+        }
         System.out.println(
                 "__________________________________________________________\n"
                         + "Hello! I'm KitchenSink!\n"
@@ -66,8 +78,8 @@ public class Duke {
             }
             if (input.split(" ")[0].equalsIgnoreCase("event")) {
                 if (input.split(" ").length > 1 &&
-                    input.split(" /by ").length == 2 &&
-                    input.split(" /by ")[1].split(" /to ").length == 2 &&
+                    input.split(" /from ").length == 2 &&
+                    input.split(" /from ")[1].split(" /to ").length == 2 &&
                     input.split(" /to ").length == 2) {
                     taskList.addTask(new Event(
                             input.substring(6).split(" /from")[0],
