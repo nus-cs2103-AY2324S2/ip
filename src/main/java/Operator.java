@@ -1,5 +1,5 @@
-import java.util.Arrays;
-import java.util.Scanner;
+
+import java.util.*;
 
 public class Operator {
     // Operator handles the user input and output
@@ -12,7 +12,7 @@ public class Operator {
     }
 
     // Entry point of the bot
-    public void goLive() {
+    public void goLive() throws BotException {
         while (true) {
             String userInput = scanner.nextLine();
             String[] userInputArr = userInput.split(" ");
@@ -29,32 +29,67 @@ public class Operator {
                     botHelpMsg();
                     break;
                 case "mark":
-                    int markIndex = Integer.parseInt(userInputArr[1]);
-                    botMarkTask(userInputArr, markIndex);
+                    try {
+                        botMarkTask(userInputArr);
+                    } catch (BotException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "unmark":
-                    int unmarkIndex = Integer.parseInt(userInputArr[1]);
-                    botUnmarkTask(userInputArr, unmarkIndex);
+                    try {
+                        botUnmarkTask(userInputArr);
+                    } catch (BotException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "todo":
-                    String todoTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
-                    taskList.addTodo(todoTask);
-                    botAddTaskMsg();
+                    try {
+                        handleTodoCommand(userInputArr);
+                    } catch (BotException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "deadline":
-                    handleDeadlineCommand(userInputArr);
+                    try {
+                        handleDeadlineCommand(userInputArr);
+                    } catch (BotException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "event":
-                    handleEventCommand(userInputArr);
+                    try {
+                        handleEventCommand(userInputArr);
+                    } catch (BotException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 default:
-                    System.out.println(TerminalUI.wrapWithSepLine(
-                            "Eh, invalid command. I get what you're saying but I'm not gonna do it. Try again?"));
+                    try {
+                        handleInvalidCommand();
+                    } catch (BotException e) {
+                        System.out.println(e.getMessage());
+                    }
             }
         }
     }
 
-    private void handleDeadlineCommand(String[] userInputArr) {
+    private void handleInvalidCommand() throws BotException {
+        throw new BotException("Eh, invalid command. I get what you're saying but I'm not gonna do it. Try again?");
+    }
+
+    private void handleTodoCommand(String[] userInputArr) throws BotException {
+        if (userInputArr.length < 2) {
+            throw new BotException("The description of a todo cannot be empty.");
+        }
+        String todoTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
+        taskList.addTodo(todoTask);
+        botAddTaskMsg();
+    }
+
+    private void handleDeadlineCommand(String[] userInputArr) throws BotException {
+        if (userInputArr.length < 3) {
+            throw new BotException("Please give some description and due date in deadline");
+        }
         String deadlineTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
                 .split("/by", 2)[0].trim();
         String dueDate = String.join(" ", Arrays.copyOfRange(userInputArr,
@@ -63,7 +98,10 @@ public class Operator {
         botAddTaskMsg();
     }
 
-    private void handleEventCommand(String[] userInputArr) {
+    private void handleEventCommand(String[] userInputArr) throws BotException {
+        if (userInputArr.length < 3) {
+            throw new BotException("The description and time of an event cannot be empty.");
+        }
         String eventTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
                 .split("/from", 2)[0].trim();
         int fromIndex = Arrays.asList(userInputArr).indexOf("/from") + 1;
@@ -86,19 +124,43 @@ public class Operator {
         TerminalUI.printSepLine();
     }
 
-    private void botUnmarkTask(String[] inputs, int i) {
+    private void botMarkTask(String[] inputs) throws BotException {
+        if (inputs.length < 2) {
+            throw new BotException("Please enter a task number to mark.");
+        }
+        int i;
+        try {
+            i = Integer.parseInt(inputs[1]);
+        } catch (NumberFormatException e) {
+            throw new BotException("Task number should be numeric.");
+        }
+        if (i <= 0 || i > taskList.getTaskCount()) {
+            throw new BotException("Task number is out of range.");
+        }
         TerminalUI.printSepLine();
-        taskList.markTaskAsUndone(i);
-        System.out.println("Guess who didn't commit to this task. I'll mark it as undone...");
+        taskList.markTaskAsDone(i);
+        System.out.println("Faster than expected. Guess I'll mark it as done...");
         TerminalUI.printList(taskList.listTasks());
         botTaskCountMsg();
         TerminalUI.printSepLine();
     }
 
-    private void botMarkTask(String[] inputs, int i) {
+    private void botUnmarkTask(String[] inputs) throws BotException {
+        if (inputs.length < 2) {
+            throw new BotException("Please enter a task number to unmark.");
+        }
+        int i;
+        try {
+            i = Integer.parseInt(inputs[1]);
+        } catch (NumberFormatException e) {
+            throw new BotException("Task number should be numeric.");
+        }
+        if (i <= 0 || i > taskList.getTaskCount()) {
+            throw new BotException("Task number is out of range.");
+        }
         TerminalUI.printSepLine();
-        taskList.markTaskAsDone(i);
-        System.out.println("Faster than expected. Guess I'll mark it as done...");
+        taskList.markTaskAsUndone(i);
+        System.out.println("Guess who didn't commit to this task. I'll mark it as undone...");
         TerminalUI.printList(taskList.listTasks());
         botTaskCountMsg();
         TerminalUI.printSepLine();
