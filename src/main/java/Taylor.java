@@ -3,11 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import exceptions.TaylorException;
-import executes.DeleteTask;
-import executes.InsertTask;
-import executes.ListTask;
-import executes.MarkTask;
-import executes.SearchTask;
+import executes.*;
 import filehandler.FileInput;
 import tasks.Task;
 
@@ -16,7 +12,7 @@ import tasks.Task;
  */
 public class Taylor {
     enum Activity {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, SEARCH, INVALID
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, SEARCH, FIND, INVALID
     }
 
     public static void main(String[] args) {
@@ -81,6 +77,13 @@ public class Taylor {
                     case SEARCH:
                         try {
                             SearchTask.exec(act[1], listing);
+                        } catch (TaylorException err) {
+                            System.out.println("Error: " + err.getMessage());
+                        }
+                        break;
+                    case FIND:
+                        try {
+                            FindTask.exec(act[1], listing);
                         } catch (TaylorException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
