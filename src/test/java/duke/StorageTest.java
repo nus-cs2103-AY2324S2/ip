@@ -14,22 +14,28 @@ import model.ToDo;
 
 public class StorageTest {
     @Test
-    void isFileExistsTest() {
+    void isFileExistsTest_returnsTrue() {
+        String filePath = "test.dat";
+        Storage storage = new Storage(filePath);
+
+        storage.createNewFile();
+
+        assertTrue(storage.isFileExists());
+
+        File file = new File(filePath);
+        assertTrue(file.delete());
+    }
+
+    @Test
+    void isFileExistsTest_returnsFalse() {
         String filePath = "test.dat";
         Storage storage = new Storage(filePath);
 
         assertFalse(storage.isFileExists());
-
-        storage.createNewFile();
-
-        assertTrue(storage.isFileExists());
-
-        File file = new File(filePath);
-        assertTrue(file.delete());
     }
 
     @Test
-    void createNewFileTest() {
+    void createNewFileTest_returnsTrue() {
         String filePath = "test.dat";
         Storage storage = new Storage(filePath);
 
@@ -42,7 +48,7 @@ public class StorageTest {
     }
 
     @Test
-    void updateAndLoadTest() {
+    void updateAndLoadTest_returnsTrue() {
         String filePath = "test.dat";
         Storage storage = new Storage(filePath);
         ArrayList<Task> originalTaskList = new ArrayList<>(100);

@@ -95,7 +95,7 @@ public class Parser {
      */
     private static Event parseEvent(String[] event) throws DukeException {
         if (event.length != 2 || event[1].isEmpty()) {
-            throw new DukeException("The description of a event cannot be empty.");
+            throw new DukeException("The description of an event cannot be empty.");
         }
         String[] splitEvent = event[1].split(" /from ", 2);
         if (splitEvent.length != 2) {
