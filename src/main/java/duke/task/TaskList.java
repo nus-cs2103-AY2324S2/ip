@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.exception.ChatBotParameterException;
+import duke.parser.Parser;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,7 +21,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Returns an iterator over elements of type {@code Task}.
+     * Returns an iterator over elements of type {@code duke.task.Task}.
      *
      * @return an Iterator.
      */

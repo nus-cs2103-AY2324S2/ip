@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.exception.ChatBotParameterException;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 public abstract class Command {
     protected final String keyword;
     protected final String parameters;
@@ -7,7 +14,7 @@ public abstract class Command {
         this.parameters = parameters;
     }
 
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 
