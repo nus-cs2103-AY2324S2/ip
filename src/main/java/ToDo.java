@@ -9,7 +9,7 @@ public class ToDo extends Task {
 
     @Override
     public String printType() {
-        return "[T]";
+        return "T";
     }
 
     @Override
@@ -26,6 +26,11 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return printType() + "[" + getIsDoneStatus() + "] " + getDescription();
+        return "[" + printType() + "]" + "[" + getIsDoneStatus() + "] " + getDescription();
+    }
+
+    @Override
+    public String convertToDataRow() {
+        return super.convertToDataRow();
     }
 }

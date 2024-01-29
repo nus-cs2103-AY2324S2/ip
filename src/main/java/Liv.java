@@ -1,5 +1,9 @@
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 
 // name of the chat bot
 public class Liv {
@@ -23,7 +27,8 @@ public class Liv {
     private State currentState;
     private static Scanner scanner = null;
     private static LinkedList<Task> tasks = null;
-    private static int numberOfTasks;
+
+    private static String dataFilePath = "Data/savedTasks.txt";
 
     private Liv() {
         // initial setup
@@ -31,7 +36,47 @@ public class Liv {
         currentState = State.INACTIVE;
         scanner = new Scanner(System.in);
         tasks = new LinkedList<>();
-        numberOfTasks = 0;
+        try {
+            loadFromMemory();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void loadFromMemory() throws FileNotFoundException {
+        File file = new File(dataFilePath);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            loadSingleRowOfData(scanner.nextLine());
+        }
+    }
+
+    private int getNumOfTasks() {
+        return tasks.size();
+    }
+
+    private void loadSingleRowOfData(String s) {
+        tasks.add(Task.convertDataToTask(s));
+    }
+
+
+    private void saveToMemory() {
+        try {
+            String dataToWrite = "";
+            for (int i = 1; i <= getNumOfTasks(); i++) {
+                dataToWrite += tasks.get(i - 1).convertToDataRow();
+                if (i < getNumOfTasks()) dataToWrite += System.lineSeparator();
+            }
+            writeToFile(dataFilePath, dataToWrite);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
+        fileWriter.write(textToAdd);
+        fileWriter.close();
     }
 
     public static Liv getInstance() {
@@ -121,8 +166,9 @@ public class Liv {
         // for multi-word commands
         if (words[0].equals("mark") || words[0].equals("unmark")) {
             if (isInteger(words[1])) {
+                boolean isDone = words[0].equals("mark");
                 int taskIndex = Integer.parseInt(words[1]);
-                speak(toggleTaskDoneWithIndex(taskIndex, words[0]));
+                speak(setTaskDoneWithIndex(taskIndex, words[0], isDone));
             } else {
                 speak("Action failed: task index input is not an integer");
             }
@@ -138,7 +184,7 @@ public class Liv {
                         + "    "
                         + deletedTask
                         + "\n"
-                        + "Now you have " + numberOfTasks + " tasks in the list.");//input);
+                        + "Now you have " + getNumOfTasks() + " tasks in the list.");//input);
                 return;
             } else {
                 speak("Action failed: task index input is not an integer");
@@ -158,18 +204,24 @@ public class Liv {
                     + "    "
                     + newTask
                     + "\n"
-                    + "Now you have " + numberOfTasks + " tasks in the list.");//input);
+                    + "Now you have " + getNumOfTasks() + " tasks in the list.");//input);
             return;
         }
 
 
         if (input.equals("bye")) {
             EndSession();
+            saveToMemory();
             return;
         }
 
         if (input.equals("list")) {
             listTasks();
+            return;
+        }
+
+        if (input.equals("print tasks")) {
+            speak(tasks.toString());
             return;
         }
 
@@ -185,7 +237,7 @@ public class Liv {
     private void listTasks() {
         ToggleConversationState();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= numberOfTasks; i++) {
+        for (int i = 1; i <= getNumOfTasks(); i++) {
             System.out.println(i + "." + tasks.get(i - 1).toString());
         }
         ToggleConversationState();
@@ -193,7 +245,6 @@ public class Liv {
 
     private void addTask(Task task) {
         tasks.add(task);
-        numberOfTasks++;
     }
 
     private boolean isInteger(String str) {
@@ -206,10 +257,10 @@ public class Liv {
     }
 
     // takes in the listed index of the task (1 larger than storage index)
-    private String toggleTaskDoneWithIndex(int index, String isDoneUpdateString)
+    private String setTaskDoneWithIndex(int index, String isDoneUpdateString, boolean isDone)
             throws TaskIndexOutOfBoundsException {
         try {
-            tasks.get(index - 1).toggleIsDone(isDoneUpdateString);
+            tasks.get(index - 1).setIsDone(isDoneUpdateString, isDone);
             return tasks.get(index - 1).updateIsDoneMessage();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException(index);
@@ -219,7 +270,6 @@ public class Liv {
     private Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
         try {
             Task deletedTask = tasks.remove(index - 1);
-            numberOfTasks--;
             return deletedTask;
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException(index);
