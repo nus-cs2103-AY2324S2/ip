@@ -51,6 +51,6 @@ public class MarkCommand extends Command {
         } else {
             System.out.println("Nice! I've marked this task as not done:");
         }
-        System.out.println(String.format(" %s", markedTask.toString()));
+        System.out.println(String.format("  %s", markedTask.toString()));
     }
 }
