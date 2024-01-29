@@ -27,4 +27,7 @@ public class ToDos extends Task{
         String s = this.getSymbol() + "/" + this.isDone + "/" + this.description;
         return s;
     }
+    public static String getFormat(){
+        return "todo Description";
+    }
 }
