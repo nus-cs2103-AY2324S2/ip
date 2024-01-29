@@ -2,6 +2,9 @@ package Managers;
 import java.util.ArrayList;
 import java.util.List;
 
+import Dao.DeadlineDao;
+import Dao.EventDao;
+import Dao.TodoDao;
 import Models.Deadline;
 import Models.Event;
 import Models.Task;
@@ -12,6 +15,15 @@ import Utils.StringUtils;
 public class TaskManager {
 
   private List<Task> tasks = new ArrayList<>();
+
+  public TaskManager() {
+    List<Todo> todos = TodoDao.getTodos();
+    tasks.addAll(todos);
+    List<Deadline> deadlines = DeadlineDao.getDeadlines();
+    tasks.addAll(deadlines);
+    List<Event> events = EventDao.getEvents();
+    tasks.addAll(events);
+  }
 
   private Task get(int i) {
     return this.tasks.get(i);
@@ -62,11 +74,11 @@ public class TaskManager {
       String command = getCommand(input);
       // Decided to pass the entire input instead because otherwise we would have to parse the input into command and value
       // which would not be appropriate here since it includes a list() function too
-      if (command.equals(TodoDao.name)) {
+      if (command.equals(TodoDao.NAME)) {
         addTodo(input);
-      } else if (command.equals(DeadlineDao.name)) {
+      } else if (command.equals(DeadlineDao.NAME)) {
         addDeadline(input);
-      } else if (command.equals(EventDao.name)) {
+      } else if (command.equals(EventDao.NAME)) {
         addEvent(input);
       } else if (command.equals(Commands.LIST.getCommand())) {
         print();
@@ -78,6 +90,8 @@ public class TaskManager {
         delete(input);
       } else if (command.equals(Commands.BYE.getCommand())) {
         return;
+      } else if (command.equals("text")) {
+        EventDao.getEvents();
       } else {
         throw new IllegalArgumentException("Command not recognized");
       }
@@ -89,16 +103,19 @@ public class TaskManager {
 
   private void addTodo(String input) {
     Todo todo = TodoDao.getFrom(input);
+    TodoDao.add(todo);
     this.add(todo);
   }
 
   private void addDeadline(String input) {
     Deadline deadline = DeadlineDao.getFrom(input);
+    DeadlineDao.add(deadline);
     this.add(deadline);
   }
 
   private void addEvent(String input) {
     Event event = EventDao.getFrom(input);
+    EventDao.add(event);
     this.add(event);
   }
 
