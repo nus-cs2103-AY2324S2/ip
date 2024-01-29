@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileWriter;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -88,7 +91,9 @@ public class Duke {
                 switch (type) {
                 case "T":
                     Todo todo = new Todo(description);
-                    if (isDone) todo.markDone();
+                    if (isDone) {
+                        todo.markDone();
+                    }
                     return todo;
                 case "D":
                     if (parts.length < 4) {
@@ -96,8 +101,10 @@ public class Duke {
                         return null;
                     }
                     String by = parts[3].trim();
-                    Deadline deadline = new Deadline(description, by);
-                    if (isDone) deadline.markDone();
+                    Deadline deadline = new Deadline(description, parseDateString(by));
+                    if (isDone) {
+                        deadline.markDone();
+                    }
                     return deadline;
                 case "E":
                     if (parts.length < 5) {
@@ -115,6 +122,15 @@ public class Duke {
                 }
             } catch (Exception e) {
                 System.err.println("Error parsing task from file: " + e.getMessage() + " - Line: " + line);
+                return null;
+            }
+        }
+        private String parseDateString(String dateString) throws DateTimeParseException{
+            try {
+                LocalDateTime date = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+                return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            } catch (DateTimeParseException e) {
+                System.err.println("Error parsing date: " + dateString + ". Please use the format 'yyyy-MM-dd HHmm'.");
                 return null;
             }
         }
@@ -234,11 +250,17 @@ public class Duke {
                     String description = details[0];
                     String by = details[1];
 
-                    Task newDeadline = new Deadline(description, by);
-                    taskList.add(newDeadline);
-                    currIndex++;
-                    addMessage(newDeadline, currIndex);
-                    taskManager.saveTaskToFile(newDeadline);
+                    Deadline newDeadline = new Deadline(description, by);
+                    if (newDeadline.hasValidDate()) {
+                        taskList.add(newDeadline);
+                        currIndex++;
+                        addMessage(newDeadline, currIndex);
+                        taskManager.saveTaskToFile(newDeadline);
+                    } else {
+                        System.out.println("Error creating deadline task. Please " +
+                                "provide a valid date in the format 'yyyy-MM-dd HHmm'.");
+                        displayLine();
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
                             " must be in the format 'deadline [task] /by [time]'.");
@@ -273,6 +295,7 @@ public class Duke {
                         System.out.println(gap() + "You have " + taskList.size() + " tasks remaining in the list.");
                         displayLine();
                         taskManager.saveAllTasksToFile();
+                        currIndex--;
                     } else {
                         System.out.println("Invalid task number: " + (taskIndex + 1));
                     }
@@ -282,7 +305,7 @@ public class Duke {
                 break;
             default:
                 System.out.println("OH NO I'm not sure what that command is. You may use the commands " +
-                        "todo, deadline, list, event, mark and unmark");
+                        "todo, deadline, list, event, delete, mark and unmark");
                 break;
             }
             currLine = scanner.nextLine();
