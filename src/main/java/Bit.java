@@ -1,22 +1,24 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import  java.util.Scanner;
+import java.io.FileWriter;
 
 
 public class Bit {
-
-
-
     public static String seperator = "---------------------------------------------------------";
     public static void main(String[] args) {
 
         System.out.println("Hi! This is Bit!\nWhat shall we do today?\n");
+
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<Task>();
+        ArrayList<Task> list = new ArrayList<>();
 
 
         while(true) {
             System.out.println(seperator);
             String input = scanner.nextLine();
+            save();
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
@@ -59,6 +61,7 @@ public class Bit {
 
         }
         System.out.println("Alright. See you soon!!");
+
     }
 
     public static void addTo(ArrayList<Task> list, String input) throws DukeException{
@@ -176,6 +179,17 @@ public class Bit {
             System.out.println("I couldn't find that task! Are you sure it exists?");
         }
     }
+
+    public static void  save() {
+        try {
+            FileWriter myWriter = new FileWriter("./data/bit.txt");
+            myWriter.write("hi!");
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("I was unable to save this taskto the harddisk, sorry!");
+        }
+    }
+
 
 
 }
