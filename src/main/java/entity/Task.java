@@ -21,6 +21,6 @@ public abstract class Task {
         this.marked = bool;
     }
 
-
+    public abstract String save();
 
 }

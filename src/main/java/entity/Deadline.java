@@ -8,6 +8,14 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String save() {
+        if (this.marked) {
+            return "D | Done | " + this.title;
+        } else {
+            return "D | Not Done | " + this.title;
+        }
+    }
+    @Override
     public String toString() {
         if (this.marked) {
             return "[D][X] " + this.title + "by " + this.dateTime;

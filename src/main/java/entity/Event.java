@@ -10,6 +10,15 @@ public class Event extends Task {
     }
 
     @Override
+    public String save() {
+        if (this.marked) {
+            return "E | Done | " + this.title;
+        } else {
+            return "E | Not Done | " + this.title;
+        }
+    }
+
+    @Override
     public String toString() {
         if (this.marked) {
             return "[E][X] " + this.title + " (from: " + this.startTime + " to: " + this.endTime + ")";

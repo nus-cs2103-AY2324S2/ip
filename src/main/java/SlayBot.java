@@ -4,6 +4,7 @@ import exception.InvalidEventException;
 import exception.InvalidTodoException;
 import exception.UnknownCommandException;
 
+import java.io.IOException;
 import java.util.*;
 
 public class SlayBot {
@@ -25,6 +26,8 @@ public class SlayBot {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Task> list = new ArrayList<>();
+        Storage storage = new Storage();
+
         boolean flag = true;
 
         System.out.println(DIVIDER + "\n" + WELCOME_TEXT + "\n" + DIVIDER);
@@ -52,6 +55,7 @@ public class SlayBot {
                 case BYE:
                     flag = false;
                     System.out.println(DIVIDER + "\n" + BYE_TEXT + "\n" + DIVIDER);
+                    storage.saveTasks(list);
                     break;
 
                 case LIST:
@@ -61,6 +65,7 @@ public class SlayBot {
                         System.out.println(i + 1 + ". " + list.get(i));
                     }
                     System.out.println(DIVIDER);
+                    storage.saveTasks(list);
                     break;
 
                 case TODO:
@@ -73,10 +78,12 @@ public class SlayBot {
                     }
 
                     list.add(todo);
+
                     System.out.println(DIVIDER);
                     System.out.println("Todo Task Added: " + todo.toString());
                     System.out.println("You have " + list.size() + " tasks");
                     System.out.println(DIVIDER);
+                    storage.saveTasks(list);
                     break;
 
                 case DEADLINE:
@@ -89,10 +96,12 @@ public class SlayBot {
                     }
 
                     list.add(deadline);
+
                     System.out.println(DIVIDER);
                     System.out.println("Deadline Task Added: " + deadline.toString());
                     System.out.println("You have " + list.size() + " tasks");
                     System.out.println(DIVIDER);
+                    storage.saveTasks(list);
                     break;
 
                 case EVENT:
@@ -104,10 +113,12 @@ public class SlayBot {
                         continue;
                     }
                     list.add(event);
+
                     System.out.println(DIVIDER);
                     System.out.println("Event Task Added: " + event.toString());
                     System.out.println("You have " + list.size() + " tasks");
                     System.out.println(DIVIDER);
+                    storage.saveTasks(list);
                     break;
 
                 case MARK:
@@ -115,6 +126,7 @@ public class SlayBot {
                     taskToMark.setMarked(true);
                     System.out.println(DIVIDER + "\nNice! I've marked this task as done:\n" + taskToMark.toString() +
                             "\n" + DIVIDER);
+                    storage.saveTasks(list);
                     break;
 
                 case UNMARK:
@@ -122,6 +134,7 @@ public class SlayBot {
                     taskToUnmark.setMarked(false);
                     System.out.println(DIVIDER + "\nOK, I've marked this task as not done yet:\n" + taskToUnmark.toString() +
                             "\n" + DIVIDER);
+                    storage.saveTasks(list);
                     break;
                 case DELETE:
                     try {
@@ -129,11 +142,11 @@ public class SlayBot {
                         list.remove(indexToDelete - 1);
                         System.out.println(DIVIDER + "\n Successful deletion \n You now have " +
                                 list.size() + " tasks\n" + DIVIDER);
+                        storage.saveTasks(list);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(DIVIDER + "\n Please input a valid index\n" + DIVIDER);
                         continue;
                     }
-
             }
         }
     }
