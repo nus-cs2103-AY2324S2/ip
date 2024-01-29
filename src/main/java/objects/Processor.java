@@ -1,16 +1,12 @@
 package objects;
+import exception.DukeException;
+import exception.InvalidCommandException;
 import view.EncaseLines;
 
 import static objects.Commands.*;
-import static objects.FilePath.*;
-import static objects.Utils.*;
+import static utils.InputUtil.getCommandType;
 
 public class Processor {
-    public static void greet() {
-        System.out.println(getFile(LOGO_PATH));
-        EncaseLines.display(getFile(GREETING_PATH));
-    }
-
     public static void process (String input, TaskList tasks) {
         input = input.trim().toLowerCase();
         String command = getCommandType(input);
@@ -45,9 +41,5 @@ public class Processor {
             EncaseLines.display(e.getMessage());
 
         }
-    }
-
-    public static void exit() {
-        EncaseLines.display(getFile(EXIT_PATH));
     }
 }

@@ -1,7 +1,14 @@
 package objects;
+import exception.DukeException;
+import exception.InvalidCommandException;
+import exception.InvalidIndexException;
 import view.EncaseLines;
 
-import static objects.Utils.*;
+import static utils.DeadlineUtil.createDeadline;
+import static utils.EventUtil.createEvent;
+import static utils.FileUtil.getFile;
+import static utils.InputUtil.getCommandType;
+import static utils.InputUtil.parseIndex;
 
 public class Commands {
     public static final String LIST = "list";

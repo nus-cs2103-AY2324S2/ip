@@ -1,12 +1,11 @@
 package view;
 
-import objects.Utils;
-
 import static objects.FilePath.LINE_PATH;
+import static utils.FileUtil.getFile;
 
 public class SingleLine extends UI {
     public static void display() {
-        String character = Utils.getFile(LINE_PATH);
+        String character = getFile(LINE_PATH);
         String line = String.valueOf(character).repeat(60);
 
         System.out.println(line);
