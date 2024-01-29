@@ -4,7 +4,8 @@ git checkout -b *branch name*
 2. Make the necessary change. During this process, commit your changes regularly.
 git add .
 git commit -m "Commit message"
-Continue making changes and committing until Level 8 is fully implemented.
+git push origin *branch name*
+
 
 3. Switch to Master Branch:
 git checkout master
