@@ -70,7 +70,7 @@ public class ExitCommandTest {
      * Test print to standard output for successful execute
      */
     @Test
-    public void execute_validTask_success() throws DukeException {
+    public void execute_validCommand_success() throws DukeException {
         String expected = "Bye. Hope to see you again soon!\n";
 
         ExitCommand exitCommand = new ExitCommand();
