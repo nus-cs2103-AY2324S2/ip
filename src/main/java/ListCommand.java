@@ -10,7 +10,7 @@ public class ListCommand extends Command {
      * @throws ChatBotParameterException
      */
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) throws ChatBotParameterException {
+    public void execute(Storage storage, Ui ui, TaskList taskList) {
         ui.showTaskList(taskList);
     }
 }

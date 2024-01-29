@@ -7,7 +7,7 @@ public class Parser {
         return taskString.split(" \\| ");
     }
 
-    public static Command parse(String command) throws ChatBotCommandException {
+    public static Command parseCommand(String command) throws ChatBotCommandException {
         if (command.isEmpty()) {
             throw new ChatBotCommandException("Empty command.");
         }
@@ -73,6 +73,19 @@ public class Parser {
             return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("d/M/yyyy Hmm"));
         } catch (DateTimeParseException e) {
             return LocalDateTime.parse(dateTime);
+        }
+    }
+
+    public static int parseMark(String parameters) throws ChatBotParameterException {
+        if (parameters.isEmpty()) {
+            throw new ChatBotParameterException("Missing task number \n" +
+                    "try: mark <task_number>");
+        }
+        try {
+           return Integer.parseInt(parameters);
+        } catch (NumberFormatException e) {
+            throw new ChatBotParameterException("Invalid task number \n" +
+                    "try: mark <task_number>");
         }
     }
 }

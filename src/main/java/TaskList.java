@@ -31,7 +31,7 @@ public class TaskList implements Iterable<Task> {
         return tasks.iterator();
     }
 
-    public Task addToDo(String description, boolean isDone){
+    public Task addToDo(String description, boolean isDone) {
         ToDo toDo = new ToDo(description, isDone);
         this.addTask(toDo);
         return toDo;
@@ -66,5 +66,24 @@ public class TaskList implements Iterable<Task> {
         Event event = new Event(description, from, to, isDone);
         this.addTask(event);
         return event;
+    }
+
+    public int size() {
+        return this.tasks.size();
+    }
+
+    public Task markTaskAsDone(String parameters) throws ChatBotMarkedException, ChatBotParameterException {
+        int taskNumber = Parser.parseMark(parameters);
+        Task taskToBeMarked;
+        try {
+            taskToBeMarked = this.tasks.get(taskNumber - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ChatBotMarkedException("The task does not exists in the task list.");
+        }
+        if (taskToBeMarked.isDone()) {
+            throw new ChatBotMarkedException("This task is already marked done!");
+        }
+        taskToBeMarked.markDone();
+        return taskToBeMarked;
     }
 }

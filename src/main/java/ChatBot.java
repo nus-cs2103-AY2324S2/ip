@@ -41,24 +41,7 @@ public class ChatBot {
     }
 
 
-    public void bye() {
-        if (this.farewells.isEmpty()) {
-            System.out.println("Goodbye World");
-        } else {
-            Random randomizer = new Random();
-            int dialogueOption = randomizer.nextInt(farewells.size());
-            System.out.println(farewells.get(dialogueOption));
-        }
-    }
-    public void displayTasksSize() {
-        System.out.printf("Now you have %d tasks in the list.%n", this.tasks.size());
-    }
-    public void addTask(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(" " + task.toString());
-        this.tasks.add(task);
-        this.displayTasksSize();
-    }
+
 
     public void addTaskFromLoad(Task task) {
         this.tasks.add(task);
@@ -84,7 +67,6 @@ public class ChatBot {
             Task taskToBeDeleted = this.tasks.remove(taskNumber - 1);
             System.out.println("Noted. I've removed this task:");
             System.out.println(taskToBeDeleted);
-            this.displayTasksSize();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("The task does not exists in the task list.");
         }

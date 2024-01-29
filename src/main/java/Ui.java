@@ -22,10 +22,6 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void showLoadingError() {
-        System.out.println("Error");
-    }
-
     public void showWelcome() {
         System.out.println("Hello");
     }
@@ -36,6 +32,7 @@ public class Ui {
     }
 
     public void showTaskList(TaskList taskList) {
+        this.showTaskListStatus(taskList);
         for (Task task : taskList) {
             System.out.println(task);
         }
@@ -43,5 +40,13 @@ public class Ui {
 
     public void showAddedTask(Task task) {
         System.out.println("added: " + task.toString());
+    }
+
+    public void showTaskListStatus(TaskList taskList) {
+        System.out.printf("Now you have %d tasks in the list.%n\n", taskList.size());
+    }
+
+    public void showMarkedTask(Task task) {
+        System.out.println("marked: " + task.toString());
     }
 }

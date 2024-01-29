@@ -10,7 +10,12 @@ public class MarkCommand extends Command {
      * @throws ChatBotParameterException
      */
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) throws ChatBotParameterException {
-
+    public void execute(Storage storage, Ui ui, TaskList taskList) {
+        try {
+            Task task = taskList.markTaskAsDone(parameters);
+            ui.showMarkedTask(task);
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
+        }
     }
 }

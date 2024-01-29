@@ -62,7 +62,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
+                Command c = Parser.parseCommand(fullCommand);
                 c.execute(storage, ui, tasks);
                 isExit = c.isExit();
             } catch (ChatBotParameterException | ChatBotCommandException e) {

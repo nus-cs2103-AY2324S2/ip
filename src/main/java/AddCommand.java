@@ -10,22 +10,29 @@ public class AddCommand extends Command{
      * @param taskList
      */
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) throws ChatBotParameterException {
+    public void execute(Storage storage, Ui ui, TaskList taskList) {
         Task task = null;
-        switch (this.keyword) {
-        case "todo":
-            task = taskList.addToDo(this.parameters);
-            break;
-        case "deadline":
-            task = taskList.addDeadline(this.parameters);
-            break;
-        case "event":
-            task = taskList.addEvent(this.parameters);
-            break;
-        default:
-            break;
-            
+        try {
+
+            switch (this.keyword) {
+            case "todo":
+                task = taskList.addToDo(this.parameters);
+                break;
+            case "deadline":
+                task = taskList.addDeadline(this.parameters);
+                break;
+            case "event":
+                task = taskList.addEvent(this.parameters);
+                break;
+            default:
+                break;
+
+            }
+        } catch (ChatBotParameterException e) {
+            ui.showError(e.getMessage());
+            return;
         }
         ui.showAddedTask(task);
+        ui.showTaskListStatus(taskList);
     }
 }
