@@ -24,7 +24,8 @@ public class Storage {
     /**
      * Writes JSON array to file in JSON format
      *
-     * @param file Path of the file to write to
+     * @param array JSON array to be written to file
+     * @param file  Path of the file to write to
      */
     public static void saveToFile(JSONArray array, File file) throws IOException {
         // Create file (if required)
@@ -44,7 +45,8 @@ public class Storage {
     /**
      * Populate storage array from file in JSON format
      *
-     * @param file File to load values from
+     * @param taskList TaskList to populate
+     * @param file     File to load values from
      */
     public static void loadFromFile(TaskList taskList, File file)
             throws TaskNotSupportedException, FileNotFoundException, TaskCorruptedException {

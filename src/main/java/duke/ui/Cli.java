@@ -9,6 +9,7 @@ import duke.storage.TaskList;
 
 /**
  * The UI CLI class handles the displaying of UI elements in the application
+ * using the command line
  *
  * @author Ryan NgWH
  */
@@ -61,7 +62,9 @@ public class Cli extends Ui {
     }
 
     /**
-     * Get user input and return a complete command for the application
+     * Get and return the user input from standard input.
+     *
+     * @return User input from standard input
      */
     private String readCommand() {
         return sc.nextLine();
@@ -90,8 +93,10 @@ public class Cli extends Ui {
 
     /**
      * Print error on standard output
+     *
+     * @param message Error message to be printed
      */
-    private void printError(String error) {
-        System.out.println(String.format("ERROR: %s", error));
+    private void printError(String message) {
+        System.out.println(String.format("ERROR: %s", message));
     }
 }

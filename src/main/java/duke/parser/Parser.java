@@ -51,6 +51,7 @@ public class Parser {
      * Parse a string and return a command if valid
      *
      * @param input String to be parsed
+     *
      * @return A valid command for the application
      */
     public static Command parse(String input) throws DukeException {

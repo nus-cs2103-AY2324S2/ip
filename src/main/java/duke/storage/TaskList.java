@@ -63,6 +63,8 @@ public class TaskList {
      * Remove an item from task list
      *
      * @param deleteIndex Index of the item to delete
+     *
+     * @return Deleted task
      */
     public Task deleteTask(int deleteIndex) throws StorageException, MissingTaskException {
         try {
@@ -105,6 +107,8 @@ public class TaskList {
 
     /**
      * Get all items in storage
+     *
+     * @return String containing all items in storage
      */
     public String getTasks() {
         StringBuilder tasks = new StringBuilder();
@@ -124,6 +128,8 @@ public class TaskList {
      * Get all items in storage filtered by date
      *
      * @param date Date to filter
+     *
+     * @return String containing filtered items
      */
     public String getTasks(Instant date) throws InvalidArgumentException {
         StringBuilder tasks = new StringBuilder();
@@ -166,7 +172,7 @@ public class TaskList {
     }
 
     /**
-     * Indicates whether some other object is "equal to" this command
+     * Indicates whether some other object is "equal to" this TaskList
      *
      * @param obj Object to be checked against
      *
