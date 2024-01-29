@@ -179,13 +179,10 @@ public class Duke {
     }
 
 
-    //todo add more ways to parse date
     private static LocalDate validDate(String str) throws DukeException {
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
         LocalDate ld;
-        System.out.println(str);
+        
         try {
-            //ld = LocalDate.parse(str, formatter);
             ld = LocalDate.parse(str);
         } catch (DateTimeParseException dt) {
             throw new DukeException("Invalid date format. Use yyyy-MM-dd format.");
