@@ -31,7 +31,7 @@ public class Nollid {
             try {
                 command.execute(this.tasks, this.ui, this.storage);
             } catch (NollidException e) {
-                ui.sendMessage(e.getMessage());
+                this.ui.sendMessage(e.getMessage());
             }
         }
     }

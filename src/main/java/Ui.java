@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Ui {
+    // Default length of line to be printed
+    private static final int LINE_LENGTH = 30;
 
     /**
      * Sends a welcome message upon starting the bot, with horizontal lines
@@ -17,12 +19,9 @@ public class Ui {
      * @param message The message for the bot to send.
      */
     public void sendMessage(String message) {
-        // Length of line to be printed.
-        int lineLength = 30;
-
-        printHorizontalLine(lineLength);
+        printHorizontalLine(LINE_LENGTH);
         System.out.println(message);
-        printHorizontalLine(lineLength);
+        printHorizontalLine(LINE_LENGTH);
     }
 
     /**
