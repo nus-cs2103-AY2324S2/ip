@@ -35,4 +35,9 @@ public class Task {
         }
         System.out.println(this);
     }
+
+    public String toFileFormat() {
+        return "";
+    }
+
 }
