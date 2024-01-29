@@ -15,6 +15,7 @@ public class BobParser {
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
     public static final String DELETE_COMMAND = "delete";
+    public static final String FIND_COMMAND = "find";
 
     private Bob self;
     private BobUI ui;
@@ -64,6 +65,9 @@ public class BobParser {
                 break;
             case BobParser.DELETE_COMMAND:
                 this.taskList.handleTaskDeletion(input);
+                break;
+            case BobParser.FIND_COMMAND:
+                this.taskList.handleFindTask(input);
                 break;
             default:
                 throw new BobException.InvalidCommand("Sorry, I'm not sure what command that is.");

@@ -194,4 +194,29 @@ public class BobTaskList {
         this.ui.printList(true, this.list);
         this.ui.printLine();
     }
+
+    /**
+     * Handles the finding of tasks and listing found items.
+     *
+     * @param input User input when calling the command.
+     */
+    public void handleFindTask(String input) throws BobException {
+
+        this.ui.printLine();
+        System.out.println("    Here are the matching tasks in your list:");
+        input = input.substring(BobParser.FIND_COMMAND.length() + 1);
+
+        int seq = 0;
+
+        for (int i = 0; i < this.list.size(); i++) {
+            if (this.list.get(i).description.contains(input)) {
+                Task task = this.list.get(i);
+                System.out.println("    " + (seq + 1) + "." + task.getType()
+                        + task.getStatus() + " " + task);
+                seq++;
+            }
+        }
+        this.ui.printLine();
+
+    }
 }
