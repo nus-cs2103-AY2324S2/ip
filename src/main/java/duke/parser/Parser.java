@@ -1,5 +1,6 @@
 package duke.parser;
 
+import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -71,7 +72,7 @@ public class Parser {
 
                         return new ListCommand(filterDate);
                     } catch (NumberFormatException | StringIndexOutOfBoundsException
-                            | ArrayIndexOutOfBoundsException e) {
+                            | ArrayIndexOutOfBoundsException | DateTimeException e) {
                         throw new InvalidArgumentException(
                                 "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD'");
                     }
