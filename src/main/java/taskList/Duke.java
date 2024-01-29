@@ -1,5 +1,12 @@
 package taskList;
-
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -24,7 +31,43 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
+
+        @SuppressWarnings("unchecked")
         ArrayList<Task> theList = new ArrayList<>();
+
+        String dataDirectoryPath = "./data";
+        String dataFilePath = "./data/duke.ser";
+        
+        if (!Files.exists(Paths.get(dataDirectoryPath))) {
+            try {
+                Files.createDirectories((Paths.get(dataDirectoryPath)));
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("An unexpected error has occurred. \n" + e.getMessage() + "\nPlease contact the admininstrator"); 
+            }
+        }
+
+        if (!Files.exists(Paths.get(dataFilePath))) {
+            try {
+                Files.createFile(Paths.get(dataFilePath));
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("An unexpected error has occurred. \n" + e.getMessage() + "\nPlease contact the admininstrator"); 
+            }
+        }
+
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(dataFilePath))) {
+            Object obj = objectInputStream.readObject();
+            if (obj instanceof ArrayList) {
+                theList = (ArrayList<Task>) obj;
+            }
+        } catch (EOFException e) {
+        }
+        catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace(); // Handle the exception according to your needs
+        }
+
+
         do { //continue the program until 'bye' command is inputted. 
             String input = scanner.nextLine().trim();
             String[] inputList = input.split(" ",2);
@@ -42,6 +85,7 @@ public class Duke {
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Input is not a valid numeric value.");
                     } catch (Exception e) {
+                        e.printStackTrace();
                         System.out.println("An unexpected errormark has occurred. \n" + e.getMessage() + "\nPlease contact the admininstrator"); 
                     }
                     break;
@@ -56,6 +100,7 @@ public class Duke {
                         } catch (NumberFormatException e) {
                             System.out.println("Error: Input is not a valid numeric value.");
                         } catch (Exception e) {
+                            e.printStackTrace();
                             System.out.println("An unexpected error has occurred. \n" + e.getMessage() + "\nPlease contact the admininstrator"); 
                         }
                         break;
@@ -78,6 +123,7 @@ public class Duke {
                                 } catch (ArrayIndexOutOfBoundsException e) {
                                     System.out.println("Error creating Deadline: " + e.getMessage());
                                 } catch (Exception e) {
+                                    e.printStackTrace();
                                     System.out.println("Error creating Deadline." + e.getMessage());
                                     System.out.println("Please contact the adminstrator.");
                                 }
@@ -88,6 +134,7 @@ public class Duke {
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Error creating Deadline: Please enter a deadline.");
                         } catch (Exception e) {
+                            e.printStackTrace();
                             System.out.println("Error creating Deadline." + e.getMessage());
                             System.out.println("Please contact the adminstrator.");
                         }
@@ -106,6 +153,7 @@ public class Duke {
                                     } catch (ArrayIndexOutOfBoundsException e) {
                                         System.out.println("Error creating Event: " + e.getMessage());
                                     } catch (Exception e) {
+                                        e.printStackTrace();
                                         System.out.println("Error creating Event." + e.getMessage());
                                         System.out.println("Please contact the adminstrator.");
                                     }
@@ -119,6 +167,7 @@ public class Duke {
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Error creating Event: Please format the input properly.");
                         } catch (Exception e) {
+                            e.printStackTrace();
                             System.out.println("Error creating Event." + e.getMessage());
                             System.out.println("Please contact the adminstrator.");
                         }                      
@@ -135,6 +184,7 @@ public class Duke {
                         } catch (NumberFormatException e) {
                             System.out.println("Error: Input is not a valid numeric value.");
                         } catch (Exception e) {
+                            e.printStackTrace();
                             System.out.println("An unexpected error has occurred. \n" + e.getMessage() + "\nPlease contact the admininstrator"); 
                         }
                         break;
@@ -209,6 +259,12 @@ public class Duke {
             }
             System.out.println("____________________________________________________________");
 
+            try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(dataFilePath))) {
+                objectOutputStream.writeObject(theList);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    
         } while (isRunning);
 
         scanner.close();
