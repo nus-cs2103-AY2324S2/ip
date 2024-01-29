@@ -113,7 +113,11 @@ public class TaskList {
             tasks.append(String.format("%d.%s\n", i + 1, taskArray.get(i).toString()));
         }
 
-        return tasks.substring(0, tasks.length() - 1).toString();
+        // Remove trailing '\n' characters
+        if (tasks.lastIndexOf("\n") != -1) {
+            return tasks.substring(0, tasks.length() - 1);
+        }
+        return tasks.toString();
     }
 
     /**
