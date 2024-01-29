@@ -147,10 +147,11 @@ public class Ypxmm {
         sc.close();
     }
     public static void getCommands() {
-        System.out.println("todo <task> - adds todo\ndeadline <task>/<by when> - adds deadline\n" +
-                "event <task>/<from when>/<to when> - adds event\nlist - lists out all tasks\n" +
-                "mark <x> - marks task x as done\nunmark <x> - unmarks task x as undone\n" +
-                "bye - exit");
+        System.out.println("Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format\n" +
+                "  todo <task> - adds todo\n  deadline <task>/<by when> - adds deadline\n" +
+                "  event <task>/<from when>/<to when> - adds event\n  list - lists out all tasks\n" +
+                "  mark <x> - marks task x as done\n  unmark <x> - unmarks task x as undone\n" +
+                "  bye - exit");
     }
 
     public static void sayHello() {
