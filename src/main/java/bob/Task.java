@@ -3,7 +3,7 @@ package bob;
 import java.util.UUID;
 
 /**
- * Base class representing a user TODO task.
+ * Class representing a user Task.
  */
 public class Task {
 
@@ -12,11 +12,6 @@ public class Task {
 
     protected String uuid;
 
-    /**
-     * Constructor of Task.
-     *
-     * @param description Description of the task.
-     */
     public Task(String description) {
         this.description = description;
         this.uuid = UUID.randomUUID().toString();
@@ -27,12 +22,6 @@ public class Task {
         return this;
     }
 
-    /**
-     * Updates the status of a Task as done or undone.
-     *
-     * @param state If task is done or not.
-     * @return a Task object that can be further manipulated.
-     */
     public Task updateStatus(boolean state) {
         this.done = state;
         return this;

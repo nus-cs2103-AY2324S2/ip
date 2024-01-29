@@ -3,22 +3,12 @@ package bob;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * A task of type Deadline.
- */
 public class Deadline extends Task {
 
     private String deadline;
     private boolean hasTime = false;
     private LocalDateTime dateTime = null;
 
-    /**
-     * Constructor of Deadline.
-     *
-     * @param description The description for the deadline.
-     * @param deadline When the deadline is due.
-     * @throws BobException.InvalidDateTimeFormat If an invalid date is supplied by the user.
-     */
     public Deadline(String description, String deadline) throws BobException.InvalidDateTimeFormat {
         super(description);
         this.deadline = deadline;

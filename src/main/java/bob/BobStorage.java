@@ -2,14 +2,11 @@ package bob;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Handles the saving of user tasks.
- */
 public class BobStorage {
 
     private static final String HOME_BASE_PATH = System.getProperty("user.home");
@@ -18,10 +15,6 @@ public class BobStorage {
 
     /**
      * Add items to storage.
-     *
-     * @param t A Task object.
-     * @param list An ArrayList that contains the tasks.
-     * @return a task object that can be further modified.
      */
     public Task addItem(Task t, ArrayList<Task> list) throws BobException {
         list.add(t);
@@ -29,11 +22,6 @@ public class BobStorage {
         return t;
     }
 
-    /**
-     * Updates task list and saves them to a file.
-     *
-     * @param list An ArrayList that contains the tasks.
-     */
     public void updateTaskList(ArrayList<Task> list) {
         try {
             if (!this.saveData.exists()) {
@@ -51,13 +39,6 @@ public class BobStorage {
         }
     }
 
-    /**
-     * Load tasks from saved file.
-     *
-     * @return List of tasks from the save file.
-     * @throws BobException.FileAccessError If file is not accessible.
-     * @throws BobException.CorruptedSaveData If save file contains invalid task format.
-     */
     public ArrayList<Task> loadSavedTasks() throws BobException.FileAccessError, BobException.CorruptedSaveData {
 
         ArrayList<Task> savedTasks = new ArrayList<>();
