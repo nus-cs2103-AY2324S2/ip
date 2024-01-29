@@ -1,7 +1,7 @@
 package tasks;
 
 public class Task {
-    private final String description;
+    protected final String description;
 
     private boolean status;
 
@@ -15,6 +15,10 @@ public class Task {
 
     public boolean getStatus() {
         return this.status;
+    }
+
+    public String toStorageString() {
+        return "";
     }
 
     @Override

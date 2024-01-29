@@ -1,8 +1,10 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import storage.Storage;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -19,10 +21,17 @@ public class Duke {
                     + "    |_____\\__,_|\\___|_|\\_\\\\__, |  -(((---(((--------\n"
                     + "                          |___/ ";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         printOutput(logo, "Hello! I'm Lucky the cat", "What can I do for you?");
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks;
+
+        if (new File("src/main/java/storage/data.txt").exists()) {
+            tasks = Storage.readFromStorage();
+        } else {
+            tasks = new ArrayList<>();
+        }
+
         boolean isChatting = true;
         Command command;
 
@@ -117,7 +126,7 @@ public class Duke {
     }
 
     public static void updateMarkStatus(boolean isMark, ArrayList<Task> tasks, String[] input)
-            throws CommandException {
+            throws CommandException, IOException {
 
         if (input.length < 2) {
             throw new CommandException(
@@ -155,9 +164,12 @@ public class Duke {
                         tasks.get(index).toString());
             }
         }
+
+        Storage.writeToStorage(tasks);
     }
 
-    public static void insertToDo(String[] input, ArrayList<Task> tasks) throws CommandException {
+    public static void insertToDo(String[] input, ArrayList<Task> tasks)
+            throws CommandException, IOException {
 
         if (input.length < 2) {
             throw new CommandException(
@@ -166,12 +178,15 @@ public class Duke {
 
         ToDo todoTask = new ToDo(input[1]);
         tasks.add(todoTask);
+
+        Storage.writeToStorage(todoTask);
+
         printOutput("Got it. I've added this task:", indentation + todoTask.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void insertDeadline(String[] input, ArrayList<Task> tasks)
-            throws CommandException {
+            throws CommandException, IOException {
 
         String pattern = "([^/]+)\\s+/by\\s+([^/]+)";
         Pattern regex = Pattern.compile(pattern);
@@ -190,11 +205,15 @@ public class Duke {
         String[] deadlineDetails = input[1].split("/by");
         Deadline deadlineTask = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
         tasks.add(deadlineTask);
+
+        Storage.writeToStorage(deadlineTask);
+
         printOutput("Got it. I've added this task:", indentation + deadlineTask.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void insertEvent(String[] input, ArrayList<Task> tasks) throws CommandException {
+    public static void insertEvent(String[] input, ArrayList<Task> tasks)
+            throws CommandException, IOException {
 
         String pattern = "([^/]+)\\s+/from\\s+([^/]+)\\s+/to\\s+([^/]+)";
         Pattern regex = Pattern.compile(pattern);
@@ -217,24 +236,27 @@ public class Duke {
         Event eventTask =
                 new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2]);
         tasks.add(eventTask);
+
+        Storage.writeToStorage(eventTask);
+
         printOutput("Got it. I've added this task:", indentation + eventTask.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void deleteTask(ArrayList<Task> tasks, String[] input) throws CommandException {
+    public static void deleteTask(ArrayList<Task> tasks, String[] input)
+            throws CommandException, IOException {
         if (input.length < 2) {
             throw new CommandException(
                     "Please specify which task to delete. (format: delete <task no.>)");
         }
 
-        // if (!isInteger(input[1])) {
-        // throw new CommandException("Task number not found! (format: delete <task no.>)");
-        // }
-
-        tasks.remove(Integer.parseInt(input[1]) - 1);
         printOutput("Noted. I've removed this task: ",
                 tasks.get(Integer.parseInt(input[1]) - 1).toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
+
+        tasks.remove(Integer.parseInt(input[1]) - 1);
+
+        Storage.writeToStorage(tasks);
     }
 
     public static boolean isInteger(String input) {
