@@ -2,6 +2,7 @@ package duke.Tasks;
 
 public abstract class Task {
     String task;
+    
     public boolean marked;
 
     public Task(String task) {

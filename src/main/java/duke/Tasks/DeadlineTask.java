@@ -1,6 +1,4 @@
-package duke.Task;
-
-import duke.Task;
+package duke.Tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -68,9 +66,11 @@ public class DeadlineTask extends Task {
         return dateTime.format(formatter);
     }
 
-    public LocalDateTime getDateTime() {
-        return deadline;
+    public String getDateTime() {
+        return formatDateTime(deadline);
     }
+
+
 
     @Override
     public String toString() {
@@ -84,13 +84,13 @@ public class DeadlineTask extends Task {
 
 }
 
-/*public class duke.Task.DeadlineTask extends duke.Task {
+/*public class duke.Tasks.Task.DeadlineTask extends duke.Tasks.Task {
     private String by;
     int check = 0;
 
     private LocalDateTime dateTime;
 
-    public duke.Task.DeadlineTask(String task) {
+    public duke.Tasks.Task.DeadlineTask(String task) {
         super(task);
         parseDeadline(task);
         this.dateTime = parseDateTime(by);
@@ -180,12 +180,12 @@ public class DeadlineTask extends Task {
 
 
 
-/*public class duke.Task.DeadlineTask extends duke.Task {
+/*public class duke.Tasks.Task.DeadlineTask extends duke.Tasks.Task {
     private String by;
 
     private LocalDateTime byDateTime;
 
-    public duke.Task.DeadlineTask(String task) {
+    public duke.Tasks.Task.DeadlineTask(String task) {
         super(task);
         parseDeadline(task);
     }

@@ -1,4 +1,4 @@
-package duke;
+package duke.Tasks;
 
 public class EventTaskLoad extends Task {
     private String time;

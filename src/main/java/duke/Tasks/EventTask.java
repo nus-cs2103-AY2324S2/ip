@@ -1,4 +1,4 @@
-package duke;
+package duke.Tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -96,7 +96,7 @@ public class EventTask extends Task {
 }
 
 
-/*public class duke.EventTask extends duke.Task {
+/*public class duke.Tasks.Task.EventTask extends duke.Tasks.Task {
     private String from;
     private String to;
 
@@ -105,7 +105,7 @@ public class EventTask extends Task {
 
     int check;
 
-    public duke.EventTask(String task) {
+    public duke.Tasks.Task.EventTask(String task) {
         super(task);
         parseEvent(task);
         this.startTime = parseDateTime(from);

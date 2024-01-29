@@ -1,6 +1,4 @@
-package duke.Task;
-
-import duke.Task;
+package duke.Tasks;
 
 public class DeadlineTaskLoad extends Task {
     private String by;
@@ -34,7 +32,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-public class duke.Task.DeadlineTaskLoad extends duke.Task {
+public class duke.Tasks.Task.DeadlineTaskLoad extends duke.Tasks.Task {
     private String by;
 
     int check = 0;
@@ -42,7 +40,7 @@ public class duke.Task.DeadlineTaskLoad extends duke.Task {
     private LocalDateTime dateTime;
 
 
-    public duke.Task.DeadlineTaskLoad(String task, String by) {
+    public duke.Tasks.Task.DeadlineTaskLoad(String task, String by) {
         super(task);
         this.by = by;
         this.dateTime = parseDateTime(by);
