@@ -30,7 +30,7 @@ public class Tiny {
                 storage.save(tasks.toSave());
                 isExit = parser.isExit();
             } catch (TinyException e) {
-                tabPrint(e.getMessage());
+                printContent(e.getMessage());
             }
         }
     }
