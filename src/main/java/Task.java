@@ -1,6 +1,6 @@
 public abstract class Task {
     protected String description;
-    private boolean isDone = false;
+    protected boolean isDone = false;
 
     @Override
     public String toString() {

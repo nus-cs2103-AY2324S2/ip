@@ -10,9 +10,11 @@ public class Toothless {
 
     public Toothless(String filepath){
         try {
-            findFile(filepath);
+            Command.loadTasks(filepath);
         } catch (FileNotFoundException e){
             System.out.println("Can't Find Task File!");
+        } catch (ToothlessException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -64,10 +66,7 @@ public class Toothless {
         }
     }
 
-    public void findFile(String filepath) throws FileNotFoundException{
-        File file = new File(filepath);
-        Scanner sc = new Scanner(file);
-    }
+
 
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);

@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public enum Command {
     List, Mark, Unmark, Delete, Todo, Deadline, Event, Bye, Invalid;
@@ -123,6 +124,29 @@ public enum Command {
             }
         }
         return newTask;
+    }
+
+    public static void loadTasks(String filepath) throws FileNotFoundException, ToothlessException{
+        File file = new File(filepath);
+        Scanner sc = new Scanner(file);
+        while (sc.hasNext()) {
+            Task task;
+            String[] storedTask = sc.nextLine().split("|");
+            switch (storedTask[0]){
+                case "T":
+                    task = new Todo(storedTask[1], storedTask[2].equals("1"));
+                    break;
+                case "D":
+                    task = new Deadline(storedTask[1], storedTask[3], storedTask[2].equals("1"));
+                    break;
+                case "E":
+                    task = new Event(storedTask[1], storedTask[3], storedTask[4], storedTask[2].equals("1"));
+                    break;
+                default:
+                    throw new ToothlessException("File corrupted");
+            }
+            listOfTasks.add(task);
+        }
     }
 
     public static void writeTasks(){

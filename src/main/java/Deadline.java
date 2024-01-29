@@ -6,6 +6,12 @@ public class Deadline extends Task{
         this.date = date;
     }
 
+    public Deadline(String description, String date, boolean isDone){
+        super.description = description;
+        super.isDone = isDone;
+        this.date = date;
+    }
+
     @Override
     public String getTaskIcon() {
         return "D";
