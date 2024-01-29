@@ -93,4 +93,28 @@ public class Task {
     public String toString() {
         return String.format("[%s] %s", isDone ? "X" : " ", description);
     }
+
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof Task) {
+            Task task = (Task) obj;
+
+            return this.type.equals(task.type)
+                    && this.description.equals(task.description)
+                    && this.isDone == task.isDone;
+        }
+
+        return false;
+    }
 }

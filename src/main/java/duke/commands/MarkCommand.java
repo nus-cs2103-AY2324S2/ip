@@ -51,6 +51,30 @@ public class MarkCommand extends Command {
         } else {
             System.out.println("Nice! I've marked this task as not done:");
         }
-        System.out.println(String.format(" %s", markedTask.toString()));
+        System.out.println(String.format("  %s", markedTask.toString()));
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof MarkCommand) {
+            MarkCommand command = (MarkCommand) obj;
+
+            return super.equals(command)
+                    && this.index == command.index
+                    && this.isCompleted == command.isCompleted;
+        }
+
+        return false;
     }
 }

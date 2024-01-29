@@ -52,4 +52,30 @@ public class ListCommand extends Command {
         // Print tasks
         System.out.println(tasks);
     }
+
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof ListCommand) {
+            ListCommand command = (ListCommand) obj;
+
+            if (this.date != null && command.date != null) {
+                return super.equals(command) && this.date.equals(command.date);
+            } else if (this.date == null && command.date == null) {
+                return super.equals(command);
+            }
+        }
+
+        return false;
+    }
 }

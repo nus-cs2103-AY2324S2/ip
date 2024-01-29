@@ -1,9 +1,12 @@
 package duke.parser;
 
+import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import duke.commands.AddCommand;
 import duke.commands.Command;
@@ -34,7 +37,7 @@ public class Parser {
      * @return Instant of the specified datetime
      */
     public static Instant userDateToInstant(String date, String time)
-            throws NumberFormatException, StringIndexOutOfBoundsException {
+            throws NumberFormatException, StringIndexOutOfBoundsException, DateTimeException {
         return LocalDateTime.of(
                 Integer.parseInt(date.substring(0, 4)),
                 Integer.parseInt(date.substring(5, 7)),
@@ -51,162 +54,167 @@ public class Parser {
      * @return A valid command for the application
      */
     public static Command parse(String input) throws DukeException {
+        // Remove whitespaces from input
+        input = input.strip();
+
         // Split input
-        String[] splitInput = input.split(" ");
+        ArrayList<String> splitInput = new ArrayList<String>(Arrays.asList(input.split(" ")));
+
+        // Remove unncessary whitespace
+        splitInput.removeIf(item -> item == null || "".equals(item));
 
         String description;
-        String[] arguments;
+        List<String> arguments;
 
-        switch (splitInput[0].toLowerCase()) {
+        switch (splitInput.get(0).toLowerCase()) {
         case "bye": // Exit
             return new ExitCommand();
 
         case "list": // List tasks
             // Check if date filter exists
-            if (splitInput.length > 1) { // List filtered tasks
-                switch (splitInput[1]) {
+            if (splitInput.size() > 1) { // List filtered tasks
+                switch (splitInput.get(1)) {
                 case "/date": // Filter by date
                     try {
-                        Instant filterDate = userDateToInstant(splitInput[2], "00:00");
+                        Instant filterDate = userDateToInstant(splitInput.get(2), "00:00");
 
                         return new ListCommand(filterDate);
-                    } catch (NumberFormatException | StringIndexOutOfBoundsException
-                            | ArrayIndexOutOfBoundsException e) {
+                    } catch (NumberFormatException | DateTimeException | IndexOutOfBoundsException e) {
                         throw new InvalidArgumentException(
                                 "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD'");
                     }
 
                 default: // Invalid filter
                     throw new InvalidArgumentException(
-                            String.format("Unknown argument '%s' for the 'list' command", splitInput[1]));
+                            String.format("Unknown argument '%s' for the 'list' command", splitInput.get(1)));
                 }
             } else { // Return full list
                 return new ListCommand();
             }
 
         case "mark": // Mark task
-            if (splitInput.length <= 1) {
+            if (splitInput.size() <= 1) {
                 throw new MissingArgumentException("Missing argument - Index of task required");
             }
 
             try {
-                return new MarkCommand(Integer.parseInt(splitInput[1]) - 1, true);
+                return new MarkCommand(Integer.parseInt(splitInput.get(1)) - 1, true);
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Index to mark is not an integer");
             }
 
         case "unmark": // Unmark task
-            if (splitInput.length <= 1) {
+            if (splitInput.size() <= 1) {
                 throw new MissingArgumentException("Missing argument - Index of task required");
             }
 
             try {
-                return new MarkCommand(Integer.parseInt(splitInput[1]) - 1, false);
+                return new MarkCommand(Integer.parseInt(splitInput.get(1)) - 1, false);
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Index to unmark is not an integer");
             }
 
         case "delete": // Delete task
-            if (splitInput.length <= 1) {
+            if (splitInput.size() <= 1) {
                 throw new MissingArgumentException("Missing argument - Index of task required");
             }
 
             try {
-                return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
+                return new DeleteCommand(Integer.parseInt(splitInput.get(1)) - 1);
             } catch (NumberFormatException e) {
-                throw new InvalidArgumentException("Index to unmark is not an integer");
+                throw new InvalidArgumentException("Index to delete is not an integer");
             }
 
         case "todo":
-            if (splitInput.length <= 1) {
-                throw new MissingArgumentException("Argument missing - Description of a todo cannot be empty");
+            if (splitInput.size() <= 1) {
+                throw new MissingArgumentException("Missing argument - Description of a todo cannot be empty");
             }
 
-            description = String.join(" ", Arrays.copyOfRange(splitInput, 1, splitInput.length));
+            description = String.join(" ", splitInput.subList(1, splitInput.size()));
 
             // Return new add todo command
             return new AddCommand(new Todo(description));
 
         case "deadline":
             // Get arguments
-            arguments = Arrays.copyOfRange(splitInput, 1, splitInput.length);
+            arguments = splitInput.subList(1, splitInput.size());
 
             // Get index of '/by' argument
             int byIndex = -1;
-            for (int i = 0; i < arguments.length; i++) {
-                if (arguments[i].equals("/by")) {
+            for (int i = 0; i < arguments.size(); i++) {
+                if (arguments.get(i).equals("/by")) {
                     byIndex = i;
                     break;
                 }
             }
 
             if (byIndex == -1) {
-                throw new MissingArgumentException("Argument '/by' missing");
+                throw new MissingArgumentException("Missing Argument - Argument '/by' missing");
             }
 
             // Extract task description & due date
-            description = String.join(" ", Arrays.copyOfRange(arguments, 0, byIndex));
+            description = String.join(" ", arguments.subList(0, byIndex));
 
             try {
-                String date = arguments[byIndex + 1];
-                String time = arguments[byIndex + 2];
+                String date = arguments.get(byIndex + 1);
+                String time = arguments.get(byIndex + 2);
 
                 // Create new add deadline command
                 return new AddCommand(new Deadline(description, Parser.userDateToInstant(date, time)));
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new InvalidArgumentException(
                         "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
             }
 
         case "event":
             // Get arguments
-            arguments = Arrays.copyOfRange(splitInput, 1, splitInput.length);
+            arguments = splitInput.subList(1, splitInput.size());
 
             // Get index of '/from' and '/to' argument
             int fromIndex = -1;
             int toIndex = -1;
-            for (int i = 0; i < arguments.length; i++) {
+            for (int i = 0; i < arguments.size(); i++) {
                 if (fromIndex != -1 && toIndex != -1) {
                     break;
                 }
 
-                if (fromIndex == -1 && arguments[i].equals("/from")) {
+                if (fromIndex == -1 && arguments.get(i).equals("/from")) {
                     fromIndex = i;
                 }
 
-                if (toIndex == -1 && arguments[i].equals("/to")) {
+                if (toIndex == -1 && arguments.get(i).equals("/to")) {
                     toIndex = i;
                 }
             }
 
             if (fromIndex == -1) {
-                throw new MissingArgumentException("Argument '/from' missing");
+                throw new MissingArgumentException("Missing Argument - Argument '/from' missing");
             } else if (toIndex == -1) {
-                throw new MissingArgumentException("Argument '/to' missing");
+                throw new MissingArgumentException("Missing Argument - Argument '/to' missing");
             }
 
             // Extract task description
-            description = String.join(" ", Arrays.copyOfRange(arguments, 0, fromIndex));
+            description = String.join(" ", arguments.subList(0, fromIndex));
 
             try {
                 // Extract start date
-                String fromDate = arguments[fromIndex + 1];
-                String fromTime = arguments[fromIndex + 2];
+                String fromDate = arguments.get(fromIndex + 1);
+                String fromTime = arguments.get(fromIndex + 2);
 
                 // Extract end date
-                String toDate = arguments[toIndex + 1];
-                String toTime = arguments[toIndex + 2];
+                String toDate = arguments.get(toIndex + 1);
+                String toTime = arguments.get(toIndex + 2);
 
                 // Create new add event command
                 return new AddCommand(new Event(description, Parser.userDateToInstant(fromDate, fromTime),
                         Parser.userDateToInstant(toDate, toTime)));
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new InvalidArgumentException(
                         "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
             }
 
         default:
-            throw new InvalidCommandException(String.format("Unknown command '%s'", splitInput[0]));
+            throw new InvalidCommandException(String.format("Unknown command '%s'", splitInput.get(0)));
         }
     }
 }

@@ -40,4 +40,26 @@ public abstract class Command {
      * @param ui       UI used for the command
      */
     public abstract void execute(TaskList taskList, Ui ui) throws DukeException;
+
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof Command) {
+            Command command = (Command) obj;
+
+            return this.isExit == command.isExit;
+        }
+
+        return false;
+    }
 }

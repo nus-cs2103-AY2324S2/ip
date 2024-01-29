@@ -31,4 +31,26 @@ public class ExitCommand extends Command {
         // Print exit message
         System.out.println(goodbye);
     }
+
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof ExitCommand) {
+            ExitCommand command = (ExitCommand) obj;
+
+            return super.equals(command);
+        }
+
+        return false;
+    }
 }

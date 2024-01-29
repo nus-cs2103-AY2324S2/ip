@@ -46,4 +46,26 @@ public class AddCommand extends Command {
         System.out.println(String.format("  %s", task.toString()));
         System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
     }
+
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof AddCommand) {
+            AddCommand command = (AddCommand) obj;
+
+            return super.equals(command) && this.task.equals(command.task);
+        }
+
+        return false;
+    }
 }

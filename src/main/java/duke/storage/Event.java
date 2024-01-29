@@ -109,4 +109,28 @@ public class Event extends Task {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), formatter.format(startDate),
                 formatter.format(endDate));
     }
+
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof Event) {
+            Event task = (Event) obj;
+
+            return super.equals(task)
+                    && this.startDate.equals(task.startDate)
+                    && this.endDate.equals(task.endDate);
+        }
+
+        return false;
+    }
 }

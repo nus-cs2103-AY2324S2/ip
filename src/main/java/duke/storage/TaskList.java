@@ -113,7 +113,11 @@ public class TaskList {
             tasks.append(String.format("%d.%s\n", i + 1, taskArray.get(i).toString()));
         }
 
-        return tasks.substring(0, tasks.length() - 1).toString();
+        // Remove trailing '\n' characters
+        if (tasks.lastIndexOf("\n") != -1) {
+            return tasks.substring(0, tasks.length() - 1);
+        }
+        return tasks.toString();
     }
 
     /**
@@ -159,6 +163,27 @@ public class TaskList {
         } catch (IOException e) {
             throw new StorageException(String.format("Failed to save to file - %s", e.getMessage()));
         }
+    }
 
+    /**
+     * Indicates whether some other object is "equal to" this command
+     *
+     * @param obj Object to be checked against
+     *
+     * @return True if equal, False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof TaskList) {
+            TaskList taskList = (TaskList) obj;
+
+            return this.taskArray.equals(taskList.taskArray);
+        }
+
+        return false;
     }
 }
