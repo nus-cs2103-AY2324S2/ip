@@ -1,9 +1,12 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Duke - Main class that handles user interactions and task management.
@@ -168,10 +171,18 @@ public class Duke {
         if (splitParts.length > 1) {
             String description = splitParts[0].trim();
             String date = splitParts[1].trim();
-            Deadlines deadline = new Deadlines(description, date);
-            storage.add(deadline);
-            saveTasks();
-            System.out.println("Ok! I've added this deadline: " + deadline);
+            if (isValidDate(date)) {
+                LocalDate d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+                Deadlines deadline = new Deadlines(description, d1);
+                storage.add(deadline);
+                saveTasks();
+                System.out.println("Ok! I've added this deadline: " + deadline);
+            } else {
+                Deadlines deadline = new Deadlines(description, date);
+                storage.add(deadline);
+                saveTasks();
+                System.out.println("Ok! I've added this deadline: " + deadline);
+            }
             System.out.println("Now you have " + storage.size() + " tasks in your list.");
         }
         else {
@@ -191,13 +202,24 @@ public class Duke {
             String description = splitParts[0].trim();
             String fromDate = splitTo[0].trim();
             String toDate = splitTo[1].trim();
-            Event event = new Event(description, fromDate, toDate);
-            storage.add(event);
-            saveTasks();
-            System.out.println("Ok! I've added this event: " + event);
+            if (isValidDate(fromDate)) {
+                LocalDate d1 = LocalDate.parse(fromDate);
+                if (isValidDate(toDate)) {
+                    LocalDate d2 = LocalDate.parse(toDate);
+                    Event event = new Event(description, d1, d2);
+                    storage.add(event);
+                    saveTasks();
+                    System.out.println("Ok! I've added this event: " + event);
+                }
+            } else {
+                Event event = new Event(description, fromDate, toDate);
+                storage.add(event);
+                saveTasks();
+                System.out.println("Ok! I've added this event: " + event);
+            }
             System.out.println("Now you have " + storage.size() + " tasks in your list.");
-        }
-        else {
+
+        } else {
             System.out.println("Invalid input format for event. Please provide a valid date/time.");
         }
     }
@@ -288,6 +310,23 @@ public class Duke {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    // HANDLE DATES
+
+    private static boolean isValidDate(String input) {
+        try {
+            LocalDate.parse(input, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+            return true;
+        } catch (DateTimeParseException e1) {
+            try {
+                LocalDate.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return true;
+            } catch (DateTimeParseException e2) {
+                return false;
+            }
+
         }
     }
 }
