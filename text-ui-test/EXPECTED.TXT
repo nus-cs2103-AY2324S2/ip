@@ -145,9 +145,23 @@ Command BMO with these keywords!
     You don't have to redo what you haven't even completed!
 -----------------------------------------
 
+-----------------------------------------
+    BMO needs to know the index of the task!
+-----------------------------------------
+
+-----------------------------------------
+    The index you have provided
+    is out of BMO's range!
+-----------------------------------------
+
+-----------------------------------------
+    No take backs! BMO deletion starting right now.
+    Beep...task...boop...2...deleted...
+    FOREVER!
+-----------------------------------------
+
 1. [ ] [T] cook dinner
-2. [ ] [E] coldplay concert (from: 29/01/2024 to: 30/01/2024)
-3. [ ] [D] finish cs2109s ps1 (by: 3 feb)
+2. [ ] [D] finish cs2109s ps1 (by: 3 feb)
 
 -----------------------------------------
     Beep boop BMO shutting down...

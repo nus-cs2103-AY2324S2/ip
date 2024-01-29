@@ -25,6 +25,9 @@ log
 redo 1
 log
 redo 2
+delete
+delete 5
+delete 2
 log
 bye
 

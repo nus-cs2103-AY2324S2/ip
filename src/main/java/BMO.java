@@ -32,6 +32,8 @@ public class BMO {
                 unDone(input.substring(4).trim());
             } else if (input.startsWith("add")) {
                 addLog(input.substring(3).trim());
+            } else if (input.startsWith("delete")) {
+                deleteTask(input.substring(6).trim());
             } else {
                 System.out.println(Constants.errorPrint.general());
             }
@@ -116,19 +118,28 @@ public class BMO {
         return;
     }
 
-    static void done(String input) {
+    static Boolean isIndexCorrect(String input) {
         if (input.isBlank() || !input.matches("\\d+")) {
             System.out.println(Constants.errorPrint.noInt());
-            return;
+            return false;
         }
 
         int index = Integer.parseInt((input));
 
         if (index >= taskLog.size()) {
             System.out.println(Constants.errorPrint.outOfRange());
+            return false;
+        }
+
+        return true;
+    }
+
+    static void done(String input) {
+        if (!isIndexCorrect(input)) {
             return;
         }
 
+        int index = Integer.parseInt((input));
         Task currTask = taskLog.get(index - 1);
 
         if (currTask.getStatus()) {
@@ -147,18 +158,11 @@ public class BMO {
     }
 
     static void unDone(String input) {
-        if (input.isBlank() || !input.matches("\\d+")) {
-            System.out.println(Constants.errorPrint.noInt());
+        if (!isIndexCorrect(input)) {
             return;
         }
 
         int index = Integer.parseInt((input));
-
-        if (index >= taskLog.size()) {
-            System.out.println(Constants.errorPrint.outOfRange());
-            return;
-        }
-
         Task currTask = taskLog.get(index - 1);
 
         if (!currTask.getStatus()) {
@@ -174,6 +178,24 @@ public class BMO {
                 + "    Incomplete again: " + taskLog.get(index - 1) + "\n"
                 + "-----------------------------------------\n";
         System.out.println(unDonePrint);
+        return;
+    }
+
+    static void deleteTask(String input) {
+        if (!isIndexCorrect(input)) {
+            return;
+        }
+
+        int index = Integer.parseInt((input));
+        taskLog.remove(index - 1);
+
+        String deleteTaskPrint = "-----------------------------------------\n"
+                + "    No take backs! BMO deletion starting right now.\n"
+                + "    Beep...task...boop..." + index + "...deleted...\n"
+                + "    FOREVER!\n"
+                + "-----------------------------------------\n";
+
+        System.out.println(deleteTaskPrint);
         return;
     }
 }
