@@ -36,7 +36,7 @@ public class FindCommandTest {
     private final PrintStream originalErr = System.err;
 
     // Test file
-    private final File TEST_FILE = new File("data/tasksTest.json");
+    private final File testFile = new File("data/tasksTest.json");
 
     // Environment for tests
     private TaskList taskList;
@@ -65,7 +65,7 @@ public class FindCommandTest {
      */
     @BeforeEach
     public void createEnvironment() {
-        taskList = new TaskList(TEST_FILE);
+        taskList = new TaskList(testFile);
         ui = new Cli();
 
         outContent.reset();
