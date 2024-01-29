@@ -7,15 +7,25 @@ public class Ui {
     private static String goodbyeMessage = "    ____________________________________________________________\n" +
             "     See you again!\n" +
             "    ____________________________________________________________\n";
+
+    private static String indent = "    ____________________________________________________________\n";
     public Ui() {
 
     }
 
-    public static void greetingMessage() {
+    public void greetingMessage() {
         System.out.println(welcomeMessage);
     }
 
-    public static void goodbyeMessage() {
+    public void goodbyeMessage() {
         System.out.println(goodbyeMessage);
+    }
+
+    public void displayError(Exception e) {
+        System.out.println(indent + "    " + e.getMessage() + "\n" + indent);
+    }
+
+    public static void displayAction(String msg) {
+        System.out.println(indent + "    " + msg + "\n" + indent);
     }
 }

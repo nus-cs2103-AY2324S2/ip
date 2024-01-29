@@ -8,7 +8,7 @@ public class Parser {
         switch (parts[0]) {
             case "mark": {
                 if (parts.length < 2 || !parts[1].matches("-?\\d+")) {
-                    throw new LamballParseException(Lamball.indent + "    Invalid number, baa.\n" + Lamball.indent);
+                    throw new LamballParseException("Invalid number, baa.");
                 }
                 int idx = Integer.valueOf(parts[1]) - 1;
                 String toFile = tasks.mark(isInit, idx);
@@ -19,7 +19,7 @@ public class Parser {
             }
             case "unmark": {
                 if (parts.length < 2 || !parts[1].matches("-?\\d+")) {
-                    throw new LamballParseException(Lamball.indent + "    Invalid number, baa.\n" + Lamball.indent);
+                    throw new LamballParseException("Invalid number, baa.");
                 }
                 int idx = Integer.valueOf(parts[1]) - 1;
                 String toFile = tasks.unMark(idx);
@@ -54,7 +54,7 @@ public class Parser {
             }
             case "delete": {
                 if (!parts[1].matches("-?\\d+")) {
-                    throw new LamballParseException(Lamball.indent + "    Invalid number, baa.\n" + Lamball.indent);
+                    throw new LamballParseException("Invalid number, baa.");
                 }
                 int idx = Integer.valueOf(parts[1]) - 1;
                 tasks.deleteFromList(parts, idx);
@@ -62,7 +62,7 @@ public class Parser {
                 return true;
             }
             default:
-                throw new LamballParseException(Lamball.indent + "    Sorry, I don't understaaaaaand your commaaaaand, baa. :(\n" + Lamball.indent);
+                throw new LamballParseException("Sorry, I don't understaaaaaand your commaaaaand, baa. :(");
         }
     }
 }

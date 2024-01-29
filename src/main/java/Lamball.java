@@ -36,10 +36,10 @@ public class Lamball {
             try {
                 active = lamball.parse(userInput, false);
                 if (!active) {
-                    Ui.goodbyeMessage();
+                    ui.goodbyeMessage();
                 }
             } catch (LamballParseException e) {
-                System.out.println(e.getMessage());
+                ui.displayError(e);
             }
 
         }
