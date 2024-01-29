@@ -10,7 +10,13 @@ public class TaskList {
         tasklist = tasks;
     }
 
+    public Task getTask(int n) {
+        return tasklist.get(n);
+    }
 
+    public void add(Task t) {
+        tasklist.add(t);
+    }
     public void mark(int num) {
         tasklist.get(num).mark();
     }
@@ -20,15 +26,17 @@ public class TaskList {
     }
 
     public void delete(int num) {
+
         tasklist.remove(num);
     }
 
     public int length() {
+
         return tasklist.size();
     }
-    public iterateout() {
+    public void iterateout() {
         for (int i = 0; i < tasklist.size(); i++) {
-            //HAVENT DONE YET, SUPPOSED TO PRINT ALL TASKS
+            System.out.println((i + 1) + ". " + tasklist.get(i));
         }
     }
 }

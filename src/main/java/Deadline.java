@@ -10,6 +10,17 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String typeid() {
+        return "D";
+    }
+
+    public String timeprint() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String bystring = formatter.format(by);
+        return ("~" + bystring);
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }

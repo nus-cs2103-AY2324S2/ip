@@ -18,4 +18,15 @@ public class Ui {
     public void goodbye() {
         System.out.println("[sad quacking] Can I have some bread before you go?");
     }
+    public void instructionMessage() {
+        System.out.println("[quack] I don't understand that command. If you would like to add a task to the Duckalendar," +
+                " please specify with the task type - \"todo\", \"deadline\" or \"event\" followed by a space in front of the task" +
+                " name.\n For deadlines, please add a /by followed by the deadline (eg. /by 2/12/2019 1800) . For events, please add a / followed by the start time,\n" +
+                " then another / followed by the end time.\n" +
+                " To mark or unmark the nth task on the list, enter the command \"mark n\" or \"unmark n\" where n is the number on the list.\n" +
+                " To delete the nth task on the list, enter the command \"delete n\" where n is the number on the list.\n" +
+                " If you would like me to list the things you are procrastinating, please enter the word \"list\"." +
+                " \n If you would like to leave, please enter the word \"bye\". \n Do also feel free to also type the words \"feed bread to bearducky\"?" +
+                " [Hopeful quacking]");
+    }
 }

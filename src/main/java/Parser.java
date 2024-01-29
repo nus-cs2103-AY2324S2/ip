@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 public class Parser {
     private Scanner scanner;
@@ -22,14 +25,104 @@ public class Parser {
                 continue;
             } else if (checkIfBaseCommand(userInputLowercase)) {
                 handleBaseCommand(userInput.split(" "));
-                storage.writeToFile();
+                storage.writeToFile(tasklist);
             } else if (checkIfLeave(userInputLowercase)) {
                 ui.goodbye();
                 break;
             } else if (checkIfList(userInputLowercase)) {
                 handleList(tasklist);
+            } else if (checkIfTodo(userInputLowercase)) {
+                handleTodo(userInput, tasklist);
+                storage.writeToFile(tasklist);
+            } else if (checkIfEvent(userInputLowercase)) {
+                handleEvent(userInput, tasklist);
+                storage.writeToFile(tasklist);
+            } else if (checkIfDeadline(userInputLowercase)) {
+                handleDeadline(userInput, tasklist);
+                storage.writeToFile(tasklist);
+            } else {
+                ui.instructionMessage();
             }
         }
+    }
+
+    public void handleEvent(String s, TaskList t) {
+        //FILL IN HERE
+    }
+
+    public boolean canBeHandled(String s) {
+        return !(DateConvert(s) == null);
+    }
+
+    public LocalDate DateConvert(String s) {
+        String[] patterns = {"MM/dd/yyyy", "M/dd/yyyy", "MM/d/yyyy",
+                "M/d/yyyy", "MM-dd-yyyy", "M-dd-yyyy", "MM-d-yyyy", "M-d-yyyy"};
+        for (String pattern : patterns) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+                LocalDate date = LocalDate.parse(s, formatter);
+                return date; // Return the parsed date if successful
+            } catch (DateTimeParseException e) {
+                // Parsing failed for the current pattern, try the next one
+            }
+        }
+        return null;
+    }
+
+    public void handleDeadline(String s, TaskList t) {
+        String deadlinename = "";
+        String[] temp = s.split(" ");
+        if (temp.length == 1 || temp[1].startsWith("/by")) {
+            System.out.println("Deadline cannot be blank");
+            return;
+        }
+
+        //create the deadline name
+        for (int a = 1; a < temp.length; a++) {
+            deadlinename = deadlinename.concat(temp[a]);
+            deadlinename = deadlinename.concat(" ");
+        }
+
+        try {
+            String[] finddeadline = s.split(" /by ");
+            String deadline = finddeadline[1];
+            if (!canBeHandled(deadline)) {
+                System.out.println("Please enter a deadline with the format deadline deadlinename /by dd/mm/yyyy!");
+                return;
+            }
+            Task nd = new Deadline(deadlinename, DateConvert(deadline));
+            t.add(nd);
+            System.out.println("Task added! You now have " + t.length() +" tasks to attend to.");
+            return;
+        } catch (ArrayIndexOutOfBoundsException b) {
+            System.out.println("Please enter a deadline with the format deadline deadlinename /by dd/mm/yyyy!");
+        }
+    }
+    public void handleTodo(String s, TaskList t) {
+        String todoname = "";
+        String[] temp = s.split(" ");
+        if (temp.length == 1) {
+            System.out.println("Todo cannot be blank");
+            return;
+        }
+        for (int a = 1; a < temp.length; a++) {
+            todoname = todoname.concat(temp[a]);
+            todoname = todoname.concat(" ");
+        }
+        Task nt = new ToDo(todoname);
+        t.add(nt);
+        System.out.println("Task added! You now have " + t.length() +" tasks to attend to.");
+    }
+    public boolean checkIfTodo(String s) {
+        return s.startsWith("todo ");
+    }
+
+    public boolean checkIfEvent(String s) {
+        return s.startsWith("event ");
+    }
+
+    public boolean checkIfDeadline(String s) {
+        return s.startsWith("deadline ");
     }
 
     public void handleList(TaskList t) {
@@ -58,7 +151,7 @@ public class Parser {
         int num = Integer.parseInt(commandsplit[1]);
         try {
             if (firstword.equals("mark")) {
-                tasklist.mark(num - 1); //REMEMBER YOU NEED TO UPDATE STORAGE or just put after every function is it
+                tasklist.mark(num - 1);
             } else if (firstword.equals("unmark")) {
                 tasklist.unmark(num - 1);
             } else if (firstword.equals("delete")) {

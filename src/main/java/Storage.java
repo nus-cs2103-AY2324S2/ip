@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,6 +11,25 @@ import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private File infostored;
+    private String filepath;
+
+    public void writeToFile(TaskList tasklist) {
+        String filePath = filepath; // Specify the file path
+
+        // Your new content to replace the existing content
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            // Iterate through the list of items
+            for (int i = 0; i < tasklist.length(); i++) {
+                // Write the content of each item to the file
+                Task task = tasklist.getTask(i);
+                writer.write(task.typeid()+"~"+task.markstatus()+"~"+task.getDescription()+task.timeprint());
+                writer.newLine(); // Add a newline character after each item
+            }
+            System.out.println("Your input has been saved!");
+        } catch (IOException e) {
+
+        }
+    }
 
     public void makeNewDirectory() {
         File location = new File("./data");
@@ -55,6 +76,8 @@ public class Storage {
     }
 
     public Task convert(String input) {
+        //assuming the file content is the task type first, then marked or not, then the name, then start/due and end
+        //separated by ~
         String[] inputs = input.split("~");
         String type = inputs[0];
         boolean marked = inputs[1].equals("marked");
@@ -88,11 +111,8 @@ public class Storage {
         return new Task("Error");
     }
 
-    public void save() {
-
-    }
-
     public Storage(String filePath) {
+        filepath = filePath;
         makeNewDirectory(); //creates a new data file in the same folder if not already existing
         makeNewFile(filePath); //creates a new file in filepath if not already existing
     }
