@@ -1,11 +1,11 @@
 T | 1 | read book
-D | 0 | return book | June 6th
+D | 0 | return book | 2019-10-15
 E | 0 | project meeting | Aug 6th 2pm-4pm
 T | 1 | join sports club
 T | 0 | run
-D | 0 | return book | Sunday
 E | 0 | project meeting | Mon 2pm-4pm
-D | 0 | return book | Tuesday
+D | 0 | return book | 2019-10-15
 T | 0 | borrow book
-D | 0 | return book | Sunday
 E | 0 | project meeting | Mon 2pm -4pm
+D | 0 | read | 2020-12-22
+D | 0 | read | 2020-12-22
