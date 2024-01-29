@@ -23,6 +23,8 @@ public abstract class Task {
         return isMarked;
     }
 
+    public abstract String toCsv();
+
     @Override
     public String toString() {
         if (this.isMarked) {

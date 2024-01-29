@@ -126,7 +126,8 @@ public class InputHandler {
                     throw new IllegalCommandException("Datetimes of event cannot be empty.\n"
                                                             + "Usage: event <task_title> /from <datetime> /to <datetime>");
                 }
-                String eventFrom = getParamValue(tokens, fromParamIdx, toParamIdx - 1);
+                String eventFrom = getParamValue(tokens, fromParamIdx, toParamIdx);
+                System.out.println(eventFrom);
                 String eventTo = getParamValue(tokens, toParamIdx, tokens.length);
                 bot.addTask(new Event(eventTitle, eventFrom, eventTo));
                 break;

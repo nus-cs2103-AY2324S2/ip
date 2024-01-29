@@ -1,15 +1,24 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private List<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public Task getTask(int idx) {
         // 1-based indexing
         return this.tasks.get(idx - 1);
+    }
+
+    public List<Task> getAllTasks() {
+        return this.tasks;
     }
 
     public int getNumberOfTasks() {
