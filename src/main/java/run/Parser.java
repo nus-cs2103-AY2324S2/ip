@@ -46,6 +46,8 @@ public class Parser {
             } else {
                 return new AddTaskCommand("event", input);
             }
+        } else if (inputlist[0].equals("find")) {
+            return new FindCommand(inputlist[1]);
         } else {
             throw new BelleException("Not a valid command");
         }
