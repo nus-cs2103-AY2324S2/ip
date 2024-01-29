@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
 
         // Print success message
         System.out.println("Noted. I've removed this task:");
-        System.out.println(String.format(" %s", deletedTask.toString()));
+        System.out.println(String.format("  %s", deletedTask.toString()));
         System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
     }
 }
