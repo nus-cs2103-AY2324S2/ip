@@ -52,7 +52,7 @@ public class Duke {
                 saveTaskToHardDisk();
             }
         } finally {
-                scanner.close();
+            scanner.close();
         }
     }
 
@@ -274,20 +274,20 @@ public class Duke {
     //Convert text in file to Task format
     private static Task convertTask(String line) {
         String taskType = line.substring(1, 2);
-        boolean isDone = line.substring(4, 5).equals("X");
+        boolean isDone = line.substring(5, 6).equals("X");
         String description;
 
         if (taskType.equals("T")) {
-            description = line.substring(7);
+            description = line.substring(8);
         } else if (taskType.equals("D")) {
             int byIndex = line.indexOf("(by: ");
             int endIndex = line.indexOf(")");
-            description = line.substring(7, byIndex) + line.substring(endIndex + 1);
+            description = line.substring(8, byIndex - 1) + line.substring(endIndex + 1);
         } else if (taskType.equals("E")) {
             int fromIndex = line.indexOf("(from: ");
             int toIndex = line.indexOf(" to: ");
             int endIndex = line.indexOf(")");
-            description = line.substring(7, fromIndex) + line.substring(endIndex + 1);
+            description = line.substring(8, fromIndex - 1) + line.substring(endIndex + 1);
         } else {
             return null;
         }

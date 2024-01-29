@@ -1,5 +1,5 @@
 [T] [X] read book
-[D] [ ] return book  (by: June 6th)
-[E] [ ] project meeting  (from: Aug 6th 2pm to: 4pm)
+[D] [ ] return book (by: May 06 2023)
+[E] [ ] project meeting (from: Aug 6th 2pm to: 4pm)
 [T] [X] join sports club
-[T] [X] borrow book
+[T] [ ] borrow book
