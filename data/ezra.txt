@@ -1,4 +1,4 @@
-T | 1 | read book
-T | 1 | join sports club
-D | 0 | task | 28/01/2023 1800
+T | 0 | join sports club
+D | 1 | task | 28/01/2023 1800
 E | 0 | task | 28/01/2023 1800 | 28/01/2023 1900
+D | 0 | d | 29/01/2024 1800
