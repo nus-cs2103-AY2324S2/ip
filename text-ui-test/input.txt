@@ -1,7 +1,8 @@
 apple
 pear
 orange
-read
+list
 chicken
-read
+do 1
+list
 bye
