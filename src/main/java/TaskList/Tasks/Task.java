@@ -1,4 +1,4 @@
-package Tasks;
+package TaskList.Tasks;
 
 public abstract class Task {
     protected String description;
