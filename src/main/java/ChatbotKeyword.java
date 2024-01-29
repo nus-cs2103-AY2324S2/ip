@@ -5,5 +5,6 @@ public enum ChatbotKeyword {
     UNMARK,
     TODO,
     EVENT,
-    DEADLINE;
+    DEADLINE,
+    DELETE;
 }

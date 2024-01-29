@@ -27,7 +27,7 @@ public class Martin {
         sc.close();
     }
 
-    public static void handleCommand(ChatbotKeyword command, String inputs) {
+    public static void handleCommand(ChatbotKeyword command, String inputs) throws IllegalArgumentException {
         String[] inputsArray = inputs.split(" "); // second param as -1 might be a soln to bug
         // System.out.println("inputs: " + inputs);
         // System.out.println("inputsArray: " + Arrays.toString(inputsArray));
@@ -89,6 +89,14 @@ public class Martin {
                 Deadline deadlineTask = new Deadline(deadlineDescription, deadline);
                 todoList.add(deadlineTask);
                 System.out.println("Got it. I've added this deadline: " + deadlineDescription);
+                break;
+            case DELETE:
+                if (inputsArray.length < 1) {
+                    throw new IllegalArgumentException("Please specify a task number to delete");
+                }
+                int taskToDelete = Integer.parseInt(inputsArray[0]);
+                Task deletedTask = todoList.remove(taskToDelete);
+                System.out.println("Noted. I've removed this task:" + deletedTask);
                 break;
         }
 
