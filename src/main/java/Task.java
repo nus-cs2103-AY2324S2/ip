@@ -4,7 +4,7 @@ public class Task {
     protected int index;
 
     public Task(int index, String description) {
-        this.index = index+1;
+        this.index = index + 1;
         this.description = description;
         this.isDone = false;
     }
