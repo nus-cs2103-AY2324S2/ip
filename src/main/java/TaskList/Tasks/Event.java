@@ -1,4 +1,4 @@
-package Tasks;
+package TaskList.Tasks;
 
 import Exceptions.InvalidInputException;
 
