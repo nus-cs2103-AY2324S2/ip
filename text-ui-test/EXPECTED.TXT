@@ -8,4 +8,6 @@ Please fill in both the name and due date
 added:  cs2103 ip
 Don't leave the task description blank
 Please enter the correct format for event
+added:  a
+added:  return book 
 Bye. Hope to see you again soon!
