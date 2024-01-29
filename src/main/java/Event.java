@@ -5,14 +5,18 @@ class Event extends Task {
     private LocalDate from;
     private LocalDate to;
 
-    public Event(String description, String from, String to, boolean isDone) throws SkylerException {
+    public Event(String description, LocalDate from, LocalDate to, boolean isDone) throws SkylerException {
         super(description, isDone);
-        try {
-            this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            this.to = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        } catch (Exception e) {
-            throw new SkylerException("Invalid date format for event. Please use yyyy-MM-dd.");
-        }
+        this.from = from;
+        this.to = to;
+    }
+
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    public LocalDate getTo() {
+        return to;
     }
 
     @Override

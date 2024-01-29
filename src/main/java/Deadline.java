@@ -4,13 +4,13 @@ import java.time.format.DateTimeFormatter;
 class Deadline extends Task {
     private LocalDate by;
 
-    public Deadline(String description, String by, boolean isDone) throws SkylerException {
+    public Deadline(String description, LocalDate by, boolean isDone) throws SkylerException {
         super(description, isDone);
-        try {
-            this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        } catch (Exception e) {
-            throw new SkylerException("Invalid date format for deadline. Please use yyyy-MM-dd.");
-        }
+        this.by = by;
+    }
+
+    public LocalDate getBy() {
+        return by;
     }
 
     @Override
