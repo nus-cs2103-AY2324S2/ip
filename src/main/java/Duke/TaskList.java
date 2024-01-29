@@ -68,7 +68,7 @@ public class TaskList {
                     if (taskIndex < currIndex && taskIndex >= 0) {
                         Task task = taskList.get(taskIndex);
                         task.markDone();
-                        ui.markTask(task.toString());
+                        ui.markTask(task);
                         this.storage.saveAllTasksToFile(this.taskList);
                         break;
                     } else { // out of range
@@ -86,7 +86,7 @@ public class TaskList {
                     if (taskIndex < currIndex && taskIndex >= 0) {
                         Task task = taskList.get(taskIndex);
                         task.markUndone();
-                        ui.unmarkTask(task.toString());
+                        ui.unmarkTask(task);
                         this.storage.saveAllTasksToFile(this.taskList);
                         break;
                     } else { // out of range
@@ -173,6 +173,5 @@ public class TaskList {
             currLine = scanner.nextLine();
         }
         ui.exit();
-
     }
 }

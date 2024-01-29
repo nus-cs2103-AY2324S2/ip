@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class Storage {
     Ui ui;
     Parser parser;
@@ -13,8 +12,6 @@ public class Storage {
         this.ui = ui;
         this.parser = parser;
     }
-
-
 
     public String formatTaskForFile(Task task) {
         String returnString = "";

@@ -53,16 +53,16 @@ public class Ui {
         System.out.println("invalid, out of range");
     }
 
-    public void markTask(String task) {
+    public void markTask(Task task) {
         System.out.println(this.gap() + "Nice! I've marked this task as done:");
-        System.out.println(this.gap() + this.gap() + task);
+        System.out.println(this.gap() + this.gap() + task.toString());
         this.displayLine();
     }
 
-    public void unmarkTask(String task) {
+    public void unmarkTask(Task task) {
         this.displayLine();
         System.out.println(this.gap() + "OK, I've marked this task as not done yet:");
-        System.out.println(this.gap() + this.gap() + task);
+        System.out.println(this.gap() + this.gap() + task.toString());
         this.displayLine();
     }
 
