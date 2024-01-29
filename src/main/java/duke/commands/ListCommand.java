@@ -69,7 +69,11 @@ public class ListCommand extends Command {
         if (obj instanceof ListCommand) {
             ListCommand command = (ListCommand) obj;
 
-            return super.equals(command) && this.date.equals(command.date);
+            if (this.date != null && command.date != null) {
+                return super.equals(command) && this.date.equals(command.date);
+            } else if (this.date == null && command.date == null) {
+                return super.equals(command);
+            }
         }
 
         return false;
