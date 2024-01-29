@@ -7,7 +7,6 @@ public class Duke {
     private static final String LINE = "    ____________________________________________________________\n";
     private static final String INDENT = "    ";
     protected static final ArrayList<Task> tasks = new ArrayList<Task>();
-
     private static boolean isRunning = true;
 
     public enum Command {
@@ -40,7 +39,7 @@ public class Duke {
     public static void main(String[] args) {
         Duke.hello();
         Scanner in = new Scanner(System.in);
-
+        FileManager.loadTasks();
         while (isRunning) {
             // get next command and arguments
             String input = in.nextLine().trim();
@@ -71,9 +70,10 @@ public class Duke {
                 "    Hit me up with those deets and let's vibe together!\n" + LINE);
     }
 
-    public static void bye() {
+    public static void bye() throws DukeException {
         System.out.print(INDENT + "Peace out, fam! Stay lit and keep those good vibes rollin'!\n");
         isRunning = false;
+        FileManager.saveTasks();
     }
 
     public static void listTasks() {

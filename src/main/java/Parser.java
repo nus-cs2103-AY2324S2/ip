@@ -135,12 +135,15 @@ public class Parser {
     }
 
     public static void parseData(String data) throws DukeException {
-        String[] taskData = data.split("|");
+        String[] taskData = data.split("" + " / ");
         boolean isDone; // used for creating new Task
         switch (taskData[0]) {
         case "T":
             if (taskData.length != 3) {
-                throw new DukeException("Error in the save files");
+                for (String s : taskData) {
+                    System.out.println(s);
+                }
+                throw new DukeException("Error in the save files 1");
             }
 
             if (taskData[1].equals("0")) {
@@ -148,14 +151,14 @@ public class Parser {
             } else if (taskData[1].equals("1")) {
                 isDone = true;
             } else {
-                throw new DukeException("Error in the save files");
+                throw new DukeException("Error in the save files 2");
             }
 
             addTask(new Todo(isDone, taskData[2]));
             break;
         case "D":
             if (taskData.length != 4) {
-                throw new DukeException("Error in the save files");
+                throw new DukeException("Error in the save files 3");
             }
 
             if (taskData[1].equals("0")) {
@@ -163,14 +166,14 @@ public class Parser {
             } else if (taskData[1].equals("1")) {
                 isDone = true;
             } else {
-                throw new DukeException("Error in the save files");
+                throw new DukeException("Error in the save files 4");
             }
 
             addTask(new Deadline(isDone, taskData[2], taskData[3]));
             break;
         case "E":
             if (taskData.length != 5) {
-                throw new DukeException("Error in the save files");
+                throw new DukeException("Error in the save files 5");
             }
 
             if (taskData[1].equals("0")) {
@@ -178,13 +181,37 @@ public class Parser {
             } else if (taskData[1].equals("1")) {
                 isDone = true;
             } else {
-                throw new DukeException("Error in the save files");
+                throw new DukeException("Error in the save files 6");
             }
 
             addTask(new Event(isDone, taskData[2], taskData[3], taskData[4]));
             break;
         default:
-            throw new DukeException("Error in the save files");
+            throw new DukeException("Error in the save files 7");
         }
+    }
+
+    public static String parseToData() {
+        String data = "";
+        for (int i = 0; i < Duke.tasks.size(); i++) {
+            Task task = Duke.tasks.get(i);
+
+            if (task instanceof Todo) {
+                data += String.format("T / %d / %s", task.getIsDoneInt(), task.getDescription());
+            } else if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                data += String.format("D / %d / %s / %s", task.getIsDoneInt(), task.getDescription(), deadline.getBy());
+            } else { // instanceof Event
+                Event event = (Event) task;
+                data += String.format("E / %d / %s / %s / %s", task.getIsDoneInt(), task.getDescription(),
+                        event.getFrom(), event.getTo());
+            }
+
+            // add new line after each task except for the last task
+            if (i != Duke.tasks.size() - 1) {
+                data += System.lineSeparator();
+            }
+        }
+        return data;
     }
 }

@@ -29,6 +29,18 @@ public abstract class Task {
         isDone = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
+    }
+
+    public int getIsDoneInt() {
+        return (isDone) ? 1 : 0;
+    }
+
     @Override
     public abstract String toString();
 }
