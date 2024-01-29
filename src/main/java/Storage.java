@@ -3,11 +3,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
     private final String fileName;
-    private static final String dataFolder = "data";
+    private static final String DATA_FOLDER = "data";
 
     public Storage(String fileName) {
         this.fileName = fileName;
@@ -23,7 +24,7 @@ public class Storage {
 
     public void saveTaskListToFile(TaskList tasks) {
         try {
-            Files.createDirectories(Paths.get(dataFolder));
+            Files.createDirectories(Paths.get(DATA_FOLDER));
             Files.writeString(this.getFileLocationPath(), this.createSaveDataFromTaskList(tasks),
                     StandardOpenOption.CREATE);
         } catch (IOException e) {
@@ -32,12 +33,12 @@ public class Storage {
     }
 
     public Path getFileLocationPath() {
-        return Paths.get(dataFolder, this.fileName);
+        return Paths.get(DATA_FOLDER, this.fileName);
     }
 
 
 
-    public void loadTasksFromFile(TaskList taskList) {
+    public void loadTasksFromFileToTaskList(TaskList taskList) {
         try {
             Path filePath = this.getFileLocationPath();
             if (!Files.exists(filePath)) {
@@ -63,8 +64,5 @@ public class Storage {
             throw new RuntimeException(e);
         }
     }
-
-
-
 
 }

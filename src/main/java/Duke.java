@@ -3,6 +3,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
     private static ChatBot createPaimonChatBot() {
         String logo = "      ___          ___                     ___          ___          ___     \n"+
                 "     /\\  \\        /\\  \\         ___       /\\__\\        /\\  \\        /\\__\\    \n"+
@@ -43,74 +47,34 @@ public class Duke {
         return new ChatBot(botName, logo, greetings, farewells);
     }
 
-    public static String[] resolveInput(String input) {
-        return input.split("\\s+", 2);
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList();
+        storage.loadTasksFromFileToTaskList(tasks);
     }
 
-    public static String retrieveCommand(String input) {
-        return resolveInput(input)[0];
-    }
-
-    public static String retrieveParameters(String input) {
-        String[] resolvedInput = resolveInput(input);
-        return ((resolvedInput.length > 1) ? resolvedInput[1] : "");
-    }
-
-
-    public static void main(String[] args) throws IOException {
-        ChatBot Paimon;
-        if (args.length > 0 && args[0].equals("test-mode")) {
-            Paimon = createPaimonChatBotForTesting();
-        } else {
-            Paimon = createPaimonChatBot();
-        }
-        Paimon.greet();
-        Paimon.loadTasksFromFile();
-        Scanner scanner = new Scanner(System.in);
-        String command, input;
-        String parameters;
-        while (true) {
-            input = scanner.nextLine();
-            command = retrieveCommand(input);
-            parameters = retrieveParameters(input);
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                switch (command) {
-                case "list":
-                    Paimon.listTasks();
-                    break;
-                case "mark":
-                    Paimon.markTaskAsDone(parameters);
-                    break;
-                case "unmark":
-                    Paimon.markTaskAsUndone(parameters);
-                    break;
-                case "todo":
-                    Paimon.addToDo(parameters);
-                    break;
-                case "deadline":
-                    Paimon.addDeadline(parameters);
-                    break;
-                case "event":
-                    Paimon.addEvent(parameters);
-                    break;
-                case "delete":
-                    Paimon.deleteTask(parameters);
-                    break;
-                case "bye":
-                    Paimon.saveTasksToFile();
-                    Paimon.bye();
-                    return;
-                case "":
-                    throw new ChatBotCommandException("Empty command.");
-                default:
-                    throw new ChatBotCommandException("Wrong commands.");
-                }
-            } catch (ChatBotCommandException e) {
-                System.out.println(e.getMessage());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute(storage, ui, tasks);
+                isExit = c.isExit();
+            } catch (ChatBotParameterException | ChatBotCommandException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke("tasks.txt").run();
     }
 
 
