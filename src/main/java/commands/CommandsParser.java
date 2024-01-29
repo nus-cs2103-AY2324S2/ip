@@ -61,26 +61,29 @@ public class CommandsParser {
             }
 
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.deadline))) {
-            Pattern pattern = Pattern.compile("deadline (.*?) /by (.*?)");
+            Pattern pattern = Pattern.compile("deadline (.*?) /by (.*?) (.*?)");
             Matcher matcher = pattern.matcher(task);
             if (matcher.matches()) {
-                taskList.add(new Deadline(matcher.group(1), matcher.group(2)));
+                taskList.add(new Deadline(matcher.group(1), matcher.group(2), matcher.group(3)));
                 taskList.writeToFile(taskLoader);
             } else {
-                throw new RyanGoslingException("Incomplete deadline command, " + "deadline <event> /by <time>");
+                throw new RyanGoslingException("Incomplete deadline command, " + "deadline <event> /by <date> <time> "
+                                                       + "\n If no specific time, leave time as 2359");
             }
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.event))) {
             //System.out.println(task);
-            Pattern pattern = Pattern.compile("event (.*?) /from (.*?) /to (.*?)");
+            Pattern pattern = Pattern.compile("event (.*?) /from (.*?) (.*?) /to (.*?) (.*?)");
             Matcher matcher = pattern.matcher(task);
             if (matcher.matches()) {
                 // Retrieve matched groups
                 //System.out.println(matcher.group(3));
-                taskList.add(new Events(matcher.group(1), matcher.group(2), matcher.group(3)));
+                taskList.add(new Events(matcher.group(1), matcher.group(2), matcher.group(3), matcher.group(4),
+                                        matcher.group(5)));
                 taskList.writeToFile(taskLoader);
             } else {
                 throw new RyanGoslingException("Incomplete event command, "
-                        + "event <event> /from <time> /to <time>");
+                        + "event <event> /from <date> <time> /to <date> <time>\n"
+                                                       + "If no time, leave time as 2359");
             }
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.delete))) {
             taskList.removeIndex(Integer.parseInt(commandSplit[1])-1);

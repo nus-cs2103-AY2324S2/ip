@@ -24,10 +24,15 @@ public class DateTimeParser {
      * @return A formatted time string in the "h:mm a" format.
      * @throws DateTimeParseException If the time string cannot be parsed.
      */
-    public static String parseTime(String timeString) {
-        LocalTime time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
+    public static String parseTime(LocalTime timeString) {
+        //LocalTime time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
-        return time.format(formatter);
+        return timeString.format(formatter);
+    }
+
+    public static LocalTime parseTimeAsLocalTime(String timeString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
+        return LocalTime.parse(timeString, formatter);
     }
 
     public static void main(String[] args) {

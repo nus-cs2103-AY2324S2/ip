@@ -5,6 +5,7 @@ import exceptions.RyanGoslingException;
 import tasks.Task;
 
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,6 +40,10 @@ public class Ui {
             int status = 0;
             try {
                 status = commandsParser.parseCommands(task);
+            } catch (DateTimeException e) {
+                System.out.println("Problem with date or time format!\n"
+                                           + "Date should be in YYYY-MM-DD\n"
+                                           + "Time should be in 24 HR clock format");
             } catch (Exception e){
                 MessagePrinter.errorPrinter(e);
             } finally {

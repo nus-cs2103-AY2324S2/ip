@@ -6,6 +6,8 @@ public class Task {
     private String taskName;
     private boolean taskDone = false;
     private String typeOfTask;
+
+    private String[] dateFromAndTo = new String[] {"NA", "NA"};
     private String[] timeFromAndTo = new String[] {"NA", "NA"};
 
     public Task(String taskName) {
@@ -51,6 +53,11 @@ public class Task {
         return (this.taskDone ? "X" : " ");
     }
 
+    public void setDate(String[] times) {
+        this.dateFromAndTo[0] = times[0];
+        this.dateFromAndTo[1] = times[1];
+    }
+
     /**
      * Sets the time for the task based on the given array of times.
      *
@@ -60,6 +67,8 @@ public class Task {
         this.timeFromAndTo[0] = times[0];
         this.timeFromAndTo[1] = times[1];
     }
+
+
 
     /**
      * Returns a string representation of the task.
@@ -105,6 +114,10 @@ public class Task {
      */
     public String[] getTimes() {
         return this.timeFromAndTo;
+    }
+
+    public String[] getDates() {
+        return this.dateFromAndTo;
     }
 
 }
