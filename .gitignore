@@ -15,5 +15,6 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
-src/main/java/data.txt
+src/main/java/campus/data.txt
+src/test/java/campus/dataTest.txt
 *.class
