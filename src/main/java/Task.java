@@ -1,7 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
 
-    protected String name;
-    protected boolean isDone = false;
+    private String name;
+    private boolean isDone = false;
+    private DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+    private DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     public Task(String name) {
         this.name = name;
@@ -24,6 +29,14 @@ public class Task {
     public String addToFile() {
         String isDone = this.isDone ? "1" : "0";
         return isDone + " | " + name;
+    }
+
+    public String formatInputDate(LocalDateTime dateTime) {
+        return dateTime.format(INPUT_DATE_FORMAT);
+    }
+
+    public String formatOutputDate(LocalDateTime dateTime) {
+        return dateTime.format(OUTPUT_DATE_FORMAT);
     }
 
 }
