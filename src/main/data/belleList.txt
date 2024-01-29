@@ -10,4 +10,3 @@ T , false , abc
 T , false , fgh
 E , false , project meeting , Mon 2pm , 4pm
 D , true , return book , Oct 15 2019
-T , false , abc
