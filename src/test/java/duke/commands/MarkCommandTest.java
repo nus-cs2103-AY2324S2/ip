@@ -30,13 +30,13 @@ import duke.ui.Ui;
 @TestInstance(Lifecycle.PER_CLASS)
 public class MarkCommandTest {
     // Streams for testing standard output
-    private final ByteArrayOutputStream OUT_CONTENT = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream ERR_CONTENT = new ByteArrayOutputStream();
-    private final PrintStream ORIGINAL_OUT = System.out;
-    private final PrintStream ORIGINAL_ERR = System.err;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
 
     // Test file
-    private final File TEST_FILE = new File("data/tasksTest.json");
+    private final File testFile = new File("data/tasksTest.json");
 
     // Environment for tests
     private TaskList taskList;
@@ -47,8 +47,8 @@ public class MarkCommandTest {
      */
     @BeforeAll
     public void setUpStreams() {
-        System.setOut(new PrintStream(OUT_CONTENT));
-        System.setErr(new PrintStream(ERR_CONTENT));
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
     }
 
     /**
@@ -56,8 +56,8 @@ public class MarkCommandTest {
      */
     @AfterAll
     public void restoreStreams() {
-        System.setOut(ORIGINAL_OUT);
-        System.setErr(ORIGINAL_ERR);
+        System.setOut(originalOut);
+        System.setErr(originalErr);
     }
 
     /**
@@ -65,7 +65,7 @@ public class MarkCommandTest {
      */
     @BeforeEach
     public void createEnvironment() {
-        taskList = new TaskList(TEST_FILE);
+        taskList = new TaskList(testFile);
         ui = new Cli();
 
         taskList.addTask(new Todo("buy lunch"));
@@ -74,7 +74,7 @@ public class MarkCommandTest {
                 1706528360)));
         taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
 
-        OUT_CONTENT.reset();
+        outContent.reset();
     }
 
     /**
@@ -82,13 +82,13 @@ public class MarkCommandTest {
      */
     @Test
     public void execute_markTask_success() throws DukeException {
-        String expected = "Nice! I've marked this task as done:\n" +
-                "  [E][X] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n";
+        String expected = "Nice! I've marked this task as done:\n"
+                + "  [E][X] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n";
 
         MarkCommand markCommand = new MarkCommand(2, true);
 
         markCommand.execute(taskList, ui);
-        assertEquals(expected, OUT_CONTENT.toString());
+        assertEquals(expected, outContent.toString());
     }
 
     /**
@@ -96,12 +96,12 @@ public class MarkCommandTest {
      */
     @Test
     public void execute_unmarkTask_success() throws DukeException {
-        String expected = "Nice! I've marked this task as not done:\n" +
-                "  [E][ ] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n";
+        String expected = "Nice! I've marked this task as not done:\n"
+                + "  [E][ ] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n";
 
         MarkCommand markCommand = new MarkCommand(2, false);
 
         markCommand.execute(taskList, ui);
-        assertEquals(expected, OUT_CONTENT.toString());
+        assertEquals(expected, outContent.toString());
     }
 }

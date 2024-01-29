@@ -90,8 +90,8 @@ public class ParserTest {
     public void parse_listDateFilter_exceptionThrown() throws DukeException {
         String expectedMessage = "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD'";
 
-        InvalidArgumentException exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("list /date  "));
+        InvalidArgumentException exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("list /date  "));
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("list /date 2024"));
@@ -120,12 +120,12 @@ public class ParserTest {
     public void parse_listUnknownFilter_exceptionThrown() throws DukeException {
         String expectedMessage = "Unknown argument 'fake' for the 'list' command";
 
-        InvalidArgumentException exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("list fake  "));
+        InvalidArgumentException exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("list fake  "));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("List fake"));
+        exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("List fake"));
         assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -149,45 +149,45 @@ public class ParserTest {
     @Test
     public void parse_mark_exceptionThrown() throws DukeException {
         String expectedMessage = "Missing argument - Index of task required";
-        MissingArgumentException missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("mark"));
+        MissingArgumentException missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("mark"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("mark "));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("mark "));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" mark"));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse(" mark"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" mark "));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse(" mark "));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("Mark"));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("Mark"));
         assertEquals(expectedMessage, missingException.getMessage());
 
         expectedMessage = "Index to mark is not an integer";
-        InvalidArgumentException invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("mark me"));
+        InvalidArgumentException invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("mark me"));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("mark me "));
+        invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("mark me "));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse(" mark me"));
+        invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse(" mark me"));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse(" mark me "));
+        invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse(" mark me "));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("Mark me"));
+        invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("Mark me"));
         assertEquals(expectedMessage, invalidException.getMessage());
     }
 
@@ -211,45 +211,37 @@ public class ParserTest {
     @Test
     public void parse_unmark_exceptionThrown() throws DukeException {
         String expectedMessage = "Missing argument - Index of task required";
-        MissingArgumentException missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("unmark"));
+        MissingArgumentException missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("unmark"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("unmark "));
+        missingException = assertThrows(MissingArgumentException.class, () -> Parser.parse("unmark "));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" unmark"));
+        missingException = assertThrows(MissingArgumentException.class, () -> Parser.parse(" unmark"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" unmark "));
+        missingException = assertThrows(MissingArgumentException.class, () -> Parser.parse(" unmark "));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("Unmark"));
+        missingException = assertThrows(MissingArgumentException.class, () -> Parser.parse("Unmark"));
         assertEquals(expectedMessage, missingException.getMessage());
 
         expectedMessage = "Index to unmark is not an integer";
-        InvalidArgumentException invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("unmark me"));
+        InvalidArgumentException invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("unmark me"));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("unmark me "));
+        invalidException = assertThrows(InvalidArgumentException.class, () -> Parser.parse("unmark me "));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse(" unmark me"));
+        invalidException = assertThrows(InvalidArgumentException.class, () -> Parser.parse(" unmark me"));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse(" unmark me "));
+        invalidException = assertThrows(InvalidArgumentException.class, () -> Parser.parse(" unmark me "));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("Unmark me"));
+        invalidException = assertThrows(InvalidArgumentException.class, () -> Parser.parse("Unmark me"));
         assertEquals(expectedMessage, invalidException.getMessage());
     }
 
@@ -274,45 +266,45 @@ public class ParserTest {
     @Test
     public void parse_delete_exceptionThrown() throws DukeException {
         String expectedMessage = "Missing argument - Index of task required";
-        MissingArgumentException missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("delete"));
+        MissingArgumentException missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("delete"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("delete "));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("delete "));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" delete"));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse(" delete"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" delete "));
-
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse(" delete "));
         assertEquals(expectedMessage, missingException.getMessage());
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("Delete"));
+
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("Delete"));
         assertEquals(expectedMessage, missingException.getMessage());
 
         expectedMessage = "Index to delete is not an integer";
-        InvalidArgumentException invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("delete me"));
+        InvalidArgumentException invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("delete me"));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("delete me "));
+        invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("delete me "));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse(" delete me"));
+        invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse(" delete me"));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse(" delete me "));
+        invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse(" delete me "));
         assertEquals(expectedMessage, invalidException.getMessage());
 
-        invalidException = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("Delete me"));
+        invalidException = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("Delete me"));
         assertEquals(expectedMessage, invalidException.getMessage());
     }
 
@@ -337,24 +329,24 @@ public class ParserTest {
     @Test
     public void parse_todo_exceptionThrown() throws DukeException {
         String expectedMessage = "Missing argument - Description of a todo cannot be empty";
-        MissingArgumentException missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("todo"));
+        MissingArgumentException missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("todo"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("todo "));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("todo "));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" todo"));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse(" todo"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" todo "));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse(" todo "));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("Todo"));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("Todo"));
         assertEquals(expectedMessage, missingException.getMessage());
     }
 
@@ -380,42 +372,42 @@ public class ParserTest {
     @Test
     public void parse_deadline_exceptionThrown() throws DukeException {
         String expectedMessage = "Missing Argument - Argument '/by' missing";
-        MissingArgumentException missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("deadline test"));
+        MissingArgumentException missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("deadline test"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("deadline test "));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("deadline test "));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" deadline test"));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse(" deadline test"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" deadline test "));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse(" deadline test "));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("Deadline test"));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("Deadline test"));
         assertEquals(expectedMessage, missingException.getMessage());
 
         // Invalid date format
         expectedMessage = "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'";
 
-        InvalidArgumentException exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("deadline test /by"));
+        InvalidArgumentException exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("deadline test /by"));
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("deadline test /by 2024"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("deadline test /by 2024-122-12"));
+        exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("deadline test /by 2024-122-12"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("deadline test /by 2024-25-25"));
+        exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("deadline test /by 2024-25-25"));
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("deadline test /by 12pm"));
@@ -424,8 +416,8 @@ public class ParserTest {
         exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("deadline test /by 12:00"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("deadline test /by 2024/12/12"));
+        exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("deadline test /by 2024/12/12"));
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("Deadline test /by 12:00"));
@@ -459,52 +451,52 @@ public class ParserTest {
     @Test
     public void parse_event_exceptionThrown() throws DukeException {
         String expectedMessage = "Missing Argument - Argument '/from' missing";
-        MissingArgumentException missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("event test"));
+        MissingArgumentException missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("event test"));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("event test "));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("event test "));
         assertEquals(expectedMessage, missingException.getMessage());
 
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse(" event test"));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse(" event test"));
         assertEquals(expectedMessage, missingException.getMessage());
 
         expectedMessage = "Missing Argument - Argument '/to' missing";
-        missingException = assertThrows(MissingArgumentException.class,
-                () -> Parser.parse("event test /from"));
+        missingException = assertThrows(
+                MissingArgumentException.class, () -> Parser.parse("event test /from"));
         assertEquals(expectedMessage, missingException.getMessage());
 
         // Invalid date format
         expectedMessage = "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'";
 
-        InvalidArgumentException exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("event test /from test /to test"));
+        InvalidArgumentException exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("event test /from test /to test"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("event test /from 2024/12/12 /to test"));
+        exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("event test /from 2024/12/12 /to test"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("event test /from 2024-122-12 /to 2024/12/12"));
+        exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("event test /from 2024-122-12 /to 2024/12/12"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("event test /from 2024-25-25 /to 2024/12/12"));
+        exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("event test /from 2024-25-25 /to 2024/12/12"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("event test /from 12pm /to 2pm"));
+        exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("event test /from 12pm /to 2pm"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("event test /from 12:00 /to 14:00"));
+        exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("event test /from 12:00 /to 14:00"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class,
-                () -> Parser.parse("event test /from 2024/12/12 14:00 /to 2024/12/12"));
+        exception = assertThrows(
+                InvalidArgumentException.class, () -> Parser.parse("event test /from 2024/12/12 14:00 /to 2024/12/12"));
         assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -515,8 +507,7 @@ public class ParserTest {
     public void parse_unknown_exceptionThrown() throws DukeException {
         String expectedMessage = "Unknown command 'alonica'";
         InvalidCommandException missingException = assertThrows(
-                InvalidCommandException.class,
-                () -> Parser.parse("alonica"));
+                InvalidCommandException.class, () -> Parser.parse("alonica"));
         assertEquals(expectedMessage, missingException.getMessage());
     }
 }
