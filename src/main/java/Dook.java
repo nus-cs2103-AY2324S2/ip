@@ -93,27 +93,27 @@ public class Dook {
         Command command = Dook.getCommand(input);
         String[] cmds = input.split(" ", 2);
         switch(command) {
-            case BYE:
-                executeBYE();
-                return true;
-            case LIST:
-                executeLIST();
-                return false;
-            case ADD:
-                executeADD(input);
-                return false;
-            case MARK:
-                executeMARK(cmds);
-                return false;
-            case UNMARK:
-                executeUNMARK(cmds);
-                return false;
-            case DELETE:
-                executeDELETE(cmds);
-                return false;
-            case OTHER:
-            default:
-                throw new DookException("I don't understand this command :( Try again!");
+        case BYE:
+            executeBYE();
+            return true;
+        case LIST:
+            executeLIST();
+            return false;
+        case ADD:
+            executeADD(input);
+            return false;
+        case MARK:
+            executeMARK(cmds);
+            return false;
+        case UNMARK:
+            executeUNMARK(cmds);
+            return false;
+        case DELETE:
+            executeDELETE(cmds);
+            return false;
+        case OTHER:
+        default:
+            throw new DookException("I don't understand this command :( Try again!");
         }
     }
 
@@ -215,15 +215,15 @@ public class Dook {
         while (true) {
             String input = sc.nextLine();
             Dook.printSeparator();
-            boolean exitLoop = false;
+            boolean willExitLoop = false;
             try {
-                exitLoop = dook.executeCommand(input);
+                willExitLoop = dook.executeCommand(input);
             } catch (DookException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
                 System.out.println("Error detected, please try again :(\n" + e);
             }
-            if (exitLoop) {
+            if (willExitLoop) {
                 break;
             }
             Dook.printSeparator();
