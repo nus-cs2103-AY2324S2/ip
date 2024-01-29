@@ -27,10 +27,16 @@ public class Ui {
         return sc.nextLine();
     }
     public void triggerAddMessage(Task task) {
+        if (task == null) {
+            return;
+        }
         System.out.println("Added task:\n" + task);
     }
 
     public void triggerDeleteMessage(Task task) {
+        if (task == null) {
+            return;
+        }
         System.out.println("Okay, I'll stop yapping about this task:\n" + task);
     }
 }
