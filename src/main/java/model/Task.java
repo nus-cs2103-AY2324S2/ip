@@ -34,12 +34,27 @@ public abstract class Task implements Serializable {
         }
     }
 
+    /**
+     * Mark the task as completed.
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Mark the task as not completed.
+     */
     public void unmark() {
         this.isDone = false;
+    }
+
+    /**
+     * Checks whether the task associated with this object has been completed.
+     *
+     * @return {@code true} if the task is done, {@code false} otherwise.
+     */
+    public boolean isDone() {
+        return this.isDone;
     }
 
     /**
