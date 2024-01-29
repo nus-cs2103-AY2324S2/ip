@@ -28,13 +28,13 @@ import duke.ui.Ui;
 @TestInstance(Lifecycle.PER_CLASS)
 public class AddCommandTest {
     // Streams for testing standard output
-    private final ByteArrayOutputStream OUT_CONTENT = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream ERR_CONTENT = new ByteArrayOutputStream();
-    private final PrintStream ORIGINAL_OUT = System.out;
-    private final PrintStream ORIGINAL_ERR = System.err;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
 
     // Test file
-    private final File TEST_FILE = new File("data/tasksTest.json");
+    private final File testFile = new File("data/tasksTest.json");
 
     // Environment for tests
     private TaskList taskList;
@@ -45,8 +45,8 @@ public class AddCommandTest {
      */
     @BeforeAll
     public void setUpStreams() {
-        System.setOut(new PrintStream(OUT_CONTENT));
-        System.setErr(new PrintStream(ERR_CONTENT));
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
     }
 
     /**
@@ -54,8 +54,8 @@ public class AddCommandTest {
      */
     @AfterAll
     public void restoreStreams() {
-        System.setOut(ORIGINAL_OUT);
-        System.setErr(ORIGINAL_ERR);
+        System.setOut(originalOut);
+        System.setErr(originalErr);
     }
 
     /**
@@ -63,9 +63,9 @@ public class AddCommandTest {
      */
     @BeforeEach
     public void createEnvironment() {
-        taskList = new TaskList(TEST_FILE);
+        taskList = new TaskList(testFile);
         ui = new Cli();
-        OUT_CONTENT.reset();
+        outContent.reset();
     }
 
     /**
@@ -73,14 +73,14 @@ public class AddCommandTest {
      */
     @Test
     public void execute_validTask_success() throws DukeException {
-        String expected = "Got it. I've added this task:\n" +
-                "  [T][ ] buy lunch\n" +
-                "Now you have 1 tasks in the list.\n";
+        String expected = "Got it. I've added this task:\n"
+                + "  [T][ ] buy lunch\n"
+                + "Now you have 1 tasks in the list.\n";
 
         Task todo = new Todo("buy lunch");
         AddCommand addCommand = new AddCommand(todo);
 
         addCommand.execute(taskList, ui);
-        assertEquals(expected, OUT_CONTENT.toString());
+        assertEquals(expected, outContent.toString());
     }
 }
