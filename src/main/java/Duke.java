@@ -273,7 +273,7 @@ public class Duke {
         return splitParts.length > 1;
     }
 
-    //TO SAVE FILES
+    //TO SAVE FILES Level 7
 
     private static void createFolder() {
         Path folder = Paths.get("./data/");
