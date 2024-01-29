@@ -1,3 +1,8 @@
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -79,6 +84,8 @@ class Duke {
                 handleDefault();
                 break;
         }
+
+        autoSave();
     }
 
     private Command getCommand(String input) {
@@ -189,6 +196,23 @@ class Duke {
 
     private void handleDefault() throws DukeException {
         throw new DukeException("Invalid instruction. Please provide a valid command.");
+    }
+
+    private void autoSave() throws DukeException{
+        Path path = Paths.get(".", "data", "duke.txt");
+        try {
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
+            }
+            PrintWriter writer = new PrintWriter(path.toFile(), StandardCharsets.UTF_8);
+            for (Task task : userInputLog) {
+                writer.println(task);
+            }
+            writer.close();
+        } catch (Exception e) {
+            throw new DukeException(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
