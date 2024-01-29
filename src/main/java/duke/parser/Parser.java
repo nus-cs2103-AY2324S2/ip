@@ -12,6 +12,7 @@ import duke.commands.AddCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.exceptions.DukeException;
@@ -212,6 +213,16 @@ public class Parser {
                 throw new InvalidArgumentException(
                         "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
             }
+
+        case "find":
+            if (splitInput.size() <= 1) { // no arguments
+                return new FindCommand();
+            }
+
+            String keyword = String.join(" ", splitInput.subList(1, splitInput.size()));
+
+            // Return new add todo command
+            return new FindCommand(keyword);
 
         default:
             throw new InvalidCommandException(String.format("Unknown command '%s'", splitInput.get(0)));
