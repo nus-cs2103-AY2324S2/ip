@@ -29,20 +29,20 @@ public class Task {
     String startDate;
     String endDate;
 
-    public Task(String taskName, TaskType taskType) {
+    public Task(String taskName, TaskType taskType, Boolean done ) {
         this.taskName = taskName;
-        this.done = false;
+        this.done = done;
         this.taskType = taskType;
     }
-    public Task(String taskName, TaskType taskType, String startDate) {
+    public Task(String taskName, TaskType taskType, Boolean done, String startDate) {
         this.taskName = taskName;
-        this.done = false;
+        this.done = done;
         this.taskType = taskType;
         this.startDate= startDate;
     }
-    public Task(String taskName, TaskType taskType, String startDate, String endDate) {
+    public Task(String taskName, TaskType taskType, Boolean done, String startDate, String endDate) {
         this.taskName = taskName;
-        this.done = false;
+        this.done = done;
         this.taskType = taskType;
         this.startDate= startDate;
         this.endDate=endDate;
@@ -58,6 +58,14 @@ public class Task {
 
     public TaskType getTaskType() {
         return taskType;
+    }
+
+    public boolean isDone() {
+        return this.done;
+    }
+
+    public String getName() {
+        return this.taskName;
     }
 
     @Override
