@@ -23,7 +23,7 @@ public class TaskList {
      *                         tasks file.
      */
     public TaskList() throws NicoleException {
-        storage = new Storage();
+        this.storage = new Storage();
     }
 
     private void crudChecker(int taskNumber) throws NicoleException {
@@ -74,7 +74,7 @@ public class TaskList {
     public void addTask(Task newTask) throws NicoleException {
         TaskList.taskList.add(newTask);
         try {
-            FileWriter taskFileWriter = new FileWriter("./data/tasks.txt", true);
+            FileWriter taskFileWriter = new FileWriter("tasks.txt", true);
             taskFileWriter.write(newTask.toString() + "\n");
             taskFileWriter.close();
         } catch (IOException e) {

@@ -1,27 +1,18 @@
+import nicoleexceptions.NicoleException;
+import taskstorage.Storage;
 import userrequests.Ui;
 
 import java.io.File;
 import java.io.IOException;
 
-import java.util.Scanner;
-
 public class Nicole {
-
-    /**
-     * Initialises the chatbot and triggers user interactions
-     *
-     */
-    public Nicole() {
+    public static void main(String[] args) {
         try {
+            new File("tasks.txt");
+            new Storage().loadTasksFromFile();
             new Ui();
-        } catch (IOException e) {
+        } catch (NicoleException | IOException e) {
             System.out.println(e);
         }
-    }
-
-    public static void main(String[] args) {
-        new File("./data").mkdirs();
-        new File("./data/tasks.txt");
-        new Nicole();
     }
 }

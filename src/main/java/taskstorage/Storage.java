@@ -14,22 +14,7 @@ import nicoleexceptions.NicoleException;
 import task.Task;
 
 public class Storage {
-    File tasksFile;
-    FileWriter taskFileWriter;
-
-    /**
-     * Initialises Storage by creating a directory "./data" and a file "tasks.txt" inside.
-     *
-     * @throws NicoleException if there are issues with creating a writer to the task file.
-     */
-    public Storage() throws NicoleException {
-        try {
-            this.taskFileWriter = new FileWriter("./data/tasks.txt");
-        } catch (IOException e) {
-            throw new NicoleException("Sorry sorry I couldn't create a file to save your tasks...");
-        }
-
-        this.loadTasksFromFile();
+    public Storage() {
     }
 
     /**
@@ -39,17 +24,18 @@ public class Storage {
      */
     protected void saveTasksToFile() throws NicoleException {
         try {
+            FileWriter taskFileWriter = new FileWriter("tasks.txt");
             for (int i = 0; i < TaskList.taskList.size(); i++) {
-                this.taskFileWriter.write(TaskList.taskList.get(i) + "\n");
+                taskFileWriter.write(TaskList.taskList.get(i) + "\n");
             }
-            this.taskFileWriter.close();
+            taskFileWriter.close();
         } catch (IOException e) {
             throw new NicoleException("I couldn't save the task >< try again plss");
         }
     }
 
     public void loadTasksFromFile() throws NicoleException {
-        File tasksFile = new File("./data/tasks.txt");
+        File tasksFile = new File("tasks.txt");
         try {
             int numTasksInFile = 0;
             BufferedReader reader = new BufferedReader(new FileReader(tasksFile));
