@@ -1,15 +1,17 @@
 package command;
 
 import java.io.IOException;
-import tasks.*;
+
+import tasks.Task;
+
 import run.Storage;
 import run.TaskList;
 import run.Ui;
+
 import others.BelleException;
 
-
 public class DeleteCommand extends Command {
-    String index;
+    private String index;
 
     public DeleteCommand(String index) {
         this.index = index;

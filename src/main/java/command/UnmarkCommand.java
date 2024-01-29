@@ -1,10 +1,13 @@
 package command;
 
 import java.io.IOException;
-import tasks.*;
+
+import tasks.Task;
+
 import run.Storage;
 import run.TaskList;
 import run.Ui;
+
 import others.BelleException;
 
 public class UnmarkCommand extends Command {
@@ -13,7 +16,6 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(String index) {
         this.index = index;
     }
-
 
     @Override
     public void execute(Storage s, TaskList t, Ui u) throws BelleException {

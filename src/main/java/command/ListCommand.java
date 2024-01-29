@@ -1,6 +1,5 @@
 package command;
 
-
 import run.Storage;
 import run.TaskList;
 import run.Ui;
@@ -20,7 +19,6 @@ public class ListCommand extends Command {
         System.out.println("--------------------------");
 
     }
-
     @Override
     public boolean isExit() {
         return false;

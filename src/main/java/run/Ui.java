@@ -27,5 +27,3 @@ public class Ui {
     }
 }
 
-
-//let ui handle errors like loading errors

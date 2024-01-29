@@ -1,10 +1,8 @@
 package command;
 
-
 import run.Storage;
 import run.TaskList;
 import run.Ui;
-
 
 public class ByeCommand extends Command {
     public ByeCommand() {

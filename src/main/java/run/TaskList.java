@@ -1,7 +1,8 @@
 package run;
 
-import tasks.Task;
 import java.util.ArrayList;
+
+import tasks.Task;
 
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
@@ -30,10 +31,3 @@ public class TaskList {
         list.add(t);
     }
 }
-
-
-//mark and unmark greeting
-
-//delte grreeting
-
-//add greeting

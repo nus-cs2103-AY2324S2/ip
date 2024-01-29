@@ -1,12 +1,16 @@
-import command.Command;
-import others.BelleException;
+import java.util.ArrayList;
+import java.io.IOException;
+
 import run.Parser;
 import run.Storage;
 import run.TaskList;
 import run.Ui;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import command.Command;
+
+import others.BelleException;
+
+
 
 public class Belle {
 

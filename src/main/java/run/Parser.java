@@ -1,7 +1,13 @@
 package run;
 
+import command.AddTaskCommand;
+import command.ByeCommand;
+import command.DeleteCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
+import command.ListCommand;
+import command.Command;
 
-import command.*;
 import others.BelleException;
 public class Parser {
     public Parser() {
@@ -32,6 +38,5 @@ public class Parser {
         } else {
             throw new BelleException("Not a valid command");
         }
-
     }
 }
