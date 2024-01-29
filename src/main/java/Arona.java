@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-public class Duke {
+public class Arona {
     private String name;
     private ArrayList<Task> tasks = new ArrayList<Task>();
 
-    public Duke(String name) {
+    public Arona(String name) {
         this.name = name;
     }
     public void greetings() {
@@ -15,10 +15,10 @@ public class Duke {
 /* */                " \\____|__  /__|    \\____/|___|_  (____  / \n" +
 /* */                "         \\/                    \\/     \\/ \n";
         System.out.println("Hello from \n" + logo);
-        String reply = "Hi! I'm " + this.name + ". What can I do for you?";
-//        String reply = "こんにちは先生、私は" + this.name + "アロナです. \n"
-//                + "どういうご用件ですか?　\n"
-//                + "ここで先生のスケジュールが決まります！";
+//        String reply = "Hi! I'm " + this.name + ". What can I do for you?";
+        String reply = "こんにちは先生、私は" + this.name + "アロナです. \n"
+                + "どういうご用件ですか?　\n"
+                + "ここで先生のスケジュールが決まります！";
         System.out.println(reply);
     }
 
@@ -104,12 +104,13 @@ public class Duke {
         } else {
             System.out.println("OK, I've marked this task as not done yet:");
         }
+        System.out.println(task.toString());
     }
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws AronaException {
         Scanner scanner = new Scanner(System.in);
-        Duke duke = new Duke("Arona");
-        duke.greetings();
+        Arona arona = new Arona("Arona");
+        arona.greetings();
 
         while (true) {
             try {
@@ -117,35 +118,35 @@ public class Duke {
                 String command = input.split(" ", 0)[0];
                 switch(command) {
                     case "bye":
-                        duke.quitApplication();
+                        arona.quitApplication();
                         return;
                     case "list":
-                        duke.printTasks();
+                        arona.printTasks();
                         break;
                     case "mark":
-                        if (input.split(" ", 0).length == 1) throw new DukeException("OOPS!!! Please provide task number.");
+                        if (input.split(" ", 0).length == 1) throw new AronaException("OOPS!!! Please provide task number.");
                         int taskNum = Integer.parseInt(input.split(" ", 0)[1]);
-                        duke.changeTaskStatus(taskNum, true);
+                        arona.changeTaskStatus(taskNum, true);
                         break;
                     case "unmark":
-                        if (input.split(" ", 0).length == 1) throw new DukeException("OOPS!!! Please provide task number.");
+                        if (input.split(" ", 0).length == 1) throw new AronaException("OOPS!!! Please provide task number.");
                         taskNum = Integer.parseInt(input.split(" ", 0)[1]);
-                        duke.changeTaskStatus(taskNum, false);
+                        arona.changeTaskStatus(taskNum, false);
                         break;
                     case "delete":
-                        if (input.split(" ", 0).length == 1) throw new DukeException("OOPS!!! Please provide task number.");
+                        if (input.split(" ", 0).length == 1) throw new AronaException("OOPS!!! Please provide task number.");
                         taskNum = Integer.parseInt(input.split(" ", 0)[1]);
-                        duke.DeleteTask(taskNum);
+                        arona.DeleteTask(taskNum);
                         break;
                     default:
-                        duke.addTask(input);
+                        arona.addTask(input);
                         break;
                 }
             } catch (TaskException e) {
                 System.err.println(e.getMessage());
             } catch (IndexOutOfBoundsException e) {
                 System.err.println(e.getMessage());
-            } catch (DukeException e) {
+            } catch (AronaException e) {
                 System.err.println(e.getMessage());
             }
         }
