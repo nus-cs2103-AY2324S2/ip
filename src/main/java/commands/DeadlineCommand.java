@@ -10,6 +10,7 @@ import ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand extends Command {
 
@@ -29,14 +30,19 @@ public class DeadlineCommand extends Command {
         } else {
             String desc = args[0].trim();
             String by = args[1].trim();
-            Task deadline = new Deadline(desc, LocalDate.parse(by));
-            tasks.addTasks(deadline);
+
             try {
-                storage.appendToFile(tasks);
-            } catch (IOException e) {
-                ui.showErrorMessage(e.getMessage());
+                Task deadline = new Deadline(desc, LocalDate.parse(by));
+                tasks.addTasks(deadline);
+                try {
+                    storage.appendToFile(tasks);
+                } catch (IOException e) {
+                    ui.showErrorMessage(e.getMessage());
+                }
+                ui.showToUser(String.format(SUCCESS_MESSAGE, deadline, tasks.numTasks()));
+            } catch (DateTimeParseException e) {
+                throw new DeadlineFormatException();
             }
-            ui.showToUser(String.format(SUCCESS_MESSAGE, deadline, tasks.numTasks()));
         }
     }
 }
