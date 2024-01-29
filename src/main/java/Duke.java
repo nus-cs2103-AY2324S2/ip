@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.nio.file.*;
+import java.util.*;
 
 public class Duke {
     String divider = "--------------------------------------------------";
@@ -140,17 +140,81 @@ public class Duke {
                         throw new DeleteInvalidException();
                     }
             }
+            saveDB();
         } catch (IllegalArgumentException e) {
             throw new UnknownCommandException();
         }
 
-
         return true;
+    }
+
+    public void loadDB() {
+        String relativeFilePath = "src/db.txt";
+
+        try {
+            Path absolutePath = Paths.get(relativeFilePath).toAbsolutePath();
+
+            // Create the file if it doesn't exist
+            if (!Files.exists(absolutePath)) {
+                Files.createFile(absolutePath);
+                System.out.println("Welcome to theGiantPeach!");
+            } else {
+                List<String> lines = Files.readAllLines(absolutePath);
+
+                // Process the lines
+                for (String line : lines) {
+                    String[] words = line.split("\\|");
+                    switch (words[0]) {
+                        case "T":
+                            Todo todo = new Todo(words[2]);
+                            if (Objects.equals(words[1], "1")) {
+                                todo.changeDone();
+                            }
+                            taskList.add(todo);
+                            break;
+                        case "D":
+                            Deadline deadline = new Deadline(words[2], words[3]);
+                            if (Objects.equals(words[1], "1")) {
+                                deadline.changeDone();
+                            }
+                            taskList.add(deadline);
+                            break;
+                        case "E":
+                            Event event = new Event(words[2], words[3], words[4]);
+                            if (Objects.equals(words[1], "1")) {
+                                event.changeDone();
+                            }
+                            taskList.add(event);
+                            break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveDB() {
+        List<String> linesToWrite = new ArrayList<>();
+        for (int i = 0; i < this.taskList.size(); i++) {
+            linesToWrite.add(this.taskList.get(i).toDBString());
+        }
+
+        try {
+            String relativeFilePath = "src/db.txt";
+            Path absolutePath = Paths.get(relativeFilePath).toAbsolutePath();
+
+            Files.write(absolutePath, linesToWrite, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
     public static void main(String[] args) {
         Duke theGiantPeach = new Duke();
+
+        theGiantPeach.loadDB();
 
         System.out.println(theGiantPeach.divider);
         System.out.println("Hello! I'm TheGiantPeach\nWhat can I do for you?");

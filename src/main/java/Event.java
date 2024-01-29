@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Event extends Task {
     String type = "[E]";
     String start;
@@ -12,5 +14,16 @@ public class Event extends Task {
     @Override
     public String toString() {
         return this.type + this.display + " " + this.description + "(from: " + this.start + "to: " + this.end.replaceAll("\\s+$", "") + ")";
+    }
+
+    @Override
+    public String toDBString() {
+        String display;
+        if (Objects.equals(this.display, "[ ]")) {
+            display = "0";
+        } else {
+            display = "1";
+        }
+        return "T|" + display + "|" + this.description + "|" + this.start + "|" + this.end;
     }
 }
