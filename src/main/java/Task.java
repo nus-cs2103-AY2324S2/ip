@@ -11,6 +11,8 @@ public abstract class Task {
         return this.getStatusIcon() + this.description;
     }
 
+    public abstract String writeToFileString();
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
@@ -30,4 +32,5 @@ public abstract class Task {
         }
         return output;
     }
+
 }
