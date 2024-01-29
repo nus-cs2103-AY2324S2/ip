@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Task {
+public abstract class Task {
     protected final String name;
     protected boolean done;
 
