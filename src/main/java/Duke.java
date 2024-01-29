@@ -1,4 +1,8 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Duke {
     private final TaskManager tm = new TaskManager();
     Scanner sc = new Scanner(System.in);
@@ -44,29 +48,29 @@ public class Duke {
         int fromIndex = s.indexOf("/from");
         int toIndex = s.indexOf("/to");
         if (fromIndex == -1 || toIndex == -1 || s.length() < 7) {
-            throw new DukeException("Format Error, Event must be in format: A /from B /to C");
+            throw new DukeException("Format Error, Event must be in format: Event /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm");
         }
         String eventName = s.substring(6, fromIndex - 1);
         try {
             String from = s.substring(fromIndex + 6, toIndex - 1);
             String to = s.substring(toIndex + 4);
             return new Event(eventName, from, to);
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("Format Error, Event must be in format: A /from B /to C");
+        } catch (StringIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new DukeException("Format Error, Event must be in format: Event /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm");
         }
     }
 
     private Deadline createDeadline(String s) throws DukeException {
         int byIndex = s.indexOf("/by");
         if (byIndex == -1 || s.length() < 10) {
-            throw new DukeException("Format Error, Deadline must be in format: A /by B");
+            throw new DukeException("Format Error, Deadline must be in format: Deadline /by YYYY-MM-DD HHmm");
         }
         String deadlineName = s.substring(9, byIndex - 1);
         try {
             String deadlineBy = s.substring(byIndex + 4);
             return new Deadline(deadlineName, deadlineBy);
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("Format Error, Deadline must be in format: A /by B");
+        } catch (StringIndexOutOfBoundsException | DateTimeParseException e) {
+            throw new DukeException("Format Error, Deadline must be in format: Deadline /by YYYY-MM-DD HHmm");
         }
     }
 
