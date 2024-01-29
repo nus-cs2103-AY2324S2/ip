@@ -7,6 +7,7 @@ import tasks.Task;
 import tasks.Todo;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,8 +34,21 @@ public class Storage {
      * @throws RyanGoslingException  If the task data on the hard drive is not in the expected format.
      */
     public ArrayList<Task> parseAndLoadTasks() throws FileNotFoundException, RyanGoslingException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
+        File file = new File(filePath);
+        //We first check if file directory exists. We will create the folder for user instead.
+        if (!file.exists()) {
+            try {
+                Files.createDirectories(file.toPath().getParent());
+                Files.createFile(file.toPath());
+                System.out.println("File created successfully\n It will appear in data folder.: " + filePath);
+            } catch (IOException e) {
+                System.err.println("Failed to create file.\n Do try again!: " + e.getMessage());
+            }
+        }
+
+
+
+        Scanner s = new Scanner(file);
         String pattern = "^\\s*(\\w+)\\s*\\|\\s*(\\w+)\\s*\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*$";
         ArrayList<Task> listOfTasks = new ArrayList<>();
         while (s.hasNext()) {
