@@ -19,7 +19,7 @@ public class ListTask {
      * List out all the tasks
      * @param taskList
      */
-    public static void exec(List<Task> taskList) {
+    public static void execListTask(List<Task> taskList) {
         System.out.println("Here are the tasks in your list:");
         int pos = 1;
         if (taskList.isEmpty()) {

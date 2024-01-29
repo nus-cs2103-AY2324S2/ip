@@ -22,11 +22,13 @@ public class DeleteTask {
      * @param taskList
      * @throws TaylorException
      */
-    public static void exec(String input, List<Task> taskList) throws TaylorException {
+    public static void execDeleteTask(String input, List<Task> taskList) throws TaylorException {
         try {
+            // Input will be 'delete x', where x is an int
+            // Then split to get x
             String[] parts = input.split(" ", 2);
             int pos = Integer.parseInt(parts[1]);
-
+            // If x is negative or x is less than total no. of Task, throw error
             if (pos > taskList.size() || pos <= 0) {
                 throw new TaylorException("Invalid task number");
             }

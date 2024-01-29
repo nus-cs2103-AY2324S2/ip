@@ -3,7 +3,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import exceptions.TaylorException;
-import executes.*;
+import executes.DeleteTask;
+import executes.FindTask;
+import executes.InsertTask;
+import executes.ListTask;
+import executes.MarkTask;
+import executes.SearchTask;
 import filehandler.FileInput;
 import tasks.Task;
 
@@ -16,10 +21,10 @@ public class Taylor {
     }
 
     public static void main(String[] args) {
-        List<Task> listing = new ArrayList<>();
-
+        List<Task> tasks = new ArrayList<>();
+        // Load pre-existing task from Hard Disk
         try {
-            listing = FileInput.execInput(listing);
+            tasks = FileInput.execInput(tasks);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -27,7 +32,6 @@ public class Taylor {
         System.out.println("Hello! I'm Taylor");
         System.out.println("What can I do for you?");
         Scanner type = new Scanner(System.in);
-
 
         label:
         while (true) {
@@ -37,22 +41,23 @@ public class Taylor {
                 System.out.println("Input is empty, please enter something.");
 
             } else {
-                String[] act = input.split(" ", 2);
-                String action = act[0];
+                String[] userInputSplit = input.split(" ", 2);
+                String actionCalled = userInputSplit[0];
 
-                Activity activity = getActivity(action);
+                Activity activity = getActivity(actionCalled);
+                // Switch between different calls
                 switch (activity) {
                     case BYE:
                         break label;
 
                     case LIST:
-                        ListTask.exec(listing);
+                        ListTask.execListTask(tasks);
 
                         break;
                     case MARK:
                     case UNMARK:
                         try {
-                            MarkTask.exec(input, listing);
+                            MarkTask.execMarkTask(input, tasks);
                         } catch (TaylorException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
@@ -62,28 +67,28 @@ public class Taylor {
                     case DEADLINE:
                     case EVENT:
                         try {
-                            InsertTask.exec(input, listing);
+                            InsertTask.execInsertTask(input, tasks);
                         } catch (TaylorException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
                         break;
                     case DELETE:
                         try {
-                            DeleteTask.exec(input, listing);
+                            DeleteTask.execDeleteTask(input, tasks);
                         } catch (TaylorException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
                         break;
                     case SEARCH:
                         try {
-                            SearchTask.exec(act[1], listing);
+                            SearchTask.execSearchTask(userInputSplit[1], tasks);
                         } catch (TaylorException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
                         break;
                     case FIND:
                         try {
-                            FindTask.exec(act[1], listing);
+                            FindTask.exec(userInputSplit[1], tasks);
                         } catch (TaylorException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
@@ -93,12 +98,12 @@ public class Taylor {
                                 + "'todo', 'deadline', 'event', 'bye', 'list' tasks");
                         break;
                 }
-            }
-
-            try {
-                FileInput.execOutput(listing);
-            } catch (Exception e) {
-                e.printStackTrace();
+                // Save Task into File in Hard Disk
+                try {
+                    FileInput.execOutput(tasks);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 

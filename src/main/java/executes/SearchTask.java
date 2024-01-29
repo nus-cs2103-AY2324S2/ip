@@ -25,7 +25,7 @@ public class SearchTask {
      * @param input Date and Time to search
      * @param taskList ArrayList with Tasks
      */
-    public static void exec(String input, List<Task> taskList) {
+    public static void execSearchTask(String input, List<Task> taskList) {
         try {
             LocalDateTime searchDate = InsertTask.dateConversion(input);
             List<Task> output = new ArrayList<>();
