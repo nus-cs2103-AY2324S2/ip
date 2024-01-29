@@ -1,18 +1,27 @@
 package duke;
 
-import command.*;
-import model.Deadline;
-import model.TaskList;
-import model.ToDo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import command.AddTaskCommand;
+import command.Command;
+import command.DeleteTaskCommand;
+import command.InvalidCommand;
+import command.ListTaskCommand;
+import command.MarkTaskCommand;
+import command.UnmarkTaskCommand;
+import model.Deadline;
+import model.TaskList;
+import model.ToDo;
 
 public class ParserTest {
     private static TaskList taskList;

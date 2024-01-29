@@ -29,6 +29,9 @@ public class MarkTaskCommand extends Command {
     /**
      * Executes the {@code MarkTaskCommand}, performing the necessary actions to carry out the specific functionality
      * related to marking a task.
+     * <p>
+     * This method marks the given task as done from the task list, update the storage and display the mark task
+     * message by initialising the mark task view.
      *
      * @param storage The storage object that manages the data persistence. It is used to update
      *                and save changes after executing the command.

@@ -18,6 +18,8 @@ public class InvalidCommand extends Command {
 
     /**
      * Executes the {@code InvalidCommand}, print the error message when user input is invalid.
+     * <p>
+     * This method display the error message by printing out the exception message.
      *
      * @param storage The storage object that manages the data persistence. It is not used in {@code ExitCommand}
      */

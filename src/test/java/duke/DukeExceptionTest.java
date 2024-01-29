@@ -1,8 +1,8 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 class DukeExceptionTest {
 
@@ -13,9 +13,9 @@ class DukeExceptionTest {
         DukeException dukeException = new DukeException(errorMessage);
 
         assertEquals(
-                "____________________________________________________________\n" +
-                        "   OOPS!!! " + errorMessage + "\n" +
-                        "____________________________________________________________\n",
+                "____________________________________________________________\n"
+                        + "   OOPS!!! " + errorMessage + "\n"
+                        + "____________________________________________________________\n",
                 dukeException.getMessage()
         );
     }

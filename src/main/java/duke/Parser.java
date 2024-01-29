@@ -18,7 +18,7 @@ import model.TaskList;
 import model.ToDo;
 
 /**
- * The {@code Parser} class is responsible for parsing user input and extracting relevant information
+ * The {@link Parser} class is responsible for parsing user input and extracting relevant information
  * to perform actions within the program.
  */
 public class Parser {
@@ -37,7 +37,7 @@ public class Parser {
     }
 
     /**
-     * Parse user input.
+     * Parse user input and return the corresponding command based on user's input.
      * @return a {@code Command} based on user's input.
      * @throws DukeException if user enters an invalid input.
      */

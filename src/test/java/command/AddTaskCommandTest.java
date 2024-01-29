@@ -1,21 +1,22 @@
 package command;
 
-import duke.Storage;
-import model.Deadline;
-import model.Event;
-import model.Task;
-import model.TaskList;
-import model.ToDo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import duke.Storage;
+import model.Deadline;
+import model.Event;
+import model.Task;
+import model.TaskList;
+import model.ToDo;
 
 public class AddTaskCommandTest {
     @AfterEach
@@ -35,7 +36,7 @@ public class AddTaskCommandTest {
         addTaskCommand.execute(storage);
 
         ArrayList<Task> updatedTaskList = taskList.getTaskList();
-        assertEquals(1 ,updatedTaskList.size());
+        assertEquals(1, updatedTaskList.size());
         assertEquals(todo, updatedTaskList.get(0));
     }
 
@@ -54,7 +55,7 @@ public class AddTaskCommandTest {
         addTaskCommand.execute(storage);
 
         ArrayList<Task> updatedTaskList = taskList.getTaskList();
-        assertEquals(1 ,updatedTaskList.size());
+        assertEquals(1, updatedTaskList.size());
         assertEquals(event, updatedTaskList.get(0));
     }
 
@@ -71,7 +72,7 @@ public class AddTaskCommandTest {
         addTaskCommand.execute(storage);
 
         ArrayList<Task> updatedTaskList = taskList.getTaskList();
-        assertEquals(1 ,updatedTaskList.size());
+        assertEquals(1, updatedTaskList.size());
         assertEquals(deadline, updatedTaskList.get(0));
     }
 }

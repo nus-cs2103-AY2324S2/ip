@@ -19,6 +19,8 @@ public class ExitCommand extends Command {
 
     /**
      * Executes the {@code ExitCommand}, print exit message when the program is terminated.
+     * <p>
+     * This method display the exit message by initialising the exit view.
      *
      * @param storage The storage object that manages the data persistence. It is not used in {@code ExitCommand}
      */

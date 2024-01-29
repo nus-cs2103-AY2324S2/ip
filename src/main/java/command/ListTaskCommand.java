@@ -24,6 +24,8 @@ public class ListTaskCommand extends Command {
 
     /**
      * Executes the {@code ListTaskCommand}, prints {@code TaskList}.
+     * <p>
+     * This method display the task list using the task list view.
      *
      * @param storage The storage object that manages the data persistence. It is not used in {@code ListTaskCommand}
      */

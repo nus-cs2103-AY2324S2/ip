@@ -28,6 +28,9 @@ public class DeleteTaskCommand extends Command {
     /**
      * Executes the {@code DeleteTaskCommand}, performing the necessary actions to carry out the specific functionality
      * related to deleting a task.
+     * <p>
+     * This method deletes the given task index from the task list, update the storage and display the delete task
+     * message by initialising the delete task view.
      *
      * @param storage The storage object that manages the data persistence. It is used to update
      *                and save changes after executing the command.

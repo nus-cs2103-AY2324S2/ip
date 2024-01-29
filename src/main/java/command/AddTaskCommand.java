@@ -6,7 +6,7 @@ import model.TaskList;
 import view.AddTaskView;
 
 /**
- * Command to add a {@code Task} to the {@code TaskList}.
+ * Command to add a {@link Task} to the {@link TaskList}.
  */
 public class AddTaskCommand extends Command {
     public static final String TODO = "todo";
@@ -30,6 +30,9 @@ public class AddTaskCommand extends Command {
     /**
      * Executes the {@code AddTaskCommand}, performing the necessary actions to carry out the specific functionality
      * related to adding a task.
+     * <p>
+     * This method adds the given task to the task list, update the storage and display the add task message by
+     * initialising the add task view.
      *
      * @param storage The storage object that manages the data persistence. It is used to update
      *                and save changes after executing the command.

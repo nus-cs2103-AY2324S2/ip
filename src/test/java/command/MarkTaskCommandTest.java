@@ -1,15 +1,16 @@
 package command;
 
-import duke.Storage;
-import model.TaskList;
-import model.ToDo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import duke.Storage;
+import model.TaskList;
+import model.ToDo;
 
 public class MarkTaskCommandTest {
     @AfterEach

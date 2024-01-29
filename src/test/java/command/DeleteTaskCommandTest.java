@@ -1,18 +1,19 @@
 package command;
 
-import duke.Storage;
-import model.Task;
-import model.TaskList;
-import model.ToDo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import duke.Storage;
+import model.Task;
+import model.TaskList;
+import model.ToDo;
 
 public class DeleteTaskCommandTest {
     private static TaskList taskList;
