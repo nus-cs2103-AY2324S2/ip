@@ -1,6 +1,5 @@
 package saopig.command;
 
-import saopig.Saopig;
 import saopig.SaopigInvaildSizeException;
 import saopig.Storage;
 import saopig.Ui;
@@ -20,6 +19,12 @@ public class AddCommand extends Command {
     private static final String FILE_DIRECTORY = "./data";
     private String command;
     private int typeIndex; //0 for todo, 1 for deadline, 2 for event
+
+    public AddCommand(String command, int typeIndex) {
+        this.command = command;
+        this.typeIndex = typeIndex;
+    }
+
     private static void checkValue(int value, int lowerBound, int upperBound) throws SaopigInvaildSizeException {
         if (value < lowerBound || value > upperBound) {
             throw new SaopigInvaildSizeException("Error");
@@ -148,11 +153,6 @@ public class AddCommand extends Command {
                     "and you'll be as organized as a library on a quiet morning.\n " +
                     "You're doing an amazing job! ");
         }
-    }
-
-    public AddCommand(String command, int typeIndex) {
-        this.command = command;
-        this.typeIndex = typeIndex;
     }
 
     @Override

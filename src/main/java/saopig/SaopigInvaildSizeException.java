@@ -1,7 +1,5 @@
 package saopig;
 
-import saopig.Saopig;
-
 public class SaopigInvaildSizeException extends Throwable {
     public SaopigInvaildSizeException(String message) {
         super();

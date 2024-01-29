@@ -11,6 +11,7 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation "org.mockito:mockito-core:3.+"
 }
 
 test {
@@ -28,15 +29,15 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("saopig.Saopig")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "saopig"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
 }

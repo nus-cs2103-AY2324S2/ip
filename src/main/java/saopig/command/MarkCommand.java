@@ -1,16 +1,21 @@
 package saopig.command;
 
-import saopig.Saopig;
 import saopig.SaopigInvaildSizeException;
 import saopig.Storage;
 import saopig.Ui;
 import saopig.task.Task;
 import saopig.task.TaskList;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
 
     private String command;
     private int typeIndex; //0 for mark done, 1 for mark undone
+
+    public MarkCommand(String command, int typeIndex) {
+        this.command = command;
+        this.typeIndex = typeIndex;
+    }
+
     private static void checkValue(int value, int lowerBound, int upperBound) throws SaopigInvaildSizeException {
         if (value < lowerBound || value > upperBound) {
             throw new SaopigInvaildSizeException("Error");
@@ -79,10 +84,6 @@ public class MarkCommand extends Command{
         }
     }
 
-    public MarkCommand(String command, int typeIndex) {
-        this.command = command;
-        this.typeIndex = typeIndex;
-    }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (typeIndex == 0) {

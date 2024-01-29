@@ -1,6 +1,5 @@
 package saopig.command;
 
-import saopig.Saopig;
 import saopig.SaopigInvaildSizeException;
 import saopig.Storage;
 import saopig.Ui;
@@ -14,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     private static final String TIME_PATTERN = "yyyy-MM-dd HH:mm";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
     private static final String FILE_PATH = "./data/saopigTaskList.txt";
@@ -22,10 +21,12 @@ public class ListCommand extends Command{
 
     private String command;
     private int typeIndex; //0 for list all, 1 for listtaskondate
+
     public ListCommand(String command, int typeIndex) {
         this.command = command;
         this.typeIndex = typeIndex;
     }
+
     private static void checkValue(int value, int lowerBound, int upperBound) throws SaopigInvaildSizeException {
         if (value < lowerBound || value > upperBound) {
             throw new SaopigInvaildSizeException("Error");
