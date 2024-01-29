@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 public class FileManager {
     
     public String StorageFileName = "StorageData.txt";
-    public String FileDirectory = "bin" + File.pathSeparator + "SavedData";
+    public String FileDirectory = "bin" + File.separatorChar + "SavedData/";
 
     // General save method
     public void Save(String _data, String _fileName) throws IOException {
