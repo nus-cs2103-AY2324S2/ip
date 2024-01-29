@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Martin {
@@ -15,7 +16,7 @@ public class Martin {
             String line = sc.nextLine().strip();
             String[] words = line.split(" ");
             String firstWord = words[0].toUpperCase();
-            String remainingWords = line.substring(firstWord.length());
+            String remainingWords = line.substring(firstWord.length()).strip();
             try {
                 ChatbotKeyword command = ChatbotKeyword.valueOf(firstWord);
                 handleCommand(command, remainingWords);
@@ -28,7 +29,10 @@ public class Martin {
     }
 
     public static void handleCommand(ChatbotKeyword command, String inputs) {
-        String[] inputsArray = inputs.split(" ");
+        String[] inputsArray = inputs.split(" "); // second param as -1 might be a soln to bug
+        // System.out.println("inputs: " + inputs);
+        // System.out.println("inputsArray: " + Arrays.toString(inputsArray));
+        // System.out.println(inputsArray.length);
         switch (command) {
             case BYE:
                 sayBye();
@@ -58,8 +62,7 @@ public class Martin {
                 break;
             case TODO:
                 if (inputsArray.length < 1) {
-                    System.out.println("Please specify a todo description");
-                    break;
+                    throw new IllegalArgumentException("Please specify a todo description");
                 }
                 String todoDescription = String.join(" ", inputs);
                 Todo todo = new Todo(todoDescription);
@@ -68,8 +71,7 @@ public class Martin {
                 break;
             case EVENT:
                 if (inputsArray.length < 3) {
-                    System.out.println("Please specify a event description, from, and to");
-                    break;
+                    throw new IllegalArgumentException("Please specify a event description, from, and to");
                 }
                 String eventDescription = String.join(" ", inputs);
                 String from = inputsArray[1];
