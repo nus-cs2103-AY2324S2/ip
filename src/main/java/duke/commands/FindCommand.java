@@ -42,7 +42,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui) {
         String tasks;
-        if (!this.keyword.equals("")) {
+        if (this.keyword.equals("")) {
             tasks = taskList.getTasks();
         } else {
             tasks = taskList.getTasks(keyword);
