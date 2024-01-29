@@ -68,6 +68,16 @@ public class Task {
     }
 
     /**
+     * Check if task description contains searchTerm, capitalisation does not matter.
+     *
+     * @param searchTerm
+     * @return
+     */
+    public boolean include(String searchTerm) {
+        return this.description.toLowerCase().contains(searchTerm.toLowerCase());
+    }
+
+    /**
      * Checks if the obj has the same fields as the current instance.
      *
      * @param obj

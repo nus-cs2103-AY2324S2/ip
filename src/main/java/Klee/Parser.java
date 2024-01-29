@@ -134,6 +134,13 @@ public class Parser {
                 } catch (Exception e) {
                     throw new KleeException("The correct way to indicate a event is `event [description] /from [date and time] /to [date and time]`");
                 }
+            case "find":
+                try {
+                    String searchTerm = input.split("find ")[1];
+                    return new Find(searchTerm);
+                } catch (Exception e) {
+                    throw new KleeException("The correct way to find a task is `find [Search Term]`");
+                }
             case "delete":
                 if (command.length == 2) {
                     try {
