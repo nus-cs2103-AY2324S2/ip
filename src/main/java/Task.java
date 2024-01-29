@@ -16,7 +16,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isComplete ? "X" : " "); // Mark done task with X
+        return (isComplete ? "X" : " ");
     }
 
     @Override
