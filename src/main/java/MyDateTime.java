@@ -36,7 +36,7 @@ public class MyDateTime {
     }
 
     public static String formatter(LocalDateTime datetime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd , HH:mm");
         return datetime.format(formatter);
     }
 

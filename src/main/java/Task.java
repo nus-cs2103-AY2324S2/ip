@@ -119,7 +119,7 @@ public abstract class Task {
      * @return String representation for storage of ToDo task.
      */
     public String toStorageString() {
-        return this.isDone() + " " + this.description;
+        return this.isDone() + " , " + this.description;
     };
 
     public boolean checkDate(LocalDate date) {

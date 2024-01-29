@@ -39,7 +39,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toStorageString() {
-        return CommandType.TODO.toString() + " " + super.toStorageString();
+        return CommandType.TODO.toString() + " , " + super.toStorageString();
     }
 
 }
