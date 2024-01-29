@@ -53,6 +53,7 @@ public class InsertTask {
         default:
             throw new TaylorException("Invalid Task Type");
         }
+
     }
 
     /**
