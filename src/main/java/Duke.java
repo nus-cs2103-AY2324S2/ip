@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        ArrayList<String> storage = new ArrayList<>();
         String logo = "__________________________________\n" +
                 "Hello! I'm Tim \n" +
                 "What can i do for you? \n" +
@@ -20,11 +22,22 @@ public class Duke {
                 break;
             }
 
-            String msg = "__________________________________\n" +
-                    input +
-                    "\n__________________________________\n";
-            System.out.println(msg);
+            if (input.equals("list")) {
+                System.out.println("__________________________________\n");
+                for (int i = 0; i < storage.size(); i++) {
+                    int counter = i + 1;
+                    String output = counter + ". ";
+                    System.out.println(output + storage.get(i));
+                }
+            } else {
+                String msg = "__________________________________\n" +
+                        "added:" + input;
+                System.out.println(msg);
+                storage.add(input);
+            }
+            System.out.println("__________________________________\n");
             input = scan.nextLine();
+
         }
 
     }
