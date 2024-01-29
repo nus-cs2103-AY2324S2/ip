@@ -20,6 +20,7 @@ public class Ui {
                 + "█▄█ █▄█ █▄█ █▄▀ █▄█ ░█░ ██▄ ▄\n";
 
         System.out.println("Stoppin' the YAP...\n" + bye);
+        sc.close();
     }
 
     public String readCommand() {

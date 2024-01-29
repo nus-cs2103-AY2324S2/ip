@@ -1,15 +1,13 @@
 public enum Command {
     BYE {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) {
-            ui.exit();
+        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
             storage.saveTasks(tasks);
-            System.exit(0); // Exit the application
         }
     },
     YAP {
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) {
+        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
             tasks.yapTasks();
         }
     },
@@ -73,10 +71,6 @@ public enum Command {
             storage.saveTasks(tasks);
         }
     };
-
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        throw new UnsupportedOperationException("This command requires an argument.");
-    }
 
     public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
         throw new UnsupportedOperationException("This command does not take any arguments.");

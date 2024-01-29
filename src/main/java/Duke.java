@@ -27,6 +27,9 @@ public class Duke {
             try {
                 Command c = Parser.parse(userInput);
                 c.execute(taskList, ui, storage, userInput);
+                if (c.equals(Command.BYE)) {
+                    break;
+                }
             } catch (DukeException e) {
             System.out.println(e.getMessage());
             } catch (IndexOutOfBoundsException e) {
