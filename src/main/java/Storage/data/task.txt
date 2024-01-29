@@ -1,5 +1,5 @@
-T | Y | Borrow Book
+T | N | Borrow Book
 T | Y | Return Book
 D | Y | CS2103 Quiz | Monday
-T | N | 100 push-ups
+T | Y | 100 push-ups
 E | N | MSL meeting | Monday 10am | 12pm

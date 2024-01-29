@@ -1,4 +1,5 @@
 import Task.Task;
+import Task.TaskManager;
 import UI.Ui;
 
 import java.time.LocalDate;
@@ -6,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -28,6 +28,7 @@ public class Osiris {
 
         while (!terminateChat){
 
+            this.userInterface.messageOsirisPrompt();
             String userInput = scanner.nextLine();
             String[] inputtedWords = userInput.split(" ");
             String taskName;
@@ -221,13 +222,13 @@ public class Osiris {
     }
 
     public LocalDateTime[] timeRangeFormatter(String fromDateTimeStr, String toTimeStr) {
-        DateTimeFormatter fromDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        DateTimeFormatter toDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        DateTimeFormatter endDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         try {
-            LocalDateTime fromDateTime = LocalDateTime.parse(fromDateTimeStr, fromDateTimeFormatter);
-            LocalDateTime toDateTime = LocalDateTime.parse(toTimeStr, toDateTimeFormatter);
-            return new LocalDateTime[]{fromDateTime, toDateTime};
+            LocalDateTime startDateTime = LocalDateTime.parse(fromDateTimeStr, startDateTimeFormatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(toTimeStr, endDateTimeFormatter);
+            return new LocalDateTime[]{startDateTime, endDateTime};
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date time range.");
             System.out.println("Please provide date time range in 'dd-MM-yyyy HHmm' format.");

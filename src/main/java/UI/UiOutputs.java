@@ -23,6 +23,8 @@ public class UiOutputs {
 
     public static final String INTRODUCTIONS = String.format("Hello! I'm %s.\nWhat can I do for you?", UiOutputs.NAME);
 
+    public static final String MESSAGEOSIRISPROMPT = "Message Osiris ... ";
+
     public static final String GOODBYES = "Bye. Hope to see you again soon!";
 
     public static final String UNSUPPORTEDCOMMANDSOUTPUT = "Sorry, but I am unable to comprehend the instruction at my current development stage. Please enter something else.";

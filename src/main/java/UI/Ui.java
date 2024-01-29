@@ -16,6 +16,10 @@ public class Ui {
         this.printSeparator();
     }
 
+    public void messageOsirisPrompt() {
+        System.out.print(UiOutputs.MESSAGEOSIRISPROMPT);
+    }
+
     public void unsupportedCommandsOutput() {
         System.out.println(UiOutputs.UNSUPPORTEDCOMMANDSOUTPUT);
     }
