@@ -1,4 +1,3 @@
-import java.util.*;
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -10,11 +9,19 @@ public class Task {
         this.isDone = false;
     }
 
+    public void mark() {
+        this.isDone = true;
+    }
+
+    public void unmark() {
+        this.isDone = false;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
     public String getTask() {
-        return index + ". " + description;
+        return index + ". [" + getStatusIcon() + "] " + description;
     }
 }
