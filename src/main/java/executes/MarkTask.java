@@ -21,7 +21,7 @@ public class MarkTask {
      * @param input : to mark or unmark and which one?
      * @param taskList
      */
-    public static void exec(String input, List<Task> taskList) {
+    public static void execMarkTask(String input, List<Task> taskList) {
         String[] markWhat = input.split(" ");
         String what = markWhat[0];
 
