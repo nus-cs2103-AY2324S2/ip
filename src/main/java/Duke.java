@@ -1,11 +1,19 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     static String botName = "Corgi";
-    static ArrayList<Task> tasks = new ArrayList<>();
-    static int numOfTasks = 0;
-    public static void greet(){
+    ArrayList<Task> tasks = new ArrayList<>();
+    int numOfTasks = 0;
+    private String filePath = "./taskList.txt";
+    public Storage database;
+    public Duke() throws IOException{
+        this.database = new Storage(filePath);
+        this.tasks = this.database.load();
+        this.numOfTasks = this.tasks.size();
+    }
+    public void greet(){
         String greetMessage = String.format(
                 "____________________________________________________________\n" +
                         " Hello! I'm %s\n" +
@@ -13,18 +21,18 @@ public class Duke {
                         "____________________________________________________________\n", botName);
         System.out.println(greetMessage);
     }
-    public static void goodbye(){
+    public void goodbye(){
         String exitMessage = "____________________________________________________________\n" +
                 " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________\n";
         System.out.println(exitMessage);
     }
-    public static void echo(String input){
+    public void echo(String input){
         System.out.println("____________________________________________________________\n" +
                 input +
                 "\n____________________________________________________________\n");
     }
-    public static void addToList(String input) throws DukeException{
+    public void addToList(String input) throws DukeException{
         Task addedTask = null;
         String[] inputArr = input.split(" ");
         String commandWord = inputArr[0];
@@ -74,7 +82,7 @@ public class Duke {
             System.out.println(errorMessage);
         }
     }
-    public static void printList(){
+    public void printList(){
         System.out.println("____________________________________________________________\n" +
                 " Here are the tasks in your list:\n");
         for (int i = 0; i < numOfTasks; i++) {
@@ -85,7 +93,7 @@ public class Duke {
         }
         System.out.println("____________________________________________________________\n");
     }
-    public static void markAsDoneOrUndone(int taskNum, boolean markDone){
+    public void markAsDoneOrUndone(int taskNum, boolean markDone){
         if(taskNum < 1 || taskNum > 100){
             System.out.println("Invalid task number entered.");
             return;
@@ -113,7 +121,7 @@ public class Duke {
             System.out.println(message);
         }
     }
-    public static void deleteTask (int index) throws DukeException{
+    public void deleteTask (int index) throws DukeException{
         if (numOfTasks < index){
             throw new DukeException("Invalid task index to delete!");
         }
@@ -130,8 +138,9 @@ public class Duke {
                 taskToBeDeleted.toString(), numOfTasks);
         System.out.println(deleteMessage);
     }
-    public static void main(String[] args) throws DukeException{
-        greet();
+    public static void main(String[] args) throws DukeException, IOException {
+        Duke myChatBot = new Duke();
+        myChatBot.greet();
         Scanner sc = new Scanner(System.in);
         String input = "";
         while (true){
@@ -139,26 +148,27 @@ public class Duke {
             if(input.equalsIgnoreCase("bye")){
                 break;
             } else if (input.equalsIgnoreCase("list")) {
-                printList();
+                myChatBot.printList();
             } else if (input.length() >= 6 && input.substring(0,4).equalsIgnoreCase("mark")) {
-                markAsDoneOrUndone(Character.getNumericValue(input.charAt(5)), true);
+                myChatBot.markAsDoneOrUndone(Character.getNumericValue(input.charAt(5)), true);
             } else if (input.length() >= 8 && input.substring(0,6).equalsIgnoreCase("unmark")) {
-                markAsDoneOrUndone(Character.getNumericValue(input.charAt(7)), false);
+                myChatBot.markAsDoneOrUndone(Character.getNumericValue(input.charAt(7)), false);
             } else if (input.length() >= 8 && input.substring(0,6).equalsIgnoreCase("delete")) {
                 String position = input.substring(7);
                 Integer i = null;
                 try {
                     i = Integer.parseInt(position);
-                    deleteTask(i);
+                    myChatBot.deleteTask(i);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid index to delete!");
                 } catch (DukeException de) {
                     System.out.println(de.toString());
                 }
             } else {
-                addToList(input);
+                myChatBot.addToList(input);
             }
         }
-        goodbye();
+        myChatBot.database.save(myChatBot.tasks);
+        myChatBot.goodbye();
     }
 }
