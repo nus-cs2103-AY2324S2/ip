@@ -35,12 +35,12 @@ public class ListCommand extends Command {
 
     public void listTasks(TaskList taskList, Ui ui) {
         if (taskList.getTasks().isEmpty()) {
-            ui.printMessage("\n" +
-                    "Oh dear, it looks like there are no tasks yet!\n " +
-                    "But that's alright.\n " +
-                    "It gives us a chance to start fresh and dream up some new plans.\n " +
-                    "Whenever you're ready to add tasks, I'll be right here to assist you.\n " +
-                    "Let's make it a magical journey together!");
+            ui.printMessage("\n"
+                    + "Oh dear, it looks like there are no tasks yet!\n "
+                    + "But that's alright.\n "
+                    + "It gives us a chance to start fresh and dream up some new plans.\n "
+                    + "Whenever you're ready to add tasks, I'll be right here to assist you.\n "
+                    + "Let's make it a magical journey together!");
             return;
         }
         for (int i = 0; i < taskList.getTasks().size(); i++) {
@@ -70,12 +70,12 @@ public class ListCommand extends Command {
                 }
             }
             if (tasksOnDate.isEmpty()) {
-                ui.printMessage("\n" +
-                        "Oh dear, it looks like there are no tasks on " + date + "!\n " +
-                        "But that's alright.\n " +
-                        "It gives us a chance to start fresh and dream up some new plans.\n " +
-                        "Whenever you're ready to add tasks, I'll be right here to assist you.\n " +
-                        "Let's make it a magical journey together!");
+                ui.printMessage("\n"
+                        + "Oh dear, it looks like there are no tasks on " + date + "!\n "
+                        + "But that's alright.\n "
+                        + "It gives us a chance to start fresh and dream up some new plans.\n "
+                        + "Whenever you're ready to add tasks, I'll be right here to assist you.\n "
+                        + "Let's make it a magical journey together!");
                 return;
             }
             ui.printMessage("\n" +
@@ -85,18 +85,18 @@ public class ListCommand extends Command {
                 ui.printMessage((i + 1) + ". " + task.toString());
             }
         } catch (SaopigInvaildSizeException e) {
-            ui.printMessage(e.getMessage() +
-                    "\n" +
-                    "Oopses daisy!\n " +
-                    "It seems like you might have forgotten to give an argument for the listtaskondate command.\n " +
-                    "Don't worry, it happens to most of us.\n " +
-                    "Just add the date for the task you'd like to list, and you'll be all set.\n " +
-                    "Please try again, or type 'bye' to exit.");
+            ui.printMessage(e.getMessage()
+                    + "\n"
+                    + "Oopses daisy!\n "
+                    + "It seems like you might have forgotten to give an argument for the listtaskondate command.\n "
+                    + "Don't worry, it happens to most of us.\n "
+                    + "Just add the date for the task you'd like to list, and you'll be all set.\n "
+                    + "Please try again, or type 'bye' to exit.");
         } catch (DateTimeParseException e) {
-            ui.printMessage("\n" +
-                    "Oopses daisy!\n " +
-                    "It seems like you might have given an invalid date time format.\n " +
-                    "Please use the format: yyyy-MM-dd");
+            ui.printMessage("\n"
+                    + "Oopses daisy!\n "
+                    + "It seems like you might have given an invalid date time format.\n "
+                    + "Please use the format: yyyy-MM-dd");
         }
     }
 

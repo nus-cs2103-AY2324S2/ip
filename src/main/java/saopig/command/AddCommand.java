@@ -38,17 +38,17 @@ public class AddCommand extends Command {
             Todo task = new Todo(processedInput);
             taskList.addTodoTask(task);
             storage.saveTaskList(taskList);
-            ui.printMessage("\n" +
-                    "Oh, splendid! Your Todo task: {" + task.toString() + "} has been added successfully.\n " +
-                    "Now you have " + taskList.getTasks().size() + " tasks in the list.");
+            ui.printMessage("\n"
+                    + "Oh, splendid! Your Todo task: {" + task.toString() + "} has been added successfully.\n "
+                    + "Now you have " + taskList.getTasks().size() + " tasks in the list.");
         } catch (SaopigInvaildSizeException e) {
-            ui.printMessage(e.getMessage() +
-                    "\n" +
-                    "Oh, it looks like the 'todo' command is missing some details for the task.\n " +
-                    "No problem at all!\n " +
-                    "Just add a bit more information about what you'd like to do, " +
-                    "and it will be as perfect as a sunny day.\n " +
-                    "You're doing wonderfully! ");
+            ui.printMessage(e.getMessage()
+                    + "\n"
+                    + "Oh, it looks like the 'todo' command is missing some details for the task.\n "
+                    + "No problem at all!\n "
+                    + "Just add a bit more information about what you'd like to do, "
+                    + "and it will be as perfect as a sunny day.\n "
+                    + "You're doing wonderfully! ");
         }
     }
 
@@ -58,45 +58,45 @@ public class AddCommand extends Command {
             String splitInput = input.substring(9);
             String[] splitArguments = splitInput.split(" /by ");
             if (splitArguments.length != 2) {
-                ui.printMessage("\n" +
-                        "Whoopsie!\n " +
-                        "It seems like you may have forgotten to write the deadline time.");
+                ui.printMessage("\n"
+                        + "Whoopsie!\n "
+                        + "It seems like you may have forgotten to write the deadline time.");
             }
             LocalDateTime deadlineDateTime = null;
             try {
                 deadlineDateTime = LocalDateTime.parse(splitArguments[1], DATE_TIME_FORMATTER);
 
             } catch (DateTimeParseException e) {
-                ui.printMessage("\n" +
-                        "Whoopsie!\n " +
-                        "It seems like you may have given an invalid date time format.\n " +
-                        "Please use the format: yyyy-MM-dd HH:mm");
+                ui.printMessage("\n"
+                        + "Whoopsie!\n "
+                        + "It seems like you may have given an invalid date time format.\n "
+                        + "Please use the format: yyyy-MM-dd HH:mm");
                 return;
             }
             Deadline task = new Deadline(splitArguments[0], deadlineDateTime);
             taskList.addDeadlineTask(task);
             storage.saveTaskList(taskList);
-            ui.printMessage("\n" +
-                    "Oh, splendid! Your Deadline task: {" + task.toString() + "} has been added successfully.\n " +
-                    "Now you have " + taskList.getTasks().size() + " tasks in the list.");
+            ui.printMessage("\n"
+                    + "Oh, splendid! Your Deadline task: {" + task.toString() + "} has been added successfully.\n "
+                    + "Now you have " + taskList.getTasks().size() + " tasks in the list.");
         } catch (SaopigInvaildSizeException e) {
-            ui.printMessage(e.getMessage() +
-                    "\n" +
-                    "Oh, it looks like the 'deadline' command is missing some details for the task.\n " +
-                    "No problem at all!\n " +
-                    "Just add a bit more information about what you'd like to do, " +
-                    "and it will be as perfect as a sunny day.\n " +
-                    "You're doing wonderfully! ");
+            ui.printMessage(e.getMessage()
+                    + "\n"
+                    + "Oh, it looks like the 'deadline' command is missing some details for the task.\n "
+                    + "No problem at all!\n "
+                    + "Just add a bit more information about what you'd like to do, "
+                    + "and it will be as perfect as a sunny day.\n "
+                    + "You're doing wonderfully! ");
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.printMessage("\n" +
-                    "Whoopsie! " +
-                    "It seems like you may have forgotten to write the deadline time " +
-                    "or didn't use ' /by ' in your command.\n " +
-                    "Remember there is a space before and after '/by'.\n " +
-                    "It's a tiny detail, " +
-                    "but oh so important! Just add the deadline after '/by ', " +
-                    "and you'll be as organized as a library on a quiet morning.\n " +
-                    "You're doing an amazing job! ");
+            ui.printMessage("\n"
+                    + "Whoopsie! "
+                    + "It seems like you may have forgotten to write the deadline time "
+                    + "or didn't use ' /by ' in your command.\n "
+                    + "Remember there is a space before and after '/by'.\n "
+                    + "It's a tiny detail, "
+                    + "but oh so important! Just add the deadline after '/by ', "
+                    + "and you'll be as organized as a library on a quiet morning.\n "
+                    +  "You're doing an amazing job! ");
         }
     }
 
@@ -106,52 +106,52 @@ public class AddCommand extends Command {
             String splitInput = input.substring(6);
             String[] splitArguments = splitInput.split("/");
             if (splitArguments.length != 3) {
-                ui.printMessage("\n" +
-                        "Whoopsie!\n " +
-                        "It seems like you may have forgotten to write the event start or end time ");
+                ui.printMessage("\n"
+                        + "Whoopsie!\n "
+                        + "It seems like you may have forgotten to write the event start or end time ");
             }
             String description = splitArguments[0].trim();
-            String fromTime = splitArguments[1].trim().substring(5); // Remove "from " prefix
-            String toTime = splitArguments[2].trim().substring(3); // Remove "to " prefix
+            String fromTime = splitArguments[1].trim().substring(5);
+            String toTime = splitArguments[2].trim().substring(3);
             LocalDateTime fromDateTime = null;
             LocalDateTime toDateTime = null;
             try {
                 fromDateTime = LocalDateTime.parse(fromTime, DATE_TIME_FORMATTER);
                 toDateTime = LocalDateTime.parse(toTime, DATE_TIME_FORMATTER);
             } catch (DateTimeParseException e) {
-                ui.printMessage("\n" +
-                        "Whoopsie!\n " +
-                        "It seems like you may have given an invalid date time format.\n " +
-                        "Please use the format: yyyy-MM-dd HH:mm");
+                ui.printMessage("\n"
+                        + "Whoopsie!\n "
+                        + "It seems like you may have given an invalid date time format.\n "
+                        + "Please use the format: yyyy-MM-dd HH:mm");
                 return;
             }
             Event task = new Event(description, fromDateTime, toDateTime);
             taskList.addEventTask(task);
             storage.saveTaskList(taskList);
-            ui.printMessage("\n" +
-                    "Oh, splendid! " +
-                    "Your Event task: {" + task.toString() + "} has been added successfully.\n " +
-                    "Isn't it just wonderful when things go exactly as planned?\n " +
-                    "I'm so proud of you for getting it done!\n " +
-                    "Now you have " + taskList.getTasks().size() + " tasks in the list.");
+            ui.printMessage("\n"
+                    + "Oh, splendid! "
+                    + "Your Event task: {" + task.toString() + "} has been added successfully.\n "
+                    + "Isn't it just wonderful when things go exactly as planned?\n "
+                    + "I'm so proud of you for getting it done!\n "
+                    + "Now you have " + taskList.getTasks().size() + " tasks in the list.");
         } catch (SaopigInvaildSizeException e) {
             ui.printMessage(e.getMessage() +
-                    "\n" +
-                    "Oh, it looks like the 'event' command is missing some details for the task.\n " +
-                    "No problem at all!\n " +
-                    "Just add a bit more information about what you'd like to do, " +
-                    "and it will be as perfect as a sunny day.\n " +
-                    "You're doing wonderfully! ");
+                    + "\n"
+                    + "Oh, it looks like the 'event' command is missing some details for the task.\n "
+                    + "No problem at all!\n "
+                    + "Just add a bit more information about what you'd like to do, "
+                    + "and it will be as perfect as a sunny day.\n "
+                    + "You're doing wonderfully! ");
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.printMessage("\n" +
-                    "Whoopsie!\n " +
-                    "It seems like you may have forgotten to write the event start and end time\n " +
-                    "or didn't use ' /from ' or ' /to ' in your command.\n " +
-                    "Remember there is a space before and after '/from' and ' /to '.\n " +
-                    "It's a tiny detail, " +
-                    "but oh so important! Just add the deadline after '/by ', " +
-                    "and you'll be as organized as a library on a quiet morning.\n " +
-                    "You're doing an amazing job! ");
+            ui.printMessage("\n"
+                    + "Whoopsie!\n "
+                    + "It seems like you may have forgotten to write the event start and end time\n "
+                    + "or didn't use ' /from ' or ' /to ' in your command.\n "
+                    + "Remember there is a space before and after '/from' and ' /to '.\n "
+                    + "It's a tiny detail, "
+                    + "but oh so important! Just add the deadline after '/by ', "
+                    + "and you'll be as organized as a library on a quiet morning.\n "
+                    + "You're doing an amazing job! ");
         }
     }
 
