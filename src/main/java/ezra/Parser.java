@@ -4,7 +4,7 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 public class Parser {
-    public void read(String input, Storage storage, TaskList tasks) {
+    public static void read(String input, Storage storage, TaskList tasks) {
         Ui.horizontalLine();
         try {
             if (input.equals("bye")) {
@@ -12,17 +12,17 @@ public class Parser {
             } else if (input.equals("list")) {
                 tasks.listTasks();
             } else if (input.startsWith("mark")) {
-                tasks.mark(this.parseMark(input), storage);
+                tasks.mark(Parser.parseMark(input), storage);
             } else if (input.startsWith("unmark")) {
-                tasks.unmark(this.parseUnmark(input), storage);
+                tasks.unmark(Parser.parseUnmark(input), storage);
             } else if (input.startsWith("delete")) {
-                tasks.delete(this.parseDelete(input), storage);
+                tasks.delete(Parser.parseDelete(input), storage);
             } else if (input.startsWith("todo")) {
-                tasks.updateTasks(this.parseToDo(input), storage);
+                tasks.updateTasks(Parser.parseToDo(input), storage);
             } else if (input.startsWith("deadline")) {
-                tasks.updateTasks(this.parseDeadline(input), storage);
+                tasks.updateTasks(Parser.parseDeadline(input), storage);
             } else if (input.startsWith("event")) {
-                tasks.updateTasks(this.parseEvent(input), storage);
+                tasks.updateTasks(Parser.parseEvent(input), storage);
             } else {
                 System.out.println("\tInvalid command");
             }
@@ -34,7 +34,7 @@ public class Parser {
         Ui.horizontalLine();
     }
 
-    public ToDo parseToDo(String input) throws WrongFormatException {
+    public static ToDo parseToDo(String input) throws WrongFormatException {
         if (Pattern.matches("todo\\s\\S.*", input)) {
             String description = input.split("\\s", 2)[1];
             return new ToDo(description);
@@ -45,7 +45,7 @@ public class Parser {
         }
     }
 
-    public Deadline parseDeadline(String input) throws WrongFormatException, DateTimeParseException {
+    public static Deadline parseDeadline(String input) throws WrongFormatException {
         if (Pattern.matches("deadline\\s\\S.*\\s/by\\s\\S.*", input)) {
             String[] arr = input.split("\\s/by\\s");
             String by = arr[1];
@@ -58,7 +58,7 @@ public class Parser {
         }
     }
 
-    public Event parseEvent(String input) throws WrongFormatException, DateTimeParseException {
+    public static Event parseEvent(String input) throws WrongFormatException {
         if (Pattern.matches("event\\s\\S.*\\s/from\\s\\S.*\\s/to\\s\\S.*", input)) {
             String[] splitTo = input.split("\\s/to\\s");
             String to = splitTo[1];
@@ -73,7 +73,7 @@ public class Parser {
         }
     }
 
-    public int parseDelete(String input) throws WrongFormatException {
+    public static int parseDelete(String input) throws WrongFormatException {
         if (Pattern.matches("delete\\s\\d+", input)) {
             return Integer.parseInt(input.split("\\s")[1]) - 1;
         } else {
@@ -83,7 +83,7 @@ public class Parser {
         }
     }
 
-    public int parseMark(String input) throws WrongFormatException {
+    public static int parseMark(String input) throws WrongFormatException {
         if (Pattern.matches("mark\\s\\d+", input)) {
             return Integer.parseInt(input.split("\\s")[1]) - 1;
         } else {
@@ -93,7 +93,7 @@ public class Parser {
         }
     }
 
-    public int parseUnmark(String input) throws WrongFormatException {
+    public static int parseUnmark(String input) throws WrongFormatException {
         if (Pattern.matches("unmark\\s\\d+", input)) {
             return Integer.parseInt(input.split("\\s")[1]) - 1;
         } else {

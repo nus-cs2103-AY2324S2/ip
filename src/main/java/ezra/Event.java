@@ -2,6 +2,7 @@ package ezra;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     protected LocalDateTime start;
@@ -9,7 +10,7 @@ public class Event extends Task {
     protected String startInput;
     protected String endInput;
 
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws DateTimeParseException {
         super(description);
         this.start = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
         this.end = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));

@@ -8,19 +8,17 @@ public class Ezra {
 
     private Ui ui;
     private Storage storage;
-    private Parser parser;
     private TaskList tasks;
 
 
     public Ezra(String filepath) {
-        ui = new Ui();
-        storage = new Storage(filepath);
-        parser = new Parser();
+        this.ui = new Ui();
+        this.storage = new Storage(filepath);
         try {
-            tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
             System.out.println("\tYou have no saved tasks");
-            tasks = new TaskList();
+            this.tasks = new TaskList();
         }
     }
 
@@ -29,7 +27,7 @@ public class Ezra {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            parser.read(input, storage, tasks);
+            Parser.read(input, storage, tasks);
             if (input.equals("bye")) {
                 break;
             }
