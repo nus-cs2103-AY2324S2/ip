@@ -45,61 +45,69 @@ Usage: unmark [task number]
 ──────────────────────────────
 ──────────────────────────────
 Please input a deadline!
-Usage: deadline [task description] /by [deadline]
+Usage: deadline [task description] /by [d/m/yyyy] {hh:mm 24hr format}
 ──────────────────────────────
 ──────────────────────────────
 Please input a deadline!
-Usage: deadline [task description] /by [deadline]
+Usage: deadline [task description] /by [d/m/yyyy] {hh:mm 24hr format}
+──────────────────────────────
+──────────────────────────────
+Unrecognized deadline format
+Usage: deadline [task description] /by [d/m/yyyy] {hh:mm 24hr format}
 ──────────────────────────────
 ──────────────────────────────
 Alright, added:
-	[D][ ] test deadline (by: now)
+	[D][ ] test deadline (by: 23 Jun 2022 23:33)
 You now have 2 tasks in your list.
 ──────────────────────────────
 ──────────────────────────────
 Event description cannot be empty!
-Usage: event [task description] /from [start] /to [end]
+Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} /to [d/m/yyyy] {hh:mm 24hr format}
 ──────────────────────────────
 ──────────────────────────────
 Please enter the start of your event!
-Usage: event [task description] /from [start] /to [end]
+Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} /to [d/m/yyyy] {hh:mm 24hr format}
 ──────────────────────────────
 ──────────────────────────────
 Please enter the end of your event!
-Usage: event [task description] /from [start] /to [end]
+Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} /to [d/m/yyyy] {hh:mm 24hr format}
+──────────────────────────────
+──────────────────────────────
+Unrecognized start/end format
+Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} /to [d/m/yyyy] {hh:mm 24hr format}
 ──────────────────────────────
 ──────────────────────────────
 Alright, added:
-	[E][ ] test event (from: now to: later)
+	[E][ ] test event (from: 12 Dec 1212 12:34 to: 2 Feb 2222 11:11)
 You now have 3 tasks in your list.
 ──────────────────────────────
 ──────────────────────────────
 Good job! I've marked this task as done: 
-	 [D][X] test deadline (by: now)
+	 [D][X] test deadline (by: 23 Jun 2022 23:33)
 ──────────────────────────────
 ──────────────────────────────
 Good job! I've marked this task as done: 
-	 [E][X] test event (from: now to: later)
+	 [E][X] test event (from: 12 Dec 1212 12:34 to: 2 Feb 2222 11:11)
 ──────────────────────────────
 ──────────────────────────────
 Here are the tasks in your list: 
 1.[T][ ] test todo
-2.[D][X] test deadline (by: now)
-3.[E][X] test event (from: now to: later)
+2.[D][X] test deadline (by: 23 Jun 2022 23:33)
+3.[E][X] test event (from: 12 Dec 1212 12:34 to: 2 Feb 2222 11:11)
 ──────────────────────────────
 ──────────────────────────────
 Alright, I've marked this task as not done yet: 
-	 [D][ ] test deadline (by: now)
+	 [D][ ] test deadline (by: 23 Jun 2022 23:33)
 ──────────────────────────────
 ──────────────────────────────
 Alright, I've marked this task as not done yet: 
-	 [E][ ] test event (from: now to: later)
+	 [E][ ] test event (from: 12 Dec 1212 12:34 to: 2 Feb 2222 11:11)
 ──────────────────────────────
 ──────────────────────────────
 Here are the tasks in your list: 
 1.[T][ ] test todo
-2.[D][ ] test deadline (by: now)
-3.[E][ ] test event (from: now to: later)
+2.[D][ ] test deadline (by: 23 Jun 2022 23:33)
+3.[E][ ] test event (from: 12 Dec 1212 12:34 to: 2 Feb 2222 11:11)
 ──────────────────────────────
 ──────────────────────────────
 Available commands:

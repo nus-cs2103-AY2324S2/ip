@@ -15,8 +15,6 @@ bin/
 
 # Files for testing
 text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED.TXT
-text-ui-test/input.txt
 
 # Local task storage
 data/
