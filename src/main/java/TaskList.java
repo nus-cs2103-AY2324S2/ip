@@ -1,6 +1,4 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,10 +9,6 @@ public class TaskList implements Iterable<Task> {
 
     public TaskList() {
         this.tasks = new ArrayList<>();
-    }
-
-    public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
     }
 
     public void addTask(Task task) {
@@ -84,6 +78,21 @@ public class TaskList implements Iterable<Task> {
             throw new ChatBotMarkedException("This task is already marked done!");
         }
         taskToBeMarked.markDone();
+        return taskToBeMarked;
+    }
+
+    public Task markTaskAsUndone(String parameters) throws ChatBotMarkedException, ChatBotParameterException {
+        int taskNumber = Parser.parseMark(parameters);
+        Task taskToBeMarked;
+        try {
+            taskToBeMarked = this.tasks.get(taskNumber - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ChatBotMarkedException("The task does not exists in the task list.");
+        }
+        if (!taskToBeMarked.isDone()) {
+            throw new ChatBotMarkedException("This task is already marked undone!");
+        }
+        taskToBeMarked.markUndone();
         return taskToBeMarked;
     }
 }

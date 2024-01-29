@@ -49,4 +49,8 @@ public class Ui {
     public void showMarkedTask(Task task) {
         System.out.println("marked: " + task.toString());
     }
+
+    public void showUnmarkedTask(Task task) {
+        System.out.println("unmarked: " + task.toString());
+    }
 }

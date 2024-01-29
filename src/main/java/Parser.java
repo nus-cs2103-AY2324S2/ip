@@ -30,6 +30,8 @@ public class Parser {
             return new ListCommand(keyword, parameters);
         case "mark":
             return new MarkCommand(keyword, parameters);
+        case "unmark":
+            return new UnmarkCommand(keyword, parameters);
         }
         return new AddCommand(keyword, parameters);
     }
