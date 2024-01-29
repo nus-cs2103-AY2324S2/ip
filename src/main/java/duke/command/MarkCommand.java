@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
+
 public class MarkCommand implements Command {
 
     private String input;

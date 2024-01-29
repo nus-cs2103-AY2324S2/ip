@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
+
 public class DeleteCommand implements Command {
     private String input;
 
@@ -14,7 +22,7 @@ public class DeleteCommand implements Command {
             ui.showDeleted(t, list);
             storage.writeToFile(list);
         } else {
-            throw new DukeException("Task (" + num + ") not found.\n" + list.print());
+            throw new DukeException("duke.task.Task (" + num + ") not found.\n" + list.print());
         }
     }
 
