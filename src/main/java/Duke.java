@@ -39,22 +39,50 @@ public class Duke {
                 exit();
                 break;
             case SET_MARK:
-                updateMarkStatus(true, tasks, input);
+                try {
+                    updateMarkStatus(true, tasks, input);
+
+                } catch (CommandException e) {
+                    printOutput(e.getMessage());
+                }
                 break;
             case SET_UNMARK:
-                updateMarkStatus(false, tasks, input);
+                try {
+                    updateMarkStatus(false, tasks, input);
+                } catch (CommandException e) {
+                    printOutput(e.getMessage());
+                }
                 break;
             case INSERT_TODO:
-                insertToDo(input, tasks);
+                try {
+                    insertToDo(input, tasks);
+
+                } catch (CommandException e) {
+                    printOutput(e.getMessage());
+                }
                 break;
             case INSERT_DEADLINE:
-                insertDeadline(input, tasks);
+                try {
+                    insertDeadline(input, tasks);
+
+                } catch (CommandException e) {
+                    printOutput(e.getMessage());
+                }
                 break;
             case INSERT_EVENT:
-                insertEvent(input, tasks);
+                try {
+                    insertEvent(input, tasks);
+
+                } catch (CommandException e) {
+                    printOutput(e.getMessage());
+                }
                 break;
             case DELETE_TASK:
-                deleteTask(tasks, input);
+                try {
+                    deleteTask(tasks, input);
+                } catch (CommandException e) {
+                    printOutput(e.getMessage());
+                }
                 break;
             default:
                 printOutput("I'm sorry, but I have zero idea what you're asking from me...");
@@ -88,30 +116,30 @@ public class Duke {
         System.exit(0);
     }
 
-    public static void updateMarkStatus(boolean isMark, ArrayList<Task> tasks, String[] input) {
+    public static void updateMarkStatus(boolean isMark, ArrayList<Task> tasks, String[] input)
+            throws CommandException {
 
         if (input.length < 2) {
-            printOutput("Please specify which task. (format: mark/unmark <task no.>)");
-            return;
+            throw new CommandException(
+                    "Please specify which task. (format: mark/unmark <task no.>)");
         }
 
         if (!isInteger(input[1])) {
-            printOutput("Task number not found! (format: mark/unmark <task no.>)");
-            return;
+            throw new CommandException("Task number not found! (format: mark/unmark <task no.>)");
         }
 
         int index = Integer.parseInt(input[1]) - 1;
 
         // check if index is within bounds
         if (index >= tasks.size()) {
-            printOutput("Task not found!");
-            return;
+            throw new CommandException("Task not found!");
         }
 
         if (isMark) {
             // check if there's no change in status
             if (tasks.get(index).getStatus()) {
-                printOutput("The task was already marked as done. I'm not changing anything.");
+                throw new CommandException(
+                        "The task was already marked as done. I'm not changing anything.");
             } else {
                 tasks.get(index).setStatus(true);
                 printOutput("Nice! I've marked this task as done:", tasks.get(index).toString());
@@ -119,7 +147,7 @@ public class Duke {
         } else {
             // check if there's no change in status
             if (!tasks.get(index).getStatus()) {
-                printOutput(
+                throw new CommandException(
                         "The task you're unmarking was not marked to begin with... I'm not changing anything.");
             } else {
                 tasks.get(index).setStatus(false);
@@ -129,35 +157,34 @@ public class Duke {
         }
     }
 
-    public static void insertToDo(String[] input, ArrayList<Task> tasks) {
+    public static void insertToDo(String[] input, ArrayList<Task> tasks) throws CommandException {
 
         if (input.length < 2) {
-            printOutput("Please add the task description. (format: todo <task description>)");
-            return;
+            throw new CommandException(
+                    "Please add the task description. (format: todo <task description>)");
         }
 
         ToDo todoTask = new ToDo(input[1]);
         tasks.add(todoTask);
         printOutput("Got it. I've added this task:", indentation + todoTask.toString(),
-                "Now you have " + tasks.size() + 1 + " tasks in the list.");
+                "Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void insertDeadline(String[] input, ArrayList<Task> tasks) {
+    public static void insertDeadline(String[] input, ArrayList<Task> tasks)
+            throws CommandException {
 
         String pattern = "([^/]+)\\s+/by\\s+([^/]+)";
         Pattern regex = Pattern.compile(pattern);
 
         if (input.length < 2) {
-            printOutput(
+            throw new CommandException(
                     "Please enter the deadline details! (format: deadline <your task> /by <date>)");
-            return;
         }
 
         Matcher matcher = regex.matcher(input[1]);
 
         if (!matcher.matches()) {
-            printOutput("Wrong format! (format: deadline <your task> /by <date>)");
-            return;
+            throw new CommandException("Wrong format! (format: deadline <your task> /by <date>)");
         }
 
         String[] deadlineDetails = input[1].split("/by");
@@ -167,7 +194,7 @@ public class Duke {
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void insertEvent(String[] input, ArrayList<Task> tasks) {
+    public static void insertEvent(String[] input, ArrayList<Task> tasks) throws CommandException {
 
         String pattern = "([^/]+)\\s+/from\\s+([^/]+)\\s+/to\\s+([^/]+)";
         Pattern regex = Pattern.compile(pattern);
@@ -175,16 +202,15 @@ public class Duke {
         // check if it doesnt follow the format of event <some string> /from <some
         // string> /to <some string>
         if (input.length < 2) {
-            printOutput(
+            throw new CommandException(
                     "Please enter the event details! (format: event <your task> /from <date> /to)");
-            return;
         }
 
         Matcher matcher = regex.matcher(input[1]);
 
         if (!matcher.matches()) {
-            printOutput("Wrong format! (format: event <your task> /from <date> /to)");
-            return;
+            throw new CommandException(
+                    "Wrong format! (format: event <your task> /from <date> /to)");
         }
 
         String[] eventDetails = input[1].split("/from|/to");
@@ -195,16 +221,15 @@ public class Duke {
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void deleteTask(ArrayList<Task> tasks, String[] input) {
+    public static void deleteTask(ArrayList<Task> tasks, String[] input) throws CommandException {
         if (input.length < 2) {
-            printOutput("Please specify which task to delete. (format: delete <task no.>)");
-            return;
+            throw new CommandException(
+                    "Please specify which task to delete. (format: delete <task no.>)");
         }
 
-        if (!isInteger(input[1])) {
-            printOutput("Task number not found! (format: delete <task no.>)");
-            return;
-        }
+        // if (!isInteger(input[1])) {
+        // throw new CommandException("Task number not found! (format: delete <task no.>)");
+        // }
 
         tasks.remove(Integer.parseInt(input[1]) - 1);
         printOutput("Noted. I've removed this task: ",
