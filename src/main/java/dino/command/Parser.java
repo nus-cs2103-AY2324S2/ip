@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -98,6 +99,20 @@ public class Parser {
                 System.out.println("Ah, I will mark it as undone. Remember to do it asap!");
                 Task missing = tasks.get(taskNumber - 1);
                 missing.markAsUndone();
+            }
+            break;
+
+        case "find":
+            String searchKeyword = sc.nextLine().trim();
+            ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(searchKeyword);
+
+            if (matchingTasks.isEmpty()) {
+                System.out.println("Aww, there are no tasks that contains that keyword.");
+            } else {
+                System.out.println("Matching tasks:");
+                for (Task task : matchingTasks) {
+                    System.out.println(task);
+                }
             }
             break;
 

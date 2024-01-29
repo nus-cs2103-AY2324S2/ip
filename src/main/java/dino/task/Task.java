@@ -41,6 +41,16 @@ public class Task {
     }
 
     /**
+     * Returns a boolean representation whether Task contains the keyword.
+     *
+     * @param keyword String value input.
+     * @return        True if description contains keyword, else False.
+     */
+    public boolean containsKeyword(String keyword) {
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
+    /**
      * Returns a string representation of the task.
      *
      * @return The description of the task.
