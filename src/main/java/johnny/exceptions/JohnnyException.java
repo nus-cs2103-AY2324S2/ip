@@ -1,3 +1,5 @@
+package johnny.exceptions;
+
 public class JohnnyException extends Exception {
 
     public JohnnyException(String errorMessage) {

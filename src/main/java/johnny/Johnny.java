@@ -1,3 +1,12 @@
+package johnny;
+
+import johnny.commands.Command;
+import johnny.exceptions.JohnnyException;
+import johnny.parser.Parser;
+import johnny.storage.Storage;
+import johnny.tasks.TaskList;
+import johnny.ui.Ui;
+
 public class Johnny {
 
     private Storage storage;
@@ -33,7 +42,7 @@ public class Johnny {
     }
 
     public static void main(String[] args) {
-        new Johnny("src/main/data/tasks.txt").run();
+        new Johnny("src/main/data/johnny.commands.tasks.txt").run();
     }
 
 }
