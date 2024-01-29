@@ -1,14 +1,16 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.FileNotFoundException;
+import java.io.Serializable;
 
-public class TheAdvisor {
+public class TheAdvisor implements Serializable {
     private static final String FILE_PATH = "list.bin";
 
     public static void main(String[] args) throws IOException, TheAdvisorException {
@@ -24,13 +26,11 @@ public class TheAdvisor {
             System.out.println("Class mismatch. Check and try again");
         }
 
-
         String intro = "Hello, I am The Advisor. The one and only advisor you will ever need in your investing " +
                 "journey. What can I do for you?";
         System.out.println(intro + "\n");
 
         while (true) {
-            boolean isUpdated = false;
             try {
                 String str = br.readLine();
                 String[] strings = str.split(" ");
@@ -39,7 +39,6 @@ public class TheAdvisor {
                     case BYE:
                         System.out.println("     Goodbye. Thank you for using TheAdvisor chatbox and I hope that my advice has managed" +
                                 " to help you in your investing journey!");
-
                         // Exit the program
                         System.exit(0);
                         break;
@@ -62,10 +61,10 @@ public class TheAdvisor {
                         int markNumber = Integer.parseInt(strings[1]);
                         checkIndex(markNumber, taskList.size());
                         Task mark = taskList.get(markNumber - 1);
+                        checkMarked(mark);
                         mark.markDone();
                         System.out.println("     Nice! I've marked this task as done:\n" + "       " +
                                 mark.toString());
-                        isUpdated = true;
                         saveTasks(taskList);
                         break;
                     case UNMARK:
@@ -75,10 +74,10 @@ public class TheAdvisor {
                         int unmarkNumber = Integer.parseInt(strings[1]);
                         checkIndex(unmarkNumber, taskList.size());
                         Task unmarked = taskList.get(unmarkNumber - 1);
+                        checkUnmarked(unmarked);
                         unmarked.unmark();
                         System.out.println("     OK, I've marked this task as not done yet:\n" + "       " +
                                 unmarked.toString());
-                        isUpdated = true;
                         saveTasks(taskList);
                         break;
                     case DELETE:
@@ -91,53 +90,66 @@ public class TheAdvisor {
                         taskList.remove(deleteNumber - 1);
                         System.out.println("     Noted. I've removed this task:\n" + "       " +
                                 deleted.toString() + "\n" + "     Now you have " + taskList.size() + " tasks in the list.");
-                        isUpdated = true;
                         saveTasks(taskList);
                         break;
                     case TODO:
                         String todo = str.substring(4);
-                        checkEmptyDescription(todo, "The description for todo cannot be empty. Please try again.");
+                        checkEmptyDescription(todo, "The description for todo cannot be empty. " +
+                                "The input should be <todo> + description");
                         ToDos toDos = new ToDos(todo);
                         taskList.add(toDos);
                         System.out.println("     Got it. I've added this task:\n" +
                                 "       " + toDos.toString() + "\n" +
                                 "     Now you have " + taskList.size() +
                                 " tasks in the list.");
-                        isUpdated = true;
                         saveTasks(taskList);
                         break;
                     case DEADLINE:
                         String due = str.substring(8);
-                        checkEmptyDescription(due, "The description for deadline cannot be empty. Please try again.");
+                        checkEmptyDescription(due, "The description for deadline cannot be empty. " +
+                                "The input should be <deadline> + description");
                         String[] arrTask = due.split(" /by ");
-                        checkArrayLength(arrTask, 2, "Invalid deadline format" +
-                                "Please use the correct format: deadline + description + /by + date/day");
-                        Deadline deadline = new Deadline(arrTask[0], arrTask[1]);
-                        taskList.add(deadline);
-                        System.out.println("     Got it. I've added this task:\n" +
-                                "       " + deadline.toString() + "\n" +
-                                "     Now you have " + taskList.size() +
-                                " tasks in the list.");
-                        isUpdated = true;
-                        saveTasks(taskList);
+                        checkArrayLength(arrTask, 2, "Invalid deadline format " +
+                                "Please use the correct format: deadline + description + /by + <YYYY-MM-DD HHmm>");
+                        try {
+                            Deadline deadline = new Deadline(arrTask[0], LocalDateTime.parse(arrTask[1], Task.inputFormat));
+                            taskList.add(deadline);
+                            System.out.println("     Got it. I've added this task:\n" +
+                                    "       " + deadline.toString() + "\n" +
+                                    "     Now you have " + taskList.size() +
+                                    " tasks in the list.");
+                            saveTasks(taskList);
+                        } catch (DateTimeException e) {
+                            throw new TheAdvisorException("Incorrect format of your timestamp! " +
+                                    "Please input YYYY-MM-DD HHmm");
+                        }
                         break;
                     case EVENT:
                         String event = str.substring(5);
-                        checkEmptyDescription(event, "The description for event cannot be empty. Please try again.");
+                        checkEmptyDescription(event, "The description for event cannot be empty. The " +
+                                "input should be <event> + description + /from <YYYY-MM-DD HHmm> + /to <YYYY-MM-DD HHmm>");
                         String[] eventArr = event.split(" /from ");
-                        checkArrayLength(eventArr, 2, "Invalid event format" +
-                                "Please use the correct format: event + description + /from + date/day + /to +date/time");
+                        checkArrayLength(eventArr, 2, "Invalid event format. " +
+                                "The input should be <event> + description + /from <YYYY-MM-DD HHmm> + /to <YYYY-MM-DD HHmm>");
                         String[] timings = eventArr[1].split(" /to");
-                        checkArrayLength(eventArr, 2, "Invalid event format" +
-                                "Please use the correct format: event + description + /from + date/day + /to +date/time");
-                        Events events = new Events(eventArr[0], timings[0], timings[1]);
-                        taskList.add(events);
-                        System.out.println("     Got it. I've added this task:\n" +
-                                "       " + events.toString() + "\n" +
-                                "     Now you have " + taskList.size() +
-                                " tasks in the list.");
-                        isUpdated = true;
-                        saveTasks(taskList);
+                        checkArrayLength(timings, 2, "Invalid event format" +
+                                "The input should be <event> + description + /from <YYYY-MM-DD HHmm> + /to <YYYY-MM-DD HHmm>");
+                        String startStr = timings[0].trim();
+                        String endStr = timings[1].trim();
+                        try {
+                            LocalDateTime start = LocalDateTime.parse(startStr, Task.inputFormat);
+                            LocalDateTime end = LocalDateTime.parse(endStr, Task.inputFormat);
+                            Events events = new Events(eventArr[0], start, end);
+                            taskList.add(events);
+                            System.out.println("     Got it. I've added this task:\n" +
+                                    "       " + events.toString() + "\n" +
+                                    "     Now you have " + taskList.size() +
+                                    " tasks in the list.");
+                            saveTasks(taskList);
+                        } catch (DateTimeException e) {
+                            throw new TheAdvisorException("Incorrect format of your timestamp! " +
+                                    "Please input YYYY-MM-DD HHmm");
+                        }
                         break;
                     default:
                         throw new TheAdvisorException("Incorrect input, please try again with the correct input of either: "
@@ -152,10 +164,12 @@ public class TheAdvisor {
     private static ArrayList<Task> loadList() throws IOException, ClassNotFoundException {
         FileInputStream fileIn = new FileInputStream(FILE_PATH);
         ObjectInputStream out = new ObjectInputStream(fileIn);
-            @SuppressWarnings("unchecked")
-            ArrayList<Task> task = (ArrayList<Task>) out.readObject();
-            return task;
-        }
+        @SuppressWarnings("unchecked")
+        ArrayList<Task> task = (ArrayList<Task>) out.readObject();
+        out.close();
+        fileIn.close();
+        return task;
+    }
 
     private static void saveTasks(ArrayList<Task> taskList) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
@@ -166,11 +180,26 @@ public class TheAdvisor {
         }
     }
 
+
     private static void checkIndex(int index, int size) throws TheAdvisorException {
         if (index <= 0) {
             throw new TheAdvisorException("We use 1-indexing for marking. Please try again.");
         } else if (index > size) {
             throw new TheAdvisorException("Out of bounds. We use 1-indexing for marking. Please try again.");
+        } else if (size == 0) {
+            throw new TheAdvisorException("The list is empty! Start adding in things :)");
+        }
+    }
+
+    private static void checkMarked(Task task) throws TheAdvisorException {
+        if (task.isDone) {
+            throw new TheAdvisorException("The task is already marked! Carry on.");
+        }
+    }
+
+    private static void checkUnmarked(Task task) throws TheAdvisorException {
+        if (!task.isDone) {
+            throw new TheAdvisorException("The task is already unmarked! Carry on.");
         }
     }
 
@@ -184,6 +213,10 @@ public class TheAdvisor {
         if (array.length != expectedLength) {
             throw new TheAdvisorException(errorMessage);
         }
+    }
+
+    private static void checkDateTimeInput(String errorMessage) throws TheAdvisorException {
+        throw new TheAdvisorException(errorMessage);
     }
 
     private static Prompts getPrompts(String prompt) throws TheAdvisorException {

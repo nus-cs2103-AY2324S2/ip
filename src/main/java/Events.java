@@ -1,11 +1,15 @@
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Events extends Task implements Serializable {
 
-    protected String start;
-    protected String end;
+//    protected String start;
+//    protected String end;
 
-    public Events(String description, String start, String end) {
+    private final LocalDateTime start;
+    private final LocalDateTime end;
+
+    public Events(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -23,6 +27,7 @@ public class Events extends Task implements Serializable {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to:" + end + ")";
+        return "[E]" + super.toString() + " (from: " + start.format(Task.outputFormat) + "hrs to: " +
+                end.format(Task.outputFormat) + "hrs)";
     }
 }
