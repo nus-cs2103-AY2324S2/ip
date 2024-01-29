@@ -18,22 +18,6 @@ public class Event extends Task{
         this.to = to;
     }
 
-    public static Event EventFactory(String description) throws InvalidInputException {
-        try {
-            String regex = "event\\s+(.+?)\\s*/from\\s+(.+?)\\s*/to\\s+(.+)";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(description);
-            if (matcher.find()) {
-                String eventName = matcher.group(1);
-                return new Event(eventName, parseDateTime(matcher.group(2)), parseDateTime(matcher.group(3)));
-            } else {
-                throw new InvalidInputException("Invalid input for event. Input your event as such:\nevent <name_of_event> /from <start_time> /to <end_time>");
-            }
-        } catch (Exception e){
-            throw new InvalidInputException("Invalid input for event. Input your event as such:\nevent <name_of_event> /from <start_time> /to <end_time>");
-        }
-    }
-
     public String toString() {
         return "[E]" + super.toString() + " (from: " + formatDateTime(this.from) + " to: " + formatDateTime(this.to) + ")";
     }
