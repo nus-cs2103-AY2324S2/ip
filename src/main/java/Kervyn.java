@@ -190,8 +190,10 @@ public class Kervyn {
 
             String[] deadlineTimeArray = userInput.split("/by");
             // No longer a String
-            LocalDate deadline = LocalDate.parse(deadlineTimeArray[1].trim());
-            deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            String convertedDeadline = convertDate(deadlineTimeArray[1].trim());
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime deadline = LocalDateTime.parse(convertedDeadline,  formatter);
 
             StringBuilder deadlineDescription = new StringBuilder();
 

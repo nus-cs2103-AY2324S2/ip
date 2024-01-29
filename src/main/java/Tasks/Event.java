@@ -15,12 +15,12 @@ public class Event extends Task {
     }
 
     public String getStartDate() {
-        String formattedStartDate = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy, ha"));
+        String formattedStartDate = this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy, ha"));
         return formattedStartDate;
     }
 
     public String getEndDate() {
-        String formattedEndDate = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy, ha"));
+        String formattedEndDate = this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy, ha"));
         return formattedEndDate;
     }
 }

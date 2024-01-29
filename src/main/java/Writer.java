@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Writer {
@@ -70,8 +69,7 @@ public class Writer {
 
                         String temp = finalSplitContent[1];
                         String deadlineStr = temp.substring(0, temp.length() - 1).trim();
-                        LocalDate deadline = LocalDate.parse(deadlineStr);
-                        deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                        LocalDateTime deadline = LocalDateTime.parse(deadlineStr);
 
                         description = furtherSplitContent[0].trim();
                         Deadline newDeadline = new Deadline(description, false, deadline);
