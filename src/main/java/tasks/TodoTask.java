@@ -1,7 +1,5 @@
 package tasks;
 
-import tasks.Task;
-
 public class TodoTask extends Task {
 
     /**

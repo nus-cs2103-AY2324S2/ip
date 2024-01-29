@@ -39,7 +39,6 @@ public class Task {
         return " [" + setIsDone() + "] "+ this.name ;
     }
 
-
     public String getType() {
         return "general";
     }

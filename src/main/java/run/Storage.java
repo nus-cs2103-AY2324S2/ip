@@ -1,11 +1,18 @@
 package run;
 
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import tasks.*;
+
+
+import tasks.Task;
+import tasks.EventTask;
+import tasks.DeadlineTask;
+import tasks.TodoTask;
+
+
 import others.BelleException;
 
 public class Storage {
@@ -51,7 +58,6 @@ public class Storage {
             }
             return currList;
         }
-
     }
 
     /**
@@ -87,6 +93,5 @@ public class Storage {
             fw.write(currItem);
         }
         fw.close();
-
     }
 }

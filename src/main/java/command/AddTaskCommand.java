@@ -1,12 +1,17 @@
 package command;
 
+import java.io.IOException;
 
-import tasks.*;
+import tasks.Task;
+import tasks.EventTask;
+import tasks.DeadlineTask;
+import tasks.TodoTask;
+
 import run.Storage;
 import run.TaskList;
 import run.Ui;
+
 import others.BelleException;
-import java.io.IOException;
 
 public class AddTaskCommand extends Command {
     private String type;
@@ -16,7 +21,6 @@ public class AddTaskCommand extends Command {
         this.type = type;
         this.msg = msg;
     }
-
 
     @Override
     public void execute(Storage s, TaskList t, Ui u) throws BelleException {
@@ -65,7 +69,6 @@ public class AddTaskCommand extends Command {
         }
 
     }
-
 
     @Override
     public boolean isExit() {
