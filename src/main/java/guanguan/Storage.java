@@ -1,4 +1,4 @@
-package duke;
+package guanguan;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -27,9 +27,9 @@ public class Storage {
      * Reads data from text file.
      *
      * @return list of tasks
-     * @throws DukeException if unable to understand file content
+     * @throws GGException if unable to understand file content
      */
-    public ArrayList<Task> readData() throws DukeException {
+    public ArrayList<Task> readData() throws GGException {
         try {
             File file = new File(filepath);
 
@@ -61,7 +61,7 @@ public class Storage {
                 }
 
                 if (task == null) {
-                    throw new DukeException("Task Type not found!");
+                    throw new GGException("Task Type not found!");
                 }
 
                 task.isDone = isDone;
@@ -70,7 +70,7 @@ public class Storage {
             reader.close();
 
         } catch (IOException e) {
-            throw new DukeException("Task Type not found!");
+            throw new GGException("Task Type not found!");
         }
         return items;
     }
@@ -79,9 +79,9 @@ public class Storage {
      * Saves data to text file.
      *
      * @param items list of tasks
-     * @throws DukeException if unable to save tasks/write file
+     * @throws GGException if unable to save tasks/write file
      */
-    public void saveData(TaskList items) throws DukeException {
+    public void saveData(TaskList items) throws GGException {
         try {
             StringBuilder builder = new StringBuilder();
 
@@ -93,7 +93,7 @@ public class Storage {
             fileWriter.write(builder.toString());
             fileWriter.close();
         } catch (IOException e) {
-            throw new DukeException("Unable to store tasks!");
+            throw new GGException("Unable to store tasks!");
         }
     }
 }

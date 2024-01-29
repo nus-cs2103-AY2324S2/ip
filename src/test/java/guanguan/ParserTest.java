@@ -1,4 +1,4 @@
-package duke;
+package guanguan;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
     @Test
-    public void byeCommandTest() throws DukeException {
+    public void byeCommandTest() throws GGException {
         assertFalse(Parser.parse("bye", new TaskList(), new Ui()));
     }
 
     @Test
-    public void markCommandTest() throws DukeException {
+    public void markCommandTest() throws GGException {
         TaskList taskList = new TaskList(new ArrayList<>(List.of(new Todo("todo"),
                 new Deadline("deadline", LocalDate.parse("2024-01-01")))));
         Parser.parse("mark 2", taskList, new Ui());
@@ -25,7 +25,7 @@ public class ParserTest {
     }
 
     @Test
-    public void unmarkCommandTest() throws DukeException {
+    public void unmarkCommandTest() throws GGException {
         TaskList taskList = new TaskList(new ArrayList<>(List.of(new Todo("todo"),
                 new Deadline("deadline", LocalDate.parse("2024-01-01")))));
         Parser.parse("mark 2", taskList, new Ui());
@@ -35,7 +35,7 @@ public class ParserTest {
     }
 
     @Test
-    public void todoCommandTest_success() throws DukeException {
+    public void todoCommandTest_success() throws GGException {
         TaskList taskList = new TaskList();
         Parser.parse("todo CS2103T tutorial!", taskList, new Ui());
         assertEquals("[T][ ] CS2103T tutorial!", taskList.get(0).toString());
@@ -46,13 +46,13 @@ public class ParserTest {
         try {
             Parser.parse("todo", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("OOPS!!! The description of a todo cannot be empty.", e.getMessage());
         }
     }
 
     @Test
-    public void deadlineCommandTest_success() throws DukeException {
+    public void deadlineCommandTest_success() throws GGException {
         TaskList taskList = new TaskList();
         Parser.parse("deadline CS2103T tutorial! /by 2024-05-12", taskList, new Ui());
         assertEquals("[D][ ] CS2103T tutorial! (by: May 12 2024)", taskList.get(0).toString());
@@ -63,7 +63,7 @@ public class ParserTest {
         try {
             Parser.parse("deadline", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("OOPS!!! The description of a deadline cannot be empty.", e.getMessage());
         }
     }
@@ -73,7 +73,7 @@ public class ParserTest {
         try {
             Parser.parse("deadline CS2103T tutorial!", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("Use /by to specify deadline.", e.getMessage());
         }
     }
@@ -83,13 +83,13 @@ public class ParserTest {
         try {
             Parser.parse("deadline CS2103T tutorial! /by tonight", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("Invalid datetime format!", e.getMessage());
         }
     }
 
     @Test
-    public void eventCommandTest_success() throws DukeException {
+    public void eventCommandTest_success() throws GGException {
         TaskList taskList = new TaskList();
         Parser.parse("event CS2103T tutorial! /from 2024-05-12 /to 2024-06-12", taskList, new Ui());
         assertEquals("[E][ ] CS2103T tutorial! (from: May 12 2024 to: Jun 12 2024)", taskList.get(0).toString());
@@ -100,7 +100,7 @@ public class ParserTest {
         try {
             Parser.parse("event", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("OOPS!!! The description of a event cannot be empty.", e.getMessage());
         }
     }
@@ -110,7 +110,7 @@ public class ParserTest {
         try {
             Parser.parse("event CS2103T tutorial!", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("Invalid event date. Use /from and /to", e.getMessage());
         }
     }
@@ -120,13 +120,13 @@ public class ParserTest {
         try {
             Parser.parse("deadline CS2103T tutorial! /by tonight", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("Invalid datetime format!", e.getMessage());
         }
     }
 
     @Test
-    public void deleteCommandTest_success() throws DukeException {
+    public void deleteCommandTest_success() throws GGException {
         TaskList taskList = new TaskList(new ArrayList<>(List.of(new Todo("todo"),
                 new Deadline("deadline", LocalDate.parse("2024-01-01")))));
         Parser.parse("delete 2", taskList, new Ui());
@@ -138,7 +138,7 @@ public class ParserTest {
         try {
             Parser.parse("delete", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("OOPS!!! Task ID cannot be empty.", e.getMessage());
         }
     }
@@ -148,13 +148,13 @@ public class ParserTest {
         try {
             Parser.parse("delete 1", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("Invalid task ID", e.getMessage());
         }
     }
 
     @Test
-    public void findCommandTest_validKeyword_success() throws DukeException {
+    public void findCommandTest_validKeyword_success() throws GGException {
         TaskList taskList = new TaskList(new ArrayList<>(List.of(new Todo("todo"),
                 new Deadline("deadline", LocalDate.parse("2024-01-01")))));
         Parser.parse("find todo", taskList, new Ui());
@@ -162,7 +162,7 @@ public class ParserTest {
     }
 
     @Test
-    public void findCommandTest_invalidKeyword_success() throws DukeException {
+    public void findCommandTest_invalidKeyword_success() throws GGException {
         TaskList taskList = new TaskList(new ArrayList<>(List.of(new Todo("todo"),
                 new Deadline("deadline", LocalDate.parse("2024-01-01")))));
         Parser.parse("find 1111", taskList, new Ui());
@@ -174,7 +174,7 @@ public class ParserTest {
         try {
             Parser.parse("find", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("OOPS!!! Keyword cannot be empty.", e.getMessage());
         }
     }
@@ -184,7 +184,7 @@ public class ParserTest {
         try {
             Parser.parse("random testttt", new TaskList(), new Ui());
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
     }

@@ -1,4 +1,4 @@
-package duke;
+package guanguan;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,16 +12,16 @@ public class Utils {
      *
      * @param datetime string to be converted
      * @return LocalDate object
-     * @throws DukeException if datetime is in the incorrect format
+     * @throws GGException if datetime is in the incorrect format
      */
-    public static LocalDate convertStringToDateTime(String datetime) throws DukeException {
+    public static LocalDate convertStringToDateTime(String datetime) throws GGException {
         int lenDatetime = datetime.length();
         LocalDate localDate;
         // date format: 2019-12-01
         if (lenDatetime == 10) {
             localDate = LocalDate.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } else {
-            throw new DukeException("Invalid datetime format!");
+            throw new GGException("Invalid datetime format!");
         }
         return localDate;
     }

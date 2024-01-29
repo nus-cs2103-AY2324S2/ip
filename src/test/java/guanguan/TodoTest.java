@@ -1,4 +1,4 @@
-package duke;
+package guanguan;
 
 import org.junit.jupiter.api.Test;
 

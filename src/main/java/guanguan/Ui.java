@@ -1,4 +1,4 @@
-package duke;
+package guanguan;
 
 /**
  * Represents an Ui class that is responsible for the outputs on the terminal.
@@ -57,9 +57,9 @@ public class Ui {
      * Prints list of tasks message
      *
      * @param items list of tasks
-     * @throws DukeException if index out of bound
+     * @throws GGException if index out of bound
      */
-    public void tasks(TaskList items) throws DukeException {
+    public void tasks(TaskList items) throws GGException {
         if (items.isEmpty()) {
             System.out.println("You have no tasking available.");
         } else {

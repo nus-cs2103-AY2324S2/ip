@@ -1,4 +1,4 @@
-package duke;
+package guanguan;
 
 import java.util.ArrayList;
 
@@ -38,13 +38,13 @@ public class TaskList {
      *
      * @param index index of the task in the TaskList
      * @return task at the specified index
-     * @throws DukeException if index is out of bounds
+     * @throws GGException if index is out of bounds
      */
-    public Task get(int index) throws DukeException {
+    public Task get(int index) throws GGException {
         try {
             return this.tasks.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Invalid task ID");
+            throw new GGException("Invalid task ID");
         }
     }
 
@@ -63,13 +63,13 @@ public class TaskList {
      *
      * @param index index of the task in the TaskList
      * @return task at the specified index
-     * @throws DukeException if index is out of bounds
+     * @throws GGException if index is out of bounds
      */
-    public Task remove(int index) throws DukeException {
+    public Task remove(int index) throws GGException {
         try {
             return this.tasks.remove(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Invalid task ID");
+            throw new GGException("Invalid task ID");
         }
     }
 

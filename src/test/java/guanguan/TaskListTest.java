@@ -1,4 +1,4 @@
-package duke;
+package guanguan;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
     @Test
-    public void getTaskTest_success() throws DukeException {
+    public void getTaskTest_success() throws GGException {
         TaskList taskList = new TaskList(new ArrayList<>());
         Task task = new Todo("Complete CS2103T");
         taskList.add(task);
@@ -26,13 +26,13 @@ public class TaskListTest {
             taskList.add(task);
             assertEquals(task, taskList.get(2));
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("Invalid task ID", e.getMessage());
         }
     }
 
     @Test
-    public void getAllTaskTest() throws DukeException {
+    public void getAllTaskTest() throws GGException {
         TaskList taskList = new TaskList(new ArrayList<>());
 
         Task task = new Todo("Complete CS2103T");
@@ -47,7 +47,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void addTaskTest() throws DukeException {
+    public void addTaskTest() throws GGException {
         TaskList taskList = new TaskList(new ArrayList<>());
         Task task = new Todo("Complete CS2103T");
         taskList.add(task);
@@ -57,7 +57,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void deleteTaskTest_success() throws DukeException {
+    public void deleteTaskTest_success() throws GGException {
         TaskList taskList = new TaskList(new ArrayList<>());
 
         Task task = new Todo("Complete CS2103T");
@@ -85,7 +85,7 @@ public class TaskListTest {
 
             taskList.remove(5);
             fail();
-        } catch (DukeException e) {
+        } catch (GGException e) {
             assertEquals("Invalid task ID", e.getMessage());
         }
     }

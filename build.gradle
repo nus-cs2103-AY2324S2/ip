@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("guanguan.GuanGuan")
 }
 
 shadowJar {

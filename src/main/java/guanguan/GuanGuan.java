@@ -1,22 +1,22 @@
-package duke;
+package guanguan;
 
 import java.util.Scanner;
 
 /**
  * Main class of chatbot.
  */
-public class Duke {
+public class GuanGuan {
     private final Storage storage;
     private final TaskList items;
     private final Ui ui;
 
     /**
-     * Constructor for Duke.
+     * Constructor for GuanGuan.
      *
      * @param filePath path of text file to store data
-     * @throws DukeException if file path is invalid
+     * @throws GGException if file path is invalid
      */
-    public Duke(String filePath) throws DukeException {
+    public GuanGuan(String filePath) throws GGException {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.items = new TaskList(storage.readData());
@@ -36,14 +36,14 @@ public class Duke {
             try {
                 isValid = Parser.parse(command, items, ui);
                 storage.saveData(items);
-            } catch (DukeException e) {
+            } catch (GGException e) {
                 ui.error(e.getMessage());
             }
             ui.emptyLine();
         }
     }
 
-    public static void main(String[] args) throws DukeException {
-        new Duke("data/test.txt").run();
+    public static void main(String[] args) throws GGException {
+        new GuanGuan("data/test.txt").run();
     }
 }

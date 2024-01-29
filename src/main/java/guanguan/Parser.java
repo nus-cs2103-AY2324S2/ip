@@ -1,4 +1,4 @@
-package duke;
+package guanguan;
 
 /**
  * Responsible for parsing user input
@@ -11,9 +11,9 @@ public class Parser {
      * @param items TaskList class
      * @param ui Ui class
      * @return false if user ends the program, else false
-     * @throws DukeException if user input is invalid
+     * @throws GGException if user input is invalid
      */
-    public static boolean parse(String command, TaskList items, Ui ui) throws DukeException {
+    public static boolean parse(String command, TaskList items, Ui ui) throws GGException {
         if (command.equals("bye")) {
             ui.bye();
             return false;
@@ -27,7 +27,7 @@ public class Parser {
                 ui.markTask();
                 ui.println(items.get(index).toString());
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid task ID to mark");
+                throw new GGException("Invalid task ID to mark");
             }
 
         } else if (command.startsWith("unmark")) {
@@ -38,13 +38,13 @@ public class Parser {
                 ui.unmarkTask();
                 ui.println(items.get(index).toString());
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid task ID to unmark");
+                throw new GGException("Invalid task ID to unmark");
             }
         }
 
         else if (command.startsWith("todo")) {
             if (command.length() <= 5) {
-                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+                throw new GGException("OOPS!!! The description of a todo cannot be empty.");
             }
 
             ui.addTask();
@@ -58,7 +58,7 @@ public class Parser {
 
         } else if (command.startsWith("deadline")) {
             if (command.length() <= 9) {
-                throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
+                throw new GGException("OOPS!!! The description of a deadline cannot be empty.");
             }
 
             try{
@@ -73,12 +73,12 @@ public class Parser {
                 ui.println(deadline.toString());
                 ui.countTasks(items.size());;
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Use /by to specify deadline.");
+                throw new GGException("Use /by to specify deadline.");
             }
 
         } else if (command.startsWith("event")) {
             if (command.length() <= 6) {
-                throw new DukeException("OOPS!!! The description of a event cannot be empty.");
+                throw new GGException("OOPS!!! The description of a event cannot be empty.");
             }
 
             try {
@@ -96,12 +96,12 @@ public class Parser {
                 ui.println(event.toString());
                 ui.countTasks(items.size());;
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid event date. Use /from and /to");
+                throw new GGException("Invalid event date. Use /from and /to");
             }
 
         } else if (command.startsWith("delete")) {
             if (command.length() <= 7) {
-                throw new DukeException("OOPS!!! Task ID cannot be empty.");
+                throw new GGException("OOPS!!! Task ID cannot be empty.");
             }
 
             try {
@@ -112,11 +112,11 @@ public class Parser {
                 ui.println(task.toString());
                 ui.countTasks(items.size());;
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid task ID to delete");
+                throw new GGException("Invalid task ID to delete");
             }
         } else if (command.startsWith("find")) {
             if (command.length() <= 5) {
-                throw new DukeException("OOPS!!! Keyword cannot be empty.");
+                throw new GGException("OOPS!!! Keyword cannot be empty.");
             }
 
             String keyword = command.split(" ")[1];
@@ -124,7 +124,7 @@ public class Parser {
             TaskList filteredItems = items.find(keyword);
             ui.tasks(filteredItems);
         } else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new GGException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return true;
     }
