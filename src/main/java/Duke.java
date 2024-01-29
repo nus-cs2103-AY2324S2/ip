@@ -7,18 +7,19 @@ import java.util.Scanner;
 public class    Duke {
 
     private static final String FILE_PATH = "./data/Duke.txt";
+    private static final String INTRO = "____________________________________________________________\n"
+            + "        Hello! I'm sibehupzcoder9000\n"
+            + "        What you want sia\n"
+            + "____________________________________________________________\n";
+    private static final String OUTRO = "____________________________________________________________\n"
+            + "        wow so ur gg to leave me...\n"
+            + "____________________________________________________________\n";
     private static ArrayList<Task> list = new ArrayList<>();
-    public static void main(String[] args) throws IOException {
-        String intro = "____________________________________________________________\n"
-                + "        Hello! I'm sibehupzcoder9000\n"
-                + "        What you want sia\n"
-                + "____________________________________________________________\n";
-        String outro = "____________________________________________________________\n"
-                + "        wow so ur gg to leave me...\n"
-                + "____________________________________________________________\n";
 
+
+    public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.println(intro);
+        System.out.println(INTRO);
 
         //load file
         Duke.loadFileContents();
@@ -95,7 +96,7 @@ public class    Duke {
             }
 
             Duke.writeToFile();
-            System.out.print(outro);
+            System.out.print(OUTRO);
             sc.close();
         }
 
@@ -111,59 +112,56 @@ public class    Duke {
 
         public static void loadFileContents() {
             File f = new File(FILE_PATH);
-
             try {
                 if (!f.exists()) {
                     f.getParentFile().mkdirs();
                     f.createNewFile();
-                } else {
-                    Scanner s = new Scanner(f);
-                    while (s.hasNextLine()) {
-                        String string = s.nextLine();
-                        String[] inputParts = string.split("\\s+");
-        
-                        if (inputParts[0].equals("[T]")) {
-                            //handle "todoo"
-                            String status = inputParts[1];
-                            String description = inputParts[2];
-                            Task task = new ToDo(description);
-                            if (status.equals("[X]")) {
-                                task.toggle();
-                            }
-                            list.add(task);
-                        } else if (inputParts[0].equals("[D]")) {
-                            //handle "deadline"
-                            String status = inputParts[1];
-                            String[] parts = string.replace("[D] [ ] ", "").replace("[D] [X] ", "").
-                            split(" (by: ");
-                            String description = parts[0];
-                            String by = parts[1].replace(")", "");
-                            Task task = new Deadline(description, by);
-                            if (status.equals("[X]")) {
-                                task.toggle();
-                            }
-                            list.add(task);
-                        } else if (inputParts[0].equals("[E]")) {
-                            //handle event
-                            String status = inputParts[1];
-                            String[] parts = string.replace("[E] [ ] ", "").replace("[E] [X] ", "").
-                            split(" from: ");
-                            String description = parts[0];
-                            String from = parts[1].split(" to: ")[0];
-                            String to = parts[1].split(" to: ")[1];
-                        
-                            Task task = new Event(description, from, to);
-                            if (status.equals("[X]")) {
-                                task.toggle();
-                            }
-                            list.add(task);
-                        }
-                    }
-                s.close();
                 }
+                Scanner s = new Scanner(f);
+                while (s.hasNextLine()) {
+                    String string = s.nextLine();
+                    String[] inputParts = string.split("\\s+");
+
+                    if (inputParts[0].equals("[T]")) {
+                        //handle "todoo"
+                        String status = inputParts[1];
+                        String description = inputParts[2];
+                        Task task = new ToDo(description);
+                        if (status.equals("[X]")) {
+                            task.toggle();
+                        }
+                        list.add(task);
+                    } else if (inputParts[0].equals("[D]")) {
+                        //handle "deadline"
+                        String status = inputParts[1];
+                        String[] parts = string.replace("[D] [ ] ", "").replace("[D] [X] ", "").
+                                split(" \\(by: ");
+                        String description = parts[0];
+                        String by = parts[1].replace(")", "");
+                        Task task = new Deadline(description, by);
+                        if (status.equals("[X]")) {
+                            task.toggle();
+                        }
+                        list.add(task);
+                    } else if (inputParts[0].equals("[E]")) {
+                        //handle event
+                        String status = inputParts[1];
+                        String[] parts = string.replace("[E] [ ] ", "").replace("[E] [X] ", "").
+                                split(" from: ");
+                        String description = parts[0];
+                        String from = parts[1].split(" to: ")[0];
+                        String to = parts[1].split(" to: ")[1];
+
+                        Task task = new Event(description, from, to);
+                        if (status.equals("[X]")) {
+                            task.toggle();
+                        }
+                        list.add(task);
+                    }
+                }
+                s.close();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
-
             }
         }
 
