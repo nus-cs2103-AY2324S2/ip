@@ -1,7 +1,5 @@
-import javax.lang.model.type.DeclaredType;
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class Duke {
     static ArrayList<Task> tasks = new ArrayList<>();
@@ -24,7 +22,7 @@ public class Duke {
             if (input.equals("list")) {
                 for (int i = 0; i < tasks.size(); i++) {
                     Task curr = tasks.get(i);
-                    System.out.println("\t" + (i + 1) + ". " + curr.printTask());
+                    System.out.println("\t" + (i + 1) + ". " + curr.toString());
                 }
             } else if (input.startsWith("mark")) {
                 int idx = Integer.parseInt(input.split(" ")[1]);
@@ -33,7 +31,7 @@ public class Duke {
                 }
                 tasks.get(idx - 1).completed = true;
                 System.out.println("Aight marked this task as done:\n\t"
-                        + tasks.get(idx - 1).printTask());
+                        + tasks.get(idx - 1).toString());
             } else if (input.startsWith("unmark")) {
                 int idx = Integer.parseInt(input.split(" ")[1]);
                 if (idx > tasks.size() || idx < 0) {
@@ -41,7 +39,7 @@ public class Duke {
                 }
                 tasks.get(idx - 1).completed = false;
                 System.out.println("Sian marked this task as undone:\n\t"
-                        + tasks.get(idx - 1).printTask());
+                        + tasks.get(idx - 1).toString());
             } else if (input.startsWith("todo")) {
                 createTodo(input);
             } else if (input.startsWith("deadline")) {
@@ -51,7 +49,6 @@ public class Duke {
             } else if (input.startsWith("delete")) {
                 deleteTask(input);
             } else {
-//                System.out.println("\t" + input);
                 throw new DylanBotException("Hello INVALID INPUT pls make it make sense");
             }
             System.out.println("Wow! Now you have " + tasks.size() + " tasks in your list");
@@ -64,9 +61,9 @@ public class Duke {
         if (desc.isEmpty()) {
             throw new DylanBotException("HEY todo description cannot be empty!");
         }
-        Task curr = new Task("T", desc);
+        Task curr = new TodoTask("T", desc);
         tasks.add(curr);
-        System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
+        System.out.println("Roger doger, added this task: \n\t" + curr.toString());
     }
 
     public static void createDeadline(String input) throws DylanBotException {
@@ -79,10 +76,9 @@ public class Duke {
         if (deadline.isEmpty()) {
             throw new DylanBotException("HEY deadline tasks need deadlines!");
         }
-        Task curr = new Task("D", desc);
-        curr.deadline = deadline;
+        DeadlineTask curr = new DeadlineTask("D", desc, deadline);
         tasks.add(curr);
-        System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
+        System.out.println("Roger doger, added this task: \n\t" + curr.toString());
     }
 
     public static void createEvent(String input) throws DylanBotException {
@@ -99,11 +95,9 @@ public class Duke {
         if (to.isEmpty()) {
             throw new DylanBotException("HEY event tasks need ending dates!");
         }
-        Task curr = new Task("E", desc);
-        curr.from = from;
-        curr.to = to;
+        EventTask curr = new EventTask("E", desc, from, to);
         tasks.add(curr);
-        System.out.println("Roger doger, added this task: \n\t" + curr.printTask());
+        System.out.println("Roger doger, added this task: \n\t" + curr.toString());
     }
 
     public static void deleteTask(String input) throws DylanBotException {
@@ -114,27 +108,7 @@ public class Duke {
         }
         Task toRemove = tasks.get(idx - 1);
         tasks.remove(idx - 1);
-        System.out.println("Aight removed this task:\n\t" + toRemove.printTask());
-    }
-
-    public static class Task {
-
-        public String type, desc, deadline, from, to;
-        public boolean completed;
-
-        public Task(String type, String desc) {
-            this.type  = type;
-            this.desc = desc;
-            this.completed = false;
-        }
-
-        public String printTask() {
-            return "[" + type + "] "
-            + (completed ? "[X]" : "[ ]")
-            + " " + desc
-            + (type.equals("D") ? " (by: " + deadline + ")": "")
-            + (type.equals("E") ? " (from: " + from + " to: " + to + ")": "");
-        }
+        System.out.println("Aight removed this task:\n\t" + toRemove.toString());
     }
 
     public static class FastScanner {
