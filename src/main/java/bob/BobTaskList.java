@@ -27,7 +27,7 @@ public class BobTaskList {
     }
 
     /**
-     * Mark item done.
+     * Mark item as done.
      */
     private void markDone(int item) {
         this.list.get(item).updateStatus(true);
@@ -35,7 +35,7 @@ public class BobTaskList {
     }
 
     /**
-     * Mark item undone.
+     * Mark item as undone.
      */
     private void markUndone(int item) {
         this.list.get(item).updateStatus(false);
