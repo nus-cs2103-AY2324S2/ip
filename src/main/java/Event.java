@@ -7,6 +7,20 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(boolean isDone, String desc, String from, String to) {
+        super(isDone, desc);
+        this.from = from;
+        this.to = to;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
     @Override
     public String toString() {
         return "[E][" + this.getStatusIcon() + "] " + this.description

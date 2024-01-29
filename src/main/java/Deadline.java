@@ -5,6 +5,15 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(boolean isDone, String desc, String by) {
+        super(isDone, desc);
+        this.by = by;
+    }
+
+    public String getBy() {
+        return by;
+    }
+
     @Override
     public String toString() {
         return "[D][" + this.getStatusIcon() + "] " + this.description + " (by: " + this.by + ")";
