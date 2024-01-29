@@ -5,6 +5,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A utility class for parsing and formatting dates and times.
+ */
 public class DateTimeParser {
 
     /**
@@ -25,17 +28,29 @@ public class DateTimeParser {
      * @throws DateTimeParseException If the time string cannot be parsed.
      */
     public static String parseTime(LocalTime timeString) {
-        //LocalTime time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
         return timeString.format(formatter);
     }
 
+    /**
+     * Parses a time string into a {@link LocalTime} object.
+     *
+     * @param timeString The time string to be parsed.
+     * @return The parsed LocalTime object.
+     * @throws DateTimeParseException If the time string cannot be parsed.
+     */
     public static LocalTime parseTimeAsLocalTime(String timeString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
         return LocalTime.parse(timeString, formatter);
     }
 
+    /**
+     * Main method for testing the parseDate method.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
-        System.out.println(parseDate(LocalDate.parse("2045-02-31")));
+        // Example usage of parseDate
+        System.out.println(parseDate(LocalDate.parse("2045-02-28")));
     }
 }
