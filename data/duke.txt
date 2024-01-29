@@ -1,0 +1,4 @@
+1.[T][ ] eat
+2.[D][ ] eat (by: 7pm)
+3.[E][ ] e (from: 1 to: 2)
+4.[T][ ] sleep
