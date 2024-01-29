@@ -53,4 +53,8 @@ public class Ui {
     public void showUnmarkedTask(Task task) {
         System.out.println("unmarked: " + task.toString());
     }
+
+    public void showDeletedTask(Task task) {
+        System.out.println("deleted: " + task.toString());
+    }
 }

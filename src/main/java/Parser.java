@@ -32,8 +32,12 @@ public class Parser {
             return new MarkCommand(keyword, parameters);
         case "unmark":
             return new UnmarkCommand(keyword, parameters);
+        case "delete":
+            return new DeleteCommand(keyword, parameters);
+        default:
+            throw new ChatBotCommandException("Invalid command.");
         }
-        return new AddCommand(keyword, parameters);
+
     }
 
     public static String[] parseToDo(String parameters) throws ChatBotParameterException {
@@ -78,16 +82,16 @@ public class Parser {
         }
     }
 
-    public static int parseMark(String parameters) throws ChatBotParameterException {
+    public static int parseInteger(String parameters) throws ChatBotParameterException {
         if (parameters.isEmpty()) {
             throw new ChatBotParameterException("Missing task number \n" +
-                    "try: mark <task_number>");
+                    "try: mark/unmark/delete <task_number>");
         }
         try {
            return Integer.parseInt(parameters);
         } catch (NumberFormatException e) {
             throw new ChatBotParameterException("Invalid task number \n" +
-                    "try: mark <task_number>");
+                    "try: mark/unmark/delete <task_number>");
         }
     }
 }

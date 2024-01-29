@@ -41,8 +41,6 @@ public class ChatBot {
     }
 
 
-
-
     public void addTaskFromLoad(Task task) {
         this.tasks.add(task);
     }
@@ -141,11 +139,6 @@ public class ChatBot {
             System.out.println(e.getMessage());
         }
     }
-
-
-
-
-
 
     @Override
     public String toString() {

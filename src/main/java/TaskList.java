@@ -66,33 +66,45 @@ public class TaskList implements Iterable<Task> {
         return this.tasks.size();
     }
 
-    public Task markTaskAsDone(String parameters) throws ChatBotMarkedException, ChatBotParameterException {
-        int taskNumber = Parser.parseMark(parameters);
+    public Task markTaskAsDone(String parameters) throws ChatBotParameterException {
+        int taskNumber = Parser.parseInteger(parameters);
         Task taskToBeMarked;
         try {
             taskToBeMarked = this.tasks.get(taskNumber - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new ChatBotMarkedException("The task does not exists in the task list.");
+            throw new ChatBotParameterException("The task does not exists in the task list.");
         }
         if (taskToBeMarked.isDone()) {
-            throw new ChatBotMarkedException("This task is already marked done!");
+            throw new ChatBotParameterException("This task is already marked done!");
         }
         taskToBeMarked.markDone();
         return taskToBeMarked;
     }
 
-    public Task markTaskAsUndone(String parameters) throws ChatBotMarkedException, ChatBotParameterException {
-        int taskNumber = Parser.parseMark(parameters);
+    public Task markTaskAsUndone(String parameters) throws ChatBotParameterException {
+        int taskNumber = Parser.parseInteger(parameters);
         Task taskToBeMarked;
         try {
             taskToBeMarked = this.tasks.get(taskNumber - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new ChatBotMarkedException("The task does not exists in the task list.");
+            throw new ChatBotParameterException("The task does not exists in the task list.");
         }
         if (!taskToBeMarked.isDone()) {
-            throw new ChatBotMarkedException("This task is already marked undone!");
+            throw new ChatBotParameterException("This task is already marked undone!");
         }
         taskToBeMarked.markUndone();
         return taskToBeMarked;
+    }
+
+
+    public Task deleteTask(String parameters) throws ChatBotParameterException {
+        int taskNumber = Parser.parseInteger(parameters);
+        Task taskToBeDeleted;
+        try {
+            taskToBeDeleted = this.tasks.remove(taskNumber - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ChatBotParameterException("The task does not exists in the task list.");
+        }
+        return taskToBeDeleted;
     }
 }
