@@ -1,3 +1,9 @@
+/*
+ * AddCommand.java
+ * This class represents a command to add tasks to the Duke application.
+ * It handles the addition of Todo, Deadline, and Event tasks based on user input.
+ */
+
 package duke.command;
 
 import duke.DukeException;

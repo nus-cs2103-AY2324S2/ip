@@ -1,3 +1,8 @@
+/*
+ * Duke.java
+ * This is the main class of the Duke application, responsible for handling user input and managing tasks.
+ */
+
 package duke;
 
 import duke.task.Parser;
@@ -13,6 +18,9 @@ public class Duke {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Creates a new Duke instance, initializes the UI, and loads tasks from storage.
+     */
     public Duke() {
         ui = new Ui();
         try {
@@ -23,6 +31,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Starts the Duke application and runs the command loop.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -44,6 +55,11 @@ public class Duke {
         ui.close();
     }
 
+    /**
+     * Main method to start the Duke application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Duke().run();
     }

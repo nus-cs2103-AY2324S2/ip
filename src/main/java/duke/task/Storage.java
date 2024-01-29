@@ -1,3 +1,9 @@
+/*
+ * Storage.java
+ * This class handles reading and writing tasks to a storage file in the Duke application.
+ * It is responsible for loading tasks from a file and saving tasks to a file.
+ */
+
 package duke.task;
 
 import duke.DukeException;
@@ -14,10 +20,21 @@ import java.time.format.DateTimeFormatter;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Creates a new Storage instance with the specified file path.
+     *
+     * @param filePath The path to the storage file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file and returns them as a TaskList.
+     *
+     * @return The TaskList containing tasks loaded from the storage file.
+     * @throws IOException If there is an issue reading the file.
+     */
     public TaskList loadTasks() throws IOException {
         TaskList tasks = new TaskList();
         File file = getFile();
@@ -58,6 +75,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Retrieves the File object for the storage file, creating directories and the file if necessary.
+     *
+     * @return The File object representing the storage file.
+     * @throws IOException If there is an issue creating directories or the file.
+     */
     private File getFile() throws IOException {
         File file = new File(filePath);
 
@@ -78,6 +101,12 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Saves the tasks from the TaskList to the storage file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     * @throws IOException If there is an issue writing to the file.
+     */
     public void saveTasks(TaskList tasks) throws IOException {
         try (PrintWriter pw = new PrintWriter(filePath)) {
             for (Task task : tasks.getTasks()) {
@@ -89,6 +118,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a Task object to a string format suitable for saving in the storage file.
+     *
+     * @param task The Task object to be converted to a string.
+     * @return The string representation of the Task for storage.
+     */
     private String taskToFileString(Task task) {
         String type = task instanceof Todo ? "T" :
                     task instanceof Deadline ? "D" :
