@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,8 +62,8 @@ public class Skyler {
 
             String description = parts[0].substring(9).trim();
             String by = parts[1].trim();
-
-            addTask(new Deadline(description, by, false));
+            LocalDate byDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            addTask(new Deadline(description, byDate, false));
         } else if (userInput.startsWith("event")) {
             String[] parts = userInput.split("/from", 2);
 
@@ -71,14 +74,17 @@ public class Skyler {
             String description = parts[0].substring(6).trim();
             String from = parts[1].split("/to")[0].trim();
             String to = parts[1].split("/to")[1].trim();
-
-            addTask(new Event(description, from, to, false));
+            LocalDate fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate toDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            addTask(new Event(description, fromDate, toDate, false));
         } else if (userInput.startsWith("delete")) {
             deleteTask(userInput);
         } else if (userInput.startsWith("mark")) {
             markTask(userInput);
         } else if (userInput.startsWith("unmark")) {
             unmarkTask(userInput);
+        } else if (userInput.startsWith("view")) {
+            viewTasksOnDate(userInput);
         } else {
             throw new SkylerException("I'm sorry, I don't understand that command.");
         }
@@ -116,8 +122,6 @@ public class Skyler {
     }
 
     private static Task parseTaskFromFile(String data) throws SkylerException {
-        // Assuming format "[T][ ] read book", "[D][ ] assignment (by: tuesday)", "[E][
-        // ] dog sitting (from: sat to: mon)"
         String taskType = data.substring(1, 2); // Extracting task type (T, D, E)
         boolean isDone = data.charAt(4) == 'X'; // Assuming 'x' represents a completed task
         String details = data.substring(7).trim(); // Extracting task details
@@ -126,19 +130,20 @@ public class Skyler {
             case "T":
                 return new ToDo(details, isDone);
             case "D":
-                // Assuming format "assignment (by: tuesday)"
                 int byIndex = details.indexOf("(by:");
                 String descriptionD = details.substring(0, byIndex).trim();
-                String by = details.substring(byIndex + 4, details.length() - 1).trim();
-                return new Deadline(descriptionD, by, isDone);
+                String byString = details.substring(byIndex + 4, details.length() - 1).trim();
+                LocalDate byDate = LocalDate.parse(byString, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                return new Deadline(descriptionD, byDate, isDone);
             case "E":
-                // Assuming format "dog sitting (from: sat to: mon)"
                 int fromIndex = details.indexOf("(from:");
                 int toIndex = details.indexOf("to:");
                 String descriptionE = details.substring(0, fromIndex).trim();
-                String from = details.substring(fromIndex + 6, toIndex).trim();
-                String to = details.substring(toIndex + 3, details.length() - 1).trim();
-                return new Event(descriptionE, from, to, isDone);
+                String fromString = details.substring(fromIndex + 6, toIndex).trim();
+                String toString = details.substring(toIndex + 3, details.length() - 1).trim();
+                LocalDate fromDate = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                LocalDate toDate = LocalDate.parse(toString, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                return new Event(descriptionE, fromDate, toDate, isDone);
             default:
                 throw new SkylerException("Unknown task type in the file: " + data);
         }
@@ -230,6 +235,36 @@ public class Skyler {
 
     private static boolean isValidTaskId(int taskId) {
         return taskId > 0 && taskId <= tasks.size();
+    }
+
+    private static void viewTasksOnDate(String userInput) throws SkylerException {
+        try {
+            String dateString = userInput.split(" ")[1];
+            LocalDate dateToView = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            System.out.println("Skyler: Here are the tasks for "
+                    + dateToView.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+
+            for (Task task : tasks) {
+                if (task instanceof Deadline) {
+                    LocalDate deadlineDate = ((Deadline) task).getBy();
+                    if (deadlineDate.equals(dateToView)) {
+                        System.out.println("  " + task);
+                    }
+                } else if (task instanceof Event) {
+                    LocalDate fromDate = ((Event) task).getFrom();
+                    LocalDate toDate = ((Event) task).getTo();
+                    if ((dateToView.isEqual(fromDate) || dateToView.isAfter(fromDate)) &&
+                            (dateToView.isEqual(toDate) || dateToView.isBefore(toDate))) {
+                        System.out.println("  " + task);
+                    }
+                }
+            }
+
+            System.out.println("------------------------------------------------------------");
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+            throw new SkylerException("Invalid 'view' command. Please provide a valid date in yyyy-MM-dd format.");
+        }
     }
 }
 
