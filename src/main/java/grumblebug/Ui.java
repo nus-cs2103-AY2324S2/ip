@@ -1,14 +1,21 @@
 package grumblebug;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the UI that the user interacts with, printing outputs and accepting inputs.
+ */
 public class Ui {
     Scanner scanner;
     Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Prints out the starting prompt for the user to read and interact with.
+     */
     public void start() {
         String starter = "GrumbleBug:"
                 + "_______________________________________\n"
@@ -60,6 +67,28 @@ public class Ui {
         }
         Task t = taskList.get(i);
         t.isDone = false;
+    }
+
+    /**
+     * Takes in user key for filtering tasks, and prints results.
+     * @param taskList the taskList to look in
+     */
+    public void find(TaskList taskList) {
+        String reply = "GrumbleBug:"
+                + "_______________________________________\n"
+                + "Give me the keyword you want to find\n";
+        System.out.println(reply);
+        String key = scanner.nextLine();
+
+        TaskList filteredList = new TaskList();
+
+        for (int i = 1; i <= taskList.size(); i++) {
+            if (taskList.get(i).description.contains(key)) {
+                filteredList.add(taskList.get(i));
+            }
+        }
+        System.out.println("Here are the matches:\n");
+        filteredList.printList();
     }
 
     public void addTodo(TaskList taskList) {

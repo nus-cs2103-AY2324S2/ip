@@ -43,6 +43,8 @@ public class GrumbleBug {
                 ui.mark(taskList);
             } else if (input1.equals("unmark")) {
                 ui.unmark(taskList);
+            } else if (input1.equals("find")) {
+                ui.find(taskList);
             } else if (input1.equals("todo")) { // add to list
                 ui.addTodo(taskList);
             } else if (input1.equals("deadline")) { // add to list
