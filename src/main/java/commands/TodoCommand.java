@@ -13,6 +13,9 @@ import java.io.IOException;
 public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
+    private static final String SUCCESS_MESSAGE = "Got it. Uncle added this todo:\n\t\t %s"
+            + "\n\t Now you have %s task(s) in the list.";
+
     private final String message;
 
     public TodoCommand(String message) {
@@ -27,10 +30,10 @@ public class TodoCommand extends Command {
         Task todo = new Todo(message);
         tasks.addTasks(todo);
         try {
-            storage.appendToFile(todo.getSymbol() + "/" + todo.getStatus() + "/"
-                + todo.getDescription() + "\n");
+            storage.appendToFile(tasks);
         } catch (IOException e) {
-            ui.showError(e.getMessage());
+            ui.showErrorMessage(e.getMessage());
         }
+        ui.showToUser(String.format(SUCCESS_MESSAGE, todo, tasks.numTasks()));
     };
 }

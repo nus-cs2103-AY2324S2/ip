@@ -1,17 +1,16 @@
 package ui;
 
-import exception.UncleBobException;
+import task.TaskList;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import static messages.Messages.MESSAGE_WELCOME;
-import static messages.Messages.MESSAGE_BYE;
-
 public class Ui {
 
-    private static final String LINE = "\t――――――――――――――――――――――――――――――――――――――――――――――――――\n";
+    private static final String LINE = "――――――――――――――――――――――――――――――――――――――――――――――――――";
+    private static final String MESSAGE_WELCOME = "Hello! I'm Uncle Bob \n\t What can uncle do for you?";
+    private static final String MESSAGE_BYE = "Bye! Hope to see you again soon!";
 
     private final Scanner in;
     private final PrintStream out;
@@ -25,7 +24,15 @@ public class Ui {
         this.out = out;
     }
 
-    public void showError(String message) {
+    public void showList (TaskList tasks) {
+        out.println("\t" + LINE);
+        for (int i = 0; i < tasks.numTasks(); i++){
+            out.println("\t " + (i+1) + ". " + tasks.get(i));
+        }
+        out.println("\t" + LINE);
+    }
+
+    public void showErrorMessage(String message) {
         showToUser(message);
     }
 
@@ -43,8 +50,10 @@ public class Ui {
     }
 
     public void showToUser(String... message) {
+        out.println("\t" + LINE);
         for (String m : message) {
-            out.println(LINE + "\t " + m + "\n" + LINE);
+            out.print("\t " + m + "\n");
         }
+        out.println("\t" + LINE);
     }
 }

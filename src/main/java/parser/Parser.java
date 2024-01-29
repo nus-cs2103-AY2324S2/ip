@@ -16,6 +16,8 @@ public abstract class Parser {
             return new ListCommand();
         case MarkCommand.COMMAND_WORD:
             return new MarkCommand(message);
+        case UnmarkCommand.COMMAND_WORD:
+            return new UnmarkCommand(message);
         case TodoCommand.COMMAND_WORD:
             return new TodoCommand(message);
         case DeadlineCommand.COMMAND_WORD:

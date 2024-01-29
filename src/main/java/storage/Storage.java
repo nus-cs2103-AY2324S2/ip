@@ -17,9 +17,22 @@ public class Storage {
         this.path = filePath;
     }
 
-    public void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(path, true);
-        fw.write(textToAppend);
+    public void appendToFile(TaskList tasks) throws IOException {
+        FileWriter fw = new FileWriter(path);
+        for (Task task : tasks) {
+            String textToAppend = "";
+            if (task instanceof Todo) {
+                textToAppend = task.getSymbol() + "/" + task.getStatus() + "/"
+                        + task.getDescription() + "\n";
+            } else if (task instanceof Deadline) {
+                textToAppend = task.getSymbol() + "/" + task.getStatus() +
+                        "/" + task.getDescription() + "/" + task.getBy() + "\n";
+            } else if (task instanceof Event) {
+                textToAppend = task.getSymbol() + "/" + task.getStatus() +
+                        "/" + task.getDescription() + "/" + task.getStart() + "/" + task.getEnd() + "\n";
+            }
+            fw.write(textToAppend);
+        }
         fw.close();
     }
 

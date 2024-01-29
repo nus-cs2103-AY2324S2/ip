@@ -3,9 +3,10 @@ package task;
 import exception.TodoFormatException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class TaskList {
+public class TaskList implements Iterable<Task> {
 
     private List<Task> tasks = new ArrayList<>();
 
@@ -13,8 +14,6 @@ public class TaskList {
 
     public void addTasks(Task task) {
         tasks.add(task);
-        System.out.println("\t Got it. Uncle added this task:\n\t\t " + task
-                + "\n\t Now you have " + tasks.size() + " task(s) in the list.");
     }
 
     public int numTasks() {
@@ -31,5 +30,10 @@ public class TaskList {
 
     public Task remove(int i) {
         return tasks.remove(i);
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return tasks.iterator();
     }
 }

@@ -6,14 +6,15 @@ import ui.Ui;
 
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
+    private static final String SUCCESS_MESSAGE = "Congrats, you have no more tasks! Uncle is proud of you!";
 
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {
         if (tasks.isEmpty()) {
-            System.out.println("\t Congrats, you have no more tasks! Uncle is proud of you!");
+            ui.showToUser(SUCCESS_MESSAGE);
+        } else {
+            ui.showList(tasks);
         }
-        for (int i = 0; i < tasks.numTasks(); i++){
-            System.out.println("\t " + (i+1) + ". " + tasks.get(i));
-        }
+
     }
 }

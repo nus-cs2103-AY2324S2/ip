@@ -8,13 +8,9 @@ import java.time.format.FormatStyle;
 
 public class Event extends Task {
     private final String symbol = "[E]";
-    protected LocalDate start;
-    protected LocalDate end;
 
     public Event(String description, LocalDate start, LocalDate end) {
-        super("[E]", description);
-        this.start = start;
-        this.end = end;
+        super("[E]", description, start, end);
     }
 
     @Override

@@ -7,6 +7,8 @@ import ui.Ui;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
+    private static final String SUCCESS_MESSAGE = "Uncle deleted this item:\n\t\t %s"
+            + "\n\t Now you have %s task(s) in the list.";
     private final String message;
 
     public DeleteCommand(String message) {
@@ -19,10 +21,9 @@ public class DeleteCommand extends Command {
             int index = Integer.parseInt(message);
             Task removed = tasks.get(index - 1);
             tasks.remove(index - 1);
-            System.out.println("\t Uncle deleted this item:\n\t\t" + removed
-                    + "\n\t Now you have " + tasks.numTasks() + " task(s) in the list.");
+            ui.showToUser(String.format(SUCCESS_MESSAGE, removed, tasks.numTasks()));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\t Uncle think that you input wrong index.\n\t Use 'list' to view all tasks");
+            ui.showErrorMessage(e.getMessage());
         }
     }
 }

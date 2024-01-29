@@ -15,9 +15,7 @@ abstract public class Command {
 
     public Command() {};
 
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws UncleBobException {
-        throw new UnsupportedOperationException("This method is to be implemented by child classes");
-    };
+    abstract public void execute(TaskList tasks, Storage storage, Ui ui) throws UncleBobException;
 
     public static boolean isExit(Command c) {
         return c instanceof ExitCommand; // instanceof returns false if it is null

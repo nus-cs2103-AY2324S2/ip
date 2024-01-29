@@ -13,6 +13,8 @@ import java.time.LocalDate;
 public class EventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
+    private static final String SUCCESS_MESSAGE = "Got it. Uncle added this event:\n\t\t %s"
+            + "\n\t Now you have %s task(s) in the list.";
     private final String message;
 
     public EventCommand(String message) {
@@ -35,11 +37,11 @@ public class EventCommand extends Command {
                 Task event = new Event(desc, LocalDate.parse(start), LocalDate.parse(end));
                 tasks.addTasks(event);
                 try {
-                    storage.appendToFile(event.getSymbol() + "/" + event.getStatus() +
-                            "/" + desc + "/" + start + "/" + end + "\n");
+                    storage.appendToFile(tasks);
                 } catch (IOException e) {
-                    ui.showError(e.getMessage());
+                    ui.showErrorMessage(e.getMessage());
                 }
+                ui.showToUser(String.format(SUCCESS_MESSAGE, event, tasks.numTasks()));
             }
         }
     }

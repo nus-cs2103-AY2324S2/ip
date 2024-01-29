@@ -32,9 +32,10 @@ public class Duke {
                 c.execute(tasks, storage, ui);
                 isExiting = Command.isExit(c);
             } catch (UncleBobException e) {
-                ui.showError(e.getMessage());
+                ui.showErrorMessage(e.getMessage());
             }
         }
+        ui.showExitMessage();
     }
 
     public static void main(String[] args) {

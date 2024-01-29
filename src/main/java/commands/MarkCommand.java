@@ -4,9 +4,12 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
+import java.io.IOException;
+
 public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";
+    private static final String SUCCESS_MESSAGE = "Nice! Uncle marked this task as done:\n\t\t %s";
     private final String message;
 
     public MarkCommand(String message) {
@@ -18,9 +21,15 @@ public class MarkCommand extends Command {
         try {
             int index = Integer.parseInt(message);
             tasks.get(index - 1).mark();
-            System.out.println("\t Nice! Uncle marked this task as done:\n\t\t" + tasks.get(index - 1));
+            ui.showToUser(String.format(SUCCESS_MESSAGE, tasks.get(index - 1)));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\t Uncle think that you input wrong index.\n\t Use 'list' to view all tasks");
+            ui.showErrorMessage(e.getMessage());
+        }
+
+        try {
+            storage.appendToFile(tasks);
+        } catch (IOException e) {
+            ui.showErrorMessage(e.getMessage());
         }
     }
 }

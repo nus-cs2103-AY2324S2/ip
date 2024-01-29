@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class DeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";
+    private static final String SUCCESS_MESSAGE = "Got it. Uncle added this deadline:\n\t\t %s \n\t Now you have %s task(s) in the list.";
     private final String message;
 
     public DeadlineCommand(String message) {
@@ -31,11 +32,11 @@ public class DeadlineCommand extends Command {
             Task deadline = new Deadline(desc, LocalDate.parse(by));
             tasks.addTasks(deadline);
             try {
-                storage.appendToFile(deadline.getSymbol() + "/" + deadline.getStatus() +
-                        "/" + desc + "/" + by + "\n");
+                storage.appendToFile(tasks);
             } catch (IOException e) {
-                ui.showError(e.getMessage());
+                ui.showErrorMessage(e.getMessage());
             }
+            ui.showToUser(String.format(SUCCESS_MESSAGE, deadline, tasks.numTasks()));
         }
     }
 }

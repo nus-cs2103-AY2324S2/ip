@@ -4,9 +4,12 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
+import java.io.IOException;
+
 public class UnmarkCommand extends Command {
 
     public static final String COMMAND_WORD = "unmark";
+    private static final String SUCCESS_MESSAGE = "Nice! Uncle marked this task as done:\n\t\t %s";
     private final String message;
 
     public UnmarkCommand(String message) {
@@ -18,10 +21,16 @@ public class UnmarkCommand extends Command {
         try {
             int index = Integer.parseInt(message);
             tasks.get(index - 1).unmark();
-            System.out.println("\t Ok, Uncle marked this task as not done yet:\n\t\t"
-                    + tasks.get(index - 1));
+            ui.showToUser(String.format(SUCCESS_MESSAGE, tasks.get(index - 1)));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\t Uncle think that you input wrong index.\n\t Use 'list' to view all tasks");
+            ui.showErrorMessage(e.getMessage());
         }
+
+        try {
+            storage.appendToFile(tasks);
+        } catch (IOException e) {
+            ui.showErrorMessage(e.getMessage());
+        }
+
     }
 }
