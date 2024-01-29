@@ -1,8 +1,12 @@
-import java.time.LocalDate;
+package tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Actions.Action {
+/**
+ * Action for creating an Event
+ */
+public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -19,7 +23,6 @@ public class Event extends Actions.Action {
     }
 
     /**
-     *
      * @return get event starting date
      */
     public LocalDateTime getFrom() {
@@ -27,7 +30,6 @@ public class Event extends Actions.Action {
     }
 
     /**
-     *
      * @return get event ending date
      */
     public LocalDateTime getTo() {

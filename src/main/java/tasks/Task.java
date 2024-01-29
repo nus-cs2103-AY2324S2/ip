@@ -1,8 +1,11 @@
-package Actions;
+package tasks;
 
 import java.io.Serializable;
 
-public class Action implements Serializable {
+/**
+ * Action class
+ */
+public class Task implements Serializable {
     private String marking;
     private String execute;
 
@@ -11,7 +14,7 @@ public class Action implements Serializable {
      *
      * @param execute task noted
      */
-    public Action(String execute) {
+    public Task(String execute) {
         this.execute = execute;
         this.marking = " ";
     }

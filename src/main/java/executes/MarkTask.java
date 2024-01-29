@@ -1,8 +1,13 @@
-import Actions.Action;
-import Exceptions.DukeException;
+package executes;
 
 import java.util.List;
 
+import exceptions.TaylorException;
+import tasks.Task;
+
+/**
+ * Mark/Unmark task as done
+ */
 public class MarkTask {
     /**
      * No constructor needed
@@ -14,32 +19,32 @@ public class MarkTask {
     /**
      * Execute marking/unmarking
      * @param input : to mark or unmark and which one?
-     * @param actionList
+     * @param taskList
      */
-    public static void exec(String input, List<Action> actionList) {
+    public static void exec(String input, List<Task> taskList) {
         String[] markWhat = input.split(" ");
         String what = markWhat[0];
 
         try {
             int num = Integer.parseInt(markWhat[1]) - 1;
 
-            if (num < 0 || num >= actionList.size()) {
-                throw new DukeException("Invalid task number");
+            if (num < 0 || num >= taskList.size()) {
+                throw new TaylorException("Invalid task number");
             }
 
             if (what.equals("mark")) {
-                actionList.get(num).markIt();
+                taskList.get(num).markIt();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(actionList.get(num));
+                System.out.println(taskList.get(num));
             } else if (what.equals("unmark")) {
-                actionList.get(num).unMark();
+                taskList.get(num).unMark();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(actionList.get(num));
+                System.out.println(taskList.get(num));
             } else {
-                throw new DukeException("Invalid command -  Only use mark/unmark");
+                throw new TaylorException("Invalid command -  Only use mark/unmark");
             }
         } catch (ArrayIndexOutOfBoundsException err) {
-            throw new DukeException("Please insert task number!");
+            throw new TaylorException("Please insert task number!");
         }
     }
 }

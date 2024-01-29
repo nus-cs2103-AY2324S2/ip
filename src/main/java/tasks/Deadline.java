@@ -1,8 +1,12 @@
-import java.time.LocalDate;
+package tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Actions.Action {
+/**
+ * Create task for Deadline
+ */
+public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
@@ -16,7 +20,6 @@ public class Deadline extends Actions.Action {
     }
 
     /**
-     *
      * @return Date of the deadline
      */
     public LocalDateTime getBy() {
@@ -24,7 +27,6 @@ public class Deadline extends Actions.Action {
     }
 
     /**
-     *
      * @return task output
      */
     @Override

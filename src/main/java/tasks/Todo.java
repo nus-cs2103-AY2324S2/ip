@@ -1,4 +1,9 @@
-public class Todo extends Actions.Action {
+package tasks;
+
+/**
+ * Create Task for Todo
+ */
+public class Todo extends Task {
     /**
      * Constructor
      * @param description action to be made
@@ -8,7 +13,6 @@ public class Todo extends Actions.Action {
     }
 
     /**
-     *
      * @return task output
      */
     @Override

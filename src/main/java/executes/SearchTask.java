@@ -1,9 +1,17 @@
+package executes;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import Actions.Action;
-import Exceptions.DukeException;
 
+import exceptions.TaylorException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+
+/**
+ * To search tasks based on Date and Time
+ */
 public class SearchTask {
     /**
      * No constructor needed
@@ -12,12 +20,17 @@ public class SearchTask {
         throw new AssertionError("Constructor is not allowed");
     }
 
-    public static void exec(String input, List<Action> actionList) {
+    /**
+     * Search Task in ArrayList based on Date and Time
+     * @param input Date and Time to search
+     * @param taskList ArrayList with Tasks
+     */
+    public static void exec(String input, List<Task> taskList) {
         try {
             LocalDateTime searchDate = InsertTask.dateConversion(input);
-            List<Action> output = new ArrayList<>();
+            List<Task> output = new ArrayList<>();
 
-            for (Action act : actionList) {
+            for (Task act : taskList) {
                 char whichTask = act.toString().charAt(1);
 
                 if (whichTask == 'D') {
@@ -32,16 +45,16 @@ public class SearchTask {
                         output.add(act);
                     }
                 }
-             }
+            }
             if (output.isEmpty()) {
                 System.out.println("No event on this date");
             } else {
-                for (Action act : output) {
+                for (Task act : output) {
                     System.out.println(act);
                 }
             }
-        } catch (DukeException err) {
-            throw new DukeException(err.getMessage());
+        } catch (TaylorException err) {
+            throw new TaylorException(err.getMessage());
         }
     }
 }

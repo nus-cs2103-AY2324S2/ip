@@ -1,21 +1,26 @@
-import Actions.Action;
-
-import Exceptions.DukeException;
-import FileHandler.FileInput;
-
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.TaylorException;
+import executes.DeleteTask;
+import executes.InsertTask;
+import executes.ListTask;
+import executes.MarkTask;
+import executes.SearchTask;
+import filehandler.FileInput;
+import tasks.Task;
 
+/**
+ * Main class to execute Taylor ChatBot
+ */
 public class Taylor {
     enum Activity {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, SEARCH, INVALID
     }
 
     public static void main(String[] args) {
-        List<Action> listing = new ArrayList<>();
+        List<Task> listing = new ArrayList<>();
 
         try {
             listing = FileInput.execInput(listing);
@@ -29,7 +34,7 @@ public class Taylor {
 
 
         label:
-        while(true) {
+        while (true) {
             String input = type.nextLine();
 
             if (input.isBlank()) {
@@ -40,7 +45,6 @@ public class Taylor {
                 String action = act[0];
 
                 Activity activity = getActivity(action);
-
                 switch (activity) {
                     case BYE:
                         break label;
@@ -53,7 +57,7 @@ public class Taylor {
                     case UNMARK:
                         try {
                             MarkTask.exec(input, listing);
-                        } catch (DukeException err) {
+                        } catch (TaylorException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
 
@@ -63,27 +67,27 @@ public class Taylor {
                     case EVENT:
                         try {
                             InsertTask.exec(input, listing);
-                        } catch (DukeException err) {
+                        } catch (TaylorException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
                         break;
                     case DELETE:
                         try {
                             DeleteTask.exec(input, listing);
-                        } catch (DukeException err) {
+                        } catch (TaylorException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
                         break;
                     case SEARCH:
                         try {
                             SearchTask.exec(act[1], listing);
-                        } catch (DukeException err) {
+                        } catch (TaylorException err) {
                             System.out.println("Error: " + err.getMessage());
                         }
                         break;
-                    case INVALID:
-                        System.out.println("Invalid input. ChatBot can only handle " +
-                                "'todo', 'deadline', 'event', 'bye', 'list' tasks");
+                    default:
+                        System.out.println("Invalid input. ChatBot can only handle "
+                                + "'todo', 'deadline', 'event', 'bye', 'list' tasks");
                         break;
                 }
             }

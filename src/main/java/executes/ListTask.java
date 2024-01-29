@@ -1,7 +1,12 @@
-import Actions.Action;
+package executes;
 
 import java.util.List;
 
+import tasks.Task;
+
+/**
+ * To list all the task
+ */
 public class ListTask {
     /**
      * No constructor needed
@@ -12,15 +17,15 @@ public class ListTask {
 
     /**
      * List out all the tasks
-     * @param actionList
+     * @param taskList
      */
-    public static void exec(List<Action> actionList) {
+    public static void exec(List<Task> taskList) {
         System.out.println("Here are the tasks in your list:");
         int pos = 1;
-        if (actionList.isEmpty()) {
+        if (taskList.isEmpty()) {
             System.out.println("List is empty.");
         } else {
-            for (Action acting : actionList) {
+            for (Task acting : taskList) {
                 System.out.println(pos++ + ". " + acting);
             }
         }
