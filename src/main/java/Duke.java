@@ -38,17 +38,18 @@ public class Duke {
                         printList();
                     } else if (split[0].equals("mark") || split[0].equals("unmark")) {
                         marked(split[0], Integer.parseInt(split[1]));
+                        Storage.saveTasks(ls);
                     } else if (split[0].equals("todo") || split[0].equals("deadline") || split[0].equals("event")){
                         addList(text);
+                        Storage.saveTasks(ls);
                     } else if (split[0].equals("delete")) {
-                            deleteItem(text);
+                        deleteItem(text);
+                        Storage.saveTasks(ls);
                     } else {
                         throw new DukeException("Your input is invalid!");
                     }
                 } catch (DukeException de) {
                     System.out.println(de.toString());
-                } finally {
-                    Storage.saveTasks(ls);
                 }
             }
         }
