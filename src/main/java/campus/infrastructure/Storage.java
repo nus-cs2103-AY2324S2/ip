@@ -48,6 +48,10 @@ public class Storage {
         return Files.readAllLines(path);
     }
 
+    /**
+     * Updates the taskList object given the inputs in the file
+     * @param taskList the taskList Object
+     */
     public void updateFileFromList(TaskList taskList) {
         String filePath = this.filePath;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {

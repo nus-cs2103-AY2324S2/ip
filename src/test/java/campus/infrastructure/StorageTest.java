@@ -11,6 +11,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {
+    /**
+     * Creates a new DataFile by initialising the storage object, passes the test case if the file is found in
+     * the specified file path
+     */
     @Test
     public void newDataFileInitialisation() {
         // Specify the path and name of the file to be checked
@@ -20,6 +24,10 @@ public class StorageTest {
         assertTrue(Files.exists(path));
     }
 
+    /**
+     * Tests the Storage Object's ability to read data from the file assuming that it was read with certain inputs
+     * and passes if the outputs are the same
+     */
     @Test
     public void readCorrectDataFromFile() {
         try {
