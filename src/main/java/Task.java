@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * Task is a class with description, can record whether a task is done or not done.
  */
@@ -47,7 +50,8 @@ public abstract class Task {
      */
     public static Task of(String type, boolean isDone, String description, String deadline) throws DukeException {
         if (type.equals(CommandType.DEADLINE.toString())) {
-            return new Deadline(description, deadline, isDone);
+            LocalDateTime datetime = MyDateTime.convertDateTime(deadline);
+            return new Deadline(description, datetime, isDone);
         } else {
             throw new DukeException("Storage Format Issue");
         }
@@ -60,7 +64,7 @@ public abstract class Task {
      */
     public static Task of(String type, boolean isDone, String description, String from, String to) throws DukeException {
         if (type.equals(CommandType.EVENT.toString())) {
-            return new Event(description, from, to, isDone);
+            return new Event(description, MyDateTime.convertDateTime(from), MyDateTime.convertDateTime(to), isDone);
         } else {
             throw new DukeException("Storage Format Issue");
         }
@@ -117,4 +121,8 @@ public abstract class Task {
     public String toStorageString() {
         return this.isDone() + " " + this.description;
     };
+
+    public boolean checkDate(LocalDate date) {
+        return false;
+    }
 }

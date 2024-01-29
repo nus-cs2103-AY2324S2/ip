@@ -1,14 +1,6 @@
 list commands
-todo study
-deadline submission /by Sunday 1pm
-event workshop /from Jan 4pm /to 8pm
 list
-mark 1
-unmark 1
-todo
+checkdate 2024-01-01
 deadline
-mark
-mark 10
-delete
-delete 1
-bye
+checkdate
+todo
