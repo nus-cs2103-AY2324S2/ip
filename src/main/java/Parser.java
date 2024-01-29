@@ -94,7 +94,7 @@ public class Parser {
                 }
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            return "OOPS! You need to type \"deadline <description> by: <deadline>\" to create a new todo!";
+            return "OOPS! You need to type \"todo <description>\" to create a new todo!";
         } catch (Exception e) {
             throw new TinyException("Something went wrong...");
         }
@@ -106,20 +106,18 @@ public class Parser {
             String[] st = input.split("/by ");
             String[] s = input.split(" ");
             if (!s[0].equals("deadline")) {
-                return "OOPS! You need to type \"deadline <description> /by <deadline>\" to create a new deadline!";
+                return "OOPS! You need to type \"deadline <description> /by <yyyy-mm-dd> <time>\" to create a new deadline!";
             } else {
-                for (int i = 9; i < st.length; i++) {
-                    name += st[i];
-                }
+                name = st[0].substring(9);
                 taskList.add(new Deadline(name.trim(), st[1]));
                 // printAdd(tasks.get(tasks.size() - 1).toString(), tasks.size());
                 return "Got it. I've added this task:\n" + "      " + taskList.get(taskList.size() - 1)
                         + "\n   Now you have " + taskList.size() + " task(s) in the list.";
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            return "OOPS! You need to type \"deadline <description> /by <deadline>\" to create a new deadline!";
-        } catch (Exception e) {
-            throw new TinyException("Something went wrong...");
+            return "OOPS! You need to type \"deadline <description> /by <yyyy-mm-dd> <time>\" to create a new deadline!";
+        } catch (TinyException e) {
+            throw e;
         }
     }
 
@@ -158,9 +156,9 @@ public class Parser {
             taskList.delete(ind - 1);
             return output;
 
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+        } catch (NumberFormatException e) {
             return "OOPS! You need to type \"delete <number>\" to delete the task!";
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             return 
                     "OOPS! Please type a valid number! Type \"list\" to check the lists of tasks.";
         } catch (Exception e) {

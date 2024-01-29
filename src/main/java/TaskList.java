@@ -3,23 +3,23 @@ import java.util.ArrayList;
 public class TaskList {
     protected ArrayList<Task> tasks = new ArrayList<>();
 
-    public TaskList(ArrayList<String> data) {
+    public TaskList(ArrayList<String> data) throws TinyException {
         // Parse the data here.
         for (int i = 0; i < data.size(); i++) {
-            String[] entry = data.get(i).split(" | ");
+            String[] entry = data.get(i).split(" \\| ");
             if (entry[0].equals("T")) {
-                Todo todo = new Todo(entry[4], entry[2].equals("0") ? false : true);
+                Todo todo = new Todo(entry[2], entry[1].equals("0") ? false : true);
                 tasks.add(todo);
             } else if (entry[0].equals("D")) {
-                Deadline deadline = new Deadline(entry[4], entry[2].equals("0") ? false : true, entry[6]);
+                Deadline deadline = new Deadline(entry[2], entry[1].equals("0") ? false : true, entry[3]);
                 tasks.add(deadline);
             } else if (entry[0].equals("E")) {
-                Event event = new Event(entry[4], entry[2].equals("0") ? false : true, entry[6], entry[8]);
+                Event event = new Event(entry[2], entry[1].equals("0") ? false : true, entry[3], entry[4]);
                 tasks.add(event);
             }
         }
     }
-
+    
     public void add(Task task) {
         tasks.add(task);
     }
