@@ -33,7 +33,6 @@ public class Gluti {
                 break;
             case "list":
                 int num = 1;
-                System.out.println(storage.size());
                 if (!storage.isEmpty()) {
                     for (Task x : storage) {
                         System.out.println(num++ + "." + x.toString());
