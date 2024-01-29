@@ -37,35 +37,35 @@ public class TaskList {
             String[] parts = string.split("\\|");
             String typeOfTask = parts[0].trim();
             switch (typeOfTask) {
-                case "T":
-                    if (parts.length != 3) {
-                        throw new CampusException("File is Corrupted, Check Formatting for 'T'");
-                    } else {
-                        String todoName = parts[2].trim();
-                        Boolean completed = parts[1].trim().equals("1");
-                        task.add(new ToDos(todoName, completed));
-                    }
-                    break;
-                case "D":
-                    if (parts.length != 4) {
-                        throw new CampusException("File is Corrupted, Check Formatting for 'D'");
-                    } else {
-                        String deadlineName = parts[2].trim();
-                        Boolean completed = parts[1].trim().equals("1");
-                        String deadlineEndTime = parts[3].trim();
-                        task.add(new Deadline(deadlineName, completed, deadlineEndTime));
-                    }
-                    break;
-                case "E":
-                    if (parts.length != 5) {
-                        throw new CampusException("File is Corrupted, Check Formatting for 'E'");
-                    } else {
-                        String eventName = parts[2].trim();
-                        Boolean completed = parts[1].trim().equals("1");
-                        String eventStartTime = parts[3].trim();
-                        String eventEndTime = parts[4].trim();
-                        task.add(new Event(eventName, completed, eventStartTime, eventEndTime));
-                    }
+            case "T":
+                if (parts.length != 3) {
+                    throw new CampusException("File is Corrupted, Check Formatting for 'T'");
+                } else {
+                    String todoName = parts[2].trim();
+                    Boolean isCompleted = parts[1].trim().equals("1");
+                    task.add(new ToDos(todoName, isCompleted));
+                }
+                break;
+            case "D":
+                if (parts.length != 4) {
+                    throw new CampusException("File is Corrupted, Check Formatting for 'D'");
+                } else {
+                    String deadlineName = parts[2].trim();
+                    Boolean isCompleted = parts[1].trim().equals("1");
+                    String deadlineEndTime = parts[3].trim();
+                    task.add(new Deadline(deadlineName, isCompleted, deadlineEndTime));
+                }
+                break;
+            case "E":
+                if (parts.length != 5) {
+                    throw new CampusException("File is Corrupted, Check Formatting for 'E'");
+                } else {
+                    String eventName = parts[2].trim();
+                    Boolean isCompleted = parts[1].trim().equals("1");
+                    String eventStartTime = parts[3].trim();
+                    String eventEndTime = parts[4].trim();
+                    task.add(new Event(eventName, isCompleted, eventStartTime, eventEndTime));
+                }
             }
         }
         this.tasks = task;
