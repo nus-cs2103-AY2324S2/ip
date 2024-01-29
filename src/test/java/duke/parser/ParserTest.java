@@ -410,10 +410,12 @@ public class ParserTest {
         exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("deadline test /by 2024"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("deadline test /by 2024-122-12"));
+        exception = assertThrows(InvalidArgumentException.class,
+                () -> Parser.parse("deadline test /by 2024-122-12"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("deadline test /by 2024-25-25"));
+        exception = assertThrows(InvalidArgumentException.class,
+                () -> Parser.parse("deadline test /by 2024-25-25"));
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("deadline test /by 12pm"));
@@ -422,7 +424,8 @@ public class ParserTest {
         exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("deadline test /by 12:00"));
         assertEquals(expectedMessage, exception.getMessage());
 
-        exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("deadline test /by 2024/12/12"));
+        exception = assertThrows(InvalidArgumentException.class,
+                () -> Parser.parse("deadline test /by 2024/12/12"));
         assertEquals(expectedMessage, exception.getMessage());
 
         exception = assertThrows(InvalidArgumentException.class, () -> Parser.parse("Deadline test /by 12:00"));
@@ -437,10 +440,14 @@ public class ParserTest {
         Command expected = new AddCommand(new Event("Nights Into Days", Instant.ofEpochSecond(1706500800),
                 Instant.ofEpochSecond(1706508000)));
 
-        assertEquals(expected, Parser.parse(" event Nights Into Days /from 2024/01/29 12:00 /to 2024/01/29 14:00"));
-        assertEquals(expected, Parser.parse("event Nights Into Days /from 2024/01/29 12:00 /to 2024/01/29 14:00 "));
-        assertEquals(expected, Parser.parse(" event Nights Into Days /from 2024/01/29 12:00 /to 2024/01/29 14:00 "));
-        assertEquals(expected, Parser.parse("Event Nights Into Days /from 2024/01/29 12:00 /to 2024/01/29 14:00"));
+        assertEquals(expected,
+                Parser.parse(" event Nights Into Days /from 2024/01/29 12:00 /to 2024/01/29 14:00"));
+        assertEquals(expected,
+                Parser.parse("event Nights Into Days /from 2024/01/29 12:00 /to 2024/01/29 14:00 "));
+        assertEquals(expected,
+                Parser.parse(" event Nights Into Days /from 2024/01/29 12:00 /to 2024/01/29 14:00 "));
+        assertEquals(expected,
+                Parser.parse("Event Nights Into Days /from 2024/01/29 12:00 /to 2024/01/29 14:00"));
         // TODO: Fix bug where multiple spaces is not allowed in description
         // assertNotEquals(expected, Parser.parse("event Nights Into Days /from
         // 2024/01/29 12:00 /to 2024/01/29 14:00")));
