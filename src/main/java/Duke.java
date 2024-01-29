@@ -9,11 +9,12 @@ public class Duke {
         ArrayList<Task> tasks = new ArrayList<>();
         while(true) {
             String command = scanner.nextLine();
+            String[] parts = command.split(" ");
             if (command.equals("bye")) {
                 System.out.println("Ciao! Mamma-Mia!");
                 break;
             }
-            switch(command) {
+            switch(parts[0]) {
                 case "list":
                     StringBuilder sb = new StringBuilder();
                     for (int i = 1; i <= tasks.size();i++) {
@@ -24,6 +25,16 @@ public class Duke {
                         sb.append("No Tasks! Oopsie!");
                     }
                     System.out.println(sb);
+                    break;
+                case "mark":
+                    int taskNo = Integer.parseInt(parts[1]) - 1;
+                    if (taskNo < 0 || taskNo >= tasks.size()) {
+                        System.out.println("Mamma-mia! This task no exist-o!");
+                    }
+                    Task task = tasks.get(taskNo);
+                    task.setDone(true);
+                    System.out.println("Mamma-mai! I've marked it done!");
+                    System.out.println("[X] " + task.getDescription());
                     break;
                 default:
                     Task newTask = new Task(command, false);

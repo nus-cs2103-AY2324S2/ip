@@ -19,8 +19,16 @@ public class Task {
         return done;
     }
 
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
     @Override
     public String toString() {
-        return description;
+        String doneMarker = "[]";
+        if (done) {
+            doneMarker = "[X]";
+        }
+        return String.format("%s %s", doneMarker, description);
     }
 }
