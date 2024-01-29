@@ -1,14 +1,18 @@
+import java.io.IOException;
+
 import exceptions.BluException;
 import exceptions.IllegalParameterException;
 
 public class Chatbot {
     private final String name;
     private TaskList taskList;
+    private Storage storage;
     private static final String LINESEP = "____________________________________________________________";
 
-    public Chatbot(String name) {
+    public Chatbot(String name, TaskList taskList, Storage storage) {
         this.name = name;
-        this.taskList = new TaskList();
+        this.taskList = taskList;
+        this.storage = storage;
     }
 
     private void print(String message) {
@@ -30,11 +34,16 @@ public class Chatbot {
         print(messages);
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task) throws BluException {
         this.taskList.addTask(task);
         String[] messages = {"I have added the task:", task.toString(), 
                             "You have " + this.taskList.getNumberOfTasks() +" tasks currently."};
         print(messages);
+        try {
+            storage.saveTasks(taskList);
+        } catch (IOException e) {
+            throw new BluException("Failed to write to storage file");
+        }
     }
 
     public void markTask(int taskIdx) throws BluException {
@@ -47,9 +56,12 @@ public class Chatbot {
                 String[] messages = {"Marked task as done:", task.toString()};
                 print(messages);
             }
+            storage.saveTasks(taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalParameterException("Failed to mark task. Task number " + taskIdx + " does not exist!\n" 
                                                 + "Please use the list command to view task numbers.");
+        } catch (IOException e) {
+            throw new BluException("Failed to write to storage file");
         }
     }
 
@@ -63,9 +75,12 @@ public class Chatbot {
                 String[] messages = {"Unmarked task as not done:", task.toString()};
                 print(messages);
             }
+            storage.saveTasks(taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalParameterException("Failed to unmark task. Task number " + taskIdx + " does not exist!\n" 
                                                 + "Please use the list command to view task numbers.");
+        } catch (IOException e) {
+            throw new BluException("Failed to write to storage file");
         }
     }
 
@@ -76,9 +91,12 @@ public class Chatbot {
             String[] messages = {"Deleted task from list:", task.toString(),
                                 "You have " + this.taskList.getNumberOfTasks() + " tasks currently"};
             print(messages);
+            storage.saveTasks(taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalParameterException("Failed to delete task. Task number " + taskIdx + " does not exist!\n" 
                                                 + "Please use the list command to view task numbers.");
+        } catch (IOException e) {
+            throw new BluException("Failed to write to storage file");
         }
     }
 
