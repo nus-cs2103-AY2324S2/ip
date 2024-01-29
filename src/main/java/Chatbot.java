@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Chatbot {
 
     private final String name;
-    private final static String LINE = "--------------------------------------------------------";
+    private final static String LINE = "-----------------------------------------------------------------------";
     private TaskList tasklist; // Hold the list of tasks
 
     public Chatbot(String name) {

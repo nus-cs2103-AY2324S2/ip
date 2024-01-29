@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -77,12 +78,18 @@ public class TaskList {
     public Task createTask(String command, String description) {
         if (command.startsWith("todo")) {
             return new ToDo(description);
+
         } else if (command.startsWith("deadline")) {
             String[] parts = description.split("/by", 2);
-            return new Deadline(parts[0], parts[1].trim());
+            LocalDateTime by = DateParser.parseDateTime(parts[1].trim());
+            return new Deadline(parts[0], by);
+
         } else {
             String[] parts = description.split("\\s+/from\\s+|\\s+/to\\s+");
-            return new Event(parts[0], parts[1], parts[2]);
+            LocalDateTime from = DateParser.parseDateTime(parts[1].trim());
+            LocalDateTime to = DateParser.parseDateTime(parts[2].trim());
+            return new Event(parts[0], from, to);
+
         }
     }
 
@@ -127,6 +134,7 @@ public class TaskList {
 
     private String taskToFileString(Task task) {
         StringBuilder sb = new StringBuilder();
+
         // Append the type of the task
         if (task instanceof ToDo) {
             sb.append("T");
@@ -155,40 +163,36 @@ public class TaskList {
     private Task fileStringToTask(String fileString) {
         String[] parts = fileString.split(" \\| ");
         if (parts.length < 3) {
-            throw new IllegalArgumentException("Task data is corrupted.");
+            ChatbotException.getError(ChatbotException.ErrorType.TASK_CORRUPT);
         }
 
         String type = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2];
-        Task task;
+
+        Task task = new Task(description);
 
         switch (type) {
             case "T":
-                task = new ToDo(description);
+                task = createTask("todo", description);
                 break;
             case "D":
-                if (parts.length < 4) throw new IllegalArgumentException("Deadline task data is corrupted.");
-                String by = parts[3];
-                task = new Deadline(description, by);
+                if (parts.length < 4) ChatbotException.getError(ChatbotException.ErrorType.TODO_CORRUPT);
+                description += " /by " + parts[3];
+                task = createTask("deadline", description);
                 break;
             case "E":
                 String timeInfo = parts[3].trim();
                 String[] timeParts = timeInfo.split(" - ");
-                if (timeParts.length < 2) throw new IllegalArgumentException("Event time data is corrupted.");
-                String from = timeParts[0].trim();
-                String to = timeParts[1].trim();
-                task = new Event(description, from, to);
+                if (timeParts.length < 2) ChatbotException.getError(ChatbotException.ErrorType.EVENT_CORRUPT);
+                description += " /from " + timeParts[0].trim() + " /to " + timeParts[1].trim();
+                task = createTask("event", description);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown task type.");
+                ChatbotException.getError(ChatbotException.ErrorType.UNKNOWN_TASK);
         }
 
         task.mark(isDone);
         return task;
     }
-
-
-
-
 }
