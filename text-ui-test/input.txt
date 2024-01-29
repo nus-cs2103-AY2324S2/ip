@@ -9,4 +9,6 @@ l
 r 2
 l
 r 0
+d testing date /by 2024-02-12
+l
 bye
