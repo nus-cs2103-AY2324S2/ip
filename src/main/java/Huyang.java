@@ -1,16 +1,23 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Huyang {
-//    private String logo =
-//            "  ___ ___                                      \n" +
-//                    " /   |   \\ __ __ ___.__._____    ____    ____  \n" +
-//                    "/    ~    \\  |  <   |  |\\__  \\  /    \\  / ___\\ \n" +
-//                    "\\    Y    /  |  /\\___  | / __ \\|   |  \\/ /_/  >\n" +
-//                    " \\___|_  /|____/ / ____|(____  /___|  /\\___  / \n" +
-//                    "       \\/        \\/          \\/     \\//_____/  ";
+    private Storage storage;
+    private ArrayList<Task> tasks;
 
-    private ArrayList<Task> tasks = new ArrayList<>();
+    public Huyang() {
+        storage = new Storage("./data/huyang_tasks.txt");
+        try {
+            tasks = storage.loadTasks();
+        } catch (IOException e) {
+            System.err.println("Error loading tasks: " + e.getMessage());
+            tasks = new ArrayList<>();
+        } catch (TaskException e) {
+            System.err.println("Task format error: " + e.getMessage());
+            tasks = new ArrayList<>();
+        }
+    }
 
     public enum CommandType {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, UNKNOWN;
@@ -51,33 +58,33 @@ public class Huyang {
             CommandType command = CommandType.fromString(input);
             try {
                 switch (command) {
-                    case LIST:
-                        listTasks();
-                        break;
-                    case MARK:
-                        mark(input);
-                        break;
-                    case UNMARK:
-                        unmark(input);
-                        break;
-                    case TODO:
-                        addTodoTask(input);
-                        break;
-                    case DEADLINE:
-                        addDeadlineTask(input);
-                        break;
-                    case EVENT:
-                        addEventTask(input);
-                        break;
-                    case DELETE:
-                        deleteTask(input);
-                        break;
-                    case BYE:
-                        scanner.close();
-                        return;
-                    case UNKNOWN:
-                    default:
-                        throw TaskException.forUnknownCommand();
+                case LIST:
+                    listTasks();
+                    break;
+                case MARK:
+                    mark(input);
+                    break;
+                case UNMARK:
+                    unmark(input);
+                    break;
+                case TODO:
+                    addTodoTask(input);
+                    break;
+                case DEADLINE:
+                    addDeadlineTask(input);
+                    break;
+                case EVENT:
+                    addEventTask(input);
+                    break;
+                case DELETE:
+                    deleteTask(input);
+                    break;
+                case BYE:
+                    scanner.close();
+                    return;
+                case UNKNOWN:
+                default:
+                    throw TaskException.forUnknownCommand();
                 }
             } catch (TaskException e) {
                 printErrorMessage(e.getMessage());
@@ -89,6 +96,23 @@ public class Huyang {
     private void listTasks() {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+        updateTasks();
+    }
+
+    private void updateTasks() {
+        try {
+            storage.saveTasks(tasks);
+        } catch (IOException e) {
+            System.err.println("Error saving tasks: " + e.getMessage());
+            System.out.println("Unable to save tasks. Your changes might not be persisted.");
+        } catch (TaskException e) {
+            System.err.println("Task format error on save: " + e.getMessage());
+            System.out.println("There was an error in task format. Changes might not be saved correctly.");
         }
     }
 
@@ -123,6 +147,7 @@ public class Huyang {
         String description = input.substring(5).trim();
         tasks.add(new ToDo(description));
         printAddedTask();
+        updateTasks();
     }
 
     private void addDeadlineTask(String input) throws TaskException {
@@ -137,6 +162,7 @@ public class Huyang {
         String by = input.substring(byIndex + 4).trim();
         tasks.add(new Deadline(description, by));
         printAddedTask();
+        updateTasks();
     }
 
     private void addEventTask(String input) throws TaskException {
@@ -153,6 +179,7 @@ public class Huyang {
         String end = input.substring(toIndex + 4).trim();
         tasks.add(new Event(description, start, end));
         printAddedTask();
+        updateTasks();
     }
 
     private void printAddedTask() {
