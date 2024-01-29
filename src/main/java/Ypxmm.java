@@ -53,8 +53,7 @@ public class Ypxmm {
                 }
                 tasks.add(task);
             } else if (line[0].equals("E")) {
-                String[] timing = line[3].split("-");
-
+                String[] timing = line[3].split(" to ");
                 Task task = new Event(line[2], timing[0], timing[1]);
                 if (line[1].equals("1")) {
                     task.setCompleted();
