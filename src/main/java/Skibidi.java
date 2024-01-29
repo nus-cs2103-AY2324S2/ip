@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class Skibidi {
             " ___) | . \\ | || |_) | || |_| | | \n" +
             "|____/|_|\\_\\___|____/___|____/___|";
 
-    private ArrayList<Task> list = new ArrayList<>();
+    private List<Task> list = new ArrayList<>();
 
     public void printLine() {
         System.out.println("\n-------------------------------------------------------------------\n");
@@ -208,13 +209,48 @@ public class Skibidi {
         Files.createFile(pathFile);
         // Writing to the file
         writeToFile(pathFile);
+        System.out.println("Your list has been saved to /data/duke/txt");
     }
 
     private void writeToFile(Path f) throws IOException {
         List<String> lines = list.stream()
-                .map(Object::toString)
-                .map(s -> s.substring(0, s.length() - 1))
+                .map(Task::toSavedString)
                 .collect(Collectors.toList());
         Files.write(f, lines);
+    }
+
+    public void load() {
+        String userDir = System.getProperty("user.dir");
+        Path pathFile = Paths.get(userDir, "data", "duke.txt");
+        try {
+            List<String> read = Files.readAllLines(pathFile);
+            this.list = read.stream()
+                    .map(this::stringToTask)
+                    .collect(Collectors.toList());
+            System.out.println("Your current list:");
+            printList();
+            printLine();
+        } catch (IOException e) {
+            System.out.println("You do not have a saved list.");
+            printLine();
+        }
+    }
+
+    private Task stringToTask(String s) {
+        List<String> taskLst = Arrays.asList(s.split(","));
+        Task t = null;
+        switch (taskLst.get(0)) {
+            case "T":
+                t = new Todo(taskLst.get(1).equals("1"), taskLst.get(2));
+                break;
+            case "D":
+                t = new Deadline(taskLst.get(1).equals("1"), taskLst.get(2), taskLst.get(3));
+                break;
+            case "E":
+                t = new Event(taskLst.get(1).equals("1"), taskLst.get(2), taskLst.get(3), taskLst.get(4));
+                break;
+        }
+
+        return t;
     }
 }
