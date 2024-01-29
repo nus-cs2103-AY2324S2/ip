@@ -18,6 +18,9 @@ public class FileManager {
         createFile();
     }
 
+    /**
+     * Creates directory and file if it doesn't exist.
+     */
     private void createFile() {
         try {
             if (!Files.exists(DIRECTORY_PATH)) {
@@ -32,7 +35,12 @@ public class FileManager {
         }
     }
 
-
+    /**
+     * Writes tasks to the file.
+     *
+     * @param tasks the tasks that need to be written.
+     * @param isOverwrite True for overwrite the previous data. False for appending the data.
+     */
     void writeArrayListToFile(ArrayList<Task> tasks, boolean isOverwrite) {
         try {
             if (isOverwrite) {
@@ -45,6 +53,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Loads Tasks from the file.
+     *
+     * @return an ArrayList of Tasks.
+     */
     ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> result = new ArrayList<>();
         try {
@@ -56,7 +69,12 @@ public class FileManager {
         return result;
     }
 
-
+    /**
+     * Converts an ArrayList of Tasks to String.
+     *
+     * @param tasks An arrayList of Tasks.
+     * @return String format of the list of Tasks.
+     */
     private String convertTasksToString(ArrayList<Task> tasks) {
         StringBuilder result = new StringBuilder();
         for (Task task: tasks) {
@@ -86,6 +104,12 @@ public class FileManager {
         return result.toString();
     }
 
+    /**
+     * Converts the List of String to an ArrayList of Tasks.
+     *
+     * @param content the List of String to be converted.
+     * @return an ArrayList of Tasks.
+     */
     private ArrayList<Task> convertStringListToTasks(List<String> content) {
         ArrayList<Task> fileTasks = new ArrayList<>();
         for (String i : content) {
@@ -101,6 +125,12 @@ public class FileManager {
         return fileTasks;
     }
 
+    /**
+     * Converts the String content to an ArrayList of Tasks.
+     *
+     * @param content the String content to be converted.
+     * @return an ArrayList of Tasks.
+     */
     private ArrayList<Task> convertStringToTasks(String content) {
         String[] individualStringTask = content.trim().split(System.lineSeparator());
         ArrayList<Task> fileTasks = new ArrayList<>();
