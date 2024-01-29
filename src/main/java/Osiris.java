@@ -1,5 +1,10 @@
 import Task.Task;
+import UI.Ui;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,6 +13,8 @@ public class Osiris {
     public static final String NAME = "Osiris";
 
     private final TaskManager taskManager = new TaskManager();
+
+    private final Ui userInterface = new Ui();
 
     public void startChat(){
         Scanner scanner = new Scanner(System.in);
@@ -231,5 +238,48 @@ public class Osiris {
 
     private void printSeparator() {
         System.out.println("----------------------------------------");
+    }
+
+    // To be added to seperate class.
+
+    public static LocalDate dateFormatter(String dateStr) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        try {
+            LocalDate date = LocalDate.parse(dateStr, dateTimeFormatter);
+            return date;
+        } catch (DateTimeParseException e) {
+            System.out.println("Failed to parse the date-time string: '" + dateStr);
+            System.out.println("Please try /by dd-mm-yyyy for a deadline tasks.");
+            return null;
+        }
+    }
+
+    public static LocalDateTime dateTimeFormatter(String dateTimeStr) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
+            return dateTime;
+        } catch (DateTimeParseException e) {
+            System.out.println("Failed to parse the time range.");
+            System.out.println("Please provide date time range 'dd-MM-yyyy HHmm' format.");
+            return null;
+        }
+    }
+
+    public LocalDateTime[] timeRangeFormatter(String fromDateTimeStr, String toTimeStr) {
+        DateTimeFormatter fromDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        DateTimeFormatter toDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+
+        try {
+            LocalDateTime fromDateTime = LocalDateTime.parse(fromDateTimeStr, fromDateTimeFormatter);
+            LocalDateTime toDateTime = LocalDateTime.parse(toTimeStr, toDateTimeFormatter);
+            return new LocalDateTime[]{fromDateTime, toDateTime};
+        } catch (DateTimeParseException e) {
+            System.out.println("Failed to parse the date time range.");
+            System.out.println("Please provide date time range in 'dd-MM-yyyy HHmm' format.");
+            return null;
+        }
     }
 }

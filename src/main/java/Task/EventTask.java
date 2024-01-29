@@ -2,6 +2,8 @@ package Task;
 
 import Task.Task;
 
+import java.time.LocalDateTime;
+
 public class EventTask extends Task {
 
     private String startDateTime;
@@ -20,7 +22,6 @@ public class EventTask extends Task {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
-
 
     @Override
     public String getStringStorageRepresentation() {
