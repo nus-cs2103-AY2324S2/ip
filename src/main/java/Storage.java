@@ -43,7 +43,7 @@ public class Storage {
 
         }
         catch (IOException e) {
-            System.out.println(e);
+            System.out.println("Uh oh, the file/directory doesn't seem to exist. No worries, one will be created for you at the end of your conversation!");
         }
     }
 
@@ -96,7 +96,7 @@ public class Storage {
             }
         }
         catch (IOException e) {
-            System.out.println(e);
+            System.out.println("Uh oh, the file/directory doesn't seem to exist. No worries, one will be created for you at the end of your conversation!");
         }
 
         return userRequests;
