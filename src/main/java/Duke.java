@@ -1,10 +1,18 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Duke {
     public static ArrayList<Task> taskList = new ArrayList<Task>();
     public static Integer taskCount = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        taskList = loadFromFile();
         //Greets User
         String lineBreak = "-----------------";
         System.out.println(lineBreak + '\n' +
@@ -112,7 +120,6 @@ public class Duke {
                                 lineBreak);
                         break;
                     }
-
                     default: {
                         throw new ExceptionDuke("OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
@@ -125,9 +132,66 @@ public class Duke {
             }
             user_input = sc.nextLine();
         }
+        saveToFile();
         System.out.println(lineBreak + '\n' +
                 "Bye. Hope to see you again soon!" + '\n' +
                 lineBreak);
+    }
+
+    public static void saveToFile() throws IOException {
+        // ##can change user.home to user.dir so that easier to track file in ip directory
+        String currPath = System.getProperty("user.home") + "/data";
+        System.out.println(currPath);
+        File dataDirectory = new File(currPath);
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+        File currFile = new File(currPath + "/duke.txt");
+        FileWriter fw = new FileWriter(currFile, false);
+        for (Task task: taskList) {
+            fw.write(task.toString() + '\n');
+        }
+        System.out.print(taskList);
+        fw.close();
+    }
+
+    public static ArrayList<Task> loadFromFile() throws FileNotFoundException {
+        ArrayList<Task> dataTaskList = new ArrayList<Task>();
+        String path = System.getProperty("user.home");
+        //checking if file exists
+        File sourceFile = new File(path + "/data/duke.txt");
+        System.out.println(sourceFile.exists());
+        if (!sourceFile.exists()) {
+            return dataTaskList;
+        } else {
+            Scanner sc = new Scanner(sourceFile);
+            while (sc.hasNext()) {
+                String line = sc.nextLine().substring(4);
+                System.out.println(line);
+                String[] typeLine = line.split(" ");
+                String[] detailLine = line.split(" \\| ");
+                switch(typeLine[0]) {
+                    case "Todo": {
+                        Todo currTask = new Todo(detailLine[1]);
+                        dataTaskList.add(currTask);
+                        break;
+                    }
+                    case "Deadline": {
+                        Task currTask = new Deadline(detailLine[1], detailLine[2]);
+                        dataTaskList.add(currTask);
+                        break;
+                    }
+                    case "Event": {
+                        String[] timeArray = line.split(" \\ - ");
+                        System.out.println(timeArray[1]);
+                        Task currTask = new Event(detailLine[1], detailLine[2], timeArray[1] );
+                        dataTaskList.add(currTask);
+                        break;
+                    }
+                }
+            }
+        }
+        return dataTaskList;
     }
 }
 

@@ -10,6 +10,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.date + " to: " + this.time + ")";
+        return "[" + super.getStatusIcon() + "]" + " Event | " + this.description
+                + " | " + this.date
+                + " - " + this.time;
     }
 }
