@@ -10,6 +10,6 @@ abstract class AddCommand extends Command {
                 "Got it, I've added this task:\n  "
                 + newTask + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list.";
-        ui.display(message);
+        Ui.display(message);
     }
 }

@@ -2,10 +2,8 @@ import java.util.List;
 
 /*
 TODO:
-    1. Update text ui test
-    2. Extend text ui test cases
-    3. Write comments to document code
-    4. Write the README.md
+    1. Write comments to document code
+    2. Write the README.md
  */
 
 public class Mike {
@@ -32,11 +30,12 @@ public class Mike {
                     exitSeen = true;
                 }
             } catch (MikeException e) {
-                ui.displayError(e.getMessage());
+                Ui.displayError(e.getMessage());
             } finally {
                 ui.displayLine();
             }
         }
+        taskList.writeToFile();
     }
 
     /**
@@ -44,6 +43,7 @@ public class Mike {
      * @param args n/a
      */
     public static void main(String[] args) {
-        new Mike().run();
+        Mike mike = new Mike();
+        mike.run();
     }
 }

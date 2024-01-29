@@ -14,7 +14,11 @@ public class Ui {
         }
     }
 
-    public void displayError(String errorMessage) {
+    public static void display(Object object) {
+        System.out.println(object);
+    }
+
+    public static void displayError(String errorMessage) {
         display(errorMessage);
     }
     public void displayWelcome() {
@@ -75,7 +79,4 @@ public class Ui {
         display(horizontalLine);
     }
 
-    public void display(Object object) {
-        System.out.println(object);
-    }
 }

@@ -1,9 +1,12 @@
-public class Task {
+abstract class Task {
     protected final String description;
     protected boolean isDone;
-    Task(String description) {
+    protected String type;
+
+    Task(String description, String type) {
         this.description = description;
         this.isDone = false;
+        this.type = type;
     }
 
     public void markAsDone() {
@@ -22,7 +25,18 @@ public class Task {
         return description;
     }
 
-    @Override
+    public String getIsDone() {
+        return isDone ? "true" : "false";
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getFileEncoding() {
+        return getType() + "," + getDescription() + "," + getIsDone();
+    };
+
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
