@@ -7,6 +7,8 @@ public class Parser {
         String processedInput = fullCommand.trim().toUpperCase();
         String[] splitInput = processedInput.split(" ");
         switch (splitInput[0]) {
+        case "FIND":
+            return new FindCommand(fullCommand, 0);
         case "LIST":
             return new ListCommand(fullCommand, 0);
         case "LISTTASKONDATE":
