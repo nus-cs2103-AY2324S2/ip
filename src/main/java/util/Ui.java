@@ -5,6 +5,7 @@ import java.util.Scanner;
 import action.Action;
 import action.Add;
 import action.Delete;
+import action.Find;
 import action.Goodbye;
 import action.HandleError;
 import action.List;
@@ -19,7 +20,7 @@ import task.ToDo;
  * The Ui class handles user interface related operations.
  */
 public class Ui {
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     private Ui() {
 
@@ -88,6 +89,12 @@ public class Ui {
                 return new HandleError(e);
             }
             return new Delete(taskList, idx);
+        case "find":
+            try {
+                return new Find(Parser.parseDescription(restOfLine));
+            } catch (NarutoException e) {
+                return new HandleError(e);
+            }
         default:
             return new HandleError(NarutoException.createInvalidCommandException());
         }

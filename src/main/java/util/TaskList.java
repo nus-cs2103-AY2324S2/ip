@@ -2,6 +2,8 @@ package util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import task.Task;
 
@@ -9,7 +11,7 @@ import task.Task;
  * Represents a list of tasks.
  */
 public class TaskList {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks;
     private final Storage storage;
 
     /**
@@ -18,6 +20,7 @@ public class TaskList {
      * @throws IOException if there is an error initializing the storage.
      */
     public TaskList() throws IOException {
+        this.tasks = new ArrayList<>();
         this.storage = new Storage(tasks);
     }
 
@@ -79,6 +82,27 @@ public class TaskList {
         Task t = this.tasks.get(i - 1).unmark();
         storage.writeToFile(tasks);
         return t;
+    }
+
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return true if the task list is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    /**
+     * Finds tasks in the task list that contain the specified string.
+     *
+     * @param s the string to search for in the tasks
+     * @return a list of tasks that contain the specified string
+     */
+    public static List<Task> find(String s) {
+        return tasks.stream()
+                .filter(t -> t.contains(s))
+                .collect(Collectors.toList());
     }
 
     /**

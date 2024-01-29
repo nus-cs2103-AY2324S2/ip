@@ -24,4 +24,4 @@ bin/
 /src/logs/
 /src/main/java/src.logs/
 
-
+*.jar
