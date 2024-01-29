@@ -1,12 +1,18 @@
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Atlas {
-    private static final int MAX_TASKS = 100;
-    private final String horizontalLine = "____________________________________________________________";
+    private static final String DATA_PATH = "./data/Atlas.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCounter = 0;
+
     public static void main(String[] args) {
+        loadTasks();
         Scanner scanner = new Scanner(System.in);
 
         greet();
@@ -35,6 +41,7 @@ public class Atlas {
                 System.out.println(e.getMessage());
             }
         }
+        saveTasks();
         exit();
     }
 
@@ -42,6 +49,7 @@ public class Atlas {
         System.out.println("Hello! I'm Atlas");
         System.out.println("What can I do for you?");
     }
+
     private static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
@@ -108,6 +116,74 @@ public class Atlas {
         System.out.println(removedTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         taskCounter--;
+    }
+
+    private static void saveTasks() {
+        try (PrintWriter writer = new PrintWriter(DATA_PATH)) {
+            for (Task task : tasks) {
+                writer.println(task.toFileFormat());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    private static void ensureFileExists() {
+        File file = new File(DATA_PATH);
+        if (!file.exists()) {
+            try {
+                File directory = file.getParentFile();
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error creating file: " + e.getMessage());
+            }
+        }
+    }
+
+    private static void loadTasks() {
+        File file = new File(DATA_PATH);
+        ensureFileExists();
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                Task task = parseLineToTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Unable to load tasks: " + e.getMessage());
+        }
+
+        taskCounter = tasks.size();
+    }
+
+    private static Task parseLineToTask(String line) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+
+        switch (type) {
+        case "T":
+            ToDo todo = new ToDo(description);
+            if (isDone) todo.toggle();
+            return todo;
+        case "D":
+            Deadline deadline = new Deadline(description, parts[3].trim());
+            if (isDone) deadline.toggle();
+            return deadline;
+        case "E":
+            Event event = new Event(description, parts[3].trim(), parts[4].trim());
+            if (isDone) event.toggle();
+            return event;
+        default:
+            return null;
+        }
     }
 
 }
