@@ -10,11 +10,12 @@ public class Duke {
             "\nBye. Hope to see you again soon!\n"
             + horzLine;
 
-    static String[] textStorage = new String[100];
+    static Task[] taskStorage = new Task[100];
     static int numInStorage = 0;
 
     public static void echo(String message) {
-        textStorage[numInStorage] = message;
+        Task latestTask = new Task(message);
+        taskStorage[numInStorage] = latestTask;
         numInStorage++;
         System.out.println(horzLine);
         System.out.println("added: " + message);
@@ -23,11 +24,27 @@ public class Duke {
     public static void list() {
         System.out.println(horzLine);
         for (int i = 0; i < numInStorage; i++) {
-            System.out.println(i + ". " + textStorage[i]);
+            int j = i + 1;
+            System.out.println(j + ". " + taskStorage[i].getTaskAsString());
         }
         System.out.println(horzLine);
     }
 
+    public static void markDone(int index) {
+        taskStorage[index].markAsDone();
+        System.out.println(horzLine);
+        System.out.println("Nice! I've marked this task as done: ");
+        System.out.println("  " + taskStorage[index].getTaskAsString());
+        System.out.println(horzLine);
+    }
+
+    public static void markNotDone(int index) {
+        taskStorage[index].markAsUndone();
+        System.out.println(horzLine);
+        System.out.println("OK, I've marked this task as not done yet: ");
+        System.out.println("  " + taskStorage[index].getTaskAsString());
+        System.out.println(horzLine);
+    }
     public static void main(String[] args) {
         System.out.println(greetingMessage);
 
@@ -35,9 +52,30 @@ public class Duke {
 
         while(!user.getUserInput().equalsIgnoreCase("bye")) {
             user.inputMessage();
-            if (user.getUserInput().equalsIgnoreCase("list")) {
+            String userMessage = user.getUserInput();
+            if (userMessage.equalsIgnoreCase("list")) {
                 list();
-            } else if (!user.getUserInput().equalsIgnoreCase("bye")) {
+            } else if (userMessage.toLowerCase().contains("unmark")) {
+                String[] arrOfStr = userMessage.split(" ");
+                if (arrOfStr.length == 2) {
+                    int taskIndex = Integer.valueOf(arrOfStr[1]);
+                    markNotDone(taskIndex - 1);
+                } else {
+                    System.out.println(horzLine);
+                    System.out.print("command failed");
+                    System.out.println(horzLine);
+                }
+            } else if (userMessage.toLowerCase().contains("mark")) {
+                String[] arrOfStr = userMessage.split(" ");
+                if (arrOfStr.length == 2) {
+                    int taskIndex = Integer.valueOf(arrOfStr[1]);
+                    markDone(taskIndex - 1);
+                } else {
+                    System.out.println(horzLine);
+                    System.out.print("command failed");
+                    System.out.println(horzLine);
+                }
+            } else if (!userMessage.equalsIgnoreCase("bye")) {
                 echo(user.getUserInput());
             }
         }
