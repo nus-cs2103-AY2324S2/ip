@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -53,8 +54,7 @@ public class Ypxmm {
                 }
                 tasks.add(task);
             } else if (line[0].equals("E")) {
-                String[] timing = line[3].split("-");
-
+                String[] timing = line[3].split(" to ");
                 Task task = new Event(line[2], timing[0], timing[1]);
                 if (line[1].equals("1")) {
                     task.setCompleted();
@@ -148,10 +148,11 @@ public class Ypxmm {
         sc.close();
     }
     public static void getCommands() {
-        System.out.println("todo <task> - adds todo\ndeadline <task>/<by when> - adds deadline\n" +
-                "event <task>/<from when>/<to when> - adds event\nlist - lists out all tasks\n" +
-                "mark <x> - marks task x as done\nunmark <x> - unmarks task x as undone\n" +
-                "bye - exit");
+        System.out.println("Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format\n" +
+                "  todo <task> - adds todo\n  deadline <task>/<by when> - adds deadline\n" +
+                "  event <task>/<from when>/<to when> - adds event\n  list - lists out all tasks\n" +
+                "  mark <x> - marks task x as done\n  unmark <x> - unmarks task x as undone\n" +
+                "  bye - exit");
     }
 
     public static void sayHello() {
@@ -273,6 +274,8 @@ public class Ypxmm {
                     throw new YpxmmException("File not created yet la bro. In the ip folder, create a new folder \"data\" and a new txt file \"Ypxmm\" to proceed");
                 } catch (IOException e) {
                     throw new YpxmmException("IOException");
+                } catch (DateTimeParseException e) {
+                    throw new YpxmmException("Brother, follow format can or not? Enter dates in dd-mm-yyyy HHmm (24-08-2024 1800)");
                 }
             } else {
                 try {
@@ -292,6 +295,8 @@ public class Ypxmm {
                     throw new YpxmmException("File not created yet la bro. In the ip folder, create a new folder \"data\" and a new txt file \"Ypxmm\" to proceed");
                 } catch (IOException e) {
                     throw new YpxmmException("IOException");
+                } catch (DateTimeParseException e) {
+                    throw new YpxmmException("Brother, follow format can or not? Enter dates in dd-mm-yyyy HHmm (24-08-2024 1800)");
                 }
             }
         } catch (YpxmmException y) {
