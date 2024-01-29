@@ -22,6 +22,6 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + this.getBy() + ")";
     }
     public String getBy() {
-        return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        return this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 }

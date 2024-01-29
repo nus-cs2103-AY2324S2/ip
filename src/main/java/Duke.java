@@ -1,10 +1,11 @@
 import java.io.File;
 import java.io.FileWriter;
-
 import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -64,16 +65,21 @@ public class Duke {
             try {
                 file.createNewFile();
                 Scanner fileScanner = new Scanner(file);
+                int lines = 0;
                 while (fileScanner.hasNext()) {
                     String taskLine = fileScanner.nextLine();
                     Task task = parseTask(taskLine); // Implement this method based on your task format
                     if (task != null) {
                         taskList.add(task);
                     }
+                    lines++;
                 }
+                System.out.println("    I've loaded " + lines + " tasks from Duke.txt!");
+                displayLine();
             } catch(IOException e){
                     System.err.println("Error creating 'duke.txt' file: " + e.getMessage());
             }
+
         }
 
         private Task parseTask(String line) {
@@ -113,7 +119,7 @@ public class Duke {
                     }
                     String from = parts[3].trim();
                     String to = parts[4].trim();
-                    Event event = new Event(description, from, to);
+                    Event event = new Event(description, parseDateString(from), parseDateString(to));
                     if (isDone) event.markDone();
                     return event;
                 default:
@@ -274,11 +280,17 @@ public class Duke {
                     String from = fromTo[0];
                     String to = fromTo[1];
 
-                    Task newEvent = new Event(description, from, to);
-                    taskList.add(newEvent);
-                    currIndex++;
-                    addMessage(newEvent, currIndex);
-                    taskManager.saveTaskToFile(newEvent);
+                    Event newEvent = new Event(description, from, to);
+                    if (newEvent.hasValidDate()) {
+                        taskList.add(newEvent);
+                        currIndex++;
+                        addMessage(newEvent, currIndex);
+                        taskManager.saveTaskToFile(newEvent);
+                    } else {
+                        System.out.println("Error creating event task. Please " +
+                                "provide a valid from and valid to date in the format 'yyyy-MM-dd HHmm'.");
+                        displayLine();
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
                             " must be in the format 'deadline [task] /from [time]' /to [time].");
