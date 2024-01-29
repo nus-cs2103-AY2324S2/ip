@@ -12,28 +12,15 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    public static void displayLine() {
-        System.out.println(gap() + "_".repeat(50));
-    }
-    public static String gap() {
-        return "    ";
-    }
-    public static void wrapInLines(String line){
-        displayLine();
-        System.out.println(line);
-        displayLine();
-    }
-    public static void echo(String line) {
-        wrapInLines(line);
-    }
-    public static void greet() {
-        wrapInLines(gap() + "Hello! I'm Shirmin" + "\n"
-                + gap() + "What can I do for you?");
-    }
-    public static void exit() {
-        wrapInLines(gap() +"Bye. Hope to see you again soon!");
-    }
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
+
+    public Duke() {
+        this.ui = new Ui();
+
+    }
 
     static ArrayList<Task> taskList = new ArrayList<>();
     static int currIndex = 0;
@@ -48,7 +35,7 @@ public class Duke {
         }
     }
 
-    public static class TaskManager {
+    public class TaskManager {
         private ArrayList<Task> taskList;
         //private final String FILE_PATH = "./data/duke.txt";
 
@@ -76,10 +63,9 @@ public class Duke {
                     }
                     lines++;
                 }
-                System.out.println("    I've loaded " + lines + " tasks from Duke.txt!");
-                displayLine();
+                ui.loadFiles(lines);
             } catch(IOException e){
-                    System.err.println("Error creating 'duke.txt' file: " + e.getMessage());
+                ui.createFileError(e);
             }
 
         }
@@ -87,7 +73,7 @@ public class Duke {
         private Task parseTask(String line) {
             String[] parts = line.split(" \\| ");
             if (parts.length < 3) {
-                System.err.println("Task in file not in correct format or missing parts: " + line);
+                ui.taskFormatError(line);
                 return null;
             }
 
@@ -105,7 +91,7 @@ public class Duke {
                     return todo;
                 case "D":
                     if (parts.length < 4) {
-                        System.err.println("Deadline task missing 'by' part: " + line);
+                        ui.deadlineMissingBy(line);
                         return null;
                     }
                     String by = parts[3].trim();
@@ -115,8 +101,8 @@ public class Duke {
                     }
                     return deadline;
                 case "E":
-                    if (parts.length < 5) {
-                        System.err.println("Event task missing 'from' or 'to' parts: " + line);
+                    if (parts.length < 5) { // missing from/to or both
+                        ui.eventMissingParam(line);
                         return null;
                     }
                     String from = parts[3].trim();
@@ -125,11 +111,11 @@ public class Duke {
                     if (isDone) event.markDone();
                     return event;
                 default:
-                    System.err.println("Unknown task type: " + type);
+                    ui.unknownTaskType(type);
                     return null;
                 }
             } catch (Exception e) {
-                System.err.println("Error parsing task from file: " + e.getMessage() + " - Line: " + line);
+                ui.genericTaskError(e, line);
                 return null;
             }
         }
@@ -138,7 +124,7 @@ public class Duke {
                 LocalDateTime date = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
                 return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             } catch (DateTimeParseException e) {
-                System.err.println("Error parsing date: " + dateString + ". Please use the format 'yyyy-MM-dd HHmm'.");
+                ui.parseDateError(dateString);
                 return null;
             }
         }
@@ -166,8 +152,8 @@ public class Duke {
                 String taskLine = formatTaskForFile(task);
                 fileWriter.write(taskLine + "\n");
                 fileWriter.close();
-            } catch (IOException error) {
-                System.err.println("Error saving task to file: " + error.toString());
+            } catch (IOException e) {
+                ui.saveError(e);
             }
 
         }
@@ -180,14 +166,14 @@ public class Duke {
                     fileWriter.write(taskLine + "\n");
                 }
                 fileWriter.close();
-            } catch (IOException error) {
-                System.err.println("Error saving tasks to file: " + error.toString());
+            } catch (IOException e) {
+                ui.saveError(e);
             }
         }
     }
 
 
-    public static void listFunction() {
+    public void listFunction() {
         TaskManager taskManager = new TaskManager(taskList);
         Scanner scanner = new Scanner(System.in);
         String currLine = scanner.nextLine();
@@ -196,46 +182,42 @@ public class Duke {
             CommandType commandType = CommandType.getCommandType(command[0]);
             switch (commandType) {
             case LIST:
-                displayList(taskList);
+                ui.displayList(taskList);
                 break;
             case MARK:
                 try {
                     int taskIndex = Integer.parseInt(command[1]) - 1;
-                    if (taskIndex < currIndex) {
-                        taskList.get(taskIndex).markDone();
-                        // displayLine();
-                        System.out.println(gap() + "Nice! I've marked this task as done:");
-                        System.out.println(gap() + gap() + taskList.get(taskIndex));
-                        displayLine();
+                    if (taskIndex < currIndex && taskIndex >= 0) {
+                        Task task = taskList.get(taskIndex);
+                        task.markDone();
+                        ui.markTask(task.toString());
                         taskManager.saveAllTasksToFile();
                         break;
                     } else { // out of range
-                        System.out.println("invalid, out of range");
+                        ui.taskOutOfBounds(currIndex);
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number: " + command[1]);
+                    ui.invalidTaskNumber(command[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("There are " + currIndex + "numbers, please enter a number from 1 to " + currIndex);
+                    ui.taskOutOfBounds(currIndex);
                 }
                 break;
             case UNMARK:
                 try {
                     int taskIndex = Integer.parseInt(command[1]) - 1;
-                    if (taskIndex < currIndex) {
-                        taskList.get(taskIndex).markUndone();
-                        displayLine();
-                        System.out.println(gap() + "OK, I've marked this task as not done yet:");
-                        System.out.println(gap() + gap() + taskList.get(taskIndex));
-                        displayLine();
+                    if (taskIndex < currIndex && taskIndex >= 0) {
+                        Task task = taskList.get(taskIndex);
+                        task.markUndone();
+                        ui.unmarkTask(task.toString());
                         taskManager.saveAllTasksToFile();
                         break;
                     } else { // out of range
-                        System.out.println("invalid, out of range");
+                        ui.invalidTaskNumber(command[1]);
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number: " + command[1]);
+                    ui.invalidTaskNumber(command[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("There are " + currIndex + " items, please enter a number from 1 to " + currIndex);
+                    ui.taskOutOfBounds(currIndex);
                 }
 
                 break;
@@ -243,12 +225,11 @@ public class Duke {
                 try {
                     Task newTodo = new Todo(command[1]);
                     taskList.add(newTodo);
-                    // taskList[currIndex] = newTodo;
                     currIndex++;
-                    addMessage(newTodo, currIndex);
+                    ui.addMessage(newTodo, currIndex);
                     taskManager.saveTaskToFile(newTodo);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("oopsy doopsy you made a -ucky wucky! The description of a todo cannot be empty.");
+                    ui.todoFormatError();
                 }
 
                 break;
@@ -262,16 +243,13 @@ public class Duke {
                     if (newDeadline.hasValidDate()) {
                         taskList.add(newDeadline);
                         currIndex++;
-                        addMessage(newDeadline, currIndex);
+                        ui.addMessage(newDeadline, currIndex);
                         taskManager.saveTaskToFile(newDeadline);
                     } else {
-                        System.out.println("Error creating deadline task. Please " +
-                                "provide a valid date in the format 'yyyy-MM-dd HHmm'.");
-                        displayLine();
+                        ui.deadlineDateError();
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
-                            " must be in the format 'deadline [task] /by [time]'.");
+                    ui.deadlineFormatError();
                 }
                 break;
             case EVENT:
@@ -286,16 +264,13 @@ public class Duke {
                     if (newEvent.hasValidDate()) {
                         taskList.add(newEvent);
                         currIndex++;
-                        addMessage(newEvent, currIndex);
+                        ui.addMessage(newEvent, currIndex);
                         taskManager.saveTaskToFile(newEvent);
                     } else {
-                        System.out.println("Error creating event task. Please " +
-                                "provide a valid from and valid to date in the format 'yyyy-MM-dd HHmm'.");
-                        displayLine();
+                        ui.eventDateError();
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("oopsy doopsy you made a -ucky wucky! The description of a deadline" +
-                            " must be in the format 'deadline [task] /from [time]' /to [time].");
+                    ui.eventFormatError();
                 }
                 break;
             case DELETE:
@@ -303,73 +278,34 @@ public class Duke {
                     int taskIndex = Integer.parseInt(command[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < taskList.size()) {
                         Task removedTask = taskList.remove(taskIndex);
-                        displayLine();
-                        System.out.println(gap() + "Ok, I've removed the task:");
-                        System.out.println(gap() + gap() + removedTask);
-                        System.out.println(gap() + "You have " + taskList.size() + " tasks remaining in the list.");
-                        displayLine();
+                        ui.deleteTask(removedTask.toString(), taskList);
                         taskManager.saveAllTasksToFile();
                         currIndex--;
                     } else {
-                        System.out.println("Invalid task number: " + (taskIndex + 1));
+                        ui.invalidTaskNumber(String.valueOf(taskIndex + 1));
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number: " + command[1]);
+                    ui.invalidTaskNumber(command[1]);
                 }
                 break;
             default:
-                System.out.println("OH NO I'm not sure what that command is. You may use the commands " +
-                        "todo, deadline, list, event, delete, mark and unmark");
+                ui.unknownCommand();
                 break;
             }
             currLine = scanner.nextLine();
         }
+        ui.exit();
 
     }
 
-    public static <T extends Task> void addMessage(T task, Integer number){
-        // displayLine();
-        System.out.println(gap() + "Got it. I've added this task:");
-        System.out.println(gap() + gap() + task.toString());
-        System.out.println(gap() + "Now you have " + number.toString() + " tasks in the list.");
-        displayLine();
-    }
 
-    public static void displayList(ArrayList<Task> list) {
-        if (list.isEmpty()) {
-            System.out.println(gap() + "There are no tasks in your list.");
-        } else {
-            System.out.println(gap() + "Here are the tasks in your list:");
-            int i = 1;
-            for (Task t : list) {
-                System.out.println(gap() + i + "." + t.toString());
-                i++;
-            }
-        }
-        displayLine();
-    }
+
+
 
 
     public static void main(String[] args){
-        greet();
-        listFunction();
-        exit();
+        new Duke().listFunction();
+        // listFunction();
     }
 }
 
-
-//                switch (commandType) {
-//                case LIST:
-//                    break;
-//                case MARK:
-//                    break;
-//                case UNMARK:
-//                    break;
-//                case TODO:
-//                    break;
-//                case DEADLINE:
-//                    break;
-//                case EVENT:
-//                    break;
-//                case DELETE:
-//                    break;
