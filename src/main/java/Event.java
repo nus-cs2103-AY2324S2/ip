@@ -1,15 +1,23 @@
-class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String from, String to, boolean isDone) {
+class Event extends Task {
+    private LocalDate from;
+    private LocalDate to;
+
+    public Event(String description, String from, String to, boolean isDone) throws SkylerException {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            this.to = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (Exception e) {
+            throw new SkylerException("Invalid date format for event. Please use yyyy-MM-dd.");
+        }
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
+                " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
