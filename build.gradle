@@ -29,13 +29,14 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("grumblebug.GrumbleBug")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "grumblebug"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'grumblebug.jar'
 }
 
 run{
