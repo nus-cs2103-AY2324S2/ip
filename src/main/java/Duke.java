@@ -4,6 +4,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 /**
  * Duke is a chatbot program that is used to save tasks
  *
@@ -18,9 +22,21 @@ public class Duke {
     private ArrayList<Task> taskList = new ArrayList<>();
     private final String LINE = "____________________________________________________________\n";
     private final String FILENAME = "./data/duke.txt";
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     public Duke(String NAME) {
         this.NAME = NAME;
 
+    }
+
+    public void checkDateFormat(String date) throws DukeException {
+        try {
+            LocalDate d = LocalDate.parse(date, this.formatter);
+
+        } catch (Exception ex) {
+// do something for invalid dateformat
+            throw new DukeException("Erm... Date not keyed in correct format! Correct format is yyyy-MM-dd"+ex);
+        }
     }
 
 
@@ -44,6 +60,8 @@ public class Duke {
                         newTask = new Todo(event);
                     } else if (type.equalsIgnoreCase("D")) {
                         String extraInfo = splitLine[3];
+                        checkDateFormat(extraInfo);
+
                         newTask = new Deadline(event, extraInfo);
                     } else if (type.equalsIgnoreCase("E")) {
                         String extraInfo = splitLine[3];
@@ -104,9 +122,13 @@ public class Duke {
             }
         } else if (command.startsWith("deadline")){
             try {
-                newTask = new Deadline(command.substring(9));
+                String[] taskDesc = command.substring(9).split("/by ");
+                checkDateFormat(taskDesc[1]);
+                newTask = new Deadline(taskDesc[0], taskDesc[1]);
+
+
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                throw new DukeException("Erm... Please provide event details.");
+                throw new DukeException("Erm... Please provide event details." + e);
             }
         } else if (command.startsWith("event")) {
             try {
