@@ -35,4 +35,13 @@ public abstract class Task implements CsvFormat {
     public String toString() {
         return "[" + (this.done ? "X" : " ") + "] " + this.description;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Task)) {
+            return false;
+        }
+        Task other = (Task) obj;
+        return this.description.equals(other.description) && this.done == other.done;
+    }
 }

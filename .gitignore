@@ -34,4 +34,6 @@ build/
 gradle-app.setting
 !gradle-wrapper.jar
 src/main/resources/docs/
+.project
+.settings
 

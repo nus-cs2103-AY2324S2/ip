@@ -28,4 +28,13 @@ public class Deadline extends Task {
     public String toString() {
         return "[" + TYPE_SYMBOL + "]" + super.toString() + " (by: " + Parser.dateTimeToString(this.due) + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Deadline)) {
+            return false;
+        }
+        Deadline other = (Deadline) obj;
+        return super.equals(other) && this.due.equals(other.due);
+    }
 }

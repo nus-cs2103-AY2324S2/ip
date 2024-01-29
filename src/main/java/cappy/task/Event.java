@@ -30,4 +30,13 @@ public class Event extends Task {
     public String toString() {
         return "[" + TYPE_SYMBOL + "]" + super.toString() + " (from: " + Parser.dateTimeToString(this.begin) + " to: " + Parser.dateTimeToString(this.end) + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+        Event other = (Event) obj;
+        return super.equals(other) && this.begin.equals(other.begin) && this.end.equals(other.end);
+    }
 }

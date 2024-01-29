@@ -51,4 +51,18 @@ public class ParsedInput {
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws CappyException, IOException {
         command.execute(tasks, ui, storage, this);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ParsedInput)) {
+            return false;
+        }
+        ParsedInput other = (ParsedInput) obj;
+        return commandType == other.commandType && namedArguments.equals(other.namedArguments) && positionalArguments.equals(other.positionalArguments);
+    }
+
+    @Override
+    public String toString() {
+        return "ParsedInput(" + commandType + ", " + namedArguments + ", " + positionalArguments + ")";
+    }
 }
