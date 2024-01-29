@@ -96,6 +96,12 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Handles the commands for mark, unmark and delete - passes it to the taskList object which contains methods
+     * to deal with manipulation of the task
+     * @param command mark/unmark/delete
+     * @param userInput the index of the list
+     */
     public void handleUpdateCommands (String command, String userInput) {
         Task task = this.taskList.getIthTaskString(userInput);
         switch (command) {
@@ -114,6 +120,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the creation of a new Todo Object
+     * @param remaining remaining split of the string
+     * @throws CampusException throws an exception if the todo object is not initialised properly
+     */
     public void handleTodoCommand(String remaining) throws CampusException {
         if (remaining.isEmpty()) {
             throw new CampusException("Error! A todo task must have a name, please follow the following syntax: todo <task name>\n");
@@ -124,6 +135,12 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Handles the creation of a deadline object
+     * @param remaining remaining split of the string
+     * @throws CampusException throws an exception if the deadline object is not initialised properly
+     */
     public void handleDeadlineCommand(String remaining) throws CampusException {
         String[] temp = remaining.split("/by", 2);
         if (temp.length != 2) {
@@ -142,6 +159,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the creation of an event object
+     * @param remaining remaining split of the string
+     * @throws CampusException throws an exception if the event object is not initialised properly
+     */
     public void handleEventCommand(String remaining) throws CampusException {
         String[] temp = remaining.split("/from", 2);
 

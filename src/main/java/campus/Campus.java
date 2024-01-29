@@ -12,6 +12,10 @@ public class Campus {
     private final Ui ui;
     private final Parser parser;
 
+    /**
+     * Creation of a Campus instance
+     * @param filePath the path to the data file
+     */
     public Campus(String filePath) {
         this.ui = new Ui();
         TaskList taskList = new TaskList();
@@ -19,15 +23,15 @@ public class Campus {
         this.parser = new Parser(this.ui, taskList, storage);
     }
 
+    /**
+     * Main Driver Logic for the CampusBot - greet and exit are just sanity, main logic works in parser.listen()
+     */
     public void run() {
         this.ui.greet();
         this.parser.listen();
         this.ui.exit();
     }
 
-    /**
-     * Main Driver Logic of the Campus Class which handles user inputs and sorts them into cases
-     */
     public static void main(String[] args) {
         new Campus("src/main/java/campus/data.txt").run();
     }
