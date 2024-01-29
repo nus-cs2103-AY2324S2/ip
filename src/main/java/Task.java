@@ -14,6 +14,10 @@ public class Task {
         System.out.println(this.toString());
     }
 
+    public void setCompleted() {
+        this.completed = true;
+    }
+
     public void unmarkTask() {
         this.completed = false;
         System.out.println("Eh wake up your idea, faster finish can or not?? Unmark for you already la!");
@@ -21,7 +25,12 @@ public class Task {
     }
 
     public String getStatusIcon() {
+
         return (completed ? "X" : " "); // mark done task with X
+    }
+
+    public String toWrite() {
+        return (completed ? "1" : "0") + " | " + name;
     }
 
     @Override
