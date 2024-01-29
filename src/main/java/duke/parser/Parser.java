@@ -79,8 +79,7 @@ public class Parser {
                         Instant filterDate = userDateToInstant(splitInput.get(2), "00:00");
 
                         return new ListCommand(filterDate);
-                    } catch (NumberFormatException | StringIndexOutOfBoundsException
-                            | ArrayIndexOutOfBoundsException | DateTimeException e) {
+                    } catch (NumberFormatException | DateTimeException | IndexOutOfBoundsException e) {
                         throw new InvalidArgumentException(
                                 "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD'");
                     }
@@ -123,12 +122,12 @@ public class Parser {
             try {
                 return new DeleteCommand(Integer.parseInt(splitInput.get(1)) - 1);
             } catch (NumberFormatException e) {
-                throw new InvalidArgumentException("Index to unmark is not an integer");
+                throw new InvalidArgumentException("Index to delete is not an integer");
             }
 
         case "todo":
             if (splitInput.size() <= 1) {
-                throw new MissingArgumentException("Argument missing - Description of a todo cannot be empty");
+                throw new MissingArgumentException("Missing argument - Description of a todo cannot be empty");
             }
 
             description = String.join(" ", splitInput.subList(1, splitInput.size()));
@@ -150,7 +149,7 @@ public class Parser {
             }
 
             if (byIndex == -1) {
-                throw new MissingArgumentException("Argument '/by' missing");
+                throw new MissingArgumentException("Missing Argument - Argument '/by' missing");
             }
 
             // Extract task description & due date
@@ -162,7 +161,7 @@ public class Parser {
 
                 // Create new add deadline command
                 return new AddCommand(new Deadline(description, Parser.userDateToInstant(date, time)));
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new InvalidArgumentException(
                         "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
             }
@@ -189,9 +188,9 @@ public class Parser {
             }
 
             if (fromIndex == -1) {
-                throw new MissingArgumentException("Argument '/from' missing");
+                throw new MissingArgumentException("Missing Argument - Argument '/from' missing");
             } else if (toIndex == -1) {
-                throw new MissingArgumentException("Argument '/to' missing");
+                throw new MissingArgumentException("Missing Argument - Argument '/to' missing");
             }
 
             // Extract task description
@@ -209,7 +208,7 @@ public class Parser {
                 // Create new add event command
                 return new AddCommand(new Event(description, Parser.userDateToInstant(fromDate, fromTime),
                         Parser.userDateToInstant(toDate, toTime)));
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new InvalidArgumentException(
                         "Date/time format is invalid. Please enter the date/time in the format 'YYYY/MM/DD hh:mm'");
             }
