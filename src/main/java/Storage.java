@@ -27,7 +27,6 @@ public class Storage {
      */
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<>();
-        int taskCounter = 0;
         try {
             if (Files.notExists(this.filePath)) {
                 if (Files.notExists(this.filePath.getParent())) {
@@ -40,52 +39,51 @@ public class Storage {
                 String[] lineArray = line.split(DELIMITER);
 
                 Task taskToAdd;
-                // If there is a line that doesn't follow the format, skip it and continue.
+                String taskDescription;
                 try {
-                    String taskDescription = lineArray[2];
-                    switch (lineArray[0]) {
-                    case "T":
-                        taskToAdd = new ToDo(taskDescription);
-                        break;
-                    case "D":
-                        String deadlineString = lineArray[3];
-                        try {
-                            LocalDateTime deadline = Task.getLocalDateTimeFromString(deadlineString);
-                            taskToAdd = new Deadline(taskDescription, deadline);
-                        } catch (DateTimeParseException e) {
-                            System.out.println(e.getMessage());
-                            continue;
-                        }
-                        break;
-                    case "E":
-                        String from = lineArray[3];
-                        String to = lineArray[4];
-
-                        try {
-                            LocalDateTime fromDateTime = Task.getLocalDateTimeFromString(from);
-                            LocalDateTime toDateTime = Task.getLocalDateTimeFromString(to);
-                            taskToAdd = new Event(taskDescription, fromDateTime, toDateTime);
-                        } catch (DateTimeParseException | DukeException e) {
-                            System.out.println(e.getMessage());
-                            continue;
-                        }
-                        break;
-                    default:
-                        // Unknown first character, go to next line
-                        continue;
-                    }
+                    taskDescription = lineArray[2];
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println(e.getMessage());
+                    // Line that doesn't follow the format
                     continue;
                 }
 
+                switch (lineArray[0]) {
+                case "T":
+                    taskToAdd = new ToDo(taskDescription);
+                    break;
+                case "D":
+                    String deadlineString = lineArray[3];
+                    try {
+                        LocalDateTime deadline = Task.getLocalDateTimeFromString(deadlineString);
+                        taskToAdd = new Deadline(taskDescription, deadline);
+                    } catch (DateTimeParseException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+                    break;
+                case "E":
+                    String from = lineArray[3];
+                    String to = lineArray[4];
+
+                    try {
+                        LocalDateTime fromDateTime = Task.getLocalDateTimeFromString(from);
+                        LocalDateTime toDateTime = Task.getLocalDateTimeFromString(to);
+                        taskToAdd = new Event(taskDescription, fromDateTime, toDateTime);
+                    } catch (DateTimeParseException | DukeException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+                    break;
+                default:
+                    // Unknown first character, go to next line
+                    continue;
+                }
                 String doneFlag = lineArray[1];
                 if (doneFlag.equals("1")) {
                     taskToAdd.setDone(true);
                 }
 
                 taskList.add(taskToAdd);
-                taskCounter++;
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
