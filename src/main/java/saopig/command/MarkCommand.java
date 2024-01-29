@@ -48,10 +48,10 @@ public class MarkCommand extends Command {
             Task task = taskList.getTask(index);
             task.markAsDone();
             storage.saveTaskList(taskList);
-            ui.printMessage("\n" +
-                    "Oh, splendid! Your task: {" + task.toString() + "} has been marked as done successfully.\n " +
-                    "Isn't it just wonderful when things go exactly as planned?\n " +
-                    "I'm so proud of you for getting it done!");
+            ui.printMessage("\n"
+                    + "Oh, splendid! Your task: {" + task.toString() + "} has been marked as done successfully.\n "
+                    + "Isn't it just wonderful when things go exactly as planned?\n "
+                    + "I'm so proud of you for getting it done!");
         } catch (SaopigInvaildSizeException e) {
             ui.printMessage(e.getMessage() +
                     "\n" +
@@ -89,27 +89,27 @@ public class MarkCommand extends Command {
             Task task = taskList.getTask(index);
             task.unmarkAsDone();
             storage.saveTaskList(taskList);
-            ui.printMessage("\n" +
-                    "Oh, you've unmarked task: {" + task.toString() + "}?\n " +
-                    "No worries at all! It's always okay to reevaluate and adjust your plans.\n " +
-                    "Flexibility is a sign of strength, you know. Keep up the great work!");
+            ui.printMessage("\n"
+                    + "Oh, you've unmarked task: {" + task.toString() + "}?\n "
+                    + "No worries at all! It's always okay to reevaluate and adjust your plans.\n "
+                    + "Flexibility is a sign of strength, you know. Keep up the great work!");
         } catch (SaopigInvaildSizeException e) {
-            ui.printMessage(e.getMessage() +
-                    "\n" +
-                    "Oopses daisy!\n " +
-                    "It seems like you might have forgotten to give an argument for the unmark command.\n " +
-                    "Don't worry, it happens to most of us.\n " +
-                    "Just add the index for the task you'd like to unmark, and you'll be all set.\n " +
-                    "Please try again, or type 'bye' to exit.");
+            ui.printMessage(e.getMessage()
+                    + "\n"
+                    + "Oopses daisy!\n "
+                    + "It seems like you might have forgotten to give an argument for the unmark command.\n "
+                    + "Don't worry, it happens to most of us.\n "
+                    + "Just add the index for the task you'd like to unmark, and you'll be all set.\n "
+                    + "Please try again, or type 'bye' to exit.");
         } catch (IndexOutOfBoundsException e) {
-            ui.printMessage("\n" +
-                    "Oopses daisy!\n " +
-                    "It seems like you might have given an invalid index for the task list.");
+            ui.printMessage("\n"
+                    + "Oopses daisy!\n "
+                    + "It seems like you might have given an invalid index for the task list.");
         } catch (NumberFormatException e) {
-            ui.printMessage("\n" +
-                    "Oopses daisy!\n " +
-                    "It seems like you might have given an invalid index for the task list " +
-                    "or your input is not a number.");
+            ui.printMessage("\n"
+                    + "Oopses daisy!\n "
+                    + "It seems like you might have given an invalid index for the task list "
+                    + "or your input is not a number.");
         }
     }
 

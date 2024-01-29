@@ -62,10 +62,10 @@ public class Event extends Task {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL)
                 .withLocale(Locale.ENGLISH);
-        return "[E]" + super.toString() +
-                " (from: " +
-                formatter.format(startZonedDateTime) +
-                " to " +
-                formatter.format(endZonedDateTime) + ")";
+        return "[E]" + super.toString()
+                + " (from: "
+                + formatter.format(startZonedDateTime)
+                + " to "
+                + formatter.format(endZonedDateTime) + ")";
     }
 }

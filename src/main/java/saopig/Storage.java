@@ -57,13 +57,13 @@ public class Storage {
                     String isDone = task.getIsDoneState() ? "1" : "0";
                     String description = task.getDescription();
                     if (task instanceof Deadline) {
-                        description += " %&///&% " +
-                                DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Deadline) task).getBy());
+                        description += " %&///&% "
+                                + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Deadline) task).getBy());
                     } else if (task instanceof Event) {
-                        description += " %&///&% " +
-                                DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getStartTime()) +
-                                " %&///&% " +
-                                DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getEndTime());
+                        description += " %&///&% "
+                                + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getStartTime())
+                                + " %&///&% "
+                                + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getEndTime());
                     }
                     fileWriter.write(taskType + " %&///&% " + isDone + " %&///&% " + description + "\n");
                 }
@@ -85,12 +85,12 @@ public class Storage {
         try {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
-                ui.printMessage("\n" +
-                        "Oh dear, it looks like there are no tasks stored yet!\n " +
-                        "But that's alright.\n " +
-                        "It gives us a chance to start fresh and dream up some new plans.\n " +
-                        "Whenever you're ready to add tasks, I'll be right here to assist you.\n " +
-                        "Let's make it a magical journey together!");
+                ui.printMessage("\n"
+                        + "Oh dear, it looks like there are no tasks stored yet!\n "
+                        + "But that's alright.\n "
+                        + "It gives us a chance to start fresh and dream up some new plans.\n "
+                        + "Whenever you're ready to add tasks, I'll be right here to assist you.\n "
+                        + "Let's make it a magical journey together!");
                 return taskList;
             }
             Scanner scanner = new Scanner(file);
@@ -116,12 +116,12 @@ public class Storage {
                 }
             }
             scanner.close();
-            ui.printMessage("Successfully loaded your previous task list!\n " +
-                    "Now you have " + taskList.getSize() + " tasks in the list.\n");
+            ui.printMessage("Successfully loaded your previous task list!\n "
+                    + "Now you have " + taskList.getSize() + " tasks in the list.\n");
         } catch (IOException | DateTimeParseException e) {
-            ui.printMessage("\n" +
-                    "Oh no! I'm sorry, but I couldn't load your tasks.\n " +
-                    "Please try again, or type 'bye' to exit.");
+            ui.printMessage("\n"
+                    + "Oh no! I'm sorry, but I couldn't load your tasks.\n "
+                    + "Please try again, or type 'bye' to exit.");
         }
         return taskList;
     }
