@@ -1,5 +1,10 @@
 package bytebuddy.parser;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import bytebuddy.commands.ByeCommand;
 import bytebuddy.commands.Command;
 import bytebuddy.commands.DeadlineCommand;
@@ -51,6 +56,22 @@ public class Parser {
         default:
             throw new ByteBuddyException("Sorry but this command does not exist~");
         }
+    }
+
+    /**
+     * Splits a string into a list of trimmed substrings using a specified separator and maximum number of tokens.
+     *
+     * @param info       The input string to split.
+     * @param separator  The separator to use.
+     * @param maxTokens  The maximum number of tokens to split the string into.
+     * @return A list of trimmed substrings.
+     */
+    public static List<String> splitStringWithTrim(String info, String separator, int maxTokens) {
+        if (info.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return Arrays.stream(info.split(separator, maxTokens)).map(String::trim).collect(Collectors.toList());
     }
 
 }
