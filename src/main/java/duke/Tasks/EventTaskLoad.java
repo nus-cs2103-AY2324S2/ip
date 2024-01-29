@@ -1,3 +1,5 @@
+package duke;
+
 public class EventTaskLoad extends Task {
     private String time;
     private String from;

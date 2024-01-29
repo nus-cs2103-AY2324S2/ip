@@ -1,4 +1,10 @@
+package duke;
+
+import duke.Command.Command;
+import duke.Tasks.TaskList;
+
 import java.util.ArrayList;
+
 
 
 public class Duke {
@@ -39,9 +45,9 @@ public class Duke {
 }
 
 /*
-public class Duke {
+public class duke.Duke {
 
-    private static final Task[] store = new Task[100];
+    private static final duke.Tasks.Task[] store = new duke.Tasks.Task[100];
     private static int count = 0;
     private static final String DATA_FILE_PATH = "./data/botYue.txt";
 
@@ -60,7 +66,7 @@ public class Duke {
                 check(inputs);
                 saveTasks();
 
-            } catch (DukeException e) {
+            } catch (duke.DukeException e) {
                 System.out.println("   ____________________________________________________________");
                 System.out.println("    " + e.getMessage());
                 System.out.println("   ____________________________________________________________");
@@ -81,7 +87,7 @@ public class Duke {
         System.out.println("   ____________________________________________________________");
     }
 
-    public static void check(String input) throws DukeException {
+    public static void check(String input) throws duke.DukeException {
         if (input.equalsIgnoreCase("bye")) {
 
         } else if (input.startsWith("list")) {
@@ -94,24 +100,24 @@ public class Duke {
             unmark(input);
 
         } else if (input.startsWith("todo")) {
-            add(TaskType.TODO, input.substring(4).trim());
+            add(duke.Tasks.TaskType.TODO, input.substring(4).trim());
 
         } else if (input.startsWith("deadline")) {
-            add(TaskType.DEADLINE, input.substring(8).trim());
+            add(duke.Tasks.TaskType.DEADLINE, input.substring(8).trim());
 
         } else if (input.startsWith("event")) {
-            add(TaskType.EVENT, input.substring(5).trim());
+            add(duke.Tasks.TaskType.EVENT, input.substring(5).trim());
 
         } else if (input.startsWith("delete")) {
             deleteTask(input.substring(6).trim());
 
     } else {
-            throw new DukeException("OOPS!!! I don't know what that means. Can you make it clear?");
+            throw new duke.DukeException("OOPS!!! I don't know what that means. Can you make it clear?");
 
         }
     }
 
-    public static void add(Task task) {
+    public static void add(duke.Tasks.Task task) {
         store[count++] = task;
 
         System.out.println("   ____________________________________________________________");
@@ -121,34 +127,34 @@ public class Duke {
         System.out.println("   ____________________________________________________________");
     }
 
-   public static void add(TaskType type, String description) throws DukeException {
+   public static void add(duke.Tasks.TaskType type, String description) throws duke.DukeException {
         if (description.isEmpty()) {
-            throw new DukeException("OOPS!!! The description of a " + type + " task cannot be empty!");
+            throw new duke.DukeException("OOPS!!! The description of a " + type + " task cannot be empty!");
         }
 
-        Task task;
+        duke.Tasks.Task task;
         switch (type) {
             case TODO:
-                task = new TodoTask(description);
+                task = new duke.Tasks.TodoTask(description);
                 break;
 
             case DEADLINE:
-                task = new DeadlineTask(description);
+                task = new duke.Tasks.Task.DeadlineTask(description);
                 break;
 
             case EVENT:
-                task = new EventTask(description);
+                task = new duke.Tasks.Task.EventTask(description);
                 break;
 
             default:
-                throw new DukeException("OOPS!!! Unsupported task type.");
+                throw new duke.DukeException("OOPS!!! Unsupported task type.");
         }
 
         add(task);
     }
 
 
-    public static void deleteTask(String num) throws DukeException {
+    public static void deleteTask(String num) throws duke.DukeException {
         try {
             int index = Integer.parseInt(num);
 
@@ -168,12 +174,12 @@ public class Duke {
                 System.out.println("   ____________________________________________________________");
 
             } else {
-                throw new DukeException("OOPS!!! Task index is out of range.");
+                throw new duke.DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
             }
 
         } catch (NumberFormatException e) {
 
-            throw new DukeException("OOPS!!! Please enter a valid task index to delete.");
+            throw new duke.DukeException("OOPS!!! Please enter a valid task index to delete.");
         }
     }
 
@@ -239,17 +245,17 @@ public class Duke {
                     String[] parts = line.split(" \\| ");
 
                     if (parts.length >= 3) {
-                        Task task;
+                        duke.Tasks.Task task;
 
                         switch (parts[0]) {
                             case "T":
-                                task = new TodoTask(parts[2]);
+                                task = new duke.Tasks.TodoTask(parts[2]);
                                 break;
                             case "D":
-                                task = new DeadlineTaskLoad(parts[2], parts[3]);
+                                task = new duke.Tasks.Task.DeadlineTaskLoad(parts[2], parts[3]);
                                 break;
                             case "E":
-                                task = new EventTaskLoad(parts[2], parts[3]);
+                                task = new duke.Tasks.Task.EventTaskLoad(parts[2], parts[3]);
                                 break;
                             default:
                                 continue;
@@ -278,34 +284,34 @@ public class Duke {
 
             FileWriter writer = new FileWriter(file);
             for (int i = 0; i < count; i++) {
-                Task task = store[i];
+                duke.Tasks.Task task = store[i];
                 String taskType;
 
-                if (task instanceof TodoTask) {
+                if (task instanceof duke.Tasks.TodoTask) {
                     taskType = "T";
-                } else if (task instanceof DeadlineTask) {
+                } else if (task instanceof duke.Tasks.Task.DeadlineTask) {
                     taskType = "D";
-                } else if (task instanceof DeadlineTaskLoad) {
+                } else if (task instanceof duke.Tasks.Task.DeadlineTaskLoad) {
                     taskType = "D";
-                } else if (task instanceof EventTask) {
+                } else if (task instanceof duke.Tasks.Task.EventTask) {
                     taskType = "E";
-                } else if (task instanceof EventTaskLoad) {
+                } else if (task instanceof duke.Tasks.Task.EventTaskLoad) {
                     taskType = "E";
                 } else {
                     continue;
                 }
                 writer.write(taskType + " | " + (task.marked ? "1" : "0") + " | " + task.getTask());
-                if (task instanceof DeadlineTask) {
-                    writer.write(" | " + ((DeadlineTask) task).getDateTime());
+                if (task instanceof duke.Tasks.Task.DeadlineTask) {
+                    writer.write(" | " + ((duke.Tasks.Task.DeadlineTask) task).getDateTime());
 
-                } else if (task instanceof EventTask) {
-                    writer.write(" | " + ((EventTask) task).getDateTime());
+                } else if (task instanceof duke.Tasks.Task.EventTask) {
+                    writer.write(" | " + ((duke.Tasks.Task.EventTask) task).getDateTime());
 
-                } else if (task instanceof EventTaskLoad) {
-                    writer.write(" | " + ((EventTaskLoad) task).getTime());
+                } else if (task instanceof duke.Tasks.Task.EventTaskLoad) {
+                    writer.write(" | " + ((duke.Tasks.Task.EventTaskLoad) task).getTime());
 
-                } else if (task instanceof DeadlineTaskLoad) {
-                    writer.write(" | " + ((DeadlineTaskLoad) task).getBy());
+                } else if (task instanceof duke.Tasks.Task.DeadlineTaskLoad) {
+                    writer.write(" | " + ((duke.Tasks.Task.DeadlineTaskLoad) task).getBy());
                 }
 
 
@@ -320,8 +326,8 @@ public class Duke {
 
 }
 
-class DukeException extends Exception {
-    public DukeException(String message) {
+class duke.DukeException extends Exception {
+    public duke.DukeException(String message) {
         super(message);
     }
 }*/

@@ -1,19 +1,20 @@
+package duke.Task;
+
+import duke.Task;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Locale;
-import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
-
-public class EventTask extends Task {
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+public class DeadlineTask extends Task {
+    private final LocalDateTime deadline;
     int check = 0;
 
-    public EventTask(String description, String startTimeString, String endTimeString) {
+    public DeadlineTask(String description, String deadlineStr) {
         super(description);
-        this.startTime = parseDateTime(startTimeString);
-        this.endTime = parseDateTime(endTimeString);
+        this.deadline = parseDateTime(deadlineStr);
     }
 
     private LocalDateTime parseDateTime(String time) throws DateTimeParseException {
@@ -45,7 +46,6 @@ public class EventTask extends Task {
                         dateTime = date.atStartOfDay();
 
                     } catch (DateTimeParseException e4) {
-                        check = 5;
                         throw new DateTimeParseException("Unable to parse date/time: " + time, time, 0, e2);
                     }
 
@@ -68,63 +68,42 @@ public class EventTask extends Task {
         return dateTime.format(formatter);
     }
 
-    public String getStartTime() {
-        String time = formatDateTime(startTime);
-        return time;
-    }
-
-    public String getEndTime() {
-        String time = formatDateTime(endTime);
-        return time;
-    }
-
-    public String getDateTime() {
-        return getStartTime() + "-" + getEndTime();
-    }
-
-    @Override
-    public String tag() {
-        return "[E]";
+    public LocalDateTime getDateTime() {
+        return deadline;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formatDateTime(startTime) + " to: " + formatDateTime(endTime) + ")";
+        return "[D]" + super.toString() + " (by: " + formatDateTime(deadline) + ")";
     }
+
+    @Override
+    public String tag() {
+        return "[D]";
+    }
+
 }
 
+/*public class duke.Task.DeadlineTask extends duke.Task {
+    private String by;
+    int check = 0;
 
-/*public class EventTask extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime dateTime;
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-
-    int check;
-
-    public EventTask(String task) {
+    public duke.Task.DeadlineTask(String task) {
         super(task);
-        parseEvent(task);
-        this.startTime = parseDateTime(from);
-        this.endTime = parseDateTime(to);
+        parseDeadline(task);
+        this.dateTime = parseDateTime(by);
     }
 
-    private void parseEvent(String task) {
-        String[] split = task.split("/from", 2);
+    private void parseDeadline(String task) {
+        String[] split = task.split("/by", 2);
 
         if (split.length == 2) {
             this.task = split[0];
-
-            String[] details = split[1].split("/to", 2);
-            if (details.length == 2) {
-                this.from = details[0].trim();
-                this.to = details[1].trim();
-            }
+            this.by = split[1].trim();
         }
     }
-
-
 
     private LocalDateTime parseDateTime(String time) throws DateTimeParseException {
         LocalDateTime dateTime = null;
@@ -155,7 +134,6 @@ public class EventTask extends Task {
                         dateTime = date.atStartOfDay();
 
                     } catch (DateTimeParseException e4) {
-                        check = 5;
                         throw new DateTimeParseException("Unable to parse date/time: " + time, time, 0, e2);
                     }
 
@@ -179,31 +157,59 @@ public class EventTask extends Task {
     }
 
 
-    public String getStartTime() {
-        String time = formatDateTime(startTime);
-        return time;
-    }
-
-    public String getEndTime() {
-        String time = formatDateTime(endTime);
-        return time;
-    }
-
     public String getDateTime() {
-        return getStartTime() + "-" + getEndTime();
+        String time = formatDateTime(dateTime);
+        return time;
     }
 
-    public String getTime() {
-        return from + "-" + to;
+
+    public String getBy() {
+        return by;
+    }
+    @Override
+    public String toString() {
+        return tag() + super.toString() + " (by: " + formatDateTime(dateTime) + ")";
     }
 
     @Override
     public String tag() {
-        return "[E]";
+        return "[D]";
+    }
+
+}*/
+
+
+
+/*public class duke.Task.DeadlineTask extends duke.Task {
+    private String by;
+
+    private LocalDateTime byDateTime;
+
+    public duke.Task.DeadlineTask(String task) {
+        super(task);
+        parseDeadline(task);
+    }
+
+    private void parseDeadline(String task) {
+        String[] split = task.split("/by", 2);
+
+        if (split.length == 2) {
+            this.task = split[0];
+            this.by = split[1].trim();
+        }
+    }
+
+    public String getBy() {
+        return by;
+    }
+    @Override
+    public String toString() {
+        return tag() + mark() + " " + task + " (by: " + by + ")";
     }
 
     @Override
-    public String toString() {
-        return tag() + mark() + " " + task + " (from: " + getStartTime() + " to: " + getEndTime() + ")";
+    public String tag() {
+        return "[D]";
     }
+
 }*/

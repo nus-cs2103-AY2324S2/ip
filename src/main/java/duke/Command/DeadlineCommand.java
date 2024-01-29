@@ -1,19 +1,23 @@
-public class EventCommand extends Command {
-    private String description;
-    private String startTime;
-    private String endTime;
+package duke.Command;
 
-    public EventCommand(String description, String startTime, String endTime) {
+import duke.*;
+import duke.Tasks.*;
+import duke.Tasks.TaskList;
+
+public class DeadlineCommand extends Command {
+    private String description;
+    private String deadline;
+
+    public DeadlineCommand(String description, String deadline) {
         this.description = description;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.deadline = deadline;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        Task task = new EventTask(description, startTime, endTime);
+        Task task = new DeadlineTask(description, deadline);
         tasks.addTask(task);
-        int count = tasks.size();
+        int count = tasks.size();;
         ui.showAddedMessage(task, count);
         storage.save(tasks.getAllTasks());
     }

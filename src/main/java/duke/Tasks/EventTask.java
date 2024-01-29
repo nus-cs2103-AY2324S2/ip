@@ -1,16 +1,21 @@
-import java.time.LocalDate;
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
+import java.time.LocalDate;
 
-public class DeadlineTask extends Task {
-    private final LocalDateTime deadline;
+
+public class EventTask extends Task {
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     int check = 0;
 
-    public DeadlineTask(String description, String deadlineStr) {
+    public EventTask(String description, String startTimeString, String endTimeString) {
         super(description);
-        this.deadline = parseDateTime(deadlineStr);
+        this.startTime = parseDateTime(startTimeString);
+        this.endTime = parseDateTime(endTimeString);
     }
 
     private LocalDateTime parseDateTime(String time) throws DateTimeParseException {
@@ -42,6 +47,7 @@ public class DeadlineTask extends Task {
                         dateTime = date.atStartOfDay();
 
                     } catch (DateTimeParseException e4) {
+                        check = 5;
                         throw new DateTimeParseException("Unable to parse date/time: " + time, time, 0, e2);
                     }
 
@@ -64,148 +70,142 @@ public class DeadlineTask extends Task {
         return dateTime.format(formatter);
     }
 
-    public LocalDateTime getDateTime() {
-        return deadline;
-    }
-
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + formatDateTime(deadline) + ")";
-    }
-
-    @Override
-    public String tag() {
-        return "[D]";
-    }
-
-}
-
-/*public class DeadlineTask extends Task {
-    private String by;
-    int check = 0;
-
-    private LocalDateTime dateTime;
-
-    public DeadlineTask(String task) {
-        super(task);
-        parseDeadline(task);
-        this.dateTime = parseDateTime(by);
-    }
-
-    private void parseDeadline(String task) {
-        String[] split = task.split("/by", 2);
-
-        if (split.length == 2) {
-            this.task = split[0];
-            this.by = split[1].trim();
-        }
-    }
-
-    private LocalDateTime parseDateTime(String time) throws DateTimeParseException {
-        LocalDateTime dateTime = null;
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("d/M/yyyy");
-
-        try {
-            check = 1;
-            dateTime = LocalDateTime.parse(time, formatter1);
-
-        } catch (DateTimeParseException e1) {
-            try {
-                check = 2;
-                dateTime = LocalDateTime.parse(time, formatter2);
-
-            } catch (DateTimeParseException e2) {
-                try {
-                    check = 3;
-                    LocalDate date = LocalDate.parse(time, formatter3);
-                    dateTime = date.atStartOfDay();
-
-                } catch (DateTimeParseException e3) {
-                    try {
-                        check = 4;
-                        LocalDate date = LocalDate.parse(time, formatter4);
-                        dateTime = date.atStartOfDay();
-
-                    } catch (DateTimeParseException e4) {
-                        throw new DateTimeParseException("Unable to parse date/time: " + time, time, 0, e2);
-                    }
-
-                }
-
-            }
-        }
-
-        return dateTime;
-    }
-
-    private String formatDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter;
-        if (check == 1 || check == 2) {
-            formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
-        } else {
-            formatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
-        }
-
-        return dateTime.format(formatter);
-    }
-
-
-    public String getDateTime() {
-        String time = formatDateTime(dateTime);
+    public String getStartTime() {
+        String time = formatDateTime(startTime);
         return time;
     }
 
-
-    public String getBy() {
-        return by;
+    public String getEndTime() {
+        String time = formatDateTime(endTime);
+        return time;
     }
-    @Override
-    public String toString() {
-        return tag() + super.toString() + " (by: " + formatDateTime(dateTime) + ")";
+
+    public String getDateTime() {
+        return getStartTime() + "-" + getEndTime();
     }
 
     @Override
     public String tag() {
-        return "[D]";
+        return "[E]";
     }
 
-}*/
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + formatDateTime(startTime) + " to: " + formatDateTime(endTime) + ")";
+    }
+}
 
 
+/*public class duke.EventTask extends duke.Task {
+    private String from;
+    private String to;
 
-/*public class DeadlineTask extends Task {
-    private String by;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
-    private LocalDateTime byDateTime;
+    int check;
 
-    public DeadlineTask(String task) {
+    public duke.EventTask(String task) {
         super(task);
-        parseDeadline(task);
+        parseEvent(task);
+        this.startTime = parseDateTime(from);
+        this.endTime = parseDateTime(to);
     }
 
-    private void parseDeadline(String task) {
-        String[] split = task.split("/by", 2);
+    private void parseEvent(String task) {
+        String[] split = task.split("/from", 2);
 
         if (split.length == 2) {
             this.task = split[0];
-            this.by = split[1].trim();
+
+            String[] details = split[1].split("/to", 2);
+            if (details.length == 2) {
+                this.from = details[0].trim();
+                this.to = details[1].trim();
+            }
         }
     }
 
-    public String getBy() {
-        return by;
+
+
+    private LocalDateTime parseDateTime(String time) throws DateTimeParseException {
+        LocalDateTime dateTime = null;
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("d/M/yyyy");
+
+        try {
+            check = 1;
+            dateTime = LocalDateTime.parse(time, formatter1);
+
+        } catch (DateTimeParseException e1) {
+            try {
+                check = 2;
+                dateTime = LocalDateTime.parse(time, formatter2);
+
+            } catch (DateTimeParseException e2) {
+                try {
+                    check = 3;
+                    LocalDate date = LocalDate.parse(time, formatter3);
+                    dateTime = date.atStartOfDay();
+
+                } catch (DateTimeParseException e3) {
+                    try {
+                        check = 4;
+                        LocalDate date = LocalDate.parse(time, formatter4);
+                        dateTime = date.atStartOfDay();
+
+                    } catch (DateTimeParseException e4) {
+                        check = 5;
+                        throw new DateTimeParseException("Unable to parse date/time: " + time, time, 0, e2);
+                    }
+
+                }
+
+            }
+        }
+
+        return dateTime;
     }
-    @Override
-    public String toString() {
-        return tag() + mark() + " " + task + " (by: " + by + ")";
+
+    private String formatDateTime(LocalDateTime dateTime) {
+        DateTimeFormatter formatter;
+        if (check == 1 || check == 2) {
+            formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
+        } else {
+            formatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
+        }
+
+        return dateTime.format(formatter);
+    }
+
+
+    public String getStartTime() {
+        String time = formatDateTime(startTime);
+        return time;
+    }
+
+    public String getEndTime() {
+        String time = formatDateTime(endTime);
+        return time;
+    }
+
+    public String getDateTime() {
+        return getStartTime() + "-" + getEndTime();
+    }
+
+    public String getTime() {
+        return from + "-" + to;
     }
 
     @Override
     public String tag() {
-        return "[D]";
+        return "[E]";
     }
 
+    @Override
+    public String toString() {
+        return tag() + mark() + " " + task + " (from: " + getStartTime() + " to: " + getEndTime() + ")";
+    }
 }*/

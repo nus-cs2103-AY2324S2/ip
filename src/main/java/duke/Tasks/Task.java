@@ -1,6 +1,8 @@
+package duke.Tasks;
+
 public abstract class Task {
-    protected String task;
-    protected boolean marked;
+    String task;
+    public boolean marked;
 
     public Task(String task) {
         this.task = task;

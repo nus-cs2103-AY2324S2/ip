@@ -1,3 +1,8 @@
+package duke;
+
+import duke.Tasks.Task;
+import duke.Tasks.*;
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
