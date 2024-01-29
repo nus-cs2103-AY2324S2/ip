@@ -4,6 +4,11 @@ import Tasks.ToDo;
 import Tasks.Event;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -12,6 +17,7 @@ public class Kervyn {
         Scanner scanner = new Scanner(System.in);
         Writer writer = new Writer("data/Kervyn.txt");
         ArrayList<Task> userRequests = writer.readTasks();
+//        ArrayList<Task> userRequests = new ArrayList<Task>();
 
         final String CHATBOTNAME = "Kervyn";
 
@@ -181,7 +187,12 @@ public class Kervyn {
                 return null;
             }
             String[] deadlineDescriptionArray = deadlineProcessedInput[0].split(" ");
-            String deadline = deadlineProcessedInput[1].split(" ")[1];
+
+            String[] deadlineTimeArray = userInput.split("/by");
+            // No longer a String
+            LocalDate deadline = LocalDate.parse(deadlineTimeArray[1].trim());
+            deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
             StringBuilder deadlineDescription = new StringBuilder();
 
             for (int i = 1; i < deadlineDescriptionArray.length; i++) {
@@ -191,7 +202,7 @@ public class Kervyn {
             taskAdded();
             return new Deadline(deadlineDescription.toString(), false, deadline);
         }
-        catch (ArrayIndexOutOfBoundsException e) {
+        catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             System.out.println("\tPlease provide the deadline in the required format.");
             return null;
         }
@@ -207,32 +218,29 @@ public class Kervyn {
                 return null;
             }
             String[] eventDescriptionArray = eventProcessedInput[0].split(" ");
-            String[] eventStartDateArray = eventProcessedInput[1].split(" ");
-            String[] eventEndDateArray = eventProcessedInput[2].split(" ");
+            String[] eventDateArray = userInput.split("/from");
+            String eventStartDateStr = eventDateArray[1].split("/to")[0].trim();
+            String eventEndDateStr = eventDateArray[1].split("/to")[1].trim();
             StringBuilder eventDescription = new StringBuilder();
-            StringBuilder eventStartDate = new StringBuilder();
-            StringBuilder eventEndDate = new StringBuilder();
 
             for (int i = 1; i < eventDescriptionArray.length; i++) {
                 eventDescription.append(" ");
                 eventDescription.append(eventDescriptionArray[i]);
             }
+            String convertedStartDate = convertDate(eventStartDateStr);
+            String convertedEndDate = convertDate(eventEndDateStr);
 
-            for (int j = 1; j < eventStartDateArray.length; j++) {
-                eventStartDate.append(" ");
-                eventStartDate.append(eventStartDateArray[j]);
-            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            // No longer String dates
+            LocalDateTime startDate = LocalDateTime.parse(convertedStartDate, formatter);
+            LocalDateTime endDate = LocalDateTime.parse(convertedEndDate, formatter);
 
-            for (int k = 1; k < eventEndDateArray.length; k++) {
-                eventEndDate.append(" ");
-                eventEndDate.append(eventEndDateArray[k]);
-            }
 
             taskAdded();
-            return new Event(eventDescription.toString(), false, eventStartDate.toString(), eventEndDate.toString());
+            return new Event(eventDescription.toString(), false, startDate, endDate);
         }
-        catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("\tPlease provide the start date / end date in the required format.");
+        catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            System.out.println("\tPlease provide the start date / end date in the required format that looks like dd-MM-yyyy HHmm.");
             return null;
         }
     }
@@ -260,7 +268,20 @@ public class Kervyn {
     }
 
     private static void eventTaskTextDisplay(Event event, ArrayList<Task> userRequests) {
-        System.out.println("\t[" + event.getCapitalType() + "]" + "[ ]" + event.getDescription() + " (from:" + event.getStartDate() + " to:" + event.getEndDate() + ")");
+        System.out.println("\t[" + event.getCapitalType() + "]" + "[ ]" + event.getDescription() + " (from: " + event.getStartDate() + " to: " + event.getEndDate() + ")");
         System.out.println("\tNow you have " + userRequests.size() + " tasks in the list.");
+    }
+
+    private static String convertDate(String inputDateTime) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
+            return dateTime.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format, please try again with a format that looks like dd-MM-yyyy HHmm");
+            return null;
+        }
     }
 }

@@ -1,14 +1,17 @@
 package Tasks;
 
-public class Deadline extends Task {
-    private String deadline;
+import java.time.LocalDate;
 
-    public Deadline(String description, boolean status, String deadline) {
+public class Deadline extends Task {
+    private LocalDate deadline;
+
+    public Deadline(String description, boolean status, LocalDate deadline) {
         super(description, status, Type.DEADLINE);
         this.deadline = deadline;
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
+        // Deadlines are in format of: yyyy-mm-dd
         return this.deadline;
     }
 }

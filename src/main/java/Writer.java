@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Writer {
@@ -58,8 +60,8 @@ public class Writer {
                 switch (type) {
                     case 'T':
                         description = splitContent[2].trim();
-                        ToDo todo = new ToDo(description, false);
-                        userRequests.add(todo);
+                        ToDo newToDo = new ToDo(description, false);
+                        userRequests.add(newToDo);
                         break;
                     case 'D':
                         // Further split the last part
@@ -68,10 +70,12 @@ public class Writer {
 
                         String temp = finalSplitContent[1];
                         String deadlineStr = temp.substring(0, temp.length() - 1).trim();
+                        LocalDate deadline = LocalDate.parse(deadlineStr);
+                        deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
                         description = furtherSplitContent[0].trim();
-                        Deadline deadline = new Deadline(description, false, deadlineStr);
-                        userRequests.add(deadline);
+                        Deadline newDeadline = new Deadline(description, false, deadline);
+                        userRequests.add(newDeadline);
                         break;
                     case 'E':
                         furtherSplitContent = splitContent[2].split("\\(");
@@ -82,8 +86,8 @@ public class Writer {
                         String startDateStr = splitAtFrom[1].trim();
                         temp = splitAtTo[1];
                         String endDateStr = temp.substring(0, temp.length() - 1).trim();
-                        Event event = new Event(description, false, startDateStr, endDateStr);
-                        userRequests.add(event);
+//                        Event newEvent = new Event(description, false, startDateStr, endDateStr);
+//                        userRequests.add(newEvent);
                         break;
                 }
             }
