@@ -30,6 +30,47 @@ public class Duke {
         }
     }
 
+    public class Todo extends Task {
+        public Todo(String description) {
+            super(description);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    public class Deadline extends Task {
+        private String by;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + this.by + ")";
+        }
+    }
+
+    public class Event extends Task {
+        private String from;
+        private String to;
+
+        public Event(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        }
+    }
+
     // The scanner the chatbot uses to scan users' inputs.
     Scanner sc = new Scanner(System.in);
 
