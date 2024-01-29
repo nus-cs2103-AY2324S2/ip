@@ -9,6 +9,9 @@ public class TaskList {
     }
 
     public boolean addTask(Task task) {
+        if (task == null) {
+            return false;
+        }
         return tasks.add(task);
     }
 
