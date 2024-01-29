@@ -2,6 +2,8 @@ package storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import tasks.Deadline;
@@ -18,23 +20,24 @@ public class Storage {
 
     }
 
-    // TODO remove static later
-    public static ArrayList<Task> readFromStorage() throws FileNotFoundException {
+    public ArrayList<Task> readFromStorage() throws FileNotFoundException {
+        try {
+            File file = new File(FILE_PATH);
+            Scanner sc = new Scanner(file);
+            ArrayList<Task> tasks = new ArrayList<>();
 
-        File file = new File(FILE_PATH);
-        Scanner sc = new Scanner(file);
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        while (sc.hasNext()) {
-            String[] input = sc.nextLine().split(DELIMITER);
-            Task task = parseInput(input);
-            if (task != null) {
-                tasks.add(task);
+            while (sc.hasNext()) {
+                String[] input = sc.nextLine().split(DELIMITER);
+                Task task = parseInput(input);
+                if (task != null) {
+                    tasks.add(task);
+                }
             }
+            sc.close();
+            return tasks;
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException("Unable to find the file path...");
         }
-        sc.close();
-        return tasks;
-
     }
 
     private static Task parseInput(String[] input) {
@@ -85,11 +88,17 @@ public class Storage {
         }
     }
 
-    public static void writeToStorage() throws FileNotFoundException {
+    public void writeToStorage(ArrayList<Task> tasks) throws IOException {
         try {
+            FileWriter fw = new FileWriter(FILE_PATH);
 
-        } catch (Exception e) {
-            // TODO: handle exception
+            for (Task task : tasks) {
+                fw.write(task.toStorageString() + "\n");
+            }
+
+            fw.close();
+        } catch (IOException e) {
+            throw new IOException();
         }
     }
 }
