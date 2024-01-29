@@ -12,53 +12,24 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the Storage which contains the tasks listed in TaskList.
+ */
 public class Storage {
     private static String path = "data";
     private static String fileName = "data/Klee.txt";
 
+    /**
+     * Constructor for Storage class.
+     */
     public Storage () {}
 
-    public static LocalDateTime parseDateTime(String dateTime) throws KleeException {
-        String[] splitDateTime = dateTime.split(" ");
-        int year = 0;
-        int month = 0;
-        int day = 0;
-        int hour = 0;
-        int minute = 0;
-        boolean hasTime = false;
-        if (splitDateTime.length > 2) {
-            // The input does not fit the syntax
-            throw new KleeException("Time and date should be written with only 1 space between them.");
-        } else if (splitDateTime.length == 2) {
-            //There is a space which indicates that time is given
-            hour = Integer.parseInt(splitDateTime[1].substring(0, 2));
-            minute = Integer.parseInt(splitDateTime[1].substring(2, 4));
-            hasTime = true;
-        }
-
-        // Test which syntax of date was used
-        String[] splitDate = splitDateTime[0].split("-");
-        if (splitDate.length == 3) {
-            year = Integer.parseInt(splitDate[0]);
-            month = Integer.parseInt(splitDate[1]);
-            day = Integer.parseInt(splitDate[2]);
-        } else if (splitDate.length == 1) {
-            splitDate = splitDateTime[0].split("/");
-            if (splitDate.length == 3) {
-                year = Integer.parseInt(splitDate[2]);
-                month = Integer.parseInt(splitDate[1]);
-                day = Integer.parseInt(splitDate[0]);
-            } else {
-                throw new KleeException("Dates should only be written like 27/1/2024 or 2024-1-27");
-            }
-        } else {
-            throw new KleeException("Dates should only be written like 27/1/2024 or 2024-1-27");
-        }
-
-        LocalDateTime returnVariable = LocalDateTime.of(year, month, day, hour, minute);
-        return returnVariable;
-    }
-
+    /**
+     * Parse String returned from txt file into an instance of LocalDateTime.
+     *
+     * @param txt
+     * @return LocalDateTime instance
+     */
     public static LocalDateTime parseDateTimeTxt (String txt) {
         String[] dateTime = txt.split(" ");
         int year = Integer.parseInt(dateTime[0]);
@@ -70,6 +41,11 @@ public class Storage {
         return returnVariable;
     }
 
+    /**
+     * Save tasks inside TaskList into a txt file.
+     *
+     * @param tasks
+     */
     public void saveTasks (TaskList tasks) {
         try {
             FileWriter file = new FileWriter("data/Klee.txt");
@@ -84,6 +60,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Open txt file and parse all tasks, save them into a new instance of TaskList and return it.
+     *
+     * @param ui
+     * @return TaskList with all tasks inside txt file.
+     */
     public TaskList retrieveTasks (Ui ui) {
         TaskList tasks = new TaskList();
 
