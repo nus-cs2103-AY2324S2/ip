@@ -55,9 +55,6 @@ public class FileStorage {
                 seperator = line.indexOf("(from: ");
                 description = line.substring(7, seperator);
                 String[] date = line.substring(seperator + 6, line.length() - 1).split("to:");
-                for (String x : date) {
-                    System.out.println(x);
-                }
                 nextTask = new Event(description, date[0],date[1]);
                 if (completion == 'X') {
                     nextTask.setDone();
