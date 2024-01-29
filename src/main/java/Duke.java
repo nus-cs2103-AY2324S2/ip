@@ -1,9 +1,44 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Duke {
     private static final int MAX_TASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static void printTasksOnDate(String dateString) {
+        LocalDate date;
+        try {
+            date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use d/M/yyyy.");
+            return;
+        }
+
+        System.out.println("Tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        boolean taskFound = false;
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                LocalDate deadlineDate = deadline.getBy().toLocalDate(); // Extract only the date part
+                if (deadlineDate.equals(date)) {
+                    System.out.println(deadline);
+                    taskFound = true;
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (!event.getFrom().isAfter(date) && !event.getTo().isBefore(date)) {
+                    System.out.println(event);
+                    taskFound = true;
+                }
+            }
+        }
+        if (!taskFound) {
+            System.out.println("No tasks on this date.");
+        }
+    }
     public static void main(String[] args) throws DukeException {
         tasks = TaskStorage.loadTasks();
         Scanner scanner = new Scanner(System.in);
@@ -19,7 +54,7 @@ public class Duke {
         while (true) {
             // Read user input
             String input = scanner.nextLine();
-            String[] parts = input.split(" ", 2);
+            String[] parts = input.split(" ", 3);
             String command = parts[0];
             // Check for the exit condition
             if (command.toLowerCase().equals("bye")) {
@@ -27,6 +62,18 @@ public class Duke {
                 System.out.println("     Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
+            } else if (parts.length > 1 && parts[0].toLowerCase().equals("tasks") && parts[1].toLowerCase().equals("on")) {
+                if (parts.length == 3) {
+                    String dateInput = parts[2];
+                    printTasksOnDate(dateInput);
+                    continue;
+                } else {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("     Invalid command. Please use the following format:\n"
+                            + "     tasks on yyyy-MM-dd");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                }
             } else if (command.toLowerCase().equals("list")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("     Here are the tasks in your list:");
@@ -101,16 +148,25 @@ public class Duke {
                             task = new Todo(input.substring(5));
                         } else if (command.toLowerCase().equals("deadline")) {
                             String[] parts2 = input.split(" /by ");
-                            if (parts2.length != 2) {
+                            if (parts2.length != 2 || parts2[0].length() <= 9) { // Check for correct format and description length
                                 throw new DukeException("Invalid deadline format. Please use the following format:\n"
-                                        + "     deadline <description> /by <end time>");
+                                        + "     deadline <description> /by <time>");
                             }
-                            task = new Deadline(parts2[0].substring(9), parts2[1]);
+                            String description = parts2[0].substring(9); // Assuming "deadline " is 9 characters long
+                            String by = parts2[1];
+                            try {
+                                task = new Deadline(description, by);
+                            } catch (DukeException e) {
+                                System.out.println("____________________________________________________________");
+                                System.out.println(e.getMessage());
+                                System.out.println("____________________________________________________________");
+                                continue;
+                            }
                         } else if (command.toLowerCase().equals("event")) {
                             String[] parts2 = input.split(" /from ");
                             if (parts2.length != 2) {
                                 throw new DukeException("Invalid deadline format. Please use the following format:\n"
-                                        + "     deadline <description> /by <end time>");
+                                        + "      event <description> /from <start time> /to <end time>");
                             }
                             String[] partsWithTo = parts2[1].split(" /to ");
                             if (partsWithTo.length != 2) {
@@ -118,7 +174,14 @@ public class Duke {
                                         + "     event <description> /from <start time> /to <end time>");
                             }
                             String eventDescription = parts2[0].substring(6);
-                            task = new Event(eventDescription, partsWithTo[0], partsWithTo[1]);
+                            try {
+                                task = new Event(eventDescription, partsWithTo[0], partsWithTo[1]);
+                            } catch (DukeException e) {
+                                System.out.println("____________________________________________________________");
+                                System.out.println(e.getMessage());
+                                System.out.println("____________________________________________________________");
+                                continue;
+                            }
                         }
                         if (task == null) {
                             throw new DukeException("Invalid command. Please try again.");
