@@ -23,12 +23,12 @@ import duke.ui.Cli;
 import duke.ui.Ui;
 
 /**
- * Test cases for methods in the ListCommand Class
+ * Test cases for methods in the FindCommand Class
  *
  * @author RyanNgWH
  */
 @TestInstance(Lifecycle.PER_CLASS)
-public class ListCommandTest {
+public class FindCommandTest {
     // Streams for testing standard output
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -36,7 +36,7 @@ public class ListCommandTest {
     private final PrintStream originalErr = System.err;
 
     // Test file
-    private final File testFile = new File("data/tasksTest.json");
+    private final File TEST_FILE = new File("data/tasksTest.json");
 
     // Environment for tests
     private TaskList taskList;
@@ -65,18 +65,18 @@ public class ListCommandTest {
      */
     @BeforeEach
     public void createEnvironment() {
-        taskList = new TaskList(testFile);
+        taskList = new TaskList(TEST_FILE);
         ui = new Cli();
 
         outContent.reset();
     }
 
     /**
-     * Test print to standard output for successful execute without filter with a
+     * Test print to standard output for successful execute without keyword with a
      * populated tasklist
      */
     @Test
-    public void execute_noFiltersPopulated_success() throws DukeException {
+    public void execute_noKeywordPopulated_success() throws DukeException {
         String expected = "1.[T][ ] buy lunch\n"
                 + "2.[D][ ] eat lunch (by: 29-Jan-2024 03:39PM)\n"
                 + "3.[E][ ] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n"
@@ -88,20 +88,20 @@ public class ListCommandTest {
                 1706528360)));
         taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
 
-        ListCommand listCommand = new ListCommand();
+        FindCommand findCommand = new FindCommand();
 
-        listCommand.execute(taskList, ui);
+        findCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
     }
 
     /**
-     * Test print to standard output for successful execute with a date filter and a
+     * Test print to standard output for successful execute with a keyword and a
      * populated tasklist
      */
     @Test
-    public void execute_dateFilterPopulated_success() throws DukeException {
-        String expected = "1.[D][ ] eat lunch (by: 29-Jan-2024 03:39PM)\n"
-                + "2.[E][ ] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n";
+    public void execute_keywordPopulated_success() throws DukeException {
+        String expected = "1.[T][ ] buy lunch\n"
+                + "2.[D][ ] eat lunch (by: 29-Jan-2024 03:39PM)\n";
 
         taskList.addTask(new Todo("buy lunch"));
         taskList.addTask(new Deadline("eat lunch", Instant.ofEpochSecond(1706513963)));
@@ -109,18 +109,18 @@ public class ListCommandTest {
                 1706528360)));
         taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
 
-        ListCommand listCommand = new ListCommand(Instant.ofEpochSecond(1706513963));
+        FindCommand findCommand = new FindCommand("lunch");
 
-        listCommand.execute(taskList, ui);
+        findCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
     }
 
     /**
-     * Test print to standard output for empty result with a date filter and a
+     * Test print to standard output for empty result with a keyword and a
      * populated tasklist
      */
     @Test
-    public void execute_dateFilterPopulated_empty() throws DukeException {
+    public void execute_keywordPopulated_empty() throws DukeException {
         String expected = "\n";
 
         taskList.addTask(new Todo("buy lunch"));
@@ -129,37 +129,37 @@ public class ListCommandTest {
                 1706528360)));
         taskList.addTask(new Deadline("go school", Instant.ofEpochSecond(1706614760)));
 
-        ListCommand listCommand = new ListCommand(Instant.ofEpochSecond(1707513963));
+        FindCommand findCommand = new FindCommand("Alonica");
 
-        listCommand.execute(taskList, ui);
+        findCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
     }
 
     /**
-     * Test print to standard output for successful execute without filter and an
+     * Test print to standard output for successful execute without keyword and an
      * unpopulated tasklist
      */
     @Test
-    public void execute_noFilterUnpopulated_success() throws DukeException {
+    public void execute_noKeywordUnpopulated_success() throws DukeException {
         String expected = "\n";
 
-        ListCommand listCommand = new ListCommand();
+        FindCommand findCommand = new FindCommand();
 
-        listCommand.execute(taskList, ui);
+        findCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
     }
 
     /**
-     * Test print to standard output for successful execute with filter and an
+     * Test print to standard output for successful execute with keyword and an
      * unpopulated tasklist
      */
     @Test
-    public void execute_dateFilterUnpopulated_success() throws DukeException {
+    public void execute_keywordUnpopulated_success() throws DukeException {
         String expected = "\n";
 
-        ListCommand listCommand = new ListCommand(Instant.ofEpochSecond(1706513963));
+        FindCommand findCommand = new FindCommand("Alonica");
 
-        listCommand.execute(taskList, ui);
+        findCommand.execute(taskList, ui);
         assertEquals(expected, outContent.toString());
     }
 }

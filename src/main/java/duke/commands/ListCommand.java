@@ -28,6 +28,8 @@ public class ListCommand extends Command {
 
     /**
      * Creates a list command with a date filter
+     *
+     * @param date Date to filter
      */
     public ListCommand(Instant date) {
         super(false);

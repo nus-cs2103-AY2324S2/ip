@@ -13,6 +13,7 @@ import duke.commands.AddCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.exceptions.DukeException;
@@ -498,6 +499,28 @@ public class ParserTest {
         exception = assertThrows(
                 InvalidArgumentException.class, () -> Parser.parse("event test /from 2024/12/12 14:00 /to 2024/12/12"));
         assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    /**
+     * Test parsing of successful 'find' command
+     */
+    @Test
+    public void parse_find_success() throws DukeException {
+        Command expected = new FindCommand("Back To Alonica");
+
+        assertEquals(expected, Parser.parse("find Back To Alonica"));
+        assertEquals(expected, Parser.parse("find Back To Alonica "));
+        assertEquals(expected, Parser.parse(" find Back To Alonica "));
+        assertEquals(expected, Parser.parse("Find Back To Alonica"));
+        // TODO: Fix bug where multiple spaces is not allowed in description
+        // assertNotEquals(expected, Parser.parse("find Back To Alonica")));
+
+        // Test no arguments
+        expected = new FindCommand();
+        assertEquals(expected, Parser.parse("find"));
+        assertEquals(expected, Parser.parse(" find"));
+        assertEquals(expected, Parser.parse("find "));
+        assertEquals(expected, Parser.parse("Find"));
     }
 
     /**
