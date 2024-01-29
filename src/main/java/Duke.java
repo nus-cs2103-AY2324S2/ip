@@ -2,12 +2,22 @@ import exceptions.EmptyBodyException;
 import exceptions.WrongFormatException;
 import exceptions.InvalidKeyException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private ArrayList<Task> inputArr = new ArrayList<>();
     private KeyEnum currentKey = KeyEnum.INVALID;
+    private DukeFile dukeFile;
+    public Duke() {
+        try {
+            this.dukeFile = new DukeFile();
+            this.inputArr = dukeFile.readFile();
+        } catch (IOException e) {
+            System.out.println("Error occur when initiating the resources.");
+        }
+    }
 
     public Integer getNumOfTasks() {
         return inputArr.size();
@@ -44,6 +54,7 @@ public class Duke {
                 currentKey = KeyEnum.DELETE;
                 break;
         }
+        System.out.println(this.currentKey);
         if (this.currentKey.equals(KeyEnum.INVALID)) {
             // raise InvalidKeyException
             System.out.println(new InvalidKeyException().getMessage());;
@@ -88,6 +99,8 @@ public class Duke {
                     } catch (EmptyBodyException e){
                         System.out.println(e.getMessage());
                         break;
+                    } catch (IOException e){
+                        System.out.println("Fail to write to file: " + e.getMessage());
                     } catch (Exception e) {
                         System.out.println(new WrongFormatException("\"deadline content /by time\"").getMessage());
                         break;
@@ -111,6 +124,8 @@ public class Duke {
                     } catch (EmptyBodyException e){
                         System.out.println(e.getMessage());
                         break;
+                    } catch (IOException e){
+                        System.out.println("Fail to write to file: " + e.getMessage());
                     } catch (Exception e) {
                         System.out.println(new WrongFormatException("\"todo content\"").getMessage());
                         break;
@@ -136,6 +151,8 @@ public class Duke {
                     } catch (EmptyBodyException e){
                         System.out.println(e.getMessage());
                         break;
+                    } catch (IOException e){
+                        System.out.println("Fail to write to file: " + e.getMessage());
                     } catch (Exception e) {
                         System.out.println(new WrongFormatException("\"event content /from time /to time\"").getMessage());
                         break;
@@ -160,6 +177,8 @@ public class Duke {
                         System.out.println("Your task list is shown below: ");
                         this.listTask();
                         break;
+                    } catch (IOException e) {
+                        System.out.println("Exception occur while storing the task on disk.");
                     }
                     break;
                 case UNMARK:
@@ -178,6 +197,8 @@ public class Duke {
                         System.out.println("Your task list is shown below: ");
                         this.listTask();
                         break;
+                    } catch (IOException e) {
+                        System.out.println("Exception occur while storing the task on disk.");
                     }
                     break;
                 case DELETE:
@@ -197,6 +218,8 @@ public class Duke {
                         System.out.println("Your task list is shown below: ");
                         this.listTask();
                         break;
+                    } catch (IOException e) {
+                        System.out.println("Exception occur while storing the task on disk.");
                     }
                     break;
             }
@@ -216,7 +239,7 @@ public class Duke {
         }
     }
 
-    public Task addTask(String detail, String from, String to) throws WrongFormatException {
+    public Task addTask(String detail, String from, String to) throws WrongFormatException, IOException {
         Task task = null;
         switch (this.currentKey) {
             case DEADLINE:
@@ -234,17 +257,21 @@ public class Duke {
             throw new WrongFormatException("The task body can not be empty. Please specify the task you want to add.");
         }
         inputArr.add(task);
+        // update the dukeFile
+        this.dukeFile.writeTasksToFile(this.inputArr);
         return task;
     }
 
-    public Task markTaskById(Integer id, Boolean status) {
+    public Task markTaskById(Integer id, Boolean status) throws IOException {
         this.inputArr.get(id).setStatus(status);
+        this.dukeFile.writeTasksToFile(this.inputArr);
         return this.inputArr.get(id);
     }
 
-    public Task deleteTaskById(Integer id){
+    public Task deleteTaskById(Integer id) throws IOException{
         Task taskToDelete = this.inputArr.get(id);
         this.inputArr.remove(taskToDelete);
+        this.dukeFile.writeTasksToFile(this.inputArr);
         return taskToDelete;
     }
 }

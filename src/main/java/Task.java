@@ -23,6 +23,10 @@ public class Task {
         this.detail = detail;
     }
 
+    public String inFileStringFormat() {
+        String intStatus = this.status? "1":"0";
+        return intStatus + "|" + this.detail;
+    }
     @Override
     public String toString() {
         if (this.status) {

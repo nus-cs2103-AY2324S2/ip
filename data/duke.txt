@@ -1,0 +1,2 @@
+T|0|Write homework
+E|1|Group meeting |12|2
