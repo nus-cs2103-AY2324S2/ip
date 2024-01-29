@@ -13,4 +13,9 @@ public class Events extends Task{
         return "[E]" + super.toString() +
                 " (from: " + start + " to: " + end + ")";
     }
+
+    @Override
+    public String toFileFormat() {
+        return "E | " + super.toFileFormat() + " | " + "(from: " + start + " to: " + end + ")";
+    }
 }
