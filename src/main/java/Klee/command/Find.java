@@ -6,12 +6,29 @@ import Klee.Ui;
 
 import Klee.task.Task;
 
+/**
+ * Represent the command to filter tasks by their description.
+ */
 public class Find extends Command {
     String searchTerm;
+
+    /**
+     * Constructor for Find class.
+     *
+     * @param searchTerm
+     */
     public Find(String searchTerm) {
         this.searchTerm = searchTerm;
     }
 
+    /**
+     * With the search term given, filter all tasks to check if they contain the search term.
+     * Invoke ui to display all filtered tasks.
+     *
+     * @param ui
+     * @param storage
+     * @param tasks
+     */
     @Override
     public void runCommand(Ui ui, Storage storage, TaskList tasks) {
         TaskList filteredTasks = new TaskList();
@@ -24,8 +41,14 @@ public class Find extends Command {
         ui.showFilteredTasks(filteredTasks);
     }
 
+    /**
+     * Check if obj is instance of Find with same fields.
+     *
+     * @param obj
+     * @return If obj is equal to this.
+     */
     @Override
     public boolean equals(Object obj) {
-        return obj.getClass() == Bye.class;
+        return obj.getClass() == Find.class;
     }
 }

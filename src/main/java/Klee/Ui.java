@@ -31,6 +31,11 @@ public class Ui {
         System.out.println(divider);
     }
 
+    /**
+     * Output all the status of the task that are in tasks.
+     *
+     * @param tasks
+     */
     public void showFilteredTasks (TaskList tasks) {
         System.out.println(divider);
         System.out.println("These are all the things that are similar to what you are looking for:");
