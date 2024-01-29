@@ -1,6 +1,6 @@
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
-     Hello! I'm Lamball, your helpful sheep!
+     Hello! I'm Lamball.Lamball, your helpful sheep!
      Whaaat can I do for you?
     ____________________________________________________________
 
@@ -9,76 +9,76 @@ List created successfully at: C:\Users\Admin\Desktop\CS2103\cs2103-ip\text-ui-te
 Initializing saved file...
 Done!
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
-    Added ToDo:
+    Added Lamball.task.ToDo:
         [T][ ] borrow book
     Now you have 1 tasks in the list.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Your todo field is empty, baaaaka.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Your todo field is empty, baaaaka.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
-    Added Deadline:
+    Added Lamball.task.Deadline:
         [D][ ] a (by: 3)
     Now you have 2 tasks in the list.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
-    Deadline is in the wrong formaaaaaaat, baa. :(
+    Lamball.task.Deadline is in the wrong formaaaaaaat, baa. :(
     Correct formaaat is: deadline <name> /by <time>, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Your deadline field is empty, baaaaka.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Your event field is empty, baaaaka.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
-    Event is in the wrong formaaaaaaat, baa. :(
+    Lamball.task.Event is in the wrong formaaaaaaat, baa. :(
     Correct formaaat is: event <name> /from <time> /to <time>, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
-    Event is in the wrong formaaaaaaat, baa. :(
+    Lamball.task.Event is in the wrong formaaaaaaat, baa. :(
     Correct formaaat is: event <name> /from <time> /to <time>, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
-    Added Event:
+    Added Lamball.task.Event:
         [E][ ] a (from: b to: c)
     Now you have 3 tasks in the list.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
 
     Here aaaaare the taaaasks in your list:
@@ -88,78 +88,78 @@ Done!
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Taaask index out of range, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Taaask index out of range, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Taaask index out of range, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
-    I have maaarked the task as done:
+    I have maaarked the Lamball.task as done:
 
         [E][X] a (from: b to: c)
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Taaask index out of range, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Taaask index out of range, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Taaask index out of range, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
-    I have maaarked the task as undone:
+    I have maaarked the Lamball.task as undone:
     ____________________________________________________________
 
         [E][ ] a (from: b to: c)
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Taaask index out of range, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Taaask index out of range, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
     Taaask index out of range, baa.
     ____________________________________________________________
 
     You:
-    Lamball
+    Lamball.Lamball
     ____________________________________________________________
      See you again!
     ____________________________________________________________
