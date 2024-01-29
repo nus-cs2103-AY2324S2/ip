@@ -42,7 +42,12 @@ public abstract class Task implements Serializable {
         this.isDone = false;
     }
 
-    public boolean isDone() {
-        return this.isDone;
+    /**
+     * Returns the title of the task.
+     *
+     * @return the title of the task.
+     */
+    public String getTitle() {
+        return this.title;
     }
 }

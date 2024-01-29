@@ -70,6 +70,9 @@ public class Parser {
         case DeleteTaskCommand.COMMAND_WORD:
             command = parseDelete(splitTask);
             break;
+        case FindTaskCommand.COMMAND_WORD:
+            command = parseFind(splitTask);
+            break;
         default:
             command = new InvalidCommand();
         }
@@ -203,5 +206,17 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new DukeException("The index you've input is not an integer.");
         }
+    }
+
+    /**
+     * Parse a find task input.
+     * @return a {@link FindTaskCommand} based on user's input.
+     * @throws DukeException if user left the description empty.
+     */
+    private FindTaskCommand parseFind(String[] input) throws DukeException {
+        if (input.length != 2 || input[1].isEmpty()) {
+            throw new DukeException("The description of find cannot be empty.");
+        }
+        return new FindTaskCommand(input[1], this.taskList);
     }
 }
