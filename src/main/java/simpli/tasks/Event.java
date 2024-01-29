@@ -4,10 +4,14 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String name, String from, String to) {
-        super(name);
+    public Event(boolean isDone, String name, String from, String to) {
+        super(isDone, name);
         this.from = from;
         this.to = to;
+    }
+
+    public String toCsv() {
+        return String.format("Event,%s,%s,%s", super.toCsv(), this.from, this.to);
     }
 
     @Override
