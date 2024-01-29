@@ -18,7 +18,6 @@ public class Bit {
         while(true) {
             System.out.println(seperator);
             String input = scanner.nextLine();
-            save();
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
@@ -76,6 +75,7 @@ public class Bit {
                 }
                 list.add(new Todo(parts[1]));
                 int i = list.size();
+                saveToFile(parts[1], null, null);
                 System.out.println("I have added this todo: " + (i) + " " + list.get(i - 1).toString());
 
 
@@ -180,10 +180,12 @@ public class Bit {
         }
     }
 
-    public static void  save() {
+    public static void  saveToFile(String description, String start, String end) {
         try {
             FileWriter myWriter = new FileWriter("./data/bit.txt");
-            myWriter.write("hi!");
+            if (start == null && end == null) {
+                myWriter.write("T | " + description);
+            }
             myWriter.close();
         } catch (IOException e) {
             System.out.println("I was unable to save this taskto the harddisk, sorry!");
