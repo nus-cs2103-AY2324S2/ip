@@ -1,15 +1,19 @@
 public class Ui {
 
-    public String start() {
-        return "Hello! I'm Tiny!\n" +
-                "   What can I do for you?\n";
+    public void start() {
+        System.out.println("   ____________________________________________________________\n");
+        System.out.println("   Hello! I'm Tiny!\n" +
+                "   What can I do for you?\n");
+        System.out.println("   ____________________________________________________________\n");
+
     }
 
-    public String showLoadingError() {
-        return "Error loading the data!";
+    public void showLoadingError() {
+        System.out.println("Error loading the data!");
     }
-    
-    public String end() {
-        return "Bye. Hope to see you again soon!";
+
+    public void showError(String message) {
+        System.out.println(message);
     }
+
 }

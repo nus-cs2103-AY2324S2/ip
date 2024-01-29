@@ -20,7 +20,7 @@ public class Tiny {
     }
 
     public void run() throws IOException {
-        printContent(ui.start());
+        ui.start();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         boolean isExit = false;
         while (!isExit) {
@@ -30,7 +30,7 @@ public class Tiny {
                 storage.save(tasks.toSave());
                 isExit = parser.isExit();
             } catch (TinyException e) {
-                printContent(e.getMessage());
+                ui.showError(e.getMessage());
             }
         }
     }
