@@ -46,18 +46,20 @@ public class Storage {
                 String taskType = lineArray[0];
                 boolean isDone = Objects.equals(lineArray[1], "1");
 
-                // format [T | 0 | borrow book]
-                if (Objects.equals(taskType, "T")) {
+                switch (taskType) {
+                case "T":
+                    // format [T | 0 | borrow book]
                     task = new Todo(lineArray[2]);
-                }
-                // format [D | 0 | borrow book | today]
-                else if (Objects.equals(taskType, "D")) {
+                    break;
+                case "D":
+                    // format [D | 0 | borrow book | today]
                     task = new Deadline(lineArray[2], Utils.convertStringToDateTime(lineArray[3]));
-                }
-                // format [E | 0 | project meeting | Mon 2pm | 4pm]
-                else if (Objects.equals(taskType, "E")) {
+                    break;
+                case "E":
+                    // format [E | 0 | project meeting | Mon 2pm | 4pm]
                     task = new Event(lineArray[2], Utils.convertStringToDateTime(lineArray[3]),
                             Utils.convertStringToDateTime(lineArray[4]));
+                    break;
                 }
 
                 if (task == null) {

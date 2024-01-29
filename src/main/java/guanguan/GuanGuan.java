@@ -32,9 +32,9 @@ public class GuanGuan {
         ui.welcome();
 
         while (isValid) {
-            String command = scanner.nextLine();
+            String input = scanner.nextLine();
             try {
-                isValid = Parser.parse(command, items, ui);
+                isValid = Parser.parse(input, items, ui);
                 storage.saveData(items);
             } catch (GGException e) {
                 ui.error(e.getMessage());
