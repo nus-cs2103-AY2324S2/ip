@@ -1,17 +1,24 @@
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.helpers.FileManaging;
+import duke.helpers.Storage;
+import duke.helpers.Ui;
+import duke.task.TaskList;
+
 import java.io.IOException;
 
-public class AddCommand extends Command {
-
+public class DeleteCommand extends Command {
     private String[] commandArr;
 
-    public AddCommand(String[] commandArr) {
+    public DeleteCommand(String[] commandArr) {
         this.commandArr = commandArr;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            tasks.addTask(commandArr[0], commandArr.length > 1 ? commandArr[1] : "");
+            tasks.deleteTask(commandArr.length > 1 ? commandArr[1] : "");
             FileManaging.writeToFile(CommandType.FILEPATH.toString(), tasks);
         } catch (DukeException e) {
             ui.displayToScreen(e.getMessage());

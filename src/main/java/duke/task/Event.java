@@ -1,8 +1,13 @@
+package duke.task;
+
+import duke.command.CommandType;
+import duke.helpers.MyDateTime;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Event class with attributes from and to.
+ * duke.task.Event class with attributes from and to.
  */
 public class Event extends Task {
     /** describe the start period. */
@@ -11,7 +16,7 @@ public class Event extends Task {
     private LocalDateTime to;
 
     /**
-     * Constructor of Event.
+     * Constructor of duke.task.Event.
      *
      * @param description to describe the event.
      * @param from period when the event start.
@@ -24,7 +29,7 @@ public class Event extends Task {
     }
 
     /**
-     * Constructor of Event.
+     * Constructor of duke.task.Event.
      *
      * @param description to describe the event.
      * @param from period when the event start.
@@ -51,7 +56,7 @@ public class Event extends Task {
     /**
      * String representation for storage.
      *
-     * @return String representation for storage of Event task.
+     * @return String representation for storage of duke.task.Event task.
      */
     @Override
     public String toStorageString() {

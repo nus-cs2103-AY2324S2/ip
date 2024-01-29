@@ -1,12 +1,16 @@
+package duke.task;
+
+import duke.command.CommandType;
+import duke.helpers.MyDateTime;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
- * Deadline class with atttribute of by which is deadline of a task
+ * duke.task.Deadline class with atttribute of by which is deadline of a task
  */
 public class Deadline extends Task {
-     /** Deadline of a task */
+     /** duke.task.Deadline of a task */
     private LocalDateTime by;
 
     /**
@@ -45,7 +49,7 @@ public class Deadline extends Task {
     /**
      * String representation for storage.
      *
-     * @return String representation for storage of Deadline task.
+     * @return String representation for storage of duke.task.Deadline task.
      */
     @Override
     public String toStorageString() {

@@ -1,5 +1,9 @@
+package duke.task;
+
+import duke.command.CommandType;
+
 /**
- * ToDo task class.
+ * duke.task.ToDo task class.
  */
 public class ToDo extends Task {
 
@@ -23,9 +27,9 @@ public class ToDo extends Task {
     }
 
     /**
-     * String representation of ToDo task.
+     * String representation of duke.task.ToDo task.
      *
-     * @return String representation of ToDo task.
+     * @return String representation of duke.task.ToDo task.
      */
     @Override
     public String toString() {
@@ -35,7 +39,7 @@ public class ToDo extends Task {
     /**
      * String representation for storage.
      *
-     * @return String representation for storage of ToDo task.
+     * @return String representation for storage of duke.task.ToDo task.
      */
     @Override
     public String toStorageString() {

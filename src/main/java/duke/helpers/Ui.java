@@ -1,3 +1,7 @@
+package duke.helpers;
+
+import duke.command.CommandType;
+
 import java.util.Scanner;
 
 public class Ui {

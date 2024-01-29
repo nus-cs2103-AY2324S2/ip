@@ -1,8 +1,14 @@
+package duke.task;
+
+import duke.command.CommandType;
+import duke.exception.DukeException;
+import duke.helpers.MyDateTime;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Task is a class with description, can record whether a task is done or not done.
+ * duke.task.Task is a class with description, can record whether a task is done or not done.
  */
 public abstract class Task {
     /** Description of the task. */
@@ -33,40 +39,40 @@ public abstract class Task {
     /**
      * Factory method to create TODO.
      *
-     * @return ToDo task.
+     * @return duke.task.ToDo task.
      */
     public static Task of(String type, boolean isDone, String description) throws DukeException {
         if (type.equals(CommandType.TODO.toString())) {
             return new ToDo(description, isDone);
         } else {
-            throw new DukeException("Storage Format Issue");
+            throw new DukeException("duke.helpers.Storage Format Issue");
         }
     }
 
     /**
-     * Factory method to create Deadline.
+     * Factory method to create duke.task.Deadline.
      *
-     * @return Deadline task.
+     * @return duke.task.Deadline task.
      */
     public static Task of(String type, boolean isDone, String description, String deadline) throws DukeException {
         if (type.equals(CommandType.DEADLINE.toString())) {
             LocalDateTime datetime = MyDateTime.convertDateTime(deadline);
             return new Deadline(description, datetime, isDone);
         } else {
-            throw new DukeException("Storage Format Issue");
+            throw new DukeException("duke.helpers.Storage Format Issue");
         }
     }
 
     /**
-     * Factory method to create Event.
+     * Factory method to create duke.task.Event.
      *
-     * @return Event task.
+     * @return duke.task.Event task.
      */
     public static Task of(String type, boolean isDone, String description, String from, String to) throws DukeException {
         if (type.equals(CommandType.EVENT.toString())) {
             return new Event(description, MyDateTime.convertDateTime(from), MyDateTime.convertDateTime(to), isDone);
         } else {
-            throw new DukeException("Storage Format Issue");
+            throw new DukeException("duke.helpers.Storage Format Issue");
         }
     }
 
@@ -116,7 +122,7 @@ public abstract class Task {
     /**
      * String representation for storage.
      *
-     * @return String representation for storage of ToDo task.
+     * @return String representation for storage of duke.task.ToDo task.
      */
     public String toStorageString() {
         return this.isDone() + " , " + this.description;
