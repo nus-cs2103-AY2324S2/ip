@@ -1,10 +1,6 @@
 package Task;
 
 import Storage.txtFileStorage;
-import Task.Task;
-import Task.ToDoTask;
-import Task.DeadlineTask;
-import Task.EventTask;
 
 import java.util.ArrayList;
 
@@ -98,9 +94,7 @@ public class TaskManager {
     }
 
     public void initialise(){
-        if (!this.taskStorage.storageFileExist()) {
-            this.taskStorage.createTxtFileStorage();
-        }
+        this.taskStorage.initialiseTxtFileStorage();
         this.loadUserTaskFromFileStorage();
     }
 

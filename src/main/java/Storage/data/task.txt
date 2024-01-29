@@ -1,5 +1,9 @@
 T | N | Borrow Book
 T | Y | Return Book
-D | Y | CS2103 Quiz | Monday
+D | N | CS2103 Quiz | Monday
 T | Y | 100 push-ups
 E | N | MSL meeting | Monday 10am | 12pm
+T | Y | Teach Brother Math
+E | N | Check Bank Statement | Nov 9 1000 | 1200
+D | Y | MSL Proposal | April 9th
+E | N | Orientation Camp - CS | May 6th | May 10th

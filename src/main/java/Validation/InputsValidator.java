@@ -1,12 +1,15 @@
 package Validation;
 
+import Commands.addDeadlineTaskCommand;
+import Commands.addEventTaskCommand;
+import Commands.addToDoTaskCommand;
+
 public class InputsValidator {
 
     private static InputsValidator instance;
 
     private InputsValidator() {}
 
-    // Method to get the instance of InputValidator
     public static InputsValidator getInstance() {
         if (instance == null) {
             instance = new InputsValidator();
@@ -60,7 +63,7 @@ public class InputsValidator {
     }
 
     public boolean validateAddToDoTaskInput(String userInput){
-        String taskName = userInput.substring("todo".length()).trim();
+        String taskName = userInput.substring(addToDoTaskCommand.COMMAND.length()).trim();
         if (!taskName.isEmpty()) {
             return true;
         } else {
@@ -73,7 +76,7 @@ public class InputsValidator {
         int byIndex = userInput.indexOf("/by");
 
         if (byIndex != -1) {
-            String taskName = userInput.substring("deadline".length(), byIndex - 1).trim();
+            String taskName = userInput.substring(addDeadlineTaskCommand.COMMAND.length(), byIndex - 1).trim();
 
             if (!taskName.isEmpty()) {
                 String deadline = userInput.substring(byIndex + "/by".length()).trim();
@@ -92,7 +95,7 @@ public class InputsValidator {
         int toIndex = userInput.indexOf("/to");
 
         if (fromIndex != -1 && toIndex != -1 && fromIndex < toIndex) {
-            String taskName = userInput.substring("event".length(), fromIndex - 1).trim();
+            String taskName = userInput.substring(addEventTaskCommand.COMMAND.length(), fromIndex - 1).trim();
             if (!taskName.isEmpty()) {
                 String startDateTime = userInput.substring(fromIndex + "/from".length(), toIndex - 1).trim();
                 String endDateTime = userInput.substring(toIndex + "/to".length()).trim();

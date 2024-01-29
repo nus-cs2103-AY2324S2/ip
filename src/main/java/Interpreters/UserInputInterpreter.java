@@ -10,7 +10,16 @@ import java.time.format.DateTimeParseException;
 
 public class UserInputInterpreter {
 
+    private static UserInputInterpreter instance;
 
+    private UserInputInterpreter() {}
+
+    public static UserInputInterpreter getInstance() {
+        if (instance == null) {
+            instance = new UserInputInterpreter();
+        }
+        return instance;
+    }
 
     public Command interpretUserInput(String userInput) {
         String[] inputtedWords = userInput.split(" ");
@@ -64,8 +73,9 @@ public class UserInputInterpreter {
                 isValid = InputsValidator.getInstance().validateAddDeadlineTaskInput(userInput);
                 if (isValid) {
                     int byIndex = userInput.indexOf("/by");
-                    taskName = userInput.substring(addDeadlineTaskCommand.COMMAND.length()).trim();
+                    taskName = userInput.substring(addDeadlineTaskCommand.COMMAND.length(), byIndex - 1).trim();
                     String deadline = userInput.substring(byIndex + "/by".length()).trim();
+                    System.out.println(deadline);
                     return new addDeadlineTaskCommand(taskName, deadline);
                 }
                 break;
@@ -85,7 +95,7 @@ public class UserInputInterpreter {
             default:
                 return new UnsupportedCommand();
         }
-        return new UnsupportedCommand();
+        return null;
     }
 
     public static LocalDate dateFormatter(String dateStr) {

@@ -13,6 +13,7 @@ public class terminateChatCommand extends Command{
 
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
+        taskManager.termintate();
         return true;
     }
 }
