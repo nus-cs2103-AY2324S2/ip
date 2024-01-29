@@ -1,8 +1,11 @@
-apple
-pear
-orange
+todo apple
+deadline pear /by 5jan
+event orange /from 10jan /to 20jan
 list
-chicken
-do 1
+done 0
+list
+done 1
+list
+done 2
 list
 bye
