@@ -5,6 +5,7 @@ import duke.exceptions.ChatException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * General parser for commands from the user.
@@ -43,8 +44,18 @@ public class Parser {
         return msg;
     }
 
+    /**
+     * Parse a date in the format day/Month/Year HoursMinutes
+     * @param date Raw input to pass.
+     * @return A LocalDateTime object of the parse input.
+     * @throws ChatException if the input is invalid
+     */
     private static LocalDateTime dateParse(String date) {
-        return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"));
+        try {
+            return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new ChatException("Invalid date time format");
+        }
     }
 
     /**

@@ -31,6 +31,12 @@ public abstract class Task implements Serializable {
     }
     public abstract String toString();
 
+    /**
+     * Formats a date in the format Month day Year.
+     * @param date The date to format to.
+     * @return String of the formatted date.
+     */
+
     protected String dateFormat(LocalDateTime date) {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
