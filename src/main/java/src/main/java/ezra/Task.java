@@ -1,3 +1,5 @@
+package src.main.java.ezra;
+
 public class Task {
     protected String description;
     protected boolean isDone;

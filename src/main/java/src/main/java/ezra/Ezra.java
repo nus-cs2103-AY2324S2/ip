@@ -1,8 +1,10 @@
+package src.main.java.ezra;
+
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-public class Duke {
+public class Ezra {
 
     private Ui ui;
     private Storage storage;
@@ -10,7 +12,7 @@ public class Duke {
     private TaskList tasks;
 
 
-    public Duke(String filepath) {
+    public Ezra(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
         parser = new Parser();
@@ -35,6 +37,6 @@ public class Duke {
         scanner.close();
     }
     public static void main(String[] args) {
-        new Duke("data" + File.separator + "ezra.txt").run();
+        new Ezra("data" + File.separator + "ezra.txt").run();
     }
 }

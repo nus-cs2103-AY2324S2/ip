@@ -1,3 +1,5 @@
+package src.main.java.ezra;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
