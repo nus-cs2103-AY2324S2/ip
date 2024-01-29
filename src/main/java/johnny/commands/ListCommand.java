@@ -1,5 +1,6 @@
 package johnny.commands;
 
+import johnny.exceptions.JohnnyException;
 import johnny.storage.Storage;
 import johnny.ui.Ui;
 import johnny.tasks.TaskList;
@@ -7,7 +8,7 @@ import johnny.tasks.TaskList;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws JohnnyException {
         ui.showList(tasks);
     }
 

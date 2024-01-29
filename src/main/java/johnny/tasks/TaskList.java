@@ -17,28 +17,24 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
-    public Task get(int index) {
-        return tasks.get(index);
+    public Task get(int index) throws JohnnyException {
+        try {
+            return tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new JohnnyException("This task does not exist bro.");
+        }
     }
 
     public Task mark(int index) throws JohnnyException {
-        try {
-            Task task = tasks.get(index);
-            task.mark();
-            return task;
-        } catch (IndexOutOfBoundsException e) {
-            throw new JohnnyException("This task does not exist bro.");
-        }
+        Task task = get(index);
+        task.mark();
+        return task;
     }
 
     public Task unmark(int index) throws JohnnyException {
-        try {
-            Task task = tasks.get(index);
-            task.unmark();
-            return task;
-        } catch (IndexOutOfBoundsException e) {
-            throw new JohnnyException("This task does not exist bro.");
-        }
+        Task task = get(index);
+        task.unmark();
+        return task;
     }
 
     public Task delete(int index) throws JohnnyException {
