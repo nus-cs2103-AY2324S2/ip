@@ -13,10 +13,15 @@ public class Duke {
             if (str.equals("bye")) {
                 break;
             } else if (arr[0].equals("list")) {
-                System.out.println("\t\tThese are the things on your agenda today");
-                for (int i = 1; i < list.size() + 1; i++) {
-                    Task t = list.get(i -1);
-                    System.out.println("\t\t" + i +"." + t.toString());
+                if (list.size() == 0) {
+                    System.out.println("\t\tThere is nothing on your agenda");
+                }
+                else {
+                    System.out.println("\t\tThese are the things on your agenda today");
+                    for (int i = 1; i < list.size() + 1; i++) {
+                        Task t = list.get(i - 1);
+                        System.out.println("\t\t" + i + "." + t.toString());
+                    }
                 }
                 System.out.println("");
             } else if (arr[0].equals("unmark")) {
@@ -27,6 +32,24 @@ public class Duke {
                 Task t = list.get(getIndex(arr));
                 t.markDone();
                 System.out.println("\t\tGreat job, you have accomplished this task:\n\t\t  " + t.toString() + "\n");
+            } else if (arr[0].equals("delete")) {
+                try {
+                    int n = getIndex(arr);
+                    if (list.size() <= n) {
+                        throw new DukeException("There is nothing to be deleted");
+                    } else {
+                        Task t = list.get(n);
+                        list.remove(t);
+                        System.out.println("\t\tRemoved the following task:\n\t\t  " + t.toString());
+                        if (list.size() <= 1) {
+                            System.out.println("\t\tYou now have " + list.size() + " task remaining");
+                        } else {
+                            System.out.println("\t\tYou now have " + list.size() + " tasks remaining");
+                        }
+                    }
+                } catch (DukeException e){
+                    System.out.println("\t\t" + e.getMessage());
+                }
             } else {
                 String s = getDescripition(arr);
                 String[] newArr = s.split(" /");
@@ -55,8 +78,13 @@ public class Duke {
                     } else {
                         throw new DukeException("Invalid task type");
                     }
-                    System.out.println("\t\tYou have " + list.size() + " too many tasks to do!!!" +
-                            "\n\t\tQuickly start working on them!!!\n");
+                    if (list.size() <= 1) {
+                        System.out.println("\t\tYou have " + list.size() + " too many task to do!!!" +
+                                "\n\t\tQuickly start working on them!!!\n");
+                    } else {
+                        System.out.println("\t\tYou have " + list.size() + " too many tasks to do!!!" +
+                                "\n\t\tQuickly start working on them!!!\n");
+                    }
                 } catch (DukeException e) {
                     System.out.println("\t\t" + e.getMessage());
                 }
