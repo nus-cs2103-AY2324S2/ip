@@ -8,14 +8,13 @@ import static bytebuddy.constants.ExceptionErrorMessages.NUMBER_FORMAT_ERROR_MES
 import static bytebuddy.constants.FilePaths.RELATIVE_OUTPUT_TXT_FILE_PATH;
 import static bytebuddy.constants.Formats.DEADLINE_FORMAT;
 import static bytebuddy.constants.Formats.EVENT_FORMAT;
+import static bytebuddy.parser.Parser.splitStringWithTrim;
 import static bytebuddy.storage.Storage.writeToFile;
 import static bytebuddy.ui.Ui.printWithSolidLineBreak;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.ui.Ui;
@@ -90,17 +89,7 @@ public class TaskList {
         return taskList.remove(index);
     }
 
-    /**
-     * Splits a string into a list of trimmed substrings using a specified separator and maximum number of tokens.
-     *
-     * @param info       The input string to split.
-     * @param separator  The separator to use.
-     * @param maxTokens  The maximum number of tokens to split the string into.
-     * @return A list of trimmed substrings.
-     */
-    public List<String> splitStringWithTrim(String info, String separator, int maxTokens) {
-        return Arrays.stream(info.split(separator, maxTokens)).map(String::trim).collect(Collectors.toList());
-    }
+
 
     /**
      * Marks a task as done in the task list based on user input.
@@ -307,26 +296,27 @@ public class TaskList {
      * The method searches for tasks containing the specified text in their descriptions
      * and prints the matching tasks to the console.
      *
-     * @param keyword The keyword or text to search for among all the tasks in the task list.
+     * @param keywords The keyword or text to search for among all the tasks in the task list.
      * @throws ByteBuddyException If there is an issue with the search operation, such as an empty keyword.
      */
-    public void findTaskWithKeywordInTaskList(String keyword) throws ByteBuddyException {
-        if (keyword.isEmpty()) {
+    public void findTaskWithKeywordInTaskList(List<String> keywords) throws ByteBuddyException {
+        if (keywords.isEmpty()) {
             throw new ByteBuddyException(EMPTY_KEYWORD_ERROR_MESSAGE);
         }
 
-        keyword = keyword.toLowerCase();
         boolean foundTask = false;
         StringBuilder str = new StringBuilder();
-
-        for (int i = 0; i < taskList.size(); i++) {
-            String description = taskList.get(i).getDescription().toLowerCase();
-            if (description.contains(keyword)) {
-                if (!foundTask) {
-                    str.append("Here are the matching tasks in your list:");
-                    foundTask = true;
+        for (String keyword: keywords) {
+            keyword = keyword.toLowerCase();
+            for (int i = 0; i < taskList.size(); i++) {
+                String description = taskList.get(i).getDescription().toLowerCase();
+                if (description.contains(keyword)) {
+                    if (!foundTask) {
+                        str.append("Here are the matching tasks in your list:");
+                        foundTask = true;
+                    }
+                    str.append("\n\t ").append(i + 1).append(".").append(taskList.get(i));
                 }
-                str.append("\n\t ").append(i + 1).append(".").append(taskList.get(i));
             }
         }
 

@@ -1,5 +1,9 @@
 package bytebuddy.commands;
 
+import static bytebuddy.parser.Parser.splitStringWithTrim;
+
+import java.util.List;
+
 import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.storage.Storage;
 import bytebuddy.tasks.TaskList;
@@ -12,15 +16,15 @@ import bytebuddy.ui.Ui;
  */
 public class FindCommand implements Command {
 
-    private String info;
+    private List<String> keywords;
 
     /**
      * Constructs a new FindCommand with the specified keyword.
      *
-     * @param info The keyword or text to search for among all the tasks in the task list.
+     * @param info The keyword(s) or text to search for among all the tasks in the task list.
      */
     public FindCommand(String info) {
-        this.info = info;
+        this.keywords = splitStringWithTrim(info, ",", 0);
     }
 
     /**
@@ -34,7 +38,7 @@ public class FindCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
-        taskList.findTaskWithKeywordInTaskList(info);
+        taskList.findTaskWithKeywordInTaskList(keywords);
     }
 
     /**
