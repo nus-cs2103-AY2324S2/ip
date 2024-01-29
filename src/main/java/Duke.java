@@ -156,7 +156,44 @@ public class Duke {
         String otherThanFirstWord = getOtherThanFirstWord(command);
         return Integer.parseInt(otherThanFirstWord);
     }
-    
+
+    // Gets the description for a todo command.
+    private String getTodoDescription(String command) {
+        return getOtherThanFirstWord(command);
+    }
+
+    // Gets the description for a deadline command.
+    private String getDeadlineDescription(String command) {
+        String otherThanFirstWord = getOtherThanFirstWord(command);
+        return otherThanFirstWord.split(" /by ", 2)[0];
+    }
+
+    // Gets the deadline for a deadline command.
+    private String getDeadlineBy(String command) {
+        String otherThanFirstWord = getOtherThanFirstWord(command);
+        return otherThanFirstWord.split(" /by ", 2)[1];
+    }
+
+    // Gets the description for an event command.
+    private String getEventDescription(String command) {
+        String otherThanFirstWord = getOtherThanFirstWord(command);
+        return otherThanFirstWord.split(" /from ", 2)[0];
+    }
+
+    // Gets the start for a deadline command.
+    private String getEventFrom(String command) {
+        String otherThanFirstWord = getOtherThanFirstWord(command);
+        String fromAndTo = otherThanFirstWord.split(" /from ", 2)[1];
+        return fromAndTo.split(" /to ", 2)[0];
+    }
+
+    // Gets the end for a deadline command.
+    private String getEventTo(String command) {
+        String otherThanFirstWord = getOtherThanFirstWord(command);
+        String fromAndTo = otherThanFirstWord.split(" /from ", 2)[1];
+        return fromAndTo.split(" /to ", 2)[1];
+    }
+
     // The task list.
     ArrayList<Task> taskList = new ArrayList<>();
 
