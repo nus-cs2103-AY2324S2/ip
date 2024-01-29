@@ -1,7 +1,33 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
+    private static final String LOGO = "      ___          ___                     ___          ___          ___     \n"+
+            "     /\\  \\        /\\  \\         ___       /\\__\\        /\\  \\        /\\__\\    \n"+
+            "    /::\\  \\      /::\\  \\       /\\  \\     /::|  |      /::\\  \\      /::|  |   \n"+
+            "   /:/\\:\\  \\    /:/\\:\\  \\      \\:\\  \\   /:|:|  |     /:/\\:\\  \\    /:|:|  |   \n"+
+            "  /::\\~\\:\\  \\  /::\\~\\:\\  \\     /::\\__\\ /:/|:|__|__  /:/  \\:\\  \\  /:/|:|  |__ \n"+
+            " /:/\\:\\ \\:\\__\\/:/\\:\\ \\:\\__\\ __/:/\\/__//:/ |::::\\__\\/:/__/ \\:\\__\\/:/ |:| /\\__\\\n"+
+            " \\/__\\:\\/:/  /\\/__\\:\\/:/  //\\/:/  /   \\/__/~~/:/  /\\:\\  \\ /:/  /\\/__|:|/:/  /\n"+
+            "      \\::/  /      \\::/  / \\::/__/          /:/  /  \\:\\  /:/  /     |:/:/  / \n"+
+            "       \\/__/       /:/  /   \\:\\__\\         /:/  /    \\:\\/:/  /      |::/  /  \n"+
+            "                  /:/  /     \\/__/        /:/  /      \\::/  /       /:/  /   \n"+
+            "                  \\/__/                   \\/__/        \\/__/        \\/__/    \n";
+    private static final List<String> GREETINGS = List.of(
+            "Ah, there you are! Hello! Paimon wondered where you were! This is going to be so much fun, right?",
+            "Ahoy there! It's great to see you! Paimon's hungry!",
+            "Ah, Paimon missed you! It's been so long...",
+            "Ad astra abyssosque, welcome to Paimon's house!",
+            "Good morning, Traveler. Ah... what's it like out today? Paimon wants to hear your story."
+    );
 
+    private static final List<String> FAREWELLS = List.of(
+            "Farewell, it was fun to meet you! Take care, see you later, and may you find many new treasures",
+            "Farewell, until we meet again!",
+            "Safe travels, and take care!",
+            "Good luck! And don't spend all your Mora in one place.",
+            "Adios!"
+    );
     private final Scanner scanner;
 
     public Ui() {
@@ -23,12 +49,13 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println("Hello");
+        System.out.println(LOGO);
+        System.out.println(GREETINGS.get(1));
     }
 
     public void showFarewell() {
         this.scanner.close();
-        System.out.println("bye");
+        System.out.println(FAREWELLS.get(1));
     }
 
     public void showTaskList(TaskList taskList) {
