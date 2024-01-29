@@ -101,4 +101,16 @@ public class Storage {
             throw new IOException();
         }
     }
+
+    public void writeToStorage(Task task) throws IOException {
+        try {
+            FileWriter fw = new FileWriter(FILE_PATH, true);
+
+            fw.write(task.toStorageString() + "\n");
+
+            fw.close();
+        } catch (IOException e) {
+            throw new IOException();
+        }
+    }
 }
