@@ -1,3 +1,9 @@
+/*
+ * ExitCommand.java
+ * This class represents a command to exit the Duke application.
+ * It allows the user to terminate the application gracefully.
+ */
+
 package duke.command;
 
 import duke.task.Storage;

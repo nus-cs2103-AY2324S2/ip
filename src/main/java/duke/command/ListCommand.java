@@ -1,3 +1,9 @@
+/*
+ * ListCommand.java
+ * This class represents a command to list all tasks in the Duke application.
+ * It allows the user to view the current list of tasks.
+ */
+
 package duke.command;
 
 import duke.task.Storage;

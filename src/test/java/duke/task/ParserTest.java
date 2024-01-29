@@ -1,3 +1,8 @@
+/*
+ * ParserTest.java
+ * This class contains JUnit tests for the Parser class in the Duke application.
+ */
+
 package duke.task;
 
 import duke.DukeException;

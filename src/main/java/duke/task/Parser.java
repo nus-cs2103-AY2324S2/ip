@@ -1,3 +1,9 @@
+/*
+ * Parser.java
+ * This class provides utility methods to parse user input commands and create corresponding Command objects.
+ * It is used for interpreting user commands in the Duke application.
+ */
+
 package duke.task;
 
 import duke.DukeException;
@@ -10,6 +16,13 @@ import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
 
 public class Parser {
+    /**
+     * Parses the user's full command and returns the corresponding Command object.
+     *
+     * @param fullCommand The full user command to parse.
+     * @return The Command object corresponding to the parsed user command.
+     * @throws DukeException If the command is unrecognized or has invalid format.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] parts = fullCommand.split(" ", 2);
         String commandWord = parts[0];

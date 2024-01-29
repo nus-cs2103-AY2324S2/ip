@@ -1,3 +1,8 @@
+/*
+ * AddCommandTest.java
+ * This class contains JUnit tests for the AddCommand class in the Duke application.
+ */
+
 package duke.command;
 
 import duke.DukeException;

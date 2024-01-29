@@ -1,3 +1,9 @@
+/*
+ * DeleteCommand.java
+ * This class represents a command to delete a task from the Duke application.
+ * It allows the user to remove a task by specifying its index in the task list.
+ */
+
 package duke.command;
 
 import duke.DukeException;

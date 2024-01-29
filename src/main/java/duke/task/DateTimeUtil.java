@@ -1,3 +1,9 @@
+/*
+ * DateTimeUtil.java
+ * This class provides utility methods for parsing date-time strings in various formats.
+ * It is used for handling date and time related functionality in the Duke application.
+ */
+
 package duke.task;
 
 import duke.DukeException;
@@ -7,6 +13,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateTimeUtil {
+    /**
+     * Parses a date-time string into a LocalDateTime object.
+     *
+     * @param dateTimeString The date-time string to parse.
+     * @return The LocalDateTime object representing the parsed date and time.
+     * @throws DukeException If the date-time string is in an invalid format.
+     */
     public static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
         DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         String[] dateTimeFormats = {

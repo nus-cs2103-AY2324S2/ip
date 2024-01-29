@@ -1,3 +1,9 @@
+/*
+ * MarkCommand.java
+ * This class represents a command to mark a task as done in the Duke application.
+ * It allows the user to mark a task as completed by specifying its index in the task list.
+ */
+
 package duke.command;
 
 import duke.DukeException;

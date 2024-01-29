@@ -1,3 +1,9 @@
+/*
+ * UnmarkCommand.java
+ * This class represents a command to unmark a task as not done in the Duke application.
+ * It allows the user to mark a completed task as not done by specifying its index in the task list.
+ */
+
 package duke.command;
 
 import duke.DukeException;
