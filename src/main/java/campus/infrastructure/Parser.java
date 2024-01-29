@@ -35,16 +35,16 @@ public class Parser {
     public void listen() {
         Scanner scanner = new Scanner(System.in);
         String userInput;
-        boolean online = true;
+        boolean isOnline = true;
 
         do {
             try {
                 userInput = scanner.nextLine();
-                online = this.processCommand(userInput);
+                isOnline = this.processCommand(userInput);
             } catch (CampusException e) {
                 this.ui.displayErrorMessage(e);
             }
-        } while (online);
+        } while (isOnline);
     }
 
     /**
@@ -68,29 +68,31 @@ public class Parser {
         }
 
         switch(firstWord) {
-            case "list":
-                this.ui.display(this.taskList);
-                break;
-            case "mark":
-            case "unmark":
-            case "delete":
-                handleUpdateCommands(firstWord, userInput);
-                break;
-            case "todo":
-                handleTodoCommand(remaining);
-                break;
-            case "deadline":
-                handleDeadlineCommand(remaining);
-                break;
-            case "event":
-                handleEventCommand(remaining);
-                break;
-            case "bye":
-                return false;
-            case "":
-                break;
-            default:
-                throw new CampusException("Sorry, I don't understand that command, please check for potential spelling errors");
+        case "list":
+            this.ui.display(this.taskList);
+            break;
+        case "mark":
+            // Fallthrough
+        case "unmark":
+            // Fallthrough
+        case "delete":
+            handleUpdateCommands(firstWord, userInput);
+            break;
+        case "todo":
+            handleTodoCommand(remaining);
+            break;
+        case "deadline":
+            handleDeadlineCommand(remaining);
+            break;
+        case "event":
+            handleEventCommand(remaining);
+            break;
+        case "bye":
+            return false;
+        case "":
+            break;
+        default:
+            throw new CampusException("Sorry, I don't understand that command, please check for potential spelling errors");
         }
         this.storage.updateFileFromList(this.taskList);
         return true;
@@ -99,18 +101,18 @@ public class Parser {
     public void handleUpdateCommands (String command, String userInput) {
         Task task = this.taskList.getIthTaskString(userInput);
         switch (command) {
-            case "mark":
-                this.taskList.markDone(task);
-                this.ui.markDone(task);
-                break;
-            case "unmark":
-                this.taskList.markUndone(task);
-                this.ui.markUndone(task);
-                break;
-            case "delete":
-                this.taskList.delete(task);
-                this.ui.delete(this.taskList, task);
-                break;
+        case "mark":
+            this.taskList.markDone(task);
+            this.ui.markDone(task);
+            break;
+        case "unmark":
+            this.taskList.markUndone(task);
+            this.ui.markUndone(task);
+            break;
+        case "delete":
+            this.taskList.delete(task);
+            this.ui.delete(this.taskList, task);
+            break;
         }
     }
 
