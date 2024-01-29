@@ -1,6 +1,7 @@
 package bytebuddy.parser;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,6 +67,10 @@ public class Parser {
      * @return A list of trimmed substrings.
      */
     public static List<String> splitStringWithTrim(String info, String separator, int maxTokens) {
+        if (info.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         return Arrays.stream(info.split(separator, maxTokens)).map(String::trim).collect(Collectors.toList());
     }
 

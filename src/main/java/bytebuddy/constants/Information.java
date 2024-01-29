@@ -4,7 +4,7 @@ package bytebuddy.constants;
  * The {@code Information} class contains constants representing various informational strings used in the application.
  */
 public class Information {
-    public static final String SOLID_LINE_BREAK = "-".repeat(60);
+    public static final String SOLID_LINE_BREAK = "-".repeat(90);
     public static final String CHATBOT_NAME = "ByteBuddy";
     public static final String CHATBOT_NAME_LOGO =
             "\t\t   ____   __   __  _____  U _____ u   ____     _   _   ____     ____   __   __ \n"
