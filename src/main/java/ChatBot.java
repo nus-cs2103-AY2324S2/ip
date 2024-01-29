@@ -2,6 +2,7 @@ import action.Action;
 import action.ByeAction;
 import action.exception.ActionException;
 import print.Printer;
+import storage.LocalStorage;
 import task.TaskList;
 
 /**
@@ -19,7 +20,7 @@ public class ChatBot {
     /**
      * Stores the user's tasks
      */
-    private final TaskList userList = new TaskList();
+    private final TaskList userList;
 
     /**
      * Class constructor.
@@ -28,6 +29,7 @@ public class ChatBot {
      */
     public ChatBot(String chatBotName) {
         this.chatBotName = chatBotName;
+        userList = LocalStorage.loadTaskList();
     }
 
     /**

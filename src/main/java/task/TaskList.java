@@ -1,8 +1,12 @@
 package task;
 
+import storage.LocalStorage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.StringBuilder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class encapsulates a {@link Task} list.
@@ -11,7 +15,23 @@ public class TaskList {
     /**
      * Stores the tasks.
      */
-    private final List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks;
+
+    /**
+     * Constructor for this.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Constructor for this.
+     *
+     * @param tasks takes in a task list
+     */
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     /**
      * Checks if the index is a valid index in this list.
@@ -30,8 +50,19 @@ public class TaskList {
      * @return the task that is added
      */
     public Task addTodo(String name) {
-        Task task = new ToDo(name);
+        return add(new ToDo(name));
+    }
+
+    /**
+     * Adds a task to this list, saving the task list to local storage.
+     *
+     * @param <T> the type of task to add
+     * @param task the task to add
+     * @return the task that is added
+     */
+    public <T extends Task> Task add(T task) {
         tasks.add(task);
+        LocalStorage.saveTaskList(this);
         return task;
     }
 
@@ -42,9 +73,7 @@ public class TaskList {
      * @return the task that is added
      */
     public Task addDeadline(String name, String by) {
-        Task task = new Deadline(name, by);
-        tasks.add(task);
-        return task;
+        return add(new Deadline(name, by));
     }
 
     /**
@@ -54,9 +83,7 @@ public class TaskList {
      * @return the task that is added
      */
     public Task addEvent(String name, String from, String to) {
-        Task task = new Event(name, from, to);
-        tasks.add(task);
-        return task;
+        return add(new Event(name, from, to));
     }
 
     /**
@@ -67,6 +94,7 @@ public class TaskList {
      */
     public Task markTask(int index) {
         tasks.get(index).mark();
+        LocalStorage.saveTaskList(this);
         return tasks.get(index);
     }
 
@@ -78,6 +106,7 @@ public class TaskList {
      */
     public Task unmarkTask(int index) {
         tasks.get(index).unmark();
+        LocalStorage.saveTaskList(this);
         return tasks.get(index);
     }
 
@@ -88,7 +117,9 @@ public class TaskList {
      * @return the task that is marked
      */
     public Task deleteTask(int index) {
-        return tasks.remove(index);
+        Task task = tasks.remove(index);
+        LocalStorage.saveTaskList(this);
+        return task;
     }
 
     /**
@@ -121,5 +152,22 @@ public class TaskList {
             message.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
         }
         return message.toString();
+    }
+
+    /**
+     * Parse a task list item from a human-readable string.
+     *
+     * @param readableString the task list item as a human-readable string
+     * @return the task
+     * @throws IllegalStateException If the regex doesn't match the pattern.
+     */
+    public static Task parseTaskListItem(String readableString) throws IllegalStateException {
+        Matcher matcher = Pattern
+                .compile("\\d+\\.(?<task>.*)")
+                .matcher(readableString);
+
+        matcher.find();
+        String parsedString = matcher.group("task").trim();
+        return Task.parseTask(parsedString);
     }
 }
