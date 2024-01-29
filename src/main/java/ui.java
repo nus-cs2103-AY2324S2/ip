@@ -29,12 +29,23 @@ public class ui {
         while (true) {
 
             String userInput = scanner.nextLine();
+            String[] userInputArray = userInput.split(" ");
 
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
                 System.out.println(divider);
                 newTodoList.listTasks();
+                System.out.println(divider);
+            } else if (userInputArray[0].equalsIgnoreCase("mark")) {
+                String taskString = newTodoList.markAsDone(Integer.parseInt(userInputArray[1]) - 1);
+                System.out.println(divider);
+                System.out.println("Nice! I've marked this task as done:\n" + taskString);
+                System.out.println(divider);
+            } else if (userInputArray[0].equalsIgnoreCase("unmark")) {
+                String taskString = newTodoList.markAsUndone(Integer.parseInt(userInputArray[1]) - 1);
+                System.out.println(divider);
+                System.out.println("OK, I've marked this task as not done yet:\n" + taskString);
                 System.out.println(divider);
             } else {
                 newTodoList.addTask(userInput);
