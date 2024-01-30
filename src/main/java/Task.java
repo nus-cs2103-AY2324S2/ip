@@ -24,6 +24,12 @@ public class Task {
         this.isDone = false;
     }
 
+    public String saveFormat() {
+        String isDoneSave = (isDone ? "1" : "0");
+        return String.format("%s;;%s",
+                isDoneSave, description);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s",

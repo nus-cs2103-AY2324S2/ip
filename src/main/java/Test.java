@@ -1,7 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Test {
     public static void main(String[] args) {
-        String testing = " (by: ABSCSD";
-        System.out.println(testing.substring(2,3));
-        testing.split(" (by: ", 2);
+        String dateString = "19/2/2020 1900";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+        LocalDateTime parsedDateTime = LocalDateTime.parse(dateString, formatter);
+        System.out.println("Parsed LocalDateTime: " + parsedDateTime);
     }
 }

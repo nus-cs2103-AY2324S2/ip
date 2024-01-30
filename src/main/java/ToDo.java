@@ -9,6 +9,12 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String saveFormat() {
+        return String.format("%s;;%s",
+                "T", super.saveFormat());
+    }
+
+    @Override
     public String toString() {
         return String.format("%s%s", "[T]", super.toString());
     }

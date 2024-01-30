@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-// import java.io.BufferedWriter;
 
 public class TaskList {
     
@@ -139,32 +138,27 @@ public class TaskList {
     }
 
     public void textToTask(String line) {
-        String taskType = line.substring(1,2);
-        boolean isDone = (line.substring(4,5).equals("X")) ? true : false;
-        String fullDescription = line.substring(7);
-        String description;
+        String[] separate = line.split(";;");
+        String taskType = separate[0];
+        boolean isDone = separate[1].equals("1") ? true : false;
+        String description = separate[2];
         Task task;
 
         switch (taskType) {
             case "T":
-                task = new ToDo(fullDescription, isDone);
+                task = new ToDo(description, isDone);
                 break;
             case "D":
-                String[] splitBy = fullDescription.split(" \\(by: ", 2);
-                description = splitBy[0];
-                String byString = splitBy[1].substring(0, splitBy[1].length()-1);
-                task = new Deadline(description, byString, isDone);
+                String by = separate[3];
+                task = new Deadline(description, by, isDone);
                 break;
             default:
-                String[] splitFrom = fullDescription.split(" \\(from: ", 2);
-                String[] splitTo = splitFrom[1].split(" to: ", 2);
-                description = splitFrom[0];
-                String fromString = splitTo[0];
-                String toString = splitTo[1].substring(0, splitTo[1].length()-1);
-                task = new Event(description, fromString, toString, isDone);
+                String from = separate[3];
+                String to = separate[4];
+                task = new Event(description, from, to, isDone);
+                break;
         }
         list.add(task);
-
     }
 
     public void loadList(File file, PrintList printList) {
@@ -190,7 +184,7 @@ public class TaskList {
         try {
             FileWriter writer = new FileWriter(file, false);
             for (Task line : list) {
-                writer.write(line.toString() + "\n");
+                writer.write(line.saveFormat() + "\n");
             }
             writer.close();
 
@@ -198,6 +192,6 @@ public class TaskList {
             System.out.println(e.getMessage());
         }
 
-    }
+    } 
 
 }

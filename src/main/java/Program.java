@@ -9,7 +9,6 @@ public class Program {
     private Scanner userInputScanner;
     private TaskList taskList;
     private PrintList printList;
-    // private final String FILE_PATH = "./data/linus.txt";
 
     public Program() {
         this.running = true;
