@@ -11,7 +11,7 @@ import skyler.exception.SkylerException;
 
 public class TaskList {
     private static List<Task> tasks = Storage.getTasks();
-    
+
     static void addTask(Task task) {
         tasks.add(task);
         Storage.saveTasksToFile();
@@ -117,4 +117,5 @@ public class TaskList {
         }
     }
 }
+
 
