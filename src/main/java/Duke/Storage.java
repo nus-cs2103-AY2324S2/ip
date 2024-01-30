@@ -4,15 +4,36 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Handles storage operations for Duke application tasks.
+ * <p>
+ * Responsible for saving tasks to a file and reading tasks from a file.
+ * It interacts with the Ui component for error reporting and the Parser component for parsing tasks.
+ */
 public class Storage {
     Ui ui;
     Parser parser;
 
+    /**
+     * Initializes a new Storage object.
+     *
+     * @param ui The UI component used for displaying error messages.
+     * @param parser The Parser component used for parsing tasks.
+     */
     public Storage (Ui ui, Parser parser) {
         this.ui = ui;
         this.parser = parser;
     }
 
+    /**
+     * Formats a Task object into a string representation suitable for file storage.
+     * <p>
+     * The format includes the task type, its completion status, and its description.
+     * For Deadline and Event tasks, their respective dates are also included.
+     *
+     * @param task The Task object to be formatted.
+     * @return The formatted string representation of the task.
+     */
     public String formatTaskForFile(Task task) {
         String returnString = "";
         String type =
@@ -31,6 +52,14 @@ public class Storage {
         }
         return returnString;
     }
+
+    /**
+     * Saves a single Task object to the storage file.
+     * <p>
+     * The task is appended to the end of the file. If an IOException occurs, an error message is displayed.
+     *
+     * @param task The Task object to be saved.
+     */
     public void saveTaskToFile(Task task) {
         try {
             FileWriter fileWriter = new FileWriter("./data/duke.txt", true);
@@ -42,6 +71,15 @@ public class Storage {
         }
 
     }
+
+    /**
+     * Saves a list of Task objects to the storage file.
+     * <p>
+     * This method overwrites the existing file with the entire list of tasks.
+     * If an IOException occurs, an error message is displayed.
+     *
+     * @param taskList The list of Task objects to be saved.
+     */
     public void saveAllTasksToFile(ArrayList<Task> taskList) {
         // overwrites all files for mark/unmark functions
         try {
