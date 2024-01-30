@@ -1,6 +1,6 @@
 public class Event extends Task{
-    private String startTime;
-    private String endTime;
+    protected String startTime;
+    protected String endTime;
     public Event(String description, String startTime, String endTime) {
         super(description);
         this.startTime = startTime;
@@ -9,6 +9,6 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString().substring(3) + "(from: " + this.startTime + " to: " + this.endTime + ")";
+        return "E |" + super.toString().substring(1) + "| " + this.startTime + "-" + this.endTime;
     }
 }
