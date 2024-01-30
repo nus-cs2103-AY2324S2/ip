@@ -8,7 +8,7 @@ public class Duke {
         exit();
     }
     private static void greetUser() {
-        System.out.println("____________________________________________________________");
+        System.out.println("________________________________________");
         System.out.println(" Hello! I'm Judy");
         System.out.println(" What can I do for you?");
         System.out.println("________________________________________");
@@ -19,23 +19,28 @@ public class Duke {
         String command;
 
         do {
-            command = scanner.nextLine();
-            System.out.println("____________________________________");
-            if(command.equalsIgnoreCase("bye")) {
-                break;
-            } else if (command.equalsIgnoreCase("list")) {
-                taskManager.listOutTasks();
-            } else if (command.startsWith("mark")){
-                taskManager.markTask(command);
-            } else if (command.startsWith("unmark")) {
-                taskManager.unmarkTask(command);
-            } else {
-                taskManager.addTask(command);
+            try {
+                command = scanner.nextLine();
+                System.out.println("____________________________________");
+                if(command.equalsIgnoreCase("bye")) {
+                    break;
+                } else if (command.equals("list")) {
+                    taskManager.listOutTasks();
+                } else if (command.startsWith("mark")){
+                    taskManager.markTask(command);
+                } else if (command.startsWith("unmark")) {
+                    taskManager.unmarkTask(command);
+                } else {
+                    taskManager.addTask(command);
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
+
             System.out.println("____________________________________");
         } while (true);
 
-        scanner.close();
+        //scanner.close();
     }
 
 
