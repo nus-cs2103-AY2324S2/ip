@@ -30,11 +30,11 @@ public class Duke {
         }
         return -1;
     }
-    public Task identify(String request) throws taskException {
+    public Task identify(String request) throws TaskException {
         if (request.startsWith("todo")) {
             String[] reqList = request.split(" ");
             if (reqList.length < 2) {
-                throw new taskException("What do you want to do? Description of todo cannot be empty.");
+                throw new TaskException("What do you want to do? Description of todo cannot be empty.");
             }
             String desc = String.join(" ", Arrays.copyOfRange(reqList, 1, reqList.length));
             Todo current = new Todo(desc);
@@ -49,7 +49,7 @@ public class Duke {
                 Deadline current = new Deadline(desc, time);
                 return current;
             } else{
-                throw new taskException("Please specify when is the deadline.");
+                throw new TaskException("Please specify when is the deadline.");
             }
 
         } else if (request.startsWith("event")) {
@@ -64,15 +64,15 @@ public class Duke {
                 Event current = new Event(desc, start, end);
                 return current;
             } else if (Arrays.asList(reqList).contains("/from")){
-                throw new taskException("Please specify when the event ends.");
+                throw new TaskException("Please specify when the event ends.");
             } else if (Arrays.asList(reqList).contains("/to")){
-                throw new taskException("Please specify when the event starts.");
+                throw new TaskException("Please specify when the event starts.");
             } else {
-                throw new taskException("Please specify the event timeframe.");
+                throw new TaskException("Please specify the event timeframe.");
             }
 
         } else {
-            throw new taskException("Apologies, I don't understand you. Please try again");
+            throw new TaskException("Apologies, I don't understand you. Please try again");
         }
     }
 
@@ -139,18 +139,12 @@ public class Duke {
                     System.out.println(indent + "Now you have " + Integer.toString(taskList.size()) +
                             " tasks in the list.");
                     spacing();
-                } catch (taskException e) {
+                } catch (TaskException e) {
                     separate();
                     System.out.println(indent +e.getMessage());
                     spacing();
                 }
             }
-        }
-    }
-
-    public class taskException extends Exception {
-        public taskException(String message) {
-            super(message);
         }
     }
 
