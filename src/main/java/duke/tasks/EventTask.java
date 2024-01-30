@@ -1,14 +1,17 @@
 package duke.tasks;
+
+import java.time.LocalDateTime;
+
 public class EventTask extends Task{
-    private String start;
-    private String end;
-    public EventTask(String desc, String start, String end) {
+    private LocalDateTime start;
+    private LocalDateTime end;
+    public EventTask(String desc, LocalDateTime start, LocalDateTime end) {
         super(desc);
         this.start = start;
         this.end = end;
     }
 
-    public EventTask(String desc, String isDone, String start, String end) {
+    public EventTask(String desc, String isDone, LocalDateTime start, LocalDateTime end) {
         super(desc, isDone);
         this.start = start;
         this.end = end;
@@ -18,7 +21,8 @@ public class EventTask extends Task{
     }
 
     public String toString() {
-        return this.getStatusIcon() + this.getDesc() + " (from: " + start + " to: " + end + ")";
+        return this.getStatusIcon() + this.getDesc() + " (from: " + Task.toStringDateTime(this.start) +
+                " to: " + Task.toStringDateTime(this.end) + ")";
     }
     public String save() {
         String isDone = this.isDone() ? "1" : "0";

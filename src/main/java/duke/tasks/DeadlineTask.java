@@ -1,13 +1,15 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+
 public class DeadlineTask extends Task {
-    private String end;
-    public DeadlineTask(String desc, String end) {
+    private LocalDateTime end;
+    public DeadlineTask(String desc, LocalDateTime end) {
         super(desc);;
         this.end = end;
     }
 
-    public DeadlineTask(String desc, String isDone, String end) {
+    public DeadlineTask(String desc, String isDone, LocalDateTime end) {
         super(desc, isDone);
         this.end = end;
     }
@@ -17,7 +19,8 @@ public class DeadlineTask extends Task {
     }
 
     public String toString() {
-        return this.getStatusIcon() + this.getDesc() + " (by: " + this.end + ")";
+        return this.getStatusIcon() + this.getDesc() + " (by: " +
+                Task.toStringDateTime(this.end) + ")";
     }
     public String save() {
         String isDone = this.isDone() ? "1" : "0";

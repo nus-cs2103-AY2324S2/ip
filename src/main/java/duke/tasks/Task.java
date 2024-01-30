@@ -1,5 +1,8 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     private boolean isDone;
     private String desc;
@@ -15,6 +18,11 @@ public abstract class Task {
         } else {
             this.isDone = false;
         }
+    }
+
+    public static String toStringDateTime(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+        return dateTime.format(formatter);
     }
 
     public boolean isDone() {

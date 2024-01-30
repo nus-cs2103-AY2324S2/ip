@@ -3,12 +3,16 @@ package duke.parser;
 import duke.Actions;
 import duke.TextTemplate;
 import duke.TaskList;
+import duke.exceptions.InvalidDateFormException;
 import duke.exceptions.InvalidInputException;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.Task;
 import duke.tasks.TodoTask;
+import org.w3c.dom.Text;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 public class InputParser {
     private boolean isActive;
@@ -72,8 +76,17 @@ public class InputParser {
         String[] parts = s.split(" /from ", 2);
         String desc = parts[0].split(" ", 2)[1];
         String[] duration = parts[1].split(" /to ", 2);
+        LocalDateTime start;
+        LocalDateTime end;
 
-        EventTask e = new EventTask(desc, duration[0], duration[1]);
+        try {
+            start = parseDateTime(duration[0]);
+            end = parseDateTime(duration[1]);
+        } catch (InvalidDateFormException e) {
+            return e.getMessage() + "\n" + TextTemplate.LINE_BREAK;
+        }
+
+        EventTask e = new EventTask(desc, start, end);
         tasks.add(e);
 
         String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
@@ -85,12 +98,37 @@ public class InputParser {
         String[] firstPart = parts[0].split(" ", 2);
         String desc = firstPart[1];
         String end = parts[1];
+        LocalDateTime deadline;
 
-        DeadlineTask d = new DeadlineTask(desc, end);
+        try {
+            deadline = parseDateTime(end);
+        } catch (InvalidDateFormException e) {
+            return e.getMessage() + "\n" + TextTemplate.LINE_BREAK;
+        }
+
+        DeadlineTask d = new DeadlineTask(desc, deadline);
         tasks.add(d);
 
         String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
         return TextTemplate.ADD_TASK + "\n" + d.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
+    }
+
+    private static LocalDateTime parseDateTime(String s) throws InvalidDateFormException {
+        // Parse the end string into LocalDateTime
+        LocalDateTime dateTime;
+        try {
+            if (s.length() == 10) {
+                // If the end string is in the format yyyy-mm-dd
+                dateTime = LocalDateTime.parse(s + "T00:00:00");
+            } else {
+                // If the end string is in the format yyyy-mm-dd HHmm
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                dateTime = LocalDateTime.parse(s, formatter);
+            }
+            return dateTime;
+        } catch (Exception e) {
+            throw new InvalidDateFormException();
+        }
     }
 
 
