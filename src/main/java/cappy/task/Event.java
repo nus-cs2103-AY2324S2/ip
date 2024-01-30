@@ -5,8 +5,17 @@ import java.time.LocalDateTime;
 import cappy.parser.Parser;
 
 public class Event extends Task {
+    /**
+     * The type symbol for the Event Task.
+     */
     public static final String TYPE_SYMBOL = "E";
+    /**
+     * The starting date time for the Event Task.
+     */
     private final LocalDateTime begin;
+    /**
+     * The ending date time for the Event Task.
+     */
     private final LocalDateTime end;
 
     public Event(String description, LocalDateTime begin, LocalDateTime end) {

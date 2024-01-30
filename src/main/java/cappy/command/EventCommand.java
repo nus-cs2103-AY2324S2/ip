@@ -13,6 +13,16 @@ import cappy.parser.Parser;
 import cappy.error.CappyException;
 
 public class EventCommand extends Command {
+    /**
+     * Adds a new Event task to the task list, and notify the user through the UI.
+     *
+     * @param tasks   The task list that stores the tasks.
+     * @param ui      The user interface for interaction with the user.
+     * @param storage The storage for reading and writing task data.
+     * @param input   The parsed user input.
+     * @throws CappyException If there is an application-specific exception during task execution.
+     * @throws IOException    If an I/O error occurs while interacting with the storage.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, ParsedInput input) throws CappyException, IOException {
         if (input.numberOfPositionalArguments() < 1) {

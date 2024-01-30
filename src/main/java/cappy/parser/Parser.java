@@ -14,9 +14,26 @@ import cappy.task.Todo;
 import cappy.task.Deadline;
 import cappy.task.Event;
 
+/**
+ * Handles parsing user input and converting data formats.
+ *
+ * <p>The {@code Parser} class provides static methods for parsing user input,
+ * converting date-time strings to LocalDateTime objects, and parsing CSV lines
+ * into corresponding task objects.
+ */
 public class Parser {
+    /**
+     * The DateTimeFormatter for parsing and formatting date-time strings.
+     */
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
+    /**
+     * Parses a input String into a ParsedInput object.
+     *
+     * @param input The String to be parsed.
+     * @return The parsed input as a ParsedInput object.
+     * @throws CappyException If the input is not valid.
+     */
     public static ParsedInput parse(String input) throws CappyException {
         StringTokenizer st = new StringTokenizer(input,  " ");
         int numTokens = st.countTokens();
@@ -44,14 +61,36 @@ public class Parser {
         return new ParsedInput(command, namedArguments, positionalArguments);
     }
 
+    /**
+     * Converts a String into a LocalDateTime object. The expected format is yyyy-MM-dd'T'HH:mm.
+     * For example, 2023-01-29T14:00.
+     *
+     * @param input The string to be converted to a LocalDateTime object.
+     * @return The resulting LocalDateTime object from the conversion.
+     * @throws DateTimeParseException If the String is not in the expected format.
+     */
     public static LocalDateTime parseDateTime(String input) throws DateTimeParseException {
         return LocalDateTime.parse(input, DATE_TIME_FORMAT);
     }
 
+    /**
+     * Converts a LocalDateTime object into a String. The String format is yyyy-MM-dd'T'HH:mm.
+     * For example, 2023-01-29T14:00.
+     *
+     * @param input The LocalDateTime object to be converted to a String.
+     * @return The resulting String from the conversion.
+     */
     public static String dateTimeToString(LocalDateTime dateTime) {
         return dateTime.format(DATE_TIME_FORMAT);
     }
 
+    /**
+     * Parses a csv line into a Task object.
+     *
+     * @param csvLine The csv line to be parsed.
+     * @return The Task object created from the data in the csv line.
+     * @throws CappyException If the csv line is not in the excpected format.
+     */
     public static Task parseCsvLine(String csvLine) throws CappyException {
         String[] data = csvLine.split(",");
         try {

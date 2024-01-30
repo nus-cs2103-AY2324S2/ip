@@ -8,6 +8,13 @@ import cappy.error.CappyException;
 import cappy.parser.Parser;
 import cappy.storage.Storage;
 
+/**
+ * Represents a collection of tasks in the task management system.
+ *
+ * <p>The {@code TaskList} class manages a list of tasks and provides operations
+ * such as adding, retrieving, removing tasks, and saving/loading tasks to/from storage.
+ * Each task is associated with a 1-based index within the task list.
+ */
 public class TaskList {
     private final List<Task> tasks;
     private final Storage storage;
@@ -17,6 +24,11 @@ public class TaskList {
         this.storage = storage;
     }
 
+    /**
+     * Adds a task to this task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
@@ -40,6 +52,9 @@ public class TaskList {
         this.tasks.remove(index - 1);
     }
 
+    /**
+     * Returns the number of tasks in this task list.
+     */
     public int size() {
         return this.tasks.size();
     }
@@ -54,6 +69,11 @@ public class TaskList {
         return index >= 1 && index <= this.tasks.size();
     }
 
+    /**
+     * Saves the current state of the task list to storage.
+     *
+     * @throws IOException If any I/O Error is encountered when saving.
+     */
     public void save() throws IOException {
         this.storage.empty();
         for (Task task : this.tasks) {
@@ -61,6 +81,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates a new TaskList using the data stored in the storage.
+     *
+     * @param storage The storage to load data from.
+     * @return The newly created TaskList.
+     */
     public static TaskList load(Storage storage) throws IOException, CappyException {
         TaskList taskList = new TaskList(storage);
         String[] csvLines = storage.readAll().split("\n");
