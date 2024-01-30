@@ -31,6 +31,10 @@ public class Task {
         return "";
     }
 
+    public String saveFormat() {
+        return "";
+    }
+
     @Override
     public String toString() {
         if (this.status == 0) {

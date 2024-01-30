@@ -7,6 +7,6 @@ public class EmptyDescException extends Exception {
 
     @Override
     public String toString() {
-        return "   Uh oh! Looks like you forgot a description of the task!";
+        return "\tUh oh! Looks like you forgot a description of the task!";
     }
 }

@@ -1,10 +1,14 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
 
 public class Duke {
-    public static String WELCOME = "   Hi, I'm Gronk!\n"
-            + "   What are we up to today?";
-    public static String GOODBYE = "   System closing. Goodbye!";
+    public static String WELCOME = "\tHi, I'm Gronk!\n"
+            + "\tWhat are we up to today?";
+    public static String GOODBYE = "\tSystem closing. Goodbye!";
     public static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void lines() { // prints out a line
@@ -24,11 +28,36 @@ public class Duke {
             }
             String m = "";
             for (int j = 0; j < tasks.size(); j++) {
-                m += "   " + Integer.toString(j + 1) + ". " + tasks.get(j).toString() + "\n";
+                m += "\t" + Integer.toString(j + 1) + ". " + tasks.get(j).toString() + "\n";
             }
             printMessage(m.substring(0, m.length() - 1));
         } catch (EmptyListException e) {
             printMessage(e.toString());
+        }
+    }
+
+    public static void saveTasks() {
+        try {
+            FileWriter myWriter = new FileWriter("tasks.txt");
+            for (Task t: tasks) {
+                myWriter.write(t.saveFormat() + "\n");
+            }
+            myWriter.close();
+            printMessage("\tTasks saved successfully! :-)");
+        } catch (IOException e) {
+            printMessage("\tFailed to save. :-(");
+        }
+    }
+
+    public static void readTasks() {
+        try {
+            File myFile = new File("tasks.txt");
+            Scanner sc = new Scanner(myFile);
+            while (sc.hasNextLine()) {
+                parseMessage(sc.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            printMessage("\tNothing saved. :-(");
         }
     }
 
@@ -72,31 +101,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String message = "";
-        printMessage(WELCOME);
-
-        while (true) {
-            message = sc.nextLine();
-            if (message.equals("bye")) {
-                break;
-            } else if (message.equals("list")) {
-                reciteList();
-            } else if (message.startsWith("mark")) {
-                String[] t = message.split(" ");
-                int ind = Integer.parseInt(t[1]) - 1;
-                printMessage(tasks.get(ind).statusMessage());
-                tasks.get(ind).flip();
-            } else if (message.startsWith("delete")) {
-                String[] t = message.split(" ");
-                int ind = Integer.parseInt(t[1]) - 1;
-                printMessage("   Item: " + tasks.get(ind).getDesc() + " removed from list.");
-                tasks.remove(ind);
-            } else {
-                parseMessage(message);
-            }
-        }
-
-        printMessage(GOODBYE);
+        Gronk gronk = new Gronk();
     }
 }

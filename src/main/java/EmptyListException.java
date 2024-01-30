@@ -7,6 +7,6 @@ public class EmptyListException extends Exception {
 
     @Override
     public String toString() {
-        return "   Nothing added yet!";
+        return "\tNothing added yet!";
     }
 }

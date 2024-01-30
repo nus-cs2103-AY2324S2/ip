@@ -8,24 +8,29 @@ public class Event extends Task {
     }
 
     public String getTime() {
-        return "   anytime from " + this.starttime + " to " + this.endtime;
+        return "\tanytime from " + this.starttime + " to " + this.endtime;
     }
 
     public String getStartTime() {
-        return "   starting: " + this.starttime;
+        return "\tstarting: " + this.starttime;
     }
 
     public String getEndTime() {
-        return "   ending: " + this.endtime;
+        return "\tending: " + this.endtime;
     }
 
     @Override
     public String statusMessage() {
         if (this.getStatus() == 0) {
-            return "   Well done! Event: " + this.getDesc() + " finished.";
+            return "\tWell done! Event: " + this.getDesc() + " finished.";
         } else {
-            return "   Event updated. Event: " + this.getDesc() + " marked as incomplete.";
+            return "\tEvent updated. Event: " + this.getDesc() + " marked as incomplete.";
         }
+    }
+
+    @Override
+    public String saveFormat() {
+        return Integer.toString(this.getStatus()) + "," + this.getDesc();
     }
 
     @Override

@@ -12,10 +12,15 @@ public class Deadline extends Task {
     @Override
     public String statusMessage() {
         if (this.getStatus() == 0) {
-            return "   Well done! Deadline: " + this.getDesc() + " beaten.";
+            return "\tWell done! Deadline: " + this.getDesc() + " beaten.";
         } else {
-            return "   Deadline updated. Deadline: " + this.getDesc() + " marked as incomplete.";
+            return "\tDeadline updated. Deadline: " + this.getDesc() + " marked as incomplete.";
         }
+    }
+
+    @Override
+    public String saveFormat() {
+        return Integer.toString(this.getStatus()) + "," + this.getDesc();
     }
 
     @Override

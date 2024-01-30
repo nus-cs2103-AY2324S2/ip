@@ -7,6 +7,6 @@ public class DukeException extends Exception {
 
     @Override
     public String toString() {
-        return "   I'm sorry, I didn't recognize that command. Please try again!";
+        return "\tI'm sorry, I didn't recognize that command. Please try again!";
     }
 }
