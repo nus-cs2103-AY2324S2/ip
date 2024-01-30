@@ -15,7 +15,7 @@ public class Event extends Task {
         String[] descParsed = desc.split("/from");
         String[] dateParsed = descParsed[1].split("/to");
 
-        if (dateParsed.length <= 1) throw new DukeException("Invalid dates!");
+        if (dateParsed.length <= 1 || dateParsed[0].isBlank() || dateParsed[1].isBlank()) throw new DukeException("Invalid dates!");
 
         try {
             LocalDate date1 = LocalDate.parse(dateParsed[0].trim());
