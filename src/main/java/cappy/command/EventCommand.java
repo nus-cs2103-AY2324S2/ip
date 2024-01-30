@@ -33,7 +33,7 @@ public class EventCommand extends Command {
                     "Please specify the duration of the event using /from [Date Time] /to [Date"
                         + " Time].");
         }
-        String description = input.getPositionalArgument(0);
+        String description = String.join(" ", input.getPositionalArguments());
         String fromString = input.getNamedArgument("from");
         String toString = input.getNamedArgument("to");
         try {

@@ -64,6 +64,10 @@ public class ParsedInput {
         return positionalArguments.get(index);
     }
 
+    public List<String> getPositionalArguments() {
+        return positionalArguments;
+    }
+
     public int numberOfPositionalArguments() {
         return positionalArguments.size();
     }

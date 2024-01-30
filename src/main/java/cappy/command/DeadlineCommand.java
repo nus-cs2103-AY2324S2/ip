@@ -32,7 +32,7 @@ public class DeadlineCommand extends Command {
             throw new CappyException(
                     "Please specify the due date of the deadline task using /by [Date Time].");
         }
-        String description = input.getPositionalArgument(0);
+        String description = String.join(" ", input.getPositionalArguments());
         String dueString = input.getNamedArgument("by");
         try {
             LocalDateTime due = Parser.parseDateTime(dueString);

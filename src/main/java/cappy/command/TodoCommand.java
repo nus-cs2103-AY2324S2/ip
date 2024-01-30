@@ -26,7 +26,7 @@ public class TodoCommand extends Command {
         if (input.numberOfPositionalArguments() < 1) {
             throw new CappyException("Please enter the task description.");
         }
-        String description = input.getPositionalArgument(0);
+        String description = String.join(" ", input.getPositionalArguments());
         Todo task = new Todo(description);
         tasks.addTask(task);
         ui.showAddedTask(task, tasks);
