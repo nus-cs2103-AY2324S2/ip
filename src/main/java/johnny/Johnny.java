@@ -42,7 +42,7 @@ public class Johnny {
     }
 
     public static void main(String[] args) {
-        new Johnny("src/main/data/tasks.txt").run();
+        new Johnny("data/tasks.txt").run();
     }
 
 }
