@@ -64,13 +64,33 @@ public class Duke {
                 output = "OK, I've marked this task as not done yet:\n\t" + todolist.get(taskToMark).toString();
                 break;
             case "todo":
-                Task todo = new Todo(details);
-                output = "added todo: " + todo.toString();
-                addItem(todo);
+                try {
+                    if (details.isEmpty()) {
+                        throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    Task todo = new Todo(details);
+                    output = "added todo: " + todo.toString();
+                    addItem(todo);
+                }
+                catch (DukeException e) {
+                    output = e.toString();
+                }
                 break;
             case "deadline":
-                String deadlineName = details.split("/by")[0];
-                String by = details.split("/by")[1];
+                String deadlineName;
+                String by;
+                try {
+                    String[] d = details.split("/by");
+                    if (d.length == 1) {
+                        throw new DukeException("Invalid deadline task!");
+                    }
+                    deadlineName = d[0];
+                    by = d[1];
+
+                } catch (DukeException e) {
+                    output = e.toString();
+                    break;
+                }
                 Task deadline = new Deadline(deadlineName, by);
                 addItem(deadline);
                 output = "added deadline: " + deadline.toString();
@@ -84,7 +104,8 @@ public class Duke {
                 output = "added event: " + event.toString();
                 break;
             default:
-                break;
+                DukeException e = new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                output = e.toString();
             }
 
             if (!output.isEmpty()) {
