@@ -27,7 +27,7 @@ public class DateTimeManager {
             }
         }
 
-        throw new DukeException("      Invalid format for Date-Time. The format is \"yyyy-MM-dd HH:mm\".");
+        throw new DukeException("Invalid format for Date-Time. The format is \"yyyy-MM-dd HH:mm\".");
     }
 
 
@@ -51,6 +51,6 @@ public class DateTimeManager {
                 // Continue next format
             }
         }
-        throw new DukeException("      There is an error of converting LocalDateTime to String.");
+        throw new DukeException("There is an error of converting LocalDateTime to String.");
     }
 }
