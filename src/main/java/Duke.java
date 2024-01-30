@@ -49,12 +49,12 @@ public class Duke {
      */
     private void showTasks() throws DukeException{
 
-        if(Task.currentTaskNo == 0){
+        if(Task.currentTaskNum == 0){
             throw new DukeException("Add tasks to list first! Type something other than List/list or Bye/bye.\n");
         } else {
             System.out.println("Here are the tasks in your list:\n");
 
-            for (int i = 0; i < Task.currentTaskNo; i++) {
+            for (int i = 0; i < Task.currentTaskNum; i++) {
                 System.out.println(i+1 + "." + tasks.get(i).toString());
             }
             System.out.println();
@@ -68,14 +68,14 @@ public class Duke {
     private void markMechanism(String echo) throws DukeException{
         if (echo.contains("unmark")){
             int value = Integer.parseInt(echo.replaceAll("[^-0-9]", ""));
-            if(value <= Task.currentTaskNo && value > 0){
+            if(value <= Task.currentTaskNum && value > 0){
                 System.out.println(tasks.get(value-1).unMarkTask());
             } else {
                 throw new DukeException("Please unmark a valid task!\n");
             }
         } else if (echo.contains("mark")){
             int value = Integer.parseInt(echo.replaceAll("[^-0-9]", ""));
-            if(value <= Task.currentTaskNo && value > 0){
+            if(value <= Task.currentTaskNum && value > 0){
                 System.out.println(tasks.get(value-1).markAsDone());
             } else {
                 throw new DukeException("Please mark a valid task!\n");
@@ -126,9 +126,9 @@ public class Duke {
             }
 
             System.out.println("Understood. I've added this task:\n "
-                    + Task.currentTaskNo + "."
-                    + tasks.get(Task.currentTaskNo-1)
-                    + "\nNow you have " + Task.currentTaskNo
+                    + Task.currentTaskNum + "."
+                    + tasks.get(Task.currentTaskNum - 1)
+                    + "\nNow you have " + Task.currentTaskNum
                     + " task(s) in the list.\n");
 
         } catch (ArrayIndexOutOfBoundsException e){
@@ -150,12 +150,12 @@ public class Duke {
         int numberToRemove = Integer.parseInt(echo1[1]);
         try {
             Task removed = tasks.remove(numberToRemove - 1);
-            Task.currentTaskNo--;
+            Task.currentTaskNum--;
             System.out.println("Very well. I have removed this task.\n" + removed
-                    + "\nNow you have " + Task.currentTaskNo
+                    + "\nNow you have " + Task.currentTaskNum
                     + " task(s) in the list.\n");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("There are only: " + Task.currentTaskNo + " task(s) in the list to delete.\n");
+            System.out.println("There are only: " + Task.currentTaskNum + " task(s) in the list to delete.\n");
         }
 
 

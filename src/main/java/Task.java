@@ -17,7 +17,7 @@ public class Task {
     /**
      * The Task class keeps track of the current no. of tasks currently made
      */
-    protected static int currentTaskNo = 0;
+    protected static int currentTaskNum = 0;
 
     /**
      * Constructor for a Task instance,
@@ -26,7 +26,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        currentTaskNo++;
+        currentTaskNum++;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Task {
      * Prints Task description in Task Array or when task is marked/unmarked/added
      * @return a string representing the task description
      */
-
+    @Override
     public String toString(){
         return "[" + this.getStatusIcon() +"]"
                 + this.description;
