@@ -1,15 +1,11 @@
 import exception.DukeException;
-import task.Task;
-import task.ToDo;
-import task.Deadline;
-import task.Event;
+import task.TaskList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private boolean isRunning;
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private TaskList taskList = new TaskList();
 
     public static void main(String[] args) {
         Duke duke = new Duke();
@@ -20,50 +16,54 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         this.isRunning = true;
 
+        printLine();
         String introMessage = " /\\_/\\\n" +
                 "\t( o.o )\n" +
                 "\t > ^ <\n" +
                 "\tNya-ice to meet you! I'm Toothless :D\n" +
                 "\tWhat can I do for you?";
         printMessage(introMessage);
+        printLine();
 
         while (this.isRunning) {
-            String userInput = scanner.nextLine();
-            parseInput(userInput);
+            try {
+                String userInput = scanner.nextLine();
+                printLine();
+                parseInput(userInput);
+            } catch (DukeException e) {
+                printMessage(e.getMessage());
+            } finally {
+                printLine();
+            }
         }
-
         printMessage("Bye. Purr-lease chat again soon!");
     }
 
-    public void parseInput(String userInput) {
-        try {
-            if (userInput.equals("bye")) {
-                this.isRunning = false;
-            } else if (userInput.equals("list")) {
-                printList();
-            } else if (userInput.startsWith("mark ") || userInput.equals("mark")) {
-                int listIndex = validateListInput(userInput, "mark");
-                markTask(listIndex);
-            } else if (userInput.startsWith("unmark ") || userInput.equals("unmark")) {
-                int listIndex = validateListInput(userInput, "unmark");
-                unmarkTask(listIndex);
-            } else if (userInput.startsWith("todo ") || userInput.equals("todo")) {
-                String taskDescription = validateToDoInput(userInput);
-                addToDoToList(taskDescription);
-            } else if (userInput.startsWith("deadline ") || userInput.equals("deadline")) {
-                String[] deadlineAttributes = validateDeadlineInput(userInput);
-                addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
-            } else if (userInput.startsWith("event ") || userInput.equals("event")) {
-                String[] eventAttributes = validateEventInput(userInput);
-                addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
-            } else if (userInput.startsWith("delete ") || userInput.equals("delete")) {
-                int listIndex = validateListInput(userInput, "delete");
-                deleteTask(listIndex);
-            } else {
-                throw new DukeException("Sorry, I don't understand what that means D:");
-            }
-        } catch (DukeException e) {
-            printMessage(e.getMessage());
+    public void parseInput(String userInput) throws DukeException {
+        if (userInput.equals("bye")) {
+            this.isRunning = false;
+        } else if (userInput.equals("list")) {
+            taskList.printList();
+        } else if (userInput.startsWith("mark ") || userInput.equals("mark")) {
+            int listIndex = validateListInput(userInput, "mark");
+            taskList.markTask(listIndex);
+        } else if (userInput.startsWith("unmark ") || userInput.equals("unmark")) {
+            int listIndex = validateListInput(userInput, "unmark");
+            taskList.unmarkTask(listIndex);
+        } else if (userInput.startsWith("todo ") || userInput.equals("todo")) {
+            String taskDescription = validateToDoInput(userInput);
+            taskList.addToDoToList(taskDescription);
+        } else if (userInput.startsWith("deadline ") || userInput.equals("deadline")) {
+            String[] deadlineAttributes = validateDeadlineInput(userInput);
+            taskList.addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
+        } else if (userInput.startsWith("event ") || userInput.equals("event")) {
+            String[] eventAttributes = validateEventInput(userInput);
+            taskList.addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
+        } else if (userInput.startsWith("delete ") || userInput.equals("delete")) {
+            int listIndex = validateListInput(userInput, "delete");
+            taskList.deleteTask(listIndex);
+        } else {
+            throw new DukeException("Sorry, I don't understand what that means D:");
         }
     }
 
@@ -140,75 +140,12 @@ public class Duke {
 
         return eventAttributes;
     }
-
-    public void markTask(int index) {
-        Task task = taskList.get(index - 1);
-        task.markAsDone();
-        printMessage("Ameowzing! I've marked this task as done:\n\t" + task);
-    }
-
-    public void unmarkTask(int index) {
-        Task task = taskList.get(index - 1);
-        task.unmarkAsDone();
-        printMessage("OK, I've marked this task as not done yet:\n\t" + task);
-    }
     
-    public void deleteTask(int index) {
-        Task deletedTask = taskList.get(index - 1); 
-        taskList.remove(index - 1);
-        printDeletedTask(deletedTask);
-    }
-
-    public void addToDoToList(String taskDescription) {
-        Task newTask = new ToDo(taskDescription);
-        taskList.add(newTask);
-        printNewTask(newTask);
-    }
-
-    public void addDeadlineToList(String taskDescription, String by) {
-        Task newTask = new Deadline(taskDescription, by);
-        taskList.add(newTask);
-        printNewTask(newTask);
-    }
-
-    public void addEventToList(String taskDescription, String from, String to) {
-        Task newTask = new Event(taskDescription, from, to);
-        taskList.add(newTask);
-        printNewTask(newTask);
-    }
-
-    public void printNewTask(Task newTask) {
-        String message = 
-                String.format("Got it. I've added this task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
-                newTask, taskList.size());
-        printMessage(message);
-    }
-    
-    public void printDeletedTask(Task deletedTask) {
-        String message = 
-                String.format("Noted. I've remeowved this task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
-                deletedTask, taskList.size());
-        printMessage(message);
-    }
-
-    public void printList() {
-        String listString = "";
-        for (int i = 1; i <= taskList.size(); i++) {
-            if (i > 1) {
-                listString += "\t";
-            }
-            listString += i + ". " + taskList.get(i - 1);
-            if (i < taskList.size()) {
-                listString += "\n";
-            }
-        }
-        printMessage(listString);
-    }
-
     public void printMessage(String message) {
-        String line = "\t____________________________________________________________";
-        System.out.println(line);
         System.out.println("\t" + message);
-        System.out.println(line);
+    }
+    
+    public void printLine() {
+        System.out.println("\t____________________________________________________________");
     }
 }
