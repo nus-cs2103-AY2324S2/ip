@@ -1,6 +1,4 @@
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class Toothless {
 
@@ -10,25 +8,24 @@ public class Toothless {
 
     public Toothless(String filepath){
         ui = new Ui();
-        storage = new Storage();
+        storage = new Storage(filepath);
         try {
-            Command.loadTasks(filepath);
-        } catch (FileNotFoundException e){
-            System.out.println("Can't Find Task File!");
+            tasks = new TaskList(storage.load());
         } catch (ToothlessException e) {
             System.out.println(e.getMessage());
+            tasks = new TaskList();
         }
     }
 
     public void start() {
-        boolean isDone = false;
+        boolean isExit = false;
         ui.showWelcome();
-        while(!isDone){
+        while(!isExit){
             String input = ui.readCommand();
             ui.showLine();
             Command command = Parser.parseCommand(input);
             String detail = Parser.parseDetail(input);
-            isDone = Command.handleCommand(command, detail);
+            isExit = Command.handleCommand(command, detail, ui, tasks, storage);
         }
     }
 

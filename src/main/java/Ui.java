@@ -20,6 +20,14 @@ public class Ui {
         System.out.println(splitLine);
     }
 
+    public void showTask(Task task) {
+        System.out.println(" ["+ task.getTaskIcon()+"]["+ task.getStatusIcon() + "] " + task);
+    }
+
+    public void showTask(Task task, int index) {
+        System.out.format("%d. ["+ task.getTaskIcon()+"]["+ task.getStatusIcon() + "] " + task + "\n", index + 1);
+    }
+
     public String readCommand(){
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
