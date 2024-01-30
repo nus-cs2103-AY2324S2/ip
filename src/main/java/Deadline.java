@@ -1,12 +1,17 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String time;
+    private LocalDateTime time;
+    private final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
     public Deadline(String d, int s, String t) {
         super(d, s);
-        this.time = t;
+        this.time = LocalDateTime.parse(t, this.inputFormat);
     }
 
     public String getTime() {
-        return this.time;
+        return this.time.format(this.outputFormat);
     }
 
     @Override
@@ -20,15 +25,17 @@ public class Deadline extends Task {
 
     @Override
     public String saveFormat() {
-        return Integer.toString(this.getStatus()) + "," + this.getDesc();
+        return Integer.toString(this.getStatus())
+                + "," + this.getDesc()
+                + "," + this.time.format(this.inputFormat);
     }
 
     @Override
     public String toString() {
         if (this.getStatus() == 0) {
-            return "[D] [ ] " + this.getDesc() + " (by:" + this.time + ")";
+            return "[D] [ ] " + this.getDesc() + " (by:" + this.getTime() + ")";
         } else {
-            return "[D] [X] " + this.getDesc() + " (by:" + this.time + ")";
+            return "[D] [X] " + this.getDesc() + " (by:" + this.getTime() + ")";
         }
     }
 }

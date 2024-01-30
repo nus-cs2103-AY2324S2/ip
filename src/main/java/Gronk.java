@@ -1,10 +1,12 @@
-import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
+
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Gronk {
     public static String WELCOME = "\tHi, I'm Gronk!\n"
@@ -85,8 +87,6 @@ public class Gronk {
                     message[3]
             ));
         }
-        //ArrayList<String> message = new ArrayList<>(Arrays.asList(m.split(",")));
-
     }
 
     public static void parseMessage(String m) {
@@ -97,7 +97,7 @@ public class Gronk {
                 ArrayList<String> splitMessage = new ArrayList<>(Arrays.asList(m.split(" ")));
                 int messageLength = splitMessage.size();
                 if (messageLength == 1) {
-                    String word = splitMessage.get(1);
+                    String word = splitMessage.get(0);
                     if (word.equals("todo") || word.equals("deadline") || word.equals("event")) {
                         throw new EmptyDescException();
                     } else {
@@ -107,15 +107,15 @@ public class Gronk {
                     tasks.add(new Todo(m.substring(5), 0));
                     printMessage("\tTask added: " + m.substring(5));
                 } else if (splitMessage.get(0).equals("deadline")) {
-                    String[] words = m.substring(9).split(" /by");
+                    String[] words = m.substring(9).split(" /by ");
                     tasks.add(new Deadline(words[0], 0, words[1]));
                     printMessage("\tDeadline added: " + words[0]);
                 } else if (splitMessage.get(0).equals("event")) {
-                    String[] words = m.substring(6).split(" /from");
+                    String[] words = m.substring(6).split(" /from ");
                     if (words[1].equals("")) {
                         throw new EmptyDescException();
                     }
-                    String[] t2 = words[1].split(" /to");
+                    String[] t2 = words[1].split(" /to ");
                     if (t2[0].equals("") || t2[1].equals("")) {
                         throw new EmptyDescException();
                     }
@@ -126,9 +126,16 @@ public class Gronk {
                     printMessage(tasks.get(ind).statusMessage());
                     tasks.get(ind).flip();
                 } else if (splitMessage.get(0).equals("delete")) {
+                    int size = tasks.size();
                     int ind = Integer.parseInt(splitMessage.get(1)) - 1;
-                    printMessage("\tItem: " + tasks.get(ind).getDesc() + " removed from list.");
-                    tasks.remove(ind);
+                    if (size == 0) {
+                        throw new EmptyListException();
+                    } else if (ind >= size || ind < 0) {
+                        throw new NoSuchElementException();
+                    } else {
+                        printMessage("\tItem: " + tasks.get(ind).getDesc() + " removed from list.");
+                        tasks.remove(ind);
+                    }
                 }
                 else {
                     throw new DukeException();
@@ -138,6 +145,10 @@ public class Gronk {
             printMessage(e.toString());
         } catch (EmptyDescException e) {
             printMessage(e.toString());
+        } catch (EmptyListException e) {
+            printMessage(e.toString());
+        } catch (NoSuchElementException e) {
+            printMessage("\tThat item does not exist!");
         }
     }
 
