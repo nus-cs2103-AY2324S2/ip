@@ -17,4 +17,8 @@ public class Command {
         throw new UnsupportedOperationException("This method is to be implemented by child classes");
     };
 
+    public void setData(DataStorage dataStorage) {
+        this.dataStorage = dataStorage;
+    }
+
 }

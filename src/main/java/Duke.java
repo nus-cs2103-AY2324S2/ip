@@ -1,6 +1,9 @@
+import commands.Command;
+import commands.CommandResult;
 import common.DataStorage;
 import exception.MalformedUserInputException;
 import parser.EventParser;
+import parser.Parser;
 import tasklist.Task;
 
 public class Duke {
@@ -38,18 +41,31 @@ public class Duke {
         new Duke().run();
     }
 
+
+    public CommandResult executeCommand(Command command) {
+        command.setData(dataStorage);
+        CommandResult commandResult = command.execute();
+        return commandResult;
+    }
+
     /**
      * Reads the user command and executes it, until the user issues the exit command.
      */
     private void runCommandLoopUntilExitCommand() {
-        String userInput = "";
 
+        Command command;
         boolean isExit = false;
 
         while (!isExit) {
-            // Keep reading user input until they type "bye"
-            userInput = ui.readCommand();
 
+            // Keep reading user input until they type "bye"
+            String userInput = ui.readCommand();
+            Command command1 =  new Parser().parseCommand(userInput);
+
+            CommandResult commandResult = executeCommand(command1);
+
+            System.out.println(commandResult.feedbackToUser);
+//
             if (userInput.equals("list")) {
                 // Print out all the tasks.
                 ui.showLine();
@@ -61,73 +77,74 @@ public class Duke {
                 }
 
                 ui.showLine();
-            } else if (userInput.startsWith("mark")) {
-                handleCommandWithIndex(dataStorage, userInput, TypeOfActions.MARK);
-            } else if (userInput.startsWith("unmark")) {
-                handleCommandWithIndex(dataStorage, userInput, TypeOfActions.UNMARK);
-            } else if (userInput.startsWith("delete")) {
-                handleCommandWithIndex(dataStorage, userInput, TypeOfActions.DELETE);
-            } else if (userInput.startsWith("todo")) {
-                // We further do another Regex search
-
-                try {
-                    // In this format: todo borrow book.
-                    Task task = EventParser.toDoParser(userInput);
-                    createNewTask(dataStorage, task);
-
-                } catch (MalformedUserInputException malformedUserInputException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t You have a malformed input for your todo command. \n" +
-                            "\t It is likely that you are missing the todo name\n" +
-                            "\t Your command should be in this format: todo event_name"
-                    );
-                    System.out.println("\t ____________________________________________________________");
-                }
-
-
-            } else if (userInput.startsWith("deadline")) {
-                // We further do another Regex search
-                try {
-                    Task task = EventParser.deadlineParser(userInput);
-                    createNewTask(dataStorage, task);
-                } catch (MalformedUserInputException malformedUserInputException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t You have a malformed input for your deadline command. \n" +
-                            "\t It is likely that you are missing the event name and or a by date.\n" +
-                            "\t Your command should be in this format: deadline return book /by Sunday \n" +
-                            "\t " + malformedUserInputException.getMessage()
-                    );
-                    System.out.println("\t ____________________________________________________________");
-
-                }
-
-
-            } else if (userInput.startsWith("event")) {
-                // We further do another Regex search
-                // In this format: event project meeting /from Mon 2pm /to 4pm
-
-                try {
-                    Task task = EventParser.eventParser(userInput);
-                    createNewTask(dataStorage, task);
-                } catch (MalformedUserInputException malformedUserInputException) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t You have a malformed input for your event command.\n" +
-                            "\t It is likely that you are missing the event name" +
-                            "\t Your command should be in this format: event project meeting /from Mon 2pm /to 4pm");
-                    System.out.println("\t ____________________________________________________________");
-
-                }
-
-            } else if (userInput.equals("bye")) {
-                // Use this construct because we don't want to echo the bye message.
-                isExit = true;
-            } else {
-                System.out.println("\t ____________________________________________________________");
-                // Emoji of \uD83D\uDE05 is 😅
-                System.out.println(" \t I have no idea what you are trying to tell me??? \uD83D\uDE05");
-                System.out.println(" \t Please try again.");
-                System.out.println("\t ____________________________________________________________");
             }
+//            else if (userInput.startsWith("mark")) {
+//                handleCommandWithIndex(dataStorage, userInput, TypeOfActions.MARK);
+//            } else if (userInput.startsWith("unmark")) {
+//                handleCommandWithIndex(dataStorage, userInput, TypeOfActions.UNMARK);
+//            } else if (userInput.startsWith("delete")) {
+//                handleCommandWithIndex(dataStorage, userInput, TypeOfActions.DELETE);
+//            } else if (userInput.startsWith("todo")) {
+//                // We further do another Regex search
+//
+//                try {
+//                    // In this format: todo borrow book.
+//                    Task task = EventParser.toDoParser(userInput);
+//                    createNewTask(dataStorage, task);
+//
+//                } catch (MalformedUserInputException malformedUserInputException) {
+//                    System.out.println("\t ____________________________________________________________");
+//                    System.out.println("\t You have a malformed input for your todo command. \n" +
+//                            "\t It is likely that you are missing the todo name\n" +
+//                            "\t Your command should be in this format: todo event_name"
+//                    );
+//                    System.out.println("\t ____________________________________________________________");
+//                }
+//
+//
+//            } else if (userInput.startsWith("deadline")) {
+//                // We further do another Regex search
+//                try {
+//                    Task task = EventParser.deadlineParser(userInput);
+//                    createNewTask(dataStorage, task);
+//                } catch (MalformedUserInputException malformedUserInputException) {
+//                    System.out.println("\t ____________________________________________________________");
+//                    System.out.println("\t You have a malformed input for your deadline command. \n" +
+//                            "\t It is likely that you are missing the event name and or a by date.\n" +
+//                            "\t Your command should be in this format: deadline return book /by Sunday \n" +
+//                            "\t " + malformedUserInputException.getMessage()
+//                    );
+//                    System.out.println("\t ____________________________________________________________");
+//
+//                }
+//
+//
+//            } else if (userInput.startsWith("event")) {
+//                // We further do another Regex search
+//                // In this format: event project meeting /from Mon 2pm /to 4pm
+//
+//                try {
+//                    Task task = EventParser.eventParser(userInput);
+//                    createNewTask(dataStorage, task);
+//                } catch (MalformedUserInputException malformedUserInputException) {
+//                    System.out.println("\t ____________________________________________________________");
+//                    System.out.println("\t You have a malformed input for your event command.\n" +
+//                            "\t It is likely that you are missing the event name" +
+//                            "\t Your command should be in this format: event project meeting /from Mon 2pm /to 4pm");
+//                    System.out.println("\t ____________________________________________________________");
+//
+//                }
+//
+//            } else if (userInput.equals("bye")) {
+//                // Use this construct because we don't want to echo the bye message.
+//                isExit = true;
+//            } else {
+//                System.out.println("\t ____________________________________________________________");
+//                // Emoji of \uD83D\uDE05 is 😅
+//                System.out.println(" \t I have no idea what you are trying to tell me??? \uD83D\uDE05");
+//                System.out.println(" \t Please try again.");
+//                System.out.println("\t ____________________________________________________________");
+//            }
 
         }
 

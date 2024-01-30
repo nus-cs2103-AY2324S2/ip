@@ -4,3 +4,8 @@ D | cook laksa | false | 2023-01-01
 T | iuyftdrtfyguhi | true
 T | 123456 | false
 T | 12345 | true
+T |  1234 | false
+T |  abstractedData | false
+T |  Jerome is not a cow | false
+T |  | false
+T |  12345 | false

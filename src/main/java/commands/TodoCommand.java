@@ -25,6 +25,5 @@ public class TodoCommand extends Command {
     public CommandResult execute() {
         dataStorage.addTask(this.toAdd);
         return new CommandResult(MESSAGE_SUCCESS);
-
     }
 }
