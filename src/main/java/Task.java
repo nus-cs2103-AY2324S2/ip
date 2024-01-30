@@ -1,4 +1,4 @@
-abstract class Task {
+class Task {
     protected final String description;
     protected boolean isDone;
     protected String type;

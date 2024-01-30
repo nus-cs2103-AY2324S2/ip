@@ -7,12 +7,15 @@ TODO:
  */
 
 public class Mike {
+    private static final String FILE_PATH = "./data/Mike.txt";
     private final TaskList taskList;
     private final Ui ui;
+    private final Storage storage;
 
     Mike() {
-        this.taskList = new TaskList();
         this.ui = new Ui();
+        this.storage = new Storage(FILE_PATH);
+        this.taskList = storage.load();
     }
 
     public void run() {
@@ -23,7 +26,6 @@ public class Mike {
                 String userInput = ui.scanInput();
                 Ui.displayLine();
                 List<Token> tokens = new CommandScanner(userInput).scanTokens();
-                // System.out.println(tokens);
                 Command command = new CommandParser(tokens).parse();
                 command.execute(taskList);
                 if (command.isExit()) {
@@ -35,7 +37,7 @@ public class Mike {
                 Ui.displayLine();
             }
         }
-        taskList.writeToFile();
+        storage.writeToFile(taskList);
     }
 
     /**
