@@ -1,9 +1,14 @@
 public class Deadlines extends Task{
     private Task task;
     private String by;
-    public Deadlines(String name, String by) {
-        super(name);
+    public Deadlines(String name, String by, Boolean status) {
+        super(name, status);
         this.by = by;
+    }
+
+    @Override
+    public String saveOutput() {
+        return "D " + super.saveOutput() + String.format(" | %s", by);
     }
 
     @Override
