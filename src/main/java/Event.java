@@ -5,17 +5,27 @@ public class Event extends Task{
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public Event(String description, String startDate, String endDate){
+    public Event(String description, String startDate, String endDate) throws ToothlessException{
         super.description = description;
-        this.startDate = LocalDateTime.parse(startDate);
-        this.endDate = LocalDateTime.parse(endDate);
+        LocalDateTime start = LocalDateTime.parse(startDate);
+        LocalDateTime end = LocalDateTime.parse(endDate);
+        if (start.isAfter(end)) {
+            throw new ToothlessException("End date is earlier :/");
+        }
+        this.startDate = start;
+        this.endDate = end;
     }
 
-    public Event(String description, String startDate, String endDate, boolean isDone){
+    public Event(String description, String startDate, String endDate, boolean isDone) throws ToothlessException{
         super.description = description;
         super.isDone = isDone;
-        this.startDate = LocalDateTime.parse(startDate);
-        this.endDate = LocalDateTime.parse(endDate);
+        LocalDateTime start = LocalDateTime.parse(startDate);
+        LocalDateTime end = LocalDateTime.parse(endDate);
+        if (start.isAfter(end)) {
+            throw new ToothlessException("End date is earlier :/");
+        }
+        this.startDate = start;
+        this.endDate = end;
     }
 
     @Override
