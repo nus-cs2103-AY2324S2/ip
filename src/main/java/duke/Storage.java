@@ -12,6 +12,10 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+
+/**
+ * A class to modify the txt file at the file path after receiving a taskList
+ */
 public class Storage {
     String toothlessFilePath;
     TaskList taskList;
@@ -21,6 +25,10 @@ public class Storage {
         this.toothlessFilePath = "data/toothless.txt";
     }
 
+    /**
+     * Creates new file if file does not exist at path. Else, modifies the file at the path.
+     * @throws IOException if file cannot be created at the path
+     */
     public void store() throws IOException{
         String filePathOld = "data/toothless.txt";
         File oldFile = new File(filePathOld);

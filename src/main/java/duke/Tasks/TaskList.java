@@ -1,6 +1,10 @@
 package duke.Tasks;
 
 import java.util.ArrayList;
+
+/**
+ * Class that keeps track of a list of tasks.
+ */
 public class TaskList {
     ArrayList<Task> tasksList;
     String line = "____________________________________________________________";
@@ -9,10 +13,19 @@ public class TaskList {
         this.tasksList = new ArrayList<Task>();
     }
 
+    /**
+     * Adds task to list
+     * @param t task to be added
+     */
     public void add(Task t) {
         this.tasksList.add(t);
     }
 
+    /**
+     * Adds ToDo task to list
+     * @param t ToDo task to be added
+     * @return String response to be outputted to the user.
+     */
     public String add(ToDo t) {
         this.tasksList.add(t);
         String output = "Got it. I've added this task:\n";
@@ -20,7 +33,11 @@ public class TaskList {
         output += "Now you have " + tasksList.size() + " tasks in the list.";
         return output;
     }
-
+    /**
+     * Adds DeadLine task to list
+     * @param t DeadLine task to be added
+     * @return String response to be outputted to the user.
+     */
     public String add(Deadline t) {
         this.tasksList.add(t);
         String output = "Got it. I've added this task:\n";
@@ -28,7 +45,11 @@ public class TaskList {
         output += "Now you have " + tasksList.size() + " tasks in the list.";
         return output;
     }
-
+    /**
+     * Adds Event task to list
+     * @param t Event task to be added
+     * @return String response to be outputted to the user.
+     */
     public String add(Event t) {
         this.tasksList.add(t);
         String output = "Got it. I've added this task:\n";
@@ -37,6 +58,11 @@ public class TaskList {
         return output;
     }
 
+    /**
+     * Marks task as completed based on index in task list
+     * @param index task to be marked
+     * @return String to be outputted to user.
+     */
     public String mark(int index) {
         String output = "\n" + this.line;
         int length = this.tasksList.size();
@@ -70,7 +96,11 @@ public class TaskList {
             return output;
         }
     }
-
+    /**
+     * Unmarks task as completed based on index in task list
+     * @param index task to be marked
+     * @return String to be outputted to user.
+     */
     public String unmark(int index) {
 
         String output = "\n" + this.line;
