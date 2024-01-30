@@ -1,7 +1,9 @@
 package tiny;
 
-import tiny.tasks.*;
 import tiny.exceptions.TinyException;
+import tiny.tasks.Deadline;
+import tiny.tasks.Event;
+import tiny.tasks.Todo;
 
 public class Parser {
     protected boolean terminate = false;
