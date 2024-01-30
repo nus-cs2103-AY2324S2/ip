@@ -1,3 +1,7 @@
+package mike;
+
+import mike.command.Command;
+
 import java.util.List;
 
 /*
@@ -7,7 +11,7 @@ TODO:
  */
 
 public class Mike {
-    private static final String FILE_PATH = "./data/Mike.txt";
+    private static final String FILE_PATH = "./data/mike.txt";
     private final TaskList taskList;
     private final Ui ui;
     private final Storage storage;

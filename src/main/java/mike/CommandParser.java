@@ -1,10 +1,12 @@
-/*
+package mike;/*
 TODO:
     1. Write comments to document the code.
  */
+import mike.command.*;
+
 import java.util.List;
 
-public class CommandParser {
+class CommandParser {
     private final List<Token> tokens;
     private int current;
 

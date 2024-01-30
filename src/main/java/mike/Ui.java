@@ -1,3 +1,5 @@
+package mike;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 public class Ui {
@@ -69,7 +71,7 @@ public class Ui {
 
     private void displayGreeting() {
         String greeting =
-                " Hello! I'm Mike WAZOWSKI.\n" +
+                " Hello! I'm mike WAZOWSKI.\n" +
                 " What can I do for you?";
         display(greeting);
     }

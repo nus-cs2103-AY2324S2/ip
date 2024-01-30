@@ -1,10 +1,17 @@
+package mike.command;
+
+import mike.MikeException;
+import mike.TaskList;
+import mike.Ui;
+import mike.command.Command;
+
 public class ListCommand extends Command {
-    ListCommand() {
+    public ListCommand() {
         super("" );
     }
 
     @Override
-    void execute(TaskList taskList) throws MikeException {
+    public void execute(TaskList taskList) throws MikeException {
         if (taskList.isEmpty()) {
             throw new MikeException("You have no more tasks Sulley...");
         }
@@ -13,7 +20,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

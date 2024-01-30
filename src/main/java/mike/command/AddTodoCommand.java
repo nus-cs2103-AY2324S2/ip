@@ -1,17 +1,24 @@
+package mike.command;
+
+import mike.MikeException;
+import mike.TaskList;
+import mike.task.Task;
+import mike.task.Todo;
+
 public class AddTodoCommand extends AddCommand {
-    AddTodoCommand(String description) {
+    public AddTodoCommand(String description) {
         super(description);
     }
 
     @Override
-    void execute(TaskList taskList) throws MikeException {
+    public void execute(TaskList taskList) throws MikeException {
         Task newTask = new Todo(description);
         taskList.add(newTask);
         respond(taskList, newTask);
     }
 
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 

@@ -1,3 +1,7 @@
+package mike.task;
+
+import mike.MikeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,7 +11,7 @@ public class Event extends Task {
     protected LocalDate startDate;
     protected LocalDate endDate;
 
-    Event(String description, String startDate, String endDate) throws MikeException {
+    public Event(String description, String startDate, String endDate) throws MikeException {
         super(description, TYPE);
         try {
             this.startDate = LocalDate.parse(startDate);

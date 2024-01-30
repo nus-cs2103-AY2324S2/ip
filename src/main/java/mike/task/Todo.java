@@ -1,6 +1,8 @@
+package mike.task;
+
 public class Todo extends Task {
     private static final String TYPE = "Todo";
-    Todo(String description) {
+    public Todo(String description) {
         super(description, TYPE);
     }
 

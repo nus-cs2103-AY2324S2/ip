@@ -1,5 +1,7 @@
+package mike;
+
 public class MikeException extends Exception {
-    MikeException(String message) {
+    public MikeException(String message) {
         super(message);
     }
 }

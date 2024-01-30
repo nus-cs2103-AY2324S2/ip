@@ -1,3 +1,7 @@
+package mike.task;
+
+import mike.MikeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -6,7 +10,7 @@ public class Deadline extends Task {
     private static final String TYPE = "Deadline";
     protected LocalDate deadline;
 
-    Deadline(String description, String deadline) throws MikeException {
+    public Deadline(String description, String deadline) throws MikeException {
         super(description, TYPE);
         try {
             this.deadline = LocalDate.parse(deadline);

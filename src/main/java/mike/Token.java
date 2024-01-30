@@ -1,4 +1,6 @@
-public class Token {
+package mike;
+
+class Token {
     final TokenType type;
     final String text;
 

@@ -1,9 +1,16 @@
+package mike;
+
+import mike.task.Deadline;
+import mike.task.Event;
+import mike.task.Task;
+import mike.task.Todo;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class Storage {
+class Storage {
     private final String fileDirectory;
     private final String filePath;
     protected File file;

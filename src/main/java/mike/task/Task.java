@@ -1,9 +1,11 @@
-class Task {
+package mike.task;
+
+public class Task {
     protected final String description;
     protected boolean isDone;
     protected String type;
 
-    Task(String description, String type) {
+    public Task(String description, String type) {
         this.description = description;
         this.isDone = false;
         this.type = type;

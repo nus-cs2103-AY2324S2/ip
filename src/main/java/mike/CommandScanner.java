@@ -1,9 +1,11 @@
+package mike;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-public class CommandScanner {
+class CommandScanner {
     private static final Map<String, TokenType> commands;
 
     static {
