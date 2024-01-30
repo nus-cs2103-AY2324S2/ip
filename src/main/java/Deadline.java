@@ -6,35 +6,33 @@ public class Deadline extends Task {
         this.date = date;
     }
 
-    public static Deadline parseCommand(String command) throws CoDriverException {
-        String[] words = command.split(" ");
-        if (!words[0].equals("deadline")) {
-            throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
-        }
-        if (words.length < 2) {
+    public static Deadline createDeadline(String commandLine) throws CoDriverException {
+        String[] arguments = commandLine.split(" ");
+        if (arguments.length < 2) {
             throw new CoDriverException("Error! You cannot provide a deadline with no parameters!");
         }
+
         StringBuilder descriptionBuilder = new StringBuilder();
         int i;
-        for (i = 1; i < words.length; i++) {
-            if (words[i].equals("/by")) {
+        for (i = 1; i < arguments.length; i++) {
+            if (arguments[i].equals("/by")) {
                 break;
             }
-            descriptionBuilder.append(words[i]).append(" ");
+            descriptionBuilder.append(arguments[i]).append(" ");
         }
         if (descriptionBuilder.length() == 0) {
             throw new CoDriverException("Error! You cannot provide a deadline with no description!");
         }
         descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1); // remove the last space
 
-        if (i >= words.length - 1) { // if the last word is /by or there is no /by
+        if (i >= arguments.length - 1) { // if the last word is /by or there is no /by
             throw new CoDriverException("Error! You must provide a /by date/time for a deadline!");
         }
 
         StringBuilder dateBuilder = new StringBuilder();
         i++;
-        for (; i < words.length; i++) {
-            dateBuilder.append(words[i]).append(" ");
+        for (; i < arguments.length; i++) {
+            dateBuilder.append(arguments[i]).append(" ");
         }
         dateBuilder.deleteCharAt(dateBuilder.length() - 1);
 

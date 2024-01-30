@@ -6,53 +6,49 @@ public class CoDriver {
         Scanner scanner = new Scanner(System.in);
         TaskList tl = new TaskList();
         while (true) {
-            String command = scanner.nextLine();
+            String commandLine = scanner.nextLine();
+            String[] arguments = commandLine.split(" ");
+            Command c = Parser.parse(arguments[0]);
             try {
-                if (command.equals("bye")) {
+                if (c == Command.BYE) {
                     break;
-                } else if (command.equals("list")) {
+                } else if (c == Command.LIST) {
                     tl.listTasks();
-                } else if (command.startsWith("mark")) {
-                    String[] words = command.split(" ");
-                    if (!words[0].equals("mark")) {
-                        throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
+                } else if (c == Command.MARK) {
+                    if (arguments.length > 2) {
+                        throw new CoDriverException("Error! You should only provide 1 argument for mark!");
+                    } else if (arguments.length < 2) {
+                        throw new CoDriverException("Error! You should provide an integer argument for mark!");
                     }
-                    if (words.length > 2) {
-                        throw new CoDriverException("Error! Too many arguments!");
-                    }
-                    int index = Integer.parseInt(words[1]);
+                    int index = Integer.parseInt(arguments[1]);
                     tl.markTask(index);
-                } else if (command.startsWith("unmark")) {
-                    String[] words = command.split(" ");
-                    if (!words[0].equals("unmark")) {
-                        throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
+                } else if (c == Command.UNMARK) {
+                    if (arguments.length > 2) {
+                        throw new CoDriverException("Error! You should only provide 1 argument for unmark!");
+                    } else if (arguments.length < 2) {
+                        throw new CoDriverException("Error! You should provide an integer argument for unmark!");
                     }
-                    if (words.length > 2) {
-                        throw new CoDriverException("Error! Too many arguments!");
-                    }
-                    int index = Integer.parseInt(words[1]);
+                    int index = Integer.parseInt(arguments[1]);
                     tl.unmarkTask(index);
-                } else if (command.startsWith("todo")) {
-                    ToDo task = ToDo.parseCommand(command);
+                } else if (c == Command.TODO) {
+                    ToDo task = ToDo.createToDo(commandLine);
                     tl.addTask(task);
-                } else if (command.startsWith("deadline")) {
-                    Deadline task = Deadline.parseCommand(command);
+                } else if (c == Command.DEADLINE) {
+                    Deadline task = Deadline.createDeadline(commandLine);
                     tl.addTask(task);
-                } else if (command.startsWith("event")) {
-                    Event task = Event.parseCommand(command);
+                } else if (c == Command.EVENT) {
+                    Event task = Event.createEvent(commandLine);
                     tl.addTask(task);
-                } else if (command.startsWith("delete")) {
-                    String[] words = command.split(" ");
-                    if (!words[0].equals("delete")) {
-                        throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
+                } else if (c == Command.DELETE) {
+                    if (arguments.length > 2) {
+                        throw new CoDriverException("Error! You should only provide 1 argument for delete!");
+                    } else if (arguments.length < 2) {
+                        throw new CoDriverException("Error! You should provide an integer argument for delete!");
                     }
-                    if (words.length > 2) {
-                        throw new CoDriverException("Error! Too many arguments!");
-                    }
-                    int index = Integer.parseInt(words[1]);
+                    int index = Integer.parseInt(arguments[1]);
                     tl.deleteTask(index);
-                } else {
-                    throw new CoDriverException("I'm sorry, I don't understand this command: " + command);
+                } else if (c == Command.UNKNOWN) {
+                    throw new CoDriverException("I'm sorry, I don't understand this command: " + arguments[0]);
                 }
             } catch (CoDriverException e) {
                 Format.printSepLine();

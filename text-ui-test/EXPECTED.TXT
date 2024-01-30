@@ -141,10 +141,10 @@ Error! Given index exceeds list size of 6.
 Error! Argument provided must be a number!
 ------------------------------------------------
 ------------------------------------------------
-Error! Too many arguments!
+Error! You should only provide 1 argument for mark!
 ------------------------------------------------
 ------------------------------------------------
-Error! Too many arguments!
+Error! You should only provide 1 argument for delete!
 ------------------------------------------------
 ------------------------------------------------
 Bye. Hope to see you again soon!

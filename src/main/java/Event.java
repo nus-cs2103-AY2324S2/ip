@@ -8,53 +8,50 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public static Event parseCommand(String command) throws CoDriverException {
-        String[] words = command.split(" ");
-        if (!words[0].equals("event")) {
-            throw new CoDriverException("I'm sorry, I don't understand this command: " + words[0]);
-        }
-        if (words.length < 2) {
+    public static Event createEvent(String commandLine) throws CoDriverException {
+        String[] arguments = commandLine.split(" ");
+        if (arguments.length < 2) {
             throw new CoDriverException("Error! You cannot provide an event with no parameters!");
         }
 
         StringBuilder descriptionBuilder = new StringBuilder();
         int i;
-        for (i = 1; i < words.length; i++) {
-            if (words[i].equals("/from")) {
+        for (i = 1; i < arguments.length; i++) {
+            if (arguments[i].equals("/from")) {
                 break;
             }
-            descriptionBuilder.append(words[i]).append(" ");
+            descriptionBuilder.append(arguments[i]).append(" ");
         }
         if (descriptionBuilder.length() == 0) {
             throw new CoDriverException("Error! You cannot provide an event with no description!");
         }
         descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1); // remove the last space
 
-        if (i >= words.length - 1) { // if the last word is /from or there is no /from
+        if (i >= arguments.length - 1) { // if the last word is /from or there is no /from
             throw new CoDriverException("Error! You must provide a /from date/time for an event!");
         }
 
         StringBuilder fromBuilder = new StringBuilder();
         i++;
-        for (; i < words.length; i++) {
-            if (words[i].equals("/to")) {
+        for (; i < arguments.length; i++) {
+            if (arguments[i].equals("/to")) {
                 break;
             }
-            fromBuilder.append(words[i]).append(" ");
+            fromBuilder.append(arguments[i]).append(" ");
         }
         if (fromBuilder.length() == 0) { // if the /from field is empty
             throw new CoDriverException("Error! The /from field is empty!");
         }
         fromBuilder.deleteCharAt(fromBuilder.length() - 1);
 
-        if (i >= words.length - 1) { // if the last word is /to or there is no /to
+        if (i >= arguments.length - 1) { // if the last word is /to or there is no /to
             throw new CoDriverException("Error! You must provide a /to date/time for an event!");
         }
 
         StringBuilder toBuilder = new StringBuilder();
         i++;
-        for (; i < words.length; i++) {
-            toBuilder.append(words[i]).append(" ");
+        for (; i < arguments.length; i++) {
+            toBuilder.append(arguments[i]).append(" ");
         }
         toBuilder.deleteCharAt(toBuilder.length() - 1);
 
