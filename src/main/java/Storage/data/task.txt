@@ -1,9 +1,8 @@
 T | N | Borrow Book
-T | Y | Return Book
-D | N | CS2103 Quiz | Monday
-T | Y | 100 push-ups
-E | N | MSL meeting | Monday 10am | 12pm
-T | Y | Teach Brother Math
-E | N | Check Bank Statement | Nov 9 1000 | 1200
-D | Y | MSL Proposal | April 9th
-E | N | Orientation Camp - CS | May 6th | May 10th
+T | N | Read Book
+D | Y | 1231 Tut Sheet | Dec 1 2023
+E | N | MSL Meeting | Dec 22 2023 6:00 PM | Dec 22 2023 8:00 PM
+E | N | Orientation Camp | Jan 15 2024 8:00 AM | Jan 18 2024 10:00 PM
+D | Y | Return Book | Dec 22 2023
+T | N | 100 sit-ups
+T | N | 100 push-ups

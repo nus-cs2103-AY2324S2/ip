@@ -3,17 +3,19 @@ package Commands;
 import Task.TaskManager;
 import UI.Ui;
 
+import java.time.LocalDateTime;
+
 public class addEventTaskCommand extends Command{
 
     public static final String COMMAND = "event";
 
     private String taskName;
 
-    private String startDateTime;
+    private LocalDateTime startDateTime;
 
-    private String endDateTime;
+    private LocalDateTime endDateTime;
 
-    public addEventTaskCommand(String taskName, String startDateTime, String endDateTime) {
+    public addEventTaskCommand(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         this.taskName = taskName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;

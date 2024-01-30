@@ -3,15 +3,17 @@ package Commands;
 import Task.TaskManager;
 import UI.Ui;
 
+import java.time.LocalDate;
+
 public class addDeadlineTaskCommand extends Command{
 
     public static final String COMMAND = "deadline";
 
     private String taskName;
 
-    private String deadline;
+    private LocalDate deadline;
 
-    public addDeadlineTaskCommand(String taskName, String deadline){
+    public addDeadlineTaskCommand(String taskName, LocalDate deadline){
         this.taskName = taskName;
         this.deadline = deadline;
     }

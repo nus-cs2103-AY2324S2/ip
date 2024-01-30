@@ -1,6 +1,7 @@
 package Interpreters;
 
 import Commands.*;
+import Formatters.DateTimeFormatters;
 import Validation.InputsValidator;
 
 import java.time.LocalDate;
@@ -74,9 +75,11 @@ public class UserInputInterpreter {
                 if (isValid) {
                     int byIndex = userInput.indexOf("/by");
                     taskName = userInput.substring(addDeadlineTaskCommand.COMMAND.length(), byIndex - 1).trim();
-                    String deadline = userInput.substring(byIndex + "/by".length()).trim();
-                    System.out.println(deadline);
-                    return new addDeadlineTaskCommand(taskName, deadline);
+                    String deadlineStr = userInput.substring(byIndex + "/by".length()).trim();
+                    LocalDate deadline = DateTimeFormatters.getInstance().userInputDateFormatter(deadlineStr);
+                    if (deadline != null) {
+                        return new addDeadlineTaskCommand(taskName, deadline);
+                    }
                 }
                 break;
 
@@ -86,56 +89,19 @@ public class UserInputInterpreter {
                     int fromIndex = userInput.indexOf("/from");
                     int toIndex = userInput.indexOf("/to");
                     taskName = userInput.substring(addEventTaskCommand.COMMAND.length(), fromIndex - 1).trim();
-                    String startDateTime = userInput.substring(fromIndex + "/from".length(), toIndex - 1).trim();
-                    String endDateTime = userInput.substring(toIndex + "/to".length()).trim();
-                    return new addEventTaskCommand(taskName, startDateTime, endDateTime);
+                    String startDateTimeStr = userInput.substring(fromIndex + "/from".length(), toIndex - 1).trim();
+                    String endDateTimeStr = userInput.substring(toIndex + "/to".length()).trim();
+                    LocalDateTime[] dateTimeRange = DateTimeFormatters.getInstance().userInputDateTimeRangeFormatter(startDateTimeStr, endDateTimeStr);
+                    if (dateTimeRange != null) {
+                        return new addEventTaskCommand(taskName, dateTimeRange[0], dateTimeRange[1]);
+                    }
                 }
                 break;
 
             default:
                 return new UnsupportedCommand();
         }
-        return null;
+        return new NoCommand();
     }
 
-    public static LocalDate dateFormatter(String dateStr) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-        try {
-            LocalDate date = LocalDate.parse(dateStr, dateTimeFormatter);
-            return date;
-        } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the date-time string: '" + dateStr);
-            System.out.println("Please try /by dd-mm-yyyy for a deadline tasks.");
-            return null;
-        }
-    }
-
-    public static LocalDateTime dateTimeFormatter(String dateTimeStr) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-
-        try {
-            LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
-            return dateTime;
-        } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the time range.");
-            System.out.println("Please provide date time range 'dd-MM-yyyy HHmm' format.");
-            return null;
-        }
-    }
-
-    public LocalDateTime[] timeRangeFormatter(String fromDateTimeStr, String toTimeStr) {
-        DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        DateTimeFormatter endDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-
-        try {
-            LocalDateTime startDateTime = LocalDateTime.parse(fromDateTimeStr, startDateTimeFormatter);
-            LocalDateTime endDateTime = LocalDateTime.parse(toTimeStr, endDateTimeFormatter);
-            return new LocalDateTime[]{startDateTime, endDateTime};
-        } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the date time range.");
-            System.out.println("Please provide date time range in 'dd-MM-yyyy HHmm' format.");
-            return null;
-        }
-    }
 }
