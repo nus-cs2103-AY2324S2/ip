@@ -16,12 +16,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * The Storage class is responsible for handling file operations such as reading from and writing to the file.
+ */
 public class Storage {
     private String path;
+    /**
+     * Constructs a Storage object associated with the file path provided.
+     *
+     * @param path The file path where tasks are saved and read from.
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Writes the content to the file specified by this.path. If the file or directory does not exist, they will be created.
+     *
+     * @param content The content to be written to the file.
+     * @return Returns 1 if the write operation was successful, 0 otherwise.
+     */
     public short writeToFile(String content) {
         try {
             String[] dirName = this.path.split("/");
@@ -50,6 +64,12 @@ public class Storage {
         return 0;
     }
 
+    /**
+     * Reads tasks from the file specified by this.path and constructs an ArrayList of Task objects.
+     *
+     * @return Returns an ArrayList of Task objects read from the file.
+     * @throws IOException If there is an issue reading from the file.
+     */
     public ArrayList<Task> readTasks() throws IOException {
         ArrayList<Task> userRequests = new ArrayList<Task>();
         try {

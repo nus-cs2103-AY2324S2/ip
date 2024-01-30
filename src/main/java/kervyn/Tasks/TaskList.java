@@ -2,27 +2,55 @@ package kervyn.Tasks;
 
 import java.util.ArrayList;
 
+
+/**
+ * Represents a list of tasks and provides operations for managing tasks.
+ */
 public class TaskList {
     // Contains task-related operations
     private ArrayList<Task> taskList;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
 
+
+    /**
+     * Constructs a TaskList with an existing list of tasks.
+     *
+     * @param taskList The ArrayList of Task objects to initialize the TaskList.
+     */
     public TaskList (ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Gets the list of tasks.
+     *
+     * @return The ArrayList of Task objects.
+     */
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The Task object to be added.
+     */
     public void addTask(Task task) {
         this.taskList.add(task);
     }
 
-    // List tasks
+    /**
+     * Lists all tasks in the task list.
+     *
+     * @param userTasks The ArrayList of Task objects to be listed.
+     * @return Returns 1 if the list operation was successful, 0 otherwise.
+     */
     public short listTasks(ArrayList<Task> userTasks) {
         System.out.println("\tHere are the tasks on your list:");
         for (int i = 0; i < userTasks.size(); i++) {
@@ -46,7 +74,13 @@ public class TaskList {
         return 0;
     }
 
-    // mark task
+    /**
+     * Marks a task as completed in the task list.
+     *
+     * @param userTasks The ArrayList of Task objects.
+     * @param processedUserInput The user input processed into an array of Strings.
+     * @return Returns 1 if the mark operation was successful, 0 otherwise.
+     */
     public short markTask(ArrayList<Task> userTasks, String[] processedUserInput) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
@@ -69,7 +103,13 @@ public class TaskList {
         return 0;
     }
 
-    // Unmark task
+    /**
+     * Unmarks a task as not completed in the task list.
+     *
+     * @param userTasks The ArrayList of Task objects.
+     * @param processedUserInput The user input processed into an array of Strings.
+     * @return Returns 1 if the unmark operation was successful, 0 otherwise.
+     */
     public short unMarkTask(ArrayList<Task> userTasks, String[] processedUserInput) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
@@ -92,15 +132,26 @@ public class TaskList {
         return 0;
     }
 
+    /**
+     * Private method to handle the scenario when a task is already marked.
+     */
     private static void taskAlreadyMarked() {
         System.out.println("\tUh oh! It looks like this task is already marked as done, please try again with another task!");
     }
 
+    /**
+     * Private method to handle the scenario when a task is already unmarked.
+     */
     private static void taskAlreadyUnMarked() {
         System.out.println("\tUh oh! It looks like this task is already marked as not done, please try again with another task!");
     }
 
-    // Delete task
+    /**
+     * Removes a task from the task list.
+     *
+     * @param userTasks The ArrayList of Task objects.
+     * @param processedUserInput The user input processed into an array of Strings.
+     */
     public void removeTask(ArrayList<Task> userTasks, String[] processedUserInput) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
