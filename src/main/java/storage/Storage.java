@@ -17,31 +17,39 @@ public class Storage {
     private static StoredTaskList parseData(ArrayList<ArrayList<String>> data) {
         StoredTaskList res = new StoredTaskList();
         for (ArrayList<String> line: data) {
-            if (line.size() < 2) {
+            if (line.size() < 3) {
                 // early exit
                 return res;
             }
             String type = line.get(0);
-            String description = line.get(1);
-            List<String> params = line.subList(2, line.size());
+            boolean isDone = (line.get(1).equals("X"));
+            String description = line.get(2);
+            List<String> params = line.subList(3, line.size());
             switch(type) {
             case "T":
                 res.addTask(new ToDo(description));
+                break;
             case "E":
-                if (res.size() < 2) {
+                if (params.size() < 2) {
                     return res;
                 }
                 String from = params.get(0);
                 String to = params.get(1);
                 res.addTask(new Event(description, from, to));
+                break;
             case "D":
-                if (res.size() < 1) {
+                if (params.isEmpty()) {
                     return res;
                 }
                 String by = params.get(0);
                 res.addTask(new Deadline(description, by));
+                break;
             default:
                 return res;
+            }
+
+            if (isDone) {
+                res.markTask(res.size());
             }
         }
         return res;
