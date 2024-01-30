@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-public class TaskIo {
+public class Storage {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
 
-    public static ArrayList<Task> readFromLocal() {
+    public static ArrayList<Task> loadFromLocal() {
         // Clear current tasklist
         taskList.clear();
 
@@ -30,11 +30,11 @@ public class TaskIo {
         return taskList;
     }
 
-    public static void writeTasksToLocal(ArrayList<Task> taskList) {
+    public static void write(ArrayList<Task> taskList) {
         String filePath = "src/main/resources/Solaire.txt";
 
         try {
-            TaskIo.taskList = taskList;
+            Storage.taskList = taskList;
             BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
 
             for (Task task : taskList) {
