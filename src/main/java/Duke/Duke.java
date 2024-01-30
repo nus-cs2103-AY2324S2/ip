@@ -1,12 +1,13 @@
+package Duke;
+
 import java.util.Scanner;
-import java.io.FileNotFoundException;
-import java.io.File;
+
 public class Duke {
     private Storage storage; //deals with loading and saving
     private TaskList tasks; //operations to add and delete
     private final Ui ui; //deals with interactions from user
 
-    public Duke(String filePath) { //creating a Duke object
+    public Duke(String filePath) { //creating a Duke.Duke object
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());

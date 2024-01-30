@@ -1,3 +1,5 @@
+package Duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -50,7 +52,7 @@ public class Parser {
         String eventname = "";
         String[] temp = s.split(" ");
         if (temp.length == 1 || temp[1].startsWith("/from")) {
-            System.out.println("Event cannot be blank");
+            System.out.println("Duke.Duke.Event cannot be blank");
             return;
         }
         for (int a = 1; a < temp.length; a++) {
@@ -70,7 +72,7 @@ public class Parser {
             }
             Task ne = new Event(eventname, DateConvert(start), DateConvert(end));
             t.add(ne);
-            System.out.println("Task added! You now have " + t.length() +" tasks to attend to.");
+            System.out.println("Duke.Task added! You now have " + t.length() +" tasks to attend to.");
             return;
 
         } catch (ArrayIndexOutOfBoundsException b) {
@@ -100,7 +102,7 @@ public class Parser {
         String deadlinename = "";
         String[] temp = s.split(" ");
         if (temp.length == 1 || temp[1].startsWith("/by")) {
-            System.out.println("Deadline cannot be blank");
+            System.out.println("Duke.Duke.Deadline cannot be blank");
             return;
         }
         //create the deadline name
@@ -121,7 +123,7 @@ public class Parser {
             }
             Task nd = new Deadline(deadlinename, DateConvert(deadline));
             t.add(nd);
-            System.out.println("Task added! You now have " + t.length() +" tasks to attend to.");
+            System.out.println("Duke.Task added! You now have " + t.length() +" tasks to attend to.");
             return;
         } catch (ArrayIndexOutOfBoundsException b) {
             System.out.println("Please enter a deadline with the format deadline deadlinename /by dd/mm/yyyy!");
@@ -140,7 +142,7 @@ public class Parser {
         }
         Task nt = new ToDo(todoname);
         t.add(nt);
-        System.out.println("Task added! You now have " + t.length() +" tasks to attend to.");
+        System.out.println("Duke.Task added! You now have " + t.length() +" tasks to attend to.");
     }
     public boolean checkIfTodo(String s) {
         return s.startsWith("todo ");
