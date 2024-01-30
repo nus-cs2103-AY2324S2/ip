@@ -28,9 +28,13 @@ public class TaskList {
         ui.markedMessage(tasks.get(index - 1));
     }
     public void removeTasks(int in, Ui ui) {
-        Task temp = tasks.get(in - 1);
-        tasks.remove(in - 1);
-        ui.deleteMessage(temp.toString());
+        try {
+            Task temp = tasks.get(in - 1);
+            tasks.remove(in - 1);
+            ui.deleteMessage(temp.toString());
+        } catch (IndexOutOfBoundsException e) {
+            ui.showError("OOPS!!! The task number is out of bounds. Please provide a valid task number.");
+        }
     }
 
     public void listTasks(Ui ui) {
