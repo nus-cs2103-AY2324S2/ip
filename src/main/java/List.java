@@ -141,7 +141,9 @@ public class List {
                 description = currLine.split(" \\(from:")[0].split("] ")[1];
                 String startDate = currLine.split("\\(from: ")[1].split(" to:")[0];
                 String endDate = currLine.split("to: ")[1].split("\\)")[0];
-                tasks.add(new Event(description, startDate, endDate));
+                tasks.add(new Event(description, LocalDateTime.parse(startDate,
+                        DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
+                        LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))));
                 break;
             }
             if (isDone) {

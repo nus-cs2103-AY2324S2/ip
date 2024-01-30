@@ -92,10 +92,20 @@ public class Duke {
                     input.split(" /from ")[1].split(" /to ").length == 2 &&
                     input.split(" /to ").length == 2 &&
                     input.substring(6).split("/from ")[0].length() > 0) {
+                    try {
+                        LocalDateTime.parse(input.split("/from ")[1].split(" /to")[0],
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                        LocalDateTime.parse(input.split("/to ")[1],
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    } catch (Exception e) {
+                        throw new InvalidDateTimeException();
+                    }
                     taskList.addTask(new Event(
                             input.substring(6).split(" /from")[0],
-                            input.split("/from ")[1].split(" /to")[0],
-                            input.split("/to ")[1]));
+                            LocalDateTime.parse(input.split("/from ")[1].split(" /to")[0],
+                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                            LocalDateTime.parse(input.split("/to ")[1],
+                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
                     continue;
                 } else {
                     throw new InvalidSyntaxException("event");
