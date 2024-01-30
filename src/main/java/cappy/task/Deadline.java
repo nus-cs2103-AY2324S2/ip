@@ -5,7 +5,13 @@ import java.time.LocalDateTime;
 import cappy.parser.Parser;
 
 public class Deadline extends Task {
+    /**
+     * The type symbol for the Deadline Task.
+     */
     public static final String TYPE_SYMBOL = "D";
+    /**
+     * The due date time for the Deadline Task.
+     */
     private final LocalDateTime due;
 
     public Deadline(String description, LocalDateTime due) {

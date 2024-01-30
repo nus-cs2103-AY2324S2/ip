@@ -1,6 +1,9 @@
 package cappy.task;
 
 public class Todo extends Task {
+    /**
+     * The type symbol for the Todo Task.
+     */
     public static final String TYPE_SYMBOL = "T";
 
     public Todo(String description) {

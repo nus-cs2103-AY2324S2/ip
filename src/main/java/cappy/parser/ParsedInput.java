@@ -11,6 +11,13 @@ import cappy.task.TaskList;
 import cappy.ui.Ui;
 import cappy.error.CappyException;
 
+/**
+ * Represents the parsed input from the user command.
+ *
+ * <p>The {@code ParsedInput} class encapsulates the parsed information from the user's input,
+ * including the command type, named arguments, and positional arguments. It provides methods
+ * to retrieve and interact with the parsed information.
+ */
 public class ParsedInput {
     private CommandType commandType;
     private Command command;
@@ -28,10 +35,28 @@ public class ParsedInput {
         return commandType;
     }
 
+    /**
+     * Returns the corresponding value for the named argument. Returns null if the argument
+     * does not exist.
+     *
+     * @param name The name of the argument.
+     * @return The corresponding value of the argument.
+     */
     public String getNamedArgument(String name) {
         return namedArguments.get(name);
     }
 
+    /**
+     * Returns the value of the positional argument at the specified index.
+     * Throws {@code IndexOutOfBoundsException} if the specified index is
+     * not a valid index.
+     *
+     * @param index The index of the positional argument to retrieve.
+     * @return The value of the positional argument at the specified index.
+     * @throws IndexOutOfBoundsException If the specified index is negative or
+     *                                   is greater than or equal to the size
+     *                                   of the positional arguments.
+     */
     public String getPositionalArgument(int index) {
         return positionalArguments.get(index);
     }
@@ -44,6 +69,11 @@ public class ParsedInput {
         return namedArguments.size();
     }
 
+    /**
+     * Returns true if the named argument exists.
+     *
+     * @param name The name of the argument.
+     */
     public boolean hasNamedArgument(String name) {
         return namedArguments.containsKey(name);
     }
