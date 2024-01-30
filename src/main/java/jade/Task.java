@@ -1,5 +1,8 @@
 package jade;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -23,7 +26,11 @@ public class Task {
         this.isDone = false;
     }
 
-    protected String taskFormatter() {
+    public boolean isSameDate(LocalDate date) {
+        return false;
+    }
+
+    public String taskFormatter() {
         return String.format("T | %s | %s\n", statusFormatter(), description);
     }
 
