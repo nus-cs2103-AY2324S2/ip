@@ -1,4 +1,10 @@
+import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MeanDuke {
 
@@ -18,10 +24,20 @@ public class MeanDuke {
     private static final String OUTRO = SPACER + "\n" + "Finally you're finished, thought you would never stop yapping.\n" + SPACER;
 
 
-    //Creates an empty TaskList
+    //Creates an empty task list
     static TaskList tasklist = new TaskList();
 
     public static void main(String[] args) {
+
+        //Try to load Task List from hard disk. If missing or corrupted, create a new file
+        try {
+            File savedTaskList = new File("./data/MeanDuke.txt");
+            load(savedTaskList);
+            System.out.println("Successfully loaded save file.");
+        } catch (FileNotFoundException | NoSuchElementException e) {
+            System.out.println("Missing or corrupted save file. Creating new tasklist");
+            tasklist = new TaskList();
+        }
 
         //Prints intro
         System.out.println(INTRO);
@@ -160,5 +176,22 @@ public class MeanDuke {
         } catch (IndexOutOfBoundsException e) {
             throw new MeanDukeException("Dude... you don't even have a task " + indexString);
         }
+    }
+
+    private static void load(File saveFile) throws FileNotFoundException, NoSuchElementException {
+            Scanner s = new Scanner(saveFile);
+            while (s.hasNext()) {
+                switch (s.nextLine()) {
+                case "TODO":
+                    tasklist.add(new ToDo(s.nextLine(), s.nextBoolean()));
+                    break;
+                case "DEADLINE":
+                    tasklist.add(new Deadline(s.nextLine(), s.nextLine(), s.nextBoolean()));
+                    break;
+                case "EVENT":
+                    tasklist.add(new Event(s.nextLine(), s.nextLine(), s.nextLine(), s.nextBoolean()));
+                    break;
+                }
+            }
     }
 }

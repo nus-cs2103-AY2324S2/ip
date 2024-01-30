@@ -5,4 +5,8 @@ public class ToDo extends Task {
     public ToDo(String description) {
         super(description, TYPE_SYMBOL);
     }
+
+    public ToDo(String description, Boolean isDone) {
+        super(description, TYPE_SYMBOL, isDone);
+    }
 }

@@ -11,6 +11,11 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public Deadline(String description, String deadline, boolean isDone) {
+        super(description, TYPE_SYMBOL, isDone);
+        this.deadline = deadline;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " (by: " + this.deadline + ")";

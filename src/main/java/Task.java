@@ -7,7 +7,8 @@ abstract class Task {
     String task_symbol;
     private final String description;
     private boolean is_done;
-    private String done_symbol;
+    private static final String DONE_SYMBOL = "[X]";
+    private static final String UNDONE_SYMBOL = "[ ]";
 
     /**
      * Constructor for a task list.
@@ -17,7 +18,12 @@ abstract class Task {
     public Task(String description, String task_symbol) {
         this.description = description;
         this.is_done = false;
-        this.done_symbol = "[ ]";
+        this.task_symbol = task_symbol;
+    }
+
+    public Task(String description, String task_symbol, Boolean isDone) {
+        this.description = description;
+        this.is_done = isDone;
         this.task_symbol = task_symbol;
     }
 
@@ -31,7 +37,6 @@ abstract class Task {
             return false;
         } else {
             this.is_done = true;
-            this.done_symbol = "[X]";
             return true;
         }
     }
@@ -44,7 +49,6 @@ abstract class Task {
     public boolean unmarkDone() {
         if (this.is_done) {
             this.is_done = false;
-            this.done_symbol = "[ ]";
             return true;
         } else {
             return false;
@@ -53,6 +57,10 @@ abstract class Task {
 
     @Override
     public String toString() {
-        return this.task_symbol + this.done_symbol + " " + this.description;
+
+        return this.task_symbol
+                + (this.is_done ? DONE_SYMBOL : UNDONE_SYMBOL)
+                + " "
+                + this.description;
     }
 }
