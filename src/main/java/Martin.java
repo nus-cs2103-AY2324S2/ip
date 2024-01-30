@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Martin {
     private static String NAME = "Martin";
-    protected ArrayList<Task> todoList = new ArrayList<>();
+    protected static ArrayList<Task> todoList = new ArrayList<>();
 
     public static void main(String[] args) {
         // stop gap solution to magic numbers for task numbering
