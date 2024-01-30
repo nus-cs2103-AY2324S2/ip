@@ -317,7 +317,30 @@ public class Duke {
         }
 
         throw new DukeException("      Invalid format for Date-Time. The format is \"yyyy-mm-dd\" or \"yyyy-mm-dd HH:mm\".");
+    }
 
+
+    /**
+     * Converts LocalDateTime to String.
+     *
+     * @param dt LocalDateTime.
+     * @return the String version of DateTime.
+     * @throws DukeException If none of the formatter matches the LocalDateTime.
+     */
+    static String convertLocalDateTimeToString(LocalDateTime dt) throws DukeException {
+        List<DateTimeFormatter> formatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm"),
+                DateTimeFormatter.ofPattern("yyyy-mm-dd")
+        );
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return dt.format(formatter);
+            } catch (DateTimeParseException e) {
+                // Continue next format
+            }
+        }
+        throw new DukeException("      There is an error of converting LocalDateTime to String.");
     }
 
 
