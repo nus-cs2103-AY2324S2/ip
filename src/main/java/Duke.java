@@ -113,7 +113,7 @@ public class Duke {
         tasks.add(newToDo);
         ArrayList<Task> newToDoList = new ArrayList<>();
         newToDoList.add(newToDo);
-        storeArrayListToFile("duke", newToDoList, false);//TODO Add the file function here
+        storeArrayListToFile("duke", newToDoList, false);
         System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newToDo.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
@@ -140,11 +140,12 @@ public class Duke {
 
         String name = deadlineSplit[0].substring(9).trim();
         String by = deadlineSplit[1].substring(3).trim();
-        Deadline newDeadline = new Deadline(name,false, by);
+        LocalDateTime byDt = DateTimeManager.convertStringToLocalDateTime(by);
+        Deadline newDeadline = new Deadline(name,false, byDt);
         tasks.add(newDeadline);
         ArrayList<Task> newDeadlineList = new ArrayList<>();
         newDeadlineList.add(newDeadline);
-        storeArrayListToFile("duke", newDeadlineList, false);//TODO Add the file function here
+        storeArrayListToFile("duke", newDeadlineList, false);
         System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newDeadline.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
@@ -171,11 +172,13 @@ public class Duke {
         String name = eventSplit[0].substring(6).trim();
         String start = eventSplit[1].substring(5).trim();
         String end = eventSplit[2].substring(3).trim();
-        Event newEvent = new Event(name, false, start, end);
+        LocalDateTime startDT = DateTimeManager.convertStringToLocalDateTime(start);
+        LocalDateTime endDT = DateTimeManager.convertStringToLocalDateTime(end);
+        Event newEvent = new Event(name, false, startDT, endDT);
         tasks.add(newEvent);
         ArrayList<Task> newEventList = new ArrayList<>();
         newEventList.add(newEvent);
-        storeArrayListToFile("duke", newEventList, false);//TODO Add the file function here
+        storeArrayListToFile("duke", newEventList, false);
         System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newEvent.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
@@ -241,6 +244,7 @@ public class Duke {
         }
     }
 
+
     /**
      * Deletes a task.
      *
@@ -295,53 +299,6 @@ public class Duke {
         return fileManager.loadTasksFromFile();
     }
 
-    /**
-     * Coverts the String to LocalDateTime type.
-     *
-     * @param timeString The time in String.
-     * @return LocalDateTime.
-     * @throws DukeException If none of the timeString matches the formatter.
-     */
-    static LocalDateTime convertStringToLocalDateTime(String timeString) throws DukeException{
-        List<DateTimeFormatter> formatters = Arrays.asList(
-                DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm"),
-                DateTimeFormatter.ofPattern("yyyy-mm-dd")
-        );
-
-        for (DateTimeFormatter formatter : formatters) {
-            try {
-                return LocalDateTime.parse(timeString, formatter);
-            } catch (DateTimeParseException e) {
-                // Continue next format
-            }
-        }
-
-        throw new DukeException("      Invalid format for Date-Time. The format is \"yyyy-mm-dd\" or \"yyyy-mm-dd HH:mm\".");
-    }
-
-
-    /**
-     * Converts LocalDateTime to String.
-     *
-     * @param dt LocalDateTime.
-     * @return the String version of DateTime.
-     * @throws DukeException If none of the formatter matches the LocalDateTime.
-     */
-    static String convertLocalDateTimeToString(LocalDateTime dt) throws DukeException {
-        List<DateTimeFormatter> formatters = Arrays.asList(
-                DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm"),
-                DateTimeFormatter.ofPattern("yyyy-mm-dd")
-        );
-
-        for (DateTimeFormatter formatter : formatters) {
-            try {
-                return dt.format(formatter);
-            } catch (DateTimeParseException e) {
-                // Continue next format
-            }
-        }
-        throw new DukeException("      There is an error of converting LocalDateTime to String.");
-    }
 
 
 }
@@ -386,42 +343,73 @@ class ToDo extends Task {
 }
 
 class Deadline extends Task {
-    String by;
-    public Deadline(String description, boolean isDone, String by) {
+    LocalDateTime by;
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return this.by;
     }
 
     @Override
     public String toString() {
-        return "[D]["+ super.getStatusIcon() +"] " + super.getDescription() + " (by: " + this.by + ")";
+        List<DateTimeFormatter> formatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("MMM dd yyyy'T'HH:mm")
+        );
+        String byString = "";
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                byString = this.by.format(formatter);
+                break;
+            } catch (DateTimeParseException e) {
+                // Continue next format
+            }
+        }
+
+        return "[D]["+ super.getStatusIcon() +"] " + super.getDescription() + " (by: " + byString + ")";
     }
 }
 
 class Event extends Task {
-    String start;
-    String end;
-    public Event(String description, boolean isDone, String start, String end) {
+    LocalDateTime start;
+    LocalDateTime end;
+    public Event(String description, boolean isDone, LocalDateTime start, LocalDateTime end) {
         super(description, isDone);
         this.start = start;
         this.end = end;
     }
 
-    public String getStart() {
+    public LocalDateTime getStart() {
         return this.start;
     }
 
-    public String getEnd() {
+    public LocalDateTime getEnd() {
         return this.end;
     }
 
     @Override
     public String toString() {
-        return "[E]["+ super.getStatusIcon() +"] " + super.getDescription() + " (from: " + this.start + " to: " + this.end + ")";
+        List<DateTimeFormatter> formatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("MMM dd yyyy'T'HH:mm")
+        );
+        String startString = "";
+        String endString = "";
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                startString = this.start.format(formatter);
+                endString = this.end.format(formatter);
+                break;
+            } catch (DateTimeParseException e) {
+                // Continue next format
+            }
+        }
+
+        return "[E]["+ super.getStatusIcon() +"] " + super.getDescription() + " (from: " + startString + " to: " + endString + ")";
     }
 }
 
