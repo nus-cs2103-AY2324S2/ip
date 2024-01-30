@@ -118,7 +118,7 @@ public class Parser {
         if (parts.length < 3 || parts.length > 5) {
             throw new IllegalArgumentException("Invalid line format: " + line);
         }
-        boolean isDone = (parts[1] == "1" ? true : false);
+        boolean isDone = (parts[1].equals("1") ? true : false);
         String description = parts[2];
         Task task;
         try {
