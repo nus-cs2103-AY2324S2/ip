@@ -9,20 +9,22 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
-    String indent = "    ____________________________________________________________\n";
+    private final String INDENT = "    ____________________________________________________________\n";
     protected ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
     public void printList() {
-        System.out.println(indent);
+        System.out.println(INDENT);
         System.out.println("    Here aaaaare the taaaasks in your list:");
         for(int i = 0; i < tasks.size(); i++) {
             System.out.println("    " + (i + 1) + ". " + tasks.get(i).toString() + "");
         }
-        System.out.println(indent);
+        System.out.println(INDENT);
     }
+
     public boolean mark(String[] parts, boolean isInit) throws LamballParseException {
         // Checks if index is within range of list
         int idx = Integer.valueOf(parts[1]) - 1;
@@ -63,6 +65,7 @@ public class TaskList {
         }
         return true;
     }
+
     public boolean deadline(String[] parts, boolean isInit) throws LamballParseException {
         String[] furtherSplit = parts[1].split(" /", 2);
         if (furtherSplit.length < 2 || !furtherSplit[1].substring(0,3).equals("by ")) {

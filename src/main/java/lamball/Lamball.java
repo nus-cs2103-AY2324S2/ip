@@ -25,19 +25,19 @@ public class Lamball {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        boolean active = true;
+        boolean isActive = true;
 
         this.initialize();
 
-        while (active) {
+        while (isActive) {
             System.out.print("    You:");
             String userInput = scanner.nextLine();
 
             // Echo the user's command
             try {
                 String[] comd = Parser.parse(userInput);
-                active = tasks.runComd(comd, false);
-                if (!active) {
+                isActive = tasks.runComd(comd, false);
+                if (!isActive) {
                     ui.goodbyeMessage();
                 }
             } catch (LamballParseException e) {
@@ -47,6 +47,7 @@ public class Lamball {
         }
         scanner.close();
     }
+
     public static void main(String[] args) {
         new Lamball().run();
     }

@@ -11,10 +11,12 @@ public class Event extends Task {
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
     }
+
     @Override
     public String command() {
         return "event " + description + " /from " + from + " /to " + to;
     }
+
     @Override
     public String toString() {
         String formattedFrom = from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));

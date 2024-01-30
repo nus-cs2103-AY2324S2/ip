@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,6 +35,7 @@ public class Storage {
             System.err.println("An error occurred while creating the file: " + e.getMessage());
         }
     }
+
     private static void initializeListFromText(File savedList, Lamball lamb) throws FileNotFoundException {
         File tempFile = new File("src/main/java/data/tempfile.txt");
         try {
@@ -76,7 +78,6 @@ public class Storage {
         tempFile.renameTo(savedList);
     }
 
-
     public static void replaceLine(String toWrite, int index) {
         String filePath = "src/main/java/data/list.txt";
         try {
@@ -92,14 +93,15 @@ public class Storage {
                 // Write the modified content back to the file
                 Files.write(path, lines);
 
-//                System.out.println("Line " + index + " replaced successfully.");
+                // System.out.println("Line " + index + " replaced successfully.");
             } else {
-//                System.err.println("aaaaaaa");
+                // System.err.println("aaaaaaa");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public static void deleteLine(int index) {
         String filePath = "src/main/java/data/list.txt";
         try {
@@ -115,7 +117,7 @@ public class Storage {
                 // Write the modified content back to the file
                 Files.write(path, lines);
 
-//                System.out.println("Line " + index + " deleted successfully.");
+                // System.out.println("Line " + index + " deleted successfully.");
             } else {
                 System.err.println("Invalid line number.");
             }
@@ -123,6 +125,7 @@ public class Storage {
             e.printStackTrace();
         }
     }
+
     public static void writeToFile(String filePath, String toAdd) {
         try {
             FileWriter fw = new FileWriter(filePath, true);
@@ -133,6 +136,7 @@ public class Storage {
             System.out.println("Save Failed: " + e.getMessage());
         }
     }
+
     public static void writeToFile(String toAdd) {
         String filePath = "src/main/java/data/list.txt";
         try {
