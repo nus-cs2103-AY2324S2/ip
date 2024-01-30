@@ -17,7 +17,7 @@ public class ListCommand extends Command {
      * @param tasks TaskList of tasks.
      * @param ui Ui to print responses.
      * @param storage Storage for data.
-     * @throws JohnnyException If Task does not exist in TaskList.
+     * @throws JohnnyException Ignore.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JohnnyException {
