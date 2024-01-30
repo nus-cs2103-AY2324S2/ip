@@ -41,28 +41,50 @@ public class Ui {
 
     private static final String HORIZONTAL_LINE =
             "___________________________________________________________________________";
+
+    /**
+     * Print a Horizontal Line in console
+     */
     public void showLine() {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Print error messages
+     * @param errorMessage String error messages generated from Exceptions, etc...
+     */
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
     }
 
+    /**
+     * Read the command input from console
+     * @return String command in string form to be sent for parsing and executing
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
 
+    /**
+     * Print ChatBot logo and greeting message
+     */
     public void showWelcome() {
         System.out.println(LOGO);
         System.out.println(GREETINGS.get(1));
     }
 
+    /**
+     * Close the initiated scanner and print farewell message
+     */
     public void showFarewell() {
         this.scanner.close();
         System.out.println(FAREWELLS.get(1));
     }
 
+    /**
+     * Print the numbered full list of task in TaskList
+     * @param taskList TaskList to be displayed
+     */
     public void showTaskList(TaskList taskList) {
         this.showTaskListStatus(taskList);
         int count = 1;
@@ -72,22 +94,39 @@ public class Ui {
         }
     }
 
+    /**
+     * Print success status when adding a task into TaskList
+     * @param task Task to be added
+     */
     public void showAddedTask(Task task) {
         System.out.println("Got it. I've added this task: \n" + task.toString());
     }
 
+    /**
+     * Print the number of tasks inside the TaskList
+     * @param taskList TaskList to be printed
+     */
     public void showTaskListStatus(TaskList taskList) {
         System.out.printf("Now you have %d tasks in the list.%n", taskList.size());
     }
-
+    /**
+     * Print success status when marking a task as Done status in TaskList
+     * @param task Task to be marked as Done
+     */
     public void showMarkedTask(Task task) {
         System.out.println("Nice! I've marked this task as done: \n" + task.toString());
     }
-
+    /**
+     * Print success status when unmarking a task into Undone status in TaskList
+     * @param task Task to be marked as Undone
+     */
     public void showUnmarkedTask(Task task) {
         System.out.println("OK, I've marked this task as not done yet: \n" + task.toString());
     }
-
+    /**
+     * Print success status when deleting a task from TaskList
+     * @param task Task to be deleted
+     */
     public void showDeletedTask(Task task) {
         System.out.println("Noted. I've removed this task: \n" + task.toString());
     }
