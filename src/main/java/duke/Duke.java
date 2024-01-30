@@ -49,6 +49,6 @@ public class Duke {
                 + " .-_)( /(__)\\\\  //(__)\\ \\__ \\\\__ \\ _)(_ \\__ \\  )(\n\t"
                 + "\\____)(__)(__)\\/(__)(__)(___/(___/(____)(___/ (__)\n";
 
-        new Duke("duke.Duke.txt", "./data", "JavAssist", logo).run();
+        new Duke("Duke.txt", "./data", "JavAssist", logo).run();
     }
 }
