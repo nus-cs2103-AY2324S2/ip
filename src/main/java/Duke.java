@@ -7,56 +7,74 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm EchoPilot.");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        printWelcomeMessage();
 
         while (true) {
-            String userInput = scanner.nextLine().trim();
-            String[] parts = userInput.split(" ", 2);
-            String command = parts[0];
-
-            if (command.equalsIgnoreCase("bye")) {
-                break;
-            } else if (command.equalsIgnoreCase("list")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + "." + tasks[i]);
+            try {
+                String userInput = scanner.nextLine().trim();
+                if (userInput.equalsIgnoreCase("bye")) {
+                    break;
                 }
+                handleInput(userInput);
+            } catch (DukeException e) {
                 System.out.println("____________________________________________________________");
-            } else if (command.equalsIgnoreCase("mark") || command.equalsIgnoreCase("unmark")) {
-                markAsDone(command, parts[1]);
-            } else {
-                createNewTask(parts);
+                System.out.println(e.getMessage());
+                System.out.println("____________________________________________________________");
             }
         }
 
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
-
+        printGoodbyeMessage();
         scanner.close();
     }
 
-    private static void markAsDone(String command, String taskNumberStr) {
-        int taskNumber = Integer.parseInt(taskNumberStr) - 1;
-        if (taskNumber >= 0 && taskNumber < taskCount) {
+    private static void handleInput(String userInput) throws DukeException {
+        String[] parts = userInput.split(" ", 2);
+        String command = parts[0];
+
+        switch (command.toLowerCase()) {
+            case "list":
+                printTaskList();
+                break;
+            case "mark":
+            case "unmark":
+                markOrUnmarkTask(command, parts[1]);
+                break;
+            case "todo":
+            case "deadline":
+            case "event":
+                createNewTask(parts);
+                break;
+            default:
+                throw new DukeException("Whoops! I didn't catch that. Could you try a different command?");
+        }
+    }
+
+    private static void markOrUnmarkTask(String command, String taskNumberStr) throws DukeException {
+        try {
+            int taskNumber = Integer.parseInt(taskNumberStr) - 1;
+            if (taskNumber < 0 || taskNumber >= taskCount) {
+                throw new DukeException("Oopsie! I can't seem to find that task. Could it be a magical invisible task?.");
+            }
             if (command.equalsIgnoreCase("mark")) {
                 tasks[taskNumber].markAsDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Nice! I've marked this task as done:\n  " + tasks[taskNumber]);
-            } else if (command.equalsIgnoreCase("unmark")) {
+            } else {
                 tasks[taskNumber].unmarkAsDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[taskNumber]);
             }
             System.out.println("____________________________________________________________");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Whoops! Looks like that's not a valid number for a task. Numbers only, please!");
         }
     }
 
-    private static void createNewTask(String[] parts) {
+    private static void createNewTask(String[] parts) throws DukeException {
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new DukeException("Looks like you missed the description! " + parts[0] + " cannot be empty.");
+        }
+
         Task newTask = null;
         switch (parts[0].toLowerCase()) {
             case "todo":
@@ -81,4 +99,26 @@ public class Duke {
             System.out.println("____________________________________________________________");
         }
     }
+
+    private static void printTaskList() {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println((i + 1) + "." + tasks[i]);
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printWelcomeMessage() {
+        System.out.println("____________________________________________________________");
+        System.out.println("Hello! I'm EchoPilot.");
+        System.out.println("What can I do for you?");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printGoodbyeMessage() {
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
+    }
 }
+
