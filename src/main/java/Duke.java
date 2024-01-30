@@ -58,12 +58,12 @@ public class Duke {
             printDivider();
         } else if (wordArray[0].equals("mark") || wordArray[0].equals("unmark")) {
             if (wordArray.length != 2) {
-                throw new IllegalArgumentException("Expected 2 arguments");
+                throw new IllegalArgumentException("Blunder! Declare a task by number, matey!");
             } else {
                 try {
                     int tempIndex = Integer.parseInt(wordArray[1]);
-                    if (tempIndex > taskCount) {
-                        throw new IllegalArgumentException("Expected integer between 1 and " + taskCount + " as the second argument");
+                    if (tempIndex > taskCount || tempIndex < 1) {
+                        throw new IllegalArgumentException("Blunder! Ye only be havin' " + taskCount + " tasks on the chart, matey!");
                     } else {
                         printDivider();
                         if (wordArray[0].equals("mark")) {
@@ -77,54 +77,54 @@ public class Duke {
                         printDivider();
                     }
                 } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Expected integer between 1 and " + taskCount + " as the second argument");
+                    throw new IllegalArgumentException("Blunder! I be searchin' the seas but couldn't spy the task ye named, me heartie!");
                 }
             }
         }
         else if (wordArray[0].equals("todo")){
             if (wordArray.length < 2) {
-                throw new IllegalArgumentException("To-dos must be declared with a description in the format: 'todo *'");
+                throw new IllegalArgumentException("Blunder! Declare yer to-do as such: 'todo *', ye scurvy dog!");
             }
             String tempString = input.substring(5).trim();
             printDivider();
             tasks[taskCount] = new Todo(tempString);
             taskCount += 1;
-            System.out.println("added: " + tasks[taskCount - 1].toString());
+            System.out.println("I've appended this to yer list: " + tasks[taskCount - 1].toString());
             printDivider();
         } else if (wordArray[0].equals("deadline")) {
             String tempString = input.substring(9).trim();
             String[] tempArray = tempString.split("/by", 0);
             if (tempArray.length == 1) {
-                throw new IllegalArgumentException("Deadlines must be declared in the format: 'deadline * /by *'");
+                throw new IllegalArgumentException("Blunder! Declare yer deadline as such: 'deadline * /by *', ye scurvy dog!");
             }
             String description = tempArray[0].trim();
             String by = tempArray[1].trim();
             printDivider();
             tasks[taskCount] = new Deadline(description, by);
             taskCount += 1;
-            System.out.println("added: " + tasks[taskCount - 1].toString());
+            System.out.println("I've appended this to yer list: " + tasks[taskCount - 1].toString());
             printDivider();
         } else if (wordArray[0].equals("event")) {
             String tempString = input.substring(6).trim();
             String[] tempArray = tempString.split("/from", 0);
             if (tempArray.length == 1) {
-                throw new IllegalArgumentException("Events must be declared in the format: 'deadline * /from * /to *'");
+                throw new IllegalArgumentException("Blunder! Declare yer event as such: 'deadline * /from * /to *', ye scurvy dog!");
             }
             String description = tempArray[0].trim();
             tempString = tempArray[1].trim();
             tempArray = tempString.split("/to", 0);
             if (tempArray.length == 1) {
-                throw new IllegalArgumentException("Events must be declared in the format: 'deadline * /from * /to *'");
+                throw new IllegalArgumentException("Blunder! Declare yer event as such: 'deadline * /from * /to *', ye scurvy dog!");
             }
             String from = tempArray[0].trim();
             String to = tempArray[1].trim();
             printDivider();
             tasks[taskCount] = new Event(description, from, to);
             taskCount += 1;
-            System.out.println("added: " + tasks[taskCount - 1].toString());
+            System.out.println("I've appended this to yer list: " + tasks[taskCount - 1].toString());
             printDivider();
         } else {
-            throw new IllegalArgumentException("Sorry, I didn't understand that");
+            throw new IllegalArgumentException("Arrr, me apologies! I cannot fathom that.");
         }
     }
 }
