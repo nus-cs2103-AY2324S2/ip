@@ -52,6 +52,9 @@ public class Parser {
             case UnmarkCommand.COMMAND_WORD:
                 return prepareUnmarkCommand(arguments);
 
+            case DeleteCommand.COMMAND_WORD:
+                return prepareDeleteCommand(arguments);
+
             default:
                 return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
         }
@@ -84,6 +87,20 @@ public class Parser {
             }
         }
     }
+
+    private Command prepareDeleteCommand(String arguments) {
+        if (arguments.trim().isEmpty()) {
+            return new IncorrectCommand(DeleteCommand.MESSAGE_INVALID_ID);
+        } else {
+            try {
+                int targetIndex = Integer.valueOf(arguments.trim()) - 1;
+                return new DeleteCommand(targetIndex);
+            } catch (NumberFormatException nfe) {
+                return new IncorrectCommand(DeleteCommand.MESSAGE_INVALID_ID);
+            }
+        }
+    }
+
 
     private Command prepareDeadline(String arguments) {
         final Matcher matcher = DeadlineCommand.DEADLINE_ARGUMENTS_FORMAT.matcher(arguments.trim());
