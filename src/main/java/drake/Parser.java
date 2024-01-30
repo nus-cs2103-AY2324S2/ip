@@ -28,14 +28,27 @@ public class Parser {
         return parts[1].trim();
     }
 
-    public static Object[] parseDeadline(String input) throws DateTimeParseException {
+    public static Object[] parseDeadline(String input) throws Exception {
         String[] parts = input.split(" /by ");
         if (parts.length < 2) {
             throw new IllegalArgumentException("Deadline time not provided.");
         }
+
+        if (!parts[0].split(" ")[0].equals("deadline")) {
+            throw new Exception("Looks like you spelt deadline wrong. Please try again!");
+        }
+
         String description = parts[0].substring(parts[0].indexOf(' ') + 1).trim();
-        LocalDate date = LocalDate.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDateTime by = date.atStartOfDay();
+        LocalDate date;
+        LocalDateTime by;
+
+        try {
+            date = LocalDate.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            by = date.atStartOfDay();
+        } catch (DateTimeParseException e) {
+            throw new Exception("Date is of the wrong format!");
+        } 
+        
         return new Object[]{description, by};
         
     }

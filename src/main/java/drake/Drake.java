@@ -51,7 +51,7 @@ public class Drake {
         isRunning = true;
     }
 
-    public void run() {
+    public void run() throws Exception {
         Scanner scanner = new Scanner(System.in);
         ui.showWelcome();
     
@@ -89,7 +89,7 @@ public class Drake {
                         break;
                     case DEADLINE:
                         try {
-                            Object[] deadlineDetails = Parser.parseDeadline(input);
+                            Object[] deadlineDetails = Parser.parseDeadline (input);
                             Deadline newDeadline = new Deadline((String) deadlineDetails[0], (LocalDateTime) deadlineDetails[1]);
                             taskList.addTask(newDeadline);
                             ui.showAddTask(newDeadline, taskList.size());
@@ -118,7 +118,7 @@ public class Drake {
         scanner.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         new Drake("./list.dat").run();
     }
 }
