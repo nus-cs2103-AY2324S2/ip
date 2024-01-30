@@ -1,5 +1,6 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -194,22 +195,12 @@ public class Capone {
         StringBuilder byDate = new StringBuilder();
         for (int i = byNdx + 1; i < inputList.size(); i++) {
             if (isDateFormat(inputList.get(i))) {
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                try {
-                    date = LocalDate.parse(inputList.get(i), dateFormatter);
-                } catch (DateTimeException e) {
-                    throw new CaponeException("Oops! You have entered an invalid date. Please try again.");
-                }
+                date = Capone.parseDate(inputList.get(i));
                 continue;
             }
 
             if (isTimeFormat(inputList.get(i))) {
-                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
-                try {
-                    time = LocalTime.parse(inputList.get(i), timeFormatter);
-                } catch (DateTimeException e) {
-                    throw new CaponeException("Oops! You have entered an invalid time. Please try again.");
-                }
+                time = Capone.parseTime(inputList.get(i));
                 continue;
             }
 
@@ -308,30 +299,108 @@ public class Capone {
                     "Usage: event [description] /from [date] /to [date]");
         }
 
-        StringBuilder fromDate = new StringBuilder();
-        for (int i = fromNdx + 1; i < toNdx; i ++) {
-            if (i == toNdx - 1) {
-                fromDate.append(inputList.get(i));
-                break;
+        LocalDate fromDate = null;
+        LocalTime fromTime = null;
+        // Process input for the deadline (i.e. after the /by command).
+        StringBuilder fromDateString = new StringBuilder();
+        for (int i = fromNdx + 1; i < toNdx; i++) {
+            if (isDateFormat(inputList.get(i))) {
+                fromDate = Capone.parseDate(inputList.get(i));
+                continue;
             }
-            fromDate.append(inputList.get(i)).append(" ");
-        }
 
-        StringBuilder toDate = new StringBuilder();
-        for (int i = toNdx + 1; i < inputList.size(); i++) {
+            if (isTimeFormat(inputList.get(i))) {
+                fromTime = Capone.parseTime(inputList.get(i));
+                continue;
+            }
+
+            // If this is the last word to be added.
             if (i == inputList.size() - 1) {
-                toDate.append(inputList.get(i));
-                break;
+                fromDateString.append(inputList.get(i));
+            } else {
+                fromDateString.append(inputList.get(i)).append(" ");
             }
-            toDate.append(inputList.get(i)).append(" ");
         }
 
-        Event newEvent = new Event(description.toString(), false, fromDate.toString(), toDate.toString());
+        LocalDate toDate = null;
+        LocalTime toTime = null;
+        // Process input for the deadline (i.e. after the /by command).
+        StringBuilder toDateString = new StringBuilder();
+        for (int i = toNdx + 1; i < inputList.size(); i++) {
+            if (isDateFormat(inputList.get(i))) {
+                toDate = Capone.parseDate(inputList.get(i));
+                continue;
+            }
 
-        tasks.add(newEvent);
+            if (isTimeFormat(inputList.get(i))) {
+                toTime = Capone.parseTime(inputList.get(i));
+                continue;
+            }
+
+            // If this is the last word to be added.
+            if (i == inputList.size() - 1) {
+                toDateString.append(inputList.get(i));
+            } else {
+                toDateString.append(inputList.get(i)).append(" ");
+            }
+        }
+
+        LocalDateTime fromDateTime = processDateTime(fromDate, fromTime);
+        LocalDateTime toDateTime = processDateTime(toDate, toTime);
+
+        if (fromDateTime != null && toDateTime != null) {
+            tasks.add(new Event(description.toString(), false, fromDateTime, toDateTime));
+        } else if (fromDateTime != null || toDateTime != null) {
+            // If either fromDateTime or toDateTime is null but the other is not.
+            throw new CaponeException("Oops! It seems like there is a format mismatch between" +
+                    "your start and dates and end dates.\nMake sure you enter both of them in the accepted " +
+                    "date format!\nAlternatively, you can specify a string for both your start and end dates.\n" +
+                    "Use the 'help' command for more information.");
+        } else {
+            tasks.add(new Event(description.toString(), false,
+                    fromDateString.toString(), toDateString.toString()));
+        }
 
         System.out.printf("Got it. I've added this task:\n%s\n" +
-                "Now you have %d task(s) in the list.\n", newEvent.toString(), tasks.size());
+                "Now you have %d task(s) in the list.\n", tasks.get(tasks.size()-1).toString(), tasks.size());
+
+    }
+
+    public static LocalDateTime processDateTime(LocalDate date, LocalTime time) {
+        if (date != null) {
+            if (time != null) {
+                return date.atTime(time);
+            } else {
+                return date.atStartOfDay();
+            }
+        } else {
+            // If only the time is specified, the deadline will be the time at the next day.
+            if (time != null) {
+                return LocalDate.now().plusDays(1).atTime(time);
+            } else {
+                // Else, if both date and time are null, return null input to use
+                // the string input of date/time by user.
+                return null;
+            }
+        }
+    }
+
+    public static LocalDate parseDate(String date) throws CaponeException {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            return LocalDate.parse(date, dateFormatter);
+        } catch (DateTimeException e) {
+            throw new CaponeException("Oops! You have entered an invalid date. Please try again.");
+        }
+    }
+
+    public static LocalTime parseTime(String time) throws CaponeException {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        try {
+            return LocalTime.parse(time, timeFormatter);
+        } catch (DateTimeException e) {
+            throw new CaponeException("Oops! You have entered an invalid time. Please try again.");
+        }
     }
 
     public static void deleteTask(ArrayList<String> inputList) throws CaponeException{
@@ -364,14 +433,17 @@ public class Capone {
 
     }
 
+    // TODO: UPDATE HELP MENU
     public static void displayHelp() {
         System.out.println("Commands I understand:\n" +
                 "1. list - Lists the tasks entered.\n" +
                 "2. todo [description] - Creates a new ToDo task. Remember to enter the description!\n" +
                 "3. deadline [description] /by [date] - Creates a new Deadline task.\n" +
                 "   Remember to enter the description and date!\n" +
+                "   Dates are recognised in the following format - 'yyyy-mm-dd HHmm' (24-hour).\n" +
                 "4. event [description] /from [date] /to [date] - Creates a new Event task.\n" +
                 "   Remember to enter the description, as well as the start and end date!\n" +
+                "   Dates are recognised in the following format - 'yyyy-mm-dd HHmm' (24-hour).\n" +
                 "5. mark [index] - Marks a task as completed. Use this in conjunction with the 'list' command!\n" +
                 "6. unmark [index] - Unmarks a task. Use this in conjunction with the 'list' command!\n" +
                 "7. delete [index] - Deletes a task. Use this in conjunction with the 'list' command!");

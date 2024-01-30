@@ -19,7 +19,7 @@ public class Deadline extends Task {
     }
 
     public String getDeadline() {
-        if (this.deadlineString == null) {
+        if (this.deadline != null) {
             return this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
         }
         return this.deadlineString;

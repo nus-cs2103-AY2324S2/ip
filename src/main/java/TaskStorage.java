@@ -27,8 +27,8 @@ public class TaskStorage {
             if (task instanceof Deadline) {
                 jsonTask.put("deadline", ((Deadline) task).getDeadline());
             } else if (task instanceof Event) {
-                jsonTask.put("fromDate", ((Event) task).getFromDate());
-                jsonTask.put("toDate", ((Event) task).getToDate());
+                jsonTask.put("fromDate", ((Event) task).getFromDateTime());
+                jsonTask.put("toDate", ((Event) task).getToDateTime());
             }
 
             jsonArray.put(jsonTask);
