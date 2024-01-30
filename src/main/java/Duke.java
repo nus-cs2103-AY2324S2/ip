@@ -1,7 +1,5 @@
-import exception.BlankEventException;
+import common.DataStorage;
 import exception.MalformedUserInputException;
-import exception.NoTaskCreatedYetException;
-import exception.TooManyTasksException;
 import parser.EventParser;
 import tasklist.Task;
 
@@ -11,18 +9,40 @@ public class Duke {
     private DataStorage dataStorage;
 
     public Duke() {
-        ui = new Ui();
+
     }
 
-    public void run() {
+    public void start() {
+        // TODO: There could be a try catch here
+        this.ui = new Ui();
+        this.dataStorage = new DataStorage(Integer.MAX_VALUE, "database.txt");
         ui.showWelcome();
+    }
 
+    /**
+     * Prints the Goodbye message and exits.
+     */
+    private void exit() {
+        ui.showGoodbye();
+        System.exit(0);
+    }
+
+
+    public void run() {
+        start();
+        runCommandLoopUntilExitCommand();
+        exit();
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
+    }
+
+    /**
+     * Reads the user command and executes it, until the user issues the exit command.
+     */
+    private void runCommandLoopUntilExitCommand() {
         String userInput = "";
-
-        // Outsource the dataStorage.
-        dataStorage = new DataStorage(Integer.MAX_VALUE, "database.txt");
-
-
 
         boolean isExit = false;
 
@@ -62,10 +82,6 @@ public class Duke {
                             "\t Your command should be in this format: todo event_name"
                     );
                     System.out.println("\t ____________________________________________________________");
-                } catch (BlankEventException e) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t " + e.getMessage());
-                    System.out.println("\t ____________________________________________________________");
                 }
 
 
@@ -83,10 +99,6 @@ public class Duke {
                     );
                     System.out.println("\t ____________________________________________________________");
 
-                } catch (BlankEventException e) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t " + e.getMessage());
-                    System.out.println("\t ____________________________________________________________");
                 }
 
 
@@ -104,10 +116,6 @@ public class Duke {
                             "\t Your command should be in this format: event project meeting /from Mon 2pm /to 4pm");
                     System.out.println("\t ____________________________________________________________");
 
-                } catch (BlankEventException e) {
-                    System.out.println("\t ____________________________________________________________");
-                    System.out.println("\t " + e.getMessage());
-                    System.out.println("\t ____________________________________________________________");
                 }
 
             } else if (userInput.equals("bye")) {
@@ -128,25 +136,17 @@ public class Duke {
 
     private static void createNewTask(DataStorage dataStorage, Task task) {
         // This allows user to add in a new task.
-        try {
-            dataStorage.addTask(task);
-            System.out.println(
-                    "\t ____________________________________________________________\n" +
-                            "\t Got it. I've added this task:\n" +
-                            "\t added: " + task.toString() + "\n" +
-                            "\t Now you have " + dataStorage.getTaskCount() + " task(s) in the list.\n" +
-                            "\t ____________________________________________________________"
-            );
 
-        } catch (TooManyTasksException tooManyTaskException) {
-            System.out.println("\t ____________________________________________________________");
-            System.out.println("\t You are too busy .... how come you got so many tasks??");
-            System.out.println("\t See la the array no space already. Delete some stuff or restart the program please.");
-        }
-    }
+        dataStorage.addTask(task);
+        System.out.println(
+                "\t ____________________________________________________________\n" +
+                        "\t Got it. I've added this task:\n" +
+                        "\t added: " + task.toString() + "\n" +
+                        "\t Now you have " + dataStorage.getTaskCount() + " task(s) in the list.\n" +
+                        "\t ____________________________________________________________"
+        );
 
-    public static void main(String[] args) {
-        new Duke().run();
+
     }
 
     public static void handleCommandWithIndex(DataStorage dataStorage, String userInput, TypeOfActions typeOfActions) {
@@ -183,10 +183,6 @@ public class Duke {
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             System.out.println("\t ____________________________________________________________");
             System.out.println("\t Please do not enter an invalid index. There are " + dataStorage.getTaskCount() + " task(s) currently.");
-            System.out.println("\t ____________________________________________________________");
-        } catch (NoTaskCreatedYetException noTaskCreatedYetException) {
-            System.out.println("\t ____________________________________________________________");
-            System.out.println("\t No task is created here yet.");
             System.out.println("\t ____________________________________________________________");
         } catch (NumberFormatException numberFormatException) {
             System.out.println("\t ____________________________________________________________");

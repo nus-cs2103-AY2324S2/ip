@@ -1,8 +1,6 @@
 package common;
 
 import exception.MalformedUserInputException;
-import exception.NoTaskCreatedYetException;
-import exception.TooManyTasksException;
 import tasklist.Deadline;
 import tasklist.Event;
 import tasklist.Task;
@@ -51,14 +49,11 @@ public class DataStorage {
         }
     }
 
-    public void addTask(Task task) throws TooManyTasksException {
-        if (taskCount >= maxTask) {
-            throw new TooManyTasksException();
-        } else {
+    public void addTask(Task task) {
+
             this.tasksList.add(task);
             addTaskToFile(task.toStorageString(), true);
             this.taskCount++;
-        }
     }
 
 
@@ -127,12 +122,12 @@ public class DataStorage {
     }
 
 
-    public void setTaskStatus(int taskIndex, boolean status) throws NoTaskCreatedYetException {
+    public void setTaskStatus(int taskIndex, boolean status) throws MalformedUserInputException {
         if (taskIndex < 0 || taskIndex > this.maxTask) {
             throw new IndexOutOfBoundsException();
         } else if (taskIndex >= taskCount) {
             // It is a valid index, but there is no task there yet.
-            throw new NoTaskCreatedYetException();
+            throw new MalformedUserInputException("The task has not been created yet.");
         } else {
             this.tasksList.get(taskIndex).setDone(status);
             // We rebuild the dataStorage again
@@ -154,12 +149,12 @@ public class DataStorage {
     }
 
 
-    public void deleteTask(int indexToDelete) throws NoTaskCreatedYetException {
+    public void deleteTask(int indexToDelete) throws MalformedUserInputException {
         if (indexToDelete < 0 || indexToDelete > this.maxTask) {
             throw new IndexOutOfBoundsException();
         } else if (indexToDelete >= this.taskCount) {
             // It is a valid index, but there is no task there yet.
-            throw new NoTaskCreatedYetException();
+            throw new MalformedUserInputException("There are no task stored at the specified location.");
         } else {
             // If we reach here, it means that there is no problem.
             this.tasksList.remove(indexToDelete);
