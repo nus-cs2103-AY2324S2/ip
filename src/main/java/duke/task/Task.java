@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents a general task.
+ */
 public abstract class Task {
     private String task;
     private boolean isDone;
@@ -9,14 +12,25 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the details of a Task.
+     *
+     * @return String with description of the Task for display.
+     */
     public String printTask() {
         return String.format("[" + (this.isDone ? "X" : " ") + "] " + this.task);
     }
 
+    /**
+     * Marks isDone as true.
+     */
     public void done() {
         this.isDone = true;
     }
 
+    /**
+     * Marks isDone as false.
+     */
     public void undo() {
         this.isDone = false;
     }

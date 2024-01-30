@@ -6,6 +6,9 @@ import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
+/**
+ * Represents a command to mark specified task as done.
+ */
 public class MarkCommand implements Command {
 
     private String input;
@@ -16,6 +19,14 @@ public class MarkCommand implements Command {
         this.toMark = toMark;
     }
 
+    /**
+     * Sets task in TaskList as done or not done depending on boolean value of toMark, where index is indicated in input.
+     *
+     * @param list Holds the tasks added.
+     * @param ui Displays messages about executed operation.
+     * @param storage Handles IO storage operation.
+     * @throws DukeException If index given is not within range.
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] s = input.split("\\s");
