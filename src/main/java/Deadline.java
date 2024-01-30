@@ -1,8 +1,9 @@
 public class Deadline extends Task {
+
     private String end;
     public Deadline(String name, String end) {
         super(name);
-        this.end = end;
+        this.end = TimeManager.parseTime(end);
     }
     @Override
     public String getType(){
