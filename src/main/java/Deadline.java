@@ -1,9 +1,12 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class representing a Deadline task with a due date.
  * Inherits from the Task class and adds a deadline date.
  */
 class Deadline extends Task {
-  private String by;
+  private LocalDate by;
 
   /**
    * Constructor to create a new Deadline task.
@@ -12,7 +15,7 @@ class Deadline extends Task {
    * @param title The title of the deadline task.
    * @param by    The deadline date for the task.
    */
-  public Deadline(String title, String by) {
+  public Deadline(String title, LocalDate by) {
     super(title);
     this.by = by;
   }
@@ -25,7 +28,7 @@ class Deadline extends Task {
    * @param by     The deadline date for the task.
    * @param isDone The completion status of the task.
    */
-  public Deadline(String title, String by, boolean isDone) {
+  public Deadline(String title, LocalDate by, boolean isDone) {
     super(title, isDone);
     this.by = by;
   }
@@ -39,7 +42,7 @@ class Deadline extends Task {
    */
   @Override
   public String toString() {
-    return "[D]" + super.toString() + " (by: " + by + ")";
+    return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
   }
 
   /**
@@ -65,6 +68,6 @@ class Deadline extends Task {
    */
   public static Deadline deserialize(String text) {
     String[] parts = text.split(" \\| ");
-    return new Deadline(parts[2], parts[3], parts[1].equals("1"));
+    return new Deadline(parts[2], LocalDate.parse(parts[3]), parts[1].equals("1"));
   }
 }
