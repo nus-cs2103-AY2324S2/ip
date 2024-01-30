@@ -12,27 +12,13 @@ public class Youdon {
 
     // function to detect when command is invalid
     public static void detectInvalidCommand(String input) throws YoudonException.InvalidCommandException {
-        if (input.contains("todo")) {
-
-        } else if (input.contains("deadline")) {
-
-        } else if (input.contains("event")) {
-
-        } else if (input.contains("mark")) {
-
-        } else if (input.contains("unmark")) {
-
-        } else if (input.contains("list")) {
-
-        } else if (input.contains("bye")) {
-
-        } else if (input.contains("delete")) {
-
-        } else {
-            throw new YoudonException.InvalidCommandException("Sorry, I do not recognise that command.");
+        for (validCommands command: validCommands.values()) {
+            if (input.contains(command.getCommand())) {
+                return;
+            }
         }
+        throw new YoudonException.InvalidCommandException("Sorry, I do not recognise that command.");
     }
-
 
     public static void main(String[] args) {
         // initialise array and index
