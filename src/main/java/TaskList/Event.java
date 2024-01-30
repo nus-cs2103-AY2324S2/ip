@@ -6,13 +6,13 @@ import Parser.DateTimeParser;
 import java.time.LocalDate;
 
 public class Event extends Task {
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private DateTimeParser startTime;
+    private DateTimeParser endTime;
 
     public Event(String description, String startTime, String endTime, boolean isDone) throws MalformedUserInputException {
         super(description, isDone);
-        this.startTime = DateTimeParser.getDateTimeFromString(startTime);
-        this.endTime = DateTimeParser.getDateTimeFromString(endTime);
+        this.startTime = new DateTimeParser(startTime);
+        this.endTime = new DateTimeParser(endTime);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Event extends Task {
 
     @Override
     public String toStorageString() {
-        return "E | " + this.getDescription() + " | " + super.getStatus() + " | " + this.startTime + " | " + this.endTime;
+        return "E | " + this.getDescription() + " | " + super.getStatus() + " | " + this.startTime.toStorageString() + " | " + this.endTime.toStorageString();
     }
 
 
