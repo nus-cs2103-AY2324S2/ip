@@ -21,6 +21,7 @@ public class Task {
     public void unmarkDone() {
         isDone = false;
     }
+
     @Override
     public String toString() {
         String checkMark = "[" + (isDone ? "X" : " ") + "] ";
