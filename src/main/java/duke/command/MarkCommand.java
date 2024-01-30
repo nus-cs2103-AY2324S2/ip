@@ -23,7 +23,8 @@ public class MarkCommand extends Command{
      * @param storage A Storage class which represents the storage of file
      */
     @Override
-    public void execute(TaskList tasksList, TextUi ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasksList, TextUi ui, Storage storage)
+            throws DukeException {
         if (TASK_NUM <= 0 | TASK_NUM > tasksList.getList().size()) {
             throw new DukeException("Invalid task number -.-!");
         }

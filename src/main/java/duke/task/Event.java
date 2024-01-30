@@ -22,8 +22,10 @@ public class Event extends Task {
 
     public Event(String description, String dateStart, String dateEnd) {
         super(description);
-        this.dateStart = LocalDate.parse(dateStart, DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT)).format(DateTimeFormatter.ofPattern(STORAGE_DATE_FORMAT));
-        this.dateEnd = LocalDate.parse(dateEnd, DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT)).format(DateTimeFormatter.ofPattern(STORAGE_DATE_FORMAT));
+        this.dateStart = LocalDate.parse(dateStart, DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT))
+                .format(DateTimeFormatter.ofPattern(STORAGE_DATE_FORMAT));
+        this.dateEnd = LocalDate.parse(dateEnd, DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT))
+                .format(DateTimeFormatter.ofPattern(STORAGE_DATE_FORMAT));
     }
 
 
