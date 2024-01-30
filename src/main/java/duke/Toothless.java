@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 import duke.Parsers.FileParser;
 import duke.Tasks.*;
 import duke.Parsers.*;
