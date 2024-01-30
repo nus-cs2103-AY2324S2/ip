@@ -1,3 +1,5 @@
+package ui;
+
 import common.Messages;
 
 import java.io.InputStream;

@@ -20,3 +20,4 @@ delete 3
 unmark
 delete -3
 delete 3.123456
+bye
