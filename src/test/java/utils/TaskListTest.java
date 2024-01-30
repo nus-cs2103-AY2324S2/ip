@@ -1,8 +1,8 @@
 package utils;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,14 +23,14 @@ class TaskListTest {
     }
 
     @Test
-    void unitBeingTested_addTask_singleTaskAdded() {
+    void addTask_sampleTask_singleTaskAdded() {
         Task task = new Task("Sample Task");
         taskList.add(task);
         assertEquals(1, taskList.size());
     }
 
     @Test
-    void unitBeingTested_markTaskAsDone_taskMarkedAsDone() throws ConvoBotException {
+    void markTaskAsDone_sampleTask_taskMarkedAsDone() throws ConvoBotException {
         Task task = new Task("Sample Task");
         taskList.add(task);
         taskList.mark(0, true);
@@ -38,7 +38,7 @@ class TaskListTest {
     }
 
     @Test
-    void unitBeingTested_getTaskString_validTaskIndex_taskStringReturned() throws ConvoBotException {
+    void getTaskString_validTaskIndex_taskStringReturned() throws ConvoBotException {
         Task task = new Task("Sample Task");
         taskList.add(task);
         String taskString = taskList.getTaskString(0);
@@ -46,7 +46,7 @@ class TaskListTest {
     }
 
     @Test
-    void unitBeingTested_deleteTask_validTaskIndex_taskDeleted() throws ConvoBotException {
+    void deleteTask_validTaskIndex_taskDeleted() throws ConvoBotException {
         Task task = new Task("Sample Task");
         taskList.add(task);
         taskList.delete(0);
@@ -54,19 +54,19 @@ class TaskListTest {
     }
 
     @Test
-    void unitBeingTested_markTaskAsDone_invalidIndex_exceptionThrown() {
+    void markTaskAsDone_invalidIndex_exceptionThrown() {
         assertThrows(ConvoBotException.class, () -> taskList.mark(-1, true));
         assertThrows(ConvoBotException.class, () -> taskList.mark(10, true));
     }
 
     @Test
-    void unitBeingTested_getTaskString_invalidIndex_exceptionThrown() {
+    void getTaskString_invalidIndex_exceptionThrown() {
         assertThrows(ConvoBotException.class, () -> taskList.getTaskString(-1));
         assertThrows(ConvoBotException.class, () -> taskList.getTaskString(10));
     }
 
     @Test
-    void unitBeingTested_deleteTask_invalidIndex_exceptionThrown() {
+    void deleteTask_invalidIndex_exceptionThrown() {
         assertThrows(ConvoBotException.class, () -> taskList.delete(-1));
         assertThrows(ConvoBotException.class, () -> taskList.delete(10));
     }

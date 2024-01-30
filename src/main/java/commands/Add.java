@@ -1,8 +1,9 @@
 package commands;
 
+
+import tasks.Task;
 import utils.TaskList;
 import utils.UI;
-import tasks.Task;
 
 public class Add implements Command {
     private final Task task;

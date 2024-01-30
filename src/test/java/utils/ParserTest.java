@@ -1,10 +1,24 @@
-import static org.junit.jupiter.api.Assertions.*;
+package utils;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import commands.*;
+import commands.Add;
+import commands.Bye;
+import commands.Command;
+import commands.Delete;
+import commands.List;
+import commands.Mark;
+import commands.Unmark;
 import exceptions.ConvoBotException;
-import tasks.*;
-import utils.Parser;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 
 class ParserTest {
     @Test

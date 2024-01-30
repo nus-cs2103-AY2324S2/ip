@@ -3,11 +3,10 @@ package utils;
 import java.util.Scanner;
 
 import exceptions.ConvoBotException;
-import utils.TaskList;
 
 public class UI {
+    private static final String LEFT_PADDING = "    ";
     private final Scanner scanner;
-    private final String LEFT_PADDING = "    ";
 
     public UI() {
         scanner = new Scanner(System.in);
@@ -19,7 +18,9 @@ public class UI {
 
     public void showHorizontalLine(boolean newline) {
         System.out.println(LEFT_PADDING + "____________________________________________________________");
-        if (newline) System.out.println();
+        if (newline) {
+            System.out.println();
+        }
     }
 
     public void showWelcomeMsg() {
@@ -36,13 +37,13 @@ public class UI {
     }
 
     public void showTaskList(TaskList tasks) {
-        System.out.println(LEFT_PADDING + " " + "Here are the tasks in your list:"); 
+        System.out.println(LEFT_PADDING + " " + "Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            int index = i+1;
+            int index = i + 1;
             try {
-                System.out.println(LEFT_PADDING + " " + Integer.toString(index)
-                + "." + tasks.getTaskString(i));
+                System.out.println(LEFT_PADDING + " " + Integer.toString(index) + "." + tasks.getTaskString(i));
             } catch (ConvoBotException e) {
+                // impossible to reach here
             }
         }
     }

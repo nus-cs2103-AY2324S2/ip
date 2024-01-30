@@ -8,7 +8,7 @@ import tasks.Task;
 public class TaskList {
     private ArrayList<Task> taskList;
     private Storage db;
-    
+
     public TaskList() {
         taskList = new ArrayList<>();
     }

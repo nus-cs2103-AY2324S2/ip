@@ -1,7 +1,13 @@
 package utils;
 
-import java.io.*;
-import java.nio.file.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import tasks.Task;
@@ -29,6 +35,7 @@ public class Storage {
             }
             reader.close();
         } catch (IOException e) {
+            // ignored as taskList will be returned empty
         }
         return taskList;
     }
@@ -42,6 +49,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
+            // ignored, write to file failed possibly due to insufficient permissions
         }
     }
 }
