@@ -1,11 +1,8 @@
-package Tasks;
+package duke.Tasks;
 
 
-import Tasks.Task;
-
-import java.time.LocalDateTime;
 import java.time.LocalDate;
-import Parsers.DateTimeParser;
+import duke.Parsers.DateTimeParser;
 
 public class Deadline extends Task {
 

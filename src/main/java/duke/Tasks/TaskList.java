@@ -1,9 +1,4 @@
-package Tasks;
-
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
+package duke.Tasks;
 
 import java.util.ArrayList;
 public class TaskList {

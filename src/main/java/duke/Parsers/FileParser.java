@@ -1,16 +1,14 @@
-package Parsers;
+package duke.Parsers;
 
-import Parsers.DateTimeParser;
-import Tasks.Event;
-import Tasks.ToDo;
+import duke.Tasks.Event;
+import duke.Tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.Scanner;
-import Tasks.Deadline;
-import Tasks.TaskList;
+import duke.Tasks.Deadline;
+import duke.Tasks.TaskList;
 
 public class FileParser {
 

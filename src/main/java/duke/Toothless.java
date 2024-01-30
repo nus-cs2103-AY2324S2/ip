@@ -1,26 +1,23 @@
-import Exceptions.InvalidInstructionException;
-import Exceptions.MissingToDoNameException;
-import Exceptions.MissingTaskToMarkException;
-import Parsers.DateTimeParser;
-import Parsers.FileParser;
-import Tasks.*;
+package Duke;
+import duke.Parsers.FileParser;
+import duke.Tasks.*;
+import duke.Parsers.*;
+import duke.Ui;
+import duke.Parser;
+import duke.Storage;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class Toothless {
+
     public static void main(String[] args) {
         String filePath = "data/toothless.txt";
+        Ui ui = new Ui();
+        Parser parser = new Parser();
         File f = new File(filePath);
         try {
             boolean fileCreated = f.createNewFile();
@@ -29,16 +26,15 @@ public class Toothless {
             System.err.println("Error creating the file: " + e.getMessage());
             e.printStackTrace();
         }
-        FileParser parser = new FileParser(f);
+        FileParser fileParser = new FileParser(f);
         try {
-            parser.parseFile(f);
+            fileParser.parseFile(f);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        TaskList currTaskList = parser.getTaskList();
-        Toothless.greet();
-        currTaskList = Toothless.taskListModify(currTaskList);
+        TaskList currTaskList = fileParser.getTaskList();
+        currTaskList = ui.run(parser, currTaskList);
         Storage storage = new Storage(currTaskList);
         try {
             storage.store();
@@ -46,9 +42,12 @@ public class Toothless {
             System.err.println("Error writing to the file: " + e.getMessage());
             e.printStackTrace();
         }
-        Toothless.bye();
     }
 
+    public void run() {
+
+    }
+    /*
     static void greet() {
         Toothless.printLines();
         System.out.println("Hello! I'm Toothless!\nWhat can I do for you?");
@@ -167,7 +166,7 @@ public class Toothless {
         }
         return tasksList;
     }
-
+    */
     static void printTasks(ArrayList<Task> tasksList) {
         int taskCount = 1;
         for (Task t : tasksList) {
@@ -179,23 +178,4 @@ public class Toothless {
     static void printLines() {
         System.out.println("____________________________________________________________");
     }
-
-    static LocalDateTime parseDateTime(String dateTime) {
-        List<String> dateTimeFormats = Arrays.asList(
-                "dd/MM/yyyy HH:mm:ss",
-                "dd-MM-yyyy HH:mm:ss"
-        );
-        LocalDateTime parsedDateTime = null;
-        for (String format : dateTimeFormats) {
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-                parsedDateTime = LocalDateTime.parse(dateTime, formatter);
-                break;  // Exit loop if parsing succeeds
-            } catch (Exception e) {
-                // Parsing failed for the current format, try the next one
-            }
-        }
-        return parsedDateTime;
-    }
-
 }
