@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -21,7 +20,7 @@ public class    Duke {
     private static ArrayList<Task> list = new ArrayList<>();
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         System.out.println(INTRO);
@@ -111,7 +110,7 @@ public class    Duke {
                     while (scanner.hasNextLine()) {
                         String s = scanner.nextLine();
                         try {
-                            Duke.processLine(s);
+                            Duke.loadLine(s);
                         } catch (DukeException e) {
                             System.out.println(e.getMessage());
                         }
@@ -177,6 +176,37 @@ public class    Duke {
             } else {
                 throw new DukeException("harh what u talking sia walao");
             }
+
+    }
+
+    public static void loadLine(String original) throws DukeException {
+        String[] inputParts = original.split("\\s+");
+
+        if (inputParts[0].equals("todo")) {
+            //handle "todoo"
+            String description = original.replace("todo", "");
+            if (description.isEmpty()) {
+                throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
+            }
+            Task task = new ToDo(description);
+            Duke.addMessage(task);
+        } else if (inputParts[0].equals("deadline")) {
+            //handle "deadline"
+            String[] parts = original.replace("deadline", "").split(" /");
+            Task task = new Deadline(parts[0], parts[1].replace("by ", ""));
+            Duke.addMessage(task);
+        } else if (inputParts[0].equals("event")) {
+            //handle event
+            String[] parts = original.replace("event", "").split(" /");
+            Task task = new Event(parts[0], parts[1].replace("from ", ""), parts[2].replace("to ", ""));
+            Duke.addMessage(task);
+        } else if (inputParts[0].equals("delete")) {
+            //handle delete
+            int inputInt = Integer.parseInt(inputParts[1]);
+            Duke.deleteMessage(inputInt);
+        } else {
+            throw new DukeException("harh what u talking sia walao");
+        }
 
     }
 
