@@ -82,11 +82,7 @@ public class Duke {
     public void start(){
         intro();
         Scanner input = new Scanner(System.in);
-<<<<<<< HEAD
-        ArrayList<Task> taskList = new ArrayList<Task>();
-=======
         ArrayList<Task> taskList = myFileManager.loadFile();
->>>>>>> branch-Level-7
         while(true) {
             String current = input.nextLine();
             if(current.equals("bye")) {
@@ -154,16 +150,9 @@ public class Duke {
                 }
             }
         }
-<<<<<<< HEAD
-    }
-
-=======
         myFileManager.saveFile(taskList);
     }
 
-
-
->>>>>>> branch-Level-7
     public static void main(String[] args){
         Duke duke = new Duke();
         duke.start();

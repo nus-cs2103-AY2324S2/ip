@@ -7,7 +7,7 @@ public class TaskConverter {
     public static List<String> saveConvert(ArrayList<Task> taskList){
         List<String> stringList = new ArrayList<>();
         for (Task task : taskList) {
-            String saveLine = task.getType() + "%" + task.isDone() + "%" + task.getName() + "%" + task.getTime();
+            String saveLine = task.getType() + "%" + task.isDone() + "%" + task.getName() + "%" + task.getRawTime();
             stringList.add(saveLine);
         }
         return stringList;
