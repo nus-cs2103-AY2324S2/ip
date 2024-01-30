@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private final static Task[] tasks =  new Task[100];
-    private static int count = 0;
+    private static final Tasks taskManager = new Tasks();
     public static void main(String[] args) {
         greetUser();
         echo();
@@ -25,13 +24,13 @@ public class Duke {
             if(command.equalsIgnoreCase("bye")) {
                 break;
             } else if (command.equalsIgnoreCase("list")) {
-                listOutTasks();
+                taskManager.listOutTasks();
             } else if (command.startsWith("mark")){
-                markTask(command);
+                taskManager.markTask(command);
             } else if (command.startsWith("unmark")) {
-                unmarkTask(command);
+                taskManager.unmarkTask(command);
             } else {
-                addTask(command);
+                taskManager.addTask(command);
             }
             System.out.println("____________________________________");
         } while (true);
@@ -39,39 +38,7 @@ public class Duke {
         scanner.close();
     }
 
-    private static void markTask(String command) {
-        String[] words = command.split(" ");
-        int taskId = Integer.parseInt(words[1]) -1;
-        Task t = tasks[taskId];
-        tasks[taskId].markAsDone();
-        System.out.println("Nice ! I've marked this task as done: \n" + t.toString());
-    }
 
-    private static void unmarkTask(String command) {
-        String[] words = command.split(" ");
-        int taskId = Integer.parseInt(words[1]) - 1;
-        Task t = tasks[taskId];
-        t.markAsUndone();
-        System.out.println("Ok, I've marked this task as not done yet: \n" + t.toString());
-    }
-
-    private static void addTask(String task) {
-        Task t = new Task(task);
-        tasks[count++] = t;
-        System.out.println("added: " + task);
-    }
-
-    private static void listOutTasks() {
-        if (count == 0) {
-            System.out.println("No task added");
-        } else {
-            for(int i = 0; i < count; i++) {
-                int id = i+1;
-                Task t = tasks[i];
-                System.out.println(id + ". " + t.toString());
-            }
-        }
-    }
 
     private static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
