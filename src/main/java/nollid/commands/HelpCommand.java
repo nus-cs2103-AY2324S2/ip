@@ -18,7 +18,8 @@ public class HelpCommand extends Command {
                 + "event \t\t- Create a new task with a starting and ending time.\n"
                 + "mark \t\t- Mark a task as completed.\n"
                 + "unmark \t\t- Mark a task as not completed.\n"
-                + "delete \t\t- Delete a task.";
+                + "delete \t\t- Delete a task.\n"
+                + "find \t\t- Look for task containing a given keyword.";
 
         ui.sendMessage(message);
     }

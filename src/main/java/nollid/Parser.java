@@ -13,6 +13,7 @@ import nollid.commands.Command;
 import nollid.commands.DeadlineCommand;
 import nollid.commands.DeleteCommand;
 import nollid.commands.EventCommand;
+import nollid.commands.FindCommand;
 import nollid.commands.HelpCommand;
 import nollid.commands.ListCommand;
 import nollid.commands.MarkCommand;
@@ -64,6 +65,8 @@ public class Parser {
             return new DeleteCommand(argsList);
         } else if (commandKeyword.equalsIgnoreCase("help")) {
             return new HelpCommand();
+        } else if (commandKeyword.equalsIgnoreCase("find")) {
+            return new FindCommand(argsList);
         } else {
             throw new InvalidCommandException("No valid command detected.");
         }

@@ -19,14 +19,12 @@ import nollid.tasks.Todo;
  * Storage class handles loading and updating tasks from/to a file.
  */
 public class Storage {
-
+    public static final Path DEFAULT_FILEPATH = Paths.get(".", "data", "nollid.data");
+    public static final Path TEST_FILEPATH = Paths.get(".", "data", "test.data");
     /**
      * Unicode character U+2605 unlikely to be entered by user.
      */
     protected static final String DELIMITER = "\u2605";
-    protected static final Path DEFAULT_FILEPATH = Paths.get(".", "data", "nollid.data");
-
-
     private final Path filePath;
 
     public Storage(Path filePath) {
@@ -122,13 +120,15 @@ public class Storage {
                     lineToWrite = "T" + DELIMITER + t.getStatusNumber() + DELIMITER + t.getDescription() + "\n";
                 } else if (t instanceof Deadline) {
                     Deadline deadline = (Deadline) t;
-                    lineToWrite = "D" + DELIMITER + deadline.getStatusNumber() + DELIMITER + deadline.getDescription()
-                            + DELIMITER + deadline.getDeadline().format(Parser.SAVE_FORMAT) + "\n";
+                    lineToWrite =
+                            "D" + DELIMITER + deadline.getStatusNumber() + DELIMITER + deadline.getDescription()
+                                    + DELIMITER + deadline.getDeadline().format(Parser.SAVE_FORMAT) + "\n";
                 } else if (t instanceof Event) {
                     Event event = (Event) t;
-                    lineToWrite = "E" + DELIMITER + event.getStatusNumber() + DELIMITER + event.getDescription()
-                            + DELIMITER + event.getFrom().format(Parser.SAVE_FORMAT)
-                            + DELIMITER + event.getTo().format(Parser.SAVE_FORMAT) + "\n";
+                    lineToWrite =
+                            "E" + DELIMITER + event.getStatusNumber() + DELIMITER + event.getDescription()
+                                    + DELIMITER + event.getFrom().format(Parser.SAVE_FORMAT)
+                                    + DELIMITER + event.getTo().format(Parser.SAVE_FORMAT) + "\n";
                 }
 
                 if (isFirstLine) {

@@ -9,7 +9,6 @@ import nollid.Parser;
  * It extends the Task class and includes additional functionality for handling deadlines.
  */
 public class Deadline extends Task {
-    public static final String USAGE_HINT = "Usage: deadline [task description] /by [d/m/yyyy] {hh:mm 24hr format}";
     protected LocalDateTime deadline;
 
     /**

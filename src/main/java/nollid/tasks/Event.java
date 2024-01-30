@@ -10,9 +10,6 @@ import nollid.exceptions.NollidException;
  * It extends the Task class and includes additional functionality for handling events.
  */
 public class Event extends Task {
-    public static final String USAGE_HINT = "Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} "
-            + "/to [d/m/yyyy] {hh:mm 24hr " + "format}";
-
     protected LocalDateTime from;
     protected LocalDateTime to;
 
