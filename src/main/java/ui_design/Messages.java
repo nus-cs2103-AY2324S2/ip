@@ -1,3 +1,4 @@
+package ui_design;
 
 /**
  * Manages all messages that should be printed as the UI component.
@@ -25,13 +26,37 @@ public class Messages {
     /** A String to print when program stops running. */
     private static final String END = "See you later alligator!\n";
 
+    private static final String WOLF = "               ..:::::..\n" + //
+            "             .:::::::::::.\n" + //
+            "            :::::::::::::::\n" + //
+            "           :::::::::::::::::\n" + //
+            "           :::::::_/|:::::::\n" + //
+            "            ::::=/_/:::::::\n" + //
+            "             `:_/ |::::::'\n" + //
+            "          (   /  ,|:::''\n" + //
+            "           \\_/^\\/||__\n" + //
+            "        _/~  `\"\"~`\"` \\_\n" + //
+            "     __/  -'/  `-._ `\\_\\__\n" + //
+            "   /-'`  /-'`  `\\   \\  \\-.\\";
+
+    private static final String FLOWERS = "                _(_)_                        wWWWw   _\n" +
+            "    @@@@       (_)@(_)  vVVVv    _     @@@@  (___) _(_)_\n" +
+            "   @@()@@ wWWWw  (_)\\   (___)  _(_)_  @@()@@   Y  (_)@(_)\n" +
+            "    @@@@  (___)     `|/   Y   (_)@(_)  @@@@   \\|/   (_)\\\n" +
+            "     /      Y       \\|   \\|/   /(_)    \\|      |/      |\n" +
+            "  \\ |     \\ |/       | /\\ | / \\|/       |/    \\|      \\|/\n" +
+            " \\\\\\|///  \\\\|/// \\\\\\\\|//\\\\|///\\|///  \\\\\\|//  \\\\|//  \\\\\\|///\n" +
+            " ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n";
+
     /**
      * Constructor for messages
      */
-    private Messages(){}
-    
+    private Messages() {
+    }
+
     /**
      * Get welcome message.
+     * 
      * @return Welcome message.
      */
     public static String getStartMessage() {
@@ -40,6 +65,7 @@ public class Messages {
 
     /**
      * Get end of program message.
+     * 
      * @return End of program message.
      */
     public static String getEndMessage() {
@@ -48,9 +74,28 @@ public class Messages {
 
     /**
      * A line to separate user inputs and system outputs.
+     * 
      * @return A line.
      */
     public static String getLine() {
         return LINE;
+    }
+
+    /**
+     * Design of a wolf.
+     * 
+     * @return A wolf.
+     */
+    public static String getWolf() {
+        return WOLF;
+    }
+
+    /**
+     * Design of a flower garden.
+     * 
+     * @return A flower garden.s
+     */
+    public static String getFlower() {
+        return FLOWERS;
     }
 }

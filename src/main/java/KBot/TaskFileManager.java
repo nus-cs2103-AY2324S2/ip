@@ -1,9 +1,20 @@
+package KBot;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * TaskFileManager class that encapsulates the saving of data onto the local
@@ -13,6 +24,9 @@ public class TaskFileManager {
 
     /** Filepath of where to save to local disk for TASKS */
     private static final String FILEPATH = "src/main/java/temp/output.txt";
+
+    private static final DateTimeFormatter STORAGEFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
+    private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
 
     /**
      * Constructor for TaskFileManager.
@@ -28,7 +42,7 @@ public class TaskFileManager {
     public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(FILEPATH);
         for (Task t : tasks) {
-            String taskToStore = t.convertToFormat();
+            String taskToStore = t.convertToStorageFormat();
             fw.write(taskToStore + "\n");
         }
         fw.close();
@@ -47,7 +61,7 @@ public class TaskFileManager {
         Scanner sc = new Scanner(f); // create a Scanner using the File as the source
         ArrayList<Task> data = new ArrayList<>();
         while (sc.hasNext()) { // TYPE | MARK | NAME \ BY \ FROM | TO
-            String[] taskSegments = sc.nextLine().split(" | ", 2);
+            String[] taskSegments = sc.nextLine().split(" \\| ", 2);
             String ins = taskSegments[0];
             String info = taskSegments[1];
             data.add(loadIns(ins, info));
@@ -69,19 +83,37 @@ public class TaskFileManager {
         Task t = null;
         switch (ins) {
             case "T":
-                t = new ToDo(info);
+                String[] td = info.split(" \\| ", 2);
+                boolean tCompleted = (td[0].trim() != "");
+                String tName = td[1];
+                t = new ToDo(tName, tCompleted);
                 break;
             case "D":
-                String[] d = info.split(" | ", 2);
-                String dName = d[0];
-                String dDate = d[1];
-                t = new Deadline(dName, dDate);
+                String[] d = info.split(" \\| ", 3);
+                boolean dCompleted = (d[0].trim() != "");
+                String dName = d[1];
+                String dDate = d[2];
+                try {
+                    LocalDate deadline = LocalDate.parse(dDate, STORAGEFORMAT);
+                    t = new Deadline(dName, deadline, dCompleted);
+                } catch (DateTimeParseException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
             case "E":
-                String[] e = info.split(" | ", 3);
-                String eName = e[0];
-                String eFrom = e[1];
-                String eTo = e[2];
-                t = new Event(eName, eFrom, eTo);
+                String[] e = info.split(" \\| ", 4);
+                boolean eCompleted = (e[0].trim() != "");
+                String eName = e[1];
+                String eFrom = e[2];
+                String eTo = e[3];
+                try {
+                    LocalDate from = LocalDate.parse(eFrom, STORAGEFORMAT);
+                    LocalDate to = LocalDate.parse(eTo, STORAGEFORMAT);
+                    t = new Event(eName, from, to, eCompleted);
+                } catch (DateTimeParseException f) {
+                    System.out.println(f.getMessage());
+                }
+                break;
         }
         return t;
     }

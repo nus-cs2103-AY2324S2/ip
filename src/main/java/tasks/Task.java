@@ -1,3 +1,5 @@
+package tasks;
+
 /**
  * Encapsulate a Task with a name and status of boolean to represent whether it
  * has been completed.
@@ -14,16 +16,17 @@ public class Task {
     private String type;
 
     /** A boolean value that states whether the Task has been completed or not. */
-    private boolean completed = false;
+    private boolean completed;
 
     /**
      * Constructor for the Task.
      * 
      * @param name A String value that states the name of the Task.
      */
-    public Task(String name, String type) {
+    public Task(String name, String type, boolean completed) {
         this.name = name;
         this.type = type;
+        this.completed = completed;
     }
 
     /**
@@ -45,7 +48,7 @@ public class Task {
      * 
      * @return String representation of the Task to be store in local disk.
      */
-    public String convertToFormat() {
+    public String convertToStorageFormat() {
         String mark = completed ? "X" : " ";
         return this.type + " | " + mark + " | " + this.name;
     }

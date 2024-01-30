@@ -1,3 +1,5 @@
+package tasks;
+
 /**
  * A class that encapsulates the ToDo tasks, a type of Task.
  * 
@@ -14,7 +16,11 @@ public class ToDo extends Task {
      * @param name A String value that states the name of the Task.
      */
     public ToDo(String name) {
-        super(name, TYPE);
+        super(name, TYPE, false);
+    }
+
+    public ToDo(String name, boolean completed) {
+        super(name, TYPE, completed);
     }
 
     /**
@@ -23,8 +29,8 @@ public class ToDo extends Task {
      * @return String representation of the ToDo to be store in local disk.
      */
     @Override
-    public String convertToFormat() {
-        return super.convertToFormat();
+    public String convertToStorageFormat() {
+        return super.convertToStorageFormat();
     }
 
     /**
