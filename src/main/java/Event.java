@@ -1,4 +1,4 @@
-public class Event extends Task{
+public class Event extends Task {
     String from;
     String to;
 
@@ -7,6 +7,15 @@ public class Event extends Task{
         this.from = from;
         this.to = to;
     }
+
+    public String getStart() {
+        return this.from;
+    }
+
+    public String getEnd() {
+        return this.to;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + "( from: " + from + " to: " + to + ")";

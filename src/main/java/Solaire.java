@@ -21,6 +21,7 @@ public class Solaire {
                 break;
             }
             processInput(input);
+            TaskIo.writeTasksToLocal(toDoList);
         }
         waveBye();
     }

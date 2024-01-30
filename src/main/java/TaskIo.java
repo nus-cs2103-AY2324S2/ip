@@ -3,6 +3,8 @@ import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class TaskIo {
 
@@ -13,7 +15,7 @@ public class TaskIo {
         taskList.clear();
 
         // Read from target file
-        String filePath = "src/main/resources/solaire.txt";
+        String filePath = "src/main/resources/Solaire.txt";
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));
@@ -28,7 +30,39 @@ public class TaskIo {
         return taskList;
     }
 
-    public static void parseTasks(String line) {
+    public static void writeTasksToLocal(ArrayList<Task> taskList) {
+        String filePath = "src/main/resources/Solaire.txt";
+
+        try {
+            TaskIo.taskList = taskList;
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+
+            for (Task task : taskList) {
+                String content = "";
+                if (task instanceof Todo) {
+                    content = "T | " + (task.getIsDone() ? "1" : "0") + " | " + (task.getDescription());
+                } else if (task instanceof Deadline) {
+                    Deadline ddlTask = (Deadline) task;
+                    content = "D | " + (ddlTask.getIsDone() ? "1" : "0") + " | " + (ddlTask.getDescription()) + " | "
+                            + (ddlTask.getDeadline());
+                } else if (task instanceof Event) {
+                    Event eventTask = (Event) task;
+                    content = "E | " + (eventTask.getIsDone() ? "1" : "0") + " | " + (eventTask.getDescription())
+                            + " | " + (eventTask.getStart()) + " | " + (eventTask.getEnd());
+                }
+                if (!content.equals("")) {
+                    bw.write(content);
+                    bw.newLine();
+                }
+            }
+            bw.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void parseTasks(String line) {
         String[] taskDetails = line.split(" \\| ");
         String taskType = taskDetails[0].trim();
         Boolean isComplete = taskDetails[1].trim().equals("1") ? true : false;
