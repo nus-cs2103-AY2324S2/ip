@@ -51,7 +51,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "\t[" + this.getCapitalType() + "]" + "[ ]" + this.getDescription() + " (from: " + this.getStartDate() + " to: " + this.getEndDate() + ")";
+        char check = this.getStatus() ? 'X' : ' ';
+        return "\t[" + this.getCapitalType() + "]" + " [" + check + "] " + this.getDescription() + " (from: " + this.getStartDate() + " to: " + this.getEndDate() + ")";
     }
 
 }

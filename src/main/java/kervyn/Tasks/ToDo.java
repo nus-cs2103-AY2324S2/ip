@@ -22,6 +22,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "\t[" + this.getCapitalType() + "]" + "[ ]" + this.getDescription();
+        char check = this.getStatus() ? 'X' : ' ';
+        return "\t[" + this.getCapitalType() + "]" + " [" + check + "] " + this.getDescription();
     }
 }

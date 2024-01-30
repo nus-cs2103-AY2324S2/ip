@@ -76,7 +76,7 @@ public class Storage {
             ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(this.path), StandardCharsets.UTF_8);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, ha");
             for (String line : lines) {
-                char[] lineToCharArr = line.toCharArray();
+                char[] lineToCharArr = line.trim().toCharArray();
                 char type = lineToCharArr[1];
                 String description = "";
                 // Finding content for the description

@@ -84,13 +84,14 @@ public class Task {
         char letterType = this.getCapitalType();
         switch (letterType) {
             case 'T':
-                return "[" + letterType + "] " + "[" + check + "] " + this.description;
+                ToDo toDoTask = (ToDo) this;
+                return toDoTask.toString();
             case 'D':
                 Deadline deadlineTask = (Deadline) this;
-                return "[" + letterType + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")";
+                return deadlineTask.toString();
             case 'E':
                 Event eventTask = (Event) this;
-                return "[" + letterType + "] " + "[" + check + "] " + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")";
+                return eventTask.toString();
         }
         return "";
     }

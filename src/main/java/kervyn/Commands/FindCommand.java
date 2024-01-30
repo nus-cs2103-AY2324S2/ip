@@ -2,6 +2,9 @@ package kervyn.Commands;
 
 import kervyn.Tasks.TaskList;
 
+/**
+ * Represents the "Find" command in the application, used to find specific tasks in the TaskList that match the user's input.
+ */
 public class FindCommand extends Command {
 
     private String userInput;

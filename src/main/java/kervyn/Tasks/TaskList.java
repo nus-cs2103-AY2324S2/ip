@@ -95,9 +95,7 @@ public class TaskList {
             } else {
                 System.out.println("\tNice! I've marked this task as done:");
                 task.updateStatus();
-                char check = task.getStatus() ? 'X' : ' ';
-                char type = task.getCapitalType();
-                System.out.println("\t[" + type + "] " + "[" + check + "] " + task.getDescription());
+                System.out.println(task.toString());
             }
 
             return 1;
@@ -124,9 +122,7 @@ public class TaskList {
             } else {
                 System.out.println("\tOK, I've marked this task as not done yet:");
                 task.updateStatus();
-                char check = task.getStatus() ? 'X' : ' ';
-                char type = task.getCapitalType();
-                System.out.println("\t[" + type + "] " + "[" + check + "] " + task.getDescription());
+                System.out.println(task.toString());
             }
 
             return 1;
@@ -162,9 +158,7 @@ public class TaskList {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             System.out.println("\tOK, I've removed this task as per your request:");
-            char check = task.getStatus() ? 'X' : ' ';
-            char type = task.getCapitalType();
-            System.out.println("\t[" + type + "] " + "[" + check + "] " + task.getDescription());
+            System.out.println(task.toString());
             userTasks.remove(task);
         }
         catch (IndexOutOfBoundsException e) {
@@ -182,15 +176,22 @@ public class TaskList {
             userKeywords.append(processedUserInput[i]);
         }
 
-        for (int j = 0; j < userTasks.size(); j++) {
+        for (Task userTask : userTasks) {
             // Check the type of the tasks
             String task = "";
-            if (userTasks.get(j) instanceof ToDo) {
-                task = "[" + userTasks.get(j).getCapitalType() + "]" + "[ ]" + userTasks.get(j).getDescription());
-            } else if (userTasks.get(j) instanceof Deadline) {
+            task = userTask.toString();
+            if (task.contains(userKeywords)) {
+                results.add(userTask);
+            }
+        }
 
-            } else if (userTasks.get(j) instanceof Event) {
-
+        if (results.isEmpty()) {
+            System.out.println("\tThere are no tasks that match your keyword provided.");
+        } else {
+            System.out.println("\tHere are the matching tasks in your list:");
+            for (int j = 0; j < results.size(); j++) {
+                // Check the type of the tasks
+                System.out.println("\t" + (j + 1) + ". " + results.get(j).toString());
             }
         }
     }

@@ -75,7 +75,7 @@ public class EventCommand extends Command {
      * @param userTasks The current list of tasks, including the newly added event task.
      */
     private void eventTaskTextDisplay(Event event, ArrayList<Task> userTasks) {
-        System.out.println("\t[" + event.getCapitalType() + "]" + "[ ]" + event.getDescription() + " (from: " + event.getStartDate() + " to: " + event.getEndDate() + ")");
+        System.out.println(event.toString());
         System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
 

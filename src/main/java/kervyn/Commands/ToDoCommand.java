@@ -63,7 +63,7 @@ public class ToDoCommand extends Command {
      * @param userTasks The current list of tasks, including the newly added ToDo task.
      */
     private void toDoTaskTextDisplay(ToDo toDo, ArrayList<Task> userTasks) {
-        System.out.println("\t[" + toDo.getCapitalType() + "]" + "[ ]" + toDo.getDescription());
+        System.out.println(toDo.toString());
         System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
 

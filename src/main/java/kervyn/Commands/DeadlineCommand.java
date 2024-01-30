@@ -75,7 +75,7 @@ public class DeadlineCommand extends Command {
      * @param userTasks The current list of tasks, including the newly added deadline task.
      */
     private void deadlineTaskTextDisplay(Deadline deadline, ArrayList<Task> userTasks) {
-        System.out.println("\t[" + deadline.getCapitalType() + "]" + "[ ]" + deadline.getDescription() + " (by: " + deadline.getDeadline() + ")");
+        System.out.println(deadline.toString());
         System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
 
