@@ -1,5 +1,8 @@
 package Tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import Exceptions.DukeException;
 
 public class Event extends Task {
@@ -14,7 +17,18 @@ public class Event extends Task {
 
         if (dateParsed.length <= 1) throw new DukeException("Invalid dates!");
 
-        super.description = descParsed[0].trim() + " (from: " + dateParsed[0].trim() + " to: " + dateParsed[1].trim()+ ")";
+        try {
+            LocalDate date1 = LocalDate.parse(dateParsed[0].trim());
+            LocalDate date2 = LocalDate.parse(dateParsed[1].trim());
+
+            String formattedDate1 = date1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            String formattedDate2 = date2.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
+            super.description = descParsed[0].trim() + " (from: " + formattedDate1 + " to: " + formattedDate2+ ")";
+        } catch (Exception e) {
+            System.out.println("Unknown Date Format!");
+            super.description = descParsed[0].trim() + " (from: " + dateParsed[0].trim() + " to: " + dateParsed[1].trim()+ ")";
+        }
     }
 
     @Override
