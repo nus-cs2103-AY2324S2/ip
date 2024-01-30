@@ -70,4 +70,12 @@ public class Parser {
         return new String[]{title, from, to};
     }
 
+    public static String parseKeyword(String input) {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new IllegalArgumentException("Keyword for search is missing.");
+        }
+        return parts[1].trim();
+    }
+
 }
