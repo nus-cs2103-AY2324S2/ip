@@ -28,9 +28,11 @@ public class ByeCommand extends Command {
     @Override
     public void executeCommand() {
         System.out.println("\tBye. Hope to see you again soon!");
+        StringBuilder content = new StringBuilder();
         for (Task userRequest : this.taskList.getTaskList()) {
-            String content = userRequest.toString();
-            storage.writeToFile(content);
+            content.append(userRequest.toString()).append("\n");
         }
+
+        storage.writeToFile(content.toString());
     }
 }

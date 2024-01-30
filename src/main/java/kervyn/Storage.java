@@ -46,16 +46,16 @@ public class Storage {
             }
 
             File file = new File(this.path);
-            // Check for existence of file is inherent in this
+
             if (!file.exists()) {
                 file.createNewFile();
             }
 
-            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(content + "\n");
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), false);
+//            BufferedWriter bw = new BufferedWriter(fw);
+            fw.write(content);
 
-            bw.close();
+            fw.close();
             return 1;
         }
         catch (IOException e) {

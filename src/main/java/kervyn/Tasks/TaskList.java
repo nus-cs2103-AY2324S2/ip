@@ -60,18 +60,24 @@ public class TaskList {
             switch (type) {
                 case 'T':
                     System.out.println("\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription());
-                    return 1;
+                    break;
                 case 'D':
                     Deadline deadlineTask = (Deadline) task;
+                    if (deadlineTask == null) {
+                        return 0;
+                    }
                     System.out.println("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")");
-                    return 1;
+                    break;
                 case 'E':
                     Event eventTask = (Event) task;
+                    if (eventTask == null) {
+                        return 0;
+                    }
                     System.out.println("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")");
-                    return 1;
+                    break;
             }
         }
-        return 0;
+        return 1;
     }
 
     /**
