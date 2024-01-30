@@ -1,4 +1,7 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -347,6 +350,36 @@ public class Scribbles {
     }
 
     public static void main(String[] args) {
+
+        // check if directory exists
+        File directory = new File("src/main/java/");
+        if (!directory.exists()) {
+            boolean directoryCreated = directory.mkdir();
+            if (directoryCreated) {
+                System.out.println("Directory for taskData.txt has been created.");
+            }
+            if (!directoryCreated) {
+                System.out.println("Directory for taskData.txt could not be created.");
+            }
+        }
+
+        // check if file exists
+        File f = new File("src/main/java/taskData.txt");
+        try {
+            File file = new File("src/main/java/taskData.txt");
+            if (!file.exists()) {
+                boolean fileCreated = file.createNewFile();
+                if (fileCreated) {
+                    System.out.println("A new file, taskData.txt has been created.");
+                }
+                if (!fileCreated) {
+                    System.out.println("A new file, taskData.txt could not be created.");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+
         // read data stored in hard disk
         try {
             loadFileData("src/main/java/taskData.txt");
