@@ -1,6 +1,8 @@
 package objects;
 
-public class Deadlines extends Task {
+import java.io.Serializable;
+
+public class Deadlines extends Task implements Serializable {
     private final String by;
 
     public Deadlines(String name, String by) {

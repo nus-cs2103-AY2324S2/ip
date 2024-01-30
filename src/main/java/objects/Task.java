@@ -1,6 +1,8 @@
 package objects;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     private final String name;
     private boolean isDone;
 

@@ -1,6 +1,8 @@
 package objects;
 
-public class ToDos extends Task {
+import java.io.Serializable;
+
+public class ToDos extends Task implements Serializable {
     public ToDos(String name) {
         super(name);
     }

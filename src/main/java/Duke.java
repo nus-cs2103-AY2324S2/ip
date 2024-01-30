@@ -7,8 +7,8 @@ import static objects.Processor.*;
 
 public class Duke {
     public static void main(String[] args) {
+        TaskList tasks = Storage.load();
         Scanner scanner = new Scanner(System.in);
-        TaskList tasks = new TaskList();
         Greeting.display();
 
         while (true) {
@@ -19,6 +19,7 @@ public class Duke {
             }
 
             process(input, tasks);
+            Storage.save(tasks);
         }
 
         Exit.display();

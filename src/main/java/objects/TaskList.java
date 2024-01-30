@@ -1,8 +1,9 @@
 package objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TaskList extends ArrayList<Task>{
+public class TaskList extends ArrayList<Task> implements Serializable {
     public void addTask(Task task) {
         this.add(task);
     }

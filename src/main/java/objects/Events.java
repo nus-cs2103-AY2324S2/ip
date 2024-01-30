@@ -1,6 +1,8 @@
 package objects;
 
-public class Events extends Task {
+import java.io.Serializable;
+
+public class Events extends Task implements Serializable {
     private final String from;
     private final String to;
 
