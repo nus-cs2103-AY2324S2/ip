@@ -92,6 +92,9 @@ public class Duke {
                         ui.printDeleteTask(userTaskList.get(taskInt), userTaskList.size());
                     }
                     break;
+                case FIND:
+                    ui.printTaskKeyword(userTaskList, userMsg[1]);
+                    break;
                 case UNKNOWN:
                     ui.printUnknownCommand();
                     break;
