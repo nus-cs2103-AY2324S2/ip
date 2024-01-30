@@ -1,4 +1,12 @@
 import java.io.IOException;
+import Exceptions.DukeException;
+
+import Utility.TaskList;
+import Utility.Ui;
+import Utility.Storage;
+import Utility.Parser;
+
+import Command.Command;
 
 public class Duke {
     private TaskList list;
