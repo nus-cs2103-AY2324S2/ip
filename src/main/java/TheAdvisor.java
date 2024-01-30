@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,8 +11,10 @@ import java.io.Serializable;
 public class TheAdvisor implements Serializable {
     private static final String FILE_PATH = "list.bin";
 
-    public static void main(String[] args) throws IOException, TheAdvisorException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private static Ui ui;
+
+    public static void main(String[] args) throws IOException {
+        ui = new Ui();
 
         // An ArrayList that stores the tasks to be done
         ArrayList<Task> taskList = new ArrayList<>();
@@ -26,33 +26,19 @@ public class TheAdvisor implements Serializable {
             System.out.println("Class mismatch. Check and try again");
         }
 
-        String intro = "Hello, I am The Advisor. The one and only advisor you will ever need in your investing " +
-                "journey. What can I do for you?";
-        System.out.println(intro + "\n");
+        ui.intro();
 
         while (true) {
             try {
-                String str = br.readLine();
+                String str = ui.getUserInput();
                 String[] strings = str.split(" ");
-                Prompts prompts = getPrompts(strings[0]);
-                switch (prompts) {
+                Parser.Prompts prompt = Parser.parsePrompt(strings[0]);
+                switch (prompt) {
                     case BYE:
-                        System.out.println("     Goodbye. Thank you for using TheAdvisor chatbox and I hope that my advice has managed" +
-                                " to help you in your investing journey!");
-                        // Exit the program
-                        System.exit(0);
+                        ui.goodbye();
                         break;
                     case LIST:
-                        int counter = 1;
-                        if (taskList.size() == 0) {
-                            System.out.println("     Sorry, there are no tasks in your list. Try to add them :)");
-                        } else {
-                            System.out.println("     Here are the tasks in your list:");
-                            for (int i = 0; i < taskList.size(); i++) {
-                                System.out.println("     " + counter + ". " + taskList.get(i).toString());
-                                counter++;
-                            }
-                        }
+                        ui.printList(taskList);
                         break;
                     case MARK:
                         checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
@@ -66,6 +52,7 @@ public class TheAdvisor implements Serializable {
                         System.out.println("     Nice! I've marked this task as done:\n" + "       " +
                                 mark.toString());
                         saveTasks(taskList);
+
                         break;
                     case UNMARK:
                         checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
@@ -217,14 +204,5 @@ public class TheAdvisor implements Serializable {
 
     private static void checkDateTimeInput(String errorMessage) throws TheAdvisorException {
         throw new TheAdvisorException(errorMessage);
-    }
-
-    private static Prompts getPrompts(String prompt) throws TheAdvisorException {
-        try {
-            return Prompts.valueOf(prompt.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new TheAdvisorException("Incorrect input, please try again with the correct input of either: "
-                    + "todo, event, mark...etc");
-        }
     }
 }
