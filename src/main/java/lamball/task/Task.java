@@ -12,6 +12,7 @@ public class Task {
     private String getStatusIcon() {
         return isDone ? "X" : " ";
     }
+
     public void mark() {
         this.isDone = true;
     }
@@ -23,6 +24,7 @@ public class Task {
     public String command() {
         return "How did you get here?";
     }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

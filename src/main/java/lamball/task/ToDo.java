@@ -5,7 +5,6 @@ public class ToDo extends Task {
         super(description);
     }
 
-
     @Override
     public String command() {
         return "todo " + description;

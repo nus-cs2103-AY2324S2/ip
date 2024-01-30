@@ -10,10 +10,12 @@ public class Deadline extends Task {
         super(description);
         this.by = LocalDate.parse(by);
     }
+
     @Override
     public String command() {
         return "deadline " + description + " /by " + by;
     }
+
     @Override
     public String toString() {
         String formattedDate = by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
