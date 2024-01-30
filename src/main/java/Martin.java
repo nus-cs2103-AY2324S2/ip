@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
 
 public class Martin {
     static String NAME = "Martin";
@@ -8,6 +14,26 @@ public class Martin {
     public static void main(String[] args) {
         // stop gap solution to magic numbers for task numbering
         todoList.add(new Todo("dummy offset"));
+
+        try {
+            File martinFile = new File("./data/martin.txt");
+            if (martinFile.exists()) {
+                // System.out.println("File exists. Preparing to read the file.");
+                // Scanner fileScanner = new Scanner(martinFile);
+                // while (fileScanner.hasNextLine()) {
+                //     System.out.println(fileScanner.nextLine());
+                // }
+                // fileScanner.close();
+            } else {
+                System.out.println("File does not exist. Creating a new file.");
+                if (martinFile.createNewFile()) {
+                    System.out.println("File created: " + martinFile.getName());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
 
         sayGreeting();
         Scanner sc = new Scanner(System.in);
