@@ -1,3 +1,11 @@
+package nollid;
+
+import nollid.exceptions.NollidException;
+import nollid.tasks.Deadline;
+import nollid.tasks.Event;
+import nollid.tasks.Task;
+import nollid.tasks.ToDo;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,7 +31,7 @@ public class Storage {
     }
 
     /**
-     * Returns a List of Tasks from the Storage's file path.
+     * Returns a List of Tasks from the nollid.Storage's file path.
      */
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<>();

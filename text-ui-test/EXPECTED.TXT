@@ -61,7 +61,7 @@ Alright, added:
 You now have 2 tasks in your list.
 ──────────────────────────────
 ──────────────────────────────
-Event description cannot be empty!
+nollid.tasks.Event description cannot be empty!
 Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} /to [d/m/yyyy] {hh:mm 24hr format}
 ──────────────────────────────
 ──────────────────────────────

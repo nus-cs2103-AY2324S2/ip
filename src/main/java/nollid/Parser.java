@@ -1,10 +1,15 @@
+package nollid;
+
+import nollid.commands.*;
+import nollid.exceptions.InvalidCommandException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
     public static Command parse(String fullCommand) throws InvalidCommandException {
         if (fullCommand.isBlank()) {
-            throw new InvalidCommandException("Command is blank.");
+            throw new InvalidCommandException("nollid.commands.Command is blank.");
         }
         // Split user input into individual words
         // e.g. "i am user input" -> ["i", "am", "user", "input"]
