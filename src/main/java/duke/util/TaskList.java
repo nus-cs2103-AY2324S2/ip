@@ -99,4 +99,19 @@ public class TaskList {
     public ArrayList<Task> getList() {
         return this.list;
     }
+
+    /**
+     * Returns a String of found tasks to be displayed.
+     *
+     * @return String of all tasks in list.
+     */
+    public String printFound() {
+        int count = 1;
+        StringBuilder sb = new StringBuilder("\t Here are the matching tasks in your list:\n");
+        for (int i = 0; i < list.size(); i++) {
+            sb.append("\t\t " + count + "." + list.get(i).printTask() + (i == list.size() - 1 ? "" : "\n"));
+            count++;
+        }
+        return sb.toString();
+    }
 }
