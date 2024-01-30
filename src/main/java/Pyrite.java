@@ -1,5 +1,7 @@
 import javax.imageio.IIOException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -131,10 +133,10 @@ public class Pyrite {
                                                 "Add the description after 'deadline'."
                                 );
                             }
-                            list.add(new Deadline(
-                                    description,
-                                    String.join(" ",
-                                            Arrays.copyOfRange(parameters, descEnd + 1, parameters.length))
+                            list.add(new Deadline(description,
+                                    LocalDateTime.parse(String.join("", Arrays.copyOfRange(parameters,
+                                            descEnd + 1,
+                                            parameters.length)))
                             ));
                             added_task = true;
                         } else {
@@ -156,18 +158,23 @@ public class Pyrite {
                             if (fromID < toID) {
                                 list.add( new Event(
                                         description,
-                                        String.join(" ", Arrays.copyOfRange(parameters, fromID + 1, toID)),
-                                        String.join(" ",
-                                                Arrays.copyOfRange(parameters, toID + 1, parameters.length))
+                                        LocalDateTime.parse(String.join("", Arrays.copyOfRange(parameters,
+                                                fromID + 1,
+                                                toID))),
+                                        LocalDateTime.parse(String.join("", Arrays.copyOfRange(parameters,
+                                                toID + 1,
+                                                parameters.length)))
                                 ));
                             } else {
                                 list.add( new Event(
                                         description,
-                                        String.join(" ",
-                                                Arrays.copyOfRange(parameters, fromID + 1, parameters.length)),
-                                        String.join(" ",
-                                                Arrays.copyOfRange(parameters, toID + 1, fromID))
-                                ));
+                                        LocalDateTime.parse(String.join("", Arrays.copyOfRange(parameters,
+                                                fromID + 1,
+                                                parameters.length))),
+                                        LocalDateTime.parse(String.join("", Arrays.copyOfRange(parameters,
+                                                toID + 1,
+                                                fromID)))
+                                        ));
                             }
                         } else {
                             throw new DukeException("Incomplete Command. " +
@@ -185,6 +192,8 @@ public class Pyrite {
                 }
             } catch (DukeException e) {
                 System.out.println("\t" + e);
+            } catch (DateTimeParseException e) {
+                System.out.println("\t" + "Invalid datetime format. Use yyyy-mm-ddThh:mm.");
             }
 
 
