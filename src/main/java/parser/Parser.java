@@ -1,13 +1,10 @@
 package parser;
 
-import commands.ByeCommand;
-import commands.Command;
+import commands.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import commands.IncorrectCommand;
-import commands.TodoCommand;
 import common.Messages;
 import exception.MalformedUserInputException;
 
@@ -36,6 +33,9 @@ public class Parser {
 
             case ByeCommand.COMMAND_WORD:
                 return new ByeCommand();
+
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand();
 
             default:
                 return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
