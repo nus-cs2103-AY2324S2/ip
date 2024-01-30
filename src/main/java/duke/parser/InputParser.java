@@ -25,7 +25,7 @@ public class InputParser {
         return this.isActive;
     }
 
-    public void exit() {
+    private void exit() {
         this.isActive = false;
     }
 
