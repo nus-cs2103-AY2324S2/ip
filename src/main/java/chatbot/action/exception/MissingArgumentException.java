@@ -8,7 +8,7 @@ import chatbot.action.util.Command;
  *
  * @author Titus Chew
  */
-public class MissingArgumentException extends ActionException {
+public final class MissingArgumentException extends ActionException {
     private final Command command;
     private final Argument missingArg;
 

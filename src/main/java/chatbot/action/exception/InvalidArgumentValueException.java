@@ -7,7 +7,7 @@ import chatbot.action.util.Command;
  *
  * @author Titus Chew
  */
-public class InvalidArgumentValueException extends ActionException {
+public final class InvalidArgumentValueException extends ActionException {
     private final Command command;
     private final String invalidArg, reason;
 

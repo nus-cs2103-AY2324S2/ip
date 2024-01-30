@@ -9,7 +9,7 @@ import chatbot.action.util.Command;
  *
  * @author Titus Chew
  */
-public class UnexpectedArgumentValueException extends ActionException {
+public final class UnexpectedArgumentValueException extends ActionException {
     private final Argument argument;
     private final Command command;
 

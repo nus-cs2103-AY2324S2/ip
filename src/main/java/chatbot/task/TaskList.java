@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 /**
  * This class encapsulates a {@link Task} list.
  */
-public class TaskList {
+public final class TaskList {
     /**
      * Stores the tasks.
      */

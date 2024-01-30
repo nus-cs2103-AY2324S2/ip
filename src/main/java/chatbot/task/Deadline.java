@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  *
  * @author Titus Chew
  */
-public class Deadline extends Task {
+public final class Deadline extends Task {
     /**
      * Stores the deadline of this.
      */

@@ -12,7 +12,7 @@ import chatbot.task.TaskList;
 /**
  * This encapsulates behaviour of deleting a {@link Task} from the {@link TaskList}.
  */
-public class DeleteAction extends Action {
+public final class DeleteAction extends Action {
     /**
      * The command for deleting a {@link Task}.
      */

@@ -14,7 +14,7 @@ import chatbot.task.TaskList;
  *
  * @author Titus Chew
  */
-public class UnmarkAction extends Action {
+public final class UnmarkAction extends Action {
     /**
      * The command for marking a {@link Task} as not done.
      */

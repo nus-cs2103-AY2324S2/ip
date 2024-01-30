@@ -5,7 +5,7 @@ package chatbot.action.exception;
  *
  * @author Titus Chew
  */
-public class UnrecognizedCommandException extends ActionException {
+public final class UnrecognizedCommandException extends ActionException {
     private final String commandName;
     /**
      * Constructor for this ActionException for unrecognized commands.

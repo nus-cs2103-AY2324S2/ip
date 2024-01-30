@@ -7,7 +7,7 @@ import java.util.*;
  *
  * @author Titus Chew
  */
-public class Printer {
+public final class Printer {
     /**
      * The indentation size.
      */

@@ -14,7 +14,7 @@ import chatbot.task.ToDo;
  *
  * @author Titus Chew
  */
-public class AddTodoAction extends Action {
+public final class AddTodoAction extends Action {
     /**
      * The command for adding a {@link ToDo}.
      */

@@ -8,7 +8,7 @@ import chatbot.action.util.Command;
  *
  * @author Titus Chew
  */
-public class UnrecognizedArgumentException extends ActionException {
+public final class UnrecognizedArgumentException extends ActionException {
     private final Argument argument;
     private final Command command;
 

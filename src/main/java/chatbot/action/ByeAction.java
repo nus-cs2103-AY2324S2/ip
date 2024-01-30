@@ -12,7 +12,7 @@ import chatbot.task.TaskList;
  *
  * @author Titus Chew
  */
-public class ByeAction extends Action {
+public final class ByeAction extends Action {
     /**
      * The command for ending the chat
      */

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  *
  * @author Titus Chew
  */
-public class Event extends Task {
+public final class Event extends Task {
     /**
      * Stores the start time of this.
      */

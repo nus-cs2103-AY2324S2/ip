@@ -15,7 +15,7 @@ import chatbot.value.DateStringValue;
  *
  * @author Titus Chew
  */
-public class AddDeadlineAction extends Action {
+public final class AddDeadlineAction extends Action {
     /**
      * The command for adding a {@link Deadline}.
      */

@@ -11,7 +11,7 @@ import java.lang.StringBuilder;
  *
  * @author Titus Chew
  */
-public class Command {
+public final class Command {
     /**
      * Stores the usage hint for this command.
      */

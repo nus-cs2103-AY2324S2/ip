@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  *
  * @author Titus Chew
  */
-public class ToDo extends Task {
+public final class ToDo extends Task {
     /**
      * The icon for the task type.
      */

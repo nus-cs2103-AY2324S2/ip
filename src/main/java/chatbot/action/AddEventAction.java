@@ -15,7 +15,7 @@ import chatbot.value.DateStringValue;
  *
  * @author Titus Chew
  */
-public class AddEventAction extends Action {
+public final class AddEventAction extends Action {
     /**
      * The command for adding an {@link Event}.
      */

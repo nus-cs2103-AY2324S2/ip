@@ -12,7 +12,7 @@ import chatbot.io.ui.Printer;
  *
  * @author Titus Chew
  */
-public class ListAction extends Action{
+public final class ListAction extends Action{
     /**
      * The command for listing stored tasks.
      */

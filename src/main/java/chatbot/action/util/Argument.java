@@ -11,8 +11,8 @@ import chatbot.value.StringValue;
  * @author Titus Chew
  */
 public class Argument {
-    final String name;
-    final StringValue value;
+    private final String name;
+    private final StringValue value;
 
     /**
      * Constructor for this argument without a value

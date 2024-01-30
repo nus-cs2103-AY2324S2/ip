@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Titus Chew
  */
-public class InputParser {
+public final class InputParser {
     /**
      * Stores the scanner instance used to get the console input stream.
      */

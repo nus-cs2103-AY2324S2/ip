@@ -29,7 +29,7 @@ import java.util.stream.Stream;
  *
  * @author Titus Chew
  */
-public class LocalStorage {
+public final class LocalStorage {
     /**
      * The relative path from the project root where the save file is stored.
      */

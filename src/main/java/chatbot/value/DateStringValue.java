@@ -16,7 +16,7 @@ import java.util.Locale;
  *
  * @author Titus Chew
  */
-public class DateStringValue extends StringValue {
+public final class DateStringValue extends StringValue {
     /**
      * The {@link LocalDate} value stored.
      */

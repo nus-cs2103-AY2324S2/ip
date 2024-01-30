@@ -14,7 +14,7 @@ import chatbot.task.TaskList;
  *
  * @author Titus Chew
  */
-public class MarkAction extends Action {
+public final class MarkAction extends Action {
     /**
      * The command for marking a {@link Task} as done.
      */
