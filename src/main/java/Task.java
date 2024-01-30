@@ -7,7 +7,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    protected String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
@@ -16,7 +16,7 @@ public abstract class Task {
         return this.getStatusIcon() + " " + this.description;
     }
 
-    public void updateTask(boolean status) {
+    protected void updateTask(boolean status) {
         if (status == true){
             isDone = true;
         } else {
