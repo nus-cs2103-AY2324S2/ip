@@ -1,8 +1,9 @@
-import java.util.List;
-
 public class ToDoCommand implements NamedCommand {
     public String getName() { return "todo"; }
-    public void execute(ChatSession session, String commandArgs) {
+    public void execute(ChatSession session, String commandArgs) throws InvalidParametersException {
+        if (commandArgs.equals("")) {
+            throw new InvalidParametersException("parameters for todo cannot be empty");
+        }
         ToDo t = new ToDo(commandArgs);
         session.taskList.add(t);
 

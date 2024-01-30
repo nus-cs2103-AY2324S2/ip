@@ -62,10 +62,10 @@ public class ChatSession {
                 try {
                     cmd.execute(this, commandArgs);
                     return;
-                } catch (Exception e) {
-                    
+                } catch (InvalidParametersException e) {
+                    this.printMessage(e.getMessage());
+                    return;
                 }
-
             }
         }
 
@@ -73,7 +73,7 @@ public class ChatSession {
     }
 
     public void unmatchedCommand(String message) {
-        this.addTask(message);
+        this.printMessage("unrecognized command");
     }
 
     public void echo(String message) {
