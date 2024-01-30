@@ -10,4 +10,6 @@ public class Event extends Task {
     public String getRep() {
         return String.format("[E]%s (from: %s to: %s)", super.getRep(), this.from, this.to);
     }
+    @Override
+    public String fileRep() { return "E|" + super.fileRep() + "|" + from + "|" + to; }
 }

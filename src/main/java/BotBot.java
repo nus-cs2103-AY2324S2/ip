@@ -1,13 +1,32 @@
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class BotBot {
+    public static String LIST_PATH = "data/list.txt";
 
-    public static void main(String[] args) throws BotBotException {
+    public static void main(String[] args) throws BotBotException, IOException {
+        // Init
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
         TaskList list = new TaskList();
         BotBot.greet();
 
+        // Create/access file to store list
+        File file = new File(LIST_PATH);;
+        boolean listCreated = file.createNewFile();
+        if (!listCreated) {
+            Scanner s = new Scanner(file);
+            while (s.hasNext()) {
+                String next = s.nextLine();
+                list.addTaskInit(Task.parseTask(next));
+            }
+        }
+
+        // Main bot loop
         while (scanner.hasNext()) {
             String nextTask = scanner.next();
             BotBot.divider();
@@ -33,6 +52,24 @@ public class BotBot {
             BotBot.divider();
         }
         scanner.close();
+
+        // Save back to file
+        if(file.delete()) {
+            file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(LIST_PATH);
+
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                fw.write(list.getFileRep(i));
+                if (i != list.size() - 1) {
+                    fw.write(System.lineSeparator());
+                }
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
     // Print functionalities

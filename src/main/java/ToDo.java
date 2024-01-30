@@ -6,4 +6,8 @@ public class ToDo extends Task{
     public String getRep() {
         return "[T]" + super.getRep();
     }
+    @Override
+    public String fileRep() { return "T|" + super.fileRep(); }
 }
+
+

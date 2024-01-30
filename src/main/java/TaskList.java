@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
+
 public class TaskList {
     ArrayList<Task> list = new ArrayList<>();
 
@@ -29,6 +29,7 @@ public class TaskList {
     private Task getTask(int i) {
         return this.list.get(i);
     }
+    public String getFileRep(int i) { return getTask(i).fileRep(); }
     private void addTask(Task task) throws BotBotException {
         System.out.printf("I have added the following task:\n%s\n", task.getRep());
         this.list.add(task);
@@ -53,5 +54,11 @@ public class TaskList {
         Task task = getTask(i - 1);
         task.unmark();
         System.out.println(task.getRep());
+    }
+    public void addTaskInit(Task t) {
+        this.list.add(t);
+    }
+    public int size() {
+        return this.list.size();
     }
 }
