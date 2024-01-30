@@ -1,3 +1,9 @@
+package pingmebot;
+
+import pingmebot.task.Deadline;
+import pingmebot.task.Events;
+import pingmebot.task.ToDos;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;

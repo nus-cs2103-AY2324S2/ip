@@ -1,3 +1,10 @@
+package pingmebot;
+
+import pingmebot.task.Deadline;
+import pingmebot.task.Events;
+import pingmebot.task.Task;
+import pingmebot.task.ToDos;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,7 +17,6 @@ import java.util.Scanner;
 public class fileStorage {
     protected File myFile;
     protected String filePath;
-
     public fileStorage(String filePath) throws myBotException {
         this.myFile = new File(filePath);
         this.filePath = filePath;
@@ -47,7 +53,6 @@ public class fileStorage {
                     String[] segmentedText = text.split("\\|");
 
                     if (segmentedText[0].trim().equals("todo")) {
-                        // Format for Todo: T | 1/0 | read book
                         int isTaskCompleted = Integer.parseInt(segmentedText[1].trim());
                         String description = segmentedText[2].trim();
                         ToDos todo = new ToDos(description);
@@ -56,7 +61,6 @@ public class fileStorage {
                         }
                         tasks.add(todo);
                     } else if (segmentedText[0].trim().equals("deadline")) {
-                        // Format for Deadline: D | 1/0 | read book | Date/Time
                         int isTaskCompleted = Integer.parseInt(segmentedText[1].trim());
                         String description = segmentedText[2].trim();
                         String deadlineTime = segmentedText[3].trim();
@@ -70,7 +74,6 @@ public class fileStorage {
                         tasks.add(deadline);
 
                     } else if (segmentedText[0].trim().equals("event")) {
-                        // Format for Event: E | 1/0 | read book | Date/Time(from) | Date/Time(To)
                         int isTaskCompleted = Integer.parseInt(segmentedText[1].trim());
                         String description = segmentedText[2].trim();
                         String from = " " + segmentedText[3].trim();
@@ -86,7 +89,6 @@ public class fileStorage {
                     }
                 }
 
-
             } catch (FileNotFoundException e) {
                 throw new myBotException(e.getMessage());
             }
@@ -98,15 +100,15 @@ public class fileStorage {
         try {
             FileWriter fw = new FileWriter(this.filePath);
             for (Task t : tasks) {
-                int isCompleted = t.isDone ? 1 : 0;
+                int isCompleted = t.hasCompleted();
                 if (t instanceof ToDos) {
-                    String toWrite = "todo | " + isCompleted + " | " + t.description;
+                    String toWrite = ((ToDos) t).updateToDoText(isCompleted);
                     fw.write(toWrite + System.lineSeparator());
                 } else if (t instanceof Deadline) {
-                    String toWrite = "deadline | " + isCompleted + " | " + t.description + " | " + ((Deadline) t).by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+                    String toWrite = ((Deadline) t).updateDeadlineText(isCompleted);
                     fw.write(toWrite + System.lineSeparator());
                 } else if (t instanceof Events) {
-                    String toWrite = "event | " + isCompleted + " | " + t.description + " | " + ((Events) t).start + " | " + ((Events) t).end;
+                    String toWrite = ((Events) t).updateEventText(isCompleted);
                     fw.write(toWrite + System.lineSeparator());
                 }
             }

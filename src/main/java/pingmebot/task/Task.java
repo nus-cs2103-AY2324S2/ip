@@ -1,3 +1,5 @@
+package pingmebot.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -24,4 +26,9 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public int hasCompleted() {
+        return this.isDone ? 1 : 0;
+    }
+
 }

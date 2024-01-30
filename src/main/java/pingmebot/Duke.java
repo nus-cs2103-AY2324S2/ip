@@ -1,3 +1,9 @@
+package pingmebot;
+
+import pingmebot.task.Deadline;
+import pingmebot.task.Events;
+import pingmebot.task.ToDos;
+
 public class Duke {
     private fileStorage storage;
     private TaskList tasks;

@@ -1,3 +1,7 @@
+package pingmebot;
+
+import pingmebot.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

@@ -1,3 +1,5 @@
+package pingmebot;
+
 public class myBotException extends Exception {
     protected String message;
     public myBotException(String message) {

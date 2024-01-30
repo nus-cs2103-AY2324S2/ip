@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package pingmebot;
+
+import pingmebot.task.Task;
+
 import java.util.Scanner;
 
 public class UI {
