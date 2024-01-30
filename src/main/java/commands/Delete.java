@@ -28,8 +28,9 @@ public class Delete implements Command {
      * @throws ConvoBotException If an exception specific to ConvoBot occurs during command execution.
      */
     public void execute(TaskList taskList, UI ui) throws ConvoBotException {
+        String removedTaskString = taskList.getTaskString(i);
         taskList.delete(i);
-        ui.showRemoved(taskList.getTaskString(i), taskList.size());
+        ui.showRemoved(removedTaskString, taskList.size());
     }
 
     /**
