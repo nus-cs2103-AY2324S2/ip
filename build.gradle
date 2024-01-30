@@ -33,9 +33,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'lamball.jar'
+//    archiveBaseName = "duke"
+//    archiveClassifier = null
+//    dependsOn("distZip", "distTar")
 }
 
 run{
