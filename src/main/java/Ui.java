@@ -19,6 +19,10 @@ public class Ui {
         //System.out.print("Enter your command: ");
         return scanner.nextLine();
     }
+
+    public void deleteMessage(String str) {
+        System.out.println("I have deleted the below command: \n" + str);
+    }
     public String getUserInput2() {
         //System.out.print("Enter your command: ");
         return scanner.next();

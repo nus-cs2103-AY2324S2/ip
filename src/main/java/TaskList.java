@@ -27,9 +27,10 @@ public class TaskList {
         tasks.get(index - 1).setStatus();
         ui.markedMessage(tasks.get(index - 1));
     }
-    public void removeTasks(int in) {
-
+    public void removeTasks(int in, Ui ui) {
+        Task temp = tasks.get(in - 1);
         tasks.remove(in - 1);
+        ui.deleteMessage(temp.toString());
     }
 
     public void listTasks(Ui ui) {

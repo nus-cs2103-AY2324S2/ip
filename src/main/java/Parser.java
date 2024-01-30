@@ -15,7 +15,7 @@ public class Parser {
 
         //String[] words = userInput.split(" ");
         String commandStr = userInput.toUpperCase();
-        System.out.println(commandStr);
+
 
         switch (commandStr) {
             case "BYE":
@@ -34,7 +34,7 @@ public class Parser {
                 //nt taskNumberMark = Integer.parseInt(words[1]);
                 if (ui.hasNextInt()) {
                     int num = ui.getUserInputInt();
-                    tasks.removeTasks(num);
+                    tasks.removeTasks(num, ui);
                 } else {
                     throw new DukeException("The task number to mark is missing.");
 
@@ -61,9 +61,9 @@ public class Parser {
                 parseEvent( tasks, ui);
                 break;
             case "TODO":
-                System.out.println("a");
+
                 parseTodo( tasks, ui);
-                System.out.println("b");
+
                 break;
 
 
@@ -213,7 +213,7 @@ public class Parser {
         String description = words[1];
 
         tasks.addTasks(new Todo(description)); */
-        System.out.println("j");
+
         String descriptionTodo = ui.getUserInput2().trim();
         System.out.println(descriptionTodo);
 
