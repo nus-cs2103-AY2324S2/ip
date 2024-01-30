@@ -1,5 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 class Deadline extends Task {
-    private final String date;
+    private final LocalDateTime date;
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
     public Deadline(String description, String date) throws HenryException {
         super(description);
 
@@ -7,15 +12,15 @@ class Deadline extends Task {
             throw new HenryException("No due date specified!");
         }
 
-        this.date = date;
+        this.date = LocalDateTime.parse(date, INPUT_FORMATTER);
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + date + ")";
+        return String.format("[D]%s (by: %s)", super.toString(), date.format(OUTPUT_FORMATTER));
     }
 
     @Override
     public String toFileString() {
-        return String.format("D | %s | %s", super.toFileString(), date);
+        return String.format("D | %s | %s", super.toFileString(), date.format(INPUT_FORMATTER));
     }
 }
