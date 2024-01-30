@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String[] list = new String[100];
+        Task[] tasks = new Task[100];
         int count = 0;
 
         System.out.println("Hello! I'm Blob.\nWhat can I do for you?\n");
@@ -11,10 +11,10 @@ public class Duke {
         while (!message.equalsIgnoreCase("bye")) {
             if (message.equalsIgnoreCase("list")) {
                 for (int i = 0; i < count; i++) {
-                    System.out.println(list[i] + "\n");
+                    System.out.println((i + 1) + ". " + tasks[i].getDescription() + "\n");
                 }
             } else {
-                list[count] = (count + 1) + ". " + message;
+                tasks[count] = new Task(message);
                 count++;
                 System.out.println("added: " + message + "\n");
             }
