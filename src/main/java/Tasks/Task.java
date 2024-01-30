@@ -1,5 +1,6 @@
 package Tasks;
-public class Task {
+
+public abstract class Task {
     private String name;
     private Boolean done;
     protected String type;
@@ -27,5 +28,11 @@ public class Task {
 
     public void setUndone() {
         this.done = false;
+    }
+
+    public String toString() {
+        String type = "[" + this.getType() + "]";
+        String mark = "[" + (this.isDone() ? "X" : " ") + "]";
+        return type + mark + " " + this.getName();
     }
 }
