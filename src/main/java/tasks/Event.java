@@ -1,11 +1,14 @@
 package tasks;
 
+import java.time.LocalDateTime;
+import utilities.DateTimeUtility;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -16,11 +19,12 @@ public class Event extends Task {
         int statusValue = this.getStatus() ? 1 : 0;
 
         return String.format("event~%d~%s~%s~%s", statusValue,
-                this.description, this.from, this.to);
+                this.description, DateTimeUtility.inputFormat(this.from), DateTimeUtility.inputFormat(this.to));
     }
 
+    //TODO format the date
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + "to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + DateTimeUtility.outputFormat(this.from) + " to: " + DateTimeUtility.outputFormat(this.to) + ")";
     }
 }

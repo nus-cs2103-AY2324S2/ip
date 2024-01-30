@@ -1,10 +1,13 @@
 package tasks;
 
+import java.time.LocalDateTime;
+import utilities.DateTimeUtility;
+
 public class Deadline extends Task {
 
-    protected String by;
+    private LocalDateTime by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -14,12 +17,13 @@ public class Deadline extends Task {
         int statusValue = this.getStatus() ? 1 : 0;
 
         return String.format("deadline~%d~%s~%s", statusValue,
-                this.description, this.by);
+                this.description, DateTimeUtility.inputFormat(this.by));
     }
 
+    //TODO format the date
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + DateTimeUtility.outputFormat(this.by) + ")";
     }
 
 }
