@@ -1,17 +1,27 @@
-public class Deadline extends Task {
-    private String by;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String taskName, String by) {
+public class Deadline extends Task {
+    private LocalDate by;
+
+    public Deadline(String taskName, String ddl) {
         super(taskName);
-        this.by = by;
+        this.by = parseDeadline(ddl);
     }
 
-    public String getDeadline() {
+    private LocalDate parseDeadline(String ddl) {
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(ddl, f);
+    }
+
+    public LocalDate getDeadline() {
         return this.by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " ( by: " + by + ")";
+        String formattedDate = this.by.getDayOfMonth() + " " + this.by.getMonth().toString().substring(0, 3) + " "
+                + this.by.getYear();
+        return "[D]" + super.toString() + " ( by: " + formattedDate + ")";
     }
 }
