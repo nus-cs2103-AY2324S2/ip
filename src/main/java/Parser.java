@@ -7,7 +7,8 @@ import errors.Errors;
 import messages.Messages;
 
 public class Parser {
-    private TaskList taskList = new TaskList();
+    private final TaskList taskList;
+    private final Storage storage;
 
     // Constants
     private static final String SEPARATOR = " ";
@@ -15,6 +16,10 @@ public class Parser {
     private static final String EVENT_START = "/from";
     private static final String EVENT_END = "/to";
 
+    public Parser(Storage storage) {
+        this.storage = storage;
+        taskList = this.storage.loadTaskList();
+    }
 
     // Methods
     public void printGreetMessage() {
@@ -94,6 +99,7 @@ public class Parser {
         }
         String description = joinTokens(tokens, 1, tokens.length - 1);
         MessageBox taskAddedMessage = new MessageBox(taskList.addTodo(description));
+        storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
 
@@ -115,6 +121,7 @@ public class Parser {
         }
 
         MessageBox taskAddedMessage = new MessageBox(taskList.addDeadline(description, dueDate));
+        storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
 
@@ -145,6 +152,7 @@ public class Parser {
         }
 
         MessageBox taskAddedMessage = new MessageBox(taskList.addEvent(description, start, end));
+        storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
 
@@ -157,6 +165,7 @@ public class Parser {
             throw Errors.InvalidMarkTaskNumberError;
         }
         MessageBox taskDoneMessage = new MessageBox(taskList.markTaskAsDone(taskNumber));
+        storage.saveTaskList(taskList);
         taskDoneMessage.print();
     }
 
@@ -169,6 +178,7 @@ public class Parser {
             throw Errors.InvalidUnmarkTaskNumberError;
         }
         MessageBox taskUndoneMessage = new MessageBox(taskList.markTaskAsUndone(taskNumber));
+        storage.saveTaskList(taskList);
         taskUndoneMessage.print();
     }
 
@@ -181,6 +191,7 @@ public class Parser {
             throw Errors.InvalidDeleteTaskNumberError;
         }
         MessageBox taskDeletedMessage = new MessageBox(taskList.deleteTask(taskNumber));
+        storage.saveTaskList(taskList);
         taskDeletedMessage.print();
     }
 
