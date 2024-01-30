@@ -23,8 +23,9 @@ public class TaskList {
         }
         System.out.println(indent);
     }
-    public String mark(boolean isInit, int idx) throws LamballParseException {
+    public boolean mark(String[] parts, boolean isInit) throws LamballParseException {
         // Checks if index is within range of list
+        int idx = Integer.valueOf(parts[1]) - 1;
         if (idx >= tasks.size() || idx < 0) {
             throw new LamballParseException("Taaask index out of range, baa.");
         }
@@ -33,38 +34,36 @@ public class TaskList {
         if (!isInit) {
             Ui.displayAction("I have maaarked the task as done:\n" + "    " + temp.toString());
         }
-        return "1 | " + temp.command();
+        if (!isInit) {
+            Storage.replaceLine("1 | " + temp.command(), idx);
+        }
+        return true;
     }
 
-    public String unMark(int idx) throws LamballParseException {
+    public boolean unMark(String[] parts) throws LamballParseException {
         // Checks if index is within range of list
+        int idx = Integer.valueOf(parts[1]) - 1;
         if (idx >= tasks.size() || idx < 0) {
             throw new LamballParseException("Taaask index out of range, baa.");
         }
         Task temp = tasks.get(idx);
         temp.unMark();
         Ui.displayAction("I have maaarked the task as undone:\n" + "    " + temp.toString());
-        return "0 | " + temp.command();
+        Storage.replaceLine("0 | " + temp.command(), idx);
+        return true;
     }
 
-    public String toDo(String[] parts, boolean isInit) throws LamballParseException {
-        // Checks if empty string (nothing after command) or only whitespaces
-        if (parts.length < 2 || parts[1] == null || parts[1].trim().isEmpty()) {
-            throw new LamballParseException("Your todo field is empty, baaaaka.");
-        }
+    public boolean toDo(String[] parts, boolean isInit) throws LamballParseException {
         Task temp = new ToDo(parts[1]);
         tasks.add(temp);
         if (!isInit) {
             Ui.displayAction("Added ToDo:\n        " + temp.toString() + "\n    Now you have " + tasks.size()
                     + " tasks in the list.");
+            Storage.writeToFile("0 | " + temp.command());
         }
-        return "0 | " + temp.command();
+        return true;
     }
-    public String deadline(String[] parts, boolean isInit) throws LamballParseException {
-        // Checks if empty string (nothing after command) or only whitespaces
-        if (parts.length < 2 || parts[1] == null || parts[1].trim().isEmpty()) {
-            throw new LamballParseException("Your deadline field is empty, baaaaka.");
-        }
+    public boolean deadline(String[] parts, boolean isInit) throws LamballParseException {
         String[] furtherSplit = parts[1].split(" /", 2);
         if (furtherSplit.length < 2 || !furtherSplit[1].substring(0,3).equals("by ")) {
             throw new LamballParseException("Deadline is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat " +
@@ -76,19 +75,17 @@ public class TaskList {
             if (!isInit) {
                 Ui.displayAction("Added Deadline:\n        " + temp.toString() + "\n    Now you have " +
                         tasks.size() + " tasks in the list.");
+                Storage.writeToFile("0 | " + temp.command());
+
             }
-            return "0 | " + temp.command();
+            return true;
         } catch (DateTimeParseException e) {
             throw new LamballParseException("Date is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat is: " +
                     "yyyy-mm-dd (e.g 2001-01-20)");
         }
     }
 
-    public String event(String[] parts, boolean isInit) throws LamballParseException {
-        // Checks if empty string (nothing after command) or only whitespaces
-        if (parts.length < 2 || parts[1] == null || parts[1].trim().isEmpty()) {
-            throw new LamballParseException("Your event field is empty, baaaaka.");
-        }
+    public boolean event(String[] parts, boolean isInit) throws LamballParseException {
         String[] furtherSplit = parts[1].split(" /", 3);
         if (furtherSplit.length < 3 || !furtherSplit[1].substring(0,5).equals("from ") ||
                 !furtherSplit[2].substring(0,3).equals("to ")) {
@@ -102,21 +99,64 @@ public class TaskList {
             if (!isInit) {
                 Ui.displayAction("Added Event:\n        " + temp.toString() + "\n    Now you have "
                         + tasks.size() + " tasks in the list.");
+                Storage.writeToFile("0 | " + temp.command());
             }
-            return "0 | " + temp.command();
+            return true;
         } catch (DateTimeParseException e) {
             throw new LamballParseException("Dates are in the wrong formaaaaaaat, baa. :(\n    Correct fo" +
                     "rmaaat is: yyyy-mm-dd (e.g 2001-01-20)");
         }
     }
 
-    public void deleteFromList(String[] parts, int idx) throws LamballParseException {
+    public boolean deleteFromList(String[] parts) throws LamballParseException {
         // Checks if index is within range of list
+        int idx = Integer.valueOf(parts[1]) - 1;
         if (idx >= tasks.size() || idx < 0) {
             throw new LamballParseException("Taaask index out of range, baa.");
         }
         Task temp = tasks.remove(idx);
+        Storage.deleteLine(idx);
         Ui.displayAction("I have removed this taaask:\n" + "        " + temp.toString() + "\n    Now you have "
                 + tasks.size() + " tasks in the list.");
+        return true;
+    }
+
+    public boolean runComd(String[] command, boolean isInit) throws LamballParseException {
+        switch(command[0]) {
+            case "mark": {
+                mark(command, isInit);
+                return true;
+            }
+            case "unmark": {
+                unMark(command);
+                return true;
+            }
+            case "bye": {
+                return false;
+            }
+            case "list": {
+                printList();
+                return true;
+            }
+            case "todo": {
+                toDo(command, isInit);
+                return true;
+            }
+            case "deadline": {
+                deadline(command, isInit);
+                return true;
+            }
+            case "event": {
+                event(command, isInit);
+                return true;
+            }
+            case "delete": {
+                deleteFromList(command);
+                return true;
+            }
+
+        }
+        // Should not reach here.
+        return false;
     }
 }
