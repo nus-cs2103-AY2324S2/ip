@@ -95,6 +95,13 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Prints the tasks in the TaskList that have the keyword in console.
+     *
+     * @param keyword The keyword that needs to be in the task to be printed.
+     * @throws TobiasException if there are no tasks with the given keyword.
+     * */
     public void printListFind(String keyword) throws TobiasException {
         List<Task> foundResults = new ArrayList<>();
 
