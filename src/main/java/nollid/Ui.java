@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Ui {
     // Default length of line to be printed
-    private static final int LINE_LENGTH = 30;
+    public static final int LINE_LENGTH = 30;
 
     /**
      * Sends a welcome message upon starting the bot, with horizontal lines

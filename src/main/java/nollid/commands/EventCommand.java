@@ -16,6 +16,8 @@ import nollid.tasks.Event;
  * It extends the Command class and implements the execute method to perform the command logic.
  */
 public class EventCommand extends Command {
+    public static final String USAGE_HINT = "Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} "
+            + "/to [d/m/yyyy] {hh:mm 24hr " + "format}";
     private final ArrayList<String> argsList;
 
     public EventCommand(ArrayList<String> argsList) {
@@ -29,17 +31,17 @@ public class EventCommand extends Command {
 
         if (this.argsList.size() == 1 || fromIndex == 1 || toIndex == 1) {
             throw new NollidException("Event description cannot be empty!\n"
-                    + Event.USAGE_HINT);
+                    + USAGE_HINT);
         }
 
         if (fromIndex == -1 || fromIndex == this.argsList.size() - 1 || fromIndex == toIndex - 1) {
             throw new NollidException("Please enter the start of your event!\n"
-                    + Event.USAGE_HINT);
+                    + USAGE_HINT);
         }
 
         if (toIndex == -1 || toIndex == this.argsList.size() - 1 || toIndex == fromIndex - 1) {
             throw new NollidException("Please enter the end of your event!\n"
-                    + Event.USAGE_HINT);
+                    + USAGE_HINT);
         }
 
         StringBuilder taskDescription = new StringBuilder();
@@ -65,7 +67,7 @@ public class EventCommand extends Command {
             storage.update(tasks);
         } catch (DateTimeParseException e) {
             throw new NollidException("Unrecognized start/end format\n"
-                    + Event.USAGE_HINT);
+                    + USAGE_HINT);
         }
     }
 

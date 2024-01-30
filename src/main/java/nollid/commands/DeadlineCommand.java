@@ -16,6 +16,7 @@ import nollid.tasks.Deadline;
  * It extends the Command class and implements the execute method to perform the command logic.
  */
 public class DeadlineCommand extends Command {
+    public static final String USAGE_HINT = "Usage: deadline [task description] /by [d/m/yyyy] {hh:mm 24hr format}";
     private final ArrayList<String> argsList;
 
     public DeadlineCommand(ArrayList<String> argsList) {
@@ -27,12 +28,12 @@ public class DeadlineCommand extends Command {
         int byIndex = this.argsList.indexOf("/by");
         if (this.argsList.size() == 1 || byIndex == 1) {
             throw new NollidException("Deadline description cannot be empty!\n"
-                    + Deadline.USAGE_HINT);
+                    + USAGE_HINT);
         }
 
         if (byIndex == this.argsList.size() - 1 || byIndex == -1) {
             throw new NollidException("Please input a deadline!\n"
-                    + Deadline.USAGE_HINT);
+                    + USAGE_HINT);
         }
 
         StringBuilder taskDescription = new StringBuilder();
@@ -64,7 +65,7 @@ public class DeadlineCommand extends Command {
             storage.update(tasks);
         } catch (DateTimeParseException e) {
             throw new NollidException("Unrecognized deadline format\n"
-                    + Deadline.USAGE_HINT);
+                    + USAGE_HINT);
         }
     }
 }
