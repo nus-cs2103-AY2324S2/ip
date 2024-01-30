@@ -13,6 +13,8 @@ public class Handler {
         } catch (NumberFormatException e) {
             throw JayneException.deleteInvalidException();
         }
+
+        taskList.saveTasks();
     }
     public static void handleUnmark(String[] parts, TaskList taskList, String dash) throws JayneException {
         if (parts.length < 2) {
@@ -28,6 +30,8 @@ public class Handler {
         } catch (NumberFormatException e) {
             throw JayneException.unmarkException();
         }
+
+        taskList.saveTasks();
     }
 
     public static void handleDeadline(String[] parts, TaskList taskList, String dash) throws JayneException {
@@ -43,6 +47,8 @@ public class Handler {
         System.out.println(dash + "\nGot it. I've added this task:");
         System.out.println("  " + newDeadline);
         System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n" + dash);
+
+        taskList.saveTasks();
     }
 
     public static void handleTodo(String[] parts, TaskList taskList, String dash) throws JayneException {
@@ -54,6 +60,8 @@ public class Handler {
         System.out.println(dash + "\nGot it. I've added this task:");
         System.out.println("  " + newTodo);
         System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n"  + dash);
+
+        taskList.saveTasks();
     }
 
     public static void handleEvent(String[] parts, TaskList taskList, String dash) throws JayneException {
@@ -73,6 +81,8 @@ public class Handler {
         System.out.println(dash + "\nGot it. I've added this task:");
         System.out.println("  " + newEvent);
         System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n" + dash);
+
+        taskList.saveTasks();
     }
 
     public static void handleMark(String[] parts, TaskList taskList, String dash) throws JayneException {
@@ -89,12 +99,15 @@ public class Handler {
         } catch (NumberFormatException e) {
             throw JayneException.markInvalidTaskException();
         }
+
+        taskList.saveTasks();
     }
 
     public static void handleBye(String dash) {
         System.out.println(dash);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(dash);
+
     }
 
     public static void handleList(TaskList taskList, String dash) {
