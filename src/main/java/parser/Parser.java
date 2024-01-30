@@ -42,9 +42,36 @@ public class Parser {
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
+            case DeadlineCommand.COMMAND_WORD:
+                return prepareDeadline(arguments);
+
             default:
                 return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
         }
+    }
+
+    private Command prepareDeadline(String arguments) {
+        final Matcher matcher = DeadlineCommand.DEADLINE_ARGUMENTS_FORMAT.matcher(arguments.trim());
+
+        if (!matcher.matches()) {
+            return new IncorrectCommand(DeadlineCommand.MESSAGE_USAGE);
+        }
+
+        final String eventName = matcher.group("eventName");
+        final String endTime = matcher.group("endTime");
+
+        if (eventName.isEmpty()) {
+            return new IncorrectCommand(DeadlineCommand.MESSAGE_BLANK_EVENT);
+        } else if (endTime.isEmpty()) {
+            return new IncorrectCommand(DeadlineCommand.MESSAGE_BLANK_END_TIME);
+        } else {
+            try {
+                return new DeadlineCommand(eventName, endTime);
+            } catch (MalformedUserInputException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
+        }
+
     }
 
     private Command prepareEvent(String arguments) {

@@ -15,9 +15,9 @@ public class EventCommand extends Command {
 
     public static final String MESSAGE_USAGE = "\t " + COMMAND_WORD + ": Adds an event. \n"
             + "\t Example: " + COMMAND_WORD
-            + " event go for CS2103 tutorial /from " + DATE_INPUT_FORMAT_STRING + " /to " + DATE_INPUT_FORMAT_STRING;
+            + " go for CS2103 tutorial /from " + DATE_INPUT_FORMAT_STRING + " /to " + DATE_INPUT_FORMAT_STRING;
 
-    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this event: \n" +
+    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task: \n" +
             "\t %s\n" +
             "\t Now you have %d task(s) available!";
 
@@ -25,7 +25,7 @@ public class EventCommand extends Command {
     public static final String MESSAGE_BLANK_START_TIME = "\t The start time cannot be empty!";
     public static final String MESSAGE_BLANK_END_TIME = "\t The end time cannot be empty!";
 
-    public static final Pattern EVENT_ARGUMENTS_FORMAT = Pattern.compile("(?<eventName>\\S+) \\/from (?<startTime>\\S+) \\/to (?<endTime>\\S+)");
+    public static final Pattern EVENT_ARGUMENTS_FORMAT = Pattern.compile("(?<eventName>.+) \\/from (?<startTime>\\S+) \\/to (?<endTime>\\S+)");
 
     private final Event toAdd;
 
