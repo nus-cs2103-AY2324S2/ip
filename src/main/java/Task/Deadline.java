@@ -3,12 +3,12 @@ package task;
 public class Deadline extends Task {
     private TaskDateTime dueTime;
 
-    public Deadline(String description, String due) {
+    public Deadline(String description, String due) throws DukeDateTimeParseException {
         super(description);
         this.dueTime = new TaskDateTime(due);
     }
 
-    public Deadline(String description, String due, boolean isDone) {
+    public Deadline(String description, String due, boolean isDone) throws DukeDateTimeParseException {
         super(description, isDone);
         this.dueTime = new TaskDateTime(due);
     }

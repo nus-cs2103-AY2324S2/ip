@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class TaskListParser {
-    public static TaskList parse(File file) throws IOException, InvalidDataFormatException {
+    public static TaskList parse(File file) throws IOException, InvalidDataFormatException, DukeDateTimeParseException {
         TaskList list = new TaskList();
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
@@ -18,7 +18,7 @@ public class TaskListParser {
         return list;
     }
 
-    private static Task parseTask(String line) throws InvalidDataFormatException {
+    private static Task parseTask(String line) throws InvalidDataFormatException, DukeDateTimeParseException {
         String[] words = line.split(" \\| ");
         if (words.length < 3)
             throw new InvalidDataFormatException("Invalid task format: " + line, "Invalid task format: " + line);
