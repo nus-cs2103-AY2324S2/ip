@@ -1,5 +1,5 @@
+package headcube;
 import java.util.Scanner;
-
 public class Ui {
     private Scanner scanner;
     public Ui() {

@@ -1,3 +1,4 @@
+package headcube;
 import java.util.Scanner;
 public class HeadCube {
     private Storage storage;
