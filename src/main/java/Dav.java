@@ -30,7 +30,6 @@ public class Dav {
     }
 
     public static String getUserInput(Scanner scanner) {
-        System.out.print("    ");
         return scanner.nextLine();
     }
 
