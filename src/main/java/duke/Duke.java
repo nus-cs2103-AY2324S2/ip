@@ -7,6 +7,9 @@ import duke.parser.InputParser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * The Duke class represents the chatbot application.
+ */
 public class Duke {
     private TaskList taskList;
     private InputParser inputParser;
@@ -14,6 +17,11 @@ public class Duke {
     private Storage storage;
     private boolean ready;
 
+    /**
+     * Constructs a Duke object and initializes its components.
+     * If saved data is found, loads tasks from the storage; otherwise, initializes an empty task list.
+     * If an error occurs while loading data, sets the application to an error state.
+     */
     public Duke() {
         String filePath = "data/data.txt";
         this.ui = new Ui();
@@ -36,6 +44,11 @@ public class Duke {
         this.ui.exit();
     }
 
+    /**
+     * Runs the Duke application, continuously accepting user input and processing commands until
+     * the application is exited.
+     * Handles user input, processes commands, and saves data to storage.
+     */
     public void run() {
         while (this.ui.isActive()) {
             String input = this.ui.readNextLine();
@@ -50,12 +63,19 @@ public class Duke {
             } catch (InvalidInputException e) {
                 this.ui.sendSystemMessage(e.getMessage(), TextTemplate.LINE_BREAK);
             } catch (IOException e) {
-                this.ui.sendSystemMessage("Error saving to file\nTerminating Process..." + TextTemplate.LINE_BREAK);
+                this.ui.sendSystemMessage("Error saving to file\nTerminating Process..." +
+                        TextTemplate.LINE_BREAK);
                 this.ui.exit();
             }
         }
     }
 
+    /**
+     * The main entry point for the Duke application.
+     * Creates a Duke object and starts the application if it is ready.
+     *
+     * @param args the command-line arguments
+     */
     public static void main(String[] args) {
         Duke duke = new Duke();
         if (duke.ready) {

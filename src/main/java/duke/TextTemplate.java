@@ -11,5 +11,6 @@ public class TextTemplate {
     public static final String DELETE_TASK = "Noted. I've removed this task:";
     public static final String TASK_DOES_NOT_EXIST = "OOPS!!! This task does not exist.";
     public static final String INVALID_COMMAND = "OOPS!!! I'm sorry, but I don't know what that means :-(";
-    public static final String INVALID_DATETIME = "OOPS!!! The date format is invalid. Either enter yyyy-mm-dd or yyyy-mm-dd HHmm :-(";
+    public static final String INVALID_DATETIME = "OOPS!!! The date format is invalid. Either enter " +
+            "yyyy-mm-dd or yyyy-mm-dd HHmm :-(";
 }

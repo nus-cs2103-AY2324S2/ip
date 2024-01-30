@@ -12,14 +12,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The FileParser class handles the parsing of a file containing task data.
+ */
 public class FileParser {
     private static final String separator = ",";
 
+    /**
+     * Parses a datetime string into a LocalDateTime object.
+     *
+     * @param s the datetime string to parse
+     * @return the parsed LocalDateTime object
+     */
     private static LocalDateTime parseDateTime(String s) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(s, formatter);
         return dateTime;
     }
+
+    /**
+     * Reads tasks from a file and returns them as a list of Task objects.
+     *
+     * @param f the file to read tasks from
+     * @return the list of Task objects read from the file
+     * @throws FileNotFoundException if the file is not found
+     */
     public static ArrayList<Task> readFile(File f) throws FileNotFoundException {
         Scanner scanner = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();

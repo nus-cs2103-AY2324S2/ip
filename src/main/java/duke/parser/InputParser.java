@@ -13,13 +13,26 @@ import duke.tasks.TodoTask;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
+
+/**
+ * The InputParser class handles the parsing of user input and performs corresponding actions.
+ */
 public class InputParser {
     private boolean isActive;
 
+    /**
+     * Constructs an InputParser object.
+     * Sets the initial state of the parser to active.
+     */
     public InputParser() {
         this.isActive = true;
     }
 
+    /**
+     * Checks if the parser is active.
+     *
+     * @return true if the parser is active, false otherwise
+     */
     public boolean isActive() {
         return this.isActive;
     }
@@ -129,7 +142,7 @@ public class InputParser {
             throw new InvalidDateFormException();
         }
     }
-    public Actions getAction(String input) throws InvalidInputException {
+    private Actions getAction(String input) throws InvalidInputException {
         if (input.equals("bye")) {
             return Actions.BYE;
         }
@@ -160,6 +173,15 @@ public class InputParser {
         return Actions.INVALID;
     }
 
+    /**
+     * Processes the user input and performs the corresponding action.
+     * Actions: BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, INVALID
+     *
+     * @param input the user input to process
+     * @param tasks the task list to operate on
+     * @return the response message after processing the input
+     * @throws InvalidInputException if the input is invalid or does not match any known action
+     */
     public String processCommand(String input, TaskList tasks) throws InvalidInputException {
         Actions act = this.getAction(input);
         switch (act) {
