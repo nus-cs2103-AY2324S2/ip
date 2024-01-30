@@ -1,3 +1,7 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -67,6 +71,8 @@ public class Duke {
                 printingString("Please enter a number for the task that is on the list.\n");
             } catch (IOException e) {
                 printingString("Error when writing to file\n");
+            } catch (DateTimeParseException e) {
+                printingString("Please enter the date in format of yyyy-mm-dd.\n");
             }
         }
 
@@ -109,13 +115,13 @@ public class Duke {
         if (out.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
         } else {
-            appendToFile("T|0|" + out);
             taskList.add(new ToDos(out));
+            appendToFile("T|0|" + out);
             printingAdd(taskList.get(taskList.size() - 1), taskList.size());
         }
     }
 
-    private static void deadline(String out) throws DukeException,IOException {
+    private static void deadline(String out) throws DukeException,IOException,DateTimeParseException {
         if (out.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
         } else {
@@ -125,8 +131,9 @@ public class Duke {
             } else if (split.length != 2 || split[1].length() <= 1) {
                 throw new DukeException("Please enter the deadline of the task. \n");
             } else {
+                LocalDate date = LocalDate.parse(split[1].strip());
+                taskList.add(new Deadlines(split[0], date));
                 appendToFile("D|0|" + split[0] + "|" + split[1]);
-                taskList.add(new Deadlines(split[0], split[1]));
                 printingAdd(taskList.get(taskList.size() - 1), taskList.size());
             }
         }
@@ -146,8 +153,8 @@ public class Duke {
                 if (split2.length != 2) {
                     throw new DukeException("Please enter the ending time of the event. \n");
                 } else {
-                    appendToFile("E|0|" + split1[0] + "|" + split2[0] + "|" + split2[1]);
                     taskList.add(new Events(split1[0], split2[0], split2[1]));
+                    appendToFile("E|0|" + split1[0] + "|" + split2[0] + "|" + split2[1]);
                     printingAdd(taskList.get(taskList.size() - 1), taskList.size());
                 }
             }
@@ -171,11 +178,10 @@ public class Duke {
             if (split[0].equalsIgnoreCase("T")) {
                 taskList.add(new ToDos(split[2]));
             } else if (split[0].equalsIgnoreCase("D")) {
-                taskList.add(new Deadlines(split[2],split[3]));
+                taskList.add(new Deadlines(split[2],LocalDate.parse(split[3].strip())));
             } else if (split[0].equalsIgnoreCase("E")) {
                 taskList.add(new Events(split[2],split[3],split[4]));
             }
-
             if (Boolean.parseBoolean(split[0])) {
                 taskList.get(count).markAsDone();
             }
