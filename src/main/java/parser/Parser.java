@@ -10,6 +10,7 @@ import exception.MalformedUserInputException;
 import tasklist.Event;
 
 import static commands.EventCommand.EVENT_ARGUMENTS_FORMAT;
+import static commands.MarkCommand.MESSAGE_INVALID_ID;
 import static commands.TodoCommand.MESSAGE_BLANK_EVENT;
 
 public class Parser {
@@ -45,9 +46,27 @@ public class Parser {
             case DeadlineCommand.COMMAND_WORD:
                 return prepareDeadline(arguments);
 
+            case MarkCommand.COMMAND_WORD:
+                return prepareMarkCommand(arguments);
+
             default:
                 return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
         }
+    }
+
+    private Command prepareMarkCommand(String arguments) {
+
+        if (arguments.trim().isEmpty()) {
+            return new IncorrectCommand(MarkCommand.MESSAGE_INVALID_ID);
+        } else {
+            try {
+                int targetIndex = Integer.valueOf(arguments.trim()) - 1;
+                return new MarkCommand(targetIndex);
+            } catch (NumberFormatException nfe) {
+                return new IncorrectCommand(MarkCommand.MESSAGE_INVALID_ID);
+            }
+        }
+
     }
 
     private Command prepareDeadline(String arguments) {
