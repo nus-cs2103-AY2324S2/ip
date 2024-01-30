@@ -1,20 +1,19 @@
 import java.util.Scanner;
-
+//main class for the bot
 public class Duke {
     public static void main(String[] args) {
-        System.out.println("Hello! I'm fakegpt\nWhat can I do for you?:");
+        System.out.println("Initializing!");
 
         Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
-        String userInput = scanner.nextLine();
+        Storage storage = new Storage();
+        TaskList taskList = storage.load();
 
-        Command command = Parser.parse(userInput);
-        while (!(command instanceof Command.ByeCommand)) {
-            command.execute(taskList);
+        System.out.println("Hello and welcome! I'm fakegpt\nWhat can I do for you?:");
+        Command command;
+        do {
             command = Parser.parse(scanner.nextLine());
-        }
-
-        command.execute(taskList);
-
+            command.execute(taskList);
+            storage.save(taskList);
+        } while (!(command instanceof Command.ByeCommand));
     }
 }

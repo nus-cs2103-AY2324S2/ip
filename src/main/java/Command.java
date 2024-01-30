@@ -76,7 +76,7 @@ public abstract class Command {
         }
     }
 
-    public static class ToDoCommand extends Command{
+    public static class ToDoCommand extends Command {
         private String description;
 
         public ToDoCommand(String name) {

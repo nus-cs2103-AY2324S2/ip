@@ -1,3 +1,5 @@
+Initializing!
+Data found at: ./data/duke.txt
 Hello! I'm fakegpt
 What can I do for you?:
 Looks like you have nothing to do! Yay!

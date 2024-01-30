@@ -16,21 +16,21 @@ public class Parser {
 
         try {
             switch (command) {
-                case "mark":
-                    return Parser.parseMarkCommand(tokens[1]);
-                case "unmark":
-                    return parseUnmarkCommand(tokens[1]);
-                case "delete":
-                    return parseDeleteCommand(tokens[1]);
-                case "todo":
-                    return parseTodoCommand(tokens[1]);
-                case "deadline":
-                    return parseDeadlineCommand(tokens[1]);
-                case "event":
-                    return parseEventCommand(tokens[1]);
-                default:
-                    throw new DukeException.InvalidCommandException("I dont understand you!" +
-                                        " Please be dont scold me and be gentle with me! Try again!");
+            case "mark":
+                return Parser.parseMarkCommand(tokens[1]);
+            case "unmark":
+                return parseUnmarkCommand(tokens[1]);
+            case "delete":
+                return parseDeleteCommand(tokens[1]);
+            case "todo":
+                return parseTodoCommand(tokens[1]);
+            case "deadline":
+                return parseDeadlineCommand(tokens[1]);
+            case "event":
+                return parseEventCommand(tokens[1]);
+            default:
+                throw new DukeException.InvalidCommandException("I dont understand you!" +
+                                    " Please be dont scold me and be gentle with me! Try again!");
             }
         } catch (DukeException e) {
             return new Command.InvalidCommand(e.getMessage());
