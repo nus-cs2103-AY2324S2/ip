@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.DateTimeException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -120,7 +121,7 @@ public class Duke {
                                     Deadline newDeadline = new Deadline(theParts[0].trim(), theParts[1].trim());
                                     theList.add(newDeadline);
                                     System.out.println("Roger that! I've added in this task:\n " + newDeadline  +"\nNow you have "+ theList.size() + " tasks in the list.");
-                                } catch (ArrayIndexOutOfBoundsException e) {
+                                } catch (ArrayIndexOutOfBoundsException|DateTimeException e) {
                                     System.out.println("Error creating Deadline: " + e.getMessage());
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -150,7 +151,7 @@ public class Duke {
                                         Event newEvent = new Event(theParts[0].trim(), theParts[1].trim(), theParts[2].trim());
                                         theList.add(newEvent);
                                         System.out.println("Roger that! I've added in this task:\n " + newEvent  +"\nNow you have "+ theList.size() + " tasks in the list.");
-                                    } catch (ArrayIndexOutOfBoundsException e) {
+                                    } catch (ArrayIndexOutOfBoundsException|IllegalArgumentException e) {
                                         System.out.println("Error creating Event: " + e.getMessage());
                                     } catch (Exception e) {
                                         e.printStackTrace();
@@ -248,7 +249,8 @@ public class Duke {
                         "event [task] /from [date] /to [date] - add an EVENT to your list\n" + 
                         "delete [input number] - delete a task from task list\n" +
                         "list - list out the current tasks you have\n" +
-                        "bye - exit the program ");
+                        "bye - exit the program\n" + 
+                        "(NOTE: deadline should be in dd-mm-yyyy hhmm format)");
                         break;
 
                     case UNKNOWN:
