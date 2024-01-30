@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class TaskList {
     private List<Task> tasks;
@@ -57,5 +60,45 @@ public class TaskList {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
+    }
+
+    public void loadFromFile(String filePath) {
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            Scanner fileReader = new Scanner(file);
+
+            while (fileReader.hasNext()) {
+                String line = fileReader.nextLine();
+                String[] parts = line.split(" \\| ");
+                Task task = null;
+
+                switch (parts[0]) {
+                    case "E":
+                        task = new Event(parts[2], parts[3], parts[4]);
+                        break;
+                    case "D":
+                        task = new Deadline(parts[2], parts[3]);
+                        break;
+                    case "T":
+                        task = new Todo(parts[2]);
+                        break;
+                }
+
+                if (task != null) {
+                    if (parts[1].equals("0")) {
+                        task.markDone();
+                    }
+                    this.addTask(task);
+                }
+            }
+
+            fileReader.close();
+        } catch (IOException e) {
+            System.out.println("An error has occurred");
+        }
     }
 }

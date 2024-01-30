@@ -16,6 +16,7 @@ public class Quacky {
         return sb.toString();
     }
     public static void main(String[] args) {
+        tasks.loadFromFile("./data/data.txt");
         Scanner scanner = new Scanner(System.in);
         System.out.println(format("Quack! how u doing, Im Quacky. How can I help you?"));
         String command = scanner.nextLine();
