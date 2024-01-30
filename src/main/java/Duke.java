@@ -24,23 +24,34 @@ public class Duke {
     public void handleInput() {
         String input = scanner.nextLine();
         String command = input.split(" ")[0];
+        int taskToMark = -1;
+
         while (!command.equals("bye")) {
-            String output = new String();
+            String output = "";
             switch (command) {
-                case "":
-                    break;
-                case "list":
-                    int i = 1;
-                    for(Task todo : todolist) {
-                        output = output.concat(i + ". " + todo.getTaskDescription() + "\n\t");
-                        i++;
-                    }
-                    output = output.trim();
-                    break;
-                default:
-                    Task newtask = new Task(input);
-                    output = "added: " + input;
-                    addItem(newtask);
+            case "list":
+                int i = 1;
+                for(Task todo : todolist) {
+                    output = output.concat(i + ". " + todo.getTaskDescription() + "\n\t");
+                    i++;
+                }
+                output = output.trim();
+                break;
+            case "mark":
+                taskToMark = Integer.parseInt(input.split(" ")[1]) - 1;
+                todolist.get(taskToMark).markAsDone(true);
+                output = "Nice! I've marked this task as done:\n\t" + todolist.get(taskToMark).getTaskDescription();
+                break;
+            case "unmark":
+                taskToMark = Integer.parseInt(input.split(" ")[1]) - 1;
+                todolist.get(taskToMark).markAsDone(false);
+                output = "OK, I've marked this task as not done yet:\n\t" + todolist.get(taskToMark).getTaskDescription();
+                break;
+            default:
+                Task newtask = new Task(input);
+                output = "added: " + input;
+                addItem(newtask);
+                break;
             }
 
             if (!output.isEmpty()) {
@@ -50,6 +61,7 @@ public class Duke {
             }
 
             input = scanner.nextLine();
+            command = input.split(" ")[0];
         }
     }
 
