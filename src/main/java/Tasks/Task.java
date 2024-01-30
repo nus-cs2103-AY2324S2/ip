@@ -6,10 +6,23 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    protected enum TaskType {
+    public enum TaskType {
         T,
         D,
-        E
+        E;
+
+        public static TaskType getType(String s) {
+            switch(s) {
+                case "T":
+                    return T;
+                case "D":
+                    return D;
+                case "E":
+                    return E;
+                default:
+                    return null;
+            }
+        }
     }
 
     public Task(String description) throws DukeException {
@@ -24,11 +37,6 @@ public class Task {
     }
 
     public void setDone(boolean done) {
-        if (done) {
-            System.out.println("Nice! I've marked this task as done:");
-        } else {
-            System.out.println("OK, I've marked this task as not done yet:");
-        }
         this.isDone = done;
     }
 
