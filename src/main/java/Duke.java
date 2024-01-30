@@ -1,9 +1,10 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 class Task {
     private String description;
@@ -47,33 +48,34 @@ class TodoTask extends Task {
 }
 
 class DeadlineTask extends Task {
-    private String deadline;
+    private LocalDate deadline;
 
-    public DeadlineTask(String description, String deadline) {
+    public DeadlineTask(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;
     }
-    public DeadlineTask(String description, String deadline, boolean isDone) {
+    public DeadlineTask(String description, LocalDate deadline, boolean isDone) {
         super(description, isDone);
         this.deadline = deadline;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        LocalDate tempDeadline = deadline.plusDays(0);
+        return "[D]" + super.toString() + " (by: " + tempDeadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
 
 class EventTask extends Task {
-    private String startTime;
-    private String endTime;
+    private LocalDate startTime;
+    private LocalDate endTime;
 
-    public EventTask(String description, String startTime, String endTime) {
+    public EventTask(String description, LocalDate startTime, LocalDate endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }
-    public EventTask(String description, String startTime, String endTime, boolean isDone) {
+    public EventTask(String description, LocalDate startTime, LocalDate endTime, boolean isDone) {
         super(description, isDone);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -81,7 +83,9 @@ class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        LocalDate tempStartTime = startTime.plusDays(0);
+        LocalDate tempEndTime = endTime.plusDays(0);
+        return "[E]" + super.toString() + " (from: " + tempStartTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: " + tempEndTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
 
@@ -118,7 +122,6 @@ public class Duke {
                         System.out.println(line);
                         System.out.println("Removed from list");
                         System.out.println("____________________________________________________________");
-//                        return;
                     }
                 } else if (taskType == 'D') {
                     if (!line.contains(" (by: ")) {
@@ -132,10 +135,12 @@ public class Duke {
                     String deadlineDescription = line.substring(7, line.indexOf(" (by: "));
                     Pattern pattern = Pattern.compile("\\(by: (.*?)\\)");
                     Matcher matcher = pattern.matcher(line);
-                    String deadline = "";
+                    String deadlineString = "";
                     if (matcher.find()) {
-                        deadline = matcher.group(1);
+                        deadlineString = matcher.group(1);
                     }
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+                    LocalDate deadline = LocalDate.parse(deadlineString, formatter);
                     if (isDoneX == 'X') {
                         Task newDeadline = new DeadlineTask(deadlineDescription, deadline, true);
                         tasks.add(newDeadline);
@@ -177,11 +182,22 @@ public class Duke {
                     String eventDescription = line.substring(7, line.indexOf(" (from: "));
                     Pattern pattern = Pattern.compile("\\(from: (.*?) to: (.*?)\\)");
                     Matcher matcher = pattern.matcher(line);
-                    String startTime = "";
-                    String endTime = "";
+                    String startTimeString = "";
+                    String endTimeString = "";
                     if (matcher.find()) {
-                        startTime = matcher.group(1);
-                        endTime = matcher.group(2);
+                        startTimeString = matcher.group(1);
+                        endTimeString = matcher.group(2);
+                    }
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+                    LocalDate startTime = LocalDate.parse(startTimeString, formatter);
+                    LocalDate endTime = LocalDate.parse(endTimeString, formatter);
+                    if (!isValidDates(startTime, endTime)) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Error found: Start time should be earlier than end time.");
+                        System.out.println(line);
+                        System.out.println("Removed from list");
+                        System.out.println("____________________________________________________________");
+                        continue;
                     }
                     if (isDoneX == 'X') {
                         Task newEvent = new EventTask(eventDescription, startTime, endTime, true);
@@ -257,6 +273,15 @@ public class Duke {
         } else {
             messageWithHorizontalLines("Invalid task index!");
         }
+    }
+
+    private static boolean isValidDate(String dateString) {
+        String parsedInPattern = "\\d{4}-\\d{2}-\\d{2}";
+        return Pattern.matches(parsedInPattern, dateString);
+    }
+
+    private static boolean isValidDates(LocalDate startDate, LocalDate endDate) {
+        return startDate.isBefore(endDate);
     }
 
     public static String printSucessfulAdded() {
@@ -348,7 +373,12 @@ public class Duke {
                 case "deadline":
                     if (words.length > 1 && userInput.contains("/by")) {
                         String deadlineDescription = userInput.substring(command.length() + 1, userInput.indexOf("/by")).trim();
-                        String by = userInput.substring(userInput.indexOf("/by") + 3).trim();
+                        String byString = userInput.substring(userInput.indexOf("/by") + 3).trim();
+                        if (!isValidDate(byString)) {
+                            System.out.println("Date format is invalid (Date format: YYYY-MM-DD)");
+                            return;
+                        }
+                        LocalDate by = LocalDate.parse(byString);
                         Task newDeadline = new DeadlineTask(deadlineDescription, by);
                         tasks.add(newDeadline);
                         String deadlineStr = printSucessfulAdded() +
@@ -362,8 +392,16 @@ public class Duke {
                 case "event":
                     if (words.length > 1 && userInput.contains("/from") && userInput.contains("/to")) {
                         String eventDescription = userInput.substring(command.length() + 1, userInput.indexOf("/from")).trim();
-                        String from = userInput.substring(userInput.indexOf("/from") + 5, userInput.indexOf("/to")).trim();
-                        String to = userInput.substring(userInput.indexOf("/to") + 3).trim();
+                        String fromString = userInput.substring(userInput.indexOf("/from") + 5, userInput.indexOf("/to")).trim();
+                        String toString = userInput.substring(userInput.indexOf("/to") + 3).trim();
+                        LocalDate from = LocalDate.parse(fromString);
+                        LocalDate to = LocalDate.parse(toString);
+                        if (!isValidDates(from, to)) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Error input: Start time should be earlier than end time.");
+                            System.out.println("____________________________________________________________");
+                            continue;
+                        }
                         Task newEvent = new EventTask(eventDescription, from, to);
                         tasks.add(newEvent);
                         String eventStr = printSucessfulAdded() +
