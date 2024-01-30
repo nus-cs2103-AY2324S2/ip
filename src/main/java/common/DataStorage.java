@@ -26,10 +26,10 @@ public class DataStorage {
         try {
 
             if (this.file.createNewFile()) {
-                System.out.println("\t The database has not been created. A new database has been created at the following location: " + this.file.getAbsolutePath());
+//                System.out.println("\t The database has not been created. A new database has been created at the following location: " + this.file.getAbsolutePath());
             } else {
                 // This means that the file already exists here.
-                System.out.println("\t Using the existing database located at: " + this.file.getAbsolutePath());
+//                System.out.println("\t Using the existing database located at: " + this.file.getAbsolutePath());
                 this.tasksList = readFromDatabaseIfAlreadyCreated();
             }
 
@@ -126,7 +126,7 @@ public class DataStorage {
             throw new IndexOutOfBoundsException();
         } else if (taskIndex >= taskCount) {
             // It is a valid index, but there is no task there yet.
-            throw new MalformedUserInputException("The task has not been created yet.");
+            throw new MalformedUserInputException("\t The task has not been created yet.");
         } else {
             this.tasksList.get(taskIndex).setDone(status);
             // We rebuild the dataStorage again
