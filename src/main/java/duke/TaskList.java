@@ -1,3 +1,8 @@
+package duke;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -23,9 +28,12 @@ public class TaskList {
     }
 
     public void markTasks(int index, Ui ui) {
-
-        tasks.get(index - 1).setStatus();
-        ui.markedMessage(tasks.get(index - 1));
+        try {
+            tasks.get(index - 1).setStatus();
+            ui.markedMessage(tasks.get(index - 1));
+        }  catch (IndexOutOfBoundsException e) {
+            ui.showError("OOPS!!! The task number is out of bounds. Please provide a valid task number.");
+        }
     }
     public void removeTasks(int in, Ui ui) {
         try {
