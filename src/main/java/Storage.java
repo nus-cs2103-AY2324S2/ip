@@ -6,13 +6,13 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileManager {
+public class Storage {
     static final Path DIRECTORY_PATH = Paths.get("./data");
     private String fileName;
     private Path filePath;
 
 
-    public FileManager(String fileName) {
+    public Storage(String fileName) {
         this.fileName = fileName;
         filePath = DIRECTORY_PATH.resolve(fileName + ".txt");
         createFile();
@@ -31,7 +31,8 @@ public class FileManager {
                 Files.createFile(filePath);
             }
         } catch (IOException io) {
-            System.out.println("There is an error when creating file. The error is " + io.getMessage());
+            Ui ui = new Ui();
+            ui.printAnyStatement("There is an error when creating file. The error is " + io.getMessage());
         }
     }
 
@@ -49,7 +50,8 @@ public class FileManager {
                 Files.write(filePath, convertTasksToString(tasks).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
             }
         } catch (IOException io) {
-            System.out.println("      There is an error when writing to file. The error is " + io.getMessage());
+            Ui ui = new Ui();
+            ui.printAnyStatement("There is an error when writing to file. The error is " + io.getMessage());
         }
     }
 
@@ -58,15 +60,13 @@ public class FileManager {
      *
      * @return an ArrayList of Tasks.
      */
-    ArrayList<Task> loadTasksFromFile() {
+    ArrayList<Task> loadTasksFromFile() throws DukeException {
         ArrayList<Task> result = new ArrayList<>();
         try {
             List<String> fileContentLines = Files.readAllLines(filePath);
             result = convertStringListToTasks(fileContentLines);
         } catch (IOException io) {
-            System.out.println("      There is an error when reading the file.");
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            throw new DukeException("There is an error when reading the file.");
         }
         return result;
     }
