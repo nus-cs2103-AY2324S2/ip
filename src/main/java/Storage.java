@@ -26,7 +26,9 @@ public class Storage {
 
     }
 
-    public void saveTasks(List<Task> list) {
+    public static void saveTasks(TaskList tasks) {
+        List<Task> list = tasks.getTasks();
+
         try {
             FileWriter fw = new FileWriter(PATH);
             for (Task t : list) {
