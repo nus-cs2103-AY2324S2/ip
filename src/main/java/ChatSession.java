@@ -59,8 +59,13 @@ public class ChatSession {
 
         for (NamedCommand cmd : commandList) {
             if (command.equals(cmd.getName())) {
-                cmd.execute(this, commandArgs);
-                return;
+                try {
+                    cmd.execute(this, commandArgs);
+                    return;
+                } catch (Exception e) {
+                    
+                }
+
             }
         }
 
