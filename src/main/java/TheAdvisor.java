@@ -13,9 +13,8 @@ public class TheAdvisor implements Serializable {
 
     private static Ui ui;
 
-    public static void main(String[] args) throws IOException {
+    public void run() {
         ui = new Ui();
-
         // An ArrayList that stores the tasks to be done
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -144,8 +143,16 @@ public class TheAdvisor implements Serializable {
                 }
             } catch (TheAdvisorException e) {
                 System.out.println("Error: " + e.getMessage());
+            } catch (IOException e) {
+                System.out.println("Please input something >_<*");
             }
         }
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        TheAdvisor advisor = new TheAdvisor();
+        advisor.run();
     }
 
     private static ArrayList<Task> loadList() throws IOException, ClassNotFoundException {
