@@ -8,8 +8,8 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 public class Martin {
-    static String NAME = "Martin";
-    static ArrayList<Task> todoList = new ArrayList<>();
+    private static String NAME = "Martin";
+    protected ArrayList<Task> todoList = new ArrayList<>();
 
     public static void main(String[] args) {
         // stop gap solution to magic numbers for task numbering
