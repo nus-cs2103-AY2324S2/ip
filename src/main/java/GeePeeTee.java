@@ -6,43 +6,43 @@ public class GeePeeTee {
 
   private TaskList taskList;
   private Storage storage;
+  private Ui ui;
 
   public static void main(String[] args) {
     new GeePeeTee("./data/GeePeeTee.txt").run();
   }
 
   public GeePeeTee(String filePath) {
+    ui = new Ui();
     storage = new Storage("./data/GeePeeTee.txt");
     try {
       taskList = new TaskList(storage.loadTaskList());
     } catch (FileNotFoundException e) {
-      System.out.println("File not found.");
+      ui.showFileNotFoundError();
     } catch (IOException e) {
-      System.out.println("Error loading the task list file.");
+      ui.showLoadingError();
     } catch (DukeException e) {
-      e.printErrorMessage();
+      ui.showErrorMessage(e.getMessage());
     }
   }
 
   public void run() {
     String input = "";
-    String botName = "GeePeeTee";
-    // Welcome Message
-    System.out.println("Hello! I'm " + botName + "\nWhat can I do for you?");
+    ui.showWelcomeMessage();
     Scanner scanner = new Scanner(System.in);
-    Parser parser = new Parser(taskList, storage);
+    Parser parser = new Parser(taskList, storage, ui);
     while (!input.equals("bye")) {
       try {
         input = scanner.nextLine();
         System.out.println("\n--------------------------------------------------");
         if (input.equals("bye")) {
           scanner.close();
-          System.out.println("Bye. Hope to see you again soon!");
+          ui.showGoodbyeMessage();
         }
         parser.parseInput(input);
 
       } catch (DukeException e) {
-        e.printErrorMessage();
+        ui.showErrorMessage(e.getMessage());
       }
       System.out.println("--------------------------------------------------\n");
     }

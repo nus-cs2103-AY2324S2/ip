@@ -3,7 +3,7 @@ public class DukeException extends Exception {
     super(message);
   }
 
-  public void printErrorMessage() {
-    System.out.println(getMessage());
+  public String getErrorMessage() {
+    return super.getMessage();
   }
 }

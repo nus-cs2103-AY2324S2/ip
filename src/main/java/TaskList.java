@@ -26,17 +26,6 @@ public class TaskList {
   }
 
   /*
-   * Return a message representing the number of tasks in the list
-   */
-  public String getTaskCountMessage() {
-    if (getTaskCount() == 1) {
-      return "Now you have " + getTaskCount() + " task in the list.";
-    } else {
-      return "Now you have " + getTaskCount() + " tasks in the list.";
-    }
-  }
-
-  /*
    * Get task at index
    */
   public Task getTask(int index) {
@@ -57,19 +46,13 @@ public class TaskList {
    * Adds a task to the list
    */
   public void addTask(Task task) {
-    System.out.println("Got it. I've added this task:");
     this.tasksList.add(task);
-    System.out.println(task);
-    System.out.println(getTaskCountMessage());
   }
 
   /*
    * Removes a task from the list
    */
   public void removeTask(int index) {
-    Task task = this.tasksList.get(index - 1);
-    System.out.println("Noted. I've removed this task:");
-    System.out.println(task);
     this.tasksList.remove(index - 1);
   }
 }
