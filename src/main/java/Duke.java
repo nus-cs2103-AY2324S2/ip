@@ -51,15 +51,33 @@ class Ui {
     }
 
     public String readCommand() {
+
         return scanner.nextLine();
     }
 
     public void showLoadingError() {
+
         System.out.println("Error loading file.");
     }
 
     public void closeScanner() {
         scanner.close();
+    }
+
+    public void showMarkedTask(Task task) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  " + task);
+    }
+
+    public void showUnmarkedTask(Task task) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("  " + task);
+    }
+
+    public void showDeletedTask(Task task, int taskCount) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 }
 
@@ -167,19 +185,42 @@ class Parser {
         String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
 
         switch (commandType) {
-            case "todo":
-                if (commandArgs.isEmpty()) {
-                    throw new DukeException("The description of a todo cannot be empty.");
-                }
-                return new AddTodoCommand(commandArgs);
-            case "deadline":
-                return parseAddDeadlineCommand(commandArgs);
-            case "event":
-                return parseAddEventCommand(commandArgs);
-            case "list":
-                return new ListCommand();
-            default:
-                throw new DukeException("Unknown command");
+        case "todo":
+            if (commandArgs.isEmpty()) {
+                throw new DukeException("The description of a todo cannot be empty.");
+            }
+            return new AddTodoCommand(commandArgs);
+        case "deadline":
+            return parseAddDeadlineCommand(commandArgs);
+        case "event":
+            return parseAddEventCommand(commandArgs);
+        case "list":
+            return new ListCommand();
+        case "mark":
+            try {
+                int index = Integer.parseInt(commandArgs) - 1;
+                return new MarkCommand(index);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Invalid task number format.");
+            }
+        case "unmark":
+            try {
+                int index = Integer.parseInt(commandArgs) - 1;
+                return new UnmarkCommand(index);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Invalid task number format.");
+            }
+        case "delete":
+            try {
+                int index = Integer.parseInt(commandArgs) - 1;
+                return new DeleteCommand(index);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Invalid task number format.");
+            }
+        case "bye":
+            return new ExitCommand();
+        default:
+            throw new DukeException("Unknown command");
         }
     }
 
@@ -358,14 +399,13 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                Command command = Parser.parse(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit(); // Check if the command signals to exit
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             }
         }
-        ui.showGoodbye();
         ui.closeScanner();
     }
 
@@ -378,6 +418,91 @@ abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
     public abstract boolean isExit();
 }
+
+class MarkCommand extends Command {
+    private int index;
+
+    public MarkCommand(int index) {
+        this.index = index;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (index < 0 || index >= tasks.getSize()) {
+            throw new DukeException("Invalid task number.");
+        }
+        Task task = tasks.getTask(index);
+        task.markAsDone();
+        ui.showMarkedTask(task);
+        storage.save(tasks);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+}
+
+class UnmarkCommand extends Command {
+    private int index;
+
+    public UnmarkCommand(int index) {
+        this.index = index;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (index < 0 || index >= tasks.getSize()) {
+            throw new DukeException("Invalid task number.");
+        }
+        Task task = tasks.getTask(index);
+        task.markAsNotDone();
+        ui.showUnmarkedTask(task);
+        storage.save(tasks);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+}
+
+class DeleteCommand extends Command {
+    private int index;
+
+    public DeleteCommand(int index) {
+        this.index = index;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (index < 0 || index >= tasks.getSize()) {
+            throw new DukeException("Invalid task number.");
+        }
+        Task task = tasks.removeTask(index);
+        ui.showDeletedTask(task, tasks.getSize());
+        storage.save(tasks);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+}
+
+class ExitCommand extends Command {
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ui.showGoodbye();
+    }
+
+    @Override
+    public boolean isExit() {
+        return true; // Indicate that the application should exit
+    }
+}
+
+
 
 class ListCommand extends Command {
     @Override
