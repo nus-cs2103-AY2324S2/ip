@@ -134,6 +134,16 @@ class Ui {
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
+    public void showFindResults(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        }
+    }
 }
 
 
@@ -305,6 +315,11 @@ class Parser {
             }
         case "bye":
             return new ExitCommand();
+        case "find":
+            if (commandArgs.isEmpty()) {
+                throw new DukeException("The search keyword cannot be empty.");
+            }
+            return new FindCommand(commandArgs);
         default:
             throw new DukeException("Unknown command");
         }
@@ -370,6 +385,7 @@ class TaskList {
      * @param tasks The ArrayList of tasks to initialize the task list with.
      */
     public TaskList(ArrayList<Task> tasks) {
+
         this.tasks = tasks;
     }
     /**
@@ -394,6 +410,7 @@ class TaskList {
      * @return The removed task.
      */
     public Task removeTask(int index) {
+
         return tasks.remove(index);
     }
     /**
@@ -403,6 +420,7 @@ class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+
         return tasks.get(index);
     }
     /**
@@ -411,6 +429,7 @@ class TaskList {
      * @return The size of the task list.
      */
     public int getSize() {
+
         return tasks.size();
     }
 
@@ -423,7 +442,7 @@ enum TaskType {
     DEADLINE,
     EVENT
 }
-/**/
+
 class Task {
     protected String description;
     protected boolean isDone;
@@ -610,6 +629,7 @@ class UnmarkCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }
@@ -618,6 +638,7 @@ class DeleteCommand extends Command {
     private int index;
 
     public DeleteCommand(int index) {
+
         this.index = index;
     }
 
@@ -633,6 +654,7 @@ class DeleteCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }
@@ -645,6 +667,7 @@ class ExitCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return true; // Indicate that the application should exit
     }
 }
@@ -657,6 +680,7 @@ class ListCommand extends Command {
         ui.showTaskList(tasks);
     }
     public boolean isExit() {
+
         return false;
     }
 }
@@ -665,6 +689,7 @@ class AddTodoCommand extends Command {
     private String description;
 
     public AddTodoCommand(String description) {
+
         this.description = description;
     }
 
@@ -678,6 +703,7 @@ class AddTodoCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }
@@ -701,6 +727,7 @@ class AddDeadlineCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }
@@ -722,6 +749,32 @@ class AddEventCommand extends Command {
         tasks.addTask(newEvent);
         ui.showTaskAdded(newEvent, tasks.getSize());
         storage.save(tasks);
+    }
+
+    @Override
+    public boolean isExit() {
+
+        return false;
+    }
+}
+
+class FindCommand extends Command {
+    private String keyword;
+
+    public FindCommand(String keyword) {
+        this.keyword = keyword.toLowerCase(); // convert to lowercase for case-insensitive search
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.getSize(); i++) {
+            Task task = tasks.getTask(i);
+            if (task.getDescription().toLowerCase().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        ui.showFindResults(matchingTasks);
     }
 
     @Override
