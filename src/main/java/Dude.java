@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -5,7 +7,8 @@ import java.util.Scanner;
 public class Dude {
     enum ParameterTypes {
         INTEGER,
-        STRING
+        STRING,
+        DATE
     }
     static final String spacer = "____________________________________________________________\n";
     static final String name = "Dude";
@@ -28,6 +31,16 @@ public class Dude {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    private static boolean isDate(String str) {
+        String dateString = str.stripTrailing();
+        try {
+            LocalDate.parse(dateString);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
     }
 
     private static boolean checkParameterExists(ArrayList<String> output, String command, String parameterName, String parameter) {
@@ -67,12 +80,21 @@ public class Dude {
     private static boolean formatParameters(ArrayList<Object> foramttedParameters, ArrayList<String> parameters, ParameterTypes[] formats) {
         for (int i = 0; i < formats.length; i++) {
             if (formats[i] == ParameterTypes.INTEGER) {
-                if (isNumeric(parameters.get(i))) foramttedParameters.add(Integer.parseInt(parameters.get(i)));
-                else {
+                if (isNumeric(parameters.get(i))) {
+                    foramttedParameters.add(Integer.parseInt(parameters.get(i)));
+                } else {
                     print("Format of " + parameters.get(i) + " is not an integer\n");
+                    return false;
+                }
+            } else if  (formats[i] == ParameterTypes.DATE) {
+                if (isDate(parameters.get(i))) {
+                    foramttedParameters.add(parameters.get(i).stripTrailing());
+                } else {
+                    print("Format of " + parameters.get(i) + " is not a date (yyyy-mm-dd)\n");
+                    return false;
                 }
             } else {
-                foramttedParameters.add(parameters.get(i));
+                    foramttedParameters.add(parameters.get(i).stripTrailing());
             }
         }
         return true;
@@ -202,7 +224,7 @@ public class Dude {
                 if (!formatParameters(
                         formattedParameters,
                         parameters,
-                        new ParameterTypes[]{ParameterTypes.STRING, ParameterTypes.STRING})
+                        new ParameterTypes[]{ParameterTypes.STRING, ParameterTypes.DATE})
                 ) continue;
                 Deadline deadline = new Deadline(
                         (String) formattedParameters.get(0),
@@ -215,7 +237,7 @@ public class Dude {
                 if (!formatParameters(
                         formattedParameters,
                         parameters,
-                        new ParameterTypes[]{ParameterTypes.STRING, ParameterTypes.STRING, ParameterTypes.STRING})
+                        new ParameterTypes[]{ParameterTypes.STRING, ParameterTypes.DATE, ParameterTypes.DATE})
                 ) continue;
                 Event event = new Event(
                         (String) formattedParameters.get(0),
