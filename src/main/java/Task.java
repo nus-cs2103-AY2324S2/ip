@@ -1,11 +1,30 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 public class Task {
     private String task, type;
     private boolean isDone;
+    private LocalDateTime deadline, to;
+    private LocalDateTime deadline2;
+
     public Task(String task, String type, boolean isDone) {
         this.task = task;
         this.type = type;
         this.isDone = isDone;
+    }
+
+    public Task(String task, String type, boolean isDone, LocalDateTime deadline, LocalDateTime to) {
+        this.task = task;
+        this.type = type;
+        this.isDone = isDone;
+        this.deadline = deadline;
+        this.to = to;
+    }
+    public Task(String task, String type, boolean isDone, LocalDateTime deadline2) {
+        this.task = task;
+        this.type = type;
+        this.isDone = isDone;
+        this.deadline2 = deadline2;
     }
     public void setDone() {
         this.isDone = true;
