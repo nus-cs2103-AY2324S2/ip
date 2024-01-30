@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -65,7 +66,10 @@ public class Skibidi {
             } catch (DukeEmptyArgumentException e) {
                 System.out.println("There is an argument that is empty!!!");
             } catch (DukeErroneousArgumentException e) {
-                System.out.println("There is an argument that is of the wrong format!!!");
+                System.out.println("There is an argument in the wrong format!!!");
+            } catch (DateTimeException e) {
+                System.out.println("The format of your date is wrong! Make sure it is of the form 'yyyy-MM-dd'.");
+                System.out.println("More specifically: \n" + e.getMessage());
             }
         }
     }
@@ -86,7 +90,7 @@ public class Skibidi {
             // Try to get the index of the first '/', if it does not exist, the statement is invalid.
             // Also, it should adhere to "/by"
             int first = s.indexOf('/');
-            if (first == -1) {
+            if (first == -1 || s.length() < first + 14) {
                 throw new DukeErroneousArgumentException();
             } else if (!s.startsWith("/by", first)) {
                 throw new DukeErroneousArgumentException();
@@ -107,7 +111,7 @@ public class Skibidi {
             // Also, the format should adhere to "/from" and "/to"
             int first = s.indexOf('/');
             int second = s.indexOf('/', first + 1);
-            if (first == -1 || second != first + 17) {
+            if (first == -1 || second != first + 17 || s.length() < second + 14) {
                 throw new DukeErroneousArgumentException();
             } else if (!s.startsWith("/from", first)
                     || !s.startsWith("/to", second)) {

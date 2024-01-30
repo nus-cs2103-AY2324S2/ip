@@ -1,6 +1,6 @@
 todo task1
-deadline task2 /by 9am
-event task3 /from 3am /to 4am
+deadline task2 /by 2024-01-31
+event task3 /from 2024-02-01 /to 2024-02-28
 list
 mark 1
 mark 2
