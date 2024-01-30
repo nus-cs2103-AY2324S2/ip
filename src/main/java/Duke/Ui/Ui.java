@@ -1,4 +1,6 @@
-import java.io.IOException;
+package Duke.Ui;
+
+import Duke.Task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
