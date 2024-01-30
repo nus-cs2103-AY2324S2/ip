@@ -1,6 +1,6 @@
-package taskTypes;
+package drew.tasktypes;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -19,6 +19,8 @@ public class Task {
     public String statusString(){
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public abstract String toSaveFormatString();
 
     public void setDone() {
         isDone = true;
