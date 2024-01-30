@@ -20,8 +20,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String formattedDate = this.by.getDayOfMonth() + " " + this.by.getMonth().toString().substring(0, 3) + " "
+        String modifiedDate = this.by.getDayOfMonth() + " " + this.by.getMonth().toString().substring(0, 3) + " "
                 + this.by.getYear();
-        return "[D]" + super.toString() + " ( by: " + formattedDate + ")";
+        return "[D]" + super.toString() + " ( by: " + modifiedDate + ")";
     }
 }
