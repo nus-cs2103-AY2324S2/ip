@@ -28,7 +28,8 @@ public class ChatSession {
             new Unmark(), 
             new ToDoCommand(), 
             new EventCommand(), 
-            new DeadlineCommand()
+            new DeadlineCommand(),
+            new Delete()
             );
     }
 

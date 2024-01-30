@@ -28,4 +28,14 @@ public class TaskList {
     public void add(Task t) {
         this.internalList.add(t);
     }
+
+    public void delete(int index) {
+        internalList.remove(index - 1);
+    }
+
+    public Task pop(int index) {
+        Task t = this.getTask(index);
+        this.delete(index);
+        return t;
+    }
 }

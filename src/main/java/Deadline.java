@@ -25,7 +25,7 @@ public class Deadline extends Task {
     }
 
     public String getName() {
-        return String.format("%s, %s", super.getName(), this.constructTimeString());
+        return String.format("%s %s", super.getName(), this.constructTimeString());
     }
 
     public void setByDate(String byDate) {
