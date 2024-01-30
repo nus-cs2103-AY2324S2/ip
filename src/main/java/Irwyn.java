@@ -1,3 +1,12 @@
+import Exceptions.CommandException;
+import Exceptions.InputException;
+import Exceptions.TaskException;
+
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,14 +29,14 @@ public class Irwyn {
                     break;
                 } else if (userInput.startsWith("mark")) {
                     int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    list.get(index).isDone = true;
+                    list.get(index).mark();
                     System.out.println(linebreak
                             + "Nice! I've marked this task as done:\n"
                             + "  " + list.get(index) + "\n"
                             + linebreak);
                 } else if (userInput.startsWith("unmark")) {
                     int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    list.get(index).isDone = false;
+                    list.get(index).unmark();
                     System.out.println(linebreak
                             + "OK, I've marked this task as not done yet:\n"
                             + "  " + list.get(index) + "\n"

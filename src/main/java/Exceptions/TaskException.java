@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class TaskException extends InputException {
     public TaskException() {
         super(
