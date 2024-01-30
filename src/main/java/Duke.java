@@ -1,3 +1,4 @@
+//merge commit
 import java.util.*;
 public class Duke {
     /**
