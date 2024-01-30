@@ -10,11 +10,16 @@ public class Deadline extends Task {
         super(description);
 
         String desc = super.description;
-        if (!desc.contains("/by")) throw new DukeException("Date missing in description!");
+        
+        if (!desc.contains("/by")) {
+            throw new DukeException("Date missing in description!");
+        }
 
         String[] descParsed = desc.split("/by");
 
-        if (descParsed.length == 1) throw new DukeException("Invalid date!");
+        if (descParsed.length == 1) {
+            throw new DukeException("Invalid date!");
+        }
 
         try {
             LocalDate date = LocalDate.parse(descParsed[1].trim());

@@ -12,7 +12,7 @@ public class Task {
         E;
 
         public static TaskType getType(String s) {
-            switch(s) {
+            switch (s) {
                 case "T":
                     return T;
                 case "D":
@@ -26,7 +26,9 @@ public class Task {
     }
 
     public Task(String description) throws DukeException {
-        if (description.isEmpty()) throw new DukeException("Description cannot be empty!");
+        if (description.isEmpty()) {
+            throw new DukeException("Description cannot be empty!");
+        };
 
         this.description = description;
         this.isDone = false;
