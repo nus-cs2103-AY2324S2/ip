@@ -140,7 +140,7 @@ public class TaskList {
                     String to = fromTo[1];
 
                     Event newEvent = new Event(description, from, to);
-                    if (newEvent.hasValidDate()) {
+                    if (newEvent.hasValidDates()) {
                         taskList.add(newEvent);
                         currIndex++;
                         ui.addMessage(newEvent, currIndex);
