@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 // import java.io.BufferedWriter;
@@ -136,6 +138,53 @@ public class TaskList {
             System.out.println(list.get(i));
 
         }
+    }
+
+    public void textToTask(String line) {
+        String taskType = line.substring(1,2);
+        boolean isDone = (line.substring(4,5).equals("X")) ? true : false;
+        String fullDescription = line.substring(7);
+        String description;
+        Task task;
+
+        switch (taskType) {
+            case "T":
+                task = new ToDo(fullDescription, isDone);
+                list.add(task);
+                break;
+            case "D":
+                String[] splitBy = fullDescription.split(" (by: ", 2);
+                description = splitBy[0];
+                String byString = splitBy[1].substring(0, splitBy[1].length());
+                task = new Deadline(description, byString, isDone);
+                list.add(task);
+                break;
+            case "E":
+                String[] splitFrom = fullDescription.split(" (from: ", 2);
+                String[] splitTo = splitFrom[1].split(" to: ", 2);
+                description = splitFrom[0];
+                String fromString = splitTo[0];
+                String toString = splitTo[1].substring(0, splitTo[1].length());
+                task = new Event(description, fromString, toString, isDone);
+                list.add(task);
+                break;
+            default:
+                System.out.println("?");
+        }
+
+    }
+
+    public void loadList(File file) {
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                this.textToTask(scanner.nextLine());
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void saveList(File file) {

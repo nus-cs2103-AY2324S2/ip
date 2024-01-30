@@ -21,7 +21,8 @@ public class Program {
     }
 
     public void start() {
-        // File f = this.retrieveFile();
+        File f = this.retrieveFile();
+        taskList.loadList(f);
         this.greeting();
         while (this.running) {
             String userInput = this.userInputScanner.nextLine();
