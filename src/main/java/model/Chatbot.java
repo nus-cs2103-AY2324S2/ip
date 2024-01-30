@@ -5,6 +5,7 @@ import io.Message;
 import io.Outputter;
 import model.commands.CommandList;
 import parsing.Parser;
+import storage.Storage;
 import utils.RemiError;
 
 public class Chatbot {
@@ -16,7 +17,7 @@ public class Chatbot {
 
     public Chatbot() {
         this.exitLoop = false;
-        this.taskList = new StoredTaskList();
+        this.taskList = Storage.get();
         this.commandList = new CommandList(this.taskList, this);
         this.parser = new Parser(this.commandList);
     }
@@ -24,6 +25,7 @@ public class Chatbot {
 
     public void ioLoop() {
         Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
+        Storage.get();
 
         while (!exitLoop) {
             try {
