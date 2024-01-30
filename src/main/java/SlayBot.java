@@ -218,7 +218,10 @@ public class SlayBot {
         String afterFrom = combinedWord.substring(indexFrom + "/from".length(), indexTo).trim();
         String afterTo = combinedWord.substring(indexTo + "/to".length()).trim();
 
-        return new Event(beforeFrom, afterFrom, afterTo);
+        LocalDateTime startDate = dateTimeParser(afterFrom);
+        LocalDateTime endDate = dateTimeParser(afterTo);
+
+        return new Event(beforeFrom, startDate, endDate);
     }
 
     private static Command parseCommand(String[] arr) throws UnknownCommandException {
