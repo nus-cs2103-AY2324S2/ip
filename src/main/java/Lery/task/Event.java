@@ -11,7 +11,7 @@ public class Event extends Task {
 
         int fromId = description.indexOf("/from");
         int toId = description.indexOf("/to");
-        this.start = description.substring(fromId +6, toId);
+        this.start = description.substring(fromId +6, toId-1);
         this.end  = description.substring(toId +4);
 
     }

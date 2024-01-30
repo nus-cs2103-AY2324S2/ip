@@ -14,7 +14,7 @@ public class Deadline extends Task {
         this.deadline = LocalDate.parse(description.split("/by ")[1], formatter);
     }
 
-    public  Deadline(String event, String extraInfo) {
+    public Deadline(String event, String extraInfo) {
         super(event);
 
         this.deadline = LocalDate.parse(extraInfo.replace('/','-'), formatter);;
