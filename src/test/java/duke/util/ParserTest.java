@@ -2,6 +2,7 @@ package duke.util;
 
 import duke.command.*;
 import duke.exception.DukeException;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -122,8 +123,8 @@ public class ParserTest {
             Parser.parseCommand(input);
             fail();
         } catch (DukeException e) {
-            assertEquals("The description and due of a deadline cannot be empty.\n\t Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.",
-                    e.getMessage());
+            assertEquals("The description and due of a deadline cannot be empty.\n"
+                    + "\t Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.", e.getMessage());
         }
     }
 
@@ -134,8 +135,8 @@ public class ParserTest {
             Parser.parseCommand(input);
             fail();
         } catch (DukeException e) {
-            assertEquals("The description and due of a deadline cannot be empty.\n\t Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.",
-                    e.getMessage());
+            assertEquals("The description and due of a deadline cannot be empty.\n"
+                    + "\t Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.", e.getMessage());
         }
     }
 
@@ -156,8 +157,8 @@ public class ParserTest {
             Parser.parseCommand(input);
             fail();
         } catch (DukeException e) {
-            assertEquals("The description, start and end time of an event cannot be empty.\n\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.",
-                    e.getMessage());
+            assertEquals("The description, start and end time of an event cannot be empty.\n"
+                    + "\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.", e.getMessage());
         }
     }
 
@@ -168,8 +169,8 @@ public class ParserTest {
             Parser.parseCommand(input);
             fail();
         } catch (DukeException e) {
-            assertEquals("The description, start and end time of an event cannot be empty.\n\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.",
-                    e.getMessage());
+            assertEquals("The description, start and end time of an event cannot be empty.\n"
+                    + "\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.", e.getMessage());
         }
     }
 }
