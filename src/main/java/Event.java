@@ -1,18 +1,16 @@
-<<<<<<< Updated upstream
-=======
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
->>>>>>> Stashed changes
+
 public class Event extends Task{
 
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.from = LocalDate.parse(from, formatter);
+        this.to = LocalDate.parse(to, formatter);
     }
 
 
@@ -22,14 +20,14 @@ public class Event extends Task{
     }
     @Override
     public String ToString() {
-        return super.ToString() + " (from: " + from + "to: " + to + ")";
+        return super.ToString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
     @Override
     public String toStore() {
         if (isDone) {
-            return getTaskIcon() + "/" + "1" + "/" + description + "/" + from + "/" + to;
+            return getTaskIcon() + "/" + "1" + "/" + description + "/ " + from + "/ " + to;
         } else {
-            return getTaskIcon() + "/" + "0" + "/" + description + "/" + from + "/" + to;
+            return getTaskIcon() + "/" + "0" + "/" + description + "/ " + from + "/ " + to;
         }
     }
 }
