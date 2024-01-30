@@ -1,3 +1,8 @@
+import ukecat.command.Parser;
+import ukecat.command.Ui;
+import ukecat.data.FileManager;
+import ukecat.data.Storage;
+
 public class UkeCat {
     private final Ui ui;
 

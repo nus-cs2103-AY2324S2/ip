@@ -1,3 +1,8 @@
+package ukecat.command;
+
+import ukecat.data.Storage;
+import ukecat.enums.MarkType;
+
 // Based on the parsed input, generate a response
 public class Ui {
     public void respond(String[] words) {

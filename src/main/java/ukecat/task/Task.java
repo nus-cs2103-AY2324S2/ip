@@ -1,3 +1,6 @@
+package ukecat.task;
+import ukecat.enums.MarkType;
+
 public class Task {
     private String description;
     private boolean isDone;
