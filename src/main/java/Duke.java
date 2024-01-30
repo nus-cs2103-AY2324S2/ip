@@ -12,7 +12,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String input;
         List<Task> list = new ArrayList<Task>();
-        Integer index;
+        int index;
         Task t;
 
         while (sc.hasNextLine()) {
@@ -65,6 +65,21 @@ public class Duke {
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println(t.toString());
                             list.set(index, t);
+                            break;
+                        case "delete":
+                            if (split.length < 2) {
+                                throw new DukeException("Command description cannot be empty!");
+                            }
+                            desc = input.split(command + " ")[1];
+                            split = input.split(" ");
+                            index = Integer.parseInt(split[1]) - 1;
+                            if (index + 1 > list.size()) {
+                                throw new DukeException("You only have " + list.size() + " tasks in the list.");
+                            }
+                            t = list.remove(index);
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(t.toString());
+                            System.out.println("Now you have " + list.size() + " tasks in the list.");
                             break;
                         case "todo":
                             if (split.length < 2) {
