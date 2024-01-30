@@ -1,17 +1,12 @@
-package parser;
+package duke.parser;
 
-import commands.*;
+import duke.commands.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import common.Messages;
-import exception.MalformedUserInputException;
-import tasklist.Event;
-
-import static commands.EventCommand.EVENT_ARGUMENTS_FORMAT;
-import static commands.MarkCommand.MESSAGE_INVALID_ID;
-import static commands.TodoCommand.MESSAGE_BLANK_EVENT;
+import duke.common.Messages;
+import duke.exception.MalformedUserInputException;
 
 public class Parser {
 

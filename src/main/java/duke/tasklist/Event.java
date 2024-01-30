@@ -1,7 +1,7 @@
-package tasklist;
+package duke.tasklist;
 
-import exception.MalformedUserInputException;
-import common.DateTimeHandler;
+import duke.exception.MalformedUserInputException;
+import duke.common.DateTimeHandler;
 
 public class Event extends Task {
     private DateTimeHandler startTime;

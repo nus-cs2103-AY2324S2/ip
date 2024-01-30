@@ -1,18 +1,15 @@
-package commands;
+package duke.commands;
 
-import exception.MalformedUserInputException;
-import tasklist.Task;
+import duke.exception.MalformedUserInputException;
 
-import static common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
+public class UnmarkCommand extends Command {
+    public static final String COMMAND_WORD = "unmark";
 
-public class MarkCommand extends Command {
-    public static final String COMMAND_WORD = "mark";
-
-    public static final String MESSAGE_USAGE = "\t " + COMMAND_WORD + ": Marks an event as completed.\n"
+    public static final String MESSAGE_USAGE = "\t " + COMMAND_WORD + ": Marks an event as uncompleted.\n"
             + "\t Example: " + COMMAND_WORD
             + " 1 ";
 
-    public static final String MESSAGE_SUCCESS = "\t Nice! I've marked this task as done:\n" +
+    public static final String MESSAGE_SUCCESS = "\t Nice! I've marked this task as uncompleted:\n" +
             "\t %s";
     public static final String MESSAGE_INVALID_ID = "\t Please enter a integer that is 1 or larger.";
     public static final String MESSAGE_TASK_NOT_CREATED_YET = " \t This is an invalid index\n"+
@@ -20,14 +17,14 @@ public class MarkCommand extends Command {
 
     private int targetIndex;
 
-    public MarkCommand(int targetIndex) {
+    public UnmarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute() {
         try {
-            dataStorage.setTaskStatus(targetIndex, true);
+            dataStorage.setTaskStatus(targetIndex, false);
             return new CommandResult(String.format(MESSAGE_SUCCESS, dataStorage.getTask(targetIndex)));
         } catch (MalformedUserInputException e) {
             return new CommandResult(e.getMessage());

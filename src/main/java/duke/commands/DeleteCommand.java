@@ -1,7 +1,7 @@
-package commands;
+package duke.commands;
 
-import exception.MalformedUserInputException;
-import tasklist.Task;
+import duke.exception.MalformedUserInputException;
+import duke.tasklist.Task;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";

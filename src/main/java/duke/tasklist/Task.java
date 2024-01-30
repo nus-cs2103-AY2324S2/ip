@@ -1,4 +1,4 @@
-package tasklist;
+package duke.tasklist;
 
 public class Task {
     private String description;

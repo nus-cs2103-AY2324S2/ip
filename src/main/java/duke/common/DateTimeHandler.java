@@ -1,6 +1,6 @@
-package common;
+package duke.common;
 
-import exception.MalformedUserInputException;
+import duke.exception.MalformedUserInputException;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

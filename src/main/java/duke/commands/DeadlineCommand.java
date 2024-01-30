@@ -1,11 +1,11 @@
-package commands;
+package duke.commands;
 
-import exception.MalformedUserInputException;
-import tasklist.Deadline;
+import duke.exception.MalformedUserInputException;
+import duke.tasklist.Deadline;
 
 import java.util.regex.Pattern;
 
-import static common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
+import static duke.common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";

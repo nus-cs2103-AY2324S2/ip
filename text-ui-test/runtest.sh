@@ -23,7 +23,7 @@ then
 fi
 
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
+# run the program, feed duke.commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin Duke < input.txt > ACTUAL.TXT
 
 # convert to UNIX format

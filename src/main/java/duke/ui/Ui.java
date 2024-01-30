@@ -1,8 +1,7 @@
-package ui;
+package duke.ui;
 
-import common.Messages;
+import duke.common.Messages;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
 public class Ui {

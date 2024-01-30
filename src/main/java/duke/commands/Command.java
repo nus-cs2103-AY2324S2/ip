@@ -1,6 +1,6 @@
-package commands;
+package duke.commands;
 
-import common.DataStorage;
+import duke.common.DataStorage;
 
 /**
  * Represents an executable command.

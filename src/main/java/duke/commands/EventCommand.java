@@ -1,11 +1,11 @@
-package commands;
+package duke.commands;
 
-import exception.MalformedUserInputException;
-import tasklist.Event;
+import duke.exception.MalformedUserInputException;
+import duke.tasklist.Event;
 
 import java.util.regex.Pattern;
 
-import static common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
+import static duke.common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
 
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";

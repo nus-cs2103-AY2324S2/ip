@@ -1,6 +1,6 @@
-package commands;
+package duke.commands;
 
-import tasklist.Task;
+import duke.tasklist.Task;
 
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";

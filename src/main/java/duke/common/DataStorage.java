@@ -1,10 +1,10 @@
-package common;
+package duke.common;
 
-import exception.MalformedUserInputException;
-import tasklist.Deadline;
-import tasklist.Event;
-import tasklist.Task;
-import tasklist.Todo;
+import duke.exception.MalformedUserInputException;
+import duke.tasklist.Deadline;
+import duke.tasklist.Event;
+import duke.tasklist.Task;
+import duke.tasklist.Todo;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,9 +1,11 @@
-import commands.ByeCommand;
-import commands.Command;
-import commands.CommandResult;
-import common.DataStorage;
-import parser.Parser;
-import ui.Ui;
+package duke;
+
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.CommandResult;
+import duke.common.DataStorage;
+import duke.parser.Parser;
+import duke.ui.Ui;
 
 public class Duke {
 

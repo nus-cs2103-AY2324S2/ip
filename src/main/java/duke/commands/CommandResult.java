@@ -1,4 +1,4 @@
-package commands;
+package duke.commands;
 
 /**
  * Represents the result of a command execution.
