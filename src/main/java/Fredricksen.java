@@ -1,6 +1,13 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Fredricksen {
     public static void greeting(String line) {
         System.out.println(line);
@@ -58,7 +65,7 @@ public class Fredricksen {
         System.out.println("2. To add new task:");
         System.out.println("    a. todos: todo <task>");
         System.out.println("    b. deadlines: deadline <task> /by <deadline>");
-        System.out.println("    c. event: event <event> /from <startdate, starttiming> /to <enddate, endtiming>");
+        System.out.println("    c. event: Event <event> /from <startdate, starttiming> /to <enddate, endtiming>");
         System.out.println("3. To delete a task: delete <task number>");
         System.out.println("4. To mark task as completed: mark <task number>");
         System.out.println("5. To unmark completed task: unmark <task number>");
@@ -179,18 +186,58 @@ public class Fredricksen {
                     if (startInd2 == -1 && startInd1 == -1) {
                         newTask = new Task(ss, res, false);
                     } else {
+                        DateTimeFormatter[] formats = new DateTimeFormatter[] {
+                                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                                DateTimeFormatter.ofPattern("d/M/yyyy"),
+                                DateTimeFormatter.ofPattern("d-M-yyyy"),
+                        };
                         if (startInd1 != -1) {
                             // dl = deadline
-                            String dl = s.substring(first.length() + 1, startInd1) + "(" + s.substring(startInd1 + 1, startInd1 + 3) + ": " + s.substring(startInd1 + 4) + ")";
-                            newTask = new Task(dl, res, false);
+                            String spl1 = s.substring(startInd1 + 4);
+                            LocalDateTime deadline = null;
+                            for (DateTimeFormatter format : formats) {
+                                try {
+                                    deadline = LocalDateTime.parse(spl1, format);
+                                    break;
+                                } catch (DateTimeParseException e) {
+                                }
+                            }
+
+                            /** if (deadline != null) {
+                                System.out.println(deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")));
+                            } else {
+                                System.out.println("Failed to parse date");
+                            } **/
+
+                            String dl = s.substring(first.length() + 1, startInd1) + "(" + s.substring(startInd1 + 1, startInd1 + 3) + ": " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + ")";
+                            newTask = new Task(dl, res, false, deadline);
                         } else {
                             // e = event
                             int startTo = s.indexOf("/to");
-                            String e = s.substring(first.length() + 1, startInd2) +
-                                    "(" + s.substring(startInd2 + 1, startInd2 + 5) + ": " + s.substring(startInd2 + 6, startTo) + s.substring(startTo + 1, startTo + 3) +
-                                    ": " + s.substring(startTo + 4) + ")";
-                            newTask = new Task(e, res, false);
+                            String from = s.substring(startInd2 + 6, startTo - 1);
+                            String to = s.substring(startTo + 4);
+                            LocalDateTime duefrom = null;
+                            LocalDateTime dueto = null;
+                            for (DateTimeFormatter format : formats) {
+                                try {
+                                    duefrom = LocalDateTime.parse(from, format);
+                                } catch (DateTimeParseException e) {
+                                }
 
+                                try {
+                                    dueto = LocalDateTime.parse(to, format);
+                                } catch (DateTimeParseException e) {
+                                }
+
+                            }
+                            String e = "";
+                            if (dueto != null && duefrom != null) {
+                                e = s.substring(first.length() + 1, startInd2) +
+                                    "(" + s.substring(startInd2 + 1, startInd2 + 5) + ": " + duefrom.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + " " + s.substring(startTo + 1, startTo + 3) +
+                                    ": " + dueto.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + ")";
+                            }
+
+                            newTask = new Task(e, res, false, duefrom, dueto);
                         }
                     }
                     list.add(newTask);
