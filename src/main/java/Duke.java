@@ -1,4 +1,5 @@
 import java.sql.Array;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -190,6 +191,7 @@ public class Duke {
         Duke.addCommand("deadline", (args) -> {
             StringBuilder by = new StringBuilder();
             StringBuilder name = new StringBuilder();
+            Task t;
             
             final String NO_NAME = "you didn't specify specify a name for your deadline";
             final String NO_BY = "you failed to specify an end date using '/by'";
@@ -235,7 +237,12 @@ public class Duke {
                     throw new DukeOptionParsingException(NO_BY);
                 }
                 
-                Task t = new Deadline(name.toString(), by.toString());
+                try {
+                    t = new Deadline(name.toString(), by.toString());
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("Couldn't parse the end date " + by);
+                }
+                
                 Duke.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
                 Duke.taskList.add(t);
                 Duke.st.writeTasks(Duke.taskList);
@@ -251,6 +258,7 @@ public class Duke {
             StringBuilder from = new StringBuilder();
             StringBuilder to = new StringBuilder();
             StringBuilder name = new StringBuilder();
+            Event t;
 
 
             final String NO_NAME = "you didn't specify specify a name for your event";
@@ -322,7 +330,13 @@ public class Duke {
                     throw new DukeOptionParsingException(NO_TO);
                 }
                 
-                var t = new Event(name.toString(), from.toString(), to.toString());
+                try {
+                    t = new Event(name.toString(), from.toString(), to.toString());
+                } catch (DateTimeParseException e) {
+                    throw new DukeException(String.format
+                            ("Couldn't parse the start/end date %s/%s", from, to));
+                }
+
                 Duke.print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
                 Duke.taskList.add(t);
                 Duke.st.writeTasks(Duke.taskList);
