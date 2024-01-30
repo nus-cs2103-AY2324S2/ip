@@ -1,3 +1,5 @@
+package huyang;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
