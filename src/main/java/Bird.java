@@ -1,12 +1,18 @@
 
 
 public class Bird {
+    private Ui ui;
    
     public static void main(String[] args) { 
+        new Bird();
+    }
+
+    public Bird() {
         greet();
         TaskList.create();
         Storage.init();
-        CommandHandler.scan();
+        this.ui = new Ui();
+        ui.scan();
     }
 
     public static void greet() {

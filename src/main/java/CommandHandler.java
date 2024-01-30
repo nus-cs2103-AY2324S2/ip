@@ -12,23 +12,8 @@ public class CommandHandler {
         DEADLINE,
         EVENT
     }
-    
-    public static void scan() {
-        Scanner scanner = new Scanner(System.in);
 
-        boolean exitScan = false;
-        while (!exitScan) {
-            String userInput = scanner.nextLine();
-            try {
-                exitScan = executeCommand(userInput);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        scanner.close();
-    }
-
-    private static boolean executeCommand(String userInput) throws DukeException {
+    public static boolean executeCommand(String userInput) throws DukeException {
         String[] words = userInput.split("\\s+");
         Command command = null;
         try {
