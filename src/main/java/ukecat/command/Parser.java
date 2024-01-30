@@ -1,3 +1,9 @@
+package ukecat.command;
+
+import ukecat.data.Storage;
+import ukecat.exceptions.UkeCatException;
+import ukecat.task.*;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -11,7 +17,7 @@ public class Parser {
 
     public static void parse() {
         // trim removes leading and trailing whitespaces
-        Storage.input = (sc.nextLine().trim());
+        Storage.input = sc.nextLine().trim();
         // whitespace regex is //s, the + means whitespace of any length
         Storage.words = Storage.input.split("\\s+");
 
@@ -68,7 +74,7 @@ public class Parser {
         }
     }
 
-    public static int parseMarkTask(String[] words) throws UkeCatException{
+    public static int parseMarkTask(String[] words) throws UkeCatException {
         try {
             if (words.length == 2) {
                 return Integer.parseInt(words[1]) - 1;
@@ -80,16 +86,16 @@ public class Parser {
         }
     }
 
-    // ToDo: T, 0/1, desc
-    // Deadline: D, 0/1, desc, by
-    // Event: E, 0/1, desc, from, to
+    // ukecat.task.ToDo: T, 0/1, desc
+    // ukecat.task.Deadline: D, 0/1, desc, by
+    // ukecat.task.Event: E, 0/1, desc, from, to
     public static String parseTaskToCsv(Task t) {
         if (t instanceof ToDo) {
             return String.format("T,%d,%s", t.getIntIsDone(), t.getDescription());
         } else if (t instanceof Deadline) {
             Deadline x = (Deadline) t;
             return String.format("D,%d,%s,%s", t.getIntIsDone(), t.getDescription(), x.getBy());
-        } else { // instanceof Event
+        } else { // instanceof ukecat.task.Event
             Event x = (Event) t;
             return String.format("E,%d,%s,%s,%s", t.getIntIsDone(), t.getDescription(),
                     x.getStart(), x.getEnd());

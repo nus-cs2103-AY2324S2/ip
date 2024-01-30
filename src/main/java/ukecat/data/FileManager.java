@@ -1,3 +1,8 @@
+package ukecat.data;
+
+import ukecat.command.Parser;
+import ukecat.task.Task;
+
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -8,8 +13,8 @@ public class FileManager {
     // Load data on startup
     // If data file not found, create one
     // Reads data line by line
-    // For each line, ask Storage to loadTask()
-    // Storage asks Parser to parse line
+    // For each line, ask ukecat.data.Storage to loadTask()
+    // ukecat.data.Storage asks ukecat.command.Parser to parse line
     // Task can be created to be added (with mark info too)
     public static void loadTasks() {
         File f = new File("data/taskData.txt");
@@ -30,7 +35,7 @@ public class FileManager {
         }
     }
 
-    // Rewrite file using data in Storage
+    // Rewrite file using data in ukecat.data.Storage
     public static void updateTasks() {
         try (FileWriter fw = new FileWriter("data/taskData.txt")){
             for (Task t : Storage.getTasks()) {
