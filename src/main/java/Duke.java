@@ -9,6 +9,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+class Utils {
+    static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    static LocalDate parseDate(String date) {
+        return LocalDate.parse(date, dateFormat);
+    }
+
+    static String formatDate(LocalDate date) {
+        return date.format(dateFormat);
+    }
+}
+
 enum TodoState {
     UNDONE, DONE
 }
@@ -53,7 +65,7 @@ class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return "D | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task + " | " + deadline;
+        return "D | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task + " | " + Utils.formatDate(deadline);
     }
 }
 
@@ -80,7 +92,7 @@ class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "E | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task + " | " + start + " | " + end;
+        return "E | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task + " | " + Utils.formatDate(start) + " | " + Utils.formatDate(end);
     }
 }
 
@@ -119,7 +131,6 @@ public class Duke {
     static String dataDir = "./data";
     static String dataPath = dataDir + "/duke.txt";
 
-    static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static void main(String[] args) throws IOException, ParseException {
 
@@ -127,29 +138,36 @@ public class Duke {
         System.out.println("Hello! I'm Brian\nWhat can I do for you?");
         System.out.println(line);
         ArrayList<Task> data = new ArrayList<>();
-        // Create file it it does not exist
+        // Create file if it does not exist
         new File(dataDir).mkdirs();
         File file = new File(dataPath);
         file.createNewFile();
         // Read file
         Scanner fileScanner = new Scanner(file);
-        while (fileScanner.hasNext()) {
-            String[] split = fileScanner.nextLine().split(" \\| ");
-            TodoState state = split[1].equals("1") ? TodoState.DONE : TodoState.UNDONE;
-            switch (split[0]) {
-                case "T": {
-                    data.add(new Todo(split[2], state));
-                    break;
-                }
-                case "D": {
-                    data.add(new Deadline(split[2], LocalDate.parse(split[3], dateFormat), state));
-                    break;
-                }
-                case "E": {
-                    data.add(new Event(split[2], LocalDate.parse(split[3], dateFormat), LocalDate.parse(split[4], dateFormat), state));
-                    break;
+        try {
+            while (fileScanner.hasNext()) {
+                String[] split = fileScanner.nextLine().split(" \\| ");
+                TodoState state = split[1].equals("1") ? TodoState.DONE : TodoState.UNDONE;
+                switch (split[0]) {
+                    case "T": {
+                        data.add(new Todo(split[2], state));
+                        break;
+                    }
+                    case "D": {
+                        data.add(new Deadline(split[2], Utils.parseDate(split[3]), state));
+                        break;
+                    }
+                    case "E": {
+                        data.add(new Event(split[2], Utils.parseDate(split[3]), Utils.parseDate(split[4]), state));
+                        break;
+                    }
                 }
             }
+        } catch (Exception e) {
+            System.out.println("Error reading file");
+            data.clear();
+        } finally {
+            fileScanner.close();
         }
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -205,7 +223,7 @@ public class Duke {
                         if (split.length == 1) {
                             throw new DukeException("The deadline of a deadline cannot be empty.");
                         }
-                        Task curr = new Deadline(split[0], LocalDate.parse(split[1], dateFormat));
+                        Task curr = new Deadline(split[0], Utils.parseDate(split[1]));
                         data.add(curr);
                         System.out.println("Got it. I've added this task:");
                         System.out.println(curr);
@@ -224,7 +242,7 @@ public class Duke {
                         if (split2.length == 1) {
                             throw new DukeException("The to of a event cannot be empty.");
                         }
-                        Task curr = new Event(split1[0], LocalDate.parse(split2[0],dateFormat), LocalDate.parse(split2[1], dateFormat));
+                        Task curr = new Event(split1[0], Utils.parseDate(split2[0]), Utils.parseDate(split2[1]));
                         data.add(curr);
                         System.out.println("Got it. I've added this task:");
                         System.out.println(curr);
