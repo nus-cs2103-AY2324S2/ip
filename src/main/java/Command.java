@@ -131,19 +131,22 @@ public enum Command {
         Scanner sc = new Scanner(file);
         while (sc.hasNext()) {
             Task task;
-            String[] storedTask = sc.nextLine().split("|");
+            String[] storedTask = sc.nextLine().split(" \\| ");
+            for (String s : storedTask){
+                System.out.println(s);
+            }
             switch (storedTask[0]){
                 case "T":
-                    task = new Todo(storedTask[1], storedTask[2].equals("1"));
+                    task = new Todo(storedTask[2], storedTask[1].equals("1"));
                     break;
                 case "D":
-                    task = new Deadline(storedTask[1], storedTask[3], storedTask[2].equals("1"));
+                    task = new Deadline(storedTask[2], storedTask[3], storedTask[1].equals("1"));
                     break;
                 case "E":
-                    task = new Event(storedTask[1], storedTask[3], storedTask[4], storedTask[2].equals("1"));
+                    task = new Event(storedTask[2], storedTask[3], storedTask[4], storedTask[1].equals("1"));
                     break;
                 default:
-                    throw new ToothlessException("File corrupted");
+                    throw new ToothlessException("File corrupted O_O. Try again later.");
             }
             listOfTasks.add(task);
         }
