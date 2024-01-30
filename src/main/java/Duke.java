@@ -1,3 +1,4 @@
+import commands.ByeCommand;
 import commands.Command;
 import commands.CommandResult;
 import common.DataStorage;
@@ -54,30 +55,30 @@ public class Duke {
     private void runCommandLoopUntilExitCommand() {
 
         Command command;
-        boolean isExit = false;
 
-        while (!isExit) {
+        do {
 
             // Keep reading user input until they type "bye"
             String userInput = ui.readCommand();
-            Command command1 =  new Parser().parseCommand(userInput);
+            command = new Parser().parseCommand(userInput);
 
-            CommandResult commandResult = executeCommand(command1);
+            CommandResult commandResult = executeCommand(command);
 
+            ui.showLine();
             System.out.println(commandResult.feedbackToUser);
+            ui.showLine();
+//            if (userInput.equals("list")) {
+//                // Print out all the tasks.
+//                ui.showLine();
 //
-            if (userInput.equals("list")) {
-                // Print out all the tasks.
-                ui.showLine();
-
-                for (int i = 0; i < dataStorage.getTaskCount(); i++) {
-                    int humanReadableId = i + 1;
-                    Task currentTask = dataStorage.getTask(i);
-                    System.out.println("\t " + humanReadableId + ". " + currentTask.toString());
-                }
-
-                ui.showLine();
-            }
+//                for (int i = 0; i < dataStorage.getTaskCount(); i++) {
+//                    int humanReadableId = i + 1;
+//                    Task currentTask = dataStorage.getTask(i);
+//                    System.out.println("\t " + humanReadableId + ". " + currentTask.toString());
+//                }
+//
+//                ui.showLine();
+//            }
 //            else if (userInput.startsWith("mark")) {
 //                handleCommandWithIndex(dataStorage, userInput, TypeOfActions.MARK);
 //            } else if (userInput.startsWith("unmark")) {
@@ -146,9 +147,7 @@ public class Duke {
 //                System.out.println("\t ____________________________________________________________");
 //            }
 
-        }
-
-        ui.showGoodbye();
+        } while (!ByeCommand.isExit(command));
     }
 
     private static void createNewTask(DataStorage dataStorage, Task task) {
