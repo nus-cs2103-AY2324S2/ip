@@ -1,7 +1,12 @@
 public class ToDos extends Task{
     private Task task;
-    public ToDos(String name) {
-        super(name);
+    public ToDos(String name, Boolean status) {
+        super(name, status);
+    }
+
+    @Override
+    public String saveOutput() {
+        return "T "+ super.saveOutput();
     }
 
     @Override
