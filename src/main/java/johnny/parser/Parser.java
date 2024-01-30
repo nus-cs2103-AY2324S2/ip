@@ -17,10 +17,21 @@ import johnny.commands.MarkCommand;
 import johnny.commands.UnmarkCommand;
 import johnny.exceptions.JohnnyException;
 
+/**
+ * Parses the input from user into Commands to be executed.
+ */
 public class Parser {
 
+    /** Format of DateTime in Tasks entered by user. */
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
 
+    /**
+     * Parses the command into various Commands depending on the type of command.
+     *
+     * @param fullCommand Input entered by user.
+     * @return Command that corresponds to the user input.
+     * @throws JohnnyException If command does not match any existing command or format.
+     */
     public static Command parse(String fullCommand) throws JohnnyException {
         List<String> parsedCommand = Arrays.asList(fullCommand.split(" "));
 
