@@ -50,6 +50,7 @@ public class UI {
             }
         }
     }
+
     public void showTasksOnDate(ArrayList<Task> tasks, LocalDate date) throws DukeException {
         System.out.println("Tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
         for (Task task : tasks) {
