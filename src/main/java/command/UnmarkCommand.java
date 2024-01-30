@@ -8,20 +8,40 @@ import ui.Ui;
 public class UnmarkCommand extends Command {
     private int taskIndex;
 
+    /**
+     * Constructor for Un-mark Command.
+     *
+     * @param taskIndex The index of the task to be unmarked.
+     * */
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
+
+
+    /**
+     * Un-marks the task at taskIndex of tasks as done.
+     *
+     * @param tasks Current TaskList.
+     * @param storage Current Storage.
+     * @param ui Current Ui.
+     * */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task curr = tasks.getTask(taskIndex);
         curr.markAsUndone();
 
-        ui.printDivider();
+        Ui.printDivider();
         System.out.println("    OK, I've marked this task as not done : ");
         curr.taskPrinter(taskIndex);
-        ui.printDivider();
+        Ui.printDivider();
     }
 
+
+    /**
+     * Informs if this command is an Exit command.
+     *
+     * @return Boolean value of true if this command is an exit command.
+     * */
     @Override
     public boolean isExit() {
         return false;
