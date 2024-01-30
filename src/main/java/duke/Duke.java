@@ -1,7 +1,6 @@
 package duke;
 
 import java.io.IOException;
-import duke.task.Task;
 
 public class Duke {
 
@@ -22,7 +21,6 @@ public class Duke {
     }
 
     public void run() throws IOException {
-
 
         ui.startMsg();
 
