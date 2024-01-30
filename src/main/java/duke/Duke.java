@@ -4,11 +4,19 @@ import duke.command.Command;
 
 import java.io.FileNotFoundException;
 
+/**
+ * The Duke program is features task management and displays task list
+ */
 
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private TextUi ui;
+
+    /**
+     * Constructs a Duke class
+     * @param filePath of the file path in string representation
+     */
 
     public Duke(String filePath) {
         this.ui = new TextUi();
@@ -21,6 +29,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application
+     */
     public void run() {
         ui.showGreetMessage();
         boolean isExit = false;
@@ -35,6 +46,12 @@ public class Duke {
             }
         }
     }
+
+
+    /**
+     * Creates a Duke object and runs it
+     * @param args
+     */
 
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
