@@ -2,6 +2,9 @@ package nollid;
 
 import java.util.Scanner;
 
+/**
+ * Ui class handles user interface-related functionality, such as sending messages and reading user input.
+ */
 public class Ui {
     // Default length of line to be printed
     private static final int LINE_LENGTH = 30;

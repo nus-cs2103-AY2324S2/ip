@@ -1,5 +1,9 @@
 package nollid.commands;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
@@ -7,10 +11,10 @@ import nollid.exceptions.NollidException;
 import nollid.tasks.Deadline;
 import nollid.tasks.Task;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-
+/**
+ * DeadlineCommand class represents a command for adding a Deadline task.
+ * It extends the Command class and implements the execute method to perform the command logic.
+ */
 public class DeadlineCommand extends Command {
     private final ArrayList<String> argsList;
 

@@ -4,6 +4,10 @@ import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
 
+/**
+ * HelpCommand class represents a command for displaying a help message with available commands.
+ * It extends the Command class and implements the execute method to perform the command logic.
+ */
 public class HelpCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

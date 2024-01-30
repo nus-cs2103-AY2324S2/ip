@@ -1,11 +1,5 @@
 package nollid;
 
-import nollid.exceptions.NollidException;
-import nollid.tasks.Deadline;
-import nollid.tasks.Event;
-import nollid.tasks.Task;
-import nollid.tasks.ToDo;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,6 +9,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import nollid.exceptions.NollidException;
+import nollid.tasks.Deadline;
+import nollid.tasks.Event;
+import nollid.tasks.Task;
+import nollid.tasks.ToDo;
+
+/**
+ * Storage class handles loading and updating tasks from/to a file.
+ */
 public class Storage {
 
     /**

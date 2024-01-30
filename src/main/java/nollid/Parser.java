@@ -1,15 +1,34 @@
 package nollid;
 
-import nollid.commands.*;
-import nollid.exceptions.InvalidCommandException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import nollid.commands.ByeCommand;
+import nollid.commands.Command;
+import nollid.commands.DeadlineCommand;
+import nollid.commands.DeleteCommand;
+import nollid.commands.EventCommand;
+import nollid.commands.HelpCommand;
+import nollid.commands.ListCommand;
+import nollid.commands.MarkCommand;
+import nollid.commands.TodoCommand;
+import nollid.commands.UnmarkCommand;
+import nollid.exceptions.InvalidCommandException;
+
+/**
+ * Parser class provides a static method to parse user input and return the corresponding Command object.
+ */
 public class Parser {
+    /**
+     * Parses the full user command and returns the appropriate Command object.
+     *
+     * @param fullCommand The full user command input.
+     * @return The corresponding Command object based on the parsed input.
+     * @throws InvalidCommandException If the user command is invalid or not recognized.
+     */
     public static Command parse(String fullCommand) throws InvalidCommandException {
         if (fullCommand.isBlank()) {
-            throw new InvalidCommandException("nollid.commands.Command is blank.");
+            throw new InvalidCommandException("Command is blank.");
         }
         // Split user input into individual words
         // e.g. "i am user input" -> ["i", "am", "user", "input"]

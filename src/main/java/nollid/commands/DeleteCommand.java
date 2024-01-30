@@ -1,12 +1,16 @@
 package nollid.commands;
 
+import java.util.ArrayList;
+
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
 import nollid.exceptions.NollidException;
 
-import java.util.ArrayList;
-
+/**
+ * DeleteCommand class represents a command for deleting a task.
+ * It extends the Command class and implements the execute method to perform the command logic.
+ */
 public class DeleteCommand extends Command {
     private final ArrayList<String> argsList;
 

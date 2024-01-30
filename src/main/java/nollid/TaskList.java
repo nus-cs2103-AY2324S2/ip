@@ -1,10 +1,13 @@
 package nollid;
 
-import nollid.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import nollid.tasks.Task;
+
+/**
+ * TaskList class represents a list of tasks.
+ */
 public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> taskList;
 
@@ -48,6 +51,11 @@ public class TaskList implements Iterable<Task> {
         return taskList.iterator();
     }
 
+    /**
+     * Provides a summary of the number of tasks in the TaskList.
+     *
+     * @return A summary string indicating the number of tasks in the TaskList.
+     */
     public String summary() {
         int listSize = this.taskList.size();
 

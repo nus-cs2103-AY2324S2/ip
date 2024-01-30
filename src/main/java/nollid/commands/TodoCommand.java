@@ -1,13 +1,16 @@
 package nollid.commands;
 
+import java.util.ArrayList;
+
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
 import nollid.exceptions.NollidException;
 import nollid.tasks.ToDo;
 
-import java.util.ArrayList;
-
+/**
+ * TodoCommand class represents a command to add a new ToDo task.
+ */
 public class TodoCommand extends Command {
     private final ArrayList<String> argsList;
 

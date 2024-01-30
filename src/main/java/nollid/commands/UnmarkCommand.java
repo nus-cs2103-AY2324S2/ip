@@ -1,13 +1,15 @@
 package nollid.commands;
 
+import java.util.ArrayList;
+
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
-import nollid.commands.Command;
 import nollid.exceptions.NollidException;
 
-import java.util.ArrayList;
-
+/**
+ * UnmarkCommand class represents a command to mark a task as not done.
+ */
 public class UnmarkCommand extends Command {
     private final ArrayList<String> argsList;
 

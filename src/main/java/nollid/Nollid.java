@@ -1,17 +1,26 @@
 package nollid;
 
+import java.nio.file.Path;
+import java.util.Scanner;
+
 import nollid.commands.Command;
 import nollid.exceptions.InvalidCommandException;
 import nollid.exceptions.NollidException;
 
-import java.nio.file.Path;
-import java.util.Scanner;
-
+/**
+ * Nollid class represents the main application class for Nollid task manager.
+ * It initializes the UI, Storage, and TaskList, and runs the main loop to process user commands.
+ */
 public class Nollid {
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
 
+    /**
+     * Constructs a Nollid object with the specified file path for data storage.
+     *
+     * @param filePath The path to the file used for data storage.
+     */
     public Nollid(Path filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -22,6 +31,9 @@ public class Nollid {
         new Nollid(Storage.DEFAULT_FILEPATH).run();
     }
 
+    /**
+     * Runs the main loop to process user commands and interact with the user.
+     */
     public void run() {
         this.ui.sendWelcomeMessage();
         Scanner scanner = new Scanner(System.in);

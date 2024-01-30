@@ -1,22 +1,26 @@
 package nollid.tasks;
 
-import nollid.exceptions.NollidException;
-
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
-    protected static final LocalTime DEFAULT_TIME = LocalTime.of(0, 0);
-    public static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
+import nollid.exceptions.NollidException;
 
+/**
+ * Event class represents a task with a specified start and end time.
+ * It extends the Task class and includes additional functionality for handling events.
+ */
+public class Event extends Task {
+    public static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
+    public static final String USAGE_HINT = "Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} "
+            + "/to [d/m/yyyy] {hh:mm 24hr " + "format}";
+    protected static final LocalTime DEFAULT_TIME = LocalTime.of(0, 0);
     protected static final DateTimeFormatter DATE_INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
     protected static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy");
     protected static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
-    public static final String USAGE_HINT = "Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} "
-            + "/to [d/m/yyyy] {hh:mm 24hr format}";
+
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Creates new Event with specified description, start, and end time.

@@ -4,6 +4,10 @@ import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
 
+/**
+ * ListCommand class represents a command for listing all tasks in the task list.
+ * It extends the Command class and implements the execute method to perform the command logic.
+ */
 public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
