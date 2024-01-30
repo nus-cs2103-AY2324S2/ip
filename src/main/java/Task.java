@@ -1,6 +1,6 @@
 public abstract class Task {
     protected String description;
-    private boolean isDone = false;
+    protected boolean isDone = false;
 
     @Override
     public String toString() {
@@ -17,6 +17,10 @@ public abstract class Task {
 
     public void markAsNotDone(){
         this.isDone = false;
+    }
+
+    public String toWrite(){
+        return (isDone ? 1 : 0) + " | " + this.description;
     }
 
     public abstract String getTaskIcon();

@@ -1,5 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public enum Command {
     List, Mark, Unmark, Delete, Todo, Deadline, Event, Bye, Invalid;
@@ -69,6 +74,7 @@ public enum Command {
                 case Bye:
                     isDone = true;
                     System.out.println(exitString);
+                    writeTasks();
                     break;
                 case Invalid:
                     throw new ToothlessException("Me dragon, no understand this action :P");
@@ -118,6 +124,44 @@ public enum Command {
             }
         }
         return newTask;
+    }
+
+    public static void loadTasks(String filepath) throws FileNotFoundException, ToothlessException{
+        File file = new File(filepath);
+        Scanner sc = new Scanner(file);
+        while (sc.hasNext()) {
+            Task task;
+            String[] storedTask = sc.nextLine().split(" \\| ");
+            switch (storedTask[0]){
+                case "T":
+                    task = new Todo(storedTask[2], storedTask[1].equals("1"));
+                    break;
+                case "D":
+                    task = new Deadline(storedTask[2], storedTask[3], storedTask[1].equals("1"));
+                    break;
+                case "E":
+                    task = new Event(storedTask[2], storedTask[3], storedTask[4], storedTask[1].equals("1"));
+                    break;
+                default:
+                    throw new ToothlessException("File corrupted O_O. Try again later.");
+            }
+            listOfTasks.add(task);
+        }
+    }
+
+    public static void writeTasks(){
+        try {
+            new File("./data/toothless.txt").getParentFile().mkdirs();
+            FileWriter writer = new FileWriter("./data/toothless.txt");
+            for (Task task : listOfTasks){
+                writer.write(task.toWrite() + "\n");
+            }
+            writer.close();
+        } catch (FileNotFoundException e){
+            System.err.println("Unable to find task list :(");
+        } catch (IOException e){
+            System.err.println("Unable to save task :(");
+        }
     }
 
     public static int getTaskIndex(String detail) throws ToothlessException{

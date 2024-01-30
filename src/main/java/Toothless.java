@@ -1,19 +1,28 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Toothless {
-    private static String splitLine = "____________________________________________________________";
-    private static String chatBotName = "Toothless";
-    private static String greetingString = "Hi! "+ chatBotName +" is " + chatBotName + "!\n"
+    private String splitLine = "____________________________________________________________";
+    private String chatBotName = "Toothless";
+    private String greetingString = "Hi! "+ chatBotName +" is " + chatBotName + "!\n"
                             + "What can " + chatBotName + " do for human?\n" + splitLine;
 
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        System.out.println(splitLine + "\n" + greetingString);
+    public Toothless(String filepath){
+        try {
+            Command.loadTasks(filepath);
+        } catch (FileNotFoundException e){
+            System.out.println("Can't Find Task File!");
+        } catch (ToothlessException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    public void start(Scanner sc) {
         String input;
         Command command;
         boolean isDone = false;
-
+        System.out.println(splitLine + "\n" + greetingString);
         while(!isDone){
             input = sc.nextLine();
             System.out.println(splitLine);
@@ -55,5 +64,13 @@ public class Toothless {
 
             isDone = Command.handleCommand(command, detail);
         }
+    }
+
+
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        Toothless toothless = new Toothless("./data/toothless.txt");
+        toothless.start(sc);
     }
 }

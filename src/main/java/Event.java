@@ -8,9 +8,21 @@ public class Event extends Task{
         this.endDate = endDate;
     }
 
+    public Event(String description, String startDate, String endDate, boolean isDone){
+        super.description = description;
+        super.isDone = isDone;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     @Override
     public String getTaskIcon() {
         return "E";
+    }
+
+    @Override
+    public String toWrite(){
+        return "E | " + super.toWrite() + " | " + this.startDate + " | " + this.endDate;
     }
 
     @Override
