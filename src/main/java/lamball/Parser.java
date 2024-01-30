@@ -27,6 +27,12 @@ public class Parser {
                 }
                 return parts;
             }
+            case "find": {
+                if (parts.length < 2 || parts[1] == null) {
+                    throw new LamballParseException("Invalid query");
+                }
+                return parts;
+            }
             default:
                 throw new LamballParseException("Sorry, I don't understaaaaaand your commaaaaand, baa. :(");
         }

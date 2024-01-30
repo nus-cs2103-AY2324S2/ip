@@ -121,6 +121,21 @@ public class TaskList {
         return true;
     }
 
+    private boolean find(String[] parts) throws LamballParseException {
+        String message = "Here aaaaare the taaaasks in your list:\n";
+        int count = 1;
+
+        for(int i = 0; i < tasks.size(); i++) {
+            Task temp = tasks.get(i);
+            if (temp.containing(parts[1])) {
+                message += "    " + count + "." +temp.toString() + "\n";
+                count++;
+            }
+        }
+
+        Ui.displayAction(message);
+        return true;
+    }
     public boolean runComd(String[] command, boolean isInit) throws LamballParseException {
         switch(command[0]) {
             case "mark": {
@@ -152,6 +167,10 @@ public class TaskList {
             }
             case "delete": {
                 deleteFromList(command);
+                return true;
+            }
+            case "find": {
+                find(command);
                 return true;
             }
 

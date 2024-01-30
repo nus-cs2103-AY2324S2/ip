@@ -27,4 +27,14 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    /**
+     * Checks if the task description contains the given string.
+     *
+     * @param compare String used for comparison.
+     * @return Whether the given string is a sub-sequence of the task.
+     */
+    public boolean containing(String compare) {
+        return description.contains(compare);
+    }
 }
