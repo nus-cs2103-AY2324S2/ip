@@ -1,5 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String time;
+    private LocalDate time;
+
+    public Deadline(boolean done, String name, String time) {
+        super(done, name);
+        this.time = LocalDate.parse(time);
+    }
 
     public Deadline(boolean done, String name, String time) {
         super(done, name);
@@ -8,7 +16,15 @@ public class Deadline extends Task {
 
     public Deadline(String name, String time) {
         super(name);
-        this.time = time;
+        this.time = LocalDate.parse(time);
+    }
+
+    @Override
+    public String toSavedString() {
+        return String.format("D,%s,%s,%s"
+                , this.done ? '1' : '0'
+                , this.name
+                , this.time.format(DateTimeFormatter.ISO_LOCAL_DATE));
     }
 
     @Override
@@ -17,6 +33,9 @@ public class Deadline extends Task {
     }
 
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)\n", this.done ? "X" : " ", this.name, this.time);
+        return String.format("[D][%s] %s (by: %s)\n"
+                , this.done ? "X" : " "
+                , this.name
+                , this.time.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
     }
 }

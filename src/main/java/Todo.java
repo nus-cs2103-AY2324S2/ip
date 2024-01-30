@@ -8,7 +8,9 @@ public class Todo extends Task{
 
     @Override
     public String toSavedString() {
-        return String.format("T,%s,%s", this.done ? '1' : '0', this.name);
+        return String.format("T,%s,%s"
+                , this.done ? '1' : '0'
+                , this.name);
     }
 
     public String toString() {
