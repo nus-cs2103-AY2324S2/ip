@@ -2,23 +2,24 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class TheAdvisor implements Serializable {
     private static final String FILE_PATH = "list.bin";
 
-    private static Ui ui;
+    private Ui ui;
 
+    private Storage storage;
+
+    public TheAdvisor() {
+        this.ui = new Ui();
+        this.storage = new Storage(FILE_PATH);
+    }
     public void run() {
-        ui = new Ui();
         // An ArrayList that stores the tasks to be done
         ArrayList<Task> taskList = new ArrayList<>();
         try {
-            taskList = loadList();
+            taskList = storage.loadList();
         } catch (IOException err) {
             System.out.println("No list found, creating empty task list");
         } catch (ClassNotFoundException err) {
@@ -50,8 +51,7 @@ public class TheAdvisor implements Serializable {
                         mark.markDone();
                         System.out.println("     Nice! I've marked this task as done:\n" + "       " +
                                 mark.toString());
-                        saveTasks(taskList);
-
+                        storage.saveTasks(taskList);
                         break;
                     case UNMARK:
                         checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
@@ -64,7 +64,7 @@ public class TheAdvisor implements Serializable {
                         unmarked.unmark();
                         System.out.println("     OK, I've marked this task as not done yet:\n" + "       " +
                                 unmarked.toString());
-                        saveTasks(taskList);
+                        storage.saveTasks(taskList);
                         break;
                     case DELETE:
                         checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
@@ -76,7 +76,7 @@ public class TheAdvisor implements Serializable {
                         taskList.remove(deleteNumber - 1);
                         System.out.println("     Noted. I've removed this task:\n" + "       " +
                                 deleted.toString() + "\n" + "     Now you have " + taskList.size() + " tasks in the list.");
-                        saveTasks(taskList);
+                        storage.saveTasks(taskList);
                         break;
                     case TODO:
                         String todo = str.substring(4);
@@ -88,7 +88,7 @@ public class TheAdvisor implements Serializable {
                                 "       " + toDos.toString() + "\n" +
                                 "     Now you have " + taskList.size() +
                                 " tasks in the list.");
-                        saveTasks(taskList);
+                        storage.saveTasks(taskList);
                         break;
                     case DEADLINE:
                         String due = str.substring(8);
@@ -104,7 +104,7 @@ public class TheAdvisor implements Serializable {
                                     "       " + deadline.toString() + "\n" +
                                     "     Now you have " + taskList.size() +
                                     " tasks in the list.");
-                            saveTasks(taskList);
+                            storage.saveTasks(taskList);
                         } catch (DateTimeException e) {
                             throw new TheAdvisorException("Incorrect format of your timestamp! " +
                                     "Please input YYYY-MM-DD HHmm");
@@ -131,7 +131,7 @@ public class TheAdvisor implements Serializable {
                                     "       " + events.toString() + "\n" +
                                     "     Now you have " + taskList.size() +
                                     " tasks in the list.");
-                            saveTasks(taskList);
+                            storage.saveTasks(taskList);
                         } catch (DateTimeException e) {
                             throw new TheAdvisorException("Incorrect format of your timestamp! " +
                                     "Please input YYYY-MM-DD HHmm");
@@ -154,26 +154,6 @@ public class TheAdvisor implements Serializable {
         TheAdvisor advisor = new TheAdvisor();
         advisor.run();
     }
-
-    private static ArrayList<Task> loadList() throws IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream(FILE_PATH);
-        ObjectInputStream out = new ObjectInputStream(fileIn);
-        @SuppressWarnings("unchecked")
-        ArrayList<Task> task = (ArrayList<Task>) out.readObject();
-        out.close();
-        fileIn.close();
-        return task;
-    }
-
-    private static void saveTasks(ArrayList<Task> taskList) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
-            oos.writeObject(taskList);
-        } catch (IOException e) {
-            System.out.println("Error saving tasks.");
-            e.printStackTrace();
-        }
-    }
-
 
     private static void checkIndex(int index, int size) throws TheAdvisorException {
         if (index <= 0) {
