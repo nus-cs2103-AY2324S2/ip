@@ -13,22 +13,21 @@ public class Lamball {
         ui = new Ui();
     }
 
-    public void initialize() {
+    private void initialize() {
         ui.greetingMessage();
         Storage.obtainSavedFile(this);
     }
 
-    public boolean parse(String msg, boolean isInit) throws LamballParseException{
-        boolean active = Parser.parse(msg, isInit, tasks);
-        return active;
+    public void initParse(String msg, boolean isInit) throws LamballParseException {
+        String[] comd = Parser.parse(msg);
+        tasks.runComd(comd, true);
     }
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        Lamball lamball = new Lamball();
         boolean active = true;
 
-        lamball.initialize();
+        this.initialize();
 
         while (active) {
             System.out.print("    You:");
@@ -36,7 +35,8 @@ public class Lamball {
 
             // Echo the user's command
             try {
-                active = lamball.parse(userInput, false);
+                String[] comd = Parser.parse(userInput);
+                active = tasks.runComd(comd, false);
                 if (!active) {
                     ui.goodbyeMessage();
                 }

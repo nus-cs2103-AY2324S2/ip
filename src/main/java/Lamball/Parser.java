@@ -1,67 +1,58 @@
 package Lamball;
+import Lamball.LamballParseException;
 
 public class Parser {
-
-    public static boolean parse(String msg, boolean isInit, TaskList tasks) throws LamballParseException {
+    public static String[] parse(String msg) throws LamballParseException {
         String[] parts = msg.split(" ", 2);
-        if (!isInit) {
-            System.out.println("\n    Lamball");
-        }
         switch (parts[0]) {
             case "mark": {
                 if (parts.length < 2 || !parts[1].matches("-?\\d+")) {
                     throw new LamballParseException("Invalid number, baa.");
                 }
-                int idx = Integer.valueOf(parts[1]) - 1;
-                String toFile = tasks.mark(isInit, idx);
-                if (!isInit) {
-                    Storage.replaceLine(toFile, idx);
-                }
-                return true;
+                return parts;
             }
             case "unmark": {
                 if (parts.length < 2 || !parts[1].matches("-?\\d+")) {
                     throw new LamballParseException("Invalid number, baa.");
                 }
-                int idx = Integer.valueOf(parts[1]) - 1;
-                String toFile = tasks.unMark(idx);
-                Storage.replaceLine(toFile, idx);
-                return true;
+                return parts;
             }
             case "bye":
-                return false;
-            case "list":
-                tasks.printList();
-                return true;
-            case "todo": {
-                String toFile = tasks.toDo(parts, isInit);
-                if (!isInit) {
-                    Storage.writeToFile(toFile);
+                if (parts.length > 1) {
+                    throw new LamballParseException("Do not type anything after 'bye'");
                 }
-                return true;
+                return parts;
+            case "list":
+                if (parts.length > 1) {
+                    throw new LamballParseException("Do not type anything after 'list'");
+                }
+                return parts;
+            case "todo": {
+                // Checks if empty string (nothing after command) or only whitespaces
+                if (parts.length < 2 || parts[1] == null || parts[1].trim().isEmpty()) {
+                    throw new LamballParseException("Your todo field is empty, baaaaka.");
+                }
+                return parts;
             }
             case "event": {
-                String toFile = tasks.event(parts, isInit);
-                if (!isInit) {
-                    Storage.writeToFile(toFile);
+                if (parts.length < 2 || parts[1] == null || parts[1].trim().isEmpty()) {
+                    // Checks if empty string (nothing after command) or only whitespaces
+                    throw new LamballParseException("Your event field is empty, baaaaka.");
                 }
-                return true;
+                return parts;
             }
             case "deadline": {
-                String toFile = tasks.deadline(parts, isInit);
-                if (!isInit) {
-                    Storage.writeToFile(toFile);
+                // Checks if empty string (nothing after command) or only whitespaces
+                if (parts.length < 2 || parts[1] == null || parts[1].trim().isEmpty()) {
+                    throw new LamballParseException("Your deadline field is empty, baaaaka.");
                 }
-                return true;
+                return parts;
             }
             case "delete": {
                 if (!parts[1].matches("-?\\d+")) {
                     throw new LamballParseException("Invalid number, baa.");
                 }
-                int idx = Integer.valueOf(parts[1]) - 1;
-                tasks.deleteFromList(parts, idx);
-                Storage.deleteLine(idx);
-                return true;
+                return parts;
             }
             default:
                 throw new LamballParseException("Sorry, I don't understaaaaaand your commaaaaand, baa. :(");
