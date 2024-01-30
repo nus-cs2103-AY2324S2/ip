@@ -54,6 +54,13 @@ public class Parser {
             case "BYE": {
                 return new ByeCommand();
             }
+            case "FIND": {
+                if (commandArray.length == 1) {
+                    throw new DukeException("You can use the help of some key words to find your task :)");
+                }
+                String details = commandArray[1].strip();
+                return new FindCommand(details);
+            }
             default: {
                 throw new DukeException("It's an INVALID COMMAND, follow the instruction and try again :-)");
             }
