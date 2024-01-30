@@ -40,7 +40,7 @@ public class DateTimeFormatters {
             LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
             return dateTime;
         } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the date-time string: '" + dateTimeStr);
+            System.out.println("Failed to parse the date-time string: " + dateTimeStr);
             System.out.println("Please provide date time range 'dd-MM-yyyy HHmm' format.");
             return null;
         }

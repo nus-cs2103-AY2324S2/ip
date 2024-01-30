@@ -6,3 +6,4 @@ E | N | Orientation Camp | Jan 15 2024 8:00 AM | Jan 18 2024 10:00 PM
 D | Y | Return Book | Dec 22 2023
 T | N | 100 sit-ups
 T | N | 100 push-ups
+E | N | Year | Jan 1 2023 12:00 AM | Dec 31 2023 11:59 PM
