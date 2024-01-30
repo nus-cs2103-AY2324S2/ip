@@ -15,6 +15,7 @@ public class Storage {
             out.write(taskList.toString());
         } catch (IOException err) {
             // do nothing
+            System.out.println(err.toString());
         }
     }
 
