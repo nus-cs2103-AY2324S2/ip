@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Quacky {
@@ -42,23 +43,28 @@ public class Quacky {
                                             + "\nNow you have " + tasks.taskNumber() + " tasks in the list.";
                     System.out.println(format(message));
                 }
-                else if (command.startsWith("todo ")) {
+                else if (command.startsWith("todo")) {
                     if (command.trim().equals("todo")) {
-                        int space = command.indexOf(' ');
-
+                        throw new QuackyException("Quack? (Please provide a description for your task)");
                     }
                     String taskDescription = command.substring(5);
                     Task newTask = new Todo(taskDescription);
                     tasks.addTask(newTask);
                     System.out.println(format("Quack! I've added this task:\n\t" + newTask +
                             "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
-                } else if (command.startsWith("deadline ")) {
+                } else if (command.startsWith("deadline")) {
+                    if (command.trim().equals("deadline")) {
+                        throw new QuackyException("Quack? (Please provide a description for your task)");
+                    }
                     String[] parts = command.substring(9).split(" /by ");
                     Task newTask = new Deadline(parts[0], parts[1]);
                     tasks.addTask(newTask);
                     System.out.println(format("Got it. I've added this task:\n\t" + newTask +
                             "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
-                } else if (command.startsWith("event ")) {
+                } else if (command.startsWith("event")) {
+                    if (command.trim().equals("event")) {
+                        throw new QuackyException("Quack? (Please provide a description for your task)");
+                    }
                     String[] parts = command.substring(6).split(" /from | /to ");
                     Task newTask = new Event(parts[0], parts[1], parts[2]);
                     tasks.addTask(newTask);
@@ -73,7 +79,13 @@ public class Quacky {
                 command = scanner.nextLine();
             }
     }
-        System.out.println(format("Quack Quack"));
-        scanner.close();
+        try {
+            tasks.writeToFile("./data/data.txt");
+        } catch (IOException e) {
+            System.out.println(format(e.getMessage()));
+        } finally {
+            System.out.println(format("Quack Quack"));
+            scanner.close();
+        }
     }
 }

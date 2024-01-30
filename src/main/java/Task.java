@@ -1,6 +1,6 @@
-public class Task {
-    private String description;
-    private boolean isDone;
+public abstract class Task {
+    protected final String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -9,6 +9,14 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    /**
+     * This method returns a value of the status for a given task
+     * @return 0 if the task is done and 1 otherwise
+     */
+    public int getStatusValue() {
+        return (isDone ? 0 : 1);
     }
 
     @Override
@@ -22,4 +30,13 @@ public class Task {
     public void unmarkDone() {
         isDone = false;
     }
+
+    /**
+     * This method is used to return a string that is easy to parse to recover the tasks data
+     * @return the parsible string representation of the task
+     */
+    protected String toFileString() {
+       return getStatusValue() +  " | " + this.description;
+    };
+
 }

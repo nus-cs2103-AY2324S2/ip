@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class TaskList {
     private List<Task> tasks;
 
@@ -43,4 +46,16 @@ public class TaskList {
         return sb.toString();
     }
 
+
+    protected void writeToFile(String filePath) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < tasks.size(); i++) {
+            sb.append(tasks.get(i).toFileString()).append("\n");
+        }
+
+        String textToAdd = sb.toString();
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
 }
