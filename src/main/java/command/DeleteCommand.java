@@ -29,10 +29,10 @@ public class DeleteCommand extends Command {
         Task curr = tasks.getTask(taskIndex);
         tasks.removeFromList(taskIndex);
 
-        ui.printDivider();
+        Ui.printDivider();
         System.out.println("    Noted, I've removed this task: ");
         curr.taskPrinter();
-        ui.printDivider();
+        Ui.printDivider();
     }
 
     /**
