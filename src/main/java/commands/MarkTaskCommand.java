@@ -10,7 +10,7 @@ import services.UI;
  * Marks task as done command.
  */
 public class MarkTaskCommand extends Command {
-    int index;
+    private int index;
     public MarkTaskCommand(int index) {
         this.index = index;
     }

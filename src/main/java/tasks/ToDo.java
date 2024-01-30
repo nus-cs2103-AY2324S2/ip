@@ -1,7 +1,5 @@
 package tasks;
 
-import tasks.Task;
-
 /**
  * Represents a Todo, inherits from Task.
  */

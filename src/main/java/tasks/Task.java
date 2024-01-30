@@ -1,6 +1,5 @@
 package tasks;
 
-
 /**
  * Represents a Task.
  */
@@ -18,7 +17,7 @@ public class Task {
     }
 
     public String getStatus() {
-        return (this.isDone ? "X": " ");
+        return (this.isDone ? "X" : " ");
     }
 
     public void markAsDone() {
@@ -34,6 +33,6 @@ public class Task {
     }
 
     public String fileString() {
-        return "| " + (this.isDone ? "1": "0") + " | " + this.name;
+        return "| " + (this.isDone ? "1" : "0") + " | " + this.name;
     }
 }

@@ -5,7 +5,6 @@ import services.TaskList;
 import services.UI;
 import tasks.Event;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 /**

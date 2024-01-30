@@ -11,7 +11,6 @@ import services.UI;
  */
 public class FindCommand extends Command {
     private String name;
-
     public FindCommand(String name) {
         this.name = name;
     }

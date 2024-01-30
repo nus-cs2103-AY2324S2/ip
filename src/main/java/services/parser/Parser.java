@@ -160,7 +160,7 @@ public class Parser {
         int index = Integer.parseInt(parsed[1]);
         return new MarkTaskCommand(index);
     }
-     /**
+    /**
      * Parses the user input to create an FindCommand.
      *
      * @param userInput The user's input as a string.
@@ -174,7 +174,7 @@ public class Parser {
         return new FindCommand(parsed[1]);
 
     }
-    
+
     /**
      * Parses a date string into a LocalDateTime object.
      *
@@ -269,7 +269,10 @@ public class Parser {
             LocalDateTime end = LocalDateTime.parse(times[1].trim());
 
             Event event = new Event(description, start, end);
-            if (isDone) event.markAsDone();
+            if (isDone) {
+                event.markAsDone();
+            }
+
             return event;
 
         default:
