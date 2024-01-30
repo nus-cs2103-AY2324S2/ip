@@ -5,9 +5,9 @@ Quack! My name is Bearducky. I would like to earn some bread. How may I help?
  If you would like me to list the things you are procrastinating, please enter the word "list". 
  If you would like to leave, please enter the word "bye". 
  Do also feel free to also type the words "feed bread to bearducky" ? [Hopeful quacking]
-Task added! You now have 1 tasks to attend to.
-Task added! You now have 2 tasks to attend to.
-Task added! You now have 3 tasks to attend to.
+Duke.Task added! You now have 1 tasks to attend to.
+Duke.Task added! You now have 2 tasks to attend to.
+Duke.Task added! You now have 3 tasks to attend to.
 [quack] I don't understand that command. If you would like to add a task to the Duckalendar,
  please specify with the task type - "todo", "deadline" or "event" followed by a space in front of the task name.
  For deadlines, please add a /by followed by the deadline (eg. /by Monday) . For events, please add a / followed by the start time, then another / followed by the end time.

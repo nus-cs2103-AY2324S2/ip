@@ -27,9 +27,8 @@ public class Storage {
                 writer.write(task.typeid()+"~"+task.markstatus()+"~"+task.getDescription()+task.timeprint());
                 writer.newLine(); // Add a newline character after each item
             }
-            System.out.println("Your input has been saved!");
         } catch (IOException e) {
-
+            System.out.println("Error implementing changes!");
         }
     }
 
