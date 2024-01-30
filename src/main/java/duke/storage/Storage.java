@@ -21,9 +21,9 @@ public class Storage {
     }
 
     /**
-     * Create a StringBuilder from data inside TaskList for Local Storage
-     * @param tasks TaskList from the ChatBot
-     * @return StringBuilder the converted tasks data
+     * Create a StringBuilder from data inside TaskList for Local Storage.
+     * @param tasks TaskList from the ChatBot.
+     * @return StringBuilder the converted tasks' data.
      */
     public StringBuilder createSaveDataFromTaskList(TaskList tasks) {
         StringBuilder saveData = new StringBuilder();
@@ -34,8 +34,8 @@ public class Storage {
     }
 
     /**
-     * Save data inside TaskList into a SaveFile for Local Storage
-     * @param tasks TaskList tasks to be saved
+     * Save data inside TaskList into a SaveFile for Local Storage.
+     * @param tasks TaskList tasks to be saved.
      */
     public void saveTaskListToFile(TaskList tasks) {
         try {
@@ -48,8 +48,8 @@ public class Storage {
     }
 
     /**
-     * Get Location of the SaveFile
-     * @return Path Location of the SaveFile
+     * Get Location of the SaveFile.
+     * @return Path Location of the SaveFile.
      */
     public Path getFileLocationPath() {
         return Paths.get(DATA_FOLDER, this.fileName);
@@ -57,8 +57,8 @@ public class Storage {
 
 
     /**
-     * Load data from SaveFile in Local Storage into TaskList
-     * @param taskList TaskList to for local data to be added in
+     * Load data from SaveFile in Local Storage into TaskList.
+     * @param taskList TaskList to for local data to be added in.
      */
     public void loadTasksFromFileToTaskList(TaskList taskList) {
         try {
