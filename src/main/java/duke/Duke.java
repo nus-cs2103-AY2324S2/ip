@@ -1,6 +1,7 @@
-import java.io.BufferedReader;
+package duke;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
+import duke.task.Task;
 
 public class Duke {
 

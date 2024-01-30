@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +10,11 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
 
 public class Storage {
     protected File path;
@@ -22,8 +29,8 @@ public class Storage {
         return parseText();
     }
 
-    private ArrayList<Task> parseText() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<Task>();
+    private ArrayList<duke.task.Task> parseText() throws IOException {
+        ArrayList<duke.task.Task> tasks = new ArrayList<Task>();
         BufferedReader  br = Files.newBufferedReader(Paths.get(path.toString() + "/data.txt"));
 
         while(br.ready()) {

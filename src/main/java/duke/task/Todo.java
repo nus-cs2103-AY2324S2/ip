@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Implementation of Task. Each Todo comes with a description.
  */

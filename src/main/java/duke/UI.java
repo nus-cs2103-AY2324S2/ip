@@ -1,7 +1,10 @@
+package duke;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import duke.task.Task;
 
 public class UI {
     public BufferedReader br;

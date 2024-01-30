@@ -1,4 +1,11 @@
+package duke;
 import java.util.ArrayList;
+
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+
 
 public class TaskList {
 
@@ -17,7 +24,7 @@ public class TaskList {
     }
 
     public void addItem(String[] cmd) throws DukeException {
-        Task t;
+        duke.task.Task t;
 
         if (cmd[0].equals("todo")) {
             t = new Todo(cmd[1]);
