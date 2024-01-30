@@ -1,10 +1,15 @@
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import storage.Storage;
+import utilities.DateTimeUtility;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -36,7 +41,7 @@ public class Duke {
         Command command;
 
         while (isChatting) {
-            String[] input = sc.nextLine().split(" ", 2);
+            String[] input = sc.nextLine().trim().split(" ", 2);
 
             command = Command.parseCommand(input[0]);
 
@@ -188,22 +193,31 @@ public class Duke {
     public static void insertDeadline(String[] input, ArrayList<Task> tasks)
             throws CommandException, IOException {
 
-        String pattern = "([^/]+)\\s+/by\\s+([^/]+)";
+        String pattern = "([^/]+)\\s+/by\\s+(\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4})";
         Pattern regex = Pattern.compile(pattern);
 
         if (input.length < 2) {
             throw new CommandException(
-                    "Please enter the deadline details! (format: deadline <your task> /by <date>)");
+                    "Please enter the deadline details! (format: deadline <your task> /by <dd/MM/yyyy HHmm>)");
         }
 
         Matcher matcher = regex.matcher(input[1]);
 
         if (!matcher.matches()) {
-            throw new CommandException("Wrong format! (format: deadline <your task> /by <date>)");
+            throw new CommandException(
+                    "Wrong format! (format: deadline <your task> /by <dd/MM/yyyy HHmm>)");
         }
 
         String[] deadlineDetails = input[1].split("/by");
-        Deadline deadlineTask = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
+
+        if (!DateTimeUtility.isValidDateTime(deadlineDetails[1])) {
+            throw new CommandException(
+                    "Datetime is in the wrong format. (format: deadline <your task> /by <dd/MM/yyyy HHmm>)");
+        }
+
+        Deadline deadlineTask = new Deadline(deadlineDetails[0].trim(),
+                DateTimeUtility.parseDateTime(deadlineDetails[1].trim()));
+
         tasks.add(deadlineTask);
 
         Storage.writeToStorage(deadlineTask);
@@ -215,26 +229,35 @@ public class Duke {
     public static void insertEvent(String[] input, ArrayList<Task> tasks)
             throws CommandException, IOException {
 
-        String pattern = "([^/]+)\\s+/from\\s+([^/]+)\\s+/to\\s+([^/]+)";
+        String pattern =
+                "([^/]+)\\s+/from\\s+(\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4})\\s+/to\\s+(\\d{1,2}/\\d{1,2}/\\d{4}\\s+\\d{4})";
+
         Pattern regex = Pattern.compile(pattern);
 
         // check if it doesnt follow the format of event <some string> /from <some
         // string> /to <some string>
         if (input.length < 2) {
             throw new CommandException(
-                    "Please enter the event details! (format: event <your task> /from <date> /to)");
+                    "Please enter the event details! (format: event <your task> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>)");
         }
 
         Matcher matcher = regex.matcher(input[1]);
 
         if (!matcher.matches()) {
             throw new CommandException(
-                    "Wrong format! (format: event <your task> /from <date> /to)");
+                    "Wrong format! (format: event <your task> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>)");
         }
 
         String[] eventDetails = input[1].split("/from|/to");
-        Event eventTask =
-                new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2]);
+
+        if (!DateTimeUtility.isValidDateTime(eventDetails[1], eventDetails[2])) {
+            throw new CommandException(
+                    "Datetime is in the wrong format. (format: event <your task> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>)");
+        }
+
+        Event eventTask = new Event(eventDetails[0].trim(),
+                DateTimeUtility.parseDateTime(eventDetails[1].trim()),
+                DateTimeUtility.parseDateTime(eventDetails[2].trim()));
         tasks.add(eventTask);
 
         Storage.writeToStorage(eventTask);
@@ -258,6 +281,7 @@ public class Duke {
 
         Storage.writeToStorage(tasks);
     }
+
 
     public static boolean isInteger(String input) {
         try {
