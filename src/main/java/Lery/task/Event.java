@@ -1,3 +1,5 @@
+package Lery.task;
+
 public class Event extends Task {
     private final String TYPE = "E";
     private String start;

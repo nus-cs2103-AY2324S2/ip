@@ -1,3 +1,5 @@
+package Lery;
+
 public class Ui {
     private final String LINE = "____________________________________________________________\n";
     private final String logo =
@@ -12,7 +14,7 @@ public class Ui {
         System.out.println(this.LINE + m + "\n"+ this.LINE);
     }
     public void greet() {
-        System.out.println(this.LINE + logo + "Hello! I'm Lery"  + "\n" + "What can I do for you?\n" +this.LINE);
+        System.out.println(this.LINE + logo + "Hello! I'm Lery.Lery"  + "\n" + "What can I do for you?\n" +this.LINE);
 
     }
     public void exit() {
