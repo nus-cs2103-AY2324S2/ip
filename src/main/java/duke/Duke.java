@@ -51,7 +51,7 @@ public class Duke {
                 this.ui.sendSystemMessage(e.getMessage(), TextTemplate.LINE_BREAK);
             } catch (IOException e) {
                 this.ui.sendSystemMessage("Error saving to file\nTerminating Process..." + TextTemplate.LINE_BREAK);
-                break;
+                this.ui.exit();
             }
         }
     }

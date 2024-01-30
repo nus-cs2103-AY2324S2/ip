@@ -1,8 +1,10 @@
 package duke.exceptions;
 
+import duke.TextTemplate;
+
 public class InvalidInputException extends Exception {
     public InvalidInputException() {
-        super("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        super(TextTemplate.INVALID_COMMAND);
     }
 
     public InvalidInputException(String message) {

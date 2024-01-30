@@ -9,7 +9,6 @@ import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.Task;
 import duke.tasks.TodoTask;
-import org.w3c.dom.Text;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -130,8 +129,6 @@ public class InputParser {
             throw new InvalidDateFormException();
         }
     }
-
-
     public Actions getAction(String input) throws InvalidInputException {
         if (input.equals("bye")) {
             return Actions.BYE;

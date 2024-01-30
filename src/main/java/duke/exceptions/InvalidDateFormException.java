@@ -1,8 +1,10 @@
 package duke.exceptions;
 
+import duke.TextTemplate;
+
 public class InvalidDateFormException extends Exception {
     public InvalidDateFormException() {
-        super("OOPS!!! The date format is invalid. Either enter yyyy-mm-dd or yyyy-mm-dd HHmm :-(");
+        super(TextTemplate.INVALID_DATETIME);
     }
 
     public InvalidDateFormException(String message) {
