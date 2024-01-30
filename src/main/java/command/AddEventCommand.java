@@ -1,3 +1,13 @@
+package command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.DateTimeManager;
+import task.Event;
+import task.Task;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -17,7 +27,7 @@ public class AddEventCommand extends Command {
 
         String[] eventSplit = input.split("/");
         if (eventSplit.length < 3) {
-            throw new DukeException("Invalid format for new Event!");
+            throw new DukeException("Invalid format for new task.Event!");
         }
 
         String name = eventSplit[0].substring(6).trim();

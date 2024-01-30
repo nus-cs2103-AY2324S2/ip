@@ -1,8 +1,15 @@
-public class unMarkCommand extends Command{
+package command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
+public class MarkCommand extends Command {
 
     private String input;
 
-    public unMarkCommand(String userInput) {
+    public MarkCommand(String userInput) {
         this.input = userInput;
     }
 
@@ -14,17 +21,17 @@ public class unMarkCommand extends Command{
         } else if (splitInput.length < 2) {
             throw new DukeException("Please select the task.");
         }
-        int choiceUnmark;
+        int choiceMark;
         try {
-            choiceUnmark = Integer.parseInt(splitInput[1]);
+            choiceMark = Integer.parseInt(splitInput[1]);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid integer value.");
         }
-        if (choiceUnmark <= tasks.getTasks().size() && choiceUnmark > 0) {
-            tasks.unmarkTask(choiceUnmark - 1);
+        if (choiceMark <= tasks.getTasks().size() && choiceMark > 0) {
+            tasks.markTask(choiceMark - 1);
             storage.writeArrayListToFile(tasks.getTasks(), true);
-            ui.printAnyStatement("OK, I've marked this task as not done yet:");
-            ui.printAnyStatement(tasks.getTasks().get(choiceUnmark - 1).toString());
+            ui.printAnyStatement("Nice! I've marked this task as done:");
+            ui.printAnyStatement(tasks.getTasks().get(choiceMark - 1).toString());
         } else {
             throw new DukeException("Invalid choice.");
         }

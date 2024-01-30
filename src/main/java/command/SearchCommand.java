@@ -1,3 +1,14 @@
+package command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.DateTimeManager;
+import task.Deadline;
+import task.Event;
+import task.Task;
+
 import java.time.LocalDateTime;
 
 public class SearchCommand extends Command {
@@ -21,7 +32,7 @@ public class SearchCommand extends Command {
         int index = 1;
         for (Task i : tasks.getTasks()) {
             if (i instanceof Deadline) {
-                if (((Deadline) i).by.toLocalDate().isEqual(dateInput.toLocalDate())) {
+                if (((Deadline) i).getBy().toLocalDate().isEqual(dateInput.toLocalDate())) {
                     ui.printAnyStatement((index++) + "." + i.toString());
                 }
             } else if (i instanceof Event) {

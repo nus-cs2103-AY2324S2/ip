@@ -1,3 +1,13 @@
+package command;
+
+import duke.DateTimeManager;
+import duke.DukeException;
+import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
+import task.Deadline;
+import task.Task;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -18,7 +28,7 @@ public class AddDeadlineCommand extends Command {
         String[] deadlineSplit = input.split("/");
 
         if (deadlineSplit.length < 2) {
-            throw new DukeException("Invalid format for new Deadline!");
+            throw new DukeException("Invalid format for new task.Deadline!");
         }
 
         String name = deadlineSplit[0].substring(9).trim();

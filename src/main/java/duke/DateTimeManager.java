@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -13,7 +15,7 @@ public class DateTimeManager {
      * @return LocalDateTime.
      * @throws DukeException If none of the timeString matches the formatter.
      */
-    static LocalDateTime convertStringToLocalDateTime(String timeString) throws DukeException{
+    public static LocalDateTime convertStringToLocalDateTime(String timeString) throws DukeException{
         List<DateTimeFormatter> formatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")

@@ -1,3 +1,12 @@
+package command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import task.Task;
+import task.ToDo;
+
 import java.util.ArrayList;
 
 public class AddToDoCommand extends Command {

@@ -1,3 +1,10 @@
+package duke;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,7 +49,7 @@ public class Storage {
      * @param tasks the tasks that need to be written.
      * @param isOverwrite True for overwrite the previous data. False for appending the data.
      */
-    void writeArrayListToFile(ArrayList<Task> tasks, boolean isOverwrite) {
+    public void writeArrayListToFile(ArrayList<Task> tasks, boolean isOverwrite) {
         try {
             if (isOverwrite) {
                 Files.write(filePath, convertTasksToString(tasks).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
@@ -60,7 +67,7 @@ public class Storage {
      *
      * @return an ArrayList of Tasks.
      */
-    ArrayList<Task> loadTasksFromFile() throws DukeException {
+    public ArrayList<Task> loadTasksFromFile() throws DukeException {
         ArrayList<Task> result = new ArrayList<>();
         try {
             List<String> fileContentLines = Files.readAllLines(filePath);
