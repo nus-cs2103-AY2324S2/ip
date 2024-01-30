@@ -10,13 +10,13 @@ import utils.RemiError;
 public class Chatbot {
 
     private boolean exitLoop;
-    private TaskList taskList;
+    private StoredTaskList taskList;
     private CommandList commandList;
     private Parser parser;
 
     public Chatbot() {
         this.exitLoop = false;
-        this.taskList = new TaskList();
+        this.taskList = new StoredTaskList();
         this.commandList = new CommandList(this.taskList, this);
         this.parser = new Parser(this.commandList);
     }
