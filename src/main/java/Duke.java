@@ -294,6 +294,7 @@ public class Duke {
         FileManager fileManager = new FileManager(filename);
         return fileManager.loadTasksFromFile();
     }
+    
 
 
 }
