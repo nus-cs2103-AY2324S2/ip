@@ -1,6 +1,8 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
 
-    private String by = null;
+    private LocalDateTime by = null;
 
     public Deadline(String input) throws MissingInputFieldException {
         super(TaskType.DEADLINE);
@@ -21,7 +23,7 @@ public class Deadline extends Task {
             if (!input.contains(command)) throw new RuntimeException("not deadline");
             String[] inputArray = Task.NextWords(input.split(delimiter));
             description = inputArray[0].trim();
-            by = inputArray[1].trim();
+            by = CommandParser.parseDateAndTime(inputArray[1].trim());
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             throw new MissingInputFieldException(type);
         }
@@ -30,11 +32,12 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[" + printType() + "]" + "[" + getIsDoneStatus() + "] "
-                + description + " " + "(by: " + by + ")";
+                + description + " " + "(by: " + Ui.printTime(by) + ")";
     }
 
     @Override
     public String convertToDataRow() {
-        return super.convertToDataRow() + dataStringSplitter + by;
+        return super.convertToDataRow() + 0 + storageDataStringSplitter +
+                Storage.convertDateTimeForStorage(by);
     }
 }

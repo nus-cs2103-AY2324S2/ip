@@ -8,6 +8,8 @@ public abstract class Task {
     public static String command;
 
     protected static String dataStringSplitter = " \\| ";
+    // temporary measure before storage related methods are migrated over to the storage class
+    protected static String storageDataStringSplitter = " | ";
 
     public enum TaskType {
         TODO,
@@ -83,7 +85,7 @@ public abstract class Task {
     }
 
     public String convertToDataRow() {
-        return printType() + " | " + boolToInt(isDone) + " | " + description;
+        return printType() + storageDataStringSplitter + boolToInt(isDone) + storageDataStringSplitter + description;
     }
 
     private static int boolToInt(boolean b) {
