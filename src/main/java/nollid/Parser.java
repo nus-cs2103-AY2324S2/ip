@@ -65,7 +65,7 @@ public class Parser {
         } else if (commandKeyword.equalsIgnoreCase("help")) {
             return new HelpCommand();
         } else {
-            throw new InvalidCommandException("No valid command detected.");
+                throw new InvalidCommandException("No valid command detected.");
         }
     }
 
