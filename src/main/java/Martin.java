@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Martin {
@@ -12,23 +13,22 @@ public class Martin {
     protected static ArrayList<Task> todoList = new ArrayList<>();
 
     public static void main(String[] args) {
-        // stop gap solution to magic numbers for task numbering
-        todoList.add(new Todo("dummy offset"));
 
+        File martinFile;
         try {
-            File martinFile = new File("./data/martin.txt");
+            System.out.println("Initializing Martin...");
+            martinFile = new File("./data/martin.txt");
             if (martinFile.exists()) {
-                // System.out.println("File exists. Preparing to read the file.");
-                // Scanner fileScanner = new Scanner(martinFile);
-                // while (fileScanner.hasNextLine()) {
-                //     System.out.println(fileScanner.nextLine());
-                // }
-                // fileScanner.close();
+                startUpSequence(martinFile);
             } else {
                 System.out.println("File does not exist. Creating a new file.");
                 if (martinFile.createNewFile()) {
                     System.out.println("File created: " + martinFile.getName());
                 }
+                FileWriter fw = new FileWriter(martinFile);
+                fw.write("T | 1 | dummy offset\n");
+                fw.close();
+                startUpSequence(martinFile);
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -36,6 +36,7 @@ public class Martin {
         }
 
         sayGreeting();
+
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()) {
             String line = sc.nextLine().strip();
@@ -51,6 +52,55 @@ public class Martin {
             }
         }
         sc.close();
+    }
+
+    public static void startUpSequence(File martinTxt) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(martinTxt));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] lineArray = line.split(" \\| ", 2);
+                String taskType = lineArray[0];
+                boolean isDone = lineArray[1].equals("1");
+                String taskDescription = lineArray[2];
+                switch (taskType) {
+                    case "T":
+                        Todo todo = new Todo(taskDescription);
+                        if (isDone) {
+                            todo.markAsDone();
+                        }
+                        todoList.add(todo);
+                        break;
+                    case "E":
+                        String[] eventArray = taskDescription.split(" \\| ");
+                        String eventDescription = eventArray[0];
+                        String[] eventTime = eventArray[1].split("-");
+                        String startTime = eventTime[0];
+                        String endTime = eventTime[1];
+                        Event event = new Event(eventDescription, startTime, endTime);
+                        if (isDone) {
+                            event.markAsDone();
+                        }
+                        todoList.add(event);
+                        break;
+                    case "D":
+                        String[] deadlineArray = taskDescription.split(" \\| ");
+                        String deadlineDescription = deadlineArray[0];
+                        String deadlineTime = deadlineArray[1];
+                        Deadline deadline = new Deadline(deadlineDescription, deadlineTime);
+                        if (isDone) {
+                            deadline.markAsDone();
+                        }
+                        todoList.add(deadline);
+                        break;
+                }
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error reading file");
+        }
     }
 
     public static void handleCommand(ChatbotKeyword command, String inputs) throws IllegalArgumentException {
