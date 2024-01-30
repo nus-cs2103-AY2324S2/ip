@@ -5,12 +5,12 @@ Ok. I added this task:
 [T][ ] get breakfast
 Now you have 1 task(s) left
 Ok. I added this task:
-[D][ ] 2103 (by: tmr )
+[D][ ] 2103 (by: tmr)
 Now you have 2 task(s) left
 This task is marked as done:
 [T][X] get breakfast
 Here are the tasks in the list:
 1.[T][X] get breakfast
-2.[D][ ] 2103 (by: tmr )
+2.[D][ ] 2103 (by: tmr)
 BYE BYE
 
