@@ -1,14 +1,13 @@
-import CustomExceptions.MalformedUserInputException;
-import CustomExceptions.NoTaskCreatedYetException;
-import CustomExceptions.TooManyTasksException;
-import TaskList.Deadline;
-import TaskList.Event;
-import TaskList.Task;
-import TaskList.Todo;
+import exception.MalformedUserInputException;
+import exception.NoTaskCreatedYetException;
+import exception.TooManyTasksException;
+import tasklist.Deadline;
+import tasklist.Event;
+import tasklist.Task;
+import tasklist.Todo;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class DataStorage {
     private ArrayList<Task> tasksList;

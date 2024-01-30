@@ -1,10 +1,9 @@
-package Parser;
+package parser;
 
-import CustomExceptions.MalformedUserInputException;
+import exception.MalformedUserInputException;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateTimeParser {

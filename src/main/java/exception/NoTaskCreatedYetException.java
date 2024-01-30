@@ -1,4 +1,4 @@
-package CustomExceptions;
+package exception;
 
 public class NoTaskCreatedYetException extends Exception {
     public NoTaskCreatedYetException(){

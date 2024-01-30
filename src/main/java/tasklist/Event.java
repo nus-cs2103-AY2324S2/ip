@@ -1,9 +1,7 @@
-package TaskList;
+package tasklist;
 
-import CustomExceptions.MalformedUserInputException;
-import Parser.DateTimeParser;
-
-import java.time.LocalDate;
+import exception.MalformedUserInputException;
+import parser.DateTimeParser;
 
 public class Event extends Task {
     private DateTimeParser startTime;

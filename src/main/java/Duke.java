@@ -1,43 +1,38 @@
-import CustomExceptions.BlankEventException;
-import CustomExceptions.MalformedUserInputException;
-import CustomExceptions.NoTaskCreatedYetException;
-import CustomExceptions.TooManyTasksException;
-import Parser.EventParser;
-import TaskList.Task;
-
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import exception.BlankEventException;
+import exception.MalformedUserInputException;
+import exception.NoTaskCreatedYetException;
+import exception.TooManyTasksException;
+import parser.EventParser;
+import tasklist.Task;
 
 public class Duke {
 
     private Ui ui;
+    private DataStorage dataStorage;
 
     public Duke() {
         ui = new Ui();
     }
 
-    public void run(){
+    public void run() {
         ui.showWelcome();
 
         String userInput = "";
 
         // Outsource the dataStorage.
-        DataStorage dataStorage = new DataStorage(Integer.MAX_VALUE, "database.txt");
-
-        // To read in user input
-        Scanner sc = new Scanner(System.in);
+        dataStorage = new DataStorage(Integer.MAX_VALUE, "database.txt");
 
 
-        while (true) {
+
+        boolean isExit = false;
+
+        while (!isExit) {
             // Keep reading user input until they type "bye"
-            userInput = sc.nextLine();
+            userInput = ui.readCommand();
 
             if (userInput.equals("list")) {
                 // Print out all the tasks.
-                System.out.println("\t ____________________________________________________________");
+                ui.showLine();
 
                 for (int i = 0; i < dataStorage.getTaskCount(); i++) {
                     int humanReadableId = i + 1;
@@ -45,7 +40,7 @@ public class Duke {
                     System.out.println("\t " + humanReadableId + ". " + currentTask.toString());
                 }
 
-                System.out.println("\t ____________________________________________________________");
+                ui.showLine();
             } else if (userInput.startsWith("mark")) {
                 handleCommandWithIndex(dataStorage, userInput, TypeOfActions.MARK);
             } else if (userInput.startsWith("unmark")) {
@@ -117,7 +112,7 @@ public class Duke {
 
             } else if (userInput.equals("bye")) {
                 // Use this construct because we don't want to echo the bye message.
-                break;
+                isExit = true;
             } else {
                 System.out.println("\t ____________________________________________________________");
                 // Emoji of \uD83D\uDE05 is 😅
@@ -128,11 +123,7 @@ public class Duke {
 
         }
 
-        System.out.println(
-                "\t ____________________________________________________________\n" +
-                        "\t Bye. Hope to see you again soon!\n" +
-                        "\t ____________________________________________________________"
-        );
+        ui.showGoodbye();
     }
 
     private static void createNewTask(DataStorage dataStorage, Task task) {
@@ -155,9 +146,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-
         new Duke().run();
-
     }
 
     public static void handleCommandWithIndex(DataStorage dataStorage, String userInput, TypeOfActions typeOfActions) {
@@ -205,9 +194,6 @@ public class Duke {
             System.out.println("\t ____________________________________________________________");
         }
     }
-
-
-
 
 
 }

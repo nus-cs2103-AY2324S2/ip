@@ -1,10 +1,7 @@
-package TaskList;
+package tasklist;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import CustomExceptions.MalformedUserInputException;
-import Parser.DateTimeParser;
+import exception.MalformedUserInputException;
+import parser.DateTimeParser;
 
 public class Deadline extends Task {
 

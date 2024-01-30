@@ -1,4 +1,4 @@
-package CustomExceptions;
+package exception;
 
 public class TooManyTasksException extends Exception{
     public TooManyTasksException(){
