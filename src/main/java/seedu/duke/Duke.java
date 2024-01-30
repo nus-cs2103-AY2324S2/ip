@@ -17,33 +17,62 @@ class DukeException extends Exception {
         super(message);
     }
 }
-
+/**
+ * Represents the user interface of the Duke application.
+ * Handles interactions with the user.
+ */
 class Ui {
     private Scanner scanner;
 
+    /**
+     * Constructs a new Ui instance.
+     * Initializes the scanner used to read user input.
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Displays the welcome message to the user at the start of the application.
+     */
     public void showWelcome() {
         System.out.println("Hello! I'm SCZL");
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Displays a goodbye message to the user before the application exits.
+     */
     public void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message The error message to be displayed.
+     */
     public void showError(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Informs the user that a new task has been added and displays the current number of tasks.
+     *
+     * @param task      The task that was added.
+     * @param taskCount The total number of tasks after adding the new task.
+     */
     public void showTaskAdded(Task task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
+    /**
+     * Displays the list of tasks to the user.
+     *
+     * @param tasks The TaskList containing the tasks to be displayed.
+     */
     public void showTaskList(TaskList tasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {
@@ -51,30 +80,55 @@ class Ui {
         }
     }
 
+    /**
+     * Reads the next line of user input.
+     *
+     * @return The user input as a String.
+     */
     public String readCommand() {
-
         return scanner.nextLine();
     }
 
+    /**
+     * Displays a message indicating an error in loading the file.
+     */
     public void showLoadingError() {
-
         System.out.println("Error loading file.");
     }
 
+    /**
+     * Closes the scanner object used for reading user input.
+     */
     public void closeScanner() {
         scanner.close();
     }
 
+    /**
+     * Informs the user that a task has been marked as done.
+     *
+     * @param task The task that was marked as done.
+     */
     public void showMarkedTask(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
 
+    /**
+     * Informs the user that a task has been marked as not done.
+     *
+     * @param task The task that was marked as not done.
+     */
     public void showUnmarkedTask(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
     }
 
+    /**
+     * Informs the user that a task has been deleted and displays the current number of tasks.
+     *
+     * @param task      The task that was deleted.
+     * @param taskCount The total number of tasks after deleting the task.
+     */
     public void showDeletedTask(Task task, int taskCount) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
@@ -83,13 +137,26 @@ class Ui {
 }
 
 
+/**
+ * Handles loading tasks from the file and saving tasks to the file.
+ */
 class Storage {
     private String filePath;
-
+    /**
+     * Constructs a new Storage instance with the specified file path.
+     *
+     * @param filePath The file path where tasks are loaded from and saved to.
+     */
     public Storage(String filePath) {
+
         this.filePath = filePath;
     }
-
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws DukeException If the file is not found or the tasks cannot be loaded.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -142,7 +209,11 @@ class Storage {
         return tasks;
 
     }
-
+    /**
+     * Saves the current tasks to the file.
+     *
+     * @param tasks The TaskList containing tasks to save.
+     */
     public void save(TaskList tasks) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (int i = 0; i < tasks.getSize(); i++) {
@@ -153,7 +224,13 @@ class Storage {
             System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
         }
     }
-
+    /**
+     * Converts a task to a formatted string for saving to the file.
+     * The format includes the task type, status, description, and any additional information.
+     *
+     * @param task The task to be converted to a string.
+     * @return A formatted string representing the task.
+     */
     private String taskToFileString(Task task) {
         String type = task instanceof Todo ? "T" :
                 task instanceof Deadline ? "D" :
@@ -176,10 +253,18 @@ class Storage {
 
 }
 
-
+/**
+ * Handles parsing of user input commands and converting them into Command objects.
+ */
 class Parser {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
+    /**
+     * Parses user input and returns the appropriate Command object.
+     *
+     * @param fullCommand The full user input command.
+     * @return The command object corresponding to the user input.
+     * @throws DukeException If the command is invalid or if the input format is incorrect.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] commandParts = fullCommand.split(" ", 2);
         String commandType = commandParts[0];
@@ -224,7 +309,13 @@ class Parser {
             throw new DukeException("Unknown command");
         }
     }
-
+    /**
+     * Parses the input for adding a deadline task and returns an AddDeadlineCommand object.
+     *
+     * @param commandArgs The argument string for the deadline command.
+     * @return An AddDeadlineCommand object representing the deadline task to be added.
+     * @throws DukeException If the input format for the deadline is incorrect.
+     */
     private static Command parseAddDeadlineCommand(String commandArgs) throws DukeException {
         String[] parts = commandArgs.split("/by", 2);
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
@@ -239,7 +330,13 @@ class Parser {
             throw new DukeException("Invalid date format. Please use yyyy-MM-dd HHmm format.");
         }
     }
-
+    /**
+     * Parses the input for adding an event task and returns an AddEventCommand object.
+     *
+     * @param commandArgs The argument string for the event command.
+     * @return An AddEventCommand object representing the event task to be added.
+     * @throws DukeException If the input format for the event is incorrect.
+     */
     private static Command parseAddEventCommand(String commandArgs) throws DukeException {
         String[] parts = commandArgs.split("/at", 2);
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
@@ -261,35 +358,63 @@ class Parser {
     }
 }
 
-
+/**
+ * Represents the list of tasks in the Duke application.
+ * Handles operations like adding, removing, and retrieving tasks from the list.
+ */
 class TaskList {
     private ArrayList<Task> tasks;
-
+    /**
+     * Constructs a new TaskList instance with a pre-defined list of tasks.
+     *
+     * @param tasks The ArrayList of tasks to initialize the task list with.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
-
+    /**
+     * Constructs a new TaskList instance. Initializes the task list.
+     */
     public TaskList() {
+
         this(new ArrayList<>());
     }
-
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
-
+    /**
+     * Removes and returns a task from the task list at the specified index.
+     *
+     * @param index The index of the task to be removed.
+     * @return The removed task.
+     */
     public Task removeTask(int index) {
         return tasks.remove(index);
     }
-
+    /**
+     * Retrieves a task from the task list at the specified index.
+     *
+     * @param index The index of the task to be retrieved.
+     * @return The task at the specified index.
+     */
     public Task getTask(int index) {
         return tasks.get(index);
     }
-
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return The size of the task list.
+     */
     public int getSize() {
         return tasks.size();
     }
 
-    // ... any other methods needed for task management ...
+    
 }
 
 
@@ -311,28 +436,34 @@ class Task {
     }
 
     public String getStatusIcon() {
+
         return "[" + taskType + "]" + (isDone ? "[X] " : "[ ] ");
     }
 
     public String getDescription() {
+
         return description;
     }
 
     public void markAsDone() {
+
         isDone = true;
     }
 
     public void markAsNotDone() {
+
         isDone = false;
     }
     @Override
     public String toString() {
+
         return getStatusIcon() + getDescription();
     }
 }
 
 class Todo extends Task {
     public Todo(String description) {
+
         super(description, TaskType.TODO);
     }
 }
@@ -351,6 +482,7 @@ class Deadline extends Task {
         return super.getDescription() + " (by: " + formatter.format(by) + ")";
     }
     public LocalDateTime getBy() {
+
         return by;
     }
 }
@@ -377,12 +509,19 @@ class Event extends Task {
         return to;
     }
 }
-
+/**
+ * Represents the main class for the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
+    /**
+     * Constructs a new Duke instance with the specified file path for data storage.
+     *
+     * @param filePath The file path used for storing task data.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -393,7 +532,10 @@ public class Duke {
             tasks = new TaskList();
         }
     }
-
+    /**
+     * Runs the Duke application. Initializes the necessary components and starts
+     * the command loop to receive and process user input.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -409,7 +551,11 @@ public class Duke {
         }
         ui.closeScanner();
     }
-
+    /**
+     * The entry point of the application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Duke("./data/duke.txt/duke.txt").run();
     }
