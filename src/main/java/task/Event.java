@@ -1,5 +1,7 @@
 package task;
 
+import value.DateStringValue;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,11 +14,11 @@ public class Event extends Task {
     /**
      * Stores the start time of this.
      */
-    private final String startDateTime;
+    private final DateStringValue startDateTime;
     /**
      * Stores the end time of this.
      */
-    private final String endDateTime;
+    private final DateStringValue endDateTime;
 
     /**
      * The icon for the task type.
@@ -43,8 +45,8 @@ public class Event extends Task {
      */
     public Event(String name, String startDateTime, String endDateTime) {
         super(name);
-        this.startDateTime = startDateTime.trim();
-        this.endDateTime = endDateTime.trim();
+        this.startDateTime = new DateStringValue(startDateTime);
+        this.endDateTime = new DateStringValue(endDateTime);
     }
 
     /**
@@ -55,8 +57,8 @@ public class Event extends Task {
      */
     public Event(Matcher matcher) throws IllegalStateException {
         super(matcher);
-        this.startDateTime = matcher.group("from").trim();
-        this.endDateTime = matcher.group("to").trim();
+        this.startDateTime = new DateStringValue(matcher.group("from"));
+        this.endDateTime = new DateStringValue(matcher.group("to"));
     }
 
     /**

@@ -1,5 +1,7 @@
 package task;
 
+import value.DateStringValue;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +14,7 @@ public class Deadline extends Task {
     /**
      * Stores the deadline of this.
      */
-    private final String deadline;
+    private final DateStringValue deadline;
 
     /**
      * The icon for the task type.
@@ -38,7 +40,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String deadline) {
         super(name);
-        this.deadline = deadline.trim();
+        this.deadline = new DateStringValue(deadline);
     }
 
     /**
@@ -48,7 +50,7 @@ public class Deadline extends Task {
      */
     public Deadline(Matcher matcher) {
         super(matcher);
-        this.deadline = matcher.group("by").trim();
+        this.deadline = new DateStringValue(matcher.group("by"));
     }
 
     /**
