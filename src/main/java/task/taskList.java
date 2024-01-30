@@ -3,11 +3,15 @@ package task;
 import java.util.List;
 import java.util.ArrayList;
 
-public class taskList {
+public class TaskList {
     private List<Task> listOfTasks;
 
-    public taskList() {
+    public TaskList() {
         listOfTasks = new ArrayList<>();
+    }
+
+    public TaskList(List<Task> tasks) {
+        listOfTasks = tasks;
     }
 
     public void addTask(Task task) {
