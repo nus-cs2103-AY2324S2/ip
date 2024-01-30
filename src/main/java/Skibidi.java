@@ -1,5 +1,12 @@
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.util.stream.Collectors;
 
 public class Skibidi {
     public static String logo = " ____  _  _____ ____ ___ ____ ___ \n"+
@@ -8,7 +15,7 @@ public class Skibidi {
             " ___) | . \\ | || |_) | || |_| | | \n" +
             "|____/|_|\\_\\___|____/___|____/___|";
 
-    private ArrayList<Task> list = new ArrayList<>();
+    private List<Task> list = new ArrayList<>();
 
     public void printLine() {
         System.out.println("\n-------------------------------------------------------------------\n");
@@ -51,11 +58,19 @@ public class Skibidi {
     private void inputComprehension(String in) {
         if (in.equals("list")) printList();
 
-        else if (in.startsWith("mark")) mark(in);
+        else if (in.equals("save")) {
+            try {
+                save();
+            } catch (IOException e) {
+                System.out.println("I/O Exception");
+            }
+        }
 
-        else if (in.startsWith("unmark")) unmark(in);
+        else if (in.startsWith("mark ")) mark(in);
 
-        else if (in.startsWith("delete")) delete(in);
+        else if (in.startsWith("unmark ")) unmark(in);
+
+        else if (in.startsWith("delete ")) delete(in);
 
         else {
             try {
@@ -177,5 +192,65 @@ public class Skibidi {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Sorry, index out of range!");
         }
+    }
+
+    public void save() throws IOException {
+        // Check if the directory exists
+        String userDir = System.getProperty("user.dir");
+        Path pathDir = Paths.get(userDir, "data");
+        if (!Files.exists(pathDir)) {
+            Files.createDirectories(pathDir);
+        }
+        // Check if the save file exists
+        Path pathFile = Paths.get(userDir, "data", "duke.txt");
+        if (Files.exists(pathFile)) {
+            Files.delete(pathFile);
+        }
+        Files.createFile(pathFile);
+        // Writing to the file
+        writeToFile(pathFile);
+        System.out.println("Your list has been saved to /data/duke/txt");
+    }
+
+    private void writeToFile(Path f) throws IOException {
+        List<String> lines = list.stream()
+                .map(Task::toSavedString)
+                .collect(Collectors.toList());
+        Files.write(f, lines);
+    }
+
+    public void load() {
+        String userDir = System.getProperty("user.dir");
+        Path pathFile = Paths.get(userDir, "data", "duke.txt");
+        try {
+            List<String> read = Files.readAllLines(pathFile);
+            this.list = read.stream()
+                    .map(this::stringToTask)
+                    .collect(Collectors.toList());
+            System.out.println("Your current list:");
+            printList();
+            printLine();
+        } catch (IOException e) {
+            System.out.println("You do not have a saved list.");
+            printLine();
+        }
+    }
+
+    private Task stringToTask(String s) {
+        List<String> taskLst = Arrays.asList(s.split(","));
+        Task t = null;
+        switch (taskLst.get(0)) {
+            case "T":
+                t = new Todo(taskLst.get(1).equals("1"), taskLst.get(2));
+                break;
+            case "D":
+                t = new Deadline(taskLst.get(1).equals("1"), taskLst.get(2), taskLst.get(3));
+                break;
+            case "E":
+                t = new Event(taskLst.get(1).equals("1"), taskLst.get(2), taskLst.get(3), taskLst.get(4));
+                break;
+        }
+
+        return t;
     }
 }
