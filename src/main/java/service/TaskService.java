@@ -5,10 +5,21 @@ import model.Event;
 import model.Task;
 import model.Todo;
 
+import java.io.File;
+import ava.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class TaskService {
     private ArrayList<Task> tasks = new ArrayList<>();
+    private String tasklistFileName = "tasklist.txt";
+
+    private ArrayList<Task> loadTasks() {
+        // @@author SherisseTJW-reused
+        // https://www.w3docs.com/snippets/java/how-to-read-file-from-relative-path-in-java-project-java-io-file-cannot-find-the-path-specified.html
+        try {
+            File file = new File("src/main/java/resources/tasklist.txt")
+        }
+    }
 
     public String addTodo(String taskName) {
         Todo newTodo = new Todo(taskName);
