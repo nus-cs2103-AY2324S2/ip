@@ -56,32 +56,32 @@ public class Solaire {
             UserCommands command = UserCommands.valueOf(inputCommand[0].toUpperCase());
 
             switch (command) {
-                case GREET:
-                    greet();
-                    break;
-                case BYE:
-                    waveBye();
-                    break;
-                case MARK:
-                    markDone(Integer.parseInt(inputCommand[1]));
-                    break;
-                case UNMARK:
-                    unmarkDone(Integer.parseInt(inputCommand[1]));
-                    break;
-                case LIST:
-                    showList();
-                    break;
-                case TODO:
-                case DEADLINE:
-                case EVENT:
-                    processTaskCommand(input);
-                    break;
-                case DELETE:
-                    processRemoveFromList(input);
-                    break;
-                default:
-                    System.out.print("Unsupported command pattern\n");
-                    break;
+            case GREET:
+            greet();
+                break;
+            case BYE:
+            waveBye();
+                break;
+            case MARK:
+            markDone(Integer.parseInt(inputCommand[1]));
+                break;
+            case UNMARK:
+            unmarkDone(Integer.parseInt(inputCommand[1]));
+                break;
+            case LIST:
+            showList();
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+            processTaskCommand(input);
+                break;
+            case DELETE:
+            processRemoveFromList(input);
+                break;
+            default:
+            System.out.print("Unsupported command pattern\n");
+                break;
             }
         } catch (IllegalArgumentException e) {
             System.out.println("I am not yet familiar with these commands");
@@ -131,14 +131,14 @@ public class Solaire {
 
                 return new Deadline(taskName, deadline);
             } else {
-                throw new SolaireException("Incorrect format: follow deadline format as such: \n"
-                        + "deadline <description> /by <time>");
+                throw new SolaireException(
+                        "Incorrect format: follow deadline format as such: \n" + "deadline <description> /by <time>");
             }
         } else if (input.startsWith("todo")) {
             String[] inputTodo = input.split(" ", 2);
             if (inputTodo.length < 2 || inputTodo[1].trim().replaceAll("^\\s+", "").isEmpty()) {
-                throw new SolaireException("The todo task description cannot be empty! Please use this format: \n" +
-                        "todo <description>");
+                throw new SolaireException(
+                        "The todo task description cannot be empty! Please use this format: \n" + "todo <description>");
             }
             return new Todo(inputTodo[1]);
         } else if (input.startsWith("event")) {
