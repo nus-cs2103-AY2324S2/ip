@@ -11,6 +11,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean contains(String input){
+        return content.toLowerCase().contains(input.toLowerCase());
+    }
+
     public void mark(){
         this.isDone = true;
     }

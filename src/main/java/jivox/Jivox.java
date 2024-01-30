@@ -118,6 +118,11 @@ public class Jivox {
         this.ui.showDeadline(this.list,time);
     }
 
+
+    public void find(String input){
+        this.ui.showFind(this.list,input);
+    }
+
     public void run(){
         this.ui.greet();
         boolean isRunning = true;
@@ -199,6 +204,9 @@ public class Jivox {
                     break;
                 case SHOW:
                     this.show(input[1]);
+                    break;
+                case FIND:
+                    this.find(input[1]);
                     break;
             }
         } while (isRunning);
