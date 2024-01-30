@@ -17,4 +17,12 @@ public class Event extends Task{
     public String ToString() {
         return super.ToString() + " (from: " + from + "to: " + to + ")";
     }
+    @Override
+    public String toStore() {
+        if (isDone) {
+            return getTaskIcon() + "/" + "1" + "/" + description + "/" + from + "/" + to;
+        } else {
+            return getTaskIcon() + "/" + "0" + "/" + description + "/" + from + "/" + to;
+        }
+    }
 }

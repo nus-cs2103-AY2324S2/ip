@@ -16,4 +16,13 @@ public class Deadline extends Task {
     public String ToString() {
         return super.ToString() + " (by: " + by + ")";
     }
+
+    @Override
+    public String toStore() {
+        if (isDone) {
+            return getTaskIcon() + "/" + "1" + "/" + description + "/" + by;
+        } else {
+            return getTaskIcon() + "/" + "0" + "/" + description + "/" + by;
+        }
+    }
 }
