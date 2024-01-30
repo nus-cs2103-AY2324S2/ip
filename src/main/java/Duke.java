@@ -1,23 +1,26 @@
 import java.util.*;
 public class Duke {
-    static String line = "    ____________________________________________________________";
-    static String indent = "     ";
-    static String name = "Alfred";
+    private String filePath = "./data/saveData.txt";
 
-    public static void separate(){
+    private FileManager myFileManager = new FileManager(filePath);
+    private String line = "    ____________________________________________________________";
+    private String indent = "     ";
+    private String name = "Alfred";
+
+    public void separate(){
         System.out.println(line);
     }
-    public static void spacing() {
+    public void spacing() {
         separate();
         System.out.println("");
     }
 
-    public static void intro() {
+    public void intro() {
         separate();
         System.out.println(indent + "Hello! I'm " + name + "\n     What can I do for you?");
         spacing();
     }
-    public static void leave() {
+    public void leave() {
         System.out.println(indent + "Bye. Hope to see you again soon!");
         spacing();
     }
@@ -30,14 +33,14 @@ public class Duke {
         }
         return -1;
     }
-    public task identify(String request) throws taskException {
+    public Task identify(String request) throws TaskException {
         if (request.startsWith("todo")) {
             String[] reqList = request.split(" ");
             if (reqList.length < 2) {
-                throw new taskException("What do you want to do? Description of todo cannot be empty.");
+                throw new TaskException("What do you want to do? Description of todo cannot be empty.");
             }
             String desc = String.join(" ", Arrays.copyOfRange(reqList, 1, reqList.length));
-            todo current = new todo(desc);
+            Todo current = new Todo(desc);
             return current;
 
         } else if (request.startsWith("deadline")) {
@@ -46,10 +49,10 @@ public class Duke {
                 int byIndex = finder("/by", reqList);
                 String desc = String.join(" ", Arrays.copyOfRange(reqList, 1, byIndex));
                 String time = String.join(" ", Arrays.copyOfRange(reqList, byIndex + 1, reqList.length));
-                deadline current = new deadline(desc, time);
+                Deadline current = new Deadline(desc, time);
                 return current;
             } else{
-                throw new taskException("Please specify when is the deadline.");
+                throw new TaskException("Please specify when is the deadline.");
             }
 
         } else if (request.startsWith("event")) {
@@ -61,36 +64,37 @@ public class Duke {
                 String start = String.join(" ", Arrays.copyOfRange(reqList, fromIndex + 1, toIndex));
                 String end = String.join(" ", Arrays.copyOfRange(reqList, toIndex + 1, reqList.length));
 
-                event current = new event(desc, start, end);
+                Event current = new Event(desc, start, end);
                 return current;
             } else if (Arrays.asList(reqList).contains("/from")){
-                throw new taskException("Please specify when the event ends.");
+                throw new TaskException("Please specify when the event ends.");
             } else if (Arrays.asList(reqList).contains("/to")){
-                throw new taskException("Please specify when the event starts.");
+                throw new TaskException("Please specify when the event starts.");
             } else {
-                throw new taskException("Please specify the event timeframe.");
+                throw new TaskException("Please specify the event timeframe.");
             }
 
         } else {
-            throw new taskException("Apologies, I don't understand you. Please try again");
+            throw new TaskException("Apologies, I don't understand you. Please try again");
         }
     }
 
     public void start(){
         intro();
         Scanner input = new Scanner(System.in);
-        ArrayList<task> taskList = new ArrayList<task>();
+        ArrayList<Task> taskList = myFileManager.loadFile();
         while(true) {
             String current = input.nextLine();
             if(current.equals("bye")) {
                 separate();
                 leave();
+                myFileManager.saveFile(taskList);
                 break;
             } else if(current.equals("list")) {
                 separate();
                 System.out.println(indent + "Here are the tasks in your list:");
                 int count = 1;
-                for (task i : taskList) {
+                for (Task i : taskList) {
                     System.out.println(indent + Integer.toString(count) + "." + i.getStatus());
                     count++;
                 }
@@ -98,7 +102,7 @@ public class Duke {
             } else if (current.startsWith("mark")) {
                 String[] marking = current.split(" ");
                 int position = Integer.parseInt(marking[1]) - 1;
-                task curr = taskList.get(position);
+                Task curr = taskList.get(position);
                 curr.makeDone();
 
                 separate();
@@ -109,7 +113,7 @@ public class Duke {
             } else if (current.startsWith("unmark")) {
                 String[] marking = current.split(" ");
                 int position = Integer.parseInt(marking[1]) - 1;
-                task curr = taskList.get(position);
+                Task curr = taskList.get(position);
                 curr.makeUndone();
 
                 separate();
@@ -131,7 +135,7 @@ public class Duke {
 
             } else {
                 try {
-                    task newTask = identify(current);
+                    Task newTask = identify(current);
                     taskList.add(newTask);
                     separate();
                     System.out.println(indent + "Got it. I've added this task:");
@@ -139,103 +143,18 @@ public class Duke {
                     System.out.println(indent + "Now you have " + Integer.toString(taskList.size()) +
                             " tasks in the list.");
                     spacing();
-                } catch (taskException e) {
+                } catch (TaskException e) {
                     separate();
                     System.out.println(indent +e.getMessage());
                     spacing();
                 }
             }
         }
-    }
-    public class task {
-        private boolean done = false;
-        private String name;
-        private String type; /* T, D or E*/
-
-        public task(String name){
-            this.name = name;
-        }
-        public boolean isDone(){
-            return this.done;
-        }
-        public String getName(){
-            return this.name;
-        }
-
-        public void makeDone(){
-            this.done = true;
-        }
-        public void makeUndone(){
-            this.done = false;
-        }
-        /* add getType for each task type*/
-        public String getType(){
-            return "";
-        }
-
-        public String getTime(){
-            return "";
-        }
-        public String getStatus(){
-            if (this.isDone()) {
-                return this.getType() + "[X] " + this.getName() + this.getTime();
-            } else {
-                return this.getType() + "[ ] " + this.getName() + this.getTime();
-            }
-        }
-    }
-    public class todo extends task{
-
-        public todo(String name) {
-            super(name);
-        }
-        @Override
-        public String getType(){
-            return "[T]";
-        }
-
-    }
-    public class deadline extends task{
-        private String end;
-        public deadline(String name, String end) {
-            super(name);
-            this.end = end;
-        }
-        @Override
-        public String getType(){
-            return "[D]";
-        }
-    @Override
-        public String getTime(){
-            return "(by: " + end + ")";
-        }
+        myFileManager.saveFile(taskList);
     }
 
-    public class event extends task{
-        private String start;
-        private String end;
 
-        public event(String name, String start, String end) {
-            super(name);
-            this.start = start;
-            this.end = end;
-        }
-        @Override
-        public String getType(){
-            return "[E]";
-        }
-        @Override
-        public String getTime(){
-            return " (from: " + start + " to: " + end + ")";
-        }
 
-    }
-
-    public class taskException extends Exception {
-        public taskException(String message) {
-            super(message);
-        }
-    }
     public static void main(String[] args){
         Duke duke = new Duke();
         duke.start();
