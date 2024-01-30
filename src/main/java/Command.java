@@ -61,7 +61,7 @@ public enum Command {
         @Override
         public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
             try {
-                Task task = new Deadline(parsed.get(1).substring(9).trim(), parsed.get(2).trim());
+                Task task = new Deadline(parsed.get(1).trim(), parsed.get(2).trim());
                 tasklist.addTask(parsed, task);
                 storage.appendToFile(task.toWrite());
                 ui.addTaskMessage(task, tasklist);
@@ -76,7 +76,7 @@ public enum Command {
         @Override
         public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
             try {
-                Task task = new Event(parsed.get(1).substring(6).trim(), parsed.get(2).trim(), parsed.get(3).trim());
+                Task task = new Event(parsed.get(1).trim(), parsed.get(2).trim(), parsed.get(3).trim());
                 tasklist.addTask(parsed, task);
                 storage.appendToFile(task.toWrite());
                 ui.addTaskMessage(task, tasklist);
