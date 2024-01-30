@@ -63,7 +63,8 @@ ____________________________________________________________
 OOPS!!! Please include when does the event start and ends.
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! I'm sorry, but I don't know what that means :-(
+Invalid action. Please enter a valid command.
+List, mark, unmark, todo, deadline, event, bye, delete.
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
