@@ -23,6 +23,8 @@ public class Parser {
                 tasks.updateTasks(Parser.parseDeadline(input), storage);
             } else if (input.startsWith("event")) {
                 tasks.updateTasks(Parser.parseEvent(input), storage);
+            } else if (input.startsWith("find")) {
+                tasks.find(Parser.parseFind(input));
             } else {
                 System.out.println("\tInvalid command");
             }
@@ -99,6 +101,16 @@ public class Parser {
         } else {
             throw new WrongFormatException(
                     "Invalid 'unmark' command format. Usage: unmark <existing task number>"
+            );
+        }
+    }
+
+    public static String parseFind(String input) throws WrongFormatException {
+        if (Pattern.matches("find\\s\\S.*", input)) {
+            return input.split("\\s", 2)[1];
+        } else {
+            throw new WrongFormatException(
+                    "Invalid 'find' command format. Usage: find <keyword>"
             );
         }
     }
