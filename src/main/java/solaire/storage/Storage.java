@@ -23,7 +23,7 @@ public class Storage {
         taskList.clear();
 
         // Read from target file
-        String filePath = "src/main/solaire/resources/Solaire.txt";
+        String filePath = "src/main/java/solaire/resources/Solaire.txt";
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));
