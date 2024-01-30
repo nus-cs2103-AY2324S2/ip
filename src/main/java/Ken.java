@@ -66,7 +66,7 @@ public class Ken {
             System.out.println("Now Barbie has " + tasks.size() + " tasks in list\n");
 
         } else {
-            System.out.println("Way too many too many tasks for today Barbie!");
+            System.out.println("Way too many tasks for today Barbie!");
             System.out.println("Slow the Slayy\n");
 
         }
