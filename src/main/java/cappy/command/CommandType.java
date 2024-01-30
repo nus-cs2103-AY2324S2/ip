@@ -8,6 +8,7 @@ public enum CommandType {
     DEADLINE("deadline", new DeadlineCommand()),
     EVENT("event", new EventCommand()),
     DELETE("delete", new DeleteCommand()),
+    FIND("find", new FindCommand()),
     BYE("bye", new ByeCommand()),
     EMPTY("", new EmptyCommand()),
     INVALID("", new InvalidCommand());

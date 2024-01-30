@@ -12,6 +12,11 @@ public class TaskList {
     private final List<Task> tasks;
     private final Storage storage;
 
+    private TaskList() {
+        this.tasks = new ArrayList<>();
+        storage = null;
+    }
+
     private TaskList(Storage storage) {
         this.tasks = new ArrayList<>();
         this.storage = storage;
@@ -55,9 +60,11 @@ public class TaskList {
     }
 
     public void save() throws IOException {
-        this.storage.empty();
-        for (Task task : this.tasks) {
-            this.storage.writeLine(task.toCsv());
+        if (storage != null) {
+            this.storage.empty();
+            for (Task task : this.tasks) {
+                this.storage.writeLine(task.toCsv());
+            }
         }
     }
 
@@ -67,6 +74,16 @@ public class TaskList {
         for (String line : csvLines) {
             if (!line.equals("")) {
                 taskList.addTask(Parser.parseCsvLine(line));
+            }
+        }
+        return taskList;
+    }
+
+    public TaskList search(String keyword) {
+        TaskList taskList = new TaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                taskList.addTask(task);
             }
         }
         return taskList;
