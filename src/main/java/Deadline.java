@@ -1,11 +1,11 @@
 public class Deadline extends Task {
 
     private String deadline;
-    private static String type_symbol = "[D]";
+    private static final String TYPE_SYMBOL = "[D]";
 
     public Deadline(String description, String deadline) throws MeanDukeException{
-        super(description, type_symbol);
-        if (deadline == ""){
+        super(description, TYPE_SYMBOL);
+        if (deadline.isEmpty()){
             throw new MeanDukeException("Usage: \"add deadline <description> /by <deadline>\"");
         }
         this.deadline = deadline;

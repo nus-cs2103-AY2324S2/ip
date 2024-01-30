@@ -33,8 +33,8 @@ class TaskList{
      * @param index the index of the task to be marked done
      * @return true if task was already done, else false
      */
-    public boolean mark_done(int index){
-        return arr.get(index).mark_done();
+    public boolean markDone(int index){
+        return arr.get(index).markDone();
     }
 
     /**
@@ -43,8 +43,8 @@ class TaskList{
      * @param index the index of the task to be marked not done
      * @return true if task was already not done, else false
      */
-    public boolean unmark_done(int index){
-        return arr.get(index).unmark_done();
+    public boolean unmarkDone(int index){
+        return arr.get(index).unmarkDone();
     }
 
     public String delete(int index) {

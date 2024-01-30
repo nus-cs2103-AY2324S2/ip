@@ -26,7 +26,7 @@ abstract class Task{
      *
      * @return true if task was change from not done to done. Else false.
      */
-    public boolean mark_done(){
+    public boolean markDone(){
         if(this.is_done){
             return false;
         } else {
@@ -41,7 +41,7 @@ abstract class Task{
      *
      * @return true if task was change from done to not done. Else false.
      */
-    public boolean unmark_done(){
+    public boolean unmarkDone(){
         if(this.is_done){
             this.is_done = false;
             this.done_symbol = "[ ]";

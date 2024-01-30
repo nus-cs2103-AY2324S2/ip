@@ -1,7 +1,7 @@
 public class ToDo extends Task {
 
-    private static String type_symbol = "[T]";
+    private static final String TYPE_SYMBOL = "[T]";
     public ToDo(String description){
-        super(description, type_symbol);
+        super(description, TYPE_SYMBOL);
     }
 }
