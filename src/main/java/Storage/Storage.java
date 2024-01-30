@@ -61,7 +61,4 @@ public class Storage {
         }
     }
 
-    private String formatDataForFile() {
-        return "";
-    }
 }
