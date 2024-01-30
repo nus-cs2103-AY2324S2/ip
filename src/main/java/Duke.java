@@ -8,6 +8,9 @@ import java.util.Scanner;
 import static java.lang.System.exit;
 
 public class Duke {
+    private static ArrayList<Task> list;
+    private static Storage storage;
+    private static final String FILE_PATH = "data/duke.txt";
 
 
     public static void intro(String name, String logo) {
@@ -17,17 +20,19 @@ public class Duke {
 
     }
 
-    public static void bye() {
+    public static void bye() throws DukeException{
         System.out.println("Bye. Hope to see you again soon!\n");
+        storage.save();
         System.exit(1);// if keyword is bye, exit the program
     }
 
-    public static int addtask(int n, ArrayList<Task> list) {
+    public static void addtask(int n, ArrayList<Task> list) {
         System.out.println("Got it. I've added this task:\n");
-        System.out.println(list.get(n).ToString());
         n++;
-        System.out.println("Now you have " + n + " tasks in the list.");
-        return n;
+        System.out.println(list.get(n).ToString());
+
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+
     }
 
     public static ArrayList<Task> eventcase(String str, int n, ArrayList<Task> list) throws DukeException {
@@ -93,7 +98,7 @@ public class Duke {
             throw new DukeException("please give this instruction in the following format: mark [task number]");
         }
         int no = Integer.parseInt(tokens[1]) - 1;
-        list.get(no).isDone = true;
+        list.get(no).markAsDone();
         System.out.println("Nice! I've marked this task as done:\n");
         System.out.println(list.get(no).ToString());
     }
@@ -103,7 +108,7 @@ public class Duke {
             throw new DukeException("please give this instruction in the following format: unmark [task number]");
         }
         int no = Integer.parseInt(tokens[1]) - 1;
-        list.get(no).isDone = false;
+        list.get(no).unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(list.get(no).ToString());
     }
@@ -127,6 +132,13 @@ public class Duke {
 
     }
 
+    public static void printlist(){
+        System.out.println("Here are the tasks in your list:\n");
+        for (int a = 0; a < list.size(); a++) {
+            System.out.println(a + 1 + ". " + list.get(a).ToString());
+        }
+    }
+
     public static void main(String[] args) throws IOException, DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -135,15 +147,16 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String name = "Bingus";
         intro(name, logo);
+        storage = new Storage(FILE_PATH);
+        list = storage.load();// array to store tasks given
 
-        ArrayList<Task> list = new ArrayList<Task>(100);// array to store tasks given
 
-
-        int n = 0;
+        int n = list.size();
         Scanner bfn = new Scanner(
                 new InputStreamReader(System.in));// scanner to read user input
 
         String str = bfn.nextLine();
+
 
 
 
@@ -154,10 +167,8 @@ public class Duke {
 
 
                 if (str.equals("list")) {
-                    System.out.println("Here are the tasks in your list:\n");
-                    for (int a = 0; a < n; a++) {
-                        System.out.println(a + 1 + ". " + list.get(a).ToString());
-                    }
+
+                    printlist();
                 }// if keyword is list, open list
 
                 else if (str.equals("bye")) {
@@ -169,14 +180,14 @@ public class Duke {
                     unmarkcase(tokens, list);
                 } else if (identifier.equals("event")) {
                     list = eventcase(str, n, list);
-                    n = addtask(n, list);
+                    addtask(n, list);
 
                 } else if (identifier.equals("deadline")) {
                     list = deadlinecase(str, n, list);
-                    n = addtask(n, list);
+                    addtask(n, list);
                 } else if (identifier.equals("todo")) {
                     list = todocase(str, n, list);
-                    n = addtask(n, list);
+                    addtask(n, list);
                 } else if (identifier.equals("delete")) {
                     list = removecase(tokens, list, n);
                     n--;

@@ -20,6 +20,23 @@ public class Task {
             return "[" + getTaskIcon() + "] " + "[" + getStatusIcon() + "] "+ description;
         }
 
+        public void markAsDone(){
+            isDone = true;
+        }
+
+    public void unmarkAsDone(){
+        isDone = false;
+    }
+
+        public String toStore(){
+            if(isDone) {
+                return getTaskIcon() + "/" + "1" + "/" + description;
+            } else{
+                return getTaskIcon() + "/" + "0" + "/" + description;
+            }
+
+        }
+
         //...
     }
 
