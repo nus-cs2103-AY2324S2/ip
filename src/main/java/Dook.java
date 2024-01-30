@@ -1,11 +1,9 @@
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Dook {
 
-    private static final String FILE_PATH = "./data/dook.txt";
+    private static final String FILE_PATH = "src/main/dook.txt";
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
@@ -16,28 +14,31 @@ public class Dook {
         this.ui = new Ui();
         this.parser = new Parser();
         this.storage = new Storage(FILE_PATH);
+
     }
 
     public void run() {
         this.ui.introduce();
+        try {
+            this.tasks = this.storage.loadTaskListFromFile();
+        } catch (IOException e) {
+            this.ui.println("error while loading file, specific error: " + e);
+        } catch (DookException e) {
+            this.ui.println(e.getMessage());
+        }
         Scanner sc = new Scanner(System.in);
-        while (true) {
+        boolean willExitLoop = false;
+        while (!willExitLoop) {
             String input = sc.nextLine();
             this.ui.printSeparator();
-            boolean willExitLoop = false;
             try {
                 Command c = this.parser.parse(input);
                 c.execute(this.tasks, this.ui, this.storage);
                 willExitLoop = c.isExit();
-            } catch (DookException e) {
-                System.out.println(e.getMessage());
             } catch (Exception e) {
-                System.out.println("Error detected, please try again :(\n" + e);
+                this.ui.printException(e);
             } finally {
                 this.ui.printSeparator();
-            }
-            if (willExitLoop) {
-                break;
             }
         }
     }

@@ -11,8 +11,9 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         Task toAdd = Parser.getTask(tasktype, description);
         tasks.addTask(toAdd);
-        System.out.println("Oki! I've added this task:");
-        System.out.println(toAdd);
+        ui.println("Oki! I've added this task:");
+        ui.println(toAdd.toString());
         tasks.printStatus();
+        storage.write(tasks);
     }
 }

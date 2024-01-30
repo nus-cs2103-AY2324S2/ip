@@ -35,6 +35,14 @@ public class TaskList {
         }
     }
 
+    public String fileRepresentation() {
+        ArrayList<String> a = new ArrayList<String>();
+        for (Task t : this.tasks) {
+            a.add(t.fileRepresentation());
+        }
+        return String.join("\n", a);
+    }
+
     @Override
     public String toString() {
         ArrayList<String> a = new ArrayList<String>();

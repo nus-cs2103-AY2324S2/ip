@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parser {
     enum TaskType {
@@ -86,6 +88,62 @@ public class Parser {
             }
         } catch (IndexOutOfBoundsException e) {
             throw new DookException("Oh nyo! Wrong format for " + taskType + " command!");
+        }
+    }
+
+    public static Task parseFileLineToTask(String s) throws DookException {
+        String[] split = s.split(" \\| ", 3);
+        String taskTypeString = split[0];
+        String isDoneString = split[1];
+        String description = split[2];
+        TaskType taskType;
+        String[] details;
+        String name;
+        boolean isDone;
+        switch (taskTypeString) {
+        case "D":
+            taskType = TaskType.DEADLINE;
+            break;
+        case "E":
+            taskType = TaskType.EVENT;
+            break;
+        case "T":
+            taskType = TaskType.TODO;
+            break;
+        default:
+            throw new DookException("Invalid task type at \"" + s + "\".");
+        }
+        switch (isDoneString) {
+        case "X":
+            isDone = true;
+            break;
+        case " ":
+            isDone = false;
+            break;
+        default:
+            throw new DookException("Oh nyo!! Invalid completion indicator at \"" + s + "\"!");
+        }
+        try {
+            switch (taskType) {
+                case TODO:
+                    return new ToDo(description, isDone);
+                case DEADLINE:
+                    details = description.split(" \\| ", 2);
+                    name = details[0];
+                    String doBy = details[1].split("by: ", 2)[1];
+                    return new Deadline(name, doBy, isDone);
+                case EVENT:
+                    details = description.split(" \\| ", 2);
+                    name = details[0];
+                    String[] startAndEnd = details[1].split(" to: ", 2);
+                    String start = startAndEnd[0].split("from: ", 2)[1];
+                    String end = startAndEnd[1];
+                    return new Event(name, start, end, isDone);
+                default:
+                    throw new DookException("Oh nyo! Wrong format for " + taskType + " command in the file... :)");
+            }
+        } catch (Exception e) {
+            throw new DookException("Oh nyo! Wrong format for " + taskType + " command in the file... :(");
         }
     }
 }

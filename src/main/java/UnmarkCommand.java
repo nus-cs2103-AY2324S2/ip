@@ -17,13 +17,14 @@ public class UnmarkCommand extends Command {
             } else {
                 err = new DookException(String.format("Nooo! " +
                                 "You have %d tasks!" +
-                                " Valid inputs for unmark is in the range [0 - %d]",
+                                " Valid inputs for unmark is in the range [1 - %d]",
                         tasks.size(), tasks.size()));
             }
             throw err;
         }
         toUnmark.markAsNotDone();
-        System.out.println("Lazy bum. >:( I've marked this task as done:");
-        System.out.println(toUnmark);
+        ui.println("Lazy bum. >:( I've marked this task as done:");
+        ui.println(toUnmark.toString());
+        storage.write(tasks);
     }
 }

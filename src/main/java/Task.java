@@ -1,29 +1,33 @@
-public class Task {
+public abstract class Task {
     private String name;
-    private boolean done;
+    protected boolean isDone;
 
     Task(String name) {
-        this.name = name;
-        this.done = false;
+        this(name, false);
     }
 
     Task(String name, boolean done) {
         this.name = name;
-        this.done = done;
+        this.isDone = done;
     }
 
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void markAsNotDone() {
-        this.done = false;
+        this.isDone = false;
     }
 
-    private String getStatusIcon() {
-        return (this.done ? "X" : " ");
+    protected String getStatusIcon() {
+        return (this.isDone ? "X" : " ");
     }
 
+    protected String getDescription() {
+        return this.name;
+    }
+
+    public abstract String fileRepresentation();
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), this.name);

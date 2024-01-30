@@ -17,13 +17,14 @@ public class MarkCommand extends Command {
             } else {
                 err = new DookException(String.format("Nooo! " +
                                 "You have %d tasks!" +
-                                " Valid inputs for mark is in the range [0 - %d]",
+                                " Valid inputs for mark is in the range [1 - %d]",
                         tasks.size(), tasks.size()));
             }
             throw err;
         }
         toMark.markAsDone();
-        System.out.println("Oki! :D Good job! I've marked this task as done:");
-        System.out.println(toMark);
+        ui.println("Oki! :D Good job! I've marked this task as done:");
+        ui.println(toMark.toString());
+        storage.write(tasks);
     }
 }

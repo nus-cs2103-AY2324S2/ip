@@ -15,14 +15,15 @@ public class DeleteCommand extends Command {
             } else {
                 err = new DookException(String.format("Nooo! " +
                                 "You have %d tasks!" +
-                                " Valid inputs for delete is in the range [0 - %d]",
+                                " Valid inputs for delete is in the range [1 - %d]",
                         tasks.size(), tasks.size()));
             }
             throw err;
         }
-        System.out.println("Oki! Bye Bye task!");
+        ui.println("Oki! Bye Bye task!");
         tasks.remove(positionToDelete - 1);
-        System.out.println("You deleted this task :(");
-        System.out.println(toDelete);
+        ui.println("You deleted this task :(");
+        ui.println(toDelete.toString());
+        storage.write(tasks);
     }
 }

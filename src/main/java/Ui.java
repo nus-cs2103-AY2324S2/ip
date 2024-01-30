@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ui {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
@@ -14,5 +16,13 @@ public class Ui {
         printSeparator();
         System.out.println("Hello from Dook! :D meow\n" + logo);
         System.out.println("What can I do for you? uwu");
+    }
+
+    public void printException(Exception e) {
+        System.out.println(e.getMessage());
+    }
+
+    public void println(String s) {
+        System.out.println(s);
     }
 }
