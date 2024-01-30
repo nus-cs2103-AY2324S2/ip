@@ -6,18 +6,43 @@ import java.time.format.DateTimeParseException;
 
 import exceptions.ConvoBotException;
 
+/**
+ * The {@code DateTime} class provides utility methods for handling date and time operations.
+ * It includes methods for converting between {@code LocalDate} objects and formatted strings,
+ * as well as handling exceptions related to date parsing.
+ */
 public class DateTime {
+
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
 
+    /**
+     * Converts a {@code LocalDate} object to a formatted string suitable for display.
+     *
+     * @param d the {@code LocalDate} object to be converted
+     * @return a formatted string representing the date for display
+     */
     public static String dateToString(LocalDate d) {
         return d.format(displayFormatter);
     }
 
+    /**
+     * Converts a {@code LocalDate} object to a formatted string suitable for file storage.
+     *
+     * @param d the {@code LocalDate} object to be converted
+     * @return a formatted string representing the date for file storage
+     */
     public static String dateToFile(LocalDate d) {
         return d.format(inputFormatter);
     }
 
+    /**
+     * Converts a formatted string to a {@code LocalDate} object.
+     *
+     * @param s the formatted string representing the date
+     * @return a {@code LocalDate} object parsed from the input string
+     * @throws ConvoBotException if the input string is in an invalid date format
+     */
     public static LocalDate stringToDate(String s) throws ConvoBotException {
         LocalDate d;
         try {
