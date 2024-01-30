@@ -131,12 +131,13 @@ public class Ui {
         System.out.println("Noted. I've removed this task: \n" + task.toString());
     }
 
+
     /**
      * Print the list of task containing a certain keyword.
      * @param taskListSearchResult List of Task to be printed.
      */
     public void showFindResult(List<Task> taskListSearchResult) {
-        if (taskListSearchResult.isEmpty()){
+        if (taskListSearchResult.isEmpty()) {
             System.out.println("There are no matching tasks in your list.");
             return;
         }
@@ -146,5 +147,12 @@ public class Ui {
             System.out.printf("%d. %s\n", count, task);
             count++;
         }
+    }
+
+    /**
+     * Show Date Loading Error.
+     */
+    public void showLoadingError() {
+        System.out.println("Loading data from file error.");
     }
 }

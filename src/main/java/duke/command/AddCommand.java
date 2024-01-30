@@ -14,9 +14,8 @@ public class AddCommand extends Command{
     
     @Override
     public void execute(Storage storage, Ui ui, TaskList taskList) {
-        Task task = null;
+        Task task;
         try {
-
             switch (this.keyword) {
             case "todo":
                 task = taskList.addToDo(this.parameters);
@@ -28,14 +27,12 @@ public class AddCommand extends Command{
                 task = taskList.addEvent(this.parameters);
                 break;
             default:
-                break;
-
+                return;
             }
+            ui.showAddedTask(task);
+            ui.showTaskListStatus(taskList);
         } catch (ChatBotParameterException e) {
             ui.showError(e.getMessage());
-            return;
         }
-        ui.showAddedTask(task);
-        ui.showTaskListStatus(taskList);
     }
 }

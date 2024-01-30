@@ -27,7 +27,7 @@ public class Storage {
      */
     public StringBuilder createSaveDataFromTaskList(TaskList tasks) {
         StringBuilder saveData = new StringBuilder();
-        for (Task task: tasks) {
+        for (Task task : tasks) {
             saveData.append(task.createSaveData());
         }
         return saveData;
@@ -60,31 +60,27 @@ public class Storage {
      * Load data from SaveFile in Local Storage into TaskList.
      * @param taskList TaskList to for local data to be added in.
      */
-    public void loadTasksFromFileToTaskList(TaskList taskList) {
-        try {
-            Path filePath = this.getFileLocationPath();
-            if (!Files.exists(filePath)) {
-                return;
-            }
 
-            List<String> tasks = Files.readAllLines(filePath);
-            for (String taskString : tasks) {
-                String[] parameters = Parser.parseSavedTask(taskString);
-                switch (parameters[0]) {
-                case ("T"):
-                    taskList.addToDo(parameters[2], parameters[1].equals("1"));
-                    break;
-                case ("D"):
-                    taskList.addDeadline(parameters[2], parameters[3], parameters[1].equals("1"));
-                    break;
-                case ("E"):
-                    taskList.addEvent(parameters[2], parameters[3], parameters[4], parameters[1].equals("1"));
-                    break;
-                }
+    public void loadTasksFromFileToTaskList(TaskList taskList) throws ChatBotParameterException, IOException {
+        Path filePath = this.getFileLocationPath();
+        if (!Files.exists(filePath)) {
+            return;
+        }
+
+        List<String> tasks = Files.readAllLines(filePath);
+        for (String taskString : tasks) {
+            String[] parameters = Parser.parseSavedTask(taskString);
+            switch (parameters[0]) {
+            case ("T"):
+                taskList.addToDo(parameters[2], parameters[1].equals("1"));
+                break;
+            case ("D"):
+                taskList.addDeadline(parameters[2], parameters[3], parameters[1].equals("1"));
+                break;
+            case ("E"):
+                taskList.addEvent(parameters[2], parameters[3], parameters[4], parameters[1].equals("1"));
+                break;
             }
-        } catch (IOException | ChatBotParameterException e) {
-            throw new RuntimeException(e);
         }
     }
-
 }
