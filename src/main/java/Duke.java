@@ -1,5 +1,8 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileOutputStream;
+
 public class Duke {
     public static void main(String[] args) {
         zhen zh = new zhen();
@@ -39,6 +42,7 @@ class zhen{
     }
     public void store_task(){
         database db = new database();
+        db.readDisk();
         while(true){
             try {
                 String msg = getuserinput();
@@ -79,6 +83,7 @@ class database{
         zhen.print_message("Got it. I've added this task:\n  "
                 +tsk.toString()+"\n "+
                 "Now you have "+number_task+" tasks in the list.");
+        writeDisk();
     }
     public void delete(int index){
         String temp = strlist.get(index-1).toString();
@@ -87,16 +92,19 @@ class database{
         zhen.print_message("Noted. I've removed this task:\n  "
                 +temp+"\n "+
                 "Now you have "+number_task+" tasks in the list.");
+        writeDisk();
     }
     public void mark(int index){
         strlist.get(index-1).mark();
         zhen.print_message("Nice! I've marked this task as done:\n  "
                 +strlist.get(index-1));
+        writeDisk();
     }
     public void unmark(int index){
         strlist.get(index-1).unmark();
         zhen.print_message("OK, I've marked this task as not done yet:\n  "
                 +strlist.get(index-1));
+        writeDisk();
     }
     @Override
     public String toString(){
@@ -110,8 +118,32 @@ class database{
         }
         return str;
     }
+    public void writeDisk() {
+        try {
+            FileOutputStream file = new FileOutputStream("database.ser");
+            ObjectOutputStream out = new ObjectOutputStream(file);
+            out.writeObject(strlist);
+            out.close();
+            file.close();
+        }catch(IOException e){
+//            System.out.println("Problem writing to hard disk.");
+            e.printStackTrace();
+        }
+    }
+
+    public void readDisk() {
+        try {
+            FileInputStream file = new FileInputStream("database.ser");
+            ObjectInputStream in = new ObjectInputStream(file);
+            strlist = (ArrayList<task>) in.readObject();
+            in.close();
+            file.close();
+        } catch (Exception e){
+            return;
+        }
+    }
 }
-class task{
+class task implements Serializable{
     private String message;
     private boolean state = false;
     public task(String msg){
