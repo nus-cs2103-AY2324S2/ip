@@ -12,8 +12,8 @@ import java.util.Scanner;
  * loading tasks from a file and saving tasks to a file.
  */
 public class Storage {
-    protected Scanner scanner;
     protected static String filePath;
+    protected Scanner scanner;
     protected File file;
 
     /**

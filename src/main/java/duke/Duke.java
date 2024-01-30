@@ -10,8 +10,9 @@ import java.util.Scanner;
  * It also contains the main method that serves as the entry point for the Duke application.
  */
 public class Duke {
-    private Storage storage;
     private static TaskList tasks;
+    private Storage storage;
+
 
     /**
      * Constructor for Duke.

@@ -1,9 +1,10 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import duke.Task;
-import duke.TaskList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import duke.Task;
+import duke.TaskList;
 public class TaskListTest {
     private TaskList tasks;
 

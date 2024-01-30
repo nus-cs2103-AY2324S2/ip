@@ -1,16 +1,18 @@
-import duke.DukeException;
-import duke.Storage;
-import duke.Task;
-import duke.TaskList;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.Task;
+import duke.TaskList;
 
 class StorageTest {
     private Path tempFile;
@@ -31,7 +33,7 @@ class StorageTest {
     }
 
     @Test
-    void saveAndLoad_TodoTask() throws IOException, DukeException {
+    void saveAndLoadTodoTask() throws IOException, DukeException {
         TaskList list = new TaskList();
         list.add(new Task("read book")); // Assuming Task is a valid type for simplicity
 
@@ -47,4 +49,3 @@ class StorageTest {
     }
 
 }
-

@@ -7,7 +7,7 @@ import java.util.Scanner;
  * It provides methods to display messages to the user and parse user input.
  */
 public class Ui {
-    Scanner scanner;
+    private Scanner scanner;
 
     /**
      * Constructs a Ui object, initializing a scanner to read user input.

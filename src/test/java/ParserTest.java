@@ -1,9 +1,17 @@
-import duke.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import duke.Deadline;
+import duke.DukeException;
+import duke.Event;
+import duke.Parser;
+import duke.Task;
+import duke.TaskList;
 
 class ParserTest {
     private TaskList list;
@@ -29,7 +37,8 @@ class ParserTest {
     @Test
     void handleTodo_emptyDescription_throwsDukeException() {
         Executable todoWithEmptyDescription = () -> Parser.handleTodo(list, "todo");
-        assertThrows(DukeException.class, todoWithEmptyDescription, "Exception was expected for empty todo description");
+        assertThrows(DukeException.class, todoWithEmptyDescription,
+                "Exception was expected for empty todo description");
     }
 
     @Test
@@ -48,7 +57,8 @@ class ParserTest {
     @Test
     void handleDeadline_emptyDescription_throwsDukeException() {
         Executable todoWithEmptyDescription = () -> Parser.handleDeadline(list, "deadline");
-        assertThrows(DukeException.class, todoWithEmptyDescription, "Exception was expected for empty todo description");
+        assertThrows(DukeException.class, todoWithEmptyDescription,
+                "Exception was expected for empty todo description");
     }
 
     @Test
@@ -68,6 +78,7 @@ class ParserTest {
     @Test
     void handleEvent_emptyDescription_throwsDukeException() {
         Executable todoWithEmptyDescription = () -> Parser.handleDeadline(list, "event");
-        assertThrows(DukeException.class, todoWithEmptyDescription, "Exception was expected for empty todo description");
+        assertThrows(DukeException.class, todoWithEmptyDescription,
+                "Exception was expected for empty todo description");
     }
 }

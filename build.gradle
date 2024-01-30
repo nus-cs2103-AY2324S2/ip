@@ -15,13 +15,7 @@ dependencies {
 }
 
 checkstyle {
-    toolVersion = "8.23"
-    configFile = rootProject.file("config/checkstyle/checkstyle.xml")
-    ignoreFailures = false
-    showViolations = true
-    maxWarnings = 0
-    maxErrors = 0
-    sourceSets = [sourceSets.main]
+    toolVersion = "10.2"
 }
 
 test {
