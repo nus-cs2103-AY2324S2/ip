@@ -5,8 +5,8 @@ public class Event extends Task {
 
     public Event(String name, String start, String end) {
         super(name);
-        this.start = start;
-        this.end = end;
+        this.start = TimeManager.parseTime(start);
+        this.end = TimeManager.parseTime(end);
     }
     @Override
     public String getType(){
