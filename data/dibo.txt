@@ -1,0 +1,3 @@
+todo | 0 |a
+deadline | 0 |b | tdy
+event | 0 | c | tdy | tmr

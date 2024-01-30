@@ -1,5 +1,5 @@
-public class DukeException extends Exception {
-    public DukeException(String errorMessage) {
+public class DiboException extends Exception {
+    public DiboException(String errorMessage) {
         super(errorMessage);
     }
 

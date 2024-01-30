@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -20,4 +20,5 @@ public class Task {
         this.isDone = false;
         System.out.println("OK, I've marked this task as not done yet:\n" + this.toString() + "\n");
     }
+    public abstract String getDetails();
 }
