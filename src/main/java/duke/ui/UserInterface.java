@@ -14,7 +14,7 @@ import duke.storage.Storage;
  */
 public class UserInterface {
 
-    private final Scanner scan;
+    private Scanner scan;
     private CommandProcessor cmd;
 
     private boolean startUpSuccess = false;
@@ -24,8 +24,8 @@ public class UserInterface {
      * and attempts to start the Duke application.
      */
     public UserInterface() {
-        scan = new Scanner(System.in);
         try {
+            scan = new Scanner(System.in);
             String fileLocation = "./savefile.txt";
             Storage storage = new Storage(fileLocation);
             cmd = new CommandProcessor(storage);

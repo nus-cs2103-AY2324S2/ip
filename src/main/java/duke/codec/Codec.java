@@ -14,7 +14,7 @@ import duke.tasks.Todo;
  */
 public class Codec {
 
-    private final String delimiter = ", ";
+    private final String DELIMITER = ", ";
 
     /**
      * Encodes a task into a string representation.
@@ -35,7 +35,7 @@ public class Codec {
      * @return A concatenated string with values separated by the specified delimiter.
      */
     public String buildString(String... values) {
-        StringJoiner encodedString = new StringJoiner(delimiter);
+        StringJoiner encodedString = new StringJoiner(DELIMITER);
         for (String string : values) {
             encodedString.add(string);
         }
@@ -51,7 +51,7 @@ public class Codec {
      * @throws ProcessingException If there is an error while decoding the task.
      */
     public Task decode(String string) throws ProcessingException {
-        String[] splitString = string.split(delimiter);
+        String[] splitString = string.split(DELIMITER);
         switch (splitString[0]) {
         case "D":
             return decodeDeadline(splitString);
