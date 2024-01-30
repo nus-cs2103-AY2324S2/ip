@@ -11,6 +11,11 @@ import Ui.Ui;
 
 import java.util.List;
 
+/**
+ * Simple chatbot program named kewqgy
+ * 
+ * @author Tang Yetong
+ **/
 public class Duke {
 
     public static void main(String[] args) {
@@ -104,5 +109,5 @@ public class Duke {
         }
 
         ui.printGoodBye();
-    }    
+    }
 }

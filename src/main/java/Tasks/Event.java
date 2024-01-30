@@ -5,7 +5,17 @@ import java.time.format.DateTimeFormatter;
 
 import Exceptions.DukeException;
 
+/**
+ * Event task, with description and time to start and finish task by
+ * 
+ * @author Tang Yetong
+ **/
 public class Event extends Task {
+    /**
+     * Creation of event task
+     * @param description description with 2 dates included for parsing
+     * @throws DukeException
+     */
     public Event(String description) throws DukeException {
         super(description);
 
