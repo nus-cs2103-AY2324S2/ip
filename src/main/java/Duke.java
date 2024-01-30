@@ -26,20 +26,20 @@ public class Duke {
         System.exit(1);// if keyword is bye, exit the program
     }
 
-    public static void addtask(int n, ArrayList<Task> list) {
+    public static void addtask(ArrayList<Task> list) {
         System.out.println("Got it. I've added this task:\n");
-        n++;
-        System.out.println(list.get(n).ToString());
+
+        System.out.println(list.get(list.size()-1).ToString());
 
         System.out.println("Now you have " + list.size() + " tasks in the list.");
 
     }
 
-    public static ArrayList<Task> eventcase(String str, int n, ArrayList<Task> list) throws DukeException {
+    public static ArrayList<Task> eventcase(String str, ArrayList<Task> list) throws DukeException {
         str = str.replace("event", "");
-        str = str.replace("from", "");
-        str = str.replace("to", "");
-        String[] eventtokens = str.split("/");
+        //str = str.replace("from", "");
+        //str = str.replace("to", "");
+        String[] eventtokens = str.split(" ((/from)|(/to)) ");
 
         if(eventtokens.length < 1) {
             throw new DukeException("OOPS!!! The description of a event cannot be empty." +
@@ -63,10 +63,10 @@ public class Duke {
 
     }
 
-    public static ArrayList<Task> deadlinecase(String str, int n, ArrayList<Task> list) throws DukeException {
+    public static ArrayList<Task> deadlinecase(String str, ArrayList<Task> list) throws DukeException {
         str = str.replace("deadline", "");
-        str = str.replace("by", "");
-        String[] deadlinetokens = str.split("/");
+        //str = str.replace("by", "");
+        String[] deadlinetokens = str.split("/by");
         if(deadlinetokens.length < 1) {
             throw new DukeException("OOPS!!! The description of a deadline cannot be empty." +
                     "Please give this instruction in the following format: deadline [description] / [deadline date]");
@@ -81,7 +81,7 @@ public class Duke {
         return list;
     }
 
-    public static ArrayList<Task> todocase(String str, int n, ArrayList<Task> list) throws DukeException {
+    public static ArrayList<Task> todocase(String str, ArrayList<Task> list) throws DukeException {
         str = str.replace("todo", "");
         int strcount = str.split("\\s").length;
         
@@ -113,7 +113,7 @@ public class Duke {
         System.out.println(list.get(no).ToString());
     }
 
-    public static ArrayList<Task> removecase(String[] tokens, ArrayList<Task> list, int n) throws DukeException{
+    public static ArrayList<Task> removecase(String[] tokens, ArrayList<Task> list) throws DukeException{
         if(tokens.length != 2) {
             throw new DukeException("please give this instruction in the following format: delete [task number]");
         }
@@ -123,8 +123,8 @@ public class Duke {
         list.remove(no);
 
 
-        n--;
-        System.out.println("Now you have " + n + " tasks in the list.");
+
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
 
         return list;
 
@@ -139,7 +139,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws IOException, DukeException {
+    public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -151,7 +151,7 @@ public class Duke {
         list = storage.load();// array to store tasks given
 
 
-        int n = list.size();
+        //int n = list.size();
         Scanner bfn = new Scanner(
                 new InputStreamReader(System.in));// scanner to read user input
 
@@ -179,18 +179,18 @@ public class Duke {
                     int no = Integer.parseInt(tokens[1]) - 1;
                     unmarkcase(tokens, list);
                 } else if (identifier.equals("event")) {
-                    list = eventcase(str, n, list);
-                    addtask(n, list);
+                    list = eventcase(str, list);
+                    addtask(list);
 
                 } else if (identifier.equals("deadline")) {
-                    list = deadlinecase(str, n, list);
-                    addtask(n, list);
+                    list = deadlinecase(str, list);
+                    addtask(list);
                 } else if (identifier.equals("todo")) {
-                    list = todocase(str, n, list);
-                    addtask(n, list);
+                    list = todocase(str, list);
+                    addtask(list);
                 } else if (identifier.equals("delete")) {
-                    list = removecase(tokens, list, n);
-                    n--;
+                    list = removecase(tokens, list);
+
                 } else {
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
                 }
