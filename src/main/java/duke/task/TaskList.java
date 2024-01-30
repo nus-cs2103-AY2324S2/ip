@@ -16,6 +16,10 @@ public class TaskList implements Iterable<Task> {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Add task to List of Task.
+     * @param task Task to be added.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
@@ -30,18 +34,37 @@ public class TaskList implements Iterable<Task> {
         return tasks.iterator();
     }
 
+    /**
+     * Add a ToDo to List of Task.
+     * @param description String name of task.
+     * @param isDone Status of the task (Done or Undone).
+     * @return Task that was added successfully.
+     */
     public Task addToDo(String description, boolean isDone) {
         ToDo toDo = new ToDo(description, isDone);
         this.addTask(toDo);
         return toDo;
     }
 
+    /**
+     * Add a ToDo to List of Task.
+     * @param parameters String that contain all necessary fields to create a ToDo for adding.
+     * @return Task that was added successfully.
+     * @throws ChatBotParameterException when parameters String lack information to create a ToDo.
+     */
     public Task addToDo(String parameters) throws ChatBotParameterException {
         String[] parametersArr = Parser.parseToDo(parameters);
         return this.addToDo(parametersArr[0], false);
     }
 
-
+    /**
+     * Add a Deadline to List of Task.
+     * @param description String name of deadline.
+     * @param by String represents DateTime the deadline need to be done by.
+     * @param isDone Status of the task (Done or Undone).
+     * @return Task that was added successfully.
+     * @throws ChatBotParameterException when String by is in wrong format.
+     */
     public Task addDeadline(String description, String by, boolean isDone) throws ChatBotParameterException {
         LocalDateTime byDateTime = Parser.parseDateTime(by);
         Deadline deadline = new Deadline(description, byDateTime, isDone);
@@ -49,28 +72,57 @@ public class TaskList implements Iterable<Task> {
         return deadline;
     }
 
+    /**
+     * Add a Deadline to List of Task.
+     * @param parameters String that contain all necessary fields to create a Deadline for adding.
+     * @return Task that was added successfully.
+     * @throws ChatBotParameterException when parameters String lack information to create a Deadline.
+     */
     public Task addDeadline(String parameters) throws ChatBotParameterException {
         String[] parametersArr = Parser.parseDeadline(parameters);
         return this.addDeadline(parametersArr[0], parametersArr[1], false);
 
     }
 
+    /**
+     * Add an Event to List of Task.
+     * @param parameters String that contain all necessary fields to create a Event for adding.
+     * @return Task that was added successfully.
+     * @throws ChatBotParameterException when parameters String lack information to create an Event.
+     */
     public Task addEvent(String parameters) throws ChatBotParameterException {
         String[] parametersArr = Parser.parseEvent(parameters);
         return this.addEvent(parametersArr[0], parametersArr[1], parametersArr[2], false);
     }
 
-
+    /**
+     * Add an Event to List of Task.
+     * @param description String name of event.
+     * @param from String when the event starts.
+     * @param to String when the event ends.
+     * @param isDone Status of the event (Done or Undone).
+     * @return Task that was added successfully.
+     */
     public Task addEvent(String description, String from, String to, boolean isDone) {
         Event event = new Event(description, from, to, isDone);
         this.addTask(event);
         return event;
     }
 
+    /**
+     * Number of tasks in TaskList.
+     * @return int Number of tasks in TaskList.
+     */
     public int size() {
         return this.tasks.size();
     }
 
+    /**
+     * Mark a task inside TaskList to be Done.
+     * @param parameters String that contain task number to be marked.
+     * @return Task that was marked successfully.
+     * @throws ChatBotParameterException when task number out of bound or attempting to mark a Done Task.
+     */
     public Task markTaskAsDone(String parameters) throws ChatBotParameterException {
         int taskNumber = Parser.parseInteger(parameters);
         Task taskToBeMarked;
@@ -85,7 +137,12 @@ public class TaskList implements Iterable<Task> {
         taskToBeMarked.markDone();
         return taskToBeMarked;
     }
-
+    /**
+     * Mark a task inside TaskList to be Undone
+     * @param parameters String that contain task number to be unmarked.
+     * @return Task that was unmarked successfully.
+     * @throws ChatBotParameterException when task number out of bound or attempting to mark an Undone Task.
+     */
     public Task markTaskAsUndone(String parameters) throws ChatBotParameterException {
         int taskNumber = Parser.parseInteger(parameters);
         Task taskToBeMarked;
@@ -101,7 +158,12 @@ public class TaskList implements Iterable<Task> {
         return taskToBeMarked;
     }
 
-
+    /**
+     * Delete a task inside TaskList.
+     * @param parameters String that contain task number to be deleted.
+     * @return Task that was deleted successfully.
+     * @throws ChatBotParameterException when task number out of bound.
+     */
     public Task deleteTask(String parameters) throws ChatBotParameterException {
         int taskNumber = Parser.parseInteger(parameters);
         Task taskToBeDeleted;

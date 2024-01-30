@@ -22,6 +22,10 @@ public class Task {
         return isDone;
     }
 
+    /**
+     * Create String for Local Storage from Task fields.
+     * @return String to be used for Local Storage.
+     */
     public String createSaveData() {
         return String.format("T | %d | %s\n", ((this.isDone) ? 1 : 0), this.description);
     }
