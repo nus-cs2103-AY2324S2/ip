@@ -2,10 +2,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 
 public class Duke {
 
@@ -294,7 +294,31 @@ public class Duke {
         FileManager fileManager = new FileManager(filename);
         return fileManager.loadTasksFromFile();
     }
-    
+
+    /**
+     * Coverts the String to LocalDateTime type.
+     *
+     * @param timeString The time in String.
+     * @return LocalDateTime.
+     * @throws DukeException If none of the timeString matches the formatter.
+     */
+    static LocalDateTime convertStringToLocalDateTime(String timeString) throws DukeException{
+        List<DateTimeFormatter> formatters = Arrays.asList(
+                DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm"),
+                DateTimeFormatter.ofPattern("yyyy-mm-dd")
+        );
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDateTime.parse(timeString, formatter);
+            } catch (DateTimeParseException e) {
+                // Continue next format
+            }
+        }
+
+        throw new DukeException("      Invalid format for Date-Time. The format is \"yyyy-mm-dd\" or \"yyyy-mm-dd HH:mm\".");
+
+    }
 
 
 }
