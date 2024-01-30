@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private String start;
@@ -18,15 +19,15 @@ public class Event extends Task {
         return "[E]";
     }
     public String getEvent() {
-//         if() {
-//             LocalDate startDate = LocalDate.parse(start);
-//             LocalDate endDate = LocalDate.parse(end);
-//             return ("from: " + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-//                        + "to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-//                        + ")");
-//         } else {
+         try {
+             LocalDate startDate = LocalDate.parse(start);
+             LocalDate endDate = LocalDate.parse(end);
+             return ("from: " + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                        + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                        + ")");
+         } catch (DateTimeParseException e) {
             return "(from: " + start + " to: " + end + ")";
-//        }
+        }
     }
 
     public String addEvent() {

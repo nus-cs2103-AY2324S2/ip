@@ -1,8 +1,10 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task{
 
@@ -14,12 +16,12 @@ public class Deadline extends Task{
     }
 
     public String getDeadline() {
-//        if () {
-//            LocalDate ddl = LocalDate.parse(deadline);
-//            return "(by: " + ddl.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
-//        } else {
+        try {
+            LocalDate ddl = LocalDate.parse(deadline);
+            return "(by: " + ddl.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        } catch (DateTimeParseException e) {
             return "(by: " + deadline + ")";
-//        }
+        }
     }
 
     public String isDeadline() {
