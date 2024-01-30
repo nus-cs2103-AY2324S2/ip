@@ -21,7 +21,7 @@ public abstract class Task {
     }
 
     public static String toStringDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         return dateTime.format(formatter);
     }
 
