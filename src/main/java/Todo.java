@@ -5,6 +5,6 @@ public class Todo  extends Task {
 
     @Override
     public String toString() {
-        return "[" + super.getStatusIcon() + "]" + " Todo | " + this.description;
+        return super.toString() + " Todo : " + this.description;
     }
 }
