@@ -4,7 +4,7 @@ public class Dibo {
     public static void main(String[] args) {
         // Greeting the user
         System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you? \n");
+        System.out.println("What can I do for you?\n");
         Store store = new Store(new String[]{"todo", "deadline", "event"});
 
         // Getting the command

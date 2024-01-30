@@ -21,7 +21,7 @@ public class Store {
         }
         String description = type_and_description.substring(type.length());
         if (description.equals("")) {
-            throw new DukeException("Oh no! We need a description for your task:(");
+            throw new DukeException("Oh no! We need a description for your task :(");
         }
         Task task;
         if (type.equals("todo")) {
@@ -45,9 +45,9 @@ public class Store {
 
         storage.add(task);
         count++;
-        return "Got it. I've added this task: \n" + task.toString() + "\n" +
+        return "Got it. I've added this task:\n" + task.toString() + "\n" +
                 "Now you have " + this.count + (count > 1 ? " tasks " : " task ") +
-                "in the list. \n";
+                "in the list.\n";
     }
     public void displayStore() {
         System.out.println("Here are the tasks in your list:");
