@@ -68,7 +68,7 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the file and returns them as an {@link ArrayList<Task>}.
+     * Loads tasks from the file and returns the task list.
      *
      * @return The list of tasks loaded from the file. If an error occurs during loading,
      *         an empty list is returned.
