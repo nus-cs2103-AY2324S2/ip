@@ -11,7 +11,15 @@ public class TaskList {
         System.out.print("--------------------------------------------------\n");
     }
 
-    private void addToList(Task task) {
+    public void processTaskCommand(String input) {
+        try {
+            addToList(Parser.parseTaskInput(input));
+        } catch (SolaireException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addToList(Task task) {
         if (task != null) {
             taskList.add(task);
             System.out.println("Added " + task + " to your list");
@@ -19,7 +27,11 @@ public class TaskList {
         }
     }
 
-    private void processRemoveFromList(String input) {
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
+    }
+
+    public void processRemoveFromList(String input) {
         try {
             String[] inputCommand = input.split(" ", 2);
             if (inputCommand.length < 2) {
@@ -36,14 +48,14 @@ public class TaskList {
 
     }
 
-    private void showList() {
+    public void showList() {
         System.out.print("Your list is as follows:\n " + "-------------------\n");
         for (Task item : taskList) {
             System.out.println(taskList.indexOf(item) + 1 + ". " + item.toString());
         }
     }
 
-    private void markDone(int id) {
+    public void markDone(int id) {
         for (Task item : taskList) {
             if (item.getId() == id) {
                 item.markAsDone();
@@ -55,7 +67,7 @@ public class TaskList {
         System.out.print("Couldn't find task associated with given id\n");
     }
 
-    private void unmarkDone(int id) {
+    public void unmarkDone(int id) {
         for (Task item : taskList) {
             if (item.getId() == id) {
                 item.unmarkDone();
