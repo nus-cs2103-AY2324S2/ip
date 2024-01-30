@@ -1,17 +1,20 @@
 package tasks;
 
+import java.time.LocalDateTime;
+import utilities.DateTime;
+
 public class Event extends Task {
     public static final String EVENT_ICON = "E";
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
-    Event(String description, String from, String to) {  // default access modifier
+    Event(String description, LocalDateTime from, LocalDateTime to) {  // default access modifier
         super(description);
         this.from = from;
         this.to = to;
     }
     
-    Event(String description, boolean isDone, String from, String to) {  // default access modifier
+    Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {  // default access modifier
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -24,14 +27,15 @@ public class Event extends Task {
     
     @Override
     public String toString() {
-        return "[" + getTaskType() + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[" + getTaskType() + "]" + super.toString() + " (from: " + DateTime.displayDateTimeToUser(from) + 
+                " to: " + DateTime.displayDateTimeToUser(to) + ")";
     }
 
-    public String getFrom() {
+    public LocalDateTime getStart() {
         return from;
     }
     
-    public String getTo() {
+    public LocalDateTime getEnd() {
         return to;
     }
 }

@@ -2,9 +2,12 @@ import commands.CommandType;
 import errors.InvalidBanterUsageError;
 import messages.MessageBox;
 import tasks.TaskList;
+
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import errors.Errors;
 import messages.Messages;
+import utilities.DateTime;
 
 public class Parser {
     private final TaskList taskList;
@@ -110,10 +113,11 @@ public class Parser {
         if (indexOfDueDate == -1) {
             throw Errors.MissingDeadlineDueDateError;
         }
-        String dueDate = joinTokens(tokens, indexOfDueDate + 1, tokens.length - 1);
-        if (dueDate.isEmpty()) {
+        String dueDateStr = joinTokens(tokens, indexOfDueDate + 1, tokens.length - 1);
+        if (dueDateStr.isEmpty()) {
             throw Errors.MissingDeadlineDueDateError;
         }
+        LocalDateTime dueDate = DateTime.getDateTimeFromUserInput(dueDateStr);
 
         String description = joinTokens(tokens, 1, indexOfDueDate - 1);
         if (description.isEmpty()) {
@@ -132,19 +136,21 @@ public class Parser {
         if (indexOfEnd == -1) {
             throw Errors.MissingEventEndError;
         }
-        String end = joinTokens(tokens, indexOfEnd + 1, tokens.length - 1);
-        if (end.isEmpty()) {
+        String endStr = joinTokens(tokens, indexOfEnd + 1, tokens.length - 1);
+        if (endStr.isEmpty()) {
             throw Errors.MissingEventEndError;
         }
+        LocalDateTime end = DateTime.getDateTimeFromUserInput(endStr);
 
         int indexOfStart = indexOf(tokens, EVENT_START);
         if (indexOfStart == -1) {
             throw Errors.MissingEventStartError;
         }
-        String start = joinTokens(tokens, indexOfStart + 1, indexOfEnd - 1);
-        if (start.isEmpty()) {
+        String startStr = joinTokens(tokens, indexOfStart + 1, indexOfEnd - 1);
+        if (startStr.isEmpty()) {
             throw Errors.MissingEventStartError;
         }
+        LocalDateTime start = DateTime.getDateTimeFromUserInput(startStr);
 
         String description = joinTokens(tokens, 1, indexOfStart - 1);
         if (description.isEmpty()) {
@@ -204,7 +210,7 @@ public class Parser {
     private String joinTokens(String[] tokens, int start, int end) {
         StringBuilder result = new StringBuilder();
         for (int i = start; i <= end; i++) {
-            if (!result.equals("")) {
+            if (result.length() != 0) {
                 result.append(SEPARATOR);
             }
             result.append(tokens[i]);
