@@ -1,6 +1,6 @@
-
+import java.io.Serializable;
 // Solution below adapted by week2 iP Level-3 Partial solution
-public class Task {
+public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
     public Task(String description) {

@@ -5,6 +5,7 @@ public class ChatBotTest {
     public static void main(String[] args) {
         Ping p = new Ping();
         String name = p.name;
+        p.tasks = FileManage.loadFiles();
 
         // The Welcome Part
         System.out.println("Hello! I'm "+name+
@@ -27,6 +28,7 @@ public class ChatBotTest {
                 try {
                     int i = Integer.parseInt(delCommand[1]) - 1;
                     p.delete(i);
+                    FileManage.saveFiles(p.tasks);
                 } catch (Exception e) {
                     System.out.println("Incorrect number or command");
                 }
@@ -36,6 +38,7 @@ public class ChatBotTest {
                 try {
                     int i = Integer.parseInt(markCommand[1]) - 1;
                     p.markJobs(p.tasks.get(i));
+                    FileManage.saveFiles(p.tasks);
                 } catch (Exception e) {
                     System.out.println("Incorrect number or command");
                 }
@@ -44,6 +47,7 @@ public class ChatBotTest {
                 try {
                     int i = Integer.parseInt(unmarkCommand[1]) - 1;
                     p.unMarkJobs(p.tasks.get(i));
+                    FileManage.saveFiles(p.tasks);
                 } catch (Exception e) {
                     System.out.println("Incorrect number or command");
                 }
@@ -57,6 +61,7 @@ public class ChatBotTest {
                     Todo j  = new Todo(rest);
                     if (rest.length() > 0) {
                         p.todoJobs(j);
+                        FileManage.saveFiles(p.tasks);
                     } else {
                         System.out.println("Todo what? you can't to do nothing right?");
                     }
@@ -90,6 +95,7 @@ public class ChatBotTest {
                     Deadline dl = new Deadline(rest, date);
                     if (rest.length() > 0) {
                         p.dlJobs(dl);
+                        FileManage.saveFiles(p.tasks);
                     } else {
                         System.out.println("deadline? what thing make you so hurry that even dont tell me?");
                     }
@@ -132,6 +138,7 @@ public class ChatBotTest {
                     Event e = new Event(rest, date1, date2);
                     if (rest.length() > 0) {
                         p.evJobs(e);
+                        FileManage.saveFiles(p.tasks);
                     } else {
                         System.out.println("event what? I need a thing!");
                     }
@@ -142,9 +149,9 @@ public class ChatBotTest {
             else {
                 Task t = new Task(commands);
                 p.addTask(t);
+                FileManage.saveFiles(p.tasks);
             }
         }
-
 
     }
 }
