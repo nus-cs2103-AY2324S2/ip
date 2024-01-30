@@ -4,6 +4,7 @@ package ezra;
  * Represents a generic task with a description and completion status.
  */
 public class Task {
+
     protected String description;
     protected boolean isDone;
 

@@ -4,6 +4,7 @@ package ezra;
  * Represents a simple to-do task without a specific deadline or start/end time.
  */
 public class ToDo extends Task {
+
     /**
      * Constructs a ToDo object with the specified description.
      *

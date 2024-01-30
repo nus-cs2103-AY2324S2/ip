@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
  * Represents a task with a specific start and end time.
  */
 public class Event extends Task {
+
     protected LocalDateTime start;
     protected LocalDateTime end;
     protected String startInput;

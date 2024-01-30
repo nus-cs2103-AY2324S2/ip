@@ -6,13 +6,26 @@ import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Represents a collection of tasks and provides methods for managing them.
+ */
 public class TaskList {
+
     protected ArrayList<Task> arrayList = new ArrayList<>();
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
 
     }
 
+    /**
+     * Constructs a TaskList by reading tasks from a file.
+     *
+     * @param f The file containing tasks.
+     * @throws FileNotFoundException If the specified file is not found.
+     */
     public TaskList(File f) throws FileNotFoundException{
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
@@ -40,6 +53,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists all tasks in the TaskList.
+     */
     public void listTasks() {
         if (this.arrayList.size() == 0) {
             System.out.println("\tThere are no tasks in your list.");
@@ -55,6 +71,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task at the specified index.
+     *
+     * @param taskIndex The arrayList index of the task in to be deleted.
+     * @param storage The storage to update after deletion.
+     */
     public void delete(int taskIndex, Storage storage) {
         if (taskIndex < 0 || taskIndex >= this.arrayList.size()) {
             System.out.println("\tInvalid task number");
@@ -74,6 +96,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Updates the TaskList by adding a new task.
+     *
+     * @param task The task to be added.
+     * @param storage The storage to update after addition.
+     */
     public void updateTasks(Task task, Storage storage) {
         this.arrayList.add(task);
         System.out.printf("\tGot it. I've added this task:\n\t  %s\n", task);
@@ -85,6 +113,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done at the specified index.
+     *
+     * @param taskIndex The arrayList index of the task to be marked as done.
+     * @param storage The storage to update after marking.
+     */
     public void mark(int taskIndex, Storage storage) {
         if (taskIndex < 0 || taskIndex >= this.arrayList.size()) {
             System.out.println("\tInvalid task number");
@@ -103,6 +137,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as not done at the specified index.
+     *
+     * @param taskIndex The arrayList index of the task to be marked as not done.
+     * @param storage The storage to update after marking.
+     */
     public void unmark(int taskIndex, Storage storage) {
         if (taskIndex < 0 || taskIndex >= this.arrayList.size()) {
             System.out.println("\tInvalid task number");
