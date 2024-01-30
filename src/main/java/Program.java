@@ -7,8 +7,9 @@ public class Program {
     private final String NAME = "Linus";
     private Boolean running;
     private Scanner userInputScanner;
-    private TaskList taskList;
     private Ui ui;
+    private TaskList taskList;
+    
 
     public Program() {
         this.running = true;
@@ -21,7 +22,8 @@ public class Program {
     public void start() {
         File f = this.retrieveFile();
         taskList.loadList(f, ui);
-        this.greeting();
+        ui.greeting(NAME);
+        ui.print();
         while (this.running) {
             String userInput = this.userInputScanner.nextLine();
             this.readUserInput(userInput);
@@ -89,19 +91,10 @@ public class Program {
 
     }
 
-    private void greeting() {
-        String greeting = String.format("Hello I'm %s", this.NAME);
-        String request = "What can I do for you?";
-        this.ui.add(greeting);
-        this.ui.add(request);
-        this.ui.print();
-    }
-
     private void end() {
         File file = new File("./data/linus.txt");
         taskList.saveList(file);
-        this.ui.add("Saving file!");
-        this.ui.add("Goodbye. See you later!");
+        ui.goodbye();
         this.running = false;
     }
 }
