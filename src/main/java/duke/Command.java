@@ -1,3 +1,5 @@
+package duke;
+
 public class Command {
 
     public Duke.CommandType type;

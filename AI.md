@@ -1,6 +1,6 @@
-Week 2 tasks done all by hand.
+Week 2 duke.task done all by hand.
 
-Week 3 tasks:
+Week 3 duke.task:
 - Using github copilot for:
     - Level 7
         - \+ Sometimes able to predict what I was going to type

@@ -1,13 +1,13 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.List;
 
-import java.io.IOException;
-import java.io.File;
-
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -66,13 +66,13 @@ public class Duke {
                         Deadline newDeadline = createDeadline(cmd.args[0], cmd.args[1]);
                         tasks.addTask(newDeadline);
                         ui.showTaskAdded(newDeadline, tasks.getSize());
-                        //numList(tasks.getSize());
+                        //numList(duke.tasks.getSize());
                     }
                     case EVENT -> {
                         Event newEvent = createEvent(cmd.args[0], cmd.args[1], cmd.args[2]);
                         tasks.addTask(newEvent);
                         ui.showTaskAdded(newEvent, tasks.getSize());
-                        //numList(tasks.getSize());
+                        //numList(duke.tasks.getSize());
                     }
                     case DELETE -> {
                         deleteTask(cmd.args[0], tasks);
@@ -96,12 +96,12 @@ public class Duke {
     }
 
     public static void numList(int len) {
-        System.out.printf(" Now you have %d tasks in the list.%n", len);
+        System.out.printf(" Now you have %d duke.tasks in the list.%n", len);
     }
 
     public static void printList(ArrayList<Task> tasks) {
         System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks in your list:");
+        System.out.println(" Here are the duke.tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf(" %d. %s%n", i + 1, tasks.get(i));
         }
