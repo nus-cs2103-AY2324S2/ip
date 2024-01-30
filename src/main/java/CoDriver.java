@@ -4,7 +4,7 @@ public class CoDriver {
     public static void main(String[] args) {
         greeting();
         Scanner scanner = new Scanner(System.in);
-        TaskList tl = new TaskList();
+        TaskList tl = TaskList.openTaskList("./data/codriver.txt");
         while (true) {
             String commandLine = scanner.nextLine();
             String[] arguments = commandLine.split(" ");
@@ -61,6 +61,7 @@ public class CoDriver {
             }
         }
         goodbye();
+        tl.saveTaskList("./data/codriver.txt");
     }
 
     private static void greeting() {

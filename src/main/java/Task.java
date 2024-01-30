@@ -23,4 +23,9 @@ public abstract class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+
+    public String toSaveString() {
+        String isDoneString = isDone ? "1" : "0";
+        return isDoneString + " | " + this.description;
+    }
 }
