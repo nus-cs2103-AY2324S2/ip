@@ -103,6 +103,12 @@ public class TaskList {
         return taskList;
     }
 
+    /**
+     * Returns a new TaskList containing all tasks that match the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A new TaskList containing all tasks that match the specified keyword.
+     */
     public TaskList search(String keyword) {
         TaskList taskList = new TaskList();
         for (Task task : tasks) {
