@@ -19,6 +19,17 @@ public class Ui {
         return reader.nextLine().split(" ", 2);
     }
 
+    public void printTaskKeyword(List<Task> userTaskList, String keyword) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < userTaskList.size(); i++) {
+            if (userTaskList.get(i).getDescription().contains(keyword)) {
+                System.out.println(i + ": " + userTaskList.get(i));
+            }
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     public void printGoodBye() {
         this.printSingleLine("Bye! Hope to see you again soon!");
 
