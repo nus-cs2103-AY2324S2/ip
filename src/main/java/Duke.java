@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,11 +60,14 @@ public class Duke {
                     if (deadlineTokens.length < 2) {
                         throw new DukeException("☹ OOPS!!! The deadline details cannot be empty.");
                     }
-                    if (!deadlineTokens[1].matches("\\d{4}-\\d{2}-\\d{2}")) {
-                        throw new DukeException("☹ OOPS!!! The deadline date must be in the format YYYY-MM-DD.");
+                    LocalDate by;
+                    try {
+                        by = LocalDate.parse(deadlineTokens[1]);
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException(
+                                "☹ OOPS!!! The event date must be a valid date in the format YYYY-MM-DD.");
                     }
                     String title = deadlineTokens[0];
-                    LocalDate by = LocalDate.parse(deadlineTokens[1]);
                     Deadline newDeadline = new Deadline(title, by);
                     tasks.add(newDeadline);
                     System.out.println("Got it. I've added this task:");
@@ -78,11 +82,14 @@ public class Duke {
                     if (eventTokens.length < 2) {
                         throw new DukeException("☹ OOPS!!! The event details cannot be empty.");
                     }
-                    if (!eventTokens[1].matches("\\d{4}-\\d{2}-\\d{2}")) {
-                        throw new DukeException("☹ OOPS!!! The event date must be in the format YYYY-MM-DD.");
+                    LocalDate at;
+                    try {
+                        at = LocalDate.parse(eventTokens[1]);
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException(
+                                "☹ OOPS!!! The event date must be a valid date in the format YYYY-MM-DD.");
                     }
                     String title = eventTokens[0];
-                    LocalDate at = LocalDate.parse(eventTokens[1]);
                     Event newEvent = new Event(title, at);
                     tasks.add(newEvent);
                     System.out.println("Got it. I've added this task:");
