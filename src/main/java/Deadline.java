@@ -1,9 +1,14 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     private String by;
+    private LocalDate dueDate = null;
 
-    Deadline(String description, String by, String input) {
+    Deadline(String description, LocalDate dueDate, String input) {
         super(description, input);
-        this.by = by;
+        this.dueDate = dueDate;
+        this.by = dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override

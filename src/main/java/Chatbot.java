@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,7 +28,7 @@ public class Chatbot {
 
     private String goodbye = "\tBye. Hope to see you again soon!\n"
             + Chatbot.LINE;
-    private static final String DATA_DIRECTORY = ".\\src\\main\\java\\data";
+    private static final String DATA_DIRECTORY = "..\\src\\main\\java\\data";
     private static final String DATA_FILE = DATA_DIRECTORY + "/tasks.txt";
 
     private String name;
@@ -164,7 +167,10 @@ public class Chatbot {
                 } else if (deadlineParts[1].replaceAll("\\s", "").equals("")) {
                     System.out.println("\tDue date should not be empty!");
                 } else {
-                    newTask = new Deadline(deadlineParts[0], deadlineParts[1], input);
+                    LocalDate dueDate = parseDate(deadlineParts[1]);
+                    if (dueDate != null) {
+                        newTask = new Deadline(deadlineParts[0], dueDate, input);
+                    }
                 }
                 break;
             case EVENT:
@@ -185,7 +191,11 @@ public class Chatbot {
                     } else {
                         // Construct the event string
                         String eventTime = timeParts[0] + " to: " + timeParts[1];
-                        newTask = new Event(eventParts[0], eventTime, input);
+                        LocalDate start = parseDate(timeParts[0]);
+                        LocalDate end = parseDate(timeParts[1]);
+                        if (start != null && end != null) {
+                            newTask = new Event(eventParts[0], eventTime, input, start, end);
+                        }
                     }
                 }
                 break;
@@ -203,9 +213,20 @@ public class Chatbot {
             this.storageFill++;
         }
 
-        if (!isLoading) { // so that reading from existing tasks will not produce log
+        if (newTask != null && !isLoading) { // so that reading from existing tasks will not produce log
             System.out.println("\tGot it. I've added this task:\n\t" + newTask);
             System.out.println("\tNow you have " + this.storageFill + " tasks in the list.");
+        }
+    }
+
+    private LocalDate parseDate(String dateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            // Parse the date string into a LocalDate object
+            return LocalDate.parse(dateStr, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("\tUnable to parse the date. Please use the format: yyyy-MM-dd");
+            return null;
         }
     }
 
