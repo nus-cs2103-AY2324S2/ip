@@ -6,7 +6,6 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -46,42 +45,45 @@ public class Duke {
                 }
                 Command cmd = parser.parse(input);
                 switch (cmd.type) {
-                    case LIST -> ui.showTaskList(tasks.getTaskStrings());
-                    case MARK -> {
+                    case LIST:
+                        ui.showTaskList(tasks.getTaskStrings());
+                        break;
+                    case MARK:
                         int toMark = Integer.parseInt(cmd.args[0]) - 1;
                         tasks.markTaskAsDone(toMark);
                         ui.showTaskMarked(tasks.getTask(toMark));
-                    }
-                    case UNMARK -> {
+                        break;
+                    case UNMARK:
                         int toUnmark = Integer.parseInt(cmd.args[0]) - 1;
                         tasks.markTaskAsUndone(toUnmark);
                         ui.showTaskUnmarked(tasks.getTask(toUnmark));
-                    }
-                    case TODO -> {
+                        break;
+                    case TODO:
                         Todo newTodo = createTodo(cmd.args[0]);
                         tasks.addTask(newTodo);
                         ui.showTaskAdded(newTodo, tasks.getSize());
-                    }
-                    case DEADLINE -> {
+                        break;
+                    case DEADLINE:
                         Deadline newDeadline = createDeadline(cmd.args[0], cmd.args[1]);
                         tasks.addTask(newDeadline);
                         ui.showTaskAdded(newDeadline, tasks.getSize());
-                        //numList(duke.tasks.getSize());
-                    }
-                    case EVENT -> {
+                        break;
+                    case EVENT:
                         Event newEvent = createEvent(cmd.args[0], cmd.args[1], cmd.args[2]);
                         tasks.addTask(newEvent);
                         ui.showTaskAdded(newEvent, tasks.getSize());
                         //numList(duke.tasks.getSize());
-                    }
-                    case DELETE -> {
-                        deleteTask(cmd.args[0], tasks);
+                        break;
+                    case DELETE:
+                        Task deletedTask = tasks.deleteTask(Integer.parseInt(cmd.args[0]) - 1);
+                        ui.showTaskDeleted(deletedTask, tasks.getSize());
                         numList(tasks.getSize());
-                    }
-                    default -> throw new DukeException("Unknown command");
+                        break;
+                    default:
+                        throw new DukeException("Unknown command");
                 }
                 storage.updateFile(tasks.getFileStrings());
-            } catch (DukeException e) {
+            } catch (duke.DukeException e) {
                 lineBreak();
                 System.out.println(e.getMessage());
             }
@@ -97,36 +99,6 @@ public class Duke {
 
     public static void numList(int len) {
         System.out.printf(" Now you have %d duke.tasks in the list.%n", len);
-    }
-
-    public static void printList(ArrayList<Task> tasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the duke.tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf(" %d. %s%n", i + 1, tasks.get(i));
-        }
-    }
-
-    public static void markTask(Task task) {
-        task.markAsDone();
-        System.out.println("____________________________________________________________");
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.printf(" %s%n", task);
-    }
-
-    public static void unmarkTask(Task task) {
-        task.markAsUndone();
-        System.out.println("____________________________________________________________");
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.printf(" %s%n", task);
-    }
-
-    public static void welcome(String botName) {
-        System.out.printf("""
-                ____________________________________________________________
-                 Hello! I'm %s
-                 What can I do for you?
-                %n""", botName);
     }
 
     public static LocalDateTime createDateTime(String input) throws DukeException {
@@ -194,7 +166,7 @@ public class Duke {
         return new Deadline(description, dueDateTime);
     }
 
-    public static Event createEvent(String description, String startDate, String endDate) throws DukeException{
+    public static Event createEvent(String description, String startDate, String endDate) throws DukeException {
 
         LocalDateTime startDateTime = createDateTime(startDate);
         if (startDateTime == null) {
@@ -211,23 +183,6 @@ public class Duke {
         }
 
         return new Event(description, startDateTime, endDateTime);
-    }
-
-    public static void deleteTask (String toRemove,  TaskList tasks) throws DukeException {
-
-        int i = Integer.parseInt(toRemove) - 1;
-        Task removedTask = tasks.deleteTask(i );
-        System.out.println(String.format("""
-                ____________________________________________________________
-                 Noted. I've removed this task:
-                   %s""", removedTask));
-    }
-    public static void farewell() {
-        System.out.println("""
-                ____________________________________________________________
-                 Bye. Hope to see you again soon!
-                ____________________________________________________________
-                 """);
     }
 
     public static void main(String[] args) {

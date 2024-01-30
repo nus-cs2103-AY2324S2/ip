@@ -62,9 +62,15 @@ public class Storage {
                 String line = scanner.nextLine();
                 String[] parts = line.split(",");
                 switch (parts[0]) {
-                    case "T" -> tasks.add(new Todo(parts[2]));
-                    case "D" -> tasks.add(new Deadline(parts[2], parts[3]));
-                    case "E" -> tasks.add(new Event(parts[2], parts[3], parts[4]));
+                    case "T":
+                        tasks.add(new Todo(parts[2]));
+                        break;
+                    case "D":
+                        tasks.add(new Deadline(parts[2], parts[3]));
+                        break;
+                    case "E":
+                        tasks.add(new Event(parts[2], parts[3], parts[4]));
+                        break;
                 }
                 if (parts[1].equals("X")) {
                     tasks.get(tasks.size() - 1).markAsDone();
