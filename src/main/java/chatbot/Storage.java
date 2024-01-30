@@ -3,8 +3,8 @@ package chatbot;
 import java.io.*;
 import java.util.ArrayList;
 
-public class FileIO {
-    public FileIO() throws IOException {
+public class Storage {
+    public Storage() throws IOException {
         File file = new File("store.ser");
         if (!file.exists()) {
             FileOutputStream fileOut = new FileOutputStream("store.ser");

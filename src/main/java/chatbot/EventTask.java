@@ -15,8 +15,8 @@ public class EventTask extends Task implements Serializable {
     public EventTask(String desc, String startTime, String endTime) throws InvalidArgumentException {
         super(desc);
         try {
-            this.startTime = LocalDateTime.parse(startTime);
-            this.endTime = LocalDateTime.parse(endTime);
+            this.startTime = Parser.parseDate(startTime);
+            this.endTime = Parser.parseDate(endTime);
         } catch (DateTimeParseException e) {
             throw new InvalidArgumentException();
         }

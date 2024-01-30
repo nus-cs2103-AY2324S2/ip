@@ -9,7 +9,7 @@ public class InvalidCommandException extends DukeException {
         StringBuilder result = new StringBuilder();
         result.append("Invalid command! Only the following commands are allowed:\n");
         for (Command c : Command.values()) {
-            result.append(c.getStringRep()).append("\n");
+            result.append(c.toString()).append("\n");
         }
         ERRSTR = result.toString();
     }
