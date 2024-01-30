@@ -48,8 +48,8 @@ public class Event extends Task {
             return false;
         }
         Event e = (Event) o;
-        return this.description.equals(e.description) &&
-                this.startInput.equals(e.startInput) &&
-                this.endInput.equals(e.endInput);
+        return this.description.equals(e.description)
+                && this.startInput.equals(e.startInput)
+                && this.endInput.equals(e.endInput);
     }
 }

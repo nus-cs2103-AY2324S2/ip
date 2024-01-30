@@ -10,14 +10,19 @@ public class Storage {
     public Storage(String filepath) {
         this.filepath = filepath;
     }
-    public void writeToFile(TaskList tasks) throws IOException {
+    public void writeToFile(TaskList taskList) throws IOException {
+        // Create data directory if it does not exist
         File directory = new File("data");
         directory.mkdir();
+
+        // Create ezra.txt in data directory if it does not exist
         File f = new File("data" + File.separator + "ezra.txt");
         f.createNewFile();
+
+        // Write tasks to ezra.txt
         FileWriter fw = new FileWriter(f);
         StringBuilder builder = new StringBuilder();
-        for (Task t : tasks.arrayList) {
+        for (Task t : taskList.tasks) {
             builder.append(t.toString2()).append("\n");
         }
         fw.write(builder.toString());
