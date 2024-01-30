@@ -1,9 +1,16 @@
 public class Task {
     protected String description;
-    protected boolean isDone;
+    protected boolean isDone = false;
 
     public Task(String description) {
         this.description = description;
+    }
+
+    public void mark() {
+        this.isDone = true;
+    }
+
+    public void unmark() {
         this.isDone = false;
     }
 
@@ -11,12 +18,8 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void changeStatus(Command cmd) {
-        if (cmd.equals(Command.MARK)) {
-            isDone = true;
-        } else if (cmd.equals(Command.UNMARK)) {
-            isDone = false;
-        }
+    public String writeTask() {
+        return isDone + " | " + description;
     }
 
     @Override

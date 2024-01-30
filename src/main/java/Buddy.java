@@ -2,8 +2,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Buddy {
-    private final String lineBreak = "____________________________________________________________\n";
-    ArrayList<Task> taskList = new ArrayList<>();
+    public enum Command {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+    }
+    private final String LINE_BREAK = "____________________________________________________________\n";
+    ArrayList<Task> taskList;
+    Storage storage = new Storage("buddy.txt");
 
     private void greet() {
         String logo =
@@ -15,179 +19,183 @@ public class Buddy {
             "              |____/ \\__,_|\\__,_|\\__,_|\\__, |\n" +
             "                                        __/ |\n" +
             "                                       |___/ \n";
-        System.out.println(lineBreak + logo + lineBreak + " Hello friend!\n" + " How can I help you?\n" + lineBreak);
+        System.out.println(LINE_BREAK + logo + LINE_BREAK
+                + " Hello friend!\n" + " How can I help you?\n" + LINE_BREAK);
     }
 
     private void exit() {
-        System.out.println(lineBreak + " Bye. Hope to see you again soon!\n" + lineBreak);
+        System.out.println(LINE_BREAK + " Bye. Hope to see you again soon!\n" + LINE_BREAK);
     }
 
     private void run() {
-        boolean running = true;
+        boolean isRunning = true;
         Scanner sc = new Scanner(System.in);
+        taskList = storage.load();
 
-        while (running) {
+        while (isRunning) {
             String input = sc.nextLine().trim();
 
-            if (!input.equals("")) {
-                Command command;
-                command = setCommand(input);
-                running = command(command, input);
+            if (!input.isEmpty()) {
+                String[] inputSplit = input.split(" ", 2);
+                Command command = getCommand(inputSplit[0]);
+
+                switch (command) {
+                case BYE:
+                    isRunning = false;
+                    break;
+                case LIST:
+                    System.out.print(LINE_BREAK);
+                    System.out.println("Here you go bud!:");
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.println((i + 1) + ". "+ taskList.get(i));
+                    }
+                    System.out.print(LINE_BREAK);
+                    break;
+                case MARK:
+                    try {
+                        if (inputSplit.length == 1) {
+                            throw new IllegalArgumentException("Please provide a task number!");
+                        }
+
+                        int index = Integer.parseInt(inputSplit[1].trim()) - 1;
+                        if (index >= taskList.size()) {
+                            throw new ArrayIndexOutOfBoundsException("Not a valid task buddy!");
+                        }
+
+                        taskList.get(index).mark();
+                        System.out.println(LINE_BREAK + "I've updated the following task!:\n"
+                                + taskList.get(index) + "\n" + LINE_BREAK);
+                        break;
+                    } catch (NumberFormatException nfe) {
+                        System.out.println(LINE_BREAK + "Not a valid task buddy!\n" + LINE_BREAK);
+                        break;
+                    } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                        System.out.println(LINE_BREAK + e.getMessage() + "\n" + LINE_BREAK);
+                        break;
+                    }
+                case UNMARK:
+                    try {
+                        if (inputSplit.length == 1) {
+                            throw new IllegalArgumentException("Please provide a task number!");
+                        }
+
+                        int index = Integer.parseInt(inputSplit[1].trim()) - 1;
+                        if (index >= taskList.size()) {
+                            throw new ArrayIndexOutOfBoundsException("Not a valid task buddy!");
+                        }
+
+                        taskList.get(index).unmark();
+                        System.out.println(LINE_BREAK + "I've updated the following task!:\n"
+                                + taskList.get(index) + "\n" + LINE_BREAK);
+                        break;
+                    } catch (NumberFormatException nfe) {
+                        System.out.println(LINE_BREAK + "Not a valid task buddy!\n" + LINE_BREAK);
+                        break;
+                    } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                        System.out.println(LINE_BREAK + e.getMessage() + "\n" + LINE_BREAK);
+                        break;
+                    }
+                case DELETE:
+                    try {
+                        if (inputSplit.length == 1) {
+                            throw new IllegalArgumentException("Please provide a task number!");
+                        }
+
+                        int index = Integer.parseInt(inputSplit[1].trim()) - 1;
+                        if (index >= taskList.size()) {
+                            throw new ArrayIndexOutOfBoundsException("Not a valid task buddy!");
+                        }
+
+                        deleteTask(taskList.get(index));
+                        break;
+                    } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                        System.out.println(LINE_BREAK + e.getMessage() + "\n" + LINE_BREAK);
+                        break;
+                    }
+                case TODO:
+                    try {
+                        if (inputSplit.length == 1) {
+                            throw new IllegalArgumentException("Please provide a valid task!");
+                        }
+
+                        Todo todo = new Todo(inputSplit[1].trim());
+                        addTask(todo);
+                        break;
+                    } catch (IllegalArgumentException iae) {
+                        System.out.println(LINE_BREAK + iae.getMessage() + "\n" + LINE_BREAK);
+                        break;
+                    }
+                case DEADLINE:
+                    try {
+                        if (inputSplit.length == 1) {
+                            throw new IllegalArgumentException("Please provide a task and deadline!");
+                        }
+
+                        String[] timeSplit = inputSplit[1].split("/by", 2);
+                        if (timeSplit.length <= 1 || timeSplit[1].isEmpty()) {
+                            throw new IllegalArgumentException("Please provide a deadline!");
+                        }
+
+                        Deadline deadline = new Deadline(
+                                timeSplit[0].trim(), timeSplit[1].trim());
+                        addTask(deadline);
+                        break;
+                    } catch (IllegalArgumentException iae) {
+                        System.out.println(LINE_BREAK + iae.getMessage() + "\n" + LINE_BREAK);
+                        break;
+                    }
+                case EVENT:
+                    try {
+                        if (inputSplit.length == 1) {
+                            throw new IllegalArgumentException("Please provide a task and date/time range!");
+                        }
+
+                        String[] timeSplit = inputSplit[1].split("/from", 2);
+                        if (timeSplit.length <= 1 || timeSplit[1].isEmpty()) {
+                            throw new IllegalArgumentException("Please provide a start date/time!");
+                        }
+
+                        String[] timeSplit2 = timeSplit[1].split("/to", 2);
+                        if (timeSplit2.length <= 1 || timeSplit2[1].isEmpty()) {
+                            throw new IllegalArgumentException("Please provide an end date/time!");
+                        }
+
+                        Event event = new Event(
+                                timeSplit[0].trim(), timeSplit2[0].trim(), timeSplit2[1].trim());
+                        addTask(event);
+                        break;
+                    } catch (IllegalArgumentException iae) {
+                        System.out.println(LINE_BREAK + iae.getMessage() + "\n" + LINE_BREAK);
+                        break;
+                    }
+                default:
+                    System.out.println(LINE_BREAK + "That's not a valid command!\n" + LINE_BREAK);
+                    break;
+                }
             }
         }
+        storage.save(taskList);
         sc.close();
-    }
-
-    private boolean command(Command cmd, String input) {
-        switch (cmd) {
-            case BYE:
-                return false;
-            case LIST:
-                System.out.print(lineBreak);
-                System.out.println("Here you go bud!:");
-
-                for (int i = 0; i < taskList.size(); i++) {
-                    System.out.println((i + 1) + ". "+ taskList.get(i));
-                }
-
-                System.out.println(lineBreak);
-                return true;
-            case MARK:
-            case UNMARK:
-                try {
-                    int intIdx = input.indexOf(" ") + 1;
-                    int taskIdx = Integer.parseInt(input.substring(intIdx)) - 1;
-                    Task task = taskList.get(taskIdx);
-                    task.changeStatus(cmd);
-
-                    String msg = "I've updated this task for you!\n" + task + "\n";
-                    System.out.println(lineBreak + msg + lineBreak);
-                    return true;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(lineBreak + "The index you provided is out of bounds!\n" + lineBreak);
-                    return true;
-                } catch (NumberFormatException e) {
-                    System.out.println(lineBreak + "I don't know which task you are talking about!\n" +
-                                       "Please provide a valid integer!\n" + lineBreak);
-                    return true;
-                }
-            case TODO:
-                try {
-                    int todoIdx = input.indexOf(" ");
-                    if (todoIdx >= 0) {
-                        Todo todo = new Todo(input.substring(todoIdx + 1));
-                        addTask(todo);
-                        return true;
-                    } else {
-                        throw new BuddyException("Please provide a task to do!\n");
-                    }
-                } catch (BuddyException e) {
-                    System.out.println(lineBreak + e.getMessage() + lineBreak);
-                    return true;
-                }
-            case DELETE:
-                try {
-                    int deleteIdx = input.indexOf(" ");
-                    if (deleteIdx >= 0) {
-                        int toDelete = Integer.parseInt(input.substring(deleteIdx + 1)) - 1;
-                        deleteTask(taskList.get(toDelete));
-                        return true;
-                    } else {
-                        throw new BuddyException("Please provide a valid task to delete!\n");
-                    }
-                } catch (BuddyException e) {
-                    System.out.println(lineBreak + e.getMessage() + lineBreak);
-                    return true;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(lineBreak + "The index you provided is out of bounds!\n" + lineBreak);
-                    return true;
-                }
-            case DEADLINE:
-                try {
-                    int deadlineIdx = input.indexOf(" ");
-                    if (deadlineIdx >= 0) {
-                        int deadlineEndIdx = input.indexOf("/by");
-                        if (deadlineEndIdx >= 0) {
-                            String deadlineEnd = input.substring(deadlineEndIdx + 4);
-                            Deadline deadline = new Deadline(input.substring(deadlineIdx + 1, deadlineEndIdx - 1),
-                                                             deadlineEnd);
-                            addTask(deadline);
-                            return true;
-                        } else {
-                            throw new BuddyException("Please prove a deadline for the task using /by!\n");
-                        }
-                    } else {
-                        throw new BuddyException("Please provide a task to do!\n");
-                    }
-                } catch (BuddyException e) {
-                    System.out.println(lineBreak + e.getMessage() + lineBreak);
-                    return true;
-                }
-            case EVENT:
-                try {
-                    int eventIdx = input.indexOf(" ");
-                    if (eventIdx >= 0) {
-                        int eventStartIdx = input.indexOf("/from");
-                        int eventEndIdx = input.indexOf("/to");
-
-                        if (eventStartIdx >= 0 && eventEndIdx >= 0) {
-                            String eventStart = input.substring(eventStartIdx + 6, eventEndIdx);
-                            String eventEnd = input.substring(eventEndIdx + 4);
-                            Event event = new Event(input.substring(eventIdx + 1, eventStartIdx - 1), eventStart, eventEnd);
-                            addTask(event);
-                            return true;
-                        } else {
-                            throw new BuddyException("Please provide a valid time range using /from and /to!\n");
-                        }
-                    } else {
-                        throw new BuddyException("Please provide an event!\n");
-                    }
-                } catch (BuddyException e) {
-                    System.out.println(lineBreak + e.getMessage() + lineBreak);
-                    return true;
-                }
-            default:
-                try {
-                    throw new BuddyException("Sorry friend but that's not a valid command!\n");
-                } catch (BuddyException e) {
-                    System.out.println(lineBreak + e.getMessage() + lineBreak);
-                    return true;
-                }
-        }
     }
 
     public void addTask(Task task) {
         taskList.add(task);
-        String msg = "Alrighty! I've added the task to your list!\n" + task + "\n" +
-                     "You have " + taskList.size() + " tasks!\n";
-        System.out.println(lineBreak + msg + lineBreak);
+        String msg = "Alrighty! I've added the task to your list!\n" + task + "\n"
+                + "You have " + taskList.size() + " tasks!\n";
+        System.out.println(LINE_BREAK + msg + LINE_BREAK);
     }
 
     public void deleteTask(Task task) {
         taskList.remove(task);
-        String msg = "I've removed the task from your list!\n" + task + "\n" +
-                     "You have " + taskList.size() + " tasks!\n";
-        System.out.println(lineBreak + msg + lineBreak);
+        String msg = "I've removed the task from your list!\n" + task + "\n"
+                + "You have " + taskList.size() + " tasks!\n";
+        System.out.println(LINE_BREAK + msg + LINE_BREAK);
     }
 
-    public Command setCommand(String input) {
-        if (input.startsWith("mark")) {
-            return Command.MARK;
-        } else if (input.startsWith("unmark")) {
-            return Command.UNMARK;
-        } else if (input.startsWith("todo")) {
-            return Command.TODO;
-        } else if (input.startsWith("deadline")) {
-            return Command.DEADLINE;
-        } else if (input.startsWith("event")) {
-            return Command.EVENT;
-        } else if (input.startsWith("delete")) {
-            return Command.DELETE;
-        } else if (input.startsWith("bye")) {
-            return Command.BYE;
-        } else if (input.startsWith("list")) {
-            return Command.LIST;
-        } else {
+    public Command getCommand(String input) {
+        try {
+            return Command.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException iae) {
             return Command.INVALID;
         }
     }
