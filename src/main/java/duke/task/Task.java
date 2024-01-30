@@ -38,4 +38,13 @@ public class Task {
     public void markUndone() {
         this.isDone = false;
     }
+
+    /**
+     * Check if the task description contains the keyword regardless of Upper/Lowercase.
+     * @param keyword the keyword to be searched.
+     * @return boolean whether the description contains.
+     */
+    public boolean hasKeyword(String keyword) {
+        return this.description.toLowerCase().contains(keyword.toLowerCase());
+    }
 }

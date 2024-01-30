@@ -40,6 +40,8 @@ public class Parser {
             return new UnmarkCommand(keyword, parameters);
         case "delete":
             return new DeleteCommand(keyword, parameters);
+        case "find":
+            return new FindCommand(keyword, parameters);
         default:
             throw new ChatBotCommandException("Invalid command.");
         }

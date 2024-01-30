@@ -91,4 +91,21 @@ public class Ui {
     public void showDeletedTask(Task task) {
         System.out.println("Noted. I've removed this task: \n" + task.toString());
     }
+
+    /**
+     * Print the list of task containing a certain keyword.
+     * @param taskListSearchResult List of Task to be printed.
+     */
+    public void showFindResult(List<Task> taskListSearchResult) {
+        if (taskListSearchResult.isEmpty()){
+            System.out.println("There are no matching tasks in your list.");
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        int count = 1;
+        for (Task task : taskListSearchResult) {
+            System.out.printf("%d. %s\n", count, task);
+            count++;
+        }
+    }
 }

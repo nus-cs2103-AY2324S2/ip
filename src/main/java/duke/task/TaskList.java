@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList implements Iterable<Task> {
     protected List<Task> tasks;
@@ -111,5 +112,19 @@ public class TaskList implements Iterable<Task> {
             throw new ChatBotParameterException("The task does not exists in the task list.");
         }
         return taskToBeDeleted;
+    }
+
+    /**
+     * retrieve a sub List containing all task that contains keyword in its description.
+     * @param keyword String queries to be searched.
+     * @return List of Task of which description contains the keyword.
+     * @throws ChatBotParameterException when keyword is empty or only whitespaces.
+     */
+    public List<Task> findFromKeyword(String keyword) throws ChatBotParameterException {
+        // Check if keyword is empty or only whitespaces
+        if (keyword.isEmpty() || keyword.trim().isEmpty()) {
+            throw new ChatBotParameterException("Find Keyword cannot be all whitespaces or empty");
+        }
+        return this.tasks.stream().filter(task -> task.hasKeyword(keyword)).collect(Collectors.toList());
     }
 }
