@@ -22,7 +22,8 @@ public class Duke {
     }
 
     public void handleInput() {
-        String command = scanner.nextLine();
+        String input = scanner.nextLine();
+        String command = input.split(" ")[0];
         while (!command.equals("bye")) {
             String output = new String();
             switch (command) {
@@ -37,8 +38,8 @@ public class Duke {
                     output = output.trim();
                     break;
                 default:
-                    Task newtask = new Task(command);
-                    output = "added: " + command;
+                    Task newtask = new Task(input);
+                    output = "added: " + input;
                     addItem(newtask);
             }
 
@@ -48,7 +49,7 @@ public class Duke {
                 System.out.println(sep);
             }
 
-            command = scanner.nextLine();
+            input = scanner.nextLine();
         }
     }
 
