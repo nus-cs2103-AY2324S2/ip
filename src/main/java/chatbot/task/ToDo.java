@@ -1,5 +1,7 @@
 package chatbot.task;
 
+import chatbot.task.exception.InvalidTaskStringException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,9 +40,9 @@ public final class ToDo extends Task {
      * Constructor for this to-do.
      *
      * @param matcher the matcher that has the relevant captured groups
-     * @throws IllegalStateException If the regex doesn't match the pattern
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public ToDo(Matcher matcher) throws IllegalStateException {
+    public ToDo(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
     }
 
@@ -49,9 +51,9 @@ public final class ToDo extends Task {
      *
      * @param readableString the to-do as a human-readable string
      * @return the to-do
-     * @throws IllegalStateException If the regex doesn't match the pattern
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public static ToDo parseToDo(String readableString) throws IllegalStateException {
+    public static ToDo parseToDo(String readableString) throws InvalidTaskStringException {
         Matcher matcher = Pattern
                 .compile(REGEX_PATTERN)
                 .matcher(readableString);
@@ -59,7 +61,7 @@ public final class ToDo extends Task {
         if (matcher.find()) {
             return new ToDo(matcher);
         } else {
-            return null;
+            throw new InvalidTaskStringException();
         }
     }
 

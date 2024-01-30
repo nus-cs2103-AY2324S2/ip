@@ -22,6 +22,10 @@ public final class InvalidArgumentValueException extends ActionException {
         this.invalidArg = invalidArg;
         this.reason = reason;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return "OOPS!!! The argument value <" + invalidArg + "> of `" + command.getName() + "` is invalid!\n"

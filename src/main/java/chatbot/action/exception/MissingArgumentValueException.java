@@ -22,6 +22,10 @@ public final class MissingArgumentValueException extends ActionException {
         this.command = command;
         this.missingArg = missingArg;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return "OOPS!!! The argument value <" + missingArg.getValue() + "> of `" + command.getName() + "` must be present!\n"

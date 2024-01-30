@@ -41,15 +41,15 @@ public final class AddDeadlineAction extends Action {
      */
     @Override
     public void execute(TaskList taskList) {
-        String name = findDefaultArgument();
-        DateStringValue by = new DateStringValue(findArgument("by"));
+        String name = findDefaultArgument().toString();
+        DateStringValue by = DateStringValue.of(findArgument("by"));
 
         // Perform behaviour
         Task task = taskList.addDeadline(name, by);
         Printer.printMessages(
                 "Got it. I've added this deadline:",
                 "    " + task,
-                "Now you have " + taskList.size() + " task(s) in the list."
+                taskList.getSizeMessage()
         );
     }
 

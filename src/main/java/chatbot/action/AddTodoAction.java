@@ -39,14 +39,14 @@ public final class AddTodoAction extends Action {
      */
     @Override
     public void execute(TaskList taskList) {
-        String name = findDefaultArgument();
+        String name = findDefaultArgument().toString();
 
         // Perform behaviour
         Task task = taskList.addTodo(name);
         Printer.printMessages(
                 "Got it. I've added this to-do:",
                 "    " + task,
-                "Now you have " + taskList.size() + " task(s) in the list."
+                taskList.getSizeMessage()
         );
     }
 

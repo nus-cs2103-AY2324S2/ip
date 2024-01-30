@@ -1,5 +1,7 @@
 package chatbot.task;
 
+import chatbot.task.exception.InvalidTaskStringException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,16 +50,21 @@ public abstract class Task {
      * Constructor for this task.
      *
      * @param matcher the matcher that has the relevant captured groups
-     * @throws IllegalStateException If the regex doesn't match the pattern
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public Task(Matcher matcher) throws IllegalStateException {
+    public Task(Matcher matcher) throws InvalidTaskStringException {
         matcher = Pattern
                 .compile(REGEX_PATTERN)
                 .matcher(matcher.group("task"));
 
-        matcher.find();
-        this.isCompleted = isStatusIconCompleted(matcher.group("status"));
-        this.name = matcher.group("name").trim();
+        if (matcher.find()) {
+            this.isCompleted = isStatusIconCompleted(matcher.group("status"));
+            this.name = matcher.group("name").trim();
+        } else {
+            throw new InvalidTaskStringException();
+        }
+
+
     }
 
     /**
@@ -65,10 +72,10 @@ public abstract class Task {
      *
      * @param readableString the task as a human-readable string
      * @return the task
-     * @throws IllegalStateException If the regex doesn't match the pattern
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    static Task parseTask(String readableString) throws IllegalStateException {
-        // determine the type of chatbot.task
+    static Task parseTask(String readableString) throws InvalidTaskStringException {
+        // determine the type of task
         String taskType = readableString.substring(1, 2);
         if (taskType.equals(Deadline.TASK_TYPE_ICON)) {
             return Deadline.parseDeadline(readableString);
@@ -78,7 +85,7 @@ public abstract class Task {
             return ToDo.parseToDo(readableString);
         }
 
-        throw new IllegalStateException("The string doesn't match any task type!");
+        throw new InvalidTaskStringException();
     }
 
     /**

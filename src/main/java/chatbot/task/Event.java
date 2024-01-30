@@ -1,5 +1,6 @@
 package chatbot.task;
 
+import chatbot.task.exception.InvalidTaskStringException;
 import chatbot.value.DateStringValue;
 
 import java.util.regex.Matcher;
@@ -53,9 +54,9 @@ public final class Event extends Task {
      * Constructor for this event.
      *
      * @param matcher the matcher that has the relevant captured groups
-     * @throws IllegalStateException If the regex doesn't match the pattern
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public Event(Matcher matcher) throws IllegalStateException {
+    public Event(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
         this.startDateTime = new DateStringValue(matcher.group("from"));
         this.endDateTime = new DateStringValue(matcher.group("to"));
@@ -66,8 +67,9 @@ public final class Event extends Task {
      *
      * @param readableString the event as a human-readable string
      * @return the event
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public static Event parseEvent(String readableString) {
+    public static Event parseEvent(String readableString) throws InvalidTaskStringException {
         Matcher matcher = Pattern
                 .compile(REGEX_PATTERN)
                 .matcher(readableString);
@@ -75,7 +77,7 @@ public final class Event extends Task {
         if (matcher.find()) {
             return new Event(matcher);
         } else {
-            return null;
+            throw new InvalidTaskStringException();
         }
     }
 

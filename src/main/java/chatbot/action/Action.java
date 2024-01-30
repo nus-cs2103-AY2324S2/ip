@@ -95,8 +95,8 @@ public abstract class Action {
      *
      * @return the value of the default argument
      */
-    final String findDefaultArgument() {
-        return findArgument(command.getName()).toString();
+    final StringValue findDefaultArgument() {
+        return findArgument(command.getName());
     }
 
     /**

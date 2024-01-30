@@ -1,11 +1,14 @@
 package chatbot.task;
 
 import chatbot.storage.LocalStorage;
+import chatbot.task.exception.InvalidTaskStringException;
+import chatbot.task.exception.OutOfBoundsException;
 import chatbot.value.DateStringValue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.StringBuilder;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,7 +43,7 @@ public final class TaskList {
      * @param index the index of in the task list
      * @return true if the index is valid, otherwise false
      */
-    public boolean isValidIndex(int index) {
+    private boolean isValidIndex(int index) {
         return index >= 0 && index < tasks.size();
     }
 
@@ -88,15 +91,38 @@ public final class TaskList {
     }
 
     /**
+     * Performs an operation on a {@link Task} in the list
+     *
+     * @param index the index of the {@link Task}
+     * @param taskConsumer a consumer that takes in a {@link Task}
+     * @return the task that the operation was performed on
+     * @throws OutOfBoundsException If the index is out of bounds.
+     */
+    private Task performTask(int index, Consumer<Task> taskConsumer) throws OutOfBoundsException {
+        if (isEmpty()) {
+            throw new OutOfBoundsException(index, "The task list is empty.");
+        }
+
+        if (isValidIndex(index)) {
+            Task task = tasks.get(index);
+            taskConsumer.accept(task);
+            LocalStorage.saveTaskList(this);
+            return task;
+        }
+
+        throw new OutOfBoundsException(index, "The index must be between 1 and " + tasks.size() + ".");
+    }
+
+    /**
      * Mark the task as done.
      *
      * @param index the validated index of the task (0-indexed)
      * @return the task that is marked
+     * @throws OutOfBoundsException If the index is out of bounds.
      */
-    public Task markTask(int index) {
-        tasks.get(index).mark();
-        LocalStorage.saveTaskList(this);
-        return tasks.get(index);
+    public Task markTask(int index) throws OutOfBoundsException {
+        return performTask(index, Task::mark);
+
     }
 
     /**
@@ -104,11 +130,10 @@ public final class TaskList {
      *
      * @param index the validated index of the task (0-indexed)
      * @return the task that is marked
+     * @throws OutOfBoundsException If the index is out of bounds.
      */
-    public Task unmarkTask(int index) {
-        tasks.get(index).unmark();
-        LocalStorage.saveTaskList(this);
-        return tasks.get(index);
+    public Task unmarkTask(int index) throws OutOfBoundsException {
+        return performTask(index, Task::unmark);
     }
 
     /**
@@ -116,20 +141,19 @@ public final class TaskList {
      *
      * @param index the validated index of the task (0-indexed)
      * @return the task that is marked
+     * @throws OutOfBoundsException If the index is out of bounds.
      */
-    public Task deleteTask(int index) {
-        Task task = tasks.remove(index);
-        LocalStorage.saveTaskList(this);
-        return task;
+    public Task deleteTask(int index) throws OutOfBoundsException {
+        return performTask(index, tasks::remove);
     }
 
     /**
-     * Gets the number of tasks in this task list.
+     * Gets a message regarding the size of this.
      *
-     * @return the size as an int
+     * @return a message containing information about the size of this
      */
-    public int size() {
-        return tasks.size();
+    public String getSizeMessage() {
+        return String.format("Now you have %s task(s) in the list.", tasks.size());
     }
 
     /**
@@ -138,7 +162,7 @@ public final class TaskList {
      * @return true if the task list is empty, otherwise false
      */
     public boolean isEmpty() {
-        return tasks.size() == 0;
+        return tasks.isEmpty();
     }
 
     /**
@@ -160,15 +184,18 @@ public final class TaskList {
      *
      * @param readableString the task list item as a human-readable string
      * @return the task
-     * @throws IllegalStateException If the regex doesn't match the pattern.
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern.
      */
-    public static Task parseTaskListItem(String readableString) throws IllegalStateException {
+    public static Task parseTaskListItem(String readableString) throws InvalidTaskStringException {
         Matcher matcher = Pattern
                 .compile("\\d+\\.(?<task>.*)")
                 .matcher(readableString);
 
-        matcher.find();
-        String parsedString = matcher.group("task").trim();
-        return Task.parseTask(parsedString);
+        if (matcher.find()) {
+            String parsedString = matcher.group("task").trim();
+            return Task.parseTask(parsedString);
+        } else {
+            throw new InvalidTaskStringException();
+        }
     }
 }

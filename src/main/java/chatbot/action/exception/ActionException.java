@@ -1,6 +1,7 @@
 package chatbot.action.exception;
 
 import chatbot.action.Action;
+import chatbot.exception.ChatBotException;
 
 /**
  * ActionException represents exceptions specific to {@link Action},
@@ -9,6 +10,6 @@ import chatbot.action.Action;
  *
  * @author Titus Chew
  */
-public abstract class ActionException extends Exception {
+public abstract class ActionException extends ChatBotException {
 
 }

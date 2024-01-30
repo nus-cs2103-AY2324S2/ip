@@ -23,6 +23,10 @@ public final class UnexpectedArgumentValueException extends ActionException {
         this.argument = argument;
         this.command = command;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return "OOPS!!! I'm sorry, but I didn't expect <" + argument.getValue() + "> :-(\n"

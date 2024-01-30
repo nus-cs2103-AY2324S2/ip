@@ -1,5 +1,6 @@
 package chatbot.task;
 
+import chatbot.task.exception.InvalidTaskStringException;
 import chatbot.value.DateStringValue;
 
 import java.util.regex.Matcher;
@@ -47,8 +48,9 @@ public final class Deadline extends Task {
      * Constructor for this deadline.
      *
      * @param matcher the matcher that has the relevant captured groups
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public Deadline(Matcher matcher) {
+    public Deadline(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
         this.deadline = new DateStringValue(matcher.group("by"));
     }
@@ -58,9 +60,9 @@ public final class Deadline extends Task {
      *
      * @param readableString the deadline as a human-readable string
      * @return the deadline
-     * @throws IllegalStateException If the regex doesn't match the pattern
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public static Deadline parseDeadline(String readableString) throws IllegalStateException {
+    public static Deadline parseDeadline(String readableString) throws InvalidTaskStringException {
         Matcher matcher = Pattern
                 .compile(REGEX_PATTERN)
                 .matcher(readableString);
@@ -68,7 +70,7 @@ public final class Deadline extends Task {
         if (matcher.find()) {
             return new Deadline(matcher);
         } else {
-            return null;
+            throw new InvalidTaskStringException();
         }
     }
 

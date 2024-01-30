@@ -8,6 +8,9 @@ import chatbot.action.util.ExpectedArgument;
 import chatbot.io.ui.Printer;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
+import chatbot.task.exception.OutOfBoundsException;
+import chatbot.value.IntegerStringValue;
+import chatbot.value.exception.InvalidValueTypeException;
 
 /**
  * This encapsulates the behaviour of marking a {@link Task} as not done.
@@ -40,39 +43,32 @@ public final class UnmarkAction extends Action {
      */
     @Override
     public void execute(TaskList taskList) throws InvalidArgumentValueException {
-        String indexString = findDefaultArgument();
-
         // Validate indexString as an integer
         int index;
         try {
-            index = Integer.parseInt(indexString) - 1;
-        } catch (NumberFormatException e) {
+            index = IntegerStringValue
+                    .of(findDefaultArgument())
+                    .tryGetIntegerValue();
+        } catch (InvalidValueTypeException e) {
             throw new InvalidArgumentValueException(
                     getCommand(),
                     "index",
-                    "<index> is not an integer."
-            );
-        }
-
-        if (taskList.isEmpty()) {
-            throw new InvalidArgumentValueException(
-                    getCommand(),
-                    "index",
-                    "<index> is out of range as there are no tasks in your list."
-            );
-        }
-
-        // Validate that indexString is in the range
-        if (!taskList.isValidIndex(index)) {
-            throw new InvalidArgumentValueException(
-                    getCommand(),
-                    "index",
-                    "<index> is out of range. <index> must be between 1 and " + taskList.size() + "."
+                    e.getMessage()
             );
         }
 
         // Perform behaviour
-        Task task = taskList.unmarkTask(index);
+        Task task;
+        try {
+            task = taskList.unmarkTask(index - 1);
+        } catch (OutOfBoundsException e) {
+            throw new InvalidArgumentValueException(
+                    getCommand(),
+                    "index",
+                    e.getMessage()
+            );
+        }
+
         Printer.printMessages(
                 "Ok, I've marked this task as not done yet:",
                 "    " + task

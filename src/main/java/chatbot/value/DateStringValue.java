@@ -8,7 +8,7 @@ import java.util.Locale;
 
 /**
  * This represents minimally a {@link String},
- * but can also represent a {@link LocalDate} if possible.
+ * but can also represent a {@link LocalDate} <b>if possible</b>.
  * <p>
  * If the string value is in a suitable date format,
  * it is stored as a {@link LocalDate},
@@ -60,21 +60,12 @@ public final class DateStringValue extends StringValue {
     }
 
     /**
-     * Takes in a {@link StringValue}, but tries to convert it to a date.
+     * Factory method for taking in a {@link StringValue}, but trying to convert it to a date.
      *
      * @param value the value as a {@link String}
      */
-    public DateStringValue(StringValue value) {
-        super(value.toString());
-
-        LocalDate date = null;
-        try {
-            date = LocalDate.parse(value.toString().trim(), DATE_TIME_FORMATTER);
-        } catch(DateTimeParseException e) {
-            // invalid date
-        } finally {
-            this.dateValue = date;
-        }
+    public static DateStringValue of(StringValue value) {
+        return new DateStringValue(value.toString());
     }
 
     /**

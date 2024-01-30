@@ -15,6 +15,10 @@ public final class UnrecognizedCommandException extends ActionException {
     public UnrecognizedCommandException(String commandName) {
         this.commandName = commandName;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return "OOPS!!! I'm sorry, but I don't know what `" + commandName + "` means :-(";
