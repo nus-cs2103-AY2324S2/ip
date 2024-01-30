@@ -26,8 +26,8 @@ public class Storage {
     private final String SAVE_FILE = "src/main/java/Data/Kewqgy.txt";
     private Ui ui;
 
-    public Storage() {
-        this.ui = new Ui();
+    public Storage(Ui ui) {
+        this.ui = ui;
     }
 
     /**
