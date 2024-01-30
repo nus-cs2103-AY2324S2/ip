@@ -5,7 +5,7 @@ import tasklist.Task;
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
-    private static final String MESSAGE_INDIVIDUAL_LISTING_FORMAT = "%d. %s";
+    private static final String MESSAGE_INDIVIDUAL_LISTING_FORMAT = "\t %d. %s";
 
     @Override
     public CommandResult execute() {
