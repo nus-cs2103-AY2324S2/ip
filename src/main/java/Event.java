@@ -1,7 +1,9 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
 
-    private String from = null;
-    private String to = null;
+    private LocalDateTime from = null;
+    private LocalDateTime to = null;
 
     public Event(String input) throws MissingInputFieldException {
         super(TaskType.EVENT);
@@ -22,8 +24,8 @@ public class Event extends Task {
             if (!input.contains(command)) throw new RuntimeException("not todo");
             String[] inputArray = Task.NextWords(input.split(delimiter));
             description = inputArray[0].trim();
-            from = inputArray[1].trim();
-            to = inputArray[2].trim();
+            from = CommandParser.parseDateAndTime(inputArray[1].trim());
+            to = CommandParser.parseDateAndTime(inputArray[2].trim());
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             throw new MissingInputFieldException(type);
         }
@@ -38,6 +40,7 @@ public class Event extends Task {
 
     @Override
     public String convertToDataRow() {
-        return super.convertToDataRow() + dataStringSplitter + from + dataStringSplitter + to;
+        return super.convertToDataRow() + storageDataStringSplitter + Storage.convertDateTimeForStorage(from) +
+                storageDataStringSplitter + Storage.convertDateTimeForStorage(to);
     }
 }
