@@ -19,6 +19,22 @@ public class UI {
     }
 
     /**
+     * Initiates the Lulu application.
+     * Prints a welcome message to the user.
+     */
+    public static void start() {
+        UI.print("Hello! I'm Lulu \n\tWhat can I do for you?");
+    }
+
+    /**
+     * Exits the Lulu application.
+     * Prints a goodbye message to the user.
+     */
+    public static void exit() {
+        UI.print("Bye. Hope to see you again soon!");
+    }
+
+    /**
      * Reads the next line of input from the user.
      * @return A String representing the user's input with leading and trailing whitespaces removed.
      */

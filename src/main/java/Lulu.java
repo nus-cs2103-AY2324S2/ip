@@ -36,22 +36,6 @@ public class Lulu {
     }
 
     /**
-     * Initiates the Lulu application.
-     * Prints a welcome message to the user.
-     */
-    public void start() {
-        UI.print("Hello! I'm Lulu \n\tWhat can I do for you?");
-    }
-
-    /**
-     * Exits the Lulu application.
-     * Prints a goodbye message to the user.
-     */
-    public void exit() {
-        UI.print("Bye. Hope to see you again soon!");
-    }
-
-    /**
      * Listens for user input and responds accordingly until the user exits.
      * Handles various user commands and exceptions during interaction.
      */
@@ -88,12 +72,12 @@ public class Lulu {
      */
     public static void main(String[] args) {
         Lulu chatbot = new Lulu();
-        chatbot.start();
+        UI.start();
         try {
             chatbot.respond();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        chatbot.exit();
+        UI.exit();
     }
 }
