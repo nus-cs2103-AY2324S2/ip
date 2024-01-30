@@ -13,7 +13,7 @@ public abstract class Command {
         return body;
     }
 
-    public static Command parse(String input, CommandParser parser) throws UnknownCommandException {
+    public static Command parse(String input, CommandParser parser) throws DukeException {
         return parser.parse(input);
     }
 

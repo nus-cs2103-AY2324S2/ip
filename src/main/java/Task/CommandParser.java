@@ -1,7 +1,7 @@
 package task;
 
 public class CommandParser {
-    public Command parse(String input) throws UnknownCommandException {
+    public Command parse(String input) throws DukeException {
         String[] tokens = input.split(" ", 2);
         String name = tokens[0];
         String body = tokens.length > 1 ? tokens[1] : "";

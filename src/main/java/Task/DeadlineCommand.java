@@ -10,7 +10,7 @@ public class DeadlineCommand extends Command {
         super(body);
         String[] parts = body.split("/by", 2);
         this.taskDescription = parts[0].trim();
-        this.dueTime = parts[1].trim();
+        this.dueTime = parts.length > 1 ? parts[1].trim() : "";
     }
 
     public String execute(TaskList list, ProgramState state) throws DukeException {

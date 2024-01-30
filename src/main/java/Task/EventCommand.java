@@ -11,8 +11,8 @@ public class EventCommand extends Command {
         super(body);
         String[] parts = body.split("/from|/to", 3);
         this.taskDescription = parts[0].trim();
-        this.startTime = parts[1].trim();
-        this.endTime = parts[2].trim();
+        this.startTime = parts.length > 1 ? parts[1].trim() : "";
+        this.endTime = parts.length > 2 ? parts[2].trim() : "";
     }
 
     public String execute(TaskList list, ProgramState state) throws DukeException {

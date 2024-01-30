@@ -3,17 +3,19 @@ package task;
 import duke.ProgramState;
 
 public class MarkCommand extends Command {
-    public MarkCommand(String body) {
+    private int index;
+
+    public MarkCommand(String body) throws DukeException {
         super(body);
+        try {
+            this.index = Integer.parseInt(body);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskIndexException("The index of a task must be an integer.",
+                    "Sorry, but I don't know which task you want to mark as done.");
+        }
     }
 
     public String execute(TaskList list, ProgramState state) throws DukeException {
-        String body = getBody();
-        if (body.isEmpty()) {
-            throw new InvalidTaskIndexException("The index of a task cannot be empty.",
-                    "Sorry, but I don't know which task you want to mark as done.");
-        }
-        int index = Integer.parseInt(body);
         if (index < 1 || index > list.size()) {
             throw new InvalidTaskIndexException(
                     "The index of a task cannot be less than 1 or greater than the number of tasks.",
