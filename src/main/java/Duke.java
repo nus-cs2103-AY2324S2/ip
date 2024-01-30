@@ -8,21 +8,19 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Duke {
-    public static String line = "-----------------------------";
-    public static ArrayList<Task> ls;
-
-    public static void main(String[] args) throws IOException {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private static String line = "-----------------------------";
+    private static ArrayList<Task> ls;
+    private UI ui;
+    public Duke() throws IOException {
+        ui = new UI();
         ls = new ArrayList<>();
-
-        //load from file
         ls = new ArrayList<>(Storage.loadTasks());
+    }
 
-        System.out.println(line);
-        System.out.println("Greetings friend! I am Datuk");
-        System.out.println("How can I serve you today? ^_^' \n");
-        System.out.println(line);
+    public void run() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        ui.startMsg();
 
         boolean finish = false;
 
@@ -35,7 +33,7 @@ public class Duke {
                     if (text.equals("bye")) {
                         finish = true;
                     } else if (text.equals("list")) { //(split[0].equals("list));
-                        printList();
+                        ui.printList(ls);
                     } else if (split[0].equals("mark") || split[0].equals("unmark")) {
                         marked(split[0], Integer.parseInt(split[1]));
                         Storage.saveTasks(ls);
@@ -49,26 +47,19 @@ public class Duke {
                         throw new DukeException("Your input is invalid!");
                     }
                 } catch (DukeException de) {
-                    System.out.println(de.toString());
+                    ui.showError(de);
                 }
             }
         }
 
-        System.out.println(line);
-        System.out.println("Farewell!");
-        System.out.println(line);
+        ui.byeMsg();
     }
 
-    private static void printList() {
-        System.out.println(line);
-        System.out.println("These are all your tasks:");
-        if (ls.isEmpty()) System.out.println("\tOh noes! The list is empty! :(");
-
-        for (int i = 0; i < ls.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + ls.get(i));
-        }
-        System.out.println(line);
+    public static void main(String[] args) throws IOException {
+        new Duke().run();
     }
+
+
 
     private static void addList(String cmd) throws DukeException {
         String[] split;
@@ -151,9 +142,10 @@ public class Duke {
         System.out.println(line);
         System.out.println("Removed the following: ");
         System.out.println("\t" + ls.get(index));
-        ls.remove(index);
         System.out.println(ls.size() + " tasks remaining.");
         System.out.println(line);
+
+        ls.remove(index);
     }
 
     private static void marked(String cmd, int index) {
