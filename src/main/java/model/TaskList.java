@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /**
- * The {@link TaskList} class encapsulates an {@link ArrayList<Task>} and provides methods to
+ * The {@link TaskList} class encapsulates a task list and provides methods to
  * manipulate and retrieve tasks.
  */
 public class TaskList {
