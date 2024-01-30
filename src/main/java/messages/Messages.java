@@ -8,7 +8,7 @@ public class Messages {
             "|  |_)  |    /  ^  \\    |   \\|  | `---|  |----`|  |__   |  |_)  |\n" +
             "|   _  <    /  /_\\  \\   |  . `  |     |  |     |   __|  |      /\n" +
             "|  |_)  |  /  _____  \\  |  |\\   |     |  |     |  |____ |  |\\  \\----.\n" +
-            "|______/  /__/     \\__\\ |__| \\__|     |__|     |_______||__| `._____|\n";
+            "|______/  /__/     \\__\\ |__| \\__|     |__|     |_______||__| `._____|";
     public static final String EXIT_MESSAGE_BODY = "Bye. Hope to see you again soon!";
     public static final String TODO_USAGE = "todo <description>";
     public static final String DEADLINE_USAGE = "deadline <description> /by <due date>";

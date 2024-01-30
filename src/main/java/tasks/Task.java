@@ -1,16 +1,23 @@
 package tasks;
 
-abstract class Task {  // default access modifier
-    private String description;
+public abstract class Task {  // default access modifier
+    private final String description;
     private boolean isDone;
+    public static final String IS_DONE = "X";
+    public static final String IS_NOT_DONE = " ";
 
     Task(String description) {  // default access modifier
         this.description = description;
     }
+    
+    Task(String description, boolean isDone) {  // default access modifier
+        this.description = description;
+        this.isDone = isDone;
+    }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getStatus() + "] " + description;
     }
 
     String markAsDone() {  // default access modifier
@@ -23,7 +30,13 @@ abstract class Task {  // default access modifier
         return "OK, I've marked this task as not done yet:\n  " + this;
     }
 
-    String getStatusIcon() {  // default access modifier
+    public String getStatus() {
         return isDone ? "X" : " ";
+    }
+    
+    public abstract String getTaskType();
+
+    public String getDescription() {
+        return description;
     }
 }
