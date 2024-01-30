@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static final int TASKS_MAX = 100;
-    private static final Task[] tasks = new Task[TASKS_MAX];
+    private static final ArrayList<Task> tasks = new ArrayList<>(TASKS_MAX);
     private static int taskCount = 0;
     public static void main(String[] args) {
         String logo = " _  _   __    ____  ____ \n" +
@@ -53,10 +54,10 @@ public class Duke {
             System.out.println("Behold, yer roster of endeavors!");
             for (int i = 0; i < taskCount; i++) {
                 String tempNum = Integer.toString(i + 1);
-                System.out.println(tempNum + "." + tasks[i].toString());
+                System.out.println(tempNum + "." + tasks.get(i).toString());
             }
             printDivider();
-        } else if (wordArray[0].equals("mark") || wordArray[0].equals("unmark")) {
+        } else if (wordArray[0].equals("mark") || wordArray[0].equals("unmark") || wordArray[0].equals("delete")) {
             if (wordArray.length != 2) {
                 throw new IllegalArgumentException("Blunder! Declare a task by number, matey!");
             } else {
@@ -67,13 +68,20 @@ public class Duke {
                     } else {
                         printDivider();
                         if (wordArray[0].equals("mark")) {
-                            tasks[tempIndex - 1].markAsDone();
+                            tasks.get(tempIndex - 1).markAsDone();
                             System.out.println("X marks the spot. I've crossed this task of yer list, me heartie!");
-                        } else {
-                            tasks[tempIndex - 1].markAsNotDone();
+                            System.out.println(tasks.get(tempIndex - 1).toString());
+                        } else if (wordArray[0].equals("unmark")) {
+                            tasks.get(tempIndex - 1).markAsNotDone();
                             System.out.println("The winds be shiftin', and I be lettin' this task sail with the breeze unmarked.");
+                            System.out.println(tasks.get(tempIndex - 1).toString());
+                        } else {
+                            System.out.println("As ye command, this one has walked the plank:");
+                            System.out.println("\t" + tasks.get(tempIndex - 1).toString());
+                            tasks.remove(tempIndex - 1);
+                            taskCount -= 1;
+                            System.out.println("Only " + taskCount + " tasks remain, captain!");
                         }
-                        System.out.println(tasks[tempIndex - 1].toString());
                         printDivider();
                     }
                 } catch (NumberFormatException e) {
@@ -87,9 +95,9 @@ public class Duke {
             }
             String tempString = input.substring(5).trim();
             printDivider();
-            tasks[taskCount] = new Todo(tempString);
+            tasks.add(new Todo(tempString));
             taskCount += 1;
-            System.out.println("I've appended this to yer list: " + tasks[taskCount - 1].toString());
+            System.out.println("I've appended this to yer list: " + tasks.get(taskCount - 1).toString());
             printDivider();
         } else if (wordArray[0].equals("deadline")) {
             String tempString = input.substring(9).trim();
@@ -100,9 +108,9 @@ public class Duke {
             String description = tempArray[0].trim();
             String by = tempArray[1].trim();
             printDivider();
-            tasks[taskCount] = new Deadline(description, by);
+            tasks.add(new Deadline(description, by));
             taskCount += 1;
-            System.out.println("I've appended this to yer list: " + tasks[taskCount - 1].toString());
+            System.out.println("I've appended this to yer list: " + tasks.get(taskCount - 1).toString());
             printDivider();
         } else if (wordArray[0].equals("event")) {
             String tempString = input.substring(6).trim();
@@ -119,9 +127,9 @@ public class Duke {
             String from = tempArray[0].trim();
             String to = tempArray[1].trim();
             printDivider();
-            tasks[taskCount] = new Event(description, from, to);
+            tasks.add(new Event(description, from, to));
             taskCount += 1;
-            System.out.println("I've appended this to yer list: " + tasks[taskCount - 1].toString());
+            System.out.println("I've appended this to yer list: " + tasks.get(taskCount - 1).toString());
             printDivider();
         } else {
             throw new IllegalArgumentException("Arrr, me apologies! I cannot fathom that.");
