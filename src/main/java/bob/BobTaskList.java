@@ -78,15 +78,14 @@ public class BobTaskList {
 
         if (userCommand.equals(BobParser.MARK_COMMAND)) {
             this.markDone(taskId);
-            System.out.println("    You have marked task as done:");
+            this.ui.printTaskDone();
         } else {
             this.markUndone(taskId);
-            System.out.println("    You have marked task as undone:");
+            this.ui.printTaskUndone();
         }
 
         Task task = this.list.get(taskId);
-        System.out.println("    " + task.getType() + task.getStatus() + " " + task);
-        this.ui.printLine();
+        this.ui.printTaskMarkMessage(task);
     }
 
     /**
@@ -186,12 +185,8 @@ public class BobTaskList {
         }
 
         Task t = this.list.get(taskId);
-        String message = "        " + t.getType() + t.getStatus() + " " + t;
 
         this.deleteTask(taskId);
-        System.out.println("    You have removed the current task:");
-        System.out.println(message);
-        this.ui.printList(true, this.list);
-        this.ui.printLine();
+        this.ui.printTaskDeletionMessage(t, this.list);
     }
 }

@@ -16,6 +16,12 @@ public class BobStorage {
     private static final File saveData = new File(HOME_BASE_PATH + "/save.txt");
     private static final String NEW_LINE = System.lineSeparator();
 
+    private BobUI ui;
+
+    public BobStorage(BobUI ui) {
+        this.ui = ui;
+    }
+
     /**
      * Add items to storage.
      *
@@ -46,8 +52,8 @@ public class BobStorage {
             fileWriter.close();
 
         } catch (Exception e) {
-            System.out.println("An error occurred when trying to access the save file. "
-                    + "Please ensure that the application has permissions to write and read from your HOME directory.");
+            this.ui.printError(
+                    new BobException.FileAccessError("An error occurred when trying to access the save file."));
         }
     }
 
@@ -130,12 +136,12 @@ public class BobStorage {
                         }
 
                     } catch (BobException e) {
-                        System.out.println(e.getMessage());
+                        this.ui.printError(e);
                     }
                 }
             }
         } catch (BobException.FileAccessError e) {
-            System.out.println(e.getMessage());
+            this.ui.printError(e);
         } catch (IOException e) {
             throw new BobException
                     .FileAccessError("An error occurred when trying to access the save file. "

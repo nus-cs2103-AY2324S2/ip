@@ -69,7 +69,7 @@ public class BobParser {
                 throw new BobException.InvalidCommand("Sorry, I'm not sure what command that is.");
             }
         } catch (BobException e) {
-            System.out.println(e.getMessage());
+            this.ui.printError(e);
         }
     }
 }
