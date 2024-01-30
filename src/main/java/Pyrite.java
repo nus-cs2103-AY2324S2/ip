@@ -1,3 +1,5 @@
+import javax.imageio.IIOException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -10,6 +12,7 @@ public class Pyrite {
     static String farewell = "\tBye. Hope to see you again soon!";
     static String taskAddedAcknowledgement = "\t" + "Got it. I've added this task: ";
     ArrayList<Task> list = new ArrayList<>();
+    StateFile file = new StateFile();
     private void printList(ArrayList<Task> list) {
         System.out.println("\t" + "Here are the tasks in your list:");
         for (Task t : list) {
@@ -38,9 +41,27 @@ public class Pyrite {
         }
         return id;
     }
+    private void loadState() {
+        try {
+            this.list = file.loadObject();
+        } catch (IOException | ClassNotFoundException e){
+            // File issue, try to save blank state
+            System.out.println("\tUnable to read saved state, creating new file...");
+            this.saveState();
+        }
+    }
+    private void saveState() {
+        try {
+            file.saveObject(this.list);
+        } catch (IOException e){
+            System.out.println("\tUnable to save state: " + e.toString());
+        }
+    }
     public void begin() {
         System.out.println(this.horizontal_line);
         System.out.println(this.greeting);
+        // Load list from file
+        this.loadState();
         System.out.println(this.horizontal_line);
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -168,6 +189,8 @@ public class Pyrite {
 
 
             System.out.println(this.horizontal_line);
+            // Save state
+            this.saveState();
         }
 
         System.out.println(this.farewell);
