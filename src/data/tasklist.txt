@@ -1,5 +1,7 @@
 T | 1 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th | 2-4pm
+D | 0 | return book | 2020-12-31
+E | 0 | project meeting | 2020-12-31 | 2021-12-31
 T | 1 | join sports club
 T | 0 | food
+D | 0 | foods | 2020-12-12
+D | 0 | asa | 2000-10-31

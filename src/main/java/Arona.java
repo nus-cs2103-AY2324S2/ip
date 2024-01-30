@@ -1,4 +1,8 @@
+import java.time.DateTimeException;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileReader;
@@ -9,6 +13,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Arona {
     private String name;
@@ -37,7 +45,7 @@ public class Arona {
         System.out.println(reply);
     }
 
-    public void addTask(String input) throws TaskException {
+    public void addTask(String input) throws TaskException, AronaException {
         String[] splitInput = input.split(" ", 2);
         String type = splitInput[0];
 
@@ -51,6 +59,7 @@ public class Arona {
 
         String[] info = splitInput[1].split("/");
         String description = info[0];
+
         switch(type) {
             case "todo":
                 tasks.add(new Todo(description));
@@ -59,14 +68,26 @@ public class Arona {
                 if (info.length < 2) throw new TaskException("Sensei! Please provide a deadline!");
 
                 String by = info[1].replaceAll("by", "").trim();
-                tasks.add(new Deadline(description, by));
+                try {
+                    LocalDate date = parseDate(by);
+                    tasks.add(new Deadline(description, date));
+                } catch (DateTimeParseException e) {
+                    throw new TaskException("Sensei! Arona does not recognise this date format!");
+                }
                 break;
             case "event":
                 if (info.length < 3) throw new TaskException("Sensei! Please provide an event begin and deadline.");
 
                 String from = info[1].replaceAll("from", "").trim();
                 by = info[2].replaceAll("to", "").trim();
-                tasks.add(new Event(description, from, by));
+
+                try {
+                    LocalDate dateFrom = parseDate(from);
+                    LocalDate dateBy = parseDate(by);
+                    tasks.add(new Event(description, dateFrom, dateBy));
+                } catch (DateTimeParseException e) {
+                    throw new TaskException("Sensei! Arona does not recognise this date format!");
+                }
                 break;
         }
 
@@ -117,7 +138,11 @@ public class Arona {
         System.out.println(task.toString());
     }
 
-    public void readTaskFromFile(String filePath) throws TaskException {
+    public static LocalDate parseDate(String date) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(date, formatter);
+    }
+    public void readTaskFromFile(String filePath) throws TaskException, AronaException {
         try {
             File file = new File(filePath);
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -191,7 +216,9 @@ public class Arona {
         return output;
     }
 
-    public static void main(String[] args) throws TaskException {
+    public static void main(String[] args) throws TaskException, AronaException {
+        LocalDate d3 = LocalDate.parse("2020-12-12");
+        System.out.println(d3);
         Scanner scanner = new Scanner(System.in);
         Arona arona = new Arona("");
         arona.greetings();
