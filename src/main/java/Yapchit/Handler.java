@@ -1,10 +1,12 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
-import YapchitExceptions.InvalidDetailException;
-import YapchitExceptions.InvalidKeywordException;
-import YapchitExceptions.YapchitException;
+package Yapchit;
+
+import Yapchit.Tasks.Deadline;
+import Yapchit.Tasks.Event;
+import Yapchit.Tasks.Task;
+import Yapchit.Tasks.ToDo;
+import Yapchit.YapchitExceptions.InvalidDetailException;
+import Yapchit.YapchitExceptions.InvalidKeywordException;
+import Yapchit.YapchitExceptions.YapchitException;
 
 import java.time.LocalDate;
 
@@ -84,14 +86,14 @@ public class Handler {
             throw new InvalidDetailException("invalid /from and /to parameters. Please retry");
         } else {
             if(6 == fromStart || fromStart + 6 == toStart || toStart + 4 >= input.length()){
-                throw new InvalidDetailException("Tasks.Event description and/or to/from parameters cannot be empty");
+                throw new InvalidDetailException("Event description and/or to/from parameters cannot be empty");
             }
             String desc = input.substring(6, fromStart).strip();
             String from = input.substring(fromStart + 6, toStart).strip();
             String to = input.substring(toStart + 4).strip();
 
             if(desc.length() == 0 || from.length() == 0 || to.length() == 0){
-                throw new InvalidDetailException("Tasks.Event description and/or to/from parameters cannot be empty");
+                throw new InvalidDetailException("Event description and/or to/from parameters cannot be empty");
             } else {
                 Task t = new Event(desc, from, to);
                 tasks.addTask(t);
@@ -125,7 +127,7 @@ public class Handler {
             LocalDate by = parser.parseTimestamp(input.substring(byStart + 4).strip());
 
             if(desc.length() == 0 || by == null){
-                throw new InvalidDetailException("Invalid or empty Tasks.Deadline description and/or by parameter");
+                throw new InvalidDetailException("Invalid or empty deadline description and/or by parameter");
             } else {
                 Task t = new Deadline(desc, by);
                 tasks.addTask(t);

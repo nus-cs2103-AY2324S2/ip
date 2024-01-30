@@ -1,4 +1,4 @@
-package Tasks;
+package Yapchit.Tasks;
 
 public class Event extends Task{
 

@@ -1,4 +1,6 @@
-import YapchitExceptions.YapchitException;
+package Yapchit;
+
+import Yapchit.YapchitExceptions.YapchitException;
 
 
 public class Yapchit {

@@ -1,10 +1,8 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
-import YapchitExceptions.InvalidDetailException;
+package Yapchit;
 
-import java.time.LocalDate;
+import Yapchit.Tasks.Task;
+import Yapchit.YapchitExceptions.InvalidDetailException;
+
 import java.util.ArrayList;
 
 public class TaskList {
