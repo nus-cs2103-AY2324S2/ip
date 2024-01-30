@@ -1,7 +1,10 @@
 import java.io.*;
+import java.sql.DataTruncation;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
     public static void main(String[] args) {
@@ -136,6 +139,7 @@ class database{
             FileInputStream file = new FileInputStream("database.ser");
             ObjectInputStream in = new ObjectInputStream(file);
             strlist = (ArrayList<task>) in.readObject();
+            number_task = strlist.size();
             in.close();
             file.close();
         } catch (Exception e){
@@ -195,14 +199,18 @@ class Todos extends task{
     }
 }
 class Deadline extends task{
-    String date;
+    LocalDate date;
     public Deadline(String message){
         super(message);
         process_msg(message);
     }
     private void process_msg(String msg){
-        change_message(access_message().substring(0,access_message().lastIndexOf('/')));
-        this.date = access_message().substring(access_message().lastIndexOf('/')+4);
+//        change_message(access_message().substring(0,access_message().lastIndexOf('/')));
+//        this.date = access_message().substring(access_message().lastIndexOf('/')+4);
+        String[] strarr = msg.split("/by");
+        change_message(strarr[0].trim());
+        String temp = strarr[1].substring(0).trim();
+        this.date =Parser.parseDate(temp);
     }
 
     @Override
@@ -214,12 +222,12 @@ class Deadline extends task{
         else{
             msg = "[D][ ] "+ access_message();
         }
-        return msg+" (by: "+date+")";
+        return msg+" (by: "+date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))+")";
     }
 }
 class Event extends task{
-    String from_date;
-    String to_date;
+    LocalDate from_date;
+    LocalDate to_date;
     public Event(String message){
 //        super(message.substring(6,message.lastIndexOf('/')).substring(0,message.substring(6,message.lastIndexOf('/')).lastIndexOf('/')));
 //        String temp =message.substring(6,message.lastIndexOf('/'));
@@ -229,10 +237,13 @@ class Event extends task{
         process_msg(message);
     }
     private void process_msg(String msg){
-        String[] strarr = msg.split("/");
-        change_message(strarr[0]);
-        this.to_date = strarr[2].substring(3);
-        this.from_date =strarr[1].substring(5);
+        String[] strarr = msg.split("/from");
+        change_message(strarr[0].trim());
+        String[] strArr = strarr[1].split("/to");
+        String temp = strArr[1].trim();
+        this.to_date = Parser.parseDate(temp);
+        temp=strArr[0].trim();
+        this.from_date =Parser.parseDate(temp);
     }
 
     @Override
@@ -244,6 +255,19 @@ class Event extends task{
         else{
             msg = "[E][ ] "+ access_message();
         }
-        return msg+" (from: "+from_date+" to: "+ to_date+")";
+        return msg+" (from: "+from_date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                +" to: "+ to_date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))+")";
+    }
+}
+class Parser{
+    public static LocalDate parseDate(String date){
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date1 = LocalDate.parse(date, formatter);
+//            return date1.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return date1;
+        }catch(Exception e){
+            return null;
+        }
     }
 }
