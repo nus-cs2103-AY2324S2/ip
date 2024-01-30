@@ -14,4 +14,9 @@ public class ByeCommand extends Command {
     }
 
 
+    public static boolean isExit(Command command) {
+        return command instanceof ByeCommand; // instanceof returns false if it is null
+    }
+
+
 }

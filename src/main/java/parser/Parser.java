@@ -6,7 +6,12 @@ import commands.Command;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import commands.IncorrectCommand;
 import commands.TodoCommand;
+import common.Messages;
+import exception.MalformedUserInputException;
+
+import static commands.TodoCommand.MESSAGE_BLANK_EVENT;
 
 public class Parser {
 
@@ -19,7 +24,7 @@ public class Parser {
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new ByeCommand();
+            return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -27,10 +32,22 @@ public class Parser {
 
         switch (commandWord) {
             case TodoCommand.COMMAND_WORD:
-                return new TodoCommand(arguments);
-            default:
-                return new ByeCommand();
-        }
+                return prepareTodo(arguments);
 
+            case ByeCommand.COMMAND_WORD:
+                return new ByeCommand();
+
+            default:
+                return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
+        }
+    }
+
+    private Command prepareTodo(String arguments) {
+        String eventName = arguments.trim();
+        if (eventName.isEmpty()) {
+            return new IncorrectCommand(TodoCommand.MESSAGE_BLANK_EVENT);
+        } else {
+            return new TodoCommand(eventName);
+        }
     }
 }

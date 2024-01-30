@@ -9,11 +9,12 @@ public class TodoCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " boil coconut milk";
 
-    // TODO: Using string interpolation to make it better!
-    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task:\n";
+    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task: \n" +
+            "\t %s\n" +
+            "\t Now you have %d task(s) available!";
 
     public static final String MESSAGE_INVALID_COMMAND = "\t Invalid Command Format.";
-    public static final String MESSAGE_BLANK_EVENT = "\t The event name must not only contain white space.";
+    public static final String MESSAGE_BLANK_EVENT = "\t The event name cannot be empty!";
 
     private final Todo toAdd;
 
@@ -24,6 +25,6 @@ public class TodoCommand extends Command {
     @Override
     public CommandResult execute() {
         dataStorage.addTask(this.toAdd);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString(), dataStorage.getTaskCount()));
     }
 }
