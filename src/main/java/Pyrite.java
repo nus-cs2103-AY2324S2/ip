@@ -2,7 +2,6 @@ import javax.imageio.IIOException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -13,13 +12,11 @@ public class Pyrite {
             + "\tWhat can I do for you?";
     static String farewell = "\tBye. Hope to see you again soon!";
     static String taskAddedAcknowledgement = "\t" + "Got it. I've added this task: ";
-    ArrayList<Task> list = new ArrayList<>();
+    TaskList list = new TaskList();
     StateFile file = new StateFile();
-    private void printList(ArrayList<Task> list) {
+    private void printList(TaskList list) {
         System.out.println("\t" + "Here are the tasks in your list:");
-        for (Task t : list) {
-            System.out.println("\t" + (list.indexOf(t) + 1) + ". " + t.toString());
-        }
+        System.out.println("\t" + list.toString());
     }
     private int findCommand(String[] toSearch, String toFind) {
         for (int i = 0; i < toSearch.length; i++) {
@@ -86,19 +83,19 @@ public class Pyrite {
                     if (parameters[0].equals("mark")) {
                         int id = parseID(parameters);
                         assertValidId(id);
-                        list.get(id).setDone(true);
+                        list.setDone(id,true);
                         System.out.println("\t"
                                 + "Nice! I've marked this task as done:\n"
                                 + "\t\t"
-                                + list.get(id).toString());
+                                + list.toString(id));
                     } else if (parameters[0].equals("unmark")) {
                         int id = parseID(parameters);
                         assertValidId(id);
-                        list.get(id).setDone(false);
+                        list.setDone(id, false);
                         System.out.println("\t"
                                 + "OK, I've marked this task as not done yet:\n"
                                 + "\t\t"
-                                + list.get(id).toString());
+                                + list.toString(id));
                         // 3 types of tasks
                         //  Solution below inspired by
                         //  https://stackoverflow.com/questions/11001720/get-only-part-of-an-array-in-java
@@ -108,7 +105,7 @@ public class Pyrite {
                         System.out.println("\t"
                                 + "Noted. I've removed this task:\n"
                                 + "\t\t"
-                                + list.get(id).toString());
+                                + list.toString(id));
                         list.remove(id);
                     } else if (parameters[0].equals("todo")) {
                         String description = String.join(
@@ -186,7 +183,7 @@ public class Pyrite {
                     }
                     if (added_task) {
                         System.out.println(taskAddedAcknowledgement);
-                        System.out.println("\t\t" + list.get(list.size()-1).toString());
+                        System.out.println("\t\t" + list.toString(list.size()-1));
                         System.out.println("\t" + "Now you have " + list.size() + " tasks in the list.");
                     }
                 }
