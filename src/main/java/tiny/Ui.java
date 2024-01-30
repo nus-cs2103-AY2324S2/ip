@@ -1,3 +1,5 @@
+package tiny;
+
 public class Ui {
 
     public void start() {

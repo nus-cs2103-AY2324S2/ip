@@ -1,4 +1,6 @@
-class Task {
+package tiny.tasks;
+
+public class Task {
     protected String name;
     protected boolean isDone;
     protected String type = " ";

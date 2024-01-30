@@ -1,5 +1,8 @@
+package tiny.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import tiny.exceptions.TinyException;
 
 public class Deadline extends Task {
     protected LocalDateTime endDatetime;

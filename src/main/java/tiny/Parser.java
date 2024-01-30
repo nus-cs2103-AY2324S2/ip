@@ -1,3 +1,8 @@
+package tiny;
+
+import tiny.tasks.*;
+import tiny.exceptions.TinyException;
+
 public class Parser {
     protected boolean terminate = false;
     protected String input;

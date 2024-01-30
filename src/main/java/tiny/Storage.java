@@ -1,3 +1,7 @@
+package tiny;
+
+import tiny.exceptions.TinyException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;

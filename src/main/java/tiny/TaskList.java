@@ -1,4 +1,11 @@
+package tiny;
 import java.util.ArrayList;
+
+import tiny.exceptions.TinyException;
+import tiny.tasks.Deadline;
+import tiny.tasks.Event;
+import tiny.tasks.Task;
+import tiny.tasks.Todo;
 
 public class TaskList {
     protected ArrayList<Task> tasks = new ArrayList<>();
