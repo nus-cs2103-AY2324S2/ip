@@ -48,7 +48,7 @@ public class Duke {
         @Override
         public String toString() {
             String s = super.toString();
-            return "[E]" + s + "(from " + from.toString().replace("T", " ") + " to " + to.toString().replace("T", " ") + ")";
+            return "[E]" + s + "(from " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:ss")).toString().replace("T", " ") + " to " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:ss")).toString().replace("T", " ") + ")";
         }
         @Override
         public String export() {
@@ -79,7 +79,7 @@ public class Duke {
         @Override
         public String toString() {
             String s = super.toString();
-            return "[D]" + s + "(by:" + by.toString().replace("T", " ") +")";
+            return "[D]" + s + "(by:" + by.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:ss")).toString().replace("T", " ") +")";
         }
 
         @Override
@@ -421,15 +421,13 @@ public class Duke {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm");
                     LocalDateTime ldt = null;
                     LocalDateTime ldt2 = null;
-                    System.out.println(subFrom);
-                    System.out.println(subTo);
                     try {
                         // Parse the string into a LocalDate object
                         ldt = LocalDateTime.parse(subFrom, formatter);
                         ldt2 = LocalDateTime.parse(subTo, formatter);
 
 
-                    } catch (Exception e) {
+                    } catch (DateTimeParseException e) {
                         // Handle parsing exceptions
                         System.out.println("Please enter a valid date/time");
                         continue;
@@ -461,13 +459,12 @@ public class Duke {
                     String newInput = input.substring(input.indexOf(deadline) + deadline.length(), input.indexOf(by));
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm");
                     LocalDateTime ldt = null;
-                    System.out.println(dL);
                     try {
                         // Parse the string into a LocalDate object
                         ldt = LocalDateTime.parse(dL, formatter);
 
 
-                    } catch (Exception e) {
+                    } catch (DateTimeParseException e) {
                         // Handle parsing exceptions
                         System.out.println("Please enter a valid date/time");
                         continue;
