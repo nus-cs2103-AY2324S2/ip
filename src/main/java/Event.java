@@ -1,18 +1,21 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class representing an Event task with a location or time.
  * Inherits from the Task class and adds event details.
  */
 class Event extends Task {
-  private String at;
+  private LocalDate at;
 
   /**
    * Constructor to create a new Event task.
    * Initializes the task with a title and event details.
    *
    * @param title The title of the event task.
-   * @param at    The location or time of the event.
+   * @param at    The time of the event.
    */
-  public Event(String title, String at) {
+  public Event(String title, LocalDate at) {
     super(title);
     this.at = at;
   }
@@ -25,7 +28,7 @@ class Event extends Task {
    * @param at     The location or time of the event.
    * @param isDone The completion status of the task.
    */
-  public Event(String title, String at, boolean isDone) {
+  public Event(String title, LocalDate at, boolean isDone) {
     super(title, isDone);
     this.at = at;
   }
@@ -39,7 +42,7 @@ class Event extends Task {
    */
   @Override
   public String toString() {
-    return "[E]" + super.toString() + " (at: " + at + ")";
+    return "[E]" + super.toString() + " (at: " + at.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
   }
 
   /**
@@ -65,6 +68,6 @@ class Event extends Task {
    */
   public static Event deserialize(String text) {
     String[] parts = text.split(" \\| ");
-    return new Event(parts[2], parts[3], parts[1].equals("1"));
+    return new Event(parts[2], LocalDate.parse(parts[3]), parts[1].equals("1"));
   }
 }
