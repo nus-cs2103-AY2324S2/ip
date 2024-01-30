@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -189,8 +190,8 @@ public class Duke {
                 if (toDoDescription.isEmpty()) {
                     try {
                         System.out.println(indentedLine);
-                        throw new DukeException("Sorry, please give me a description of the todo as well! >.<\n" +
-                                indentation + "Format should be todo (description)!");
+                        throw new DukeException("Sorry, please give me a description of the todo as well! >.<\n"
+                                + indentation + "Format should be todo (description)!");
                     } catch (DukeException e) {
                         System.out.println(indentation + e.getMessage());
                         System.out.println(indentedLine);
@@ -209,8 +210,9 @@ public class Duke {
                 if (!deadlineDescription.contains(" /by ")) {
                     try {
                         System.out.println(indentedLine);
-                        throw new DukeException("Sorry, please give me a description of the deadline as well! >.<\n" +
-                                indentation + "Format should be deadline (description) /by (date)!");
+                        throw new DukeException("Sorry, please give me a description of the deadline as well! >.<\n"
+                                + indentation
+                                + "Format should be deadline (description) /by (yyyy-MM-dd HHmm!)");
                     } catch (DukeException e) {
                         System.out.println(indentation + e.getMessage());
                         System.out.println(indentedLine);
@@ -218,20 +220,31 @@ public class Duke {
                     }
                 }
                 String[] deadlineArguments = deadlineDescription.split(" /by ");
-                Deadline deadline = new Deadline(deadlineArguments[0], deadlineArguments[1]);
-                taskList.add(deadline);
-                System.out.println(indentation + deadline);
-                System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
-                System.out.println(indentedLine);
-                saveTasksFile();
-                break;
+                String DLDescription = deadlineArguments[0];
+                String dateTime = deadlineArguments[1];
+
+                try {
+                    Deadline deadline = new Deadline(DLDescription, dateTime);
+                    taskList.add(deadline);
+                    System.out.println(indentation + deadline);
+                    System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println(indentedLine);
+                    saveTasksFile();
+                    break;
+                } catch (DateTimeParseException e) {
+                    System.out.println("Sorry! Format should be deadline (description) /by (yyyy-MM-dd HHmm!)");
+                    System.out.println(indentedLine);
+                    return;
+                }
             case EVENT:
                 String eventDescription = sc.nextLine();
                 if (!eventDescription.contains(" /from ") || !eventDescription.contains(" /to ")) {
                     try {
                         System.out.println(indentedLine);
-                        throw new DukeException("Sorry, please give me a description of the event as well! >.<\n" +
-                                indentation + "Format should be event (description) /from (time) /to (time)!");
+                        throw new DukeException("Sorry, please give me a description of the event as well! >.<\n"
+                                + indentation
+                                + "Format should be event "
+                                + "(description) /from (yyyy-MM-dd HHmm) /to (yyyy-MM-dd HHmm)!");
                     } catch (DukeException e) {
                         System.out.println(indentation + e.getMessage());
                         System.out.println(indentedLine);
@@ -240,13 +253,25 @@ public class Duke {
                 }
                 String[] eventArguments = eventDescription.split(" /from ");
                 String[] eventDuration = eventArguments[1].split(" /to ");
-                Event event = new Event(eventArguments[0], eventDuration[0], eventDuration[1]);
-                taskList.add(event);
-                System.out.println(indentation + event);
-                System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
-                System.out.println(indentedLine);
-                saveTasksFile();
-                break;
+                String EVDescription = eventArguments[0];
+                String startTime = eventDuration[0];
+                String endTime = eventDuration[1];
+
+                try {
+                    Event event = new Event(EVDescription, startTime, endTime);
+                    taskList.add(event);
+                    System.out.println(indentation + event);
+                    System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println(indentedLine);
+                    saveTasksFile();
+                    break;
+                } catch (DateTimeParseException e) {
+                    System.out.println(indentation
+                            + "Sorry! Format should be event " +
+                            "(description) /from (yyyy-MM-dd HHmm) /to (yyyy-MM-dd HHmm)!");
+                    System.out.println(indentedLine);
+                    return;
+                }
             default:
                 try {
                     System.out.println(indentedLine);

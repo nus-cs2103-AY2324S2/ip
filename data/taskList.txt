@@ -1,5 +1,4 @@
 T | 1 |  return book
-E | 1 |  meeting | 2pm - 3pm
-D | 0 |  finish homework | monday
 T | 1 |  feed dog
-E | 0 |  race | 5pm - 6pm
+D | 0 |  homework | Feb 01 2023 2359
+E | 0 |  birthday party | Apr 22 2023 1200 - Apr 22 2023 1900
