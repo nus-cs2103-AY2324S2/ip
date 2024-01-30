@@ -1,14 +1,6 @@
 package duke.util;
 
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.EventCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.TodoCommand;
-import duke.command.UnknownCommand;
+import duke.command.*;
 import duke.exception.DukeException;
 
 import java.util.regex.Pattern;
@@ -23,6 +15,7 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
+        FIND,
         UNKNOWN
     }
 
@@ -43,6 +36,8 @@ public class Parser {
             return InputType.DEADLINE;
         } else if (input.startsWith("event")) {
             return InputType.EVENT;
+        } else if (input.startsWith("find")) {
+                return InputType.FIND;
         } else {
             return InputType.UNKNOWN;
         }
@@ -93,6 +88,12 @@ public class Parser {
         case EVENT:
             try {
                 return parseEventCommand(input);
+            } catch (DukeException e) {
+                throw e;
+            }
+        case FIND:
+            try {
+                return parseFindCommand(input);
             } catch (DukeException e) {
                 throw e;
             }
@@ -156,6 +157,23 @@ public class Parser {
         } else {
             throw new DukeException("The description, start and end time of an event cannot be empty.\n"
                     + "\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.");
+        }
+    }
+
+    /**
+     * Returns FindCommand if input is valid.
+     *
+     * @param input Command entered by user.
+     * @return FindCommand with input given.
+     * @throws DukeException If input is in invalid format.
+     */
+    private static Command parseFindCommand(String input) throws DukeException {
+        String lowerInput = input.trim().toLowerCase();
+        if (Parser.matchPattern(lowerInput, "find\\s\\S+")) {
+            return new FindCommand(input);
+        } else {
+            throw new DukeException("Specify a keyword to search.\n"
+                    + "\t Try 'find [keyword]'.");
         }
     }
 

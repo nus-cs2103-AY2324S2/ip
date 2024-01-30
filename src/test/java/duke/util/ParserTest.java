@@ -4,6 +4,8 @@ import duke.command.*;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
@@ -170,6 +172,38 @@ public class ParserTest {
         } catch (DukeException e) {
             assertEquals("The description, start and end time of an event cannot be empty.\n\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.",
                     e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_find_FindCommand() {
+        String input = "find meeting";
+        try {
+            assertEquals(new FindCommand(input), Parser.parseCommand(input));
+        } catch (DukeException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parseCommand_findNoKeyword_DukeException() {
+        String input = "find ";
+        try {
+            Parser.parseCommand(input);
+            fail();
+        } catch (DukeException e) {
+            assertEquals("Specify a keyword to search.\n\t Try 'find [keyword]'.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_findTwoKeywords_DukeException() {
+        String input = "find meeting two";
+        try {
+            Parser.parseCommand(input);
+            fail();
+        } catch (DukeException e) {
+            assertEquals("Specify a keyword to search.\n\t Try 'find [keyword]'.", e.getMessage());
         }
     }
 }

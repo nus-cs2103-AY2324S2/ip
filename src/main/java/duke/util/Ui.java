@@ -76,4 +76,17 @@ public class Ui {
     public void showGoodbye() {
         System.out.println("\t Bye. Hope to see you again soon!");
     }
+
+    /**
+     * Displays all tasks in list.
+     *
+     * @param list Holds all tasks that matches search.
+     */
+    public void showMatchedTasks(TaskList list) {
+        if (list.getSize() == 0) {
+            System.out.println("\t OOPS!!! No task matches you search.");
+        } else {
+            System.out.println(list.printFound());
+        }
+    }
 }

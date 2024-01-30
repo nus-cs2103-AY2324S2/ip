@@ -25,4 +25,8 @@ public abstract class Task {
     public String toString() {
         return String.format("%d | %s", (this.isDone ? 1 : 0), this.task);
     }
+
+    public String getTask() {
+        return this.task;
+    }
 }
