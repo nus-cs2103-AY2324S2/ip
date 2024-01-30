@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Handles parsing of user input into various components such as commands, task indices, descriptions, and deadlines.
+ */
 public class Parser {
 
     public static int parseTaskIndex(String input) throws NumberFormatException {
@@ -14,6 +18,13 @@ public class Parser {
         return Integer.parseInt(words[1]) - 1; // Subtract 1 to convert to zero-based index
     }
 
+    /**
+     * Parses the task description from the user input.
+     *
+     * @param input The user input string.
+     * @return The task description.
+     * @throws TodoLeftBlank if the description part of the input is empty.
+     */
     public static String parseDescription(String input) {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -22,20 +33,24 @@ public class Parser {
         return parts[1].trim();
     }
 
+    /**
+     * Parses the deadline task from the user input.
+     * 
+     * @param input The user input string.
+     * @return An Object array where the first element is the task description and the second element is the deadline as a LocalDateTime.
+     * @throws Exception if the deadline format is incorrect or if the 'deadline' keyword is misspelled.
+     */
     public static Object[] parseDeadline(String input) throws Exception {
         String[] parts = input.split(" /by ");
         if (parts.length < 2) {
             throw new IllegalArgumentException("Deadline time not provided.");
         }
-
         if (!parts[0].split(" ")[0].equals("deadline")) {
             throw new Exception("Looks like you spelt deadline wrong. Please try again!");
         }
-
         String description = parts[0].substring(parts[0].indexOf(' ') + 1).trim();
         LocalDate date;
         LocalDateTime by;
-
         try {
             date = LocalDate.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             by = date.atStartOfDay();
@@ -44,9 +59,15 @@ public class Parser {
         } 
         
         return new Object[]{description, by};
-        
+
     }
 
+    /**
+     * Parses an event task from the user input.
+     * 
+     * @param input The user input string.
+     * @return A String array where the first element is the event title, the second element is the start time, and the third element is the end time.
+     */
     public static String[] parseEvent(String input) {
         String[] parts = input.substring(6).split("/");
         String title = parts[0];
@@ -63,5 +84,4 @@ public class Parser {
         }
         return new String[]{title, from, to};
     }
-
 }
