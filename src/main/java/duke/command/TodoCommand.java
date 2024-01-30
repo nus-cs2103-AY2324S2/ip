@@ -1,3 +1,12 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.TextUi;
+import duke.task.Todo;
+import duke.task.Task;
+
 public class TodoCommand extends Command {
     private final String DETAIL;
     public TodoCommand(String taskDetails) {
@@ -5,7 +14,7 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasksList, TextUi ui, Storage storage) throws ExceptionDuke{
+    public void execute(TaskList tasksList, TextUi ui, Storage storage) throws DukeException {
         Task todo = new Todo(DETAIL);
         tasksList.addToTaskList(todo);
         storage.saveToFile(tasksList.getList());

@@ -1,6 +1,8 @@
-public class ExceptionDuke extends Exception {
+package duke;
 
-    public ExceptionDuke(String message) {
+public class DukeException extends Exception {
+
+    public DukeException(String message) {
         super(message);
     }
 
