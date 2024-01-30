@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.File;
 
 public class Duke {
@@ -7,14 +6,13 @@ public class Duke {
 
         File f = new File("data/EUEU.txt");
         Scanner user = new Scanner(System.in);
-        ArrayList<Task> tasklist = new ArrayList<Task>();
+        Storage storage = new Storage(f);
+        TaskList tasklist = new TaskList(storage);
 
-        Ui ui = new Ui(user, tasklist, f);
+        Ui ui = new Ui(user, tasklist);
         ui.showWelcome();
         ui.readCommand();
-        for (int i = 0; i < tasklist.size(); i++) {
-            tasklist.get(i).writeToFile(f);
-        }
+        tasklist.write();
 
     }
 }

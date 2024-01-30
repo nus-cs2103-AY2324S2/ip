@@ -14,9 +14,9 @@ public class Todo extends Task {
         return "[T]";
     }
 
-    public String addTodo() {
-        return "Got it. I've added this task: \n"
-                + "    " + this.isTodo() + this.marked() + " " + this.getTask();
+    @Override
+    public String add() {
+        return "    " + this.isTodo() + this.marked() + " " + this.getTask();
     }
 
     @Override

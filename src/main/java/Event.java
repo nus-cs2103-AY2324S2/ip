@@ -30,10 +30,10 @@ public class Event extends Task {
         }
     }
 
-    public String addEvent() {
-        return "Got it. I've added this task:\n"
-                + "    " + this.isEvent() + this.marked() + " "
-                + this.getTask() + this.getEvent();
+    @Override
+    public String add() {
+            return "    " + this.isEvent() + this.marked() + " "
+                    + this.getTask() + this.getEvent();
     }
 
     @Override

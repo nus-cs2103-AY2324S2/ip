@@ -28,11 +28,11 @@ public class Deadline extends Task{
         return "[D]";
     }
 
-    public String addDeadline() {
-        return "Got it. I've added this task:\n"
-                + "    " + this.isDeadline() + this.marked() + " "
-                + this.getTask()
-                + this.getDeadline();
+    public String add() {
+            return "    " + this.isDeadline() + this.marked() + " "
+                    + this.getTask()
+                    + this.getDeadline();
+
     }
 
     @Override

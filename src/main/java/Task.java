@@ -10,28 +10,24 @@ public class Task {
     public void mark() {
         isDone = true;
     }
-    public String mark(int number, String name, Task task) {
-        isDone = true;
-        return "    Nice! I've marked this task as done: \n"
-                + "        " + task.getCat() + marked() + " "
-                + name;
+    public String mark(int number) {
+        return "        " + this.getCat() + this.marked() + " "
+                + this.getTask();
     }
 
-    public String delete(Task task) {
+    public String delete() {
         return "    Noted. I've removed this task: \n"
-                + "        " + task.getCat() + task.marked() + " "
-                + task.getTask();
+                + "        " + this.getCat() + this.marked() + " "
+                + this.getTask();
     }
 
     public void unmark() {
         isDone = false;
     }
 
-    public String unmark(int number, String name, Task task) {
-        unmark();
-        return "    Ok, I've marked this task as not done yet: \n"
-        + "        " + task.getCat() + marked() + " "
-                        + name;
+    public String unmark(int number) {
+        return "        " + this.getCat() + marked() + " "
+                        + this.getTask();
     }
 
     public String marked() {
@@ -73,6 +69,17 @@ public class Task {
             } else if (this instanceof Event) {
                 ((Event) this).writeToFile(filePath);
             }
+        }
+
+        public String add() {
+            if (this instanceof Todo) {
+                return ((Todo) this).add();
+            } else if (this instanceof Deadline) {
+                return ((Deadline) this).add();
+            } else if (this instanceof Event) {
+                return ((Event) this).add();
+            }
+            return "";
         }
 
 
