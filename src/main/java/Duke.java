@@ -1,6 +1,39 @@
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Duke {
 
+    private static final String FILE_PATH = "./data/duke.txt";
+
+
+    private static void saveTasksToFile(ArrayList<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.write(task.toFileString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.createTaskFromFileString(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            // File does not exist or other IO error, it's okay, just return an empty list
+        }
+        return tasks;
+    }
     private static void printHorizontalLine() {
         System.out.println(" _____________________________");
     }
@@ -15,8 +48,10 @@ public class Duke {
         System.out.println("_____________________________");
 
 
-        Task[] tasks = new Task[100];
-        int taskCounter = 0;
+        ArrayList<Task> tasks = loadTasksFromFile();
+        int taskCounter = tasks.size();
+
+        //ArrayList<Task> tasks = new ArrayList<>();
 
         String input;
 
@@ -25,34 +60,33 @@ public class Duke {
             printHorizontalLine();
 
             if (input.equalsIgnoreCase("bye")) {
-                //printHorizontalLine();
                 System.out.println("Bye. Hope to see you again soon!");
             } else if (input.equalsIgnoreCase("list")) {
-                if (taskCounter > 0) {
+                if (tasks.size() > 0) {
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCounter; i++) {
-                        System.out.println((i + 1) + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i));
                     }
                 } else {
                     System.out.println("No tasks added yet.");
                 }
             } else if (input.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCounter) {
-                    tasks[taskIndex].markAsDone();
+                if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                    tasks.get(taskIndex).markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(tasks[taskIndex].getStatusIcon() + " " +
-                            tasks[taskIndex].getDescription());
+                    System.out.println(tasks.get(taskIndex).getStatusIcon() + " " +
+                            tasks.get(taskIndex).getDescription());
                 } else {
                     System.out.println("Invalid task index.");
                 }
             } else if (input.startsWith("unmark")) {
                 // Mark a task as not done
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCounter) {
-                    tasks[taskIndex].markAsNotDone();
+                if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                    tasks.get(taskIndex).markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(tasks[taskIndex].getStatusIcon() + " " + tasks[taskIndex].getDescription());
+                    System.out.println(tasks.get(taskIndex).getStatusIcon() + " " + tasks.get(taskIndex).getDescription());
                 } else {
                     System.out.println("Invalid task index.");
                 }
@@ -62,21 +96,22 @@ public class Duke {
                 if (description.isEmpty()) {
                     System.out.println("OOPS!!! The description of a todo cannot be empty.");
                 } else {
-                    tasks[taskCounter] = new ToDo(description);
-                    taskCounter++;
+                    tasks.add(new ToDo(description));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCounter - 1]);
-                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 }
             } else if (input.startsWith("deadline")) {
                 // Add a Deadline task
                 String[] deadlineDetails = input.substring(9).split("/by");
                 if (deadlineDetails.length == 2) {
-                    tasks[taskCounter] = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
-                    taskCounter++;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime by = LocalDateTime.parse(deadlineDetails[1].trim(), formatter);
+                    //tasks.add(new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim()));
+                    tasks.add(new Deadline(deadlineDetails[0].trim(), by));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCounter - 1]);
-                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else {
                     System.out.println("Invalid deadline format. Please use: deadline <description> /by <date/time>");
                 }
@@ -84,43 +119,36 @@ public class Duke {
                 // Add an Event task
                 String[] eventDetails = input.substring(6).split("/from|/to");
                 if (eventDetails.length == 3) {
-                    tasks[taskCounter] = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2].trim());
-                    taskCounter++;
+                    //tasks.add(new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2].trim()));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime startTime = LocalDateTime.parse(eventDetails[1].trim(), formatter);
+                    LocalDateTime endTime = LocalDateTime.parse(eventDetails[2].trim(), formatter);
+                    tasks.add(new Event(eventDetails[0].trim(), startTime, endTime));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCounter - 1]);
-                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else {
                     System.out.println("Invalid event format. Please use: event <description> /from <start> /to <end>");
                 }
             } else if (input.startsWith("delete")) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCounter) {
-                    Task removedTask = tasks[taskIndex];
+                if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                    Task removedTask = tasks.remove(taskIndex);
                     // Shift tasks to fill the gap
-                    for (int i = taskIndex; i < taskCounter - 1; i++) {
-                        tasks[i] = tasks[i + 1];
-                    }
-                    tasks[taskCounter - 1] = null; // Clear the last element
-                    taskCounter--;
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("  " + removedTask);
-                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else {
                     System.out.println("Invalid task index.");
                 }
 
             } else {
-                    //tasks[taskCounter] = new Task(input);
-                    //taskCounter++;
-//                System.out.println("added: " + input);
-                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                }
-                printHorizontalLine();
-
-
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            while (!input.equalsIgnoreCase("bye")) ;
-            scanner.close();
+            printHorizontalLine();
         }
+        while (!input.equalsIgnoreCase("bye"));
+        saveTasksToFile(tasks);
+        scanner.close();
     }
-
+}
