@@ -5,7 +5,18 @@ import java.time.format.DateTimeFormatter;
 
 import Exceptions.DukeException;
 
+/**
+ * Deadline task, with description and time to finish task by
+ * 
+ * @author Tang Yetong
+ **/
 public class Deadline extends Task {
+    /**
+     * Create deadline task
+     * 
+     * @param description description of task, with deadline included for parsing
+     * @throws DukeException
+     */
     public Deadline(String description) throws DukeException {
         super(description);
 

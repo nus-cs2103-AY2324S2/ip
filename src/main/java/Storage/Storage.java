@@ -16,6 +16,11 @@ import Tasks.Task.TaskType;
 import Ui.Ui;
 import Tasks.ToDo;
 
+/**
+ * Storage class to handle File IO actions
+ * 
+ * @author Tang Yetong
+ **/
 public class Storage {
 
     private final String SAVE_FILE = "src/main/java/Data/Kewqgy.txt";
@@ -25,6 +30,12 @@ public class Storage {
         this.ui = new Ui();
     }
 
+    /**
+     * Update task in save file when task is marked as done or undone.
+     * 
+     * @param taskInt index of task
+     * @param isDone whether task is done
+     **/
     public void updateTask(int taskInt, Boolean isDone) {
         try {
             File saveFile = new File(SAVE_FILE);
@@ -64,6 +75,11 @@ public class Storage {
         } 
     }
 
+    /**
+     * Delete task in save file
+     * 
+     * @param taskInt index of task
+     **/
     public void deleteTask(int taskInt) {
         try {
             File saveFile = new File(SAVE_FILE);
@@ -99,6 +115,12 @@ public class Storage {
         } 
     }
 
+    /**
+     * Save task in save file when task is created by user
+     * 
+     * @param userMsg Task description
+     * @param taskType Type of task
+     **/
     public void saveTask(String userMsg, TaskType taskType) {
         try {
             File saveFile = new File(SAVE_FILE);
@@ -133,6 +155,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Load task in save file when chatbot is launched
+     * 
+     * @return list of tasks loaded from save file
+     **/
     public List<Task> loadTasks() {
         try {
             File saveFile = new File(SAVE_FILE);
