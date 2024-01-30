@@ -13,6 +13,7 @@ public class Storage {
     public static void store(TaskList taskList) {
         try (FileWriter out = new FileWriter("output.txt");){
             out.write(taskList.toString());
+            out.close();
         } catch (IOException err) {
             // do nothing
             System.out.println(err.toString());
