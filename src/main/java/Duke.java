@@ -2,6 +2,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -17,6 +18,7 @@ public class Duke {
         MARK,
         UNMARK,
         DELETE,
+        DATE,
         BYE
     }
 
@@ -30,6 +32,8 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
+
+        tasks = getTasksFromFile("duke");
         System.out.println("    ____________________________________________________________");
         System.out.println("      Hello! I'm AndrewOng2066");
         System.out.println("      What can I do for you?");
@@ -63,6 +67,8 @@ public class Duke {
                 } else if (splitInput[0].equalsIgnoreCase(Action.DELETE.toString())) {
                     deleteTask(userInput);
 
+                } else if (splitInput[0].equalsIgnoreCase(Action.DATE.toString())) {
+                    searchDate(userInput);
                 } else {
 
                     System.out.println("      I'm sorry, I do not understand that.");
@@ -80,6 +86,7 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
+
     /**
      * Lists down the list of Tasks.
      */
@@ -92,6 +99,7 @@ public class Duke {
             System.out.println("      " + (i + 1) + "." + tasks.get(i).toString());
         }
     }
+
 
     /**
      * Adds a new ToDo.
@@ -119,6 +127,7 @@ public class Duke {
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
 
     }
+
 
     /**
      * Adds a new Deadline.
@@ -150,6 +159,7 @@ public class Duke {
         System.out.println("      " + newDeadline.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
     }
+
 
     /**
      * Adds a new Event.
@@ -214,6 +224,7 @@ public class Duke {
 
     }
 
+
     /**
      * Unmarks a task for being incomplete.
      *
@@ -276,6 +287,7 @@ public class Duke {
         }
     }
 
+
     /**
      * Load the data into a txt file
      *
@@ -287,6 +299,7 @@ public class Duke {
         FileManager fileManager = new FileManager(fileName);
         fileManager.writeArrayListToFile(tasks, isOverwrite);
     }
+
 
     /**
      * Gets the list of Tasks from the file.
@@ -300,6 +313,39 @@ public class Duke {
     }
 
 
+    /**
+     * Searches Deadlines/Events on a specific date.
+     *
+     * If no task is found on the specific date, inform the user about no task found.
+     *
+     * @param input The date.
+     * @throws DukeException If there is missing attribute (date).
+     */
+    static void searchDate(String input) throws DukeException {
+        String[] splitInput = input.split(" ");
+        if (splitInput.length <= 1) {
+            throw new DukeException("      Missing the date!");
+        }
+
+        LocalDateTime dateInput = DateTimeManager.convertStringToLocalDateTime(splitInput[1].trim() +"T00:00");
+
+        System.out.println("      Here are the tasks on " + input +":");
+        int index = 1;
+        for (Task i : tasks) {
+            if (i instanceof Deadline) {
+                if (((Deadline) i).by.toLocalDate().isEqual(dateInput.toLocalDate())) {
+                    System.out.println("      " + (index++) + "." + i.toString());
+                }
+            } else if (i instanceof Event) {
+                if (((Event) i).getStart().toLocalDate().isEqual(dateInput.toLocalDate())) {
+                    System.out.println("      " + (index++) + "." + i.toString());
+                }
+            }
+        }
+        if (index == 1) {
+            System.out.println("      There are no task on this date");
+        }
+    }
 
 }
 
