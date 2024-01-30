@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -55,6 +56,8 @@ public class Capone {
                 } else {
                     invalidCommand();
                 }
+
+                TaskStorage.writeTasksToJsonFile(tasks);
             } catch (CaponeException e) {
                 System.out.println(e.getMessage());
             }
@@ -142,12 +145,13 @@ public class Capone {
             description.append(inputList.get(i)).append(" ");
         }
 
-        ToDo newTodo = new ToDo(description.toString());
+        ToDo newTodo = new ToDo(description.toString(), false);
 
         tasks.add(newTodo);
 
         System.out.printf("Got it. I've added this task:\n%s\n" +
                 "Now you have %d task(s) in the list.\n", newTodo.toString(), tasks.size());
+
     }
 
     public static void processDeadline(ArrayList<String> inputList) throws CaponeException {
@@ -189,7 +193,7 @@ public class Capone {
             byDate.append(inputList.get(i)).append(" ");
         }
 
-        Deadline newDeadline = new Deadline(description.toString(), byDate.toString());
+        Deadline newDeadline = new Deadline(description.toString(), false, byDate.toString());
 
         tasks.add(newDeadline);
 
@@ -253,7 +257,7 @@ public class Capone {
             toDate.append(inputList.get(i)).append(" ");
         }
 
-        Event newEvent = new Event(description.toString(), fromDate.toString(), toDate.toString());
+        Event newEvent = new Event(description.toString(), false, fromDate.toString(), toDate.toString());
 
         tasks.add(newEvent);
 
@@ -307,6 +311,12 @@ public class Capone {
     public static void main(String[] args) {
 
         Capone.printWelcomeMsg();
+
+        try {
+            TaskStorage.readTasksFromJsonFile(tasks);
+        } catch (TaskListCorruptedException e) {
+            System.out.println(e.getMessage());
+        }
 
         Capone.processInputs();
     }
