@@ -1,5 +1,6 @@
 package chatbot.task;
 
+import chatbot.task.exception.InvalidTaskStringException;
 import chatbot.value.DateStringValue;
 
 import java.util.regex.Matcher;
@@ -10,7 +11,7 @@ import java.util.regex.Pattern;
  *
  * @author Titus Chew
  */
-public class Deadline extends Task {
+public final class Deadline extends Task {
     /**
      * Stores the deadline of this.
      */
@@ -19,7 +20,7 @@ public class Deadline extends Task {
     /**
      * The icon for the task type.
      */
-    static String TASK_TYPE_ICON = "D";
+    private static final String TASK_TYPE_ICON = "D";
 
     /**
      * The format that a {@link Deadline} takes.
@@ -29,26 +30,27 @@ public class Deadline extends Task {
     /**
      * The regex pattern that a {@link Deadline} takes.
      */
-    private static final String REGEX_PATTERN =
-            String.format("\\[%s\\](?<task>.*)\\(by:(?<by>.*)\\)", TASK_TYPE_ICON);
+    private static final Pattern REGEX_PATTERN = Pattern.compile(
+            String.format("\\[%s\\](?<task>.*)\\(by:(?<by>.*)\\)", TASK_TYPE_ICON));
 
     /**
      * Constructor for this deadline.
      *
      * @param name the name of this deadline
-     * @param deadline the deadline (possibly date/time) of this chatbot.task
+     * @param deadline the deadline (possibly date/time) of this task
      */
-    public Deadline(String name, String deadline) {
+    public Deadline(String name, DateStringValue deadline) {
         super(name);
-        this.deadline = new DateStringValue(deadline);
+        this.deadline = deadline;
     }
 
     /**
      * Constructor for this deadline.
      *
      * @param matcher the matcher that has the relevant captured groups
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public Deadline(Matcher matcher) {
+    public Deadline(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
         this.deadline = new DateStringValue(matcher.group("by"));
     }
@@ -58,15 +60,27 @@ public class Deadline extends Task {
      *
      * @param readableString the deadline as a human-readable string
      * @return the deadline
-     * @throws IllegalStateException If the regex doesn't match the pattern
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public static Deadline parseDeadline(String readableString) throws IllegalStateException {
-        Matcher matcher = Pattern
-                .compile(REGEX_PATTERN)
+    public static Deadline parseDeadline(String readableString) throws InvalidTaskStringException {
+        Matcher matcher = REGEX_PATTERN
                 .matcher(readableString);
 
-        matcher.find();
-        return new Deadline(matcher);
+        if (matcher.find()) {
+            return new Deadline(matcher);
+        } else {
+            throw new InvalidTaskStringException();
+        }
+    }
+
+    /**
+     * Checks if the format of a string matches with the pattern.
+     *
+     * @param matchingString the string
+     * @return true if it matches, otherwise false.
+     */
+    public static boolean matchesDeadline(String matchingString) {
+        return REGEX_PATTERN.matcher(matchingString).find();
     }
 
     /**

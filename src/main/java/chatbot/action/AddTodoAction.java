@@ -3,16 +3,25 @@ package chatbot.action;
 import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
-import chatbot.io.ui.Printer;
+import chatbot.action.util.ExpectedArgument;
+import chatbot.ui.Printer;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
+import chatbot.task.ToDo;
 
 /**
  * AddTodoCommand encapsulates the behaviour of adding a to-do.
  *
  * @author Titus Chew
  */
-public class AddTodoAction extends Action {
+public final class AddTodoAction extends Action {
+    /**
+     * The command for adding a {@link ToDo}.
+     */
+    private static final Command COMMAND = new Command(
+            new ExpectedArgument("todo", "name")
+    );
+
     /**
      * Constructor for this add to-do action.
      *
@@ -20,7 +29,7 @@ public class AddTodoAction extends Action {
      * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
     public AddTodoAction(Argument[] arguments) throws ActionException {
-        super(Command.ADD_TODO, arguments);
+        super(COMMAND, arguments);
     }
 
     /**
@@ -30,14 +39,21 @@ public class AddTodoAction extends Action {
      */
     @Override
     public void execute(TaskList taskList) {
-        String name = findDefaultArgument();
+        String name = findDefaultArgument().toString();
 
         // Perform behaviour
         Task task = taskList.addTodo(name);
         Printer.printMessages(
                 "Got it. I've added this to-do:",
                 "    " + task,
-                "Now you have " + taskList.size() + " task(s) in the list."
+                taskList.getSizeMessage()
         );
+    }
+
+    /**
+     * Gets the name of the {@link Command}.
+     */
+    public static String getName() {
+        return COMMAND.getName();
     }
 }

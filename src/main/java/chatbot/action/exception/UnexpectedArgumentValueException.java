@@ -9,7 +9,7 @@ import chatbot.action.util.Command;
  *
  * @author Titus Chew
  */
-public class UnexpectedArgumentValueException extends ActionException {
+public final class UnexpectedArgumentValueException extends ActionException {
     private final Argument argument;
     private final Command command;
 
@@ -23,6 +23,10 @@ public class UnexpectedArgumentValueException extends ActionException {
         this.argument = argument;
         this.command = command;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return "OOPS!!! I'm sorry, but I didn't expect <" + argument.getValue() + "> :-(\n"

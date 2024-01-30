@@ -5,7 +5,7 @@ package chatbot.action.exception;
  *
  * @author Titus Chew
  */
-public class UnrecognizedCommandException extends ActionException {
+public final class UnrecognizedCommandException extends ActionException {
     private final String commandName;
     /**
      * Constructor for this ActionException for unrecognized commands.
@@ -15,6 +15,10 @@ public class UnrecognizedCommandException extends ActionException {
     public UnrecognizedCommandException(String commandName) {
         this.commandName = commandName;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return "OOPS!!! I'm sorry, but I don't know what `" + commandName + "` means :-(";

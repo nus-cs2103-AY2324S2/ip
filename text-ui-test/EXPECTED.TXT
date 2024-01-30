@@ -4,7 +4,7 @@
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! The argument value <index> of `mark` is invalid!
-        Reason: <index> is out of range as there are no tasks in your list.
+        Reason: `0` is out of bounds. The task list is empty.
         Usage: `mark <index>`
     ____________________________________________________________
     ____________________________________________________________
@@ -39,7 +39,7 @@
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! The argument value <index> of `mark` is invalid!
-        Reason: <index> is not an integer.
+        Reason: `two` is not an integer.
         Usage: `mark <index>`
     ____________________________________________________________
     ____________________________________________________________
@@ -57,7 +57,7 @@
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! The argument value <index> of `unmark` is invalid!
-        Reason: <index> is not an integer.
+        Reason: `two` is not an integer.
         Usage: `unmark <index>`
     ____________________________________________________________
     ____________________________________________________________
@@ -71,7 +71,7 @@
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! The argument value <index> of `mark` is invalid!
-        Reason: <index> is out of range. <index> must be between 1 and 2.
+        Reason: `2` is out of bounds. The index must be between 1 and 2.
         Usage: `mark <index>`
     ____________________________________________________________
     ____________________________________________________________

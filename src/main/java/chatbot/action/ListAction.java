@@ -3,15 +3,23 @@ package chatbot.action;
 import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
+import chatbot.action.util.ExpectedArgument;
 import chatbot.task.TaskList;
-import chatbot.io.ui.Printer;
+import chatbot.ui.Printer;
 
 /**
  * ListAction encapsulates the behaviour when listing the tasks.
  *
  * @author Titus Chew
  */
-public class ListAction extends Action{
+public final class ListAction extends Action{
+    /**
+     * The command for listing stored tasks.
+     */
+    private static final Command COMMAND = new Command(
+            new ExpectedArgument("list")
+    );
+
     /**
      * Constructor for this list action.
      *
@@ -19,7 +27,7 @@ public class ListAction extends Action{
      * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
     public ListAction(Argument[] arguments) throws ActionException {
-        super(Command.LIST, arguments);
+        super(COMMAND, arguments);
     }
 
     /**
@@ -39,5 +47,12 @@ public class ListAction extends Action{
                     taskList.toString()
             );
         }
+    }
+
+    /**
+     * Gets the name of the {@link Command}.
+     */
+    public static String getName() {
+        return COMMAND.getName();
     }
 }

@@ -8,7 +8,7 @@ import java.util.Locale;
 
 /**
  * This represents minimally a {@link String},
- * but can also represent a {@link LocalDate} if possible.
+ * but can also represent a {@link LocalDate} <b>if possible</b>.
  * <p>
  * If the string value is in a suitable date format,
  * it is stored as a {@link LocalDate},
@@ -16,12 +16,7 @@ import java.util.Locale;
  *
  * @author Titus Chew
  */
-public class DateStringValue {
-    /**
-     * The {@link String} value stored.
-     */
-    private final String stringValue;
-
+public final class DateStringValue extends StringValue {
     /**
      * The {@link LocalDate} value stored.
      */
@@ -33,7 +28,7 @@ public class DateStringValue {
     private static final String DISPLAY_PATTERN = "MMM d yyyy";
 
     /**
-     * The {#@link DateTimeFormatter} for displaying dates
+     * The {@link DateTimeFormatter} for displaying dates.
      */
     private static final DateTimeFormatter DISPLAY_DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern(DISPLAY_PATTERN, Locale.ENGLISH);
@@ -47,17 +42,16 @@ public class DateStringValue {
             .toFormatter();
 
     /**
-     * Takes in a string, but tries to convert it to the value.
+     * Takes in a string, but tries to convert it to a date.
      *
      * @param value the value as a {@link String}
      */
     public DateStringValue(String value) {
-        value = value.trim();
-        this.stringValue = value;
+        super(value);
 
         LocalDate date = null;
         try {
-            date = LocalDate.parse(value, DATE_TIME_FORMATTER);
+            date = LocalDate.parse(value.trim(), DATE_TIME_FORMATTER);
         } catch(DateTimeParseException e) {
             // invalid date
         } finally {
@@ -66,16 +60,23 @@ public class DateStringValue {
     }
 
     /**
-     * Gets a human-readable {@link String} of this.
+     * Factory method for taking in a {@link StringValue}, but trying to convert it to a date.
      *
-     * @return the human-readable {@link String}
+     * @param value the value as a {@link String}
+     */
+    public static DateStringValue of(StringValue value) {
+        return new DateStringValue(value.toString());
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
         if (dateValue != null) {
             return dateValue.format(DISPLAY_DATE_TIME_FORMATTER);
         } else {
-            return stringValue;
+            return super.toString();
         }
     }
 }

@@ -3,8 +3,8 @@ package chatbot;
 import chatbot.action.Action;
 import chatbot.action.ByeAction;
 import chatbot.action.exception.ActionException;
-import chatbot.io.InputParser;
-import chatbot.io.ui.Printer;
+import chatbot.parse.InputParser;
+import chatbot.ui.Printer;
 import chatbot.storage.LocalStorage;
 import chatbot.task.TaskList;
 

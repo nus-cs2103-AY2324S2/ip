@@ -43,9 +43,9 @@ public final class ExpectedArgument extends Argument {
      */
     public void validateArgument(Command command, Argument suppliedArgument) throws ActionException {
         if (hasSameArgumentName(suppliedArgument)) {
-            if (value != null && suppliedArgument.value == null) {
+            if (getValue() != null && suppliedArgument.getValue() == null) {
                 throw new MissingArgumentValueException(command, this);
-            } else if (value == null && suppliedArgument.value != null) {
+            } else if (getValue() == null && suppliedArgument.getValue() != null) {
                 throw new UnexpectedArgumentValueException(command, suppliedArgument);
             }
         }

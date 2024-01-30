@@ -7,7 +7,7 @@ import chatbot.action.util.Command;
  *
  * @author Titus Chew
  */
-public class InvalidArgumentValueException extends ActionException {
+public final class InvalidArgumentValueException extends ActionException {
     private final Command command;
     private final String invalidArg, reason;
 
@@ -22,6 +22,10 @@ public class InvalidArgumentValueException extends ActionException {
         this.invalidArg = invalidArg;
         this.reason = reason;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return "OOPS!!! The argument value <" + invalidArg + "> of `" + command.getName() + "` is invalid!\n"

@@ -1,5 +1,7 @@
 package chatbot.task;
 
+import chatbot.task.exception.InvalidTaskStringException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +30,8 @@ public abstract class Task {
     /**
      * The regex pattern that a {@link Task} takes.
      */
-    private static final String REGEX_PATTERN = "\\[(?<status>.)\\](?<name>.*)";
+    private static final Pattern REGEX_PATTERN = Pattern.compile(
+            "\\[(?<status>.)\\](?<name>.*)");
 
     /**
      * The text icon to indicate that a task is completed.
@@ -48,37 +51,17 @@ public abstract class Task {
      * Constructor for this task.
      *
      * @param matcher the matcher that has the relevant captured groups
-     * @throws IllegalStateException If the regex doesn't match the pattern
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public Task(Matcher matcher) throws IllegalStateException {
-        matcher = Pattern
-                .compile(REGEX_PATTERN)
-                .matcher(matcher.group("task"));
+    public Task(Matcher matcher) throws InvalidTaskStringException {
+        matcher = REGEX_PATTERN.matcher(matcher.group("task"));
 
-        matcher.find();
-        this.isCompleted = isStatusIconCompleted(matcher.group("status"));
-        this.name = matcher.group("name").trim();
-    }
-
-    /**
-     * Parse a task from a human-readable string.
-     *
-     * @param readableString the task as a human-readable string
-     * @return the task
-     * @throws IllegalStateException If the regex doesn't match the pattern
-     */
-    static Task parseTask(String readableString) throws IllegalStateException {
-        // determine the type of chatbot.task
-        String taskType = readableString.substring(1, 2);
-        if (taskType.equals(Deadline.TASK_TYPE_ICON)) {
-            return Deadline.parseDeadline(readableString);
-        } else if (taskType.equals(Event.TASK_TYPE_ICON)) {
-            return Event.parseEvent(readableString);
-        } else if (taskType.equals(ToDo.TASK_TYPE_ICON)) {
-            return ToDo.parseToDo(readableString);
+        if (matcher.find()) {
+            this.isCompleted = isStatusIconCompleted(matcher.group("status"));
+            this.name = matcher.group("name").trim();
+        } else {
+            throw new InvalidTaskStringException();
         }
-
-        throw new IllegalStateException("The string doesn't match any task type!");
     }
 
     /**

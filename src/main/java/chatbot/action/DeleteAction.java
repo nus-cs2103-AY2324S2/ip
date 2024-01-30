@@ -4,14 +4,25 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.exception.InvalidArgumentValueException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
-import chatbot.io.ui.Printer;
+import chatbot.action.util.ExpectedArgument;
+import chatbot.ui.Printer;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
+import chatbot.task.exception.OutOfBoundsException;
+import chatbot.value.IntegerStringValue;
+import chatbot.value.exception.InvalidValueTypeException;
 
 /**
- * DeleteAction encapsulates behaviour of deleting a task from the task list.
+ * This encapsulates behaviour of deleting a {@link Task} from the {@link TaskList}.
  */
-public class DeleteAction extends Action {
+public final class DeleteAction extends Action {
+    /**
+     * The command for deleting a {@link Task}.
+     */
+    private static final Command COMMAND = new Command(
+            new ExpectedArgument("delete", "index")
+    );
+
     /**
      * Constructor for this delete action.
      *
@@ -19,7 +30,7 @@ public class DeleteAction extends Action {
      * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
     public DeleteAction(Argument[] arguments) throws ActionException {
-        super(Command.DELETE, arguments);
+        super(COMMAND, arguments);
     }
 
     /**
@@ -30,42 +41,42 @@ public class DeleteAction extends Action {
      */
     @Override
     public void execute(TaskList taskList) throws InvalidArgumentValueException {
-        String indexString = findDefaultArgument();
-
         // Validate indexString as an integer
         int index;
         try {
-            index = Integer.parseInt(indexString) - 1;
-        } catch (NumberFormatException e) {
+            index = IntegerStringValue
+                    .of(findDefaultArgument())
+                    .tryGetIntegerValue();
+        } catch (InvalidValueTypeException e) {
             throw new InvalidArgumentValueException(
                     getCommand(),
                     "index",
-                    "<index> is not an integer."
-            );
-        }
-
-        if (taskList.isEmpty()) {
-            throw new InvalidArgumentValueException(
-                    getCommand(),
-                    "index",
-                    "<index> is out of range as there are no tasks in your list."
-            );
-        }
-
-        // Validate that indexString is in the range
-        if (!taskList.isValidIndex(index)) {
-            throw new InvalidArgumentValueException(
-                    getCommand(),
-                    "index",
-                    "<index> is out of range. <index> must be between 1 and " + taskList.size() + "."
+                    e.getMessage()
             );
         }
 
         // Perform behaviour
-        Task task = taskList.deleteTask(index);
+        Task task;
+        try {
+            task = taskList.deleteTask(index - 1);
+        } catch (OutOfBoundsException e) {
+            throw new InvalidArgumentValueException(
+                    getCommand(),
+                    "index",
+                    e.getMessage()
+            );
+        }
+
         Printer.printMessages(
                 "Noted. I've removed this task:",
                 "    " + task
         );
+    }
+
+    /**
+     * Gets the name of the {@link Command}.
+     */
+    public static String getName() {
+        return COMMAND.getName();
     }
 }

@@ -1,5 +1,7 @@
 package chatbot.task;
 
+import chatbot.task.exception.InvalidTaskStringException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,11 +10,11 @@ import java.util.regex.Pattern;
  *
  * @author Titus Chew
  */
-public class ToDo extends Task {
+public final class ToDo extends Task {
     /**
      * The icon for the task type.
      */
-    static final String TASK_TYPE_ICON = "T";
+    private static final String TASK_TYPE_ICON = "T";
 
     /**
      * The format that a {@link ToDo} takes.
@@ -22,8 +24,8 @@ public class ToDo extends Task {
     /**
      * The regex pattern that a {@link Deadline} takes.
      */
-    private static final String REGEX_PATTERN =
-            String.format("\\[%s\\](?<task>.*)", TASK_TYPE_ICON);
+    private static final Pattern REGEX_PATTERN = Pattern.compile(
+            String.format("\\[%s\\](?<task>.*)", TASK_TYPE_ICON));
 
     /**
      * Constructor for this to-do.
@@ -38,9 +40,9 @@ public class ToDo extends Task {
      * Constructor for this to-do.
      *
      * @param matcher the matcher that has the relevant captured groups
-     * @throws IllegalStateException If the regex doesn't match the pattern
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public ToDo(Matcher matcher) throws IllegalStateException {
+    public ToDo(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
     }
 
@@ -49,14 +51,26 @@ public class ToDo extends Task {
      *
      * @param readableString the to-do as a human-readable string
      * @return the to-do
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public static ToDo parseToDo(String readableString) {
-        Matcher matcher = Pattern
-                .compile(REGEX_PATTERN)
-                .matcher(readableString);
+    public static ToDo parseToDo(String readableString) throws InvalidTaskStringException {
+        Matcher matcher = REGEX_PATTERN.matcher(readableString);
 
-        matcher.find();
-        return new ToDo(matcher);
+        if (matcher.find()) {
+            return new ToDo(matcher);
+        } else {
+            throw new InvalidTaskStringException();
+        }
+    }
+
+    /**
+     * Checks if the format of a string matches with the pattern.
+     *
+     * @param matchingString the string
+     * @return true if it matches, otherwise false.
+     */
+    public static boolean matchesToDo(String matchingString) {
+        return REGEX_PATTERN.matcher(matchingString).find();
     }
 
     /**

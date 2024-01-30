@@ -1,16 +1,18 @@
 package chatbot.storage;
 
-import chatbot.io.ui.Printer;
+import chatbot.parse.TaskParser;
+import chatbot.ui.Printer;
 import chatbot.task.TaskList;
 import chatbot.task.Deadline;
+import chatbot.task.exception.InvalidTaskStringException;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 /**
  * This saves the {@link TaskList} into local storage in the directory {@value RELATIVE_PATH}
@@ -29,7 +31,7 @@ import java.util.stream.Stream;
  *
  * @author Titus Chew
  */
-public class LocalStorage {
+public final class LocalStorage {
     /**
      * The relative path from the project root where the save file is stored.
      */
@@ -100,13 +102,16 @@ public class LocalStorage {
     private static TaskList readSaveFile() {
         TaskList taskList =  new TaskList();
         Path path = Paths.get(RELATIVE_PATH, SAVE_FILE_NAME);
-        try (Stream<String> lines = Files.lines(path)) {
-            lines.forEach(line -> taskList.add(TaskList.parseTaskListItem(line)));
+        try (BufferedReader br = Files.newBufferedReader(path)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                taskList.add(TaskParser.parseTaskListItem(line));
+            }
             Printer.addToPrintQueue("I have found and loaded a previous save file successfully!");
             return taskList;
         } catch (IOException e) {
             Printer.addToPrintQueue("I cannot read the save file! Invalid file format!");
-        } catch (IllegalStateException e) {
+        } catch (InvalidTaskStringException e) {
             Printer.addToPrintQueue("I cannot understand the save file! Invalid task format!");
         }
         return new TaskList();

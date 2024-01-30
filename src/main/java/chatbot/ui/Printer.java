@@ -1,4 +1,4 @@
-package chatbot.io.ui;
+package chatbot.ui;
 
 import java.util.*;
 
@@ -7,7 +7,7 @@ import java.util.*;
  *
  * @author Titus Chew
  */
-public class Printer {
+public final class Printer {
     /**
      * The indentation size.
      */

@@ -1,5 +1,6 @@
 package chatbot.task;
 
+import chatbot.task.exception.InvalidTaskStringException;
 import chatbot.value.DateStringValue;
 
 import java.util.regex.Matcher;
@@ -10,7 +11,7 @@ import java.util.regex.Pattern;
  *
  * @author Titus Chew
  */
-public class Event extends Task {
+public final class Event extends Task {
     /**
      * Stores the start time of this.
      */
@@ -23,7 +24,7 @@ public class Event extends Task {
     /**
      * The icon for the task type.
      */
-    static final String TASK_TYPE_ICON = "E";
+    private static final String TASK_TYPE_ICON = "E";
 
     /**
      * The format/pattern that an {@link Event} takes.
@@ -33,8 +34,8 @@ public class Event extends Task {
     /**
      * The regex pattern that a {@link Deadline} takes.
      */
-    private static final String REGEX_PATTERN =
-            String.format("\\[%s\\](?<task>.*)\\(from:(?<from>.*)to:(?<to>.*)\\)", TASK_TYPE_ICON);
+    private static final Pattern REGEX_PATTERN = Pattern.compile(
+            String.format("\\[%s\\](?<task>.*)\\(from:(?<from>.*)to:(?<to>.*)\\)", TASK_TYPE_ICON));
 
     /**
      * Constructor for this event.
@@ -43,19 +44,19 @@ public class Event extends Task {
      * @param startDateTime the starting date/time of this event
      * @param endDateTime the ending date/time of this event
      */
-    public Event(String name, String startDateTime, String endDateTime) {
+    public Event(String name, DateStringValue startDateTime, DateStringValue endDateTime) {
         super(name);
-        this.startDateTime = new DateStringValue(startDateTime);
-        this.endDateTime = new DateStringValue(endDateTime);
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     /**
      * Constructor for this event.
      *
      * @param matcher the matcher that has the relevant captured groups
-     * @throws IllegalStateException If the regex doesn't match the pattern
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public Event(Matcher matcher) throws IllegalStateException {
+    public Event(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
         this.startDateTime = new DateStringValue(matcher.group("from"));
         this.endDateTime = new DateStringValue(matcher.group("to"));
@@ -66,14 +67,26 @@ public class Event extends Task {
      *
      * @param readableString the event as a human-readable string
      * @return the event
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public static Event parseEvent(String readableString) {
-        Matcher matcher = Pattern
-                .compile(REGEX_PATTERN)
-                .matcher(readableString);
+    public static Event parseEvent(String readableString) throws InvalidTaskStringException {
+        Matcher matcher = REGEX_PATTERN.matcher(readableString);
 
-        matcher.find();
-        return new Event(matcher);
+        if (matcher.find()) {
+            return new Event(matcher);
+        } else {
+            throw new InvalidTaskStringException();
+        }
+    }
+
+    /**
+     * Checks if the format of a string matches with the pattern.
+     *
+     * @param matchingString the string
+     * @return true if it matches, otherwise false.
+     */
+    public static boolean matchesEvent(String matchingString) {
+        return REGEX_PATTERN.matcher(matchingString).find();
     }
 
     /**

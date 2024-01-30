@@ -1,4 +1,4 @@
-package chatbot.io;
+package chatbot.parse;
 
 import chatbot.action.Action;
 import chatbot.action.exception.ActionException;
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Titus Chew
  */
-public class InputParser {
+public final class InputParser {
     /**
      * Stores the scanner instance used to get the console input stream.
      */

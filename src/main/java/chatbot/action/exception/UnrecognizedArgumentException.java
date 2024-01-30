@@ -8,7 +8,7 @@ import chatbot.action.util.Command;
  *
  * @author Titus Chew
  */
-public class UnrecognizedArgumentException extends ActionException {
+public final class UnrecognizedArgumentException extends ActionException {
     private final Argument argument;
     private final Command command;
 
@@ -22,6 +22,10 @@ public class UnrecognizedArgumentException extends ActionException {
         this.argument = argument;
         this.command = command;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return "OOPS!!! I'm sorry, but I don't know what `/" + argument.getName() + "` means :-(\n"
