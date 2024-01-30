@@ -1,4 +1,4 @@
-package TaskList;
+package tasklist;
 
 public class Task {
     private String description;

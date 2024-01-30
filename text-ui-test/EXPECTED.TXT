@@ -3,13 +3,12 @@
 	 What can I do for you?
 	 ____________________________________________________________
 	 ____________________________________________________________
- 	 I have no idea what you are trying to tell me??? 😅
- 	 Please try again.
+	 I have no idea what you are trying to tell me??? 😅
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Got it. I've added this task:
-	 added: [T][ ] hello
-	 Now you have 1 task(s) in the list.
+	 [T][ ] hello
+	 Now you have 1 task(s) available!
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 1. [T][ ] hello
@@ -20,45 +19,76 @@
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Got it. I've added this task:
-	 added: [E][ ] party(from: Monday 2pm to: 4pm)
-	 Now you have 2 task(s) in the list.
+	 [E][ ] party all day every (from: Jan 01 2023 to: Mar 09 2024)
+	 Now you have 2 task(s) available!
 	 ____________________________________________________________
 	 ____________________________________________________________
-	  Nice! I've marked this task as not completed yet:
-	 [T][ ] hello
+	 1. [T][X] hello
+	 2. [E][ ] party all day every (from: Jan 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Got it. I've added this task:
-	 added: [D][ ] return book (by: Sunday)
-	 Now you have 3 task(s) in the list.
+	 [E][ ] party all day every (from: Feb 01 2023 to: Mar 09 2024)
+	 Now you have 3 task(s) available!
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 1. [T][X] hello
+	 2. [E][ ] party all day every (from: Jan 01 2023 to: Mar 09 2024)
+	 3. [E][ ] party all day every (from: Feb 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Nice! I've marked this task as uncompleted:
+	 [T][ ] hello
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Invalid date time format.
+	 Please enter in format yyyy-MM-dd
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 Nice! I've marked this task as done:
-	 [E][X] party(from: Monday 2pm to: 4pm)
+	 [E][X] party all day every (from: Jan 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
 	 ____________________________________________________________
 	 1. [T][ ] hello
-	 2. [E][X] party(from: Monday 2pm to: 4pm)
-	 3. [D][ ] return book (by: Sunday)
+	 2. [E][X] party all day every (from: Jan 01 2023 to: Mar 09 2024)
+	 3. [E][ ] party all day every (from: Feb 01 2023 to: Mar 09 2024)
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 You have a malformed input for your event command.
-	 It is likely that you are missing the event name	 Your command should be in this format: event project meeting /from Mon 2pm /to 4pm
+	 event: Adds an event.
+	 Example: event go for CS2103 tutorial /from yyyy-MM-dd /to yyyy-MM-dd
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 Please do not enter an invalid index. There are 3 task(s) currently.
+ 	 This is an invalid index
+	 There are 3 tasks available.
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 Please enter positive integers 1, 2, 3, ... etc only.
+	 Noted, I have removed this task:
+	  [T][ ] hello
+	 Now you have 2 task(s) in the list.
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 Please do not enter an invalid index. There are 3 task(s) currently.
+	 Please enter a integer that is 1 or larger.
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 1. [T][ ] hello
-	 2. [E][X] party(from: Monday 2pm to: 4pm)
-	 3. [D][ ] return book (by: Sunday)
+	 Please enter a integer that is 1 or larger.
 	 ____________________________________________________________
 	 ____________________________________________________________
-	 Please do not enter an invalid index. There are 3 task(s) currently.
+	 1. [E][X] party all day every (from: Jan 01 2023 to: Mar 09 2024)
+	 2. [E][ ] party all day every (from: Feb 01 2023 to: Mar 09 2024)
+	 ____________________________________________________________
+	 ____________________________________________________________
+ 	 This is an invalid index
+	 There are 2 tasks available.
+
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Please enter a integer that is 1 or larger.
+	 ____________________________________________________________
+	 ____________________________________________________________
+ 	 This is an invalid index
+	 There are 2 tasks available.
+
+	 ____________________________________________________________
+	 ____________________________________________________________
+	 Please enter a integer that is 1 or larger.
 	 ____________________________________________________________

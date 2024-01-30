@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+rm -rf database.txt
+
+
 # create bin directory if it doesn't exist
 if [ ! -d "../bin" ]
 then
@@ -18,6 +21,7 @@ then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
+
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin Duke < input.txt > ACTUAL.TXT

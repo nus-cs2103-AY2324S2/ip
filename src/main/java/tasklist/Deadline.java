@@ -1,18 +1,15 @@
-package TaskList;
+package tasklist;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import CustomExceptions.MalformedUserInputException;
-import Parser.DateTimeParser;
+import exception.MalformedUserInputException;
+import common.DateTimeHandler;
 
 public class Deadline extends Task {
 
-    private DateTimeParser by;
+    private DateTimeHandler by;
 
     public Deadline(String description, String by, boolean isDone) throws MalformedUserInputException {
         super(description, isDone);
-        this.by = new DateTimeParser(by);
+        this.by = new DateTimeHandler(by);
     }
 
     @Override

@@ -1,14 +1,13 @@
-import CustomExceptions.MalformedUserInputException;
-import CustomExceptions.NoTaskCreatedYetException;
-import CustomExceptions.TooManyTasksException;
-import TaskList.Deadline;
-import TaskList.Event;
-import TaskList.Task;
-import TaskList.Todo;
+package common;
+
+import exception.MalformedUserInputException;
+import tasklist.Deadline;
+import tasklist.Event;
+import tasklist.Task;
+import tasklist.Todo;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class DataStorage {
     private ArrayList<Task> tasksList;
@@ -27,10 +26,10 @@ public class DataStorage {
         try {
 
             if (this.file.createNewFile()) {
-                System.out.println("\t The database has not been created. A new database has been created at the following location: " + this.file.getAbsolutePath());
+//                System.out.println("\t The database has not been created. A new database has been created at the following location: " + this.file.getAbsolutePath());
             } else {
                 // This means that the file already exists here.
-                System.out.println("\t Using the existing database located at: " + this.file.getAbsolutePath());
+//                System.out.println("\t Using the existing database located at: " + this.file.getAbsolutePath());
                 this.tasksList = readFromDatabaseIfAlreadyCreated();
             }
 
@@ -50,14 +49,10 @@ public class DataStorage {
         }
     }
 
-    public void addTask(Task task) throws TooManyTasksException {
-        if (taskCount >= maxTask) {
-            throw new TooManyTasksException();
-        } else {
+    public void addTask(Task task) {
             this.tasksList.add(task);
             addTaskToFile(task.toStorageString(), true);
             this.taskCount++;
-        }
     }
 
 
@@ -126,12 +121,12 @@ public class DataStorage {
     }
 
 
-    public void setTaskStatus(int taskIndex, boolean status) throws NoTaskCreatedYetException {
+    public void setTaskStatus(int taskIndex, boolean status) throws MalformedUserInputException {
         if (taskIndex < 0 || taskIndex > this.maxTask) {
             throw new IndexOutOfBoundsException();
         } else if (taskIndex >= taskCount) {
             // It is a valid index, but there is no task there yet.
-            throw new NoTaskCreatedYetException();
+            throw new MalformedUserInputException("\t The task has not been created yet.");
         } else {
             this.tasksList.get(taskIndex).setDone(status);
             // We rebuild the dataStorage again
@@ -153,12 +148,12 @@ public class DataStorage {
     }
 
 
-    public void deleteTask(int indexToDelete) throws NoTaskCreatedYetException {
+    public void deleteTask(int indexToDelete) throws MalformedUserInputException {
         if (indexToDelete < 0 || indexToDelete > this.maxTask) {
             throw new IndexOutOfBoundsException();
         } else if (indexToDelete >= this.taskCount) {
             // It is a valid index, but there is no task there yet.
-            throw new NoTaskCreatedYetException();
+            throw new MalformedUserInputException("There are no task stored at the specified location.");
         } else {
             // If we reach here, it means that there is no problem.
             this.tasksList.remove(indexToDelete);
