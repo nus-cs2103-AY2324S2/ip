@@ -3,25 +3,25 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Storage {
+public class Storage implements Serializable {
     private String filePath;
     public Storage (String filePath) {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadList() throws IOException, ClassNotFoundException {
+    public TaskList loadList() throws IOException, ClassNotFoundException {
         FileInputStream fileIn = new FileInputStream(filePath);
         ObjectInputStream out = new ObjectInputStream(fileIn);
         @SuppressWarnings("unchecked")
-        ArrayList<Task> task = (ArrayList<Task>) out.readObject();
+        TaskList task = (TaskList) out.readObject();
         out.close();
         fileIn.close();
         return task;
     }
 
-    public void saveTasks(ArrayList<Task> taskList) {
+    public void saveTasks(TaskList taskList) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(taskList);
         } catch (IOException e) {

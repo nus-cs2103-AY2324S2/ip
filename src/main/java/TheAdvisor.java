@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.io.Serializable;
 
 public class TheAdvisor implements Serializable {
@@ -11,19 +10,26 @@ public class TheAdvisor implements Serializable {
 
     private Storage storage;
 
+    private TaskList taskList;
+
     public TheAdvisor() {
         this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);
+        this.taskList = new TaskList();
     }
+
     public void run() {
-        // An ArrayList that stores the tasks to be done
-        ArrayList<Task> taskList = new ArrayList<>();
         try {
             taskList = storage.loadList();
+            if (taskList == null) {
+                taskList = new TaskList();
+            }
         } catch (IOException err) {
             System.out.println("No list found, creating empty task list");
+            taskList = new TaskList();
         } catch (ClassNotFoundException err) {
             System.out.println("Class mismatch. Check and try again");
+            taskList = new TaskList();
         }
 
         ui.intro();
@@ -38,19 +44,18 @@ public class TheAdvisor implements Serializable {
                         ui.goodbye();
                         break;
                     case LIST:
-                        ui.printList(taskList);
+                        try {
+                            ui.printList(taskList);
+                        } catch (NullPointerException e) {
+                            throw new TheAdvisorException("The task list is empty! Input in some tasks first!");
+                        }
                         break;
                     case MARK:
                         checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
                                 + "mark + (number) to mark something on the list as completed.");
                         // 1-based indexing on input
                         int markNumber = Integer.parseInt(strings[1]);
-                        checkIndex(markNumber, taskList.size());
-                        Task mark = taskList.get(markNumber - 1);
-                        checkMarked(mark);
-                        mark.markDone();
-                        System.out.println("     Nice! I've marked this task as done:\n" + "       " +
-                                mark.toString());
+                        taskList.markTask(markNumber - 1);
                         storage.saveTasks(taskList);
                         break;
                     case UNMARK:
@@ -58,12 +63,7 @@ public class TheAdvisor implements Serializable {
                                 + "unmark + (number) to unmark something on the list.");
                         // 1-based indexing on input
                         int unmarkNumber = Integer.parseInt(strings[1]);
-                        checkIndex(unmarkNumber, taskList.size());
-                        Task unmarked = taskList.get(unmarkNumber - 1);
-                        checkUnmarked(unmarked);
-                        unmarked.unmark();
-                        System.out.println("     OK, I've marked this task as not done yet:\n" + "       " +
-                                unmarked.toString());
+                        taskList.unmarkTask(unmarkNumber - 1);
                         storage.saveTasks(taskList);
                         break;
                     case DELETE:
@@ -71,11 +71,7 @@ public class TheAdvisor implements Serializable {
                                 + "delete + (number) to delete something from the list.");
                         // 1-based indexing on input
                         int deleteNumber = Integer.parseInt(strings[1]);
-                        checkIndex(deleteNumber, taskList.size());
-                        Task deleted = taskList.get(deleteNumber - 1);
-                        taskList.remove(deleteNumber - 1);
-                        System.out.println("     Noted. I've removed this task:\n" + "       " +
-                                deleted.toString() + "\n" + "     Now you have " + taskList.size() + " tasks in the list.");
+                        taskList.deleteFromList(deleteNumber - 1);
                         storage.saveTasks(taskList);
                         break;
                     case TODO:
@@ -83,11 +79,7 @@ public class TheAdvisor implements Serializable {
                         checkEmptyDescription(todo, "The description for todo cannot be empty. " +
                                 "The input should be <todo> + description");
                         ToDos toDos = new ToDos(todo);
-                        taskList.add(toDos);
-                        System.out.println("     Got it. I've added this task:\n" +
-                                "       " + toDos.toString() + "\n" +
-                                "     Now you have " + taskList.size() +
-                                " tasks in the list.");
+                        taskList.addToList(toDos);
                         storage.saveTasks(taskList);
                         break;
                     case DEADLINE:
@@ -99,11 +91,7 @@ public class TheAdvisor implements Serializable {
                                 "Please use the correct format: deadline + description + /by + <YYYY-MM-DD HHmm>");
                         try {
                             Deadline deadline = new Deadline(arrTask[0], LocalDateTime.parse(arrTask[1], Task.inputFormat));
-                            taskList.add(deadline);
-                            System.out.println("     Got it. I've added this task:\n" +
-                                    "       " + deadline.toString() + "\n" +
-                                    "     Now you have " + taskList.size() +
-                                    " tasks in the list.");
+                            taskList.addToList(deadline);
                             storage.saveTasks(taskList);
                         } catch (DateTimeException e) {
                             throw new TheAdvisorException("Incorrect format of your timestamp! " +
@@ -126,11 +114,7 @@ public class TheAdvisor implements Serializable {
                             LocalDateTime start = LocalDateTime.parse(startStr, Task.inputFormat);
                             LocalDateTime end = LocalDateTime.parse(endStr, Task.inputFormat);
                             Events events = new Events(eventArr[0], start, end);
-                            taskList.add(events);
-                            System.out.println("     Got it. I've added this task:\n" +
-                                    "       " + events.toString() + "\n" +
-                                    "     Now you have " + taskList.size() +
-                                    " tasks in the list.");
+                            taskList.addToList(events);
                             storage.saveTasks(taskList);
                         } catch (DateTimeException e) {
                             throw new TheAdvisorException("Incorrect format of your timestamp! " +
@@ -150,31 +134,9 @@ public class TheAdvisor implements Serializable {
 
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         TheAdvisor advisor = new TheAdvisor();
         advisor.run();
-    }
-
-    private static void checkIndex(int index, int size) throws TheAdvisorException {
-        if (index <= 0) {
-            throw new TheAdvisorException("We use 1-indexing for marking. Please try again.");
-        } else if (index > size) {
-            throw new TheAdvisorException("Out of bounds. We use 1-indexing for marking. Please try again.");
-        } else if (size == 0) {
-            throw new TheAdvisorException("The list is empty! Start adding in things :)");
-        }
-    }
-
-    private static void checkMarked(Task task) throws TheAdvisorException {
-        if (task.isDone) {
-            throw new TheAdvisorException("The task is already marked! Carry on.");
-        }
-    }
-
-    private static void checkUnmarked(Task task) throws TheAdvisorException {
-        if (!task.isDone) {
-            throw new TheAdvisorException("The task is already unmarked! Carry on.");
-        }
     }
 
     private static void checkEmptyDescription(String description, String errorMessage) throws TheAdvisorException {
@@ -187,9 +149,5 @@ public class TheAdvisor implements Serializable {
         if (array.length != expectedLength) {
             throw new TheAdvisorException(errorMessage);
         }
-    }
-
-    private static void checkDateTimeInput(String errorMessage) throws TheAdvisorException {
-        throw new TheAdvisorException(errorMessage);
     }
 }

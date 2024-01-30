@@ -21,14 +21,15 @@ public class Ui {
         return br.readLine();
     }
 
-    public void printList(ArrayList<Task> taskList) {
+    public void printList(TaskList taskList) {
+        ArrayList<Task> tasks = taskList.getTaskList();
         int counter = 1;
-        if (taskList.size() == 0) {
+        if (tasks.size() == 0) {
             System.out.println("     Sorry, there are no tasks in your list. Start adding them :)");
         } else {
             System.out.println("     Here are the tasks in your list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                System.out.println("     " + counter + ". " + taskList.get(i).toString());
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("     " + counter + ". " + taskList.getTask(i).toString());
                 counter++;
             }
         }
