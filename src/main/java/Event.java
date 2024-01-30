@@ -15,4 +15,9 @@ public class Event extends Task {
                 super.describe(), this.from, this.to
         );
     }
+
+    @Override
+    public String toStorageString() {
+        return String.format("%s,%s,%s", super.toStorageString(), this.from, this.to);
+    }
 }
