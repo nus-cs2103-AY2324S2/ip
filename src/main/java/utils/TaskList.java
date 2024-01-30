@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package utils;
 
 import java.util.ArrayList;
@@ -74,6 +73,23 @@ public class TaskList {
             throw new ConvoBotException("Invalid input. You must specify a valid index.");
         }
         return taskList.get(i).toString();
+    }
+
+    /**
+     * Retrieves the description of the task at the specified index in the task list.
+     *
+     * @param i The index of the task to retrieve. It should be a non-negative integer
+     *          and less than the size of the task list.
+     * @return The description of the task at the specified index.
+     * @throws ConvoBotException If the index is less than 0 or greater than or equal to
+     *                           the size of the task list, an exception is thrown with
+     *                           the message "Invalid input. You must specify a valid index."
+     */
+    public String getTaskDescription(int i) throws ConvoBotException {
+        if (i < 0 || i >= taskList.size()) {
+            throw new ConvoBotException("Invalid input. You must specify a valid index.");
+        }
+        return taskList.get(i).getDescription();
     }
 
     /**

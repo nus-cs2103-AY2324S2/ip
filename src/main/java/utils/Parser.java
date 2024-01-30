@@ -2,12 +2,14 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import commands.Add;
 import commands.Bye;
 import commands.Command;
 import commands.CommandType;
 import commands.Delete;
+import commands.Find;
 import commands.List;
 import commands.Mark;
 import commands.Unmark;
@@ -40,8 +42,10 @@ public class Parser {
         try {
             commandType = CommandType.valueOf(inputList.get(0).toUpperCase());
         } catch (IllegalArgumentException e) {
-            String msg = "Invalid input. Input must be one of: bye, list, mark, unmark, delete, todo, deadline, event.";
-            throw new ConvoBotException(msg);
+            String strs = Arrays.stream(CommandType.values())
+                                .map(Enum::name)
+                                .collect(Collectors.joining(", "));
+            throw new ConvoBotException("Invalid input. Input must be one of: " + strs + ".");
         }
 
         Command command = null;
@@ -132,6 +136,14 @@ public class Parser {
             String from = String.join(" ", inputList.subList(j + 1, k));
             String to = String.join(" ", inputList.subList(k + 1, inputList.size()));
             command = new Add(new Event(description, DateTime.stringToDate(from), DateTime.stringToDate(to)));
+            break;
+
+        case FIND:
+            if (inputList.size() < 2) {
+                throw new ConvoBotException("Invalid input. Wrong number of arguments.");
+            }
+            String query = String.join(" ", inputList.subList(1, inputList.size()));
+            command = new Find(query);
             break;
 
         default:

@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import exceptions.ConvoBotException;
@@ -74,6 +75,23 @@ public class UI {
             } catch (ConvoBotException e) {
                 // impossible to reach here
             }
+        }
+    }
+
+    /**
+     * Displays the matching tasks from the provided ArrayList of tasks.
+     * Each task is printed with its corresponding index in the list.
+     *
+     * @param tasks An ArrayList of Strings containing the task strings to be displayed.
+     *
+     * @throws NullPointerException If the tasks ArrayList is null.
+     */
+    public void showMatchingTasks(ArrayList<String> tasks) {
+        System.out.println(LEFT_PADDING + " " + "Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            int index = i + 1;
+            System.out.println(LEFT_PADDING + " " + Integer.toString(index)
+                    + "." + tasks.get(i));
         }
     }
 

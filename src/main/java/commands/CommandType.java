@@ -43,5 +43,10 @@ public enum CommandType {
     /**
      * Command type to add an event task.
      */
-    EVENT
+    EVENT,
+
+    /**
+     * Command type to find matching tasks.
+     */
+    FIND
 }
