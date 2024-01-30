@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.exception.ChatBotParameterException;
 import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -65,7 +66,7 @@ public class Storage {
                     break;
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | ChatBotParameterException e) {
             throw new RuntimeException(e);
         }
     }

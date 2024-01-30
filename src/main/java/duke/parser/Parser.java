@@ -80,11 +80,15 @@ public class Parser {
         return parametersArr;
     }
 
-    public static LocalDateTime parseDateTime(String dateTime) {
+    public static LocalDateTime parseDateTime(String dateTime) throws ChatBotParameterException {
         try {
             return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("d/M/yyyy Hmm"));
         } catch (DateTimeParseException e) {
-            return LocalDateTime.parse(dateTime);
+            try {
+                return LocalDateTime.parse(dateTime);
+            } catch (DateTimeParseException e1) {
+                throw new ChatBotParameterException("Invalid Date Time format, try d/M/yyy Hmm");
+            }
         }
     }
 

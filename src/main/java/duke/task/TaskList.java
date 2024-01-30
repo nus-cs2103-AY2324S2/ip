@@ -42,7 +42,7 @@ public class TaskList implements Iterable<Task> {
     }
 
 
-    public Task addDeadline(String description, String by, boolean isDone) {
+    public Task addDeadline(String description, String by, boolean isDone) throws ChatBotParameterException {
         LocalDateTime byDateTime = Parser.parseDateTime(by);
         Deadline deadline = new Deadline(description, byDateTime, isDone);
         this.addTask(deadline);
