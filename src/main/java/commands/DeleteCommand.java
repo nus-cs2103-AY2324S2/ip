@@ -10,11 +10,11 @@ public class DeleteCommand extends Command {
             + "\t Example: " + COMMAND_WORD
             + " 1 ";
 
-    public static final String MESSAGE_SUCCESS = "\t Noted I have removed this task: \n" +
-            "\t  %s \n" +
+    public static final String MESSAGE_SUCCESS = "\t Noted, I have removed this task:\n" +
+            "\t  %s\n" +
             "\t Now you have %d task(s) in the list.";
     public static final String MESSAGE_INVALID_ID = "\t Please enter a integer that is 1 or larger.";
-    public static final String MESSAGE_TASK_NOT_CREATED_YET = " \t This is an invalid index \n" +
+    public static final String MESSAGE_TASK_NOT_CREATED_YET = " \t This is an invalid index\n" +
             "\t There are %d tasks available.\n";
 
     private int targetIndex;

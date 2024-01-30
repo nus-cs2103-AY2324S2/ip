@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-rm -rf /Users/chuajerome/IdeaProjects/ip-reclone/database.txt
+rm -rf database.txt
 
 
 # create bin directory if it doesn't exist

@@ -10,11 +10,11 @@ import static common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
 
-    public static final String MESSAGE_USAGE = "\t " + COMMAND_WORD + ": Adds an event. \n"
+    public static final String MESSAGE_USAGE = "\t " + COMMAND_WORD + ": Adds an event.\n"
             + "\t Example: " + COMMAND_WORD
             + " go for CS2103 tutorial /from " + DATE_INPUT_FORMAT_STRING + " /to " + DATE_INPUT_FORMAT_STRING;
 
-    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task: \n" +
+    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task:\n" +
             "\t %s\n" +
             "\t Now you have %d task(s) available!";
 

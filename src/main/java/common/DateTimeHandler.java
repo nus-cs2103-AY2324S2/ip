@@ -28,7 +28,7 @@ public class DateTimeHandler {
             localDate = LocalDate.parse(dateTime, DATE_INPUT_FORMAT);
 
         } catch (DateTimeException dateTimeException) {
-            throw new MalformedUserInputException("\t Invalid date time format. \n" +
+            throw new MalformedUserInputException("\t Invalid date time format.\n" +
                     "\t Please enter in format " + DATE_INPUT_FORMAT_STRING);
         }
     }

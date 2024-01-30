@@ -9,7 +9,7 @@ public class TodoCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " boil coconut milk";
 
-    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task: \n" +
+    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task:\n" +
             "\t %s\n" +
             "\t Now you have %d task(s) available!";
 
