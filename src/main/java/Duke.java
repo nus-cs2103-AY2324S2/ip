@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -7,13 +11,27 @@ public class Duke {
     // Just for convenience of copy paste.
     // System.out.println(indentedLine);
 
-    static ArrayList<Task> inputList = new ArrayList<>();
+    private static final String FILE_DIR = "./data";
+
+    private static final String FILE_PATH = "./data/taskList.txt";
 
     public enum Command {
-        BYE, LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
+        BYE, LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
+
+        public static Command getCategory(String input) {
+            try {
+                return Command.valueOf(input.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                return UNKNOWN;
+            }
+        }
     }
 
-    public static void main(String[] args) {
+    private static ArrayList<Task> list;
+
+    public static void main(String[] args) throws DukeException, IOException {
+
+        list = loadTasksFile();
 
         // Print out greeting message
         System.out.println(indentedLine);
@@ -24,7 +42,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            Command category = getCommand(sc.next());
+            Command category = Command.getCategory(sc.next());
             switch (category) {
                 case BYE:
                     System.out.println(indentedLine);
@@ -35,86 +53,137 @@ public class Duke {
                 case LIST:
                     System.out.println(indentedLine);
                     System.out.println(indentation + "Here are the tasks in your list:");
-                    for (int i = 0; i < inputList.size(); i++) {
-                        Task currTask = inputList.get(i);
+                    for (int i = 0; i < list.size(); i++) {
+                        Task currTask = list.get(i);
                         System.out.println(indentation + (i + 1) + "." + currTask.toString());
                     }
                     System.out.println(indentedLine);
                     break;
                 default:
-                    addTask(inputList, category, sc);
+                    addTask(list, category, sc);
             }
         }
     }
 
-    public static Command getCommand(String input) {
+    private static ArrayList<Task> loadTasksFile() throws DukeException {
+        File directory = new File(FILE_DIR);
+        File file = new File(FILE_PATH);
         try {
-            return Command.valueOf(input.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return Command.UNKNOWN;
+            if (!directory.isDirectory()) {
+                directory.mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            ArrayList<Task> inputList = new ArrayList<>();
+            Scanner fileSc = new Scanner(file);
+            while (fileSc.hasNext()) {
+                String task = fileSc.nextLine();
+                String[] argument = task.split(" \\| ");
+                String category = argument[0];
+                String status = argument[1];
+                String description = argument[2];
+
+                switch (category) {
+                case "T":
+                    inputList.add(new ToDo(status, description));
+                    break;
+                case "D":
+                    String by = argument[3];
+                    inputList.add(new Deadline(status, description, by));
+                    break;
+                case "E":
+                    String[] duration = argument[3].split(" - ");
+                    String start = duration[0];
+                    String end = duration[1];
+                    inputList.add(new Event(status, description, start, end));
+                    break;
+                default:
+                    break;
+                }
+            }
+            fileSc.close();
+            return inputList;
+        } catch (FileNotFoundException e) {
+            throw new DukeException(indentation + e.getMessage());
         }
     }
 
-    public static void addTask(ArrayList<Task> inputList, Command category, Scanner sc) {
+    private static void saveTasksFile() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        StringBuilder msg = new StringBuilder();
+        for (Task task : list) {
+            msg.append(task.toFile()).append("\n");
+        }
+        fw.write(msg.toString());
+        fw.close();
+    }
+
+    public static void addTask(ArrayList<Task> taskList, Command category, Scanner sc) throws IOException {
         switch (category) {
             case UNMARK:
-                if (sc.hasNextInt()) {
-                    int taskId = sc.nextInt();
-                    inputList.get(taskId - 1).markNotDone();
-                    System.out.println(indentedLine);
-                    System.out.println(indentation + "Ok, I've marked this task as not done yet:");
-                    System.out.println(indentation + inputList.get(taskId - 1).toString());
-                    System.out.println(indentedLine);
-                    break;
-                } else {
+                int unmarkId = sc.nextInt() - 1;
+                if (unmarkId < 0 || unmarkId >= list.size()) {
                     try {
                         System.out.println(indentedLine);
-                        throw new DukeException("Sorry, but which task do you want me to unmark?");
+                        throw new DukeException("Sorry, please select a valid task for me to unmark!");
                     } catch (DukeException e) {
                         System.out.println(indentation + e.getMessage());
                         System.out.println(indentedLine);
                     }
                 }
+                taskList.get(unmarkId).markNotDone();
+                System.out.println(indentedLine);
+                System.out.println(indentation + "Ok, I've marked this task as not done yet:");
+                System.out.println(indentation + taskList.get(unmarkId).toString());
+                System.out.println(indentedLine);
+                saveTasksFile();
                 break;
+
             case MARK:
-                if (sc.hasNextInt()) {
-                    int taskId = sc.nextInt();
-                    inputList.get(taskId - 1).markDone();
-                    System.out.println(indentedLine);
-                    System.out.println(indentation + "Nice! I've marked this task as done:");
-                    System.out.println(indentation + inputList.get(taskId - 1).toString());
-                    System.out.println(indentedLine);
-                    break;
-                } else {
+                int markId = sc.nextInt() - 1;
+                if (markId < 0 || markId >= list.size()) {
                     try {
                         System.out.println(indentedLine);
-                        throw new DukeException("Sorry, but which task do you want me to mark?");
+                        throw new DukeException("Sorry, please select a valid task for me to mark!");
                     } catch (DukeException e) {
                         System.out.println(indentation + e.getMessage());
                         System.out.println(indentedLine);
                         sc.next();
                     }
                 }
+                taskList.get(markId).markDone();
+                System.out.println(indentedLine);
+                System.out.println(indentation + "Nice! I've marked this task as done:");
+                System.out.println(indentation + taskList.get(markId).toString());
+                System.out.println(indentedLine);
+                saveTasksFile();
                 break;
+
             case DELETE:
-                if (sc.hasNextInt()) {
-                    int taskId = sc.nextInt();
-                    System.out.println(indentedLine);
-                    System.out.println(indentation + "Noted. I've removed this task:");
-                    System.out.println(indentation + inputList.get(taskId - 1).toString());
-                    inputList.remove(taskId - 1);
-                    System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
-                    System.out.println(indentedLine);
-                    break;
-                } else {
+                int deleteId = sc.nextInt() - 1;
+                if (deleteId < 0 || deleteId >= list.size()) {
                     try {
                         System.out.println(indentedLine);
-                        throw new DukeException("Sorry, but which task do you want me to delete?");
+                        throw new DukeException("Sorry, please select a valid task for me to delete!");
                     } catch (DukeException e) {
                         System.out.println(indentation + e.getMessage());
                         System.out.println(indentedLine);
                     }
                 }
+                System.out.println(indentedLine);
+                System.out.println(indentation + "Noted. I've removed this task:");
+                System.out.println(indentation + taskList.get(deleteId).toString());
+                taskList.remove(deleteId);
+                System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
+                System.out.println(indentedLine);
+                saveTasksFile();
+                break;
+
             case TODO:
                 String toDoDescription = sc.nextLine();
                 if (toDoDescription.isEmpty()) {
@@ -129,10 +198,11 @@ public class Duke {
                     }
                 }
                 ToDo toDo = new ToDo(toDoDescription);
-                inputList.add(toDo);
+                taskList.add(toDo);
                 System.out.println(indentation + toDo);
-                System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
+                System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(indentedLine);
+                saveTasksFile();
                 break;
             case DEADLINE:
                 String deadlineDescription = sc.nextLine();
@@ -149,10 +219,11 @@ public class Duke {
                 }
                 String[] deadlineArguments = deadlineDescription.split(" /by ");
                 Deadline deadline = new Deadline(deadlineArguments[0], deadlineArguments[1]);
-                inputList.add(deadline);
+                taskList.add(deadline);
                 System.out.println(indentation + deadline);
-                System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
+                System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(indentedLine);
+                saveTasksFile();
                 break;
             case EVENT:
                 String eventDescription = sc.nextLine();
@@ -170,10 +241,11 @@ public class Duke {
                 String[] eventArguments = eventDescription.split(" /from ");
                 String[] eventDuration = eventArguments[1].split(" /to ");
                 Event event = new Event(eventArguments[0], eventDuration[0], eventDuration[1]);
-                inputList.add(event);
+                taskList.add(event);
                 System.out.println(indentation + event);
-                System.out.println(indentation + "Now you have " + inputList.size() + " tasks in the list.");
+                System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(indentedLine);
+                saveTasksFile();
                 break;
             default:
                 try {
