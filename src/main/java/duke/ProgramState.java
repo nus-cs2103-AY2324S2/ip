@@ -15,6 +15,14 @@ public class ProgramState {
         state = newState;
     }
 
+    public void setNormal() {
+        state = State.NORMAL;
+    }
+
+    public boolean isNormal() {
+        return state == State.NORMAL;
+    }
+
     public void setExit() {
         state = State.EXIT;
     }
