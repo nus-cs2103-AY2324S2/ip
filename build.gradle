@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+}
+
+application {
+    mainClass.set("seedu.duke.Duke")
+}
+
+
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+}
