@@ -15,6 +15,10 @@ public class Deadline extends Task {
         return "[D]";
     }
 
+    public LocalDateTime getTime() {
+        return by;
+    }
+
     @Override
     public String toFileFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;

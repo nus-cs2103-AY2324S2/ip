@@ -13,7 +13,7 @@ public class TaskException extends Exception {
         return new TaskException("The format for the " + taskType + " task is incorrect. Please check and try again.");
     }
 
-    public static TaskException forUnknownCommand() {
+    public static TaskException forUnknownCommand() {   
         return new TaskException("Sorry, invalid command. Please try again.");
     }
 

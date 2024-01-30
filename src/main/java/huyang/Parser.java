@@ -6,6 +6,7 @@ public class Parser {
     }
 
     public CommandType parseCommand(String input) {
+        input = input.toLowerCase();
         if (input.equals("list")) {
             return CommandType.LIST;
         } else if (input.startsWith("mark ")) {

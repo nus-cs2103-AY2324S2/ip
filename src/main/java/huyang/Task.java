@@ -1,5 +1,7 @@
 package huyang;
 
+import java.time.LocalDateTime;
+
 public abstract class Task {
     protected String taskName;
     protected boolean isDone;
@@ -15,6 +17,14 @@ public abstract class Task {
 
     public void uncheck() {
         this.isDone = false;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public String getTaskName() {
+        return this.taskName;
     }
 
     public String getStatusIcon() {

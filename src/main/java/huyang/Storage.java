@@ -54,5 +54,4 @@ public class Storage {
             throw new TaskException("Unknown task type in file: " + type);
         }
     }
-
 }
