@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import drake.task.Task;
 
 public class Storage {
-    private String filePath;
+    private final String FILE_PATH;
 
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String FILE_PATH) {
+        this.FILE_PATH = FILE_PATH;
     }
 
     public void saveTasks(ArrayList<Task> tasks) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
             oos.writeObject(tasks);
         } catch (IOException e) {
             System.out.println("Error saving list!: " + e.getMessage());
@@ -21,7 +21,7 @@ public class Storage {
 
     @SuppressWarnings("unchecked")
     public ArrayList<Task> loadTasks() {
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
         if (file.exists()) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
                 return (ArrayList<Task>) ois.readObject();

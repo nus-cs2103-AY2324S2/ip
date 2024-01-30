@@ -6,12 +6,6 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    public static Command parseCommand(String input) {
-        String[] words = input.split(" ", 2);
-        String commandWord = words[0];
-        return Command.fromString(commandWord);
-    }
-
     public static int parseTaskIndex(String input) throws NumberFormatException {
         String[] words = input.split(" ", 2);
         if (words.length < 2) {

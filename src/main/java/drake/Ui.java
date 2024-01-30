@@ -72,6 +72,4 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
-
-    // ... Other UI methods ...
 }

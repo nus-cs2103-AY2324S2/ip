@@ -39,21 +39,21 @@ enum Command {
 }
 
 public class Drake {
-    private Ui ui;
-    private Storage storage;
-    private TaskList taskList;
+    private final Ui UI;
+    private final Storage STORAGE;
+    private final TaskList TASK_LIST;
     private boolean isRunning; 
 
     public Drake(String FILE_PATH) {
-        ui = new Ui();
-        storage = new Storage(FILE_PATH);
-        taskList = new TaskList(storage.loadTasks());
+        UI = new Ui();
+        STORAGE = new Storage(FILE_PATH);
+        TASK_LIST = new TaskList(STORAGE.loadTasks());
         isRunning = true;
     }
 
     public void run() throws Exception {
         Scanner scanner = new Scanner(System.in);
-        ui.showWelcome();
+        UI.showWelcome();
     
         while (isRunning) {
             String input = scanner.nextLine().trim();
@@ -65,54 +65,55 @@ public class Drake {
                 switch (command) {
                     case BYE:
                         isRunning = false;
-                        storage.saveTasks(taskList.getTasks());
-                        ui.showGoodbye();
+                        STORAGE.saveTasks(TASK_LIST.getTasks());
+                        UI.showGoodbye();
                         break;
                     case LIST:
-                        ui.showTaskList(taskList);
+                        UI.showTaskList(TASK_LIST);
                         break;
                     case MARK:
                         int markIndex = Parser.parseTaskIndex(input);
-                        taskList.markTask(markIndex);
-                        ui.showMarkTask(taskList.getTask(markIndex));
+                        TASK_LIST.markTask(markIndex);
+                        UI.showMarkTask(TASK_LIST.getTask(markIndex));
                         break;
                     case UNMARK:
                         int unmarkIndex = Parser.parseTaskIndex(input);
-                        taskList.unmarkTask(unmarkIndex);
-                        ui.showUnmarkTask(taskList.getTask(unmarkIndex));
+                        TASK_LIST.unmarkTask(unmarkIndex);
+                        UI.showUnmarkTask(TASK_LIST.getTask(unmarkIndex));
                         break;
                     case TODO:
                         String todoDescription = Parser.parseDescription(input);
                         Todo newTodo = new Todo(todoDescription);
-                        taskList.addTask(newTodo);
-                        ui.showAddTask(newTodo, taskList.size());
+                        TASK_LIST.addTask(newTodo);
+                        UI.showAddTask(newTodo, TASK_LIST.size());
                         break;
                     case DEADLINE:
                         try {
                             Object[] deadlineDetails = Parser.parseDeadline (input);
-                            Deadline newDeadline = new Deadline((String) deadlineDetails[0], (LocalDateTime) deadlineDetails[1]);
-                            taskList.addTask(newDeadline);
-                            ui.showAddTask(newDeadline, taskList.size());
+                            Deadline newDeadline = new Deadline((String) deadlineDetails[0],
+                                    (LocalDateTime) deadlineDetails[1]);
+                            TASK_LIST.addTask(newDeadline);
+                            UI.showAddTask(newDeadline, TASK_LIST.size());
                         } catch (DateTimeParseException e) {
-                            ui.showError("Oops, format error! Type in a date in the form yy-mm-dd and try again!");
+                            UI.showError("Oops, format error! Type in a date in the form yy-mm-dd and try again!");
                         }
                         break;
                     case EVENT:
                         String[] eventDetails = Parser.parseEvent(input);
                         Event newEvent = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
-                        taskList.addTask(newEvent);
-                        ui.showAddTask(newEvent, taskList.size());
+                        TASK_LIST.addTask(newEvent);
+                        UI.showAddTask(newEvent, TASK_LIST.size());
                         break;
                     case DELETE:
                         int deleteIndex = Parser.parseTaskIndex(input);
-                        Task deletedTask = taskList.deleteTask(deleteIndex);
-                        ui.showDeleteTask(deletedTask, taskList.size());
+                        Task deletedTask = TASK_LIST.deleteTask(deleteIndex);
+                        UI.showDeleteTask(deletedTask, TASK_LIST.size());
                         break;
                     case INVALID:
                         throw new NotValidCommand("That's not a valid command!");
                     }
             } catch (NotValidCommand | TodoLeftBlank e) {
-                ui.showError(e.getMessage());
+                UI.showError(e.getMessage());
             }
         }
         scanner.close();
