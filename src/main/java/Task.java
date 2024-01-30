@@ -34,19 +34,19 @@ public abstract class Task {
         Task t;
         
         sc.useDelimiter(",");
-//        if (!sc.hasNext()) {
-//            throw new DukeException("expected a type identifier, but none was given");
-//        }
+        if (!sc.hasNext()) {
+            throw new DukeException("expected a type identifier, but none was given");
+        }
         typeStr = sc.next();
 
-//        if (!sc.hasNext()) {
-//            throw new DukeException("expected a name, but none was given");
-//        }
+        if (!sc.hasNext()) {
+            throw new DukeException("expected a name, but none was given");
+        }
         nameStr = sc.next();
         
-//        if (!sc.hasNext()) {
-//            throw new DukeException("expected an done identifier, but none was given");
-//        }
+        if (!sc.hasNext()) {
+            throw new DukeException("expected an done identifier, but none was given");
+        }
         doneStr = sc.next();
         
         switch (typeStr) {
@@ -55,23 +55,23 @@ public abstract class Task {
             break;
         case "D":
             {
-//                if (!sc.hasNext()) {
-//                    throw new DukeException("expected a deadline, but none was given");
-//                }
+                if (!sc.hasNext()) {
+                    throw new DukeException("expected a deadline, but none was given");
+                }
                 String deadline = sc.next();
                 t = new Deadline(nameStr, deadline);
             }
             break;
         case "E": 
             {
-//                if (!sc.hasNext()) {
-//                    throw new DukeException("expected a start date, but none was given");
-//                }
+                if (!sc.hasNext()) {
+                    throw new DukeException("expected a start date, but none was given");
+                }
                 String start = sc.next();
                 
-//                if (!sc.hasNext()) {
-//                    throw new DukeException("expected an end date, but none was given");
-//                }
+                if (!sc.hasNext()) {
+                    throw new DukeException("expected an end date, but none was given");
+                }
                 String end = sc.next();
                 
                 t = new Event(nameStr, start, end);
