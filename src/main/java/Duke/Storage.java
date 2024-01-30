@@ -92,18 +92,18 @@ public class Storage {
         case "E":
             LocalDate start = LocalDate.parse(inputs[3], dateFormatter);
             LocalDate end = LocalDate.parse(inputs[4], dateFormatter);
-            Task task = new Event(inputs[2], start, end);
+            Task task2 = new Event(inputs[2], start, end);
             if (marked) {
-                task.mark();
+                task2.mark();
             }
-            return task;
+            return task2;
         case "D":
             LocalDate due = LocalDate.parse(inputs[3], dateFormatter);
-            Task task = new Deadline(inputs[2], due);
+            Task task3 = new Deadline(inputs[2], due);
             if (marked) {
-                task.mark();
+                task3.mark();
             }
-            return task;
+            return task3;
         }
         return new Task("Error");
     }
