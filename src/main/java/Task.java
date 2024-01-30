@@ -67,6 +67,11 @@ abstract class Task {
      * @return a string representation of the task
      */
     public abstract String toString();
+
+    /**
+     * Encodes a task.
+     */
+    public abstract String encode();
 }
 
 /**
@@ -91,6 +96,17 @@ class Todo extends Task {
     @Override
     public String toString() {
         return "[T][" + this.getStatus().getStatusIcon() + "] " + this.getDescription();
+    }
+
+    /**
+     * Encodes the todo task into a string representation.
+     * 
+     * @return The encoded string representation of the todo task.
+     */
+    @Override
+    public String encode() {
+        String status = this.getStatus().isDone() ? "1" : "0";
+        return "T | " + status + " | " + this.description;
     }
 }
 
@@ -120,6 +136,12 @@ class Deadline extends Task {
     public String toString() {
         return "[D][" + this.getStatus().getStatusIcon() + "] " + this.getDescription() + " (by: " + this.by + ")";
     }
+
+    @Override
+    public String encode() {
+        String status = this.getStatus().isDone() ? "1" : "0";
+        return "D | " + status + " | " + this.description + " | " + this.by;
+    }
 }
 
 /**
@@ -148,5 +170,11 @@ class Event extends Task {
     @Override
     public String toString() {
         return "[E][" + this.getStatus().getStatusIcon() + "] " + this.getDescription() + " (at: " + this.fromTo + ")";
+    }
+
+    @Override
+    public String encode() {
+        String status = this.getStatus().isDone() ? "1" : "0";
+        return "E | " + status + " | " + this.description + " | " + this.fromTo;
     }
 }

@@ -1,10 +1,14 @@
+import java.io.*;
+import java.nio.Buffer;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * The ATSISBot class represents a chatbot that can perform various tasks.
- * It allows users to interact with the bot by entering commands and receiving responses.
- * The bot can manage a list of tasks, including adding, marking, and deleting tasks.
+ * It allows users to interact with the bot by entering commands and receiving
+ * responses.
+ * The bot can manage a list of tasks, including adding, marking, and deleting
+ * tasks.
  */
 public class ATSISBot {
 
@@ -24,12 +28,15 @@ public class ATSISBot {
 
   /**
    * The main method is the entry point of the ATSISBot program.
-   * It prompts the user for input and executes corresponding commands based on the input.
+   * It prompts the user for input and executes corresponding commands based on
+   * the input.
    * The program continues to accept input until the user enters "bye".
    *
    * @param args The command line arguments.
    */
   public static void main(String[] args) {
+    loadList(); // Load the list from file
+
     System.out.println(ATSISBot.welcomeMessage);
 
     Scanner sc = new Scanner(System.in);
@@ -48,6 +55,7 @@ public class ATSISBot {
           System.out.println("Invalid task number. Please enter a valid task number.");
         } else {
           list.get(elementIdx - 1).markAsDone();
+          saveList();
           System.out.println(markMessage);
           System.out.println("  " + list.get(elementIdx - 1).toString());
         }
@@ -57,6 +65,7 @@ public class ATSISBot {
           System.out.println("Invalid task number. Please enter a valid task number.");
         } else {
           list.get(elementIdx - 1).markAsUndone();
+          saveList();
           System.out.println(unmarkMessage);
           System.out.println("  " + list.get(elementIdx - 1).toString());
         }
@@ -66,6 +75,7 @@ public class ATSISBot {
         } else {
           String description = input.split(" ", 2)[1];
           list.add(new Todo(description));
+          saveList();
           System.out.print(addTaskMessage);
           System.out.println("  " + list.get(list.size() - 1).toString());
           System.out.println(Task.getTaskNum());
@@ -79,6 +89,7 @@ public class ATSISBot {
             System.out.println("Invalid deadline format. Please use: deadline <description> /by <date>");
           } else {
             list.add(new Deadline(descriptionAndBy[0], descriptionAndBy[1]));
+            saveList();
             System.out.print(addTaskMessage);
             System.out.println("  " + list.get(list.size() - 1).toString());
             System.out.println(Task.getTaskNum());
@@ -93,6 +104,7 @@ public class ATSISBot {
             System.out.println("Invalid event format. Please use: event <description> /from <date>");
           } else {
             list.add(new Event(descriptionAndFromTo[0], descriptionAndFromTo[1]));
+            saveList();
             System.out.print(addTaskMessage);
             System.out.println("  " + list.get(list.size() - 1).toString());
             System.out.println(Task.getTaskNum());
@@ -104,6 +116,7 @@ public class ATSISBot {
           System.out.println("Invalid task number. Please enter a valid task number.");
         } else {
           Task removedTask = list.remove(elementIdx - 1);
+          saveList();
           System.out.print(deleteTaskMessage);
           System.out.println("  " + removedTask.toString());
           System.out.println(Task.getTaskNum());
@@ -116,5 +129,56 @@ public class ATSISBot {
     }
 
     System.out.println(ATSISBot.endingMessage);
+  }
+
+  /**
+   * Loads the list from a file.
+   */
+  private static void loadList() {
+    try {
+      File file = new File("data/taskList.txt");
+      if (!file.exists()) {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+      }
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      String line;
+      while ((line = br.readLine()) != null) {
+        String[] taskInfo = line.split(" \\| ");
+        switch (taskInfo[0]) {
+          case "T":
+            list.add(new Todo(taskInfo[2]));
+            break;
+          case "D":
+            list.add(new Deadline(taskInfo[2], taskInfo[3]));
+            break;
+          case "E":
+            list.add(new Event(taskInfo[2], taskInfo[3]));
+            break;
+          default:
+            break;
+        }
+        if (taskInfo[1].equals("1")) {
+          list.get(list.size() - 1).markAsDone();
+        }
+      }
+      br.close();
+    } catch (IOException e) {
+      System.out.println("Error loading the task list: " + e.getMessage());
+    }
+  }
+
+  private static void saveList() {
+    try {
+      File file = new File("data/taskList.txt");
+      BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+      for (Task task : list) {
+        bw.write(task.encode());
+      }
+      bw.close();
+    } catch (IOException e) {
+      System.out.println("Error saving the task list: " + e.getMessage());
+
+    }
   }
 }
