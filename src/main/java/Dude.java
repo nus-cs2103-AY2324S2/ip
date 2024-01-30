@@ -9,7 +9,7 @@ public class Dude {
     }
     static final String spacer = "____________________________________________________________\n";
     static final String name = "Dude";
-    private ArrayList<Task> list = new ArrayList<>();
+    private Storage storage = new Storage();
     private static void print(String text) {
         System.out.println(spacer + text + spacer);
     }
@@ -83,47 +83,59 @@ public class Dude {
     }
 
     private void add(Task task) {
-        this.list.add(task);
-        print("Got it. I've added this task:\n" + task + "\nNow you have " + this.list.size() + " tasks in the list.\n");
+        storage.createRow(task);
+        ArrayList<Task> tasks = storage.listRows();
+        print("Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n");
     }
 
     private void list() {
+        ArrayList<Task> tasks = storage.listRows();
         String listString = "";
-        for (int i = 1; i < this.list.size() + 1; i++) {
-            Task task = this.list.get(i - 1);
+        for (int i = 1; i < tasks.size() + 1; i++) {
+            Task task = tasks.get(i - 1);
             listString += i + "." + task + "\n";
         }
+//        for (int i = 1; i < this.list.size() + 1; i++) {
+//            Task task = this.list.get(i - 1);
+//            listString += i + "." + task + "\n";
+//        }
         print(listString);
     }
 
     private void mark(int index) {
-        if (index >= this.list.size() || index < 0) {
+        ArrayList<Task> tasks = storage.listRows();
+        if (index >= tasks.size() || index < 0) {
             print("Invalid index range\n");
             return;
         }
-        Task task = this.list.get(index);
+        Task task = tasks.get(index);
         task.mark();
+        storage.createRows(tasks);
         print("Nice! I've marked this task as done:\n" + task + "\n");
     }
 
     private void unmark(int index) {
-        if (index >= this.list.size() || index < 0) {
+        ArrayList<Task> tasks = storage.listRows();
+        if (index >= tasks.size() || index < 0) {
             print("Invalid index range\n");
             return;
         }
-        Task task = this.list.get(index);
+        Task task = tasks.get(index);
         task.unmark();
+        storage.createRows(tasks);
         print("OK, I've marked this task as not done yet:\n" + task + "\n");
 
     }
 
     private void delete(int index) {
-        if (index >= this.list.size() || index < 0) {
+        ArrayList<Task> tasks = storage.listRows();
+        if (index >= tasks.size() || index < 0) {
             print("Invalid index range\n");
             return;
         }
-        Task task = this.list.remove(index);
-        print("Noted. I've removed this task:\n" + task + "\nNow you have " + this.list.size() + " tasks in the list.\n");
+        Task task = tasks.remove(index);
+        storage.createRows(tasks);
+        print("Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n");
 
     }
 
@@ -143,77 +155,77 @@ public class Dude {
             ArrayList<String> parameters = new ArrayList<>();
             ArrayList<Object> formattedParameters = new ArrayList<>();
             switch (command) {
-                case "bye":
-                    break loop;
-                case "list":
-                    dude.list();
-                    break;
-                case "mark":
-                    if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
-                    if (!formatParameters(
-                            formattedParameters,
-                            parameters,
-                            new ParameterTypes[]{ParameterTypes.INTEGER})
-                    ) continue;
-                    dude.mark((int) formattedParameters.get(0) - 1);
-                    break;
-                case "unmark":
-                    if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
-                    if (!formatParameters(
-                            formattedParameters,
-                            parameters,
-                            new ParameterTypes[]{ParameterTypes.INTEGER})
-                    ) continue;
-                    dude.unmark((int) formattedParameters.get(0) - 1);
-                    break;
-                case "delete":
-                    if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
-                    if (!formatParameters(
-                            formattedParameters,
-                            parameters,
-                            new ParameterTypes[]{ParameterTypes.INTEGER})
-                    ) continue;
-                    dude.delete((int) formattedParameters.get(0) - 1);
-                    break;
-                case "todo":
-                    if (!getParameters(parameters, command, new String[]{"description"}, ipArgs)) continue;
-                    if (!formatParameters(
-                            formattedParameters,
-                            parameters,
-                            new ParameterTypes[]{ParameterTypes.STRING})
-                    ) continue;
-                    Todo todo = new Todo((String) formattedParameters.get(0));
-                    dude.add(todo);
-                    break;
-                case "deadline": {
-                    if (!getParameters(parameters, command, new String[]{"description", "by"}, ipArgs)) continue;
-                    if (!formatParameters(
-                            formattedParameters,
-                            parameters,
-                            new ParameterTypes[]{ParameterTypes.STRING, ParameterTypes.STRING})
-                    ) continue;
-                    Deadline deadline = new Deadline(
-                            (String) formattedParameters.get(0),
-                            (String) formattedParameters.get(1));
-                    dude.add(deadline);
-                    break;
-                }
-                case "event": {
-                    if (!getParameters(parameters, command, new String[]{"description", "from", "to"}, ipArgs)) continue;
-                    if (!formatParameters(
-                            formattedParameters,
-                            parameters,
-                            new ParameterTypes[]{ParameterTypes.STRING, ParameterTypes.STRING, ParameterTypes.STRING})
-                    ) continue;
-                    Event event = new Event(
-                            (String) formattedParameters.get(0),
-                            (String) formattedParameters.get(1),
-                            (String) formattedParameters.get(2));
-                    dude.add(event);
-                    break;
-                }
-                default:
-                    print("Unknown command detected!\n");
+            case "bye":
+                break loop;
+            case "list":
+                dude.list();
+                break;
+            case "mark":
+                if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
+                if (!formatParameters(
+                        formattedParameters,
+                        parameters,
+                        new ParameterTypes[]{ParameterTypes.INTEGER})
+                ) continue;
+                dude.mark((int) formattedParameters.get(0) - 1);
+                break;
+            case "unmark":
+                if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
+                if (!formatParameters(
+                        formattedParameters,
+                        parameters,
+                        new ParameterTypes[]{ParameterTypes.INTEGER})
+                ) continue;
+                dude.unmark((int) formattedParameters.get(0) - 1);
+                break;
+            case "delete":
+                if (!getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
+                if (!formatParameters(
+                        formattedParameters,
+                        parameters,
+                        new ParameterTypes[]{ParameterTypes.INTEGER})
+                ) continue;
+                dude.delete((int) formattedParameters.get(0) - 1);
+                break;
+            case "todo":
+                if (!getParameters(parameters, command, new String[]{"description"}, ipArgs)) continue;
+                if (!formatParameters(
+                        formattedParameters,
+                        parameters,
+                        new ParameterTypes[]{ParameterTypes.STRING})
+                ) continue;
+                Todo todo = new Todo((String) formattedParameters.get(0));
+                dude.add(todo);
+                break;
+            case "deadline": {
+                if (!getParameters(parameters, command, new String[]{"description", "by"}, ipArgs)) continue;
+                if (!formatParameters(
+                        formattedParameters,
+                        parameters,
+                        new ParameterTypes[]{ParameterTypes.STRING, ParameterTypes.STRING})
+                ) continue;
+                Deadline deadline = new Deadline(
+                        (String) formattedParameters.get(0),
+                        (String) formattedParameters.get(1));
+                dude.add(deadline);
+                break;
+            }
+            case "event": {
+                if (!getParameters(parameters, command, new String[]{"description", "from", "to"}, ipArgs)) continue;
+                if (!formatParameters(
+                        formattedParameters,
+                        parameters,
+                        new ParameterTypes[]{ParameterTypes.STRING, ParameterTypes.STRING, ParameterTypes.STRING})
+                ) continue;
+                Event event = new Event(
+                        (String) formattedParameters.get(0),
+                        (String) formattedParameters.get(1),
+                        (String) formattedParameters.get(2));
+                dude.add(event);
+                break;
+            }
+            default:
+                print("Unknown command detected!\n");
             }
         }
         goodbye();

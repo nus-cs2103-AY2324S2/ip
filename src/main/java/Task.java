@@ -1,10 +1,21 @@
 public abstract class Task {
-    private boolean done;
+    private boolean done = false;
     private String name;
 
     public Task(String name) {
+
         this.name = name;
     }
+
+    public Task(String name, boolean done) {
+
+        this.name = name;
+        this.done = done;
+    }
+
+    public String getStorageString() {
+        return String.format("%s | %s", this.done ? "1" : "0", this.name);
+    };
 
     public void mark() {
         this.done = true;
