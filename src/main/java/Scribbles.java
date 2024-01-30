@@ -1,6 +1,7 @@
-import java.io.File;
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 
 /**
  * This class implements the chatbot Scribbles.
@@ -56,7 +57,7 @@ public class Scribbles {
     /**
      * Marks task in list as completed.
      *
-     * @param index index of task to mark
+     * @param index Index of task to mark
      */
     public static void markCompleted(int index) {
         int numOfTasks = taskList.size();
@@ -68,8 +69,8 @@ public class Scribbles {
     /**
      * Prints message after marking task instruction is called.
      *
-     * @param index index of task to mark
-     * @return message to confirm marking of a task
+     * @param index Index of task to mark
+     * @return Message to confirm marking of a task
      */
     public static String markCompleteMessage(int index) {
         int numOfTasks = taskList.size();
@@ -85,7 +86,7 @@ public class Scribbles {
     /**
      * Unmarks task in list.
      *
-     * @param index index of task to unmark
+     * @param index Index of task to unmark
      */
     public static void markIncomplete(int index) {
         int numOfTasks = taskList.size();
@@ -97,8 +98,8 @@ public class Scribbles {
     /**
      * Prints message after unmarking task instruction is called.
      *
-     * @param index index of task to unmark
-     * @return message to confirm unmarking of a task
+     * @param index Index of task to unmark
+     * @return Message to confirm unmarking of a task
      */
     public static String markIncompleteMessage(int index) {
         int numOfTasks = taskList.size();
@@ -115,7 +116,7 @@ public class Scribbles {
      * Adds a to-do task to the task list.
      * Prints error message if description of task is empty.
      *
-     * @param description description of task
+     * @param description Description of task
      */
     public static void addTodo(String description) {
         if (description.isEmpty()) {
@@ -133,7 +134,7 @@ public class Scribbles {
      * Adds a deadline task to the task list.
      * Prints error message if there are missing information in the description.
      *
-     * @param description description of task
+     * @param description Description of task
      */
     public static void addDeadline(String description) {
         if (description.isEmpty() || !description.contains(" /by ")) {
@@ -161,7 +162,7 @@ public class Scribbles {
      * Adds an event task to the task list.
      * Prints errpr message if there are any missing information in the description.
      *
-     * @param description description of task
+     * @param description Description of task
      */
     public static void addEvent(String description) {
         if (description.isEmpty() || !description.contains(" /from ") || !description.contains(" /to ")) {
@@ -206,9 +207,65 @@ public class Scribbles {
     }
 
     /**
+     * Loads data from the file to Scribbles.
+     *
+     * @param filePath File path where tasks are stored
+     * @throws FileNotFoundException If data file does not exist
+     */
+    public static void loadFileData(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            String line = reader.readLine();
+            String delimiter = "\\s*\\|\\s*";
+
+            while (line != null) {
+                String[] tokens = line.split(delimiter);
+                String typeOfTask = tokens[0].trim();
+                int completed = Integer.parseInt(tokens[1].trim());
+                boolean isCompleted = (completed == 1 ? true : false);
+                String description = tokens[2].trim();
+
+                switch(typeOfTask){
+                    case "T":
+                        taskList.add(new Todo(description, isCompleted));
+                        break;
+                    case "D":
+                        String deadline = tokens[3].trim();
+                        taskList.add(new Deadline(description, isCompleted, deadline));
+                        break;
+                    case "E":
+                        String start = tokens[3].trim();
+                        String end = tokens[4].trim();
+                        taskList.add(new Event(description, isCompleted, start, end));
+                        break;
+                    default:
+                        System.out.println("Invalid task type \"" + typeOfTask + "\" was found in file.");
+                }
+
+                line = reader.readLine(); // read the next line
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Edits data in the file.
+     *
+     * @param filePath File path where tasks are stored
+     * @throws FileNotFoundException If data file does not exist
+     */
+    public static void saveFileData(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner data = new Scanner(f);
+    }
+
+    /**
      * Prints the error message for invalid inputs into chatbot.
      *
-     * @return error message
+     * @return Error message
      */
     public static String inputErrorMessage() {
        String errorMessage = "Sorry, Scribbles was unable to understand your instructions :(\n" +
@@ -226,6 +283,12 @@ public class Scribbles {
     }
 
     public static void main(String[] args) {
+        // read data stored in hard disk
+        try {
+            loadFileData("src/main/java/taskData.txt");
+        } catch (FileNotFoundException e){
+            System.out.println("File not found.");
+        }
 
         Scanner sc = new Scanner(System.in); // scanner for user input
 
