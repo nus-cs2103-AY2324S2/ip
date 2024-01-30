@@ -1,4 +1,10 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,6 +26,7 @@ class Todo extends Task {
     public String toString() {
         return "[T] " + super.toString();
     }
+
     @Override
     public String toFileString() {
         return "T | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task;
@@ -27,14 +34,14 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    String deadline;
+    LocalDate deadline;
 
-    public Deadline(String task, String deadline) {
+    public Deadline(String task, LocalDate deadline) {
         super(task);
         this.deadline = deadline;
     }
 
-    public Deadline(String task, String deadline, TodoState todoState) {
+    public Deadline(String task, LocalDate deadline, TodoState todoState) {
         super(task, todoState);
         this.deadline = deadline;
     }
@@ -43,6 +50,7 @@ class Deadline extends Task {
     public String toString() {
         return "[D] " + super.toString() + "(by: " + deadline + ")";
     }
+
     @Override
     public String toFileString() {
         return "D | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task + " | " + deadline;
@@ -50,16 +58,16 @@ class Deadline extends Task {
 }
 
 class Event extends Task {
-    String start;
-    String end;
+    LocalDate start;
+    LocalDate end;
 
-    public Event(String task, String start, String end) {
+    public Event(String task, LocalDate start, LocalDate end) {
         super(task);
         this.start = start;
         this.end = end;
     }
 
-    public Event(String task, String start, String end, TodoState todoState) {
+    public Event(String task, LocalDate start, LocalDate end, TodoState todoState) {
         super(task, todoState);
         this.start = start;
         this.end = end;
@@ -111,7 +119,9 @@ public class Duke {
     static String dataDir = "./data";
     static String dataPath = dataDir + "/duke.txt";
 
-    public static void main(String[] args) throws IOException {
+    static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    public static void main(String[] args) throws IOException, ParseException {
 
         System.out.println(line);
         System.out.println("Hello! I'm Brian\nWhat can I do for you?");
@@ -132,11 +142,11 @@ public class Duke {
                     break;
                 }
                 case "D": {
-                    data.add(new Deadline(split[2], split[3], state));
+                    data.add(new Deadline(split[2], LocalDate.parse(split[3], dateFormat), state));
                     break;
                 }
                 case "E": {
-                    data.add(new Event(split[2], split[3], split[4], state));
+                    data.add(new Event(split[2], LocalDate.parse(split[3], dateFormat), LocalDate.parse(split[4], dateFormat), state));
                     break;
                 }
             }
@@ -195,7 +205,7 @@ public class Duke {
                         if (split.length == 1) {
                             throw new DukeException("The deadline of a deadline cannot be empty.");
                         }
-                        Task curr = new Deadline(split[0], split[1]);
+                        Task curr = new Deadline(split[0], LocalDate.parse(split[1], dateFormat));
                         data.add(curr);
                         System.out.println("Got it. I've added this task:");
                         System.out.println(curr);
@@ -214,7 +224,7 @@ public class Duke {
                         if (split2.length == 1) {
                             throw new DukeException("The to of a event cannot be empty.");
                         }
-                        Task curr = new Event(split1[0], split2[0], split2[1]);
+                        Task curr = new Event(split1[0], LocalDate.parse(split2[0],dateFormat), LocalDate.parse(split2[1], dateFormat));
                         data.add(curr);
                         System.out.println("Got it. I've added this task:");
                         System.out.println(curr);
@@ -238,7 +248,7 @@ public class Duke {
                         // write to disk
                         file.delete();
                         Writer fileWriter = new FileWriter(file);
-                        for (Task task: data) {
+                        for (Task task : data) {
                             fileWriter.write(task.toFileString() + "\n");
                         }
                         fileWriter.flush();
