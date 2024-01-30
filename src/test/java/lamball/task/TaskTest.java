@@ -6,13 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TaskTest {
     @Test
     public void taskTest() {
-        Task testTask = new Task("TEST");
-        assertEquals(testTask.command(), "How did you get here?");
+        // Command test
+        assertEquals(new Task("TEST").command(), "How did you get here?");
+
+        // toString test
+        assertEquals(new Task("TEST").toString(), "[ ] TEST");
+
     }
 
-    @Test
-    public void taskStringTest() {
-        Task testTask = new Task("TEST");
-        assertEquals(testTask.toString(), "[ ] TEST");
-    }
 }
