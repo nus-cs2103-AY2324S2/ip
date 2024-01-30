@@ -9,8 +9,8 @@ public class InvalidIndexException extends CheckbotException {
                 : "Task number " + index
                 + " does not exist. "
                 + (length > 1
-                    ?  "Only task numbers 1 - "
-                        + length + " are accepted."
-                    : "You only have 1 task in your list."));
+                ? "Only task numbers 1 - "
+                + length + " are accepted."
+                : "You only have 1 task in your list."));
     }
 }

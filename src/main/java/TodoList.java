@@ -1,3 +1,7 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+
 public class TodoList {
     private final Task[] taskList = new Task[100];
     private int length = 0;
@@ -16,14 +20,14 @@ public class TodoList {
 
     public void unmarkTask(int i) throws InvalidIndexException {
         if (i < 0 || i >= length) {
-            throw new InvalidIndexException(i, length);
+            throw new InvalidIndexException(i + 1, length);
         }
         taskList[i].unmark();
     }
 
     public Task deleteTask(int i) throws InvalidIndexException {
         if (i < 0 || i >= length) {
-            throw new InvalidIndexException(i, length);
+            throw new InvalidIndexException(i + 1, length);
         }
         Task deletedTask = taskList[i];
         while (i < length - 1) {
@@ -53,5 +57,22 @@ public class TodoList {
                     .append(i < length - 1 ? "\n" : "");
         }
         return txt.toString();
+    }
+
+    public void saveTo(String dir) throws SaveFileException {
+        StringBuilder txt = new StringBuilder();
+        for (int i = 0; i < this.length; i++) {
+            txt.append(taskList[i].formatForFile());
+            if (i < this.length - 1) {
+                txt.append("\n");
+            }
+        }
+        try {
+            Writer writer = new FileWriter(dir);
+            writer.write(txt.toString());
+            writer.close();
+        } catch (IOException e) {
+            throw new SaveFileException();
+        }
     }
 }

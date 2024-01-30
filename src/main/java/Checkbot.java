@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -5,6 +7,8 @@ import java.util.regex.Pattern;
 public class Checkbot {
     public static final String INDENTATION = "  ";
     private static final String SEPARATOR = INDENTATION + "____________________________________________________________\n";
+
+    public static final String TASK_FILE_DIR = "./tasks.txt";
 
     private static Task createTask(String input) throws CheckbotException {
         Task task;
@@ -62,8 +66,66 @@ public class Checkbot {
         return task;
     }
 
-    public static void main(String[] args) {
+    private static TodoList loadTasks() {
+        final String TASK_CODE = "T";
+        final String DEADLINE_CODE = "D";
+        final String EVENT_CODE = "E";
+
+        File file = new File(TASK_FILE_DIR);
         TodoList todoList = new TodoList();
+
+        try {
+            Scanner scanner = new Scanner(file);
+            Pattern pattern = Pattern.compile("([TDE]) \\| ([01]) \\| (.*)");
+
+            while (scanner.hasNextLine()) {
+                String text = scanner.nextLine();
+                Matcher matcher = pattern.matcher(text);
+
+                if (!matcher.find()) {
+                    continue;
+                }
+
+                String type = matcher.group(1);
+                boolean done = matcher.group(2).equals("1");
+                String taskDetails = matcher.group(3);
+                Task t;
+
+                if (type.equals(TASK_CODE)) {
+                    t = new Todo(taskDetails);
+                } else if (type.equals(DEADLINE_CODE)) {
+                    Matcher deadlineMatcher = Pattern.compile("(.*) \\| (.*)").matcher(taskDetails);
+                    if (!deadlineMatcher.find()) {
+                        continue;
+                    }
+                    String name = deadlineMatcher.group(1);
+                    String byWhen = deadlineMatcher.group(2);
+                    t = new Deadline(name, byWhen);
+                } else {
+                    Matcher eventMatcher = Pattern.compile("(.*) \\| (.*) \\| (.*)").matcher(taskDetails);
+                    if (!eventMatcher.find()) {
+                        continue;
+                    }
+                    String name = eventMatcher.group(1);
+                    String from = eventMatcher.group(2);
+                    String to = eventMatcher.group(3);
+                    t = new Event(name, from, to);
+                }
+
+                if (done) {
+                    t.mark();
+                }
+
+                todoList.addTask(t);
+            }
+        } catch (FileNotFoundException e) {
+            return todoList;
+        }
+        return todoList;
+    }
+
+    public static void main(String[] args) {
+        TodoList todoList = loadTasks();
 
         String txt = SEPARATOR
                 + INDENTATION + "Hello, I'm Checkbot, your personal assistant.\n"
@@ -75,7 +137,7 @@ public class Checkbot {
         Scanner scanner = new Scanner(System.in);
         while (!input.equals("bye")) {
             input = scanner.nextLine();
-            String toPrint;
+            String toPrint = "";
             try {
                 if (input.equals("bye")) {
                     toPrint = "Goodbye!";
@@ -87,6 +149,7 @@ public class Checkbot {
                         todoList.markTask(i);
                         toPrint = "Good job! I have marked this task as completed:\n"
                                 + INDENTATION + todoList.getTask(i);
+                        todoList.saveTo(TASK_FILE_DIR);
                     } catch (NumberFormatException e) {
                         throw new InvalidIndexException(input.split("mark ")[1]);
                     }
@@ -96,8 +159,9 @@ public class Checkbot {
                         todoList.unmarkTask(i);
                         toPrint = "Alright, I have marked this task as incomplete:\n"
                                 + INDENTATION + todoList.getTask(i);
+                        todoList.saveTo(TASK_FILE_DIR);
                     } catch (NumberFormatException e) {
-                        throw new InvalidIndexException(input.split("mark ")[1]);
+                        throw new InvalidIndexException(input.split("unmark ")[1]);
                     }
                 } else if (input.startsWith("delete")) {
                     try {
@@ -105,7 +169,9 @@ public class Checkbot {
                         Task deletedTask = todoList.deleteTask(i);
                         toPrint = "Alright, I deleted this task:\n"
                                 + INDENTATION + INDENTATION + deletedTask + "\n"
-                                + INDENTATION + "You have now " + todoList.getLength() + " task" + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
+                                + INDENTATION + "You have now " + todoList.getLength() + " task"
+                                + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
+                        todoList.saveTo(TASK_FILE_DIR);
                     } catch (NumberFormatException e) {
                         throw new InvalidIndexException(input.split("mark ")[1]);
                     }
@@ -117,9 +183,13 @@ public class Checkbot {
                     toPrint = "I have added this task to the list:\n"
                             + INDENTATION + INDENTATION + task + "\n"
                             + INDENTATION + "You have now " + todoList.getLength() + " task" + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
+                    todoList.saveTo(TASK_FILE_DIR);
                 } else {
                     throw new InvalidCommandException(input);
                 }
+            } catch (SaveFileException e) {
+                toPrint += "\n " + INDENTATION
+                        + "However, " + e.getMessage();
             } catch (CheckbotException e) {
                 toPrint = e.getMessage();
             }

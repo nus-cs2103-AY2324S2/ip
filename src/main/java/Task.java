@@ -15,6 +15,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String formatForFile() {
+        return String.format("%d | %s", this.isDone ? 1 : 0, this.name);
+    }
+
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
