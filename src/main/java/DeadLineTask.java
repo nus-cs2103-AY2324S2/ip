@@ -1,5 +1,5 @@
 public class DeadLineTask extends Task{
-    private String deadline;
+    private final String  deadline;
     public DeadLineTask(String dl,String task){
         super(task);
         deadline = dl;
@@ -8,4 +8,6 @@ public class DeadLineTask extends Task{
     public String toString(){
         return "[D]" + super.toString() + " (by: " + deadline+")";
     }
+    @Override
+    public String logString(){return 'D' + super.logString() + '|' + deadline;}
 }

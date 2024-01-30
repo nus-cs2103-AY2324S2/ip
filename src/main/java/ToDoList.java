@@ -1,8 +1,12 @@
 import java.util.ArrayList;
+import java.util.*;
 
-
-public class ToDoList {
+public class ToDoList implements Iterable<Task>{
     private final ArrayList<Task>  tasks = new ArrayList<>();
+
+    public void addToList(Task t){
+        tasks.add(t);
+    }
 
     public void addToList(String s) throws IllegalArgumentException{
         //handling empty task
@@ -60,7 +64,7 @@ public class ToDoList {
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1).append('.').append("\t").append(tasks.get(i)).append("\n");
         }
-            System.out.println("HASSNT:\n" + "Here are the tasks in your list:\n "+ sb);
+            System.out.println("HASSNT:\n" + "Here are the tasks in your list:\n"+ sb);
 
         }
     }
@@ -96,8 +100,9 @@ public class ToDoList {
     private boolean isValidIndex(int index) {
         return index >= 1 && index <= tasks.size();
     }
-
-
+    public Iterator<Task> iterator() {
+        return tasks.iterator();
+    }
 
 
 }

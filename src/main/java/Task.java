@@ -1,3 +1,4 @@
+
 public class Task {
     private final String  name;
     private boolean isDone = false;
@@ -16,5 +17,9 @@ public class Task {
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + name;
     }
+    public String logString(){
+        return  '|' + (isDone ? "Y" : "N") + '|' + name;
+    }
 
 }
+
