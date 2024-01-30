@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Youdon {
 
@@ -11,20 +12,31 @@ public class Youdon {
 
     // function to detect when command is invalid
     public static void detectInvalidCommand(String input) throws YoudonException.InvalidCommandException {
-        switch (input) {
-            case "todo":
-            case "deadline":
-            case "event":
-                break;
-            default:
-                throw new YoudonException.InvalidCommandException("Sorry, I do not recognise that command.");
+        if (input.contains("todo")) {
+
+        } else if (input.contains("deadline")) {
+
+        } else if (input.contains("event")) {
+
+        } else if (input.contains("mark")) {
+
+        } else if (input.contains("unmark")) {
+
+        } else if (input.contains("list")) {
+
+        } else if (input.contains("bye")) {
+
+        } else if (input.contains("delete")) {
+
+        } else {
+            throw new YoudonException.InvalidCommandException("Sorry, I do not recognise that command.");
         }
     }
 
 
     public static void main(String[] args) {
         // initialise array and index
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<>();
         int index = 0;
 
         // string constants
@@ -72,10 +84,11 @@ public class Youdon {
             if (data.equals("list")) {
                 System.out.println(line);
                 System.out.println("Here are your tasks:");
-                for (int i = 0; taskList[i] != null; i++) {
-                    System.out.println((i + 1) + ". " + taskList[i].toString());
+                for (int i = 0; i < index; i++) {
+                    System.out.println((i + 1) + ". " + taskList.get(i).toString());
                 }
                 System.out.println(line);
+                // wait for next input
                 if (input.hasNextLine()) {
                     data = input.nextLine();
                 } else {
@@ -94,13 +107,14 @@ public class Youdon {
                 if (command.equals("mark")) {
                     // mark task as done in array
                     int taskNumber = Integer.parseInt(task);
-                    taskList[taskNumber - 1].isDone = true;
+                    taskList.get(taskNumber - 1).isDone = true;
 
                     // print out changes
                     System.out.println(line);
                     System.out.println("Nicely done! The task has been marked as done:");
-                    System.out.println("  " + taskList[taskNumber - 1].toString());
+                    System.out.println("  " + taskList.get(taskNumber - 1).toString());
                     System.out.println(line);
+                    // wait for next input
                     if (input.hasNextLine()) {
                         data = input.nextLine();
                     } else {
@@ -113,13 +127,34 @@ public class Youdon {
                 if (command.equals("unmark")) {
                     // mark task as undone in array
                     int taskNumber = Integer.parseInt(task);
-                    taskList[taskNumber - 1].isDone = false;
+                    taskList.get(taskNumber - 1).isDone = false;
 
                     // print out changes
                     System.out.println(line);
-                    System.out.println("Okies! The task has been marked as undone: ");
-                    System.out.println("  " + taskList[taskNumber - 1].toString());
+                    System.out.println("Okies! The task has been marked as undone:");
+                    System.out.println("  " + taskList.get(taskNumber - 1).toString());
                     System.out.println(line);
+                    // wait for next input
+                    if (input.hasNextLine()) {
+                        data = input.nextLine();
+                    } else {
+                        data = "";
+                    }
+                    continue;
+                }
+
+                // if input == "delete", delete the specified task
+                if (command.equals("delete")) {
+                    int taskNumber = Integer.parseInt(task);
+                    // print out changes
+                    System.out.println(line);
+                    System.out.println("Alright! The task has been deleted:");
+                    System.out.println("  " + taskList.get(taskNumber - 1).toString());
+                    System.out.println(line);
+                    // delete task and fix indexing
+                    taskList.remove(taskNumber - 1);
+                    index--;
+                    // wait for next input
                     if (input.hasNextLine()) {
                         data = input.nextLine();
                     } else {
@@ -131,10 +166,10 @@ public class Youdon {
                 // differentiate between type of tasks and add to tasklist
                 if (command.equals("todo")) {
                     // add to tasklist
-                    taskList[index] = new Todo(task);
+                    taskList.add(new Todo(task));
                     // print out task added
                     System.out.println(line);
-                    System.out.println("Alright! Task added:\n  " + taskList[index].toString());
+                    System.out.println("Alright! Task added:\n  " + taskList.get(index).toString());
                     System.out.println("You now have " + (index + 1) + " task(s) in the list.");
                     System.out.println(line);
                     index++;
@@ -147,11 +182,11 @@ public class Youdon {
                         // add to tasklist
                         String taskDesc = chunks[0];
                         String deadline = chunks[1];
-                        taskList[index] = new Deadline(taskDesc, deadline);
+                        taskList.add(new Deadline(taskDesc, deadline));
 
                         // print out task added
                         System.out.println(line);
-                        System.out.println("Alright! Task added:\n  " + taskList[index].toString());
+                        System.out.println("Alright! Task added:\n  " + taskList.get(index).toString());
                         System.out.println("You now have " + (index + 1) + " task(s) in the list.");
                         System.out.println(line);
                         index++;
@@ -165,16 +200,17 @@ public class Youdon {
                         String taskDesc = sections[0];
                         String start = sections[1];
                         String end = sections[2];
-                        taskList[index] = new Event(taskDesc, start, end);
+                        taskList.add(new Event(taskDesc, start, end));
 
                         // print out task added
                         System.out.println(line);
-                        System.out.println("Alright! Task added:\n  " + taskList[index].toString());
+                        System.out.println("Alright! Task added:\n  " + taskList.get(index).toString());
                         System.out.println("You now have " + (index + 1) + " task(s) in the list.");
                         System.out.println(line);
                         index++;
                     }
                 }
+                // wait for next input
                 if (input.hasNextLine()) {
                     data = input.nextLine();
                 } else {
