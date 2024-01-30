@@ -23,12 +23,12 @@ public class Handler {
         taskList.displayTasks();
     }
 
-    private void handleMark(String input) {
+    private void handleMark(String input) throws DukeException {
         int index = Integer.parseInt(input.split(" ")[1]);
         taskList.markTaskAsDone(index);
     }
 
-    private void handleUnmark(String input) {
+    private void handleUnmark(String input) throws DukeException {
         int index = Integer.parseInt(input.split(" ")[1]);
         taskList.unmarkTaskAsDone(index);
     }
@@ -37,7 +37,7 @@ public class Handler {
         taskList.addTask(input);
     }
 
-    private void handleDelete(String input) {
+    private void handleDelete(String input) throws DukeException {
         int index = Integer.parseInt(input.split(" ")[1]);
         taskList.deleteTask(index);
     }

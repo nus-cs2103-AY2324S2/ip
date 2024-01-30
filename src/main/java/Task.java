@@ -19,6 +19,18 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + description;
+        return (isDone ? "X" : " ") + " | " + description;
+    }
+
+    public static Task fromString(String input) {
+        Task task;
+        if (input.startsWith("T")) {
+            task = ToDo.fromString(input);
+        } else if (input.startsWith("D")) {
+            task = Deadline.fromString(input);
+        } else {
+            task = Event.fromString(input);
+        }
+        return task;
     }
 }

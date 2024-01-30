@@ -11,6 +11,15 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "E | " + super.toString() + " | " + from + " | " + to;
+    }
+
+    public static Event fromString(String input) {
+        String[] split = input.split(" \\| ");
+        Event event = new Event(split[2], split[3], split[4]);
+        if (split[1].equals("X")) {
+            event.markAsDone();
+        }
+        return event;
     }
 }

@@ -3,9 +3,15 @@ import java.util.List;
 
 public class TaskList {
     private List<Task> tasks;
+    private Storage storage;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
+    }
+
+    public TaskList(List<Task> tasks, Storage storage) {
+        this.tasks = tasks;
+        this.storage = storage;
     }
 
     public void addTask(String task) throws DukeException {
@@ -29,6 +35,8 @@ public class TaskList {
         tasks.add(newTask);
         System.out.println("Got it. I've added this task: \n" + newTask.toString() + "\nNow you have "
                 + tasks.size() + " tasks in the list.\n");
+
+        updateStorage();
     }
 
     public void displayTasks() {
@@ -38,17 +46,42 @@ public class TaskList {
         System.out.println();
     }
 
-    public void markTaskAsDone(int index) {
+    public void markTaskAsDone(int index) throws DukeException {
         tasks.get(index - 1).markAsDone();
+        try {
+            updateStorage();
+        } catch (DukeException e) {
+            throw new DukeException("Error updating storage");
+        }
     }
 
-    public void unmarkTaskAsDone(int index) {
+    public void unmarkTaskAsDone(int index) throws DukeException {
         tasks.get(index - 1).unmarkDone();
+        try {
+            updateStorage();
+        } catch (DukeException e) {
+            throw new DukeException("Error updating storage");
+        }
     }
 
-    public void deleteTask(int index) {
+    public void deleteTask(int index) throws DukeException {
         System.out.println("Noted. I've removed this task: \n" + tasks.get(index - 1).toString() + "\nNow you have "
                 + (tasks.size() - 1) + " tasks in the list.\n");
         tasks.remove(index - 1);
+
+        try {
+            updateStorage();
+        } catch (DukeException e) {
+            throw new DukeException("Error updating storage");
+        }
+    }
+
+    public void updateStorage() throws DukeException {
+        try {
+            storage.save(tasks);
+            System.out.println("Storage updated\n");
+        } catch (Exception e) {
+            throw new DukeException("Error updating storage");
+        }
     }
 }

@@ -1,10 +1,19 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     private TaskList taskList;
+    private Storage storage;
 
     public Duke() {
-        this.taskList = new TaskList();
+        try {
+            this.storage = new Storage("./data/duke.txt");
+            this.taskList = new TaskList(storage.load(), storage);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error reading/ creating file");
+        }
     }
 
     private void greet() {
