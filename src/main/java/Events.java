@@ -2,11 +2,16 @@ public class Events extends Task{
     private Task task;
     private String from;
     private String to;
-    public Events(String name, String from, String to) {
-        super(name);
+    public Events(String name, String from, String to, Boolean status) {
+        super(name, status);
         this.from = from;
         this.to = to;
 
+    }
+
+    @Override
+    public String saveOutput() {
+        return "E " + super.saveOutput() + String.format(" | %s-%s", from, to);
     }
 
     @Override

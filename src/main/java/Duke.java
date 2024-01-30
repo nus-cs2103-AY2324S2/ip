@@ -1,6 +1,9 @@
-import java.sql.SQLOutput;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Duke {
 
     Scanner scanner = new Scanner(System.in);
@@ -10,6 +13,41 @@ public class Duke {
     private void greet() {
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
+    }
+
+    private void load() {
+        try {
+            File f = new File("./data/tasks.txt");
+            Scanner readFile = new Scanner(f);
+            while (readFile.hasNextLine()) {
+                String line = readFile.nextLine();
+                String[] inputs = line.split(" \\| ");
+                Boolean isDone;
+                if (inputs[1].equals("0")) {
+                    isDone = false;
+                } else {
+                    isDone = true;
+                }
+                switch (inputs[0]) {
+                case "T":
+                    Task todo = new ToDos(inputs[2], isDone);
+                    list.add(todo);
+                    break;
+                case "D":
+                    Task deadline = new Deadlines(inputs[2], inputs[3], isDone);
+                    list.add(deadline);
+                    break;
+                case "E":
+                    String[] time = inputs[3].split("-");
+                    Task event = new Events(inputs[2], time[0], time[1], isDone);
+                    list.add(event);
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No Save History");
+        }
+
     }
 
     private void input() {
@@ -46,14 +84,14 @@ public class Duke {
         String command = input[0];
         if (command.equals("todo")) {
             try {
-                task = new ToDos(input[1]);
+                task = new ToDos(input[1], false);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeMissingArgument(1,command);
             }
         } else if (command.equals("deadline")) {
             try {
                 String[] values = input[1].split(" /by ", 2);
-                task = new Deadlines(values[0], values[1]);
+                task = new Deadlines(values[0], values[1], false);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeMissingArgument(2,command);
             }
@@ -61,7 +99,7 @@ public class Duke {
             try {
                 String[] event = input[1].split(" /from ", 2);
                 String[] time = event[1].split(" /to ");
-                task = new Events(event[0], time[0], time[1]);
+                task = new Events(event[0], time[0], time[1], false);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeMissingArgument(3, command);
             }
@@ -140,6 +178,21 @@ public class Duke {
         }
     }
 
+    private void save() {
+        try {
+            File savefile = new File("./data/tasks.txt");
+            savefile.getParentFile().mkdirs();
+            FileWriter fw = new FileWriter(savefile);
+            for (Task t : list) {
+                fw.write(t.saveOutput());
+                fw.write(System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Unable to Save");
+        }
+    }
+
 
     private void exit() {
         System.out.println("Bye. Hope to see you again soon!");
@@ -147,7 +200,9 @@ public class Duke {
     public static void main(String[] args) {
         Duke bot = new Duke();
         bot.greet();
+        bot.load();
         bot.input();
+        bot.save();
         bot.exit();
     }
 }
