@@ -1,6 +1,10 @@
 package duke.util;
 
-import duke.task.*;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.TaskList;
+import duke.task.Event;
 
 public class Parser {
     public static void parse(String inputCommand, TaskList tasklist) {
