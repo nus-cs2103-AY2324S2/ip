@@ -1,5 +1,4 @@
-import entity.*;
-import java.util.*;
+package SlayBot;
 
 public class SlayBot {
 

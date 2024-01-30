@@ -1,6 +1,9 @@
+package SlayBot;
+
+import SlayBot.Storage;
+import SlayBot.TaskList;
 import entity.Deadline;
 import entity.Event;
-import entity.Task;
 import entity.ToDo;
 import exception.InvalidDeadlineException;
 import exception.InvalidEventException;
@@ -11,7 +14,7 @@ import java.util.Scanner;
 
 public class Ui {
     public static final String DIVIDER = "____________________________________________________________";
-    public static final String WELCOME_TEXT = "Hello! I'm SlayBot\nWhat can I do for you?";
+    public static final String WELCOME_TEXT = "Hello! I'm SlayBot.SlayBot\nWhat can I do for you?";
     public static final String BYE_TEXT = "Bye. Hope to see you again soon!";
     private Parser parser;
     private TaskList tasks;

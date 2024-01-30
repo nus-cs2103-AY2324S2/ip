@@ -1,3 +1,5 @@
+package SlayBot;
+
 import entity.Task;
 import entity.ToDo;
 

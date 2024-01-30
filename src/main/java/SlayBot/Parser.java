@@ -1,3 +1,5 @@
+package SlayBot;
+
 import entity.Deadline;
 import entity.Event;
 import entity.ToDo;
