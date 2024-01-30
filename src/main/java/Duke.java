@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.*;
 
@@ -70,7 +72,8 @@ public class Duke {
                         input.split(" /by ").length == 2) {
                     taskList.addTask(new Deadline(
                             input.substring(9).split(" /by")[0],
-                            input.split("/by ")[1]));
+                            LocalDateTime.parse(input.split("/by ")[1],
+                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
                     continue;
                 } else {
                     throw new InvalidSyntaxException("deadline");

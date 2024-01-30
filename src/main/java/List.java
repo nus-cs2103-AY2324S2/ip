@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -132,7 +134,8 @@ public class List {
             case "D":
                 description = currLine.split(" \\(by:")[0].split("] ")[1];
                 String dueDate = currLine.split("\\(by: ")[1].split("\\)")[0];
-                tasks.add(new Deadline(description, dueDate));
+                tasks.add(new Deadline(description, LocalDateTime.parse(dueDate,
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
                 break;
             case "E":
                 description = currLine.split(" \\(from:")[0].split("] ")[1];
