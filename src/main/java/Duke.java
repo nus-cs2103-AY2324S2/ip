@@ -6,9 +6,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class Duke {
-    public static String WELCOME = "\tHi, I'm Gronk!\n"
-            + "\tWhat are we up to today?";
-    public static String GOODBYE = "\tSystem closing. Goodbye!";
     public static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void lines() { // prints out a line

@@ -53,12 +53,13 @@ public class Gronk {
     public static void loadTasks() {
         try {
             File myFile = new File("tasks.txt");
+            System.out.println("\tWelcome back! Loading tasks...");
             Scanner sc = new Scanner(myFile);
             while (sc.hasNextLine()) {
                 loadMessage(sc.nextLine());
             }
         } catch (FileNotFoundException e) {
-            printMessage("\tNothing saved.");
+            System.out.println("\tNo tasks saved. Initializing new session.");
         }
     }
 
@@ -88,13 +89,12 @@ public class Gronk {
 
     }
 
-    // TODO: Add "Task added" message to each statement
     public static void parseMessage(String m) {
         try {
             if (m.equals("list")) {
                 printList();
             } else {
-                ArrayList<String> splitMessage = new ArrayList<>(Arrays.asList(m.split("")));
+                ArrayList<String> splitMessage = new ArrayList<>(Arrays.asList(m.split(" ")));
                 int messageLength = splitMessage.size();
                 if (messageLength == 1) {
                     String word = splitMessage.get(1);
@@ -122,9 +122,9 @@ public class Gronk {
                     tasks.add(new Event(words[0], 0, t2[0], t2[1]));
                     printMessage("\tEvent added: " + words[0]);
                 } else if (splitMessage.get(0).equals("mark")) {
-                    int ind = Integer.parseInt(splitMessage.get(1));
-                    tasks.get(ind).flip();
+                    int ind = Integer.parseInt(splitMessage.get(1)) - 1;
                     printMessage(tasks.get(ind).statusMessage());
+                    tasks.get(ind).flip();
                 } else if (splitMessage.get(0).equals("delete")) {
                     int ind = Integer.parseInt(splitMessage.get(1)) - 1;
                     printMessage("\tItem: " + tasks.get(ind).getDesc() + " removed from list.");

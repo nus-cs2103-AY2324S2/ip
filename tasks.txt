@@ -1,3 +1,0 @@
-1,run
-0,eat
-1,sleep
