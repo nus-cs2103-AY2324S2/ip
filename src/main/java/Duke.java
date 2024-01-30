@@ -6,6 +6,7 @@ public class Duke {
     private static TaskList taskList;
 
     private static Storage fileStorage;
+
     private static void greeting() {
         System.out.println("Hello! I'm Pengu\n" + "What can I do for you?\n" +
                 "\nDid you know that the noise penguins make are called \"honks\"");
