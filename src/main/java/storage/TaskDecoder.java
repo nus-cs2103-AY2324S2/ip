@@ -1,6 +1,12 @@
+package storage;
+
 import java.time.LocalDateTime;
 
-import exceptions.BluException;
+import exception.BluException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 public class TaskDecoder {
     private static ToDo parseToDo(String[] tokens) {
@@ -28,10 +34,9 @@ public class TaskDecoder {
         return event;
     }
 
-    public static Task decodeCsv(String csv) throws BluException {
+    public static Task fromCsv(String csv) throws BluException {
         String[] tokens = csv.split(",");
         String type = tokens[0];
-        
         switch (type) {
         case "T":
             return parseToDo(tokens);

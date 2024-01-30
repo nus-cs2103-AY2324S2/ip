@@ -1,3 +1,5 @@
+package storage;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,7 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.BluException;
+import exception.BluException;
+import task.Task;
+import task.TaskList;
 
 public class Storage implements AutoCloseable {
     private File file;
@@ -38,7 +42,7 @@ public class Storage implements AutoCloseable {
         List<Task> tasks = new ArrayList<>();
         String line = reader.readLine();
         while (line != null) {
-            Task task = TaskDecoder.decodeCsv(line);
+            Task task = TaskDecoder.fromCsv(line);
             tasks.add(task);
             line = reader.readLine();
         }
