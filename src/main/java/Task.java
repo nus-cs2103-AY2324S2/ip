@@ -3,9 +3,7 @@
  * Each task has a unique ID, a title, and a boolean flag to mark it as done or
  * not.
  */
-class Task {
-  private static int count = 0;
-  private final int id;
+public abstract class Task {
   private String title;
   private boolean isDone;
 
@@ -17,18 +15,21 @@ class Task {
    * @param title The title of the task.
    */
   public Task(String title) {
-    this.id = ++count;
     this.title = title;
     this.isDone = false;
   }
 
   /**
-   * Retrieves the unique ID of the task.
+   * Constructor to create a new task.
+   * Initializes the task with a unique ID, the specified title and completion
+   * status.
    *
-   * @return The ID of the task.
+   * @param title  The title of the task.
+   * @param isDone The completion status of the task.
    */
-  public int getId() {
-    return this.id;
+  public Task(String title, boolean isDone) {
+    this.title = title;
+    this.isDone = isDone;
   }
 
   /**
@@ -48,5 +49,9 @@ class Task {
   @Override
   public String toString() {
     return (isDone ? "[\u2713] " : "[\u2718] ") + title;
+  }
+
+  public String serialize() {
+    return (this.isDone ? "1" : "0") + " | " + title;
   }
 }
