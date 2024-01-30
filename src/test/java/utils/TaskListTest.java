@@ -2,14 +2,18 @@ package utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+// import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import exceptions.ConvoBotException;
 import tasks.Task;
+import tasks.ToDo;
 
 class TaskListTest {
 
@@ -18,36 +22,37 @@ class TaskListTest {
 
     @BeforeEach
     void setUp() {
-        storage = Mockito.mock(Storage.class);
+        storage = mock(Storage.class);
         taskList = new TaskList(storage);
     }
 
     @Test
-    void addTask_sampleTask_singleTaskAdded() {
-        Task task = new Task("Sample Task");
+    void addTask_sampleToDo_singleTaskAdded() {
+        Task task = mock(ToDo.class);
         taskList.add(task);
         assertEquals(1, taskList.size());
     }
 
     @Test
-    void markTaskAsDone_sampleTask_taskMarkedAsDone() throws ConvoBotException {
-        Task task = new Task("Sample Task");
+    void markTaskAsDone_sampleToDo_taskMarkedAsDone() throws ConvoBotException {
+        Task task = mock(ToDo.class);
         taskList.add(task);
         taskList.mark(0, true);
-        assertTrue(task.getIsDone());
+        verify(task, times(1)).markAsDone();
     }
 
     @Test
     void getTaskString_validTaskIndex_taskStringReturned() throws ConvoBotException {
-        Task task = new Task("Sample Task");
+        Task task = mock(ToDo.class);
         taskList.add(task);
+        when(task.toString()).thenReturn("[T][ ] Sample Task");
         String taskString = taskList.getTaskString(0);
-        assertEquals("[ ] Sample Task", taskString);
+        assertEquals("[T][ ] Sample Task", taskString);
     }
 
     @Test
     void deleteTask_validTaskIndex_taskDeleted() throws ConvoBotException {
-        Task task = new Task("Sample Task");
+        Task task = mock(ToDo.class);
         taskList.add(task);
         taskList.delete(0);
         assertEquals(0, taskList.size());

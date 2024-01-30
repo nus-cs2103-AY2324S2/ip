@@ -4,7 +4,7 @@ package tasks;
  * The {@code Task} class represents a generic task with a description and completion status.
  * It serves as the base class for more specialized task types.
  */
-public class Task {
+public abstract class Task {
 
     private String description;
     private boolean isDone;
