@@ -71,6 +71,21 @@ public class BobUI {
         }
     }
 
+    /**
+     * Prints exception messages
+     *
+     * @param e The exception object
+     */
+    public void printError(Exception e) {
+        System.out.println(e.getMessage());
+    }
+
+    /**
+     * Feedback for when user adds a task.
+     *
+     * @param t The new task that has been added.
+     * @param list The bot's task list.
+     */
     public void printTaskAddMessage(Task t, ArrayList<Task> list) {
         this.printLine();
         System.out.println("    Here is your newly added task:");
@@ -79,4 +94,34 @@ public class BobUI {
         this.printLine();
     }
 
+    /**
+     * Prints feedback when a task is deleted.
+     *
+     * @param t The task that was deleted.
+     * @param list Task list.
+     */
+    public void printTaskDeletionMessage(Task t, ArrayList<Task> list) {
+        System.out.println("    You have removed the current task:");
+        System.out.println("        " + t.getType() + t.getStatus() + " " + t);
+        this.printList(true, list);
+        this.printLine();
+    }
+
+    /**
+     * Prints feedback when a task is mark as done/undone.
+     *
+     * @param t The task that was done/undone.
+     */
+    public void printTaskMarkMessage(Task t) {
+        System.out.println("    " + t.getType() + t.getStatus() + " " + t);
+        this.printLine();
+    }
+
+    public void printTaskDone() {
+        System.out.println("    You have marked task as done:");
+    }
+
+    public void printTaskUndone() {
+        System.out.println("    You have marked task as undone:");
+    }
 }

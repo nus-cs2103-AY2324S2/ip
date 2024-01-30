@@ -24,9 +24,9 @@ public class Bob {
         try {
             this.taskList.setList(this.storage.loadSavedTasks());
         } catch (BobException.FileAccessError e) {
-            System.out.println(e.getMessage());
+            this.ui.printError(e);
         } catch (BobException.CorruptedSaveData e) {
-            System.out.println(e.getMessage());
+            this.ui.printError(e);
         }
 
         this.ui.greet();
@@ -41,7 +41,7 @@ public class Bob {
 
     public static Bob init() {
         BobUI ui = new BobUI(new Scanner(System.in));
-        BobStorage storage = new BobStorage();
+        BobStorage storage = new BobStorage(ui);
         BobParser parser = new BobParser();
         BobTaskList taskList = new BobTaskList(storage, ui);
 
