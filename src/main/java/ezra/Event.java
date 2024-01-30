@@ -44,9 +44,10 @@ public class Event extends Task {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof Event e)) {
+        if (!(o instanceof Event)) {
             return false;
         }
+        Event e = (Event) o;
         return this.description.equals(e.description) &&
                 this.startInput.equals(e.startInput) &&
                 this.endInput.equals(e.endInput);

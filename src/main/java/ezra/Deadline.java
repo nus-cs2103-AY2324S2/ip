@@ -28,9 +28,10 @@ public class Deadline extends Task {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof Deadline d)) {
+        if (!(o instanceof Deadline)) {
             return false;
         }
+        Deadline d = (Deadline) o;
         return this.description.equals(d.description) && this.byInput.equals(d.byInput);
     }
 }

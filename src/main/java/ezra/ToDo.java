@@ -19,9 +19,10 @@ public class ToDo extends Task {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof ToDo t)) {
+        if (!(o instanceof ToDo)) {
             return false;
         }
+        ToDo t = (ToDo) o;
         return this.description.equals(t.description);
     }
 }

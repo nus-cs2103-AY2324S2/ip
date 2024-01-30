@@ -17,7 +17,6 @@ public class Ezra {
         try {
             this.tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
-            System.out.println("\tYou have no saved tasks");
             this.tasks = new TaskList();
         }
     }
