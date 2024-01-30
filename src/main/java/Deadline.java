@@ -1,3 +1,9 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task{
 
     private String deadline;
@@ -8,7 +14,12 @@ public class Deadline extends Task{
     }
 
     public String getDeadline() {
-        return "(by: " + deadline + ")";
+//        if () {
+//            LocalDate ddl = LocalDate.parse(deadline);
+//            return "(by: " + ddl.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+//        } else {
+            return "(by: " + deadline + ")";
+//        }
     }
 
     public String isDeadline() {
@@ -20,5 +31,17 @@ public class Deadline extends Task{
                 + "    " + this.isDeadline() + this.marked() + " "
                 + this.getTask()
                 + this.getDeadline();
+    }
+
+    @Override
+    public void writeToFile(File filePath) {
+        try {
+            FileWriter fw = new FileWriter(filePath.getPath(), true);
+            fw.write(this.isDeadline() + this.marked() + " "
+                    + this.getTask() + this.getDeadline() + "\n");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("file not found! try again xx");
+        }
     }
 }

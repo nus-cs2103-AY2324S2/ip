@@ -1,13 +1,18 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Duke {
     public static void main(String[] args) {
 
+        File f = new File("data/EUEU.txt");
         Scanner user = new Scanner(System.in);
+
         System.out.println("Hi babyyy! It's your EUEU!!");
         System.out.println("What are you doing today??");
         Task echo = new Task (user.nextLine());
@@ -16,8 +21,17 @@ public class Duke {
         while (!echo.getTask().equals("bye")) {
 
                 if (echo.getTask().equals("list")) {
-                    System.out.println("    Here are the tasks in your list:");
-
+                    System.out.println("    All tasks:");
+                    try {
+                        Scanner s = new Scanner(f);
+                        while (s.hasNext()) {
+                            System.out.println(s.nextLine());
+                            System.out.println();
+                        }
+                    } catch (FileNotFoundException e) {
+                        System.out.println("file not found! try again xx");
+                    }
+                    System.out.println("    Current tasks: ");
                     for (int i = 0; i < tasklist.size(); i++) {
                         int j = i + 1;
                         System.out.println("        " + j + ". " + tasklist.get(i).getCat()
@@ -54,6 +68,12 @@ public class Duke {
                         int number = Integer.parseInt(str) - 1;
                         Task name = tasklist.get(number);
                         tasklist.remove(number);
+                        try {
+                            FileWriter fw = new FileWriter("data/EUEU.txt", false);
+                            fw.close();
+                        } catch (IOException e) {
+                            System.out.println("file not found");
+                        }
                         System.out.println(echo.delete(name));
                         System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
                     } catch (StringIndexOutOfBoundsException e) {
@@ -116,8 +136,13 @@ public class Duke {
 
         }
 
+        for (int i = 0; i < tasklist.size(); i++) {
+            tasklist.get(i).writeToFile(f);
+        }
+
 
         System.out.println("    byeee love uu ttyl ok!");
+
 
     }
 }

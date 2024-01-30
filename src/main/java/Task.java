@@ -1,3 +1,4 @@
+import java.io.File;
 public class Task {
     private String task;
     private boolean isDone;
@@ -12,6 +13,7 @@ public class Task {
 
     public void mark() {
         isDone = true;
+        //modify the file
     }
     public String mark(int number, String name, Task task) {
         isDone = true;
@@ -28,32 +30,15 @@ public class Task {
 
     public void unmark() {
         isDone = false;
+        // modify the file
     }
 
     public String unmark(int number, String name, Task task) {
-        isDone = false;
+        unmark();
         return "    Ok, I've marked this task as not done yet: \n"
         + "        " + task.getCat() + marked() + " "
                         + name;
     }
-
-/*    public String marked () {
-            String str = task.substring(5);
-            int number = Integer.parseInt(str) -1;
-            mark();
-            return "    Nice! I've marked this task as done: \n"
-                    + "         [X] " + task;
-    }
-
-    public String unmarked() {
-
-            String str = task.substring(7);
-            int number = Integer.parseInt(str) -1;
-            unmark();
-            return "    Ok, I've marked this task as not done yet: \n"
-                        + "         [ ] " + task;
-
-    }*/
 
     public String marked() {
         if (isDone) {
@@ -84,6 +69,16 @@ public class Task {
                return ((Event) this).getEvent();
            }
            return "";
+        }
+
+        public void writeToFile(File filePath) {
+            if (this instanceof Todo) {
+                 ((Todo) this).writeToFile(filePath);
+            } else if (this instanceof Deadline) {
+                ((Deadline) this).writeToFile(filePath);
+            } else if (this instanceof Event) {
+                ((Event) this).writeToFile(filePath);
+            }
         }
 
 
